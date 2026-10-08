@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>もふまちメルジュ — UI確認案</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f1f5;color:#493f51;font:16px system-ui,sans-serif;line-height:1.65}main{width:min(100%,420px);margin:24px auto}.notice{padding:12px 18px;background:#fff9e8;border:1px solid #d7c898;border-radius:16px;font-size:13px;margin-bottom:12px}.phone{position:relative;min-height:746px;padding:25px 24px 100px;background:linear-gradient(#faf5ff,#f2faf7);border:1px solid #e2d8e6;border-radius:30px;box-shadow:0 12px 40px #44334412;overflow:hidden}h1{font-size:31px;font-weight:800;line-height:1.45;letter-spacing:2px}h2{font-size:24px;margin:22px 0 6px}p{margin:12px 0}small,.muted{color:#7b7185;font-size:13px}.tag{display:inline-block;background:#ece4f5;border-radius:14px;padding:3px 12px;font-size:12px}.stats{display:flex;justify-content:space-between;gap:8px;margin-bottom:18px}.stat{padding:9px 12px;border-radius:14px;background:white;font-size:14px}.card{padding:18px;background:#fffdfd;border:1px solid #e4dce8;border-radius:20px;margin:18px 0}.portrait{height:175px;display:grid;place-content:center;text-align:center;border:2px dashed #b8a9c4;border-radius:22px;margin:20px 0;background:#f5eff8;color:#71637c}.portrait small{display:block;max-width:240px}.primary,button{font:inherit;border:0;cursor:pointer;border-radius:16px;padding:13px 16px;color:#493f51;background:#eae1f3;transition:transform .12s}button:active{transform:scale(.96)}button:focus-visible{outline:3px solid #705587;outline-offset:3px}.primary{width:100%;background:#c9e5d9;font-weight:700;box-shadow:0 4px #a5cabc;margin:8px 0}.secondary{width:100%;background:#ece4f4;margin-top:10px}button:disabled{opacity:.55;cursor:default}.bottom{position:absolute;bottom:24px;left:24px;right:24px;display:flex;gap:12px}.bottom button{flex:1;background:#fffdfd;font-size:14px}.screen{display:none}.screen.active{display:block}.center{text-align:center}.title{padding-top:65px}.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;background:#e8e0ed;padding:10px;border-radius:20px;margin:20px -5px}.cell{height:55px;border-radius:12px;display:grid;place-content:center;background:#fffafc;font-size:12px;text-align:center;touch-action:none;user-select:none}.cell.filled{background:#d3eadc;border:1px solid #a6c8b0}.cell.dragging{box-shadow:0 0 0 3px #947ba7}.toast{min-height:50px;padding:9px 0;font-size:14px;color:#68506e}.reward{font-size:36px;font-weight:800;color:#587a68;margin:24px 0}.toggle{display:flex;align-items:center;justify-content:space-between;margin:15px 0}input{width:22px;height:22px;accent-color:#7d628f}footer{padding:16px;font-size:13px;color:#716679}.steps{font-size:12px;margin-top:20px;color:#847488}
+</style>
+<main>
+<div class="notice"><strong>画面・操作案のプレビュー</strong><br>Unity版・APKではありません。正式キャラと音素材は未収録。保存・再起動復帰は本実装で検証します。更新すると試作表示は初期化されます。</div>
+<div class="phone">
+<section class="screen active title center" id="title">
+<span class="tag">UI確認案 / 9:16</span><h1>もふまち<br>メルジュ</h1><p>小さなひとつから、<br>街の毎日がふくらむ。</p>
+<div class="portrait">正式中心キャラの表示領域<small>2026-10-06採用素材を使用予定<br>この枠はキャラデザインではありません</small></div>
+<button class="primary" data-go="home">はじめる</button><button class="secondary" data-go="settings">BGM / SE 設定</button>
+</section>
+<section class="screen" id="home">
+<div class="stats"><span class="stat">コイン <b id="coins">0</b></span><span class="stat">街 Lv.<b id="town">0</b></span></div>
+<span class="tag">もふまちホーム</span><h2 id="home-heading">はじまりの広場</h2><p class="muted">最初の依頼から、街を育てよう。</p>
+<div class="portrait">正式キャラ・ホーム背景の領域<small>6名のVisual Lockを維持<br>素材の確認後に追加します</small></div>
+<div class="card"><strong>今日の小さなお願い</strong><p>お茶会の準備をお手伝い。</p><small>依頼名・アイテム名・報酬数値は仮設定</small></div>
+<button class="primary" data-go="quest">キャラ依頼を見る</button>
+<div class="bottom"><button data-go="title">TOP</button><button data-go="settings">設定</button></div>
+</section>
+<section class="screen" id="quest">
+<span class="tag">キャラ依頼</span><h2>お茶会の準備</h2><div class="portrait">依頼主の正式キャラ素材<small>キャラ名・割り当ては未設定</small></div>
+<div class="card"><strong>お茶 Lv.2 × 1</strong><p>同じレベルのお茶を合わせよう。</p><span class="tag">仮報酬: 30 コイン</span></div>
+<button class="primary" id="accept">受注して Merge へ</button><div class="bottom"><button data-go="home">ホームへ戻る</button></div>
+</section>
+<section class="screen" id="merge">
+<span class="tag">Merge</span><h2>ふたつを、ひとつに。</h2><p class="muted">お茶 Lv.1 をもう一つのお茶へドラッグ。タップしてから相手をタップしても確認できます。</p>
+<div class="card" style="margin-bottom:0;padding:12px"><strong>依頼: お茶 Lv.2 × 1</strong><br><small id="delivery-state">制作中 · 0 / 1</small></div>
+<div class="grid" id="board"></div><div class="toast" id="feedback" aria-live="polite">最初の2マスで操作を確認してください。</div>
+<button class="primary" id="deliver" disabled>納品する</button><div class="bottom"><button data-go="home">ホーム</button><button data-go="quest">依頼を見る</button></div>
+</section>
+<section class="screen center" id="result">
+<span class="tag">納品完了</span><h2>ありがとう！</h2><p>お茶会の準備ができました。</p><div class="reward">+30 コイン</div><div class="portrait">街成長の演出領域<small>仮表示: 広場が1段階成長<br>正式背景・演出の確認後に制作します</small></div><p>街 Lv.0 → Lv.1</p>
+<button class="primary" id="return-home">街へ戻る</button><p class="muted">試作表示です。セーブは行いません。</p>
+</section>
+<section class="screen" id="settings">
+<span class="tag">設定</span><h2>音のある毎日</h2><div class="card"><label class="toggle">BGM <input id="bgm" type="checkbox" checked></label><label class="toggle">SE <input id="se" type="checkbox" checked></label></div>
+<p>本採用音の方向性: ピアノ、ベル、柔らかいストリングス。柔らかい決定音、Merge音、報酬チャイム。</p><p class="muted">このプレビューは無音です。スイッチは見た目の確認用で、素材受領後に実際の音を確認します。</p><button class="primary" data-go="home">ホームへ戻る</button><button class="secondary" id="reset">試作を最初から見る</button>
+</section>
+</div>
+<footer>確認したい点: 文字の読みやすさ、情報量、依頼への移動、ドラッグの距離、納品・報酬からホームへの流れ。キャラ・音・実機性能は未確認。</footer>
+</main>
+<script>
+// Throwaway UI interaction storyboard. No Unity/game/save implementation.
+let merged=false,delivered=false,selected=null;
+const show=id=>{document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));selected=null;};
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>show(b.dataset.go));
+const feedback=document.getElementById('feedback');
+const board=document.getElementById('board');
+for(let i=0;i<30;i++){const c=document.createElement('div');c.className='cell';c.dataset.index=i;c.setAttribute('role','button');c.tabIndex=0;c.setAttribute('aria-label',i<2?'お茶 Lv.1、セル'+(i+1):'空きセル'+(i+1));board.appendChild(c);}
+const draw=()=>{[...board.children].forEach((c,i)=>{const full=!delivered&&(merged?i===1:i<2);c.classList.toggle('filled',full);c.textContent=full?'お茶\nLv.'+(merged?2:1):'';c.style.whiteSpace='pre-line';c.setAttribute('aria-label',full?'お茶 Lv.'+(merged?2:1)+'、セル'+(i+1):'空きセル'+(i+1));});document.getElementById('deliver').disabled=!merged||delivered;document.getElementById('delivery-state').textContent=delivered?'試作: 納品完了':merged?'納品可能 · 1 / 1':'制作中 · 0 / 1';};
+function combine(a,b){if(delivered||merged)return;if((a===0&&b===1)||(a===1&&b===0)){merged=true;feedback.textContent='合成の表示案です。お茶 Lv.2 ができました。';draw();}else feedback.textContent='ここでは最初の2つのお茶の合成操作を確認できます。';}
+let down=null;
+board.addEventListener('pointerdown',e=>{const c=e.target.closest('.cell');if(!c)return;down={index:Number(c.dataset.index),x:e.clientX,y:e.clientY};c.classList.add('dragging');});
+document.addEventListener('pointerup',e=>{if(!down)return;const d=down;down=null;document.querySelectorAll('.dragging').forEach(c=>c.classList.remove('dragging'));const c=document.elementFromPoint(e.clientX,e.clientY)?.closest('.cell');if(!c)return;const target=Number(c.dataset.index);if(Math.hypot(e.clientX-d.x,e.clientY-d.y)>10){combine(d.index,target);selected=null;}else if(selected===null){selected=target;feedback.textContent='合成相手のお茶をタップしてください。';}else{combine(selected,target);selected=null;}});
+board.addEventListener('keydown',e=>{if(!['Enter',' '].includes(e.key))return;e.preventDefault();const i=Number(e.target.dataset.index);if(selected===null)selected=i;else{combine(selected,i);selected=null;}});
+document.getElementById('accept').onclick=()=>{if(delivered){feedback.textContent='この依頼は試作表示で完了済みです。';}show('merge');};
+document.getElementById('deliver').onclick=()=>{if(!merged||delivered)return;delivered=true;draw();document.getElementById('coins').textContent='30';document.getElementById('town').textContent='1';document.getElementById('home-heading').textContent='お茶会の広場';show('result');};
+document.getElementById('return-home').onclick=()=>show('home');
+document.getElementById('reset').onclick=()=>location.reload();
+draw();
+</script>
+</html>

@@ -1,0 +1,13 @@
+# Unity generated files and local Android output
+/[Ll]ibrary/
+/[Tt]emp/
+/[Ll]ogs/
+/[Oo]bj/
+/[Uu]ser[Ss]ettings/
+/Builds/
+/Tests/**/bin/
+/Tests/**/obj/
+/.vs/
+/*.csproj
+/*.sln
+/*.slnx

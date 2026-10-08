@@ -1,0 +1,5 @@
+{
+  "name": "Mofumachi.PlayModeTests",
+  "references": ["Mofumachi.Core", "Mofumachi.Presentation", "UnityEngine.UI"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

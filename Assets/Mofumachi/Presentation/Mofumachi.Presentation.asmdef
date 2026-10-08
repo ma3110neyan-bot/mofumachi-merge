@@ -1,0 +1,5 @@
+{
+  "name": "Mofumachi.Presentation",
+  "rootNamespace": "Mofumachi.Presentation",
+  "references": ["Mofumachi.Core", "UnityEngine.UI", "Unity.InputSystem"]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Mofumachi.Editor",
+  "rootNamespace": "Mofumachi.Editor",
+  "includePlatforms": ["Editor"],
+  "references": ["Mofumachi.Presentation"]
+}

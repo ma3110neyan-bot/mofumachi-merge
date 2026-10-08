@@ -43,14 +43,13 @@ namespace Mofumachi.Tests
         {
             var s = ReadyState(); s.inventory.Add(new InventoryEntry("tea", 2, 2)); var q = Manager(s);
             Assert.That(q.TryDeliver().Success, Is.True);
-            Assert.Multiple(() => {
-                Assert.That(s.inventory[0].count, Is.EqualTo(1)); Assert.That(s.mergeBoard.Count, Is.EqualTo(1));
-                Assert.That(s.coins, Is.EqualTo(30)); Assert.That(s.townGrowthLevel, Is.EqualTo(1));
-                Assert.That(s.completedQuestIds, Is.EqualTo(new[] { "tea-01" }));
-                Assert.That(s.claimedRewardIds, Is.EqualTo(new[] { "quest:tea-01" }));
-                Assert.That(s.questState, Is.EqualTo(QuestState.TownGrown));
-                Assert.That(s.questProgress, Is.EqualTo(1));
-            });
+            // Unity's custom NUnit does not support Assert.Multiple.
+            Assert.That(s.inventory[0].count, Is.EqualTo(1)); Assert.That(s.mergeBoard.Count, Is.EqualTo(1));
+            Assert.That(s.coins, Is.EqualTo(30)); Assert.That(s.townGrowthLevel, Is.EqualTo(1));
+            Assert.That(s.completedQuestIds, Is.EqualTo(new[] { "tea-01" }));
+            Assert.That(s.claimedRewardIds, Is.EqualTo(new[] { "quest:tea-01" }));
+            Assert.That(s.questState, Is.EqualTo(QuestState.TownGrown));
+            Assert.That(s.questProgress, Is.EqualTo(1));
             Assert.That(q.TryDeliver().Success, Is.False); Assert.That(s.coins, Is.EqualTo(30));
             var loaded = new SaveService(directory).Load().State;
             Assert.That(Manager(loaded).TryDeliver().Success, Is.False); Assert.That(loaded.coins, Is.EqualTo(30));

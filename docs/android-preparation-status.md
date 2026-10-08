@@ -19,7 +19,7 @@
 | 検証 | 結果 |
 | --- | --- |
 | コアNUnit（.NET 8、実際の製品コード） | 39成功、失敗0、スキップ0 |
-| コア・Presentation・Editor・Unityテストソースを実際のUnity 6000.6.4f1管理DLLでコンパイル | 成功、警告0、エラー0 |
+| コア・Presentation・Editor・全テストソースを実際のUnity 6000.6.4f1管理DLLと内蔵カスタムNUnitでコンパイル | 下記互換性修正後に成功、警告0、エラー0 |
 | meta、GUID、シーンbootstrap、asmdef参照、日本語フォントの文字対応 | 静的確認成功 |
 | 正式画像とゲーム内画像のSHA-256 | 一致 |
 | PowerShell | 7.4.13で構文確認、空白を含むパスの受け渡し、正常XML受理、0件/失敗/スキップ/欠損XML拒否を確認 |
@@ -27,6 +27,14 @@
 | IL2CPP / APK / Pixel 3a | 未実行 |
 
 DLL参照のコンパイル確認はUnityによるインポート・実行の代わりではない。PowerShellの検証もWindows上のUnityプロセス実行の代わりではない。
+
+## Windows初回インポートで判明した互換性修正
+
+WindowsのSafe Modeで、`SaveServiceTests.cs`と`DeliveryTests.cs`の`Assert.Multiple`に対するCS0117が報告された。前回の独立コンパイルでは通常のNUnit 3.14を参照し、EditModeテストを含めていなかったため、Unity側の互換性を確認できていなかった。
+
+Unity 6000.6.4f1に内蔵される`com.unity.ext.nunit` 2.1.0はNUnit 3.5ベースのカスタム版で、`Assert.Multiple`を持たない。実際の内蔵DLLを参照し、全テストソースを含む独立コンパイルで同じ2件のCS0117を再現した。検査する値・条件をすべて維持して、通常の`Assert.That`を順に呼ぶ形へ変更した。同じコンパイルが警告0・エラー0で成功し、.NET 8のコアテスト39件も成功した。Unityによるインポートとテスト実行は引き続きWindowsで確認する。
+
+併せて、GitHub Desktopで管理するプロジェクトのVersion Control Modeを`Unity Version Control`から`Visible Meta Files`へ変更した。Unity 6000.6.4f1の同梱テンプレートと同じ設定を用い、未認識のUnity Version Controlプラグインを要求しないようにした。Unity Version Controlパッケージは削除していない。Windows Consoleでの解消確認は更新後の再起動で行う。
 
 ## レビューと判断
 

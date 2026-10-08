@@ -12,6 +12,8 @@
 
 初回ビルドはUnityのパッケージとGradle/Maven依存を取得するため、PCのネット接続が必要。Pixel 3aはSIMなしで構わない。
 
+`Fetch origin`を押しても`Pull origin`に変わらない場合は、取得する差分がない可能性がある。`History`で今回のコミットがあるか確認する。`No local changes`だけでは最新かどうかは判断できない。
+
 ## 2. 確認する設定
 
 `File > Build Profiles`でAndroidを選び、`Switch Platform`または`Activate`で有効化する。プロジェクトのメニュー`Mofumachi > Android > Configure Pixel 3a`で以下を適用する。
@@ -102,6 +104,8 @@ $Apk = "C:\Projects\mofumachi-merge\Builds\Android\今回のフォルダ\vertica
 | 症状 | 確認・対応 |
 | --- | --- |
 | SDK/NDK/JDK不足 | Hubの3モジュールとExternal Toolsを確認。SDK Managerで`platforms;android-34`を追加する |
+| Safe ModeでCS0117、`Assert`に`Multiple`がない | この互換性修正を受け取る。Editorを閉じ、GitHub Desktopでmainの`Fetch origin`、表示されたら`Pull origin`を押し、同じプロジェクトを開き直す。テストの無効化やNUnitの手動追加は不要 |
+| `Unknown version control plugin: Unity Version Control` | GitHub Desktop用のMode=`Visible Meta Files`を今回の修正で適用した。更新後にEditorを開き直して確認する |
 | Scene/Font/Character importエラー | 今回追加したAssetsとmetaが揃っているか、Consoleの最初の赤いエラーを確認 |
 | Project is already open | 対象プロジェクトのEditorを閉じてスクリプトを再実行 |
 | Unityライセンスエラー | WindowsのUnity Hubでライセンスを有効化する。Pixel側の設定では解決しない |

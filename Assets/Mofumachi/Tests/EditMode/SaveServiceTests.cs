@@ -23,19 +23,18 @@ namespace Mofumachi.Tests
             var loaded = save.Load();
             Assert.That(loaded.Recovered, Is.False);
             var s = loaded.State;
-            Assert.Multiple(() => {
-                Assert.That(s.saveVersion, Is.EqualTo(1)); Assert.That(s.coins, Is.EqualTo(42));
-                Assert.That(s.gems, Is.EqualTo(7)); Assert.That(s.stamina, Is.EqualTo(12));
-                Assert.That(s.playerLevel, Is.EqualTo(3)); Assert.That(s.townGrowthLevel, Is.EqualTo(2));
-                Assert.That(s.activeQuestId, Is.EqualTo("tea-01")); Assert.That(s.questState, Is.EqualTo(QuestState.Producing));
-                Assert.That(s.questProgress, Is.EqualTo(1)); Assert.That(s.inventory[0].count, Is.EqualTo(3));
-                Assert.That(s.inventory[0].itemId, Is.EqualTo("tea")); Assert.That(s.inventory[0].level, Is.EqualTo(2));
-                Assert.That(s.mergeBoard[0].cellIndex, Is.EqualTo(0)); Assert.That(s.mergeBoard[0].itemId, Is.EqualTo("tea"));
-                Assert.That(s.completedQuestIds, Is.EqualTo(new[] { "earlier" }));
-                Assert.That(s.claimedRewardIds, Is.EqualTo(new[] { "quest:earlier" }));
-                Assert.That(s.bgmEnabled, Is.False); Assert.That(s.seEnabled, Is.False);
-                Assert.That(DateTimeOffset.Parse(s.lastSaveTime).Offset, Is.EqualTo(TimeSpan.Zero));
-            });
+            // Unity's custom NUnit does not support Assert.Multiple.
+            Assert.That(s.saveVersion, Is.EqualTo(1)); Assert.That(s.coins, Is.EqualTo(42));
+            Assert.That(s.gems, Is.EqualTo(7)); Assert.That(s.stamina, Is.EqualTo(12));
+            Assert.That(s.playerLevel, Is.EqualTo(3)); Assert.That(s.townGrowthLevel, Is.EqualTo(2));
+            Assert.That(s.activeQuestId, Is.EqualTo("tea-01")); Assert.That(s.questState, Is.EqualTo(QuestState.Producing));
+            Assert.That(s.questProgress, Is.EqualTo(1)); Assert.That(s.inventory[0].count, Is.EqualTo(3));
+            Assert.That(s.inventory[0].itemId, Is.EqualTo("tea")); Assert.That(s.inventory[0].level, Is.EqualTo(2));
+            Assert.That(s.mergeBoard[0].cellIndex, Is.EqualTo(0)); Assert.That(s.mergeBoard[0].itemId, Is.EqualTo("tea"));
+            Assert.That(s.completedQuestIds, Is.EqualTo(new[] { "earlier" }));
+            Assert.That(s.claimedRewardIds, Is.EqualTo(new[] { "quest:earlier" }));
+            Assert.That(s.bgmEnabled, Is.False); Assert.That(s.seEnabled, Is.False);
+            Assert.That(DateTimeOffset.Parse(s.lastSaveTime).Offset, Is.EqualTo(TimeSpan.Zero));
         }
         [Test] public void CorruptPrimaryRestoresPreviousValidSnapshot()
         {

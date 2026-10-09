@@ -40,7 +40,7 @@ Invoke-Unity @('-batchmode', '-nographics', '-projectPath', $ProjectPath, '-buil
 Assert-TestRun $EditXml 40
 $PlayXml = Join-Path $OutputDir 'playmode.xml'
 Invoke-Unity @('-batchmode', '-projectPath', $ProjectPath, '-buildTarget', 'Android', '-runTests', '-testPlatform', 'PlayMode', '-testResults', $PlayXml, '-logFile', (Join-Path $OutputDir 'playmode.log'))
-Assert-TestRun $PlayXml 4
+Assert-TestRun $PlayXml 5
 
 $ApkPath = Join-Path $OutputDir 'vertical-slice.apk'
 $BuildLog = Join-Path $OutputDir 'android-build.log'

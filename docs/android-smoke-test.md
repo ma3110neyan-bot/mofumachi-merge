@@ -14,6 +14,8 @@
 
 `Fetch origin`を押しても`Pull origin`に変わらない場合は、取得する差分がない可能性がある。`History`で今回のコミットがあるか確認する。`No local changes`だけでは最新かどうかは判断できない。
 
+Editorで起動を確認するには、`Project`（プロジェクト）で`Assets > Scenes > TitleScene`をダブルクリックし、上部中央の再生ボタンを押す。`Game`（ゲーム）タブで6名・タイトル・「はじめる」の文字が見えることを確認し、「はじめる」を押してホームへ進む。タイトルは静止表示でBGMが流れる。横長QHDのGameビューでも内容は中央の縦9:16へ収める。縦長で大きく確認したい場合はGameビュー上部の解像度メニューで9:16のAspect Ratioを選ぶ（なければ`+`でWidth=9、Height=16を追加する）。確認後は再生を停止する。
+
 ## 2. 確認する設定
 
 `File > Build Profiles`でAndroidを選び、`Switch Platform`または`Activate`で有効化する。プロジェクトのメニュー`Mofumachi > Android > Configure Pixel 3a`で以下を適用する。
@@ -50,7 +52,7 @@ Unityのインストール先を変えている場合:
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\build-android.ps1 -UnityEditor "D:\Unity\6000.6.4f1\Editor\Unity.exe"
 ```
 
-スクリプトはEditMode、PlayMode、APKを順に実行する。終了コード、今回生成したXML、非ゼロ件数、失敗・スキップ0を確認し、成功してからAPKを作る。PlayModeにはWindowsの通常のデスクトップ環境を使う。
+スクリプトはEditMode、PlayMode、APKを順に実行する。終了コード、今回生成したXML、EditMode最低40件・PlayMode最低5件、失敗・スキップ0を確認し、成功してからAPKを作る。PlayModeにはWindowsの通常のデスクトップ環境を使う。
 
 出力は`Builds\Android\日時-識別子\`。`editmode.xml`、`playmode.xml`、各ログ、`vertical-slice.apk`と表示されたSHA-256を保管する。古いAPKと取り違えないよう、実行ごとに新しいフォルダを作る。
 
@@ -106,6 +108,7 @@ $Apk = "C:\Projects\mofumachi-merge\Builds\Android\今回のフォルダ\vertica
 | SDK/NDK/JDK不足 | Hubの3モジュールとExternal Toolsを確認。SDK Managerで`platforms;android-34`を追加する |
 | Safe ModeでCS0117、`Assert`に`Multiple`がない | この互換性修正を受け取る。Editorを閉じ、GitHub Desktopでmainの`Fetch origin`、表示されたら`Pull origin`を押し、同じプロジェクトを開き直す。テストの無効化やNUnitの手動追加は不要 |
 | `Unknown version control plugin: Unity Version Control` | GitHub Desktop用のMode=`Visible Meta Files`を今回の修正で適用した。更新後にEditorを開き直して確認する |
+| 画像が画面全体を覆う／ボタン文字が見えない／`No cameras rendering` | Editorを閉じて今回のUI表示修正をPullする。修正後は画像ごとの表示枠、縦9:16表示、背景Cameraを生成する。TitleSceneの再生後に6名と「はじめる」を確認し、ホームへの遷移を試す |
 | Scene/Font/Character importエラー | 今回追加したAssetsとmetaが揃っているか、Consoleの最初の赤いエラーを確認 |
 | Project is already open | 対象プロジェクトのEditorを閉じてスクリプトを再実行 |
 | Unityライセンスエラー | WindowsのUnity Hubでライセンスを有効化する。Pixel側の設定では解決しない |

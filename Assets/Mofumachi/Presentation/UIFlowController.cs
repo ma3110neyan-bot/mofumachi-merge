@@ -13,6 +13,7 @@ namespace Mofumachi.Presentation
         private static GameStateManager session;
         public GameStateManager Game => session;
         private RectTransform safeRoot;
+        private RectTransform portraitRoot;
         private GameObject page;
         private Font font;
         private Texture2D characters;
@@ -40,8 +41,13 @@ namespace Mofumachi.Presentation
             var scaler = canvas.GetComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(360, 640);
-            scaler.matchWidthOrHeight = 0;
+            scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
             safeRoot = Node("Safe area", canvas.transform, Vector2.zero, Vector2.one);
+            portraitRoot = Node("Portrait viewport", safeRoot, Vector2.zero, Vector2.one);
+            var viewportAspect = portraitRoot.gameObject.AddComponent<AspectRatioFitter>();
+            viewportAspect.aspectRatio = 9f / 16;
+            viewportAspect.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
+            CreateClearCamera();
             if (EventSystem.current == null)
             {
                 var events = new GameObject("EventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
@@ -136,6 +142,21 @@ namespace Mofumachi.Presentation
         private void OnApplicationQuit() => Persist();
         private void OnDestroy() { if (session != null) Persist(); }
 
+        private void CreateClearCamera()
+        {
+            // The canvas draws the UI; this camera clears the display and removes the
+            // Editor's "No cameras rendering" notice without drawing world objects.
+            var camera = new GameObject("Mofumachi UI Camera", typeof(Camera)).GetComponent<Camera>();
+            camera.transform.SetParent(transform, false);
+            camera.transform.localPosition = new Vector3(0, 0, -10);
+            camera.orthographic = true;
+            camera.clearFlags = CameraClearFlags.SolidColor;
+            camera.backgroundColor = new Color(1, .96f, .90f);
+            camera.cullingMask = 0;
+            camera.depth = -100;
+            camera.useOcclusionCulling = false;
+        }
+
         private RectTransform Node(string name, Transform parent, Vector2 min, Vector2 max)
         {
             var rect = new GameObject(name, typeof(RectTransform)).GetComponent<RectTransform>();
@@ -159,21 +180,31 @@ namespace Mofumachi.Presentation
             button.onClick.AddListener(() => { audioManager.PlaySe(AudioCue.Confirm); action(); });
             return button;
         }
+        private RawImage FittedImage(string name, Vector2 min, Vector2 max, float ratio)
+        {
+            // FitInParent drives its own anchors. Keep the page layout on a separate
+            // slot so it fits this image into its assigned area, rather than the page.
+            var slot = Node(name + " slot", page.transform, min, max);
+            var rect = Node(name, slot, Vector2.zero, Vector2.one);
+            var image = rect.gameObject.AddComponent<RawImage>();
+            image.texture = characters;
+            var aspect = rect.gameObject.AddComponent<AspectRatioFitter>();
+            aspect.aspectRatio = ratio;
+            aspect.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
+            return image;
+        }
         private void Portrait(int i, Vector2 min, Vector2 max)
         {
-            var rect = Node("Character " + i, page.transform, min, max);
-            var image = rect.gameObject.AddComponent<RawImage>(); image.texture = characters;
+            var image = FittedImage("Character " + i, min, max, 152f / 150);
             image.uvRect = new Rect((15 + i * 170) / 1536f, 104 / 1024f, 152 / 1536f, 150 / 1024f);
-            var aspect = rect.gameObject.AddComponent<AspectRatioFitter>();
-            aspect.aspectMode = AspectRatioFitter.AspectMode.FitInParent; aspect.aspectRatio = 152f / 150;
-            var tap = rect.gameObject.AddComponent<Button>(); tap.targetGraphic = image;
+            var tap = image.gameObject.AddComponent<Button>(); tap.targetGraphic = image;
             tap.onClick.AddListener(() => audioManager.PlaySe(AudioCue.Character));
         }
         private void Render(string target)
         {
             view = target;
             if (page != null) { page.SetActive(false); Destroy(page); }
-            page = Node(target, safeRoot, Vector2.zero, Vector2.one).gameObject;
+            page = Node(target, portraitRoot, Vector2.zero, Vector2.one).gameObject;
             page.AddComponent<Image>().color = new Color(1, .96f, .90f);
             Label("もふまちメルジュ", page.transform, new Vector2(.03f, .9f), new Vector2(.97f, 1), 28);
             Label($"Coins {Game.State.coins}　街 Lv.{Game.State.townGrowthLevel}", page.transform, new Vector2(.04f, .84f), new Vector2(.96f, .9f), 16);
@@ -187,11 +218,9 @@ namespace Mofumachi.Presentation
             }
             else if (target == "home")
             {
-                var town = Node("Town", page.transform, new Vector2(.08f, .3f), new Vector2(.92f, .68f)).gameObject.AddComponent<RawImage>();
-                town.texture = characters; town.uvRect = new Rect(530 / 1536f, 336 / 1024f, 252 / 1536f, 550 / 1024f);
+                var town = FittedImage("Town", new Vector2(.08f, .3f), new Vector2(.92f, .68f), 252f / 550);
+                town.uvRect = new Rect(530 / 1536f, 336 / 1024f, 252 / 1536f, 550 / 1024f);
                 town.raycastTarget = false;
-                town.gameObject.AddComponent<AspectRatioFitter>().aspectMode = AspectRatioFitter.AspectMode.FitInParent;
-                town.GetComponent<AspectRatioFitter>().aspectRatio = 252f / 550;
                 Button("キャラ依頼", new Vector2(.05f, .24f), new Vector2(.48f, .32f), ShowQuest);
                 Button("Merge", new Vector2(.52f, .24f), new Vector2(.95f, .32f), ShowMerge);
             }

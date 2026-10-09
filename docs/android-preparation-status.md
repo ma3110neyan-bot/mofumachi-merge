@@ -23,7 +23,8 @@
 | meta、GUID、シーンbootstrap、asmdef参照、日本語フォントの文字対応 | 静的確認成功 |
 | 正式画像とゲーム内画像のSHA-256 | 一致 |
 | PowerShell | 7.4.13で構文確認、空白を含むパスの受け渡し、正常XML受理、0件/失敗/スキップ/欠損XML拒否を確認 |
-| Unity EditMode / PlayMode | 未実行。Windowsで最低40件 / 4件の成功を確認する |
+| Windowsでの初回インポート・TitleScene起動 | ユーザー画面でSafe Mode解除、画像表示、BGM再生を確認。下記UI不良を検出 |
+| Unity EditMode / PlayMode | 未実行。Windowsで最低40件 / 5件の成功を確認する |
 | IL2CPP / APK / Pixel 3a | 未実行 |
 
 DLL参照のコンパイル確認はUnityによるインポート・実行の代わりではない。PowerShellの検証もWindows上のUnityプロセス実行の代わりではない。
@@ -35,6 +36,16 @@ WindowsのSafe Modeで、`SaveServiceTests.cs`と`DeliveryTests.cs`の`Assert.Mu
 Unity 6000.6.4f1に内蔵される`com.unity.ext.nunit` 2.1.0はNUnit 3.5ベースのカスタム版で、`Assert.Multiple`を持たない。実際の内蔵DLLを参照し、全テストソースを含む独立コンパイルで同じ2件のCS0117を再現した。検査する値・条件をすべて維持して、通常の`Assert.That`を順に呼ぶ形へ変更した。同じコンパイルが警告0・エラー0で成功し、.NET 8のコアテスト39件も成功した。Unityによるインポートとテスト実行は引き続きWindowsで確認する。
 
 併せて、GitHub Desktopで管理するプロジェクトのVersion Control Modeを`Unity Version Control`から`Visible Meta Files`へ変更した。Unity 6000.6.4f1の同梱テンプレートと同じ設定を用い、未認識のUnity Version Controlプラグインを要求しないようにした。Unity Version Controlパッケージは削除していない。Windows Consoleでの解消確認は更新後の再起動で行う。
+
+## Windows初回再生で判明したUI表示修正 — 2026-10-09
+
+ユーザーのQHD（2560×1440）Gameビューで、1名の画像が画面を覆い、ボタンの文字が欠け、中央に`No cameras rendering`が出た。画像・フォント・BGMの読み込みは確認できたが、操作可能なタイトル画面にはなっていなかった。
+
+Unity同梱UGUIの`AspectRatioFitter.UpdateRect`を確認した。`FitInParent`は対象自身のアンカーを0〜1へ書き換えるため、ページ直下に置いた6名の画像が各表示枠を失い、全体に重なっていた。ホームの街画像にも同じ使い方があった。画像ごとに表示枠のRectTransformを設け、内側のRawImageだけをその枠へフィットさせるよう修正した。原本とUV範囲は変更していない。
+
+幅基準のCanvasScalerは、横長QHDで基準幅360に対して高さが202.5になり、ボタンの文字が収まらなかった。Expandスケーリングとsafe area内の9:16表示枠を組み合わせ、横長EditorとPixel 3aの画面でも縦レイアウトを維持する。描画対象を持たず背景だけをクリアするCameraもbootstrapに追加した。
+
+タイトルの9:16比率、6名が別々の小さな枠に収まること、開始ボタンの文字・クリック判定・ホーム遷移・街画像の範囲を検証するPlayMode回帰テストを追加した。PowerShellのPlayMode最低件数を5へ更新した。全ソースの実際のUnity管理DLL・内蔵NUnit参照コンパイルは警告0・エラー0、コアの.NETテスト39件は成功。クラウドのUnityライセンス対応は保留を維持しているため、追加した回帰テストの実行と修正後の画面確認はWindowsで行う。ネイティブテストのRED/GREEN実行を確認したという記録ではない。
 
 ## レビューと判断
 

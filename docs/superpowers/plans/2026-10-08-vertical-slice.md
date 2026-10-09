@@ -88,7 +88,11 @@ TitleScene/GameScene、Presentation、AudioManager、AndroidBuild、BuildTimeテ
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\build-android.ps1
 ```
 
-手順・SDK設定・インストール・9項目の確認は[Windows / Pixel 3a手順](../../android-smoke-test.md)。PowerShellは今回のXMLを確認し、EditMode最低40件、PlayMode最低4件、失敗・スキップ0を要求してからAPKを作る。
+手順・SDK設定・インストール・9項目の確認は[Windows / Pixel 3a手順](../../android-smoke-test.md)。PowerShellは今回のXMLを確認し、EditMode最低40件、PlayMode最低5件、失敗・スキップ0を要求してからAPKを作る。
+
+### 2026-10-09 Windows初回再生の追補
+
+Safe Mode解除とTitleSceneの画像・BGM読み込みがユーザー画面で確認できた。QHDでは画像のFitInParentが表示枠を失って重なり、幅基準のスケーリングで文字が収まらず、Camera不在の案内も表示された。画像枠とフィット対象を分離し、safe area内の9:16表示とExpandスケーリング、背景Cameraを追加した。開始ボタンの文字・クリック判定・ホーム遷移を含むPlayMode回帰テストを追加し、計5件とした。Unityのネイティブテストと修正後の画面確認はWindowsで行う。
 
 ## 現時点の検証記録
 

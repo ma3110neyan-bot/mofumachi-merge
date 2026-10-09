@@ -6,6 +6,8 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Mofumachi.Tests
 {
@@ -38,6 +40,67 @@ namespace Mofumachi.Tests
             if (System.IO.Directory.Exists(dir)) System.IO.Directory.Delete(dir, true);
             cleaned = true;
         }
+
+        [UnityTest]
+        public IEnumerator TitleShowsSeparatePortraitsAndVisibleStartButtonThenOpensHome()
+        {
+            yield return SceneManager.LoadSceneAsync("TitleScene");
+            yield return null;
+            Canvas.ForceUpdateCanvases();
+            var ui = Object.FindAnyObjectByType<UIFlowController>();
+            Button start = null;
+            foreach (var button in ui.GetComponentsInChildren<Button>())
+            {
+                var label = button.GetComponentInChildren<Text>();
+                if (label != null && label.text == "はじめる") start = button;
+            }
+            Assert.That(start, Is.Not.Null);
+            var page = (RectTransform)start.transform.parent;
+            Assert.That(page.rect.width / page.rect.height, Is.EqualTo(9f / 16).Within(.001f),
+                "Keep the portrait layout even in a landscape Editor Game view.");
+            Assert.That(start.GetComponentInChildren<Text>().cachedTextGenerator.characterCountVisible, Is.GreaterThan(0));
+            var camera = ui.GetComponentInChildren<Camera>();
+            Assert.That(camera, Is.Not.Null, "A camera must render behind the overlay UI.");
+            Assert.That(camera.isActiveAndEnabled, Is.True);
+
+            var portraits = ui.GetComponentsInChildren<RawImage>();
+            Assert.That(portraits.Length, Is.EqualTo(6));
+            System.Array.Sort(portraits, (left, right) => left.transform.position.x.CompareTo(right.transform.position.x));
+            for (int i = 0; i < portraits.Length; i++)
+            {
+                var rect = portraits[i].rectTransform;
+                Assert.That(rect.rect.width, Is.LessThanOrEqualTo(page.rect.width * .16f));
+                Assert.That(rect.rect.height, Is.LessThanOrEqualTo(page.rect.height * .11f));
+                if (i > 0) Assert.That(rect.position.x, Is.GreaterThan(portraits[i - 1].transform.position.x));
+            }
+
+            var pointer = new PointerEventData(EventSystem.current)
+            {
+                position = RectTransformUtility.WorldToScreenPoint(null, start.transform.position),
+                button = PointerEventData.InputButton.Left
+            };
+            var hits = new System.Collections.Generic.List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointer, hits);
+            Assert.That(hits, Is.Not.Empty);
+            Assert.That(hits[0].gameObject.GetComponentInParent<Button>(), Is.SameAs(start),
+                "Character images must not cover or intercept the start button.");
+            ExecuteEvents.Execute(start.gameObject, pointer, ExecuteEvents.pointerClickHandler);
+            yield return null;
+            yield return null;
+            Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("GameScene"));
+
+            Canvas.ForceUpdateCanvases();
+            ui = Object.FindAnyObjectByType<UIFlowController>();
+            RawImage town = null;
+            foreach (var image in ui.GetComponentsInChildren<RawImage>())
+                if (image.name == "Town") town = image;
+            Assert.That(town, Is.Not.Null);
+            var home = (RectTransform)town.transform.parent.parent;
+            Assert.That(town.rectTransform.rect.width, Is.LessThanOrEqualTo(home.rect.width * .84f));
+            Assert.That(town.rectTransform.rect.height, Is.LessThanOrEqualTo(home.rect.height * .38f + .01f));
+            LogAssert.NoUnexpectedReceived();
+        }
+
         [UnityTest]
         public IEnumerator LoopRewardsOnceAndResumesAfterSceneReload()
         {

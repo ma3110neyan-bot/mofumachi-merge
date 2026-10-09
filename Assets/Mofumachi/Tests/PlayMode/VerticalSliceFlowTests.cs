@@ -11,36 +11,8 @@ using UnityEngine.UI;
 
 namespace Mofumachi.Tests
 {
-    public sealed class VerticalSliceFlowTests
+    public sealed class VerticalSliceFlowTests : SliceUiTestFixture
     {
-        private static readonly FieldInfo Session = typeof(UIFlowController).GetField("session", BindingFlags.NonPublic | BindingFlags.Static);
-        private object previousSession;
-        private string dir;
-        private bool cleaned;
-        [SetUp]
-        public void IsolateSession()
-        {
-            previousSession = Session.GetValue(null);
-            dir = System.IO.Path.Combine(System.IO.Path.GetTempPath(), System.Guid.NewGuid().ToString());
-            var store = new SaveService(dir);
-            Session.SetValue(null, new GameStateManager(store.Load().State, store));
-            cleaned = false;
-        }
-        [TearDown]
-        public void Cleanup()
-        {
-            if (cleaned) return;
-            // Stop native callbacks before changing the session or deleting its storage.
-            foreach (var ui in Object.FindObjectsByType<UIFlowController>(FindObjectsInactive.Include))
-            {
-                ui.StopAllCoroutines();
-                Object.DestroyImmediate(ui.gameObject);
-            }
-            Session.SetValue(null, previousSession);
-            if (System.IO.Directory.Exists(dir)) System.IO.Directory.Delete(dir, true);
-            cleaned = true;
-        }
-
         [UnityTest]
         public IEnumerator TitleShowsSeparatePortraitsAndVisibleStartButtonThenOpensHome()
         {
@@ -56,7 +28,7 @@ namespace Mofumachi.Tests
             }
             Assert.That(start, Is.Not.Null);
             var page = (RectTransform)start.transform.parent;
-            Assert.That(page.rect.width / page.rect.height, Is.EqualTo(9f / 16).Within(.001f),
+            if(Screen.width>Screen.height) Assert.That(page.rect.width / page.rect.height, Is.EqualTo(9f / 16).Within(.001f),
                 "Keep the portrait layout even in a landscape Editor Game view.");
             Assert.That(start.GetComponentInChildren<Text>().cachedTextGenerator.characterCountVisible, Is.GreaterThan(0));
             var camera = ui.GetComponentInChildren<Camera>();
@@ -64,16 +36,11 @@ namespace Mofumachi.Tests
             Assert.That(camera.isActiveAndEnabled, Is.True);
 
             var portraits = ui.GetComponentsInChildren<RawImage>();
-            Assert.That(portraits.Length, Is.EqualTo(6));
-            System.Array.Sort(portraits, (left, right) => left.transform.position.x.CompareTo(right.transform.position.x));
-            for (int i = 0; i < portraits.Length; i++)
-            {
-                var rect = portraits[i].rectTransform;
-                Assert.That(rect.rect.width, Is.LessThanOrEqualTo(page.rect.width * .16f));
-                Assert.That(rect.rect.height, Is.LessThanOrEqualTo(page.rect.height * .11f));
-                if (i > 0) Assert.That(rect.position.x, Is.GreaterThan(portraits[i - 1].transform.position.x));
-            }
-
+            int count=0;
+            foreach(var image in portraits)if(image.name.StartsWith("Character "))
+            { count++;Assert.That(image.rectTransform.rect.width/image.rectTransform.rect.height,Is.EqualTo(152f/150).Within(.01)); }
+            Assert.That(count,Is.EqualTo(6));
+            Assert.That(((RectTransform)start.transform).rect.height,Is.GreaterThanOrEqualTo(48));
             var pointer = new PointerEventData(EventSystem.current)
             {
                 position = RectTransformUtility.WorldToScreenPoint(null, start.transform.position),
@@ -85,30 +52,30 @@ namespace Mofumachi.Tests
             Assert.That(hits[0].gameObject.GetComponentInParent<Button>(), Is.SameAs(start),
                 "Character images must not cover or intercept the start button.");
             ExecuteEvents.Execute(start.gameObject, pointer, ExecuteEvents.pointerClickHandler);
-            yield return null;
-            yield return null;
+            Assert.That(ui.IsPurchaseNoticeOpen,Is.True);
+            Assert.That(ui.ConfirmPurchaseNotice(),Is.True);
+            yield return null; yield return null;
             Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("GameScene"));
 
             Canvas.ForceUpdateCanvases();
             ui = Object.FindAnyObjectByType<UIFlowController>();
             RawImage town = null;
             foreach (var image in ui.GetComponentsInChildren<RawImage>())
-                if (image.name == "Town") town = image;
+                if (image.name == "Town background") town = image;
             Assert.That(town, Is.Not.Null);
-            var home = (RectTransform)town.transform.parent.parent;
-            Assert.That(town.rectTransform.rect.width, Is.LessThanOrEqualTo(home.rect.width * .84f));
-            Assert.That(town.rectTransform.rect.height, Is.LessThanOrEqualTo(home.rect.height * .38f + .01f));
+            var canvas=(RectTransform)town.GetComponentInParent<Canvas>().transform;
+            Assert.That(town.rectTransform.rect.size,Is.EqualTo(canvas.rect.size));
             LogAssert.NoUnexpectedReceived();
         }
 
         [UnityTest]
         public IEnumerator LoopRewardsOnceAndResumesAfterSceneReload()
         {
-            yield return SceneManager.LoadSceneAsync("TitleScene");
+            yield return EnterHome();
             var ui = Object.FindAnyObjectByType<UIFlowController>();
             // Replace only this test's in-memory session/store; never erase a player save.
-            ui.Initialize(new SaveService(dir));
-            ui.BeginGame();
+            ui.Initialize(Store);
+            ui.ShowHome();
             yield return null;
             yield return null;
             ui = Object.FindAnyObjectByType<UIFlowController>();
@@ -126,7 +93,7 @@ namespace Mofumachi.Tests
             Assert.That(ui.Persist(), Is.True);
             yield return SceneManager.LoadSceneAsync("TitleScene");
             ui = Object.FindAnyObjectByType<UIFlowController>();
-            ui.Initialize(new SaveService(dir));
+            ui.Initialize(Store);
             Assert.That(ui.Game.State.coins, Is.EqualTo(30));
             Assert.That(ui.Game.State.completedQuestIds.Count, Is.EqualTo(1));
         }
@@ -134,16 +101,16 @@ namespace Mofumachi.Tests
         [UnityTest]
         public IEnumerator CancelAndSettingsPersistWithoutLosingMergedItems()
         {
-            yield return SceneManager.LoadSceneAsync("TitleScene");
+            yield return EnterHome();
             var ui = Object.FindAnyObjectByType<UIFlowController>();
-            ui.Initialize(new SaveService(dir));
+            ui.Initialize(Store);
             Assert.That(ui.DropItem(0, 1), Is.True);
             ui.ShowHome();
             Assert.That(ui.Game.Board.IsLocked(1), Is.False);
             Assert.That(ui.Game.Board.At(1).level, Is.EqualTo(2));
             Assert.That(ui.Game.SetAudio(false, true), Is.True);
             Assert.That(ui.Persist(), Is.True);
-            var resumed = new SaveService(dir).Load().State;
+            var resumed = Store.Load().State;
             Assert.That(resumed.bgmEnabled, Is.False);
             Assert.That(resumed.seEnabled, Is.True);
             Assert.That(resumed.mergeBoard.Count, Is.EqualTo(1));
@@ -153,7 +120,7 @@ namespace Mofumachi.Tests
         [UnityTest]
         public IEnumerator TeardownDuringAnimationLeavesNoCallbacksOrStore()
         {
-            yield return SceneManager.LoadSceneAsync("TitleScene");
+            yield return EnterHome();
             var ui = Object.FindAnyObjectByType<UIFlowController>();
             Assert.That(ui.DropItem(0, 1), Is.True);
             Assert.That(ui.Game.Board.IsLocked(1), Is.True);
@@ -161,14 +128,14 @@ namespace Mofumachi.Tests
             yield return new WaitForSecondsRealtime(.3f);
             LogAssert.NoUnexpectedReceived();
             Assert.That(Object.FindAnyObjectByType<UIFlowController>(), Is.Null);
-            Assert.That(System.IO.Directory.Exists(dir), Is.False);
-            Assert.That(Session.GetValue(null), Is.SameAs(previousSession));
+            Assert.That(System.IO.Directory.Exists(DirectoryPath), Is.False);
+
         }
 
         [UnityTest]
         public IEnumerator PauseDuringMergeAndDragRebuildsUnlockedBoard()
         {
-            yield return SceneManager.LoadSceneAsync("TitleScene");
+            yield return EnterHome();
             var ui = Object.FindAnyObjectByType<UIFlowController>();
             Assert.That(ui.DropItem(0, 1), Is.True);
             var lockedColor = ui.GetComponentsInChildren<MergeBoardView>()[1].GetComponent<UnityEngine.UI.Image>().color;

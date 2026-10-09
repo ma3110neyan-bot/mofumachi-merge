@@ -89,13 +89,13 @@
 - Produces: `ScreenContext(UIFlowController flow, UIWidgets widgets)`、読み取り専用`Flow`, `Game: GameStateManager`, `Widgets`。`UIWidgets(Font font, Texture2D characters)`の`Button(string name, string text, RectTransform parent, Rect anchors, UnityEngine.Events.UnityAction action, bool secondary = false): Button`, `Label(string name, string text, RectTransform parent, Rect anchors, int fontSize): Text`, `Character(string name, int index, RectTransform parent, Rect anchors): RawImage`, `Background(Texture2D texture, RectTransform parent): RawImage`。
 - Produces: `void TopHomeScreens.BuildTitle(RectTransform root, ScreenContext context)`／`void BuildHome(RectTransform root, ScreenContext context)`、`void PurchaseNoticeView.Build(RectTransform root, ScreenContext context)`。`UIStrings.All: IReadOnlyList<string>`と上記案内の定数。ScreenIdはScreenContext.csへ定義し、新規表示クラスはMofumachi.Presentation namespaceに置く。ビューは報酬・保存を直接変更しない。
 
-- [ ] `PortraitUsesFullSafeHeightAndLandscapeUsesCenteredViewport`を360×640／393×808／1080×1920／1080×2220／1440×2960／2560×1440＋疑似ノッチで検証する。Assertは縦ContentRootとSafeRootの四辺一致、背景とcanvasの四辺一致、横ContentRoot比9/16、6原画の比率保持、主要ボタン高さが基準UI単位48以上。Pixelでは端末densityも確認し48dp相当を検証する。現在の「ホーム街絵が高さ38%以下」等の縮小UI前提は更新する。
-- [ ] `NoticeBlocksUntilSaveSucceedsAndCannotBeBypassed`は実raycastの「はじめる」クリック→案内1個→背景入力遮断→失敗するstoreで未確認／Title維持→成功でGameScene→再起動後非表示を検証する。連打、Android戻る、未確認のGameScene直起動／ShowHomeも検証する。
-- [ ] `RequiredJapaneseTextHasGlyphsAndFits`で案内の全文と「可年必方相者許課談護量金」、固定UI／保存エラーの字体を検査する。最大Coins／街Lv.でもラベル領域へ収まり、フォントサイズを自動縮小しないことを検証する。クラウドはUnity APIコンパイル、挙動REDはWindows未実行として記録する。
-- [ ] 共通部とTOP→案内→ホームの順で実装する。背景は承認済み`town-background-proposal.png`の同一バイトコピー、キャラは既存masterのUV表示。角丸・影・控えめなツヤ・短い押下反応をUGUIのGraphicで描き、アイコンはUI図形として描く。画像のフィット対象とレイアウト枠を分け、画像にクリックを遮らせない。
-- [ ] UILabel文言とコアの日本語エラーを含め、元の完全版`/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc`のJP faceからOFLフォントを再subsetし、Mofumachi UI名称／ライセンスを保持する。UIFontの現行subsetに欠落字を補おうとせず、完全版から作る。BuildTime asmdefへMofumachi.Presentation参照を追加する。確認は保存成功を遷移条件とし、未確認ならホーム以降の入口を遮断する。画面別の通知を導入し、納品エラーを設定へ持ち越さない。
-- [ ] Unity APIコンパイル、原画SHA一致、meta/GUID・素材・字形検査を実行する。PlayMode fixtureではcontrollerのcallbackを止めてからsessionを戻す既存順序を保つ。
-- [ ] `feat: build full-screen title home and first-use notice`としてコミットする。
+- [x] `PortraitUsesFullSafeHeightAndLandscapeUsesCenteredViewport`を360×640／393×808／1080×1920／1080×2220／1440×2960／2560×1440＋疑似ノッチで検証する。Assertは縦ContentRootとSafeRootの四辺一致、背景とcanvasの四辺一致、横ContentRoot比9/16、6原画の比率保持、主要ボタン高さが基準UI単位48以上。Pixelでは端末densityも確認し48dp相当を検証する。現在の「ホーム街絵が高さ38%以下」等の縮小UI前提は更新する。
+- [x] `NoticeBlocksUntilSaveSucceedsAndCannotBeBypassed`は実raycastの「はじめる」クリック→案内1個→背景入力遮断→失敗するstoreで未確認／Title維持→成功でGameScene→再起動後非表示を検証する。連打、Android戻る、未確認のGameScene直起動／ShowHomeも検証する。
+- [x] `RequiredJapaneseTextHasGlyphsAndFits`で案内の全文と「可年必方相者許課談護量金」、固定UI／保存エラーの字体を検査する。最大Coins／街Lv.でもラベル領域へ収まり、フォントサイズを自動縮小しないことを検証する。クラウドはUnity APIコンパイル、挙動REDはWindows未実行として記録する。
+- [x] 共通部とTOP→案内→ホームの順で実装する。背景は承認済み`town-background-proposal.png`の同一バイトコピー、キャラは既存masterのUV表示。角丸・影・控えめなツヤ・短い押下反応をUGUIのGraphicで描き、アイコンはUI図形として描く。画像のフィット対象とレイアウト枠を分け、画像にクリックを遮らせない。
+- [x] UILabel文言とコアの日本語エラーを含め、元の完全版`/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc`のJP faceからOFLフォントを再subsetし、Mofumachi UI名称／ライセンスを保持する。UIFontの現行subsetに欠落字を補おうとせず、完全版から作る。BuildTime asmdefへMofumachi.Presentation参照を追加する。確認は保存成功を遷移条件とし、未確認ならホーム以降の入口を遮断する。画面別の通知を導入し、納品エラーを設定へ持ち越さない。
+- [x] Unity APIコンパイル、原画SHA一致、meta/GUID・素材・字形検査を実行する。PlayMode fixtureではcontrollerのcallbackを止めてからsessionを戻す既存順序を保つ。
+- [x] `feat: build full-screen title home and first-use notice`としてコミットする。
 
 ## Task 3: 録音BGM／6SEと常駐AudioManager
 

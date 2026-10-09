@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using Mofumachi.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,7 +14,14 @@ namespace Mofumachi.Presentation
     {
         private static GameStateManager session;
         public GameStateManager Game => session;
-        private RectTransform safeRoot;
+        private ResponsiveUILayout layout;
+        private UIWidgets widgets;
+        private ScreenContext context;
+        private GameObject modal;
+        private bool transitioning;
+        private readonly Dictionary<ScreenId,string> feedback = new Dictionary<ScreenId,string>();
+        public ScreenId CurrentScreen { get; private set; }
+        public bool IsPurchaseNoticeOpen => modal != null && modal.activeSelf;
         private RectTransform portraitRoot;
         private GameObject page;
         private Font font;
@@ -42,11 +51,10 @@ namespace Mofumachi.Presentation
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(360, 640);
             scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
-            safeRoot = Node("Safe area", canvas.transform, Vector2.zero, Vector2.one);
-            portraitRoot = Node("Portrait viewport", safeRoot, Vector2.zero, Vector2.one);
-            var viewportAspect = portraitRoot.gameObject.AddComponent<AspectRatioFitter>();
-            viewportAspect.aspectRatio = 9f / 16;
-            viewportAspect.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
+            layout=canvas.AddComponent<ResponsiveUILayout>(); layout.Initialize(canvas.GetComponent<Canvas>());
+            portraitRoot=layout.ContentRoot;
+            widgets=new UIWidgets(font,characters); context=new ScreenContext(this,widgets);
+            widgets.Background(Resources.Load<Texture2D>("Mofumachi/TownBackground"),layout.FullScreenRoot);
             CreateClearCamera();
             if (EventSystem.current == null)
             {
@@ -56,49 +64,69 @@ namespace Mofumachi.Presentation
             }
             UpdateSafeArea();
         }
-        private void Start() => Render(SceneManager.GetActiveScene().name == "TitleScene" ? "title" : "home");
+        private void Start() => Render(SceneManager.GetActiveScene().name == "TitleScene" || !Game.State.purchaseNoticeAcknowledged ? "title" : "home");
         public void Initialize(IStateStore store)
         {
             var loaded = store.Load();
             session = new GameStateManager(loaded.State, store);
             notice = loaded.Reason;
         }
-        private void Update() => UpdateSafeArea();
+        private void Update() { UpdateSafeArea(); if(Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame) GoBack(); }
         private void UpdateSafeArea()
         {
             var size = new Vector2(Screen.width, Screen.height);
             var area = Screen.safeArea;
-            if (safeRoot == null || size.x <= 0 || size.y <= 0 || (size == previousSize && area == previousSafeArea)) return;
-            safeRoot.anchorMin = area.position / size;
-            safeRoot.anchorMax = (area.position + area.size) / size;
-            safeRoot.offsetMin = safeRoot.offsetMax = Vector2.zero;
+            if (layout == null || size.x <= 0 || size.y <= 0 || (size == previousSize && area == previousSafeArea)) return;
+            layout.ApplyViewport(size,area);
             previousSize = size; previousSafeArea = area;
         }
         public void BeginGame()
         {
+            if (transitioning) return;
+            if (!Game.State.purchaseNoticeAcknowledged) { OpenNotice(); return; }
             if (!Persist()) { Render("title"); return; }
-            SceneManager.LoadScene("GameScene");
+            transitioning=true; SceneManager.LoadScene("GameScene");
         }
+        private void OpenNotice()
+        {
+            if(IsPurchaseNoticeOpen || transitioning) return;
+            Render("title"); PurchaseNoticeView.Build(layout.SafeRoot,context);
+            modal=layout.SafeRoot.GetChild(layout.SafeRoot.childCount-1).gameObject;
+        }
+        public bool ConfirmPurchaseNotice()
+        {
+            if(transitioning || !IsPurchaseNoticeOpen) return false;
+            if(!Game.AcknowledgePurchaseNotice())
+            { feedback[ScreenId.Title]=Game.LastError; modal.SetActive(false);Destroy(modal);modal=null;OpenNotice();return false; }
+            transitioning=true; modal.SetActive(false); Destroy(modal); modal=null;
+            SceneManager.LoadScene("GameScene"); return true;
+        }
+        public string FeedbackFor(ScreenId screen) => feedback.TryGetValue(screen,out var text)?text:"";
+        public void PlayCue(AudioCue cue) => audioManager.PlaySe(cue);
+        public void GoBack() { if(IsPurchaseNoticeOpen || transitioning)return; if(CurrentScreen==ScreenId.Settings)Navigate(settingsReturnView);else if(CurrentScreen!=ScreenId.Title)ShowHome(); }
         public void ShowHome() => Navigate("home");
         public void ShowQuest() => Navigate("quest");
         public void ShowMerge() => Navigate("merge");
         public void ShowSettings()
+        { if(IsPurchaseNoticeOpen || transitioning)return; if(view!="settings")settingsReturnView=view??"title";Navigate("settings"); }
+        private void Navigate(string target)
         {
-            if (view != "settings") settingsReturnView = view ?? "title";
-            Navigate("settings");
+            if(transitioning || IsPurchaseNoticeOpen)return;
+            if(target!="title" && target!="settings" && !Game.State.purchaseNoticeAcknowledged){OpenNotice();return;}
+            if(!Persist()){Render(view??"title");return;} Render(target);
         }
-        private void Navigate(string target) { Persist(); Render(target); }
         public bool Persist()
         {
             if (session == null) return true;
             if (mergeAnimation != null) { StopCoroutine(mergeAnimation); mergeAnimation = null; }
             Game.Board.ReleaseLocks(); Game.Quests.RefreshProgress(); selected = -1;
             bool saved = Game.Save();
-            if (!saved) notice = Game.LastError;
+            if (!saved) { notice = Game.LastError; feedback[CurrentScreen]=notice; }
             return saved;
         }
         public bool AcceptQuest()
         {
+            if(!Game.State.purchaseNoticeAcknowledged || IsPurchaseNoticeOpen)return false;
             bool accepted = Game.Quests.AcceptQuest(QuestDefinition.First);
             notice = accepted ? "依頼を受けました。お茶を合成しましょう。" : Game.Quests.LastError;
             Render(accepted ? "merge" : "quest");
@@ -106,7 +134,7 @@ namespace Mofumachi.Presentation
         }
         public bool DropItem(int from, int to)
         {
-            if (mergeAnimation != null) return false;
+            if (!Game.State.purchaseNoticeAcknowledged || IsPurchaseNoticeOpen || mergeAnimation != null) return false;
             bool merged = Game.TryMerge(from, to);
             bool changed = merged || Game.TryMove(from, to);
             notice = changed ? (merged ? "キラッ！ お茶が育ちました。" : "移動しました。") : "その場所には移動・合成できません。";
@@ -128,6 +156,7 @@ namespace Mofumachi.Presentation
         }
         public DeliveryResult Deliver()
         {
+            if(!Game.State.purchaseNoticeAcknowledged || IsPurchaseNoticeOpen)return new DeliveryResult(false,"初回の確認をしてください。");
             var result = Game.Quests.TryDeliver(); notice = result.Message;
             if (result.Success) { audioManager.PlaySe(AudioCue.Reward); Render("result"); }
             else Render(view ?? "quest");
@@ -140,7 +169,7 @@ namespace Mofumachi.Presentation
             if (page != null && session != null) Render(view);
         }
         private void OnApplicationQuit() => Persist();
-        private void OnDestroy() { if (session != null) Persist(); }
+        private void OnDestroy() { if (session != null && !transitioning) Persist(); }
 
         private void CreateClearCamera()
         {
@@ -202,9 +231,12 @@ namespace Mofumachi.Presentation
         }
         private void Render(string target)
         {
-            view = target;
+            view = target; CurrentScreen=(ScreenId)System.Enum.Parse(typeof(ScreenId),target,true);
             if (page != null) { page.SetActive(false); Destroy(page); }
             page = Node(target, portraitRoot, Vector2.zero, Vector2.one).gameObject;
+            if(target=="title" || target=="home")
+            { if(target=="title")TopHomeScreens.BuildTitle((RectTransform)page.transform,context);else TopHomeScreens.BuildHome((RectTransform)page.transform,context);return; }
+            notice=FeedbackFor(CurrentScreen);
             page.AddComponent<Image>().color = new Color(1, .96f, .90f);
             Label("もふまちメルジュ", page.transform, new Vector2(.03f, .9f), new Vector2(.97f, 1), 28);
             Label($"Coins {Game.State.coins}　街 Lv.{Game.State.townGrowthLevel}", page.transform, new Vector2(.04f, .84f), new Vector2(.96f, .9f), 16);

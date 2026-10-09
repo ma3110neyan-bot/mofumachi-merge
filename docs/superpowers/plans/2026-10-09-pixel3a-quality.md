@@ -151,12 +151,12 @@
 - Consumes: Task1の`SetAudioPreferences(bool bgm, bool se, float bgmVolume, float seVolume)`、Task3のApplySettings、Task2のFeedbackFor／GoBack。
 - Produces: `void SettingsScreen.Build(RectTransform root, ScreenContext context)`、`void VolumeControl.Bind(Slider slider, System.Action<float> preview, System.Action<float> commit)`、`void CancelPending()`。UIFlowControllerに`PreviewAudioVolumes(float bgmVolume, float seVolume): void`、`CommitAudioPreferences(bool bgm, bool se, float bgmVolume, float seVolume): bool`。
 
-- [ ] `SliderGesturePreviewsButCommitsOnlyOnce`でvalue変更中は音源のみ変化／保存0回、pointerUp＋endDragは保存1回、再起動値一致をAssertする。クリック／keyboard submitにも対応する。`VolumeZeroAndOffRemainDistinct`はOFF→ONで同じ保存音量へ戻ることを検証する。
-- [ ] `FailedOrInterruptedVolumeEditRestoresSavedAudioAndUi`で書込失敗／ドラッグ中のpause／画面退出を検証し、音源・slider・toggle・GameStateが保存済み値と一致することをAssertする。未完了gestureは保存せず戻す。
-- [ ] `SettingsReturnsToOriginWithoutDeliveryError`でTOP／ホーム／依頼／Merge／結果／成長からの設定往復、セーブエラー表示、納品エラー非表示を検証する。短い縦画面でも本文と戻るをスクロールで読め、BGM／SEの48以上の操作領域を確保する。
-- [ ] クラウドのUnity APIコンパイルでテストを検査し、設定画面を実装する。BGM／SE個別toggleと0〜100%slider／数値表示、設定を開いた画面へ戻る操作を持たせる。sliderの連続変更で画面を破棄・再生成せず、SEを連打しない。
-- [ ] Toggleは保存成功後に適用し、sliderは試聴→gesture終了で原子的保存、失敗はUIも音も戻す。画面別通知と保存復旧の案内を区別する。Core全件／Unity APIコンパイルを検証する。
-- [ ] `feat: add separate audio volume controls with reliable persistence`としてコミットする。
+- [x] `SliderGesturePreviewsButCommitsOnlyOnce`でvalue変更中は音源のみ変化／保存0回、pointerUp＋endDragは保存1回、再起動値一致をAssertする。クリック／keyboard submitにも対応する。`VolumeZeroAndOffRemainDistinct`はOFF→ONで同じ保存音量へ戻ることを検証する。
+- [x] `FailedOrInterruptedVolumeEditRestoresSavedAudioAndUi`で書込失敗／ドラッグ中のpause／画面退出を検証し、音源・slider・toggle・GameStateが保存済み値と一致することをAssertする。未完了gestureは保存せず戻す。
+- [x] `SettingsReturnsToOriginWithoutDeliveryError`でTOP／ホーム／依頼／Merge／結果／成長からの設定往復、セーブエラー表示、納品エラー非表示を検証する。短い縦画面でも本文と戻るをスクロールで読め、BGM／SEの48以上の操作領域を確保する。
+- [x] クラウドのUnity APIコンパイルでテストを検査し、設定画面を実装する。BGM／SE個別toggleと0〜100%slider／数値表示、設定を開いた画面へ戻る操作を持たせる。sliderの連続変更で画面を破棄・再生成せず、SEを連打しない。
+- [x] Toggleは保存成功後に適用し、sliderは試聴→gesture終了で原子的保存、失敗はUIも音も戻す。画面別通知と保存復旧の案内を区別する。Core全件／Unity APIコンパイルを検証する。
+- [x] `feat: add separate audio volume controls with reliable persistence`としてコミットする。
 
 ## Task 7: Windows検証ゲート・通常／QA APK・USB・Play準備
 

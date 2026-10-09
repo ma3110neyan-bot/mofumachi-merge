@@ -13,7 +13,7 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator DeliveryClicksAndPresentationReentryNeverPayTwice()
         {
             yield return Complete();Assert.That(Flow.LastDelivery.CoinsAwarded,Is.EqualTo(30));Assert.That(Flow.LastDelivery.PreviousTownLevel,Is.EqualTo(0));Assert.That(Flow.LastDelivery.CurrentTownLevel,Is.EqualTo(1));
-            Assert.That(Flow.Deliver().Success,Is.False);Flow.ShowSettings();Flow.GoBack();Flow.ShowGrowth();Flow.ShowSettings();Flow.GoBack();Flow.ShowGrowth();
+            Assert.That(Flow.Deliver().Success,Is.False);yield return new WaitForSecondsRealtime(1.3f);Flow.ShowSettings();Flow.GoBack();Flow.ShowGrowth();Flow.ShowSettings();Flow.GoBack();Flow.ShowGrowth();
             Assert.That(Flow.Game.State.coins,Is.EqualTo(30));Assert.That(Flow.Game.State.townGrowthLevel,Is.EqualTo(1));Assert.That(Flow.Game.State.claimedRewardIds.Count,Is.EqualTo(1));Assert.That(Flow.Game.State.completedQuestIds.Count,Is.EqualTo(1));
         }
         [UnityTest] public IEnumerator PauseOrTerminateDuringRewardResumesCommittedProgress()

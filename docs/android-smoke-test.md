@@ -8,7 +8,9 @@
 2. Unity Hubで**6000.6.4f1**をインストールし、モジュールの **Android Build Support / Android SDK & NDK Tools / OpenJDK** を追加する。
 3. Unity Hubでサインインし、利用条件に合うUnityライセンスを有効にする。
 4. プロジェクトを開き、パッケージ復元・インポート・コンパイルの完了を待つ。Consoleに赤いエラーがないことを確認する。
-5. `Edit > Preferences > External Tools > Android`で、このUnityに付属するSDK、NDK、JDKを使用する。目安はOpenJDK 17、NDK r27c、SDK Build-tools 36.0.0。Target API 34のプラットフォームも必要。別Unityの古いツールを混ぜない。
+5. `Edit > Preferences > External Tools > Android`で、このUnityに付属するSDK、NDK、JDKを使用する。目安はOpenJDK 17、NDK r27c、SDK Build-tools 36.0.0、API 36のプラットフォーム。別Unityの古いツールを混ぜない。
+
+Androidビルドでは、プロジェクトまでのパス全体を半角英数字などのASCII文字にする。今回のWindows側の場所は`C:\Users\User\Desktop\Mofumachi\mofumachi-merge`。日本語を含む親フォルダーを変更・移動するときはEditorを閉じ、Unity Hubの「追加 → ディスクからプロジェクトを追加」で新しい場所を登録する。GitHub Desktopが旧場所を参照している場合は`Locate`で同じ新しいフォルダーを指定する。Unity Hubでは名前だけでなくパスを確認し、別の`Saved Games\Mofumachi Merge`を開かない。
 
 初回ビルドはUnityのパッケージとGradle/Maven依存を取得するため、PCのネット接続が必要。Pixel 3aはSIMなしで構わない。
 
@@ -18,7 +20,7 @@ Editorで起動を確認するには、`Project`（プロジェクト）で`Asse
 
 ## 2. 確認する設定
 
-`File > Build Profiles`でAndroidを選び、`Switch Platform`または`Activate`で有効化する。プロジェクトのメニュー`Mofumachi > Android > Configure Pixel 3a`で以下を適用する。
+`File > Build Profiles`（ファイル → ビルドプロファイル）でAndroidを選び、右下の「プロファイル切り替え」で有効化する。Androidに緑の「有効」が表示されたら、プロジェクトのメニュー`Mofumachi > Android > Configure Pixel 3a`で以下を適用する。
 
 | 設定 | 開発用APKの値 |
 | --- | --- |
@@ -27,7 +29,7 @@ Editorで起動を確認するには、`Project`（プロジェクト）で`Asse
 | 起動シーン | `TitleScene`、続いて`GameScene` |
 | Orientation | Portrait、UGUI基準360×640、安全領域に追従 |
 | Minimum API | 26（Android 8.0） |
-| Target API | 34（この実機確認用。Google Play提出設定は別工程） |
+| Target API | 36（AndroidXのcompileSdk要件35以上に対応。Google Play提出設定は別工程） |
 | Scripting Backend / Architecture | IL2CPP / ARM64 |
 | API Compatibility / Stripping | .NET Standard / Minimal |
 | Graphics API | OpenGLES3 |
@@ -37,6 +39,8 @@ Editorで起動を確認するには、`Project`（プロジェクト）で`Asse
 | 署名 | 開発用debug署名。公開用の鍵は不要 |
 
 正式6名は原本と同一の画像を同梱し、描き直さずUV範囲で表示する。日本語UI用フォントを同梱する。BGM/SEは現時点では試作合成音で、正式音源の収録後に差し替える。
+
+API 36はビルドとTargetの設定であり、実機にAndroid 16を要求する設定ではない。インストール可能な最低バージョンはMinimum API 26で維持する。
 
 ## 3. テストしてAPKを生成
 
@@ -105,7 +109,9 @@ $Apk = "C:\Projects\mofumachi-merge\Builds\Android\今回のフォルダ\vertica
 
 | 症状 | 確認・対応 |
 | --- | --- |
-| SDK/NDK/JDK不足 | Hubの3モジュールとExternal Toolsを確認。SDK Managerで`platforms;android-34`を追加する |
+| SDK/NDK/JDK不足 | Hubの3モジュールとExternal Toolsを確認。SDK Managerで`platforms;android-36`を追加する |
+| `checkDebugAarMetadata`でAndroidXがcompileSdk 35以上を要求、現在android-34 | mainのSDK修正をPullし、`Configure Pixel 3a`を再実行してからAPKを再ビルドする。設定ファイルとビルドメニューの両方を36へ更新した。旧コードではPlayer Settingsを手動で変更してもビルド時に34へ戻る |
+| `Invalid project path` / `non-ASCII characters` | Editorを閉じ、親フォルダーも含めたパスをASCII文字へ変更する。Unity Hubへ新しい場所を追加し、GitHub Desktopも同じ場所へ合わせる。上記Windowsの準備を参照 |
 | Safe ModeでCS0117、`Assert`に`Multiple`がない | この互換性修正を受け取る。Editorを閉じ、GitHub Desktopでmainの`Fetch origin`、表示されたら`Pull origin`を押し、同じプロジェクトを開き直す。テストの無効化やNUnitの手動追加は不要 |
 | `Unknown version control plugin: Unity Version Control` | GitHub Desktop用のMode=`Visible Meta Files`を今回の修正で適用した。更新後にEditorを開き直して確認する |
 | 画像が画面全体を覆う／ボタン文字が見えない／`No cameras rendering` | Editorを閉じて今回のUI表示修正をPullする。修正後は画像ごとの表示枠、縦9:16表示、背景Cameraを生成する。TitleSceneの再生後に6名と「はじめる」を確認し、ホームへの遷移を試す |
@@ -124,4 +130,6 @@ $Apk = "C:\Projects\mofumachi-merge\Builds\Android\今回のフォルダ\vertica
 
 ## 現在の検証範囲
 
-クラウドではコアの.NETテスト39件が成功し、追加ソースはUnity 6000.6.4f1の管理DLL参照でコンパイル確認した。これはUnityプロジェクトのインポートやEditMode/PlayMode実行、IL2CPP、APKビルドの成功を意味しない。Windows上のUnityテスト・最終APK・Pixel 3a実機は未実行で、この表に実測結果を追記する。
+2026-10-09、ユーザーのWindows Unity 6000.6.4f1で`cf191a0`のEditMode 40件・PlayMode 5件がすべて成功（失敗0、未実行0）した画面を確認した。手動操作でもタイトルから納品まで進み、+30 Coins・街Lv.1を確認した。
+
+その後のAPK作成は、旧API 34設定によるAndroidXのAARメタデータ検査で失敗した。今回のAPI 36修正後は、クラウドで公式AARの必要APIと設定・同梱SDKの整合、全ソースのUnity管理DLL参照コンパイル、コアの.NETテスト39件成功を確認した。SDK設定テストのWindows再実行とAPK再ビルドはこれから行う。IL2CPPを含む最終APKの成功とPixel 3a実機結果はまだ確認できていない。

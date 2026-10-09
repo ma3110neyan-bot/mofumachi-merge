@@ -18,7 +18,7 @@ namespace Mofumachi.Tests
             Assert.That(PlayerSettings.Android.targetArchitectures, Is.EqualTo(AndroidArchitecture.ARM64));
             Assert.That(PlayerSettings.GetScriptingBackend(NamedBuildTarget.Android), Is.EqualTo(ScriptingImplementation.IL2CPP));
             Assert.That(PlayerSettings.Android.minSdkVersion, Is.EqualTo(AndroidSdkVersions.AndroidApiLevel26));
-            Assert.That((int)PlayerSettings.Android.targetSdkVersion, Is.EqualTo(34));
+            Assert.That((int)PlayerSettings.Android.targetSdkVersion, Is.EqualTo(36));
             Assert.That(PlayerSettings.GetGraphicsAPIs(BuildTarget.Android), Is.EqualTo(new[] { GraphicsDeviceType.OpenGLES3 }));
             Assert.That(EditorUserBuildSettings.buildAppBundle, Is.False);
             Assert.That(EditorBuildSettings.scenes.Length, Is.EqualTo(2));

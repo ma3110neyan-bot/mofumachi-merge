@@ -26,8 +26,9 @@ namespace Mofumachi.Editor
             PlayerSettings.allowedAutorotateToLandscapeRight = false;
             PlayerSettings.defaultScreenWidth = 1080; PlayerSettings.defaultScreenHeight = 1920;
             PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel26;
-            // Sideload smoke test, with an installed deterministic platform; Play publication is separate.
-            PlayerSettings.Android.targetSdkVersion = (AndroidSdkVersions)34;
+            // AndroidX Core 1.15 requires compileSdk >= 35. Use Unity 6.6's API 36
+            // platform for the generated Gradle project; minimum device API stays 26.
+            PlayerSettings.Android.targetSdkVersion = AndroidSdkVersions.AndroidApiLevel36;
             PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
             PlayerSettings.SetScriptingBackend(NamedBuildTarget.Android, ScriptingImplementation.IL2CPP);
             PlayerSettings.SetApiCompatibilityLevel(NamedBuildTarget.Android, ApiCompatibilityLevel.NET_Standard);

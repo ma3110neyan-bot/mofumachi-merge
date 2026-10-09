@@ -39,7 +39,7 @@
 - [x] Unity同梱.NET SDKで、同じNUnitソースの未実装エラーを確認する。Unity EditMode実行とは区別する。
 - [x] 一時ファイル→検証→主ファイル置換と前回有効データのバックアップを実装する。復旧理由はLoadResultへ保持する。
 - [x] .NET上で保存テストを実行し、独立レビューで見つかった保存・納品の同時実行問題を修正する。
-- [ ] ライセンス有効化後にUnity EditModeで実行し、Unity/Androidの保存APIを確認する。
+- [x] WindowsのUnity EditModeでコア39件の成功を確認した。Androidの保存APIはPixel 3aで確認する。
 
 ## Task 2: Merge・依頼・報酬・街成長
 
@@ -52,7 +52,7 @@
 - [x] .NET上で未実装エラーを確認し、引き継ぎ§7の順で処理する。同じID/levelを要求する複数行は合算して検証する。
 - [x] 報酬・完了ID・街成長を同じスナップショットとして保存する。保存失敗時は作業前状態に戻し、再試行でも報酬が重複しないことをテストする。
 - [x] Task 1/2のNUnit計39件が.NET上で成功。独立レビューの4件を再現テスト付きで修正する。
-- [ ] Unity EditModeの実行結果を確認する。
+- [x] WindowsのUnity EditModeで、BuildTime 1件を含めた40件の成功を確認した（SDK修正前の`cf191a0`）。
 
 ## Task 3: 正式素材で1周の画面と音
 
@@ -62,10 +62,10 @@
 
 - [x] Title→ホーム→受注→Merge→納品→Result→ホームと、保存後Scene再読込のPlayModeテストを追加した。ドラッグ取消・Scene切替・pauseでロック解放と数量維持を検証する。
 - [x] 9:16 CanvasScaler、safe area、縦画面、Title/Gameの起動bootstrap、Input Systemのドラッグと2タップ移動を追加した。未実装クラスによるコンパイル失敗を確認後、Unity DLL参照でコンパイルした。
-- [ ] UnityのPlayModeで実際の動作を確認する。クラウドのコンパイル確認を実行結果とは扱わない。
+- [x] WindowsのUnity PlayModeで5件の成功を確認した。クラウドのコンパイル確認を実行結果とは扱わない。
 - [ ] 正式6名素材の顔・外形・配色を変えずに使用する。ユーザーのBGM/SE方針に沿う仮音の確認導線・個別音設定を実装し、正式素材受領後に差し替える。正式ファイルは現在未収録。無音・素材欠損を完成としない。
 - [ ] 全PlayMode成功と件数を確認する。画面・操作・音を承認済プレビューと比較する。
-- [ ] Scene・設定・素材・UI・テストを含む差分をレビューしてコミットする。
+- [x] Scene・設定・素材・UI・テストを含む差分をレビューしてコミットした。SDK修正の追加差分は別途確認する。
 
 ## Task 4: Android APK と Pixel 3a
 
@@ -82,7 +82,7 @@
 
 ユーザーは最終APKをWindows PC上のUnity 6000.6.4f1で作り、Pixel 3aで実機確認する。クラウドのUnityライセンスは保留とし、クラウドで最終APKビルドを行わない。
 
-TitleScene/GameScene、Presentation、AudioManager、AndroidBuild、BuildTimeテスト1件、PlayModeテスト4件を追加した。現在はソースコンパイル・静的検査のみ成功しており、Unityテスト・IL2CPP・APK・実機は未実行。
+TitleScene/GameScene、Presentation、AudioManager、AndroidBuild、BuildTimeテスト1件、PlayModeテスト5件を追加した。Windowsの`cf191a0`でEditMode 40件・PlayMode 5件がすべて成功した。手動でも納品結果の+30 Coins・街Lv.1を確認した。APKの最初の試行は旧API 34によるAAR検査で失敗し、SDK修正後の再ビルド・実機試験はこれから行う。
 
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\build-android.ps1
@@ -92,8 +92,17 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\build-android.
 
 ### 2026-10-09 Windows初回再生の追補
 
-Safe Mode解除とTitleSceneの画像・BGM読み込みがユーザー画面で確認できた。QHDでは画像のFitInParentが表示枠を失って重なり、幅基準のスケーリングで文字が収まらず、Camera不在の案内も表示された。画像枠とフィット対象を分離し、safe area内の9:16表示とExpandスケーリング、背景Cameraを追加した。開始ボタンの文字・クリック判定・ホーム遷移を含むPlayMode回帰テストを追加し、計5件とした。Unityのネイティブテストと修正後の画面確認はWindowsで行う。
+Safe Mode解除とTitleSceneの画像・BGM読み込みがユーザー画面で確認できた。QHDでは画像のFitInParentが表示枠を失って重なり、幅基準のスケーリングで文字が収まらず、Camera不在の案内も表示された。画像枠とフィット対象を分離し、safe area内の9:16表示とExpandスケーリング、背景Cameraを追加した。開始ボタンの文字・クリック判定・ホーム遷移を含むPlayMode回帰テストを追加し、計5件とした。その後Windowsで全5件の成功と、開始から納品までの手動操作を確認した。
+
+### 2026-10-09 Android SDKの追補
+
+日本語を含む親パスによるAndroidビルドエラーの後、Windows側のプロジェクトを`C:\Users\User\Desktop\Mofumachi\mofumachi-merge`へ移動した。Gradleはその後、AndroidX core/core-ktx 1.15.0のcompileSdk 35以上という要件を満たさないAPI 34設定で失敗した。公式AARで要件を確認し、Unity 6000.6.4f1に同梱されたAPI 36へビルドメニュー・Player Settings・BuildTimeテストを揃える。最低APIは26を維持する。
+
+- [x] 公式AARメタデータと設定を比較し、旧34で失敗、修正36で成功する検査を確認した。
+- [x] 修正後の全ソースを実際のUnity DLL・内蔵NUnitでコンパイルし、コアの.NETテスト39件が成功した。
+- [ ] Windowsで変更したSDK設定テストを再実行し、新しいAPKと今回のビルド成功ログを確認する。
+- [ ] Pixel 3aで起動・保存復帰を含む実機試験を行う。
 
 ## 現時点の検証記録
 
-[2026-10-08 コア実装と検証](../../vertical-slice-core-status.md)と[ライセンス不要の検証手順](../../../Tests/Core/README.md)を参照。Task 1/2のコアは実装済み。Task 3/4のソースを追加したが、Unityテスト、APK、Pixel 3aは未完了で、Vertical Slice全体の完成はまだ主張しない。
+[2026-10-08 コア実装と検証](../../vertical-slice-core-status.md)と[ライセンス不要の検証手順](../../../Tests/Core/README.md)を参照。Task 1/2のコアは実装済みで、WindowsのUnityテスト40件・5件はSDK修正前に成功した。SDK修正後のWindows確認、最終APK、Pixel 3a実機は未完了で、Vertical Slice全体の完成はまだ主張しない。

@@ -8,7 +8,7 @@
 
 **Tech Stack:** Unity6000.6.4f1、C#9／.NET Standard2.1、UGUI2.6.0、Input System1.20.0、Unity Test Framework1.8.0。manifest／lockと正式6名の原本を維持する。
 
-**Spec:** [2026-10-09承認済み設計](../specs/2026-10-09-pixel3a-quality-design.md)。画面・音・設計の方向は承認済み。本計画のレビュー後に実装する。
+**Spec:** [2026-10-09承認済み設計](../specs/2026-10-09-pixel3a-quality-design.md)。画面・音・設計の方向と本計画はユーザー承認済み。Codexが順次実装し、最後に独立レビューする。チェック済み工程のクラウド検証はWindows／実機の合格を意味しない。
 
 ## Global Constraints
 
@@ -71,12 +71,12 @@
 - Produces: `GameState.CurrentSaveVersion = 2`、`purchaseNoticeAcknowledged: bool`、`bgmVolume: float = .75f`、`seVolume: float = .65f`。`StateCodec.Decode(string json)`はv1をv2へ明示移行し、`Validate(GameState state)`は移行済みv2を検証する。
 - Produces: `bool GameStateManager.AcknowledgePurchaseNotice()`、`bool SetAudioPreferences(bool bgm, bool se, float bgmVolume, float seVolume)`。失敗はfalse＋`LastError`。既存`SetAudio(bool bgm, bool se)`は音量を保持して委譲する。
 
-- [ ] RED用テストを追加する。v1 fixtureは新フィールドを持たない旧JSONとし、`V1MigrationPreservesCompletedProgressAndMutedAudio`で`coins==30`, `townGrowthLevel==1`, 完了／受領ID・盤面・inventory・受注状態・既存全項目の一致、`bgmEnabled==false`, `saveVersion==2`, `bgmVolume==.75f`, `seVolume==.65f`, `purchaseNoticeAcknowledged==false`をAssert.Thatで検証する。
-- [ ] `PreferencesRoundTripAndRollback`で確認済み・音量0・OFFを保存／再読込し、失敗するIStateStoreでは設定・確認・timestamp・既存mergeLocksが操作前と一致することを検証する。`InvalidV2VolumeUsesHealthyBackup`は負数／1超／NaN／Infinity／音量欠落／未知versionを拒否し、旧v1バックアップのCoins30を保持する。
-- [ ] CoreコマンドでREDを記録する。既存のversion1前提テストは「新形式2」と独立した「旧形式1の移行」に分け、未知形式の文字列置換が実際に成立したこともAssertする。
-- [ ] 上記シグネチャを実装する。DataContractのフィールド初期化に依存せず、v1だけ新値を補完し、v2の欠落音量は検出する。全新項目をClone／CopyFromに含め、確認済み再確認は保存を重複させない。原子的置換と健全バックアップ保持を継続する。
-- [ ] Core全件とUnity APIコンパイルを実行する。v1移行→確認保存→v2再起動→再納品拒否まで連結して検証する。
-- [ ] `feat: migrate saves and persist purchase notice and audio preferences`として当タスクのファイルをコミットする。
+- [x] RED用テストを追加する。v1 fixtureは新フィールドを持たない旧JSONとし、`V1MigrationPreservesCompletedProgressAndMutedAudio`で`coins==30`, `townGrowthLevel==1`, 完了／受領ID・盤面・inventory・受注状態・既存全項目の一致、`bgmEnabled==false`, `saveVersion==2`, `bgmVolume==.75f`, `seVolume==.65f`, `purchaseNoticeAcknowledged==false`をAssert.Thatで検証する。
+- [x] `PreferencesRoundTripAndRollback`で確認済み・音量0・OFFを保存／再読込し、失敗するIStateStoreでは設定・確認・timestamp・既存mergeLocksが操作前と一致することを検証する。`InvalidV2VolumeUsesHealthyBackup`は負数／1超／NaN／Infinity／音量欠落／未知versionを拒否し、旧v1バックアップのCoins30を保持する。
+- [x] CoreコマンドでREDを記録する。既存のversion1前提テストは「新形式2」と独立した「旧形式1の移行」に分け、未知形式の文字列置換が実際に成立したこともAssertする。
+- [x] 上記シグネチャを実装する。DataContractのフィールド初期化に依存せず、v1だけ新値を補完し、v2の欠落音量は検出する。全新項目をClone／CopyFromに含め、確認済み再確認は保存を重複させない。原子的置換と健全バックアップ保持を継続する。
+- [x] Core全件とUnity APIコンパイルを実行する。v1移行→確認保存→v2再起動→再納品拒否まで連結して検証する。
+- [x] `feat: migrate saves and persist purchase notice and audio preferences`として当タスクのファイルをコミットする。
 
 ## Task 2: 全画面レイアウト・正式原画・TOP／ホーム・初回確認
 

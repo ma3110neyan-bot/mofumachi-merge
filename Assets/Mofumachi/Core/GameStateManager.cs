@@ -19,7 +19,26 @@ namespace Mofumachi.Core
         public bool TryMerge(int from, int to) => Mutate(() => Board.TryMerge(from, to));
         public bool TryMove(int from, int to) => Mutate(() => Board.TryMove(from, to));
         public bool AddItem(string id, int level) => Mutate(() => Board.AddItem(id, level));
-        public bool SetAudio(bool bgm, bool se) => Mutate(() => { State.bgmEnabled = bgm; State.seEnabled = se; return true; });
+        public bool SetAudio(bool bgm, bool se) => SetAudioPreferences(bgm, se, State.bgmVolume, State.seVolume);
+        public bool SetAudioPreferences(bool bgm, bool se, float bgmVolume, float seVolume)
+        {
+            if (!StateCodec.ValidVolume(bgmVolume) || !StateCodec.ValidVolume(seVolume))
+            { LastError = "音量は0から100%の範囲で設定してください。"; return false; }
+            return Mutate(() =>
+            {
+                State.bgmEnabled = bgm; State.seEnabled = se;
+                State.bgmVolume = bgmVolume; State.seVolume = seVolume;
+                return true;
+            });
+        }
+        public bool AcknowledgePurchaseNotice()
+        {
+            lock (State.SyncRoot)
+            {
+                if (State.purchaseNoticeAcknowledged) { LastError = ""; return true; }
+                return Mutate(() => { State.purchaseNoticeAcknowledged = true; return true; });
+            }
+        }
         public bool Save()
         {
             lock (State.SyncRoot)

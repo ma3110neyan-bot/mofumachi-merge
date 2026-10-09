@@ -24,7 +24,7 @@ namespace Mofumachi.Tests
             Assert.That(loaded.Recovered, Is.False);
             var s = loaded.State;
             // Unity's custom NUnit does not support Assert.Multiple.
-            Assert.That(s.saveVersion, Is.EqualTo(1)); Assert.That(s.coins, Is.EqualTo(42));
+            Assert.That(s.saveVersion, Is.EqualTo(2)); Assert.That(s.coins, Is.EqualTo(42));
             Assert.That(s.gems, Is.EqualTo(7)); Assert.That(s.stamina, Is.EqualTo(12));
             Assert.That(s.playerLevel, Is.EqualTo(3)); Assert.That(s.townGrowthLevel, Is.EqualTo(2));
             Assert.That(s.activeQuestId, Is.EqualTo("tea-01")); Assert.That(s.questState, Is.EqualTo(QuestState.Producing));
@@ -65,8 +65,11 @@ namespace Mofumachi.Tests
         [Test] public void UnknownVersionIsNotLoaded()
         {
             var save = new SaveService(directory); save.Save(GameState.CreateInitial());
-            File.WriteAllText(save.PrimaryPath, File.ReadAllText(save.PrimaryPath).Replace("\"saveVersion\":1", "\"saveVersion\":99"));
-            Assert.That(save.Load().Recovered, Is.True); Assert.That(save.Load().State.saveVersion, Is.EqualTo(1));
+            string original = File.ReadAllText(save.PrimaryPath);
+            string unsupported = original.Replace("\"saveVersion\":2", "\"saveVersion\":99");
+            Assert.That(unsupported, Is.Not.EqualTo(original));
+            File.WriteAllText(save.PrimaryPath, unsupported);
+            Assert.That(save.Load().Recovered, Is.True); Assert.That(save.Load().State.saveVersion, Is.EqualTo(2));
         }
         [TestCase(-1)] [TestCase(30)] public void InvalidCellIsRejectedBeforeSave(int index)
         {

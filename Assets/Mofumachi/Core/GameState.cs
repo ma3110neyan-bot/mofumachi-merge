@@ -14,17 +14,17 @@ namespace Mofumachi.Core
     [Serializable, DataContract]
     public sealed class BoardItem
     {
-        [DataMember] public string itemId;
-        [DataMember] public int level;
-        [DataMember] public int cellIndex;
+        [DataMember(IsRequired = true)] public string itemId;
+        [DataMember(IsRequired = true)] public int level;
+        [DataMember(IsRequired = true)] public int cellIndex;
         public BoardItem(string id, int itemLevel, int cell) { itemId = id; level = itemLevel; cellIndex = cell; }
     }
     [Serializable, DataContract]
     public sealed class InventoryEntry
     {
-        [DataMember] public string itemId;
-        [DataMember] public int level;
-        [DataMember] public int count;
+        [DataMember(IsRequired = true)] public string itemId;
+        [DataMember(IsRequired = true)] public int level;
+        [DataMember(IsRequired = true)] public int count;
         public InventoryEntry(string id, int itemLevel, int quantity) { itemId = id; level = itemLevel; count = quantity; }
     }
     [Serializable, DataContract]
@@ -35,22 +35,40 @@ namespace Mofumachi.Core
         private HashSet<int> mergeLocks;
         internal HashSet<int> MergeLocks => LazyInitializer.EnsureInitialized(ref mergeLocks);
         public const int Columns = 5, Rows = 6, MaxLevel = 3;
-        [DataMember] public int saveVersion = 1;
-        [DataMember] public int coins;
-        [DataMember] public int gems;
-        [DataMember] public int stamina = 30;
-        [DataMember] public int playerLevel = 1;
-        [DataMember] public int townGrowthLevel;
-        [DataMember] public string activeQuestId = "";
-        [DataMember] public QuestState questState;
-        [DataMember] public int questProgress;
-        [DataMember] public List<InventoryEntry> inventory = new List<InventoryEntry>();
-        [DataMember] public List<BoardItem> mergeBoard = new List<BoardItem>();
-        [DataMember] public List<string> completedQuestIds = new List<string>();
-        [DataMember] public List<string> claimedRewardIds = new List<string>();
-        [DataMember] public bool bgmEnabled = true;
-        [DataMember] public bool seEnabled = true;
-        [DataMember] public string lastSaveTime = "";
+        public const int CurrentSaveVersion = 2;
+        [DataMember(IsRequired = true)] public int saveVersion = CurrentSaveVersion;
+        [DataMember(IsRequired = true)] public int coins;
+        [DataMember(IsRequired = true)] public int gems;
+        [DataMember(IsRequired = true)] public int stamina = 30;
+        [DataMember(IsRequired = true)] public int playerLevel = 1;
+        [DataMember(IsRequired = true)] public int townGrowthLevel;
+        [DataMember(IsRequired = true)] public string activeQuestId = "";
+        [DataMember(IsRequired = true)] public QuestState questState;
+        [DataMember(IsRequired = true)] public int questProgress;
+        [DataMember(IsRequired = true)] public List<InventoryEntry> inventory = new List<InventoryEntry>();
+        [DataMember(IsRequired = true)] public List<BoardItem> mergeBoard = new List<BoardItem>();
+        [DataMember(IsRequired = true)] public List<string> completedQuestIds = new List<string>();
+        [DataMember(IsRequired = true)] public List<string> claimedRewardIds = new List<string>();
+        [DataMember(IsRequired = true)] public bool bgmEnabled = true;
+        [DataMember(IsRequired = true)] public bool seEnabled = true;
+        [DataMember] public float bgmVolume = .75f;
+        [DataMember] public float seVolume = .65f;
+        [DataMember] public bool purchaseNoticeAcknowledged;
+        [DataMember(IsRequired = true)] public string lastSaveTime = "";
+
+        [OnDeserializing]
+        private void BeforeDeserialize(StreamingContext context)
+        {
+            // DataContract does not run field initializers. Missing v2 volumes must be rejected.
+            bgmVolume = seVolume = float.NaN;
+        }
+        [OnDeserialized]
+        private void AfterDeserialize(StreamingContext context)
+        {
+            if (saveVersion != 1) return;
+            bgmVolume = .75f; seVolume = .65f; purchaseNoticeAcknowledged = false;
+            saveVersion = CurrentSaveVersion;
+        }
 
         public static GameState CreateInitial()
         {
@@ -68,6 +86,8 @@ namespace Mofumachi.Core
             inventory = c.inventory; mergeBoard = c.mergeBoard;
             completedQuestIds = c.completedQuestIds; claimedRewardIds = c.claimedRewardIds;
             bgmEnabled = c.bgmEnabled; seEnabled = c.seEnabled; lastSaveTime = c.lastSaveTime;
+            bgmVolume = c.bgmVolume; seVolume = c.seVolume;
+            purchaseNoticeAcknowledged = c.purchaseNoticeAcknowledged;
         }
     }
 
@@ -88,10 +108,11 @@ namespace Mofumachi.Core
         }
         public static void Validate(GameState s)
         {
-            if (s == null || s.saveVersion != 1 || s.coins < 0 || s.gems < 0 || s.stamina < 0 ||
+            if (s == null || s.saveVersion != GameState.CurrentSaveVersion || s.coins < 0 || s.gems < 0 || s.stamina < 0 ||
                 s.playerLevel < 1 || s.townGrowthLevel < 0 || s.questProgress < 0 ||
                 s.activeQuestId == null || s.lastSaveTime == null || !Enum.IsDefined(typeof(QuestState), s.questState) ||
-                s.inventory == null || s.mergeBoard == null || s.completedQuestIds == null || s.claimedRewardIds == null)
+                s.inventory == null || s.mergeBoard == null || s.completedQuestIds == null || s.claimedRewardIds == null ||
+                !ValidVolume(s.bgmVolume) || !ValidVolume(s.seVolume))
                 throw new InvalidDataException("Invalid or unsupported save state.");
             var cells = new HashSet<int>();
             foreach (var item in s.mergeBoard)
@@ -107,5 +128,6 @@ namespace Mofumachi.Core
             if (s.lastSaveTime.Length > 0 && !DateTimeOffset.TryParse(s.lastSaveTime, out _))
                 throw new InvalidDataException("Invalid save timestamp.");
         }
+        internal static bool ValidVolume(float value) => !float.IsNaN(value) && !float.IsInfinity(value) && value >= 0 && value <= 1;
     }
 }

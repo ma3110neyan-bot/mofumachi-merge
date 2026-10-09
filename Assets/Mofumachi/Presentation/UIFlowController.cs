@@ -29,6 +29,7 @@ namespace Mofumachi.Presentation
         private AudioManager audioManager;
         private string view, settingsReturnView = "title", notice = "";
         private int selected = -1;
+        public int SelectedCell => selected;
         private Rect previousSafeArea;
         private Vector2 previousSize;
         private Coroutine mergeAnimation;
@@ -129,16 +130,19 @@ namespace Mofumachi.Presentation
             if(!Game.State.purchaseNoticeAcknowledged || IsPurchaseNoticeOpen)return false;
             bool accepted = Game.Quests.AcceptQuest(QuestDefinition.First);
             notice = accepted ? "依頼を受けました。お茶を合成しましょう。" : Game.Quests.LastError;
+            feedback[accepted?ScreenId.Merge:ScreenId.Quest]=notice;
             Render(accepted ? "merge" : "quest");
             return accepted;
         }
         public bool DropItem(int from, int to)
         {
             if (!Game.State.purchaseNoticeAcknowledged || IsPurchaseNoticeOpen || mergeAnimation != null) return false;
-            bool merged = Game.TryMerge(from, to);
-            bool changed = merged || Game.TryMove(from, to);
+            bool occupied=Game.Board.At(to)!=null;
+            bool merged = occupied && Game.TryMerge(from, to);
+            bool changed = occupied ? merged : Game.TryMove(from, to);
             notice = changed ? (merged ? "キラッ！ お茶が育ちました。" : "移動しました。") : "その場所には移動・合成できません。";
             if (!changed && Game.LastError.Length > 0) notice = Game.LastError;
+            feedback[ScreenId.Merge]=notice;
             if (merged)
             {
                 audioManager.PlaySe(AudioCue.Merge);
@@ -151,7 +155,7 @@ namespace Mofumachi.Presentation
             yield return new WaitForSecondsRealtime(.22f);
             mergeAnimation = null;
             Game.Board.ReleaseLocks(); Game.Quests.RefreshProgress();
-            if (!Game.Save()) notice = Game.LastError;
+            if (!Game.Save()) feedback[ScreenId.Merge] = Game.LastError;
             Render(view);
         }
         public DeliveryResult Deliver()
@@ -234,8 +238,12 @@ namespace Mofumachi.Presentation
             view = target; CurrentScreen=(ScreenId)System.Enum.Parse(typeof(ScreenId),target,true);
             if (page != null) { page.SetActive(false); Destroy(page); }
             page = Node(target, portraitRoot, Vector2.zero, Vector2.one).gameObject;
-            if(target=="title" || target=="home")
-            { if(target=="title")TopHomeScreens.BuildTitle((RectTransform)page.transform,context);else TopHomeScreens.BuildHome((RectTransform)page.transform,context);return; }
+            if(target=="title" || target=="home" || target=="quest" || target=="merge")
+            {
+                var root=(RectTransform)page.transform;
+                switch(CurrentScreen){case ScreenId.Title:TopHomeScreens.BuildTitle(root,context);break;case ScreenId.Home:TopHomeScreens.BuildHome(root,context);break;case ScreenId.Quest:QuestMergeScreens.BuildQuest(root,context);break;case ScreenId.Merge:QuestMergeScreens.BuildMerge(root,context);break;}
+                return;
+            }
             notice=FeedbackFor(CurrentScreen);
             page.AddComponent<Image>().color = new Color(1, .96f, .90f);
             Label("もふまちメルジュ", page.transform, new Vector2(.03f, .9f), new Vector2(.97f, 1), 28);
@@ -298,10 +306,17 @@ namespace Mofumachi.Presentation
             });
             Button("設定", new Vector2(.54f, .025f), new Vector2(.96f, .105f), ShowSettings);
         }
-        private void TapCell(int cell)
+        public void TapCell(int cell)
         {
-            if (selected < 0) { if (Game.Board.At(cell) != null) { selected = cell; notice = "移動先のお茶または空きマスをタップ"; Render("merge"); } }
+            if(mergeAnimation!=null || IsPurchaseNoticeOpen)return;
+            if (selected < 0) { if (Game.Board.At(cell) != null) { selected = cell; feedback[ScreenId.Merge] = "移動先のお茶または空きマスをタップ"; Render("merge"); } }
             else DropItem(selected, cell);
+        }
+        public void CreateTea()
+        {
+            if(mergeAnimation!=null || IsPurchaseNoticeOpen)return;
+            bool added=Game.AddItem("tea",1); feedback[ScreenId.Merge]=added?"お茶を作りました。":Game.LastError.Length>0?Game.LastError:"空きマスを確認してください。";
+            if(added)PlayCue(AudioCue.Confirm);Render("merge");
         }
         private void SetAudio(bool bgm, bool se)
         {

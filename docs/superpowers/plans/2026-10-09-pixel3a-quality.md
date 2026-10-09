@@ -121,12 +121,12 @@
 - Consumes: 既存`bool AcceptQuest()`, `bool DropItem(int from, int to)`, `MergeBoard.At(int cell): BoardItem`, `IsLocked(int cell): bool`, `QuestManager.CheckDelivery(): bool`, `RefreshProgress()`。Task2のScreenContext／UIWidgets／CellSizeとTask3のMerge／Character cue。
 - Produces: `void QuestMergeScreens.BuildQuest(RectTransform root, ScreenContext context)`、`void BuildMerge(RectTransform root, ScreenContext context)`、既存`MergeBoardView.Initialize(UIFlowController flow, int index)`とEventSystemのdrag handlerを維持する。
 
-- [ ] `PointerDragAndTwoTapsProduceOneMerge`で実raycast→beginDrag／drag／endDragを通し、Lv.1二つ→Lv.2一つ、ドラッグ末尾のclickと合成中の連打は追加変更なし。別テストで2タップ空セル移動、盤面外drop、異なるLv.／最大Lv.／ロックセルの拒否を検証する。
-- [ ] `BackgroundingOrLeavingMergeClearsOnlyTransientInput`でドラッグghost／選択／coroutine／ロックが消え、保存済みアイテムが保持されることをAssertする。`ShortPortraitBoardStaysSquareAndOperable`は30セルが正方形・48以上・Safe Area内で、下の生成／納品ボタンに重ならないことを検証する。
-- [ ] クラウドではUnity APIコンパイルで追加テストを検査し、Windowsで挙動RED／GREENを確認する。コアの既存意味を変えて表示テストだけを通さない。
-- [ ] 依頼→Mergeの順で実装する。依頼は原画カード・必要数／所持数・30 Coins、受注／完了／納品可能を実状態から表示する。盤面は利用可能幅／高さの小さい方から寸法を決め、アイテムを読みやすい茶アイコン＋Lv.で表示する。ドラッグ成功とクリックを重複処理せず、合成中は再入力を拒否する。
-- [ ] 短いMerge演出後にReleaseLocks→RefreshProgress→Saveを行い、画面移動・pauseでも解放する。お茶生成は既存AddItemを使い、保存失敗時に成功音／成功表示を出さない。納品ボタンはCheckDeliveryが真の時だけ有効にする。
-- [ ] Core全件／Unity APIコンパイル、30セル・文字・metaを検証し、`feat: rebuild quest and merge screens with safe touch input`としてコミットする。
+- [x] `PointerDragAndTwoTapsProduceOneMerge`で実raycast→beginDrag／drag／endDragを通し、Lv.1二つ→Lv.2一つ、ドラッグ末尾のclickと合成中の連打は追加変更なし。別テストで2タップ空セル移動、盤面外drop、異なるLv.／最大Lv.／ロックセルの拒否を検証する。
+- [x] `BackgroundingOrLeavingMergeClearsOnlyTransientInput`でドラッグghost／選択／coroutine／ロックが消え、保存済みアイテムが保持されることをAssertする。`ShortPortraitBoardStaysSquareAndOperable`は30セルが正方形・48以上・Safe Area内で、下の生成／納品ボタンに重ならないことを検証する。
+- [x] クラウドではUnity APIコンパイルで追加テストを検査し、Windowsで挙動RED／GREENを確認する。コアの既存意味を変えて表示テストだけを通さない。
+- [x] 依頼→Mergeの順で実装する。依頼は原画カード・必要数／所持数・30 Coins、受注／完了／納品可能を実状態から表示する。盤面は利用可能幅／高さの小さい方から寸法を決め、アイテムを読みやすい茶アイコン＋Lv.で表示する。ドラッグ成功とクリックを重複処理せず、合成中は再入力を拒否する。
+- [x] 短いMerge演出後にReleaseLocks→RefreshProgress→Saveを行い、画面移動・pauseでも解放する。お茶生成は既存AddItemを使い、保存失敗時に成功音／成功表示を出さない。納品ボタンはCheckDeliveryが真の時だけ有効にする。
+- [x] Core全件／Unity APIコンパイル、30セル・文字・metaを検証し、`feat: rebuild quest and merge screens with safe touch input`としてコミットする。
 
 ## Task 5: 保存済み納品から報酬・街成長を表示
 

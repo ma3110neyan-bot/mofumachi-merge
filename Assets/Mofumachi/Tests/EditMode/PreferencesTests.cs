@@ -162,6 +162,13 @@ namespace Mofumachi.Tests
             Assert.That(disk.Load().State.coins, Is.EqualTo(60));
         }
 
+        [Test] public void RefusedMoveDoesNotReusePreviousSaveFailure()
+        {
+            var disk=new SwitchableStore(new SaveService(directory)){Fail=true};var game=new GameStateManager(GameState.CreateInitial(),disk);
+            Assert.That(game.TryMerge(0,1),Is.False);Assert.That(game.LastError,Is.Not.Empty);
+            disk.Fail=false;Assert.That(game.TryMove(0,1),Is.False);Assert.That(game.LastError,Is.Empty);
+        }
+
         private sealed class SwitchableStore : IStateStore
         {
             private readonly IStateStore disk;

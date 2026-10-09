@@ -52,6 +52,7 @@ namespace Mofumachi.Core
         {
             lock (State.SyncRoot)
             {
+                LastError = "";
                 var before = State.Clone();
                 var previousLocks = State.MergeLocks.ToArray();
                 if (!action()) return false;

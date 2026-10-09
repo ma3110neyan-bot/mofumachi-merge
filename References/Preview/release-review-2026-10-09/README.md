@@ -2,6 +2,8 @@
 
 **実装前のレビュー資料。新しいUnity UIやAPKではありません。** 現在のAPKにこの画面・音・初回ダイアログはまだ含まれていません。
 
+2026-10-09、ユーザーがこの画面・音・設計の方向を承認した。以後の実装はこの資料に沿って進める。PCとPixel 3aを接続できるUSBケーブルも見つかったため、新しいAPKの実機確認にはADB経由の更新を優先する。
+
 - [設計案](../../../docs/superpowers/specs/2026-10-09-pixel3a-quality-design.md)
 - [8画面の一覧画像](screen-proposal-board.png)
 - [画面切り替えHTML](preview.html)
@@ -38,7 +40,7 @@ Pixel 3aで画像を見る場合は`top.png`、`home.png`等、または一覧�
 
 ## 音源と出典
 
-新しい音はこの作業で構成した旋律・編曲を、CC0実録サンプルでレンダリングしたもの。以前のオシレーターによる仮音と、第三者の既存デモ曲は流用していない。正式採用・ミックス・ループ調整・Pixelスピーカー確認はまだ行っていない。
+新しい音はこの作業で構成した旋律・編曲を、CC0実録サンプルでレンダリングしたもの。以前のオシレーターによる仮音と、第三者の既存デモ曲は流用していない。音の方向は承認済み。Unity用の最終ミックス・ループ調整・Pixelスピーカー確認はまだ行っていない。
 
 - VCSL: https://github.com/sgossner/VCSL — Versilian Studios LLC、CC0 1.0。ピアノ、マリンバ、グロッケン、シェイカー、ボンゴ。
 - VSCO-2-CE: https://github.com/sgossner/VSCO-2-CE — 録音Sam Gossner／Simon Dalzell、編集Elan Hickler／Soundemote、CC0 1.0。柔らかいヴァイオリン・セクション。
@@ -63,6 +65,6 @@ BGM約40秒、決定0.38秒、キャラ反応0.36秒、Merge1秒、納品1.18秒
 
 Unity6000.6.4f1のAndroid Build Support／SDK・NDK／OpenJDKを使用し、`Mofumachi → Android → Configure Pixel 3a`でAPI36を設定する。Editorを閉じて`scripts/build-android.ps1`を実行する方法では、テストと新しいAPK・SHA-256を確認する。実装に追加したテストの必要件数も更新する。
 
-USB転送が使えない場合は、新しいAPKをPCから本人のGoogle Driveへアップロードし、Pixel側で同じファイルをダウンロードしてインストールする。古いAPKを新しい実装の確認に使わない。
+現在はUSBケーブルを利用できる。実装後は端末でUSBデバッグを許可し、既存セーブを残す更新インストールと、別IDのQA版で最初から一周する試験を分ける。端末の接続・許可が完了したこと自体はまだ確認していない。USB転送が使えない場合は、新しいAPKをPCから本人のGoogle Driveへアップロードする従来の方法も使える。古いAPKを新しい実装の確認に使わない。
 
 Pixelでは起動、初回確認と二回目以降の非表示、縦画面全体、全画面の文字とボタン、ドラッグ／Merge、不足時の無消費、正常納品、報酬・街成長、二重納品防止、BGM／SE／各音量、アプリ中断、セーブ／再起動復帰を確認する。

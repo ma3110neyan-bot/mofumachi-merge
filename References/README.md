@@ -29,3 +29,7 @@ Preview/mofumachi_pixel3a_preview_v0.3_6characters.html
 - キャラタップ: 小さな反応音。
 
 音の試作・確認と正式素材への差し替えはPresentation実装で行う。正式音源の未収録を、セーブ・Merge・納品コアの実装を止める条件にしない。
+
+## Pixel 3a品質向上の新しいレビュー案 — 2026-10-09
+
+[7画面＋初回確認、BGM／6種類のSE](Preview/release-review-2026-10-09/README.md)を用意した。縮小した参考画像と平面ボタンを置き換えるための実装前の資料。正式6名の原本と既存v0.3は保持する。レビュー案は新しいUnity実装／APKの成功を意味しない。

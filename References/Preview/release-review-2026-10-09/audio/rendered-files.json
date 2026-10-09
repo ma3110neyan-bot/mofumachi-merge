@@ -1,0 +1,92 @@
+[
+  {
+    "file": "01-button-confirm.ogg",
+    "sha256": "fe23178e0455881cb8009c7182a1af8bfef734577e9acec2cfd12d59770f67bb",
+    "bytes": 10916,
+    "duration": 0.38,
+    "channels": 2,
+    "sampleRate": 44100,
+    "peakDb": -9.1
+  },
+  {
+    "file": "02-character-tap.ogg",
+    "sha256": "57852e403d9bf60ef1b563c62ad7bebeaa311c7812148e18097ba4bf89dd981e",
+    "bytes": 12572,
+    "duration": 0.36,
+    "channels": 2,
+    "sampleRate": 44100,
+    "peakDb": -9.1
+  },
+  {
+    "file": "03-merge-success.ogg",
+    "sha256": "928991d1c0ef89e6aeac1c2b20adb87a99f93ec6f518bf3d243272255666a57b",
+    "bytes": 22234,
+    "duration": 1.0,
+    "channels": 2,
+    "sampleRate": 44100,
+    "peakDb": -6.6
+  },
+  {
+    "file": "04-delivery-complete.ogg",
+    "sha256": "3b72589de6f771f94b8a19896751d550e2d22e060eb3ae0440dee38c16c1eb53",
+    "bytes": 25007,
+    "duration": 1.18,
+    "channels": 2,
+    "sampleRate": 44100,
+    "peakDb": -7.1
+  },
+  {
+    "file": "05-reward-chime.ogg",
+    "sha256": "14a61947f725dfe4c8a33c97ba400943f04919c2f9c17129828ee09c3338db2c",
+    "bytes": 38747,
+    "duration": 1.85,
+    "channels": 2,
+    "sampleRate": 44100,
+    "peakDb": -6.9
+  },
+  {
+    "file": "06-town-growth.ogg",
+    "sha256": "45b1a31c8eaa0261a9d8f8a3606c6ef93b6859fe4ad945a95631dd7e332e9248",
+    "bytes": 61399,
+    "duration": 2.85,
+    "channels": 2,
+    "sampleRate": 44100,
+    "peakDb": -7.1
+  },
+  {
+    "file": "bgm-direction-review.ogg",
+    "sha256": "7af38d2526a80e70939a75d6a78f3c895a67453dbf4bafc705ee7be040da056f",
+    "bytes": 813546,
+    "duration": 40.447052,
+    "channels": 2,
+    "sampleRate": 44100,
+    "peakDb": -7.3
+  },
+  {
+    "file": "bgm-short-review.mp3",
+    "sha256": "68b62b21e1526f6dc53e603eca88b1e8780877f60b60fa52cfaee64540b44818",
+    "bytes": 481532,
+    "duration": 20.035918,
+    "channels": 2,
+    "sampleRate": 44100,
+    "peakDb": -7.6
+  },
+  {
+    "file": "se-six-cues-review.mp3",
+    "sha256": "1e94ab7cbbea6ed8a16b9861b2110f065b1e17e347c9465721014365ef425f5b",
+    "bytes": 218635,
+    "duration": 13.635918,
+    "channels": 2,
+    "sampleRate": 44100,
+    "peakDb": -6.8
+  },
+  {
+    "file": "se-six-cues-review.ogg",
+    "sha256": "e538a773a786c02abb5067adfc8f152742659540d7cb55148b256ec1c41195b9",
+    "bytes": 166734,
+    "duration": 13.6,
+    "channels": 2,
+    "sampleRate": 44100,
+    "peakDb": -6.3
+  }
+]

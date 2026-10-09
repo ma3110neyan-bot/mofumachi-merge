@@ -24,12 +24,18 @@
 | 正式画像とゲーム内画像のSHA-256 | 一致 |
 | PowerShell | 7.4.13で構文確認、空白を含むパスの受け渡し、正常XML受理、0件/失敗/スキップ/欠損XML拒否を確認 |
 | Windowsでのインポート・手動操作 | Safe Mode解除、画像表示、BGM再生を確認。下記UI修正後、タイトル→ホーム→受注→Merge→納品→+30 Coins・街Lv.1の画面を確認 |
-| Unity EditMode / PlayMode | Windowsの`cf191a0`で40件 / 5件すべて成功。失敗0・未実行0のユーザー画面を確認。今回変更したSDK設定テストはWindowsで再実行予定 |
+| Unity EditMode / PlayMode | Windowsの`cf191a0`で40件 / 5件すべて成功。`b988202`のSDK36設定テスト1件もWindowsで成功。その回の他39件は未実行で、前回の結果と区別する |
 | AndroidX AARのSDK要件と設定 | 公式core/core-ktx 1.15.0のminCompileSdk=35。旧設定34で検査失敗、修正36で整合を確認。同梱SDKにAPI 36あり、最低API 26を維持 |
-| IL2CPP / APK | WindowsでAPKを試行し、下記AAR検査で失敗。SDK修正後の再ビルドと最終APK成功は未確認 |
-| Pixel 3a | 実機試験は未実行 |
+| IL2CPP / APK | WindowsのSDK修正後に`MOFUMACHI_APK_SUCCESS`と51,201,037 bytesのAPKをユーザー画面で確認。クラウドではAPKの生成・実行・ハッシュ確認をしていない |
+| Pixel 3a | Development BuildのホームCoins30／街Lv.1、依頼完了、BGM／SE設定の実機画像を確認。画面とメニューの品質に課題があり、全Smoke Test・音質・再起動復帰は未確認 |
 
 DLL参照のコンパイル確認はUnityによるインポート・実行の代わりではない。PowerShellの検証もWindows上のUnityプロセス実行の代わりではない。
+
+## Pixel 3aの画面・音の品質向上 — 2026-10-09
+
+ユーザーは実機の小さい街画像と平面のメニューを完成品質として認めていない。現在の9:16固定枠と小さいTown画像を置き換え、背景は端末全体、操作はSafe Area内で配置する必要がある。[新しい画面・音の設計案](superpowers/specs/2026-10-09-pixel3a-quality-design.md)と[確認用画像・音源](../References/Preview/release-review-2026-10-09/README.md)を準備した。これらは実装前のレビュー資料で、既存APKには反映されていない。
+
+新しい初回課金案内、音量保存、v1セーブ移行、納品／報酬／街成長の表示、実録楽器による音源は設計確認後に実装・検証する。正式6名を再描画せず、透過全身／歩行素材の未収録も完成判定へ明示する。最終APKは引き続きWindows6000.6.4f1で作成する。
 
 ## Windows初回インポートで判明した互換性修正
 

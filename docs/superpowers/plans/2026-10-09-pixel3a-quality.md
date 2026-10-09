@@ -168,15 +168,19 @@
 - Produces: `build-android.ps1 [-UnityEditor <path>] [-Qa]`、`install-pixel3a.ps1 -Apk <path> [-Adb <path>] [-Serial <serial>] [-PackageName com.mofumachi.merge|com.mofumachi.merge.qa]`。`-Qa`はBuildQaApkへ接続し、QA build終了時／失敗時に通常のappId／productName設定を戻す。
 - Produces: 各実行フォルダーのAPK／XML／ログ／SHA／`build-info.json`（Git revision、Unity、appId、versionCode、APK SHA、サイズ、日時）。Git revisionを取得できなければ不明と記録し、推測値を入れない。転送はUnity同梱SDKのbuild-tools36.0.0のaapt2でAPK実パッケージと指定IDを照合し、端末指定・更新install・起動・保存を消さないforce-stop復帰の手順を提供する。
 
-- [ ] `ContentGateRejectsMissingBackgroundAudioOrJapaneseGlyphs`は背景／7clip／UIFont／bootstrapの欠損を拒否する。`QaBuildIdentityIsIsolatedAndRestoredAfterFailure`は別IDと通常設定復元をAssertする。API36／26／ARM64／IL2CPP／縦向きの既存テストも継続する。
-- [ ] PowerShellの実行ゲートを検証する。`RejectsMissingFailedSkippedOrIncompleteTestXml`は今回の予定件数と必須suiteを満たさないXMLを拒否する。`InstallTargetsExactlyOneAuthorizedDeviceAndCorrectPackage`は空／unauthorized／複数端末／wrong APK／install失敗を拒否し、全コマンドの`-s`指定と空白pathを検査する。mock ADB結果の検査を実機成功と呼ばない。
-- [ ] ビルドとインストールを実装する。新しい全テストの件数をゲートへ反映し、古い40／5を新しい全件合格と扱わない。ASCII project path、今回のXML、プロセス終了コード、今回のAPK、marker、SHAを検証する。署名不一致時は停止し、uninstall／pm clearを自動実行しない。
-- [ ] Windows／Pixel手順を改訂する。USBデバッグ許可→`device`／ARM64／API≥26→通常版`install -r`→初回案内→旧coins30／街Lv.1／完了・音OFFの維持→再起動で案内非表示。別QA版は初期coins0から案内→受注→不足状態の納品不可・無消費→drag／2tap→Merge→正常納品→30 Coins→街Lv.1→再納品拒否→音各設定→中断／再起動を順に記録する。
-- [ ] Pixelの全7画面・初回案内を1080×2220実機で確認し、文字切れ・余白・ボタン／ドラッグ・通知・音割れ・ループ継ぎ目・再起動を表へ記録する。新APKのSHA／端末API／日時／スクリーンショット／logcatと対応させる。Windows／実機をこちらで実行できない場合は「手順整備済み、実行待ち」と明記する。
-- [ ] Play最小素材を準備する。承認済み街の世界観に沿うキャラなしアイコン512×512・feature graphic1024×500を候補として作り、原画を再描画しない。ストア説明案、名称／appId／現行version1.0・code1と将来の更新規則、OFL／CC0出典、privacy／Data safetyの実データ監査、非Developmentリリース設定、AAB／署名・Console要件の残項目を文書化する。実機完成画面をストア写真に使い、モック画像を実機写真と呼ばない。
-- [ ] Core全件、Unity API全ソースコンパイル、PowerShellゲート、素材／font／meta／原画SHA、diff-checkを実行する。major変更の独立コードレビューで具体的な重要問題を修正し、修正に関係する検証を再実行する。
-- [ ] `docs/pixel3a-quality-status.md`へ変更ファイル一覧／実装内容／未解決事項／Windowsビルド手順／Pixel確認項目と証拠をまとめ、`build: prepare validated Pixel 3a APK and USB testing workflow`としてコミットする。
+- [x] `ContentGateRejectsMissingBackgroundAudioOrJapaneseGlyphs`は背景／7clip／UIFont／bootstrapの欠損を拒否する。`QaBuildIdentityIsIsolatedAndRestoredAfterFailure`は別IDと通常設定復元をAssertする。API36／26／ARM64／IL2CPP／縦向きの既存テストも継続する。
+- [x] PowerShellの実行ゲートを検証する。`RejectsMissingFailedSkippedOrIncompleteTestXml`は今回の予定件数と必須suiteを満たさないXMLを拒否する。`InstallTargetsExactlyOneAuthorizedDeviceAndCorrectPackage`は空／unauthorized／複数端末／wrong APK／install失敗を拒否し、全コマンドの`-s`指定と空白pathを検査する。mock ADB結果の検査を実機成功と呼ばない。
+- [x] ビルドとインストールを実装する。新しい全テストの件数をゲートへ反映し、古い40／5を新しい全件合格と扱わない。ASCII project path、今回のXML、プロセス終了コード、今回のAPK、marker、SHAを検証する。署名不一致時は停止し、uninstall／pm clearを自動実行しない。
+- [x] Windows／Pixel手順を改訂する。USBデバッグ許可→`device`／ARM64／API≥26→通常版`install -r`→初回案内→旧coins30／街Lv.1／完了・音OFFの維持→再起動で案内非表示。別QA版は初期coins0から案内→受注→不足状態の納品不可・無消費→drag／2tap→Merge→正常納品→30 Coins→街Lv.1→再納品拒否→音各設定→中断／再起動を順に記録する。
+- [x] Pixelの全7画面・初回案内を1080×2220実機で確認し、文字切れ・余白・ボタン／ドラッグ・通知・音割れ・ループ継ぎ目・再起動を表へ記録する。新APKのSHA／端末API／日時／スクリーンショット／logcatと対応させる。Windows／実機をこちらで実行できない場合は「手順整備済み、実行待ち」と明記する。
+- [x] Play最小素材を準備する。承認済み街の世界観に沿うキャラなしアイコン512×512・feature graphic1024×500を候補として作り、原画を再描画しない。ストア説明案、名称／appId／現行version1.0・code1と将来の更新規則、OFL／CC0出典、privacy／Data safetyの実データ監査、非Developmentリリース設定、AAB／署名・Console要件の残項目を文書化する。実機完成画面をストア写真に使い、モック画像を実機写真と呼ばない。
+- [x] Core全件、Unity API全ソースコンパイル、PowerShellゲート、素材／font／meta／原画SHA、diff-checkを実行する。major変更の独立コードレビューで具体的な重要問題を修正し、修正に関係する検証を再実行する。
+- [x] `docs/pixel3a-quality-status.md`へ変更ファイル一覧／実装内容／未解決事項／Windowsビルド手順／Pixel確認項目と証拠をまとめ、`build: prepare validated Pixel 3a APK and USB testing workflow`としてコミットする。
 
 ## 完成の扱い
 
 ソース実装とクラウド検証が通っても、Windowsの新ネイティブ結果・新APK・Pixelの一周／保存復帰／画面／音が未実行ならVertical Slice安定完成とは報告しない。正式全身／歩行素材、完成実機スクリーンショット、最終音質、公開用署名／AAB・Console／privacyの確認は、実施したものと未実施を分ける。機能を増やして未解決事項を隠さず、問題が出た画面・保存・入力・音を優先して直す。
+
+## 2026-10-09 実装と検証の記録
+
+7工程のソース・テスト・手順準備と独立レビュー修正を完了しました。チェック済みは各工程の実装／テスト・手順を準備したことを表し、新しいWindowsネイティブ・APK・Pixel合格を示しません。最新の[実装報告](../../pixel3a-quality-status.md)に、実行済み62コア／Unity DLLコンパイル／mockゲートと、Windows67EditMode／25PlayMode／実機未実行を分けています。ストア候補は生成マスターで、指定512×512／1024×500の技術書き出しと最終素材確認はWindows手順を用意し、未実行として残しています。

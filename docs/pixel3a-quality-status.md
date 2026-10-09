@@ -23,7 +23,7 @@
 | UIFont | 完全版Noto CJK JPからOFL subset、今回の全ソース日本語字形を静的確認。ネイティブHasCharacter検査はWindows待ち |
 | 正式画像／承認済み背景 | 原画Resources SHA `cd423f6599cf41346064405240c72ac071aaa8d3fbd326d2b82661b13b0892c8`、背景SHA `971461342858e74c8db5f669f28c3e5c0c1a0f9d364e645ec55b9ea2834e7b51` 一致 |
 | meta／GUID／asmdef／シーンbootstrap／diff | 静的検査。独立レビュー結果は下記へ追記 |
-| Windowsネイティブ | 新規EditMode最低67／PlayMode最低22のゲートを準備、実行待ち |
+| Windowsネイティブ | 新規EditMode最低67／PlayMode最低25のゲートを準備、実行待ち |
 | 新Android APK／Pixel | Windowsビルド・新APK SHA・実機画面／入力／音／再起動は実行待ち |
 
 コアは旧形式移行／保存失敗／不完全データ／前回エラー残留の実行RED→GREENを確認。新しいUnity APIの欠落をコンパイルRED→GREENで確認しましたが、ネイティブUI／音の挙動RED／GREENはクラウドで実行していません。旧40／5のWindows成功と旧APKのPixel画像は、新実装の証拠へ転用しません。
@@ -51,7 +51,13 @@ powershell -ExecutionPolicy Bypass -File .\scripts\build-android.ps1 -Qa
 
 ## 独立レビュー
 
-実装全体を一度独立レビューし、Critical／Importantを修正してから更新します。
+承認どおり、772c418→7e6c1f6の実装全体を独立レビューしました。Criticalなし、Important3件を確認して修正しています。
+
+1. 2本の音量スライダーを同時編集した時、保存失敗後に旧UIの取消callbackが未保存音量を再適用する問題。旧UI停止後に保存済み音量を最後に適用し、両方を操作してどちらを先に離しても一致するテストを追加。
+2. Safe Area高さ592でTOPの小さい原画列と開始ボタン、ホームの下の原画と依頼カード、エラー文と開始ボタンが重なる問題。中央表示／固定アクション／メッセージの領域を分け、実際に要素を配置した画面の交差テストを追加。592／640／740／808の境界数式をクラウドでも確認。
+3. 街成長の保存失敗で遷移できない時に、理由が見えない問題。街成長にも画面別エラーを表示し、保存失敗→表示→再試行のテストを追加。
+
+trailing whitespaceも修正しました。修正後の全ソースコンパイル0警告／0エラー、コア62件とスクリプトゲートは成功。追加したPlayMode計25件の実行はWindows待ちです。独立レビューや数式検査を実機合格と呼びません。
 
 ## 変更ファイル一覧
 

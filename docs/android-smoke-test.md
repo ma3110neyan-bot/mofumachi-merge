@@ -19,7 +19,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\build-android.ps1 -Qa
 
 必要なら `-UnityEditor "C:\Program Files\Unity\Hub\Editor\6000.6.4f1\Editor\Unity.exe"` を指定します。Unity Editorは閉じた状態で実行。通常版とQA版は各回の `Builds\Android\日時-識別子\` へ出力します。
 
-現時点の検証ゲートはEditMode最低67件、PlayMode最低22件、必須6／6 suite、全test-case Passed、failed／skipped 0。各回の新XMLとログを検証し、成功時だけAPKを生成します。実際のUnityでの件数・結果はXMLで確定してください。ソース上の予定件数をネイティブ合格と扱いません。
+現時点の検証ゲートはEditMode最低67件、PlayMode最低25件、必須6／6 suite、全test-case Passed、failed／skipped 0。各回の新XMLとログを検証し、成功時だけAPKを生成します。実際のUnityでの件数・結果はXMLで確定してください。ソース上の予定件数をネイティブ合格と扱いません。
 
 `MOFUMACHI_APK_SUCCESS`、非空の新APK、`build-info.json`のGit revision／Unity／ID／versionCode／SHA／サイズを保存します。Gitがなければrevisionはunknownです。通常版 `com.mofumachi.merge`、QA版 `com.mofumachi.merge.qa`。QA版には独立した保存があり、QAビルドのID／表示名は終了・失敗時に元へ戻します。開発APKはPlay提出物ではありません。
 

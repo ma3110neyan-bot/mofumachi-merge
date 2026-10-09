@@ -28,6 +28,20 @@ namespace Mofumachi.Tests
             Assert.That(Flow.Game.State.bgmVolume,Is.EqualTo(.75f));Assert.That(Slider("BGM volume").value,Is.EqualTo(.75f));
             Assert.That(Flow.FeedbackFor(ScreenId.Settings),Is.Not.Empty);Assert.That(AudioManager.Instance.GetComponents<AudioSource>().Single(a=>a.loop).volume,Is.EqualTo(.75f));
         }
+        [UnityTest] public IEnumerator TwoPendingGesturesCannotReapplyUnsavedAudioAfterFailure()
+        {
+            yield return EnterHome();
+            foreach(var released in new[]{"BGM volume","SE volume"})
+            {
+                Flow.ShowSettings();var bgm=Slider("BGM volume");var se=Slider("SE volume");var e=new PointerEventData(EventSystem.current);
+                bgm.GetComponent<VolumeControl>().OnPointerDown(e);se.GetComponent<VolumeControl>().OnPointerDown(e);bgm.value=.2f;se.value=.3f;Store.Fail=true;
+                Slider(released).GetComponent<VolumeControl>().OnPointerUp(e);yield return null;
+                Assert.That(Slider("BGM volume").value,Is.EqualTo(.75f));Assert.That(Slider("SE volume").value,Is.EqualTo(.65f));
+                var sources=AudioManager.Instance.GetComponents<AudioSource>();Assert.That(sources.Single(a=>a.loop).volume,Is.EqualTo(.75f));Assert.That(sources.Single(a=>!a.loop).volume,Is.EqualTo(.65f));
+                Assert.That(Flow.Game.State.bgmVolume,Is.EqualTo(.75f));Assert.That(Flow.Game.State.seVolume,Is.EqualTo(.65f));Store.Fail=false;
+            }
+        }
+
         [UnityTest] public IEnumerator SettingsReturnsToEveryOrigin()
         {
             yield return LoadTitle();Flow.ShowSettings();Flow.GoBack();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Title));

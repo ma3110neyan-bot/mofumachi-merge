@@ -39,6 +39,33 @@ namespace Mofumachi.Tests
             finally { Object.DestroyImmediate(canvas); }
         }
 
+        [UnityTest] public IEnumerator PopulatedPortraitScreensKeepCharactersAndFeedbackAboveFixedActions()
+        {
+            yield return EnterHome();
+            var canvas=new GameObject("Populated layout fixture",typeof(RectTransform),typeof(Canvas));canvas.GetComponent<Canvas>().renderMode=RenderMode.WorldSpace;
+            var rect=(RectTransform)canvas.transform;var widgets=new UIWidgets(Resources.Load<Font>("Mofumachi/UIFont"),Resources.Load<Texture2D>("Mofumachi/CharacterMaster"));var context=new ScreenContext(Flow,widgets);
+            try
+            {
+                foreach(float height in new[]{592f,640f,740f,808f})
+                {
+                    rect.sizeDelta=new Vector2(360,height);var title=UIWidgets.Node("Title fixture",rect,new Rect(0,0,1,1));TopHomeScreens.BuildTitle(title,context);Canvas.ForceUpdateCanvases();
+                    var start=(RectTransform)title.Find("Start");
+                    foreach(var image in title.GetComponentsInChildren<RawImage>())AssertSeparated(title,(RectTransform)image.transform.parent,start);
+                    AssertSeparated(title,(RectTransform)title.Find("Title feedback"),start);Object.DestroyImmediate(title.gameObject);
+                    var home=UIWidgets.Node("Home fixture",rect,new Rect(0,0,1,1));TopHomeScreens.BuildHome(home,context);Canvas.ForceUpdateCanvases();var quest=(RectTransform)home.Find("Home quest");
+                    foreach(var image in home.GetComponentsInChildren<RawImage>())if(image.name.StartsWith("Character "))AssertSeparated(home,(RectTransform)image.transform.parent,quest);
+                    Object.DestroyImmediate(home.gameObject);
+                }
+            }
+            finally{Object.DestroyImmediate(canvas);}
+        }
+        private static void AssertSeparated(RectTransform root,RectTransform a,RectTransform b)
+        {
+            var first=RectTransformUtility.CalculateRelativeRectTransformBounds(root,a);var second=RectTransformUtility.CalculateRelativeRectTransformBounds(root,b);
+            var r1=new Rect(first.min.x,first.min.y,first.size.x,first.size.y);var r2=new Rect(second.min.x,second.min.y,second.size.x,second.size.y);
+            Assert.That(r1.Overlaps(r2),Is.False,a.name+" overlaps "+b.name);
+        }
+
         [UnityTest] public IEnumerator NoticeBlocksUntilSaveSucceedsAndCannotBeBypassed()
         {
             yield return LoadTitle();

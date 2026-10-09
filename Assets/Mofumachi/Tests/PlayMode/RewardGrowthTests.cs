@@ -23,6 +23,14 @@ namespace Mofumachi.Tests
             Flow.BeginGame();yield return null;yield return null;Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(Flow.LastDelivery,Is.Null);
             Assert.That(Flow.Deliver().Success,Is.False);yield return new WaitForSecondsRealtime(1.4f);Assert.That(Flow.Game.State.coins,Is.EqualTo(30));
         }
+        [UnityTest] public IEnumerator GrowthSaveFailureRemainsVisibleAndCanBeRetried()
+        {
+            yield return Complete();yield return new WaitForSecondsRealtime(1.3f);Flow.ShowGrowth();Store.Fail=true;Flow.ShowHome();
+            Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Growth));Assert.That(Flow.FeedbackFor(ScreenId.Growth),Is.Not.Empty);
+            var feedback=System.Linq.Enumerable.Single(Flow.GetComponentsInChildren<UnityEngine.UI.Text>(),t=>t.name=="Feedback");
+            Assert.That(feedback.text,Is.EqualTo(Flow.FeedbackFor(ScreenId.Growth)));Store.Fail=false;Flow.ShowHome();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(Flow.Game.State.coins,Is.EqualTo(30));
+        }
+
         [UnityTest] public IEnumerator FailedDeliveryKeepsQuestAndReportsOnlyOnThatScreen()
         {
             yield return EnterHome();Flow.AcceptQuest();Flow.DropItem(0,1);yield return new WaitForSecondsRealtime(.3f);Store.Fail=true;

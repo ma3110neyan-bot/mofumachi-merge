@@ -30,7 +30,8 @@ namespace Mofumachi.Presentation
             var rect=UIWidgets.Node(name+" volume",card,new Rect(.05f,.07f,.69f,.42f));var ray=rect.gameObject.AddComponent<Image>();ray.color=Color.clear;
             var slider=rect.gameObject.AddComponent<Slider>();slider.minValue=0;slider.maxValue=1;slider.SetValueWithoutNotify(volume);
             var track=w.Panel(name+" track",rect,new Rect(.02f,.43f,.96f,.14f),new Color(.78f,.82f,.78f));
-            var fill=w.Panel(name+" fill",rect,new Rect(.02f,.43f,.96f,.14f),UIWidgets.Mint);slider.fillRect=fill.rectTransform;
+            var fillArea=UIWidgets.Node(name+" fill area",rect,new Rect(.02f,.43f,.96f,.14f));
+            var fill=w.Panel(name+" fill",fillArea,new Rect(0,0,1,1),UIWidgets.Mint);slider.fillRect=fill.rectTransform;
             var handleArea=UIWidgets.Node(name+" handle area",rect,new Rect(.07f,0,.86f,1));var handle=w.Panel(name+" handle",handleArea,new Rect(0,.18f,0,.64f),UIWidgets.Pink);handle.rectTransform.sizeDelta=new Vector2(28,0);slider.handleRect=handle.rectTransform;slider.targetGraphic=handle;
             slider.onValueChanged.AddListener(v=>value.text=Mathf.RoundToInt(v*100)+"%");return slider;
         }

@@ -24,7 +24,7 @@ namespace Mofumachi.Presentation
             w.Label("Growth levels","街 Lv."+delivery.PreviousTownLevel+" → Lv."+delivery.CurrentTownLevel,card,new Rect(.03f,.3f,.94f,.15f),26);
             w.Label("Growth description","みんなのお茶会が、街を明るくします。",card,new Rect(.06f,.11f,.88f,.13f),16);
             var home=w.Button("Return town","街へ戻る",root,new Rect(0,0,1,1),c.Flow.ShowHome);UIWidgets.Bottom((RectTransform)home.transform,28,138,28,56);
-            w.Nav(root,c,ScreenId.Growth);
+            w.Feedback(root,c,ScreenId.Growth);w.Nav(root,c,ScreenId.Growth);
         }
     }
     public sealed class SoftReveal : MonoBehaviour

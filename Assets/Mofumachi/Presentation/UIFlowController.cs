@@ -22,7 +22,7 @@ namespace Mofumachi.Presentation
         private readonly Dictionary<ScreenId,string> feedback = new Dictionary<ScreenId,string>();
         public ScreenId CurrentScreen { get; private set; }
         public bool IsPurchaseNoticeOpen => modal != null && modal.activeSelf;
-        
+
         private GameObject page;
         private Font font;
         private Texture2D characters;
@@ -256,7 +256,9 @@ namespace Mofumachi.Presentation
         {
             bool saved=Game.SetAudioPreferences(bgm,se,bgmVolume,seVolume);
             feedback[ScreenId.Settings]=saved?"":Game.LastError;
-            ApplySavedAudio();if(page!=null && CurrentScreen==ScreenId.Settings)Render("settings");return saved;
+            if(page!=null && CurrentScreen==ScreenId.Settings)Render("settings");
+            // Disabling old sliders can invoke cancellation previews; saved audio wins last.
+            ApplySavedAudio();return saved;
         }
     }
 }

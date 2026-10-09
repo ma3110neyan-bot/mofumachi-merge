@@ -32,7 +32,10 @@ namespace Mofumachi.Presentation
         public int SelectedCell => selected;
         private Rect previousSafeArea;
         private Vector2 previousSize;
-        private Coroutine mergeAnimation;
+        private Coroutine mergeAnimation,presentationAnimation;
+        public DeliveryPresentation LastDelivery { get; private set; }
+        public bool RewardVisible { get; private set; }
+        private bool rewardCuePlayed,growthCuePlayed;
         private readonly Color pink = new Color(1, .74f, .82f);
         private readonly Color ink = new Color(.31f, .22f, .38f);
 
@@ -70,7 +73,7 @@ namespace Mofumachi.Presentation
         {
             var loaded = store.Load();
             session = new GameStateManager(loaded.State, store);
-            notice = loaded.Reason;
+            notice = loaded.Reason;feedback[ScreenId.Title]=loaded.Reason;
         }
         private void Update() { UpdateSafeArea(); if(Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame) GoBack(); }
         private void UpdateSafeArea()
@@ -120,6 +123,7 @@ namespace Mofumachi.Presentation
         {
             if (session == null) return true;
             if (mergeAnimation != null) { StopCoroutine(mergeAnimation); mergeAnimation = null; }
+            if(presentationAnimation!=null){StopCoroutine(presentationAnimation);presentationAnimation=null;}
             Game.Board.ReleaseLocks(); Game.Quests.RefreshProgress(); selected = -1;
             bool saved = Game.Save();
             if (!saved) { notice = Game.LastError; feedback[CurrentScreen]=notice; }
@@ -160,11 +164,26 @@ namespace Mofumachi.Presentation
         }
         public DeliveryResult Deliver()
         {
-            if(!Game.State.purchaseNoticeAcknowledged || IsPurchaseNoticeOpen)return new DeliveryResult(false,"初回の確認をしてください。");
-            var result = Game.Quests.TryDeliver(); notice = result.Message;
-            if (result.Success) { audioManager.PlaySe(AudioCue.Reward); Render("result"); }
-            else Render(view ?? "quest");
+            if(!Game.State.purchaseNoticeAcknowledged || IsPurchaseNoticeOpen || (CurrentScreen!=ScreenId.Quest && CurrentScreen!=ScreenId.Merge))return new DeliveryResult(false,"この画面では納品できません。");
+            int coins=Game.State.coins,town=Game.State.townGrowthLevel;var result=Game.Quests.TryDeliver();
+            if(result.Success)
+            {
+                LastDelivery=new DeliveryPresentation(Game.State.coins-coins,town,Game.State.townGrowthLevel);
+                RewardVisible=false;rewardCuePlayed=growthCuePlayed=false;PlayCue(AudioCue.Delivery);Render("result");
+            }
+            else {feedback[CurrentScreen]=result.Message;Render(view);}
             return result;
+        }
+        private IEnumerator RevealReward()
+        {
+            yield return new WaitForSecondsRealtime(1.2f);presentationAnimation=null;
+            if(CurrentScreen!=ScreenId.Result || LastDelivery==null)yield break;
+            RewardVisible=true;if(!rewardCuePlayed){rewardCuePlayed=true;PlayCue(AudioCue.Reward);}Render("result");
+        }
+        public void ShowGrowth()
+        {
+            if(LastDelivery==null || !RewardVisible)return;
+            if(!growthCuePlayed){growthCuePlayed=true;PlayCue(AudioCue.Growth);}Navigate("growth");
         }
         private void OnApplicationPause(bool paused)
         {
@@ -238,10 +257,10 @@ namespace Mofumachi.Presentation
             view = target; CurrentScreen=(ScreenId)System.Enum.Parse(typeof(ScreenId),target,true);
             if (page != null) { page.SetActive(false); Destroy(page); }
             page = Node(target, portraitRoot, Vector2.zero, Vector2.one).gameObject;
-            if(target=="title" || target=="home" || target=="quest" || target=="merge")
+            if(target=="title" || target=="home" || target=="quest" || target=="merge" || target=="result" || target=="growth")
             {
                 var root=(RectTransform)page.transform;
-                switch(CurrentScreen){case ScreenId.Title:TopHomeScreens.BuildTitle(root,context);break;case ScreenId.Home:TopHomeScreens.BuildHome(root,context);break;case ScreenId.Quest:QuestMergeScreens.BuildQuest(root,context);break;case ScreenId.Merge:QuestMergeScreens.BuildMerge(root,context);break;}
+                switch(CurrentScreen){case ScreenId.Title:TopHomeScreens.BuildTitle(root,context);break;case ScreenId.Home:TopHomeScreens.BuildHome(root,context);break;case ScreenId.Quest:QuestMergeScreens.BuildQuest(root,context);break;case ScreenId.Merge:QuestMergeScreens.BuildMerge(root,context);break;case ScreenId.Result:if(LastDelivery==null){Render("home");return;}RewardGrowthScreens.BuildResult(root,context,LastDelivery);if(!RewardVisible && presentationAnimation==null)presentationAnimation=StartCoroutine(RevealReward());break;case ScreenId.Growth:if(LastDelivery==null){Render("home");return;}RewardGrowthScreens.BuildGrowth(root,context,LastDelivery);break;}
                 return;
             }
             notice=FeedbackFor(CurrentScreen);

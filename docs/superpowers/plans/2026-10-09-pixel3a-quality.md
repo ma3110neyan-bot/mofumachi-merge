@@ -136,12 +136,12 @@
 - Consumes: 既存`DeliveryResult UIFlowController.Deliver()`／`QuestManager.TryDeliver()`、保存済みcoins／townGrowthLevel／完了ID。Task2〜4の表示と音。
 - Produces: 不変`DeliveryPresentation(int coinsAwarded, int previousTownLevel, int currentTownLevel)`、読み取り専用`CoinsAwarded/PreviousTownLevel/CurrentTownLevel: int`。`UIFlowController.LastDelivery: DeliveryPresentation`、`void ShowGrowth()`。`void RewardGrowthScreens.BuildResult(RectTransform root, ScreenContext context, DeliveryPresentation delivery)`／`void BuildGrowth(RectTransform root, ScreenContext context, DeliveryPresentation delivery)`。
 
-- [ ] `DeliveryClicksAndPresentationReentryNeverPayTwice`で不足時の完全不変、正常納品のcoins30／街Lv.1／完了ID1個／受領ID1個、二回目拒否、結果再描画／設定往復／街成長再表示で同じ値をAssertする。
-- [ ] `PauseOrTerminateDuringRewardResumesCommittedProgress`で報酬表示前・街成長途中に中断し、再ロード後coins30／街Lv.1／完了ID1個、アニメcallbackによる新支払いなしを検証する。確認済みフラグも保持する。
-- [ ] クラウドのUnity APIコンパイルとCoreの既存二重報酬／保存失敗テストを実行し、Windowsの新演出テストは未実行として区別する。
-- [ ] 納品／報酬→街成長の順で実装する。成功したTryDeliverの前後差だけをDeliveryPresentationに記録し、直ちに納品cue、報酬表示時にReward cue、街成長開始時にGrowth cueをそれぞれ一回再生する。拒否／書込失敗は元画面とその画面の通知へ戻す。
-- [ ] ビューは状態を読み取るだけにし、coins付与／街成長保存を再実行しない。cueを既に鳴らしたかはcontrollerの一時状態で管理し、ビュー再生成で再生し直さない。短い表示演出はpause・遷移・destroyで止め、ホームに保存済みレベルを反映する。再起動後は保存済みホームへ戻し、演出の進度を新しいセーブ項目として増やさない。
-- [ ] Core全件／Unity APIコンパイルを検証し、`feat: present committed delivery rewards and town growth`としてコミットする。
+- [x] `DeliveryClicksAndPresentationReentryNeverPayTwice`で不足時の完全不変、正常納品のcoins30／街Lv.1／完了ID1個／受領ID1個、二回目拒否、結果再描画／設定往復／街成長再表示で同じ値をAssertする。
+- [x] `PauseOrTerminateDuringRewardResumesCommittedProgress`で報酬表示前・街成長途中に中断し、再ロード後coins30／街Lv.1／完了ID1個、アニメcallbackによる新支払いなしを検証する。確認済みフラグも保持する。
+- [x] クラウドのUnity APIコンパイルとCoreの既存二重報酬／保存失敗テストを実行し、Windowsの新演出テストは未実行として区別する。
+- [x] 納品／報酬→街成長の順で実装する。成功したTryDeliverの前後差だけをDeliveryPresentationに記録し、直ちに納品cue、報酬表示時にReward cue、街成長開始時にGrowth cueをそれぞれ一回再生する。拒否／書込失敗は元画面とその画面の通知へ戻す。
+- [x] ビューは状態を読み取るだけにし、coins付与／街成長保存を再実行しない。cueを既に鳴らしたかはcontrollerの一時状態で管理し、ビュー再生成で再生し直さない。短い表示演出はpause・遷移・destroyで止め、ホームに保存済みレベルを反映する。再起動後は保存済みホームへ戻し、演出の進度を新しいセーブ項目として増やさない。
+- [x] Core全件／Unity APIコンパイルを検証し、`feat: present committed delivery rewards and town growth`としてコミットする。
 
 ## Task 6: 音量設定・画面への復帰・エラー分離
 

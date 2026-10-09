@@ -106,12 +106,12 @@
 - Produces: `AudioCue { Confirm, Merge, Reward, Character, Delivery, Growth }`（既存4名を維持）、`AudioManager.Instance: AudioManager`、`static AudioManager GetOrCreate()`、`void ApplySettings(bool bgm, bool se, float bgmVolume = .75f, float seVolume = .65f)`、既存`void PlaySe(AudioCue cue)`。
 - Produces: Resourcesキー`Mofumachi/Audio/bgm-town-loop`と`se-confirm/character/merge/delivery/reward/growth`。BGMはStreaming、SEはDecompressOnLoad、2D再生、個別AudioSource。
 
-- [ ] `SceneAndSettingsChangesKeepOneAudioManagerAndTrackPosition`でInstance1個／音用AudioSource2個／追加AudioListener重複なし、設定表示とScene再読込でも同じBGMclip・再生位置を維持することを検証する。
-- [ ] `AudioChannelsMuteAndResumeIndependently`でBGM／SE各OFF、音量0／1、中断・復帰を検証し、一方のOFFが他方を止めないことをAssertする。fixtureで常駐managerも停止／破棄してからsession／保存ディレクトリを戻す。クラウドはソースコンパイルのみ、実音再生の成功はWindows／Pixelで記録する。
-- [ ] 承認済み原曲／録音サンプルを使い、終止付き確認BGMを連続ループ用にレンダリングする。CC0出典・固定revision／SHA・原曲の対応を残す。無音ダミーやオシレーターを用いず、FFmpegデコード、有限サンプル、ピーク≤-3dBFS、長さ、ループ境界差分を検査する。
-- [ ] 上記AudioManagerを実装し、仮Compose関数と生成clip破棄処理を削除する。シーン所有controllerに音源を付けず、DontDestroyOnLoadの一つだけを使う。BGMの中断はPause／UnPauseで処理し、描画更新による再生開始を避ける。
-- [ ] UIFlowControllerの音設定適用を4引数へ接続し、押下音は有効な決定時のみ。6SEの再生イベントは以後の画面タスクで接続する。Unity APIコンパイル／音源import設定／出典／ハッシュ検査を実行する。
-- [ ] `feat: replace provisional synthesis with recorded music and sound effects`としてコミットする。Pixelのループ継ぎ目／スピーカー音質は未確認として残す。
+- [x] `SceneAndSettingsChangesKeepOneAudioManagerAndTrackPosition`でInstance1個／音用AudioSource2個／追加AudioListener重複なし、設定表示とScene再読込でも同じBGMclip・再生位置を維持することを検証する。
+- [x] `AudioChannelsMuteAndResumeIndependently`でBGM／SE各OFF、音量0／1、中断・復帰を検証し、一方のOFFが他方を止めないことをAssertする。fixtureで常駐managerも停止／破棄してからsession／保存ディレクトリを戻す。クラウドはソースコンパイルのみ、実音再生の成功はWindows／Pixelで記録する。
+- [x] 承認済み原曲／録音サンプルを使い、終止付き確認BGMを連続ループ用にレンダリングする。CC0出典・固定revision／SHA・原曲の対応を残す。無音ダミーやオシレーターを用いず、FFmpegデコード、有限サンプル、ピーク≤-3dBFS、長さ、ループ境界差分を検査する。
+- [x] 上記AudioManagerを実装し、仮Compose関数と生成clip破棄処理を削除する。シーン所有controllerに音源を付けず、DontDestroyOnLoadの一つだけを使う。BGMの中断はPause／UnPauseで処理し、描画更新による再生開始を避ける。
+- [x] UIFlowControllerの音設定適用を4引数へ接続し、押下音は有効な決定時のみ。6SEの再生イベントは以後の画面タスクで接続する。Unity APIコンパイル／音源import設定／出典／ハッシュ検査を実行する。
+- [x] `feat: replace provisional synthesis with recorded music and sound effects`としてコミットする。Pixelのループ継ぎ目／スピーカー音質は未確認として残す。
 
 ## Task 4: 依頼画面と正方形Merge盤面の実入力
 

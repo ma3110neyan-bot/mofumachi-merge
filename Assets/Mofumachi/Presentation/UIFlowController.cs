@@ -42,8 +42,8 @@ namespace Mofumachi.Presentation
             characters = Resources.Load<Texture2D>("Mofumachi/CharacterMaster");
             if (font == null || characters == null)
                 throw new System.InvalidOperationException("Mofumachi UI resources are missing.");
-            audioManager = gameObject.AddComponent<AudioManager>();
-            audioManager.ApplySettings(Game.State.bgmEnabled, Game.State.seEnabled);
+            audioManager = AudioManager.GetOrCreate();
+            audioManager.ApplySettings(Game.State.bgmEnabled, Game.State.seEnabled,Game.State.bgmVolume,Game.State.seVolume);
             var canvas = new GameObject("Mofumachi Canvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             canvas.transform.SetParent(transform, false);
             canvas.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
@@ -305,7 +305,7 @@ namespace Mofumachi.Presentation
         }
         private void SetAudio(bool bgm, bool se)
         {
-            if (Game.SetAudio(bgm, se)) audioManager.ApplySettings(bgm, se);
+            if (Game.SetAudio(bgm, se)) audioManager.ApplySettings(bgm, se,Game.State.bgmVolume,Game.State.seVolume);
             else notice = Game.LastError;
             Render("settings");
         }

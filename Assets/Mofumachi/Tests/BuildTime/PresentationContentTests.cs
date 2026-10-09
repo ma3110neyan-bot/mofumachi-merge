@@ -7,6 +7,15 @@ namespace Mofumachi.Tests
 {
     public sealed class PresentationContentTests
     {
+        [Test] public void RecordedAudioAssetsExistAndHaveExpectedImportSettings()
+        {
+            foreach(var key in new[]{"bgm-town-loop","se-confirm","se-character","se-merge","se-delivery","se-reward","se-growth"})
+            {
+                var clip=Resources.Load<AudioClip>("Mofumachi/Audio/"+key); Assert.That(clip,Is.Not.Null,key);Assert.That(clip.length,Is.GreaterThan(.1f));
+                var importer=(UnityEditor.AudioImporter)UnityEditor.AssetImporter.GetAtPath(UnityEditor.AssetDatabase.GetAssetPath(clip));
+                Assert.That(importer.defaultSampleSettings.loadType,Is.EqualTo(key.StartsWith("bgm")?AudioClipLoadType.Streaming:AudioClipLoadType.DecompressOnLoad));
+            }
+        }
         [Test] public void RequiredJapaneseTextHasGlyphs()
         {
             var font = Resources.Load<Font>("Mofumachi/UIFont");

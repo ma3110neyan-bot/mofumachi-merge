@@ -7,6 +7,12 @@ namespace Mofumachi.Tests
 {
     public sealed class PresentationContentTests
     {
+        [Test] public void ContentGateRejectsMissingAssetsAndUnsupportedGlyphs()
+        {
+            foreach(var key in new[]{"TownBackground","UIFont","bgm-town-loop","se-confirm","se-character","se-merge","se-delivery","se-reward","se-growth"})Assert.Throws<UnityEditor.Build.BuildFailedException>(()=>Mofumachi.Editor.AndroidBuild.RequireContent(null,key));
+            var font=Resources.Load<Font>("Mofumachi/UIFont");Assert.Throws<UnityEditor.Build.BuildFailedException>(()=>Mofumachi.Editor.AndroidBuild.ValidateGlyphs(font,"\uffff"));
+            Mofumachi.Editor.AndroidBuild.ValidateContent();
+        }
         [Test] public void RecordedAudioAssetsExistAndHaveExpectedImportSettings()
         {
             foreach(var key in new[]{"bgm-town-loop","se-confirm","se-character","se-merge","se-delivery","se-reward","se-growth"})

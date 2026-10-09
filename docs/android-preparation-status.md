@@ -1,3 +1,9 @@
+# Android準備の検証記録
+
+2026-10-09の品質向上実装については[最新の変更・検証結果](pixel3a-quality-status.md)と[新しいWindows／Pixel手順](android-smoke-test.md)を参照してください。以下は旧APK・旧UIの履歴で、今回の新実装の実機合格を示しません。
+
+<details><summary>旧実装の検証履歴</summary>
+
 # Windows APK準備の検証記録 — 更新 2026-10-09
 
 ユーザーの指示により、最終ビルドはWindows PCのUnity 6000.6.4f1で実行する。クラウドのライセンス対応と最終APK生成は保留。手順は[Windows / Pixel 3a実機テスト](android-smoke-test.md)。
@@ -74,3 +80,5 @@ Androidビルド用にWindowsのプロジェクトパスを`C:\Users\User\Deskto
 一時停止時の合成色の残留は、ドラッグ表示も残る可能性を含めて対処した。pause/resumeで画面を再構成し、ロック表示とドラッグghostを更新する。これも回帰テストを追加した。終了処理とpauseの回帰テストを含むPlayMode 5件は、その後Windowsで成功した。
 
 今回の判断は、既存計画の最小ループをruntime UGUIで接続すること、正式画像を改変せずUV表示すること、現在のUI文字に必要なフォントを同梱すること、AndroidXの要件に合わせTarget APIを36へ更新すること。画面・音の品質、AndroidのJSON/AOTとファイル置換、依存復元はWindowsとPixel 3aで確認し、実測に問題があれば修正する。正式音源の未収録をコア／ビルド設定整備の前提にはしない。
+
+</details>

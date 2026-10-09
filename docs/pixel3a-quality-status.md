@@ -1,0 +1,148 @@
+# Pixel 3a品質向上 — 実装報告
+
+2026-10-09。承認済み[設計](superpowers/specs/2026-10-09-pixel3a-quality-design.md)と[7工程の計画](superpowers/plans/2026-10-09-pixel3a-quality.md)に沿ったソース実装です。**新しいWindowsネイティブテスト・APK・Pixel実機試験は未実行。Vertical Sliceの実機安定完成／Google Play公開合格とは報告しません。** USBデータケーブルは見つかりましたが、今回の端末認識・許可はまだ確認していません。
+
+## 実装内容
+
+- TOP／ホームを承認済みの街背景全面表示、正式6名原画カード、角丸・影・控えめなツヤ・押下反応で再構成。画像の比率を独立して維持します。縦端末はSafe Area全体、横長Editorだけ中央9:16。Canvas360×640／Expand、背景は画面全体です。コイン／街レベルは実セーブから表示します。
+- 初回「課金について」の指定全文／「確認しました」、背景入力遮断、保存成功後の遷移、連打・戻る・GameScene直起動の迂回防止を実装。保存v2へ確認フラグを追加し、旧v1の既存進捗・音OFFを維持します。実購入処理は追加せず、将来の購入確認を別に行う設計です。
+- 依頼カード、必要数／所持数／報酬、5×6正方形盤面、ドラッグ／2タップ、茶アイコン／レベル、納品可能時だけ有効なボタン。生成／合成／納品の保存失敗では成功したように扱いません。pause／遷移でghost・選択・合成ロックを解放します。
+- 納品の消費・30 Coins・街成長・完了IDは既存コアの一回の保存。表示は成功前後の不変スナップショットを読み取り、納品→報酬→街成長の短い演出と各成功音を一回ずつ再生。再表示で再支払いしません。
+- 拒否された仮オシレーターを削除。承認された原曲／CC0実録楽器からBGMループと6SEを同梱。常駐AudioManager・BGM／SE別ソース・個別ON/OFF／音量、シーン移動でBGMを巻き戻さない構成。連打の音が加算されない一声のSE制御です。
+- 音量ドラッグは試聴、操作終了で一回保存。音量0とOFFを別保存し、保存失敗／途中退出／pauseで保存済みの値・音・表示へ戻す構成。設定は元画面へ戻り、納品エラーを持ち越しません。
+- Android API36／minimum26／ARM64／IL2CPP／GLES3、全画面・Safe Area対応設定を継続。通常版と独立保存のQA版、新XML全件合格後のビルド、SHA／ID／versionCode等のbuild-info、USB端末／APK照合・更新インストールを準備しました。
+
+## 検証と証拠の範囲
+
+| 検証 | 今回の結果 |
+| --- | --- |
+| 実製品Coreを.NET8 NUnitで実行 | 62成功／失敗0／スキップ0 |
+| 全Core／Presentation／Editor／全テストをUnity6000.6.4f1の実DLL・customNUnitでコンパイル | 成功、警告0／エラー0 |
+| PowerShell7.4.13の実スクリプトゲート | XML／端末指定／package／更新失敗のmock検査成功。実ADB・Windows Unityではありません |
+| 七つのOGGをFFmpegデコード | 有限、各ピーク≤-3dBFS、ループ37.647秒。BGM境界差分0.001363。[全SHA／波形値](audio-assets.md) |
+| UIFont | 完全版Noto CJK JPからOFL subset、今回の全ソース日本語字形を静的確認。ネイティブHasCharacter検査はWindows待ち |
+| 正式画像／承認済み背景 | 原画Resources SHA `cd423f6599cf41346064405240c72ac071aaa8d3fbd326d2b82661b13b0892c8`、背景SHA `971461342858e74c8db5f669f28c3e5c0c1a0f9d364e645ec55b9ea2834e7b51` 一致 |
+| meta／GUID／asmdef／シーンbootstrap／diff | 静的検査。独立レビュー結果は下記へ追記 |
+| Windowsネイティブ | 新規EditMode最低67／PlayMode最低22のゲートを準備、実行待ち |
+| 新Android APK／Pixel | Windowsビルド・新APK SHA・実機画面／入力／音／再起動は実行待ち |
+
+コアは旧形式移行／保存失敗／不完全データ／前回エラー残留の実行RED→GREENを確認。新しいUnity APIの欠落をコンパイルRED→GREENで確認しましたが、ネイティブUI／音の挙動RED／GREENはクラウドで実行していません。旧40／5のWindows成功と旧APKのPixel画像は、新実装の証拠へ転用しません。
+
+## Windowsの次の操作
+
+詳細は[Windows／Pixel手順](android-smoke-test.md)。正しいASCIIフォルダーでPullし、6000.6.4f1でインポート後にUnityを閉じます。
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\build-android.ps1
+powershell -ExecutionPolicy Bypass -File .\scripts\build-android.ps1 -Qa
+```
+
+成功した今回のAPKを `install-pixel3a.ps1 -Apk "今回のAPK" -Serial "Pixelのシリアル"` で更新。QA版は `-PackageName com.mofumachi.merge.qa` を追加します。アンインストールやデータ消去は行いません。
+
+通常版は現在のCoins30／街Lv.1／完了・音OFFの保持を確認。QA版は0からTOP→初回案内→ホーム→受注→不足時は無消費→Merge→納品→30 Coins→街Lv.1→再納品拒否→音設定→pause／再起動を確認します。全7画面と案内の全高、Safe Area、文字、ボタン48dp、ドラッグ、各音・最大音量・BGMループ、再起動復帰を記録してください。
+
+## 未解決事項と公開判断
+
+- 新しいWindows XML／APK／Pixel合格が必要です。IL2CPP JSON移行・File.Replace・実入力・音再生は実機で確認してください。実測が悪ければその箇所を直す段階です。
+- 六名の透過全身／歩行素材は未収録。承認済みの原画カードを使用しています。正式デザインを補う再生成はしていません。
+- ストア画像は生成マスター候補。指定寸法の出力は生成ツールが対応しなかったため、Windowsのexport-play-art.ps1で512×512／1024×500へ書き出す手順を用意しました。この書き出しと最終確認は未実行です。
+- adaptive icon、実機ストア写真、運営者／Privacy URL、SDK／Diagnostics／Data safety／permission監査、release AAB／正式署名／16KB適合、Console要件が残ります。[公開準備の残項目](google-play-release-readiness.md)
+- Sliceは最初の依頼1件です。機能を広げず、まず一周と保存復帰の品質を確定します。10月31日公開は品質条件を満たした場合の目標です。
+
+## 独立レビュー
+
+実装全体を一度独立レビューし、Critical／Importantを修正してから更新します。
+
+## 変更ファイル一覧
+
+承認計画コミット772c418以降。原画・CharacterMasterは変更していません。Unityの新規ソース／素材にはmetaも追加しています。
+
+```text
+Assets/Mofumachi/Core/GameState.cs
+Assets/Mofumachi/Core/GameStateManager.cs
+Assets/Mofumachi/Editor/AndroidBuild.cs
+Assets/Mofumachi/Presentation/AudioManager.cs
+Assets/Mofumachi/Presentation/DeliveryPresentation.cs
+Assets/Mofumachi/Presentation/DeliveryPresentation.cs.meta
+Assets/Mofumachi/Presentation/MergeBoardView.cs
+Assets/Mofumachi/Presentation/PurchaseNoticeView.cs
+Assets/Mofumachi/Presentation/PurchaseNoticeView.cs.meta
+Assets/Mofumachi/Presentation/QuestMergeScreens.cs
+Assets/Mofumachi/Presentation/QuestMergeScreens.cs.meta
+Assets/Mofumachi/Presentation/ResponsiveUILayout.cs
+Assets/Mofumachi/Presentation/ResponsiveUILayout.cs.meta
+Assets/Mofumachi/Presentation/RewardGrowthScreens.cs
+Assets/Mofumachi/Presentation/RewardGrowthScreens.cs.meta
+Assets/Mofumachi/Presentation/RoundedPanelGraphic.cs
+Assets/Mofumachi/Presentation/RoundedPanelGraphic.cs.meta
+Assets/Mofumachi/Presentation/ScreenContext.cs
+Assets/Mofumachi/Presentation/ScreenContext.cs.meta
+Assets/Mofumachi/Presentation/SettingsScreen.cs
+Assets/Mofumachi/Presentation/SettingsScreen.cs.meta
+Assets/Mofumachi/Presentation/TopHomeScreens.cs
+Assets/Mofumachi/Presentation/TopHomeScreens.cs.meta
+Assets/Mofumachi/Presentation/UIFlowController.cs
+Assets/Mofumachi/Presentation/UIIconGraphic.cs
+Assets/Mofumachi/Presentation/UIIconGraphic.cs.meta
+Assets/Mofumachi/Presentation/UIStrings.cs
+Assets/Mofumachi/Presentation/UIStrings.cs.meta
+Assets/Mofumachi/Presentation/UIWidgets.cs
+Assets/Mofumachi/Presentation/UIWidgets.cs.meta
+Assets/Mofumachi/Presentation/VolumeControl.cs
+Assets/Mofumachi/Presentation/VolumeControl.cs.meta
+Assets/Mofumachi/Resources/Mofumachi/Audio.meta
+Assets/Mofumachi/Resources/Mofumachi/Audio/bgm-town-loop.ogg
+Assets/Mofumachi/Resources/Mofumachi/Audio/bgm-town-loop.ogg.meta
+Assets/Mofumachi/Resources/Mofumachi/Audio/se-character.ogg
+Assets/Mofumachi/Resources/Mofumachi/Audio/se-character.ogg.meta
+Assets/Mofumachi/Resources/Mofumachi/Audio/se-confirm.ogg
+Assets/Mofumachi/Resources/Mofumachi/Audio/se-confirm.ogg.meta
+Assets/Mofumachi/Resources/Mofumachi/Audio/se-delivery.ogg
+Assets/Mofumachi/Resources/Mofumachi/Audio/se-delivery.ogg.meta
+Assets/Mofumachi/Resources/Mofumachi/Audio/se-growth.ogg
+Assets/Mofumachi/Resources/Mofumachi/Audio/se-growth.ogg.meta
+Assets/Mofumachi/Resources/Mofumachi/Audio/se-merge.ogg
+Assets/Mofumachi/Resources/Mofumachi/Audio/se-merge.ogg.meta
+Assets/Mofumachi/Resources/Mofumachi/Audio/se-reward.ogg
+Assets/Mofumachi/Resources/Mofumachi/Audio/se-reward.ogg.meta
+Assets/Mofumachi/Resources/Mofumachi/TownBackground.png
+Assets/Mofumachi/Resources/Mofumachi/TownBackground.png.meta
+Assets/Mofumachi/Resources/Mofumachi/UIFont.otf
+Assets/Mofumachi/Tests/BuildTime/AndroidBuildTests.cs
+Assets/Mofumachi/Tests/BuildTime/Mofumachi.BuildTests.asmdef
+Assets/Mofumachi/Tests/BuildTime/PresentationContentTests.cs
+Assets/Mofumachi/Tests/BuildTime/PresentationContentTests.cs.meta
+Assets/Mofumachi/Tests/BuildTime/QaIdentityTests.cs
+Assets/Mofumachi/Tests/BuildTime/QaIdentityTests.cs.meta
+Assets/Mofumachi/Tests/EditMode/PreferencesTests.cs
+Assets/Mofumachi/Tests/EditMode/PreferencesTests.cs.meta
+Assets/Mofumachi/Tests/EditMode/SaveServiceTests.cs
+Assets/Mofumachi/Tests/PlayMode/AudioManagerTests.cs
+Assets/Mofumachi/Tests/PlayMode/AudioManagerTests.cs.meta
+Assets/Mofumachi/Tests/PlayMode/LayoutNoticeTests.cs
+Assets/Mofumachi/Tests/PlayMode/LayoutNoticeTests.cs.meta
+Assets/Mofumachi/Tests/PlayMode/MergeInteractionTests.cs
+Assets/Mofumachi/Tests/PlayMode/MergeInteractionTests.cs.meta
+Assets/Mofumachi/Tests/PlayMode/RewardGrowthTests.cs
+Assets/Mofumachi/Tests/PlayMode/RewardGrowthTests.cs.meta
+Assets/Mofumachi/Tests/PlayMode/SettingsScreenTests.cs
+Assets/Mofumachi/Tests/PlayMode/SettingsScreenTests.cs.meta
+Assets/Mofumachi/Tests/PlayMode/SliceUiTestFixture.cs
+Assets/Mofumachi/Tests/PlayMode/SliceUiTestFixture.cs.meta
+Assets/Mofumachi/Tests/PlayMode/VerticalSliceFlowTests.cs
+README.md
+References/Release/README.md
+References/Release/feature-graphic-proposal.png
+References/Release/icon-proposal.png
+docs/android-preparation-status.md
+docs/android-smoke-test.md
+docs/audio-assets.md
+docs/google-play-release-readiness.md
+docs/pixel3a-quality-status.md
+docs/superpowers/plans/2026-10-09-pixel3a-quality.md
+docs/superpowers/specs/2026-10-09-pixel3a-quality-design.md
+scripts/build-android.ps1
+scripts/export-play-art.ps1
+scripts/install-pixel3a.ps1
+scripts/tests/android-tools.tests.ps1
+```

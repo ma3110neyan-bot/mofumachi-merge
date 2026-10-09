@@ -14,6 +14,8 @@ namespace Mofumachi.Tests
         {
             AndroidBuild.ConfigurePixel3a();
             Assert.That(PlayerSettings.GetApplicationIdentifier(NamedBuildTarget.Android), Is.EqualTo("com.mofumachi.merge"));
+            Assert.That(PlayerSettings.Android.requestedVisibleInsets,Is.EqualTo(AndroidWindowInsetsType.None));
+            Assert.That(PlayerSettings.Android.renderOutsideSafeArea,Is.True);
             Assert.That(PlayerSettings.defaultInterfaceOrientation, Is.EqualTo(UIOrientation.Portrait));
             Assert.That(PlayerSettings.Android.targetArchitectures, Is.EqualTo(AndroidArchitecture.ARM64));
             Assert.That(PlayerSettings.GetScriptingBackend(NamedBuildTarget.Android), Is.EqualTo(ScriptingImplementation.IL2CPP));

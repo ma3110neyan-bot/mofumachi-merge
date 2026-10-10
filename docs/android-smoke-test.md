@@ -1,5 +1,7 @@
 # WindowsビルドとPixel 3aの実機確認
 
+2026-10-10のPOP UI改修（`2cb3abb`＋`f5faccf`）は**新しいAPKが必要**です。新フォント・専用アイコン・タップ／噴水演出を含みます。下記の前版QAインストール成功とは別に、WindowsでEditMode67／PlayMode28の全成功→QA APK生成→更新インストールを行います。[初心者向けの今回の手順](development-handoff-2026-10-10.md#10-windows-pcで次に行う作業)。
+
 今回の画面・音・保存変更を含む**新しいAPK**で確認します。以前の51,201,037 bytesのAPKと40／5テスト成功は旧実装の結果です。クラウドのライセンス／最終APKはユーザー指示で保留し、Windows Unity6000.6.4f1で実行します。
 
 2026-10-10の進捗：ユーザーのTest Runner画面でEditMode67／PlayMode25の全成功、QAメニュービルドで `Builds\Android\vertical-slice-qa.apk` の成功marker（52,792,734 bytes）、ADBで許可済み `99RAY1BELH device` を確認。Windows PowerShellのstderr処理を修正したdbe28b1更新後、API32のPixelへQA更新インストールと起動コマンドが完了しました。APK SHA256は `9303F6A4E4C062A30482A04B2FBDB4AA7AE355C34AEDCC0C484EB81F43966D78`。次は端末の「もふまちメルジュ QA」で画面・一周・音・保存復帰を確認します。以下のPowerShellはXML・metadataも生成する再現手順で、今回のメニュービルドとは区別してください。
@@ -21,7 +23,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\build-android.ps1 -Qa
 
 必要なら `-UnityEditor "C:\Program Files\Unity\Hub\Editor\6000.6.4f1\Editor\Unity.exe"` を指定します。Unity Editorは閉じた状態で実行。通常版とQA版は各回の `Builds\Android\日時-識別子\` へ出力します。
 
-現時点の検証ゲートはEditMode最低67件、PlayMode最低25件、必須6／6 suite、全test-case Passed、failed／skipped 0。各回の新XMLとログを検証し、成功時だけAPKを生成します。実際のUnityでの件数・結果はXMLで確定してください。ソース上の予定件数をネイティブ合格と扱いません。
+現時点の検証ゲートはEditMode最低67件、PlayMode最低28件、必須6／7 suite、全test-case Passed、failed／skipped 0。各回の新XMLとログを検証し、成功時だけAPKを生成します。実際のUnityでの件数・結果はXMLで確定してください。ソース上の予定件数をネイティブ合格と扱いません。
 
 `MOFUMACHI_APK_SUCCESS`、非空の新APK、`build-info.json`のGit revision／Unity／ID／versionCode／SHA／サイズを保存します。Gitがなければrevisionはunknownです。通常版 `com.mofumachi.merge`、QA版 `com.mofumachi.merge.qa`。QA版には独立した保存があり、QAビルドのID／表示名は終了・失敗時に元へ戻します。開発APKはPlay提出物ではありません。
 
@@ -43,7 +45,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\install-pixel3a.ps1 -Apk "C:\
 
 スクリプトはUnity同梱aapt2 build-tools36.0.0でAPKの実ID／ARM64を確認し、端末API26以上／ARM64／許可を確認して `install -r`。端末コマンドはすべて `-s` で指定します。署名不一致等は停止し、アンインストールや `pm clear` で保存を消しません。成功後に選んだアプリを起動します。
 
-2026-10-10に起動の `args: ...` 診断行で `NativeCommandError` となるWindows PowerShell 5.1互換性を修正しました。GitHub DesktopでFetch→Pull後、今回のメニュービルドAPKは再ビルドせず、次を再実行できます。
+2026-10-10に起動の `args: ...` 診断行で `NativeCommandError` となるWindows PowerShell 5.1互換性を修正しました。修正当時は前版APKを再ビルドせず再実行できました。**POP UI改修を確認する現在は再ビルドが必要**です。新しいメニュービルドAPKが成功してから次を実行します。
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File "C:\Users\User\Desktop\Mofumachi\mofumachi-merge\scripts\install-pixel3a.ps1" -Apk "C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Android\vertical-slice-qa.apk" -Serial "99RAY1BELH" -PackageName "com.mofumachi.merge.qa"

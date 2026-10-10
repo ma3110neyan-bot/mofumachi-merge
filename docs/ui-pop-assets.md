@@ -37,4 +37,4 @@ fontToolsで、ASCII・ひらがな・カタカナ・現在の日本語文字と
 
 クラウドで全ソースのUnity 6000.6.4f1 DLLコンパイル（0警告／0エラー）、既存コア62件、PowerShellスクリプト試験を実行。フォントのcmap、透明度、原画・背景のSHA256を検査しました。360幅・Safe Area高さ592／640／740／808の計算上、盤面は正方形48／56／62／62です。コイン最大値の幅もフォント原本の字幅で検査しました。
 
-Unity Editorの描画、Mask／Canvasの実レイアウト、実入力、FontEngineのインポート検査、追加PlayMode試験はクラウドで未実行です。合格したWindowsの旧結果（EditMode67、PlayMode25、旧QA APK）は今回のUI改修の合格証拠には使いません。今回のWindows目安はEditMode67、PlayMode27（追加2件）。
+Unity Editorの描画、Mask／Canvasの実レイアウト、実入力、FontEngineのインポート検査、追加PlayMode試験はクラウドで未実行です。合格したWindowsの旧結果（EditMode67、PlayMode25、旧QA APK）は今回のUI改修の合格証拠には使いません。今回のWindows目安はEditMode67、PlayMode28（追加3件）。

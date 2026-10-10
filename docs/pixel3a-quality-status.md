@@ -1,6 +1,6 @@
 # Pixel 3a品質向上 — 実装報告
 
-2026-10-09実装、2026-10-10テスト結果追記。承認済み[設計](superpowers/specs/2026-10-09-pixel3a-quality-design.md)と[7工程の計画](superpowers/plans/2026-10-09-pixel3a-quality.md)に沿ったソース実装です。**Windowsのユーザー画面でEditMode67件・PlayMode25件の成功、QA版APKのビルド成功、USBの許可済み端末を確認。一周・保存復帰・画面・音の実機合格は未確認です。Vertical Sliceの実機安定完成／Google Play公開合格とは報告しません。** インストールスクリプトは起動コマンドまで進み、Windows PowerShellの診断出力処理で停止しました。修正後のWindows再実行は未確認です。
+2026-10-09実装、2026-10-10テスト結果追記。承認済み[設計](superpowers/specs/2026-10-09-pixel3a-quality-design.md)と[7工程の計画](superpowers/plans/2026-10-09-pixel3a-quality.md)に沿ったソース実装です。**Windowsのユーザー画面でEditMode67件・PlayMode25件の成功、QA版APKのビルド成功、USBの許可済み端末、QA更新インストールと起動コマンドの成功を確認。一周・保存復帰・画面・音の実機合格は未確認です。Vertical Sliceの実機安定完成／Google Play公開合格とは報告しません。** 起動スクリプトの修正後、Windows PowerShellで最後のAPK SHA256出力まで完了しました。
 
 ## 実装内容
 
@@ -24,7 +24,7 @@
 | 正式画像／承認済み背景 | 原画Resources SHA `cd423f6599cf41346064405240c72ac071aaa8d3fbd326d2b82661b13b0892c8`、背景SHA `971461342858e74c8db5f669f28c3e5c0c1a0f9d364e645ec55b9ea2834e7b51` 一致 |
 | meta／GUID／asmdef／シーンbootstrap／diff | 静的検査。独立レビュー結果は下記へ追記 |
 | Windowsネイティブ | 2026-10-10のユーザー画面：EditMode再試験67成功・失敗0・未実行0、PlayMode再試験25成功・失敗0・未実行0。XMLは未受領 |
-| 新Android APK／Pixel | QAメニュービルドの成功marker／52,792,734 bytesとADBの `99RAY1BELH device` をユーザー画面で確認。インストール処理は起動コマンドに到達。APK本体／SHAは未受領、通常版更新と新APKの一周・音・復帰試験は未確認 |
+| 新Android APK／Pixel | QAメニュービルドの成功marker／52,792,734 bytesとADBの `99RAY1BELH device` をユーザー画面で確認。修正後のWindowsインストーラーがQA ID／ARM64照合・API32端末への更新・起動コマンドを完了しSHAを出力。APK本体は未受領、通常版更新と新APKの一周・音・復帰試験は未確認 |
 
 コアは旧形式移行／保存失敗／不完全データ／前回エラー残留の実行RED→GREENを確認。新しいUnity APIの欠落をコンパイルRED→GREENで確認しましたが、ネイティブUI／音の挙動RED／GREENはクラウドで実行していません。旧40／5のWindows成功と旧APKのPixel画像は、新実装の証拠へ転用しません。
 
@@ -50,15 +50,25 @@ Test Runner確認後に `Mofumachi → Android → Build QA APK (separate save)`
 MOFUMACHI_APK_SUCCESS C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Android\vertical-slice-qa.apk (52792734 bytes)
 ```
 
-これはa23a0b1更新後のWindows QAメニュービルドの結果です。今回のAPK本体はクラウドに受領しておらず、SHA／versionCodeは未検査。メニュービルドのため日時フォルダー／XML／build-info.jsonを生成するPowerShell手順とは区別します。
+これはa23a0b1更新後のWindows QAメニュービルドの結果です。今回のAPK本体はクラウドに受領しておらず、versionCodeは未記録。SHAは後述のWindowsインストール結果で取得しました。メニュービルドのため日時フォルダー／XML／build-info.jsonを生成するPowerShell手順とは区別します。
 
 ### USB認識とWindows PowerShellの起動処理修正（2026-10-10）
 
-ユーザーのADB画面で `99RAY1BELH device` を確認。続いてQAインストールスクリプトが `shell monkey -p com.mofumachi.merge.qa -c android.intent.category.LAUNCHER 1` へ到達し、通常の `args: ...` 診断行を `NativeCommandError` として扱って停止しました。スクリプト順序から、端末許可・APKのQA ID／ARM64・端末API／ABI・更新インストールの `Success` 検査を通過して起動処理まで進んだと判断できます。ただし端末APIの値／APK SHA／起動完了の出力は受領していません。
+ユーザーのADB画面で `99RAY1BELH device` を確認。初回のQAインストールスクリプトは `shell monkey -p com.mofumachi.merge.qa -c android.intent.category.LAUNCHER 1` へ到達し、通常の `args: ...` 診断行を `NativeCommandError` として扱って停止しました。スクリプト順序から、端末許可・APKのQA ID／ARM64・端末API／ABI・更新インストールの `Success` 検査を通過して起動処理まで進んだと判断できます。この初回画面には端末APIの値／APK SHA／起動完了の出力がありませんでした。
 
 Windows PowerShell 5.1はnative stderrをErrorRecordに変換するため、終了コード0でも全体の `ErrorActionPreference=Stop` で停止していました。外部コマンドの呼び出し中だけ出力を捕捉し、終了コードで成否を判定するよう修正。呼び出し後のエラーポリシーを復元し、実際の非0終了や実行ファイル欠落は引き続き失敗として扱います。
 
 修正前にPS5.1のErrorRecord挙動を模擬して同じ停止を再現し、修正後に同じ回帰試験が成功。実pwsh子プロセスによるstdout／stderr両方の捕捉・終了コード0の成功・7の拒否・欠落実行ファイルの拒否も確認しました。クラウドはpwsh7.4.13のため、Windows PS5.1実行の合格を代用しません。全PowerShellファイルの構文検査とdiff検査は成功。変更はPC側スクリプトと検査／記録だけで、今回のQA APKの再ビルドは不要です。
+
+dbe28b1更新後のユーザーのWindows PowerShell画面で、通常診断行を含んだまま次の最終出力まで完了したことを確認しました。
+
+```text
+Events injected: 1
+Installed com.mofumachi.merge.qa on 99RAY1BELH (API 32). Save data was retained.
+APK SHA256: 9303F6A4E4C062A30482A04B2FBDB4AA7AE355C34AEDCC0C484EB81F43966D78
+```
+
+これは実ADBを使ったWindowsの再実行成功です。実APKのQA ID／ARM64・端末API32・更新成功・起動コマンドの終了コード0を確認するスクリプトが完了しています。`Save data was retained` はデータを消さず `install -r` で更新したことの表示であり、進捗の内容や再起動復帰を検査した結果ではありません。起動コマンド成功と、Pixelの画面・入力・音・一周合格も区別します。
 
 ### 実機フィードバックと次の設計（2026-10-10）
 
@@ -66,9 +76,9 @@ Windows PowerShell 5.1はnative stderrをErrorRecordに変換するため、終�
 
 新しいPixelスクリーンショットは別送待ちです。この方向は要求として記録し、具体的な操作・見た目・素材・既存一周との接続を設計します。現在のカード表示を街の歩行キャラと呼び替えません。正式6名は変更せず、未収録の透過全身／歩行素材と背景レイヤーの準備も区別します。ショップへ案内する導線と購入機能は区別し、現在の課金・広告なしの一周を維持します。
 
-## Windowsの次の操作
+## Windowsでの再現操作とPixelの次の確認
 
-詳細は[Windows／Pixel手順](android-smoke-test.md)。正しいASCIIフォルダーでPullし、6000.6.4f1でインポート後にUnityを閉じます。
+今回のQA版は更新インストール・起動コマンドまで成功済みです。次はPixelで「もふまちメルジュ QA」の画面と一周を確認します。以下は今後APKを再ビルドする場合の手順で、今回の証拠記録だけの更新では再ビルド不要です。詳細は[Windows／Pixel手順](android-smoke-test.md)。正しいASCIIフォルダーでPullし、6000.6.4f1でインポート後にUnityを閉じます。
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\build-android.ps1

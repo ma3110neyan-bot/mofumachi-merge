@@ -2,7 +2,7 @@
 
 今回の画面・音・保存変更を含む**新しいAPK**で確認します。以前の51,201,037 bytesのAPKと40／5テスト成功は旧実装の結果です。クラウドのライセンス／最終APKはユーザー指示で保留し、Windows Unity6000.6.4f1で実行します。
 
-2026-10-10の進捗：ユーザーのTest Runner画面でEditMode67／PlayMode25の全成功、QAメニュービルドで `Builds\Android\vertical-slice-qa.apk` の成功marker（52,792,734 bytes）、ADBで許可済み `99RAY1BELH device` を確認。QA更新インストールは起動処理まで進み、Windows PowerShellのstderr処理で停止しました。修正済みスクリプトのWindows再実行、APK SHA、一周・音・保存復帰の実機試験は未確認です。以下のPowerShellはXML・metadataも生成する再現手順で、今回のメニュービルドとは区別してください。
+2026-10-10の進捗：ユーザーのTest Runner画面でEditMode67／PlayMode25の全成功、QAメニュービルドで `Builds\Android\vertical-slice-qa.apk` の成功marker（52,792,734 bytes）、ADBで許可済み `99RAY1BELH device` を確認。Windows PowerShellのstderr処理を修正したdbe28b1更新後、API32のPixelへQA更新インストールと起動コマンドが完了しました。APK SHA256は `9303F6A4E4C062A30482A04B2FBDB4AA7AE355C34AEDCC0C484EB81F43966D78`。次は端末の「もふまちメルジュ QA」で画面・一周・音・保存復帰を確認します。以下のPowerShellはXML・metadataも生成する再現手順で、今回のメニュービルドとは区別してください。
 
 ## 1. 正しいフォルダーを更新する
 
@@ -50,6 +50,8 @@ powershell -ExecutionPolicy Bypass -File "C:\Users\User\Desktop\Mofumachi\mofuma
 ```
 
 `Installed com.mofumachi.merge.qa` と最後の `APK SHA256` を確認して記録します。この再実行はQAの現在の保存を維持します。既にプレイしたQAは初期状態へ戻りません。
+
+修正後のユーザー画面で `Events injected: 1`、`Installed com.mofumachi.merge.qa on 99RAY1BELH (API 32)` と上記SHAまでの完了を確認済みです。更新と起動コマンドの成功を、ゲーム画面の正常表示・一周・保存復帰の合格とは区別してください。
 
 ## 4. 通常版の更新試験（現在の保存を残す）
 

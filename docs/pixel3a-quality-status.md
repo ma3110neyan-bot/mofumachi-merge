@@ -1,6 +1,6 @@
 # Pixel 3a品質向上 — 実装報告
 
-2026-10-09実装、2026-10-10テスト結果追記。承認済み[設計](superpowers/specs/2026-10-09-pixel3a-quality-design.md)と[7工程の計画](superpowers/plans/2026-10-09-pixel3a-quality.md)に沿ったソース実装です。**WindowsのEditModeは修正後67件成功・失敗0。初回PlayModeは25件中24成功・1失敗で、下記の入力テスト修正の再試験待ち。新APK・Pixel実機試験は未確認。Vertical Sliceの実機安定完成／Google Play公開合格とは報告しません。** USBデータケーブルは見つかりましたが、今回の端末認識・許可はまだ確認していません。
+2026-10-09実装、2026-10-10テスト結果追記。承認済み[設計](superpowers/specs/2026-10-09-pixel3a-quality-design.md)と[7工程の計画](superpowers/plans/2026-10-09-pixel3a-quality.md)に沿ったソース実装です。**Windowsのユーザー画面でEditMode67件・PlayMode25件の成功、QA版APKのビルド成功を確認。新APKのPixel実機試験は未確認。Vertical Sliceの実機安定完成／Google Play公開合格とは報告しません。** USBデータケーブルは見つかりましたが、今回の端末認識・許可はまだ確認していません。
 
 ## 実装内容
 
@@ -23,8 +23,8 @@
 | UIFont | 完全版Noto CJK JPからOFL subset。HasCharacterの欠落文字誤検出を修正し、FontEngineの同梱字形照合へ変更。更新後のWindows EditMode全67件成功で確認 |
 | 正式画像／承認済み背景 | 原画Resources SHA `cd423f6599cf41346064405240c72ac071aaa8d3fbd326d2b82661b13b0892c8`、背景SHA `971461342858e74c8db5f669f28c3e5c0c1a0f9d364e645ec55b9ea2834e7b51` 一致 |
 | meta／GUID／asmdef／シーンbootstrap／diff | 静的検査。独立レビュー結果は下記へ追記 |
-| Windowsネイティブ | 2026-10-10のユーザー画面：EditMode再試験67成功・失敗0・未実行0。PlayMode初回24成功・1失敗・未実行0。PlayMode修正再試験待ち。XMLは未受領 |
-| 新Android APK／Pixel | Windowsビルド・新APK SHA・実機画面／入力／音／再起動は実行待ち |
+| Windowsネイティブ | 2026-10-10のユーザー画面：EditMode再試験67成功・失敗0・未実行0、PlayMode再試験25成功・失敗0・未実行0。XMLは未受領 |
+| 新Android APK／Pixel | QAメニュービルドの成功marker／52,792,734 bytesをユーザー画面で確認。APK本体／SHA／実IDは未検査。通常版ビルドと新APKの実機試験は未確認 |
 
 コアは旧形式移行／保存失敗／不完全データ／前回エラー残留の実行RED→GREENを確認。新しいUnity APIの欠落をコンパイルRED→GREENで確認しましたが、ネイティブUI／音の挙動RED／GREENはクラウドで実行していません。旧40／5のWindows成功と旧APKのPixel画像は、新実装の証拠へ転用しません。
 
@@ -40,7 +40,17 @@
 
 失敗したテストは `ShowMerge` で盤面を新規生成した同じフレームでbegin／drag／endを実行していました。Unity同梱UGUIの `GraphicRaycaster` は未描画depth=-1のGraphicを除外し、標準 `GraphicRaycasterButtonTests` は生成後に1フレーム待ちます。これを根拠としてテストの描画待ちとドラッグ開始後のフレームを追加。移動後の2タップも描画後に実行し、各入力位置の実Raycast先が対応セルか検査します。合成の期待数・Lv.2・二重入力抑止・ロック・移動の検証は維持しています。
 
-今回の変更は入力テストの準備と診断のみで、製品の盤面処理は変更していません。原因候補である描画タイミングの確認とネイティブGREENはWindows再試験が必要です。再失敗時にはセル描画depth・座標・ヒット先の追加メッセージで入力経路を切り分けます。PlayMode全25件の合格とPixel実タッチはまだ確認していません。
+今回の変更は入力テストの準備と診断のみで、製品の盤面処理は変更していません。a23a0b1更新後のユーザー画面でPlayMode全25件成功・失敗0・未実行0を確認。セル描画depthと実Raycast先の検査を含むドラッグテストも成功しました。Pixelの実タッチはまだ確認していません。
+
+### WindowsのQA版APKビルド（2026-10-10）
+
+Test Runner確認後に `Mofumachi → Android → Build QA APK (separate save)` を実行。ユーザーのUnity画面下部に次の成功markerを確認しました。
+
+```text
+MOFUMACHI_APK_SUCCESS C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Android\vertical-slice-qa.apk (52792734 bytes)
+```
+
+これはa23a0b1更新後のWindows QAメニュービルドの結果です。今回のAPK本体はクラウドに受領しておらず、SHA／実package ID／versionCodeは未検査。メニュービルドのため日時フォルダー／XML／build-info.jsonを生成するPowerShell手順とは区別します。次はUSBの許可済みPixelを確認し、install-pixel3a.ps1で実ID／ARM64を照合してインストールします。
 
 ## Windowsの次の操作
 

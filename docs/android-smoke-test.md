@@ -2,6 +2,8 @@
 
 今回の画面・音・保存変更を含む**新しいAPK**で確認します。以前の51,201,037 bytesのAPKと40／5テスト成功は旧実装の結果です。クラウドのライセンス／最終APKはユーザー指示で保留し、Windows Unity6000.6.4f1で実行します。
 
+2026-10-10の進捗：ユーザーのTest Runner画面でEditMode67／PlayMode25の全成功、QAメニュービルドで `Builds\Android\vertical-slice-qa.apk` の成功marker（52,792,734 bytes）を確認。APKのSHA／実ID／インストール／実機試験は未確認です。以下のPowerShellはXML・metadataも生成する再現手順で、今回のメニュービルドとは区別してください。
+
 ## 1. 正しいフォルダーを更新する
 
 Unityを閉じ、GitHub Desktopで `C:\Users\User\Desktop\Mofumachi\mofumachi-merge` を開いてFetch→Pull。Saved Games内の別プロジェクトは使いません。変更がPullを妨げる場合は対象差分を確認し、作業を保管してください。一括Discard、既存Stashed Changesの破棄は不要です。

@@ -168,6 +168,7 @@ namespace Mofumachi.Presentation
             int coins=Game.State.coins,town=Game.State.townGrowthLevel;var result=Game.Quests.TryDeliver();
             if(result.Success)
             {
+                feedback.Remove(ScreenId.Merge); feedback.Remove(ScreenId.Quest);
                 LastDelivery=new DeliveryPresentation(Game.State.coins-coins,town,Game.State.townGrowthLevel);
                 RewardVisible=false;rewardCuePlayed=growthCuePlayed=false;PlayCue(AudioCue.Delivery);Render("result");
             }
@@ -216,6 +217,11 @@ namespace Mofumachi.Presentation
             if (page != null) { page.SetActive(false); Destroy(page); }
             page = layout.CreatePage(target).gameObject;
             var root=(RectTransform)page.transform;
+            if(CurrentScreen==ScreenId.Home || CurrentScreen==ScreenId.Title)
+            {
+                var ambient=UIWidgets.Node("Town water and glints",root,new Rect(0,0,1,1)).gameObject.AddComponent<TownAmbientGraphic>();
+                ambient.Bind(layout.FullScreenRoot.GetComponentInChildren<RawImage>());
+            }
             switch(CurrentScreen)
             {
                 case ScreenId.Title:TopHomeScreens.BuildTitle(root,context);break;
@@ -231,7 +237,12 @@ namespace Mofumachi.Presentation
                     if(LastDelivery==null){Render("home");return;}
                     RewardGrowthScreens.BuildGrowth(root,context,LastDelivery);break;
             }
-            if(appPaused)foreach(var reveal in page.GetComponentsInChildren<SoftReveal>())reveal.enabled=false;
+            if(appPaused)
+            {
+                foreach(var reveal in page.GetComponentsInChildren<SoftReveal>())reveal.enabled=false;
+                foreach(var reaction in page.GetComponentsInChildren<CharacterReaction>())reaction.enabled=false;
+                foreach(var ambient in page.GetComponentsInChildren<TownAmbientGraphic>())ambient.enabled=false;
+            }
         }
         public void TapCell(int cell)
         {

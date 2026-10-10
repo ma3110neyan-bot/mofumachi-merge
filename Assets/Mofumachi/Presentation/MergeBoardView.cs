@@ -15,7 +15,7 @@ namespace Mofumachi.Presentation
             ClearGhost();e.eligibleForClick=false;suppressThrough=Time.frameCount+1;
             var parent=(RectTransform)GetComponentInParent<Canvas>().transform;
             ghost=UIWidgets.Node("Dragged tea",parent,new Rect(.5f,.5f,0,0));ghost.sizeDelta=new Vector2(56,56);
-            var icon=ghost.gameObject.AddComponent<UIIconGraphic>();icon.icon=UIIcon.Tea;icon.color=new Color(.3f,.6f,.43f,.9f);icon.raycastTarget=false;OnDrag(e);
+            var icon=ghost.gameObject.AddComponent<UIIconGraphic>();icon.icon=controller.Game.Board.At(cell).level>=2?UIIcon.TeaPot:UIIcon.Tea;icon.color=new Color(1,1,1,.9f);icon.raycastTarget=false;OnDrag(e);
         }
         public void OnDrag(PointerEventData e){if(ghost!=null && RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)ghost.parent,e.position,e.pressEventCamera,out var p))ghost.anchoredPosition=p;}
         public void OnEndDrag(PointerEventData e)

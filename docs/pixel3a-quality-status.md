@@ -1,6 +1,6 @@
 # Pixel 3a品質向上 — 実装報告
 
-2026-10-09実装、2026-10-10テスト結果追記。承認済み[設計](superpowers/specs/2026-10-09-pixel3a-quality-design.md)と[7工程の計画](superpowers/plans/2026-10-09-pixel3a-quality.md)に沿ったソース実装です。**Windowsのユーザー画面でEditMode67件・PlayMode25件の成功、QA版APKのビルド成功を確認。新APKのPixel実機試験は未確認。Vertical Sliceの実機安定完成／Google Play公開合格とは報告しません。** USBデータケーブルは見つかりましたが、今回の端末認識・許可はまだ確認していません。
+2026-10-09実装、2026-10-10テスト結果追記。承認済み[設計](superpowers/specs/2026-10-09-pixel3a-quality-design.md)と[7工程の計画](superpowers/plans/2026-10-09-pixel3a-quality.md)に沿ったソース実装です。**Windowsのユーザー画面でEditMode67件・PlayMode25件の成功、QA版APKのビルド成功、USBの許可済み端末を確認。一周・保存復帰・画面・音の実機合格は未確認です。Vertical Sliceの実機安定完成／Google Play公開合格とは報告しません。** インストールスクリプトは起動コマンドまで進み、Windows PowerShellの診断出力処理で停止しました。修正後のWindows再実行は未確認です。
 
 ## 実装内容
 
@@ -18,13 +18,13 @@
 | --- | --- |
 | 実製品Coreを.NET8 NUnitで実行 | 62成功／失敗0／スキップ0 |
 | 全Core／Presentation／Editor／全テストをUnity6000.6.4f1の実DLL・customNUnitでコンパイル | 成功、警告0／エラー0 |
-| PowerShell7.4.13の実スクリプトゲート | XML／端末指定／package／更新失敗のmock検査成功。実ADB・Windows Unityではありません |
+| PowerShell7.4.13の実スクリプトゲート | XML／端末指定／package／更新失敗のmock検査成功。起動時stderrのPS5.1挙動を模擬した回帰試験と、実pwsh子プロセスのstdout／stderr／終了コード0・7の検査成功。Windows PS5.1／実ADBの実行ではありません |
 | 七つのOGGをFFmpegデコード | 有限、各ピーク≤-3dBFS、ループ37.647秒。BGM境界差分0.001363。[全SHA／波形値](audio-assets.md) |
 | UIFont | 完全版Noto CJK JPからOFL subset。HasCharacterの欠落文字誤検出を修正し、FontEngineの同梱字形照合へ変更。更新後のWindows EditMode全67件成功で確認 |
 | 正式画像／承認済み背景 | 原画Resources SHA `cd423f6599cf41346064405240c72ac071aaa8d3fbd326d2b82661b13b0892c8`、背景SHA `971461342858e74c8db5f669f28c3e5c0c1a0f9d364e645ec55b9ea2834e7b51` 一致 |
 | meta／GUID／asmdef／シーンbootstrap／diff | 静的検査。独立レビュー結果は下記へ追記 |
 | Windowsネイティブ | 2026-10-10のユーザー画面：EditMode再試験67成功・失敗0・未実行0、PlayMode再試験25成功・失敗0・未実行0。XMLは未受領 |
-| 新Android APK／Pixel | QAメニュービルドの成功marker／52,792,734 bytesをユーザー画面で確認。APK本体／SHA／実IDは未検査。通常版ビルドと新APKの実機試験は未確認 |
+| 新Android APK／Pixel | QAメニュービルドの成功marker／52,792,734 bytesとADBの `99RAY1BELH device` をユーザー画面で確認。インストール処理は起動コマンドに到達。APK本体／SHAは未受領、通常版更新と新APKの一周・音・復帰試験は未確認 |
 
 コアは旧形式移行／保存失敗／不完全データ／前回エラー残留の実行RED→GREENを確認。新しいUnity APIの欠落をコンパイルRED→GREENで確認しましたが、ネイティブUI／音の挙動RED／GREENはクラウドで実行していません。旧40／5のWindows成功と旧APKのPixel画像は、新実装の証拠へ転用しません。
 
@@ -50,7 +50,21 @@ Test Runner確認後に `Mofumachi → Android → Build QA APK (separate save)`
 MOFUMACHI_APK_SUCCESS C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Android\vertical-slice-qa.apk (52792734 bytes)
 ```
 
-これはa23a0b1更新後のWindows QAメニュービルドの結果です。今回のAPK本体はクラウドに受領しておらず、SHA／実package ID／versionCodeは未検査。メニュービルドのため日時フォルダー／XML／build-info.jsonを生成するPowerShell手順とは区別します。次はUSBの許可済みPixelを確認し、install-pixel3a.ps1で実ID／ARM64を照合してインストールします。
+これはa23a0b1更新後のWindows QAメニュービルドの結果です。今回のAPK本体はクラウドに受領しておらず、SHA／versionCodeは未検査。メニュービルドのため日時フォルダー／XML／build-info.jsonを生成するPowerShell手順とは区別します。
+
+### USB認識とWindows PowerShellの起動処理修正（2026-10-10）
+
+ユーザーのADB画面で `99RAY1BELH device` を確認。続いてQAインストールスクリプトが `shell monkey -p com.mofumachi.merge.qa -c android.intent.category.LAUNCHER 1` へ到達し、通常の `args: ...` 診断行を `NativeCommandError` として扱って停止しました。スクリプト順序から、端末許可・APKのQA ID／ARM64・端末API／ABI・更新インストールの `Success` 検査を通過して起動処理まで進んだと判断できます。ただし端末APIの値／APK SHA／起動完了の出力は受領していません。
+
+Windows PowerShell 5.1はnative stderrをErrorRecordに変換するため、終了コード0でも全体の `ErrorActionPreference=Stop` で停止していました。外部コマンドの呼び出し中だけ出力を捕捉し、終了コードで成否を判定するよう修正。呼び出し後のエラーポリシーを復元し、実際の非0終了や実行ファイル欠落は引き続き失敗として扱います。
+
+修正前にPS5.1のErrorRecord挙動を模擬して同じ停止を再現し、修正後に同じ回帰試験が成功。実pwsh子プロセスによるstdout／stderr両方の捕捉・終了コード0の成功・7の拒否・欠落実行ファイルの拒否も確認しました。クラウドはpwsh7.4.13のため、Windows PS5.1実行の合格を代用しません。全PowerShellファイルの構文検査とdiff検査は成功。変更はPC側スクリプトと検査／記録だけで、今回のQA APKの再ビルドは不要です。
+
+### 実機フィードバックと次の設計（2026-10-10）
+
+ユーザーは街と正式キャラを評価し、フォントのかわいらしさ、その他UIの質感、キャラ選択／アクション／噴水の動き、街から依頼部屋・ショップへ進む操作の改善を希望。移動方法は **「指でキャラを自由に動かして目的地へ進む」** と回答しました。目的地タップによる自動移動は選択されていません。
+
+新しいPixelスクリーンショットは別送待ちです。この方向は要求として記録し、具体的な操作・見た目・素材・既存一周との接続を設計します。現在のカード表示を街の歩行キャラと呼び替えません。正式6名は変更せず、未収録の透過全身／歩行素材と背景レイヤーの準備も区別します。ショップへ案内する導線と購入機能は区別し、現在の課金・広告なしの一周を維持します。
 
 ## Windowsの次の操作
 

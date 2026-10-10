@@ -3,8 +3,20 @@ param([string]$Apk,[string]$Adb="$env:ProgramFiles\Unity\Hub\Editor\6000.6.4f1\E
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
 function Invoke-CheckedNative([string]$Executable,[string[]]$NativeArguments) {
-    $Output=& $Executable @NativeArguments 2>&1
-    if($LASTEXITCODE -ne 0){throw "Command failed ($LASTEXITCODE): $Executable $($NativeArguments -join ' ')`n$($Output -join "`n")"}
+    $PreviousErrorPolicy=$ErrorActionPreference
+    try {
+        # Windows PowerShell 5.1 represents redirected native stderr as errors,
+        # even for a successful command (e.g. monkey's normal args diagnostic).
+        # Capture both streams and decide native failure from its exit code.
+        $ErrorActionPreference='Continue'
+        $Output=& $Executable @NativeArguments 2>&1
+        $NativeExitCode=$LASTEXITCODE
+    } finally {$ErrorActionPreference=$PreviousErrorPolicy}
+    if($NativeExitCode -ne 0){throw "Command failed ($NativeExitCode): $Executable $($NativeArguments -join ' ')`n$($Output -join "`n")"}
+    foreach($Entry in @($Output)){
+        # Preserve actual PowerShell invocation errors such as a missing exe.
+        if($Entry -is [System.Management.Automation.ErrorRecord] -and $Entry.FullyQualifiedErrorId -notmatch '^NativeCommandError(?:Message)?(?:,|$)'){throw $Entry}
+    }
     return ($Output -join "`n")
 }
 function Select-AuthorizedDevice([string]$Output,[string]$Requested) {

@@ -5,6 +5,34 @@ function Expect-Rejection([scriptblock]$Action){$Rejected=$false;try{& $Action}c
 $Temporary=Join-Path ([IO.Path]::GetTempPath()) ('mofumachi-script-test-'+[guid]::NewGuid())
 New-Item -ItemType Directory -Path $Temporary | Out-Null
 try {
+    # Exercise the real wrapper before the mocked installer commands below.
+    # Windows PowerShell 5.1 turns redirected native stderr into ErrorRecords;
+    # newer pwsh does not, so reproduce that legacy stream policy explicitly.
+    function Legacy-NativeDiagnostic {
+        $global:LASTEXITCODE=0
+        Write-Error 'args: [-p, com.mofumachi.merge.qa, -c, android.intent.category.LAUNCHER, 1]' -ErrorId NativeCommandError
+        'Events injected: 1'
+    }
+    $LegacyOutput=Invoke-CheckedNative 'Legacy-NativeDiagnostic' @()
+    if($LegacyOutput -notmatch 'args:' -or $LegacyOutput -notmatch 'Events injected: 1'){throw 'Successful stderr diagnostic was lost.'}
+    if($ErrorActionPreference -ne 'Stop'){throw 'Native invocation changed the caller error policy.'}
+    $NativeScript=Join-Path $Temporary 'native diagnostic.ps1'
+    @'
+param([int]$Code=0)
+[Console]::Error.WriteLine('args: [-p, com.mofumachi.merge.qa, -c, android.intent.category.LAUNCHER, 1]')
+[Console]::Out.WriteLine('Events injected: 1')
+exit $Code
+'@ | Set-Content -LiteralPath $NativeScript -Encoding UTF8
+    $ShellExecutable=(Get-Process -Id $PID).Path
+    $NativeOutput=Invoke-CheckedNative $ShellExecutable @('-NoProfile','-NonInteractive','-File',$NativeScript,'-Code','0')
+    if($NativeOutput -notmatch 'args:' -or $NativeOutput -notmatch 'Events injected: 1'){throw 'Native stdout/stderr capture failed.'}
+    Expect-Rejection {Invoke-CheckedNative (Join-Path $Temporary 'missing adb.exe') @()}
+    $ExitRejected=$false
+    try {Invoke-CheckedNative $ShellExecutable @('-NoProfile','-NonInteractive','-File',$NativeScript,'-Code','7') | Out-Null}
+    catch {$ExitRejected=$_.Exception.Message -match 'Command failed \(7\)' -and $_.Exception.Message -match 'args:'}
+    if(-not $ExitRejected){throw 'A real nonzero native exit was not reported with its diagnostic.'}
+    if($ErrorActionPreference -ne 'Stop'){throw 'Failed native invocation changed the caller error policy.'}
+    Write-Host 'Native stdout/stderr and exit-code checks passed (legacy stderr policy simulated).'
     $Xml=Join-Path $Temporary 'results.xml'
     Expect-Rejection {Assert-TestRun $Xml 2 @('Required')}
     function Write-Xml([string]$Result='Passed',[int]$Total=2,[int]$Passed=2,[int]$Failed=0,[int]$Skipped=0,[string]$Suite='Required',[string]$Case='Passed'){

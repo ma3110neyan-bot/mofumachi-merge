@@ -2,7 +2,7 @@
 
 今回の画面・音・保存変更を含む**新しいAPK**で確認します。以前の51,201,037 bytesのAPKと40／5テスト成功は旧実装の結果です。クラウドのライセンス／最終APKはユーザー指示で保留し、Windows Unity6000.6.4f1で実行します。
 
-2026-10-10の進捗：ユーザーのTest Runner画面でEditMode67／PlayMode25の全成功、QAメニュービルドで `Builds\Android\vertical-slice-qa.apk` の成功marker（52,792,734 bytes）を確認。APKのSHA／実ID／インストール／実機試験は未確認です。以下のPowerShellはXML・metadataも生成する再現手順で、今回のメニュービルドとは区別してください。
+2026-10-10の進捗：ユーザーのTest Runner画面でEditMode67／PlayMode25の全成功、QAメニュービルドで `Builds\Android\vertical-slice-qa.apk` の成功marker（52,792,734 bytes）、ADBで許可済み `99RAY1BELH device` を確認。QA更新インストールは起動処理まで進み、Windows PowerShellのstderr処理で停止しました。修正済みスクリプトのWindows再実行、APK SHA、一周・音・保存復帰の実機試験は未確認です。以下のPowerShellはXML・metadataも生成する再現手順で、今回のメニュービルドとは区別してください。
 
 ## 1. 正しいフォルダーを更新する
 
@@ -42,6 +42,14 @@ powershell -ExecutionPolicy Bypass -File .\scripts\install-pixel3a.ps1 -Apk "C:\
 ```
 
 スクリプトはUnity同梱aapt2 build-tools36.0.0でAPKの実ID／ARM64を確認し、端末API26以上／ARM64／許可を確認して `install -r`。端末コマンドはすべて `-s` で指定します。署名不一致等は停止し、アンインストールや `pm clear` で保存を消しません。成功後に選んだアプリを起動します。
+
+2026-10-10に起動の `args: ...` 診断行で `NativeCommandError` となるWindows PowerShell 5.1互換性を修正しました。GitHub DesktopでFetch→Pull後、今回のメニュービルドAPKは再ビルドせず、次を再実行できます。
+
+```powershell
+powershell -ExecutionPolicy Bypass -File "C:\Users\User\Desktop\Mofumachi\mofumachi-merge\scripts\install-pixel3a.ps1" -Apk "C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Android\vertical-slice-qa.apk" -Serial "99RAY1BELH" -PackageName "com.mofumachi.merge.qa"
+```
+
+`Installed com.mofumachi.merge.qa` と最後の `APK SHA256` を確認して記録します。この再実行はQAの現在の保存を維持します。既にプレイしたQAは初期状態へ戻りません。
 
 ## 4. 通常版の更新試験（現在の保存を残す）
 

@@ -1,6 +1,6 @@
 # Pixel 3a品質向上 — 実装報告
 
-2026-10-09実装、2026-10-10テスト結果追記。承認済み[設計](superpowers/specs/2026-10-09-pixel3a-quality-design.md)と[7工程の計画](superpowers/plans/2026-10-09-pixel3a-quality.md)に沿ったソース実装です。**Windowsの初回EditModeは67件中66成功・1失敗。下記の文字検査修正の再試験、PlayMode、新APK、Pixel実機試験は未確認。Vertical Sliceの実機安定完成／Google Play公開合格とは報告しません。** USBデータケーブルは見つかりましたが、今回の端末認識・許可はまだ確認していません。
+2026-10-09実装、2026-10-10テスト結果追記。承認済み[設計](superpowers/specs/2026-10-09-pixel3a-quality-design.md)と[7工程の計画](superpowers/plans/2026-10-09-pixel3a-quality.md)に沿ったソース実装です。**WindowsのEditModeは修正後67件成功・失敗0。初回PlayModeは25件中24成功・1失敗で、下記の入力テスト修正の再試験待ち。新APK・Pixel実機試験は未確認。Vertical Sliceの実機安定完成／Google Play公開合格とは報告しません。** USBデータケーブルは見つかりましたが、今回の端末認識・許可はまだ確認していません。
 
 ## 実装内容
 
@@ -20,10 +20,10 @@
 | 全Core／Presentation／Editor／全テストをUnity6000.6.4f1の実DLL・customNUnitでコンパイル | 成功、警告0／エラー0 |
 | PowerShell7.4.13の実スクリプトゲート | XML／端末指定／package／更新失敗のmock検査成功。実ADB・Windows Unityではありません |
 | 七つのOGGをFFmpegデコード | 有限、各ピーク≤-3dBFS、ループ37.647秒。BGM境界差分0.001363。[全SHA／波形値](audio-assets.md) |
-| UIFont | 完全版Noto CJK JPからOFL subset。WindowsでHasCharacterの欠落文字誤検出を確認し、FontEngineの同梱字形照合へ変更。修正のネイティブ再試験待ち |
+| UIFont | 完全版Noto CJK JPからOFL subset。HasCharacterの欠落文字誤検出を修正し、FontEngineの同梱字形照合へ変更。更新後のWindows EditMode全67件成功で確認 |
 | 正式画像／承認済み背景 | 原画Resources SHA `cd423f6599cf41346064405240c72ac071aaa8d3fbd326d2b82661b13b0892c8`、背景SHA `971461342858e74c8db5f669f28c3e5c0c1a0f9d364e645ec55b9ea2834e7b51` 一致 |
 | meta／GUID／asmdef／シーンbootstrap／diff | 静的検査。独立レビュー結果は下記へ追記 |
-| Windowsネイティブ | 2026-10-10のEditMode画面で67件中66成功・1失敗（Core62成功、BuildTime4成功・1失敗）。修正再試験とPlayMode最低25件は未確認 |
+| Windowsネイティブ | 2026-10-10のユーザー画面：EditMode再試験67成功・失敗0・未実行0。PlayMode初回24成功・1失敗・未実行0。PlayMode修正再試験待ち。XMLは未受領 |
 | 新Android APK／Pixel | Windowsビルド・新APK SHA・実機画面／入力／音／再起動は実行待ち |
 
 コアは旧形式移行／保存失敗／不完全データ／前回エラー残留の実行RED→GREENを確認。新しいUnity APIの欠落をコンパイルRED→GREENで確認しましたが、ネイティブUI／音の挙動RED／GREENはクラウドで実行していません。旧40／5のWindows成功と旧APKのPixel画像は、新実装の証拠へ転用しません。
@@ -32,7 +32,15 @@
 
 `PresentationContentTests.ContentGateRejectsMissingAssetsAndUnsupportedGlyphs` が失敗。存在しないU+FFFFに対して `ValidateGlyphs` が期待した `BuildFailedException` を出さず、`Expected: BuildFailedException / But was: null` になりました。同梱OTFのcmapとシステムFreeTypeでU+FFFF／U+0378／U+0416の字形indexが0であることを確認。動的描画側の `Font.HasCharacter` に依存する検査を、Unity TextCore `FontEngine.LoadFontFace`／`TryGetGlyphIndex` による同梱字形の照合へ変更しました。
 
-不足文字3種・フォント未設定の拒否と、必要な日本語／空白の受け入れを同じ3件のContentテストで確認する構成です。テストの削除・スキップ・合格条件の緩和は行っていません。クラウドのソースフォント照合は必要な非ASCII89文字で成功しましたが、これはUnityネイティブ実行の代わりではありません。WindowsでEditMode全67件を再実行してください。
+不足文字3種・フォント未設定の拒否と、必要な日本語／空白の受け入れを同じ3件のContentテストで確認する構成です。テストの削除・スキップ・合格条件の緩和は行っていません。クラウドのソースフォント照合は必要な非ASCII89文字で成功。e805e2f更新後のユーザー画面でWindows EditMode全67件成功を確認しました。
+
+### Windows初回PlayModeのドラッグテスト修正（2026-10-10）
+
+`MergeInteractionTests.PointerDragAndTwoTapsProduceOneMerge` のドラッグ後に、期待アイテム数1に対して実際2で失敗。ほか24件（直接Mergeする一周テスト、盤面サイズ、保存失敗、音、設定、報酬／成長を含む）はユーザー画面で成功しました。
+
+失敗したテストは `ShowMerge` で盤面を新規生成した同じフレームでbegin／drag／endを実行していました。Unity同梱UGUIの `GraphicRaycaster` は未描画depth=-1のGraphicを除外し、標準 `GraphicRaycasterButtonTests` は生成後に1フレーム待ちます。これを根拠としてテストの描画待ちとドラッグ開始後のフレームを追加。移動後の2タップも描画後に実行し、各入力位置の実Raycast先が対応セルか検査します。合成の期待数・Lv.2・二重入力抑止・ロック・移動の検証は維持しています。
+
+今回の変更は入力テストの準備と診断のみで、製品の盤面処理は変更していません。原因候補である描画タイミングの確認とネイティブGREENはWindows再試験が必要です。再失敗時にはセル描画depth・座標・ヒット先の追加メッセージで入力経路を切り分けます。PlayMode全25件の合格とPixel実タッチはまだ確認していません。
 
 ## Windowsの次の操作
 
@@ -63,7 +71,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\build-android.ps1 -Qa
 2. Safe Area高さ592でTOPの小さい原画列と開始ボタン、ホームの下の原画と依頼カード、エラー文と開始ボタンが重なる問題。中央表示／固定アクション／メッセージの領域を分け、実際に要素を配置した画面の交差テストを追加。592／640／740／808の境界数式をクラウドでも確認。
 3. 街成長の保存失敗で遷移できない時に、理由が見えない問題。街成長にも画面別エラーを表示し、保存失敗→表示→再試行のテストを追加。
 
-trailing whitespaceも修正しました。修正後の全ソースコンパイル0警告／0エラー、コア62件とスクリプトゲートは成功。追加したPlayMode計25件の実行はWindows待ちです。独立レビューや数式検査を実機合格と呼びません。
+trailing whitespaceも修正しました。レビュー修正後の全ソースコンパイル0警告／0エラー、コア62件とスクリプトゲートは成功。続くWindows試験の結果と修正は上記へ追記しています。独立レビューや数式検査を実機合格と呼びません。
 
 ## 変更ファイル一覧
 

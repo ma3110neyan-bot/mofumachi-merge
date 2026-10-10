@@ -12,7 +12,7 @@ namespace Mofumachi.Presentation
         public void React()
         {
             if (!isActiveAndEnabled) return;
-            foreach (var other in transform.parent.GetComponentsInChildren<CharacterReaction>())
+            foreach (var other in transform.parent.parent.GetComponentsInChildren<CharacterReaction>())
                 if (other != this) other.ClearSelection();
             frame.color = UIWidgets.Pink; frame.SetVerticesDirty();
             if (reaction != null) StopCoroutine(reaction);

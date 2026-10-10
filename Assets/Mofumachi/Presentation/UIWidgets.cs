@@ -33,7 +33,10 @@ namespace Mofumachi.Presentation
         }
         public RawImage Character(string name,int index,RectTransform parent,Rect anchors)
         {
-            var frame=Panel(name+" frame",parent,anchors,Cream);frame.radius=200;
+            // FitInParent always uses the whole immediate parent. Give each
+            // portrait its own anchored slot before fitting the square frame.
+            var region=Node(name+" region",parent,anchors);
+            var frame=Panel(name+" frame",region,new Rect(0,0,1,1),Cream);frame.radius=200;
             var square=frame.gameObject.AddComponent<AspectRatioFitter>();square.aspectRatio=1;square.aspectMode=AspectRatioFitter.AspectMode.FitInParent;
             var clip=Panel(name+" clip",frame.rectTransform,new Rect(.055f,.055f,.89f,.89f),Color.white);clip.radius=200;clip.decorated=false;
             clip.gameObject.AddComponent<Mask>().showMaskGraphic=true;

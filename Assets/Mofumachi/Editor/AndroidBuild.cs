@@ -6,6 +6,7 @@ using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.TextCore.LowLevel;
 
 namespace Mofumachi.Editor
 {
@@ -53,7 +54,18 @@ namespace Mofumachi.Editor
         public static void RequireContent(UnityEngine.Object asset,string label)
         { if(asset==null)throw new BuildFailedException("Missing or failed to import: "+label); }
         public static void ValidateGlyphs(Font font,string text)
-        { foreach(char ch in text)if(!char.IsWhiteSpace(ch)&&!font.HasCharacter(ch))throw new BuildFailedException("UI font missing glyph: "+ch); }
+        {
+            RequireContent(font,"UIFont");
+            var error=FontEngine.InitializeFontEngine();
+            if(error!=FontEngineError.Success)throw new BuildFailedException("Cannot initialize UI font validation: "+error);
+            error=FontEngine.LoadFontFace(font,16);
+            if(error!=FontEngineError.Success)throw new BuildFailedException("Cannot load bundled UI font data: "+error);
+            // Font.HasCharacter can accept a substituted/missing glyph in the
+            // dynamic renderer. Check the bundled face's Unicode mapping instead.
+            foreach(char ch in text)
+                if(!char.IsWhiteSpace(ch)&&(!FontEngine.TryGetGlyphIndex(ch,out uint glyphIndex)||glyphIndex==0))
+                    throw new BuildFailedException("UI font missing glyph: U+"+((int)ch).ToString("X4"));
+        }
         public static void ValidateContent()
         {
             foreach (var scene in Scenes)

@@ -1,6 +1,6 @@
 # Pixel 3a品質向上 — 実装報告
 
-2026-10-09。承認済み[設計](superpowers/specs/2026-10-09-pixel3a-quality-design.md)と[7工程の計画](superpowers/plans/2026-10-09-pixel3a-quality.md)に沿ったソース実装です。**新しいWindowsネイティブテスト・APK・Pixel実機試験は未実行。Vertical Sliceの実機安定完成／Google Play公開合格とは報告しません。** USBデータケーブルは見つかりましたが、今回の端末認識・許可はまだ確認していません。
+2026-10-09実装、2026-10-10テスト結果追記。承認済み[設計](superpowers/specs/2026-10-09-pixel3a-quality-design.md)と[7工程の計画](superpowers/plans/2026-10-09-pixel3a-quality.md)に沿ったソース実装です。**Windowsの初回EditModeは67件中66成功・1失敗。下記の文字検査修正の再試験、PlayMode、新APK、Pixel実機試験は未確認。Vertical Sliceの実機安定完成／Google Play公開合格とは報告しません。** USBデータケーブルは見つかりましたが、今回の端末認識・許可はまだ確認していません。
 
 ## 実装内容
 
@@ -20,13 +20,19 @@
 | 全Core／Presentation／Editor／全テストをUnity6000.6.4f1の実DLL・customNUnitでコンパイル | 成功、警告0／エラー0 |
 | PowerShell7.4.13の実スクリプトゲート | XML／端末指定／package／更新失敗のmock検査成功。実ADB・Windows Unityではありません |
 | 七つのOGGをFFmpegデコード | 有限、各ピーク≤-3dBFS、ループ37.647秒。BGM境界差分0.001363。[全SHA／波形値](audio-assets.md) |
-| UIFont | 完全版Noto CJK JPからOFL subset、今回の全ソース日本語字形を静的確認。ネイティブHasCharacter検査はWindows待ち |
+| UIFont | 完全版Noto CJK JPからOFL subset。WindowsでHasCharacterの欠落文字誤検出を確認し、FontEngineの同梱字形照合へ変更。修正のネイティブ再試験待ち |
 | 正式画像／承認済み背景 | 原画Resources SHA `cd423f6599cf41346064405240c72ac071aaa8d3fbd326d2b82661b13b0892c8`、背景SHA `971461342858e74c8db5f669f28c3e5c0c1a0f9d364e645ec55b9ea2834e7b51` 一致 |
 | meta／GUID／asmdef／シーンbootstrap／diff | 静的検査。独立レビュー結果は下記へ追記 |
-| Windowsネイティブ | 新規EditMode最低67／PlayMode最低25のゲートを準備、実行待ち |
+| Windowsネイティブ | 2026-10-10のEditMode画面で67件中66成功・1失敗（Core62成功、BuildTime4成功・1失敗）。修正再試験とPlayMode最低25件は未確認 |
 | 新Android APK／Pixel | Windowsビルド・新APK SHA・実機画面／入力／音／再起動は実行待ち |
 
 コアは旧形式移行／保存失敗／不完全データ／前回エラー残留の実行RED→GREENを確認。新しいUnity APIの欠落をコンパイルRED→GREENで確認しましたが、ネイティブUI／音の挙動RED／GREENはクラウドで実行していません。旧40／5のWindows成功と旧APKのPixel画像は、新実装の証拠へ転用しません。
+
+### Windows初回EditModeの文字検査修正（2026-10-10）
+
+`PresentationContentTests.ContentGateRejectsMissingAssetsAndUnsupportedGlyphs` が失敗。存在しないU+FFFFに対して `ValidateGlyphs` が期待した `BuildFailedException` を出さず、`Expected: BuildFailedException / But was: null` になりました。同梱OTFのcmapとシステムFreeTypeでU+FFFF／U+0378／U+0416の字形indexが0であることを確認。動的描画側の `Font.HasCharacter` に依存する検査を、Unity TextCore `FontEngine.LoadFontFace`／`TryGetGlyphIndex` による同梱字形の照合へ変更しました。
+
+不足文字3種・フォント未設定の拒否と、必要な日本語／空白の受け入れを同じ3件のContentテストで確認する構成です。テストの削除・スキップ・合格条件の緩和は行っていません。クラウドのソースフォント照合は必要な非ASCII89文字で成功しましたが、これはUnityネイティブ実行の代わりではありません。WindowsでEditMode全67件を再実行してください。
 
 ## Windowsの次の操作
 

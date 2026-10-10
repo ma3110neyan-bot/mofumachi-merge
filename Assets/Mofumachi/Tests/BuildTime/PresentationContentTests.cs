@@ -1,4 +1,3 @@
-using System.Linq;
 using Mofumachi.Presentation;
 using NUnit.Framework;
 using UnityEngine;
@@ -10,7 +9,13 @@ namespace Mofumachi.Tests
         [Test] public void ContentGateRejectsMissingAssetsAndUnsupportedGlyphs()
         {
             foreach(var key in new[]{"TownBackground","UIFont","bgm-town-loop","se-confirm","se-character","se-merge","se-delivery","se-reward","se-growth"})Assert.Throws<UnityEditor.Build.BuildFailedException>(()=>Mofumachi.Editor.AndroidBuild.RequireContent(null,key));
-            var font=Resources.Load<Font>("Mofumachi/UIFont");Assert.Throws<UnityEditor.Build.BuildFailedException>(()=>Mofumachi.Editor.AndroidBuild.ValidateGlyphs(font,"\uffff"));
+            var font=Resources.Load<Font>("Mofumachi/UIFont");
+            Assert.That(font,Is.Not.Null);
+            // None of these characters exists in the bundled subset. Include a
+            // valid letter that Windows can substitute from an installed font.
+            foreach(var text in new[]{"\uffff","\u0378","\u0416"})
+                Assert.Throws<UnityEditor.Build.BuildFailedException>(()=>Mofumachi.Editor.AndroidBuild.ValidateGlyphs(font,text),"Must reject missing source glyph U+"+((int)text[0]).ToString("X4"));
+            Assert.Throws<UnityEditor.Build.BuildFailedException>(()=>Mofumachi.Editor.AndroidBuild.ValidateGlyphs(null,"課金"));
             Mofumachi.Editor.AndroidBuild.ValidateContent();
         }
         [Test] public void RecordedAudioAssetsExistAndHaveExpectedImportSettings()
@@ -26,8 +31,7 @@ namespace Mofumachi.Tests
         {
             var font = Resources.Load<Font>("Mofumachi/UIFont");
             Assert.That(font, Is.Not.Null);
-            foreach (char c in string.Join("", UIStrings.All).Concat("可年必方相者許課談護量金").Distinct())
-                if (!char.IsWhiteSpace(c)) Assert.That(font.HasCharacter(c), Is.True, "Missing glyph: " + c);
+            Assert.DoesNotThrow(()=>Mofumachi.Editor.AndroidBuild.ValidateGlyphs(font,string.Join("",UIStrings.All)+"可年必方相者許課談護量金\n\t "));
         }
     }
 }

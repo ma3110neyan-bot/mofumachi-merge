@@ -116,7 +116,7 @@ PDF6ページでTOP、初回課金案内、モモ／ルル／フィオ／ポム�
 
 ## 9. GitHub反映状況・変更ファイル
 
-作業ブランチ`work`。最新の製品修正は`06d6917`（画像の1024上限）、その検証報告は`d96ae80`。前回の独立レビュー指摘修正`7dd0a04`、街QA設定`a97bc0d`。今回の章設計と書体見本・本報告はmainへ反映する文書更新です。最新コミットとmainの反映状態は[mainの履歴](https://github.com/ma3110neyan-bot/mofumachi-merge/commits/main/)で確認できます。
+作業ブランチ`work`。最新の製品修正は`06d6917`（画像の1024上限）、その検証報告は`d96ae80`。今回の設計・書体見本コミット`b5f4dfb`はmainへ反映済みで、remote mainの一致を確認しました。前回の独立レビュー指摘修正`7dd0a04`、街QA設定`a97bc0d`。本書のGit反映記録の更新は別の報告コミットです。最新コミットは[mainの履歴](https://github.com/ma3110neyan-bot/mofumachi-merge/commits/main/)で確認できます。
 
 今回追加・変更するファイル（製品コード変更なし）：
 

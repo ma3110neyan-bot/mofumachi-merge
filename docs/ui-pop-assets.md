@@ -80,3 +80,7 @@ Unity Editorの描画、Mask／Canvasの実レイアウト、実入力、FontEng
 | --- | --- |
 | ItemAtlas.png | `7cbceaa1b5dd73d07ed916178bd45ee7b026908a4e6386a021f41d1df344bb2d` |
 | CharacterBodyAtlas.png | `23d14025f146c429da01b6e3a74ef803254755f8d149f9eb53516aacaa30163d` |
+
+## 2026-10-11 Windowsの画像サイズ検査への対応
+
+全身画像の実幅1536が1024上限検査に失敗。全身・アイテム・タイトル・枠の元metaには共通／AndroidのplatformSettingsがなく、トップ階層のmaxTextureSizeだけが記載されていた。Unity 6000.6.4f1同梱のTextureImporter version13／platform serializedVersion4と同じ形式でDefaultTexturePlatform／AndroidのmaxTextureSize1024を追加。Androidはoverridden1。元PNG・GUID・UI上のUV・OFLは保持。ネイティブの再インポート結果・見え方はWindows／Pixelで再確認する。

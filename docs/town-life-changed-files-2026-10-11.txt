@@ -1,6 +1,6 @@
 2026-10-11 承認済み街の生活計画 — 追加・変更ファイル一覧
 比較元: 389895ce9dbb7e99e8695672fce6241cb2734186
-対象: 工程1〜7の実装、独立レビュー修正7dd0a04と報告更新
+対象: 工程1〜7、独立レビュー修正、画像インポート修正06d6917と報告更新
 
 .gitignore
 Assets/Mofumachi/Core/CharacterCatalog.cs
@@ -51,8 +51,10 @@ Assets/Mofumachi/Resources/Mofumachi/CharacterBodyAtlas.png
 Assets/Mofumachi/Resources/Mofumachi/CharacterBodyAtlas.png.meta
 Assets/Mofumachi/Resources/Mofumachi/ItemAtlas.png
 Assets/Mofumachi/Resources/Mofumachi/ItemAtlas.png.meta
+Assets/Mofumachi/Resources/Mofumachi/TitleLogo.png.meta
 Assets/Mofumachi/Resources/Mofumachi/UIFont.ttf
 Assets/Mofumachi/Resources/Mofumachi/UIFontBold.ttf
+Assets/Mofumachi/Resources/Mofumachi/UIPanelFrame.png.meta
 Assets/Mofumachi/Tests/BuildTime/Mofumachi.BuildTests.asmdef
 Assets/Mofumachi/Tests/BuildTime/PresentationContentTests.cs
 Assets/Mofumachi/Tests/BuildTime/QaIdentityTests.cs

@@ -1,4 +1,6 @@
-> 2026-10-11街の生活版：主人公選択／v3保存移行、3系統・6依頼、指での街移動・会話・表情を実装。[実装状況・未確認事項・Windows／Pixel手順](docs/development-handoff-2026-10-11.md)。クラウドはコア81件と実DLLコンパイル検証済み。今回のWindows／Pixelは未確認。初回用の別アプリは **Build Town QA APK (separate save)**（town-life-qa.apk）。既存QAの保存も維持します。
+> 画像サイズ検査の修正：共有4画像の共通／Androidインポート上限1024を明記。修正前Edit90件中89成功／1失敗、修正後は再試験待ち。Unityを閉じてFetch→Pullし、再起動後EditMode→Run All。詳細は[最新引き継ぎ](docs/development-handoff-2026-10-11.md)。
+
+> 2026-10-11街の生活版：主人公選択／v3保存移行、3系統・6依頼、指での街移動・会話・表情を実装。[実装状況・未確認事項・Windows／Pixel手順](docs/development-handoff-2026-10-11.md)。クラウドはコア81件と実DLLコンパイル検証済み。修正後のWindows再試験／Pixelは未確認。初回用の別アプリは **Build Town QA APK (separate save)**（town-life-qa.apk）。既存QAの保存も維持します。
 
 # もふまちメルジュ
 

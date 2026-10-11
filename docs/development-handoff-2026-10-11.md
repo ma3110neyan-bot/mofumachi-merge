@@ -1,6 +1,6 @@
 # 『もふまちメルジュ』開発引き継ぎ — 2026-10-11 街の生活実装
 
-対象は承認された[7工程の計画](superpowers/plans/2026-10-11-town-life.md)。全身見本はそのまま採用との回答、表情追加の依頼を反映。過去の67／25合格・APK成功・Pixelスクリーンショットは旧版の証拠です。**今回の新しいAPK・Unityネイティブ試験・Pixelでの一周は未確認**です。
+対象は承認された[7工程の計画](superpowers/plans/2026-10-11-town-life.md)。全身見本はそのまま採用との回答、表情追加の依頼を反映。過去の67／25合格・APK成功・Pixelスクリーンショットは旧版の証拠です。**街の生活版のEditModeはユーザー画面で90件中89件成功・全身画像のサイズ検査1件失敗。下記の設定修正後の再試験、新しいAPK、PlayMode、Pixelでの一周は未確認**です。
 
 ## 1. 現在の実装状況
 
@@ -22,6 +22,8 @@
 | Androidビルド | 仮実装 | 既存QAと通常版を維持し、初回試験用の別「街QA」を追加。今回のAPK生成はWindowsで行う |
 
 ## 2. 今回実装・修正した内容
+
+追加修正：`FullBodyAtlasHasSixNamedCharactersAndExpressions`で実幅1536／上限1024の失敗を受領。共有4画像（全身・アイテム・タイトル・枠）のmetaへUnity 6形式の`platformSettings`を追加し、Default／Androidとも1024、Android overrideを有効化。画像原本・GUID・UV・正式6名のデザインは変更なし。既存テストに共通／Androidの有効設定と実読込サイズの検査を追加し、1024条件を維持。
 
 - UI：全身選択、実依頼・2種までの要求品、9種のアイテム絵、系統選択／片づけ確認、実納品・報酬画面を接続。既存のロゴ・金縁・花・光沢を維持。
 - ロジック：6依頼の順次受注、完了済み旧tea-01から2件目へ続行。初回から全6件なら330 Coins／街Lv.6。1件目は従来どおり30 Coins。失敗した受注／納品／片づけ／選択は巻き戻す。
@@ -84,8 +86,8 @@ ID順：`momo` モモ／`lulu` ルル／`pom` ポム／`fio` フィオ／`miel` 
 
 クラウドの実測：コア81件成功・失敗0・skip0。Unity 6000.6.4f1の実DLLとnetstandard2.1／C#9で、直接asmdef参照だけを使い6アセンブリを個別コンパイルし、すべて0警告・0エラー。PowerShell 7.4.6のスクリプトゲート成功（ADB／aaptは模擬）。両フォントの表示文字、元素材のSHA、meta GUIDを検査。
 
-- Unityネイティブ実行はライセンス未利用とクラウドAPK保留方針のため未実行。コンパイル成功はUGUI描画・FontEngine・InputSystem・IL2CPP成功の証拠ではありません。
-- 今回のWindows対象はEditMode **90件**（コア81＋Build9）、PlayMode **43件**。これはソースから集計した予定数で、合格実績ではありません。テストの削除・skipはしていません。
+- クラウドのUnityネイティブ実行はライセンス未利用とクラウドAPK保留方針のため未実行。コンパイル成功はUGUI描画・FontEngine・InputSystem・IL2CPP成功の証拠ではありません。
+- Windowsの受領画面はEditMode **90件中89件成功／1件失敗／skip0**。失敗名は`FullBodyAtlasHasSixNamedCharactersAndExpressions`、`Expected: <=1024 / But was:1536`。元metaはトップ階層のmaxTextureSizeだけでDefaultTexturePlatform／Androidの設定が欠落。Unity 6000.6.4f1同梱のversion13／platform version4 metaと照合して補完し、静的検査は修正前失敗→修正後成功。**Unityでの縮小結果・修正後90件の合格は再試験待ち**です。PlayModeの43件は予定数で、今回版の合格実績は未受領。テストの削除・skipはしていません。
 - 新APK・SHA・実機一周・30fps・発熱・クラッシュは未測定。実機で素材の切れ、足位置、噴水位置、文字、指操作を確認して修正します。
 - 全身は1方向の絵と3表情。脚・手の独立アニメーション／完全な会話システムは未実装。
 - ショップの販売、課金、広告、図鑑、イベントは未実装。追加範囲を広げず既存一周を優先。
@@ -99,7 +101,7 @@ ID順：`momo` モモ／`lulu` ルル／`pom` ポム／`fio` フィオ／`miel` 
 
 ## 9. GitHub反映状況・変更ファイル
 
-作業ブランチ`work`。最新の実装修正コミット`7dd0a04`（独立レビュー指摘の修正）、街QA設定`a97bc0d`。この報告更新も含めmainへ反映済みです。最新コミットは[mainの履歴](https://github.com/ma3110neyan-bot/mofumachi-merge/commits/main/)で確認できます。Windows側でFetch origin→Pull originしてください。
+作業ブランチ`work`。最新の画像設定修正コミット`06d6917`（1024上限）、前回の独立レビュー指摘修正`7dd0a04`、街QA設定`a97bc0d`。この報告更新も含めmainへ反映済みです。最新コミットは[mainの履歴](https://github.com/ma3110neyan-bot/mofumachi-merge/commits/main/)で確認できます。Windows側でFetch origin→Pull originしてください。
 
 [今回の追加・変更ファイル全一覧](town-life-changed-files-2026-10-11.txt)（metaを含む）。
 
@@ -113,7 +115,7 @@ ID順：`momo` モモ／`lulu` ルル／`pom` ポム／`fio` フィオ／`miel` 
 
 ## 10. Windows PCで次に行う作業
 
-1. GitHub Desktopで`mofumachi-merge`を開き、Fetch origin→Pull origin。
+1. Unity Editorを閉じ、GitHub Desktopで`mofumachi-merge`を開き、Fetch origin→Pull origin。
 2. Unity HubからUnity **6000.6.4f1**で開き、インポートとコンパイルを待つ。Build ProfilesでAndroidがActiveになっていることを確認。
 3. Test RunnerのEditMode→Run All、続いてPlayMode→Run All。予定90／43件、赤0・skip0を確認。失敗があればAPKへ進まず、失敗項目と詳細を送ってください。
 4. 初回から確認する場合は **Mofumachi→Android→Build Town QA APK (separate save)**。既存QAの続行確認は **Build QA APK (separate save)**。それぞれConsoleの`MOFUMACHI_APK_SUCCESS`と出力名を確認。
@@ -143,7 +145,7 @@ Pixelで「もふまちメルジュ 街QA」を再び開く。アンインスト
 
 ## 11. 次回Codexが優先して行う作業
 
-1. Windowsの90／43件とPixelの初回一周／旧セーブ続行の結果を受け、失敗を修正。
+1. 画像設定修正後のWindows Edit90件を再試験し、Play43件、Pixelの初回一周／旧セーブ続行へ進む。失敗があれば内容を調べて修正。
 2. 全身・表情・街の位置、文字・装飾・タップ領域、水流の見え方を実機スクリーンショットと操作結果で調整。
 3. 30fps・保存／再起動・バックグラウンド復帰・連続操作を確認し、負荷と入力不具合を修正。
 4. 正式BGM／SEの決定・差し替えと音量確認。

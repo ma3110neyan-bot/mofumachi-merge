@@ -1,3 +1,9 @@
+## 最新：共有画像の1024インポート上限（2026-10-11）
+
+街の生活版のユーザーEditMode画面：90件中89成功、1失敗、skip0。`FullBodyAtlasHasSixNamedCharactersAndExpressions`で全身幅1536、上限1024。元metaの`platformSettings`欠落を確認し、全身／アイテム／タイトル／枠に共通とAndroidの1024設定を明記。Android overrideも有効化。原画像・GUID・UV・正式6名を維持し、既存テストへ有効設定と実サイズの検査を追加。テスト件数90／43は維持。
+
+クラウド：4metaの欠落検査を修正前失敗→修正後成功、6アセンブリ個別コンパイル0警告／0エラー、コア81成功。**修正後のUnityインポート・Edit90／Play43・APK・Pixelは再確認待ち。** Unityを閉じてFetch→Pull、再起動・インポートを待ってEditModeを再実行。[12項目の更新報告](development-handoff-2026-10-11.md)。
+
 # Pixel 3a品質向上 — 実装報告
 
 ## 最新：選べる主人公・6依頼・街の生活（2026-10-11）

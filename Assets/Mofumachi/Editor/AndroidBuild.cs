@@ -12,6 +12,7 @@ namespace Mofumachi.Editor
 {
     public static class AndroidBuild
     {
+        public const string TownQaApplicationId = "com.mofumachi.merge.qa.townlife";
         public const string QaApplicationId = "com.mofumachi.merge.qa";
         public const string ApplicationId = "com.mofumachi.merge";
         public static readonly string[] Scenes = { "Assets/Scenes/TitleScene.unity", "Assets/Scenes/GameScene.unity" };
@@ -92,18 +93,22 @@ namespace Mofumachi.Editor
 
         }
 
-        public static void WithQaIdentity(Action action)
+        public static void WithQaIdentity(Action action)=>WithIdentity(QaApplicationId,"もふまちメルジュ QA",action);
+        public static void WithTownQaIdentity(Action action)=>WithIdentity(TownQaApplicationId,"もふまちメルジュ 街QA",action);
+        private static void WithIdentity(string applicationId,string productName,Action action)
         {
             string id=PlayerSettings.GetApplicationIdentifier(NamedBuildTarget.Android),name=PlayerSettings.productName;
-            try { PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android,QaApplicationId);PlayerSettings.productName="もふまちメルジュ QA";action(); }
+            try { PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android,applicationId);PlayerSettings.productName=productName;action(); }
             finally {PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android,id);PlayerSettings.productName=name;AssetDatabase.SaveAssets();}
         }
+        [MenuItem("Mofumachi/Android/Build Town QA APK (separate save)")]
+        public static void BuildTownQaApk()=>WithTownQaIdentity(()=>{ConfigureDeviceSettings();BuildConfiguredApk(true,"town-life-qa.apk");});
         [MenuItem("Mofumachi/Android/Build QA APK (separate save)")]
         public static void BuildQaApk() => WithQaIdentity(()=>{ConfigureDeviceSettings();BuildConfiguredApk(true);});
         [MenuItem("Mofumachi/Android/Build Development APK")]
         public static void BuildDevelopmentApk()
         { ConfigurePixel3a();BuildConfiguredApk(false); }
-        private static void BuildConfiguredApk(bool qa)
+        private static void BuildConfiguredApk(bool qa,string defaultFileName=null)
         {
             if (Application.unityVersion != "6000.6.4f1")
                 throw new BuildFailedException("Use the project-pinned Unity 6000.6.4f1.");
@@ -112,7 +117,7 @@ namespace Mofumachi.Editor
             if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android)
                 throw new BuildFailedException("Activate the Android Build Profile first. Batch builds require -buildTarget Android.");
             ValidateContent(); AssetDatabase.SaveAssets();
-            string output = ResolveOutput(qa);
+            string output = ResolveOutput(qa,defaultFileName);
             Directory.CreateDirectory(Path.GetDirectoryName(output));
             // Publish this attempt only after success; an older APK is preserved on failure.
             string temporary = Path.Combine(Path.GetDirectoryName(output), "vertical-slice-" + Guid.NewGuid().ToString("N") + ".apk");
@@ -131,7 +136,7 @@ namespace Mofumachi.Editor
             }
             finally { if (File.Exists(temporary)) File.Delete(temporary); }
         }
-        private static string ResolveOutput(bool qa)
+        private static string ResolveOutput(bool qa,string defaultFileName=null)
         {
             var args = Environment.GetCommandLineArgs();
             int index = Array.IndexOf(args, "-mofumachiApkPath");
@@ -143,7 +148,7 @@ namespace Mofumachi.Editor
                     throw new BuildFailedException("Output path must end in .apk.");
                 return Path.GetFullPath(args[index + 1]);
             }
-            return Path.GetFullPath(Path.Combine(Application.dataPath, qa?"../Builds/Android/vertical-slice-qa.apk":"../Builds/Android/vertical-slice.apk"));
+            return Path.GetFullPath(Path.Combine(Application.dataPath,"../Builds/Android",defaultFileName??(qa?"vertical-slice-qa.apk":"vertical-slice.apk")));
         }
     }
 }

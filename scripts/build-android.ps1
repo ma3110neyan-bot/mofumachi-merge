@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([string]$UnityEditor = "$env:ProgramFiles\Unity\Hub\Editor\6000.6.4f1\Editor\Unity.exe", [switch]$Qa)
+param([string]$UnityEditor = "$env:ProgramFiles\Unity\Hub\Editor\6000.6.4f1\Editor\Unity.exe", [switch]$Qa,[switch]$TownQa)
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 function Assert-TestRun([string]$ResultPath,[int]$MinimumTests,[string[]]$RequiredSuites) {
@@ -21,6 +21,7 @@ function Invoke-Unity([string[]]$UnityArguments) {
 }
 # Dot sourcing exposes the same gates to script tests without starting Unity.
 if($MyInvocation.InvocationName -eq '.'){return}
+if($Qa -and $TownQa){throw 'Select -Qa or -TownQa, not both.'}
 $ProjectPath=(Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 if($ProjectPath -match '[^\x00-\x7F]'){throw 'Move the entire repository to an ASCII path before Android builds.'}
 if(-not(Test-Path -LiteralPath $UnityEditor -PathType Leaf)){throw 'Pass -UnityEditor with Unity 6000.6.4f1 Unity.exe.'}
@@ -31,12 +32,13 @@ $OutputDir=Join-Path $ProjectPath "Builds\Android\$RunName"
 New-Item -ItemType Directory -Path $OutputDir | Out-Null
 $EditXml=Join-Path $OutputDir 'editmode.xml'
 Invoke-Unity @('-batchmode','-nographics','-projectPath',$ProjectPath,'-buildTarget','Android','-runTests','-testPlatform','EditMode','-testResults',$EditXml,'-logFile',(Join-Path $OutputDir 'editmode.log'))
-Assert-TestRun $EditXml 67 @('PreferencesTests','AndroidBuildTests','PresentationContentTests','QaIdentityTests','DeliveryTests','SaveServiceTests')
+Assert-TestRun $EditXml 90 @('PreferencesTests','AndroidBuildTests','PresentationContentTests','QaIdentityTests','DeliveryTests','SaveServiceTests','CharacterPreferenceTests','QuestCatalogTests','ItemRemovalTests','TownMovementTests')
 $PlayXml=Join-Path $OutputDir 'playmode.xml'
 Invoke-Unity @('-batchmode','-projectPath',$ProjectPath,'-buildTarget','Android','-runTests','-testPlatform','PlayMode','-testResults',$PlayXml,'-logFile',(Join-Path $OutputDir 'playmode.log'))
-Assert-TestRun $PlayXml 31 @('VerticalSliceFlowTests','LayoutNoticeTests','AudioManagerTests','MergeInteractionTests','RewardGrowthTests','SettingsScreenTests','PopPresentationTests')
+Assert-TestRun $PlayXml 43 @('VerticalSliceFlowTests','LayoutNoticeTests','AudioManagerTests','MergeInteractionTests','RewardGrowthTests','SettingsScreenTests','PopPresentationTests','CharacterSelectionTests','MultiQuestPresentationTests','TownLifeTests')
 $ApkName='vertical-slice.apk';$BuildMethod='Mofumachi.Editor.AndroidBuild.BuildDevelopmentApk';$PackageId='com.mofumachi.merge'
 if($Qa){$ApkName='vertical-slice-qa.apk';$BuildMethod='Mofumachi.Editor.AndroidBuild.BuildQaApk';$PackageId='com.mofumachi.merge.qa'}
+if($TownQa){$ApkName='town-life-qa.apk';$BuildMethod='Mofumachi.Editor.AndroidBuild.BuildTownQaApk';$PackageId='com.mofumachi.merge.qa.townlife'}
 $ApkPath=Join-Path $OutputDir $ApkName;$BuildLog=Join-Path $OutputDir 'android-build.log'
 Invoke-Unity @('-batchmode','-nographics','-quit','-projectPath',$ProjectPath,'-buildTarget','Android','-executeMethod',$BuildMethod,'-mofumachiApkPath',$ApkPath,'-logFile',$BuildLog)
 if(-not(Test-Path -LiteralPath $ApkPath) -or (Get-Item -LiteralPath $ApkPath).Length -le 0 -or -not(Select-String -LiteralPath $BuildLog -SimpleMatch 'MOFUMACHI_APK_SUCCESS' -Quiet)){throw "Fresh APK not produced: $BuildLog"}
@@ -46,5 +48,5 @@ $ProjectSettings=Get-Content (Join-Path $ProjectPath 'ProjectSettings\ProjectSet
 $VersionCode=[regex]::Match($ProjectSettings,'(?m)^\s+AndroidBundleVersionCode: (\d+)\s*$').Groups[1].Value
 if(-not $VersionCode){throw 'Cannot read versionCode for build identity.'}
 $Hash=(Get-FileHash -LiteralPath $ApkPath -Algorithm SHA256).Hash.ToLowerInvariant()
-[ordered]@{gitRevision=$GitRevision;unity='6000.6.4f1';appId=$PackageId;versionCode=[int]$VersionCode;apk=$ApkName;sha256=$Hash;bytes=(Get-Item -LiteralPath $ApkPath).Length;builtAtUtc=[DateTime]::UtcNow.ToString('o');qa=[bool]$Qa} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $OutputDir 'build-info.json') -Encoding UTF8
+[ordered]@{gitRevision=$GitRevision;unity='6000.6.4f1';appId=$PackageId;versionCode=[int]$VersionCode;apk=$ApkName;sha256=$Hash;bytes=(Get-Item -LiteralPath $ApkPath).Length;builtAtUtc=[DateTime]::UtcNow.ToString('o');qa=[bool]($Qa -or $TownQa);townQa=[bool]$TownQa} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $OutputDir 'build-info.json') -Encoding UTF8
 Write-Host "APK: $ApkPath`nSHA256: $Hash"

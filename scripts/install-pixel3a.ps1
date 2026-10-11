@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([string]$Apk,[string]$Adb="$env:ProgramFiles\Unity\Hub\Editor\6000.6.4f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\platform-tools\adb.exe",[string]$Serial,[ValidateSet('com.mofumachi.merge','com.mofumachi.merge.qa')][string]$PackageName='com.mofumachi.merge')
+param([string]$Apk,[string]$Adb="$env:ProgramFiles\Unity\Hub\Editor\6000.6.4f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\platform-tools\adb.exe",[string]$Serial,[ValidateSet('com.mofumachi.merge','com.mofumachi.merge.qa','com.mofumachi.merge.qa.townlife')][string]$PackageName='com.mofumachi.merge')
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
 function Invoke-CheckedNative([string]$Executable,[string[]]$NativeArguments) {

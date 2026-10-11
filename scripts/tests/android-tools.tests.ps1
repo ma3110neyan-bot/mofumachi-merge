@@ -51,10 +51,10 @@ exit $Code
     if((Select-AuthorizedDevice "Pixel`tdevice`nOther`tdevice" 'Pixel') -ne 'Pixel'){throw 'Wrong serial'}
     $Apk=Join-Path $Temporary 'test app.apk';$Adb=Join-Path $Temporary 'adb.exe';$Aapt=Join-Path $Temporary 'aapt2.exe'
     foreach($Path in @($Apk,$Adb,$Aapt)){Set-Content -LiteralPath $Path 'fixture'}
-    $script:Calls=@();$script:Wrong=$false;$script:FailInstall=$false
+    $script:Calls=@();$script:Wrong=$false;$script:FailInstall=$false;$script:FixtureId='com.mofumachi.merge'
     function Invoke-CheckedNative([string]$Executable,[string[]]$NativeArguments){
         $script:Calls+=,@($NativeArguments)
-        if($Executable -eq $Aapt){$Id='com.mofumachi.merge';if($script:Wrong){$Id='wrong.app'};return "package: name='$Id' versionCode='1'`nnative-code: 'arm64-v8a'"}
+        if($Executable -eq $Aapt){$Id=$script:FixtureId;if($script:Wrong){$Id='wrong.app'};return "package: name='$Id' versionCode='1'`nnative-code: 'arm64-v8a'"}
         if($NativeArguments[0] -eq 'devices'){return "List of devices attached`nPixel`tdevice"}
         if($NativeArguments[0] -ne '-s' -or $NativeArguments[1] -ne 'Pixel'){throw 'ADB device command must specify exact serial.'}
         if($NativeArguments -contains 'ro.build.version.sdk'){return '31'}
@@ -63,6 +63,16 @@ exit $Code
         return 'Events injected: 1'
     }
     Invoke-PixelInstall $Apk $Adb '' 'com.mofumachi.merge' $Aapt
+    foreach($Id in @('com.mofumachi.merge.qa','com.mofumachi.merge.qa.townlife')){
+        $script:FixtureId=$Id;Invoke-PixelInstall $Apk $Adb 'Pixel' $Id $Aapt
+    }
+    $script:FixtureId='com.mofumachi.merge.qa.townlife'
+    Expect-Rejection {Invoke-PixelInstall $Apk $Adb 'Pixel' 'com.mofumachi.merge.qa' $Aapt}
+    Expect-Rejection {Invoke-PixelInstall $Apk $Adb 'Pixel' 'com.mofumachi.merge.qa.unknown' $Aapt}
+    $Validation=(Get-Command (Join-Path $PSScriptRoot '../install-pixel3a.ps1')).Parameters['PackageName'].Attributes | Where-Object {$_ -is [System.Management.Automation.ValidateSetAttribute]}
+    if($Validation.ValidValues.Count -ne 3 -or $Validation.ValidValues -notcontains 'com.mofumachi.merge.qa.townlife'){throw 'Installer must allow exactly 3 package IDs.'}
+    $script:FixtureId='com.mofumachi.merge'
+    if(@($script:Calls | Where-Object {$_ -contains 'install' -and $_ -notcontains '-r'}).Count -gt 0){throw 'Update must retain save using install -r'}
     $script:Wrong=$true;Expect-Rejection {Invoke-PixelInstall $Apk $Adb '' 'com.mofumachi.merge' $Aapt};$script:Wrong=$false
     $script:FailInstall=$true;Expect-Rejection {Invoke-PixelInstall $Apk $Adb '' 'com.mofumachi.merge' $Aapt}
     if(@($script:Calls | Where-Object {$_ -contains 'uninstall' -or $_ -contains 'clear'}).Count -gt 0){throw 'Destructive data command'}

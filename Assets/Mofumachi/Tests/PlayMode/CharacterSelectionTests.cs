@@ -1,8 +1,10 @@
 using System.Collections;
+using System.Linq;
 using Mofumachi.Presentation;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
+using UnityEngine.UI;
 
 namespace Mofumachi.Tests
 {
@@ -25,6 +27,10 @@ namespace Mofumachi.Tests
             Assert.That(Flow.CurrentScreen, Is.EqualTo(ScreenId.Home));
             Assert.That(Store.Load().State.favoriteCharacterId, Is.EqualTo("miel"));
             Assert.That(Flow.ReturnToTitle(), Is.True); yield return null; yield return null;
+            Assert.That(Flow.GetComponentInChildren<CharacterBodyGraphic>().CharacterId, Is.EqualTo("miel"));
+            var companions = Flow.GetComponentsInChildren<RawImage>().Where(i => i.name.StartsWith("Character ")).Select(i => i.name);
+            Assert.That(companions, Is.EquivalentTo(new[] { "Character 0", "Character 1", "Character 2", "Character 3", "Character 5" }),
+                "TOP must show the selected partner once and all five other characters.");
             Flow.Initialize(Store); Flow.BeginGame(); yield return null; yield return null;
             Assert.That(Flow.CurrentScreen, Is.EqualTo(ScreenId.Home));
             Assert.That(Flow.Game.State.favoriteCharacterId, Is.EqualTo("miel"));
@@ -56,6 +62,11 @@ namespace Mofumachi.Tests
             {
                 if (origin == ScreenId.Growth) Flow.ShowGrowth();
                 if (origin == ScreenId.Quest) Flow.ShowQuest();
+                string favorite = Flow.Game.State.favoriteCharacterId;
+                Flow.ShowSettings(); Flow.ShowCharacterSelection(); Flow.PreviewFavorite("noah");
+                Flow.ShowSettings(); Flow.GoBack();
+                Assert.That(Flow.CurrentScreen, Is.EqualTo(origin), "Selection's settings shortcut must retain the original return screen.");
+                Assert.That(Flow.Game.State.favoriteCharacterId, Is.EqualTo(favorite), "An unconfirmed preview must not change the partner.");
                 Flow.ShowSettings(); Flow.ShowCharacterSelection(); Flow.PreviewFavorite("fio");
                 Assert.That(Flow.ConfirmFavorite(), Is.True);
                 Assert.That(Flow.CurrentScreen, Is.EqualTo(ScreenId.Settings)); Flow.GoBack();

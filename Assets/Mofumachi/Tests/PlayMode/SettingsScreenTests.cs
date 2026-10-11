@@ -46,6 +46,7 @@ namespace Mofumachi.Tests
         {
             yield return LoadTitle();Flow.ShowSettings();Flow.GoBack();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Title));
             Flow.BeginGame();Flow.ConfirmPurchaseNotice();yield return null;yield return null;
+            Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.CharacterSelection));Assert.That(Flow.ConfirmFavorite(),Is.True);
             foreach(var target in new[]{ScreenId.Home,ScreenId.Quest,ScreenId.Merge}){if(target==ScreenId.Home)Flow.ShowHome();else if(target==ScreenId.Quest)Flow.ShowQuest();else Flow.ShowMerge();Flow.ShowSettings();Flow.GoBack();Assert.That(Flow.CurrentScreen,Is.EqualTo(target));}
             Flow.AcceptQuest();Flow.DropItem(0,1);yield return new WaitForSecondsRealtime(.3f);Flow.Deliver();Flow.ShowSettings();Flow.GoBack();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Result));
             yield return new WaitForSecondsRealtime(1.3f);Flow.ShowGrowth();Flow.ShowSettings();Flow.GoBack();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Growth));

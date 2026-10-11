@@ -168,7 +168,12 @@ namespace Mofumachi.Presentation
             return saved;
         }
         public void ShowSettings()
-        { if(IsModalOpen || transitioning)return; if(view!="settings")settingsReturnView=view??"title";Navigate("settings"); }
+        {
+            if(IsModalOpen || transitioning)return;
+            bool reselectingFromSettings=CurrentScreen==ScreenId.CharacterSelection && selectionReturnView=="settings";
+            if(view!="settings" && !reselectingFromSettings)settingsReturnView=view??"title";
+            Navigate("settings");
+        }
         private void Navigate(string target)
         {
             if(transitioning || IsModalOpen)return;

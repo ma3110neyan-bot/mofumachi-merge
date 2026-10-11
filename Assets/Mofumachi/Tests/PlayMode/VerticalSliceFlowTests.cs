@@ -83,7 +83,10 @@ namespace Mofumachi.Tests
             int count=0;
             foreach(var image in portraits)if(image.name.StartsWith("Character "))
             { count++;Assert.That(image.rectTransform.rect.width/image.rectTransform.rect.height,Is.EqualTo(152f/150).Within(.01)); }
-            Assert.That(count,Is.EqualTo(6));
+            Assert.That(count,Is.EqualTo(5));
+            Assert.That(ui.GetComponentInChildren<CharacterBodyGraphic>().CharacterId,Is.EqualTo("momo"));
+            Assert.That(portraits.Where(i=>i.name.StartsWith("Character ")).Select(i=>i.name),
+                Is.EquivalentTo(new[]{"Character 1","Character 2","Character 3","Character 4","Character 5"}));
             Assert.That(((RectTransform)start.transform).rect.height,Is.GreaterThanOrEqualTo(48));
             var pointer = new PointerEventData(EventSystem.current)
             {

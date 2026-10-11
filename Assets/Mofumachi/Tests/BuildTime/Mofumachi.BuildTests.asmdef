@@ -1,6 +1,6 @@
 {
   "name": "Mofumachi.BuildTests",
-  "references": ["Mofumachi.Editor", "Mofumachi.Presentation"],
+  "references": ["Mofumachi.Core", "Mofumachi.Editor", "Mofumachi.Presentation"],
   "includePlatforms": ["Editor"],
   "optionalUnityReferences": ["TestAssemblies"]
 }

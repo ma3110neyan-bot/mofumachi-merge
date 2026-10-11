@@ -19,9 +19,15 @@ namespace Mofumachi.Presentation
             var tag=w.OrnatePanel("Tagline",root,new Rect(.06f,.589f,.88f,.048f),UIWidgets.Cream,10).rectTransform;
             w.Label("Tagline text","もふもふの街で、ちいさなお茶会を。",tag,new Rect(.05f,0,.9f,1),13);
             var hero=UIWidgets.Node("Title hero region",root,new Rect(.37f,0,.26f,.575f));hero.offsetMin=new Vector2(0,238);
-            var image=w.Body("Title partner",CharacterCatalog.IsKnown(c.Game.State.favoriteCharacterId)?c.Game.State.favoriteCharacterId:"momo",hero,new Rect(0,0,1,1));image.raycastTarget=true;image.gameObject.AddComponent<BodyReaction>().Bind(c);
+            string favorite=CharacterCatalog.IsKnown(c.Game.State.favoriteCharacterId)?c.Game.State.favoriteCharacterId:"momo";
+            var image=w.Body("Title partner",favorite,hero,new Rect(0,0,1,1));image.raycastTarget=true;image.gameObject.AddComponent<BodyReaction>().Bind(c);
             var companions=UIWidgets.Node("Title companions",root,new Rect(0,0,1,1));UIWidgets.Bottom(companions,20,170,20,56);
-            for(int i=1;i<6;i++)AttachReaction(w.Character("Character "+i,i,companions,new Rect((i-1)*.2f+.018f,0,.164f,1)),c);
+            int slot=0;
+            foreach(var character in CharacterCatalog.All)
+            {
+                if(character.Id==favorite)continue;
+                AttachReaction(w.Character("Character "+character.PortraitIndex,character.PortraitIndex,companions,new Rect(slot*.2f+.018f,0,.164f,1)),c);slot++;
+            }
             var start=w.Button("Start","はじめる",root,new Rect(0,0,1,1),()=>{c.Flow.PlayCue(AudioCue.Confirm);c.Flow.BeginGame();}); UIWidgets.Bottom((RectTransform)start.transform,28,54,28,58);
             var footerSurface=w.Panel("Title footer surface",root,new Rect(0,0,1,1),new Color(1,.988f,.945f,.94f));UIWidgets.Bottom(footerSurface.rectTransform,24,14,24,28);
             var footer=w.Label("Title footer","つくって、届けて、街を育てよう。",root,new Rect(0,0,1,1),12); UIWidgets.Bottom(footer.rectTransform,14,14,14,28);

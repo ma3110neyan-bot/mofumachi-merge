@@ -1,3 +1,9 @@
+## 最新：3章と絵本調書体・滑らかな街（2026-10-11）
+
+承認済み計画のソースを順次実装。Kiwi Maruの物語文字、時間取りこぼし／角の補間／静止上下動の修正、既存6依頼から3章を導出、明示章末と6名のお祝い、Lv.4〜6装飾を接続。セーブv3・報酬・正式6名・3系統・5×6を維持。
+
+クラウドCore87成功、6実DLLアセンブリ0警告／0エラー、3書体と共有画像設定、PowerShell新Suite／空Suite拒否のゲート成功。**Windows Unityネイティブ・今回APK・Pixel一周／保存／FPSは未確認。** 新規Suite必須、最低90／43は実発見数の受領まで維持。旧版の成功やPNGを今回の実機合格にしない。[12項目の報告](development-handoff-2026-10-11.md)、[第1章試遊／全3章チェックリスト](chapter-game-pixel3a-checklist.md)。以下は過去の記録です。
+
 ## 最新：共有画像の1024インポート上限（2026-10-11）
 
 街の生活版のユーザーEditMode画面：90件中89成功、1失敗、skip0。`FullBodyAtlasHasSixNamedCharactersAndExpressions`で全身幅1536、上限1024。元metaの`platformSettings`欠落を確認し、全身／アイテム／タイトル／枠に共通とAndroidの1024設定を明記。Android overrideも有効化。原画像・GUID・UV・正式6名を維持し、既存テストへ有効設定と実サイズの検査を追加。テスト件数90／43は維持。

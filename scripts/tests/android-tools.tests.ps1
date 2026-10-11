@@ -45,6 +45,39 @@ exit $Code
     Write-Xml -Suite Other;Expect-Rejection {Assert-TestRun $Xml 2 @('Required')}
     Write-Xml -Case Inconclusive;Expect-Rejection {Assert-TestRun $Xml 2 @('Required')}
     Write-Xml;Expect-Rejection {Assert-TestRun $Xml 67 @('Required')}
+    # ChapterBuildGateRejectsMissingSuites: read the actual production call lists.
+    $BuildSource=Get-Content (Join-Path $PSScriptRoot '../build-android.ps1') -Raw
+    function Read-GateSuites([string]$XmlVariable,[int]$Minimum) {
+        $Pattern='Assert-TestRun \$'+$XmlVariable+' '+$Minimum+' @\(([^)]+)\)'
+        $Match=[regex]::Match($BuildSource,$Pattern)
+        if(-not $Match.Success){throw 'Actual gate call was not found.'}
+        return @([regex]::Matches($Match.Groups[1].Value,"'([^']+)'") | ForEach-Object {$_.Groups[1].Value})
+    }
+    function Write-SuiteXml([int]$Total,[string[]]$Suites,[string]$Case='Passed',[int]$Declared=0) {
+        if($Declared -eq 0){$Declared=$Total}
+        $Nodes=($Suites | ForEach-Object {"<test-suite name='$_' result='Passed'><test-case result='Passed'/></test-suite>"}) -join ''
+        $Extra=('<test-case result="Passed"/>'*($Total-$Suites.Count-1))+"<test-case result='$Case'/>"
+        "<test-run result='Passed' total='$Declared' passed='$Declared' failed='0' skipped='0'>$Nodes$Extra</test-run>" | Set-Content $Xml
+    }
+    $EditSuites=Read-GateSuites 'EditXml' 90;$PlaySuites=Read-GateSuites 'PlayXml' 43
+    foreach($Gate in @(@{Minimum=90;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests')},@{Minimum=43;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests')})) {
+        $Old=@($Gate.Suites | Where-Object {$_ -notin $Gate.New})
+        Write-SuiteXml $Gate.Minimum $Old
+        Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}
+        foreach($Missing in $Gate.New) {
+            if($Missing -notin $Gate.Suites){throw "Missing chapter suite in production gate: $Missing"}
+            Write-SuiteXml $Gate.Minimum @($Gate.Suites | Where-Object {$_ -ne $Missing})
+            Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}
+        }
+        Write-SuiteXml $Gate.Minimum $Old
+        $EmptySuites=($Gate.New | ForEach-Object {"<test-suite name='$_' result='Passed'/>"}) -join ''
+        (Get-Content $Xml -Raw).Replace('</test-run>',"$EmptySuites</test-run>") | Set-Content $Xml
+        Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}
+        Write-SuiteXml $Gate.Minimum $Gate.Suites;Assert-TestRun $Xml $Gate.Minimum $Gate.Suites
+        foreach($BadCase in @('Skipped','Failed','Inconclusive')){Write-SuiteXml $Gate.Minimum $Gate.Suites $BadCase;Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}}
+        Write-SuiteXml $Gate.Minimum $Gate.Suites -Declared ($Gate.Minimum+1);Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}
+    }
+    Write-Host 'Chapter build gates passed (synthetic result XML, Unity tests not executed).'
     Expect-Rejection {Select-AuthorizedDevice 'List of devices attached' ''}
     Expect-Rejection {Select-AuthorizedDevice "Pixel`tunauthorized" ''}
     Expect-Rejection {Select-AuthorizedDevice "Pixel`tdevice`nOther`tdevice" ''}

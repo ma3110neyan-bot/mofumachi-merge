@@ -9,15 +9,31 @@ namespace Mofumachi.Tests
         [Test] public void FullBodyAtlasHasSixNamedCharactersAndExpressions()
         {
             var atlas=Resources.Load<Texture2D>("Mofumachi/CharacterBodyAtlas");Assert.That(atlas,Is.Not.Null);
-            Assert.That(atlas.width,Is.LessThanOrEqualTo(1024));Assert.That(atlas.height,Is.LessThanOrEqualTo(1024));
-            var importer=(UnityEditor.TextureImporter)UnityEditor.AssetImporter.GetAtPath(UnityEditor.AssetDatabase.GetAssetPath(atlas));
-            Assert.That(importer.mipmapEnabled,Is.False);Assert.That(importer.alphaIsTransparency,Is.True);
+            AssertSharedTextureImport(atlas);
         }
         [Test] public void RequiredItemArtAndNewJapaneseGlyphsArePresent()
         {
-            Assert.That(Resources.Load<Texture2D>("Mofumachi/ItemAtlas"),Is.Not.Null);
+            foreach(var key in new[]{"ItemAtlas","TitleLogo","UIPanelFrame"})
+            {
+                var texture=Resources.Load<Texture2D>("Mofumachi/"+key);Assert.That(texture,Is.Not.Null,key);
+                AssertSharedTextureImport(texture);
+            }
             foreach(string key in new[]{"UIFont","UIFontBold"})
                 Assert.DoesNotThrow(()=>Mofumachi.Editor.AndroidBuild.ValidateGlyphs(Resources.Load<Font>("Mofumachi/"+key),string.Join("",UIStrings.All)));
+        }
+        private static void AssertSharedTextureImport(Texture2D texture)
+        {
+            var importer=(UnityEditor.TextureImporter)UnityEditor.AssetImporter.GetAtPath(UnityEditor.AssetDatabase.GetAssetPath(texture));
+            Assert.That(importer,Is.Not.Null,texture.name);
+            Assert.That(importer.GetDefaultPlatformTextureSettings().maxTextureSize,Is.EqualTo(1024),texture.name+" default import limit");
+            var android=importer.GetPlatformTextureSettings("Android");
+            Assert.That(android.overridden,Is.True,texture.name+" Android override");
+            Assert.That(android.maxTextureSize,Is.EqualTo(1024),texture.name+" Android import limit");
+            Assert.That(texture.width,Is.LessThanOrEqualTo(1024),texture.name+" imported width");
+            Assert.That(texture.height,Is.LessThanOrEqualTo(1024),texture.name+" imported height");
+            Assert.That(importer.mipmapEnabled,Is.False,texture.name);
+            Assert.That(importer.isReadable,Is.False,texture.name);
+            Assert.That(importer.alphaIsTransparency,Is.True,texture.name);
         }
         [Test] public void SelectionCopyHasGlyphsInBothFonts()
         {

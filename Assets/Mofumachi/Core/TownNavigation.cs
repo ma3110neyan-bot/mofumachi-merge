@@ -54,6 +54,26 @@ namespace Mofumachi.Core
         }
         internal TownPoint InitialPosition(TownPoint position)
         { if(!position.Finite)throw new ArgumentException("Invalid initial position");return Project(position,out _); }
+        public float DistanceAlongPath(TownPoint from,TownPoint to)
+        {
+            if(!from.Finite||!to.Finite)return 0;
+            var start=Project(from,out int first);var end=Project(to,out int last);
+            float entrance=TownPoint.Distance(from,start);
+            if(entrance>halfWidth)return 0;
+            if(first==last)return entrance+TownPoint.Distance(start,end);
+            var a=edges[first];var b=edges[last];float best=float.PositiveInfinity;
+            for(int i=0;i<2;i++)for(int j=0;j<2;j++)
+            {
+                int s=i==0?a.From:a.To,d=j==0?b.From:b.To;
+                best=Math.Min(best,TownPoint.Distance(start,nodes[s])+distances[s,d]+TownPoint.Distance(nodes[d],end));
+            }
+            return float.IsFinite(best)?entrance+best:0;
+        }
+        public TownPoint InterpolateAlongPath(TownPoint from,TownPoint to,float alpha)
+        {
+            if(!float.IsFinite(alpha))return from;
+            return Move(from,to,DistanceAlongPath(from,to)*Math.Max(0,Math.Min(1,alpha)));
+        }
         public TownPoint Move(TownPoint from,TownPoint target,float maxDistance)
         {
             if(!from.Finite||!target.Finite||!float.IsFinite(maxDistance)||maxDistance<=0)return from;

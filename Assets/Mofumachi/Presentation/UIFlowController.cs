@@ -48,6 +48,7 @@ namespace Mofumachi.Presentation
         private Vector2 previousSize;
         private Coroutine mergeAnimation,presentationAnimation;
         public DeliveryPresentation LastDelivery { get; private set; }
+        public ChapterPresentation LastChapter { get; private set; }
         public bool RewardVisible { get; private set; }
         private bool rewardCuePlayed,growthCuePlayed;
 
@@ -198,7 +199,7 @@ namespace Mofumachi.Presentation
         {
             if(!CanPlay)return false;
             var quest=QuestCatalog.NextFor(Game.State);
-            if(quest==null){feedback[ScreenId.Quest]="すべての依頼が完了しました。";Render("quest");return false;}
+            if(quest==null){feedback[ScreenId.Quest]=ChapterProgress.For(Game.State).AllCompleted?"すべての依頼が完了しました。":UIStrings.UnknownQuest;Render("quest");return false;}
             bool accepted = Game.Quests.AcceptQuest(quest);
             notice = accepted ? "依頼を受けました。アイテムを合成しましょう。" : Game.Quests.LastError;
             feedback[accepted?ScreenId.Merge:ScreenId.Quest]=notice;
@@ -254,6 +255,21 @@ namespace Mofumachi.Presentation
             if(LastDelivery==null || !RewardVisible)return;
             Navigate("growth");if(CurrentScreen==ScreenId.Growth && !growthCuePlayed){growthCuePlayed=true;PlayCue(AudioCue.Growth);}
         }
+        public void ContinueAfterGrowth()
+        {
+            if(!CanPlay||CurrentScreen!=ScreenId.Growth||LastDelivery==null||!RewardVisible)return;
+            var chapter=ChapterCatalog.ForQuest(LastDelivery.QuestId);
+            if(chapter!=null&&ChapterProgress.For(Game.State).IsComplete(chapter.Id))OpenChapterSummary(chapter.Id);
+            else ShowHome();
+        }
+        public bool OpenChapterSummary(string id)
+        {
+            if(!CanPlay||(CurrentScreen!=ScreenId.Home&&CurrentScreen!=ScreenId.Growth)||!ChapterProgress.For(Game.State).IsComplete(id))return false;
+            if(!Persist()){Render(view);return false;}
+            LastChapter=ChapterPresentation.Create(Game.State,id);feedback.Remove(ScreenId.ChapterSummary);Render("chapterSummary");return true;
+        }
+        public bool ReviewLastChapter()
+        {var chapter=ChapterProgress.For(Game.State).LastCompletedChapter;return chapter!=null&&OpenChapterSummary(chapter.Id);}
         private void OnApplicationPause(bool paused)
         {
             appPaused=paused;
@@ -302,6 +318,9 @@ namespace Mofumachi.Presentation
                     if(LastDelivery==null){Render("home");return;}
                     RewardGrowthScreens.BuildResult(root,context,LastDelivery);
                     if(!appPaused && !RewardVisible && presentationAnimation==null)presentationAnimation=StartCoroutine(RevealReward());break;
+                case ScreenId.ChapterSummary:
+                    if(LastChapter==null){Render("home");return;}
+                    ChapterSummaryScreen.Build(root,context,LastChapter);break;
                 case ScreenId.Growth:
                     if(LastDelivery==null){Render("home");return;}
                     RewardGrowthScreens.BuildGrowth(root,context,LastDelivery);break;

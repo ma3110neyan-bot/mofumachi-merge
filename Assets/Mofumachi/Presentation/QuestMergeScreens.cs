@@ -11,13 +11,14 @@ namespace Mofumachi.Presentation
             var w=c.Widgets;w.Header(root,c,"キャラ依頼",UIWidgets.Peach);
             var area=w.OrnatePanel("Quest card",root,new Rect(0,0,1,1),UIWidgets.BlushPaper).rectTransform;area.offsetMin=new Vector2(14,128);area.offsetMax=new Vector2(-14,-80);
             var quest=QuestCatalog.NextFor(c.Game.State);
-            bool finished=quest==null,active=!finished && c.Game.State.activeQuestId==quest.Id && !c.Game.State.completedQuestIds.Contains(quest.Id);
-            var ribbon=w.Ribbon("Quest title",finished?"すべての依頼が完了しました":quest.Title,area,new Rect(.12f,.83f,.76f,.11f),18,UIWidgets.Peach);UIWidgets.Top((RectTransform)ribbon.transform.parent,24,16,24,44);
-            var requester=CharacterCatalog.Find(finished?c.Game.State.favoriteCharacterId:quest.RequesterId);
+            bool unavailable=quest==null,finished=unavailable&&ChapterProgress.For(c.Game.State).AllCompleted,active=!unavailable && c.Game.State.activeQuestId==quest.Id && !c.Game.State.completedQuestIds.Contains(quest.Id);
+            var ribbon=w.Ribbon("Quest title",unavailable?(finished?"すべての依頼が完了しました":UIStrings.UnknownQuest):quest.Title,area,new Rect(.12f,.83f,.76f,.11f),18,UIWidgets.Peach);UIWidgets.Top((RectTransform)ribbon.transform.parent,24,16,24,44);
+            if(!unavailable)w.StoryLabel("Quest chapter",ChapterCatalog.ForQuest(quest.Id)?.Title??"",area,new Rect(.08f,.78f,.84f,.05f),14);
+            var requester=CharacterCatalog.Find(unavailable?c.Game.State.favoriteCharacterId:quest.RequesterId);
             w.Body("Quest character",requester.Id,area,new Rect(.35f,.57f,.3f,.24f));
             w.StoryLabel("Requester",requester.Name,area,new Rect(.25f,.515f,.5f,.055f),14);
-            w.StoryLabel("Quest instruction",finished?"ありがとう！ 街の仲間とお祝いしよう。":quest.Dialogue,area,new Rect(.07f,.405f,.86f,.105f),14);
-            if(!finished)
+            w.StoryLabel("Quest instruction",unavailable?(finished?"ありがとう！ 街の仲間とお祝いしよう。":UIStrings.UnknownQuest):quest.Dialogue,area,new Rect(.07f,.405f,.86f,.105f),14);
+            if(!unavailable)
             {
                 var requirements=c.Game.Quests.GetProgress(quest);
                 for(int i=0;i<requirements.Count;i++)
@@ -30,7 +31,7 @@ namespace Mofumachi.Presentation
                 w.Icon("Reward coin",UIIcon.Coin,area,new Rect(.23f,.16f,.09f,.06f));
                 w.Heading("Reward","報酬 "+quest.Coins+" Coins",area,new Rect(.33f,.15f,.56f,.07f),16);
             }
-            var accept=w.Button("Accept quest",finished?"街へ戻る":active?"依頼を進める":"依頼を受ける",area,new Rect(0,0,1,1),()=>{c.Flow.PlayCue(AudioCue.Confirm);if(finished)c.Flow.ShowHome();else if(active)c.Flow.ShowMerge();else c.Flow.AcceptQuest();});
+            var accept=w.Button("Accept quest",unavailable?"街へ戻る":active?"依頼を進める":"依頼を受ける",area,new Rect(0,0,1,1),()=>{c.Flow.PlayCue(AudioCue.Confirm);if(unavailable)c.Flow.ShowHome();else if(active)c.Flow.ShowMerge();else c.Flow.AcceptQuest();});
             UIWidgets.Bottom((RectTransform)accept.transform,20,16,20,52);
             w.Feedback(root,c,ScreenId.Quest);w.Nav(root,c,ScreenId.Quest);
         }
@@ -39,8 +40,9 @@ namespace Mofumachi.Presentation
             var w=c.Widgets;w.Header(root,c,"マージ",UIWidgets.Sky);
             var progress=w.Panel("Merge progress",root,new Rect(0,0,1,1),UIWidgets.BluePaper).rectTransform;UIWidgets.Top(progress,12,68,12,38);
             var quest=QuestCatalog.NextFor(c.Game.State);
-            string summary=quest==null?"すべての依頼が完了しました":c.Game.State.activeQuestId!=quest.Id?"依頼を受けて、アイテムを届けよう":string.Join("　",c.Game.Quests.GetProgress(quest).Select(p=>ItemCatalog.Find(p.Requirement.ItemId).Name+" Lv."+p.Requirement.Level+" "+System.Math.Min(p.Available,p.Requirement.Count)+" / "+p.Requirement.Count));
-            w.Label("Progress",summary,progress,new Rect(.03f,0,.94f,1),12);
+            string summary=quest==null?(ChapterProgress.For(c.Game.State).AllCompleted?"すべての依頼が完了しました":UIStrings.UnknownQuest):c.Game.State.activeQuestId!=quest.Id?"依頼を受けて、アイテムを届けよう":string.Join("　",c.Game.Quests.GetProgress(quest).Select(p=>ItemCatalog.Find(p.Requirement.ItemId).Name+" Lv."+p.Requirement.Level+" "+System.Math.Min(p.Available,p.Requirement.Count)+" / "+p.Requirement.Count));
+            w.StoryLabel("Merge chapter",ChapterCatalog.ForQuest(quest?.Id)?.Title??"",progress,new Rect(.03f,.5f,.94f,.5f),14);
+            w.Label("Progress",summary,progress,new Rect(.03f,0,.94f,.5f),12);
             var tray=w.Panel("Merge tray",root,new Rect(0,0,1,1),new Color(.73f,.92f,.84f)).rectTransform;tray.offsetMin=new Vector2(10,158);tray.offsetMax=new Vector2(-10,-112);
             w.Frame(tray,22,false);
             var grid=UIWidgets.Node("Merge board",tray,new Rect(0,0,1,1));grid.offsetMin=new Vector2(7,7);grid.offsetMax=new Vector2(-7,-7);

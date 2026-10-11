@@ -50,6 +50,7 @@ namespace Mofumachi.Tests
             foreach(var target in new[]{ScreenId.Home,ScreenId.Quest,ScreenId.Merge}){if(target==ScreenId.Home)Flow.ShowHome();else if(target==ScreenId.Quest)Flow.ShowQuest();else Flow.ShowMerge();Flow.ShowSettings();Flow.GoBack();Assert.That(Flow.CurrentScreen,Is.EqualTo(target));}
             Flow.AcceptQuest();Flow.DropItem(0,1);yield return new WaitForSecondsRealtime(.3f);Flow.Deliver();Flow.ShowSettings();Flow.GoBack();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Result));
             yield return new WaitForSecondsRealtime(1.3f);Flow.ShowGrowth();Flow.ShowSettings();Flow.GoBack();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Growth));
+            Flow.ShowHome();Flow.Game.State.completedQuestIds.Add("bread-01");Assert.That(Flow.OpenChapterSummary("chapter-01"),Is.True);Flow.ShowSettings();Flow.GoBack();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.ChapterSummary));
         }
         [UnityTest] public IEnumerator VolumeZeroAndOffRemainDistinctAndSettingsReturnToOrigin()
         {

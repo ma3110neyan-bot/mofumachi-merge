@@ -33,7 +33,8 @@ namespace Mofumachi.Presentation
             w.Divider(card,.48f);
             w.Heading("Growth levels","街 Lv."+delivery.PreviousTownLevel+" → Lv."+delivery.CurrentTownLevel,card,new Rect(.03f,.3f,.94f,.15f),25);
             w.StoryLabel("Growth description","みんなへのお届けが、街を明るくします。",card,new Rect(.06f,.075f,.88f,.2f),16);
-            var home=w.Button("Return town","街へ戻る",root,new Rect(0,0,1,1),c.Flow.ShowHome);UIWidgets.Bottom((RectTransform)home.transform,28,138,28,56);
+            var chapter=ChapterCatalog.ForQuest(delivery.QuestId);bool complete=chapter!=null&&ChapterProgress.For(c.Game.State).IsComplete(chapter.Id);
+            var home=w.Button("Return town",complete?"章のおもいでへ":"街へ戻る",root,new Rect(0,0,1,1),c.Flow.ContinueAfterGrowth);UIWidgets.Bottom((RectTransform)home.transform,28,138,28,56);
             w.Feedback(root,c,ScreenId.Growth);w.Nav(root,c,ScreenId.Growth);
         }
     }

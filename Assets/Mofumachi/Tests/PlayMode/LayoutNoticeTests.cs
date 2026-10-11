@@ -147,6 +147,7 @@ namespace Mofumachi.Tests
             yield return EnterHome();
             Flow.Game.State.coins = int.MaxValue; Flow.Game.State.townGrowthLevel = int.MaxValue;
             Flow.ShowHome(); Canvas.ForceUpdateCanvases();
+            Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Home quest title").font.name, Is.EqualTo(Resources.Load<Font>("Mofumachi/UIFontStory").name));
             var hud = Flow.GetComponentsInChildren<Text>().Single(t => t.name == "Coins value");
             Assert.That(hud.text, Is.EqualTo(int.MaxValue.ToString("N0")));
             Assert.That(hud.resizeTextForBestFit, Is.False);

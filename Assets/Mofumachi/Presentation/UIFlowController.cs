@@ -23,6 +23,9 @@ namespace Mofumachi.Presentation
         public ScreenId CurrentScreen { get; private set; }
         public bool IsPurchaseNoticeOpen => modal != null && modal.activeSelf;
         public bool SettingsOpenedFromGame => settingsReturnView != "title";
+        public string PreviewFavoriteId { get; private set; } = "momo";
+        private string selectionReturnView = "home";
+        private bool CanPlay => Game.State.purchaseNoticeAcknowledged && CharacterCatalog.IsKnown(Game.State.favoriteCharacterId) && !IsPurchaseNoticeOpen && !transitioning;
 
         private GameObject page;
         private Font font;
@@ -68,7 +71,12 @@ namespace Mofumachi.Presentation
             }
             UpdateSafeArea();
         }
-        private void Start() => Render(SceneManager.GetActiveScene().name == "TitleScene" || !Game.State.purchaseNoticeAcknowledged ? "title" : "home");
+        private void Start()
+        {
+            PreviewFavoriteId = CharacterCatalog.IsKnown(Game.State.favoriteCharacterId) ? Game.State.favoriteCharacterId : "momo";
+            Render(SceneManager.GetActiveScene().name == "TitleScene" || !Game.State.purchaseNoticeAcknowledged ? "title" :
+                CharacterCatalog.IsKnown(Game.State.favoriteCharacterId) ? "home" : "characterSelection");
+        }
         public void Initialize(IStateStore store)
         {
             var loaded = store.Load();
@@ -111,6 +119,8 @@ namespace Mofumachi.Presentation
         {
             if(IsPurchaseNoticeOpen || transitioning)return;
             if(CurrentScreen==ScreenId.Settings)Navigate(settingsReturnView);
+            else if(CurrentScreen==ScreenId.CharacterSelection)
+            { if(selectionReturnView=="settings")Navigate("settings"); else ReturnToTitle(); }
             else if(CurrentScreen==ScreenId.Home)ReturnToTitle();
             else if(CurrentScreen!=ScreenId.Title)ShowHome();
         }
@@ -126,12 +136,36 @@ namespace Mofumachi.Presentation
         public void ShowHome() => Navigate("home");
         public void ShowQuest() => Navigate("quest");
         public void ShowMerge() => Navigate("merge");
+        public void ShowCharacterSelection()
+        {
+            if(transitioning || IsPurchaseNoticeOpen || !Game.State.purchaseNoticeAcknowledged)return;
+            string returnView = CurrentScreen==ScreenId.Settings ? "settings" : "home";
+            if(!Persist()){Render(view??"title");return;}
+            selectionReturnView=returnView;
+            PreviewFavoriteId=CharacterCatalog.IsKnown(Game.State.favoriteCharacterId)?Game.State.favoriteCharacterId:"momo";
+            Render("characterSelection");
+        }
+        public void PreviewFavorite(string id)
+        {
+            if(CurrentScreen!=ScreenId.CharacterSelection || transitioning || IsPurchaseNoticeOpen || !CharacterCatalog.IsKnown(id))return;
+            PreviewFavoriteId=id;PlayCue(AudioCue.Character);Render("characterSelection");
+        }
+        public bool ConfirmFavorite()
+        {
+            if(CurrentScreen!=ScreenId.CharacterSelection || transitioning || IsPurchaseNoticeOpen || !Game.State.purchaseNoticeAcknowledged)return false;
+            bool saved=Game.SelectFavorite(PreviewFavoriteId);
+            feedback[ScreenId.CharacterSelection]=saved?"":Game.LastError;
+            if(saved){PlayCue(AudioCue.Confirm);Render(selectionReturnView);}else Render("characterSelection");
+            return saved;
+        }
         public void ShowSettings()
         { if(IsPurchaseNoticeOpen || transitioning)return; if(view!="settings")settingsReturnView=view??"title";Navigate("settings"); }
         private void Navigate(string target)
         {
             if(transitioning || IsPurchaseNoticeOpen)return;
             if(target!="title" && target!="settings" && !Game.State.purchaseNoticeAcknowledged){OpenNotice();return;}
+            if(target!="title" && target!="settings" && target!="characterSelection" && !CharacterCatalog.IsKnown(Game.State.favoriteCharacterId))
+                target="characterSelection";
             if(!Persist()){Render(view??"title");return;} Render(target);
         }
         public bool Persist()
@@ -147,7 +181,7 @@ namespace Mofumachi.Presentation
         }
         public bool AcceptQuest()
         {
-            if(!Game.State.purchaseNoticeAcknowledged || IsPurchaseNoticeOpen)return false;
+            if(!CanPlay)return false;
             bool accepted = Game.Quests.AcceptQuest(QuestDefinition.First);
             notice = accepted ? "依頼を受けました。お茶を合成しましょう。" : Game.Quests.LastError;
             feedback[accepted?ScreenId.Merge:ScreenId.Quest]=notice;
@@ -156,7 +190,7 @@ namespace Mofumachi.Presentation
         }
         public bool DropItem(int from, int to)
         {
-            if (!Game.State.purchaseNoticeAcknowledged || IsPurchaseNoticeOpen || mergeAnimation != null) return false;
+            if (!CanPlay || mergeAnimation != null) return false;
             bool occupied=Game.Board.At(to)!=null;
             bool merged = occupied && Game.TryMerge(from, to);
             bool changed = occupied ? merged : Game.TryMove(from, to);
@@ -180,7 +214,7 @@ namespace Mofumachi.Presentation
         }
         public DeliveryResult Deliver()
         {
-            if(!Game.State.purchaseNoticeAcknowledged || IsPurchaseNoticeOpen || (CurrentScreen!=ScreenId.Quest && CurrentScreen!=ScreenId.Merge))return new DeliveryResult(false,"この画面では納品できません。");
+            if(!CanPlay || (CurrentScreen!=ScreenId.Quest && CurrentScreen!=ScreenId.Merge))return new DeliveryResult(false,"この画面では納品できません。");
             int coins=Game.State.coins,town=Game.State.townGrowthLevel;var result=Game.Quests.TryDeliver();
             if(result.Success)
             {
@@ -241,6 +275,7 @@ namespace Mofumachi.Presentation
             switch(CurrentScreen)
             {
                 case ScreenId.Title:TopHomeScreens.BuildTitle(root,context);break;
+                case ScreenId.CharacterSelection:CharacterSelectionScreen.Build(root,context);break;
                 case ScreenId.Home:TopHomeScreens.BuildHome(root,context);break;
                 case ScreenId.Quest:QuestMergeScreens.BuildQuest(root,context);break;
                 case ScreenId.Merge:QuestMergeScreens.BuildMerge(root,context);break;
@@ -262,13 +297,13 @@ namespace Mofumachi.Presentation
         }
         public void TapCell(int cell)
         {
-            if(mergeAnimation!=null || IsPurchaseNoticeOpen)return;
+            if(!CanPlay || mergeAnimation!=null)return;
             if (selected < 0) { if (Game.Board.At(cell) != null) { selected = cell; feedback[ScreenId.Merge] = "移動先のお茶または空きマスをタップ"; Render("merge"); } }
             else DropItem(selected, cell);
         }
         public void CreateTea()
         {
-            if(mergeAnimation!=null || IsPurchaseNoticeOpen)return;
+            if(!CanPlay || mergeAnimation!=null)return;
             bool added=Game.AddItem("tea",1); feedback[ScreenId.Merge]=added?"お茶を作りました。":Game.LastError.Length>0?Game.LastError:"空きマスを確認してください。";
             if(added)PlayCue(AudioCue.Confirm);Render("merge");
         }

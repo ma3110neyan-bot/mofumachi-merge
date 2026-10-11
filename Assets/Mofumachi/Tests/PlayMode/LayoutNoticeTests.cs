@@ -123,6 +123,8 @@ namespace Mofumachi.Tests
             Assert.That(Flow.ConfirmPurchaseNotice(), Is.True);
             Assert.That(Flow.ConfirmPurchaseNotice(), Is.False);
             yield return null; yield return null;
+            Assert.That(Flow.CurrentScreen, Is.EqualTo(ScreenId.CharacterSelection));
+            Assert.That(Flow.ConfirmFavorite(),Is.True);
             Assert.That(Flow.CurrentScreen, Is.EqualTo(ScreenId.Home));
             Assert.That(Store.Load().State.purchaseNoticeAcknowledged, Is.True);
             yield return LoadTitle(); Flow.BeginGame(); yield return null; yield return null;

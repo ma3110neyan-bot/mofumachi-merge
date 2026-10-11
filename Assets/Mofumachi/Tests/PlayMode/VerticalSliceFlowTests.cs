@@ -103,6 +103,8 @@ namespace Mofumachi.Tests
 
             Canvas.ForceUpdateCanvases();
             ui = Object.FindAnyObjectByType<UIFlowController>();
+            Assert.That(ui.CurrentScreen,Is.EqualTo(ScreenId.CharacterSelection));
+            Assert.That(ui.ConfirmFavorite(),Is.True);
             RawImage town = null;
             foreach (var image in ui.GetComponentsInChildren<RawImage>())
                 if (image.name == "Town background") town = image;

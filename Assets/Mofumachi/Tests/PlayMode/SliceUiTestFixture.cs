@@ -45,6 +45,7 @@ namespace Mofumachi.Tests
             yield return LoadTitle(); Flow.BeginGame();
             if (Flow.IsPurchaseNoticeOpen) Assert.That(Flow.ConfirmPurchaseNotice(), Is.True);
             yield return null; yield return null;
+            if(Flow.CurrentScreen==ScreenId.CharacterSelection){Flow.PreviewFavorite("momo");Assert.That(Flow.ConfirmFavorite(),Is.True);}
         }
         protected sealed class TestStore : IStateStore
         {

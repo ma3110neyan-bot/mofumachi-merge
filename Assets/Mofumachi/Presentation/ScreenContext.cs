@@ -1,7 +1,7 @@
 using Mofumachi.Core;
 namespace Mofumachi.Presentation
 {
-    public enum ScreenId { Title, Home, Quest, Merge, Result, Growth, Settings }
+    public enum ScreenId { Title, Home, Quest, Merge, Result, Growth, Settings, CharacterSelection }
     public sealed class ScreenContext
     {
         public UIFlowController Flow { get; }

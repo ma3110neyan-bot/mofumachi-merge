@@ -6,6 +6,16 @@ namespace Mofumachi.Tests
 {
     public sealed class PresentationContentTests
     {
+        [Test] public void SelectionCopyHasGlyphsInBothFonts()
+        {
+            foreach (string key in new[] { "UIFont", "UIFontBold" })
+            {
+                var font = Resources.Load<Font>("Mofumachi/" + key);
+                foreach (var character in Mofumachi.Core.CharacterCatalog.All)
+                    Assert.DoesNotThrow(() => Mofumachi.Editor.AndroidBuild.ValidateGlyphs(font, character.Name + character.Description));
+                Assert.DoesNotThrow(() => Mofumachi.Editor.AndroidBuild.ValidateGlyphs(font, UIStrings.PartnerSelection));
+            }
+        }
         [Test] public void ContentGateRejectsMissingAssetsAndUnsupportedGlyphs()
         {
             foreach(var key in new[]{"TownBackground","UIFont","UIFontBold","UIIconAtlas","TitleLogo","UIPanelFrame","bgm-town-loop","se-confirm","se-character","se-merge","se-delivery","se-reward","se-growth"})Assert.Throws<UnityEditor.Build.BuildFailedException>(()=>Mofumachi.Editor.AndroidBuild.RequireContent(null,key));

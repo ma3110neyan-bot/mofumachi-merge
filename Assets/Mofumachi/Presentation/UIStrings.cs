@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using Mofumachi.Core;
 namespace Mofumachi.Presentation
 {
     public static class UIStrings
@@ -8,7 +10,8 @@ namespace Mofumachi.Presentation
         public const string NoticeConfirm="確認しました";
         public const string PopLabels="マージ モモ ルル ポム フィオ ミエル ノア";
         public const string TitleReturn="TOPに戻る";
+        public const string PartnerSelection="パートナー選択 この子にする パートナーを選び直す パートナーを6名の中から選んでください。";
         public const string DeliveryThanks="ありがとう！";
-        public static IReadOnlyList<string> All { get; } = new[]{NoticeTitle,NoticeBody,NoticeConfirm,TitleReturn,DeliveryThanks,"もふまちメルジュ","もふもふの街で、ちいさなお茶会を。","つくって、届けて、街を育てよう。","はじめる","もふまち","キャラ依頼","お茶会の準備","お茶 Lv.2 × 1","報酬 30 Coins","街 Lv.","設定","戻る","依頼を受ける","依頼完了","合成してお茶会の準備をしよう","納品する","街の仲間にお茶を届けよう","同じお茶を重ねて合成","お茶を作る","納品完了！","街が成長しました","街へ戻る","BGM","SE","音量","ON","OFF","街の成長を見る"};
+        public static IReadOnlyList<string> All { get; } = new[]{NoticeTitle,NoticeBody,NoticeConfirm,TitleReturn,DeliveryThanks,"もふまちメルジュ","もふもふの街で、ちいさなお茶会を。","つくって、届けて、街を育てよう。","はじめる","もふまち","キャラ依頼","お茶会の準備","お茶 Lv.2 × 1","報酬 30 Coins","街 Lv.","設定","戻る","依頼を受ける","依頼完了","合成してお茶会の準備をしよう","納品する","街の仲間にお茶を届けよう","同じお茶を重ねて合成","お茶を作る","納品完了！","街が成長しました","街へ戻る","BGM","SE","音量","ON","OFF","街の成長を見る",PartnerSelection}.Concat(CharacterCatalog.All.SelectMany(c => new[]{c.Name,c.Description})).ToArray();
     }
 }

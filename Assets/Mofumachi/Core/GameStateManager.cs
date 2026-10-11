@@ -19,6 +19,7 @@ namespace Mofumachi.Core
         public bool TryMerge(int from, int to) => Mutate(() => Board.TryMerge(from, to));
         public bool TryMove(int from, int to) => Mutate(() => Board.TryMove(from, to));
         public bool AddItem(string id, int level) => Mutate(() => Board.AddItem(id, level));
+        public bool TryRemoveItem(int cell,string expectedId,int expectedLevel)=>Mutate(()=>Board.TryRemoveItem(cell,expectedId,expectedLevel));
         public bool SelectFavorite(string id)
         {
             if (!CharacterCatalog.IsKnown(id)) { LastError = "パートナーを6名の中から選んでください。"; return false; }

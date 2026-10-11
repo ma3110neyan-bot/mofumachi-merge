@@ -5,6 +5,12 @@ using System.Linq;
 
 namespace Mofumachi.Core
 {
+    public sealed class RequirementProgress
+    {
+        public ItemRequirement Requirement { get; }
+        public long Available { get; }
+        internal RequirementProgress(ItemRequirement requirement,long available){Requirement=requirement;Available=available;}
+    }
     public sealed class DeliveryResult
     {
         public bool Success { get; }
@@ -20,12 +26,13 @@ namespace Mofumachi.Core
         private readonly TownGrowthService town;
         private readonly Dictionary<string, QuestDefinition> catalog;
         private QuestDefinition active;
+        public QuestDefinition ActiveQuest => active;
         private bool delivering;
         public string LastError { get; private set; } = "";
         public QuestManager(GameState state, IStateStore store, RewardService reward, TownGrowthService town, IEnumerable<QuestDefinition> questCatalog = null)
         {
             this.state = state; this.store = store; this.reward = reward; this.town = town;
-            catalog = (questCatalog ?? new[] { QuestDefinition.First }).ToDictionary(q => q.Id, StringComparer.Ordinal);
+            catalog = (questCatalog ?? QuestCatalog.All).ToDictionary(q => q.Id, StringComparer.Ordinal);
             if (state.activeQuestId.Length > 0 && !catalog.TryGetValue(state.activeQuestId, out active))
                 LastError = "保存中の依頼が現在の依頼カタログにありません。対応するカタログを読み込んでください。";
         }
@@ -33,7 +40,7 @@ namespace Mofumachi.Core
         {
             lock (state.SyncRoot)
             {
-                if (quest == null || delivering || state.activeQuestId.Length > 0 || state.completedQuestIds.Contains(quest.Id)) return false;
+                if (quest == null || delivering || (state.activeQuestId.Length > 0 && !state.completedQuestIds.Contains(state.activeQuestId)) || state.completedQuestIds.Contains(quest.Id)) return false;
                 if (!catalog.TryGetValue(quest.Id, out var authored)) { LastError = "未登録の依頼は受注できません。"; return false; }
                 quest = authored;
                 var before = state.Clone(); var previous = active;
@@ -44,6 +51,14 @@ namespace Mofumachi.Core
             }
         }
         private long Available(ItemRequirement r) => state.inventory.Where(i => i.itemId == r.ItemId && i.level == r.Level).Sum(i => (long)i.count) + state.mergeBoard.LongCount(i => i.itemId == r.ItemId && i.level == r.Level && !state.MergeLocks.Contains(i.cellIndex));
+        public IReadOnlyList<RequirementProgress> GetProgress(QuestDefinition quest)
+        {
+            lock(state.SyncRoot)
+            {
+                if(quest==null || !catalog.TryGetValue(quest.Id,out var authored))return Array.Empty<RequirementProgress>();
+                return Array.AsReadOnly(authored.Requirements.Select(r=>new RequirementProgress(r,Available(r))).ToArray());
+            }
+        }
         public bool CheckDelivery()
         {
             lock (state.SyncRoot)

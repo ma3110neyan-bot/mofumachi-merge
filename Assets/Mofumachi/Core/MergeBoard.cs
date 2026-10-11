@@ -12,6 +12,13 @@ namespace Mofumachi.Core
         private static bool Valid(int cell) => cell >= 0 && cell < GameState.Columns * GameState.Rows;
         public bool IsLocked(int cell) => locked.Contains(cell);
         public void ReleaseLocks() => locked.Clear();
+        public bool TryRemoveItem(int cell,string expectedId,int expectedLevel)
+        {
+            if(!Valid(cell) || IsLocked(cell))return false;
+            var item=At(cell);
+            if(item==null || item.itemId!=expectedId || item.level!=expectedLevel)return false;
+            return state.mergeBoard.Remove(item);
+        }
         public bool AddItem(string itemId, int level)
         {
             if (string.IsNullOrWhiteSpace(itemId) || level < 1 || level > GameState.MaxLevel) return false;

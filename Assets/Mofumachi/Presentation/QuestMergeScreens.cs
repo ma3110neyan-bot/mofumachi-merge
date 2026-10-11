@@ -8,17 +8,17 @@ namespace Mofumachi.Presentation
     {
         public static void BuildQuest(RectTransform root,ScreenContext c)
         {
-            var w=c.Widgets;w.Header(root,c,"キャラ依頼");
-            var area=w.OrnatePanel("Quest card",root,new Rect(0,0,1,1)).rectTransform;area.offsetMin=new Vector2(14,128);area.offsetMax=new Vector2(-14,-80);
-            var ribbon=w.Ribbon("Quest title","お茶会の準備",area,new Rect(.12f,.83f,.76f,.11f),20);UIWidgets.Top((RectTransform)ribbon.transform.parent,36,16,36,44);
+            var w=c.Widgets;w.Header(root,c,"キャラ依頼",UIWidgets.Peach);
+            var area=w.OrnatePanel("Quest card",root,new Rect(0,0,1,1),UIWidgets.BlushPaper).rectTransform;area.offsetMin=new Vector2(14,128);area.offsetMax=new Vector2(-14,-80);
+            var ribbon=w.Ribbon("Quest title","お茶会の準備",area,new Rect(.12f,.83f,.76f,.11f),20,UIWidgets.Peach);UIWidgets.Top((RectTransform)ribbon.transform.parent,36,16,36,44);
             w.Character("Quest character",1,area,new Rect(.35f,.59f,.3f,.22f));
             w.Label("Requester","ルル",area,new Rect(.25f,.52f,.5f,.065f),13);
             w.Divider(area,.47f);
-            w.Label("Quest instruction","お茶を合成して、仲間に届けよう",area,new Rect(.08f,.405f,.84f,.06f),12);
+            bool done=c.Game.State.completedQuestIds.Contains(QuestDefinition.First.Id), active=c.Game.State.activeQuestId.Length>0;
+            w.Label("Quest instruction",done?UIStrings.DeliveryThanks:"お茶を合成して、仲間に届けよう",area,new Rect(.08f,.405f,.84f,.06f),12);
             var required=w.OrnatePanel("Required item",area,new Rect(.065f,.25f,.87f,.145f),new Color(.94f,.985f,.96f),16).rectTransform;
             w.Icon("Required tea",UIIcon.TeaPot,required,new Rect(.03f,.1f,.22f,.8f));
             long count=c.Game.State.inventory.Where(i=>i.itemId=="tea"&&i.level==2).Sum(i=>(long)i.count)+c.Game.State.mergeBoard.LongCount(i=>i.itemId=="tea"&&i.level==2&&!c.Game.Board.IsLocked(i.cellIndex));
-            bool done=c.Game.State.completedQuestIds.Contains(QuestDefinition.First.Id), active=c.Game.State.activeQuestId.Length>0;
             w.Label("Required count",done?"お茶を届けました！":"お茶 Lv.2　"+System.Math.Min(count,1)+" / 1",required,new Rect(.27f,.08f,.69f,.84f),16);
             w.Icon("Reward coin",UIIcon.Coin,area,new Rect(.23f,.18f,.09f,.065f));
             w.Heading("Reward","報酬 "+QuestDefinition.First.Coins+" Coins",area,new Rect(.33f,.185f,.5f,.066f),17);
@@ -29,8 +29,8 @@ namespace Mofumachi.Presentation
         }
         public static void BuildMerge(RectTransform root,ScreenContext c)
         {
-            var w=c.Widgets;w.Header(root,c,"マージ");
-            var progress=w.Panel("Merge progress",root,new Rect(0,0,1,1)).rectTransform;UIWidgets.Top(progress,12,68,12,38);
+            var w=c.Widgets;w.Header(root,c,"マージ",UIWidgets.Sky);
+            var progress=w.Panel("Merge progress",root,new Rect(0,0,1,1),UIWidgets.BluePaper).rectTransform;UIWidgets.Top(progress,12,68,12,38);
             w.Label("Progress",c.Game.State.completedQuestIds.Contains(QuestDefinition.First.Id)?"お茶会の準備は完了しました":c.Game.State.activeQuestId.Length==0?"キャラ依頼を受けてお茶を届けよう":"お茶 Lv.2　"+c.Game.State.questProgress+" / 1",progress,new Rect(.03f,0,.94f,1),14);
             var tray=w.Panel("Merge tray",root,new Rect(0,0,1,1),new Color(.73f,.92f,.84f)).rectTransform;tray.offsetMin=new Vector2(10,158);tray.offsetMax=new Vector2(-10,-112);
             w.Frame(tray,22,false);

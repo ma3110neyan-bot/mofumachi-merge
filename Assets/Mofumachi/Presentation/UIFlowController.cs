@@ -22,6 +22,7 @@ namespace Mofumachi.Presentation
         private readonly Dictionary<ScreenId,string> feedback = new Dictionary<ScreenId,string>();
         public ScreenId CurrentScreen { get; private set; }
         public bool IsPurchaseNoticeOpen => modal != null && modal.activeSelf;
+        public bool SettingsOpenedFromGame => settingsReturnView != "title";
 
         private GameObject page;
         private Font font;
@@ -106,7 +107,22 @@ namespace Mofumachi.Presentation
         }
         public string FeedbackFor(ScreenId screen) => feedback.TryGetValue(screen,out var text)?text:"";
         public void PlayCue(AudioCue cue) => audioManager.PlaySe(cue);
-        public void GoBack() { if(IsPurchaseNoticeOpen || transitioning)return; if(CurrentScreen==ScreenId.Settings)Navigate(settingsReturnView);else if(CurrentScreen!=ScreenId.Title)ShowHome(); }
+        public void GoBack()
+        {
+            if(IsPurchaseNoticeOpen || transitioning)return;
+            if(CurrentScreen==ScreenId.Settings)Navigate(settingsReturnView);
+            else if(CurrentScreen==ScreenId.Home)ReturnToTitle();
+            else if(CurrentScreen!=ScreenId.Title)ShowHome();
+        }
+        public bool ReturnToTitle()
+        {
+            if(IsPurchaseNoticeOpen || transitioning)return false;
+            if(CurrentScreen==ScreenId.Title)return true;
+            if(!Persist()){Render(view??"home");return false;}
+            transitioning=true;
+            SceneManager.LoadScene("TitleScene");
+            return true;
+        }
         public void ShowHome() => Navigate("home");
         public void ShowQuest() => Navigate("quest");
         public void ShowMerge() => Navigate("merge");

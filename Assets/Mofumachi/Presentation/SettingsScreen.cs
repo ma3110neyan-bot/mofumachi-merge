@@ -6,22 +6,28 @@ namespace Mofumachi.Presentation
     {
         public static void Build(RectTransform root,ScreenContext c)
         {
-            var w=c.Widgets;w.Header(root,c,"設定");
+            var w=c.Widgets;w.Header(root,c,"設定",UIWidgets.Mint);
+            bool canReturnTitle=c.Flow.SettingsOpenedFromGame;
             // Fixed content height with vertical scrolling on short safe areas.
-            var viewport=UIWidgets.Node("Settings viewport",root,new Rect(0,0,1,1));viewport.offsetMin=new Vector2(12,112);viewport.offsetMax=new Vector2(-12,-78);
+            var viewport=UIWidgets.Node("Settings viewport",root,new Rect(0,0,1,1));viewport.offsetMin=new Vector2(12,canReturnTitle?158:112);viewport.offsetMax=new Vector2(-12,-78);
             // Draw the card on its content, so tall displays show the town below
             // rather than an oversized empty cream viewport. Short displays scroll.
             var capture=viewport.gameObject.AddComponent<Image>();capture.color=Color.clear;capture.raycastTarget=true;viewport.gameObject.AddComponent<RectMask2D>();
-            var content=w.OrnatePanel("Settings content",viewport,new Rect(0,1,1,0)).rectTransform;content.pivot=new Vector2(.5f,1);content.sizeDelta=new Vector2(0,420);
+            var content=w.OrnatePanel("Settings content",viewport,new Rect(0,1,1,0),UIWidgets.BlushPaper).rectTransform;content.pivot=new Vector2(.5f,1);content.sizeDelta=new Vector2(0,420);
             var scroll=viewport.gameObject.AddComponent<ScrollRect>();scroll.viewport=viewport;scroll.content=content;scroll.horizontal=false;scroll.vertical=true;scroll.movementType=ScrollRect.MovementType.Clamped;
-            var title=w.Ribbon("Sound settings title","音の設定",content,new Rect(0,0,1,1),18);UIWidgets.Top((RectTransform)title.transform.parent,48,14,48,42);
+            var title=w.Ribbon("Sound settings title","音の設定",content,new Rect(0,0,1,1),18,UIWidgets.Lavender);UIWidgets.Top((RectTransform)title.transform.parent,48,14,48,42);
             var desc=w.Label("Settings description","音の大きさを調整できます。",content,new Rect(0,0,1,1),14);UIWidgets.Top(desc.rectTransform,28,66,28,30);
             Slider bgm=null,se=null;
             bgm=Row(content,c,"BGM",106,c.Game.State.bgmEnabled,c.Game.State.bgmVolume,()=>c.Flow.CommitAudioPreferences(!c.Game.State.bgmEnabled,c.Game.State.seEnabled,c.Game.State.bgmVolume,c.Game.State.seVolume));
             se=Row(content,c,"SE",252,c.Game.State.seEnabled,c.Game.State.seVolume,()=>c.Flow.CommitAudioPreferences(c.Game.State.bgmEnabled,!c.Game.State.seEnabled,c.Game.State.bgmVolume,c.Game.State.seVolume));
             bgm.gameObject.AddComponent<VolumeControl>().Bind(bgm,v=>c.Flow.PreviewAudioVolumes(v,se.value),v=>c.Flow.CommitAudioPreferences(c.Game.State.bgmEnabled,c.Game.State.seEnabled,v,c.Game.State.seVolume));
             se.gameObject.AddComponent<VolumeControl>().Bind(se,v=>c.Flow.PreviewAudioVolumes(bgm.value,v),v=>c.Flow.CommitAudioPreferences(c.Game.State.bgmEnabled,c.Game.State.seEnabled,c.Game.State.bgmVolume,v));
-            var feedback=w.Label("Settings feedback",c.Flow.FeedbackFor(ScreenId.Settings),root,new Rect(0,0,1,1),13);UIWidgets.Bottom(feedback.rectTransform,16,68,16,40);
+            var feedback=w.Label("Settings feedback",c.Flow.FeedbackFor(ScreenId.Settings),root,new Rect(0,0,1,1),13);UIWidgets.Bottom(feedback.rectTransform,16,canReturnTitle?116:68,16,36);
+            if(canReturnTitle)
+            {
+                var titleReturn=w.Button("Return title",UIStrings.TitleReturn,root,new Rect(0,0,1,1),()=>{c.Flow.PlayCue(AudioCue.Confirm);c.Flow.ReturnToTitle();});
+                UIWidgets.Bottom((RectTransform)titleReturn.transform,28,68,28,48);
+            }
             var back=w.Button("Return settings","戻る",root,new Rect(0,0,1,1),c.Flow.GoBack,true);UIWidgets.Bottom((RectTransform)back.transform,28,12,28,48);
         }
         private static Slider Row(RectTransform content,ScreenContext c,string name,float top,bool enabled,float volume,UnityEngine.Events.UnityAction toggle)

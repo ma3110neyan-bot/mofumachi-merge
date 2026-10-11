@@ -110,6 +110,7 @@ namespace Mofumachi.Tests
             Assert.That(hits.First().gameObject.GetComponentInParent<Button>(), Is.SameAs(start));
             ExecuteEvents.Execute(start.gameObject, pointer, ExecuteEvents.pointerClickHandler);
             Flow.BeginGame(); Flow.ShowHome(); Flow.GoBack();
+            Assert.That(Flow.ReturnToTitle(), Is.False, "Returning to TOP must not dismiss the initial notice.");
             Assert.That(Flow.IsPurchaseNoticeOpen, Is.True);
             Assert.That(Flow.GetComponentsInChildren<PurchaseNoticeView>().Length, Is.EqualTo(1));
             Assert.That(Flow.CurrentScreen, Is.EqualTo(ScreenId.Title));

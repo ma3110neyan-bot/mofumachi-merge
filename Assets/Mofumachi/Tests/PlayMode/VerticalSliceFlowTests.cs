@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using Mofumachi.Core;
 using Mofumachi.Presentation;
 using NUnit.Framework;
@@ -13,6 +14,49 @@ namespace Mofumachi.Tests
 {
     public sealed class VerticalSliceFlowTests : SliceUiTestFixture
     {
+        [UnityTest] public IEnumerator HomeBackReturnsToTitleAndStartResumesSavedProgress()
+        {
+            yield return EnterHome();
+            Assert.That(Flow.DropItem(0, 1), Is.True);
+            yield return new WaitForSecondsRealtime(.3f);
+            Assert.That(Flow.Game.SetAudio(false, true), Is.True);
+            Flow.ShowHome();
+            Flow.GoBack();
+            yield return null; yield return null;
+            Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("TitleScene"));
+            Assert.That(Flow.CurrentScreen, Is.EqualTo(ScreenId.Title));
+            var saved = Store.Load().State;
+            Assert.That(saved.mergeBoard.Count, Is.EqualTo(1));
+            Assert.That(saved.mergeBoard[0].level, Is.EqualTo(2));
+            Assert.That(saved.bgmEnabled, Is.False);
+            Assert.That(saved.purchaseNoticeAcknowledged, Is.True);
+            Flow.Initialize(Store); // Read disk state rather than relying on the static session.
+            Flow.BeginGame();
+            yield return null; yield return null;
+            Assert.That(Flow.CurrentScreen, Is.EqualTo(ScreenId.Home));
+            Assert.That(Flow.IsPurchaseNoticeOpen, Is.False);
+            Assert.That(Flow.Game.Board.At(1).level, Is.EqualTo(2));
+            LogAssert.NoUnexpectedReceived();
+        }
+
+        [UnityTest] public IEnumerator SettingsTitleReturnStaysOnSettingsWhenSaveFails()
+        {
+            yield return EnterHome(); Flow.ShowMerge(); Flow.ShowSettings();
+            var saved = Store.Load().State; Store.Fail = true;
+            Flow.GetComponentsInChildren<Button>().Single(b => b.name == "Return title").onClick.Invoke();
+            yield return null;
+            Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("GameScene"));
+            Assert.That(Flow.CurrentScreen, Is.EqualTo(ScreenId.Settings));
+            Assert.That(Flow.FeedbackFor(ScreenId.Settings), Is.Not.Empty);
+            Assert.That(Store.Load().State.mergeBoard.Count, Is.EqualTo(saved.mergeBoard.Count));
+            Store.Fail = false;
+            Flow.GetComponentsInChildren<Button>().Single(b => b.name == "Return title").onClick.Invoke();
+            yield return null; yield return null;
+            Assert.That(Flow.CurrentScreen, Is.EqualTo(ScreenId.Title));
+            Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("TitleScene"));
+            LogAssert.NoUnexpectedReceived();
+        }
+
         [UnityTest]
         public IEnumerator TitleShowsSeparatePortraitsAndVisibleStartButtonThenOpensHome()
         {

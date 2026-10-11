@@ -7,6 +7,7 @@ namespace Mofumachi.Presentation
     public sealed class UIWidgets
     {
         public static readonly Color Ink = new Color(.32f,.18f,.29f), Pink=new Color(1,.52f,.70f), Cream=new Color(1,.988f,.945f), Mint=new Color(.54f,.86f,.74f), Sky=new Color(.67f,.88f,1);
+        public static readonly Color BlushPaper=new Color(1,.965f,.975f), BluePaper=new Color(.945f,.985f,1), Lavender=new Color(.83f,.76f,.98f), Peach=new Color(1,.78f,.62f);
         private readonly Font font,bold; private readonly Texture2D characters;
         public UIWidgets(Font font, Texture2D characters) { this.font=font; this.characters=characters; bold=Resources.Load<Font>("Mofumachi/UIFontBold")??font; }
         public static RectTransform Node(string name, RectTransform parent, Rect anchors)
@@ -31,7 +32,7 @@ namespace Mofumachi.Presentation
         public Text Label(string name,string text,RectTransform parent,Rect anchors,int fontSize)
         { var t=Node(name,parent,anchors).gameObject.AddComponent<Text>(); t.font=font; t.text=text; t.fontSize=fontSize; t.color=Ink; t.alignment=TextAnchor.MiddleCenter; t.raycastTarget=false; t.horizontalOverflow=HorizontalWrapMode.Wrap; t.verticalOverflow=VerticalWrapMode.Truncate; return t; }
         public Text Heading(string name,string text,RectTransform parent,Rect anchors,int fontSize)
-        { var t=Label(name,text,parent,anchors,fontSize);t.font=bold;return t; }
+        { var t=Label(name,text,parent,anchors,fontSize);t.font=bold;var shadow=t.gameObject.AddComponent<Shadow>();shadow.effectColor=new Color(.84f,.65f,.33f,.35f);shadow.effectDistance=new Vector2(0,-.6f);return t; }
         public void Flowers(RectTransform panel)
         { Icon("Flower left",UIIcon.Flower,panel,new Rect(.015f,.81f,.08f,.16f));Icon("Flower right",UIIcon.Flower,panel,new Rect(.905f,.025f,.08f,.16f)); }
         public Button Button(string name,string text,RectTransform parent,Rect anchors,UnityAction action,bool secondary=false)
@@ -59,11 +60,11 @@ namespace Mofumachi.Presentation
         { var image=Node("Town background",parent,new Rect(0,0,1,1)).gameObject.AddComponent<RawImage>(); image.texture=texture; image.raycastTarget=false; image.gameObject.AddComponent<BackgroundCover>(); return image; }
         public UIIconGraphic Icon(string name,UIIcon icon,RectTransform parent,Rect anchors,Color? tint=null)
         { var g=Node(name,parent,anchors).gameObject.AddComponent<UIIconGraphic>(); g.icon=icon; g.color=tint??Ink; g.raycastTarget=false; return g; }
-        public void Header(RectTransform root,ScreenContext c,string title)
+        public void Header(RectTransform root,ScreenContext c,string title,Color? tint=null)
         {
             var head=Panel("Header",root,new Rect(0,0,1,1)).rectTransform; Top(head,10,8,10,54);Frame(head,14,false);
             var back=Button("Back","戻る",head,new Rect(0,0,.22f,1),c.Flow.GoBack,true); back.GetComponentInChildren<Text>().fontSize=14;
-            Ribbon("Page title",title,head,new Rect(.22f,.12f,.58f,.76f),18);
+            Ribbon("Page title",title,head,new Rect(.22f,.12f,.58f,.76f),18,tint);
             var settings=Button("Settings","",head,new Rect(.81f,0,.19f,1),c.Flow.ShowSettings,true); Icon("Settings icon",UIIcon.Settings,(RectTransform)settings.transform,new Rect(.26f,.26f,.48f,.48f));
         }
         public void Nav(RectTransform root,ScreenContext c,ScreenId active)

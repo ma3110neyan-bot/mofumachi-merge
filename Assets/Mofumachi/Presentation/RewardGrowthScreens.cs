@@ -7,20 +7,23 @@ namespace Mofumachi.Presentation
         public static void BuildResult(RectTransform root,ScreenContext c,DeliveryPresentation delivery)
         {
             var w=c.Widgets;w.Header(root,c,"納品／報酬");
-            var card=w.OrnatePanel("Delivery result",root,new Rect(.065f,.22f,.87f,.63f)).rectTransform;card.gameObject.AddComponent<SoftReveal>();
+            var card=w.OrnatePanel("Delivery result",root,new Rect(.065f,.22f,.87f,.63f),UIWidgets.BlushPaper).rectTransform;card.gameObject.AddComponent<SoftReveal>();
             w.Ribbon("Delivery title","納品完了！",card,new Rect(.12f,.8f,.76f,.12f),23);
-            w.Icon("Success",c.Flow.RewardVisible?UIIcon.Coin:UIIcon.Check,card,new Rect(.37f,.59f,.26f,.18f));
-            w.Divider(card,.55f);
-            w.Heading("Reward value",c.Flow.RewardVisible?"+"+delivery.CoinsAwarded+" Coins":"お茶を届けました",card,new Rect(.04f,.4f,.92f,.13f),24);
-            w.Label("Reward description",c.Flow.RewardVisible?"街の仲間からの贈りものです":"報酬を受け取っています…",card,new Rect(.08f,.28f,.84f,.1f),14);
-            var next=w.Button("Show growth","街の成長を見る",card,new Rect(.065f,.06f,.87f,.16f),c.Flow.ShowGrowth);next.interactable=c.Flow.RewardVisible;
+            w.Character("Delivery requester",1,card,new Rect(.335f,.56f,.33f,.22f));
+            w.Heading("Delivery thanks",UIStrings.DeliveryThanks,card,new Rect(.18f,.49f,.64f,.065f),17);
+            w.Divider(card,.44f);
+            w.Icon("Success",c.Flow.RewardVisible?UIIcon.Coin:UIIcon.Check,card,new Rect(.1f,.31f,.13f,.1f));
+            w.Heading("Reward value",c.Flow.RewardVisible?"+"+delivery.CoinsAwarded+" Coins":"お茶を届けました",card,new Rect(.25f,.3f,.7f,.13f),22);
+            w.Label("Reward description",c.Flow.RewardVisible?"街の仲間からの贈りものです":"報酬を受け取っています…",card,new Rect(.08f,.205f,.84f,.085f),14);
+            var next=w.Button("Show growth","街の成長を見る",card,new Rect(0,0,1,1),c.Flow.ShowGrowth);next.interactable=c.Flow.RewardVisible;
+            UIWidgets.Bottom((RectTransform)next.transform,20,14,20,48);
             w.Feedback(root,c,ScreenId.Result);w.Nav(root,c,ScreenId.Result);
         }
         public static void BuildGrowth(RectTransform root,ScreenContext c,DeliveryPresentation delivery)
         {
-            var w=c.Widgets;w.Header(root,c,"もふまちの成長");
-            var card=w.OrnatePanel("Town growth",root,new Rect(.06f,.31f,.88f,.48f)).rectTransform;card.gameObject.AddComponent<SoftReveal>();
-            w.Ribbon("Growth title","街が成長しました",card,new Rect(.09f,.81f,.82f,.13f),20);
+            var w=c.Widgets;w.Header(root,c,"もふまちの成長",UIWidgets.Peach);
+            var card=w.OrnatePanel("Town growth",root,new Rect(.06f,.31f,.88f,.48f),UIWidgets.BluePaper).rectTransform;card.gameObject.AddComponent<SoftReveal>();
+            w.Ribbon("Growth title","街が成長しました",card,new Rect(.09f,.81f,.82f,.13f),20,UIWidgets.Peach);
             w.Icon("Growth star",UIIcon.Star,card,new Rect(.38f,.55f,.24f,.2f));
             w.Divider(card,.48f);
             w.Heading("Growth levels","街 Lv."+delivery.PreviousTownLevel+" → Lv."+delivery.CurrentTownLevel,card,new Rect(.03f,.3f,.94f,.15f),25);

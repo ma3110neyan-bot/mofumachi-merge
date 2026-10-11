@@ -2,6 +2,8 @@
 
 2026-10-11。本文フォントを維持し、「さらに華やかに」の回答と正式参照を反映した既存UI改修です。街レベル別の外観は[方向案](town-growth-direction.md)として記録し、今回の機能には追加していません。
 
+同日追記：Windowsから届いた8件の失敗は、設定画面を閉じる際の共通の`CanvasRenderer`欠如でした。独自描画4種の必須指定を修正し、回帰テストを追加。元8件のテストは維持しています。最新の予定件数はEditMode67／PlayMode29で、Windows再試験待ちです。
+
 ## 1. 現在の実装状況
 
 | 画面／機能 | 状態 | 実装範囲と残り |
@@ -28,6 +30,7 @@
 - キャラ・街：原画と街背景をバイト単位で維持。新しい歩行、施設、街並み差分は未追加。
 - アニメーション・音：既存の選択反応、噴水、報酬演出、音源を維持。今回の装飾は静的。
 - Android／Pixel：必須素材検査へ2画像を追加。共有素材、最大インポートサイズ1024、ミップなし。枠の透明な中央を描かず、装飾はタップを受け取らない。盤面のサイズ・間隔は維持。
+- 描画不具合：金枠・リボン・アイコン・噴水の4種に`CanvasRenderer`を必須指定。描画前に設定を閉じてもマスクを解除できる回帰テストを1件追加。ゲームロジック・音設定の保存処理は変更なし。
 
 ## 3. 今回のFBに対する対応状況
 
@@ -42,7 +45,7 @@
 
 TOP→初回案内→ホーム→依頼→Merge→納品→報酬→街Lv.0→1→保存復帰は実装済みです。**今回の新APKによるPixel一周は未確認**で、各項目の実機確認が必要です。
 
-クラウドではコア62/62合格、全ソースのUnity 6000.6.4f1実DLLコンパイル0警告・0エラー。Unityの描画・PlayMode実行の合格とは区別します。テスト件数は追加しておらず、Windowsの目安はEditMode67件／PlayMode28件です。
+クラウドではコア62/62合格、全ソースと新回帰テストのUnity 6000.6.4f1実DLLコンパイル0警告・0エラー。描画4種の依存指定を実DLLで検証し、修正前の失敗／修正後の合格を確認しました。Unityの描画・PlayMode実行の合格とは区別します。Windowsの目安はEditMode67件／PlayMode29件です。
 
 ## 5. キャラクター仕様
 
@@ -60,6 +63,7 @@ TOP→初回案内→ホーム→依頼→Merge→納品→報酬→街Lv.0→1�
 
 ## 8. 未解決事項・不具合
 
+- Windowsの8件の失敗の共通原因に修正を入れました。元8件と新回帰テストの実際のPlayMode再試験が残っています。
 - 新しい装飾のUnity実インポート、Mask、実配置、入力、APK、Pixel確認が未実行。
 - クラウドのUnityライセンスは既知のブロッカーで、ネイティブ実行・APKは保留。今回はDLLコンパイルとコア試験で検証。
 - 新しい2画像の実機メモリ・描画負荷は未測定。新しい文字を増やす場合はフォントのサブセットと欠字検査の更新が必要。
@@ -81,10 +85,14 @@ Assets/Mofumachi/Presentation/TopHomeScreens.cs
 Assets/Mofumachi/Presentation/QuestMergeScreens.cs
 Assets/Mofumachi/Presentation/RewardGrowthScreens.cs
 Assets/Mofumachi/Presentation/SettingsScreen.cs
+Assets/Mofumachi/Presentation/UIIconGraphic.cs
+Assets/Mofumachi/Presentation/TownAmbientGraphic.cs
 Assets/Mofumachi/Resources/Mofumachi/TitleLogo.png
 Assets/Mofumachi/Resources/Mofumachi/UIPanelFrame.png
 Assets/Mofumachi/Editor/AndroidBuild.cs
 Assets/Mofumachi/Tests/BuildTime/PresentationContentTests.cs
+Assets/Mofumachi/Tests/PlayMode/LayoutNoticeTests.cs
+scripts/build-android.ps1
 docs/ui-pop-assets.md
 docs/town-growth-direction.md
 docs/development-handoff-2026-10-11.md
@@ -97,7 +105,7 @@ README.md
 1. Unity Editorを閉じる。
 2. GitHub Desktopで`mofumachi-merge`の`main`を開き、Fetch origin→Pull origin。
 3. Unity Hubから`C:\Users\User\Desktop\Mofumachi\mofumachi-merge`をUnity 6000.6.4f1で開き、画像のインポート完了を待つ。
-4. ウィンドウ→一般→Test Runner。EditModeでRun All（67件）、PlayModeでRun All（28件）。失敗があればそのテストの詳細を確認。
+4. ウィンドウ→一般→Test Runner。EditModeでRun All（67件）、PlayModeでRun All（29件）。失敗があればそのテストの詳細を確認。今回の8件と追加した回帰テストの合格を確認してからビルドへ進みます。
 5. `Mofumachi → Android → Build QA APK (separate save)`を実行し、今回の`MOFUMACHI_APK_SUCCESS`を確認。
 6. PixelをUSB接続・ロック解除したまま次をPowerShellで実行。
 

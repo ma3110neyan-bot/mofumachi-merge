@@ -12,6 +12,41 @@ namespace Mofumachi.Tests
 {
     public sealed class LayoutNoticeTests : SliceUiTestFixture
     {
+        [UnityTest] public IEnumerator CustomGraphicsCanLeaveRectMaskBeforeFirstCanvasRebuild()
+        {
+            var canvas = new GameObject("Masked graphic lifecycle fixture", typeof(RectTransform), typeof(Canvas));
+            canvas.GetComponent<Canvas>().renderMode = RenderMode.WorldSpace;
+            var root = (RectTransform)canvas.transform; root.sizeDelta = new Vector2(360, 420);
+            var viewport = UIWidgets.Node("Masked viewport", root, new Rect(0, 0, 1, 1));
+            viewport.gameObject.AddComponent<RectMask2D>();
+            try
+            {
+                foreach (var type in new[] { typeof(DecorativeFrameGraphic), typeof(RibbonGraphic), typeof(UIIconGraphic), typeof(TownAmbientGraphic) })
+                {
+                    var node = UIWidgets.Node(type.Name, viewport, new Rect(0, 0, 1, 1));
+                    var graphic = (MaskableGraphic)node.gameObject.AddComponent(type);
+                    // A screen may close before UGUI's deferred rebuild creates a renderer.
+                    Assert.That(node.GetComponent<CanvasRenderer>() != null, Is.True, type.Name + " must have a renderer at creation");
+                    graphic.SetClipRect(new Rect(0, 0, 360, 420), true);
+                    Assert.That(graphic.canvasRenderer.hasRectClipping, Is.True);
+                    node.gameObject.SetActive(false);
+                    Assert.That(graphic.canvasRenderer.hasRectClipping, Is.False);
+                    node.gameObject.SetActive(true);
+                    graphic.SetClipRect(new Rect(0, 0, 360, 420), true);
+                    Assert.That(graphic.canvasRenderer.hasRectClipping, Is.True);
+                    viewport.gameObject.SetActive(false);
+                    Assert.That(graphic.canvasRenderer.hasRectClipping, Is.False);
+                    viewport.gameObject.SetActive(true);
+                    graphic.SetClipRect(new Rect(0, 0, 360, 420), true);
+                    Assert.That(graphic.canvasRenderer.hasRectClipping, Is.True);
+                    Object.DestroyImmediate(node.gameObject);
+                }
+            }
+            finally { Object.DestroyImmediate(canvas); }
+            yield return null;
+            LogAssert.NoUnexpectedReceived();
+        }
+
         [Test] public void PortraitUsesFullSafeHeightAndLandscapeUsesCenteredViewport()
         {
             var canvas = new GameObject("Layout fixture", typeof(RectTransform), typeof(Canvas));

@@ -3,6 +3,7 @@ using UnityEngine.UI;
 namespace Mofumachi.Presentation
 {
     public enum UIIcon { Home, Settings, Mail, Tea, Star, Coin, Check, TeaPot, Flower }
+    [RequireComponent(typeof(CanvasRenderer))]
     public sealed class UIIconGraphic : MaskableGraphic
     {
         public UIIcon icon;

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 namespace Mofumachi.Presentation
 {
     // Eight shared-texture quads; the transparent centre is never drawn.
+    [RequireComponent(typeof(CanvasRenderer))]
     public sealed class DecorativeFrameGraphic : MaskableGraphic
     {
         public float cornerSize = 36;

@@ -1,6 +1,6 @@
 # WindowsビルドとPixel 3aの実機確認
 
-2026-10-10のPOP UI改修（`2cb3abb`＋`f5faccf`）は**新しいAPKが必要**です。新フォント・専用アイコン・タップ／噴水演出を含みます。下記の前版QAインストール成功とは別に、WindowsでEditMode67／PlayMode28の全成功→QA APK生成→更新インストールを行います。[初心者向けの今回の手順](development-handoff-2026-10-10.md#10-windows-pcで次に行う作業)。
+2026-10-11のロゴ・装飾UI改修と、設定画面を閉じる際の描画例外修正は**新しいAPKが必要**です。下記の前版QAインストール成功とは別に、WindowsでEditMode67／PlayMode29の全成功→QA APK生成→更新インストールを行います。[初心者向けの今回の手順](development-handoff-2026-10-11.md#10-windows-pcで次に行う作業)。
 
 今回の画面・音・保存変更を含む**新しいAPK**で確認します。以前の51,201,037 bytesのAPKと40／5テスト成功は旧実装の結果です。クラウドのライセンス／最終APKはユーザー指示で保留し、Windows Unity6000.6.4f1で実行します。
 
@@ -23,7 +23,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\build-android.ps1 -Qa
 
 必要なら `-UnityEditor "C:\Program Files\Unity\Hub\Editor\6000.6.4f1\Editor\Unity.exe"` を指定します。Unity Editorは閉じた状態で実行。通常版とQA版は各回の `Builds\Android\日時-識別子\` へ出力します。
 
-現時点の検証ゲートはEditMode最低67件、PlayMode最低28件、必須6／7 suite、全test-case Passed、failed／skipped 0。各回の新XMLとログを検証し、成功時だけAPKを生成します。実際のUnityでの件数・結果はXMLで確定してください。ソース上の予定件数をネイティブ合格と扱いません。
+現時点の検証ゲートはEditMode最低67件、PlayMode最低29件（2026-10-11に描画部品のマスク解除回帰テストを追加）、必須6／7 suite、全test-case Passed、failed／skipped 0。各回の新XMLとログを検証し、成功時だけAPKを生成します。実際のUnityでの件数・結果はXMLで確定してください。ソース上の予定件数をネイティブ合格と扱いません。[最新の引き継ぎ・GUI操作手順](development-handoff-2026-10-11.md)。
 
 `MOFUMACHI_APK_SUCCESS`、非空の新APK、`build-info.json`のGit revision／Unity／ID／versionCode／SHA／サイズを保存します。Gitがなければrevisionはunknownです。通常版 `com.mofumachi.merge`、QA版 `com.mofumachi.merge.qa`。QA版には独立した保存があり、QAビルドのID／表示名は終了・失敗時に元へ戻します。開発APKはPlay提出物ではありません。
 

@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 namespace Mofumachi.Presentation
 {
+    [RequireComponent(typeof(CanvasRenderer))]
     public sealed class RibbonGraphic : MaskableGraphic
     {
         protected override void OnPopulateMesh(VertexHelper mesh)

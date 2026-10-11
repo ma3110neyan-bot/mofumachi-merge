@@ -5,6 +5,7 @@ namespace Mofumachi.Presentation
 {
     // Lightweight water droplets, ripples and glints over the existing flat painting.
     // All positions follow BackgroundCover's UV crop. No tree/character art is redrawn.
+    [RequireComponent(typeof(CanvasRenderer))]
     public sealed class TownAmbientGraphic : MaskableGraphic
     {
         private RawImage background;

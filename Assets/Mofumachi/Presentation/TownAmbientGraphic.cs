@@ -9,14 +9,15 @@ namespace Mofumachi.Presentation
     public sealed class TownAmbientGraphic : MaskableGraphic
     {
         private RawImage background;
-        private float phase, nextFrame;
+        private float phase;
+        public float Phase=>phase;
         protected override void Awake() { base.Awake(); raycastTarget = false; }
         public void Bind(RawImage image) => background = image;
-        private void Update()
+        private void Update()=>AdvanceWater(Time.unscaledDeltaTime);
+        public void AdvanceWater(float elapsedSeconds)
         {
-            if (Time.unscaledTime < nextFrame) return;
-            nextFrame = Time.unscaledTime + 1f / 30;
-            phase = Time.unscaledTime; SetVerticesDirty();
+            if(!isActiveAndEnabled||!float.IsFinite(elapsedSeconds)||elapsedSeconds<=0)return;
+            phase+=Mathf.Min(elapsedSeconds,.1f);SetVerticesDirty();
         }
         protected override void OnPopulateMesh(VertexHelper vertices)
         {
@@ -45,13 +46,13 @@ namespace Mofumachi.Presentation
         {
             for (int i = 0; i < count; i++)
             {
-                float t = Mathf.Repeat(phase * .72f + i * .137f, 1);
+                float t = Mathf.Repeat(phase * .92f + i * .137f, 1);
                 float x = Mathf.Lerp(left, right, (i + .5f) / count);
                 float y = Mathf.Lerp(top, bottom, t);
                 float alpha = Mathf.Sin(t * Mathf.PI) * opacity;
-                float halfWidth = .0016f + (i % 3) * .0004f;
+                float halfWidth = .002f + (i % 3) * .0004f;
                 float length = (top - bottom) * .18f;
-                var tail = new Color(.55f, .91f, 1, alpha * .3f);
+                var tail = new Color(.55f, .91f, 1, alpha * .4f);
                 var head = new Color(.9f, 1, 1, alpha);
                 int start = vertices.currentVertCount;
                 vertices.AddVert(Local(new Vector2(x - halfWidth, y)), head, Vector2.zero);

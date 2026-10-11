@@ -17,7 +17,7 @@ namespace Mofumachi.Tests
             // Graphic depth is established by rendering, not by a layout rebuild alone.
             yield return null;Canvas.ForceUpdateCanvases();var actors=Flow.GetComponentsInChildren<TownActor>();Assert.That(actors.Length,Is.EqualTo(6));
             var hero=actors.Single(a=>a.Controlled);Assert.That(hero.CharacterId,Is.EqualTo("momo"));
-            Assert.That(hero.GetComponent<Graphic>().depth,Is.GreaterThanOrEqualTo(0),"The hero must be rendered before pointer input.");
+            Assert.That(hero.GetComponentInChildren<CharacterBodyGraphic>().depth,Is.GreaterThanOrEqualTo(0),"The hero must be rendered before pointer input.");
             var pointer=new PointerEventData(EventSystem.current){pointerId=-1,position=RectTransformUtility.WorldToScreenPoint(null,hero.transform.position)};
             var hits=new System.Collections.Generic.List<RaycastResult>();EventSystem.current.RaycastAll(pointer,hits);Assert.That(hits.Any(h=>h.gameObject.GetComponentInParent<TownActor>()==hero),Is.True);
             ExecuteEvents.Execute(hero.gameObject,pointer,ExecuteEvents.pointerDownHandler);Assert.That(hero.Movement.OwnedPointerId,Is.EqualTo(-1));

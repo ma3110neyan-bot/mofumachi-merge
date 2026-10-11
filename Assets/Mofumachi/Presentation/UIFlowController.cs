@@ -33,7 +33,8 @@ namespace Mofumachi.Presentation
         public bool SettingsOpenedFromGame => settingsReturnView != "title";
         public string PreviewFavoriteId { get; private set; } = "momo";
         private string selectionReturnView = "home";
-        private bool CanPlay => Game.State.purchaseNoticeAcknowledged && CharacterCatalog.IsKnown(Game.State.favoriteCharacterId) && !IsModalOpen && !transitioning;
+        public bool IsAppPaused => appPaused;
+        private bool CanPlay => !appPaused && Game.State.purchaseNoticeAcknowledged && CharacterCatalog.IsKnown(Game.State.favoriteCharacterId) && !IsModalOpen && !transitioning;
 
         private GameObject page;
         private Font font;

@@ -17,7 +17,7 @@ namespace Mofumachi.Presentation
             logoImage.texture=Resources.Load<Texture2D>("Mofumachi/TitleLogo");logoImage.raycastTarget=false;
             var logoFit=logoImage.gameObject.AddComponent<AspectRatioFitter>();logoFit.aspectRatio=1659f/948;logoFit.aspectMode=AspectRatioFitter.AspectMode.FitInParent;
             var tag=w.OrnatePanel("Tagline",root,new Rect(.06f,.589f,.88f,.048f),UIWidgets.Cream,10).rectTransform;
-            w.Label("Tagline text","もふもふの街で、ちいさなお茶会を。",tag,new Rect(.05f,0,.9f,1),13);
+            w.StoryLabel("Tagline text","もふもふの街で、ちいさなお茶会を。",tag,new Rect(.05f,0,.9f,1),14);
             var hero=UIWidgets.Node("Title hero region",root,new Rect(.37f,0,.26f,.575f));hero.offsetMin=new Vector2(0,238);
             string favorite=CharacterCatalog.IsKnown(c.Game.State.favoriteCharacterId)?c.Game.State.favoriteCharacterId:"momo";
             var image=w.Body("Title partner",favorite,hero,new Rect(0,0,1,1));image.raycastTarget=true;image.gameObject.AddComponent<BodyReaction>().Bind(c);
@@ -30,7 +30,7 @@ namespace Mofumachi.Presentation
             }
             var start=w.Button("Start","はじめる",root,new Rect(0,0,1,1),()=>{c.Flow.PlayCue(AudioCue.Confirm);c.Flow.BeginGame();}); UIWidgets.Bottom((RectTransform)start.transform,28,54,28,58);
             var footerSurface=w.Panel("Title footer surface",root,new Rect(0,0,1,1),new Color(1,.988f,.945f,.94f));UIWidgets.Bottom(footerSurface.rectTransform,24,14,24,28);
-            var footer=w.Label("Title footer","つくって、届けて、街を育てよう。",root,new Rect(0,0,1,1),12); UIWidgets.Bottom(footer.rectTransform,14,14,14,28);
+            var footer=w.StoryLabel("Title footer","つくって、届けて、街を育てよう。",root,new Rect(0,0,1,1),14); UIWidgets.Bottom(footer.rectTransform,14,14,14,28);
             var feedback=w.Label("Title feedback",c.Flow.FeedbackFor(ScreenId.Title),root,new Rect(0,0,1,1),12);UIWidgets.Bottom(feedback.rectTransform,16,118,16,42);
         }
         public static void BuildHome(RectTransform root,ScreenContext c,RawImage background=null)

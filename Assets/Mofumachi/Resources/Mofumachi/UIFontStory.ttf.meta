@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3e6b2bb9641d457781c0de903ee99c74
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  fontNames:
+  - Mofumachi Story UI
+  includeFontData: 1
+  use2xBehaviour: 0
+  userData:
+  assetBundleName:
+  assetBundleVariant:

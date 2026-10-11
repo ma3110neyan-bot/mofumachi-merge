@@ -88,6 +88,8 @@ namespace Mofumachi.Editor
             foreach(var text in Mofumachi.Presentation.UIStrings.All)ValidateGlyphs(font,text);
             var bold=Resources.Load<Font>("Mofumachi/UIFontBold");RequireContent(bold,"UIFontBold");
             foreach(var text in Mofumachi.Presentation.UIStrings.All)ValidateGlyphs(bold,text);
+            var story=Resources.Load<Font>("Mofumachi/UIFontStory");RequireContent(story,"UIFontStory");
+            foreach(var text in Mofumachi.Presentation.UIStrings.All)ValidateGlyphs(story,text);
             ValidateGlyphs(font,Mofumachi.Presentation.UIStrings.PopLabels);ValidateGlyphs(bold,Mofumachi.Presentation.UIStrings.PopLabels);
             foreach(var key in new[]{"bgm-town-loop","se-confirm","se-character","se-merge","se-delivery","se-reward","se-growth"})RequireContent(Resources.Load<AudioClip>("Mofumachi/Audio/"+key),key);
 

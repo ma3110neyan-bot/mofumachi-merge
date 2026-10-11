@@ -28,7 +28,8 @@ namespace Mofumachi.Presentation
                 var rect=UIWidgets.Node("Town actor "+character.Id,actorLayer,new Rect(.5f,.5f,0,0));rect.pivot=new Vector2(.5f,0);rect.sizeDelta=new Vector2(62,78);
                 var body=rect.gameObject.AddComponent<CharacterBodyGraphic>();body.raycastTarget=true;
                 var actor=rect.gameObject.AddComponent<TownActor>();actor.Bind(character.Id,controlled,new TownMovement(nav,point),nav);actor.Connect(this,point,end,i*.4f);actors[i]=actor;
-                var label=c.Widgets.Label("Town actor name",character.Name,rect,new Rect(-.12f,-.2f,1.24f,.2f),11);
+                var namePanel=c.Widgets.Panel("Town actor name panel",rect,new Rect(-.13f,-.26f,1.26f,.26f)).rectTransform;
+                var label=c.Widgets.StoryLabel("Town actor name",character.Name,namePanel,new Rect(.04f,.03f,.92f,.94f),12);
                 var outline=label.gameObject.AddComponent<Outline>();outline.effectColor=UIWidgets.Cream;outline.effectDistance=new Vector2(1,-1);
                 actor.Advance(0);
             }
@@ -80,7 +81,7 @@ namespace Mofumachi.Presentation
         {
             HideBubble();var parent=(RectTransform)transform.parent;
             var panel=context.Widgets.OrnatePanel("Town bubble panel",parent,new Rect(0,0,1,1),UIWidgets.Cream,12).rectTransform;UIWidgets.Top(panel,28,80,28,40);
-            context.Widgets.Label("Town bubble",text,panel,new Rect(.04f,.04f,.92f,.92f),12);bubble=panel.gameObject;bubbleUntil=Time.unscaledTime+2.5f;
+            context.Widgets.StoryLabel("Town bubble",text,panel,new Rect(.04f,.04f,.92f,.92f),14);bubble=panel.gameObject;bubbleUntil=Time.unscaledTime+2.5f;
         }
         private void HideBubble(){if(bubble!=null){bubble.SetActive(false);Destroy(bubble);}bubble=null;}
         private void HideEntrance(){NearbyFacility=null;if(entrance!=null){entrance.SetActive(false);Destroy(entrance);}entrance=null;}

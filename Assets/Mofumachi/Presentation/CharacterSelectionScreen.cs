@@ -20,9 +20,9 @@ namespace Mofumachi.Presentation
             var chosen=CharacterCatalog.Find(c.Flow.PreviewFavoriteId)??CharacterCatalog.All[0];
             var hero=UIWidgets.Node("Partner hero",content,new Rect(0,0,1,1));UIWidgets.Top(hero,80,18,80,132);
             var body=w.Body("Chosen full body",chosen.Id,hero,new Rect(0,0,1,1));body.raycastTarget=true;body.gameObject.AddComponent<BodyReaction>().Bind(c);
-            var name=w.Ribbon("Chosen partner name",chosen.Name,content,new Rect(0,0,1,1),20,UIWidgets.Pink);
+            var name=w.StoryRibbon("Chosen partner name",chosen.Name,content,new Rect(0,0,1,1),20);
             UIWidgets.Top((RectTransform)name.transform.parent,66,156,66,36);
-            var description=w.Label("Partner description",chosen.Description,content,new Rect(0,0,1,1),14);
+            var description=w.StoryLabel("Partner description",chosen.Description,content,new Rect(0,0,1,1),14);
             UIWidgets.Top(description.rectTransform,24,204,24,54);
             for(int i=0;i<CharacterCatalog.All.Count;i++)
             {
@@ -31,7 +31,7 @@ namespace Mofumachi.Presentation
                 var rect=(RectTransform)button.transform;rect.anchorMin=new Vector2(rect.anchorMin.x,1);rect.anchorMax=new Vector2(rect.anchorMax.x,1);
                 rect.offsetMin=new Vector2(0,-276-row*76-70);rect.offsetMax=new Vector2(0,-276-row*76);
                 w.Character("Candidate portrait "+candidate.Id,candidate.PortraitIndex,rect,new Rect(.24f,.32f,.52f,.64f));
-                w.Heading("Candidate name "+candidate.Id,candidate.Name,rect,new Rect(.04f,.015f,.92f,.29f),12);
+                w.StoryHeading("Candidate name "+candidate.Id,candidate.Name,rect,new Rect(.04f,.015f,.92f,.29f),12);
             }
             var feedback=w.Label("Selection feedback",c.Flow.FeedbackFor(ScreenId.CharacterSelection),root,new Rect(0,0,1,1),13);
             UIWidgets.Bottom(feedback.rectTransform,20,74,20,38);

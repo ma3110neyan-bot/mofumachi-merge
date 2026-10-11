@@ -6,6 +6,16 @@ namespace Mofumachi.Tests
 {
     public sealed class PresentationContentTests
     {
+        [Test] public void StoryFontHasRequiredGlyphs()
+        {
+            foreach(var key in new[]{"UIFont","UIFontBold","UIFontStory"})
+            {
+                var font=Resources.Load<Font>("Mofumachi/"+key);Assert.That(font,Is.Not.Null,key);
+                foreach(var text in UIStrings.All)Assert.DoesNotThrow(()=>Mofumachi.Editor.AndroidBuild.ValidateGlyphs(font,text));
+                foreach(var text in new[]{"\uffff","\u0378","\u0416"})
+                    Assert.Throws<UnityEditor.Build.BuildFailedException>(()=>Mofumachi.Editor.AndroidBuild.ValidateGlyphs(font,text));
+            }
+        }
         [Test] public void FullBodyAtlasHasSixNamedCharactersAndExpressions()
         {
             var atlas=Resources.Load<Texture2D>("Mofumachi/CharacterBodyAtlas");Assert.That(atlas,Is.Not.Null);

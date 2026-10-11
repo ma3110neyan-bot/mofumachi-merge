@@ -84,3 +84,7 @@ Unity Editorの描画、Mask／Canvasの実レイアウト、実入力、FontEng
 ## 2026-10-11 Windowsの画像サイズ検査への対応
 
 全身画像の実幅1536が1024上限検査に失敗。全身・アイテム・タイトル・枠の元metaには共通／AndroidのplatformSettingsがなく、トップ階層のmaxTextureSizeだけが記載されていた。Unity 6000.6.4f1同梱のTextureImporter version13／platform serializedVersion4と同じ形式でDefaultTexturePlatform／AndroidのmaxTextureSize1024を追加。Androidはoverridden1。元PNG・GUID・UI上のUV・OFLは保持。ネイティブの再インポート結果・見え方はWindows／Pixelで再確認する。
+
+## 2026-10-11 絵本調書体
+
+承認済みのKiwi Maru Mediumを名前・紹介・会話のResources `Mofumachi/UIFontStory`へ追加。派生ファミリーはMofumachi Story UI、SIL OFL 1.1と著作権は `UIFontStory-LICENSE.txt` に同梱。出典と元TTF SHAは[書体見本の記録](../References/Preview/chapter-game-review-2026-10-11/README.md)。元TTF全体はAPKへ含めず、検証済みの3原本から `scripts/subset-ui-fonts.py` で生成。本文・操作・注意文は既存Zen Maruを保持。今回の3書体439字のcmap検査・6asmdefコンパイル成功はネイティブFontEngine／Pixelの合格ではなく、Windows確認が残る。

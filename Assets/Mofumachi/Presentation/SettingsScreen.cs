@@ -9,13 +9,16 @@ namespace Mofumachi.Presentation
             var w=c.Widgets;w.Header(root,c,"設定");
             // Fixed content height with vertical scrolling on short safe areas.
             var viewport=UIWidgets.Node("Settings viewport",root,new Rect(0,0,1,1));viewport.offsetMin=new Vector2(12,112);viewport.offsetMax=new Vector2(-12,-78);
-            var bg=viewport.gameObject.AddComponent<RoundedPanelGraphic>();bg.color=UIWidgets.Cream;viewport.gameObject.AddComponent<RectMask2D>();
-            var content=UIWidgets.Node("Settings content",viewport,new Rect(0,1,1,0));content.pivot=new Vector2(.5f,1);content.sizeDelta=new Vector2(0,410);
+            // Draw the card on its content, so tall displays show the town below
+            // rather than an oversized empty cream viewport. Short displays scroll.
+            var capture=viewport.gameObject.AddComponent<Image>();capture.color=Color.clear;capture.raycastTarget=true;viewport.gameObject.AddComponent<RectMask2D>();
+            var content=w.OrnatePanel("Settings content",viewport,new Rect(0,1,1,0)).rectTransform;content.pivot=new Vector2(.5f,1);content.sizeDelta=new Vector2(0,420);
             var scroll=viewport.gameObject.AddComponent<ScrollRect>();scroll.viewport=viewport;scroll.content=content;scroll.horizontal=false;scroll.vertical=true;scroll.movementType=ScrollRect.MovementType.Clamped;
-            var desc=w.Label("Settings description","音の大きさを、お好みに合わせて調整できます。",content,new Rect(0,0,1,1),16);UIWidgets.Top(desc.rectTransform,16,16,16,56);
+            var title=w.Ribbon("Sound settings title","音の設定",content,new Rect(0,0,1,1),18);UIWidgets.Top((RectTransform)title.transform.parent,48,14,48,42);
+            var desc=w.Label("Settings description","音の大きさを調整できます。",content,new Rect(0,0,1,1),14);UIWidgets.Top(desc.rectTransform,28,66,28,30);
             Slider bgm=null,se=null;
-            bgm=Row(content,c,"BGM",84,c.Game.State.bgmEnabled,c.Game.State.bgmVolume,()=>c.Flow.CommitAudioPreferences(!c.Game.State.bgmEnabled,c.Game.State.seEnabled,c.Game.State.bgmVolume,c.Game.State.seVolume));
-            se=Row(content,c,"SE",234,c.Game.State.seEnabled,c.Game.State.seVolume,()=>c.Flow.CommitAudioPreferences(c.Game.State.bgmEnabled,!c.Game.State.seEnabled,c.Game.State.bgmVolume,c.Game.State.seVolume));
+            bgm=Row(content,c,"BGM",106,c.Game.State.bgmEnabled,c.Game.State.bgmVolume,()=>c.Flow.CommitAudioPreferences(!c.Game.State.bgmEnabled,c.Game.State.seEnabled,c.Game.State.bgmVolume,c.Game.State.seVolume));
+            se=Row(content,c,"SE",252,c.Game.State.seEnabled,c.Game.State.seVolume,()=>c.Flow.CommitAudioPreferences(c.Game.State.bgmEnabled,!c.Game.State.seEnabled,c.Game.State.bgmVolume,c.Game.State.seVolume));
             bgm.gameObject.AddComponent<VolumeControl>().Bind(bgm,v=>c.Flow.PreviewAudioVolumes(v,se.value),v=>c.Flow.CommitAudioPreferences(c.Game.State.bgmEnabled,c.Game.State.seEnabled,v,c.Game.State.seVolume));
             se.gameObject.AddComponent<VolumeControl>().Bind(se,v=>c.Flow.PreviewAudioVolumes(bgm.value,v),v=>c.Flow.CommitAudioPreferences(c.Game.State.bgmEnabled,c.Game.State.seEnabled,c.Game.State.bgmVolume,v));
             var feedback=w.Label("Settings feedback",c.Flow.FeedbackFor(ScreenId.Settings),root,new Rect(0,0,1,1),13);UIWidgets.Bottom(feedback.rectTransform,16,68,16,40);
@@ -26,14 +29,16 @@ namespace Mofumachi.Presentation
             var w=c.Widgets;var card=w.Panel(name+" card",content,new Rect(0,0,1,1)).rectTransform;UIWidgets.Top(card,12,top,12,136);
             w.Heading(name+" title",name,card,new Rect(.04f,.57f,.35f,.39f),23);
             var b=w.Button(name+" toggle",enabled?"ON":"OFF",card,new Rect(.57f,.57f,.38f,.39f),toggle,!enabled);b.GetComponentInChildren<Text>().fontSize=17;
-            var value=w.Label(name+" percent",Mathf.RoundToInt(volume*100)+"%",card,new Rect(.76f,.07f,.2f,.42f),16);
+            var badge=w.Panel(name+" percent badge",card,new Rect(.76f,.12f,.2f,.31f),new Color(1,.94f,.96f)).rectTransform;
+            var value=w.Label(name+" percent",Mathf.RoundToInt(volume*100)+"%",badge,new Rect(0,0,1,1),15);
             var rect=UIWidgets.Node(name+" volume",card,new Rect(.05f,.07f,.69f,.42f));var ray=rect.gameObject.AddComponent<Image>();ray.color=Color.clear;
             var slider=rect.gameObject.AddComponent<Slider>();slider.minValue=0;slider.maxValue=1;slider.SetValueWithoutNotify(volume);
             var track=w.Panel(name+" track",rect,new Rect(.02f,.43f,.96f,.14f),new Color(.88f,.92f,.91f));track.decorated=false;
             var fillArea=UIWidgets.Node(name+" fill area",rect,new Rect(.02f,.43f,.96f,.14f));
             var fill=w.Panel(name+" fill",fillArea,new Rect(0,0,1,1),UIWidgets.Mint);slider.fillRect=fill.rectTransform;
             fill.decorated=false;
-            var handleArea=UIWidgets.Node(name+" handle area",rect,new Rect(.07f,0,.86f,1));var handle=w.Panel(name+" handle",handleArea,new Rect(0,.18f,0,.64f),UIWidgets.Pink);handle.rectTransform.sizeDelta=new Vector2(28,0);slider.handleRect=handle.rectTransform;slider.targetGraphic=handle;
+            var handleArea=UIWidgets.Node(name+" handle area",rect,new Rect(.07f,0,.86f,1));var handle=w.Panel(name+" handle",handleArea,new Rect(0,.28f,0,.44f),UIWidgets.Pink);handle.rectTransform.sizeDelta=new Vector2(28,0);slider.handleRect=handle.rectTransform;slider.targetGraphic=handle;
+            w.Icon(name+" handle jewel",UIIcon.Star,handle.rectTransform,new Rect(.2f,.15f,.6f,.7f));
             slider.onValueChanged.AddListener(v=>value.text=Mathf.RoundToInt(v*100)+"%");return slider;
         }
     }

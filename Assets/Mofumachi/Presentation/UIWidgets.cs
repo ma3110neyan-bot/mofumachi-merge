@@ -17,6 +17,17 @@ namespace Mofumachi.Presentation
         { r.anchorMin=Vector2.zero; r.anchorMax=new Vector2(1,0); r.offsetMin=new Vector2(left,bottom); r.offsetMax=new Vector2(-right,bottom+height); }
         public RoundedPanelGraphic Panel(string name,RectTransform parent,Rect anchors,Color? color=null)
         { var p=Node(name,parent,anchors).gameObject.AddComponent<RoundedPanelGraphic>(); p.color=color??Cream; p.raycastTarget=false; return p; }
+        public DecorativeFrameGraphic Frame(RectTransform parent,float cornerSize=36,bool corners=true)
+        { var g=Node("Floral gold frame",parent,new Rect(0,0,1,1)).gameObject.AddComponent<DecorativeFrameGraphic>();g.cornerSize=cornerSize;g.showCorners=corners;g.raycastTarget=false;return g; }
+        public RoundedPanelGraphic OrnatePanel(string name,RectTransform parent,Rect anchors,Color? color=null,float cornerSize=36)
+        { var p=Panel(name,parent,anchors,color);Frame(p.rectTransform,cornerSize);return p; }
+        public Text Ribbon(string name,string text,RectTransform parent,Rect anchors,int fontSize,Color? color=null)
+        { var r=Node(name+" ribbon",parent,anchors);var g=r.gameObject.AddComponent<RibbonGraphic>();g.color=color??Pink;g.raycastTarget=false;
+            var t=Heading(name,text,r,new Rect(.09f,.04f,.82f,.92f),fontSize);return t; }
+        public void Divider(RectTransform parent,float y)
+        { var r=Node("Floral divider",parent,new Rect(.13f,y,.74f,.04f));
+            foreach(float x in new[]{0f,.6f}){var line=Node("Gold line",r,new Rect(x,.47f,.4f,.06f)).gameObject.AddComponent<Image>();line.color=new Color(.9f,.72f,.39f,.65f);line.raycastTarget=false;}
+            Icon("Divider flower",UIIcon.Flower,r,new Rect(.44f,0,.12f,1)); }
         public Text Label(string name,string text,RectTransform parent,Rect anchors,int fontSize)
         { var t=Node(name,parent,anchors).gameObject.AddComponent<Text>(); t.font=font; t.text=text; t.fontSize=fontSize; t.color=Ink; t.alignment=TextAnchor.MiddleCenter; t.raycastTarget=false; t.horizontalOverflow=HorizontalWrapMode.Wrap; t.verticalOverflow=VerticalWrapMode.Truncate; return t; }
         public Text Heading(string name,string text,RectTransform parent,Rect anchors,int fontSize)
@@ -26,7 +37,7 @@ namespace Mofumachi.Presentation
         public Button Button(string name,string text,RectTransform parent,Rect anchors,UnityAction action,bool secondary=false)
         {
             var p=Panel(name,parent,anchors,secondary?Mint:Pink); p.raycastTarget=true;
-            p.gloss=.32f;
+            p.gloss=.42f;p.borderWidth=1.8f;
             var b=p.gameObject.AddComponent<Button>(); b.targetGraphic=p; var colors=b.colors; colors.disabledColor=new Color(.82f,.84f,.87f,.86f); colors.pressedColor=new Color(.94f,.87f,.91f); b.colors=colors;
             Heading(name+" label",text,p.rectTransform,new Rect(.055f,.04f,.89f,.92f),18);
             p.gameObject.AddComponent<ButtonPressFeedback>(); b.onClick.AddListener(action); return b;
@@ -50,17 +61,18 @@ namespace Mofumachi.Presentation
         { var g=Node(name,parent,anchors).gameObject.AddComponent<UIIconGraphic>(); g.icon=icon; g.color=tint??Ink; g.raycastTarget=false; return g; }
         public void Header(RectTransform root,ScreenContext c,string title)
         {
-            var head=Panel("Header",root,new Rect(0,0,1,1)).rectTransform; Top(head,10,8,10,54);
+            var head=Panel("Header",root,new Rect(0,0,1,1)).rectTransform; Top(head,10,8,10,54);Frame(head,14,false);
             var back=Button("Back","戻る",head,new Rect(0,0,.22f,1),c.Flow.GoBack,true); back.GetComponentInChildren<Text>().fontSize=14;
-            Heading("Page title",title,head,new Rect(.23f,0,.56f,1),20);
+            Ribbon("Page title",title,head,new Rect(.22f,.12f,.58f,.76f),18);
             var settings=Button("Settings","",head,new Rect(.81f,0,.19f,1),c.Flow.ShowSettings,true); Icon("Settings icon",UIIcon.Settings,(RectTransform)settings.transform,new Rect(.26f,.26f,.48f,.48f));
         }
         public void Nav(RectTransform root,ScreenContext c,ScreenId active)
         {
-            var nav=Panel("Navigation",root,new Rect(0,0,1,1),Cream).rectTransform; Bottom(nav,8,8,8,66);
+            var nav=Panel("Navigation",root,new Rect(0,0,1,1),Cream).rectTransform; Bottom(nav,8,8,8,66);Frame(nav,14,false);
             var names=new[]{"もふまち","依頼","マージ"}; var ids=new[]{ScreenId.Home,ScreenId.Quest,ScreenId.Merge};
             var icons=new[]{UIIcon.Home,UIIcon.Mail,UIIcon.Tea};
             for(int i=0;i<3;i++){ int j=i; var b=Button("Nav "+ids[i],"",nav,new Rect(i/3f+.012f,.06f,1/3f-.024f,.88f),()=>{ c.Flow.PlayCue(AudioCue.Confirm); if(j==0)c.Flow.ShowHome();else if(j==1)c.Flow.ShowQuest();else c.Flow.ShowMerge(); },ids[i]!=active);
+                Frame((RectTransform)b.transform,12);
                 Icon("Nav icon",icons[i],(RectTransform)b.transform,new Rect(.31f,.39f,.38f,.53f)); Heading("Nav label",names[i],(RectTransform)b.transform,new Rect(.02f,.025f,.96f,.34f),12); }
         }
         public void Feedback(RectTransform root,ScreenContext c,ScreenId id)

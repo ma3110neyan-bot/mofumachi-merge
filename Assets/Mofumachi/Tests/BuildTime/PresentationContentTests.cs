@@ -8,7 +8,7 @@ namespace Mofumachi.Tests
     {
         [Test] public void ContentGateRejectsMissingAssetsAndUnsupportedGlyphs()
         {
-            foreach(var key in new[]{"TownBackground","UIFont","UIFontBold","UIIconAtlas","bgm-town-loop","se-confirm","se-character","se-merge","se-delivery","se-reward","se-growth"})Assert.Throws<UnityEditor.Build.BuildFailedException>(()=>Mofumachi.Editor.AndroidBuild.RequireContent(null,key));
+            foreach(var key in new[]{"TownBackground","UIFont","UIFontBold","UIIconAtlas","TitleLogo","UIPanelFrame","bgm-town-loop","se-confirm","se-character","se-merge","se-delivery","se-reward","se-growth"})Assert.Throws<UnityEditor.Build.BuildFailedException>(()=>Mofumachi.Editor.AndroidBuild.RequireContent(null,key));
             var font=Resources.Load<Font>("Mofumachi/UIFont");
             Assert.That(font,Is.Not.Null);
             // None of these characters exists in the bundled subset. Include a
@@ -35,6 +35,8 @@ namespace Mofumachi.Tests
             var bold=Resources.Load<Font>("Mofumachi/UIFontBold");Assert.That(bold,Is.Not.Null);
             Assert.DoesNotThrow(()=>Mofumachi.Editor.AndroidBuild.ValidateGlyphs(bold,string.Join("",UIStrings.All)+UIStrings.PopLabels));
             Assert.That(Resources.Load<Texture2D>("Mofumachi/UIIconAtlas"),Is.Not.Null);
+            Assert.That(Resources.Load<Texture2D>("Mofumachi/TitleLogo"),Is.Not.Null);
+            Assert.That(Resources.Load<Texture2D>("Mofumachi/UIPanelFrame"),Is.Not.Null);
         }
     }
 }

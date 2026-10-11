@@ -12,11 +12,12 @@ namespace Mofumachi.Presentation
             var w=c.Widgets;
             var settings=w.Button("Settings","",root,new Rect(.82f,.91f,.14f,.07f),c.Flow.ShowSettings,true); var sr=(RectTransform)settings.transform;sr.anchorMin=sr.anchorMax=Vector2.one;sr.pivot=Vector2.one;sr.anchoredPosition=new Vector2(-12,-10);sr.sizeDelta=new Vector2(48,48);
             w.Icon("Settings icon",UIIcon.Settings,(RectTransform)settings.transform,new Rect(.26f,.26f,.48f,.48f));
-            var logo=w.Panel("Logo",root,new Rect(.09f,.65f,.82f,.22f),new Color(1,1,1,.92f)).rectTransform;w.Flowers(logo);
-            var line1=w.Heading("Logo first","もふまち",logo,new Rect(.05f,.47f,.9f,.47f),40); line1.color=new Color(.91f,.28f,.49f);
-            var line2=w.Heading("Logo second","メルジュ",logo,new Rect(.05f,.015f,.9f,.47f),40); line2.color=new Color(.23f,.62f,.72f);
-            var tag=w.Panel("Tagline",root,new Rect(.06f,.589f,.88f,.048f),UIWidgets.Cream).rectTransform;
-            w.Label("Tagline text","もふもふの街で、ちいさなお茶会を。",tag,new Rect(0,0,1,1),14);
+            var logo=UIWidgets.Node("Logo",root,new Rect(.04f,.645f,.92f,.24f));
+            var logoImage=UIWidgets.Node("Title logo artwork",logo,new Rect(0,0,1,1)).gameObject.AddComponent<RawImage>();
+            logoImage.texture=Resources.Load<Texture2D>("Mofumachi/TitleLogo");logoImage.raycastTarget=false;
+            var logoFit=logoImage.gameObject.AddComponent<AspectRatioFitter>();logoFit.aspectRatio=1659f/948;logoFit.aspectMode=AspectRatioFitter.AspectMode.FitInParent;
+            var tag=w.OrnatePanel("Tagline",root,new Rect(.06f,.589f,.88f,.048f),UIWidgets.Cream,10).rectTransform;
+            w.Label("Tagline text","もふもふの街で、ちいさなお茶会を。",tag,new Rect(.05f,0,.9f,1),13);
             var hero=UIWidgets.Node("Title hero region",root,new Rect(.37f,0,.26f,.575f));hero.offsetMin=new Vector2(0,238);
             var image=w.Character("Character 0",0,hero,new Rect(0,0,1,1));AttachReaction(image,c);
             var companions=UIWidgets.Node("Title companions",root,new Rect(0,0,1,1));UIWidgets.Bottom(companions,20,170,20,56);
@@ -29,11 +30,11 @@ namespace Mofumachi.Presentation
         public static void BuildHome(RectTransform root,ScreenContext c)
         {
             var w=c.Widgets;
-            var hud=w.Panel("HUD",root,new Rect(0,0,1,1),UIWidgets.Cream).rectTransform; UIWidgets.Top(hud,10,8,10,64);
-            w.Icon("Town star",UIIcon.Star,hud,new Rect(.04f,.55f,.08f,.34f));
-            w.Label("Town value","街 Lv."+c.Game.State.townGrowthLevel,hud,new Rect(.14f,.48f,.64f,.48f),15);
-            w.Icon("Coin",UIIcon.Coin,hud,new Rect(.04f,.08f,.08f,.34f));
-            w.Heading("Coins value",c.Game.State.coins.ToString("N0"),hud,new Rect(.14f,.01f,.64f,.46f),19);
+            var hud=w.OrnatePanel("HUD",root,new Rect(0,0,1,1),UIWidgets.Cream,18).rectTransform; UIWidgets.Top(hud,10,8,10,64);
+            w.Icon("Town star",UIIcon.Star,hud,new Rect(.07f,.55f,.07f,.34f));
+            w.Label("Town value","街 Lv."+c.Game.State.townGrowthLevel,hud,new Rect(.18f,.48f,.60f,.48f),15).alignment=TextAnchor.MiddleLeft;
+            w.Icon("Coin",UIIcon.Coin,hud,new Rect(.07f,.08f,.07f,.34f));
+            w.Heading("Coins value",c.Game.State.coins.ToString("N0"),hud,new Rect(.18f,.01f,.60f,.46f),19).alignment=TextAnchor.MiddleLeft;
             var settings=w.Button("Settings","",hud,new Rect(.82f,.1f,.16f,.8f),c.Flow.ShowSettings,true); w.Icon("Settings icon",UIIcon.Settings,(RectTransform)settings.transform,new Rect(.17f,.17f,.66f,.66f));
             var world=UIWidgets.Node("Town characters",root,new Rect(0,0,1,1));world.offsetMin=new Vector2(0,228);world.offsetMax=new Vector2(0,-94);
             var points=new[]{new Vector2(.1f,.69f),new Vector2(.72f,.73f),new Vector2(.72f,.41f),new Vector2(.72f,.12f),new Vector2(.1f,.12f),new Vector2(.41f,.12f)};
@@ -41,13 +42,14 @@ namespace Mofumachi.Presentation
             {
                 var pos=points[i];var image=w.Character("Character "+i,i,world,new Rect(pos.x,pos.y,.16f,.18f));AttachReaction(image,c);
                 var name=w.Panel("Name "+i,world,new Rect(pos.x-.025f,pos.y-.06f,.21f,.06f),UIWidgets.Cream).rectTransform;
+                w.Frame(name,8,false);
                 w.Label("Character name "+i,Names[i],name,new Rect(0,0,1,1),11);
             }
             bool complete=c.Game.State.completedQuestIds.Contains(QuestDefinition.First.Id);
-            var quest=w.Panel("Home quest",root,new Rect(0,0,1,1)).rectTransform; UIWidgets.Bottom(quest,14,124,14,92);
-            w.Character("Quest character",1,quest,new Rect(.025f,.13f,.2f,.74f));
-            w.Heading("Home quest title","お茶会の準備",quest,new Rect(.24f,.54f,.72f,.38f),19);
-            w.Label("Home quest summary",complete?"お茶会の準備ができました！":"お茶を合成して、仲間に届けよう",quest,new Rect(.24f,.08f,.72f,.44f),13);
+            var quest=w.OrnatePanel("Home quest",root,new Rect(0,0,1,1),null,24).rectTransform; UIWidgets.Bottom(quest,14,124,14,92);
+            w.Character("Quest character",1,quest,new Rect(.06f,.17f,.19f,.65f));
+            w.Ribbon("Home quest title","お茶会の準備",quest,new Rect(.27f,.53f,.66f,.36f),16);
+            w.Label("Home quest summary",complete?"お茶会の準備ができました！":"お茶を合成して、仲間に届けよう",quest,new Rect(.27f,.1f,.67f,.39f),12);
             var tap=quest.gameObject.AddComponent<Button>();quest.GetComponent<RoundedPanelGraphic>().raycastTarget=true;tap.targetGraphic=quest.GetComponent<RoundedPanelGraphic>();tap.onClick.AddListener(c.Flow.ShowQuest);
             w.Feedback(root,c,ScreenId.Home); w.Nav(root,c,ScreenId.Home);
         }

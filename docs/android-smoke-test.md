@@ -1,3 +1,9 @@
+# 街QAの確認（2026-10-11）
+
+今回の手順は[最新引き継ぎ10節](development-handoff-2026-10-11.md#10-windows-pcで次に行う作業)。Windowsの予定Edit90／Play43を合格してから、初回用Build Town QA APKと旧セーブ続行用Build QA APKを使い分ける。端末serial99RAY1BELH、街QA ID `com.mofumachi.merge.qa.townlife`。一周・6依頼・主人公指操作／NPC・明示入室・表情／水・保存再起動・30fps目標は[実機チェック6節](development-handoff-2026-10-11.md#6-pixel-3a実機確認)。
+
+以下は旧版の確認記録・補助手順。旧件数や旧版の成功を今回の合格として扱わない。
+
 # WindowsビルドとPixel 3aの実機確認
 
 2026-10-11のロゴ・装飾UI改修と、設定画面を閉じる際の描画例外修正は**新しいAPKが必要**です。下記の前版QAインストール成功とは別に、WindowsでEditMode67／PlayMode29の全成功→QA APK生成→更新インストールを行います。[初心者向けの今回の手順](development-handoff-2026-10-11.md#10-windows-pcで次に行う作業)。

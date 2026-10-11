@@ -88,3 +88,9 @@ Unity Editorの描画、Mask／Canvasの実レイアウト、実入力、FontEng
 ## 2026-10-11 絵本調書体
 
 承認済みのKiwi Maru Mediumを名前・紹介・会話のResources `Mofumachi/UIFontStory`へ追加。派生ファミリーはMofumachi Story UI、SIL OFL 1.1と著作権は `UIFontStory-LICENSE.txt` に同梱。出典と元TTF SHAは[書体見本の記録](../References/Preview/chapter-game-review-2026-10-11/README.md)。元TTF全体はAPKへ含めず、検証済みの3原本から `scripts/subset-ui-fonts.py` で生成。本文・操作・注意文は既存Zen Maruを保持。今回の3書体439字のcmap検査・6asmdefコンパイル成功はネイティブFontEngine／Pixelの合格ではなく、Windows確認が残る。
+
+### 2026-10-11 街の章装飾
+
+`TownDecorationAtlas.png` はimage_genによる新規制作のRGBA素材（2172×724）。正式6名・背景は描き変えていない。原本をそのまま格納し、Default／Androidインポート上限1024、mipmap/readable=false。3つの固定領域を共有する。左上原点の領域：歓迎リボン(48,190,622,358)、花アーチ(710,48,704,614)、ガーランド(1418,188,754,342)。薄いalphaの余白を含む。生成依頼は明るいPOP・ピンク／ミント／クリーム・細い金縁・草花、文字／人物／背景なしの透過3パーツ。既存街の小さな装飾用で、歩行スプライトではない。
+
+原本は上記アセット。生成時の確認画像とalpha確認を実施。Unityインポート後の実サイズ、描画・入口操作・Pixelでの見栄えは実機確認待ち。

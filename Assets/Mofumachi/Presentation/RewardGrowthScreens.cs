@@ -27,12 +27,14 @@ namespace Mofumachi.Presentation
         public static void BuildGrowth(RectTransform root,ScreenContext c,DeliveryPresentation delivery)
         {
             var w=c.Widgets;w.Header(root,c,"もふまちの成長",UIWidgets.Peach);
-            var card=w.OrnatePanel("Town growth",root,new Rect(.06f,.31f,.88f,.48f),UIWidgets.BluePaper).rectTransform;card.gameObject.AddComponent<SoftReveal>();
-            w.Ribbon("Growth title","街が成長しました",card,new Rect(.09f,.81f,.82f,.13f),20,UIWidgets.Peach);
-            w.Icon("Growth star",UIIcon.Star,card,new Rect(.38f,.55f,.24f,.2f));
-            w.Divider(card,.48f);
-            w.Heading("Growth levels","街 Lv."+delivery.PreviousTownLevel+" → Lv."+delivery.CurrentTownLevel,card,new Rect(.03f,.3f,.94f,.15f),25);
-            w.StoryLabel("Growth description","みんなへのお届けが、街を明るくします。",card,new Rect(.06f,.075f,.88f,.2f),16);
+            var card=w.OrnatePanel("Town growth",root,new Rect(0,0,1,1),UIWidgets.BluePaper).rectTransform;card.offsetMin=new Vector2(14,220);card.offsetMax=new Vector2(-14,-78);card.gameObject.AddComponent<SoftReveal>();
+            var title=w.Ribbon("Growth title","街が成長しました",card,new Rect(0,0,1,1),20,UIWidgets.Peach);UIWidgets.Top((RectTransform)title.transform.parent,12,10,12,38);
+            var preview=UIWidgets.Node("Growth town preview",card,new Rect(.5f,1,0,0));preview.pivot=new Vector2(.5f,1);preview.anchoredPosition=new Vector2(0,-54);
+            var image=preview.gameObject.AddComponent<UnityEngine.UI.RawImage>();image.texture=Resources.Load<Texture2D>("Mofumachi/TownBackground");image.raycastTarget=false;image.uvRect=new Rect(0,.42f,1,.4f);
+            preview.sizeDelta=new Vector2(128*(float)image.texture.width/image.texture.height/.4f,128);preview.gameObject.AddComponent<UnityEngine.UI.RectMask2D>();
+            var decor=UIWidgets.Node("Growth preview decorations",preview,new Rect(0,0,1,1));var growth=decor.gameObject.AddComponent<TownGrowthView>();growth.Bind(c,image);growth.Apply(delivery.CurrentTownLevel);growth.HighlightNewStage(delivery.PreviousTownLevel,delivery.CurrentTownLevel);
+            var levels=w.Heading("Growth levels","街 Lv."+delivery.PreviousTownLevel+" → Lv."+delivery.CurrentTownLevel,card,new Rect(0,0,1,1),18);UIWidgets.Top(levels.rectTransform,12,188,12,48);
+            var description=w.StoryLabel("Growth description","みんなへのお届けが、街を明るくします。",card,new Rect(0,0,1,1),14);UIWidgets.Top(description.rectTransform,16,242,16,42);
             var chapter=ChapterCatalog.ForQuest(delivery.QuestId);bool complete=chapter!=null&&ChapterProgress.For(c.Game.State).IsComplete(chapter.Id);
             var home=w.Button("Return town",complete?"章のおもいでへ":"街へ戻る",root,new Rect(0,0,1,1),c.Flow.ContinueAfterGrowth);UIWidgets.Bottom((RectTransform)home.transform,28,138,28,56);
             w.Feedback(root,c,ScreenId.Growth);w.Nav(root,c,ScreenId.Growth);

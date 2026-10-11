@@ -50,9 +50,9 @@ namespace Mofumachi.Tests
         }
         [UnityTest] public IEnumerator GrowthLayersFollowSavedLevelWithoutChangingPaths()
         {
-            yield return EnterHome();foreach(int level in new[]{0,1,2,3,6})
+            yield return EnterHome();foreach(int level in new[]{0,1,2,3,4,5,6,int.MaxValue})
             {
-                Flow.Game.State.townGrowthLevel=level;Flow.ShowHome();var growth=Flow.GetComponentInChildren<TownGrowthView>();Assert.That(growth.VisibleStage,Is.EqualTo(Mathf.Min(level,3)));Assert.That(Flow.GetComponentsInChildren<TownActor>().Length,Is.EqualTo(6));
+                Flow.Game.State.townGrowthLevel=level;Flow.ShowHome();var growth=Flow.GetComponentInChildren<TownGrowthView>();Assert.That(growth.VisibleStage,Is.EqualTo(Mathf.Min(level,6)));Assert.That(Flow.GetComponentsInChildren<TownActor>().Length,Is.EqualTo(6));
             }
             Flow.OpenShopPreview();Assert.That(Flow.IsModalOpen,Is.True);Assert.That(Flow.Game.State.coins,Is.EqualTo(0));Flow.CloseShopPreview();LogAssert.NoUnexpectedReceived();
         }

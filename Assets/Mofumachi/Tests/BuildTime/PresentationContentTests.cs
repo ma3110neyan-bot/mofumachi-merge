@@ -6,6 +6,12 @@ namespace Mofumachi.Tests
 {
     public sealed class PresentationContentTests
     {
+        [Test] public void TownDecorationsUseEffective1024Limit()
+        {
+            var atlas=Resources.Load<Texture2D>("Mofumachi/TownDecorationAtlas");Assert.That(atlas,Is.Not.Null);AssertSharedTextureImport(atlas);
+            foreach(TownDecorationKind kind in System.Enum.GetValues(typeof(TownDecorationKind)))
+            {var uv=TownDecorationGraphic.Region(kind);Assert.That(uv.width,Is.GreaterThan(0));Assert.That(uv.xMin,Is.GreaterThanOrEqualTo(0));Assert.That(uv.xMax,Is.LessThanOrEqualTo(1));}
+        }
         [Test] public void StoryFontHasRequiredGlyphs()
         {
             foreach(var key in new[]{"UIFont","UIFontBold","UIFontStory"})

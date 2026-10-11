@@ -12,6 +12,15 @@ namespace Mofumachi.Tests
 {
     public sealed class TownMotionPresentationTests : SliceUiTestFixture
     {
+        [UnityTest] public IEnumerator GrowthHighlightStopsAndDecorationNeverTakesInput()
+        {
+            yield return EnterHome();var growth=Flow.GetComponentInChildren<TownGrowthView>();growth.Apply(6);growth.HighlightNewStage(3,6);
+            Assert.That(growth.IsHighlighting,Is.True);Assert.That(Flow.GetComponentsInChildren<TownDecorationGraphic>().Length,Is.EqualTo(3));
+            Assert.That(Flow.GetComponentsInChildren<TownDecorationGraphic>().All(g=>!g.raycastTarget),Is.True);
+            growth.enabled=false;Assert.That(growth.IsHighlighting,Is.False);Assert.That(growth.VisibleStage,Is.EqualTo(6));
+            foreach(var decoration in Flow.GetComponentsInChildren<TownDecorationGraphic>())Assert.That(decoration.transform.localScale,Is.EqualTo(Vector3.one));
+            LogAssert.NoUnexpectedReceived();
+        }
         [UnityTest] public IEnumerator StationaryDragAndLifecycleStopGait()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();

@@ -11,11 +11,11 @@ namespace Mofumachi.Presentation
         public void Initialize(UIFlowController flow,int index){controller=flow;cell=index;}
         public void OnBeginDrag(PointerEventData e)
         {
-            if(controller.Game.Board.At(cell)==null || controller.Game.Board.IsLocked(cell))return;
+            if(!controller.CanInteractBoard || controller.Game.Board.At(cell)==null || controller.Game.Board.IsLocked(cell))return;
             ClearGhost();e.eligibleForClick=false;suppressThrough=Time.frameCount+1;
             var parent=(RectTransform)GetComponentInParent<Canvas>().transform;
             ghost=UIWidgets.Node("Dragged tea",parent,new Rect(.5f,.5f,0,0));ghost.sizeDelta=new Vector2(56,56);
-            var icon=ghost.gameObject.AddComponent<UIIconGraphic>();icon.icon=controller.Game.Board.At(cell).level>=2?UIIcon.TeaPot:UIIcon.Tea;icon.color=new Color(1,1,1,.9f);icon.raycastTarget=false;OnDrag(e);
+            var item=controller.Game.Board.At(cell);var icon=ghost.gameObject.AddComponent<ItemGraphic>();icon.Bind(item.itemId,item.level);icon.color=new Color(1,1,1,.9f);icon.raycastTarget=false;OnDrag(e);
         }
         public void OnDrag(PointerEventData e){if(ghost!=null && RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)ghost.parent,e.position,e.pressEventCamera,out var p))ghost.anchoredPosition=p;}
         public void OnEndDrag(PointerEventData e)

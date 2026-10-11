@@ -60,6 +60,8 @@ namespace Mofumachi.Presentation
         { var image=Node("Town background",parent,new Rect(0,0,1,1)).gameObject.AddComponent<RawImage>(); image.texture=texture; image.raycastTarget=false; image.gameObject.AddComponent<BackgroundCover>(); return image; }
         public UIIconGraphic Icon(string name,UIIcon icon,RectTransform parent,Rect anchors,Color? tint=null)
         { var g=Node(name,parent,anchors).gameObject.AddComponent<UIIconGraphic>(); g.icon=icon; g.color=tint??Ink; g.raycastTarget=false; return g; }
+        public ItemGraphic Item(string name,string itemId,int level,RectTransform parent,Rect anchors)
+        {var graphic=Node(name,parent,anchors).gameObject.AddComponent<ItemGraphic>();graphic.Bind(itemId,level);return graphic;}
         public void Header(RectTransform root,ScreenContext c,string title,Color? tint=null)
         {
             var head=Panel("Header",root,new Rect(0,0,1,1)).rectTransform; Top(head,10,8,10,54);Frame(head,14,false);

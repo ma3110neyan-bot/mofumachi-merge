@@ -45,11 +45,11 @@ namespace Mofumachi.Presentation
                 w.Frame(name,8,false);
                 w.Label("Character name "+i,Names[i],name,new Rect(0,0,1,1),11);
             }
-            bool complete=c.Game.State.completedQuestIds.Contains(QuestDefinition.First.Id);
+            var next=QuestCatalog.NextFor(c.Game.State);var requester=CharacterCatalog.Find(next?.RequesterId??c.Game.State.favoriteCharacterId);
             var quest=w.OrnatePanel("Home quest",root,new Rect(0,0,1,1),null,24).rectTransform; UIWidgets.Bottom(quest,14,124,14,92);
-            w.Character("Quest character",1,quest,new Rect(.06f,.17f,.19f,.65f));
-            w.Ribbon("Home quest title","お茶会の準備",quest,new Rect(.27f,.53f,.66f,.36f),16);
-            w.Label("Home quest summary",complete?"お茶会の準備ができました！":"お茶を合成して、仲間に届けよう",quest,new Rect(.27f,.1f,.67f,.39f),12);
+            w.Character("Quest character",requester.PortraitIndex,quest,new Rect(.06f,.17f,.19f,.65f));
+            w.Ribbon("Home quest title",next?.Title??"街のみんなとお祝い",quest,new Rect(.27f,.53f,.66f,.36f),16);
+            w.Label("Home quest summary",next?.Dialogue??"すべての依頼が完了しました。",quest,new Rect(.27f,.1f,.67f,.39f),12);
             var tap=quest.gameObject.AddComponent<Button>();quest.GetComponent<RoundedPanelGraphic>().raycastTarget=true;tap.targetGraphic=quest.GetComponent<RoundedPanelGraphic>();tap.onClick.AddListener(c.Flow.ShowQuest);
             w.Feedback(root,c,ScreenId.Home); w.Nav(root,c,ScreenId.Home);
         }

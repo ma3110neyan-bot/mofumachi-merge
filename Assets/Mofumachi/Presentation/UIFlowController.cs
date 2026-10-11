@@ -18,14 +18,22 @@ namespace Mofumachi.Presentation
         private UIWidgets widgets;
         private ScreenContext context;
         private GameObject modal;
+        private enum ModalKind { None, PurchaseNotice, MergeMenu, Discard, Shop }
+        private ModalKind modalKind;
+        public bool IsModalOpen => modal != null && modal.activeSelf;
+        public bool CanInteractBoard => CanPlay && CurrentScreen==ScreenId.Merge && mergeAnimation==null;
+        public string ProductionItemId { get; private set; } = "tea";
+        public string DiscardItemId { get; private set; }
+        public int DiscardItemLevel { get; private set; }
+        private int discardCell=-1;
         private bool transitioning,appPaused;
         private readonly Dictionary<ScreenId,string> feedback = new Dictionary<ScreenId,string>();
         public ScreenId CurrentScreen { get; private set; }
-        public bool IsPurchaseNoticeOpen => modal != null && modal.activeSelf;
+        public bool IsPurchaseNoticeOpen => modalKind==ModalKind.PurchaseNotice && IsModalOpen;
         public bool SettingsOpenedFromGame => settingsReturnView != "title";
         public string PreviewFavoriteId { get; private set; } = "momo";
         private string selectionReturnView = "home";
-        private bool CanPlay => Game.State.purchaseNoticeAcknowledged && CharacterCatalog.IsKnown(Game.State.favoriteCharacterId) && !IsPurchaseNoticeOpen && !transitioning;
+        private bool CanPlay => Game.State.purchaseNoticeAcknowledged && CharacterCatalog.IsKnown(Game.State.favoriteCharacterId) && !IsModalOpen && !transitioning;
 
         private GameObject page;
         private Font font;
@@ -94,30 +102,30 @@ namespace Mofumachi.Presentation
         }
         public void BeginGame()
         {
-            if (transitioning) return;
+            if (transitioning || IsModalOpen) return;
             if (!Game.State.purchaseNoticeAcknowledged) { OpenNotice(); return; }
             if (!Persist()) { Render("title"); return; }
             transitioning=true; SceneManager.LoadScene("GameScene");
         }
         private void OpenNotice()
         {
-            if(IsPurchaseNoticeOpen || transitioning) return;
+            if(IsModalOpen || transitioning) return;
             Render("title"); PurchaseNoticeView.Build(layout.SafeRoot,context);
-            modal=layout.SafeRoot.GetChild(layout.SafeRoot.childCount-1).gameObject;
+            modal=layout.SafeRoot.GetChild(layout.SafeRoot.childCount-1).gameObject;modalKind=ModalKind.PurchaseNotice;
         }
         public bool ConfirmPurchaseNotice()
         {
             if(transitioning || !IsPurchaseNoticeOpen) return false;
             if(!Game.AcknowledgePurchaseNotice())
-            { feedback[ScreenId.Title]=Game.LastError; modal.SetActive(false);Destroy(modal);modal=null;OpenNotice();return false; }
-            transitioning=true; modal.SetActive(false); Destroy(modal); modal=null;
+            { feedback[ScreenId.Title]=Game.LastError; modal.SetActive(false);Destroy(modal);modal=null;modalKind=ModalKind.None;OpenNotice();return false; }
+            transitioning=true; modal.SetActive(false); Destroy(modal); modal=null;modalKind=ModalKind.None;
             SceneManager.LoadScene("GameScene"); return true;
         }
         public string FeedbackFor(ScreenId screen) => feedback.TryGetValue(screen,out var text)?text:"";
         public void PlayCue(AudioCue cue) => audioManager.PlaySe(cue);
         public void GoBack()
         {
-            if(IsPurchaseNoticeOpen || transitioning)return;
+            if(IsModalOpen || transitioning)return;
             if(CurrentScreen==ScreenId.Settings)Navigate(settingsReturnView);
             else if(CurrentScreen==ScreenId.CharacterSelection)
             { if(selectionReturnView=="settings")Navigate("settings"); else ReturnToTitle(); }
@@ -126,7 +134,7 @@ namespace Mofumachi.Presentation
         }
         public bool ReturnToTitle()
         {
-            if(IsPurchaseNoticeOpen || transitioning)return false;
+            if(IsModalOpen || transitioning)return false;
             if(CurrentScreen==ScreenId.Title)return true;
             if(!Persist()){Render(view??"home");return false;}
             transitioning=true;
@@ -138,7 +146,7 @@ namespace Mofumachi.Presentation
         public void ShowMerge() => Navigate("merge");
         public void ShowCharacterSelection()
         {
-            if(transitioning || IsPurchaseNoticeOpen || !Game.State.purchaseNoticeAcknowledged)return;
+            if(transitioning || IsModalOpen || !Game.State.purchaseNoticeAcknowledged)return;
             string returnView = CurrentScreen==ScreenId.Settings ? "settings" : "home";
             if(!Persist()){Render(view??"title");return;}
             selectionReturnView=returnView;
@@ -147,22 +155,22 @@ namespace Mofumachi.Presentation
         }
         public void PreviewFavorite(string id)
         {
-            if(CurrentScreen!=ScreenId.CharacterSelection || transitioning || IsPurchaseNoticeOpen || !CharacterCatalog.IsKnown(id))return;
+            if(CurrentScreen!=ScreenId.CharacterSelection || transitioning || IsModalOpen || !CharacterCatalog.IsKnown(id))return;
             PreviewFavoriteId=id;PlayCue(AudioCue.Character);Render("characterSelection");
         }
         public bool ConfirmFavorite()
         {
-            if(CurrentScreen!=ScreenId.CharacterSelection || transitioning || IsPurchaseNoticeOpen || !Game.State.purchaseNoticeAcknowledged)return false;
+            if(CurrentScreen!=ScreenId.CharacterSelection || transitioning || IsModalOpen || !Game.State.purchaseNoticeAcknowledged)return false;
             bool saved=Game.SelectFavorite(PreviewFavoriteId);
             feedback[ScreenId.CharacterSelection]=saved?"":Game.LastError;
             if(saved){PlayCue(AudioCue.Confirm);Render(selectionReturnView);}else Render("characterSelection");
             return saved;
         }
         public void ShowSettings()
-        { if(IsPurchaseNoticeOpen || transitioning)return; if(view!="settings")settingsReturnView=view??"title";Navigate("settings"); }
+        { if(IsModalOpen || transitioning)return; if(view!="settings")settingsReturnView=view??"title";Navigate("settings"); }
         private void Navigate(string target)
         {
-            if(transitioning || IsPurchaseNoticeOpen)return;
+            if(transitioning || IsModalOpen)return;
             if(target!="title" && target!="settings" && !Game.State.purchaseNoticeAcknowledged){OpenNotice();return;}
             if(target!="title" && target!="settings" && target!="characterSelection" && !CharacterCatalog.IsKnown(Game.State.favoriteCharacterId))
                 target="characterSelection";
@@ -171,7 +179,7 @@ namespace Mofumachi.Presentation
         public bool Persist()
         {
             if (session == null) return true;
-            CancelAudioEdit();
+            CancelAudioEdit();CloseUtilityModal();
             if (mergeAnimation != null) { StopCoroutine(mergeAnimation); mergeAnimation = null; }
             if(presentationAnimation!=null){StopCoroutine(presentationAnimation);presentationAnimation=null;}
             Game.Board.ReleaseLocks(); Game.Quests.RefreshProgress(); selected = -1;
@@ -182,8 +190,10 @@ namespace Mofumachi.Presentation
         public bool AcceptQuest()
         {
             if(!CanPlay)return false;
-            bool accepted = Game.Quests.AcceptQuest(QuestDefinition.First);
-            notice = accepted ? "依頼を受けました。お茶を合成しましょう。" : Game.Quests.LastError;
+            var quest=QuestCatalog.NextFor(Game.State);
+            if(quest==null){feedback[ScreenId.Quest]="すべての依頼が完了しました。";Render("quest");return false;}
+            bool accepted = Game.Quests.AcceptQuest(quest);
+            notice = accepted ? "依頼を受けました。アイテムを合成しましょう。" : Game.Quests.LastError;
             feedback[accepted?ScreenId.Merge:ScreenId.Quest]=notice;
             Render(accepted ? "merge" : "quest");
             return accepted;
@@ -194,7 +204,7 @@ namespace Mofumachi.Presentation
             bool occupied=Game.Board.At(to)!=null;
             bool merged = occupied && Game.TryMerge(from, to);
             bool changed = occupied ? merged : Game.TryMove(from, to);
-            notice = changed ? (merged ? "キラッ！ お茶が育ちました。" : "移動しました。") : "その場所には移動・合成できません。";
+            notice = changed ? (merged ? "キラッ！ アイテムが育ちました。" : "移動しました。") : "その場所には移動・合成できません。";
             if (!changed && Game.LastError.Length > 0) notice = Game.LastError;
             feedback[ScreenId.Merge]=notice;
             if (merged)
@@ -215,11 +225,12 @@ namespace Mofumachi.Presentation
         public DeliveryResult Deliver()
         {
             if(!CanPlay || (CurrentScreen!=ScreenId.Quest && CurrentScreen!=ScreenId.Merge))return new DeliveryResult(false,"この画面では納品できません。");
+            var quest=Game.Quests.ActiveQuest;
             int coins=Game.State.coins,town=Game.State.townGrowthLevel;var result=Game.Quests.TryDeliver();
             if(result.Success)
             {
                 feedback.Remove(ScreenId.Merge); feedback.Remove(ScreenId.Quest);
-                LastDelivery=new DeliveryPresentation(Game.State.coins-coins,town,Game.State.townGrowthLevel);
+                LastDelivery=new DeliveryPresentation(quest,Game.State.coins-coins,town,Game.State.townGrowthLevel);
                 RewardVisible=false;rewardCuePlayed=growthCuePlayed=false;PlayCue(AudioCue.Delivery);Render("result");
             }
             else {feedback[CurrentScreen]=result.Message;Render(view);}
@@ -298,15 +309,52 @@ namespace Mofumachi.Presentation
         public void TapCell(int cell)
         {
             if(!CanPlay || mergeAnimation!=null)return;
-            if (selected < 0) { if (Game.Board.At(cell) != null) { selected = cell; feedback[ScreenId.Merge] = "移動先のお茶または空きマスをタップ"; Render("merge"); } }
+            if (selected < 0) { if (Game.Board.At(cell) != null) { selected = cell; feedback[ScreenId.Merge] = "同じアイテムか空きマスをタップ"; Render("merge"); } }
             else DropItem(selected, cell);
         }
-        public void CreateTea()
+        public void CreateTea() => GenerateItem("tea");
+        public void GenerateItem(string id)
         {
-            if(!CanPlay || mergeAnimation!=null)return;
-            bool added=Game.AddItem("tea",1); feedback[ScreenId.Merge]=added?"お茶を作りました。":Game.LastError.Length>0?Game.LastError:"空きマスを確認してください。";
+            if(!CanInteractBoard || ItemCatalog.Find(id)==null)return;
+            bool added=Game.AddItem(id,1);feedback[ScreenId.Merge]=added?ItemCatalog.Find(id).Name+"を作りました。":Game.LastError.Length>0?Game.LastError:"空きマスを確認してください。";
             if(added)PlayCue(AudioCue.Confirm);Render("merge");
         }
+        private void OpenUtilityModal(ModalKind kind,System.Action<RectTransform,ScreenContext> build)
+        {
+            CloseUtilityModal();build(layout.SafeRoot,context);
+            modal=layout.SafeRoot.GetChild(layout.SafeRoot.childCount-1).gameObject;modalKind=kind;
+        }
+        private void CloseUtilityModal()
+        {
+            if(modalKind==ModalKind.PurchaseNotice)return;
+            if(modal!=null){modal.SetActive(false);Destroy(modal);}modal=null;modalKind=ModalKind.None;
+        }
+        public void OpenMergeActions()
+        { if(CanInteractBoard)OpenUtilityModal(ModalKind.MergeMenu,MergeActionMenuView.Build); }
+        public void ChooseProductionItem(string id)
+        {
+            if(modalKind!=ModalKind.MergeMenu || ItemCatalog.Find(id)==null)return;
+            ProductionItemId=id;CloseUtilityModal();Render("merge");
+        }
+        public void CancelMergeActions()
+        { if(modalKind==ModalKind.MergeMenu){CloseUtilityModal();Render("merge");} }
+        public void OpenDiscardConfirmation(int cell)
+        {
+            if(!(CanInteractBoard || (modalKind==ModalKind.MergeMenu && CurrentScreen==ScreenId.Merge)))return;
+            var item=Game.Board.At(cell);if(item==null || Game.Board.IsLocked(cell))return;
+            discardCell=cell;DiscardItemId=item.itemId;DiscardItemLevel=item.level;feedback.Remove(ScreenId.Merge);
+            OpenUtilityModal(ModalKind.Discard,DiscardConfirmationView.Build);
+        }
+        public bool ConfirmDiscard()
+        {
+            if(modalKind!=ModalKind.Discard || CurrentScreen!=ScreenId.Merge || transitioning)return false;
+            bool removed=Game.TryRemoveItem(discardCell,DiscardItemId,DiscardItemLevel);
+            if(removed){selected=-1;CloseUtilityModal();feedback[ScreenId.Merge]="アイテムを片づけました。";Render("merge");}
+            else {feedback[ScreenId.Merge]=Game.LastError.Length>0?Game.LastError:"アイテムが変わりました。選び直してください。";OpenUtilityModal(ModalKind.Discard,DiscardConfirmationView.Build);}
+            return removed;
+        }
+        public void CancelDiscard()
+        { if(modalKind==ModalKind.Discard){CloseUtilityModal();Render("merge");} }
         private void ApplySavedAudio() => audioManager.ApplySettings(Game.State.bgmEnabled,Game.State.seEnabled,Game.State.bgmVolume,Game.State.seVolume);
         private void CancelAudioEdit()
         {

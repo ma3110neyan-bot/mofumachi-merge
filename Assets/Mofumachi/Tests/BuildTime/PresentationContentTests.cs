@@ -6,6 +6,12 @@ namespace Mofumachi.Tests
 {
     public sealed class PresentationContentTests
     {
+        [Test] public void RequiredItemArtAndNewJapaneseGlyphsArePresent()
+        {
+            Assert.That(Resources.Load<Texture2D>("Mofumachi/ItemAtlas"),Is.Not.Null);
+            foreach(string key in new[]{"UIFont","UIFontBold"})
+                Assert.DoesNotThrow(()=>Mofumachi.Editor.AndroidBuild.ValidateGlyphs(Resources.Load<Font>("Mofumachi/"+key),string.Join("",UIStrings.All)));
+        }
         [Test] public void SelectionCopyHasGlyphsInBothFonts()
         {
             foreach (string key in new[] { "UIFont", "UIFontBold" })
@@ -18,7 +24,7 @@ namespace Mofumachi.Tests
         }
         [Test] public void ContentGateRejectsMissingAssetsAndUnsupportedGlyphs()
         {
-            foreach(var key in new[]{"TownBackground","UIFont","UIFontBold","UIIconAtlas","TitleLogo","UIPanelFrame","bgm-town-loop","se-confirm","se-character","se-merge","se-delivery","se-reward","se-growth"})Assert.Throws<UnityEditor.Build.BuildFailedException>(()=>Mofumachi.Editor.AndroidBuild.RequireContent(null,key));
+            foreach(var key in new[]{"TownBackground","UIFont","UIFontBold","UIIconAtlas","TitleLogo","UIPanelFrame","ItemAtlas","bgm-town-loop","se-confirm","se-character","se-merge","se-delivery","se-reward","se-growth"})Assert.Throws<UnityEditor.Build.BuildFailedException>(()=>Mofumachi.Editor.AndroidBuild.RequireContent(null,key));
             var font=Resources.Load<Font>("Mofumachi/UIFont");
             Assert.That(font,Is.Not.Null);
             // None of these characters exists in the bundled subset. Include a

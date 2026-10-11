@@ -10,20 +10,27 @@ namespace Mofumachi.Presentation
         {
             var w=c.Widgets;w.Header(root,c,"キャラ依頼",UIWidgets.Peach);
             var area=w.OrnatePanel("Quest card",root,new Rect(0,0,1,1),UIWidgets.BlushPaper).rectTransform;area.offsetMin=new Vector2(14,128);area.offsetMax=new Vector2(-14,-80);
-            var ribbon=w.Ribbon("Quest title","お茶会の準備",area,new Rect(.12f,.83f,.76f,.11f),20,UIWidgets.Peach);UIWidgets.Top((RectTransform)ribbon.transform.parent,36,16,36,44);
-            w.Character("Quest character",1,area,new Rect(.35f,.59f,.3f,.22f));
-            w.Label("Requester","ルル",area,new Rect(.25f,.52f,.5f,.065f),13);
-            w.Divider(area,.47f);
-            bool done=c.Game.State.completedQuestIds.Contains(QuestDefinition.First.Id), active=c.Game.State.activeQuestId.Length>0;
-            w.Label("Quest instruction",done?UIStrings.DeliveryThanks:"お茶を合成して、仲間に届けよう",area,new Rect(.08f,.405f,.84f,.06f),12);
-            var required=w.OrnatePanel("Required item",area,new Rect(.065f,.25f,.87f,.145f),new Color(.94f,.985f,.96f),16).rectTransform;
-            w.Icon("Required tea",UIIcon.TeaPot,required,new Rect(.03f,.1f,.22f,.8f));
-            long count=c.Game.State.inventory.Where(i=>i.itemId=="tea"&&i.level==2).Sum(i=>(long)i.count)+c.Game.State.mergeBoard.LongCount(i=>i.itemId=="tea"&&i.level==2&&!c.Game.Board.IsLocked(i.cellIndex));
-            w.Label("Required count",done?"お茶を届けました！":"お茶 Lv.2　"+System.Math.Min(count,1)+" / 1",required,new Rect(.27f,.08f,.69f,.84f),16);
-            w.Icon("Reward coin",UIIcon.Coin,area,new Rect(.23f,.18f,.09f,.065f));
-            w.Heading("Reward","報酬 "+QuestDefinition.First.Coins+" Coins",area,new Rect(.33f,.185f,.5f,.066f),17);
-            var accept=w.Button("Accept quest",done?"依頼完了":active?"依頼を進める":"依頼を受ける",area,new Rect(.06f,.02f,.88f,.18f),()=>{c.Flow.PlayCue(AudioCue.Confirm);if(active)c.Flow.ShowMerge();else c.Flow.AcceptQuest();});
-            accept.interactable=!done;
+            var quest=QuestCatalog.NextFor(c.Game.State);
+            bool finished=quest==null,active=!finished && c.Game.State.activeQuestId==quest.Id && !c.Game.State.completedQuestIds.Contains(quest.Id);
+            var ribbon=w.Ribbon("Quest title",finished?"すべての依頼が完了しました":quest.Title,area,new Rect(.12f,.83f,.76f,.11f),18,UIWidgets.Peach);UIWidgets.Top((RectTransform)ribbon.transform.parent,24,16,24,44);
+            var requester=CharacterCatalog.Find(finished?c.Game.State.favoriteCharacterId:quest.RequesterId);
+            w.Character("Quest character",requester.PortraitIndex,area,new Rect(.35f,.61f,.3f,.19f));
+            w.Label("Requester",requester.Name,area,new Rect(.25f,.55f,.5f,.06f),13);
+            w.Label("Quest instruction",finished?"ありがとう！ 街の仲間とお祝いしよう。":quest.Dialogue,area,new Rect(.07f,.42f,.86f,.12f),13);
+            if(!finished)
+            {
+                var requirements=c.Game.Quests.GetProgress(quest);
+                for(int i=0;i<requirements.Count;i++)
+                {
+                    var entry=requirements[i];var item=entry.Requirement;float width=.88f/requirements.Count;
+                    var required=w.OrnatePanel("Required item "+i,area,new Rect(.06f+i*width,.23f,width-.02f,.17f),UIWidgets.BluePaper,12).rectTransform;
+                    w.Item("Required art "+i,item.ItemId,item.Level,required,new Rect(.03f,.1f,.27f,.8f));
+                    w.Label("Required count "+i,ItemCatalog.Find(item.ItemId).Name+" Lv."+item.Level+"\n"+System.Math.Min(entry.Available,item.Count)+" / "+item.Count,required,new Rect(.31f,.04f,.65f,.9f),12);
+                }
+                w.Icon("Reward coin",UIIcon.Coin,area,new Rect(.23f,.16f,.09f,.06f));
+                w.Heading("Reward","報酬 "+quest.Coins+" Coins",area,new Rect(.33f,.15f,.56f,.07f),16);
+            }
+            var accept=w.Button("Accept quest",finished?"街へ戻る":active?"依頼を進める":"依頼を受ける",area,new Rect(0,0,1,1),()=>{c.Flow.PlayCue(AudioCue.Confirm);if(finished)c.Flow.ShowHome();else if(active)c.Flow.ShowMerge();else c.Flow.AcceptQuest();});
             UIWidgets.Bottom((RectTransform)accept.transform,20,16,20,52);
             w.Feedback(root,c,ScreenId.Quest);w.Nav(root,c,ScreenId.Quest);
         }
@@ -31,7 +38,9 @@ namespace Mofumachi.Presentation
         {
             var w=c.Widgets;w.Header(root,c,"マージ",UIWidgets.Sky);
             var progress=w.Panel("Merge progress",root,new Rect(0,0,1,1),UIWidgets.BluePaper).rectTransform;UIWidgets.Top(progress,12,68,12,38);
-            w.Label("Progress",c.Game.State.completedQuestIds.Contains(QuestDefinition.First.Id)?"お茶会の準備は完了しました":c.Game.State.activeQuestId.Length==0?"キャラ依頼を受けてお茶を届けよう":"お茶 Lv.2　"+c.Game.State.questProgress+" / 1",progress,new Rect(.03f,0,.94f,1),14);
+            var quest=QuestCatalog.NextFor(c.Game.State);
+            string summary=quest==null?"すべての依頼が完了しました":c.Game.State.activeQuestId!=quest.Id?"依頼を受けて、アイテムを届けよう":string.Join("　",c.Game.Quests.GetProgress(quest).Select(p=>ItemCatalog.Find(p.Requirement.ItemId).Name+" Lv."+p.Requirement.Level+" "+System.Math.Min(p.Available,p.Requirement.Count)+" / "+p.Requirement.Count));
+            w.Label("Progress",summary,progress,new Rect(.03f,0,.94f,1),12);
             var tray=w.Panel("Merge tray",root,new Rect(0,0,1,1),new Color(.73f,.92f,.84f)).rectTransform;tray.offsetMin=new Vector2(10,158);tray.offsetMax=new Vector2(-10,-112);
             w.Frame(tray,22,false);
             var grid=UIWidgets.Node("Merge board",tray,new Rect(0,0,1,1));grid.offsetMin=new Vector2(7,7);grid.offsetMax=new Vector2(-7,-7);
@@ -43,11 +52,12 @@ namespace Mofumachi.Presentation
                 surface.color=c.Game.Board.IsLocked(i)?new Color(1,.89f,.59f):index==c.Flow.SelectedCell?new Color(1,.69f,.8f):UIWidgets.Cream;
                 var drag=b.gameObject.AddComponent<MergeBoardView>();drag.Initialize(c.Flow,i);
                 b.onClick.AddListener(()=>{if(!drag.SuppressClick)c.Flow.TapCell(index);});
-                if(item!=null){w.Icon("Tea",item.level>=2?UIIcon.TeaPot:UIIcon.Tea,(RectTransform)b.transform,new Rect(.09f,.4f,.82f,.55f));w.Heading("Tea level","Lv."+item.level,(RectTransform)b.transform,new Rect(.02f,.015f,.96f,.36f),11);}
+                if(item!=null){if(ItemCatalog.Find(item.itemId)!=null)w.Item("Item art",item.itemId,item.level,(RectTransform)b.transform,new Rect(.09f,.36f,.82f,.59f));else w.Heading("Unknown item","?",(RectTransform)b.transform,new Rect(.09f,.36f,.82f,.59f),20);w.Heading("Item level","Lv."+item.level,(RectTransform)b.transform,new Rect(.02f,.015f,.96f,.36f),11);}
             }
             grid.gameObject.AddComponent<MergeGridLayout>();
             var toolbar=UIWidgets.Node("Merge toolbar",root,new Rect(0,0,1,1));UIWidgets.Bottom(toolbar,12,106,12,48);
-            w.Button("Create tea","お茶を作る",toolbar,new Rect(0,0,.56f,1),c.Flow.CreateTea,true);
+            var menu=w.Button("Merge actions","…",toolbar,new Rect(0,0,0,1),c.Flow.OpenMergeActions,true);((RectTransform)menu.transform).sizeDelta=new Vector2(48,0);
+            var generate=w.Button("Create tea",ItemCatalog.Find(c.Flow.ProductionItemId).Name+"を作る",toolbar,new Rect(0,0,.56f,1),()=>c.Flow.GenerateItem(c.Flow.ProductionItemId),true);((RectTransform)generate.transform).offsetMin=new Vector2(52,0);
             var delivery=w.Button("Deliver","納品する",toolbar,new Rect(.59f,0,.41f,1),()=>c.Flow.Deliver());delivery.interactable=c.Game.Quests.CheckDelivery();
             w.Feedback(root,c,ScreenId.Merge); // Compact feedback between navigation and toolbar.
             var text=root.Find("Feedback").GetComponent<Text>();UIWidgets.Bottom(text.rectTransform,14,76,14,28);

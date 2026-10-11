@@ -2,7 +2,7 @@
 
 承認された[7工程](superpowers/plans/2026-10-11-chapter-game.md)を順次実装。正式6名・既存セーブv3・6依頼・5×6盤面を維持。「仲間へのお届けが街の景色に残る暮らし」を軸にします。10月公開は目標で、第1章の試遊で設計と日程を見直せます。
 
-**今回のクラウド：コア87成功／失敗0／skip0、Unity6000.6.4f1実DLLで6アセンブリ個別コンパイル0警告／0エラー、3書体の同梱字形・画像設定・PowerShellゲート成功。Unityネイティブ試験、新APK、Pixel実機の一周／保存／性能は未確認です。コンパイルを実機合格としません。**
+**最新のWindows受領結果：PlayMode52件中48成功・4失敗・skip0。下記4件の修正ソースを用意しましたが、Windowsでの再実行はまだ必要です。修正後のクラウドではコア87成功／失敗0／skip0、Unity6000.6.4f1実DLLで6アセンブリ個別コンパイル0警告／0エラー。新APK、Pixel実機の一周／保存／性能は未確認です。コンパイルを実機合格としません。**
 
 ## 1. 現在の実装状況
 
@@ -16,7 +16,7 @@
 | キャラ依頼 | 仮実装 | 6依頼・章名・実要求数／報酬。未知受注は安全な案内 |
 | Merge | 仮実装 | 5×6、茶器／パン／花のLv.1〜3、系統選択、ドラッグ／2タップ、片づけ確認 |
 | 納品／報酬 | 仮実装 | 保存済み納品の実値スナップショット、消費と報酬の再払い防止 |
-| 3章・物語完了 | 仮実装 | 各章2依頼。報酬→成長→明示ボタンで章末。全6件後は6名のお祝い、街／TOPへ |
+| 3章・物語完了 | 修正中 | 各章2依頼、明示章末・6名のお祝い。短い縦画面の説明枠を拡張、Windows再確認待ち |
 | 街成長 | 仮実装 | Lv.1〜3の花／星を保持、4リボン・5花アーチ・6ガーランド。静的プレビューと新しい層だけ強調 |
 | ショップ | 未実装 | 入口と準備中案内のみ。販売は追加しない |
 | 設定 | 仮実装 | BGM／SE個別ON/OFF／音量、選び直し、元画面・TOPへ戻る。章末からも復帰 |
@@ -25,6 +25,15 @@
 | Androidビルド | 仮実装 | Windowsゲートへ新5クラス追加。Town QA ID／保存領域を維持。今回APKは未生成 |
 
 ## 2. 今回実装・修正した内容
+
+今回の4件への対応：
+
+- UI：章末の説明枠を高さ40→48へ。ユーザー環境の実測44を収め、14の文字サイズを維持。592／640／808の各高さで、文字切れと実値の合計欄への重なりを検査します。
+- キャラ関連：2件のテストが全身画像を旧配置から参照していたため、子の表示部品を参照し、存在・所属・キャラID／笑顔を検査。足元と姿を分離した滑らかな動きの構造は維持。
+- 中断／復帰：中断中にドラッグを開始する旧テスト手順を修正。「中断中は拒否→復帰後に開始→再中断で表示を除去→アイテムを保持」を検査。製品の中断中入力防止は維持。
+- ロジック・保存・報酬・原画・音源・Android設定の変更なし。テストの削除・skip・合格条件の緩和なし。PlayModeの予定件数は受領結果と同じ52件。
+
+以下は直前の3章版の実装内容です。
 
 - UI：Kiwi Maru Mediumの同梱subset（OFL）を名前・会話・章・物語へ。操作／数量／課金注意はZen Maru Medium／Bold。自動縮小なし。タイトルの既存光沢ロゴは維持。
 - ロジック：完了済み6依頼IDから読み取り専用の3章進行を算出。未知ID保持、既知未完了受注を優先、追加報酬・保存フラグなし。
@@ -50,7 +59,7 @@
 | TOP→ホーム | 旧版の表示証拠あり。今回版の実機操作は未確認 |
 | ホーム→依頼→Merge | コード・テスト接続済み、ネイティブ／実機未確認 |
 | 合成→納品→報酬→街成長 | コア動作確認済み（87件）。今回UIの実機一周は未確認 |
-| 各章末→最初のお祝い | 仮実装、ネイティブ／実機未確認 |
+| 各章末→最初のお祝い | 一部不具合あり（Windowsの短い縦画面の文字枠）。修正ソースあり、再確認待ち |
 | セーブ／復帰 | コア動作確認済み。Pixelの強制停止／再起動は未確認 |
 
 新規基準：章1＝2件70 Coins／Lv.2、章2＝4件180／Lv.4、章3＝6件330／Lv.6。画面は実セーブの値を表示し、この基準値で上書きしません。
@@ -73,7 +82,8 @@
 
 ## 8. 未解決事項・不具合・技術的リスク
 
-- クラウドのコア／コンパイル／字形／設定／スクリプト確認は成功。今回のUnityネイティブ・FontEngine・UGUIレイアウト／入力・IL2CPP・APK・Pixelは未実行。
+- Windows PlayMode52件中4失敗を受領：`ChapterPagesFitShortPortraitAndActualValues`（説明文44＞枠40＋許容1）、`CharacterReactionDoesNotWriteOrChangeGameProgress`／`FullBodyActorsFollowBackgroundCropOnShortAndTallScreens`（旧配置参照でnull）、`PauseDuringMergeAndDragRebuildsUnlockedBoard`（中断中の入力拒否）。対応ソースを用意し、修正後コア87件と6実DLLアセンブリのコンパイルは成功。**元4件を含むWindows全52件の再合格は未確認**です。
+- 今回APK・IL2CPP・Pixelの一周／保存／性能は未実行。直前の書体／画像／スクリプト検証結果は維持しますが、今回のクラウド検証はコアとコンパイルです。
 - 前回のEditMode90中1件（全身幅1536＞1024）のmeta修正は維持。修正後の実インポートサイズ・全件XMLは未受領。今回も1024上限を緩めない。
 - 3章6依頼の楽しさ・遊ぶ長さ、滑らかな見え方、水流／装飾の視認性、Safe Areaの重なりは実機評価待ち。見た目と歩行コマは同義ではない。
 - 正式音源・ストア用画像／adaptive icon、Privacy／Data safetyの実態確認、署名AAB・16KB適合・Play Console条件は未完了。販売日優先で省略しない。
@@ -91,6 +101,10 @@
 
 ## 9. GitHub反映状況
 
+最新の4件対応は`work`で実施。main反映後の最新コミットは最終応答で記載します。Windows側はUnityを閉じてFetch origin→Pull originが必要です。
+
+今回の変更ファイル6点：`Assets/Mofumachi/Presentation/ChapterSummaryScreen.cs`、`Assets/Mofumachi/Tests/PlayMode/ChapterFlowTests.cs`、`PopPresentationTests.cs`、`VerticalSliceFlowTests.cs`、`docs/development-handoff-2026-10-11.md`、`docs/pixel3a-quality-status.md`。
+
 作業ブランチ `work`。基準 `f47b77c`。主な実装コミット：`9b02f92`書体、`75f9b93`Clock、`56e97c6`動き、`b2c6d23`章モデル、`b042019`章導線、`e83726c`Lv.4〜6装飾。最終レビュー／main反映の状態は末尾記録を参照。
 
 主要変更ファイル：Core `TownFrameClock,TownNavigation,ChapterCatalog,ChapterProgress`、Presentation `UIWidgets,UIStrings,TownActor,TownLifeView,TownAmbientGraphic,BodyReaction,UIFlowController,ChapterPresentation,ChapterSummaryScreen,TopHomeScreens,QuestMergeScreens,RewardGrowthScreens,TownGrowthView,TownDecorationGraphic,ScreenContext,CharacterSelectionScreen,PurchaseNoticeView`、Resources `UIFont,UIFontBold,UIFontStory,UIFontStory-LICENSE,TownDecorationAtlas`、Editor `AndroidBuild`、各対応EditMode／PlayMode／BuildTime試験とBuildTests.asmdef、`scripts/subset-ui-fonts.py,build-android.ps1,tests/android-tools.tests.ps1`、本報告・チェックリスト・素材記録・公開準備資料。変更一覧はGitHub差分でも確認できます。
@@ -99,7 +113,7 @@
 
 1. Unityを閉じる。GitHub Desktopでmofumachi-mergeのmainを選び、Fetch origin→Pull origin。
 2. Unity HubからUnity6000.6.4f1で同じプロジェクトを開く。インポート／コンパイルを待ち、Consoleの赤エラーを確認。
-3. Window→General→Test Runner。EditModeでRun All、PlayModeでRun All。全成功・skip0を確認し、各Export ResultsのXMLを保存。今回は件数が増えますが、合格数を推測せず実表示を記録。
+3. Window→General→Test Runner。EditModeでRun All、PlayModeでRun All。今回のPlayModeは**52件すべて成功・失敗0・skip0**を確認し、各Export ResultsのXMLを保存。4件だけのRerun Failedを行った場合も、最後にRun Allで全件を確認します。エラーが残る間はAPKビルドへ進まず、失敗したテストの詳細を確認します。
 4. 合格後、Mofumachi→Android→**Build Town QA APK (separate save)**。`MOFUMACHI_APK_SUCCESS`を確認。出力は `Builds\Android\town-life-qa.apk`。
 5. USB接続・Pixelロック解除済みで、PowerShellへ次を1行ずつ貼り付け。
 
@@ -129,7 +143,7 @@ Pixelで**同じ街QA**を開き直し、コイン・依頼・盤面・主人公
 
 ## 11. 次回Codexが優先して行う作業
 
-1. Windows全件XML・新APK SHAとPixel第1章FBを照合し、文字／移動／水／入室の実不具合を修正。
+1. 今回のWindows PlayMode全52件（元4件を含む）の再実行結果と全件XMLを確認し、残る失敗を修正。
 2. 全3章・章末／TOP・保存再起動を確認し、報酬と消費が一回であることを証拠付きで確定。
 3. 10分以上のPixel操作でFPS／発熱／メモリと画面の質感を調整。
 4. 正式BGM／SEを実スピーカーで選定・差し替え。

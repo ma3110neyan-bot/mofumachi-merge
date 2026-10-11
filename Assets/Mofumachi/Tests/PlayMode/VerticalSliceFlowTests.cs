@@ -192,6 +192,15 @@ namespace Mofumachi.Tests
             Assert.That(ui.Game.Board.IsLocked(1), Is.False);
             Assert.That(ui.GetComponentsInChildren<MergeBoardView>()[1].GetComponent<UnityEngine.UI.Image>().color, Is.Not.EqualTo(lockedColor));
             var drag = ui.GetComponentsInChildren<MergeBoardView>()[1];
+            Assert.That(ui.IsAppPaused, Is.True);
+            Assert.That(ui.CanInteractBoard, Is.False);
+            drag.OnBeginDrag(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current));
+            Assert.That(GameObject.Find("Dragged tea"), Is.Null, "Pause must refuse new drag input.");
+            ui.SendMessage("OnApplicationPause", false);
+            yield return null;
+            Assert.That(ui.IsAppPaused, Is.False);
+            Assert.That(ui.CanInteractBoard, Is.True);
+            drag = ui.GetComponentsInChildren<MergeBoardView>()[1];
             drag.OnBeginDrag(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current));
             Assert.That(GameObject.Find("Dragged tea"), Is.Not.Null);
             ui.SendMessage("OnApplicationPause", true);

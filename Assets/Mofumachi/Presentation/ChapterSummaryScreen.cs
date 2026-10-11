@@ -22,7 +22,8 @@ namespace Mofumachi.Presentation
             }
             else {var body=w.Body("Chapter partner",chapter.FavoriteCharacterId,card,new Rect(0,0,1,1),CharacterExpression.Smile);UIWidgets.Top(body.rectTransform,100,62,100,94);}
             var closing=w.StoryHeading("Chapter closing",chapter.ClosingLine,card,new Rect(0,0,1,1),18);UIWidgets.Top(closing.rectTransform,16,162,16,58);
-            var objective=w.StoryLabel("Chapter objective",chapter.IsFinale?UIStrings.FinaleDescription:chapter.NextChapterTitle.Length>0?"つぎのおもいで："+chapter.NextChapterTitle:chapter.Objective,card,new Rect(0,0,1,1),14);UIWidgets.Top(objective.rectTransform,16,226,16,40);
+            // Two story-font lines need 44 units in Unity. Keep a small margin above the totals at 592 height.
+            var objective=w.StoryLabel("Chapter objective",chapter.IsFinale?UIStrings.FinaleDescription:chapter.NextChapterTitle.Length>0?"つぎのおもいで："+chapter.NextChapterTitle:chapter.Objective,card,new Rect(0,0,1,1),14);UIWidgets.Top(objective.rectTransform,16,226,16,48);
             var total=w.Label("Chapter total",chapter.CompletedCount+" / 6　　街 Lv."+chapter.TownLevel+"\n"+chapter.Coins.ToString("N0")+" Coins",card,new Rect(0,0,1,1),15);UIWidgets.Bottom(total.rectTransform,12,12,12,54);
             var home=w.Button("Chapter home",chapter.IsFinale?"街へ戻る":"次の章へ",root,new Rect(0,0,1,1),c.Flow.ShowHome);UIWidgets.Bottom((RectTransform)home.transform,28,78,28,48);
             var top=w.Button("Chapter top","保存してTOPへ",root,new Rect(0,0,1,1),()=>c.Flow.ReturnToTitle(),true);UIWidgets.Bottom((RectTransform)top.transform,28,14,28,48);

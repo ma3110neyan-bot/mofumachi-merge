@@ -29,7 +29,11 @@ namespace Mofumachi.Tests
                         var rect=(RectTransform)actor.transform;Assert.That(rect.rect.width,Is.EqualTo(62));Assert.That(rect.rect.height,Is.EqualTo(78));
                         var expected=life.Local(actor.Position);Assert.That(Vector2.Distance(rect.anchoredPosition,expected),Is.LessThan(3));
                         var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(page,rect);var quest=RectTransformUtility.CalculateRelativeRectTransformBounds(page,page.Find("Home quest"));
-                        Assert.That(bounds.min.y,Is.GreaterThan(quest.max.y));Assert.That(actor.GetComponent<CharacterBodyGraphic>().CharacterId,Is.EqualTo(actor.CharacterId));
+                        Assert.That(bounds.min.y,Is.GreaterThan(quest.max.y));
+                        var body=actor.GetComponentInChildren<CharacterBodyGraphic>();
+                        Assert.That(body,Is.Not.Null,"Each town actor must have its own full-body graphic.");
+                        Assert.That(body.rectTransform,Is.SameAs(actor.VisualRoot));
+                        Assert.That(body.CharacterId,Is.EqualTo(actor.CharacterId));
                     }
                     Object.DestroyImmediate(page.gameObject);Object.DestroyImmediate(background.gameObject);
                 }
@@ -40,7 +44,10 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();var actor=Flow.GetComponentsInChildren<TownActor>().First(a=>!a.Controlled);
             int writes=Store.Writes,coins=Flow.Game.State.coins;actor.React();yield return new WaitForSecondsRealtime(.12f);
-            Assert.That(actor.GetComponent<CharacterBodyGraphic>().Expression,Is.EqualTo(CharacterExpression.Smile));
+            var body=actor.GetComponentInChildren<CharacterBodyGraphic>();
+            Assert.That(body,Is.Not.Null,"The tapped actor must have a full-body graphic.");
+            Assert.That(body.rectTransform,Is.SameAs(actor.VisualRoot));
+            Assert.That(body.Expression,Is.EqualTo(CharacterExpression.Smile));
             Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(Flow.Game.State.coins,Is.EqualTo(coins));Assert.That(Store.Writes,Is.EqualTo(writes));
             Flow.SendMessage("OnApplicationPause",true);Assert.That(Flow.GetComponentsInChildren<TownLifeView>().All(r=>!r.enabled),Is.True);
             Assert.That(Flow.GetComponentsInChildren<TownAmbientGraphic>().All(r=>!r.enabled),Is.True);

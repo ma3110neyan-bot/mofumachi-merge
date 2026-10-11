@@ -65,6 +65,10 @@ namespace Mofumachi.Tests
                 rect.sizeDelta=new Vector2(360,height);var page=UIWidgets.Node("Summary fixture",rect,new Rect(0,0,1,1));
                 ChapterSummaryScreen.Build(page,new ScreenContext(Flow,widgets),ChapterPresentation.Create(state,chapter.Id));Canvas.ForceUpdateCanvases();
                 foreach(var text in page.GetComponentsInChildren<Text>()){Assert.That(text.resizeTextForBestFit,Is.False);Assert.That(text.preferredHeight,Is.LessThanOrEqualTo(text.rectTransform.rect.height+1),text.name);}
+                var objective=page.GetComponentsInChildren<Text>().Single(t=>t.name=="Chapter objective");
+                var total=page.GetComponentsInChildren<Text>().Single(t=>t.name=="Chapter total");
+                Assert.That(objective.fontSize,Is.GreaterThanOrEqualTo(14));
+                Assert.That(Bounds(page,total.rectTransform).max.y,Is.LessThanOrEqualTo(Bounds(page,objective.rectTransform).min.y),"Chapter objective overlaps totals");
                 if(chapter.Id=="chapter-03")
                 {
                     var regions=page.GetComponentsInChildren<RectTransform>().Where(r=>r.name.StartsWith("Celebrating ")).OrderBy(r=>Bounds(page,r).min.x).ToArray();

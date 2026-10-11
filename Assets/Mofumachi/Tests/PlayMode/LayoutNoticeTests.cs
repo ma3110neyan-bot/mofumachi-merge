@@ -21,7 +21,7 @@ namespace Mofumachi.Tests
             viewport.gameObject.AddComponent<RectMask2D>();
             try
             {
-                foreach (var type in new[] { typeof(DecorativeFrameGraphic), typeof(RibbonGraphic), typeof(UIIconGraphic), typeof(TownAmbientGraphic), typeof(ItemGraphic) })
+                foreach (var type in new[] { typeof(DecorativeFrameGraphic), typeof(RibbonGraphic), typeof(UIIconGraphic), typeof(TownAmbientGraphic), typeof(ItemGraphic), typeof(CharacterBodyGraphic) })
                 {
                     var node = UIWidgets.Node(type.Name, viewport, new Rect(0, 0, 1, 1));
                     var graphic = (MaskableGraphic)node.gameObject.AddComponent(type);
@@ -87,9 +87,9 @@ namespace Mofumachi.Tests
                     var start=(RectTransform)title.Find("Start");
                     foreach(var image in title.GetComponentsInChildren<RawImage>())AssertSeparated(title,(RectTransform)image.transform.parent,start);
                     AssertSeparated(title,(RectTransform)title.Find("Title feedback"),start);Object.DestroyImmediate(title.gameObject);
-                    var home=UIWidgets.Node("Home fixture",rect,new Rect(0,0,1,1));TopHomeScreens.BuildHome(home,context);Canvas.ForceUpdateCanvases();var quest=(RectTransform)home.Find("Home quest");
-                    foreach(var image in home.GetComponentsInChildren<RawImage>())if(image.name.StartsWith("Character "))AssertSeparated(home,(RectTransform)image.transform.parent,quest);
-                    Object.DestroyImmediate(home.gameObject);
+                    var background=widgets.Background(Resources.Load<Texture2D>("Mofumachi/TownBackground"),rect);background.GetComponent<BackgroundCover>().SendMessage("Fit");var home=UIWidgets.Node("Home fixture",rect,new Rect(0,0,1,1));TopHomeScreens.BuildHome(home,context,background);Canvas.ForceUpdateCanvases();var quest=(RectTransform)home.Find("Home quest");
+                    foreach(var actor in home.GetComponentsInChildren<TownActor>())AssertSeparated(home,(RectTransform)actor.transform,quest);
+                    Object.DestroyImmediate(home.gameObject);Object.DestroyImmediate(background.gameObject);
                 }
             }
             finally{Object.DestroyImmediate(canvas);}

@@ -19,7 +19,7 @@ namespace Mofumachi.Presentation
             scroll.horizontal=false;scroll.vertical=true;scroll.movementType=ScrollRect.MovementType.Clamped;
             var chosen=CharacterCatalog.Find(c.Flow.PreviewFavoriteId)??CharacterCatalog.All[0];
             var hero=UIWidgets.Node("Partner hero",content,new Rect(0,0,1,1));UIWidgets.Top(hero,80,18,80,132);
-            w.Character("Chosen portrait",chosen.PortraitIndex,hero,new Rect(0,0,1,1));
+            var body=w.Body("Chosen full body",chosen.Id,hero,new Rect(0,0,1,1));body.raycastTarget=true;body.gameObject.AddComponent<BodyReaction>().Bind(c);
             var name=w.Ribbon("Chosen partner name",chosen.Name,content,new Rect(0,0,1,1),20,UIWidgets.Pink);
             UIWidgets.Top((RectTransform)name.transform.parent,66,156,66,36);
             var description=w.Label("Partner description",chosen.Description,content,new Rect(0,0,1,1),14);

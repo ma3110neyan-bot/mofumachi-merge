@@ -6,6 +6,13 @@ namespace Mofumachi.Tests
 {
     public sealed class PresentationContentTests
     {
+        [Test] public void FullBodyAtlasHasSixNamedCharactersAndExpressions()
+        {
+            var atlas=Resources.Load<Texture2D>("Mofumachi/CharacterBodyAtlas");Assert.That(atlas,Is.Not.Null);
+            Assert.That(atlas.width,Is.LessThanOrEqualTo(1024));Assert.That(atlas.height,Is.LessThanOrEqualTo(1024));
+            var importer=(UnityEditor.TextureImporter)UnityEditor.AssetImporter.GetAtPath(UnityEditor.AssetDatabase.GetAssetPath(atlas));
+            Assert.That(importer.mipmapEnabled,Is.False);Assert.That(importer.alphaIsTransparency,Is.True);
+        }
         [Test] public void RequiredItemArtAndNewJapaneseGlyphsArePresent()
         {
             Assert.That(Resources.Load<Texture2D>("Mofumachi/ItemAtlas"),Is.Not.Null);
@@ -24,7 +31,7 @@ namespace Mofumachi.Tests
         }
         [Test] public void ContentGateRejectsMissingAssetsAndUnsupportedGlyphs()
         {
-            foreach(var key in new[]{"TownBackground","UIFont","UIFontBold","UIIconAtlas","TitleLogo","UIPanelFrame","ItemAtlas","bgm-town-loop","se-confirm","se-character","se-merge","se-delivery","se-reward","se-growth"})Assert.Throws<UnityEditor.Build.BuildFailedException>(()=>Mofumachi.Editor.AndroidBuild.RequireContent(null,key));
+            foreach(var key in new[]{"TownBackground","UIFont","UIFontBold","UIIconAtlas","TitleLogo","UIPanelFrame","ItemAtlas","CharacterBodyAtlas","bgm-town-loop","se-confirm","se-character","se-merge","se-delivery","se-reward","se-growth"})Assert.Throws<UnityEditor.Build.BuildFailedException>(()=>Mofumachi.Editor.AndroidBuild.RequireContent(null,key));
             var font=Resources.Load<Font>("Mofumachi/UIFont");
             Assert.That(font,Is.Not.Null);
             // None of these characters exists in the bundled subset. Include a

@@ -14,9 +14,9 @@ namespace Mofumachi.Presentation
             bool finished=quest==null,active=!finished && c.Game.State.activeQuestId==quest.Id && !c.Game.State.completedQuestIds.Contains(quest.Id);
             var ribbon=w.Ribbon("Quest title",finished?"すべての依頼が完了しました":quest.Title,area,new Rect(.12f,.83f,.76f,.11f),18,UIWidgets.Peach);UIWidgets.Top((RectTransform)ribbon.transform.parent,24,16,24,44);
             var requester=CharacterCatalog.Find(finished?c.Game.State.favoriteCharacterId:quest.RequesterId);
-            w.Character("Quest character",requester.PortraitIndex,area,new Rect(.35f,.61f,.3f,.19f));
-            w.Label("Requester",requester.Name,area,new Rect(.25f,.55f,.5f,.06f),13);
-            w.Label("Quest instruction",finished?"ありがとう！ 街の仲間とお祝いしよう。":quest.Dialogue,area,new Rect(.07f,.42f,.86f,.12f),13);
+            w.Body("Quest character",requester.Id,area,new Rect(.35f,.57f,.3f,.24f));
+            w.Label("Requester",requester.Name,area,new Rect(.25f,.515f,.5f,.055f),13);
+            w.Label("Quest instruction",finished?"ありがとう！ 街の仲間とお祝いしよう。":quest.Dialogue,area,new Rect(.07f,.405f,.86f,.105f),13);
             if(!finished)
             {
                 var requirements=c.Game.Quests.GetProgress(quest);

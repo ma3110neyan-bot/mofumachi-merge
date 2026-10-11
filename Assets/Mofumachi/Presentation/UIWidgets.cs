@@ -56,6 +56,8 @@ namespace Mofumachi.Presentation
             image.uvRect=new Rect((15+index*170)/1536f,104/1024f,152/1536f,150/1024f);
             var a=fit.gameObject.AddComponent<AspectRatioFitter>(); a.aspectRatio=152f/150; a.aspectMode=AspectRatioFitter.AspectMode.FitInParent; return image;
         }
+        public CharacterBodyGraphic Body(string name,string characterId,RectTransform parent,Rect anchors,CharacterExpression expression=CharacterExpression.Normal)
+        {var body=Node(name,parent,anchors).gameObject.AddComponent<CharacterBodyGraphic>();body.Bind(characterId,expression);body.raycastTarget=false;return body;}
         public RawImage Background(Texture2D texture,RectTransform parent)
         { var image=Node("Town background",parent,new Rect(0,0,1,1)).gameObject.AddComponent<RawImage>(); image.texture=texture; image.raycastTarget=false; image.gameObject.AddComponent<BackgroundCover>(); return image; }
         public UIIconGraphic Icon(string name,UIIcon icon,RectTransform parent,Rect anchors,Color? tint=null)

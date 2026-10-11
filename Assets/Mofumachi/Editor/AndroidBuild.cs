@@ -82,6 +82,7 @@ namespace Mofumachi.Editor
             RequireContent(Resources.Load<Texture2D>("Mofumachi/TitleLogo"),"TitleLogo");
             RequireContent(Resources.Load<Texture2D>("Mofumachi/UIPanelFrame"),"UIPanelFrame");
             RequireContent(Resources.Load<Texture2D>("Mofumachi/ItemAtlas"),"ItemAtlas");
+            RequireContent(Resources.Load<Texture2D>("Mofumachi/CharacterBodyAtlas"),"CharacterBodyAtlas");
             var font=Resources.Load<Font>("Mofumachi/UIFont");RequireContent(font,"UIFont");
             foreach(var text in Mofumachi.Presentation.UIStrings.All)ValidateGlyphs(font,text);
             var bold=Resources.Load<Font>("Mofumachi/UIFontBold");RequireContent(bold,"UIFontBold");

@@ -19,7 +19,7 @@ namespace Mofumachi.Presentation
             var tag=w.OrnatePanel("Tagline",root,new Rect(.06f,.589f,.88f,.048f),UIWidgets.Cream,10).rectTransform;
             w.Label("Tagline text","もふもふの街で、ちいさなお茶会を。",tag,new Rect(.05f,0,.9f,1),13);
             var hero=UIWidgets.Node("Title hero region",root,new Rect(.37f,0,.26f,.575f));hero.offsetMin=new Vector2(0,238);
-            var image=w.Character("Character 0",0,hero,new Rect(0,0,1,1));AttachReaction(image,c);
+            var image=w.Body("Title partner",CharacterCatalog.IsKnown(c.Game.State.favoriteCharacterId)?c.Game.State.favoriteCharacterId:"momo",hero,new Rect(0,0,1,1));image.raycastTarget=true;image.gameObject.AddComponent<BodyReaction>().Bind(c);
             var companions=UIWidgets.Node("Title companions",root,new Rect(0,0,1,1));UIWidgets.Bottom(companions,20,170,20,56);
             for(int i=1;i<6;i++)AttachReaction(w.Character("Character "+i,i,companions,new Rect((i-1)*.2f+.018f,0,.164f,1)),c);
             var start=w.Button("Start","はじめる",root,new Rect(0,0,1,1),()=>{c.Flow.PlayCue(AudioCue.Confirm);c.Flow.BeginGame();}); UIWidgets.Bottom((RectTransform)start.transform,28,54,28,58);
@@ -27,7 +27,7 @@ namespace Mofumachi.Presentation
             var footer=w.Label("Title footer","つくって、届けて、街を育てよう。",root,new Rect(0,0,1,1),12); UIWidgets.Bottom(footer.rectTransform,14,14,14,28);
             var feedback=w.Label("Title feedback",c.Flow.FeedbackFor(ScreenId.Title),root,new Rect(0,0,1,1),12);UIWidgets.Bottom(feedback.rectTransform,16,118,16,42);
         }
-        public static void BuildHome(RectTransform root,ScreenContext c)
+        public static void BuildHome(RectTransform root,ScreenContext c,RawImage background=null)
         {
             var w=c.Widgets;
             var hud=w.OrnatePanel("HUD",root,new Rect(0,0,1,1),UIWidgets.Cream,18).rectTransform; UIWidgets.Top(hud,10,8,10,64);
@@ -37,14 +37,9 @@ namespace Mofumachi.Presentation
             w.Heading("Coins value",c.Game.State.coins.ToString("N0"),hud,new Rect(.18f,.01f,.60f,.46f),19).alignment=TextAnchor.MiddleLeft;
             var settings=w.Button("Settings","",hud,new Rect(.82f,.1f,.16f,.8f),c.Flow.ShowSettings,true); w.Icon("Settings icon",UIIcon.Settings,(RectTransform)settings.transform,new Rect(.17f,.17f,.66f,.66f));
             var world=UIWidgets.Node("Town characters",root,new Rect(0,0,1,1));world.offsetMin=new Vector2(0,228);world.offsetMax=new Vector2(0,-94);
-            var points=new[]{new Vector2(.1f,.69f),new Vector2(.72f,.73f),new Vector2(.72f,.41f),new Vector2(.72f,.12f),new Vector2(.1f,.12f),new Vector2(.41f,.12f)};
-            for(int i=0;i<6;i++)
-            {
-                var pos=points[i];var image=w.Character("Character "+i,i,world,new Rect(pos.x,pos.y,.16f,.18f));AttachReaction(image,c);
-                var name=w.Panel("Name "+i,world,new Rect(pos.x-.025f,pos.y-.06f,.21f,.06f),UIWidgets.Cream).rectTransform;
-                w.Frame(name,8,false);
-                w.Label("Character name "+i,Names[i],name,new Rect(0,0,1,1),11);
-            }
+            var life=world.gameObject.AddComponent<TownLifeView>();life.Bind(c,background??c.Flow.TownBackground);
+            var decorations=UIWidgets.Node("Town growth decorations",world,new Rect(0,0,1,1));decorations.SetAsFirstSibling();
+            var growth=decorations.gameObject.AddComponent<TownGrowthView>();growth.Bind(c,life);growth.Apply(c.Game.State.townGrowthLevel);
             var next=QuestCatalog.NextFor(c.Game.State);var requester=CharacterCatalog.Find(next?.RequesterId??c.Game.State.favoriteCharacterId);
             var quest=w.OrnatePanel("Home quest",root,new Rect(0,0,1,1),null,24).rectTransform; UIWidgets.Bottom(quest,14,124,14,92);
             w.Character("Quest character",requester.PortraitIndex,quest,new Rect(.06f,.17f,.19f,.65f));

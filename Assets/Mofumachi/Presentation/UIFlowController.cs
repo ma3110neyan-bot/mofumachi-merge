@@ -38,6 +38,7 @@ namespace Mofumachi.Presentation
         private GameObject page;
         private Font font;
         private Texture2D characters;
+        public RawImage TownBackground { get; private set; }
         private AudioManager audioManager;
         private string view, settingsReturnView = "title", notice = "";
         private int selected = -1;
@@ -69,7 +70,7 @@ namespace Mofumachi.Presentation
             layout=canvas.AddComponent<ResponsiveUILayout>(); layout.Initialize(canvas.GetComponent<Canvas>());
 
             widgets=new UIWidgets(font,characters); context=new ScreenContext(this,widgets);
-            widgets.Background(Resources.Load<Texture2D>("Mofumachi/TownBackground"),layout.FullScreenRoot);
+            TownBackground=widgets.Background(Resources.Load<Texture2D>("Mofumachi/TownBackground"),layout.FullScreenRoot);
             CreateClearCamera();
             if (EventSystem.current == null)
             {
@@ -179,7 +180,7 @@ namespace Mofumachi.Presentation
         public bool Persist()
         {
             if (session == null) return true;
-            CancelAudioEdit();CloseUtilityModal();
+            CancelAudioEdit();if(page!=null)foreach(var town in page.GetComponentsInChildren<TownLifeView>())town.CancelInteraction();CloseUtilityModal();
             if (mergeAnimation != null) { StopCoroutine(mergeAnimation); mergeAnimation = null; }
             if(presentationAnimation!=null){StopCoroutine(presentationAnimation);presentationAnimation=null;}
             Game.Board.ReleaseLocks(); Game.Quests.RefreshProgress(); selected = -1;
@@ -304,6 +305,8 @@ namespace Mofumachi.Presentation
                 foreach(var reveal in page.GetComponentsInChildren<SoftReveal>())reveal.enabled=false;
                 foreach(var reaction in page.GetComponentsInChildren<CharacterReaction>())reaction.enabled=false;
                 foreach(var ambient in page.GetComponentsInChildren<TownAmbientGraphic>())ambient.enabled=false;
+                foreach(var town in page.GetComponentsInChildren<TownLifeView>())town.enabled=false;
+                foreach(var reaction in page.GetComponentsInChildren<BodyReaction>())reaction.enabled=false;
             }
         }
         public void TapCell(int cell)
@@ -321,6 +324,7 @@ namespace Mofumachi.Presentation
         }
         private void OpenUtilityModal(ModalKind kind,System.Action<RectTransform,ScreenContext> build)
         {
+            if(page!=null)foreach(var town in page.GetComponentsInChildren<TownLifeView>())town.CancelInteraction();
             CloseUtilityModal();build(layout.SafeRoot,context);
             modal=layout.SafeRoot.GetChild(layout.SafeRoot.childCount-1).gameObject;modalKind=kind;
         }
@@ -355,6 +359,19 @@ namespace Mofumachi.Presentation
         }
         public void CancelDiscard()
         { if(modalKind==ModalKind.Discard){CloseUtilityModal();Render("merge");} }
+        public void OpenShopPreview()
+        {
+            if(!CanPlay || CurrentScreen!=ScreenId.Home)return;
+            OpenUtilityModal(ModalKind.Shop,(root,c)=>
+            {
+                var overlay=c.Widgets.Panel("Shop preview",root,new Rect(0,0,1,1),new Color(.25f,.15f,.25f,.6f)).rectTransform;overlay.GetComponent<RoundedPanelGraphic>().raycastTarget=true;
+                var card=c.Widgets.OrnatePanel("Shop preview card",overlay,new Rect(0,0,1,1),UIWidgets.BlushPaper).rectTransform;card.anchorMin=card.anchorMax=new Vector2(.5f,.5f);card.sizeDelta=new Vector2(320,280);
+                c.Widgets.Ribbon("Shop title","ショップ",card,new Rect(.08f,.72f,.84f,.18f),20);
+                c.Widgets.Label("Shop status","お店は準備中です。\n販売機能は未実装です。",card,new Rect(.08f,.3f,.84f,.35f),16);
+                var close=c.Widgets.Button("Close shop","街へ戻る",card,new Rect(0,0,1,1),CloseShopPreview,true);UIWidgets.Bottom((RectTransform)close.transform,24,12,24,48);
+            });
+        }
+        public void CloseShopPreview(){if(modalKind==ModalKind.Shop)CloseUtilityModal();}
         private void ApplySavedAudio() => audioManager.ApplySettings(Game.State.bgmEnabled,Game.State.seEnabled,Game.State.bgmVolume,Game.State.seVolume);
         private void CancelAudioEdit()
         {

@@ -10,7 +10,7 @@ namespace Mofumachi.Presentation
             var w=c.Widgets;w.Header(root,c,"納品／報酬");
             var card=w.OrnatePanel("Delivery result",root,new Rect(.065f,.22f,.87f,.63f),UIWidgets.BlushPaper).rectTransform;card.gameObject.AddComponent<SoftReveal>();
             w.Ribbon("Delivery title","納品完了！",card,new Rect(.12f,.8f,.76f,.12f),23);
-            w.Character("Delivery requester",CharacterCatalog.Find(delivery.RequesterId).PortraitIndex,card,new Rect(.335f,.56f,.33f,.22f));
+            w.Body("Delivery requester",delivery.RequesterId,card,new Rect(.335f,.57f,.33f,.21f),CharacterExpression.Smile);
             w.Heading("Delivery thanks",CharacterCatalog.Find(delivery.RequesterId).Name+"："+UIStrings.DeliveryThanks,card,new Rect(.18f,.49f,.64f,.065f),17);
             for(int i=0;i<delivery.DeliveredItems.Count;i++)
             {

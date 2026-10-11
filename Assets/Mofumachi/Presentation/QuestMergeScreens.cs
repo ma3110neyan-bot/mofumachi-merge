@@ -15,7 +15,7 @@ namespace Mofumachi.Presentation
             var ribbon=w.Ribbon("Quest title",unavailable?(finished?"すべての依頼が完了しました":UIStrings.UnknownQuest):quest.Title,area,new Rect(.12f,.83f,.76f,.11f),18,UIWidgets.Peach);UIWidgets.Top((RectTransform)ribbon.transform.parent,24,16,24,44);
             if(!unavailable)w.StoryLabel("Quest chapter",ChapterCatalog.ForQuest(quest.Id)?.Title??"",area,new Rect(.08f,.78f,.84f,.05f),14);
             var requester=CharacterCatalog.Find(unavailable?c.Game.State.favoriteCharacterId:quest.RequesterId);
-            w.Body("Quest character",requester.Id,area,new Rect(.35f,.57f,.3f,.24f));
+            w.Body("Quest character",requester.Id,area,new Rect(.35f,.57f,.3f,.20f));
             w.StoryLabel("Requester",requester.Name,area,new Rect(.25f,.515f,.5f,.055f),14);
             w.StoryLabel("Quest instruction",unavailable?(finished?"ありがとう！ 街の仲間とお祝いしよう。":UIStrings.UnknownQuest):quest.Dialogue,area,new Rect(.07f,.405f,.86f,.105f),14);
             if(!unavailable)

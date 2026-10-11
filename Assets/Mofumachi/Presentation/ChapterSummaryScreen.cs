@@ -12,9 +12,10 @@ namespace Mofumachi.Presentation
             var title=w.StoryRibbon("Chapter title",chapter.Title,card,new Rect(0,0,1,1),20);UIWidgets.Top((RectTransform)title.transform.parent,12,12,12,42);
             if(chapter.IsFinale)
             {
+                var row=UIWidgets.Node("Finale row",card,new Rect(0,0,1,1));UIWidgets.Top(row,8,64,8,94);
                 for(int i=0;i<6;i++)
                 {
-                    var actor=CharacterCatalog.All[i];var region=UIWidgets.Node("Celebrating "+actor.Id,card,new Rect(i/6f+.006f,0,.155f,1));UIWidgets.Top(region,0,64,0,94);
+                    var actor=CharacterCatalog.All[i];var region=UIWidgets.Node("Celebrating "+actor.Id,row,new Rect(i/6f+.006f,0,.155f,1));
                     w.Body("Finale partner",actor.Id,region,new Rect(0,.2f,1,.8f),CharacterExpression.Smile);
                     w.StoryLabel("Finale name",actor.Name,region,new Rect(0,0,1,.19f),12);
                 }

@@ -65,8 +65,25 @@ namespace Mofumachi.Tests
                 rect.sizeDelta=new Vector2(360,height);var page=UIWidgets.Node("Summary fixture",rect,new Rect(0,0,1,1));
                 ChapterSummaryScreen.Build(page,new ScreenContext(Flow,widgets),ChapterPresentation.Create(state,chapter.Id));Canvas.ForceUpdateCanvases();
                 foreach(var text in page.GetComponentsInChildren<Text>()){Assert.That(text.resizeTextForBestFit,Is.False);Assert.That(text.preferredHeight,Is.LessThanOrEqualTo(text.rectTransform.rect.height+1),text.name);}
+                if(chapter.Id=="chapter-03")
+                {
+                    var regions=page.GetComponentsInChildren<RectTransform>().Where(r=>r.name.StartsWith("Celebrating ")).OrderBy(r=>Bounds(page,r).min.x).ToArray();
+                    Assert.That(regions.Length,Is.EqualTo(6));
+                    for(int i=1;i<regions.Length;i++)Assert.That(Bounds(page,regions[i-1]).max.x,Is.LessThanOrEqualTo(Bounds(page,regions[i]).min.x),"Finale columns overlap");
+                }
                 Assert.That(page.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Chapter ")).Count(),Is.EqualTo(2));UnityEngine.Object.DestroyImmediate(page.gameObject);
-            }}finally{UnityEngine.Object.DestroyImmediate(canvas);}LogAssert.NoUnexpectedReceived();
+            }
+                foreach(float height in new[]{592f,640f,808f})
+                {
+                    rect.sizeDelta=new Vector2(360,height);state.completedQuestIds.Clear();state.activeQuestId="tea-01";
+                    var page=UIWidgets.Node("Quest fixture",rect,new Rect(0,0,1,1));QuestMergeScreens.BuildQuest(page,new ScreenContext(Flow,widgets));Canvas.ForceUpdateCanvases();
+                    var body=page.GetComponentsInChildren<CharacterBodyGraphic>().Single();var label=page.GetComponentsInChildren<Text>().Single(t=>t.name=="Quest chapter");
+                    Assert.That(Bounds(page,body.rectTransform).max.y,Is.LessThanOrEqualTo(Bounds(page,label.rectTransform).min.y),"Chapter caption overlaps requester");
+                    Assert.That(label.fontSize,Is.GreaterThanOrEqualTo(14));Assert.That(label.preferredHeight,Is.LessThanOrEqualTo(label.rectTransform.rect.height+1));
+                    UnityEngine.Object.DestroyImmediate(page.gameObject);
+                }
+            }finally{UnityEngine.Object.DestroyImmediate(canvas);}LogAssert.NoUnexpectedReceived();
         }
+        private static Bounds Bounds(RectTransform root,RectTransform child)=>RectTransformUtility.CalculateRelativeRectTransformBounds(root,child);
     }
 }

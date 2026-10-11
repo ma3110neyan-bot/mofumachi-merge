@@ -35,7 +35,7 @@ namespace Mofumachi.Core
         private HashSet<int> mergeLocks;
         internal HashSet<int> MergeLocks => LazyInitializer.EnsureInitialized(ref mergeLocks);
         public const int Columns = 5, Rows = 6, MaxLevel = 3;
-        public const int CurrentSaveVersion = 2;
+        public const int CurrentSaveVersion = 3;
         [DataMember(IsRequired = true)] public int saveVersion = CurrentSaveVersion;
         [DataMember(IsRequired = true)] public int coins;
         [DataMember(IsRequired = true)] public int gems;
@@ -54,6 +54,7 @@ namespace Mofumachi.Core
         [DataMember] public float bgmVolume = .75f;
         [DataMember] public float seVolume = .65f;
         [DataMember] public bool purchaseNoticeAcknowledged;
+        [DataMember] public string favoriteCharacterId = "";
         [DataMember(IsRequired = true)] public string lastSaveTime = "";
 
         [OnDeserializing]
@@ -65,9 +66,10 @@ namespace Mofumachi.Core
         [OnDeserialized]
         private void AfterDeserialize(StreamingContext context)
         {
-            if (saveVersion != 1) return;
-            bgmVolume = .75f; seVolume = .65f; purchaseNoticeAcknowledged = false;
-            saveVersion = CurrentSaveVersion;
+            if (saveVersion == 1)
+            { bgmVolume = .75f; seVolume = .65f; purchaseNoticeAcknowledged = false; }
+            if (saveVersion == 1 || saveVersion == 2)
+            { favoriteCharacterId = ""; saveVersion = CurrentSaveVersion; }
         }
 
         public static GameState CreateInitial()
@@ -88,6 +90,7 @@ namespace Mofumachi.Core
             bgmEnabled = c.bgmEnabled; seEnabled = c.seEnabled; lastSaveTime = c.lastSaveTime;
             bgmVolume = c.bgmVolume; seVolume = c.seVolume;
             purchaseNoticeAcknowledged = c.purchaseNoticeAcknowledged;
+            favoriteCharacterId = c.favoriteCharacterId;
         }
     }
 
@@ -112,7 +115,8 @@ namespace Mofumachi.Core
                 s.playerLevel < 1 || s.townGrowthLevel < 0 || s.questProgress < 0 ||
                 s.activeQuestId == null || s.lastSaveTime == null || !Enum.IsDefined(typeof(QuestState), s.questState) ||
                 s.inventory == null || s.mergeBoard == null || s.completedQuestIds == null || s.claimedRewardIds == null ||
-                !ValidVolume(s.bgmVolume) || !ValidVolume(s.seVolume))
+                !ValidVolume(s.bgmVolume) || !ValidVolume(s.seVolume) || s.favoriteCharacterId == null ||
+                (s.favoriteCharacterId.Length > 0 && !CharacterCatalog.IsKnown(s.favoriteCharacterId)))
                 throw new InvalidDataException("Invalid or unsupported save state.");
             var cells = new HashSet<int>();
             foreach (var item in s.mergeBoard)

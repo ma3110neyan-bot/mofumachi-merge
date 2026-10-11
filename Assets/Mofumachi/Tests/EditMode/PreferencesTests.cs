@@ -24,7 +24,7 @@ namespace Mofumachi.Tests
         {
             var s = StateCodec.Decode(V1);
             StateCodec.Validate(s);
-            Assert.That(s.saveVersion, Is.EqualTo(2));
+            Assert.That(s.saveVersion, Is.EqualTo(3));
             Assert.That(s.coins, Is.EqualTo(30)); Assert.That(s.gems, Is.EqualTo(7));
             Assert.That(s.stamina, Is.EqualTo(12)); Assert.That(s.playerLevel, Is.EqualTo(4));
             Assert.That(s.townGrowthLevel, Is.EqualTo(1)); Assert.That(s.activeQuestId, Is.EqualTo("tea-01"));
@@ -118,7 +118,7 @@ namespace Mofumachi.Tests
             File.WriteAllText(disk.PrimaryPath, invalid);
             var loaded = disk.Load();
             Assert.That(loaded.Recovered, Is.True); Assert.That(loaded.State.coins, Is.EqualTo(30));
-            Assert.That(loaded.State.saveVersion, Is.EqualTo(2)); Assert.That(loaded.State.bgmVolume, Is.EqualTo(.75f));
+            Assert.That(loaded.State.saveVersion, Is.EqualTo(3)); Assert.That(loaded.State.bgmVolume, Is.EqualTo(.75f));
         }
 
         [TestCase("bgmVolume", "0.75")] [TestCase("seVolume", "0.65")]

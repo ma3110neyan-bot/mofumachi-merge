@@ -19,6 +19,11 @@ namespace Mofumachi.Core
         public bool TryMerge(int from, int to) => Mutate(() => Board.TryMerge(from, to));
         public bool TryMove(int from, int to) => Mutate(() => Board.TryMove(from, to));
         public bool AddItem(string id, int level) => Mutate(() => Board.AddItem(id, level));
+        public bool SelectFavorite(string id)
+        {
+            if (!CharacterCatalog.IsKnown(id)) { LastError = "パートナーを6名の中から選んでください。"; return false; }
+            return Mutate(() => { State.favoriteCharacterId = id; return true; });
+        }
         public bool SetAudio(bool bgm, bool se) => SetAudioPreferences(bgm, se, State.bgmVolume, State.seVolume);
         public bool SetAudioPreferences(bool bgm, bool se, float bgmVolume, float seVolume)
         {

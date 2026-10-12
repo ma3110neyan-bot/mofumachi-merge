@@ -26,7 +26,7 @@ namespace Mofumachi.Presentation
                     var entry=requirements[i];var item=entry.Requirement;float width=.88f/requirements.Count;
                     var required=w.OrnatePanel("Required item "+i,area,new Rect(.06f+i*width,.23f,width-.02f,.17f),UIWidgets.BluePaper,12).rectTransform;
                     w.Item("Required art "+i,item.ItemId,item.Level,required,new Rect(.03f,.1f,.27f,.8f));
-                    w.Label("Required count "+i,ItemCatalog.Find(item.ItemId).Name+" Lv."+item.Level+"\n"+System.Math.Min(entry.Available,item.Count)+" / "+item.Count,required,new Rect(.31f,.04f,.65f,.9f),12);
+                    w.Label("Required count "+i,ItemCatalog.Find(item.ItemId).Name+" Lv."+item.Level+"\n"+entry.Available+" / "+item.Count,required,new Rect(.31f,.04f,.65f,.9f),12);
                 }
                 w.Icon("Reward coin",UIIcon.Coin,area,new Rect(.23f,.16f,.09f,.06f));
                 w.Heading("Reward","報酬 "+quest.Coins+" Coins",area,new Rect(.33f,.15f,.56f,.07f),16);
@@ -40,8 +40,10 @@ namespace Mofumachi.Presentation
             var w=c.Widgets;w.Header(root,c,"マージ",UIWidgets.Sky);
             var progress=w.Panel("Merge progress",root,new Rect(0,0,1,1),UIWidgets.BluePaper).rectTransform;UIWidgets.Top(progress,12,68,12,38);
             var quest=QuestCatalog.NextFor(c.Game.State);
-            string summary=quest==null?(ChapterProgress.For(c.Game.State).AllCompleted?"すべての依頼が完了しました":UIStrings.UnknownQuest):c.Game.State.activeQuestId!=quest.Id?"依頼を受けて、アイテムを届けよう":string.Join("　",c.Game.Quests.GetProgress(quest).Select(p=>ItemCatalog.Find(p.Requirement.ItemId).Name+" Lv."+p.Requirement.Level+" "+System.Math.Min(p.Available,p.Requirement.Count)+" / "+p.Requirement.Count));
-            w.StoryLabel("Merge chapter",ChapterCatalog.ForQuest(quest?.Id)?.Title??"",progress,new Rect(.03f,.5f,.94f,.5f),14);
+            bool accepted=UIStrings.IsAccepted(c.Game.State,quest),deliverable=accepted&&c.Game.Quests.CheckDelivery();
+            string summary=quest==null?UIStrings.DeliveryHint(c.Game):UIStrings.RequiredSummary(c.Game,quest);
+            string status=quest==null?"":!accepted?"未受注：まず「依頼を見る」へ":deliverable?"納品できます！":!c.Flow.CanInteractBoard?"合成中です":("受注中："+(ChapterCatalog.ForQuest(quest.Id)?.Title??quest.Title));
+            w.StoryLabel("Merge chapter",status,progress,new Rect(.03f,.5f,.94f,.5f),12);
             w.Label("Progress",summary,progress,new Rect(.03f,0,.94f,.5f),12);
             var tray=w.Panel("Merge tray",root,new Rect(0,0,1,1),new Color(.73f,.92f,.84f)).rectTransform;tray.offsetMin=new Vector2(10,158);tray.offsetMax=new Vector2(-10,-112);
             w.Frame(tray,22,false);
@@ -75,11 +77,14 @@ namespace Mofumachi.Presentation
             }
             grid.gameObject.AddComponent<MergeGridLayout>();
             var toolbar=UIWidgets.Node("Merge toolbar",root,new Rect(0,0,1,1));UIWidgets.Bottom(toolbar,12,106,12,48);
-            var menu=w.Button("Merge actions","…",toolbar,new Rect(0,0,0,1),c.Flow.OpenMergeActions,true);((RectTransform)menu.transform).sizeDelta=new Vector2(48,0);
+            var menu=w.Button("Merge actions","種類\n整理",toolbar,new Rect(0,0,0,1),c.Flow.OpenMergeActions,true);((RectTransform)menu.transform).sizeDelta=new Vector2(48,0);
+            var menuText=menu.GetComponentInChildren<Text>();menuText.fontSize=14;menuText.lineSpacing=.9f;
             var generate=w.Button("Create tea",ItemCatalog.Find(c.Flow.ProductionItemId).Name+"を作る",toolbar,new Rect(0,0,.56f,1),()=>c.Flow.GenerateItem(c.Flow.ProductionItemId),true);((RectTransform)generate.transform).offsetMin=new Vector2(52,0);
-            var delivery=w.Button("Deliver","納品する",toolbar,new Rect(.59f,0,.41f,1),()=>c.Flow.Deliver());delivery.interactable=c.Game.Quests.CheckDelivery();
+            bool preview=quest!=null&&!accepted;
+            var delivery=w.Button("Deliver",preview?"依頼を見る":"納品する",toolbar,new Rect(.59f,0,.41f,1),()=>{if(preview)c.Flow.ShowQuest();else c.Flow.Deliver();});delivery.interactable=preview||deliverable;
             w.Feedback(root,c,ScreenId.Merge); // Compact feedback between navigation and toolbar.
-            var text=root.Find("Feedback").GetComponent<Text>();UIWidgets.Bottom(text.rectTransform,14,76,14,28);
+            var text=root.Find("Feedback").GetComponent<Text>();UIWidgets.Bottom(text.rectTransform,14,76,14,28);text.fontSize=11;text.lineSpacing=.82f;
+            if(text.text.Length==0)text.text=c.Game.State.mergeBoard.Count>=30?UIStrings.BoardFull:UIStrings.DeliveryHint(c.Game);
             var feedbackSurface=root.Find("Feedback surface") as RectTransform;if(feedbackSurface!=null)UIWidgets.Bottom(feedbackSurface,12,76,12,28);
             w.Nav(root,c,ScreenId.Merge);
         }

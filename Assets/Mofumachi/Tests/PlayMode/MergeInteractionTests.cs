@@ -42,19 +42,24 @@ namespace Mofumachi.Tests
         }
         [UnityTest] public IEnumerator OutsideDropAndSaveFailureDoNotConsumeItems()
         {
-            yield return EnterHome();Flow.ShowMerge();Canvas.ForceUpdateCanvases();var source=Flow.GetComponentsInChildren<MergeBoardView>()[0];var e=Pointer(source.transform);
+            yield return EnterHome();Flow.ShowMerge();Flow.TapCell(0);Canvas.ForceUpdateCanvases();var source=Flow.GetComponentsInChildren<MergeBoardView>()[0];var e=Pointer(source.transform);
             source.OnBeginDrag(e);e.position=new Vector2(-200,-200);source.OnEndDrag(e);yield return null;
             Assert.That(Flow.Game.State.mergeBoard.Count,Is.EqualTo(2));Assert.That(GameObject.Find("Dragged tea"),Is.Null);
+            Assert.That(Flow.FeedbackFor(ScreenId.Merge),Does.Contain("盤面の外"));
+            Assert.That(Flow.SelectedCell,Is.EqualTo(0));
             Store.Fail=true;Assert.That(Flow.DropItem(0,1),Is.False);Assert.That(Flow.Game.Board.At(0).level,Is.EqualTo(1));Assert.That(Flow.Game.Board.IsLocked(1),Is.False);
+            Assert.That(Flow.SelectedCell,Is.EqualTo(0));
             Store.Fail=false;Assert.That(Flow.AcceptQuest(),Is.True);var deliver=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Deliver");Assert.That(deliver.interactable,Is.False);
         }
         [UnityTest] public IEnumerator DifferentMaxLevelAndLockedItemsRefuseWithoutMutation()
         {
             yield return EnterHome();Flow.ShowMerge();
             Flow.Game.State.mergeBoard[1].level=2;Assert.That(Flow.DropItem(0,1),Is.False);
+            Assert.That(Flow.FeedbackFor(ScreenId.Merge),Does.Contain("Lv.が違います"));
             Flow.Game.State.mergeBoard[0].level=Mofumachi.Core.GameState.MaxLevel;Flow.Game.State.mergeBoard[1].level=Mofumachi.Core.GameState.MaxLevel;
             Assert.That(Flow.DropItem(0,1),Is.False);Assert.That(Flow.Game.State.mergeBoard.Count,Is.EqualTo(2));
             Assert.That(Flow.Game.Board.At(0).level,Is.EqualTo(Mofumachi.Core.GameState.MaxLevel));
+            Assert.That(Flow.FeedbackFor(ScreenId.Merge),Does.Contain("最高Lv."));
         }
         [UnityTest] public IEnumerator ShortPortraitBoardStaysSquareAndOperable()
         {

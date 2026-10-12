@@ -57,6 +57,7 @@ namespace Mofumachi.Presentation
         private void Awake()
         {
             if (session == null) Initialize(new SaveService(Application.persistentDataPath));
+            ProductionItemId=UIStrings.SuggestedProduction(Game);
             font = Resources.Load<Font>("Mofumachi/UIFont");
             characters = Resources.Load<Texture2D>("Mofumachi/CharacterMaster");
             if (font == null || characters == null)
@@ -93,6 +94,7 @@ namespace Mofumachi.Presentation
         {
             var loaded = store.Load();
             session = new GameStateManager(loaded.State, store);
+            ProductionItemId=UIStrings.SuggestedProduction(Game);selected=-1;feedback.Remove(ScreenId.Merge);
             notice = loaded.Reason;feedback[ScreenId.Title]=loaded.Reason;
         }
         private void Update() { UpdateSafeArea(); if(Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame) GoBack(); }
@@ -195,6 +197,7 @@ namespace Mofumachi.Presentation
             Game.Board.ReleaseLocks(); Game.Quests.RefreshProgress(); selected = -1;
             bool saved = Game.Save();
             if (!saved) { notice = Game.LastError; feedback[CurrentScreen]=notice; }
+            else ClearBusyFeedback();
             return saved;
         }
         public bool AcceptQuest()
@@ -203,28 +206,36 @@ namespace Mofumachi.Presentation
             var quest=QuestCatalog.NextFor(Game.State);
             if(quest==null){feedback[ScreenId.Quest]=ChapterProgress.For(Game.State).AllCompleted?"すべての依頼が完了しました。":UIStrings.UnknownQuest;Render("quest");return false;}
             bool accepted = Game.Quests.AcceptQuest(quest);
-            notice = accepted ? "依頼を受けました。アイテムを合成しましょう。" : Game.Quests.LastError;
+            if(accepted){ProductionItemId=UIStrings.SuggestedProduction(Game);selected=-1;}
+            notice = accepted ? UIStrings.DeliveryHint(Game) : Game.Quests.LastError;
             feedback[accepted?ScreenId.Merge:ScreenId.Quest]=notice;
+            MergeInputDiagnostics.Record(this,"accept",-1,-1,accepted?"accepted":notice);
             Render(accepted ? "merge" : "quest");
             return accepted;
         }
         public bool DropItem(int from, int to)
         {
-            if (!CanPlay || mergeAnimation != null) return false;
+            MergeInputDiagnostics.Record(this,"drop-request",from,to,"requested");
+            if (!CanInteractBoard)
+            {
+                if(mergeAnimation!=null)ReportBoardMessage(UIStrings.MergeBusy);
+                MergeInputDiagnostics.Record(this,"drop-result",from,to,"input-blocked");return false;
+            }
             if(mergeEffects!=null)mergeEffects.Cancel();
             var original=Game.Board.At(from);string originalId=original?.itemId;int originalLevel=original?.level??0;
             bool occupied=Game.Board.At(to)!=null;
-            bool merged = occupied && Game.TryMerge(from, to);
-            bool changed = occupied ? merged : Game.TryMove(from, to);
-            notice = changed ? (merged ? "キラッ！ アイテムが育ちました。" : "移動しました。") : "その場所には移動・合成できません。";
-            if (!changed && Game.LastError.Length > 0) notice = Game.LastError;
+            string reason=UIStrings.DropReason(Game.Board,from,to);
+            bool merged = reason.Length==0 && occupied && Game.TryMerge(from, to);
+            bool changed = reason.Length==0 && (occupied ? merged : Game.TryMove(from, to));
+            notice = changed ? (merged ? "キラッ！ アイテムが育ちました。" : "移動しました。") : reason.Length>0?reason:Game.LastError.Length>0?Game.LastError:"アイテムを選び直してください。";
             feedback[ScreenId.Merge]=notice;
+            MergeInputDiagnostics.Record(this,"drop-result",from,to,changed?(merged?"merged":"moved"):notice);
             if (merged)
             {
                 audioManager.PlaySe(AudioCue.Merge);
                 mergeAnimation = StartCoroutine(FinishMerge());
             }
-            selected = -1; Render("merge");
+            if(changed)selected=-1;Render("merge");
             if(merged&&ItemCatalog.Find(originalId)!=null)
             {
                 if(mergeEffects==null)mergeEffects=UIWidgets.Node("Merge effects",layout.ContentRoot,new Rect(0,0,1,1)).gameObject.AddComponent<MergeEffectsView>();
@@ -240,13 +251,25 @@ namespace Mofumachi.Presentation
             Game.Board.ReleaseLocks(); Game.Quests.RefreshProgress();
             bool saved=Game.Save();
             if (!saved){feedback[ScreenId.Merge] = Game.LastError;if(mergeEffects!=null)mergeEffects.Cancel();}
+            else ClearBusyFeedback();
             Render(view,preserveMergeTail:saved);
+        }
+        private void ClearBusyFeedback()
+        {
+            if(FeedbackFor(ScreenId.Merge)==UIStrings.MergeBusy)feedback[ScreenId.Merge]=UIStrings.DeliveryHint(Game);
         }
         public DeliveryResult Deliver()
         {
             if(!CanPlay || (CurrentScreen!=ScreenId.Quest && CurrentScreen!=ScreenId.Merge))return new DeliveryResult(false,"この画面では納品できません。");
+            if(mergeAnimation!=null){ReportBoardMessage(UIStrings.MergeBusy);return new DeliveryResult(false,UIStrings.MergeBusy);}
+            if(!Game.Quests.CheckDelivery())
+            {
+                var hint=UIStrings.DeliveryHint(Game);feedback[CurrentScreen]=hint;
+                MergeInputDiagnostics.Record(this,"delivery",-1,-1,hint);Render(view);return new DeliveryResult(false,hint);
+            }
             var quest=Game.Quests.ActiveQuest;
             int coins=Game.State.coins,town=Game.State.townGrowthLevel;var result=Game.Quests.TryDeliver();
+            MergeInputDiagnostics.Record(this,"delivery",-1,-1,result.Success?"delivered":result.Message);
             if(result.Success)
             {
                 feedback.Remove(ScreenId.Merge); feedback.Remove(ScreenId.Quest);
@@ -351,15 +374,36 @@ namespace Mofumachi.Presentation
         }
         public void TapCell(int cell)
         {
-            if(!CanPlay || mergeAnimation!=null)return;
-            if (selected < 0) { if (Game.Board.At(cell) != null) { selected = cell;var item=Game.Board.At(cell);feedback[ScreenId.Merge]=(ItemCatalog.Find(item.itemId)?.Name??"アイテム")+" Lv."+item.level+"　"+UIStrings.MergeSelectionHint; Render("merge",animateSelection:true); } }
-            else DropItem(selected, cell);
+            MergeInputDiagnostics.Record(this,"tap",selected,cell,"requested");
+            if(!CanInteractBoard){if(mergeAnimation!=null)ReportBoardMessage(UIStrings.MergeBusy);return;}
+            if(cell<0||cell>=GameState.Columns*GameState.Rows){ReportBoardMessage(UIStrings.OutsideBoard);return;}
+            if(cell==selected){selected=-1;feedback[ScreenId.Merge]=UIStrings.DeliveryHint(Game);Render("merge");return;}
+            var item=Game.Board.At(cell);
+            if(selected<0)
+            {
+                if(item==null){ReportBoardMessage(UIStrings.EmptySource);return;}
+                selected=cell;feedback[ScreenId.Merge]=UIStrings.ItemLabel(item)+"　"+UIStrings.MergeSelectionHint;Render("merge",animateSelection:true);return;
+            }
+            var reason=UIStrings.DropReason(Game.Board,selected,cell);
+            if(item!=null && reason.Length>0 && !Game.Board.IsLocked(cell))
+            {
+                selected=cell;feedback[ScreenId.Merge]=reason+"\n"+UIStrings.ItemLabel(item)+"を選びました。";Render("merge",animateSelection:true);return;
+            }
+            DropItem(selected,cell);
+        }
+        public void ReportBoardMessage(string message)
+        {
+            feedback[ScreenId.Merge]=message;
+            if(CurrentScreen!=ScreenId.Merge||page==null)return;
+            var text=page.transform.Find("Feedback")?.GetComponent<Text>();if(text!=null)text.text=message;
         }
         public void CreateTea() => GenerateItem("tea");
         public void GenerateItem(string id)
         {
             if(!CanInteractBoard || ItemCatalog.Find(id)==null)return;
-            bool added=Game.AddItem(id,1);feedback[ScreenId.Merge]=added?ItemCatalog.Find(id).Name+"を作りました。":Game.LastError.Length>0?Game.LastError:"空きマスを確認してください。";
+            selected=-1;
+            bool added=Game.AddItem(id,1);feedback[ScreenId.Merge]=added?ItemCatalog.Find(id).Name+" Lv.1を作りました。"+UIStrings.MergeSelectionHint:Game.LastError.Length>0?Game.LastError:UIStrings.BoardFull;
+            MergeInputDiagnostics.Record(this,"generate",-1,-1,added?"created "+id:feedback[ScreenId.Merge]);
             if(added)PlayCue(AudioCue.Confirm);Render("merge");
         }
         private void OpenUtilityModal(ModalKind kind,System.Action<RectTransform,ScreenContext> build)
@@ -378,7 +422,8 @@ namespace Mofumachi.Presentation
         public void ChooseProductionItem(string id)
         {
             if(modalKind!=ModalKind.MergeMenu || ItemCatalog.Find(id)==null)return;
-            ProductionItemId=id;CloseUtilityModal();Render("merge");
+            ProductionItemId=id;selected=-1;feedback[ScreenId.Merge]=ItemCatalog.Find(id).Name+"を作れます。"+UIStrings.MergeSelectionHint;
+            MergeInputDiagnostics.Record(this,"choose-kind",-1,-1,id);CloseUtilityModal();Render("merge");
         }
         public void CancelMergeActions()
         { if(modalKind==ModalKind.MergeMenu){CloseUtilityModal();Render("merge");} }
@@ -393,6 +438,7 @@ namespace Mofumachi.Presentation
         {
             if(modalKind!=ModalKind.Discard || CurrentScreen!=ScreenId.Merge || transitioning)return false;
             bool removed=Game.TryRemoveItem(discardCell,DiscardItemId,DiscardItemLevel);
+            MergeInputDiagnostics.Record(this,"discard",discardCell,-1,removed?"removed":Game.LastError.Length>0?Game.LastError:"stale target");
             if(removed){selected=-1;CloseUtilityModal();feedback[ScreenId.Merge]="アイテムを片づけました。";Render("merge");}
             else {feedback[ScreenId.Merge]=Game.LastError.Length>0?Game.LastError:"アイテムが変わりました。選び直してください。";OpenUtilityModal(ModalKind.Discard,DiscardConfirmationView.Build);}
             return removed;

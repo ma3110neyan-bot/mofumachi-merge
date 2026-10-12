@@ -16,6 +16,7 @@ namespace Mofumachi.Tests
             Assert.That(Flow.Deliver().Success,Is.True);Flow.ShowHome();Flow.ShowQuest();
             Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Requester").text,Is.EqualTo("モモ"));
             Assert.That(Flow.AcceptQuest(),Is.True);
+            Assert.That(Flow.ProductionItemId,Is.EqualTo("bread"));
             Flow.GenerateItem("bread");Flow.GenerateItem("bread");Assert.That(Flow.DropItem(0,1),Is.True);
             yield return new WaitForSecondsRealtime(.3f);Assert.That(Flow.Deliver().Success,Is.True);
             Assert.That(Flow.LastDelivery.RequesterId,Is.EqualTo("momo"));Assert.That(Flow.LastDelivery.CoinsAwarded,Is.EqualTo(40));

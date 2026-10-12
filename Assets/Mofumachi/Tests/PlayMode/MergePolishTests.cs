@@ -35,7 +35,8 @@ namespace Mofumachi.Tests
             Assert.That(Flow.FeedbackFor(ScreenId.Merge),Does.Contain("お茶 Lv.1"));
             Assert.That(Flow.GetComponentsInChildren<MergeSparkleGraphic>().All(g=>!g.raycastTarget),Is.True);
             Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));
-            Flow.GenerateItem("bread");Assert.That(Art(0).transform.localScale.x,Is.EqualTo(1.06f).Within(.001),"Rebuilding must not replay selection.");
+            Flow.GenerateItem("bread");Assert.That(Flow.SelectedCell,Is.EqualTo(-1),"Producing an item starts a new selection gesture.");
+            Assert.That(Art(0).transform.localScale,Is.EqualTo(Vector3.one));
             LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator SavedMergeUnlocksBeforeTheLightTailAndNeverReplaysOnReentry()
@@ -73,9 +74,11 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator PauseAndSettingsCancelVisualsAndKeepTheSavedMerge()
         {
             yield return EnterHome();Flow.ShowMerge();Assert.That(Flow.DropItem(0,1),Is.True);var effects=Effects();
+            Assert.That(Flow.Deliver().Success,Is.False);Assert.That(Flow.FeedbackFor(ScreenId.Merge),Is.EqualTo(UIStrings.MergeBusy));
             Flow.SendMessage("OnApplicationPause",true);Assert.That(effects.IsPlaying,Is.False);
             Assert.That(Flow.GetComponentsInChildren<MergeSparkleGraphic>().Length,Is.Zero);
             Flow.SendMessage("OnApplicationPause",false);Assert.That(effects.IsPlaying,Is.False);
+            Assert.That(Flow.FeedbackFor(ScreenId.Merge),Is.Not.EqualTo(UIStrings.MergeBusy));
             Assert.That(Art(1).enabled,Is.True);Assert.That(Art(1).transform.localScale,Is.EqualTo(Vector3.one));
             Assert.That(Flow.Game.Board.At(1).level,Is.EqualTo(2));Assert.That(Flow.Game.AddItem("tea",2),Is.True);
             Flow.ShowMerge();Assert.That(Flow.DropItem(0,1),Is.True);Flow.ShowSettings();
@@ -105,7 +108,7 @@ namespace Mofumachi.Tests
             Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Flow.ShowMerge();
             Assert.That(Art(2).enabled,Is.True);Assert.That(Flow.GetComponentsInChildren<MergeEffectsView>().Length,Is.Zero);LogAssert.NoUnexpectedReceived();
         }
-        [UnityTest] public IEnumerator LayoutAndRejectedDeliveryCancelVisualsWithoutChangingTheSavedItems()
+        [UnityTest] public IEnumerator LayoutCancelsVisualsAndBusyDeliveryPreservesSavedMergeUntilUnlock()
         {
             yield return EnterHome();Flow.ShowMerge();yield return null;
             var drag=Flow.GetComponentsInChildren<MergeBoardView>().Single(v=>v.name=="Cell 0");
@@ -119,8 +122,11 @@ namespace Mofumachi.Tests
             yield return new WaitForSecondsRealtime(.27f);
             Assert.That(Flow.Game.AddItem("tea",2),Is.True);Flow.ShowMerge();Assert.That(Flow.DropItem(0,1),Is.True);
             Assert.That(Flow.Deliver().Success,Is.False,"Locked animation cannot deliver.");
-            Assert.That(effects.IsPlaying,Is.False,"An ordinary rebuild must not retain an overlay for the old page.");
-            Assert.That(Art(1).enabled,Is.True);Assert.That(Flow.Game.Board.At(1).level,Is.EqualTo(3));LogAssert.NoUnexpectedReceived();
+            Assert.That(effects.IsPlaying,Is.True,"A busy delivery must not rebuild the board or interrupt the saved merge.");
+            Assert.That(Flow.Game.Board.At(1).level,Is.EqualTo(3));Assert.That(Flow.Game.State.coins,Is.Zero);
+            yield return new WaitForSecondsRealtime(.27f);
+            Assert.That(Art(1).enabled,Is.True);Assert.That(Flow.CanInteractBoard,Is.True);
+            Assert.That(Flow.FeedbackFor(ScreenId.Merge),Is.Not.EqualTo(UIStrings.MergeBusy));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator ShortAndTallLayoutsKeepLevelTextAndSelectedArtInsideCells()
         {

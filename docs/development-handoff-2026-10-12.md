@@ -86,7 +86,7 @@
 
 ## 9. GitHub反映状況
 
-使用ブランチ`work`、基準`4a50b3d`。今回のコミットとmain反映は最終応答／末尾で記録します。Windows側はPullが必要です。
+使用ブランチ`work`、基準`4a50b3d`。実装コミット **`aa7836bb95de56ca4d0c4ae8b11fc05581a19d37`** をmainへ通常のfast-forward pushで反映し、remoteの同一SHAを確認済み。この反映記録は後続の資料更新コミットに含まれ、最終応答のSHAが最新です。**Windows側はFetch origin→Pull originが必要**です。新APKをクラウドで作ったという意味ではありません。
 
 主要変更ファイル：
 

@@ -5,7 +5,7 @@
 - インストール先は既存の **com.mofumachi.merge.qa.townlife**。別QA／通常版の保存とは区別する。
 - アプリデータを消去・アンインストールしない。可能なら下記の読み取りコピーで詰まった状態を記録する。
 - Gitコミット、Edit／Playの全件XML、APK SHA256と実施日時を記録。手動メニュービルドとPowerShellの日時付き出力先を混同しない。
-- WindowsのEditMode／PlayModeが全件成功するまで、公開合格とは扱わない。コンパイル済み構成は98件／76件で、今回の2SuiteはMergeProgressionUiTests、MergeGuidanceTests。実行件数・合否はWindowsのXMLで確認する。
+- WindowsのEditMode／PlayModeが全件成功するまで、公開合格とは扱わない。診断出力の回帰1件を追加し、コンパイル済み構成は98件／77件。今回の2SuiteはMergeProgressionUiTests、MergeGuidanceTests。実行件数・合否はWindowsのXMLで確認する。
 
 ## 画面と実操作
 1. TOP→ホーム→依頼。依頼名、要求種類・正確なLv.・必要数・所持数を確認。パンだけの依頼か、お茶も必要な複数条件か記録。
@@ -34,6 +34,8 @@
 
 ## PowerShellで保存コピー・QAログを残す
 追加参照は承認・反映済みです。まずWindowsで全件検証し、全件合格後に生成した新しいTown QA APKで確認してください。クラウドで新APKやPixel試験を実行したという意味ではありません。
+
+QA情報ログはDevelopment Buildのプレイヤーで出力し、Editorでは出力しません。今回のWindows失敗にあった通常ログとLogAssert.NoUnexpectedReceivedの干渉を避け、厳格なエラー／警告検査を維持するためです。Pixelでは下記のログ取得を継続して使えます。
 
 ### 更新前の読み取りコピー（可能な場合）
 Pixelを接続・ロック解除し、ゲーム操作を止めて実行。新しいフォルダを作るので以前の記録は上書きしません。

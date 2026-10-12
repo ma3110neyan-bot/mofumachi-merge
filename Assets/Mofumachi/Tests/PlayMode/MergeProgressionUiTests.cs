@@ -83,6 +83,7 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();Flow.ShowMerge();yield return Click("Cell 0");yield return Click("Merge actions");
             yield return Click("Produce bread");Assert.That(Flow.SelectedCell,Is.EqualTo(-1));
+            LogAssert.NoUnexpectedReceived(); // QA information must not pollute Editor log assertions.
             yield return Click("Create tea");yield return Click("Create tea");yield return Click("Cell 2");yield return Click("Cell 3");
             Assert.That(Flow.Game.Board.At(2),Is.Null);Assert.That(Flow.Game.Board.At(3).itemId,Is.EqualTo("bread"));
             Assert.That(Flow.Game.Board.At(3).level,Is.EqualTo(2));LogAssert.NoUnexpectedReceived();
@@ -157,6 +158,14 @@ public sealed class MergeGuidanceTests
  private string root;private GameStateManager game;
  [SetUp]public void Setup(){root=Path.Combine(Path.GetTempPath(),"merge-guidance-"+Guid.NewGuid());game=new GameStateManager(GameState.CreateInitial(),new SaveService(root));}
  [TearDown]public void Cleanup(){if(Directory.Exists(root))Directory.Delete(root,true);}
+
+ [Test]public void DiagnosticsOnlyEnablesDevelopmentPlayers()
+ {
+  Assert.That(MergeInputDiagnostics.ShouldRecord(true,true),Is.False);
+  Assert.That(MergeInputDiagnostics.ShouldRecord(true,false),Is.False);
+  Assert.That(MergeInputDiagnostics.ShouldRecord(false,false),Is.False);
+  Assert.That(MergeInputDiagnostics.ShouldRecord(false,true),Is.True);
+ }
 
  [Test]public void BreadQuestSuggestsBreadWithoutNewSaveField(){game.State.completedQuestIds.Add("tea-01");Assert.That(UIStrings.SuggestedProduction(game),Is.EqualTo("bread"));Assert.That(game.State.saveVersion,Is.EqualTo(3));}
  [Test]public void MixedQuestSuggestsTheMissingRequirement(){game.State.activeQuestId="tea-02";game.State.mergeBoard.Clear();game.AddItem("tea",3);Assert.That(UIStrings.SuggestedProduction(game),Is.EqualTo("bread"));}

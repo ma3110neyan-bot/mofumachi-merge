@@ -5,13 +5,15 @@ using UnityEngine.EventSystems;
 
 namespace Mofumachi.Presentation
 {
-    // A bounded input log for Editor/development QA. No save contents or per-frame logging.
+    // Development-player QA only. Editor tests keep strict checks for unexpected logs.
     public static class MergeInputDiagnostics
     {
+        public static bool ShouldRecord(bool isEditor,bool isDevelopment)=>!isEditor&&isDevelopment;
+
         [Conditional("UNITY_EDITOR"),Conditional("DEVELOPMENT_BUILD")]
         public static void Record(UIFlowController flow,string action,int from,int to,string result,PointerEventData pointer=null)
         {
-            if(flow==null||flow.Game==null)return;
+            if(!ShouldRecord(Application.isEditor,UnityEngine.Debug.isDebugBuild)||flow==null||flow.Game==null)return;
             var game=flow.Game;
             string input=pointer==null?"":$" pointer={pointer.pointerId} position={pointer.position} pressCamera={pointer.pressEventCamera?.name??"overlay"}";
             string module=EventSystem.current?.currentInputModule?.GetType().Name??"none";

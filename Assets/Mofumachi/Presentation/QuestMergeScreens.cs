@@ -35,7 +35,7 @@ namespace Mofumachi.Presentation
             UIWidgets.Bottom((RectTransform)accept.transform,20,16,20,52);
             w.Feedback(root,c,ScreenId.Quest);w.Nav(root,c,ScreenId.Quest);
         }
-        public static void BuildMerge(RectTransform root,ScreenContext c)
+        public static void BuildMerge(RectTransform root,ScreenContext c,bool animateSelection=false)
         {
             var w=c.Widgets;w.Header(root,c,"マージ",UIWidgets.Sky);
             var progress=w.Panel("Merge progress",root,new Rect(0,0,1,1),UIWidgets.BluePaper).rectTransform;UIWidgets.Top(progress,12,68,12,38);
@@ -50,11 +50,28 @@ namespace Mofumachi.Presentation
             for(int i=0;i<30;i++)
             {
                 int index=i;var item=c.Game.Board.At(i);var b=w.Button("Cell "+i,"",grid,new Rect(0,0,1,1),()=>{} ,true);
-                var surface=b.GetComponent<RoundedPanelGraphic>();surface.radius=13;surface.borderWidth=.8f;surface.gloss=.12f;
+                var surface=b.GetComponent<RoundedPanelGraphic>();surface.radius=13;surface.borderWidth=1;surface.gloss=.2f;
                 surface.color=c.Game.Board.IsLocked(i)?new Color(1,.89f,.59f):index==c.Flow.SelectedCell?new Color(1,.69f,.8f):UIWidgets.Cream;
                 var drag=b.gameObject.AddComponent<MergeBoardView>();drag.Initialize(c.Flow,i);
                 b.onClick.AddListener(()=>{if(!drag.SuppressClick)c.Flow.TapCell(index);});
-                if(item!=null){if(ItemCatalog.Find(item.itemId)!=null)w.Item("Item art",item.itemId,item.level,(RectTransform)b.transform,new Rect(.09f,.36f,.82f,.59f));else w.Heading("Unknown item","?",(RectTransform)b.transform,new Rect(.09f,.36f,.82f,.59f),20);w.Heading("Item level","Lv."+item.level,(RectTransform)b.transform,new Rect(.02f,.015f,.96f,.36f),11);}
+                if(item!=null)
+                {
+                    var cell=(RectTransform)b.transform;
+                    if(ItemCatalog.Find(item.itemId)!=null)
+                    {
+                        var art=w.Item("Item art",item.itemId,item.level,cell,new Rect(.09f,.36f,.82f,.59f));art.SetPolished(true);
+                        if(index==c.Flow.SelectedCell)
+                        {
+                            if(animateSelection)art.gameObject.AddComponent<ItemSelectionFeedback>().Play();
+                            else art.transform.localScale=Vector3.one*MergeVisualTiming.SelectionScale(MergeVisualTiming.SelectionSeconds);
+                            UIWidgets.Node("Selected item glint",art.rectTransform,new Rect(0,0,1,1)).gameObject.AddComponent<MergeSparkleGraphic>().BindSelection();
+                        }
+                    }
+                    else w.Heading("Unknown item","?",cell,new Rect(.09f,.36f,.82f,.59f),20);
+                    var tint=item.itemId=="tea"?new Color(.9f,.97f,.94f):item.itemId=="bread"?new Color(1,.94f,.84f):new Color(.99f,.91f,.96f);
+                    var badge=w.Panel("Item level badge",cell,new Rect(.13f,.045f,.74f,.28f),tint);badge.radius=5;badge.borderWidth=.6f;badge.gloss=.15f;
+                    w.Heading("Item level","Lv."+item.level,cell,new Rect(.02f,.015f,.96f,.36f),11);
+                }
             }
             grid.gameObject.AddComponent<MergeGridLayout>();
             var toolbar=UIWidgets.Node("Merge toolbar",root,new Rect(0,0,1,1));UIWidgets.Bottom(toolbar,12,106,12,48);
@@ -69,7 +86,7 @@ namespace Mofumachi.Presentation
     }
     public sealed class MergeGridLayout : MonoBehaviour
     {
-        private void Start()=>Resize();private void OnRectTransformDimensionsChange()=>Resize();
-        private void Resize(){var g=GetComponent<GridLayoutGroup>();if(g==null)return;float size=ResponsiveUILayout.CellSize(((RectTransform)transform).rect.size,g.spacing.x);g.cellSize=new Vector2(size,size);}
+        private void Start()=>ResizeNow();private void OnRectTransformDimensionsChange()=>ResizeNow();
+        public void ResizeNow(){var g=GetComponent<GridLayoutGroup>();if(g==null)return;float size=ResponsiveUILayout.CellSize(((RectTransform)transform).rect.size,g.spacing.x);g.cellSize=new Vector2(size,size);}
     }
 }

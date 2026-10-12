@@ -21,7 +21,7 @@ namespace Mofumachi.Tests
             viewport.gameObject.AddComponent<RectMask2D>();
             try
             {
-                foreach (var type in new[] { typeof(DecorativeFrameGraphic), typeof(RibbonGraphic), typeof(UIIconGraphic), typeof(TownAmbientGraphic), typeof(ItemGraphic), typeof(CharacterBodyGraphic), typeof(TownDecorationGraphic) })
+                foreach (var type in new[] { typeof(DecorativeFrameGraphic), typeof(RibbonGraphic), typeof(UIIconGraphic), typeof(TownAmbientGraphic), typeof(ItemGraphic), typeof(CharacterBodyGraphic), typeof(TownDecorationGraphic), typeof(MergeSparkleGraphic) })
                 {
                     var node = UIWidgets.Node(type.Name, viewport, new Rect(0, 0, 1, 1));
                     var graphic = (MaskableGraphic)node.gameObject.AddComponent(type);

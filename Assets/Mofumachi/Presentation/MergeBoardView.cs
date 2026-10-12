@@ -15,7 +15,7 @@ namespace Mofumachi.Presentation
             ClearGhost();e.eligibleForClick=false;suppressThrough=Time.frameCount+1;
             var parent=(RectTransform)GetComponentInParent<Canvas>().transform;
             ghost=UIWidgets.Node("Dragged tea",parent,new Rect(.5f,.5f,0,0));ghost.sizeDelta=new Vector2(56,56);
-            var item=controller.Game.Board.At(cell);var icon=ghost.gameObject.AddComponent<ItemGraphic>();icon.Bind(item.itemId,item.level);icon.color=new Color(1,1,1,.9f);icon.raycastTarget=false;OnDrag(e);
+            var item=controller.Game.Board.At(cell);var icon=ghost.gameObject.AddComponent<ItemGraphic>();icon.Bind(item.itemId,item.level);icon.SetPolished(true);icon.color=new Color(1,1,1,.9f);icon.raycastTarget=false;OnDrag(e);
         }
         public void OnDrag(PointerEventData e){if(ghost!=null && RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)ghost.parent,e.position,e.pressEventCamera,out var p))ghost.anchoredPosition=p;}
         public void OnEndDrag(PointerEventData e)
@@ -26,5 +26,6 @@ namespace Mofumachi.Presentation
         }
         private void ClearGhost(){if(ghost!=null){ghost.gameObject.SetActive(false);Destroy(ghost.gameObject);}ghost=null;}
         private void OnDisable()=>ClearGhost();
+        private void OnRectTransformDimensionsChange(){if(ghost!=null){ClearGhost();suppressThrough=Time.frameCount+1;}}
     }
 }

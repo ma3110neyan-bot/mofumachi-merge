@@ -12,6 +12,7 @@ namespace Mofumachi.Presentation
         public string ItemId { get; private set; }
         public int Level { get; private set; }
         public Rect UvRect { get; private set; }
+        public bool Polished { get; private set; }
         private Rect pixels;
         // Measured art bounds; sprites retain their silhouettes when Unity downsizes the shared atlas.
         private static readonly Rect[] Bounds={
@@ -26,15 +27,22 @@ namespace Mofumachi.Presentation
             UvRect=pixels.width>0?new Rect(pixels.x/1254f,1-pixels.yMax/1254f,pixels.width/1254f,pixels.height/1254f):Rect.zero;
             SetAllDirty();
         }
+        public void SetPolished(bool value){Polished=value;SetVerticesDirty();}
         protected override void OnPopulateMesh(VertexHelper vh)
         {
             vh.Clear();if(Atlas==null||pixels.width<=0)return;
             Rect target=GetPixelAdjustedRect();float scale=Mathf.Min(target.width/pixels.width,target.height/pixels.height);
             Vector2 size=pixels.size*scale,min=target.center-size/2,max=min+size;
+            if(Polished)Quad(vh,min+new Vector2(.55f,-1.15f),max+new Vector2(.55f,-1.15f),new Color(.29f,.18f,.24f,.13f*color.a));
             Color tint=new Color(1,1,1,color.a);
+            Quad(vh,min,max,tint);
+        }
+        private void Quad(VertexHelper vh,Vector2 min,Vector2 max,Color tint)
+        {
+            int start=vh.currentVertCount;
             vh.AddVert(new Vector3(min.x,min.y),tint,UvRect.min);vh.AddVert(new Vector3(min.x,max.y),tint,new Vector2(UvRect.xMin,UvRect.yMax));
             vh.AddVert(new Vector3(max.x,max.y),tint,UvRect.max);vh.AddVert(new Vector3(max.x,min.y),tint,new Vector2(UvRect.xMax,UvRect.yMin));
-            vh.AddTriangle(0,1,2);vh.AddTriangle(0,2,3);
+            vh.AddTriangle(start,start+1,start+2);vh.AddTriangle(start,start+2,start+3);
         }
     }
 }

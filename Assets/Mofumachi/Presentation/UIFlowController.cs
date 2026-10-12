@@ -47,6 +47,7 @@ namespace Mofumachi.Presentation
         private Rect previousSafeArea;
         private Vector2 previousSize;
         private Coroutine mergeAnimation,presentationAnimation;
+        private MergeEffectsView mergeEffects;
         public DeliveryPresentation LastDelivery { get; private set; }
         public ChapterPresentation LastChapter { get; private set; }
         public bool RewardVisible { get; private set; }
@@ -187,6 +188,7 @@ namespace Mofumachi.Presentation
         public bool Persist()
         {
             if (session == null) return true;
+            if(mergeEffects!=null)mergeEffects.Cancel();
             CancelAudioEdit();if(page!=null)foreach(var town in page.GetComponentsInChildren<TownLifeView>())town.CancelInteraction();CloseUtilityModal();
             if (mergeAnimation != null) { StopCoroutine(mergeAnimation); mergeAnimation = null; }
             if(presentationAnimation!=null){StopCoroutine(presentationAnimation);presentationAnimation=null;}
@@ -209,6 +211,8 @@ namespace Mofumachi.Presentation
         public bool DropItem(int from, int to)
         {
             if (!CanPlay || mergeAnimation != null) return false;
+            if(mergeEffects!=null)mergeEffects.Cancel();
+            var original=Game.Board.At(from);string originalId=original?.itemId;int originalLevel=original?.level??0;
             bool occupied=Game.Board.At(to)!=null;
             bool merged = occupied && Game.TryMerge(from, to);
             bool changed = occupied ? merged : Game.TryMove(from, to);
@@ -220,15 +224,23 @@ namespace Mofumachi.Presentation
                 audioManager.PlaySe(AudioCue.Merge);
                 mergeAnimation = StartCoroutine(FinishMerge());
             }
-            selected = -1; Render("merge"); return changed;
+            selected = -1; Render("merge");
+            if(merged&&ItemCatalog.Find(originalId)!=null)
+            {
+                if(mergeEffects==null)mergeEffects=UIWidgets.Node("Merge effects",layout.ContentRoot,new Rect(0,0,1,1)).gameObject.AddComponent<MergeEffectsView>();
+                mergeEffects.Begin(page.GetComponentInChildren<MergeGridLayout>().GetComponent<RectTransform>(),from,to,originalId,originalLevel);
+            }
+            return changed;
         }
         private IEnumerator FinishMerge()
         {
-            yield return new WaitForSecondsRealtime(.22f);
+            yield return new WaitForSecondsRealtime(MergeVisualTiming.LockSeconds);
             mergeAnimation = null;
+            if(mergeEffects!=null)mergeEffects.FinishItemMotion();
             Game.Board.ReleaseLocks(); Game.Quests.RefreshProgress();
-            if (!Game.Save()) feedback[ScreenId.Merge] = Game.LastError;
-            Render(view);
+            bool saved=Game.Save();
+            if (!saved){feedback[ScreenId.Merge] = Game.LastError;if(mergeEffects!=null)mergeEffects.Cancel();}
+            Render(view,preserveMergeTail:saved);
         }
         public DeliveryResult Deliver()
         {
@@ -295,9 +307,10 @@ namespace Mofumachi.Presentation
             camera.useOcclusionCulling = false;
         }
 
-        private void Render(string target)
+        private void Render(string target,bool animateSelection=false,bool preserveMergeTail=false)
         {
             view = target; CurrentScreen=(ScreenId)System.Enum.Parse(typeof(ScreenId),target,true);
+            if(mergeEffects!=null&&(!preserveMergeTail||CurrentScreen!=ScreenId.Merge))mergeEffects.Cancel();
             if (page != null) { page.SetActive(false); Destroy(page); }
             page = layout.CreatePage(target).gameObject;
             var root=(RectTransform)page.transform;
@@ -312,7 +325,7 @@ namespace Mofumachi.Presentation
                 case ScreenId.CharacterSelection:CharacterSelectionScreen.Build(root,context);break;
                 case ScreenId.Home:TopHomeScreens.BuildHome(root,context);break;
                 case ScreenId.Quest:QuestMergeScreens.BuildQuest(root,context);break;
-                case ScreenId.Merge:QuestMergeScreens.BuildMerge(root,context);break;
+                case ScreenId.Merge:QuestMergeScreens.BuildMerge(root,context,animateSelection);break;
                 case ScreenId.Settings:SettingsScreen.Build(root,context);break;
                 case ScreenId.Result:
                     if(LastDelivery==null){Render("home");return;}
@@ -334,11 +347,12 @@ namespace Mofumachi.Presentation
                 foreach(var growth in page.GetComponentsInChildren<TownGrowthView>())growth.enabled=false;
                 foreach(var reaction in page.GetComponentsInChildren<BodyReaction>())reaction.enabled=false;
             }
+            if(mergeEffects!=null&&mergeEffects.IsPlaying)mergeEffects.transform.SetAsLastSibling();
         }
         public void TapCell(int cell)
         {
             if(!CanPlay || mergeAnimation!=null)return;
-            if (selected < 0) { if (Game.Board.At(cell) != null) { selected = cell; feedback[ScreenId.Merge] = "同じアイテムか空きマスをタップ"; Render("merge"); } }
+            if (selected < 0) { if (Game.Board.At(cell) != null) { selected = cell;var item=Game.Board.At(cell);feedback[ScreenId.Merge]=(ItemCatalog.Find(item.itemId)?.Name??"アイテム")+" Lv."+item.level+"　"+UIStrings.MergeSelectionHint; Render("merge",animateSelection:true); } }
             else DropItem(selected, cell);
         }
         public void CreateTea() => GenerateItem("tea");

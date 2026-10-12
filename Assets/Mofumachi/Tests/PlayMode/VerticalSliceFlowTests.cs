@@ -17,6 +17,9 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator HomeBackReturnsToTitleAndStartResumesSavedProgress()
         {
             yield return EnterHome();
+            Flow.ShowMerge();
+            Assert.That(Flow.CurrentScreen, Is.EqualTo(ScreenId.Merge));
+            Assert.That(Flow.CanInteractBoard, Is.True);
             Assert.That(Flow.DropItem(0, 1), Is.True);
             yield return new WaitForSecondsRealtime(.3f);
             Assert.That(Flow.Game.SetAudio(false, true), Is.True);
@@ -153,6 +156,9 @@ namespace Mofumachi.Tests
             yield return EnterHome();
             var ui = Object.FindAnyObjectByType<UIFlowController>();
             ui.Initialize(Store);
+            ui.ShowMerge();
+            Assert.That(ui.CurrentScreen, Is.EqualTo(ScreenId.Merge));
+            Assert.That(ui.CanInteractBoard, Is.True);
             Assert.That(ui.DropItem(0, 1), Is.True);
             ui.ShowHome();
             Assert.That(ui.Game.Board.IsLocked(1), Is.False);
@@ -171,6 +177,9 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();
             var ui = Object.FindAnyObjectByType<UIFlowController>();
+            ui.ShowMerge();
+            Assert.That(ui.CurrentScreen, Is.EqualTo(ScreenId.Merge));
+            Assert.That(ui.CanInteractBoard, Is.True);
             Assert.That(ui.DropItem(0, 1), Is.True);
             Assert.That(ui.Game.Board.IsLocked(1), Is.True);
             Cleanup();
@@ -186,6 +195,9 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();
             var ui = Object.FindAnyObjectByType<UIFlowController>();
+            ui.ShowMerge();
+            Assert.That(ui.CurrentScreen, Is.EqualTo(ScreenId.Merge));
+            Assert.That(ui.CanInteractBoard, Is.True);
             Assert.That(ui.DropItem(0, 1), Is.True);
             var lockedColor = ui.GetComponentsInChildren<MergeBoardView>()[1].GetComponent<UnityEngine.UI.Image>().color;
             ui.SendMessage("OnApplicationPause", true);

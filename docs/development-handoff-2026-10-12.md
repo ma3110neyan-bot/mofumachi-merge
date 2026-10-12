@@ -1,6 +1,6 @@
 # 『もふまちメルジュ』開発引き継ぎ — 2026-10-12・Merge／納品の再改善
 
-今回の承認範囲は第1・第2段階です。生成種類・選択状態・満杯時の整理・受注／納品案内、QA入力記録、実UI回帰テストを修正しています。**Windowsの前版PlayModeで26件失敗との報告を受領しました。今回の診断ログ修正版のネイティブ再試験・新APK・Pixel確認は未実施です。公開品質の完成判定は行っていません。**
+今回の承認範囲は第1・第2段階です。生成種類・選択状態・満杯時の整理・受注／納品案内、QA入力記録、実UI回帰テストを修正しています。**Windowsの前版PlayModeで26件失敗との報告、その後4テストの失敗詳細を受領しました。追加承認されたテスト前提の修正版のネイティブ再試験・新APK・Pixel確認は未実施です。公開品質の完成判定は行っていません。**
 
 ### Windowsの26件報告への対応
 
@@ -9,6 +9,19 @@
 LayoutCancelsVisualsAndBusyDeliveryPreservesSavedMergeUntilUnlockは同じ内容が2回掲載され、重複1件です。ソース上はこのテストは1件なので削除していません。ほかのテスト名はChapterReentryAndSaveFailureNeverPayOrAdvance、EveryChapterHasExplicitClosureAndFinale、ReselectionReturnsThroughSettingsToItsOrigin、ConsecutiveMergesReuseOneSmallEffectLayerAndRestartKeepsProgress、FailedAndRejectedMergesDoNotShowSuccessOrConsumeItems、PauseAndSettingsCancelVisualsAndKeepTheSavedMerge、SavedMergeUnlocksBeforeTheLightTailAndNeverReplaysOnReentry、SelectionScalesOnlyTheItemAndDoesNotSave、ShortAndTallLayoutsKeepLevelTextAndSelectedArtInsideCellsです。
 
 **掲載分の共通原因は1種類です。全26件の内訳・残る不具合数はXMLと修正版Run Allの結果で確認し、0件とは断定しません。** EditorではQA情報ログを出さず、Development Buildのプレイヤーでは出力を維持します。エラー／警告の検査や既存テストは弱めていません。出力条件の回帰1件を追加したため、PlayMode構成は76→77件です。
+
+### 追加で掲載された4テストへの対応
+
+次の4件は重複なしで、共通原因はホーム画面のままDropItemを呼び、合成成功を期待する古いテスト前提でした。CanInteractBoardはMerge画面での操作だけを許可し、ほかの画面ではDropItemがfalseを返します。この制限は2026-10-11のa95a94f6から存在します。
+
+- HomeBackReturnsToTitleAndStartResumesSavedProgress
+- CancelAndSettingsPersistWithoutLosingMergedItems
+- TeardownDuringAnimationLeavesNoCallbacksOrStore
+- PauseDuringMergeAndDragRebuildsUnlockedBoard
+
+`Assets/Mofumachi/Tests/PlayMode/VerticalSliceFlowTests.cs`の追加変更について承認を受け、4テストの初回DropItem前にShowMergeと画面／操作可能状態の検査を追加しました。計12行の追加だけで、合成・保存復帰・音設定・ロック解除・pause／drag拒否と復帰・破棄後の既存検査はすべて保持しています。対象クラス7件、全体98／77件の構成も変わりません。
+
+適用内容は独立レビュー済み候補との完全一致を確認し、実際の全6アセンブリのコンパイルは警告0／エラー0、Coreの.NET87件も成功しました。ゲーム本体や素材、保存／報酬ルールには今回変更していません。**この4件の修正版のUnity実行は未実施です。全件XML未受領のため、全体の残る失敗数も確定していません。**
 
 追加のテスト参照 `Assets/Mofumachi/Tests/PlayMode/Mofumachi.PlayModeTests.asmdef` の `Unity.InputSystem` 1件は、2026-10-12に追加承認を受けて反映しました。既存の参照3件と全設定を保持。本体asmdef・依存パッケージの変更はありません。最終コンパイルと独立レビュー後、実装コミットをmainへ反映してremoteの同一SHAを確認しました。
 
@@ -80,9 +93,9 @@ LayoutCancelsVisualsAndBusyDeliveryPreservesSavedMergeUntilUnlockは同じ内容
 | 実Core＋SaveServiceの満杯／納品調査 | **18項目成功** |
 | PowerShellビルド前ゲート／インストールスクリプト | 新Suite欠落を拒否→修正後成功。模擬XML／ADBで実機試験ではない |
 | Unity実DLLを参照するコンパイル | **実際の6 asmdefを基に全6アセンブリ成功、各警告0／エラー0**。追加参照案の仮設定ではなく、承認後の製品asmdefを使用。Unityランタイム実行ではない |
-| 最終独立レビュー | Critical／Importantの未解決指摘なし。旧セーブの整理、合成中拒否、待機案内の解除、参照1件と既存設定保持を再確認 |
+| 最終独立レビュー | Critical／Importantの未解決指摘なし。旧セーブの整理、合成中拒否、待機案内の解除、参照1件に加え、4テストの画面前提と既存検査の保持を確認。適用した12行はレビュー済み候補と一致 |
 | 字形 | 3書体462字形、欠落0。字形収録検査でありFontEngine実描画ではない |
-| Windows UnityネイティブEditMode／PlayMode | 前版PlayModeで26件失敗とのユーザー報告、全件XML未受領。今回のログ修正版は**再試験未実施**。EditModeの結果も確認待ち |
+| Windows UnityネイティブEditMode／PlayMode | 前版26件失敗との報告、その後4件のテスト前提による失敗詳細を受領。全件XML未受領。今回のテスト前提修正版は**再試験未実施**。EditModeの結果も確認待ち |
 | 新APK・Pixel 3a一周／再起動／FPS | **未実施** |
 | 最新5枚の画像比較 | **未受領・未実施** |
 
@@ -105,20 +118,20 @@ Pixelでは、既存の詰まった保存状態を保持して、[今回のチ�
 
 - 追加参照のコンパイル障害は解消済み。UnityネイティブとPixelの合格を意味するものではありません。
 - Pixelでドラッグが失敗する全原因は未特定。最新5枚とQA入力記録を使って切り分けます。
-- Windowsで報告された全26件の内訳と、診断ログ修正後の77件・EditMode98件の合否は確認待ち。UGUIの行高／Raycast／TouchState経路、APKでの今回症状の解消、保存復帰、比較画像も未確認。
+- Windowsで報告された全26件の内訳と、テスト前提修正後の77件・EditMode98件の合否は確認待ち。追加掲載の4件だけで全体の残りが4件とは断定しません。UGUIの行高／Raycast／TouchState経路、APKでの今回症状の解消、保存復帰、比較画像も未確認。
 - 独立レビューで指摘された不明IDの片づけ確認、合成中拒否のテスト整合、解除／pause後に残る待機案内を修正して回帰を追加。二行案内と拒否時の選択維持も対応しましたが、ネイティブ実行が必要です。
 - ショップ、正式音源、自然な歩行・生活動作、行動範囲／重なり、公開AAB・提出素材／申告・Play Console要件は未完了。
 - フォントの適用役割や新しい素材・ゲーム要素、未承認ファイルの変更が必要な場合は、対象と内容を先に確認します。
 
 ## 9. GitHub反映状況・変更ファイル
 
-作業ブランチ：`work`、反映先：`main`。基本Merge改修の実装コミット **`0c72ead2ab79f490956b6405d99836900309fbd8`**、その報告更新は`15e0740`。今回の診断ログ修正と資料はさらに後続のコミットに含み、最終応答のSHAが最新です。**今回修正が反映された後はWindows側でFetch origin→Pull originが必要です。** 新APKや実機合格を反映したという意味ではありません。
+作業ブランチ：`work`、反映先：`main`。基本Merge改修の実装コミット **`0c72ead2ab79f490956b6405d99836900309fbd8`**、その報告更新は`15e0740`、診断ログ修正は`d3a2522`。今回承認されたテスト前提の修正と本報告はさらに後続のコミットに含み、最終応答のSHAが最新です。**Windows側でFetch origin→Pull originが必要です。** 新APKや実機合格を反映したという意味ではありません。
 
 変更：
 
 - Presentation：`UIFlowController.cs`、`UIStrings.cs`、`MergeBoardView.cs`、`QuestMergeScreens.cs`、`MergeActionMenuView.cs`、`DiscardConfirmationView.cs`。
 - 字形補完：`UIFont.ttf`、`UIFontBold.ttf`、`UIFontStory.ttf`（既存書体を保持）。
-- PlayMode：`MergeInteractionTests.cs`、`MultiQuestPresentationTests.cs`、`MergePolishTests.cs`。
+- PlayMode：`MergeInteractionTests.cs`、`MultiQuestPresentationTests.cs`、`MergePolishTests.cs`、`VerticalSliceFlowTests.cs`（4テストの前提修正を追加承認済み）。
 - テスト参照：`Assets/Mofumachi/Tests/PlayMode/Mofumachi.PlayModeTests.asmdef`へ`Unity.InputSystem`1件だけ追加（追加承認済み）。
 - スクリプト：`scripts/build-android.ps1`、`scripts/tests/android-tools.tests.ps1`。必須Suiteと98／77件の検査。
 - 資料：本報告。
@@ -129,9 +142,9 @@ Pixelでは、既存の詰まった保存状態を保持して、[今回のチ�
 - `Assets/Mofumachi/Tests/PlayMode/MergeProgressionUiTests.cs`＋meta。
 - `docs/merge-progression-pixel3a-checklist.md`。
 
-承認範囲の全21変更／追加パスを照合しました。本体asmdef・依存パッケージ・Core・セーブ・素材画像には変更なし。
+基本Merge改修の承認範囲の全21変更／追加パスを照合しました。本体asmdef・依存パッケージ・Core・セーブ・素材画像には変更なし。
 
-今回の診断ログ再修正は既存の6ファイルだけです：MergeInputDiagnostics.cs、MergeProgressionUiTests.cs、scripts/build-android.ps1、scripts/tests/android-tools.tests.ps1、本報告、Pixelチェックリスト。追加ファイル・参照・依存パッケージ・ゲームルール・正式素材の変更はありません。
+前回の診断ログ再修正は既存の6ファイルだけです：MergeInputDiagnostics.cs、MergeProgressionUiTests.cs、scripts/build-android.ps1、scripts/tests/android-tools.tests.ps1、本報告、Pixelチェックリスト。今回のテスト前提修正は、追加承認されたVerticalSliceFlowTests.csと、既存の承認対象である本報告の2ファイルだけです。追加ファイル・参照・依存パッケージ・ゲームルール・正式素材の変更はありません。
 
 ## 10. Windows PCで次に行う作業
 

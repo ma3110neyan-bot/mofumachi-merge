@@ -10,7 +10,7 @@
 
 **Spec:** [最新指定と2点の調整を反映した設計](../specs/2026-10-13-integration-baseline-review.md)。実装時は必ず両方を読む。
 
-**状態:** 計画確認待ち。以下のチェックボックスは未実装・未検証。ゲーム本体の基準は`8700c5a`。
+**状態:** ユーザー承認後、工程1〜6のソース／設計を実装し、独立レビューの修正を`218ac51`まで反映。Core110／演出計算10／6アセンブリコンパイル／字形／モック検査は成功。Windows Unity全件・APK・Pixelは未実施。実施済みだけをチェックし、混在する検証工程は未チェックで残す。[実結果と引き継ぎ](../../development-handoff-2026-10-13-integrated-quality.md)。
 
 ## Global Constraints
 
@@ -81,12 +81,12 @@ python3 scripts/subset-ui-fonts.py --check --source-dir /workspace/setup/mofumac
 - Produces: `TownPlaceCatalog.ForLevel(int level): TownStreetMap`、`TryFind(TownStreetMap map, string id, out TownPlace place): bool`、既存座標と同じRequestEntrance／ShopEntrance。
 - Consumes: 既存`TownNavigation(IReadOnlyList<TownPoint>, IReadOnlyList<TownEdge>, float)`と保存済みtownGrowthLevel。半幅.028を維持。
 
-- [ ] **通行図を作る。** 元のTownBackgroundを参照し、既存8地点・8辺を保持して、`bench-left`／`bench-right`／`home-front`（Lv.0）、`flower-walk`（Lv.2）、`front-promenade`（Lv.4）、`celebration`（Lv.6）への枝を定義。`quest`／`shop`は常時利用可能。足元・通路幅・噴水／水路／建物／植込みの除外範囲を資料に記録する。背景PNGは編集しない。
-- [ ] **失敗する8テストを書く。** `ExistingEntrancesRemainAvailableAtLevelZero`、`EveryStageHasConnectedRoutes`、`HigherLevelsRetainEarlierStopsAndEdges`、`StreetSegmentsAvoidSurveyedObstacles`、`NewStopsHaveExpectedUnlockLevels`、`InvalidLevelsUseSafeDisplayStages`、`UnknownPlacesAreRejected`、`CatalogCannotMutateGameState`。経路を独立した通行図の除外範囲で検査し、カタログ自身の数値を期待値に写すだけの検査にしない。
-- [ ] **Coreの対象suiteを実行して失敗を確認する。** 現在存在しないカタログへの参照または解放条件の検査で失敗すること。別の環境問題での失敗と区別。
-- [ ] **最小のカタログを実装してTownLifeViewへ接続する。** Lv.を0〜6へ正規化し、既存の入口・経路を閉じない。既存の花を見る場所は`flowers`、噴水は`fountain`として初期から残し、Lv.2の`flower-walk`は別の追加訪問先にする。新建物・購入状態・保存フィールドを追加しない。
-- [ ] **Coreと全6asmdefを検証する。** 8件と既存94件の成功を確認。通行図はUnity／Pixelで見た目も検証する対象として残す。
-- [ ] **独立した成果をコミットする。** `feat: expand town walks from existing growth levels`。道が増えることと実画面の未確認を別記。
+- [x] **通行図を作る。** 元のTownBackgroundを参照し、既存8地点・8辺を保持して、`bench-left`／`bench-right`／`home-front`（Lv.0）、`flower-walk`（Lv.2）、`front-promenade`（Lv.4）、`celebration`（Lv.6）への枝を定義。`quest`／`shop`は常時利用可能。足元・通路幅・噴水／水路／建物／植込みの除外範囲を資料に記録する。背景PNGは編集しない。
+- [x] **失敗する8テストを書く。** `ExistingEntrancesRemainAvailableAtLevelZero`、`EveryStageHasConnectedRoutes`、`HigherLevelsRetainEarlierStopsAndEdges`、`StreetSegmentsAvoidSurveyedObstacles`、`NewStopsHaveExpectedUnlockLevels`、`InvalidLevelsUseSafeDisplayStages`、`UnknownPlacesAreRejected`、`CatalogCannotMutateGameState`。経路を独立した通行図の除外範囲で検査し、カタログ自身の数値を期待値に写すだけの検査にしない。
+- [x] **Coreの対象suiteを実行して失敗を確認する。** 現在存在しないカタログへの参照または解放条件の検査で失敗すること。別の環境問題での失敗と区別。
+- [x] **最小のカタログを実装してTownLifeViewへ接続する。** Lv.を0〜6へ正規化し、既存の入口・経路を閉じない。既存の花を見る場所は`flowers`、噴水は`fountain`として初期から残し、Lv.2の`flower-walk`は別の追加訪問先にする。新建物・購入状態・保存フィールドを追加しない。
+- [x] **Coreと全6asmdefを検証する。** 8件と既存94件の成功を確認。通行図はUnity／Pixelで見た目も検証する対象として残す。
+- [x] **独立した成果をコミットする。** `feat: expand town walks from existing growth levels`。道が増えることと実画面の未確認を別記。
 
 ### 工程2：同じ背景内を巡るカメラ
 
@@ -98,12 +98,12 @@ python3 scripts/subset-ui-fonts.py --check --source-dir /workspace/setup/mofumac
 - View: `TownViewportView.Bind(ScreenContext c, RawImage background, TownLifeView life)`、`Focus(TownPoint point)`、`Advance(float elapsedSeconds)`、`CancelGesture()`（各void）。`OwnedPointerId: int?`／`IsDragging: bool`は読み取り専用。ビューはUGUIのPointerDown／BeginDrag／Drag／EndDrag／PointerUpを受ける。
 - 連携：`TownLifeView.Background: RawImage`、`RefreshViewport()`、`TownActor.SetViewScale(float scale)`、`TownAmbientGraphic.NotifyViewportChanged()`、`BackgroundCover.FitNow()`。既存Local／Sourceは同じRawImageのUVを参照し続ける。
 
-- [ ] **純粋計算8件・実UI4件の失敗するテストを書く。** 純粋計算は`CoverPreservesSourceAspect`、`PanNeverLeavesOriginalImage`、`PanAndProjectionRoundTrip`、`FrameKeepsHeroInVisibleWorld`、`ImpossibleFrameClampsWithoutTeleport`、`ResizePreservesAndClampsCenter`、`InvalidInputsLeaveViewUnchanged`、`ZoomCannotExceedApprovedLimit`。実UIは`CameraKeepsWaterActorsMarkersAndGrowthAligned`、`ActorAndCameraGesturesHaveOneOwner`、`PauseModalAndResizeReleaseCameraInput`、`LeavingHomeRestoresBackgroundAndDoesNotSaveCamera`。
-- [ ] **保存の期待値を分ける。** カメラ操作そのものはWrites増加0・進行状態不変。Home離脱・設定への移動・pauseは既存Persistの保存回数を期待し、cameraによる追加保存がないことを検査する。既存保存によるタイムスタンプ更新を「カメラが進行を変更した」と判定しない。
+- [x] **純粋計算8件・実UI4件の失敗するテストを書く。** 純粋計算は`CoverPreservesSourceAspect`、`PanNeverLeavesOriginalImage`、`PanAndProjectionRoundTrip`、`FrameKeepsHeroInVisibleWorld`、`ImpossibleFrameClampsWithoutTeleport`、`ResizePreservesAndClampsCenter`、`InvalidInputsLeaveViewUnchanged`、`ZoomCannotExceedApprovedLimit`。実UIは`CameraKeepsWaterActorsMarkersAndGrowthAligned`、`ActorAndCameraGesturesHaveOneOwner`、`PauseModalAndResizeReleaseCameraInput`、`LeavingHomeRestoresBackgroundAndDoesNotSaveCamera`。
+- [x] **保存の期待値を分ける。** カメラ操作そのものはWrites増加0・進行状態不変。Home離脱・設定への移動・pauseは既存Persistの保存回数を期待し、cameraによる追加保存がないことを検査する。既存保存によるタイムスタンプ更新を「カメラが進行を変更した」と判定しない。
 - [ ] **対象のCore suiteを実行して赤を確認する。** 実UI4件はUnityで実行し、実施できない場合は未実施と記録。
-- [ ] **カメラ計算を実装する。** 基本UVは画面と元画像のアスペクトからCover計算し、幅・高さをzoomで割る。中心は画像内に制限。移動量は表示面で正規化したdelta×UVサイズ。TryFrameのvisibleFrameはHUD・下部UI・名前・体の余白を除いた実領域を背景面へ変換したもの。
-- [ ] **Home専用のビューを接続する。** 初期zoom候補1.10、上限1.15。Homeの間だけBackgroundCoverの書込みを停止し、離脱時は有効化＋FitNowで通常UVへ復元。カメラの入力面はキャラ・施設・HUDより背面の空いた街面に限定する。
-- [ ] **一時入力と共通位置を接続する。** 1pointerだけを所有。主人公の手動ドラッグを優先してカメラの新規ドラッグを拒否。手動操作中は自動追従を停止し、施設案内中とリリース後は主人公を可視領域へ収める。NPCは追従対象にしない。Advanceは街の移動更新後・キャラ描画前に呼び、最大30Hz。RefreshViewportは札・吹き出し等を再配置し、移動状態や補間位置をリセットしない。水のメッシュを更新通知し、成長ビューはlife.BackgroundのUV変化を追跡して再配置。サイズの倍率は基準サイズから計算し、繰り返し乗算しない。
+- [x] **カメラ計算を実装する。** 基本UVは画面と元画像のアスペクトからCover計算し、幅・高さをzoomで割る。中心は画像内に制限。移動量は表示面で正規化したdelta×UVサイズ。TryFrameのvisibleFrameはHUD・下部UI・名前・体の余白を除いた実領域を背景面へ変換したもの。
+- [x] **Home専用のビューを接続する。** 初期zoom候補1.10、上限1.15。Homeの間だけBackgroundCoverの書込みを停止し、離脱時は有効化＋FitNowで通常UVへ復元。カメラの入力面はキャラ・施設・HUDより背面の空いた街面に限定する。
+- [x] **一時入力と共通位置を接続する。** 1pointerだけを所有。主人公の手動ドラッグを優先してカメラの新規ドラッグを拒否。手動操作中は自動追従を停止し、施設案内中とリリース後は主人公を可視領域へ収める。NPCは追従対象にしない。Advanceは街の移動更新後・キャラ描画前に呼び、最大30Hz。RefreshViewportは札・吹き出し等を再配置し、移動状態や補間位置をリセットしない。水のメッシュを更新通知し、成長ビューはlife.BackgroundのUV変化を追跡して再配置。サイズの倍率は基準サイズから計算し、繰り返し乗算しない。
 - [ ] **Core／asmdef／実UIを検証してコミットする。** 全て同じUV・指の往復変換、画面離脱、カメラによる追加保存0を確認。実機未実施は残し、`feat: add bounded town camera with shared coordinates`。
 
 ### 工程3：街の生活感・成長案内・交流
@@ -115,11 +115,11 @@ python3 scripts/subset-ui-fonts.py --check --source-dir /workspace/setup/mofumac
 - Produces: `TownLifeView.GuideToPlace(string id): bool`、`TryBeginConversation(TownActor first, TownActor second): bool`。既存GuideToFacilityはquest／shopへ、GuideToRestStopはbench→bench-right／flowers→flowers／fountain→fountainの互換入口として残す。
 - Runtime only: TownLifeViewが地点の予約と会話cooldownを所有。TownActorは目的地・待機・表情の一時状態を持つ。
 
-- [ ] **4つの失敗する実UIテストを追加する。** `NpcsUseDifferentStopsAndResumeAfterWaiting`、`NearbyConversationBelongsToItsActorsAndDoesNotSave`、`GrowthRestoresExpandedStopsFromSavedLevel`、`NamesBubblesAndFacilitiesStayInsideSafeArea`。Store.WritesとStateCodec.Encodeを散歩・会話の前後で比較する。pauseに伴う既存保存は別の期待値にする。
+- [x] **4つの失敗する実UIテストを追加する。** `NpcsUseDifferentStopsAndResumeAfterWaiting`、`NearbyConversationBelongsToItsActorsAndDoesNotSave`、`GrowthRestoresExpandedStopsFromSavedLevel`、`NamesBubblesAndFacilitiesStayInsideSafeArea`。Store.WritesとStateCodec.Encodeを散歩・会話の前後で比較する。pauseに伴う既存保存は別の期待値にする。
 - [ ] **Unityの該当suiteで赤を確認する。** 既存の指操作・移動補間・施設到着テストを先に残して確認。
-- [ ] **NPCの居場所を分散する。** 未予約の訪問先を選び、地点別に待機と3表情を使う。近接時は主人公を優先、NPC同士は正式並び順で優先を決める。双方が永久に待たないよう待機期限を設け、通路外への押出しはしない。
-- [ ] **近い2名の短い交流を接続する。** 一度に1組、会話cooldown8秒、停止は最大1秒。吹き出しを話すキャラの近くへ配置して画面内へ制限。主人公の手動入力・modal・pause時は交流を開始しない。
-- [ ] **HUD・名前・成長案内を整える。** 街Lv.とCoinsを小さい横並びへ、依頼は下の1カードへ。名前は主人公・会話・滞在中を優先。大きな常設施設案内行はタップ時の行き先と入口へまとめ、操作面積48を維持する。Lv.2／4／6の新しい散歩場所と既存の花・リボン・アーチ・ガーランドを案内する。
+- [x] **NPCの居場所を分散する。** 未予約の訪問先を選び、地点別に待機と3表情を使う。近接時は主人公を優先、NPC同士は正式並び順で優先を決める。双方が永久に待たないよう待機期限を設け、通路外への押出しはしない。
+- [x] **近い2名の短い交流を接続する。** 一度に1組、会話cooldown8秒、停止は最大1秒。吹き出しを話すキャラの近くへ配置して画面内へ制限。主人公の手動入力・modal・pause時は交流を開始しない。
+- [x] **HUD・名前・成長案内を整える。** 街Lv.とCoinsを小さい横並びへ、依頼は下の1カードへ。名前は主人公・会話・滞在中を優先。大きな常設施設案内行はタップ時の行き先と入口へまとめ、操作面積48を維持する。Lv.2／4／6の新しい散歩場所と既存の花・リボン・アーチ・ガーランドを案内する。
 - [ ] **既存回帰と新4件を確認してコミットする。** 店先へ歩く導線と販売実装を混同せず、真の座りポーズ・手足歩行は未制作と明記。`feat: add town routines conversations and visible growth`。
 
 ### 工程4：立体Mergeと画像付き不足案内の統合
@@ -130,11 +130,11 @@ python3 scripts/subset-ui-fonts.py --check --source-dir /workspace/setup/mofumac
 - Consumes: `QuestManager.GetProgress(QuestDefinition)`／CheckDelivery、既存GenerateFromFrame／ChooseProductionItem／一括整理／単品片づけ／Deliver。
 - Produces: `UIFlowController.FocusRequirement(string itemId): bool`。受注中の要求品だけを案内し、未受注は依頼画面へ。合成中は案内変更を拒否し、勝手な生成・再配置・納品をしない。
 
-- [ ] **4つの失敗する実UIテストを追加する。** `RequiredArtCountsAndShortageAgreeWithInventory`、`RequirementGuidesBreadWithoutGeneratingOrSaving`、`PackedFramesAndUnacceptedQuestHaveExplicitNextActions`、`ShortPortraitKeepsOneProductionRowAndReadableControls`。ロック中のLv.2は所持数へ数えず、最大2品、未受注と保存失敗も含める。
+- [x] **4つの失敗する実UIテストを追加する。** `RequiredArtCountsAndShortageAgreeWithInventory`、`RequirementGuidesBreadWithoutGeneratingOrSaving`、`PackedFramesAndUnacceptedQuestHaveExplicitNextActions`、`ShortPortraitKeepsOneProductionRowAndReadableControls`。ロック中のLv.2は所持数へ数えず、最大2品、未受注と保存失敗も含める。
 - [ ] **Unityの対象suiteで赤を確認する。** 既存満杯→整理→パンLv.2→納品→70Coins→Lv.2→次依頼→再起動の実ボタン回帰を保持する。
-- [ ] **不足表示と操作を接続する。** 上の2行文字を不足カードへ置換。品物画像・名前・Lv.・所持／必要数・不足を示す。カードは種類選択へ案内し、片づけ済みなら再配置メニューへ。下はお茶・パン・花・生成枠整理・納品の1操作行へまとめる。全枠片づけでも再配置入口を残す。
-- [ ] **盤面の質感を統合する。** クリーム・ミント・ピンク・金色を使い、盤面全体の縁・浅いセル・接地影・控えめな光沢を揃える。種類とLv.を見失わず、候補光、1.06倍の選択、浮遊→集合→弾み→星8粒を再利用する。縦の領域を追加せず置換し、592／640／808とSafe Areaで最小セル48を保つ。
-- [ ] **既存テストの探索名を更新する。** 生成は`Generate frame tea/bread/flower`の単一入口へ。旧`Create tea`や重複した生成行を前提にした探索だけを修正し、操作結果・保存失敗・ロック・入力の検査を削らない。
+- [x] **不足表示と操作を接続する。** 上の2行文字を不足カードへ置換。品物画像・名前・Lv.・所持／必要数・不足を示す。カードは種類選択へ案内し、片づけ済みなら再配置メニューへ。下はお茶・パン・花・生成枠整理・納品の1操作行へまとめる。全枠片づけでも再配置入口を残す。
+- [x] **盤面の質感を統合する。** クリーム・ミント・ピンク・金色を使い、盤面全体の縁・浅いセル・接地影・控えめな光沢を揃える。種類とLv.を見失わず、候補光、1.06倍の選択、浮遊→集合→弾み→星8粒を再利用する。縦の領域を追加せず置換し、592／640／808とSafe Areaで最小セル48を保つ。
+- [x] **既存テストの探索名を更新する。** 生成は`Generate frame tea/bread/flower`の単一入口へ。旧`Create tea`や重複した生成行を前提にした探索だけを修正し、操作結果・保存失敗・ロック・入力の検査を削らない。
 - [ ] **全UI回帰と演出計算を確認してコミットする。** `feat: unify tactile Merge board and requirement guidance`。保存失敗・拒否合成に成功演出を出さない。
 
 ### 工程5：文章の役割に合わせた書体と余白
@@ -143,10 +143,10 @@ python3 scripts/subset-ui-fonts.py --check --source-dir /workspace/setup/mofumac
 
 **Interfaces:** 既存StoryLabel／StoryHeading／Heading／Labelを役割ごとに使用。名称・会話・依頼・説明はUIFontStory、操作はUIFontBold、数値はUIFont／UIFontBold。新フォント依存を追加しない。
 
-- [ ] **既存の書体回帰へ失敗する検査を追加する。** 新しい不足品名、街の成長案内、確認画面の説明もUIFontStory。ボタン・数値・重要な保存失敗文は読みやすい書体。名前12／本文14、BestFitなし、最大Coinsと長文のpreferredHeightを実領域と比較する。
+- [x] **既存の書体回帰へ失敗する検査を追加する。** 新しい不足品名、街の成長案内、確認画面の説明もUIFontStory。ボタン・数値・重要な保存失敗文は読みやすい書体。名前12／本文14、BestFitなし、最大Coinsと長文のpreferredHeightを実領域と比較する。
 - [ ] **Unityで変更前の失敗を記録する。** 最短縦592、640、808、上24／下32のSafe Area例を同じ条件で検査する。
-- [ ] **役割ごとに書体と余白を適用する。** 文章と所持数を別Textへ分け、小さな領域は説明を詳細表示へ分ける。タイトルロゴと課金注意文の内容は保持する。
-- [ ] **必要字形だけ補う。** 検証済み元TTFとOFLからサブセットを作り、既存字形・幅・GUIDを保持。欠字検査、6asmdef、ネイティブFontEngineを区別して報告する。
+- [x] **役割ごとに書体と余白を適用する。** 文章と所持数を別Textへ分け、小さな領域は説明を詳細表示へ分ける。タイトルロゴと課金注意文の内容は保持する。
+- [x] **必要字形だけ補う。** 検証済み元TTFとOFLからサブセットを作り、既存字形・幅・GUIDを保持。欠字検査、6asmdef、ネイティブFontEngineを区別して報告する。
 - [ ] **回帰を確認してコミットする。** `feat: unify storybook text roles across town and Merge`。
 
 ### 工程6：2.5Dの段階導入案
@@ -155,9 +155,9 @@ python3 scripts/subset-ui-fonts.py --check --source-dir /workspace/setup/mofumac
 
 **Interfaces:** 既存6名の共有アトラス・3表情・工程2のカメラ／前後関係を制作条件として読む。新リグや素材を実装へ渡す工程ではない。
 
-- [ ] **4方式を比較する。** 現行2D強化／軽い2.5D／Live2D・ボーン／完全3Dを、必要素材、顔の一致、6名への展開、Pixel負荷傾向、概算人日で整理。未実測のFPSやSDKの商用条件を確定扱いにしない。
-- [ ] **モモ1名の試作範囲を提案する。** 街での待機・笑顔・小さな奥行き反応から開始。歩く手足・手振りはパーツ分割と隠れた部分の補完を別工程にする。顔・耳・帽子・衣装の比較、Pixel10分試遊の30FPS／メモリ／発熱／入力遅延を採否条件にする。
-- [ ] **設計と正式素材の固定範囲を照合してコミットする。** `docs: propose staged 2.5D character trial`。今回の成果は提案で、試作完成とは報告しない。
+- [x] **4方式を比較する。** 現行2D強化／軽い2.5D／Live2D・ボーン／完全3Dを、必要素材、顔の一致、6名への展開、Pixel負荷傾向、概算人日で整理。未実測のFPSやSDKの商用条件を確定扱いにしない。
+- [x] **モモ1名の試作範囲を提案する。** 街での待機・笑顔・小さな奥行き反応から開始。歩く手足・手振りはパーツ分割と隠れた部分の補完を別工程にする。顔・耳・帽子・衣装の比較、Pixel10分試遊の30FPS／メモリ／発熱／入力遅延を採否条件にする。
+- [x] **設計と正式素材の固定範囲を照合してコミットする。** `docs: propose staged 2.5D character trial`。今回の成果は提案で、試作完成とは報告しない。
 
 ### 工程7：独立レビュー・全件検証・Pixel比較
 
@@ -165,13 +165,13 @@ python3 scripts/subset-ui-fonts.py --check --source-dir /workspace/setup/mofumac
 
 **Interfaces:** 前6工程の成果、実行結果XML、製品commit SHA、APKのbuild-infoとSHA256。
 
-- [ ] **Core／演出計算／6asmdef／字形／正式素材SHAを検証する。** Coreは工程1・2の計16件を加えた110件が計画値、演出計算10件、警告0／エラー0、正式画像8点不変。実際の属性件数を確認する。
-- [ ] **テストゲートを実構成へ合わせる。** 計画どおりならEditMode121／PlayMode97（追加12件）。実装中に件数が変われば最終棚卸しの数で更新し、既存suiteを全て残して新しい4suiteも必須にする。PowerShellのモック検査を実行し、0件・不足・失敗・skipのXMLがAPK生成を止めることを確認。
+- [x] **Core／演出計算／6asmdef／字形／正式素材SHAを検証する。** Coreは工程1・2の計16件を加えた110件が計画値、演出計算10件、警告0／エラー0、正式画像8点不変。実際の属性件数を確認する。
+- [x] **テストゲートを実構成へ合わせる。** 最終属性棚卸しはEditMode121／PlayMode99（追加14件。レビューで入口と章再閲覧を追加）。実装中に件数が変われば最終棚卸しの数で更新し、既存suiteを全て残して新しい4suiteも必須にする。PowerShellのモック検査を実行し、0件・不足・失敗・skipのXMLがAPK生成を止めることを確認。
 - [ ] **保存／入力／演出／画面境界の独立レビューを実施する。** 指定どおりCodexが実装し、最後に1名が全変更を読む。Critical／Importantは解消して関係する検査を再実行する。
 - [ ] **Windows UnityでEditMode／PlayModeを全件実行する。** Export Resultsの2XMLをcommitと対応づける。Codex側で実行していなければ未実施と報告し、ユーザーの検証へ引き継ぐ。全件合格後だけBuild Town QA APK (separate save)を生成する。
 - [ ] **同じTown QA packageへ更新する。** 保存データを消さず、`com.mofumachi.merge.qa.townlife`、`scripts/install-pixel3a.ps1`、端末`99RAY1BELH`を使う。古いAPK・違う保存領域を取り違えない。
 - [ ] **Pixelで操作と前後比較を残す。** ①街Lv.0／2／4／6で広がり、②カメラを動かして水・入口・飾り・指の一致、③NPC分散・交流・主人公の施設到着、④生成枠複数片づけ→全枠再配置、⑤パンLv.1×2→Lv.2→納品→報酬→街成長→次依頼、⑥失敗条件と二重納品、⑦再起動復帰、⑧10分試遊の重さ・停止・クラッシュを確認。街・Merge・文章の同じ進行状態のスクショと10〜20秒の動きを保存する。
-- [ ] **完了報告を作ってコミットする。** 変更内容、基準との統合箇所、実行済み／未実施、残る制作、GitHub最新commit、Windows／Pixelの次の操作を明記。ネイティブ・実機が未確認なら全体完成にしない。
+- [x] **完了報告を作ってコミットする。** 変更内容、基準との統合箇所、実行済み／未実施、残る制作、GitHub最新commit、Windows／Pixelの次の操作を明記。ネイティブ・実機が未確認なら全体完成にしない。
 
 ## 計画の自己確認
 
@@ -182,3 +182,7 @@ python3 scripts/subset-ui-fonts.py --check --source-dir /workspace/setup/mofumac
 - Review Focusの5条件は対応する工程の検査へ割り当てた。Pixelの見た目・入力・性能は工程7で実操作し、ソース検証から合格を推測しない。
 
 実装方法の再選択は不要。計画の確認後、以前の指定を維持してCodexが順に実装し、最後に独立レビューする。
+
+### 実行時の補足
+
+書いた実UI回帰の赤／緑はUnityネイティブ未実施。純粋計算16件では追加前の失敗→成功を確認した。レビュー修正は事前の実寸・字体・表示域の反例、回帰の追加、コンパイルと計算を確認したが、実画面の成功とは区別する。実寸360×592へSafe Areaを適用する検査へ修正し、短い画面は48単位を保つコンパクトUI＋非遮断メッセージとした。MultiQuestPresentationTests.csの盤面画像探索1行はユーザーの追加承認後に変更。実行時判断と保留した軽微な指摘は引き継ぎ第8項に記録。収益化・テナント・分析は追加SDK／保存変更をせず設計資料のみ。

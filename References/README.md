@@ -1,13 +1,15 @@
 # Visual Lock と既存プレビュー
 
-最上位仕様は [引き継ぎセット v1.0](../mofumachi_codex_handoff_v1.0.md)。ユーザーが指定した参照先を次のとおり用意した。GitHub に追加されたルートの原本からバイト列を変えずにコピーしており、原本も保持している。
+最優先の統合本線は、ユーザー指定の「もふまちメルジュ 開発統合ページ」です。本文はURL／本文の共有待ちです。2026-10-13の再添付画像を[9月22日の基準イメージ](Preview/integration-baseline-2026-09-22/README.md)として参照し、正式6名と世界観を維持します。[引き継ぎセット v1.0](../mofumachi_codex_handoff_v1.0.md)は履歴・補足で、最新指定に矛盾する旧案を採用しません。
+
+ユーザーが指定した参照先を次のとおり用意しています。GitHub に追加されたルートの原本からバイト列を変えずにコピーしており、原本も保持しています。
 
 | 用途 | 正式な参照先 | 追加された原本 |
 | --- | --- | --- |
 | 正式6名のキャラクター基準 | [mofumachi_6characters_master.png](Characters/mofumachi_6characters_master.png) | `a_colorful_promotional_collage_ui_concept_board.png` |
 | 既存ブラウザ確認版 | [mofumachi_pixel3a_preview_v0.3_6characters.html](Preview/mofumachi_pixel3a_preview_v0.3_6characters.html) | 同名のルートHTML |
 
-画像の顔・体型・主要配色・衣装・シルエットをVisual Lockとして扱う。画像内の仮名や主人公選択の文言を新しい仕様として採用しない。キャラ名は後工程とし、中心キャラを固定してお気に入りのホーム表示を選ぶ引き継ぎの基本案を優先する。
+画像の顔・体型・主要配色・衣装・シルエットをVisual Lockとして扱います。現在の正式名はモモ／ルル／ポム／フィオ／ミエル／ノアです。画像内の仮名や残高を仕様にせず、正式6名からお気に入り1名を選び、保存された1名を操作する現在の設計を維持します。
 
 SHA-256:
 

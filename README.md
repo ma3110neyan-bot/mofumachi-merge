@@ -1,4 +1,6 @@
-> 2026-10-13・次期品質改善の第1段階：正式6名・ロゴ・街・5×6を保持。丸いMerge受け皿／接地影／合成候補の光／浮遊合成、主人公タップでの寄り道、メニューの絵本調書体を追加。Core94件・演出計算10件成功、実Unity DLLの全6アセンブリ警告／エラー0。テスト構成はEditMode105／PlayMode85で、**今回変更後のWindows全件・APK・Pixelは未実施**。[最新報告とWindows手順](docs/development-handoff-2026-10-13-next-quality.md)、[BGM・Coinsショップ・街拡張・3D比較の設計](docs/superpowers/specs/2026-10-13-product-quality-design.md)。音楽選曲・購入・広域カメラは設計段階。
+> 2026-10-13・後続の開発統合ページ指示：[9月22日の基準イメージ](References/Preview/integration-baseline-2026-09-22/README.md)を最優先の美術基準として登録。[現状分析・優先順位・変更対象ファイル](docs/superpowers/specs/2026-10-13-integration-baseline-review.md)を提示。統合ページ本文は取得待ちで、今回の更新は資料のみ。先行順位は街→Merge→文章UI、2.5Dは設計提示まで。
+
+> 2026-10-13・次期品質改善の第1段階（ゲーム本体 `8700c5a` 時点）：正式6名・ロゴ・街・5×6を保持。丸いMerge受け皿／接地影／合成候補の光／浮遊合成、主人公タップでの寄り道、メニューの絵本調書体を追加。Core94件・演出計算10件成功、実Unity DLLの全6アセンブリ警告／エラー0。テスト構成はEditMode105／PlayMode85で、**変更後のWindows全件・APK・Pixelは未実施**。[実装報告とWindows手順](docs/development-handoff-2026-10-13-next-quality.md)。音楽選曲・購入・広域カメラは設計段階。
 
 > 画像サイズ検査の修正：共有4画像の共通／Androidインポート上限1024を明記。修正前Edit90件中89成功／1失敗、修正後は再試験待ち。Unityを閉じてFetch→Pullし、再起動後EditMode→Run All。詳細は[最新引き継ぎ](docs/development-handoff-2026-10-11.md)。
 

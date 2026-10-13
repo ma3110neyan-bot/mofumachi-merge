@@ -86,7 +86,22 @@ namespace Mofumachi.Tests
             }
             Assert.That(visited.Count,Is.GreaterThanOrEqualTo(3));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));Assert.That(Store.Writes,Is.EqualTo(writes));
             npc.React();life.AdvanceFrame(.1f);Assert.That(npc.GetComponentInChildren<CharacterBodyGraphic>().Expression,Is.EqualTo(CharacterExpression.Smile));
-            Assert.That(npc.VisualRoot.anchoredPosition.y,Is.GreaterThan(3));LogAssert.NoUnexpectedReceived();
+            Assert.That(npc.VisualRoot.anchoredPosition.y,Is.GreaterThan(3));
+            var hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);
+            foreach(string place in new[]{"bench","flowers","fountain"})
+            {
+                hero.React();Assert.That(Flow.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Visit ")),Is.EqualTo(3));
+                Canvas.ForceUpdateCanvases();foreach(var visit in Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Visit ")))
+                    Assert.That(((RectTransform)visit.transform).rect.height,Is.GreaterThanOrEqualTo(48),visit.name);
+                Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Visit "+place).onClick.Invoke();Assert.That(hero.IsGuided,Is.True);
+                for(int i=0;i<300;i++)life.AdvanceFrame(1f/30);
+                Assert.That(hero.IsGuided,Is.False);Assert.That(life.NearbyFacility,Is.Null,"A rest stop does not enter a facility.");
+                Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"),Is.True);
+            }
+            Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));Assert.That(Store.Writes,Is.EqualTo(writes));
+            hero.React();Flow.SendMessage("OnApplicationPause",true);Assert.That(Flow.GetComponentsInChildren<Button>().Any(b=>b.name.StartsWith("Visit ")),Is.False);
+            Flow.SendMessage("OnApplicationPause",false);Assert.That(Flow.Game.State.favoriteCharacterId,Is.EqualTo("momo"));
+            LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator GrowthLayersFollowSavedLevelWithoutChangingPaths()
         {

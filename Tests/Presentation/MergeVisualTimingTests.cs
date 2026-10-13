@@ -37,6 +37,28 @@ namespace Mofumachi.Tests
             Assert.That(MergeVisualTiming.SparkleAlpha(.5f),Is.Zero);
             Assert.That(MergeVisualTiming.SparkleAlpha(5),Is.Zero);
         }
+        [Test] public void GatheringFloatsAboveTheBoardAndLandsBeforeUnlock()
+        {
+            var method=typeof(MergeVisualTiming).GetMethod("GatherLift");
+            Assert.That(method,Is.Not.Null,"The gathered item needs a bounded floating arc.");
+            var lift=(Func<float,float>)Delegate.CreateDelegate(typeof(Func<float,float>),method);
+            Assert.That(lift(0),Is.Zero);
+            Assert.That(lift(MergeVisualTiming.GatherSeconds/2),Is.InRange(.08f,.16f));
+            Assert.That(lift(MergeVisualTiming.GatherSeconds),Is.Zero.Within(.00001));
+            Assert.That(lift(MergeVisualTiming.LockSeconds),Is.Zero.Within(.00001));
+            foreach(float time in new[]{-1f,float.NaN,float.PositiveInfinity,1f})Assert.That(lift(time),Is.Zero);
+        }
+        [Test] public void ResultSettlesAtGroundBeforeTheSuccessLightEnds()
+        {
+            var method=typeof(MergeVisualTiming).GetMethod("ResultLift");
+            Assert.That(method,Is.Not.Null,"The result must land before normal input resumes.");
+            var lift=(Func<float,float>)Delegate.CreateDelegate(typeof(Func<float,float>),method);
+            Assert.That(lift(MergeVisualTiming.GatherSeconds),Is.Zero);
+            Assert.That(lift((MergeVisualTiming.GatherSeconds+MergeVisualTiming.LockSeconds)/2),Is.InRange(.035f,.075f));
+            Assert.That(lift(MergeVisualTiming.LockSeconds),Is.Zero.Within(.00001));
+            Assert.That(lift(MergeVisualTiming.LifetimeSeconds),Is.Zero);
+            foreach(float time in new[]{-1f,float.NaN,float.NegativeInfinity})Assert.That(lift(time),Is.Zero);
+        }
         [TestCase(-1f)] [TestCase(float.NaN)] [TestCase(float.PositiveInfinity)] [TestCase(float.NegativeInfinity)]
         public void InvalidElapsedTimeCannotLeakScaleOrLight(float elapsed)
         {

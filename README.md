@@ -1,4 +1,4 @@
-> 2026-10-12・Merge品質改善：背景・正式6名・ロゴ・5×6を保持し、陰影／Lv.バッジ、選択時の拡大、短い合成／光を追加。Core87件＋演出計算8件成功、Unity実DLLコンパイル成功。**Windowsネイティブ・新APK・Pixelは確認待ち**。PlayModeはソース上60件。[最新12項目の報告とWindows手順](docs/development-handoff-2026-10-12.md)、[Pixelチェックリスト](docs/merge-polish-pixel3a-checklist.md)。
+> 2026-10-13・次期品質改善の第1段階：正式6名・ロゴ・街・5×6を保持。丸いMerge受け皿／接地影／合成候補の光／浮遊合成、主人公タップでの寄り道、メニューの絵本調書体を追加。Core94件・演出計算10件成功、実Unity DLLの全6アセンブリ警告／エラー0。テスト構成はEditMode105／PlayMode85で、**今回変更後のWindows全件・APK・Pixelは未実施**。[最新報告とWindows手順](docs/development-handoff-2026-10-13-next-quality.md)、[BGM・Coinsショップ・街拡張・3D比較の設計](docs/superpowers/specs/2026-10-13-product-quality-design.md)。音楽選曲・購入・広域カメラは設計段階。
 
 > 画像サイズ検査の修正：共有4画像の共通／Androidインポート上限1024を明記。修正前Edit90件中89成功／1失敗、修正後は再試験待ち。Unityを閉じてFetch→Pullし、再起動後EditMode→Run All。詳細は[最新引き継ぎ](docs/development-handoff-2026-10-11.md)。
 
@@ -9,7 +9,7 @@
 Unity6000.6.4f1の縦画面Androidゲーム。正式6名の原画を維持し、TOP→初回確認→ホーム→依頼→Merge→納品／報酬→街成長と保存復帰を実装しています。
 
 - [今回の変更・検証結果・未解決事項](docs/pixel3a-quality-status.md)
-- [最新の12項目引き継ぎ報告・次の操作（Merge品質改善）](docs/development-handoff-2026-10-12.md)
+- [最新の改善報告・次の操作（立体Merge・寄り道・書体）](docs/development-handoff-2026-10-13-next-quality.md)
 - [主人公選択・自由移動・会話・複数依頼の承認済み設計](docs/superpowers/specs/2026-10-11-town-life-design.md)
 - [承認済み7工程・実装と残る実機検証](docs/superpowers/plans/2026-10-11-town-life.md)
 - [採用承認された全身見本・制作記録](References/Preview/fullbody-review-2026-10-11/README.md)

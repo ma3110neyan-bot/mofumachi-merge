@@ -15,7 +15,7 @@ namespace Mofumachi.Presentation
         private const int GuidePointer=int.MinValue;
         private TownPoint guideTarget;
         private System.Collections.Generic.IReadOnlyList<TownPoint> walkRoute;
-        private int routeIndex;
+        private int routeIndex,routeDirection=1;
         private TownNavigation navigation;
         private TownPoint npcPosition,npcA,npcB,npcTarget,previous;
         private float waitRemaining,reactionRemaining,stride,amplitude,breath;
@@ -33,7 +33,7 @@ namespace Mofumachi.Presentation
         internal void Connect(TownLifeView view,TownPoint a,TownPoint b,float delay)
         {life=view;npcA=a;npcB=b;npcTarget=b;waitRemaining=delay;ResetVisual();}
         internal void SetWalkRoute(System.Collections.Generic.IReadOnlyList<TownPoint> route,int start)
-        {if(Controlled||route==null||route.Count<3)return;walkRoute=route;routeIndex=(start+1)%route.Count;npcTarget=route[routeIndex];}
+        {if(Controlled||route==null||route.Count<3)return;walkRoute=route;routeDirection=start%2==0?1:-1;routeIndex=(start+routeDirection+route.Count)%route.Count;npcTarget=route[routeIndex];}
         public bool GuideTo(TownPoint target)
         {
             if(!Controlled||life==null||!life.CanInteract || !float.IsFinite(target.X)||!float.IsFinite(target.Y) || (Movement.OwnedPointerId.HasValue&&!IsGuided))return false;
@@ -56,7 +56,7 @@ namespace Mofumachi.Presentation
                 npcPosition=navigation.Move(npcPosition,npcTarget,.028f*dt);
                 if(Vector2.Distance(new Vector2(npcPosition.X,npcPosition.Y),new Vector2(npcTarget.X,npcTarget.Y))<.001f)
                 {
-                    if(walkRoute!=null){routeIndex=(routeIndex+1)%walkRoute.Count;npcTarget=walkRoute[routeIndex];}
+                    if(walkRoute!=null){routeIndex=(routeIndex+routeDirection+walkRoute.Count)%walkRoute.Count;npcTarget=walkRoute[routeIndex];}
                     else npcTarget=npcTarget.Equals(npcB)?npcA:npcB;
                     waitRemaining=1.6f+(routeIndex%3)*.45f;
                 }

@@ -37,8 +37,8 @@ namespace Mofumachi.Presentation
         { var t=Label(name,text,parent,anchors,fontSize);t.font=story;t.lineSpacing=1.2f;return t; }
         public Text StoryHeading(string name,string text,RectTransform parent,Rect anchors,int fontSize)
         { return StoryLabel(name,text,parent,anchors,fontSize); }
-        public Text StoryRibbon(string name,string text,RectTransform parent,Rect anchors,int fontSize)
-        { var r=Node(name+" ribbon",parent,anchors);var g=r.gameObject.AddComponent<RibbonGraphic>();g.color=Pink;g.raycastTarget=false;return StoryHeading(name,text,r,new Rect(.09f,.04f,.82f,.92f),fontSize); }
+        public Text StoryRibbon(string name,string text,RectTransform parent,Rect anchors,int fontSize,Color? tint=null)
+        { var r=Node(name+" ribbon",parent,anchors);var g=r.gameObject.AddComponent<RibbonGraphic>();g.color=tint??Pink;g.raycastTarget=false;return StoryHeading(name,text,r,new Rect(.09f,.04f,.82f,.92f),fontSize); }
         public void Flowers(RectTransform panel)
         { Icon("Flower left",UIIcon.Flower,panel,new Rect(.015f,.81f,.08f,.16f));Icon("Flower right",UIIcon.Flower,panel,new Rect(.905f,.025f,.08f,.16f)); }
         public Button Button(string name,string text,RectTransform parent,Rect anchors,UnityAction action,bool secondary=false)
@@ -74,7 +74,7 @@ namespace Mofumachi.Presentation
         {
             var head=Panel("Header",root,new Rect(0,0,1,1)).rectTransform; Top(head,10,8,10,54);Frame(head,14,false);
             var back=Button("Back","戻る",head,new Rect(0,0,.22f,1),c.Flow.GoBack,true); back.GetComponentInChildren<Text>().fontSize=14;
-            Ribbon("Page title",title,head,new Rect(.22f,.12f,.58f,.76f),18,tint);
+            StoryRibbon("Page title",title,head,new Rect(.22f,.12f,.58f,.76f),18,tint);
             var settings=Button("Settings","",head,new Rect(.81f,0,.19f,1),c.Flow.ShowSettings,true); Icon("Settings icon",UIIcon.Settings,(RectTransform)settings.transform,new Rect(.26f,.26f,.48f,.48f));
         }
         public void Nav(RectTransform root,ScreenContext c,ScreenId active)

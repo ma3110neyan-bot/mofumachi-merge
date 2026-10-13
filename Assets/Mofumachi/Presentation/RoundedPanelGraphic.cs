@@ -8,21 +8,29 @@ namespace Mofumachi.Presentation
         public float radius = 20;
         public float borderWidth = 1.25f;
         public float gloss = .22f;
+        public float shadowDepth = 2;
         public bool decorated = true;
         protected override void OnPopulateMesh(VertexHelper vh)
         {
             vh.Clear(); var r = GetPixelAdjustedRect();
             if(r.width<=0 || r.height<=0)return;
             if(!decorated){Fill(vh,r,radius,color,color);return;}
-            var shadow=r;shadow.y-=2;
+            var shadow=r;shadow.y-=Mathf.Clamp(shadowDepth,0,8);
             var shade=new Color(.37f,.22f,.29f,.12f*color.a);Fill(vh,shadow,radius,shade,shade);
             Fill(vh,r,radius,new Color(.94f,.78f,.51f,color.a),new Color(1,.96f,.82f,color.a));
             float inset=Mathf.Min(borderWidth,Mathf.Min(r.width,r.height)/2);
             r=new Rect(r.x+inset,r.y+inset,r.width-2*inset,r.height-2*inset);
             var light=Color.Lerp(color,Color.white,gloss);light.a=color.a;
             Fill(vh,r,radius-inset,color,light);
-            var rim=new Rect(r.x+radius*.45f,r.yMax-3,Mathf.Max(0,r.width-radius*.9f),1);
-            Fill(vh,rim,.5f,new Color(1,1,1,.46f*color.a),new Color(1,1,1,.46f*color.a));
+            if(r.height>=4)
+            {
+                // The highlight follows the effective corner, including circular seats.
+                // At two units below the top, keep the strip inside the round outline.
+                float corner=Mathf.Clamp(radius-inset,0,Mathf.Min(r.width,r.height)/2);
+                float edge=corner-Mathf.Sqrt(Mathf.Max(0,4*corner-4))+1;
+                var rim=new Rect(r.x+edge,r.yMax-3,Mathf.Max(0,r.width-2*edge),1);
+                Fill(vh,rim,.5f,new Color(1,1,1,.46f*color.a),new Color(1,1,1,.46f*color.a));
+            }
         }
         private static void Fill(VertexHelper vh,Rect r,float requestedRadius,Color bottom,Color top)
         {

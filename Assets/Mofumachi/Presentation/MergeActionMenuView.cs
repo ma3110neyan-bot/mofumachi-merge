@@ -13,7 +13,7 @@ namespace Mofumachi.Presentation
             var card=w.OrnatePanel("Merge menu card",overlay,new Rect(0,0,1,1),UIWidgets.BlushPaper).rectTransform;
             card.anchorMin=card.anchorMax=new Vector2(.5f,.5f);card.sizeDelta=new Vector2(320,480);
             bool cleanup=c.Flow.IsFrameCleanupMode;
-            var title=w.Ribbon("Merge menu title",cleanup?"生成枠を整理":"生成枠",card,new Rect(0,0,1,1),18);
+            var title=w.StoryRibbon("Merge menu title",cleanup?"生成枠を整理":"生成枠",card,new Rect(0,0,1,1),18);
             UIWidgets.Top((RectTransform)title.transform.parent,24,16,24,40);
             var help=w.StoryLabel("Merge menu help",cleanup?"片づける生成枠を選んでください。\n盤面のアイテムは消えません。":(c.Flow.FeedbackFor(ScreenId.Merge).Length>0?c.Flow.FeedbackFor(ScreenId.Merge):UIStrings.ProductionMenuHint),card,new Rect(0,0,1,1),12);
             UIWidgets.Top(help.rectTransform,16,60,16,34);

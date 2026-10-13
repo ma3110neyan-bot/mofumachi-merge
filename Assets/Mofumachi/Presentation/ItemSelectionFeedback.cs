@@ -22,6 +22,7 @@ namespace Mofumachi.Presentation
             {
                 elapsed+=Time.unscaledDeltaTime;
                 transform.localScale=Vector3.one*MergeVisualTiming.SelectionScale(elapsed);
+                ((RectTransform)transform).anchoredPosition=Vector2.up*((MergeVisualTiming.SelectionScale(elapsed)-1)/.06f);
                 yield return null;
             }
             animation=null;started=false;
@@ -31,7 +32,8 @@ namespace Mofumachi.Presentation
             if(!started||animation==null)return;
             StopCoroutine(animation);animation=null;started=false;
             transform.localScale=Vector3.one*MergeVisualTiming.SelectionScale(MergeVisualTiming.SelectionSeconds);
+            ((RectTransform)transform).anchoredPosition=Vector2.up;
         }
-        private void OnDisable(){StopAllCoroutines();animation=null;started=false;transform.localScale=Vector3.one;}
+        private void OnDisable(){StopAllCoroutines();animation=null;started=false;transform.localScale=Vector3.one;((RectTransform)transform).anchoredPosition=Vector2.zero;}
     }
 }

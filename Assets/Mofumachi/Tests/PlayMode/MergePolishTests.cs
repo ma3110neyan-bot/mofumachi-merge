@@ -24,6 +24,8 @@ namespace Mofumachi.Tests
             var mesh=art.canvasRenderer.GetMesh();Assert.That(mesh,Is.Not.Null);Assert.That(mesh.vertexCount,Is.EqualTo(8),"A silhouette shadow and the original image share one mesh.");
             Assert.That(mesh.colors.Any(c=>c.a>0&&c.a<.2f),Is.True,"The shadow should be translucent.");
             Assert.That(cells[0].transform.Find("Item level badge"),Is.Not.Null);
+            Assert.That(cells[0].transform.Find("Item contact shadow").GetComponent<Graphic>().raycastTarget,Is.False);
+            Assert.That(cells[0].GetComponent<RoundedPanelGraphic>().canvasRenderer.GetMesh().colors.Any(c=>c.r>.99f&&c.g>.99f&&c.b>.99f&&c.a>.4f&&c.a<.6f),Is.True,"A round seat retains its visible white highlight.");
             Assert.That(Flow.Game.State.mergeBoard.Count,Is.EqualTo(2));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator SelectionScalesOnlyTheItemAndDoesNotSave()
@@ -32,9 +34,16 @@ namespace Mofumachi.Tests
             Flow.TapCell(0);yield return new WaitForSecondsRealtime(.25f);
             Assert.That(Art(0).transform.localScale.x,Is.EqualTo(1.06f).Within(.001));
             Assert.That(Art(0).transform.parent.localScale,Is.EqualTo(Vector3.one));
+            Assert.That(Art(0).rectTransform.anchoredPosition.y,Is.EqualTo(1).Within(.001));
+            Assert.That(Flow.GetComponentsInChildren<MergeBoardView>().Single(v=>v.name=="Cell 1").transform.Find("Merge candidate glow"),Is.Not.Null);
             Assert.That(Flow.FeedbackFor(ScreenId.Merge),Does.Contain("お茶 Lv.1"));
             Assert.That(Flow.GetComponentsInChildren<MergeSparkleGraphic>().All(g=>!g.raycastTarget),Is.True);
             Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));
+            Flow.Game.State.mergeBoard[1].itemId="bread";Flow.ShowMerge();Flow.TapCell(0);
+            Assert.That(Flow.GetComponentsInChildren<MergeBoardView>().All(v=>v.transform.Find("Merge candidate glow")==null),Is.True,"A different kind must never be suggested.");
+            Flow.Game.State.mergeBoard[1].itemId="tea";Flow.Game.State.mergeBoard[1].level=2;Flow.ShowMerge();Flow.TapCell(0);
+            Assert.That(Flow.GetComponentsInChildren<MergeBoardView>().All(v=>v.transform.Find("Merge candidate glow")==null),Is.True,"A different level must never be suggested.");
+            Flow.Game.State.mergeBoard[1].level=1;
             Flow.GenerateItem("bread");Assert.That(Flow.SelectedCell,Is.EqualTo(-1),"Producing an item starts a new selection gesture.");
             Assert.That(Art(0).transform.localScale,Is.EqualTo(Vector3.one));
             LogAssert.NoUnexpectedReceived();

@@ -7,13 +7,21 @@ namespace Mofumachi.Presentation
     public sealed class MergeSparkleGraphic : MaskableGraphic
     {
         private bool selection;
+        private bool match;
         private float elapsed;
         protected override void Awake(){base.Awake();raycastTarget=false;}
-        public void BindSelection(){selection=true;SetVerticesDirty();}
-        public void SetBurstFrame(float seconds){selection=false;elapsed=seconds;SetVerticesDirty();}
+        public void BindSelection(){selection=true;match=false;SetVerticesDirty();}
+        public void BindMatch(){selection=false;match=true;SetVerticesDirty();}
+        public void SetBurstFrame(float seconds){selection=false;match=false;elapsed=seconds;SetVerticesDirty();}
         protected override void OnPopulateMesh(VertexHelper vh)
         {
             vh.Clear();var r=GetPixelAdjustedRect();if(r.width<=0||r.height<=0)return;
+            if(match)
+            {
+                Glow(vh,r.center,Mathf.Min(r.width,r.height)*.47f,.24f);
+                Star(vh,r.center+new Vector2(-r.width*.31f,r.height*.22f),2.2f,new Color(1,.93f,.56f,.85f));
+                Star(vh,r.center+new Vector2(r.width*.3f,r.height*.19f),1.6f,new Color(1,1,.88f,.7f));return;
+            }
             if(selection)
             {
                 Star(vh,r.center+new Vector2(-r.width*.22f,r.height*.23f),2.4f,new Color(1,1,.92f,.6f));

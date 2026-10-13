@@ -9,7 +9,7 @@ namespace Mofumachi.Presentation
             var overlay=w.Panel("Pack frames modal",root,new Rect(0,0,1,1),new Color(.25f,.15f,.25f,.6f)).rectTransform;overlay.GetComponent<RoundedPanelGraphic>().raycastTarget=true;
             var card=w.OrnatePanel("Pack frames card",overlay,new Rect(0,0,1,1),UIWidgets.BlushPaper).rectTransform;
             card.anchorMin=card.anchorMax=new Vector2(.5f,.5f);card.sizeDelta=new Vector2(320,390);
-            w.Ribbon("Pack title","生成枠を片づけますか？",card,new Rect(.08f,.83f,.84f,.12f),17);
+            w.StoryRibbon("Pack title","生成枠を片づけますか？",card,new Rect(.08f,.83f,.84f,.12f),17);
             for(int i=0;i<c.Flow.PendingFrameIds.Count;i++)
             {
                 string id=c.Flow.PendingFrameIds[i];var row=w.Panel("Pack target row",card,new Rect(0,0,1,1),UIWidgets.BluePaper).rectTransform;
@@ -28,10 +28,10 @@ namespace Mofumachi.Presentation
             overlay.GetComponent<RoundedPanelGraphic>().raycastTarget=true;
             var card=c.Widgets.OrnatePanel("Discard card",overlay,new Rect(0,0,1,1),UIWidgets.BlushPaper).rectTransform;
             card.anchorMin=card.anchorMax=new Vector2(.5f,.5f);card.sizeDelta=new Vector2(320,360);
-            c.Widgets.Ribbon("Discard title","片づけますか？",card,new Rect(.1f,.82f,.8f,.13f),18);
+            c.Widgets.StoryRibbon("Discard title","片づけますか？",card,new Rect(.1f,.82f,.8f,.13f),18);
             c.Widgets.Item("Discard item",c.Flow.DiscardItemId,c.Flow.DiscardItemLevel,card,new Rect(.35f,.57f,.3f,.22f));
             c.Widgets.Label("Discard item level",(Mofumachi.Core.ItemCatalog.Find(c.Flow.DiscardItemId)?.Name??"アイテム")+" Lv."+c.Flow.DiscardItemLevel,card,new Rect(.1f,.48f,.8f,.08f),16);
-            c.Widgets.Label("Discard warning","このアイテム1個を取り除きます。",card,new Rect(.06f,.33f,.88f,.12f),14);
+            c.Widgets.StoryLabel("Discard warning","このアイテム1個を取り除きます。",card,new Rect(.06f,.33f,.88f,.12f),14);
             c.Widgets.Label("Discard feedback",c.Flow.FeedbackFor(ScreenId.Merge),card,new Rect(.06f,.2f,.88f,.12f),12);
             var yes=c.Widgets.Button("Confirm discard","片づける",card,new Rect(0,0,1,1),()=>c.Flow.ConfirmDiscard());
             UIWidgets.Bottom((RectTransform)yes.transform,16,12,168,52);

@@ -33,7 +33,7 @@ namespace Mofumachi.Presentation
             vh.Clear();if(Atlas==null||pixels.width<=0)return;
             Rect target=GetPixelAdjustedRect();float scale=Mathf.Min(target.width/pixels.width,target.height/pixels.height);
             Vector2 size=pixels.size*scale,min=target.center-size/2,max=min+size;
-            if(Polished)Quad(vh,min+new Vector2(.55f,-1.15f),max+new Vector2(.55f,-1.15f),new Color(.29f,.18f,.24f,.13f*color.a));
+            if(Polished)Quad(vh,min+new Vector2(.8f,-2.25f),max+new Vector2(.8f,-2.25f),new Color(.29f,.18f,.24f,.17f*color.a));
             Color tint=new Color(1,1,1,color.a);
             Quad(vh,min,max,tint);
         }

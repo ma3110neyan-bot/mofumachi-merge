@@ -56,10 +56,10 @@ namespace Mofumachi.Presentation
             float p=MergeVisualTiming.GatherProgress(elapsed);
             bool gathering=!itemMotionFinished&&elapsed<MergeVisualTiming.GatherSeconds;
             source.gameObject.SetActive(gathering);other.gameObject.SetActive(gathering);
-            source.rectTransform.anchoredPosition=Vector2.Lerp(fromPoint,toPoint,p);source.transform.localScale=Vector3.one*(1-.2f*p);
+            source.rectTransform.anchoredPosition=Vector2.Lerp(fromPoint,toPoint,p)+Vector2.up*(itemSize.y*MergeVisualTiming.GatherLift(elapsed));source.transform.localScale=Vector3.one*(1-.2f*p);
             other.rectTransform.anchoredPosition=toPoint+nudge*Mathf.Sin(p*Mathf.PI);
             bool showingResult=!itemMotionFinished&&elapsed>=MergeVisualTiming.GatherSeconds&&elapsed<MergeVisualTiming.LockSeconds;
-            result.gameObject.SetActive(showingResult);result.rectTransform.anchoredPosition=toPoint;result.transform.localScale=Vector3.one*MergeVisualTiming.ResultScale(elapsed);
+            result.gameObject.SetActive(showingResult);result.rectTransform.anchoredPosition=toPoint+Vector2.up*(itemSize.y*MergeVisualTiming.ResultLift(elapsed));result.transform.localScale=Vector3.one*MergeVisualTiming.ResultScale(elapsed);
             if(elapsed>=MergeVisualTiming.LockSeconds)FinishItemMotion();
             sparkle.gameObject.SetActive(true);sparkle.SetBurstFrame(elapsed);
         }

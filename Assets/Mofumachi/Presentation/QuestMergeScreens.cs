@@ -46,14 +46,18 @@ namespace Mofumachi.Presentation
             w.StoryLabel("Merge chapter",status,progress,new Rect(.03f,.5f,.94f,.5f),12);
             w.Label("Progress",summary,progress,new Rect(.03f,0,.94f,.5f),12);
             var tray=w.Panel("Merge tray",root,new Rect(0,0,1,1),new Color(.73f,.92f,.84f)).rectTransform;tray.offsetMin=new Vector2(10,root.rect.height>=700&&c.Game.State.productionFrameIds.Count>0?212:158);tray.offsetMax=new Vector2(-10,-112);
+            var traySurface=tray.GetComponent<RoundedPanelGraphic>();traySurface.shadowDepth=7;traySurface.gloss=.32f;
             w.Frame(tray,22,false);
             var grid=UIWidgets.Node("Merge board",tray,new Rect(0,0,1,1));grid.offsetMin=new Vector2(7,7);grid.offsetMax=new Vector2(-7,-7);
             var group=grid.gameObject.AddComponent<GridLayoutGroup>();group.constraint=GridLayoutGroup.Constraint.FixedColumnCount;group.constraintCount=5;group.spacing=new Vector2(4,4);group.childAlignment=TextAnchor.MiddleCenter;
+            var selectedItem=c.Game.Board.At(c.Flow.SelectedCell);
             for(int i=0;i<30;i++)
             {
                 int index=i;var item=c.Game.Board.At(i);var b=w.Button("Cell "+i,"",grid,new Rect(0,0,1,1),()=>{} ,true);
-                var surface=b.GetComponent<RoundedPanelGraphic>();surface.radius=13;surface.borderWidth=1;surface.gloss=.2f;
-                surface.color=c.Game.Board.IsLocked(i)?new Color(1,.89f,.59f):index==c.Flow.SelectedCell?new Color(1,.69f,.8f):UIWidgets.Cream;
+                var surface=b.GetComponent<RoundedPanelGraphic>();surface.radius=100;surface.borderWidth=item==null?.65f:1.2f;surface.gloss=item==null?.16f:.4f;surface.shadowDepth=item==null?1:4;
+                surface.color=c.Game.Board.IsLocked(i)?new Color(1,.89f,.59f):index==c.Flow.SelectedCell?new Color(1,.69f,.8f):item==null?new Color(.78f,.93f,.86f,.75f):UIWidgets.Cream;
+                if(index!=c.Flow.SelectedCell&&selectedItem!=null&&item!=null&&item.itemId==selectedItem.itemId&&item.level==selectedItem.level&&item.level<GameState.MaxLevel&&!c.Game.Board.IsLocked(index)&&!c.Game.Board.IsLocked(c.Flow.SelectedCell))
+                    UIWidgets.Node("Merge candidate glow",(RectTransform)b.transform,new Rect(0,0,1,1)).gameObject.AddComponent<MergeSparkleGraphic>().BindMatch();
                 var drag=b.gameObject.AddComponent<MergeBoardView>();drag.Initialize(c.Flow,i);
                 b.onClick.AddListener(()=>{if(!drag.SuppressClick)c.Flow.TapCell(index);});
                 if(item!=null)
@@ -61,11 +65,16 @@ namespace Mofumachi.Presentation
                     var cell=(RectTransform)b.transform;
                     if(ItemCatalog.Find(item.itemId)!=null)
                     {
+                        if(item.level>1)
+                        {
+                            var halo=w.Panel("Item level halo",cell,new Rect(.13f,.35f,.74f,.52f),new Color(1,.89f,.57f,item.level==3?.16f:.08f));halo.radius=100;halo.decorated=false;
+                        }
+                        var ground=w.Panel("Item contact shadow",cell,new Rect(.22f,.34f,.56f,.095f),new Color(.25f,.2f,.25f,.18f));ground.radius=100;ground.decorated=false;
                         var art=w.Item("Item art",item.itemId,item.level,cell,new Rect(.09f,.36f,.82f,.59f));art.SetPolished(true);
                         if(index==c.Flow.SelectedCell)
                         {
                             if(animateSelection)art.gameObject.AddComponent<ItemSelectionFeedback>().Play();
-                            else art.transform.localScale=Vector3.one*MergeVisualTiming.SelectionScale(MergeVisualTiming.SelectionSeconds);
+                            else {art.transform.localScale=Vector3.one*MergeVisualTiming.SelectionScale(MergeVisualTiming.SelectionSeconds);art.rectTransform.anchoredPosition=Vector2.up;}
                             UIWidgets.Node("Selected item glint",art.rectTransform,new Rect(0,0,1,1)).gameObject.AddComponent<MergeSparkleGraphic>().BindSelection();
                         }
                     }

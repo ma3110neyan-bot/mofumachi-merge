@@ -20,6 +20,17 @@ namespace Mofumachi.Tests
             Assert.That(source.X,Is.EqualTo(TownLifeView.RequestEntrance.X).Within(.0001f));Assert.That(source.Y,Is.EqualTo(TownLifeView.RequestEntrance.Y).Within(.0001f));
             Assert.That(Flow.GetComponentInChildren<TownAmbientGraphic>().raycastTarget,Is.False);Assert.That(Flow.GetComponentInChildren<TownGrowthView>().VisibleStage,Is.EqualTo(Flow.Game.State.townGrowthLevel));Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(saved));LogAssert.NoUnexpectedReceived();
         }
+        [UnityTest] public IEnumerator EntranceMarkerRemainsFullyVisibleAfterCameraGuidance()
+        {
+            yield return EnterHome();var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;((RectTransform)canvas.transform).sizeDelta=new Vector2(360,592);
+            Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,592),new Rect(0,24,360,536));Canvas.ForceUpdateCanvases();
+            var life=Flow.GetComponentInChildren<TownLifeView>();var camera=life.GetComponent<TownViewportView>();var background=Flow.TownBackground;
+            Vector2 Screen(float y)=>RectTransformUtility.WorldToScreenPoint(null,background.rectTransform.TransformPoint(new Vector2(0,background.rectTransform.rect.yMin+y*background.rectTransform.rect.height)));
+            camera.OnPointerDown(new PointerEventData(EventSystem.current){pointerId=5,position=Screen(.1f)});camera.OnDrag(new PointerEventData(EventSystem.current){pointerId=5,position=Screen(.9f)});camera.OnPointerUp(new PointerEventData(EventSystem.current){pointerId=5});camera.Advance(1f/30);
+            Assert.That(life.GuideToFacility("quest"),Is.True);camera.Focus(TownLifeView.RequestEntrance);camera.Advance(1f/30);life.RefreshViewport();Canvas.ForceUpdateCanvases();
+            var root=(RectTransform)life.transform;var marker=life.GetComponentsInChildren<Button>().Single(b=>b.name=="Facility marker 依頼部屋");var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(root,marker.transform);
+            Assert.That(bounds.min.y,Is.GreaterThanOrEqualTo(root.rect.yMin));Assert.That(bounds.max.y,Is.LessThanOrEqualTo(root.rect.yMax));Assert.That(((RectTransform)marker.transform).rect.height,Is.GreaterThanOrEqualTo(48));LogAssert.NoUnexpectedReceived();
+        }
         [UnityTest] public IEnumerator ActorAndCameraGesturesHaveOneOwner()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var camera=life.GetComponent<TownViewportView>();var hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);

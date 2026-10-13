@@ -50,7 +50,7 @@ namespace Mofumachi.Presentation
                     var card=w.Button("Requirement "+id,"",progress,new Rect(i*span+.006f,0,span-.012f,1),()=>c.Flow.FocusRequirement(id),true);card.GetComponent<RoundedPanelGraphic>().color=entry.Available>=req.Count?UIWidgets.Mint:UIWidgets.Cream;
                     w.Item("Requirement art "+id,id,req.Level,(RectTransform)card.transform,new Rect(.025f,.06f,.26f,.88f));
                     w.StoryLabel("Requirement name "+id,ItemCatalog.Find(id).Name+" Lv."+req.Level,(RectTransform)card.transform,new Rect(.31f,.49f,.66f,.49f),14);
-                    w.Label("Requirement count "+id,entry.Available+" / "+req.Count+(entry.Available>=req.Count?" そろいました！":" あと"+Mathf.Max(0,req.Count-entry.Available)),(RectTransform)card.transform,new Rect(.31f,.01f,.66f,.48f),12);
+                    w.Label("Requirement count "+id,entry.Available+" / "+req.Count+(entry.Available>=req.Count?" 完了":" あと"+Mathf.Max(0,req.Count-entry.Available)),(RectTransform)card.transform,new Rect(.31f,.01f,.66f,.48f),12);
                 }
             }
             else w.StoryLabel("Merge complete hint",UIStrings.DeliveryHint(c.Game),progress,new Rect(.04f,.02f,.92f,.96f),14);
@@ -108,20 +108,44 @@ namespace Mofumachi.Presentation
             var menu=w.Button("Merge actions","生成枠\n整理",toolbar,new Rect(0,0,0,1),c.Flow.OpenMergeActions,true);var mr=(RectTransform)menu.transform;mr.pivot=new Vector2(0,.5f);mr.anchoredPosition=new Vector2(198,0);mr.sizeDelta=new Vector2(48,0);menu.GetComponentInChildren<Text>().fontSize=12;
             bool preview=quest!=null&&!accepted;
             var delivery=w.Button("Deliver",preview?"依頼を見る":"納品する",toolbar,new Rect(0,0,1,1),()=>{if(preview)c.Flow.ShowQuest();else c.Flow.Deliver();});((RectTransform)delivery.transform).offsetMin=new Vector2(250,0);delivery.GetComponentInChildren<Text>().fontSize=14;delivery.interactable=preview||deliverable;
-            root.gameObject.AddComponent<ProductionFrameLayout>().Bind(tray,toolbar);
-            w.Feedback(root,c,ScreenId.Merge); // Compact feedback between navigation and toolbar.
-            var text=root.Find("Feedback").GetComponent<Text>();UIWidgets.Bottom(text.rectTransform,14,72,14,32);text.fontSize=14;text.lineSpacing=1f;
-            if(text.text.Length==0)text.text=c.Game.State.mergeBoard.Count>=30?UIStrings.BoardFull:UIStrings.DeliveryHint(c.Game);
-            var feedbackSurface=root.Find("Feedback surface") as RectTransform;if(feedbackSurface!=null)UIWidgets.Bottom(feedbackSurface,12,72,12,32);
+            w.Feedback(root,c,ScreenId.Merge);
+            var text=root.Find("Feedback").GetComponent<Text>();text.fontSize=14;text.lineSpacing=1f;
+            var feedbackSurface=root.Find("Feedback surface") as RectTransform;
+            if(feedbackSurface==null)feedbackSurface=w.Panel("Feedback surface",root,new Rect(0,0,1,1),new Color(1,.988f,.945f,.97f)).rectTransform;
+            feedbackSurface.SetSiblingIndex(text.transform.GetSiblingIndex());
             w.Nav(root,c,ScreenId.Merge,58);
+            root.gameObject.AddComponent<ProductionFrameLayout>().Bind(tray,toolbar,text,feedbackSurface,c.Game.State.mergeBoard.Count>=30?UIStrings.BoardFull:UIStrings.DeliveryHint(c.Game));
         }
     }
     public sealed class ProductionFrameLayout : MonoBehaviour
     {
-        private RectTransform tray;
-        public void Bind(RectTransform boardTray,RectTransform frameStrip){tray=boardTray;ResizeNow();}
+        private RectTransform tray,toolbar,surface;private Text feedback;private string hint,message;
+        public void Bind(RectTransform boardTray,RectTransform frameStrip,Text feedbackText,RectTransform feedbackSurface,string defaultHint)
+        {tray=boardTray;toolbar=frameStrip;feedback=feedbackText;surface=feedbackSurface;hint=defaultHint;message=feedback.text;ResizeNow();}
+        public void SetMessage(string value){message=value??"";ResizeNow();}
         private void OnRectTransformDimensionsChange()=>ResizeNow();
-        public void ResizeNow(){if(tray!=null)tray.offsetMin=new Vector2(10,156);}
+        public void ResizeNow()
+        {
+            if(tray==null||feedback==null)return;var root=(RectTransform)transform;
+            feedback.text=message.Length>0?message:hint;
+            // Reserve readable lines before allocating the board; never shrink text/cells.
+            float height=Mathf.Max(46,Mathf.Ceil(feedback.preferredHeight+4));
+            float toolbarBottom=72+height+2;
+            bool compact=root.rect.height<112+toolbarBottom+50+322;
+            UIWidgets.Top(root.Find("Header") as RectTransform,10,compact?4:8,10,48);
+            UIWidgets.Top(root.Find("Merge progress") as RectTransform,12,compact?58:62,12,48);
+            if(compact)toolbarBottom=54;
+            UIWidgets.Bottom(toolbar,12,toolbarBottom,12,48);
+            tray.offsetMin=new Vector2(10,toolbarBottom+50);tray.offsetMax=new Vector2(-10,compact?-108:-112);
+            var nav=root.Find("Navigation") as RectTransform;UIWidgets.Bottom(nav,8,compact?4:8,8,compact?48:58);
+            foreach(var button in nav.GetComponentsInChildren<Button>())
+            {var r=(RectTransform)button.transform;r.anchorMin=new Vector2(r.anchorMin.x,compact?0:.06f);r.anchorMax=new Vector2(r.anchorMax.x,compact?1:.94f);}
+            // On short screens, feedback is a nonblocking toast over the board only after an action.
+            feedback.text=message.Length>0?message:compact?"":hint;
+            UIWidgets.Bottom(feedback.rectTransform,14,compact?108:72,14,height);
+            UIWidgets.Bottom(surface,12,compact?108:72,12,height);
+            feedback.gameObject.SetActive(feedback.text.Length>0);surface.gameObject.SetActive(feedback.text.Length>0);
+        }
     }
     public sealed class MergeGridLayout : MonoBehaviour
     {

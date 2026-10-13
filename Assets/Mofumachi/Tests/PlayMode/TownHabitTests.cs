@@ -31,6 +31,12 @@ namespace Mofumachi.Tests
             yield return EnterHome();var state=Flow.Game.State.Clone();state.townGrowthLevel=6;Store.Save(state);Flow.Initialize(Store);Flow.ShowHome();var life=Flow.GetComponentInChildren<TownLifeView>();
             Assert.That(life.StreetMap.Places.Any(p=>p.Id=="celebration"),Is.True);Assert.That(life.GuideToPlace("celebration"),Is.True);Assert.That(life.GuideToPlace("unknown"),Is.False);Flow.Initialize(Store);Flow.ShowHome();Assert.That(Flow.GetComponentInChildren<TownLifeView>().StreetMap.Places.Any(p=>p.Id=="celebration"),Is.True);LogAssert.NoUnexpectedReceived();
         }
+        [UnityTest] public IEnumerator CompletedChapterCanBeReopenedFromHomeAfterReload()
+        {
+            yield return EnterHome();var state=Flow.Game.State.Clone();state.completedQuestIds.AddRange(new[]{"tea-01","bread-01"});state.claimedRewardIds.AddRange(new[]{"quest:tea-01","quest:bread-01"});state.coins=70;state.townGrowthLevel=2;Store.Save(state);Flow.Initialize(Store);Flow.ShowHome();
+            string saved=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;var replay=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Review chapter");Assert.That(((RectTransform)replay.transform).rect.height,Is.GreaterThanOrEqualTo(48));replay.onClick.Invoke();
+            Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.ChapterSummary));Assert.That(Flow.LastChapter.ChapterId,Is.EqualTo("chapter-01"));Assert.That(Store.Writes,Is.EqualTo(writes+1),"Preserve the existing navigation save");Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(saved));Flow.GoBack();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));LogAssert.NoUnexpectedReceived();
+        }
         [UnityTest] public IEnumerator NamesBubblesAndFacilitiesStayInsideSafeArea()
         {
             yield return EnterHome();foreach(int height in new[]{592,640,808})

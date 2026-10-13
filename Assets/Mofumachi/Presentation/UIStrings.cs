@@ -19,7 +19,7 @@ namespace Mofumachi.Presentation
         public const string DeliveryThanks="ありがとう！";
         public const string MergeSelectionHint="同じ種類・Lv.を重ねよう";
         public const string MergeBusy="合成中です。少し待ってから操作しよう。";
-        public const string BoardFull="盤面がいっぱいです。マスを選び「種類／整理」で片づけよう。";
+        public const string BoardFull="満杯です。マス選択→「生成枠／整理」へ。\n「盤面：…を片づける」で空きを作ろう。";
         public const string OutsideBoard="盤面の外です。マスの中へ移動してください。";
         public const string EmptySource="空のマスです。アイテムのあるマスを選ぼう。";
         public const string SameCell="元のマスです。別のマスへ移動してください。";

@@ -55,6 +55,14 @@ namespace Mofumachi.Presentation
             string goal=unknown?UIStrings.UnknownQuest:chapter.AllCompleted?"みんなのお茶会がひらけました！":chapter.CompletedCount==0&&c.Game.State.activeQuestId.Length==0?"仲間とお茶会をひらこう":requester.Name+"："+next.Title;
             w.StoryLabel("Home quest summary",goal,quest,new Rect(.04f,.28f,.92f,.37f),14);
             w.StoryLabel("Town growth hint",TownPlaceCatalog.GrowthHint(c.Game.State.townGrowthLevel),quest,new Rect(.04f,.01f,.92f,.25f),12);
+            if(chapter.LastCompletedChapter!=null)
+            {
+                quest.Find("Home quest title").GetComponent<RectTransform>().anchorMax=new Vector2(.68f,.97f);
+                var count=quest.Find("Chapter progress").GetComponent<RectTransform>();count.anchorMin=new Vector2(.68f,.65f);count.anchorMax=new Vector2(.79f,.95f);
+                foreach(string label in new[]{"Home quest summary","Town growth hint"}){var r=quest.Find(label).GetComponent<RectTransform>();r.anchorMax=new Vector2(.79f,r.anchorMax.y);}
+                var replay=w.Button("Review chapter","おも\nいで",quest,new Rect(1,.5f,0,0),()=>c.Flow.ReviewLastChapter(),true);
+                var replayRect=(RectTransform)replay.transform;replayRect.pivot=new Vector2(1,.5f);replayRect.anchoredPosition=new Vector2(-8,0);replayRect.sizeDelta=new Vector2(48,48);replay.GetComponentInChildren<Text>().fontSize=12;
+            }
             var tap=quest.gameObject.AddComponent<Button>();quest.GetComponent<RoundedPanelGraphic>().raycastTarget=true;tap.targetGraphic=quest.GetComponent<RoundedPanelGraphic>();tap.onClick.AddListener(()=>{if(chapter.AllCompleted)c.Flow.ReviewLastChapter();else c.Flow.ShowQuest();});
             w.Nav(root,c,ScreenId.Home);
             string message=c.Flow.FeedbackFor(ScreenId.Home);

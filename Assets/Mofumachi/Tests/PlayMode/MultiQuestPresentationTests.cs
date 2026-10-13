@@ -28,7 +28,7 @@ namespace Mofumachi.Tests
             yield return EnterHome();Flow.ShowMerge();Flow.Game.State.mergeBoard.Clear();
             foreach(var kind in ItemCatalog.All)for(int level=1;level<=3;level++)Flow.Game.AddItem(kind.Id,level);
             Flow.ShowMerge();Canvas.ForceUpdateCanvases();
-            var icons=Flow.GetComponentsInChildren<ItemGraphic>();Assert.That(icons.Length,Is.EqualTo(9));
+            var icons=Flow.GetComponentsInChildren<MergeBoardView>().SelectMany(cell=>cell.GetComponentsInChildren<ItemGraphic>()).ToArray();Assert.That(icons.Length,Is.EqualTo(9));
             Assert.That(icons.Select(i=>i.UvRect).Distinct().Count(),Is.EqualTo(9));
             var item=Flow.GetComponentsInChildren<MergeBoardView>()[3];
             item.OnBeginDrag(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current));

@@ -172,7 +172,31 @@ namespace Mofumachi.Tests
         }
         [UnityTest] public IEnumerator ShortPortraitKeepsOneProductionRowAndReadableControls()
         {
-            yield return EnterHome();Flow.ShowMerge();foreach(int h in new[]{592,640,808}){Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,h),new Rect(0,0,360,h));Canvas.ForceUpdateCanvases();var buttons=Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Generate frame ")).ToArray();Assert.That(buttons.Length,Is.EqualTo(3));foreach(var b in buttons){var r=((RectTransform)b.transform).rect;Assert.That(r.width,Is.GreaterThanOrEqualTo(48));Assert.That(r.height,Is.GreaterThanOrEqualTo(48));var toolbar=(RectTransform)b.transform.parent;var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(toolbar,b.transform);Assert.That(bounds.min.x,Is.GreaterThanOrEqualTo(toolbar.rect.xMin-.01f));Assert.That(bounds.max.x,Is.LessThanOrEqualTo(toolbar.rect.xMax+.01f));}foreach(var cell in Flow.GetComponentsInChildren<MergeBoardView>())Assert.That(((RectTransform)cell.transform).rect.width,Is.GreaterThanOrEqualTo(48));}LogAssert.NoUnexpectedReceived();
+            yield return EnterHome();AcceptedBread();var state=Flow.Game.State;
+            state.completedQuestIds.AddRange(new[]{"bread-01","flower-01"});state.activeQuestId="tea-02";
+            state.mergeBoard.Clear();state.mergeBoard.Add(new BoardItem("tea",3,0));state.mergeBoard.Add(new BoardItem("bread",2,1));
+            var canvas=new GameObject("Safe Merge fixture",typeof(RectTransform),typeof(Canvas));canvas.GetComponent<Canvas>().renderMode=RenderMode.WorldSpace;
+            var canvasRect=(RectTransform)canvas.transform;var widgets=new UIWidgets(Resources.Load<Font>("Mofumachi/UIFont"),Resources.Load<Texture2D>("Mofumachi/CharacterMaster"));
+            try
+            {
+                foreach(int h in new[]{592,640,808})
+                {
+                    canvasRect.sizeDelta=new Vector2(360,h);var responsive=canvas.AddComponent<ResponsiveUILayout>();responsive.Initialize(canvas.GetComponent<Canvas>());responsive.ApplyViewport(new Vector2(360,h),new Rect(0,24,360,h-56));
+                    var page=responsive.CreatePage("Safe Merge page");QuestMergeScreens.BuildMerge(page,new ScreenContext(Flow,widgets));Canvas.ForceUpdateCanvases();page.GetComponent<ProductionFrameLayout>().ResizeNow();page.GetComponentInChildren<MergeGridLayout>().ResizeNow();Canvas.ForceUpdateCanvases();
+                    Assert.That(page.rect.height,Is.EqualTo(h-56).Within(.01f),"Fixture must resize the actual canvas and apply the insets");
+                    var buttons=page.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Generate frame ")||b.name=="Merge actions"||b.name=="Deliver"||b.name.StartsWith("Nav ")).ToArray();
+                    Assert.That(buttons.Count(b=>b.name.StartsWith("Generate frame ")),Is.EqualTo(3));
+                    foreach(var button in buttons){var r=((RectTransform)button.transform).rect;Assert.That(r.width,Is.GreaterThanOrEqualTo(48),button.name);Assert.That(r.height,Is.GreaterThanOrEqualTo(48),button.name);var parent=(RectTransform)button.transform.parent;var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(parent,button.transform);Assert.That(bounds.min.x,Is.GreaterThanOrEqualTo(parent.rect.xMin-.01f),button.name);Assert.That(bounds.max.x,Is.LessThanOrEqualTo(parent.rect.xMax+.01f),button.name);}
+                    foreach(var cell in page.GetComponentsInChildren<MergeBoardView>())Assert.That(((RectTransform)cell.transform).rect.width,Is.GreaterThanOrEqualTo(48),"Safe Area cell");
+                    foreach(var count in page.GetComponentsInChildren<Text>().Where(t=>t.name.StartsWith("Requirement count ")))Assert.That(count.preferredHeight,Is.LessThanOrEqualTo(count.rectTransform.rect.height+.5f),count.text);
+                    var feedback=page.Find("Feedback").GetComponent<Text>();
+                    foreach(string message in new[]{UIStrings.BoardFull,UIStrings.DifferentKind+"\nパン Lv.1を選びました。"})
+                    {
+                        page.GetComponent<ProductionFrameLayout>().SetMessage(message);Canvas.ForceUpdateCanvases();Assert.That(feedback.preferredHeight,Is.LessThanOrEqualTo(feedback.rectTransform.rect.height+.5f),message);
+                    }
+                    UnityEngine.Object.DestroyImmediate(responsive.FullScreenRoot.gameObject);UnityEngine.Object.DestroyImmediate(responsive.SafeRoot.gameObject);UnityEngine.Object.DestroyImmediate(responsive);
+                }
+            }finally{UnityEngine.Object.DestroyImmediate(canvas);}LogAssert.NoUnexpectedReceived();
         }
     }
 public sealed class ProductionFrameUiTests : SliceUiTestFixture
@@ -235,7 +259,7 @@ public sealed class ProductionFrameUiTests : SliceUiTestFixture
  {
   yield return EnterHome();Flow.ShowMerge();Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.text=="Merge"),Is.True);
   Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.text.Contains("マージ")),Is.False);
-  var canvas=new GameObject("Frame layout fixture",typeof(RectTransform),typeof(Canvas));
+  var canvas=new GameObject("Frame layout fixture",typeof(RectTransform),typeof(Canvas));canvas.GetComponent<Canvas>().renderMode=RenderMode.WorldSpace;
   try
   {
    var root=(RectTransform)canvas.transform;var widgets=new UIWidgets(Resources.Load<Font>("Mofumachi/UIFont"),Resources.Load<Texture2D>("Mofumachi/CharacterMaster"));

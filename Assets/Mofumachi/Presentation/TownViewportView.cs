@@ -33,7 +33,8 @@ namespace Mofumachi.Presentation
             {
                 var world=(RectTransform)life.transform;var r=world.rect;var br=background.rectTransform.rect;
                 var low=background.rectTransform.InverseTransformPoint(world.TransformPoint(new Vector2(r.xMin+44,r.yMin+26)));
-                var high=background.rectTransform.InverseTransformPoint(world.TransformPoint(new Vector2(r.xMax-44,r.yMax-92)));
+                // The entrance marker reaches128 above its foot, beyond the actor's body.
+                var high=background.rectTransform.InverseTransformPoint(world.TransformPoint(new Vector2(r.xMax-48,r.yMax-132)));
                 var min=(new Vector2(low.x,low.y)-br.min)/br.size;var max=(new Vector2(high.x,high.y)-br.min)/br.size;
                 min=Vector2.Max(Vector2.zero,min);max=Vector2.Min(Vector2.one,max);
                 model.TryFrame(focus.Value,new TownViewportRect(min.x,min.y,max.x-min.x,max.y-min.y));

@@ -407,6 +407,7 @@ namespace Mofumachi.Presentation
             feedback[ScreenId.Merge]=message;
             if(CurrentScreen!=ScreenId.Merge||page==null)return;
             var text=page.transform.Find("Feedback")?.GetComponent<Text>();if(text!=null)text.text=message;
+            page.GetComponent<ProductionFrameLayout>()?.SetMessage(message);
         }
         public void CreateTea() => GenerateItem("tea");
         public void GenerateItem(string id)

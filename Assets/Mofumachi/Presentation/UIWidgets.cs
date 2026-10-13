@@ -70,16 +70,16 @@ namespace Mofumachi.Presentation
         { var g=Node(name,parent,anchors).gameObject.AddComponent<UIIconGraphic>(); g.icon=icon; g.color=tint??Ink; g.raycastTarget=false; return g; }
         public ItemGraphic Item(string name,string itemId,int level,RectTransform parent,Rect anchors)
         {var graphic=Node(name,parent,anchors).gameObject.AddComponent<ItemGraphic>();graphic.Bind(itemId,level);return graphic;}
-        public void Header(RectTransform root,ScreenContext c,string title,Color? tint=null)
+        public void Header(RectTransform root,ScreenContext c,string title,Color? tint=null,float height=54)
         {
-            var head=Panel("Header",root,new Rect(0,0,1,1)).rectTransform; Top(head,10,8,10,54);Frame(head,14,false);
+            var head=Panel("Header",root,new Rect(0,0,1,1)).rectTransform; Top(head,10,8,10,height);Frame(head,14,false);
             var back=Button("Back","戻る",head,new Rect(0,0,.22f,1),c.Flow.GoBack,true); back.GetComponentInChildren<Text>().fontSize=14;
             StoryRibbon("Page title",title,head,new Rect(.22f,.12f,.58f,.76f),18,tint);
             var settings=Button("Settings","",head,new Rect(.81f,0,.19f,1),c.Flow.ShowSettings,true); Icon("Settings icon",UIIcon.Settings,(RectTransform)settings.transform,new Rect(.26f,.26f,.48f,.48f));
         }
-        public void Nav(RectTransform root,ScreenContext c,ScreenId active)
+        public void Nav(RectTransform root,ScreenContext c,ScreenId active,float height=66)
         {
-            var nav=Panel("Navigation",root,new Rect(0,0,1,1),Cream).rectTransform; Bottom(nav,8,8,8,66);Frame(nav,14,false);
+            var nav=Panel("Navigation",root,new Rect(0,0,1,1),Cream).rectTransform; Bottom(nav,8,8,8,height);Frame(nav,14,false);
             var names=new[]{"もふまち","依頼",UIStrings.MergeTitle}; var ids=new[]{ScreenId.Home,ScreenId.Quest,ScreenId.Merge};
             var icons=new[]{UIIcon.Home,UIIcon.Mail,UIIcon.Tea};
             for(int i=0;i<3;i++){ int j=i; var b=Button("Nav "+ids[i],"",nav,new Rect(i/3f+.012f,.06f,1/3f-.024f,.88f),()=>{ c.Flow.PlayCue(AudioCue.Confirm); if(j==0)c.Flow.ShowHome();else if(j==1)c.Flow.ShowQuest();else c.Flow.ShowMerge(); },ids[i]!=active);

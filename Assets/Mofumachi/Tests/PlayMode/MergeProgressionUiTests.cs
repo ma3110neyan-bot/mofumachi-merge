@@ -55,19 +55,19 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator FullBoardCanBeOrganizedIntoBreadDeliveryUsingVisibleButtons()
         {
             yield return EnterHome();FullTeaAfterFirstQuest();yield return Click("Accept quest");
-            Assert.That(Flow.ProductionItemId,Is.EqualTo("bread"));Assert.That(Text("Create tea label").text,Does.Contain("パン"));
-            yield return Click("Create tea");Assert.That(Flow.Game.State.mergeBoard.Count,Is.EqualTo(30));
+            Assert.That(Flow.ProductionItemId,Is.EqualTo("bread"));Assert.That(Text("Generate frame "+Flow.ProductionItemId+" label").text,Does.Contain("パン"));
+            yield return Click("Generate frame "+Flow.ProductionItemId);Assert.That(Flow.Game.State.mergeBoard.Count,Is.EqualTo(30));
             Assert.That(Flow.FeedbackFor(ScreenId.Merge),Does.Contain("整理"));
             AssertFeedbackFits();
             yield return Discard(0,true);Assert.That(Flow.Game.Board.At(0),Is.Not.Null);
             // The cancelled confirmation keeps this cell selected; tap once to clear it.
             yield return Click("Cell 0");Assert.That(Flow.SelectedCell,Is.EqualTo(-1));
             yield return Discard(0);yield return Discard(1);Assert.That(Flow.Game.State.mergeBoard.Count,Is.EqualTo(28));
-            yield return Click("Cell 2");yield return Click("Create tea");Assert.That(Flow.SelectedCell,Is.EqualTo(-1));
-            yield return Click("Create tea");yield return Click("Cell 0");yield return Click("Cell 1");
+            yield return Click("Cell 2");yield return Click("Generate frame "+Flow.ProductionItemId);Assert.That(Flow.SelectedCell,Is.EqualTo(-1));
+            yield return Click("Generate frame "+Flow.ProductionItemId);yield return Click("Cell 0");yield return Click("Cell 1");
             Assert.That(Flow.Game.Board.At(1).itemId,Is.EqualTo("bread"));Assert.That(Flow.Game.Board.At(1).level,Is.EqualTo(2));
             Assert.That(Button("Deliver").interactable,Is.False);yield return new WaitForSecondsRealtime(.3f);
-            Assert.That(Text("Progress").text,Does.Contain("パン Lv.2 1 / 1"));yield return Click("Deliver");
+            Assert.That(Text("Requirement count bread").text,Does.Contain("1 / 1"));yield return Click("Deliver");
             Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Result));Assert.That(Flow.Game.State.coins,Is.EqualTo(70));
             Assert.That(Flow.Game.State.townGrowthLevel,Is.EqualTo(2));Assert.That(Flow.Game.State.mergeBoard.Count,Is.EqualTo(28));
             Assert.That(Flow.Deliver().Success,Is.False);Assert.That(Flow.Game.State.coins,Is.EqualTo(70));
@@ -84,7 +84,7 @@ namespace Mofumachi.Tests
             yield return EnterHome();Flow.ShowMerge();yield return Click("Cell 0");yield return Click("Merge actions");
             yield return Click("Produce bread");Assert.That(Flow.SelectedCell,Is.EqualTo(-1));
             LogAssert.NoUnexpectedReceived(); // QA information must not pollute Editor log assertions.
-            yield return Click("Create tea");yield return Click("Create tea");yield return Click("Cell 2");yield return Click("Cell 3");
+            yield return Click("Generate frame "+Flow.ProductionItemId);yield return Click("Generate frame "+Flow.ProductionItemId);yield return Click("Cell 2");yield return Click("Cell 3");
             Assert.That(Flow.Game.Board.At(2),Is.Null);Assert.That(Flow.Game.Board.At(3).itemId,Is.EqualTo("bread"));
             Assert.That(Flow.Game.Board.At(3).level,Is.EqualTo(2));LogAssert.NoUnexpectedReceived();
         }
@@ -112,7 +112,7 @@ namespace Mofumachi.Tests
             string before=StateCodec.Encode(Flow.Game.State);Store.Fail=true;yield return Click("Confirm discard");
             Assert.That(Flow.IsModalOpen,Is.True);Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));
             Assert.That(Text("Discard feedback").text,Does.Contain("セーブ"));Store.Fail=false;yield return Click("Cancel discard");
-            Store.Fail=true;yield return Click("Create tea");Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));
+            Store.Fail=true;yield return Click("Generate frame "+Flow.ProductionItemId);Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));
             Assert.That(Flow.FeedbackFor(ScreenId.Merge),Does.Contain("セーブ"));Store.Fail=false;LogAssert.NoUnexpectedReceived();
         }
         private static IEnumerator Touch(Touchscreen screen,Vector2 position,UnityEngine.InputSystem.TouchPhase phase)
@@ -151,6 +151,28 @@ namespace Mofumachi.Tests
                 Assert.That(Flow.Game.Board.At(29),Is.Null);Assert.That(Flow.Game.Board.At(28).level,Is.EqualTo(2));LogAssert.NoUnexpectedReceived();
             }
             finally {InputSystem.RemoveDevice(touch);}
+        }
+
+        private void AcceptedBread()
+        {
+            var s=GameState.CreateInitial();s.purchaseNoticeAcknowledged=true;s.favoriteCharacterId="momo";s.completedQuestIds.Add("tea-01");s.claimedRewardIds.Add("quest:tea-01");s.coins=30;s.townGrowthLevel=1;s.activeQuestId="bread-01";s.questState=QuestState.Accepted;s.mergeBoard.Clear();s.mergeBoard.Add(new BoardItem("bread",1,0));s.mergeBoard.Add(new BoardItem("bread",1,1));Store.Save(s);Flow.Initialize(Store);Flow.ShowMerge();
+        }
+        [UnityTest] public IEnumerator RequiredArtCountsAndShortageAgreeWithInventory()
+        {
+            yield return EnterHome();AcceptedBread();Assert.That(Text("Requirement count bread").text,Does.Contain("0 / 1"));Assert.That(Flow.GetComponentsInChildren<ItemGraphic>().Single(a=>a.name=="Requirement art bread").ItemId,Is.EqualTo("bread"));
+            Assert.That(Flow.DropItem(0,1),Is.True);Assert.That(Text("Requirement count bread").text,Does.Contain("0 / 1"));yield return new WaitForSecondsRealtime(.3f);Assert.That(Text("Requirement count bread").text,Does.Contain("1 / 1"));Assert.That(Button("Deliver").interactable,Is.True);LogAssert.NoUnexpectedReceived();
+        }
+        [UnityTest] public IEnumerator RequirementGuidesBreadWithoutGeneratingOrSaving()
+        {
+            yield return EnterHome();AcceptedBread();int writes=Store.Writes;string state=StateCodec.Encode(Flow.Game.State);yield return Click("Cell 0");yield return Click("Requirement bread");Assert.That(Flow.ProductionItemId,Is.EqualTo("bread"));Assert.That(Flow.SelectedCell,Is.EqualTo(-1));Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));LogAssert.NoUnexpectedReceived();
+        }
+        [UnityTest] public IEnumerator PackedFramesAndUnacceptedQuestHaveExplicitNextActions()
+        {
+            yield return EnterHome();Flow.ShowMerge();yield return Click("Requirement tea");Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Quest));AcceptedBread();Assert.That(Flow.Game.PackProductionFrames(new[]{"tea","bread","flower"}),Is.True);Flow.ShowMerge();yield return Click("Requirement bread");Assert.That(Flow.IsModalOpen,Is.True);Assert.That(Button("Produce bread").interactable,Is.True);Flow.CancelMergeActions();Assert.That(Flow.Game.State.mergeBoard.Count,Is.EqualTo(2));LogAssert.NoUnexpectedReceived();
+        }
+        [UnityTest] public IEnumerator ShortPortraitKeepsOneProductionRowAndReadableControls()
+        {
+            yield return EnterHome();Flow.ShowMerge();foreach(int h in new[]{592,640,808}){Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,h),new Rect(0,0,360,h));Canvas.ForceUpdateCanvases();var buttons=Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Generate frame ")).ToArray();Assert.That(buttons.Length,Is.EqualTo(3));foreach(var b in buttons){var r=((RectTransform)b.transform).rect;Assert.That(r.width,Is.GreaterThanOrEqualTo(48));Assert.That(r.height,Is.GreaterThanOrEqualTo(48));}foreach(var cell in Flow.GetComponentsInChildren<MergeBoardView>())Assert.That(((RectTransform)cell.transform).rect.width,Is.GreaterThanOrEqualTo(48));}LogAssert.NoUnexpectedReceived();
         }
     }
 public sealed class ProductionFrameUiTests : SliceUiTestFixture
@@ -195,11 +217,11 @@ public sealed class ProductionFrameUiTests : SliceUiTestFixture
  {
   yield return EnterHome();Flow.ShowMerge();yield return SelectFrames("tea","bread","flower");yield return Click("Pack selected frames");yield return Click("Confirm pack frames");
   Flow.Initialize(Store);Flow.ShowMerge();Assert.That(Flow.Game.State.productionFrameIds,Is.Empty);Flow.GenerateItem("bread");Assert.That(Flow.Game.State.mergeBoard.Count,Is.EqualTo(2));
-  yield return Click("Create tea");Store.Fail=true;yield return Click("Produce bread");
+  yield return Click("Generate frame "+Flow.ProductionItemId);Store.Fail=true;yield return Click("Produce bread");
   Assert.That(Flow.Game.State.productionFrameIds,Is.Empty);Assert.That(Flow.IsModalOpen,Is.True);
   Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Merge menu help").text,Does.Contain("セーブ"));
   Store.Fail=false;yield return Click("Produce bread");Assert.That(Flow.Game.State.productionFrameIds,Is.EqualTo(new[]{"bread"}));
-  yield return Click("Create tea");Assert.That(Flow.Game.Board.At(2).itemId,Is.EqualTo("bread"));Assert.That(Flow.Game.State.favoriteCharacterId,Is.EqualTo("momo"));
+  yield return Click("Generate frame "+Flow.ProductionItemId);Assert.That(Flow.Game.Board.At(2).itemId,Is.EqualTo("bread"));Assert.That(Flow.Game.State.favoriteCharacterId,Is.EqualTo("momo"));
   Assert.That(Flow.Game.State.saveVersion,Is.EqualTo(3));LogAssert.NoUnexpectedReceived();
  }
  [UnityTest]public IEnumerator PauseClearsOnlyTransientFrameSelection()
@@ -223,12 +245,12 @@ public sealed class ProductionFrameUiTests : SliceUiTestFixture
     Canvas.ForceUpdateCanvases();page.GetComponentInChildren<MergeGridLayout>().ResizeNow();Canvas.ForceUpdateCanvases();
     var cells=page.GetComponentsInChildren<MergeBoardView>();Assert.That(cells.Length,Is.EqualTo(30));
     foreach(var cell in cells){var r=((RectTransform)cell.transform).rect;Assert.That(r.width,Is.EqualTo(r.height).Within(.01));Assert.That(r.width,Is.GreaterThanOrEqualTo(48));}
-    Assert.That(page.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Generate frame ")),Is.EqualTo(height>=700?3:0));
+    Assert.That(page.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Generate frame ")),Is.EqualTo(3));
     if(height==808)
     {
      root.sizeDelta=new Vector2(360,592);Canvas.ForceUpdateCanvases();page.GetComponent<ProductionFrameLayout>().ResizeNow();
      page.GetComponentInChildren<MergeGridLayout>().ResizeNow();Canvas.ForceUpdateCanvases();
-     Assert.That(page.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Generate frame ")),Is.Zero);
+     Assert.That(page.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Generate frame ")),Is.EqualTo(3));
      foreach(var cell in cells)Assert.That(((RectTransform)cell.transform).rect.width,Is.GreaterThanOrEqualTo(48));
     }
     UnityEngine.Object.DestroyImmediate(page.gameObject);

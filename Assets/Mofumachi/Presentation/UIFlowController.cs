@@ -431,6 +431,14 @@ namespace Mofumachi.Presentation
         }
         public void OpenMergeActions()
         { if(CanInteractBoard)OpenUtilityModal(ModalKind.MergeMenu,MergeActionMenuView.Build); }
+        public bool FocusRequirement(string id)
+        {
+            if(!CanInteractBoard)return false;var quest=QuestCatalog.NextFor(Game.State);
+            if(quest==null||!quest.Requirements.Any(r=>r.ItemId==id))return false;
+            if(!UIStrings.IsAccepted(Game.State,quest)){ShowQuest();return true;}
+            ProductionItemId=id;selected=-1;feedback[ScreenId.Merge]=ItemCatalog.Find(id).Name+"を作って、同じ種類・Lv.を重ねよう。";
+            if(!Game.State.productionFrameIds.Contains(id))OpenMergeActions();else Render("merge");return true;
+        }
         public void ChooseProductionItem(string id)
         {
             if(modalKind!=ModalKind.MergeMenu || ItemCatalog.Find(id)==null)return;

@@ -95,9 +95,12 @@ namespace Mofumachi.Tests
                 Canvas.ForceUpdateCanvases();foreach(var visit in Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Visit ")))
                     Assert.That(((RectTransform)visit.transform).rect.height,Is.GreaterThanOrEqualTo(48),visit.name);
                 Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Visit "+place).onClick.Invoke();Assert.That(hero.IsGuided,Is.True);
-                for(int i=0;i<300;i++)life.AdvanceFrame(1f/30);
-                Assert.That(hero.IsGuided,Is.False);Assert.That(life.NearbyFacility,Is.Null,"A rest stop does not enter a facility.");
-                Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"),Is.True);
+                // Observe arrival, rather than waiting 10s past a greeting that lasts 2.5s.
+                for(int i=0;i<300&&hero.IsGuided;i++)life.AdvanceFrame(1f/30);
+                Assert.That(hero.IsGuided,Is.False,"Rest stop must be reached within 10s");Assert.That(life.NearbyFacility,Is.Null,"A rest stop does not enter a facility.");
+                Assert.That(TownPlaceCatalog.TryFind(life.StreetMap,place=="bench"?"bench-right":place,out var target),Is.True);
+                Assert.That(Vector2.Distance(new Vector2(hero.Position.X,hero.Position.Y),new Vector2(target.Position.X,target.Position.Y)),Is.LessThan(.001f),place);
+                Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"),Is.True,"Observe the greeting immediately when arrival completes");
             }
             Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));Assert.That(Store.Writes,Is.EqualTo(writes));
             hero.React();Flow.SendMessage("OnApplicationPause",true);Assert.That(Flow.GetComponentsInChildren<Button>().Any(b=>b.name.StartsWith("Visit ")),Is.False);

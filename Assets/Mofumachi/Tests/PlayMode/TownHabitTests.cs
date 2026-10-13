@@ -34,8 +34,13 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator CompletedChapterCanBeReopenedFromHomeAfterReload()
         {
             yield return EnterHome();var state=Flow.Game.State.Clone();state.completedQuestIds.AddRange(new[]{"tea-01","bread-01"});state.claimedRewardIds.AddRange(new[]{"quest:tea-01","quest:bread-01"});state.coins=70;state.townGrowthLevel=2;Store.Save(state);Flow.Initialize(Store);Flow.ShowHome();
-            string saved=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;var replay=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Review chapter");Assert.That(((RectTransform)replay.transform).rect.height,Is.GreaterThanOrEqualTo(48));replay.onClick.Invoke();
-            Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.ChapterSummary));Assert.That(Flow.LastChapter.ChapterId,Is.EqualTo("chapter-01"));Assert.That(Store.Writes,Is.EqualTo(writes+1),"Preserve the existing navigation save");Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(saved));Flow.GoBack();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));LogAssert.NoUnexpectedReceived();
+            var before=Flow.Game.State.Clone();int writes=Store.Writes;var replay=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Review chapter");Assert.That(((RectTransform)replay.transform).rect.height,Is.GreaterThanOrEqualTo(48));replay.onClick.Invoke();
+            Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.ChapterSummary));Assert.That(Flow.LastChapter.ChapterId,Is.EqualTo("chapter-01"));Assert.That(Store.Writes,Is.EqualTo(writes+1),"Preserve the existing navigation save");
+            // A successful save updates its metadata; every gameplay field must remain unchanged.
+            var after=Flow.Game.State.Clone();Assert.That(System.DateTimeOffset.TryParse(after.lastSaveTime,out _),Is.True,"Save time remains valid metadata");
+            Assert.That(StateCodec.Encode(Store.Load().State),Is.EqualTo(StateCodec.Encode(after)),"The recorded disk snapshot must match the live state");
+            after.lastSaveTime=before.lastSaveTime;Assert.That(StateCodec.Encode(after),Is.EqualTo(StateCodec.Encode(before)),"Chapter replay must not change progress or rewards");
+            Flow.GoBack();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator NamesBubblesAndFacilitiesStayInsideSafeArea()
         {

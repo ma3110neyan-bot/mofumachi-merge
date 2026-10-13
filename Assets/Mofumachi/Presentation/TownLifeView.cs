@@ -20,7 +20,8 @@ namespace Mofumachi.Presentation
         {
             context=c;background=image;actorLayer=(RectTransform)transform;
             actorLayer.gameObject.AddComponent<RectMask2D>();
-            var nav=new TownNavigation(Nodes,Edges,.028f);actors=new TownActor[6];
+            var map=TownPlaceCatalog.ForLevel(c.Game.State.townGrowthLevel);
+            var nav=new TownNavigation(map.Nodes,map.Edges,.028f);actors=new TownActor[6];
             int npcIndex=1;
             for(int i=0;i<6;i++)
             {

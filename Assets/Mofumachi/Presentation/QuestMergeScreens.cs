@@ -100,12 +100,12 @@ namespace Mofumachi.Presentation
             {
                 string id=item.Id;bool placed=c.Game.State.productionFrameIds.Contains(id);
                 var generate=w.Button("Generate frame "+id,item.Name+"\n"+(placed?"作る":"置く"),toolbar,new Rect(0,0,0,1),()=>{if(placed)c.Flow.GenerateFromFrame(id);else c.Flow.OpenMergeActions();},true);
-                var r=(RectTransform)generate.transform;r.anchoredPosition=new Vector2(x,0);r.sizeDelta=new Vector2(62,0);x+=66;
+                var r=(RectTransform)generate.transform;r.pivot=new Vector2(0,.5f);r.anchoredPosition=new Vector2(x,0);r.sizeDelta=new Vector2(62,0);x+=66;
                 generate.GetComponent<RoundedPanelGraphic>().color=id==c.Flow.ProductionItemId?new Color(.66f,.9f,.82f):UIWidgets.Cream;
                 var copy=generate.GetComponentInChildren<Text>();copy.fontSize=12;copy.rectTransform.anchorMin=new Vector2(.30f,.04f);copy.rectTransform.anchorMax=new Vector2(.98f,.96f);
                 w.Item("Frame item art",id,1,r,new Rect(.025f,.16f,.28f,.68f));
             }
-            var menu=w.Button("Merge actions","生成枠\n整理",toolbar,new Rect(0,0,0,1),c.Flow.OpenMergeActions,true);var mr=(RectTransform)menu.transform;mr.anchoredPosition=new Vector2(198,0);mr.sizeDelta=new Vector2(48,0);menu.GetComponentInChildren<Text>().fontSize=12;
+            var menu=w.Button("Merge actions","生成枠\n整理",toolbar,new Rect(0,0,0,1),c.Flow.OpenMergeActions,true);var mr=(RectTransform)menu.transform;mr.pivot=new Vector2(0,.5f);mr.anchoredPosition=new Vector2(198,0);mr.sizeDelta=new Vector2(48,0);menu.GetComponentInChildren<Text>().fontSize=12;
             bool preview=quest!=null&&!accepted;
             var delivery=w.Button("Deliver",preview?"依頼を見る":"納品する",toolbar,new Rect(0,0,1,1),()=>{if(preview)c.Flow.ShowQuest();else c.Flow.Deliver();});((RectTransform)delivery.transform).offsetMin=new Vector2(250,0);delivery.GetComponentInChildren<Text>().fontSize=14;delivery.interactable=preview||deliverable;
             root.gameObject.AddComponent<ProductionFrameLayout>().Bind(tray,toolbar);

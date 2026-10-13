@@ -24,6 +24,7 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var camera=life.GetComponent<TownViewportView>();var hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);
             var e=new PointerEventData(EventSystem.current){pointerId=11,position=new Vector2(180,300)};camera.OnPointerDown(e);Assert.That(camera.OwnedPointerId,Is.EqualTo(11));camera.OnPointerDown(new PointerEventData(EventSystem.current){pointerId=12});Assert.That(camera.OwnedPointerId,Is.EqualTo(11));
+            var oldUv=Flow.TownBackground.uvRect;camera.OnDrag(new PointerEventData(EventSystem.current){pointerId=11,position=new Vector2(180,340)});camera.OnPointerUp(e);camera.Advance(1f/30);Assert.That(Flow.TownBackground.uvRect,Is.Not.EqualTo(oldUv),"Release must not discard the last drag delta");camera.OnPointerDown(e);
             hero.OnPointerDown(new PointerEventData(EventSystem.current){pointerId=13});Assert.That(camera.OwnedPointerId,Is.Null);Assert.That(hero.Movement.OwnedPointerId,Is.EqualTo(13));camera.OnPointerDown(e);Assert.That(camera.OwnedPointerId,Is.Null);hero.OnPointerUp(new PointerEventData(EventSystem.current){pointerId=13});LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator PauseModalAndResizeReleaseCameraInput()

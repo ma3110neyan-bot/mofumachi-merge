@@ -28,7 +28,7 @@ namespace Mofumachi.Presentation
             if(model==null||life==null)return;if(!life.CanInteract){CancelGesture();focus=null;return;}
             if(background.rectTransform.rect!=previousRect){CancelGesture();Configure();}
             if(!float.IsFinite(seconds)||seconds<=0)return;elapsed+=Mathf.Min(seconds,.1f);if(elapsed<1f/30)return;elapsed=Mathf.Repeat(elapsed,1f/30);
-            if(IsDragging)model.TryPan(pendingPan.x,pendingPan.y);
+            if(IsDragging||pendingPan!=Vector2.zero)model.TryPan(pendingPan.x,pendingPan.y);
             else if(focus.HasValue&&!life.IsManuallyDragging)
             {
                 var world=(RectTransform)life.transform;var r=world.rect;var br=background.rectTransform.rect;
@@ -51,8 +51,8 @@ namespace Mofumachi.Presentation
         public void OnBeginDrag(PointerEventData e){if(OwnedPointerId==e.pointerId)e.eligibleForClick=false;}
         public void OnDrag(PointerEventData e)
         {if(OwnedPointerId!=e.pointerId)return;if(!life.CanInteract){CancelGesture();return;}var r=background.rectTransform.rect;var a=Vector2.zero;var b=Vector2.zero;RectTransformUtility.ScreenPointToLocalPointInRectangle(background.rectTransform,lastPointer,e.pressEventCamera,out a);RectTransformUtility.ScreenPointToLocalPointInRectangle(background.rectTransform,e.position,e.pressEventCamera,out b);if(r.width>0&&r.height>0)pendingPan-=(b-a)/r.size;lastPointer=e.position;e.eligibleForClick=false;}
-        public void OnEndDrag(PointerEventData e){if(OwnedPointerId==e.pointerId)CancelGesture();}
-        public void OnPointerUp(PointerEventData e){if(OwnedPointerId==e.pointerId)CancelGesture();}
+        public void OnEndDrag(PointerEventData e){if(OwnedPointerId==e.pointerId)OwnedPointerId=null;}
+        public void OnPointerUp(PointerEventData e){if(OwnedPointerId==e.pointerId)OwnedPointerId=null;}
         public void CancelGesture(){OwnedPointerId=null;pendingPan=Vector2.zero;}
         private void OnRectTransformDimensionsChange(){CancelGesture();if(model!=null)Configure();}
         private void OnDisable(){CancelGesture();focus=null;if(input!=null)input.raycastTarget=false;if(cover!=null){cover.enabled=true;cover.FitNow();}}

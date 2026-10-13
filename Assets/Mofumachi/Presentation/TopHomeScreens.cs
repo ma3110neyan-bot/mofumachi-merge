@@ -36,34 +36,29 @@ namespace Mofumachi.Presentation
         public static void BuildHome(RectTransform root,ScreenContext c,RawImage background=null)
         {
             var w=c.Widgets;
-            var hud=w.OrnatePanel("HUD",root,new Rect(0,0,1,1),UIWidgets.Cream,18).rectTransform; UIWidgets.Top(hud,10,8,10,64);
-            w.Icon("Town star",UIIcon.Star,hud,new Rect(.07f,.55f,.07f,.34f));
-            w.Label("Town value","街 Lv."+c.Game.State.townGrowthLevel,hud,new Rect(.18f,.48f,.60f,.48f),15).alignment=TextAnchor.MiddleLeft;
-            w.Icon("Coin",UIIcon.Coin,hud,new Rect(.07f,.08f,.07f,.34f));
-            w.Heading("Coins value",c.Game.State.coins.ToString("N0"),hud,new Rect(.18f,.01f,.60f,.46f),19).alignment=TextAnchor.MiddleLeft;
-            var settings=w.Button("Settings","",hud,new Rect(.82f,.1f,.16f,.8f),c.Flow.ShowSettings,true); w.Icon("Settings icon",UIIcon.Settings,(RectTransform)settings.transform,new Rect(.17f,.17f,.66f,.66f));
-            var world=UIWidgets.Node("Town characters",root,new Rect(0,0,1,1));world.offsetMin=new Vector2(0,240);world.offsetMax=new Vector2(0,-94);
+            var hud=w.OrnatePanel("HUD",root,new Rect(0,0,1,1),UIWidgets.Cream,18).rectTransform; UIWidgets.Top(hud,10,8,10,48);
+            w.Icon("Town star",UIIcon.Star,hud,new Rect(.02f,.2f,.1f,.6f));
+            w.Label("Town value","街 Lv."+c.Game.State.townGrowthLevel,hud,new Rect(.13f,.05f,.28f,.9f),14);
+            w.Icon("Coin",UIIcon.Coin,hud,new Rect(.41f,.2f,.1f,.6f));
+            w.Heading("Coins value",c.Game.State.coins.ToString("N0"),hud,new Rect(.51f,.08f,.32f,.84f),14);
+            var settings=w.Button("Settings","",hud,new Rect(.85f,0,.15f,1),c.Flow.ShowSettings,true); w.Icon("Settings icon",UIIcon.Settings,(RectTransform)settings.transform,new Rect(.2f,.2f,.6f,.6f));
+            var world=UIWidgets.Node("Town characters",root,new Rect(0,0,1,1));world.offsetMin=new Vector2(0,154);world.offsetMax=new Vector2(0,-70);
             var life=world.gameObject.AddComponent<TownLifeView>();life.Bind(c,background??c.Flow.TownBackground);
             world.gameObject.AddComponent<TownViewportView>().Bind(c,background??c.Flow.TownBackground,life);
             var decorations=UIWidgets.Node("Town growth decorations",world,new Rect(0,0,1,1));decorations.SetAsFirstSibling();
             var growth=decorations.gameObject.AddComponent<TownGrowthView>();growth.Bind(c,life);growth.Apply(c.Game.State.townGrowthLevel);
-            var guides=UIWidgets.Node("Town facility guides",root,new Rect(0,0,1,1));UIWidgets.Top(guides,14,76,14,48);
-            var requestGuide=w.Button("Guide to quest","依頼部屋へ",guides,new Rect(0,0,.49f,1),()=>life.GuideToFacility("quest"),true);
-            var shopGuide=w.Button("Guide to shop","ショップへ",guides,new Rect(.51f,0,.49f,1),()=>life.GuideToFacility("shop"),true);
-            w.Icon("Guide mail",UIIcon.Mail,(RectTransform)requestGuide.transform,new Rect(.04f,.15f,.19f,.7f));
-            w.Icon("Guide shop",UIIcon.Home,(RectTransform)shopGuide.transform,new Rect(.04f,.15f,.19f,.7f));
-            foreach(var guide in new[]{requestGuide,shopGuide}){var copy=guide.GetComponentInChildren<Text>();copy.fontSize=14;copy.rectTransform.anchorMin=new Vector2(.25f,.06f);}
             var next=QuestCatalog.NextFor(c.Game.State);var requester=CharacterCatalog.Find(next?.RequesterId??c.Game.State.favoriteCharacterId);
-            var quest=w.OrnatePanel("Home quest",root,new Rect(0,0,1,1),null,24).rectTransform; UIWidgets.Bottom(quest,14,136,14,92);
+            var quest=w.OrnatePanel("Home quest",root,new Rect(0,0,1,1),null,24).rectTransform; UIWidgets.Bottom(quest,14,78,14,72);
             var chapter=ChapterProgress.For(c.Game.State);bool unknown=next==null&&!chapter.AllCompleted;
-            w.StoryHeading("Home quest title",chapter.CurrentChapter?.Title??"最初の物語をふりかえる",quest,new Rect(.035f,.65f,.75f,.3f),18);
+            w.StoryHeading("Home quest title",chapter.CurrentChapter?.Title??"最初の物語をふりかえる",quest,new Rect(.035f,.67f,.75f,.3f),16);
             w.Label("Chapter progress",chapter.CurrentChapter==null?"6 / 6":chapter.CompletedInCurrent+" / 2",quest,new Rect(.81f,.65f,.15f,.3f),12);
             string goal=unknown?UIStrings.UnknownQuest:chapter.AllCompleted?"みんなのお茶会がひらけました！":chapter.CompletedCount==0&&c.Game.State.activeQuestId.Length==0?"仲間とお茶会をひらこう":requester.Name+"："+next.Title;
-            w.StoryLabel("Home quest summary",goal,quest,new Rect(.04f,.06f,.92f,.52f),14);
+            w.StoryLabel("Home quest summary",goal,quest,new Rect(.04f,.28f,.92f,.37f),14);
+            w.StoryLabel("Town growth hint",TownPlaceCatalog.GrowthHint(c.Game.State.townGrowthLevel),quest,new Rect(.04f,.01f,.92f,.25f),12);
             var tap=quest.gameObject.AddComponent<Button>();quest.GetComponent<RoundedPanelGraphic>().raycastTarget=true;tap.targetGraphic=quest.GetComponent<RoundedPanelGraphic>();tap.onClick.AddListener(()=>{if(chapter.AllCompleted)c.Flow.ReviewLastChapter();else c.Flow.ShowQuest();});
-            if(chapter.LastCompletedChapter!=null&&c.Flow.FeedbackFor(ScreenId.Home).Length==0)
-            {var review=w.Button("Review chapter","おもいでをふりかえる",root,new Rect(0,0,1,1),()=>c.Flow.ReviewLastChapter(),true);UIWidgets.Bottom((RectTransform)review.transform,28,78,28,48);}
-            w.Feedback(root,c,ScreenId.Home); w.Nav(root,c,ScreenId.Home);
+            w.Nav(root,c,ScreenId.Home);
+            string message=c.Flow.FeedbackFor(ScreenId.Home);
+            if(message.Length>0){var error=w.Panel("Home feedback surface",root,new Rect(0,0,1,1),UIWidgets.Cream).rectTransform;UIWidgets.Top(error,12,60,12,64);w.Label("Feedback",message,error,new Rect(.04f,.03f,.92f,.94f),14);}
         }
         private static void AttachReaction(RawImage image,ScreenContext c)
         {

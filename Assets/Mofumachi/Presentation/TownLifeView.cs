@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Mofumachi.Core;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,153 +7,143 @@ namespace Mofumachi.Presentation
 {
     public sealed class TownLifeView : MonoBehaviour
     {
-        // Feet on the paved ring around the fountain; entrances are in front of the blue/pink awnings.
-        public static readonly TownPoint RequestEntrance=new TownPoint(.18f,.635f),ShopEntrance=new TownPoint(.76f,.605f);
-        public string NearbyFacility { get; private set; }
+        public static readonly TownPoint RequestEntrance=TownPlaceCatalog.RequestEntrance,ShopEntrance=TownPlaceCatalog.ShopEntrance;
+        public static System.Collections.Generic.IReadOnlyList<TownPoint> WalkStops=>TownPlaceCatalog.ForLevel(0).Nodes;
+        public TownStreetMap StreetMap {get;private set;}
         public RawImage Background=>background;
-        public bool IsManuallyDragging {get{if(actors!=null)foreach(var a in actors)if(a.Controlled&&a.Movement.OwnedPointerId.HasValue&&!a.IsGuided)return true;return false;}}
+        public string NearbyFacility {get;private set;}
         public bool CanInteract=>isActiveAndEnabled&&context!=null&&!context.Flow.IsModalOpen&&!context.Flow.IsAppPaused&&context.Flow.CurrentScreen==ScreenId.Home;
+        public bool IsManuallyDragging=>actors!=null&&actors.Any(a=>a.Controlled&&a.Movement.OwnedPointerId.HasValue&&!a.IsGuided);
         private RawImage background;private ScreenContext context;private TownActor[] actors;private RectTransform actorLayer;
-        private GameObject bubble,entrance,outings;private float nextTalk,bubbleUntil,outingsUntil;private string restTarget;private int talkIndex;private readonly TownFrameClock clock=new TownFrameClock();
-        private static readonly TownPoint[] Nodes={new TownPoint(.42f,.47f),new TownPoint(.68f,.515f),new TownPoint(.68f,.60f),new TownPoint(.42f,.645f),new TownPoint(.18f,.60f),new TownPoint(.15f,.52f),RequestEntrance,ShopEntrance};
-        public static System.Collections.Generic.IReadOnlyList<TownPoint> WalkStops {get;}=Array.AsReadOnly(Nodes);
-        private static readonly TownEdge[] Edges={new TownEdge(0,1),new TownEdge(1,2),new TownEdge(2,3),new TownEdge(3,4),new TownEdge(4,5),new TownEdge(5,0),new TownEdge(4,6),new TownEdge(2,7)};
-        private static readonly string[] Dialogues={"いいお天気だね♪","広場をおさんぽしよう！","お茶のいい香りがするね。","お花がいっぱい！","みんなで街を育てよう。","今日は何を届けようかな？"};
+        private GameObject bubble,entrance,outings;private TownActor speaker;private TownPlace destination;private float now,nextTalk,bubbleUntil,outingsUntil,nextSocial;private int choiceIndex;
+        private readonly TownFrameClock clock=new TownFrameClock();
         public void Bind(ScreenContext c,RawImage image)
         {
-            context=c;background=image;actorLayer=(RectTransform)transform;
-            actorLayer.gameObject.AddComponent<RectMask2D>();
-            var map=TownPlaceCatalog.ForLevel(c.Game.State.townGrowthLevel);
-            var nav=new TownNavigation(map.Nodes,map.Edges,.028f);actors=new TownActor[6];
-            int npcIndex=1;
+            context=c;background=image;actorLayer=(RectTransform)transform;actorLayer.gameObject.AddComponent<RectMask2D>();
+            StreetMap=TownPlaceCatalog.ForLevel(c.Game.State.townGrowthLevel);var nav=new TownNavigation(StreetMap.Nodes,StreetMap.Edges,.028f);actors=new TownActor[6];
+            string[] initial={"bench-left","home-front","fountain","bench-right","flowers"};int npc=0;
             for(int i=0;i<6;i++)
             {
-                var character=CharacterCatalog.All[i];bool controlled=character.Id==c.Game.State.favoriteCharacterId;
-                var point=controlled?Nodes[0]:Nodes[npcIndex];var end=controlled?Nodes[0]:Nodes[npcIndex%5+1];if(!controlled)npcIndex++;
+                var character=CharacterCatalog.All[i];bool controlled=character.Id==c.Game.State.favoriteCharacterId;TownPlace place=null;
+                if(!controlled)TownPlaceCatalog.TryFind(StreetMap,initial[npc++],out place);
+                var point=controlled?StreetMap.Nodes[0]:place.Position;
                 var rect=UIWidgets.Node("Town actor "+character.Id,actorLayer,new Rect(.5f,.5f,0,0));rect.pivot=new Vector2(.5f,0);rect.sizeDelta=new Vector2(62,78);
-                var actor=rect.gameObject.AddComponent<TownActor>();actor.Bind(character.Id,controlled,new TownMovement(nav,point),nav);actor.Connect(this,point,end,i*.4f);if(!controlled)actor.SetWalkRoute(WalkStops,npcIndex-1);actors[i]=actor;
+                var actor=rect.gameObject.AddComponent<TownActor>();actor.Bind(character.Id,controlled,new TownMovement(nav,point),nav);actor.Connect(this,point,point,1.6f+i*.4f);if(!controlled)actor.SetDestination(place,1.6f+i*.4f);actors[i]=actor;
                 var ground=c.Widgets.Panel("Town actor ground shadow",rect,new Rect(.17f,-.035f,.66f,.095f),new Color(.24f,.19f,.26f,.18f));ground.radius=100;ground.decorated=false;ground.transform.SetAsFirstSibling();
-                var namePanel=c.Widgets.Panel("Town actor name panel",rect,new Rect(-.13f,-.26f,1.26f,.26f)).rectTransform;
-                var label=c.Widgets.StoryLabel("Town actor name",character.Name,namePanel,new Rect(.04f,.03f,.92f,.94f),12);
-                var outline=label.gameObject.AddComponent<Outline>();outline.effectColor=UIWidgets.Cream;outline.effectDistance=new Vector2(1,-1);
+                var panel=c.Widgets.Panel("Town actor name panel",rect,new Rect(-.13f,-.26f,1.26f,.26f)).rectTransform;
+                c.Widgets.StoryLabel("Town actor name",character.Name,panel,new Rect(.04f,.03f,.92f,.94f),12);
                 actor.Render(0,0);
             }
-            AddEntranceMarker("依頼部屋",RequestEntrance,UIWidgets.BluePaper);
-            AddEntranceMarker("ショップ",ShopEntrance,UIWidgets.BlushPaper);
-            nextTalk=Time.unscaledTime+4.5f;
+            AddEntrance("依頼部屋",RequestEntrance,"quest",UIWidgets.BluePaper);AddEntrance("ショップ",ShopEntrance,"shop",UIWidgets.BlushPaper);
+            nextTalk=4.5f;nextSocial=3;
         }
-        private void AddEntranceMarker(string name,TownPoint location,Color tint)
+        private void AddEntrance(string name,TownPoint location,string id,Color tint)
         {
-            var marker=context.Widgets.Panel("Facility marker "+name,actorLayer,new Rect(.5f,.5f,0,0),tint).rectTransform;
-            marker.sizeDelta=new Vector2(82,23);marker.anchoredPosition=Local(location)+Vector2.up*92;
-            context.Widgets.StoryLabel("Facility marker label",name,marker,new Rect(.04f,0,.92f,1),11);
+            var marker=context.Widgets.Button("Facility marker "+name,name,actorLayer,new Rect(.5f,.5f,0,0),()=>GuideToFacility(id),true);
+            var rect=(RectTransform)marker.transform;rect.sizeDelta=new Vector2(92,48);rect.anchoredPosition=Local(location)+Vector2.up*104;
+            marker.GetComponent<RoundedPanelGraphic>().color=tint;marker.GetComponentInChildren<Text>().fontSize=14;
         }
-        public bool GuideToFacility(string facility)
+        public bool GuideToFacility(string id)=>id=="quest"||id=="shop"?GuideToPlace(id):false;
+        public bool GuideToRestStop(string id)=>id=="bench"?GuideToPlace("bench-right"):id=="flowers"||id=="fountain"?GuideToPlace(id):false;
+        public bool GuideToPlace(string id)
         {
-            if(!CanInteract || (facility!="quest"&&facility!="shop"))return false;
-            foreach(var actor in actors)if(actor.Controlled)return actor.GuideTo(facility=="quest"?RequestEntrance:ShopEntrance);
-            return false;
+            if(!CanInteract||!TownPlaceCatalog.TryFind(StreetMap,id,out var place))return false;
+            foreach(var a in actors)if(a.Controlled&&a.GuideTo(place.Position)){destination=place;return true;}return false;
         }
-        // Rest stops reuse surveyed street nodes; no new shortcut crosses the fountain or buildings.
-        private static TownPoint RestPoint(string place)=>place=="bench"?Nodes[1]:place=="flowers"?Nodes[5]:Nodes[3];
-        public bool GuideToRestStop(string place)
+        internal void ChooseNextStop(TownActor actor)
         {
-            if(!CanInteract||(place!="bench"&&place!="flowers"&&place!="fountain"))return false;
-            foreach(var actor in actors)if(actor.Controlled&&actor.GuideTo(RestPoint(place))){restTarget=place;return true;}
-            return false;
+            var candidates=StreetMap.Places.Where(p=>p.Activity!=TownActivity.Entrance&&p.Id!="square").ToArray();
+            for(int k=0;k<candidates.Length;k++)
+            {
+                var p=candidates[(choiceIndex+k)%candidates.Length];
+                if(p.Id==actor.DestinationId||actors.Any(a=>!a.Controlled&&a!=actor&&a.DestinationId==p.Id))continue;
+                choiceIndex=(choiceIndex+k+1)%candidates.Length;actor.SetDestination(p,0);return;
+            }
+        }
+        internal float MovementScale(TownActor actor)
+        {
+            foreach(var other in actors)
+            {
+                if(other==actor||Distance(actor.Position,other.Position)>.035f)continue;
+                if(other.Controlled||CharacterCatalog.Find(other.CharacterId).PortraitIndex<CharacterCatalog.Find(actor.CharacterId).PortraitIndex)return .45f;
+            }return 1;
+        }
+        public bool TryBeginConversation(TownActor first,TownActor second)
+        {
+            if(!CanInteract||first==null||second==null||first==second||now<nextSocial||IsManuallyDragging||GetComponent<TownViewportView>()?.IsDragging==true||outings!=null||entrance!=null||Distance(first.Position,second.Position)>.09f||!Visible(first))return false;
+            first.Greet();second.Greet();nextSocial=now+8;
+            ShowBubble(CharacterCatalog.Find(first.CharacterId).Name+"：こんにちは、"+CharacterCatalog.Find(second.CharacterId).Name+"♪",first);return true;
         }
         private void ShowOutings()
         {
-            HideOutings();HideBubble();
-            var parent=(RectTransform)transform.parent;var row=context.Widgets.Panel("Town outing choices",parent,new Rect(0,0,1,1),UIWidgets.Cream).rectTransform;UIWidgets.Top(row,14,130,14,48);
+            HideOutings();HideBubble();var root=(RectTransform)transform.parent;
+            int rows=context.Game.State.townGrowthLevel>=4?3:2;
+            var row=context.Widgets.OrnatePanel("Town outing choices",root,new Rect(0,0,1,1),UIWidgets.Cream,12).rectTransform;UIWidgets.Top(row,14,70,14,rows*52+8);
             string[] ids={"bench","flowers","fountain"},labels={"ベンチ","お花","噴水"};
-            for(int i=0;i<ids.Length;i++)
-            {
-                string id=ids[i];var b=context.Widgets.Button("Visit "+id,labels[i],row,new Rect(i/3f+.008f,0,1/3f-.016f,1),()=>{context.Flow.PlayCue(AudioCue.Confirm);GuideToRestStop(id);},true);
-                b.GetComponentInChildren<Text>().fontSize=14;
-            }
-            outings=row.gameObject;outingsUntil=Time.unscaledTime+6;nextTalk=outingsUntil+3;
+            for(int i=0;i<3;i++){string id=ids[i];var b=context.Widgets.Button("Visit "+id,labels[i],row,new Rect(i/3f+.008f,0,1/3f-.016f,0),()=>GuideToRestStop(id),true);UIWidgets.Top((RectTransform)b.transform,4+i*(root.rect.width-28)/3,4,4+(2-i)*(root.rect.width-28)/3,48);b.GetComponentInChildren<Text>().fontSize=14;}
+            var quest=context.Widgets.Button("Guide to quest","依頼部屋へ",row,new Rect(0,0,.49f,0),()=>GuideToFacility("quest"),true);var shop=context.Widgets.Button("Guide to shop","ショップへ",row,new Rect(.51f,0,.49f,0),()=>GuideToFacility("shop"),true);
+            foreach(var b in new[]{quest,shop}){var r=(RectTransform)b.transform;r.anchorMin=new Vector2(r.anchorMin.x,1);r.anchorMax=new Vector2(r.anchorMax.x,1);r.offsetMin=new Vector2(4,-104);r.offsetMax=new Vector2(-4,-56);b.GetComponentInChildren<Text>().fontSize=14;}
+            if(rows==3){string place=context.Game.State.townGrowthLevel>=6?"celebration":"front-promenade";var b=context.Widgets.Button("Expanded outing",context.Game.State.townGrowthLevel>=6?"お祝いの道へ":"散歩道の先へ",row,new Rect(0,0,1,1),()=>GuideToPlace(place),true);UIWidgets.Bottom((RectTransform)b.transform,4,4,4,48);b.GetComponentInChildren<Text>().fontSize=14;}
+            outings=row.gameObject;outingsUntil=now+6;nextTalk=now+9;
         }
-        private void HideOutings(){if(outings!=null){outings.SetActive(false);Destroy(outings);}outings=null;}
         private void Update()=>AdvanceFrame(Time.unscaledDeltaTime);
-        public void AdvanceFrame(float elapsedSeconds)
+        public void AdvanceFrame(float seconds)
         {
-            if(context==null||actors==null)return;
-            if(!CanInteract){CancelInteraction();return;}
-            int steps=clock.AddElapsed(elapsedSeconds);
-            for(int step=0;step<steps;step++)foreach(var actor in actors)actor.Advance(TownFrameClock.StepSeconds);
-            var camera=GetComponent<TownViewportView>();if(camera!=null){foreach(var a in actors)if(a.Controlled&&(a.IsGuided||!IsManuallyDragging&&!camera.IsDragging))camera.Focus(a.Position);camera.Advance(elapsedSeconds);}
-            foreach(var actor in actors)actor.Render(clock.Alpha,elapsedSeconds);
-            Array.Sort(actors,(a,b)=>b.RenderPosition.Y.CompareTo(a.RenderPosition.Y));foreach(var actor in actors)actor.transform.SetAsLastSibling();
-            bool dragging=false;foreach(var actor in actors)if(actor.Movement?.OwnedPointerId!=null&&!actor.IsGuided)dragging=true;
-            if(bubble!=null&&Time.unscaledTime>=bubbleUntil)HideBubble();
-            if(outings!=null&&Time.unscaledTime>=outingsUntil)HideOutings();
-            if(dragging){HideBubble();return;}
-            if(entrance==null&&outings==null&&Time.unscaledTime>=nextTalk){ShowBubble(Dialogues[talkIndex++%Dialogues.Length]);nextTalk=Time.unscaledTime+5.5f;}
+            if(context==null||actors==null)return;if(!CanInteract){CancelInteraction();return;}
+            if(!float.IsFinite(seconds)||seconds<=0)return;now+=Mathf.Min(seconds,.1f);
+            int steps=clock.AddElapsed(seconds);for(int step=0;step<steps;step++)foreach(var a in actors)a.Advance(TownFrameClock.StepSeconds);
+            var camera=GetComponent<TownViewportView>();if(camera!=null){foreach(var a in actors)if(a.Controlled&&(a.IsGuided||!IsManuallyDragging&&!camera.IsDragging))camera.Focus(a.Position);camera.Advance(seconds);}
+            foreach(var a in actors)a.Render(clock.Alpha,seconds);
+            Array.Sort(actors,(a,b)=>b.RenderPosition.Y.CompareTo(a.RenderPosition.Y));foreach(var a in actors)a.transform.SetAsLastSibling();
+            if(bubble!=null&&now>=bubbleUntil)HideBubble();if(outings!=null&&now>=outingsUntil)HideOutings();
+            if(IsManuallyDragging){HideBubble();return;}
+            if(now>=nextSocial)for(int i=0;i<actors.Length;i++)for(int j=i+1;j<actors.Length;j++)if(TryBeginConversation(actors[i],actors[j]))break;
+            if(bubble==null&&outings==null&&entrance==null&&now>=nextTalk)
+            {
+                var actor=actors.FirstOrDefault(a=>!a.Controlled&&a.IsResting&&Visible(a));if(actor!=null)ShowBubble(CharacterCatalog.Find(actor.CharacterId).Name+"："+actor.Place.Dialogue,actor);nextTalk=now+6;
+            }
+            foreach(var a in actors)
+            {
+                var label=a.transform.Find("Town actor name panel");if(label!=null)label.gameObject.SetActive(a.Controlled||a==speaker||a.IsResting&&Visible(a));
+            }
+            PositionBubble();
         }
+        private bool Visible(TownActor a)
+        {var p=Local(a.Position);var r=actorLayer.rect;return p.x>r.xMin+38&&p.x<r.xMax-38&&p.y>r.yMin+24&&p.y<r.yMax-86;}
+        private static float Distance(TownPoint a,TownPoint b)=>Vector2.Distance(new Vector2(a.X,a.Y),new Vector2(b.X,b.Y));
         public Vector2 Local(TownPoint point)
-        {
-            if(background==null)return Vector2.zero;
-            var uv=background.uvRect;var r=background.rectTransform.rect;
-            var p=r.min+Vector2.Scale((new Vector2(point.X,point.Y)-uv.min)/uv.size,r.size);
-            return actorLayer.InverseTransformPoint(background.rectTransform.TransformPoint(p));
-        }
+        {if(background==null)return Vector2.zero;var uv=background.uvRect;var r=background.rectTransform.rect;var p=r.min+Vector2.Scale((new Vector2(point.X,point.Y)-uv.min)/uv.size,r.size);return actorLayer.InverseTransformPoint(background.rectTransform.TransformPoint(p));}
         public TownPoint Source(Vector2 screen,Camera camera)
-        {
-            if(background==null||!RectTransformUtility.ScreenPointToLocalPointInRectangle(background.rectTransform,screen,camera,out var p))return Nodes[0];
-            var r=background.rectTransform.rect;var uv=background.uvRect;var normalized=(p-r.min)/r.size;
-            return new TownPoint(uv.x+normalized.x*uv.width,uv.y+normalized.y*uv.height);
-        }
-        public void StartInteraction(){GetComponent<TownViewportView>()?.CancelGesture();restTarget=null;HideOutings();HideBubble();HideEntrance();nextTalk=Time.unscaledTime+5.5f;}
-        public void SetViewScale(float scale){if(actors!=null)foreach(var a in actors)a.SetViewScale(scale);}
-        public void RefreshViewport()
-        {
-            if(actorLayer==null)return;var quest=actorLayer.Find("Facility marker 依頼部屋") as RectTransform;var shop=actorLayer.Find("Facility marker ショップ") as RectTransform;
-            if(quest!=null)quest.anchoredPosition=Local(RequestEntrance)+Vector2.up*92;if(shop!=null)shop.anchoredPosition=Local(ShopEntrance)+Vector2.up*92;
-        }
+        {if(background==null||!RectTransformUtility.ScreenPointToLocalPointInRectangle(background.rectTransform,screen,camera,out var p))return StreetMap.Nodes[0];var r=background.rectTransform.rect;var uv=background.uvRect;var n=(p-r.min)/r.size;return new TownPoint(uv.x+n.x*uv.width,uv.y+n.y*uv.height);}
+        public void StartInteraction(){GetComponent<TownViewportView>()?.CancelGesture();destination=null;HideOutings();HideBubble();HideEntrance();nextTalk=now+6;}
         public void ActorReleased(TownActor actor)
         {
-            if(!CanInteract||!actor.Controlled||actor.Movement.OwnedPointerId.HasValue)return;
-            actor.FreezeMovement();var p=actor.Position;
-            string facility=Near(p,RequestEntrance)?"quest":Near(p,ShopEntrance)?"shop":null;
-            HideEntrance();
-            if(facility==null)
-            {
-                if(restTarget!=null&&Near(p,RestPoint(restTarget)))
-                {
-                    string caption=restTarget=="bench"?"ベンチのそばでひと休み♪":restTarget=="flowers"?"お花を眺めて、のんびり。":"噴水の音が心地いいね。";
-                    restTarget=null;actor.Surprise();ShowBubble(caption);
-                }
-                return;
-            }
-            NearbyFacility=facility;HideBubble();actor.Surprise();
-            var parent=(RectTransform)transform.parent;
-            var button=context.Widgets.Button("Enter facility",facility=="quest"?"依頼部屋に入る":"ショップへ",parent,new Rect(0,0,1,1),()=>{if(NearbyFacility=="quest")context.Flow.ShowQuest();else context.Flow.OpenShopPreview();});
-            UIWidgets.Bottom((RectTransform)button.transform,52,220,52,48);entrance=button.gameObject;
+            if(!CanInteract||!actor.Controlled||actor.Movement.OwnedPointerId.HasValue)return;actor.FreezeMovement();HideEntrance();
+            string facility=Distance(actor.Position,RequestEntrance)<.034f?"quest":Distance(actor.Position,ShopEntrance)<.034f?"shop":null;
+            if(facility==null){if(destination!=null&&Distance(actor.Position,destination.Position)<.034f){actor.Surprise();ShowBubble(destination.Dialogue,actor);destination=null;}return;}
+            NearbyFacility=facility;HideBubble();actor.Surprise();var root=(RectTransform)transform.parent;
+            var b=context.Widgets.Button("Enter facility",facility=="quest"?"依頼部屋に入る":"ショップへ",root,new Rect(0,0,1,1),()=>{if(NearbyFacility=="quest")context.Flow.ShowQuest();else context.Flow.OpenShopPreview();});UIWidgets.Bottom((RectTransform)b.transform,48,154,48,48);entrance=b.gameObject;
         }
-        private static bool Near(TownPoint p,TownPoint q)=>Vector2.Distance(new Vector2(p.X,p.Y),new Vector2(q.X,q.Y))<.034f;
-        internal void React(TownActor actor)
+        internal void React(TownActor a)
+        {if(!CanInteract)return;context.Flow.PlayCue(AudioCue.Character);if(!IsManuallyDragging&&entrance==null){if(a.Controlled)ShowOutings();else{HideOutings();ShowBubble(CharacterCatalog.Find(a.CharacterId).Name+"："+a.Place.Dialogue,a);}}}
+        private void ShowBubble(string text,TownActor a)
         {
-            if(!CanInteract)return;context.Flow.PlayCue(AudioCue.Character);bool dragging=false;foreach(var a in actors)if(a.Movement?.OwnedPointerId!=null&&!a.IsGuided)dragging=true;
-            if(!dragging&&entrance==null){if(actor.Controlled)ShowOutings();else{HideOutings();ShowBubble(CharacterCatalog.Find(actor.CharacterId).Name+"："+Dialogues[CharacterCatalog.Find(actor.CharacterId).PortraitIndex]);}}
+            HideBubble();speaker=a;var root=(RectTransform)transform.parent;var p=context.Widgets.OrnatePanel("Town bubble panel",root,new Rect(.5f,.5f,0,0),UIWidgets.Cream,12).rectTransform;p.sizeDelta=new Vector2(Mathf.Min(240,root.rect.width-28),72);
+            context.Widgets.StoryLabel("Town bubble",text,p,new Rect(.045f,.06f,.91f,.88f),14);bubble=p.gameObject;bubbleUntil=now+2.5f;PositionBubble();
         }
-        private void ShowBubble(string text)
+        private void PositionBubble()
         {
-            HideBubble();var parent=(RectTransform)transform.parent;
-            var panel=context.Widgets.OrnatePanel("Town bubble panel",parent,new Rect(0,0,1,1),UIWidgets.Cream,12).rectTransform;UIWidgets.Top(panel,28,130,28,40);
-            context.Widgets.StoryLabel("Town bubble",text,panel,new Rect(.04f,.04f,.92f,.92f),14);bubble=panel.gameObject;bubbleUntil=Time.unscaledTime+2.5f;
+            if(bubble==null||speaker==null)return;var root=(RectTransform)transform.parent;var p=(RectTransform)bubble.transform;var world=actorLayer.TransformPoint(Local(speaker.RenderPosition));var target=(Vector2)root.InverseTransformPoint(world)+Vector2.up*122;
+            var r=root.rect;float half=p.rect.width/2;target.x=Mathf.Clamp(target.x,r.xMin+half+14,r.xMax-half-14);target.y=Mathf.Clamp(target.y,r.yMin+154+p.rect.height/2,r.yMax-70-p.rect.height/2);p.anchoredPosition=target;
         }
-        private void HideBubble(){if(bubble!=null){bubble.SetActive(false);Destroy(bubble);}bubble=null;}
+        public void SetViewScale(float scale){if(actors!=null)foreach(var a in actors)a.SetViewScale(scale);}
+        public void RefreshViewport()
+        {if(actorLayer==null)return;foreach(var item in new[]{("依頼部屋",RequestEntrance),("ショップ",ShopEntrance)}){var r=actorLayer.Find("Facility marker "+item.Item1) as RectTransform;if(r!=null)r.anchoredPosition=Local(item.Item2)+Vector2.up*104;}PositionBubble();}
+        private void HideBubble(){if(bubble!=null){bubble.SetActive(false);Destroy(bubble);}bubble=null;speaker=null;}
         private void HideEntrance(){NearbyFacility=null;if(entrance!=null){entrance.SetActive(false);Destroy(entrance);}entrance=null;}
-        public void CancelInteraction(){GetComponent<TownViewportView>()?.CancelGesture();clock.Reset();restTarget=null;HideOutings();if(actors!=null)foreach(var actor in actors){if(actor==null)continue;actor.Movement?.CancelInput();actor.ResetVisual();}HideBubble();HideEntrance();nextTalk=Time.unscaledTime+5.5f;}
-        private void OnRectTransformDimensionsChange()
-        {
-            CancelInteraction();
-            if(actorLayer==null||context==null)return;
-            var quest=actorLayer.Find("Facility marker 依頼部屋") as RectTransform;var shop=actorLayer.Find("Facility marker ショップ") as RectTransform;
-            if(quest!=null)quest.anchoredPosition=Local(RequestEntrance)+Vector2.up*92;
-            if(shop!=null)shop.anchoredPosition=Local(ShopEntrance)+Vector2.up*92;
-        }
+        private void HideOutings(){if(outings!=null){outings.SetActive(false);Destroy(outings);}outings=null;}
+        public void CancelInteraction(){GetComponent<TownViewportView>()?.CancelGesture();clock.Reset();destination=null;HideOutings();if(actors!=null)foreach(var a in actors){a?.Movement?.CancelInput();a?.ResetVisual();}HideBubble();HideEntrance();nextTalk=now+6;}
+        private void OnRectTransformDimensionsChange(){CancelInteraction();RefreshViewport();}
         private void OnDisable()=>CancelInteraction();
     }
 }

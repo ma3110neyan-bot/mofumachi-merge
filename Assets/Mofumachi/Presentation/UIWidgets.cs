@@ -99,6 +99,7 @@ namespace Mofumachi.Presentation
         public void FitNow(){ var i=GetComponent<RawImage>(); if(i==null||i.texture==null)return; var r=i.rectTransform.rect; if(r.height<=0||r.width<=0)return;
             float ratio=r.width/r.height, source=(float)i.texture.width/i.texture.height;
             i.uvRect=ratio>source?new Rect(0,(1-source/ratio)/2,1,source/ratio):new Rect((1-ratio/source)/2,0,ratio/source,1); }
+        private void Fit(){if(isActiveAndEnabled)FitNow();}
     }
     public sealed class ButtonPressFeedback : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
     { public void OnPointerDown(PointerEventData e){if(GetComponent<Button>().IsInteractable())transform.localScale=Vector3.one*.97f;} public void OnPointerUp(PointerEventData e)=>Reset(); public void OnPointerExit(PointerEventData e)=>Reset(); private void OnDisable()=>Reset(); private void Reset()=>transform.localScale=Vector3.one; }

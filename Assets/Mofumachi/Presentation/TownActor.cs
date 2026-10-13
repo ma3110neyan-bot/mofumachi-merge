@@ -12,13 +12,15 @@ namespace Mofumachi.Presentation
         public TownPoint RenderPosition { get; private set; }
         public RectTransform VisualRoot { get; private set; }
         public bool IsGuided { get; private set; }
+        public TownPlace Place {get;private set;} public string DestinationId=>Place?.Id;
+        public bool IsResting=>!Controlled&&waitRemaining>0;
         private const int GuidePointer=int.MinValue;
         private TownPoint guideTarget;
         private System.Collections.Generic.IReadOnlyList<TownPoint> walkRoute;
         private int routeIndex,routeDirection=1;
         private TownNavigation navigation;
         private TownPoint npcPosition,npcA,npcB,npcTarget,previous;
-        private float waitRemaining,reactionRemaining,stride,amplitude,breath;
+        private float waitRemaining,reactionRemaining,stride,amplitude,breath,socialRemaining,viewScale=1;
         private TownLifeView life;
         private CharacterBodyGraphic body;
         private RectTransform rect;
@@ -34,6 +36,8 @@ namespace Mofumachi.Presentation
         {life=view;npcA=a;npcB=b;npcTarget=b;waitRemaining=delay;ResetVisual();}
         internal void SetWalkRoute(System.Collections.Generic.IReadOnlyList<TownPoint> route,int start)
         {if(Controlled||route==null||route.Count<3)return;walkRoute=route;routeDirection=start%2==0?1:-1;routeIndex=(start+routeDirection+route.Count)%route.Count;npcTarget=route[routeIndex];}
+        internal void SetDestination(TownPlace place,float wait){if(Controlled||place==null)return;Place=place;npcTarget=place.Position;waitRemaining=wait;}
+        internal void Greet(){socialRemaining=1;reactionRemaining=.65f;surprised=false;}
         public bool GuideTo(TownPoint target)
         {
             if(!Controlled||life==null||!life.CanInteract || !float.IsFinite(target.X)||!float.IsFinite(target.Y) || (Movement.OwnedPointerId.HasValue&&!IsGuided))return false;
@@ -44,18 +48,20 @@ namespace Mofumachi.Presentation
         internal void Advance(float dt)
         {
             previous=Position;
+            if(socialRemaining>0){socialRemaining=Mathf.Max(0,socialRemaining-dt);moving=false;return;}
             if(Controlled)
             {
                 Movement.Tick(dt);
                 if(IsGuided&&Vector2.Distance(new Vector2(Position.X,Position.Y),new Vector2(guideTarget.X,guideTarget.Y))<.001f)
                 {Movement.ReleasePointer(GuidePointer);IsGuided=false;FreezeMovement();life.ActorReleased(this);}
             }
-            else if(waitRemaining>0)waitRemaining=Mathf.Max(0,waitRemaining-dt);
+            else if(waitRemaining>0){waitRemaining=Mathf.Max(0,waitRemaining-dt);if(waitRemaining==0&&Place!=null)life.ChooseNextStop(this);}
             else
             {
-                npcPosition=navigation.Move(npcPosition,npcTarget,.028f*dt);
+                npcPosition=navigation.Move(npcPosition,npcTarget,.028f*dt*life.MovementScale(this));
                 if(Vector2.Distance(new Vector2(npcPosition.X,npcPosition.Y),new Vector2(npcTarget.X,npcTarget.Y))<.001f)
                 {
+                    if(Place!=null){waitRemaining=Place.Activity==TownActivity.Bench?3:1.6f;return;}
                     if(walkRoute!=null){routeIndex=(routeIndex+routeDirection+walkRoute.Count)%walkRoute.Count;npcTarget=walkRoute[routeIndex];}
                     else npcTarget=npcTarget.Equals(npcB)?npcA:npcB;
                     waitRemaining=1.6f+(routeIndex%3)*.45f;
@@ -76,7 +82,7 @@ namespace Mofumachi.Presentation
             if(body.Expression!=expression)body.Bind(CharacterId,expression);
             float reaction=reactionRemaining>0?Mathf.Sin((1-reactionRemaining/.65f)*Mathf.PI)*8:0;
             VisualRoot.anchoredPosition=Vector2.up*(Mathf.Abs(Mathf.Sin(stride))*2*amplitude+reaction);
-            VisualRoot.localScale=Vector3.one*(1+.005f*Mathf.Sin(breath*2));
+            VisualRoot.localScale=Vector3.one*(viewScale+.005f*Mathf.Sin(breath*2));
             VisualRoot.localRotation=Quaternion.Euler(0,0,reactionRemaining>0?Mathf.Sin((1-reactionRemaining/.65f)*Mathf.PI*2)*3:0);
         }
         internal void FreezeMovement()
@@ -84,7 +90,7 @@ namespace Mofumachi.Presentation
         internal void ResetVisual()
         {IsGuided=false;FreezeMovement();stride=amplitude=breath=reactionRemaining=0;if(VisualRoot!=null){VisualRoot.anchoredPosition=Vector2.zero;VisualRoot.localScale=Vector3.one;VisualRoot.localRotation=Quaternion.identity;}if(body!=null&&body.Expression!=CharacterExpression.Normal)body.Bind(CharacterId);}
         public void React(){if(life==null||!life.CanInteract)return;surprised=false;reactionRemaining=.65f;life.React(this);}
-        internal void SetViewScale(float scale){if(rect!=null)rect.sizeDelta=new Vector2(62,78)*Mathf.Clamp(scale,1,1.15f);}
+        internal void SetViewScale(float scale){viewScale=Mathf.Clamp(scale,1,1.15f);}
         internal void Surprise(){surprised=true;reactionRemaining=.65f;}
         public void OnPointerDown(PointerEventData e)
         {if(!Controlled||!life.CanInteract)return;if(IsGuided){Movement.CancelInput();IsGuided=false;FreezeMovement();}if(Movement.TryBeginDrag(e.pointerId)){dragged=false;life.StartInteraction();}}

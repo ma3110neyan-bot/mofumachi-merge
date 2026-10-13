@@ -40,7 +40,7 @@ namespace Mofumachi.Tests
             Assert.That(Flow.GetComponentsInChildren<Text>().Count(t=>t.name=="Town bubble"),Is.LessThanOrEqualTo(1));
             Assert.That(Flow.GetComponentsInChildren<Text>().Where(t=>t.name=="Town bubble").All(t=>!t.raycastTarget),Is.True);
             Canvas.ForceUpdateCanvases();
-            var guide=(RectTransform)Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Guide to quest").transform;
+            var guide=(RectTransform)Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Nav Home").transform;
             var panel=(RectTransform)Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town bubble").transform.parent;
             var a=new Vector3[4];var b=new Vector3[4];guide.GetWorldCorners(a);panel.GetWorldCorners(b);
             Assert.That(new Rect((Vector2)a[0],(Vector2)(a[2]-a[0])).Overlaps(new Rect((Vector2)b[0],(Vector2)(b[2]-b[0]))),Is.False,"Dialogue must leave facility guidance readable.");
@@ -56,6 +56,7 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator FacilityGuideArrivesThenRequiresExplicitEntry()
         {
             yield return EnterHome();int writes=Store.Writes;var life=Flow.GetComponentInChildren<TownLifeView>();
+            Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled).React();
             Assert.That(Flow.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Guide to ")),Is.EqualTo(2));
             Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Guide to quest").onClick.Invoke();
             var hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);Assert.That(hero.IsGuided,Is.True);

@@ -55,6 +55,7 @@ namespace Mofumachi.Core
         [DataMember] public float seVolume = .65f;
         [DataMember] public bool purchaseNoticeAcknowledged;
         [DataMember] public string favoriteCharacterId = "";
+        [DataMember] public List<string> productionFrameIds = new List<string> { "tea", "bread", "flower" };
         [DataMember(IsRequired = true)] public string lastSaveTime = "";
 
         [OnDeserializing]
@@ -62,6 +63,8 @@ namespace Mofumachi.Core
         {
             // DataContract does not run field initializers. Missing v2 volumes must be rejected.
             bgmVolume = seVolume = float.NaN;
+            // Optional in v3: older saves have all three frames, while an explicit [] stays empty.
+            productionFrameIds = new List<string> { "tea", "bread", "flower" };
         }
         [OnDeserialized]
         private void AfterDeserialize(StreamingContext context)
@@ -91,6 +94,7 @@ namespace Mofumachi.Core
             bgmVolume = c.bgmVolume; seVolume = c.seVolume;
             purchaseNoticeAcknowledged = c.purchaseNoticeAcknowledged;
             favoriteCharacterId = c.favoriteCharacterId;
+            productionFrameIds = c.productionFrameIds;
         }
     }
 
@@ -118,6 +122,9 @@ namespace Mofumachi.Core
                 !ValidVolume(s.bgmVolume) || !ValidVolume(s.seVolume) || s.favoriteCharacterId == null ||
                 (s.favoriteCharacterId.Length > 0 && !CharacterCatalog.IsKnown(s.favoriteCharacterId)))
                 throw new InvalidDataException("Invalid or unsupported save state.");
+            if (s.productionFrameIds == null || s.productionFrameIds.Any(id => ItemCatalog.Find(id) == null) ||
+                s.productionFrameIds.Distinct(StringComparer.Ordinal).Count() != s.productionFrameIds.Count)
+                throw new InvalidDataException("Invalid production frame placement.");
             var cells = new HashSet<int>();
             foreach (var item in s.mergeBoard)
                 if (item == null || string.IsNullOrWhiteSpace(item.itemId) || item.level < 1 || item.level > GameState.MaxLevel ||

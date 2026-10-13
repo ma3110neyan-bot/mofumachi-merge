@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.InputSystem;
 using Mofumachi.Core;
 using UnityEngine;
@@ -18,7 +19,7 @@ namespace Mofumachi.Presentation
         private UIWidgets widgets;
         private ScreenContext context;
         private GameObject modal;
-        private enum ModalKind { None, PurchaseNotice, MergeMenu, Discard, Shop }
+        private enum ModalKind { None, PurchaseNotice, MergeMenu, Discard, PackFrames, Shop }
         private ModalKind modalKind;
         public bool IsModalOpen => modal != null && modal.activeSelf;
         public bool CanInteractBoard => CanPlay && CurrentScreen==ScreenId.Merge && mergeAnimation==null;
@@ -26,6 +27,13 @@ namespace Mofumachi.Presentation
         public string DiscardItemId { get; private set; }
         public int DiscardItemLevel { get; private set; }
         private int discardCell=-1;
+        private readonly HashSet<string> selectedFrames=new HashSet<string>();
+        private string[] pendingFrames=System.Array.Empty<string>();
+        public bool IsFrameCleanupMode { get; private set; }
+        public int SelectedFrameCount=>selectedFrames.Count;
+        public IReadOnlyList<string> PendingFrameIds=>System.Array.AsReadOnly(pendingFrames);
+        public bool IsFrameSelected(string id)=>selectedFrames.Contains(id);
+        private void ClearFrameSelection(){IsFrameCleanupMode=false;selectedFrames.Clear();pendingFrames=System.Array.Empty<string>();}
         private bool transitioning,appPaused;
         private readonly Dictionary<ScreenId,string> feedback = new Dictionary<ScreenId,string>();
         public ScreenId CurrentScreen { get; private set; }
@@ -92,6 +100,7 @@ namespace Mofumachi.Presentation
         }
         public void Initialize(IStateStore store)
         {
+            ClearFrameSelection();
             var loaded = store.Load();
             session = new GameStateManager(loaded.State, store);
             ProductionItemId=UIStrings.SuggestedProduction(Game);selected=-1;feedback.Remove(ScreenId.Merge);
@@ -190,6 +199,7 @@ namespace Mofumachi.Presentation
         public bool Persist()
         {
             if (session == null) return true;
+            ClearFrameSelection();
             if(mergeEffects!=null)mergeEffects.Cancel();
             CancelAudioEdit();if(page!=null)foreach(var town in page.GetComponentsInChildren<TownLifeView>())town.CancelInteraction();CloseUtilityModal();
             if (mergeAnimation != null) { StopCoroutine(mergeAnimation); mergeAnimation = null; }
@@ -401,6 +411,7 @@ namespace Mofumachi.Presentation
         public void GenerateItem(string id)
         {
             if(!CanInteractBoard || ItemCatalog.Find(id)==null)return;
+            if(!Game.State.productionFrameIds.Contains(id)){ReportBoardMessage("生成枠を置いてから作ろう。");return;}
             selected=-1;
             bool added=Game.AddItem(id,1);feedback[ScreenId.Merge]=added?ItemCatalog.Find(id).Name+" Lv.1を作りました。"+UIStrings.MergeSelectionHint:Game.LastError.Length>0?Game.LastError:UIStrings.BoardFull;
             MergeInputDiagnostics.Record(this,"generate",-1,-1,added?"created "+id:feedback[ScreenId.Merge]);
@@ -422,11 +433,47 @@ namespace Mofumachi.Presentation
         public void ChooseProductionItem(string id)
         {
             if(modalKind!=ModalKind.MergeMenu || ItemCatalog.Find(id)==null)return;
+            if(!Game.State.productionFrameIds.Contains(id) && !Game.PlaceProductionFrame(id))
+            {feedback[ScreenId.Merge]=Game.LastError;OpenUtilityModal(ModalKind.MergeMenu,MergeActionMenuView.Build);return;}
             ProductionItemId=id;selected=-1;feedback[ScreenId.Merge]=ItemCatalog.Find(id).Name+"を作れます。"+UIStrings.MergeSelectionHint;
             MergeInputDiagnostics.Record(this,"choose-kind",-1,-1,id);CloseUtilityModal();Render("merge");
         }
         public void CancelMergeActions()
-        { if(modalKind==ModalKind.MergeMenu){CloseUtilityModal();Render("merge");} }
+        { if(modalKind==ModalKind.MergeMenu){ClearFrameSelection();CloseUtilityModal();Render("merge");} }
+        public void GenerateFromFrame(string id)
+        { if(!CanInteractBoard || !Game.State.productionFrameIds.Contains(id))return;ProductionItemId=id;GenerateItem(id); }
+        public void BeginFrameCleanup()
+        {
+            if(modalKind!=ModalKind.MergeMenu || appPaused || transitioning)return;
+            ClearFrameSelection();IsFrameCleanupMode=true;selected=-1;feedback.Remove(ScreenId.Merge);
+            OpenUtilityModal(ModalKind.MergeMenu,MergeActionMenuView.Build);
+        }
+        public void ToggleFrameSelection(string id)
+        {
+            if(!IsFrameCleanupMode || modalKind!=ModalKind.MergeMenu || appPaused || !Game.State.productionFrameIds.Contains(id))return;
+            if(!selectedFrames.Add(id))selectedFrames.Remove(id);
+            OpenUtilityModal(ModalKind.MergeMenu,MergeActionMenuView.Build);
+        }
+        public void OpenPackFramesConfirmation()
+        {
+            if(!IsFrameCleanupMode || modalKind!=ModalKind.MergeMenu || appPaused || selectedFrames.Count==0)return;
+            pendingFrames=ItemCatalog.All.Where(i=>selectedFrames.Contains(i.Id)).Select(i=>i.Id).ToArray();
+            feedback.Remove(ScreenId.Merge);OpenUtilityModal(ModalKind.PackFrames,DiscardConfirmationView.BuildFrames);
+        }
+        public bool ConfirmPackFrames()
+        {
+            if(modalKind!=ModalKind.PackFrames || CurrentScreen!=ScreenId.Merge || appPaused || transitioning || pendingFrames.Length==0)return false;
+            bool saved=Game.PackProductionFrames(pendingFrames);
+            if(!saved){feedback[ScreenId.Merge]=Game.LastError;OpenUtilityModal(ModalKind.PackFrames,DiscardConfirmationView.BuildFrames);return false;}
+            int count=pendingFrames.Length;ClearFrameSelection();CloseUtilityModal();
+            if(!Game.State.productionFrameIds.Contains(ProductionItemId))ProductionItemId=UIStrings.SuggestedProduction(Game);
+            feedback[ScreenId.Merge]="生成枠"+count+"個を片づけました。";Render("merge");return true;
+        }
+        public void CancelPackFrames()
+        {
+            if(modalKind!=ModalKind.PackFrames)return;
+            pendingFrames=System.Array.Empty<string>();OpenUtilityModal(ModalKind.MergeMenu,MergeActionMenuView.Build);
+        }
         public void OpenDiscardConfirmation(int cell)
         {
             if(!(CanInteractBoard || (modalKind==ModalKind.MergeMenu && CurrentScreen==ScreenId.Merge)))return;

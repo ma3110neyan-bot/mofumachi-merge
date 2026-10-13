@@ -153,6 +153,91 @@ namespace Mofumachi.Tests
             finally {InputSystem.RemoveDevice(touch);}
         }
     }
+public sealed class ProductionFrameUiTests : SliceUiTestFixture
+{
+ private Button Button(string name)=>Flow.GetComponentsInChildren<Button>().Single(b=>b.name==name);
+ private IEnumerator Click(string name)
+ {
+  yield return null;Canvas.ForceUpdateCanvases();var button=Button(name);Assert.That(button.IsInteractable(),Is.True,name);
+  var pointer=new PointerEventData(EventSystem.current){position=RectTransformUtility.WorldToScreenPoint(null,button.transform.position),button=PointerEventData.InputButton.Left};
+  var hits=new List<RaycastResult>();EventSystem.current.RaycastAll(pointer,hits);Assert.That(hits,Is.Not.Empty,name);
+  Assert.That(hits[0].gameObject.GetComponentInParent<Button>(),Is.SameAs(button),name);
+  ExecuteEvents.Execute(button.gameObject,pointer,ExecuteEvents.pointerClickHandler);
+ }
+ private IEnumerator SelectFrames(params string[] ids)
+ {
+  yield return Click("Merge actions");yield return Click("Begin frame cleanup");
+  Assert.That(Button("Pack selected frames").interactable,Is.False);
+  foreach(var id in ids)yield return Click("Produce "+id);
+ }
+ [UnityTest]public IEnumerator MultipleFramesPackOnceWithoutDeletingBoardItems()
+ {
+  yield return EnterHome();Flow.ShowMerge();int writes=Store.Writes;
+  yield return SelectFrames("tea","bread");Assert.That(Flow.SelectedFrameCount,Is.EqualTo(2));Assert.That(Store.Writes,Is.EqualTo(writes));
+  Assert.That(Flow.GetComponentsInChildren<Text>().Count(t=>t.name=="Frame selected badge"),Is.EqualTo(2));
+  yield return Click("Pack selected frames");Assert.That(Flow.Game.State.productionFrameIds.Count,Is.EqualTo(3));
+  yield return Click("Confirm pack frames");Assert.That(Store.Writes,Is.EqualTo(writes+1));
+  Assert.That(Flow.Game.State.productionFrameIds,Is.EqualTo(new[]{"flower"}));Assert.That(Flow.Game.State.mergeBoard.Count,Is.EqualTo(2));
+  Assert.That(Flow.Game.State.coins,Is.Zero);Assert.That(Flow.IsModalOpen,Is.False);Assert.That(Flow.ConfirmPackFrames(),Is.False);
+  LogAssert.NoUnexpectedReceived();
+ }
+ [UnityTest]public IEnumerator FailedPackingRestoresEveryFrameAndCancelKeepsSavedState()
+ {
+  yield return EnterHome();Flow.ShowMerge();yield return SelectFrames("bread","flower");yield return Click("Pack selected frames");
+  string before=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;Store.Fail=true;yield return Click("Confirm pack frames");
+  Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(Flow.IsModalOpen,Is.True);
+  Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Pack feedback").text,Does.Contain("セーブ"));
+  Store.Fail=false;yield return Click("Cancel pack frames");Assert.That(Flow.SelectedFrameCount,Is.EqualTo(2));
+  yield return Click("Cancel merge menu");Assert.That(Flow.SelectedFrameCount,Is.Zero);Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));
+  LogAssert.NoUnexpectedReceived();
+ }
+ [UnityTest]public IEnumerator AllFramesStayPackedAfterReloadAndReplacementResumesProduction()
+ {
+  yield return EnterHome();Flow.ShowMerge();yield return SelectFrames("tea","bread","flower");yield return Click("Pack selected frames");yield return Click("Confirm pack frames");
+  Flow.Initialize(Store);Flow.ShowMerge();Assert.That(Flow.Game.State.productionFrameIds,Is.Empty);Flow.GenerateItem("bread");Assert.That(Flow.Game.State.mergeBoard.Count,Is.EqualTo(2));
+  yield return Click("Create tea");Store.Fail=true;yield return Click("Produce bread");
+  Assert.That(Flow.Game.State.productionFrameIds,Is.Empty);Assert.That(Flow.IsModalOpen,Is.True);
+  Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Merge menu help").text,Does.Contain("セーブ"));
+  Store.Fail=false;yield return Click("Produce bread");Assert.That(Flow.Game.State.productionFrameIds,Is.EqualTo(new[]{"bread"}));
+  yield return Click("Create tea");Assert.That(Flow.Game.Board.At(2).itemId,Is.EqualTo("bread"));Assert.That(Flow.Game.State.favoriteCharacterId,Is.EqualTo("momo"));
+  Assert.That(Flow.Game.State.saveVersion,Is.EqualTo(3));LogAssert.NoUnexpectedReceived();
+ }
+ [UnityTest]public IEnumerator PauseClearsOnlyTransientFrameSelection()
+ {
+  yield return EnterHome();Flow.ShowMerge();yield return SelectFrames("tea");Assert.That(Flow.SelectedFrameCount,Is.EqualTo(1));
+  Flow.SendMessage("OnApplicationPause",true);Assert.That(Flow.SelectedFrameCount,Is.Zero);Assert.That(Flow.IsModalOpen,Is.False);
+  Flow.SendMessage("OnApplicationPause",false);Assert.That(Flow.Game.State.productionFrameIds.Count,Is.EqualTo(3));Assert.That(Flow.Game.State.mergeBoard.Count,Is.EqualTo(2));
+  LogAssert.NoUnexpectedReceived();
+ }
+ [UnityTest]public IEnumerator MergeLabelAndAdaptiveFramesKeepTheLockedBoardLayout()
+ {
+  yield return EnterHome();Flow.ShowMerge();Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.text=="Merge"),Is.True);
+  Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.text.Contains("マージ")),Is.False);
+  var canvas=new GameObject("Frame layout fixture",typeof(RectTransform),typeof(Canvas));
+  try
+  {
+   var root=(RectTransform)canvas.transform;var widgets=new UIWidgets(Resources.Load<Font>("Mofumachi/UIFont"),Resources.Load<Texture2D>("Mofumachi/CharacterMaster"));
+   foreach(float height in new[]{592f,640f,808f})
+   {
+    root.sizeDelta=new Vector2(360,height);var page=UIWidgets.Node("Frame page",root,new Rect(0,0,1,1));QuestMergeScreens.BuildMerge(page,new ScreenContext(Flow,widgets));
+    Canvas.ForceUpdateCanvases();page.GetComponentInChildren<MergeGridLayout>().ResizeNow();Canvas.ForceUpdateCanvases();
+    var cells=page.GetComponentsInChildren<MergeBoardView>();Assert.That(cells.Length,Is.EqualTo(30));
+    foreach(var cell in cells){var r=((RectTransform)cell.transform).rect;Assert.That(r.width,Is.EqualTo(r.height).Within(.01));Assert.That(r.width,Is.GreaterThanOrEqualTo(48));}
+    Assert.That(page.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Generate frame ")),Is.EqualTo(height>=700?3:0));
+    if(height==808)
+    {
+     root.sizeDelta=new Vector2(360,592);Canvas.ForceUpdateCanvases();page.GetComponent<ProductionFrameLayout>().ResizeNow();
+     page.GetComponentInChildren<MergeGridLayout>().ResizeNow();Canvas.ForceUpdateCanvases();
+     Assert.That(page.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Generate frame ")),Is.Zero);
+     foreach(var cell in cells)Assert.That(((RectTransform)cell.transform).rect.width,Is.GreaterThanOrEqualTo(48));
+    }
+    UnityEngine.Object.DestroyImmediate(page.gameObject);
+   }
+  }
+  finally{UnityEngine.Object.DestroyImmediate(canvas);}
+  LogAssert.NoUnexpectedReceived();
+ }
+}
 public sealed class MergeGuidanceTests
 {
  private string root;private GameStateManager game;

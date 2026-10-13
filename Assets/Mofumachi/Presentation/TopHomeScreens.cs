@@ -46,6 +46,12 @@ namespace Mofumachi.Presentation
             var life=world.gameObject.AddComponent<TownLifeView>();life.Bind(c,background??c.Flow.TownBackground);
             var decorations=UIWidgets.Node("Town growth decorations",world,new Rect(0,0,1,1));decorations.SetAsFirstSibling();
             var growth=decorations.gameObject.AddComponent<TownGrowthView>();growth.Bind(c,life);growth.Apply(c.Game.State.townGrowthLevel);
+            var guides=UIWidgets.Node("Town facility guides",root,new Rect(0,0,1,1));UIWidgets.Top(guides,14,76,14,48);
+            var requestGuide=w.Button("Guide to quest","依頼部屋へ",guides,new Rect(0,0,.49f,1),()=>life.GuideToFacility("quest"),true);
+            var shopGuide=w.Button("Guide to shop","ショップへ",guides,new Rect(.51f,0,.49f,1),()=>life.GuideToFacility("shop"),true);
+            w.Icon("Guide mail",UIIcon.Mail,(RectTransform)requestGuide.transform,new Rect(.04f,.15f,.19f,.7f));
+            w.Icon("Guide shop",UIIcon.Home,(RectTransform)shopGuide.transform,new Rect(.04f,.15f,.19f,.7f));
+            foreach(var guide in new[]{requestGuide,shopGuide}){var copy=guide.GetComponentInChildren<Text>();copy.fontSize=14;copy.rectTransform.anchorMin=new Vector2(.25f,.06f);}
             var next=QuestCatalog.NextFor(c.Game.State);var requester=CharacterCatalog.Find(next?.RequesterId??c.Game.State.favoriteCharacterId);
             var quest=w.OrnatePanel("Home quest",root,new Rect(0,0,1,1),null,24).rectTransform; UIWidgets.Bottom(quest,14,136,14,92);
             var chapter=ChapterProgress.For(c.Game.State);bool unknown=next==null&&!chapter.AllCompleted;

@@ -59,8 +59,8 @@ exit $Code
         $Extra=('<test-case result="Passed"/>'*($Total-$Suites.Count-1))+"<test-case result='$Case'/>"
         "<test-run result='Passed' total='$Declared' passed='$Declared' failed='0' skipped='0'>$Nodes$Extra</test-run>" | Set-Content $Xml
     }
-    $EditSuites=Read-GateSuites 'EditXml' 98;$PlaySuites=Read-GateSuites 'PlayXml' 77
-    foreach($Gate in @(@{Minimum=98;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests')},@{Minimum=77;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests')})) {
+    $EditSuites=Read-GateSuites 'EditXml' 105;$PlaySuites=Read-GateSuites 'PlayXml' 85
+    foreach($Gate in @(@{Minimum=105;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests')},@{Minimum=85;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests')})) {
         $Old=@($Gate.Suites | Where-Object {$_ -notin $Gate.New})
         Write-SuiteXml $Gate.Minimum $Old
         Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}

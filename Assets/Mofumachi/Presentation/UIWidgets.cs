@@ -80,7 +80,7 @@ namespace Mofumachi.Presentation
         public void Nav(RectTransform root,ScreenContext c,ScreenId active)
         {
             var nav=Panel("Navigation",root,new Rect(0,0,1,1),Cream).rectTransform; Bottom(nav,8,8,8,66);Frame(nav,14,false);
-            var names=new[]{"もふまち","依頼","マージ"}; var ids=new[]{ScreenId.Home,ScreenId.Quest,ScreenId.Merge};
+            var names=new[]{"もふまち","依頼",UIStrings.MergeTitle}; var ids=new[]{ScreenId.Home,ScreenId.Quest,ScreenId.Merge};
             var icons=new[]{UIIcon.Home,UIIcon.Mail,UIIcon.Tea};
             for(int i=0;i<3;i++){ int j=i; var b=Button("Nav "+ids[i],"",nav,new Rect(i/3f+.012f,.06f,1/3f-.024f,.88f),()=>{ c.Flow.PlayCue(AudioCue.Confirm); if(j==0)c.Flow.ShowHome();else if(j==1)c.Flow.ShowQuest();else c.Flow.ShowMerge(); },ids[i]!=active);
                 Frame((RectTransform)b.transform,12);

@@ -20,6 +20,27 @@ namespace Mofumachi.Core
         public bool TryMove(int from, int to) => Mutate(() => Board.TryMove(from, to));
         public bool AddItem(string id, int level) => Mutate(() => Board.AddItem(id, level));
         public bool TryRemoveItem(int cell,string expectedId,int expectedLevel)=>Mutate(()=>Board.TryRemoveItem(cell,expectedId,expectedLevel));
+        public bool PackProductionFrames(System.Collections.Generic.IReadOnlyList<string> ids)
+        {
+            var targets=ids?.ToArray();
+            return Mutate(() =>
+            {
+                if(targets==null || targets.Length==0 || targets.Distinct(StringComparer.Ordinal).Count()!=targets.Length ||
+                    targets.Any(id=>ItemCatalog.Find(id)==null || !State.productionFrameIds.Contains(id)))
+                { LastError="生成枠が変わりました。選び直してください。";return false; }
+                // Validate every target before changing any placement; one Mutate means one save/rollback.
+                foreach(var id in targets)State.productionFrameIds.Remove(id);
+                return true;
+            });
+        }
+        public bool PlaceProductionFrame(string id)
+        {
+            return Mutate(() =>
+            {
+                if(ItemCatalog.Find(id)==null || State.productionFrameIds.Contains(id))return false;
+                State.productionFrameIds.Add(id);return true;
+            });
+        }
         public bool SelectFavorite(string id)
         {
             if (!CharacterCatalog.IsKnown(id)) { LastError = "パートナーを6名の中から選んでください。"; return false; }

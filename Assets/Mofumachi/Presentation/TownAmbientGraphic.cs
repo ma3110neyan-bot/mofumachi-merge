@@ -9,7 +9,7 @@ namespace Mofumachi.Presentation
     public sealed class TownAmbientGraphic : MaskableGraphic
     {
         private RawImage background;
-        private float phase;
+        private float phase,meshElapsed;
         public float Phase=>phase;
         protected override void Awake() { base.Awake(); raycastTarget = false; }
         public void Bind(RawImage image) => background = image;
@@ -17,7 +17,9 @@ namespace Mofumachi.Presentation
         public void AdvanceWater(float elapsedSeconds)
         {
             if(!isActiveAndEnabled||!float.IsFinite(elapsedSeconds)||elapsedSeconds<=0)return;
-            phase+=Mathf.Min(elapsedSeconds,.1f);SetVerticesDirty();
+            float dt=Mathf.Min(elapsedSeconds,.1f);phase+=dt;meshElapsed+=dt;
+            if(meshElapsed<1f/30)return;
+            meshElapsed=Mathf.Repeat(meshElapsed,1f/30);SetVerticesDirty();
         }
         protected override void OnPopulateMesh(VertexHelper vertices)
         {
@@ -28,10 +30,12 @@ namespace Mofumachi.Presentation
             Fall(vertices, .435f, .48f, .754f, .710f, 7, .47f);
             Fall(vertices, .377f, .444f, .622f, .586f, 8, .8f);
             Fall(vertices, .357f, .462f, .586f, .548f, 9, .75f);
+            Jet(vertices,new Vector2(.405f,.622f),new Vector2(.32f,.66f),new Vector2(.346f,.552f));
+            Jet(vertices,new Vector2(.415f,.622f),new Vector2(.50f,.66f),new Vector2(.476f,.552f));
             for (int i = 0; i < 4; i++)
             {
                 float t = Mathf.Repeat(phase * .43f + i / 4f, 1);
-                var tint = new Color(.87f, 1, 1, (1 - t) * .5f);
+                var tint = new Color(.87f, 1, 1, (1 - t) * .7f);
                 Ring(vertices, Local(new Vector2(.41f, .548f)), new Vector2(.013f + t * .077f, .0025f + t * .0105f), tint);
             }
             for (int i = 0; i < 5; i++)
@@ -41,6 +45,24 @@ namespace Mofumachi.Presentation
                 Ellipse(vertices, p, new Vector2(.0022f, .005f) * glow, new Color(1, 1, .86f, .5f * glow));
                 Ellipse(vertices, p, new Vector2(.006f, .0014f) * glow, new Color(1, 1, .86f, .5f * glow));
             }
+        }
+        private void Jet(VertexHelper vertices,Vector2 start,Vector2 control,Vector2 end)
+        {
+            const int steps=12;
+            for(int i=0;i<steps;i++)
+            {
+                float t=i/(float)steps,u=(i+1f)/steps;
+                var a=(1-t)*(1-t)*start+2*(1-t)*t*control+t*t*end;
+                var b=(1-u)*(1-u)*start+2*(1-u)*u*control+u*u*end;
+                float glow=.48f+.22f*Mathf.Sin(phase*6-i*.65f);
+                var tint=new Color(.84f,.98f,1,glow);int n=vertices.currentVertCount;
+                var width=new Vector2(.0016f,0);
+                vertices.AddVert(Local(a-width),tint,Vector2.zero);vertices.AddVert(Local(b-width),tint,Vector2.zero);
+                vertices.AddVert(Local(b+width),tint,Vector2.zero);vertices.AddVert(Local(a+width),tint,Vector2.zero);
+                vertices.AddTriangle(n,n+1,n+2);vertices.AddTriangle(n,n+2,n+3);
+            }
+            float drop=Mathf.Repeat(phase*.7f,1);var p=(1-drop)*(1-drop)*start+2*(1-drop)*drop*control+drop*drop*end;
+            Ellipse(vertices,Local(p),new Vector2(.003f,.004f),new Color(.93f,1,1,.9f));
         }
         private void Fall(VertexHelper vertices, float left, float right, float top, float bottom, int count, float opacity)
         {

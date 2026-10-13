@@ -37,7 +37,7 @@ namespace Mofumachi.Presentation
         }
         public static void BuildMerge(RectTransform root,ScreenContext c,bool animateSelection=false)
         {
-            var w=c.Widgets;w.Header(root,c,"マージ",UIWidgets.Sky);
+            var w=c.Widgets;w.Header(root,c,UIStrings.MergeTitle,UIWidgets.Sky);
             var progress=w.Panel("Merge progress",root,new Rect(0,0,1,1),UIWidgets.BluePaper).rectTransform;UIWidgets.Top(progress,12,68,12,38);
             var quest=QuestCatalog.NextFor(c.Game.State);
             bool accepted=UIStrings.IsAccepted(c.Game.State,quest),deliverable=accepted&&c.Game.Quests.CheckDelivery();
@@ -45,7 +45,7 @@ namespace Mofumachi.Presentation
             string status=quest==null?"":!accepted?"未受注：まず「依頼を見る」へ":deliverable?"納品できます！":!c.Flow.CanInteractBoard?"合成中です":("受注中："+(ChapterCatalog.ForQuest(quest.Id)?.Title??quest.Title));
             w.StoryLabel("Merge chapter",status,progress,new Rect(.03f,.5f,.94f,.5f),12);
             w.Label("Progress",summary,progress,new Rect(.03f,0,.94f,.5f),12);
-            var tray=w.Panel("Merge tray",root,new Rect(0,0,1,1),new Color(.73f,.92f,.84f)).rectTransform;tray.offsetMin=new Vector2(10,158);tray.offsetMax=new Vector2(-10,-112);
+            var tray=w.Panel("Merge tray",root,new Rect(0,0,1,1),new Color(.73f,.92f,.84f)).rectTransform;tray.offsetMin=new Vector2(10,root.rect.height>=700&&c.Game.State.productionFrameIds.Count>0?212:158);tray.offsetMax=new Vector2(-10,-112);
             w.Frame(tray,22,false);
             var grid=UIWidgets.Node("Merge board",tray,new Rect(0,0,1,1));grid.offsetMin=new Vector2(7,7);grid.offsetMax=new Vector2(-7,-7);
             var group=grid.gameObject.AddComponent<GridLayoutGroup>();group.constraint=GridLayoutGroup.Constraint.FixedColumnCount;group.constraintCount=5;group.spacing=new Vector2(4,4);group.childAlignment=TextAnchor.MiddleCenter;
@@ -76,10 +76,23 @@ namespace Mofumachi.Presentation
                 }
             }
             grid.gameObject.AddComponent<MergeGridLayout>();
+            RectTransform yard=null;
+            if(c.Game.State.productionFrameIds.Count>0)
+            {
+                yard=UIWidgets.Node("Production frames",root,new Rect(0,0,1,1));UIWidgets.Bottom(yard,12,160,12,48);
+                int total=c.Game.State.productionFrameIds.Count,index=0;
+                foreach(var id in c.Game.State.productionFrameIds)
+                {
+                    string frameId=id;var button=w.Button("Generate frame "+id,ItemCatalog.Find(id).Name+"を作る",yard,new Rect(index/(float)total+.006f,0,1f/total-.012f,1),()=>c.Flow.GenerateFromFrame(frameId),true);
+                    var copy=button.GetComponentInChildren<Text>();copy.fontSize=12;copy.rectTransform.anchorMin=new Vector2(.31f,.08f);copy.rectTransform.anchorMax=new Vector2(.97f,.92f);
+                    w.Item("Frame item art",id,1,(RectTransform)button.transform,new Rect(.025f,.12f,.29f,.76f));index++;
+                }
+            }
+            root.gameObject.AddComponent<ProductionFrameLayout>().Bind(tray,yard);
             var toolbar=UIWidgets.Node("Merge toolbar",root,new Rect(0,0,1,1));UIWidgets.Bottom(toolbar,12,106,12,48);
-            var menu=w.Button("Merge actions","種類\n整理",toolbar,new Rect(0,0,0,1),c.Flow.OpenMergeActions,true);((RectTransform)menu.transform).sizeDelta=new Vector2(48,0);
-            var menuText=menu.GetComponentInChildren<Text>();menuText.fontSize=14;menuText.lineSpacing=.9f;
-            var generate=w.Button("Create tea",ItemCatalog.Find(c.Flow.ProductionItemId).Name+"を作る",toolbar,new Rect(0,0,.56f,1),()=>c.Flow.GenerateItem(c.Flow.ProductionItemId),true);((RectTransform)generate.transform).offsetMin=new Vector2(52,0);
+            var menu=w.Button("Merge actions","生成枠\n整理",toolbar,new Rect(0,0,0,1),c.Flow.OpenMergeActions,true);((RectTransform)menu.transform).sizeDelta=new Vector2(48,0);
+            var menuText=menu.GetComponentInChildren<Text>();menuText.fontSize=12;menuText.lineSpacing=.9f;
+            var generate=w.Button("Create tea",c.Game.State.productionFrameIds.Contains(c.Flow.ProductionItemId)?ItemCatalog.Find(c.Flow.ProductionItemId).Name+"を作る":"生成枠を置く",toolbar,new Rect(0,0,.56f,1),()=>{if(c.Game.State.productionFrameIds.Contains(c.Flow.ProductionItemId))c.Flow.GenerateItem(c.Flow.ProductionItemId);else c.Flow.OpenMergeActions();},true);((RectTransform)generate.transform).offsetMin=new Vector2(52,0);
             bool preview=quest!=null&&!accepted;
             var delivery=w.Button("Deliver",preview?"依頼を見る":"納品する",toolbar,new Rect(.59f,0,.41f,1),()=>{if(preview)c.Flow.ShowQuest();else c.Flow.Deliver();});delivery.interactable=preview||deliverable;
             w.Feedback(root,c,ScreenId.Merge); // Compact feedback between navigation and toolbar.
@@ -87,6 +100,19 @@ namespace Mofumachi.Presentation
             if(text.text.Length==0)text.text=c.Game.State.mergeBoard.Count>=30?UIStrings.BoardFull:UIStrings.DeliveryHint(c.Game);
             var feedbackSurface=root.Find("Feedback surface") as RectTransform;if(feedbackSurface!=null)UIWidgets.Bottom(feedbackSurface,12,76,12,28);
             w.Nav(root,c,ScreenId.Merge);
+        }
+    }
+    public sealed class ProductionFrameLayout : MonoBehaviour
+    {
+        private RectTransform tray,strip;
+        public void Bind(RectTransform boardTray,RectTransform frameStrip){tray=boardTray;strip=frameStrip;ResizeNow();}
+        private void OnRectTransformDimensionsChange()=>ResizeNow();
+        public void ResizeNow()
+        {
+            if(tray==null)return;
+            bool wide=((RectTransform)transform).rect.height>=700&&strip!=null;
+            if(strip!=null&&strip.gameObject.activeSelf!=wide)strip.gameObject.SetActive(wide);
+            var bottom=new Vector2(10,wide?212:158);if(tray.offsetMin!=bottom)tray.offsetMin=bottom;
         }
     }
     public sealed class MergeGridLayout : MonoBehaviour

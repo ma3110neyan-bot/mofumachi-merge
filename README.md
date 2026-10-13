@@ -1,4 +1,6 @@
-> 2026-10-13・PlayMode2件の追加修正：章再閲覧の比較では正常な保存時刻更新を区別し、寄り道の吹き出しは到着直後に検査する。ゲーム本体・保存／報酬・正式素材・件数を保持。Core110件／演出計算10件成功、6アセンブリ警告／エラー0、独立レビュー済み。**Windows再試験は未実施**。Fetch／Pull後、この2件→EditMode121／PlayMode99の全件検証→全件合格後にTown QA APK。[原因と変更内容](docs/development-handoff-2026-10-13-integrated-quality.md#追記ユーザー共有のplaymode2件への対応)。
+> 2026-10-13・最新確認：ユーザー提供画像で**PlayMode99件成功・失敗0・skip0**を確認し、Town QA APK生成完了の報告を受領。7工程の再承認は既存実装の継続として記録し、現在は第7工程のEditMode結果・APK対応記録・Pixelの一周と比較を確認する段階。収益化・運営は将来設計のまま保持。今回の更新は資料のみで、同じソースのTown QAで試遊を継続できる。[現在の報告](docs/development-handoff-2026-10-13-integrated-quality.md)、[実機の確認項目](docs/integrated-quality-pixel3a-checklist.md)。
+
+> 2026-10-13・PlayMode2件の追加修正 `3405c26`：章再閲覧では正常な保存時刻更新を区別し、寄り道の吹き出しは到着直後に検査する。ゲーム本体・保存／報酬・正式素材・件数を保持。[原因と変更内容](docs/development-handoff-2026-10-13-integrated-quality.md#追記ユーザー共有のplaymode2件への対応)。
 
 > 2026-10-13・統合品質版（製品変更 `218ac51`）：9月22日の世界観と最新の立体表現を統合。同じ街背景内のカメラ／Lv.別訪問先／NPC交流、画像付き不足カード／単一生成行、文章の絵本調書体を実装。正式PNG29点と保存／納品／報酬ロジックを保持。構成は**EditMode121／PlayMode99**。本版のUnity全件成功・APK・Pixel・画像比較は未確認。[引き継ぎ報告](docs/development-handoff-2026-10-13-integrated-quality.md)、[Windows／Pixel確認手順](docs/integrated-quality-pixel3a-checklist.md)、[2.5D段階案](docs/2point5d-staged-prototype-2026-10-13.md)、[将来の収益化・運営設計](docs/monetization-and-operations-direction-2026-10-13.md)。
 

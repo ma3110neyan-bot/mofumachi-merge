@@ -1,6 +1,8 @@
 # 統合品質版：Windows／Pixel 3a確認手順
 
-2026-10-13。製品変更`218ac511a1c87f0b7f1c1516baf0607892df3ce2`。9月22日の世界観とその後の改善を統合した版。**以下のUnityネイティブ、APK、実機、画像比較はCodex側では未実施。** 前の85件成功と以前のAPKは、この変更後の検証へ流用しない。
+2026-10-13。製品変更`218ac511a1c87f0b7f1c1516baf0607892df3ce2`、2テスト修正`3405c2612f9cc577f158659d8bd79111638be9d8`。9月22日の世界観とその後の改善を統合した版。**ユーザー提供画像でPlayMode99件成功・失敗0・skip0を確認し、Town QA APK生成完了の報告を受領した。** EditMode121件の実結果・結果XML・APKの生成時刻／SHA・インストールとPixel試遊は未確認。Codex側でUnity／実機を操作したとは扱わない。前の85件成功と以前のAPKは、この変更後の検証へ流用しない。
+
+今回の更新は検証記録と将来設計の資料のみ。同じ`3405c26`のソースから作成したTown QA APKで確認を継続できる。取得済みの結果は再実行を増やさず記録し、未確認の項目を以下の手順で確かめる。
 
 ## Windowsで更新と全件検証
 
@@ -11,6 +13,8 @@
 5. **PlayMode → Run All**。構成の棚卸しは**99件**。全件成功・失敗0・skip0を確認し、別のXMLへ保存する。件数が違えば実行したcommitとXMLで確認し、合格を推測しない。
 6. どちらか失敗した場合はAPK生成へ進まず、そのテスト名・詳細・XMLを保存する。クラウドの110件／10件、コンパイル、モック検査はこの全件検証の代わりではない。
 7. 全件合格後、**Mofumachi → Android → Build Town QA APK (separate save)**。対象は`Builds\Android\town-life-qa.apk`。通常QAやDevelopment APKと取り違えない。
+
+Unityメニューのビルドでは`build-info.json`は自動生成されない。その場合はGitHub Desktopのビルド時commit、APKファイルの更新時刻、インストーラーが表示するSHA256を記録する。CLIの`build-android.ps1`で生成した場合だけ、`Builds\Android\build-info.json`も利用できる。資料更新だけで、作成済みAPKの再生成を求めない。
 
 ## 同じ保存領域へインストール
 

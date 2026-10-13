@@ -13,6 +13,7 @@ namespace Mofumachi.Presentation
         public float Phase=>phase;
         protected override void Awake() { base.Awake(); raycastTarget = false; }
         public void Bind(RawImage image) => background = image;
+        public void NotifyViewportChanged()=>SetVerticesDirty();
         private void Update()=>AdvanceWater(Time.unscaledDeltaTime);
         public void AdvanceWater(float elapsedSeconds)
         {

@@ -9,6 +9,8 @@ namespace Mofumachi.Presentation
         // Feet on the paved ring around the fountain; entrances are in front of the blue/pink awnings.
         public static readonly TownPoint RequestEntrance=new TownPoint(.18f,.635f),ShopEntrance=new TownPoint(.76f,.605f);
         public string NearbyFacility { get; private set; }
+        public RawImage Background=>background;
+        public bool IsManuallyDragging {get{if(actors!=null)foreach(var a in actors)if(a.Controlled&&a.Movement.OwnedPointerId.HasValue&&!a.IsGuided)return true;return false;}}
         public bool CanInteract=>isActiveAndEnabled&&context!=null&&!context.Flow.IsModalOpen&&!context.Flow.IsAppPaused&&context.Flow.CurrentScreen==ScreenId.Home;
         private RawImage background;private ScreenContext context;private TownActor[] actors;private RectTransform actorLayer;
         private GameObject bubble,entrance,outings;private float nextTalk,bubbleUntil,outingsUntil;private string restTarget;private int talkIndex;private readonly TownFrameClock clock=new TownFrameClock();
@@ -79,6 +81,7 @@ namespace Mofumachi.Presentation
             if(!CanInteract){CancelInteraction();return;}
             int steps=clock.AddElapsed(elapsedSeconds);
             for(int step=0;step<steps;step++)foreach(var actor in actors)actor.Advance(TownFrameClock.StepSeconds);
+            var camera=GetComponent<TownViewportView>();if(camera!=null){foreach(var a in actors)if(a.Controlled&&(a.IsGuided||!IsManuallyDragging&&!camera.IsDragging))camera.Focus(a.Position);camera.Advance(elapsedSeconds);}
             foreach(var actor in actors)actor.Render(clock.Alpha,elapsedSeconds);
             Array.Sort(actors,(a,b)=>b.RenderPosition.Y.CompareTo(a.RenderPosition.Y));foreach(var actor in actors)actor.transform.SetAsLastSibling();
             bool dragging=false;foreach(var actor in actors)if(actor.Movement?.OwnedPointerId!=null&&!actor.IsGuided)dragging=true;
@@ -100,7 +103,13 @@ namespace Mofumachi.Presentation
             var r=background.rectTransform.rect;var uv=background.uvRect;var normalized=(p-r.min)/r.size;
             return new TownPoint(uv.x+normalized.x*uv.width,uv.y+normalized.y*uv.height);
         }
-        public void StartInteraction(){restTarget=null;HideOutings();HideBubble();HideEntrance();nextTalk=Time.unscaledTime+5.5f;}
+        public void StartInteraction(){GetComponent<TownViewportView>()?.CancelGesture();restTarget=null;HideOutings();HideBubble();HideEntrance();nextTalk=Time.unscaledTime+5.5f;}
+        public void SetViewScale(float scale){if(actors!=null)foreach(var a in actors)a.SetViewScale(scale);}
+        public void RefreshViewport()
+        {
+            if(actorLayer==null)return;var quest=actorLayer.Find("Facility marker 依頼部屋") as RectTransform;var shop=actorLayer.Find("Facility marker ショップ") as RectTransform;
+            if(quest!=null)quest.anchoredPosition=Local(RequestEntrance)+Vector2.up*92;if(shop!=null)shop.anchoredPosition=Local(ShopEntrance)+Vector2.up*92;
+        }
         public void ActorReleased(TownActor actor)
         {
             if(!CanInteract||!actor.Controlled||actor.Movement.OwnedPointerId.HasValue)return;
@@ -135,7 +144,7 @@ namespace Mofumachi.Presentation
         }
         private void HideBubble(){if(bubble!=null){bubble.SetActive(false);Destroy(bubble);}bubble=null;}
         private void HideEntrance(){NearbyFacility=null;if(entrance!=null){entrance.SetActive(false);Destroy(entrance);}entrance=null;}
-        public void CancelInteraction(){clock.Reset();restTarget=null;HideOutings();if(actors!=null)foreach(var actor in actors){if(actor==null)continue;actor.Movement?.CancelInput();actor.ResetVisual();}HideBubble();HideEntrance();nextTalk=Time.unscaledTime+5.5f;}
+        public void CancelInteraction(){GetComponent<TownViewportView>()?.CancelGesture();clock.Reset();restTarget=null;HideOutings();if(actors!=null)foreach(var actor in actors){if(actor==null)continue;actor.Movement?.CancelInput();actor.ResetVisual();}HideBubble();HideEntrance();nextTalk=Time.unscaledTime+5.5f;}
         private void OnRectTransformDimensionsChange()
         {
             CancelInteraction();

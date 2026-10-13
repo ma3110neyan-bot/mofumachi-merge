@@ -84,6 +84,7 @@ namespace Mofumachi.Presentation
         internal void ResetVisual()
         {IsGuided=false;FreezeMovement();stride=amplitude=breath=reactionRemaining=0;if(VisualRoot!=null){VisualRoot.anchoredPosition=Vector2.zero;VisualRoot.localScale=Vector3.one;VisualRoot.localRotation=Quaternion.identity;}if(body!=null&&body.Expression!=CharacterExpression.Normal)body.Bind(CharacterId);}
         public void React(){if(life==null||!life.CanInteract)return;surprised=false;reactionRemaining=.65f;life.React(this);}
+        internal void SetViewScale(float scale){if(rect!=null)rect.sizeDelta=new Vector2(62,78)*Mathf.Clamp(scale,1,1.15f);}
         internal void Surprise(){surprised=true;reactionRemaining=.65f;}
         public void OnPointerDown(PointerEventData e)
         {if(!Controlled||!life.CanInteract)return;if(IsGuided){Movement.CancelInput();IsGuided=false;FreezeMovement();}if(Movement.TryBeginDrag(e.pointerId)){dragged=false;life.StartInteraction();}}

@@ -44,6 +44,7 @@ namespace Mofumachi.Presentation
             var settings=w.Button("Settings","",hud,new Rect(.82f,.1f,.16f,.8f),c.Flow.ShowSettings,true); w.Icon("Settings icon",UIIcon.Settings,(RectTransform)settings.transform,new Rect(.17f,.17f,.66f,.66f));
             var world=UIWidgets.Node("Town characters",root,new Rect(0,0,1,1));world.offsetMin=new Vector2(0,240);world.offsetMax=new Vector2(0,-94);
             var life=world.gameObject.AddComponent<TownLifeView>();life.Bind(c,background??c.Flow.TownBackground);
+            world.gameObject.AddComponent<TownViewportView>().Bind(c,background??c.Flow.TownBackground,life);
             var decorations=UIWidgets.Node("Town growth decorations",world,new Rect(0,0,1,1));decorations.SetAsFirstSibling();
             var growth=decorations.gameObject.AddComponent<TownGrowthView>();growth.Bind(c,life);growth.Apply(c.Game.State.townGrowthLevel);
             var guides=UIWidgets.Node("Town facility guides",root,new Rect(0,0,1,1));UIWidgets.Top(guides,14,76,14,48);

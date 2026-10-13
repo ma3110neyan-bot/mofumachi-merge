@@ -377,6 +377,7 @@ namespace Mofumachi.Presentation
                 foreach(var reaction in page.GetComponentsInChildren<CharacterReaction>())reaction.enabled=false;
                 foreach(var ambient in page.GetComponentsInChildren<TownAmbientGraphic>())ambient.enabled=false;
                 foreach(var town in page.GetComponentsInChildren<TownLifeView>())town.enabled=false;
+                foreach(var cameraView in page.GetComponentsInChildren<TownViewportView>())cameraView.enabled=false;
                 foreach(var growth in page.GetComponentsInChildren<TownGrowthView>())growth.enabled=false;
                 foreach(var reaction in page.GetComponentsInChildren<BodyReaction>())reaction.enabled=false;
             }

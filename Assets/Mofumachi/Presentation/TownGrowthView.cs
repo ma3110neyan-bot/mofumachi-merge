@@ -11,7 +11,7 @@ namespace Mofumachi.Presentation
         private GameObject[] layers;private TownLifeView life;private RawImage background;
         private readonly RectTransform[] icons=new RectTransform[12];private readonly TownPoint[] positions=new TownPoint[12];
         private bool dirty;private Coroutine highlight;private Rect previousUv;
-        public void Bind(ScreenContext c,TownLifeView life){this.life=life;Build(c);}
+        public void Bind(ScreenContext c,TownLifeView life){this.life=life;this.background=life.Background;Build(c);}
         public void Bind(ScreenContext c,RawImage background){this.background=background;Build(c);}
         private void Build(ScreenContext c)
         {

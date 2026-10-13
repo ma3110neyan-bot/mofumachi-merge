@@ -95,8 +95,8 @@ namespace Mofumachi.Presentation
     }
     public sealed class BackgroundCover : MonoBehaviour
     {
-        private void OnRectTransformDimensionsChange() => Fit(); private void Start()=>Fit();
-        private void Fit(){ var i=GetComponent<RawImage>(); if(i==null||i.texture==null)return; var r=i.rectTransform.rect; if(r.height<=0||r.width<=0)return;
+        private void OnRectTransformDimensionsChange() {if(isActiveAndEnabled)FitNow();} private void Start(){if(isActiveAndEnabled)FitNow();}
+        public void FitNow(){ var i=GetComponent<RawImage>(); if(i==null||i.texture==null)return; var r=i.rectTransform.rect; if(r.height<=0||r.width<=0)return;
             float ratio=r.width/r.height, source=(float)i.texture.width/i.texture.height;
             i.uvRect=ratio>source?new Rect(0,(1-source/ratio)/2,1,source/ratio):new Rect((1-ratio/source)/2,0,ratio/source,1); }
     }

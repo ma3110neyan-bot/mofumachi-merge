@@ -1,4 +1,4 @@
-> 2026-10-13・後続の開発統合ページ指示：[9月22日の基準イメージ](References/Preview/integration-baseline-2026-09-22/README.md)を最優先の美術基準として登録。[現状分析・優先順位・変更対象ファイル](docs/superpowers/specs/2026-10-13-integration-baseline-review.md)を提示。統合ページ本文は取得待ちで、今回の更新は資料のみ。先行順位は街→Merge→文章UI、2.5Dは設計提示まで。
+> 2026-10-13・最新の統合本線指定を受領：[9月22日の基準イメージ](References/Preview/integration-baseline-2026-09-22/README.md)を最上位のビジュアル基準とし、正式6名・現在の街背景・ロゴを維持。[現状分析・優先順位・変更対象ファイル](docs/superpowers/specs/2026-10-13-integration-baseline-review.md)を最新指定へ更新。統合ページはこのチャットの引き継ぎ本文で共有されるため、URLや直接取得を前提にしない。今回の更新は資料のみで、方針確認後に街→Merge→文章UIを実装。2.5Dは設計提示まで。
 
 > 2026-10-13・次期品質改善の第1段階（ゲーム本体 `8700c5a` 時点）：正式6名・ロゴ・街・5×6を保持。丸いMerge受け皿／接地影／合成候補の光／浮遊合成、主人公タップでの寄り道、メニューの絵本調書体を追加。Core94件・演出計算10件成功、実Unity DLLの全6アセンブリ警告／エラー0。テスト構成はEditMode105／PlayMode85で、**変更後のWindows全件・APK・Pixelは未実施**。[実装報告とWindows手順](docs/development-handoff-2026-10-13-next-quality.md)。音楽選曲・購入・広域カメラは設計段階。
 

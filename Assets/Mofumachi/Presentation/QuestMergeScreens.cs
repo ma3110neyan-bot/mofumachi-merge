@@ -12,7 +12,7 @@ namespace Mofumachi.Presentation
             var area=w.OrnatePanel("Quest card",root,new Rect(0,0,1,1),UIWidgets.BlushPaper).rectTransform;area.offsetMin=new Vector2(14,128);area.offsetMax=new Vector2(-14,-80);
             var quest=QuestCatalog.NextFor(c.Game.State);
             bool unavailable=quest==null,finished=unavailable&&ChapterProgress.For(c.Game.State).AllCompleted,active=!unavailable && c.Game.State.activeQuestId==quest.Id && !c.Game.State.completedQuestIds.Contains(quest.Id);
-            var ribbon=w.Ribbon("Quest title",unavailable?(finished?"すべての依頼が完了しました":UIStrings.UnknownQuest):quest.Title,area,new Rect(.12f,.83f,.76f,.11f),18,UIWidgets.Peach);UIWidgets.Top((RectTransform)ribbon.transform.parent,24,16,24,44);
+            var ribbon=w.StoryRibbon("Quest title",unavailable?(finished?"すべての依頼が完了しました":UIStrings.UnknownQuest):quest.Title,area,new Rect(.12f,.83f,.76f,.11f),18,UIWidgets.Peach);UIWidgets.Top((RectTransform)ribbon.transform.parent,24,16,24,44);
             if(!unavailable)w.StoryLabel("Quest chapter",ChapterCatalog.ForQuest(quest.Id)?.Title??"",area,new Rect(.08f,.78f,.84f,.05f),14);
             var requester=CharacterCatalog.Find(unavailable?c.Game.State.favoriteCharacterId:quest.RequesterId);
             w.Body("Quest character",requester.Id,area,new Rect(.35f,.57f,.3f,.20f));
@@ -26,7 +26,8 @@ namespace Mofumachi.Presentation
                     var entry=requirements[i];var item=entry.Requirement;float width=.88f/requirements.Count;
                     var required=w.OrnatePanel("Required item "+i,area,new Rect(.06f+i*width,.23f,width-.02f,.17f),UIWidgets.BluePaper,12).rectTransform;
                     w.Item("Required art "+i,item.ItemId,item.Level,required,new Rect(.03f,.1f,.27f,.8f));
-                    w.Label("Required count "+i,ItemCatalog.Find(item.ItemId).Name+" Lv."+item.Level+"\n"+entry.Available+" / "+item.Count,required,new Rect(.31f,.04f,.65f,.9f),12);
+                    w.StoryLabel("Required name "+i,ItemCatalog.Find(item.ItemId).Name+" Lv."+item.Level,required,new Rect(.31f,.50f,.65f,.47f),14);
+                    w.Label("Required count "+i,entry.Available+" / "+item.Count,required,new Rect(.31f,.03f,.65f,.44f),14);
                 }
                 w.Icon("Reward coin",UIIcon.Coin,area,new Rect(.23f,.16f,.09f,.06f));
                 w.Heading("Reward","報酬 "+quest.Coins+" Coins",area,new Rect(.33f,.15f,.56f,.07f),16);

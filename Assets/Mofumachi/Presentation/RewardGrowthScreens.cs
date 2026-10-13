@@ -9,7 +9,7 @@ namespace Mofumachi.Presentation
         {
             var w=c.Widgets;w.Header(root,c,"納品／報酬");
             var card=w.OrnatePanel("Delivery result",root,new Rect(.065f,.22f,.87f,.63f),UIWidgets.BlushPaper).rectTransform;card.gameObject.AddComponent<SoftReveal>();
-            w.Ribbon("Delivery title","納品完了！",card,new Rect(.12f,.8f,.76f,.12f),23);
+            w.StoryRibbon("Delivery title","納品完了！",card,new Rect(.12f,.8f,.76f,.12f),23);
             w.Body("Delivery requester",delivery.RequesterId,card,new Rect(.335f,.57f,.33f,.21f),CharacterExpression.Smile);
             w.StoryHeading("Delivery thanks",CharacterCatalog.Find(delivery.RequesterId).Name+"："+UIStrings.DeliveryThanks,card,new Rect(.18f,.49f,.64f,.075f),18);
             for(int i=0;i<delivery.DeliveredItems.Count;i++)
@@ -28,7 +28,7 @@ namespace Mofumachi.Presentation
         {
             var w=c.Widgets;w.Header(root,c,"もふまちの成長",UIWidgets.Peach);
             var card=w.OrnatePanel("Town growth",root,new Rect(0,0,1,1),UIWidgets.BluePaper).rectTransform;card.offsetMin=new Vector2(14,220);card.offsetMax=new Vector2(-14,-78);card.gameObject.AddComponent<SoftReveal>();
-            var title=w.Ribbon("Growth title","街が成長しました",card,new Rect(0,0,1,1),20,UIWidgets.Peach);UIWidgets.Top((RectTransform)title.transform.parent,12,10,12,38);
+            var title=w.StoryRibbon("Growth title","街が成長しました",card,new Rect(0,0,1,1),20,UIWidgets.Peach);UIWidgets.Top((RectTransform)title.transform.parent,12,10,12,38);
             var preview=UIWidgets.Node("Growth town preview",card,new Rect(.5f,1,0,0));preview.pivot=new Vector2(.5f,1);preview.anchoredPosition=new Vector2(0,-54);
             var image=preview.gameObject.AddComponent<UnityEngine.UI.RawImage>();image.texture=Resources.Load<Texture2D>("Mofumachi/TownBackground");image.raycastTarget=false;image.uvRect=new Rect(0,.42f,1,.4f);
             preview.sizeDelta=new Vector2(128*(float)image.texture.width/image.texture.height/.4f,128);preview.gameObject.AddComponent<UnityEngine.UI.RectMask2D>();

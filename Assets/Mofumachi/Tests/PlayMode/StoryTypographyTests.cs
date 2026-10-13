@@ -46,6 +46,9 @@ namespace Mofumachi.Tests
             }
             Flow.GoBack();Flow.ShowMerge();Flow.OpenMergeActions();
             Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Merge menu title").font,Is.EqualTo(story));
+            Flow.CancelMergeActions();Flow.ShowQuest();
+            foreach(var t in Flow.GetComponentsInChildren<Text>().Where(t=>t.name=="Quest title"||t.name.StartsWith("Required name "))){Assert.That(t.font,Is.EqualTo(story));Assert.That(t.preferredHeight,Is.LessThanOrEqualTo(t.rectTransform.rect.height+1));}
+            Flow.ShowMerge();foreach(var t in Flow.GetComponentsInChildren<Text>().Where(t=>t.name.StartsWith("Requirement name "))){Assert.That(t.font,Is.EqualTo(story));Assert.That(t.fontSize,Is.GreaterThanOrEqualTo(14));Assert.That(t.resizeTextForBestFit,Is.False);}
             LogAssert.NoUnexpectedReceived();
         }
     }

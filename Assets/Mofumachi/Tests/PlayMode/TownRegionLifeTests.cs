@@ -60,8 +60,12 @@ namespace Mofumachi.Tests
         }
         [UnityTest] public IEnumerator TwoResidentsMeetAndResumeInVisibleRegion()
         {
-            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();Assert.That(life.Regions.LookAtRegion(TownRegionId.West),Is.True);
-            var actors=life.Actors.Where(a=>a.RegionVisible).ToArray();bool greeted=false;
+            yield return EnterHome();
+            // Keep the two street residents in the intended phone viewport even when the Editor is landscape.
+            var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;((RectTransform)canvas.transform).sizeDelta=new Vector2(360,740);
+            Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,740),new Rect(0,24,360,684));Canvas.ForceUpdateCanvases();
+            var life=Flow.GetComponentInChildren<TownLifeView>();Assert.That(life.Regions.LookAtRegion(TownRegionId.West),Is.True);Canvas.ForceUpdateCanvases();
+            var actors=life.Actors.Where(a=>a.RegionVisible).ToArray();Assert.That(actors.Length,Is.EqualTo(2));Assert.That(actors.All(a=>!a.Controlled&&a.RegionId==TownRegionId.West),Is.True);bool greeted=false;
             for(int i=0;i<900&&!greeted;i++){life.AdvanceFrame(1f/30);greeted=Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"&&t.text.Contains("こんにちは"));}
             Assert.That(greeted,Is.True,"Use an actual encounter of the two west residents");var points=actors.Select(a=>a.Position).ToArray();Advance(life,10);
             Assert.That(actors.Where((a,i)=>!a.Position.Equals(points[i])).Any(),Is.True);LogAssert.NoUnexpectedReceived();

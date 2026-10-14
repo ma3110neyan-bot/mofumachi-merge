@@ -14,6 +14,7 @@ SOURCES = (
     ('ZenMaruGothic-Medium.ttf', 'UIFont', 'Mofumachi Pop UI', '3cfdb98a13571ede17fcc769f5093a97c38b80a7b9b2ab754a26b4d822092b3b'),
     ('ZenMaruGothic-Bold.ttf', 'UIFontBold', 'Mofumachi Pop UI Bold', 'fe24426b9c8b5523a0146a8235c8674eccf0493af354a53ec895c3596d9eb745'),
     ('KiwiMaru-Medium.ttf', 'UIFontStory', 'Mofumachi Story UI', 'b2659f300a7d48c3f29eb273ffc5e1b26cc416ac8c37ff6bb2f3e43c2f4d235a'),
+    ('KleeOne-SemiBold.ttf', 'UIFontBody', 'Mofumachi Storybook Body', 'b031ec426c23ca1143ef1f7d58bee7a79efe119ed654152f121c922202b303fd'),
 )
 
 def required_codepoints():
@@ -44,20 +45,23 @@ def main():
     args = argparse.ArgumentParser(description=__doc__)
     args.add_argument('--source-dir', type=Path, required=True)
     args.add_argument('--check', action='store_true')
+    args.add_argument('--only', choices=[source[1] for source in SOURCES],
+                      help='Build/check one subset without replacing other font assets')
     opts = args.parse_args()
-    for filename, _, _, digest in SOURCES:
+    active = [source for source in SOURCES if opts.only is None or source[1] == opts.only]
+    for filename, _, _, digest in active:
         if hashlib.sha256((opts.source_dir / filename).read_bytes()).hexdigest() != digest:
             raise ValueError(f'Source checksum mismatch: {filename}')
     points = required_codepoints()
     if opts.check:
-        for _, key, _, _ in SOURCES:
+        for _, key, _, _ in active:
             count = check(OUTPUT / (key + '.ttf'), points)
             print(f'{key}: {count} glyphs, all required text covered')
         return
     # Validate every source and every generated result before replacing any asset.
     with tempfile.TemporaryDirectory(prefix='mofumachi-fonts-') as directory:
         generated = []
-        for filename, key, family, _ in SOURCES:
+        for filename, key, family, _ in active:
             with TTFont(opts.source_dir / filename) as font:
                 if points - set(font.getBestCmap()):
                     raise ValueError(f'Source lacks required glyphs: {filename}')
@@ -74,7 +78,7 @@ def main():
             # Stage next to the destination so os.replace stays on one filesystem.
             staged = target.with_suffix('.ttf.tmp'); staged.write_bytes(source.read_bytes())
             os.replace(staged, target)
-    for _, key, _, _ in SOURCES:
+    for _, key, _, _ in active:
         print(f'{key}: {check(OUTPUT / (key+".ttf"),points)} glyphs, source SHA verified')
 
 if __name__ == '__main__':

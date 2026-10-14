@@ -14,7 +14,7 @@ namespace Mofumachi.Tests
         }
         [Test] public void StoryFontHasRequiredGlyphs()
         {
-            foreach(var key in new[]{"UIFont","UIFontBold","UIFontStory"})
+            foreach(var key in new[]{"UIFont","UIFontBold","UIFontStory","UIFontBody"})
             {
                 var font=Resources.Load<Font>("Mofumachi/"+key);Assert.That(font,Is.Not.Null,key);
                 foreach(var text in UIStrings.All)Assert.DoesNotThrow(()=>Mofumachi.Editor.AndroidBuild.ValidateGlyphs(font,text));

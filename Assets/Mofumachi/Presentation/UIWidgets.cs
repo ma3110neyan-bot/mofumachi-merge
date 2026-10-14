@@ -8,8 +8,8 @@ namespace Mofumachi.Presentation
     {
         public static readonly Color Ink = new Color(.32f,.18f,.29f), Pink=new Color(1,.52f,.70f), Cream=new Color(1,.988f,.945f), Mint=new Color(.54f,.86f,.74f), Sky=new Color(.67f,.88f,1);
         public static readonly Color BlushPaper=new Color(1,.965f,.975f), BluePaper=new Color(.945f,.985f,1), Lavender=new Color(.83f,.76f,.98f), Peach=new Color(1,.78f,.62f);
-        private readonly Font font,bold,story; private readonly Texture2D characters;
-        public UIWidgets(Font font, Texture2D characters) { this.font=font; this.characters=characters; bold=Resources.Load<Font>("Mofumachi/UIFontBold")??font; story=Resources.Load<Font>("Mofumachi/UIFontStory")??font; }
+        private readonly Font font,bold,story,body; private readonly Texture2D characters;
+        public UIWidgets(Font font, Texture2D characters) { this.font=font; this.characters=characters; bold=Resources.Load<Font>("Mofumachi/UIFontBold")??font; story=Resources.Load<Font>("Mofumachi/UIFontStory")??font; body=Resources.Load<Font>("Mofumachi/UIFontBody")??story; }
         public static RectTransform Node(string name, RectTransform parent, Rect anchors)
         { var r=new GameObject(name,typeof(RectTransform)).GetComponent<RectTransform>(); r.SetParent(parent,false); r.anchorMin=anchors.min; r.anchorMax=anchors.max; r.offsetMin=r.offsetMax=Vector2.zero; return r; }
         public static void Top(RectTransform r,float left,float top,float right,float height)
@@ -35,6 +35,8 @@ namespace Mofumachi.Presentation
         { var t=Label(name,text,parent,anchors,fontSize);t.font=bold;var shadow=t.gameObject.AddComponent<Shadow>();shadow.effectColor=new Color(.84f,.65f,.33f,.35f);shadow.effectDistance=new Vector2(0,-.6f);return t; }
         public Text StoryLabel(string name,string text,RectTransform parent,Rect anchors,int fontSize)
         { var t=Label(name,text,parent,anchors,fontSize);t.font=story;t.lineSpacing=1.2f;return t; }
+        public Text BodyLabel(string name,string text,RectTransform parent,Rect anchors)
+        { var t=Label(name,text,parent,anchors,16);t.font=body;t.alignment=TextAnchor.UpperLeft;t.lineSpacing=1.15f;return t; }
         public Text StoryHeading(string name,string text,RectTransform parent,Rect anchors,int fontSize)
         { return StoryLabel(name,text,parent,anchors,fontSize); }
         public Text StoryRibbon(string name,string text,RectTransform parent,Rect anchors,int fontSize,Color? tint=null)

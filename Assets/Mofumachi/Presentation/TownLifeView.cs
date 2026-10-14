@@ -128,8 +128,10 @@ namespace Mofumachi.Presentation
         {if(!CanInteract)return;context.Flow.PlayCue(AudioCue.Character);if(!IsManuallyDragging&&entrance==null){if(a.Controlled)ShowOutings();else{HideOutings();ShowBubble(CharacterCatalog.Find(a.CharacterId).Name+"："+a.Place.Dialogue,a);}}}
         private void ShowBubble(string text,TownActor a)
         {
-            HideBubble();speaker=a;var root=(RectTransform)transform.parent;var p=context.Widgets.OrnatePanel("Town bubble panel",root,new Rect(.5f,.5f,0,0),UIWidgets.Cream,12).rectTransform;p.sizeDelta=new Vector2(Mathf.Min(240,root.rect.width-28),72);
-            context.Widgets.StoryLabel("Town bubble",text,p,new Rect(.045f,.06f,.91f,.88f),14);bubble=p.gameObject;bubbleUntil=now+2.5f;PositionBubble();
+            HideBubble();speaker=a;var root=(RectTransform)transform.parent;var p=context.Widgets.OrnatePanel("Town bubble panel",root,new Rect(.5f,.5f,0,0),UIWidgets.Cream,12).rectTransform;p.sizeDelta=new Vector2(Mathf.Min(280,root.rect.width-28),72);
+            var label=context.Widgets.BodyLabel("Town bubble",text,p,new Rect(0,0,1,1));label.rectTransform.offsetMin=new Vector2(12,10);label.rectTransform.offsetMax=new Vector2(-12,-10);
+            label.rectTransform.ForceUpdateRectTransforms();p.sizeDelta=new Vector2(p.sizeDelta.x,Mathf.Max(72,Mathf.Ceil(label.preferredHeight)+20));
+            bubble=p.gameObject;bubbleUntil=now+2.5f;PositionBubble();
         }
         private void PositionBubble()
         {

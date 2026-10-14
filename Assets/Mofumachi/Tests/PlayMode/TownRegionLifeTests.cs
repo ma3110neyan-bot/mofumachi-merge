@@ -95,5 +95,26 @@ namespace Mofumachi.Tests
             Assert.That(travelling,Is.Not.Null,"Observe a real regional journey");life.Regions.LookAtRegion(travelling.RegionId);travelling.React();
             Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"&&t.text.Length>0),Is.True);LogAssert.NoUnexpectedReceived();
         }
+        [UnityTest] public IEnumerator LocalStopChoiceHonorsIncomingJourneyReservation()
+        {
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var session=life.Regions;
+            var journeysField=typeof(TownRegionSession).GetField("journeys",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance);
+            var choose=typeof(TownLifeView).GetMethod("ChooseNextStop",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance);
+            bool inspected=false;
+            for(int i=0;i<7200&&!inspected;i++)
+            {
+                life.AdvanceFrame(1f/30);var journeys=(System.Collections.IDictionary)journeysField.GetValue(session);
+                foreach(System.Collections.DictionaryEntry pair in journeys)
+                {
+                    var type=pair.Value.GetType();var actor=(TownActor)type.GetField("Actor",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance).GetValue(pair.Value);
+                    var target=(TownPlace)type.GetField("Destination",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance).GetValue(pair.Value);
+                    if(actor.Controlled||!TownRegionCatalog.TryFindPlace(target.Id,life.TownLevel,out var location,out _))continue;
+                    var local=life.Actors.FirstOrDefault(a=>!a.Controlled&&a!=actor&&a.RegionId==location.Region&&a.DestinationId!=null);if(local==null)continue;
+                    for(int j=0;j<12;j++){choose.Invoke(life,new object[]{local});Assert.That(local.DestinationId,Is.Not.EqualTo(target.Id),"Local resident selected an incoming visitor's reserved stop");}
+                    inspected=true;break;
+                }
+            }
+            Assert.That(inspected,Is.True,"Inspect a real regional visitor, including walking-in reservations");LogAssert.NoUnexpectedReceived();
+        }
     }
 }

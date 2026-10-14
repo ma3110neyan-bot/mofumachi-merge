@@ -17,6 +17,7 @@ namespace Mofumachi.Presentation
             internal TownRegionId FadeFrom,FadeTo;
             internal TownRegionId? Gate;
             internal bool Started;
+            internal bool TransferredThisFrame;
         }
         private readonly Dictionary<string,Travel> journeys=new Dictionary<string,Travel>();
         private readonly Dictionary<TownRegionId,string> gates=new Dictionary<TownRegionId,string>();
@@ -95,6 +96,8 @@ namespace Mofumachi.Presentation
             return started;
         }
         internal bool OwnsJourney(TownActor actor)=>actor!=null&&journeys.ContainsKey(actor.CharacterId);
+        internal bool IsStopReserved(string id,TownActor except)=>journeys.Values.Any(t=>t.Actor!=except&&t.Destination.Id==id);
+        internal void BeginPresentationFrame(){foreach(var travel in journeys.Values)travel.TransferredThisFrame=false;}
         public bool TryScheduleNpcVisit(string characterId,TownRegionId region)
         {
             if(life==null||!life.CanSimulate||!Enum.IsDefined(typeof(TownRegionId),region))return false;
@@ -138,6 +141,7 @@ namespace Mofumachi.Presentation
             for(int i=0;i<actors.Count;i++)
             {
                 var actor=actors[i];if(!journeys.TryGetValue(actor.CharacterId,out var travel))continue;
+                if(travel.TransferredThisFrame)continue;
                 if(!travel.Started){BeginLeg(travel);if(!travel.Started)continue;}
                 var before=travel.Journey.Phase;travel.Journey.Tick(actor.Position,seconds);
                 var phase=travel.Journey.Phase;
@@ -151,6 +155,7 @@ namespace Mofumachi.Presentation
                 {
                     if(travel.Journey.TryTakeTransfer(out var entry))
                     {
+                        travel.TransferredThisFrame=true;
                         actor.TransferToRegion(TownRegionCatalog.ForLevel(entry.Region,context.Game.State.townGrowthLevel),entry.Local);
                         actor.HoldForTransition();
                         if(actor.Controlled&&followingHero)SetViewingRegion(entry.Region);
@@ -198,7 +203,7 @@ namespace Mofumachi.Presentation
         {
             if(actors==null)return;
             for(int i=0;i<actors.Count;i++)if(journeys.TryGetValue(actors[i].CharacterId,out var travel))CancelTravel(travel);
-            journeys.Clear();gates.Clear();if(followingHero&&life!=null)SetViewingRegion(HeroRegion);
+            journeys.Clear();gates.Clear();if(followingHero&&life!=null&&ViewingRegion!=HeroRegion)SetViewingRegion(HeroRegion);
         }
         public TownRegionSnapshot CaptureSettledSnapshot()
         {

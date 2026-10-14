@@ -49,6 +49,7 @@ namespace Mofumachi.Presentation
         private Texture2D characters;
         public RawImage TownBackground { get; private set; }
         public TownRegionSnapshot HomeRegionSnapshot {get;private set;}
+        private bool discardHomeRegionSnapshot;
         private AudioManager audioManager;
         private string view, settingsReturnView = "title", notice = "";
         private int selected = -1;
@@ -102,6 +103,7 @@ namespace Mofumachi.Presentation
         public void Initialize(IStateStore store)
         {
             HomeRegionSnapshot=null;
+            discardHomeRegionSnapshot=true;
             ClearFrameSelection();
             var loaded = store.Load();
             session = new GameStateManager(loaded.State, store);
@@ -344,11 +346,12 @@ namespace Mofumachi.Presentation
 
         private void Render(string target,bool animateSelection=false,bool preserveMergeTail=false)
         {
-            if(page!=null)
+            if(page!=null&&!discardHomeRegionSnapshot)
             {
                 var regions=page.GetComponentInChildren<TownRegionSession>();
                 if(regions!=null)HomeRegionSnapshot=regions.CaptureSettledSnapshot();
             }
+            discardHomeRegionSnapshot=false;
             view = target; CurrentScreen=(ScreenId)System.Enum.Parse(typeof(ScreenId),target,true);
             if(mergeEffects!=null&&(!preserveMergeTail||CurrentScreen!=ScreenId.Merge))mergeEffects.Cancel();
             if (page != null) { page.SetActive(false); Destroy(page); }

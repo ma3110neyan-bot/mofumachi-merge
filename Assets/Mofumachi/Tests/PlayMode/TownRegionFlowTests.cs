@@ -146,9 +146,19 @@ namespace Mofumachi.Tests
             yield return EnterHome();var session=Session();var life=Flow.GetComponentInChildren<TownLifeView>();
             Assert.That(Guide(session,TownRegionId.West),Is.True);StepUntil(life,()=>!Read<bool>(session,"HasHeroJourney"));
             var hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);var point=hero.Position;int writes=Store.Writes;
-            Flow.ShowSettings();Flow.GoBack();yield return null;session=Session();hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);
+            // A landscape Editor viewport permits enough vertical crop to put the
+            // hero outside the framing margins; a 1px pan cannot expose the bug.
+            var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;((RectTransform)canvas.transform).sizeDelta=new Vector2(800,600);
+            Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(800,600),new Rect(0,0,800,600));Canvas.ForceUpdateCanvases();
+            var camera=life.GetComponent<TownViewportView>();var originalCenter=camera.Center;camera.OnPointerDown(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current){pointerId=37,position=Vector2.zero});
+            Assert.That(camera.OwnedPointerId,Is.EqualTo(37));camera.OnDrag(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current){pointerId=37,position=new Vector2(0,600)});
+            camera.OnPointerUp(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current){pointerId=37});camera.Advance(1f/30);var center=camera.Center;
+            Assert.That(Mathf.Abs(center.Y-originalCenter.Y),Is.GreaterThan(.1f),"Pan must change the actual source crop");
+            camera.FrameImmediately(hero.Position);Assert.That(Mathf.Abs(camera.Center.Y-center.Y),Is.GreaterThan(.01f),"The old redundant ShowRegion would reframe this crop");camera.RestoreCenter(center);
+            Flow.ShowSettings();Flow.GoBack();session=Session();hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);
             Assert.That(Region(hero),Is.EqualTo(TownRegionId.West));Assert.That(hero.Position.X,Is.EqualTo(point.X).Within(.001f));
             Assert.That(Read<bool>(session,"HasHeroJourney"),Is.False);Assert.That(hero.Movement.OwnedPointerId,Is.Null);
+            var restored=Flow.GetComponentInChildren<TownViewportView>().Center;Assert.That(restored.X,Is.EqualTo(center.X).Within(.0001f));Assert.That(restored.Y,Is.EqualTo(center.Y).Within(.0001f));
             Assert.That(Store.Writes,Is.EqualTo(writes+2),"Only the existing two navigation saves");
             Flow.Initialize(Store);Flow.ShowHome();session=Session();Assert.That(Read<TownRegionId>(session,"HeroRegion"),Is.EqualTo(TownRegionId.Central),"Reload starts at the center, without a region save field");LogAssert.NoUnexpectedReceived();
         }
@@ -217,6 +227,17 @@ namespace Mofumachi.Tests
                     Assert.That(Flow.TownBackground.uvRect.xMin,Is.GreaterThanOrEqualTo(0));Assert.That(Flow.TownBackground.uvRect.xMax,Is.LessThanOrEqualTo(1));
                 }
             }LogAssert.NoUnexpectedReceived();
+        }
+        [UnityTest] public IEnumerator HitchStillShowsOpaqueTransferFrame()
+        {
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var session=life.Regions;var view=life.GetComponent<TownRegionView>();
+            Assert.That(session.GuideToRegion(TownRegionId.West),Is.True);StepUntil(life,()=>session.IsHeroTransitioning);var original=Flow.TownBackground.texture;bool switched=false;
+            for(int i=0;i<8&&!switched;i++)
+            {
+                life.AdvanceFrame(.1f);Canvas.ForceUpdateCanvases();switched=Flow.TownBackground.texture!=original;
+                if(switched)Assert.That(view.TransitionOpacity,Is.EqualTo(1),"The replacement painting must first render under an opaque fade, even when an Update contains three simulation ticks");
+            }
+            Assert.That(switched,Is.True);StepUntil(life,()=>!session.HasHeroJourney);Assert.That(view.TransitionOpacity,Is.Zero);LogAssert.NoUnexpectedReceived();
         }
     }
 }

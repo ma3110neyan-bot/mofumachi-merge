@@ -70,7 +70,7 @@ namespace Mofumachi.Presentation
             for(int k=0;k<candidates.Length;k++)
             {
                 var p=candidates[(choiceIndex+k)%candidates.Length];
-                if(p.Id==actor.DestinationId||actors.Any(a=>!a.Controlled&&a!=actor&&a.RegionId==actor.RegionId&&a.DestinationId==p.Id))continue;
+                if(p.Id==actor.DestinationId||Regions?.IsStopReserved(p.Id,actor)==true||actors.Any(a=>!a.Controlled&&a!=actor&&a.RegionId==actor.RegionId&&a.DestinationId==p.Id))continue;
                 choiceIndex=(choiceIndex+k+1)%candidates.Length;actor.SetDestination(p,0);return;
             }
         }
@@ -105,6 +105,7 @@ namespace Mofumachi.Presentation
         {
             if(context==null||actors==null)return;if(!CanSimulate){CancelInteraction();return;}
             if(!float.IsFinite(seconds)||seconds<=0)return;now+=Mathf.Min(seconds,.1f);
+            Regions?.BeginPresentationFrame();
             int steps=clock.AddElapsed(seconds);for(int step=0;step<steps;step++){foreach(var a in actors)a.Advance(TownFrameClock.StepSeconds);Regions?.Step(TownFrameClock.StepSeconds);}
             var camera=GetComponent<TownViewportView>();if(camera!=null){foreach(var a in actors)if(a.Controlled&&a.RegionVisible&&(a.IsGuided||!IsManuallyDragging&&!camera.IsDragging))camera.Focus(a.Position);camera.Advance(seconds);}
             foreach(var a in actors)a.Render(clock.Alpha,seconds);

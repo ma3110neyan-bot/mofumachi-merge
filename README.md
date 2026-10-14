@@ -1,3 +1,5 @@
+> 2026-10-14・街の接続確認案：西／東を個別素材にし、中央の障害物・2方式の接続・カメラ・滞在導線を具体化。**設計のみで製品へ未適用**。mainは588b910の検証待ち、本文候補のソースはc9e29d7を保持。[接続設計と確認条件](docs/superpowers/specs/2026-10-14-town-side-connections-design.md)、[素材・接続図・移動図](References/Preview/town-connection-review-2026-10-14/README.md)。
+
 > 2026-10-14・本文試験候補：このブランチはKlee Oneを会話・依頼本文・設定の説明1文へ限定適用する候補。**mainへ未反映**で、基準`588b910`のEditMode121件・Pixel一周の結果待ち。候補構成はEditMode121／PlayMode101で、ネイティブ実行・候補APKは未実施。[候補の変更・検査・左右の比較・会話案](docs/development-handoff-2026-10-14-body-trial.md)。
 
 > 2026-10-14・再開：ユーザー回答では**EditMode121件と今回版のPixel一周は未実施**。確認と並行して、本文書体比較・Mergeの情報と立体感・街の左右各約1画面拡張・依頼の楽しさを設計資料にまとめた。製品へ未適用で、ゲーム本体・正式素材・保存／納品／報酬・テストは変更していない。[今回の報告](docs/development-handoff-2026-10-14-design-review.md)、[比較と配置図](References/Preview/quality-review-2026-10-14/README.md)、[設計・変更対象](docs/superpowers/specs/2026-10-14-storybook-and-town-expansion-review.md)。資料更新のためだけの再ビルドは不要。

@@ -239,5 +239,14 @@ namespace Mofumachi.Tests
             }
             Assert.That(switched,Is.True);StepUntil(life,()=>!session.HasHeroJourney);Assert.That(view.TransitionOpacity,Is.Zero);LogAssert.NoUnexpectedReceived();
         }
+        [UnityTest] public IEnumerator PreviewDuringTravelDoesNotFadeUnrelatedRegion()
+        {
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var session=life.Regions;var view=life.GetComponent<TownRegionView>();
+            Assert.That(session.GuideToRegion(TownRegionId.West),Is.True);Assert.That(session.LookAtRegion(TownRegionId.East),Is.True);var east=Flow.TownBackground.texture;
+            StepUntil(life,()=>session.IsHeroTransitioning);for(int i=0;i<12;i++)
+            {life.AdvanceFrame(1f/30);Assert.That(view.TransitionOpacity,Is.Zero,"Looking at East must not fade for an offscreen Central-to-West walk");Assert.That(Flow.TownBackground.texture,Is.SameAs(east));}
+            StepUntil(life,()=>!session.HasHeroJourney);Assert.That(session.HeroRegion,Is.EqualTo(TownRegionId.West));Assert.That(session.ViewingRegion,Is.EqualTo(TownRegionId.East));
+            session.ReturnToHero();Assert.That(session.ViewingRegion,Is.EqualTo(TownRegionId.West));LogAssert.NoUnexpectedReceived();
+        }
     }
 }

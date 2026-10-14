@@ -161,13 +161,19 @@ namespace Mofumachi.Presentation
                         if(actor.Controlled&&followingHero)SetViewingRegion(entry.Region);
                         else actor.SetRegionVisible(actor.RegionId==ViewingRegion);
                     }
-                    if(actor.Controlled)HeroTransitionChanged?.Invoke(travel.FadeFrom,travel.FadeTo,travel.Journey.FadeOpacity);
+                    if(actor.Controlled)
+                    {
+                        // A preview of another region is independent of an
+                        // offscreen walk. Fade only the travelling resident there.
+                        HeroTransitionChanged?.Invoke(travel.FadeFrom,travel.FadeTo,followingHero?travel.Journey.FadeOpacity:0);
+                        actor.SetJourneyFade(followingHero?0:travel.Journey.FadeOpacity);
+                    }
                     else actor.SetJourneyFade(travel.Journey.FadeOpacity);
                 }
                 else if(before==TownRegionTravelPhase.Fading)
                 {
                     if(actor.Controlled)HeroTransitionChanged?.Invoke(travel.FadeFrom,travel.FadeTo,0);
-                    else actor.SetJourneyFade(0);
+                    actor.SetJourneyFade(0);
                     ReleaseGate(travel);
                     BeginLeg(travel);
                 }

@@ -1,0 +1,115 @@
+{
+  "productCommit": "931f447",
+  "baseline": "588b91072efe61d737014b46d4bd7104cadcba9c",
+  "branch": "feat/town-regions-b-20261014",
+  "coreExecuted": {
+    "passed": 125,
+    "failed": 0,
+    "skipped": 0
+  },
+  "visualMathExecuted": {
+    "passed": 10,
+    "failed": 0,
+    "skipped": 0
+  },
+  "actualUnityDllCompile": {
+    "assemblies": 6,
+    "warnings": 0,
+    "errors": 0,
+    "executesUnityScenes": false
+  },
+  "sourceFonts": {
+    "verifiedFamilies": 3,
+    "glyphsPerFont": 498,
+    "changedFamily": false
+  },
+  "compiledAttributeInventory": {
+    "Mofumachi.EditModeTests": {
+      "ChapterProgressTests": 2,
+      "CharacterPreferenceTests": 7,
+      "DeliveryTests": 17,
+      "ItemRemovalTests": 10,
+      "MergeBoardTests": 11,
+      "PreferencesTests": 23,
+      "QuestCatalogTests": 4,
+      "SaveServiceTests": 11,
+      "TownFrameClockTests": 4,
+      "TownMovementTests": 5,
+      "TownPlaceCatalogTests": 8,
+      "TownRegionCatalogTests": 9,
+      "TownRegionJourneyTests": 6,
+      "TownViewportTests": 8
+    },
+    "Mofumachi.BuildTests": {
+      "AndroidBuildTests": 1,
+      "PresentationContentTests": 8,
+      "QaIdentityTests": 2,
+      "TownRegionContentTests": 2
+    },
+    "Mofumachi.PlayModeTests": {
+      "AudioManagerTests": 2,
+      "ChapterFlowTests": 4,
+      "CharacterSelectionTests": 3,
+      "LayoutNoticeTests": 6,
+      "MergeGuidanceTests": 10,
+      "MergeInteractionTests": 4,
+      "MergePolishTests": 8,
+      "MergeProgressionUiTests": 11,
+      "MultiQuestPresentationTests": 4,
+      "PopPresentationTests": 3,
+      "ProductionFrameUiTests": 5,
+      "RewardGrowthTests": 4,
+      "SettingsScreenTests": 5,
+      "StoryTypographyTests": 1,
+      "TownHabitTests": 5,
+      "TownLifeTests": 8,
+      "TownMotionPresentationTests": 4,
+      "TownRegionFlowTests": 17,
+      "TownRegionLifeTests": 8,
+      "TownViewportPresentationTests": 5,
+      "VerticalSliceFlowTests": 7
+    }
+  },
+  "inventoryIsNativeResult": false,
+  "protectedOriginalAudit": {
+    "original_files_checked": 319,
+    "modified_original_files": [
+      "Assets/Mofumachi/Editor/AndroidBuild.cs",
+      "Assets/Mofumachi/Presentation/TopHomeScreens.cs",
+      "Assets/Mofumachi/Presentation/TownActor.cs",
+      "Assets/Mofumachi/Presentation/TownAmbientGraphic.cs",
+      "Assets/Mofumachi/Presentation/TownGrowthView.cs",
+      "Assets/Mofumachi/Presentation/TownLifeView.cs",
+      "Assets/Mofumachi/Presentation/UIFlowController.cs",
+      "Assets/Mofumachi/Presentation/UIStrings.cs",
+      "Assets/Mofumachi/Presentation/TownViewportView.cs",
+      "Assets/Mofumachi/Resources/Mofumachi/UIFont.ttf",
+      "Assets/Mofumachi/Resources/Mofumachi/UIFontBold.ttf",
+      "Assets/Mofumachi/Resources/Mofumachi/UIFontStory.ttf",
+      "Assets/Mofumachi/Tests/PlayMode/PopPresentationTests.cs",
+      "Assets/Mofumachi/Tests/PlayMode/TownLifeTests.cs",
+      "Assets/Mofumachi/Tests/PlayMode/TownViewportPresentationTests.cs",
+      "Assets/Mofumachi/Tests/PlayMode/TownHabitTests.cs"
+    ],
+    "protected_originals_unchanged": true
+  },
+  "nativeUnity": {
+    "status": "unrun",
+    "startupExit": 198,
+    "reason": "No valid Unity Editor license; no NUnit XML"
+  },
+  "apk": {
+    "status": "unbuilt",
+    "additionalPrerequisite": "Android Build Support"
+  },
+  "pixel": {
+    "status": "unrun"
+  },
+  "sourceReview": {
+    "initialHead": "59dabc9",
+    "p2Findings": 3,
+    "sourceFixesReviewed": true,
+    "runtimeProof": "unrun",
+    "targetedPreviewAndCameraChangesReviewed": true
+  }
+}

@@ -1,3 +1,5 @@
+> 2026-10-14・B案3地域の実装候補：西／中央／東、入口へ歩く→短いフェード→到着側で歩く、NPC分散・訪問・交流を追加。正式素材・保存／納品／報酬・5×6を保持。Core125／演出10成功、実6 DLLコンパイル警告／エラー0。**候補のUnity全件・QA APK・Pixelは未実施。mainへ未統合。** 宣言構成はEditMode138／PlayMode124。[引き継ぎとWindows操作](docs/development-handoff-2026-10-14-town-regions-b.md)、[Pixelチェック](docs/town-regions-b-pixel3a-checklist.md)。
+
 > 2026-10-14・再開：ユーザー回答では**EditMode121件と今回版のPixel一周は未実施**。確認と並行して、本文書体比較・Mergeの情報と立体感・街の左右各約1画面拡張・依頼の楽しさを設計資料にまとめた。製品へ未適用で、ゲーム本体・正式素材・保存／納品／報酬・テストは変更していない。[今回の報告](docs/development-handoff-2026-10-14-design-review.md)、[比較と配置図](References/Preview/quality-review-2026-10-14/README.md)、[設計・変更対象](docs/superpowers/specs/2026-10-14-storybook-and-town-expansion-review.md)。資料更新のためだけの再ビルドは不要。
 
 > 2026-10-13・最新確認：ユーザー提供画像で**PlayMode99件成功・失敗0・skip0**を確認し、Town QA APK生成完了の報告を受領。7工程の再承認は既存実装の継続として記録し、現在は第7工程のEditMode結果・APK対応記録・Pixelの一周と比較を確認する段階。収益化・運営は将来設計のまま保持。今回の更新は資料のみで、同じソースのTown QAで試遊を継続できる。[現在の報告](docs/development-handoff-2026-10-13-integrated-quality.md)、[実機の確認項目](docs/integrated-quality-pixel3a-checklist.md)。
@@ -28,4 +30,4 @@ Unity6000.6.4f1の縦画面Androidゲーム。正式6名の原画を維持し、
 - [Google Playの公開準備](docs/google-play-release-readiness.md)
 - [音源・ライセンス](docs/audio-assets.md)
 
-クラウドのUnity最終APK生成はユーザー指示で保留。新しいWindowsネイティブテストとPixel実機の確認が完了するまでは、公開品質の完成とは扱いません。
+今回のTown QA APK作成は承認されていますが、クラウドのUnityライセンスとAndroidモジュールが未準備のため未生成です。新しいWindowsネイティブテストとPixel実機の確認が完了するまでは、公開品質の完成とは扱いません。

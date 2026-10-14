@@ -1,0 +1,83 @@
+{
+  "scope": "Review presentation only. No town implementation. A and B are unselected.",
+  "central_pixels_identical_in_overall_png": true,
+  "overall_central_crop": [
+    923,
+    278,
+    1798,
+    2076
+  ],
+  "source_sha256_unchanged": {
+    "connection": "690b0d508ae584c162a730e200bbf6470870667dc515bc74c342ed694c638b28",
+    "west": "a4bda540be5347d253d2decd010e2f96f4cb4b64861b4e73859338865342c328",
+    "east": "2e45be7b35f6533279def009a0c187bba24f16f7725287e2ffb40e630b0a4e3e",
+    "movement": "ef6a96577785fb64877d7507efa2551a83c768ae691b3f672da00319a0bd8f68",
+    "central": "971461342858e74c8db5f669f28c3e5c0c1a0f9d364e645ec55b9ea2834e7b51"
+  },
+  "phone_background_crop_boxes": {
+    "west": [
+      40,
+      82,
+      835,
+      1716
+    ],
+    "central": [
+      40,
+      82,
+      835,
+      1716
+    ],
+    "east": [
+      40,
+      82,
+      835,
+      1716
+    ]
+  },
+  "phone_reference_aspect": "1080x2220; reference initial zoom 1.10; no HUD or characters",
+  "untested": [
+    "Unity implementation",
+    "Pixel 3a actual operation",
+    "seam finishing",
+    "walkway clearance"
+  ],
+  "artifacts": {
+    "pixel3a-region-framing-comparison.png": {
+      "bytes": 1976880,
+      "sha256": "aedf6d6d08e4d303b4aac74ea2c85ce0198c5239b9fdac0b00b2ae2134097d89",
+      "size": [
+        1500,
+        1260
+      ]
+    },
+    "town-expansion-review.pdf": {
+      "bytes": 9769117,
+      "sha256": "82b921cd0cbfe1f4373c2698c7da7320cc29f75b7cc63efcca532ac04fda48c7",
+      "pages": 7
+    },
+    "town-four-point-comparison.png": {
+      "bytes": 4217794,
+      "sha256": "05820f65f4e5e484a208338d61a3d9e2c5b5a0ed4bf33329a4dd9541565640ed",
+      "size": [
+        2800,
+        2240
+      ]
+    },
+    "town-overall-west-central-east.png": {
+      "bytes": 9039779,
+      "sha256": "4a5d2bac2d11f2c6c36192fd47d7a26ca0c0eab48e856d268b11541f0c3c3973",
+      "size": [
+        2721,
+        2418
+      ]
+    }
+  },
+  "checks": {
+    "pdf_pages": 7,
+    "all_pdf_pages_rendered": true,
+    "assets_files_unchanged": 293,
+    "source_image_hashes_unchanged": true,
+    "overall_central_pixels_identical": true,
+    "readme_local_links_valid": true
+  }
+}

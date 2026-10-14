@@ -1,0 +1,62 @@
+{
+  "status": "design only; raw side images are not seamless-certified",
+  "basisCommit": "c9e29d7",
+  "mainHeldAt": "588b910",
+  "sourcePreservedFiles": 293,
+  "centralSha256": "971461342858e74c8db5f669f28c3e5c0c1a0f9d364e645ec55b9ea2834e7b51",
+  "images": {
+    "central-connection-detail.png": {
+      "size": [
+        2380,
+        1330
+      ],
+      "sha256": "690b0d508ae584c162a730e200bbf6470870667dc515bc74c342ed694c638b28",
+      "mode": "RGBA"
+    },
+    "east-area-proposal.png": {
+      "size": [
+        875,
+        1798
+      ],
+      "sha256": "2e45be7b35f6533279def009a0c187bba24f16f7725287e2ffb40e630b0a4e3e",
+      "mode": "RGB"
+    },
+    "west-area-proposal.png": {
+      "size": [
+        875,
+        1798
+      ],
+      "sha256": "a4bda540be5347d253d2decd010e2f96f4cb4b64861b4e73859338865342c328",
+      "mode": "RGB"
+    },
+    "three-region-movement.png": {
+      "size": [
+        2250,
+        1500
+      ],
+      "sha256": "ef6a96577785fb64877d7507efa2551a83c768ae691b3f672da00319a0bd8f68",
+      "mode": "RGBA"
+    },
+    "garden-connector-proposal.png": {
+      "size": [
+        2067,
+        761
+      ],
+      "sha256": "835aeae45683be7b4943f722f6f6ba8180bb09f109d292e2415e6db7be1c46b1",
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ]
+    }
+  },
+  "routeCheck": "finite named coordinates; region nodes reachable from entry; no cross-region walk edge in B",
+  "unrun": [
+    "Unity native layout/input",
+    "Pixel3a performance/readability",
+    "final foot-width/obstacle geometry",
+    "seam finishing/adoption"
+  ],
+  "raw3BackgroundRGBA32MiB": 18.004,
+  "rendering": "Engineering plots display source rasters read-only and vector annotations; original assets were not retouched."
+}

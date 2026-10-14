@@ -124,5 +124,26 @@ namespace Mofumachi.Tests
             }
             Assert.That(StateCodec.Encode(state),Is.EqualTo(before));
         }
+        [Test] public void RegionSnapshotCopiesItsSixActorsAndCameraCenters()
+        {
+            var actorType=Type("TownRegionActorSnapshot");var source=Array.CreateInstance(actorType,6);
+            for(int i=0;i<6;i++)source.SetValue(Activator.CreateInstance(actorType,CharacterCatalog.All[i].Id,new TownRegionLocation(TownRegionId.Central,new TownPoint(.42f,.47f)),null),i);
+            var centers=new[]{new TownPoint(.5f,.5f),new TownPoint(.5f,.5f),new TownPoint(.5f,.5f)};
+            var snapshot=Activator.CreateInstance(Type("TownRegionSnapshot"),"momo",TownRegionId.West,source,centers);
+            source.SetValue(Activator.CreateInstance(actorType,"lulu",new TownRegionLocation(TownRegionId.East,new TownPoint(.48f,.43f)),null),0);centers[0]=new TownPoint(.7f,.7f);
+            var actors=Read<System.Collections.IList>(snapshot,"Actors");var cameras=Read<IReadOnlyList<TownPoint>>(snapshot,"CameraCenters");
+            Assert.That(Read<string>(actors[0],"CharacterId"),Is.EqualTo("momo"));Assert.That(cameras[0].X,Is.EqualTo(.5f));
+            Assert.That(actors.IsReadOnly,Is.True);Assert.That(Read<string>(snapshot,"FavoriteId"),Is.EqualTo("momo"));
+            Assert.That(Read<TownRegionId>(snapshot,"ViewingRegion"),Is.EqualTo(TownRegionId.West));
+        }
+        [Test] public void RegionSnapshotRejectsMissingResidentsAndNeverEntersSaveSchema()
+        {
+            var state=GameState.CreateInitial();string before=StateCodec.Encode(state);var actorType=Type("TownRegionActorSnapshot");
+            var actors=Array.CreateInstance(actorType,0);var centers=new[]{new TownPoint(.5f,.5f),new TownPoint(.5f,.5f),new TownPoint(.5f,.5f)};
+            var failure=Assert.Throws<TargetInvocationException>(()=>Activator.CreateInstance(Type("TownRegionSnapshot"),"momo",TownRegionId.Central,actors,centers));
+            Assert.That(failure.InnerException,Is.InstanceOf<ArgumentException>());
+            Assert.That(typeof(GameState).GetFields().Any(f=>f.FieldType==Type("TownRegionSnapshot")),Is.False);
+            Assert.That(StateCodec.Encode(state),Is.EqualTo(before));
+        }
     }
 }

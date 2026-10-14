@@ -142,6 +142,29 @@ namespace Mofumachi.Presentation
             for(int i=0;i<actors.Count;i++)if(journeys.TryGetValue(actors[i].CharacterId,out var travel))CancelTravel(travel);
             journeys.Clear();if(followingHero&&life!=null)SetViewingRegion(HeroRegion);
         }
+        public TownRegionSnapshot CaptureSettledSnapshot()
+        {
+            CancelJourneys();life.GetComponent<TownViewportView>()?.CancelGesture();
+            var saved=new TownRegionActorSnapshot[actors.Count];
+            for(int i=0;i<actors.Count;i++)saved[i]=new TownRegionActorSnapshot(actors[i].CharacterId,new TownRegionLocation(actors[i].RegionId,actors[i].Position),actors[i].DestinationId);
+            var view=life.GetComponent<TownRegionView>();var centers=view==null?new[]{new TownPoint(.5f,.5f),new TownPoint(.5f,.5f),new TownPoint(.5f,.5f)}:view.CaptureCenters();
+            return new TownRegionSnapshot(hero.CharacterId,ViewingRegion,saved,centers);
+        }
+        public void RestoreSnapshot(TownRegionSnapshot snapshot)
+        {
+            if(snapshot==null||hero==null||snapshot.FavoriteId!=hero.CharacterId)return;
+            CancelJourneys();
+            foreach(var saved in snapshot.Actors)
+            {
+                var actor=actors.FirstOrDefault(a=>a.CharacterId==saved.CharacterId);if(actor==null)continue;
+                actor.TransferToRegion(TownRegionCatalog.ForLevel(saved.Location.Region,context.Game.State.townGrowthLevel),saved.Location.Local);
+                TownPlace place=null;
+                if(TownRegionCatalog.TryFindPlace(saved.PlaceId,context.Game.State.townGrowthLevel,out var location,out var found)&&location.Region==actor.RegionId)place=found;
+                actor.FinishRegionalGuide(place);
+            }
+            followingHero=snapshot.ViewingRegion==HeroRegion;SetViewingRegion(snapshot.ViewingRegion);
+            life.GetComponent<TownRegionView>()?.RestoreCenters(snapshot.CameraCenters);
+        }
         private void OnDisable()=>CancelJourneys();
     }
 }

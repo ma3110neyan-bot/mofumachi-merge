@@ -7,6 +7,8 @@ namespace Mofumachi.Presentation
     public sealed class TownGrowthView:MonoBehaviour
     {
         public int VisibleStage { get; private set; }
+        public TownRegionId Region {get;private set;}=TownRegionId.Central;
+        public void SetRegion(TownRegionId region){Region=region;Apply(VisibleStage);}
         public bool IsHighlighting=>highlight!=null;
         private GameObject[] layers;private TownLifeView life;private RawImage background;
         private readonly RectTransform[] icons=new RectTransform[12];private readonly TownPoint[] positions=new TownPoint[12];
@@ -47,7 +49,7 @@ namespace Mofumachi.Presentation
         private void Reposition(){for(int i=0;i<icons.Length;i++)if(icons[i]!=null)icons[i].anchoredPosition=Local(positions[i]);dirty=false;if(background!=null)previousUv=background.uvRect;}
         private void OnRectTransformDimensionsChange()=>dirty=true;
         private void LateUpdate(){if(dirty||(background!=null&&previousUv!=background.uvRect))Reposition();}
-        public void Apply(int level){StopHighlight();VisibleStage=Mathf.Clamp(level,0,6);if(layers!=null)for(int i=0;i<layers.Length;i++)layers[i].SetActive(i<VisibleStage);}
+        public void Apply(int level){StopHighlight();VisibleStage=Mathf.Clamp(level,0,6);if(layers!=null)for(int i=0;i<layers.Length;i++)layers[i].SetActive(Region==TownRegionId.Central&&i<VisibleStage);}
         public void HighlightNewStage(int previous,int current)
         {StopHighlight();if(isActiveAndEnabled&&layers!=null&&Mathf.Clamp(current,0,6)>Mathf.Clamp(previous,0,6))highlight=StartCoroutine(Highlight(Mathf.Clamp(previous,0,6),Mathf.Clamp(current,0,6)));}
         private IEnumerator Highlight(int from,int to)

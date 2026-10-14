@@ -42,7 +42,7 @@ namespace Mofumachi.Presentation
             w.Icon("Coin",UIIcon.Coin,hud,new Rect(.41f,.2f,.1f,.6f));
             w.Heading("Coins value",c.Game.State.coins.ToString("N0"),hud,new Rect(.51f,.08f,.32f,.84f),14);
             var settings=w.Button("Settings","",hud,new Rect(.85f,0,.15f,1),c.Flow.ShowSettings,true); w.Icon("Settings icon",UIIcon.Settings,(RectTransform)settings.transform,new Rect(.2f,.2f,.6f,.6f));
-            var world=UIWidgets.Node("Town characters",root,new Rect(0,0,1,1));world.offsetMin=new Vector2(0,154);world.offsetMax=new Vector2(0,-70);
+            var world=UIWidgets.Node("Town characters",root,new Rect(0,0,1,1));world.offsetMin=new Vector2(0,154);world.offsetMax=new Vector2(0,-142);
             var life=world.gameObject.AddComponent<TownLifeView>();life.Bind(c,background??c.Flow.TownBackground);
             world.gameObject.AddComponent<TownViewportView>().Bind(c,background??c.Flow.TownBackground,life);
             var decorations=UIWidgets.Node("Town growth decorations",world,new Rect(0,0,1,1));decorations.SetAsFirstSibling();
@@ -66,7 +66,10 @@ namespace Mofumachi.Presentation
             var tap=quest.gameObject.AddComponent<Button>();quest.GetComponent<RoundedPanelGraphic>().raycastTarget=true;tap.targetGraphic=quest.GetComponent<RoundedPanelGraphic>();tap.onClick.AddListener(()=>{if(chapter.AllCompleted)c.Flow.ReviewLastChapter();else c.Flow.ShowQuest();});
             w.Nav(root,c,ScreenId.Home);
             string message=c.Flow.FeedbackFor(ScreenId.Home);
-            if(message.Length>0){var error=w.Panel("Home feedback surface",root,new Rect(0,0,1,1),UIWidgets.Cream).rectTransform;UIWidgets.Top(error,12,60,12,64);w.Label("Feedback",message,error,new Rect(.04f,.03f,.92f,.94f),14);}
+            if(message.Length>0){var error=w.Panel("Home feedback surface",root,new Rect(0,0,1,1),UIWidgets.Cream).rectTransform;UIWidgets.Top(error,12,144,12,64);w.Label("Feedback",message,error,new Rect(.04f,.03f,.92f,.94f),14);}
+            world.gameObject.AddComponent<TownRegionView>().Bind(c,background??c.Flow.TownBackground,life,life.Regions);
+            world.gameObject.AddComponent<TownRegionControls>().Bind(c,root,life);
+            life.Regions.RestoreSnapshot(c.Flow.HomeRegionSnapshot);
         }
         private static void AttachReaction(RawImage image,ScreenContext c)
         {

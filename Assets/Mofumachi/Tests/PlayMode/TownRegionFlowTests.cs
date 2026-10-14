@@ -80,5 +80,77 @@ namespace Mofumachi.Tests
             Assert.That(hero.Position.Equals(point),Is.True);Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));
             session.GetType().GetMethod("ReturnToHero").Invoke(session,null);Assert.That(Read<TownRegionId>(session,"ViewingRegion"),Is.EqualTo(Region(hero)));LogAssert.NoUnexpectedReceived();
         }
+        private Component RegionView()
+        {
+            var type=typeof(TownLifeView).Assembly.GetType("Mofumachi.Presentation.TownRegionView");Assert.That(type,Is.Not.Null,"Regional painting view is missing");
+            var view=Flow.GetComponentInChildren(type);Assert.That(view,Is.Not.Null);return view;
+        }
+        [UnityTest] public IEnumerator TransitionUsesAtMostTwoBackgroundsAndNeverInterceptsHud()
+        {
+            yield return EnterHome();var session=Session();var view=RegionView();var life=Flow.GetComponentInChildren<TownLifeView>();
+            Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Region view West").onClick.Invoke();
+            Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Walk to viewed region").onClick.Invoke();
+            StepUntil(life,()=>Read<bool>(session,"IsHeroTransitioning"));
+            for(int i=0;i<14;i++)
+            {
+                life.AdvanceFrame(1f/30);Canvas.ForceUpdateCanvases();Assert.That(Read<int>(view,"VisibleBackgroundCount"),Is.InRange(1,2));
+                Assert.That(Read<Graphic>(view,"TransitionGraphic").raycastTarget,Is.False);
+            }
+            Assert.That(Read<int>(view,"VisibleBackgroundCount"),Is.EqualTo(1));
+            Assert.That(Flow.GetComponentsInChildren<TownActor>().Length,Is.EqualTo(6));LogAssert.NoUnexpectedReceived();
+        }
+        [UnityTest] public IEnumerator HeroRegionAndViewingRegionRemainSeparate()
+        {
+            yield return EnterHome();var session=Session();var before=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled).Position;
+            Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Region view East").onClick.Invoke();
+            Assert.That(Read<TownRegionId>(session,"HeroRegion"),Is.EqualTo(TownRegionId.Central));
+            Assert.That(Read<TownRegionId>(session,"ViewingRegion"),Is.EqualTo(TownRegionId.East));
+            Assert.That(Flow.TownBackground.texture,Is.SameAs(Resources.Load<Texture2D>("Mofumachi/TownEastBackground")));
+            Assert.That(Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled).Position.Equals(before),Is.True);
+            foreach(var button in Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Region view")||b.name=="Walk to viewed region"||b.name=="Return to town hero"))
+                Assert.That(((RectTransform)button.transform).rect.height,Is.GreaterThanOrEqualTo(48),button.name);
+            LogAssert.NoUnexpectedReceived();
+        }
+        [UnityTest] public IEnumerator CentralWaterAndGrowthDoNotAppearInSideTown()
+        {
+            yield return EnterHome();var session=Session();var water=Flow.GetComponentInChildren<TownAmbientGraphic>();var growth=Flow.GetComponentInChildren<TownGrowthView>();
+            session.GetType().GetMethod("LookAtRegion").Invoke(session,new object[]{TownRegionId.West});Canvas.ForceUpdateCanvases();
+            Assert.That(Read<TownRegionId>(water,"Region"),Is.EqualTo(TownRegionId.West));Assert.That(water.canvasRenderer.GetMesh().vertexCount,Is.Zero);
+            Assert.That(Read<TownRegionId>(growth,"Region"),Is.EqualTo(TownRegionId.West));
+            Assert.That(Flow.GetComponentsInChildren<TownDecorationGraphic>().Length,Is.Zero);
+            session.GetType().GetMethod("ReturnToHero").Invoke(session,null);Canvas.ForceUpdateCanvases();
+            Assert.That(Read<TownRegionId>(water,"Region"),Is.EqualTo(TownRegionId.Central));Assert.That(water.canvasRenderer.GetMesh().vertexCount,Is.GreaterThan(0));LogAssert.NoUnexpectedReceived();
+        }
+        [UnityTest] public IEnumerator LeavingHomeRestoresCentralTextureAndCover()
+        {
+            yield return EnterHome();var session=Session();session.GetType().GetMethod("LookAtRegion").Invoke(session,new object[]{TownRegionId.West});
+            Assert.That(Flow.TownBackground.texture,Is.SameAs(Resources.Load<Texture2D>("Mofumachi/TownWestBackground")));
+            int writes=Store.Writes;Flow.ShowMerge();Assert.That(Store.Writes,Is.EqualTo(writes+1));
+            Assert.That(Flow.TownBackground.texture,Is.SameAs(Resources.Load<Texture2D>("Mofumachi/TownBackground")));
+            Assert.That(Flow.TownBackground.GetComponent<BackgroundCover>().enabled,Is.True);LogAssert.NoUnexpectedReceived();
+        }
+        [UnityTest] public IEnumerator PauseSettingsBackAndResizeReleaseAllRegionalInput()
+        {
+            yield return EnterHome();var session=Session();var life=Flow.GetComponentInChildren<TownLifeView>();
+            Assert.That(Guide(session,TownRegionId.West),Is.True);StepUntil(life,()=>Read<bool>(session,"IsHeroTransitioning"));
+            Flow.ShowSettings();Flow.GoBack();yield return null;
+            session=Session();Assert.That(Read<bool>(session,"HasHeroJourney"),Is.False);Assert.That(Read<bool>(session,"IsHeroTransitioning"),Is.False);
+            var hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);Assert.That(hero.Movement.OwnedPointerId,Is.Null);
+            Assert.That(Guide(session,TownRegionId.East),Is.True);Flow.SendMessage("OnApplicationPause",true);Flow.SendMessage("OnApplicationPause",false);yield return null;
+            session=Session();Assert.That(Read<bool>(session,"HasHeroJourney"),Is.False);
+            Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,592),new Rect(0,24,360,536));Canvas.ForceUpdateCanvases();
+            Assert.That(Flow.GetComponentsInChildren<TownActor>().Where(a=>a.Controlled).All(a=>a.Movement.OwnedPointerId==null),Is.True);LogAssert.NoUnexpectedReceived();
+        }
+        [UnityTest] public IEnumerator RebuildUsesOnlySettledTransientSnapshot()
+        {
+            yield return EnterHome();var session=Session();var life=Flow.GetComponentInChildren<TownLifeView>();
+            Assert.That(Guide(session,TownRegionId.West),Is.True);StepUntil(life,()=>!Read<bool>(session,"HasHeroJourney"));
+            var hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);var point=hero.Position;int writes=Store.Writes;
+            Flow.ShowSettings();Flow.GoBack();yield return null;session=Session();hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);
+            Assert.That(Region(hero),Is.EqualTo(TownRegionId.West));Assert.That(hero.Position.X,Is.EqualTo(point.X).Within(.001f));
+            Assert.That(Read<bool>(session,"HasHeroJourney"),Is.False);Assert.That(hero.Movement.OwnedPointerId,Is.Null);
+            Assert.That(Store.Writes,Is.EqualTo(writes+2),"Only the existing two navigation saves");
+            Flow.Initialize(Store);Flow.ShowHome();session=Session();Assert.That(Read<TownRegionId>(session,"HeroRegion"),Is.EqualTo(TownRegionId.Central),"Reload starts at the center, without a region save field");LogAssert.NoUnexpectedReceived();
+        }
     }
 }

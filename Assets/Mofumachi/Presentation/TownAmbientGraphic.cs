@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Mofumachi.Core;
 
 namespace Mofumachi.Presentation
 {
@@ -11,20 +12,22 @@ namespace Mofumachi.Presentation
         private RawImage background;
         private float phase,meshElapsed;
         public float Phase=>phase;
+        public TownRegionId Region {get;private set;}=TownRegionId.Central;
+        public void SetRegion(TownRegionId region){Region=region;SetVerticesDirty();}
         protected override void Awake() { base.Awake(); raycastTarget = false; }
         public void Bind(RawImage image) => background = image;
         public void NotifyViewportChanged()=>SetVerticesDirty();
         private void Update()=>AdvanceWater(Time.unscaledDeltaTime);
         public void AdvanceWater(float elapsedSeconds)
         {
-            if(!isActiveAndEnabled||!float.IsFinite(elapsedSeconds)||elapsedSeconds<=0)return;
+            if(!isActiveAndEnabled||Region!=TownRegionId.Central||!float.IsFinite(elapsedSeconds)||elapsedSeconds<=0)return;
             float dt=Mathf.Min(elapsedSeconds,.1f);phase+=dt;meshElapsed+=dt;
             if(meshElapsed<1f/30)return;
             meshElapsed=Mathf.Repeat(meshElapsed,1f/30);SetVerticesDirty();
         }
         protected override void OnPopulateMesh(VertexHelper vertices)
         {
-            vertices.Clear(); if (background == null || background.texture == null) return;
+            vertices.Clear(); if (Region!=TownRegionId.Central||background == null || background.texture == null) return;
             // The rear waterfall and the two fountain bowls have separate falls.
             // Coordinates are in the source painting, so safe-area/aspect changes
             // cannot shift the water away from the original fountain.

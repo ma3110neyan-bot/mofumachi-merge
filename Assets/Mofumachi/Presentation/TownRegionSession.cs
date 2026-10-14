@@ -15,8 +15,14 @@ namespace Mofumachi.Presentation
             internal TownRegionJourney Journey;
             internal TownPlace Destination;
             internal TownRegionId FadeFrom,FadeTo;
+            internal TownRegionId? Gate;
+            internal bool Started;
         }
         private readonly Dictionary<string,Travel> journeys=new Dictionary<string,Travel>();
+        private readonly Dictionary<TownRegionId,string> gates=new Dictionary<TownRegionId,string>();
+        private readonly Dictionary<string,float> nextNpcVisit=new Dictionary<string,float>();
+        private float now;
+        private int visitChoice;
         private ScreenContext context;
         private TownLifeView life;
         private IReadOnlyList<TownActor> actors;
@@ -39,7 +45,7 @@ namespace Mofumachi.Presentation
                 string id=index==0?"west.flowers":index==1?"west.bench-front":index==2?"bench-right":index==3?"east.flowers":"east.meeting";
                 TownRegionCatalog.TryFindPlace(id,c.Game.State.townGrowthLevel,out _,out var place);
                 actor.TransferToRegion(TownRegionCatalog.ForLevel(region,c.Game.State.townGrowthLevel),place.Position);
-                actor.SetDestination(place,1.6f+index*.4f);index++;
+                actor.SetDestination(place,1.6f+index*.4f);nextNpcVisit[actor.CharacterId]=20+index*2;index++;
             }
             life.ApplyViewingRegion(ViewingRegion);
         }
@@ -75,18 +81,64 @@ namespace Mofumachi.Presentation
         }
         private bool BeginLeg(Travel travel)
         {
+            if(travel.Journey.Phase==TownRegionTravelPhase.WalkingOut)
+            {
+                var from=travel.Journey.Region;var to=from==TownRegionId.Central?FindDestinationRegion(travel.Destination.Id):TownRegionId.Central;
+                var gate=from==TownRegionId.Central?to:from;
+                if(gates.TryGetValue(gate,out var owner)&&owner!=travel.Actor.CharacterId)
+                {travel.Actor.HoldForTransition();travel.Started=false;return true;}
+                gates[gate]=travel.Actor.CharacterId;travel.Gate=gate;
+            }
             bool started=travel.Actor.GuideForJourney(travel.Journey.Target);
+            travel.Started=started;
             if(travel.Actor.Controlled)life.SetGuidedDestination(travel.Destination);
             return started;
         }
         internal bool OwnsJourney(TownActor actor)=>actor!=null&&journeys.ContainsKey(actor.CharacterId);
+        public bool TryScheduleNpcVisit(string characterId,TownRegionId region)
+        {
+            if(life==null||!life.CanSimulate||!Enum.IsDefined(typeof(TownRegionId),region))return false;
+            var actor=actors.FirstOrDefault(a=>a.CharacterId==characterId&&!a.Controlled);
+            if(actor==null||OwnsJourney(actor)||!nextNpcVisit.TryGetValue(characterId,out var next)||now<next||
+                !TownRegionCatalog.TryGetPortal(actor.RegionId,region,out _))return false;
+            // Residents still walking out count in their current region. Incoming
+            // reservations count once until the entry transfer is acknowledged.
+            int occupied=actors.Count(a=>!a.Controlled&&a.RegionId==region)+
+                journeys.Values.Count(t=>!t.Actor.Controlled&&t.Actor.RegionId!=region&&FindDestinationRegion(t.Destination.Id)==region);
+            var gate=actor.RegionId==TownRegionId.Central?region:actor.RegionId;
+            if(occupied>=2||gates.ContainsKey(gate))return false;
+            var candidates=TownRegionCatalog.ForLevel(region,context.Game.State.townGrowthLevel).Map.Places
+                .Where(p=>p.Activity!=TownActivity.Entrance&&p.Id!="square"&&
+                    !actors.Any(a=>!a.Controlled&&a.RegionId==region&&a.DestinationId==p.Id)&&
+                    !journeys.Values.Any(t=>t.Destination.Id==p.Id)).ToArray();
+            if(candidates.Length==0)return false;
+            var place=candidates[visitChoice++%candidates.Length];
+            var travel=new Travel {Actor=actor,Destination=place,Journey=new TownRegionJourney(new TownRegionLocation(actor.RegionId,actor.Position),new TownRegionLocation(region,place.Position),context.Game.State.townGrowthLevel)};
+            journeys[characterId]=travel;
+            if(!BeginLeg(travel)){ReleaseGate(travel);journeys.Remove(characterId);return false;}
+            return true;
+        }
+        internal bool TryStartVisitAfterRest(TownActor actor)
+        {
+            if(actor==null||actor.Controlled||OwnsJourney(actor)||!nextNpcVisit.TryGetValue(actor.CharacterId,out var next)||now<next)return false;
+            if(actor.RegionId!=TownRegionId.Central)return TryScheduleNpcVisit(actor.CharacterId,TownRegionId.Central);
+            var first=CharacterCatalog.Find(actor.CharacterId).PortraitIndex%2==0?TownRegionId.West:TownRegionId.East;
+            return TryScheduleNpcVisit(actor.CharacterId,first)||TryScheduleNpcVisit(actor.CharacterId,first==TownRegionId.West?TownRegionId.East:TownRegionId.West);
+        }
+        private void ReleaseGate(Travel travel)
+        {
+            if(travel.Gate.HasValue&&gates.TryGetValue(travel.Gate.Value,out var owner)&&owner==travel.Actor.CharacterId)gates.Remove(travel.Gate.Value);
+            travel.Gate=null;
+        }
         public void Step(float seconds)
         {
             if(life==null||!life.CanSimulate||!float.IsFinite(seconds)||seconds<=0)return;
+            now+=Mathf.Min(seconds,.1f);
             // The same six objects are simulated once; invisible regions do not clone them.
             for(int i=0;i<actors.Count;i++)
             {
                 var actor=actors[i];if(!journeys.TryGetValue(actor.CharacterId,out var travel))continue;
+                if(!travel.Started){BeginLeg(travel);if(!travel.Started)continue;}
                 var before=travel.Journey.Phase;travel.Journey.Tick(actor.Position,seconds);
                 var phase=travel.Journey.Phase;
                 if(phase==TownRegionTravelPhase.Fading&&before!=TownRegionTravelPhase.Fading)
@@ -105,15 +157,19 @@ namespace Mofumachi.Presentation
                         else actor.SetRegionVisible(actor.RegionId==ViewingRegion);
                     }
                     if(actor.Controlled)HeroTransitionChanged?.Invoke(travel.FadeFrom,travel.FadeTo,travel.Journey.FadeOpacity);
+                    else actor.SetJourneyFade(travel.Journey.FadeOpacity);
                 }
                 else if(before==TownRegionTravelPhase.Fading)
                 {
                     if(actor.Controlled)HeroTransitionChanged?.Invoke(travel.FadeFrom,travel.FadeTo,0);
+                    else actor.SetJourneyFade(0);
+                    ReleaseGate(travel);
                     BeginLeg(travel);
                 }
                 if(travel.Journey.Phase==TownRegionTravelPhase.Complete)
                 {
                     journeys.Remove(actor.CharacterId);actor.FinishRegionalGuide(travel.Destination);
+                    if(!actor.Controlled)nextNpcVisit[actor.CharacterId]=now+20;
                     if(actor.Controlled){life.SetGuidedDestination(travel.Destination);life.ActorReleased(actor);}
                 }
             }
@@ -127,6 +183,7 @@ namespace Mofumachi.Presentation
         }
         private void CancelTravel(Travel travel)
         {
+            ReleaseGate(travel);travel.Actor.SetJourneyFade(0);
             bool fading=travel.Journey.Phase==TownRegionTravelPhase.Fading;travel.Journey.Cancel();
             if(fading)
             {
@@ -134,13 +191,14 @@ namespace Mofumachi.Presentation
                 travel.Actor.TransferToRegion(TownRegionCatalog.ForLevel(settled.Region,context.Game.State.townGrowthLevel),settled.Local);
             }
             travel.Actor.FinishRegionalGuide(null);
+            if(!travel.Actor.Controlled)nextNpcVisit[travel.Actor.CharacterId]=now+20;
             if(travel.Actor.Controlled)HeroTransitionChanged?.Invoke(travel.FadeFrom,travel.FadeTo,0);
         }
         public void CancelJourneys()
         {
             if(actors==null)return;
             for(int i=0;i<actors.Count;i++)if(journeys.TryGetValue(actors[i].CharacterId,out var travel))CancelTravel(travel);
-            journeys.Clear();if(followingHero&&life!=null)SetViewingRegion(HeroRegion);
+            journeys.Clear();gates.Clear();if(followingHero&&life!=null)SetViewingRegion(HeroRegion);
         }
         public TownRegionSnapshot CaptureSettledSnapshot()
         {

@@ -10,6 +10,7 @@ namespace Mofumachi.Presentation
         public bool Controlled { get; private set; }
         public TownRegionId RegionId { get; private set; }=TownRegionId.Central;
         public bool RegionVisible { get; private set; }=true;
+        public bool IsRegionFading=>journeyFade>0;
         public TownMovement Movement { get; private set; }
         public TownPoint Position=>Controlled?Movement.Position:npcPosition;
         public TownPoint RenderPosition { get; private set; }
@@ -30,6 +31,7 @@ namespace Mofumachi.Presentation
         private bool dragged,surprised,moving;
         private bool regionalGuidance,transitionHeld;
         private CanvasGroup visibility;
+        private float journeyFade;
         public void Bind(string characterId,bool controlled,TownMovement movement,TownNavigation navigation)
         {
             CharacterId=characterId;Controlled=controlled;Movement=controlled?movement:null;
@@ -77,9 +79,15 @@ namespace Mofumachi.Presentation
         }
         public void SetRegionVisible(bool visible)
         {
-            RegionVisible=visible;if(visibility!=null){visibility.alpha=visible?1:0;visibility.blocksRaycasts=visible;visibility.interactable=visible;}
-            if(body!=null)body.raycastTarget=visible;
+            RegionVisible=visible;ApplyVisibility();
             if(!visible){var name=transform.Find("Town actor name panel");if(name!=null)name.gameObject.SetActive(false);}
+        }
+        internal void SetJourneyFade(float opacity){journeyFade=Mathf.Clamp01(opacity);ApplyVisibility();}
+        private void ApplyVisibility()
+        {
+            bool interactive=RegionVisible&&journeyFade<=0;
+            if(visibility!=null){visibility.alpha=RegionVisible?1-journeyFade:0;visibility.blocksRaycasts=interactive;visibility.interactable=interactive;}
+            if(body!=null)body.raycastTarget=interactive;
         }
         internal void Advance(float dt)
         {
@@ -127,7 +135,7 @@ namespace Mofumachi.Presentation
         {previous=Position;RenderPosition=Position;moving=false;if(life!=null)rect.anchoredPosition=life.Local(Position);}
         internal void ResetVisual()
         {IsGuided=false;FreezeMovement();stride=amplitude=breath=reactionRemaining=0;if(VisualRoot!=null){VisualRoot.anchoredPosition=Vector2.zero;VisualRoot.localScale=Vector3.one;VisualRoot.localRotation=Quaternion.identity;}if(body!=null&&body.Expression!=CharacterExpression.Normal)body.Bind(CharacterId);}
-        public void React(){if(life==null||!life.CanInteract||!RegionVisible)return;surprised=false;reactionRemaining=.65f;life.React(this);}
+        public void React(){if(life==null||!life.CanInteract||!RegionVisible||journeyFade>0)return;surprised=false;reactionRemaining=.65f;life.React(this);}
         internal void SetViewScale(float scale){viewScale=Mathf.Clamp(scale,1,1.15f);}
         internal void Surprise(){surprised=true;reactionRemaining=.65f;}
         public void OnPointerDown(PointerEventData e)

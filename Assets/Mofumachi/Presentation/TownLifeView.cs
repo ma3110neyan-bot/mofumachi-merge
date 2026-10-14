@@ -45,7 +45,7 @@ namespace Mofumachi.Presentation
         private void AddEntrance(string name,TownPoint location,string id,Color tint)
         {
             var marker=context.Widgets.Button("Facility marker "+name,name,actorLayer,new Rect(.5f,.5f,0,0),()=>GuideToFacility(id),true);
-            var rect=(RectTransform)marker.transform;rect.sizeDelta=new Vector2(92,48);rect.anchoredPosition=Local(location)+Vector2.up*104;
+            var rect=(RectTransform)marker.transform;rect.sizeDelta=new Vector2(92,48);rect.anchoredPosition=MarkerLocal(location);
             marker.GetComponent<RoundedPanelGraphic>().color=tint;marker.GetComponentInChildren<Text>().fontSize=14;
         }
         public bool GuideToFacility(string id)=>id=="quest"||id=="shop"?GuideToPlace(id):false;
@@ -65,6 +65,7 @@ namespace Mofumachi.Presentation
         internal void ChooseNextStop(TownActor actor)
         {
             if(Regions?.OwnsJourney(actor)==true)return;
+            if(Regions?.TryStartVisitAfterRest(actor)==true)return;
             var candidates=TownRegionCatalog.ForLevel(actor.RegionId,TownLevel).Map.Places.Where(p=>p.Activity!=TownActivity.Entrance&&p.Id!="square").ToArray();
             for(int k=0;k<candidates.Length;k++)
             {
@@ -83,7 +84,7 @@ namespace Mofumachi.Presentation
         }
         public bool TryBeginConversation(TownActor first,TownActor second)
         {
-            if(!CanInteract||first==null||second==null||first==second||first.RegionId!=second.RegionId||!first.RegionVisible||!second.RegionVisible||now<nextSocial||IsManuallyDragging||GetComponent<TownViewportView>()?.IsDragging==true||outings!=null||entrance!=null||Distance(first.Position,second.Position)>.09f||!Visible(first)||!Visible(second))return false;
+            if(!CanInteract||first==null||second==null||first==second||first.RegionId!=second.RegionId||!first.RegionVisible||!second.RegionVisible||first.IsRegionFading||second.IsRegionFading||now<nextSocial||IsManuallyDragging||GetComponent<TownViewportView>()?.IsDragging==true||outings!=null||entrance!=null||Distance(first.Position,second.Position)>.09f||!Visible(first)||!Visible(second))return false;
             first.Greet();second.Greet();nextSocial=now+8;
             ShowBubble(CharacterCatalog.Find(first.CharacterId).Name+"：こんにちは、"+CharacterCatalog.Find(second.CharacterId).Name+"♪",first);return true;
         }
@@ -148,7 +149,7 @@ namespace Mofumachi.Presentation
             var b=context.Widgets.Button("Enter facility",facility=="quest"?"依頼部屋に入る":"ショップへ",root,new Rect(0,0,1,1),()=>{if(NearbyFacility=="quest")context.Flow.ShowQuest();else context.Flow.OpenShopPreview();});UIWidgets.Bottom((RectTransform)b.transform,48,154,48,48);entrance=b.gameObject;
         }
         internal void React(TownActor a)
-        {if(!CanInteract)return;context.Flow.PlayCue(AudioCue.Character);if(!IsManuallyDragging&&entrance==null){if(a.Controlled)ShowOutings();else{HideOutings();ShowBubble(CharacterCatalog.Find(a.CharacterId).Name+"："+a.Place.Dialogue,a);}}}
+        {if(!CanInteract)return;context.Flow.PlayCue(AudioCue.Character);if(!IsManuallyDragging&&entrance==null){if(a.Controlled)ShowOutings();else{HideOutings();ShowBubble(CharacterCatalog.Find(a.CharacterId).Name+"："+(a.Place?.Dialogue??"お隣の街へ、おさんぽに行ってくるね♪"),a);}}}
         private void ShowBubble(string text,TownActor a)
         {
             HideBubble();speaker=a;var root=(RectTransform)transform.parent;var p=context.Widgets.OrnatePanel("Town bubble panel",root,new Rect(.5f,.5f,0,0),UIWidgets.Cream,12).rectTransform;p.sizeDelta=new Vector2(Mathf.Min(240,root.rect.width-28),72);
@@ -157,11 +158,20 @@ namespace Mofumachi.Presentation
         private void PositionBubble()
         {
             if(bubble==null||speaker==null)return;var root=(RectTransform)transform.parent;var p=(RectTransform)bubble.transform;var world=actorLayer.TransformPoint(Local(speaker.RenderPosition));var target=(Vector2)root.InverseTransformPoint(world)+Vector2.up*122;
-            var r=root.rect;float half=p.rect.width/2;target.x=Mathf.Clamp(target.x,r.xMin+half+14,r.xMax-half-14);target.y=Mathf.Clamp(target.y,r.yMin+154+p.rect.height/2,r.yMax-70-p.rect.height/2);p.anchoredPosition=target;
+            var r=root.rect;float half=p.rect.width/2;target.x=Mathf.Clamp(target.x,r.xMin+half+14,r.xMax-half-14);target.y=Mathf.Clamp(target.y,r.yMin+154+p.rect.height/2,r.yMax-142-p.rect.height/2);p.anchoredPosition=target;
         }
         public void SetViewScale(float scale){if(actors!=null)foreach(var a in actors)a.SetViewScale(scale);}
         public void RefreshViewport()
-        {if(actorLayer==null)return;foreach(var item in new[]{("依頼部屋",RequestEntrance),("ショップ",ShopEntrance)}){var r=actorLayer.Find("Facility marker "+item.Item1) as RectTransform;if(r!=null)r.anchoredPosition=Local(item.Item2)+Vector2.up*104;}PositionBubble();}
+        {if(actorLayer==null)return;foreach(var item in new[]{("依頼部屋",RequestEntrance),("ショップ",ShopEntrance)}){var r=actorLayer.Find("Facility marker "+item.Item1) as RectTransform;if(r!=null)r.anchoredPosition=MarkerLocal(item.Item2);}PositionBubble();}
+        private Vector2 MarkerLocal(TownPoint location)
+        {
+            var point=Local(location)+Vector2.up*104;var bounds=actorLayer.rect;
+            // A short safe area cannot always pan enough to fit a sign above a
+            // painted doorway. Keep its 48-unit control visible inside the town;
+            // navigation still targets the unchanged original entrance point.
+            point.x=Mathf.Clamp(point.x,bounds.xMin+50,bounds.xMax-50);
+            point.y=Mathf.Clamp(point.y,bounds.yMin+28,bounds.yMax-28);return point;
+        }
         private void HideBubble(){if(bubble!=null){bubble.SetActive(false);Destroy(bubble);}bubble=null;speaker=null;}
         private void HideEntrance(){NearbyFacility=null;if(entrance!=null){entrance.SetActive(false);Destroy(entrance);}entrance=null;}
         private void HideOutings(){if(outings!=null){outings.SetActive(false);Destroy(outings);}outings=null;}

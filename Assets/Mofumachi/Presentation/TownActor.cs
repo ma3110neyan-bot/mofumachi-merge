@@ -1,3 +1,4 @@
+using System.Linq;
 using Mofumachi.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,6 +8,8 @@ namespace Mofumachi.Presentation
     {
         public string CharacterId { get; private set; }
         public bool Controlled { get; private set; }
+        public TownRegionId RegionId { get; private set; }=TownRegionId.Central;
+        public bool RegionVisible { get; private set; }=true;
         public TownMovement Movement { get; private set; }
         public TownPoint Position=>Controlled?Movement.Position:npcPosition;
         public TownPoint RenderPosition { get; private set; }
@@ -25,29 +28,63 @@ namespace Mofumachi.Presentation
         private CharacterBodyGraphic body;
         private RectTransform rect;
         private bool dragged,surprised,moving;
+        private bool regionalGuidance,transitionHeld;
+        private CanvasGroup visibility;
         public void Bind(string characterId,bool controlled,TownMovement movement,TownNavigation navigation)
         {
             CharacterId=characterId;Controlled=controlled;Movement=controlled?movement:null;
             this.navigation=navigation;npcPosition=movement.Position;previous=Position;rect=(RectTransform)transform;
             VisualRoot=UIWidgets.Node("Town actor visual",rect,new Rect(0,0,1,1));VisualRoot.pivot=new Vector2(.5f,0);
             body=VisualRoot.gameObject.AddComponent<CharacterBodyGraphic>();body.Bind(characterId);body.raycastTarget=true;
+            visibility=gameObject.AddComponent<CanvasGroup>();
         }
         internal void Connect(TownLifeView view,TownPoint a,TownPoint b,float delay)
         {life=view;npcA=a;npcB=b;npcTarget=b;waitRemaining=delay;ResetVisual();}
         internal void SetWalkRoute(System.Collections.Generic.IReadOnlyList<TownPoint> route,int start)
         {if(Controlled||route==null||route.Count<3)return;walkRoute=route;routeDirection=start%2==0?1:-1;routeIndex=(start+routeDirection+route.Count)%route.Count;npcTarget=route[routeIndex];}
-        internal void SetDestination(TownPlace place,float wait){if(Controlled||place==null)return;Place=place;npcTarget=place.Position;waitRemaining=wait;}
+        internal void SetDestination(TownPlace place,float wait){if(Controlled||place==null)return;regionalGuidance=transitionHeld=false;Place=place;npcTarget=place.Position;waitRemaining=wait;}
         internal void Greet(){socialRemaining=1;reactionRemaining=.65f;surprised=false;}
-        public bool GuideTo(TownPoint target)
+        public bool GuideTo(TownPoint target)=>BeginGuide(target,false);
+        private bool BeginGuide(TownPoint target,bool preserveJourney)
         {
             if(!Controlled||life==null||!life.CanInteract || !float.IsFinite(target.X)||!float.IsFinite(target.Y) || (Movement.OwnedPointerId.HasValue&&!IsGuided))return false;
-            Movement.CancelInput();IsGuided=false;
+            life.StartInteraction(preserveJourney);Movement.CancelInput();IsGuided=false;transitionHeld=false;
             if(!Movement.TryBeginDrag(GuidePointer))return false;
-            guideTarget=target;Movement.SetTarget(GuidePointer,target);IsGuided=true;dragged=false;life.StartInteraction();return true;
+            guideTarget=target;Movement.SetTarget(GuidePointer,target);IsGuided=true;dragged=false;return true;
+        }
+        internal bool GuideForJourney(TownPoint target)
+        {
+            regionalGuidance=true;transitionHeld=false;
+            if(Controlled)return BeginGuide(target,true);
+            Place=null;walkRoute=null;npcTarget=target;waitRemaining=0;return true;
+        }
+        internal void HoldForTransition(){transitionHeld=true;Movement?.CancelInput();IsGuided=false;FreezeMovement();}
+        internal void FinishRegionalGuide(TownPlace place)
+        {
+            regionalGuidance=transitionHeld=false;Movement?.CancelInput();IsGuided=false;FreezeMovement();
+            if(!Controlled)
+            {
+                if(place==null&&life!=null)place=TownRegionCatalog.ForLevel(RegionId,life.TownLevel).Map.Places.Where(p=>p.Activity!=TownActivity.Entrance).OrderBy(p=>Vector2.Distance(new Vector2(p.Position.X,p.Position.Y),new Vector2(Position.X,Position.Y))).FirstOrDefault();
+                if(place!=null)SetDestination(place,place.Activity==TownActivity.Bench?3:1.6f);
+            }
+        }
+        public void TransferToRegion(TownRegionDefinition region,TownPoint entry)
+        {
+            Movement?.CancelInput();RegionId=region.Id;navigation=new TownNavigation(region.Map.Nodes,region.Map.Edges,.028f);
+            var movement=new TownMovement(navigation,entry);Movement=Controlled?movement:null;npcPosition=movement.Position;
+            npcA=npcB=npcTarget=movement.Position;previous=movement.Position;Place=null;walkRoute=null;
+            regionalGuidance=transitionHeld=false;waitRemaining=0;ResetVisual();
+        }
+        public void SetRegionVisible(bool visible)
+        {
+            RegionVisible=visible;if(visibility!=null){visibility.alpha=visible?1:0;visibility.blocksRaycasts=visible;visibility.interactable=visible;}
+            if(body!=null)body.raycastTarget=visible;
+            if(!visible){var name=transform.Find("Town actor name panel");if(name!=null)name.gameObject.SetActive(false);}
         }
         internal void Advance(float dt)
         {
             previous=Position;
+            if(transitionHeld){moving=false;return;}
             if(socialRemaining>0){socialRemaining=Mathf.Max(0,socialRemaining-dt);moving=false;return;}
             if(Controlled)
             {
@@ -61,6 +98,7 @@ namespace Mofumachi.Presentation
                 npcPosition=navigation.Move(npcPosition,npcTarget,.028f*dt*life.MovementScale(this));
                 if(Vector2.Distance(new Vector2(npcPosition.X,npcPosition.Y),new Vector2(npcTarget.X,npcTarget.Y))<.001f)
                 {
+                    if(regionalGuidance){transitionHeld=true;moving=false;return;}
                     if(Place!=null){waitRemaining=Place.Activity==TownActivity.Bench?3:1.6f;return;}
                     if(walkRoute!=null){routeIndex=(routeIndex+routeDirection+walkRoute.Count)%walkRoute.Count;npcTarget=walkRoute[routeIndex];}
                     else npcTarget=npcTarget.Equals(npcB)?npcA:npcB;
@@ -72,7 +110,7 @@ namespace Mofumachi.Presentation
         }
         internal void Render(float alpha,float elapsedSeconds)
         {
-            if(life==null||!float.IsFinite(elapsedSeconds)||elapsedSeconds<0)return;
+            if(life==null||!RegionVisible||!float.IsFinite(elapsedSeconds)||elapsedSeconds<0)return;
             float dt=Mathf.Min(elapsedSeconds,.1f);
             RenderPosition=navigation.InterpolateAlongPath(previous,Position,alpha);
             rect.anchoredPosition=life.Local(RenderPosition);
@@ -89,11 +127,11 @@ namespace Mofumachi.Presentation
         {previous=Position;RenderPosition=Position;moving=false;if(life!=null)rect.anchoredPosition=life.Local(Position);}
         internal void ResetVisual()
         {IsGuided=false;FreezeMovement();stride=amplitude=breath=reactionRemaining=0;if(VisualRoot!=null){VisualRoot.anchoredPosition=Vector2.zero;VisualRoot.localScale=Vector3.one;VisualRoot.localRotation=Quaternion.identity;}if(body!=null&&body.Expression!=CharacterExpression.Normal)body.Bind(CharacterId);}
-        public void React(){if(life==null||!life.CanInteract)return;surprised=false;reactionRemaining=.65f;life.React(this);}
+        public void React(){if(life==null||!life.CanInteract||!RegionVisible)return;surprised=false;reactionRemaining=.65f;life.React(this);}
         internal void SetViewScale(float scale){viewScale=Mathf.Clamp(scale,1,1.15f);}
         internal void Surprise(){surprised=true;reactionRemaining=.65f;}
         public void OnPointerDown(PointerEventData e)
-        {if(!Controlled||!life.CanInteract)return;if(IsGuided){Movement.CancelInput();IsGuided=false;FreezeMovement();}if(Movement.TryBeginDrag(e.pointerId)){dragged=false;life.StartInteraction();}}
+        {if(!Controlled||!life.CanInteract||!RegionVisible||Movement.OwnedPointerId.HasValue&&!IsGuided)return;life.StartInteraction();if(IsGuided){Movement.CancelInput();IsGuided=false;FreezeMovement();}if(Movement.TryBeginDrag(e.pointerId))dragged=false;}
         public void OnBeginDrag(PointerEventData e)
         {if(!Controlled||!life.CanInteract)return;if(!Movement.OwnedPointerId.HasValue)OnPointerDown(e);if(Movement.OwnedPointerId==e.pointerId){dragged=true;e.eligibleForClick=false;}}
         public void OnDrag(PointerEventData e)

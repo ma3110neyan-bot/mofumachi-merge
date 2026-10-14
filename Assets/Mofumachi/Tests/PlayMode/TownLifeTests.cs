@@ -77,18 +77,19 @@ namespace Mofumachi.Tests
         }
         [UnityTest] public IEnumerator NpcsVisitSeveralStreetStopsWithoutChangingProgress()
         {
-            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var npc=Flow.GetComponentsInChildren<TownActor>().First(a=>!a.Controlled);
-            int writes=Store.Writes;string before=StateCodec.Encode(Flow.Game.State);var visited=new System.Collections.Generic.HashSet<int>();
-            var stops=TownLifeView.WalkStops;
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var npc=Flow.GetComponentsInChildren<TownActor>().First(a=>!a.Controlled&&a.RegionVisible);
+            int writes=Store.Writes;string before=StateCodec.Encode(Flow.Game.State);var visited=new System.Collections.Generic.HashSet<string>();
             for(int i=0;i<1200;i++)
             {
                 life.AdvanceFrame(.1f);
-                for(int j=0;j<stops.Count;j++)if(Vector2.Distance(new Vector2(npc.Position.X,npc.Position.Y),new Vector2(stops[j].X,stops[j].Y))<.004f)visited.Add(j);
+                var stops=TownRegionCatalog.ForLevel(npc.RegionId,life.TownLevel).Map.Nodes;
+                for(int j=0;j<stops.Count;j++)if(Vector2.Distance(new Vector2(npc.Position.X,npc.Position.Y),new Vector2(stops[j].X,stops[j].Y))<.004f)visited.Add(npc.RegionId+":"+j);
             }
             Assert.That(visited.Count,Is.GreaterThanOrEqualTo(3));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));Assert.That(Store.Writes,Is.EqualTo(writes));
-            npc.React();life.AdvanceFrame(.1f);Assert.That(npc.GetComponentInChildren<CharacterBodyGraphic>().Expression,Is.EqualTo(CharacterExpression.Smile));
+            life.Regions.LookAtRegion(npc.RegionId);npc.React();life.AdvanceFrame(.1f);Assert.That(npc.GetComponentInChildren<CharacterBodyGraphic>().Expression,Is.EqualTo(CharacterExpression.Smile));
             Assert.That(npc.VisualRoot.anchoredPosition.y,Is.GreaterThan(3));
             var hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);
+            life.Regions.ReturnToHero();
             foreach(string place in new[]{"bench","flowers","fountain"})
             {
                 hero.React();Assert.That(Flow.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Visit ")),Is.EqualTo(3));

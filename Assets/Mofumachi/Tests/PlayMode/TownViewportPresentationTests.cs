@@ -15,7 +15,7 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var camera=life.GetComponent<TownViewportView>();
             int writes=Store.Writes;string saved=StateCodec.Encode(Flow.Game.State);camera.Focus(new TownPoint(.5f,.28f));camera.Advance(1f/30);life.AdvanceFrame(1f/30);Canvas.ForceUpdateCanvases();
-            foreach(var actor in Flow.GetComponentsInChildren<TownActor>())Assert.That(Vector2.Distance(((RectTransform)actor.transform).anchoredPosition,life.Local(actor.RenderPosition)),Is.LessThan(.02f));
+            foreach(var actor in Flow.GetComponentsInChildren<TownActor>().Where(a=>a.RegionVisible))Assert.That(Vector2.Distance(((RectTransform)actor.transform).anchoredPosition,life.Local(actor.RenderPosition)),Is.LessThan(.02f));
             var point=life.Local(TownLifeView.RequestEntrance);var rect=(RectTransform)life.transform;var screen=RectTransformUtility.WorldToScreenPoint(null,rect.TransformPoint(point));var source=life.Source(screen,null);
             Assert.That(source.X,Is.EqualTo(TownLifeView.RequestEntrance.X).Within(.0001f));Assert.That(source.Y,Is.EqualTo(TownLifeView.RequestEntrance.Y).Within(.0001f));
             Assert.That(Flow.GetComponentInChildren<TownAmbientGraphic>().raycastTarget,Is.False);Assert.That(Flow.GetComponentInChildren<TownGrowthView>().VisibleStage,Is.EqualTo(Flow.Game.State.townGrowthLevel));Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(saved));LogAssert.NoUnexpectedReceived();

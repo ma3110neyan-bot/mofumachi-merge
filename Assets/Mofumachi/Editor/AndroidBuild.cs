@@ -79,6 +79,14 @@ namespace Mofumachi.Editor
             }
             RequireContent(Resources.Load<Texture2D>("Mofumachi/CharacterMaster"),"CharacterMaster");
             RequireContent(Resources.Load<Texture2D>("Mofumachi/TownBackground"),"TownBackground");
+            foreach(var key in new[]{"TownWestBackground","TownEastBackground"})
+            {
+                var painting=Resources.Load<Texture2D>("Mofumachi/"+key);RequireContent(painting,key);
+                var importer=(TextureImporter)AssetImporter.GetAtPath(AssetDatabase.GetAssetPath(painting));
+                var android=importer.GetPlatformTextureSettings("Android");
+                if(importer.GetDefaultPlatformTextureSettings().maxTextureSize!=2048||!android.overridden||android.maxTextureSize!=2048||importer.mipmapEnabled||importer.isReadable)
+                    throw new BuildFailedException("Town region import settings must be 2048, Android override, no mipmap/readable: "+key);
+            }
             RequireContent(Resources.Load<Texture2D>("Mofumachi/UIIconAtlas"),"UIIconAtlas");
             RequireContent(Resources.Load<Texture2D>("Mofumachi/TitleLogo"),"TitleLogo");
             RequireContent(Resources.Load<Texture2D>("Mofumachi/UIPanelFrame"),"UIPanelFrame");

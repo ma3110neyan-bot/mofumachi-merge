@@ -152,5 +152,71 @@ namespace Mofumachi.Tests
             Assert.That(Store.Writes,Is.EqualTo(writes+2),"Only the existing two navigation saves");
             Flow.Initialize(Store);Flow.ShowHome();session=Session();Assert.That(Read<TownRegionId>(session,"HeroRegion"),Is.EqualTo(TownRegionId.Central),"Reload starts at the center, without a region save field");LogAssert.NoUnexpectedReceived();
         }
+        [UnityTest] public IEnumerator InterruptedTransitionLeavesNoInputOrCallbacks()
+        {
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var session=life.Regions;int writes=Store.Writes;string state=StateCodec.Encode(Flow.Game.State);
+            for(int i=0;i<7;i++)
+            {
+                Assert.That(session.GuideToRegion(TownRegionId.West),Is.True);StepUntil(life,()=>!session.HasHeroJourney);
+                Assert.That(session.GuideToRegion(TownRegionId.Central),Is.True);StepUntil(life,()=>!session.HasHeroJourney);
+            }
+            Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));
+            Assert.That(session.GuideToRegion(TownRegionId.East),Is.True);StepUntil(life,()=>session.IsHeroTransitioning);life.CancelInteraction();
+            Assert.That(session.HasHeroJourney,Is.False);Assert.That(session.IsHeroTransitioning,Is.False);
+            Assert.That(life.GetComponent<TownRegionView>().TransitionOpacity,Is.Zero);Assert.That(life.Actors.Single(a=>a.Controlled).Movement.OwnedPointerId,Is.Null);
+            var region=session.HeroRegion;for(int i=0;i<30;i++)life.AdvanceFrame(1f/30);Assert.That(session.HeroRegion,Is.EqualTo(region),"Cancelled hero travel must never resume");
+            Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();
+        }
+        [UnityTest] public IEnumerator RegionVisitThenBreadDeliveryAndReloadPreservesProgress()
+        {
+            yield return EnterHome();var state=GameState.CreateInitial();state.purchaseNoticeAcknowledged=true;state.favoriteCharacterId="momo";
+            state.completedQuestIds.Add("tea-01");state.claimedRewardIds.Add("quest:tea-01");state.coins=30;state.townGrowthLevel=1;state.activeQuestId="bread-01";state.questState=QuestState.Producing;
+            Store.Save(state);Flow.Initialize(Store);Flow.ShowHome();var life=Flow.GetComponentInChildren<TownLifeView>();
+            Assert.That(life.Regions.GuideToRegion(TownRegionId.West),Is.True);StepUntil(life,()=>!life.Regions.HasHeroJourney);
+            string before=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;Store.Fail=true;Flow.ShowMerge();Store.Fail=false;
+            Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(Flow.GetComponentInChildren<TownRegionSession>().HeroRegion,Is.EqualTo(TownRegionId.West));
+            Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));
+            Flow.ShowMerge();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Merge));
+            Flow.OpenMergeActions();Flow.BeginFrameCleanup();foreach(string id in Flow.Game.State.productionFrameIds.ToArray())Flow.ToggleFrameSelection(id);
+            Flow.OpenPackFramesConfirmation();Assert.That(Flow.ConfirmPackFrames(),Is.True);Assert.That(Flow.Game.State.productionFrameIds,Is.Empty);
+            Flow.OpenMergeActions();Flow.ChooseProductionItem("bread");Assert.That(Flow.Game.State.productionFrameIds,Is.EqualTo(new[]{"bread"}));
+            Flow.GenerateFromFrame("bread");Flow.GenerateFromFrame("bread");
+            Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Cell 2").onClick.Invoke();Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Cell 3").onClick.Invoke();
+            yield return new WaitForSecondsRealtime(.4f);Assert.That(Flow.Game.Board.At(3).itemId,Is.EqualTo("bread"));Assert.That(Flow.Game.Board.At(3).level,Is.EqualTo(2));
+            Assert.That(Flow.Game.Quests.CheckDelivery(),Is.True);Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Deliver").onClick.Invoke();
+            Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Result));Assert.That(Flow.Game.State.coins,Is.EqualTo(70));Assert.That(Flow.Game.State.townGrowthLevel,Is.EqualTo(2));Assert.That(Flow.Game.Board.At(3),Is.Null);
+            Assert.That(Flow.Deliver().Success,Is.False);yield return new WaitForSecondsRealtime(1.3f);Flow.ShowGrowth();Flow.ContinueAfterGrowth();Flow.GoBack();
+            var saved=Flow.Game.State.Clone();Flow.Initialize(Store);Flow.ShowHome();
+            Assert.That(Flow.Game.State.coins,Is.EqualTo(saved.coins));Assert.That(Flow.Game.State.claimedRewardIds,Is.EqualTo(saved.claimedRewardIds));Assert.That(Flow.Game.State.productionFrameIds,Is.EqualTo(new[]{"bread"}));
+            Assert.That(Flow.Game.State.mergeBoard.Count,Is.EqualTo(2));Assert.That(QuestCatalog.NextFor(Flow.Game.State).Id,Is.EqualTo("flower-01"));Assert.That(Flow.GetComponentInChildren<TownRegionSession>().HeroRegion,Is.EqualTo(TownRegionId.Central));LogAssert.NoUnexpectedReceived();
+        }
+        [UnityTest] public IEnumerator StaleFacilityButtonCannotEnterAfterRegionChanges()
+        {
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();Assert.That(life.GuideToFacility("quest"),Is.True);StepUntil(life,()=>!life.Regions.HasHeroJourney);
+            var button=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Enter facility");int writes=Store.Writes;
+            Assert.That(life.Regions.LookAtRegion(TownRegionId.East),Is.True);button.onClick.Invoke();
+            Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(Flow.IsModalOpen,Is.False);Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();
+        }
+        [UnityTest] public IEnumerator RegionalControlsAndTextFitShortAndTallSafeAreas()
+        {
+            yield return EnterHome();var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;
+            foreach(int height in new[]{592,640,808})
+            {
+                ((RectTransform)canvas.transform).sizeDelta=new Vector2(360,height);Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,height),new Rect(0,24,360,height-56));Canvas.ForceUpdateCanvases();
+                var life=Flow.GetComponentInChildren<TownLifeView>();
+                foreach(var region in new[]{TownRegionId.West,TownRegionId.Central,TownRegionId.East})
+                {
+                    Assert.That(life.Regions.LookAtRegion(region),Is.True);Canvas.ForceUpdateCanvases();
+                    foreach(var button in Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Region view")||b.name=="Walk to viewed region"||b.name=="Return to town hero"))
+                    {
+                        Assert.That(((RectTransform)button.transform).rect.height,Is.GreaterThanOrEqualTo(48));var label=button.GetComponentInChildren<Text>();
+                        Assert.That(label.fontSize,Is.GreaterThanOrEqualTo(14));Assert.That(label.preferredHeight,Is.LessThanOrEqualTo(label.rectTransform.rect.height+1));
+                    }
+                    foreach(var name in new[]{"Town region name","Town growth hint"})
+                    {var text=Flow.GetComponentsInChildren<Text>().Single(t=>t.name==name);Assert.That(text.preferredHeight,Is.LessThanOrEqualTo(text.rectTransform.rect.height+1),name);}
+                    Assert.That(Flow.TownBackground.uvRect.xMin,Is.GreaterThanOrEqualTo(0));Assert.That(Flow.TownBackground.uvRect.xMax,Is.LessThanOrEqualTo(1));
+                }
+            }LogAssert.NoUnexpectedReceived();
+        }
     }
 }

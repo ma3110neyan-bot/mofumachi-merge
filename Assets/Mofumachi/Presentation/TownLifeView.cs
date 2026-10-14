@@ -146,7 +146,11 @@ namespace Mofumachi.Presentation
             string facility=actor.RegionId!=TownRegionId.Central?null:Distance(actor.Position,RequestEntrance)<.034f?"quest":Distance(actor.Position,ShopEntrance)<.034f?"shop":null;
             if(facility==null){if(destination!=null&&Distance(actor.Position,destination.Position)<.034f){actor.Surprise();ShowBubble(destination.Dialogue,actor);destination=null;}return;}
             NearbyFacility=facility;HideBubble();actor.Surprise();var root=(RectTransform)transform.parent;
-            var b=context.Widgets.Button("Enter facility",facility=="quest"?"依頼部屋に入る":"ショップへ",root,new Rect(0,0,1,1),()=>{if(NearbyFacility=="quest")context.Flow.ShowQuest();else context.Flow.OpenShopPreview();});UIWidgets.Bottom((RectTransform)b.transform,48,154,48,48);entrance=b.gameObject;
+            var b=context.Widgets.Button("Enter facility",facility=="quest"?"依頼部屋に入る":"ショップへ",root,new Rect(0,0,1,1),()=>
+            {
+                if(!CanInteract||NearbyFacility!=facility||actor.RegionId!=TownRegionId.Central||!actor.RegionVisible)return;
+                if(facility=="quest")context.Flow.ShowQuest();else context.Flow.OpenShopPreview();
+            });UIWidgets.Bottom((RectTransform)b.transform,48,154,48,48);entrance=b.gameObject;
         }
         internal void React(TownActor a)
         {if(!CanInteract)return;context.Flow.PlayCue(AudioCue.Character);if(!IsManuallyDragging&&entrance==null){if(a.Controlled)ShowOutings();else{HideOutings();ShowBubble(CharacterCatalog.Find(a.CharacterId).Name+"："+(a.Place?.Dialogue??"お隣の街へ、おさんぽに行ってくるね♪"),a);}}}

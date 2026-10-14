@@ -1,3 +1,5 @@
+> 2026-10-14・再開：ユーザー回答では**EditMode121件と今回版のPixel一周は未実施**。確認と並行して、本文書体比較・Mergeの情報と立体感・街の左右各約1画面拡張・依頼の楽しさを設計資料にまとめた。製品へ未適用で、ゲーム本体・正式素材・保存／納品／報酬・テストは変更していない。[今回の報告](docs/development-handoff-2026-10-14-design-review.md)、[比較と配置図](References/Preview/quality-review-2026-10-14/README.md)、[設計・変更対象](docs/superpowers/specs/2026-10-14-storybook-and-town-expansion-review.md)。資料更新のためだけの再ビルドは不要。
+
 > 2026-10-13・最新確認：ユーザー提供画像で**PlayMode99件成功・失敗0・skip0**を確認し、Town QA APK生成完了の報告を受領。7工程の再承認は既存実装の継続として記録し、現在は第7工程のEditMode結果・APK対応記録・Pixelの一周と比較を確認する段階。収益化・運営は将来設計のまま保持。今回の更新は資料のみで、同じソースのTown QAで試遊を継続できる。[現在の報告](docs/development-handoff-2026-10-13-integrated-quality.md)、[実機の確認項目](docs/integrated-quality-pixel3a-checklist.md)。
 
 > 2026-10-13・PlayMode2件の追加修正 `3405c26`：章再閲覧では正常な保存時刻更新を区別し、寄り道の吹き出しは到着直後に検査する。ゲーム本体・保存／報酬・正式素材・件数を保持。[原因と変更内容](docs/development-handoff-2026-10-13-integrated-quality.md#追記ユーザー共有のplaymode2件への対応)。

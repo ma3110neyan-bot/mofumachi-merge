@@ -32,6 +32,7 @@ namespace Mofumachi.Presentation
         public TownRegionId HeroRegion=>hero==null?TownRegionId.Central:hero.RegionId;
         public TownRegionId ViewingRegion { get; private set; }=TownRegionId.Central;
         public bool HasHeroJourney=>hero!=null&&journeys.ContainsKey(hero.CharacterId);
+        public TownPoint HeroLegTarget=>hero!=null&&journeys.TryGetValue(hero.CharacterId,out var leg)?leg.Journey.Target:hero?.Position??default;
         public string HeroDestinationId=>hero!=null&&journeys.TryGetValue(hero.CharacterId,out var trip)?trip.Destination.Id:null;
         public TownRegionId? HeroDestinationRegion=>HeroDestinationId==null?(TownRegionId?)null:FindDestinationRegion(HeroDestinationId);
         public bool IsHeroTransitioning=>hero!=null&&journeys.TryGetValue(hero.CharacterId,out var travel)&&travel.Journey.Phase==TownRegionTravelPhase.Fading;

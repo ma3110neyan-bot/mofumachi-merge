@@ -10,6 +10,9 @@ namespace Mofumachi.Presentation
         private static Texture2D atlas;private Rect pixels;
         public string CharacterId { get; private set; }
         public CharacterExpression Expression { get; private set; }
+        private float foot,wave,facing;private bool blink;
+        public void Pose(float stepping,float greeting,float direction,bool eyesClosed)
+        {foot=stepping;wave=greeting;facing=direction;blink=eyesClosed;SetVerticesDirty();}
         public override Texture mainTexture=>atlas!=null?atlas:atlas=Resources.Load<Texture2D>("Mofumachi/CharacterBodyAtlas");
         // Atlas coordinates measured at 1536 x 1024; no image/text cropping is done at runtime.
         private static readonly Rect[] Bounds={
@@ -29,8 +32,27 @@ namespace Mofumachi.Presentation
             Vector2 size=pixels.size*scale,min=new Vector2(target.center.x-size.x/2,target.yMin),max=min+size;
             var uv=new Rect(pixels.x/1536f,1-pixels.yMax/1024f,pixels.width/1536f,pixels.height/1024f);
             var tint=new Color(1,1,1,color.a);
-            vh.AddVert(new Vector3(min.x,min.y),tint,uv.min);vh.AddVert(new Vector3(min.x,max.y),tint,new Vector2(uv.xMin,uv.yMax));
-            vh.AddVert(new Vector3(max.x,max.y),tint,uv.max);vh.AddVert(new Vector3(max.x,min.y),tint,new Vector2(uv.xMax,uv.yMin));vh.AddTriangle(0,1,2);vh.AddTriangle(0,2,3);
+            // Deform the same formal atlas very slightly at feet/hands. The head
+            // keeps its original silhouette; blink uses only the approved smiling
+            // eye strip, rather than painting a different face.
+            float[] rows={0,.12f,.26f,.40f,.52f,.65f,.80f,1};const int columns=4;
+            var closed=Bounds[6+CharacterCatalog.Find(CharacterId).PortraitIndex];
+            var closedUv=new Rect(closed.x/1536f,1-closed.yMax/1024f,closed.width/1536f,closed.height/1024f);
+            for(int y=0;y<rows.Length-1;y++)for(int x=0;x<columns;x++)
+            {
+                float left=x/(float)columns,right=(x+1)/(float)columns,bottom=rows[y],top=rows[y+1];
+                var source=blink&&Expression==CharacterExpression.Normal&&bottom>=.52f&&top<=.65f?closedUv:uv;
+                int n=vh.currentVertCount;
+                void Vertex(float u,float v)
+                {
+                    float side=u<.5f?-1:1;
+                    float lift=v<.26f?side*foot*1.6f*(1-v/.26f):0;
+                    float hand=v>=.26f&&v<=.52f?wave*side*Mathf.Sin((v-.26f)/.26f*Mathf.PI)*Mathf.Abs(u-.5f)*7:0;
+                    float turn=v>.52f?facing*(v-.52f)*1.3f:0;
+                    vh.AddVert(new Vector3(min.x+size.x*u+hand+turn,min.y+size.y*v+lift),tint,new Vector2(source.x+u*source.width,source.y+v*source.height));
+                }
+                Vertex(left,bottom);Vertex(left,top);Vertex(right,top);Vertex(right,bottom);vh.AddTriangle(n,n+1,n+2);vh.AddTriangle(n,n+2,n+3);
+            }
         }
     }
 }

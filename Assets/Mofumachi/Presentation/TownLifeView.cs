@@ -49,6 +49,12 @@ namespace Mofumachi.Presentation
             marker.GetComponent<RoundedPanelGraphic>().color=tint;marker.GetComponentInChildren<Text>().fontSize=14;
         }
         public bool GuideToFacility(string id)=>id=="quest"||id=="shop"?GuideToPlace(id):false;
+        public void OpenOutings(){if(CanInteract)ShowOutings();}
+        public bool GuideToStreetPoint(TownPoint point)
+        {
+            if(!CanInteract||Regions.ViewingRegion!=Regions.HeroRegion)return false;
+            var hero=actors.Single(a=>a.Controlled);return hero.GuideTo(point);
+        }
         public bool GuideToRestStop(string id)
         {
             var region=Regions?.HeroRegion??TownRegionId.Central;
@@ -85,7 +91,7 @@ namespace Mofumachi.Presentation
         public bool TryBeginConversation(TownActor first,TownActor second)
         {
             if(!CanInteract||first==null||second==null||first==second||first.RegionId!=second.RegionId||!first.RegionVisible||!second.RegionVisible||first.IsRegionFading||second.IsRegionFading||now<nextSocial||IsManuallyDragging||GetComponent<TownViewportView>()?.IsDragging==true||outings!=null||entrance!=null||Distance(first.Position,second.Position)>.09f||!Visible(first)||!Visible(second))return false;
-            first.Greet();second.Greet();nextSocial=now+8;
+            first.FaceTowards(second.Position);second.FaceTowards(first.Position);first.Greet();second.Greet();nextSocial=now+8;
             ShowBubble(CharacterCatalog.Find(first.CharacterId).Name+"：こんにちは、"+CharacterCatalog.Find(second.CharacterId).Name+"♪",first);return true;
         }
         private void ShowOutings()
@@ -125,7 +131,7 @@ namespace Mofumachi.Presentation
         {if(background==null)return Vector2.zero;var uv=background.uvRect;var r=background.rectTransform.rect;var p=r.min+Vector2.Scale((new Vector2(point.X,point.Y)-uv.min)/uv.size,r.size);return actorLayer.InverseTransformPoint(background.rectTransform.TransformPoint(p));}
         public TownPoint Source(Vector2 screen,Camera camera)
         {if(background==null||!RectTransformUtility.ScreenPointToLocalPointInRectangle(background.rectTransform,screen,camera,out var p))return StreetMap.Nodes[0];var r=background.rectTransform.rect;var uv=background.uvRect;var n=(p-r.min)/r.size;return new TownPoint(uv.x+n.x*uv.width,uv.y+n.y*uv.height);}
-        public void StartInteraction(bool preserveJourney=false){if(!preserveJourney)Regions?.CancelHeroJourney();GetComponent<TownViewportView>()?.CancelGesture();destination=null;HideOutings();HideBubble();HideEntrance();nextTalk=now+6;}
+        public void StartInteraction(bool preserveJourney=false){if(!preserveJourney)Regions?.CancelHeroJourney();GetComponent<TownStreetWalkView>()?.CancelSelection();GetComponent<TownViewportView>()?.CancelGesture();destination=null;HideOutings();HideBubble();HideEntrance();nextTalk=now+6;}
         internal void SetGuidedDestination(TownPlace place)=>destination=place;
         internal void ApplyViewingRegion(TownRegionId region)
         {
@@ -177,7 +183,7 @@ namespace Mofumachi.Presentation
         private void HideBubble(){if(bubble!=null){bubble.SetActive(false);Destroy(bubble);}bubble=null;speaker=null;}
         private void HideEntrance(){NearbyFacility=null;if(entrance!=null){entrance.SetActive(false);Destroy(entrance);}entrance=null;}
         private void HideOutings(){if(outings!=null){outings.SetActive(false);Destroy(outings);}outings=null;}
-        public void CancelInteraction(){Regions?.CancelJourneys();GetComponent<TownViewportView>()?.CancelGesture();clock.Reset();destination=null;HideOutings();if(actors!=null)foreach(var a in actors){a?.Movement?.CancelInput();a?.ResetVisual();}HideBubble();HideEntrance();nextTalk=now+6;}
+        public void CancelInteraction(){Regions?.CancelJourneys();GetComponent<TownStreetWalkView>()?.CancelSelection();GetComponent<TownViewportView>()?.CancelGesture();clock.Reset();destination=null;HideOutings();if(actors!=null)foreach(var a in actors){a?.Movement?.CancelInput();a?.ResetVisual();}HideBubble();HideEntrance();nextTalk=now+6;}
         private void OnRectTransformDimensionsChange(){CancelInteraction();RefreshViewport();}
         private void OnDisable()=>CancelInteraction();
     }

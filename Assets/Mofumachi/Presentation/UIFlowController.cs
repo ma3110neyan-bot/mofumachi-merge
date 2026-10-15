@@ -145,6 +145,7 @@ namespace Mofumachi.Presentation
         public void GoBack()
         {
             if(IsModalOpen || transitioning)return;
+            if(CurrentScreen==ScreenId.Home&&page!=null&&page.GetComponentInChildren<TownStreetWalkView>()?.IsArmed==true){page.GetComponentInChildren<TownStreetWalkView>().CancelSelection();return;}
             if(CurrentScreen==ScreenId.Home&&page!=null&&page.GetComponentInChildren<TownLifeView>()?.DismissOutings()==true)return;
             if(CurrentScreen==ScreenId.Settings)Navigate(settingsReturnView);
             else if(CurrentScreen==ScreenId.CharacterSelection)

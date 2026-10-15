@@ -1,0 +1,51 @@
+using System.Collections;
+using System.Linq;
+using Mofumachi.Core;
+using Mofumachi.Presentation;
+using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.TestTools;
+namespace Mofumachi.Tests
+{
+    public sealed class ExperienceWalkingTests : SliceUiTestFixture
+    {
+        private static void Walk(TownLifeView life)
+        {for(int i=0;i<2400&&(life.Regions.HasHeroJourney||life.Actors.Single(a=>a.Controlled).IsGuided);i++)life.AdvanceFrame(1f/30);}
+        [UnityTest] public IEnumerator FavoriteTapSelectsTheStreetWithoutCoveringItWithMenu()
+        {
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=life.Actors.Single(a=>a.Controlled);int writes=Store.Writes;
+            hero.OnPointerClick(new PointerEventData(EventSystem.current));
+            Assert.That(life.GetComponent<TownStreetWalkView>().IsArmed,Is.True);
+            Assert.That(Flow.GetComponentsInChildren<TownOutingMenu>().Length,Is.Zero);
+            Assert.That(Flow.GetComponentsInChildren<Transform>().Any(t=>t.name=="Town outing choices"),Is.False);
+            Assert.That(Store.Writes,Is.EqualTo(writes));Flow.GoBack();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(life.GetComponent<TownStreetWalkView>().IsArmed,Is.False);
+        }
+        [UnityTest] public IEnumerator StreetExitWalksToTheNeighborAndReturnsWithoutProgressWrites()
+        {
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var walking=life.GetComponent<TownStreetWalkView>();string before=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
+            Assert.That(walking.Arm(),Is.True);Assert.That(walking.Tap(new TownPoint(.15f,.52f)),Is.True);
+            Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownRegionId.Central));Assert.That(life.Regions.HasHeroJourney,Is.True);Walk(life);
+            Assert.That(life.Regions.HasHeroJourney,Is.False);Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownRegionId.West));
+            Assert.That(walking.Arm(),Is.True);Assert.That(walking.Tap(new TownPoint(.94f,.55f)),Is.True);Walk(life);
+            Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownRegionId.Central));Assert.That(life.Regions.HasHeroJourney,Is.False);
+            Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();
+        }
+        [UnityTest] public IEnumerator BuildingTapKeepsSelectionAndStreetTapReachesConnectedRoad()
+        {
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var walking=life.GetComponent<TownStreetWalkView>();var hero=life.Actors.Single(a=>a.Controlled);
+            walking.Arm();Assert.That(walking.Tap(new TownPoint(.95f,.95f)),Is.False);Assert.That(walking.IsArmed,Is.True);Assert.That(hero.IsGuided,Is.False);
+            Assert.That(walking.Tap(new TownPoint(.53f,.49f)),Is.True);Walk(life);Assert.That(hero.IsGuided,Is.False);
+            Assert.That(TownStreetSelection.TryResolve(TownRegionId.Central,0,new TownPoint(.53f,.49f),out var target),Is.True);
+            Assert.That(Vector2.Distance(new Vector2(hero.Position.X,hero.Position.Y),new Vector2(target.Point.X,target.Point.Y)),Is.LessThan(.001f));LogAssert.NoUnexpectedReceived();
+        }
+        [UnityTest] public IEnumerator PanningDoesNotBecomeATapAndPauseClearsSelection()
+        {
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var walking=life.GetComponent<TownStreetWalkView>();var camera=life.GetComponent<TownViewportView>();walking.Arm();
+            var e=new PointerEventData(EventSystem.current){pointerId=71,position=new Vector2(180,340)};
+            camera.OnPointerDown(e);camera.OnBeginDrag(e);e.position+=Vector2.right*24;camera.OnDrag(e);camera.OnPointerUp(e);camera.OnPointerClick(e);
+            Assert.That(life.Actors.Single(a=>a.Controlled).IsGuided,Is.False);Assert.That(walking.IsArmed,Is.True);
+            Flow.SendMessage("OnApplicationPause",true);Assert.That(walking.IsArmed,Is.False);Assert.That(camera.OwnedPointerId,Is.Null);Flow.SendMessage("OnApplicationPause",false);LogAssert.NoUnexpectedReceived();
+        }
+    }
+}

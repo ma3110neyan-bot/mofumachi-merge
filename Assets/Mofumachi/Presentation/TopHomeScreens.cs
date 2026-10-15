@@ -70,6 +70,7 @@ namespace Mofumachi.Presentation
             world.gameObject.AddComponent<TownRegionView>().Bind(c,background??c.Flow.TownBackground,life,life.Regions);
             world.gameObject.AddComponent<TownRegionControls>().Bind(c,root,life);
             life.Regions.RestoreSnapshot(c.Flow.HomeRegionSnapshot);
+            world.gameObject.AddComponent<TownStreetWalkView>().Bind(c,life);
         }
         private static void AttachReaction(RawImage image,ScreenContext c)
         {

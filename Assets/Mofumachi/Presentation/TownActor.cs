@@ -16,6 +16,7 @@ namespace Mofumachi.Presentation
         public TownPoint RenderPosition { get; private set; }
         public RectTransform VisualRoot { get; private set; }
         public bool IsGuided { get; private set; }
+        public TownPoint GuidedTarget=>guideTarget;
         public TownPlace Place {get;private set;} public string DestinationId=>Place?.Id;
         public bool IsResting=>!Controlled&&waitRemaining>0;
         private const int GuidePointer=int.MinValue;
@@ -32,6 +33,7 @@ namespace Mofumachi.Presentation
         private bool regionalGuidance,transitionHeld;
         private CanvasGroup visibility;
         private float journeyFade;
+        private float facing,speedBlend;
         public void Bind(string characterId,bool controlled,TownMovement movement,TownNavigation navigation)
         {
             CharacterId=characterId;Controlled=controlled;Movement=controlled?movement:null;
@@ -46,6 +48,7 @@ namespace Mofumachi.Presentation
         {if(Controlled||route==null||route.Count<3)return;walkRoute=route;routeDirection=start%2==0?1:-1;routeIndex=(start+routeDirection+route.Count)%route.Count;npcTarget=route[routeIndex];}
         internal void SetDestination(TownPlace place,float wait){if(Controlled||place==null)return;regionalGuidance=transitionHeld=false;Place=place;npcTarget=place.Position;waitRemaining=wait;}
         internal void Greet(){socialRemaining=1;reactionRemaining=.65f;surprised=false;}
+        internal void FaceTowards(TownPoint other){float x=other.X-Position.X;if(Mathf.Abs(x)>.002f)facing=Mathf.Sign(x);}
         public bool GuideTo(TownPoint target)=>BeginGuide(target,false);
         private bool BeginGuide(TownPoint target,bool preserveJourney)
         {
@@ -96,7 +99,9 @@ namespace Mofumachi.Presentation
             if(socialRemaining>0){socialRemaining=Mathf.Max(0,socialRemaining-dt);moving=false;return;}
             if(Controlled)
             {
-                Movement.Tick(dt);
+                speedBlend=Mathf.MoveTowards(speedBlend,Movement.OwnedPointerId.HasValue?1:0,dt/.16f);
+                float brake=IsGuided?Mathf.Clamp(navigation.DistanceAlongPath(Position,guideTarget)/.025f,.3f,1):1;
+                Movement.Tick(dt*speedBlend*brake);
                 if(IsGuided&&Vector2.Distance(new Vector2(Position.X,Position.Y),new Vector2(guideTarget.X,guideTarget.Y))<.001f)
                 {Movement.ReleasePointer(GuidePointer);IsGuided=false;FreezeMovement();life.ActorReleased(this);}
             }
@@ -114,6 +119,7 @@ namespace Mofumachi.Presentation
                 }
             }
             float distance=navigation.DistanceAlongPath(previous,Position);
+            if(Mathf.Abs(Position.X-previous.X)>.000001f)facing=Mathf.MoveTowards(facing,Mathf.Sign(Position.X-previous.X),dt*6);
             moving=distance>.000001f;stride=Mathf.Repeat(stride+distance*140,Mathf.PI*2);
         }
         internal void Render(float alpha,float elapsedSeconds)
@@ -127,14 +133,18 @@ namespace Mofumachi.Presentation
             var expression=reactionRemaining>0?(surprised?CharacterExpression.Surprise:CharacterExpression.Smile):(!Controlled&&waitRemaining>0?CharacterExpression.Smile:CharacterExpression.Normal);
             if(body.Expression!=expression)body.Bind(CharacterId,expression);
             float reaction=reactionRemaining>0?Mathf.Sin((1-reactionRemaining/.65f)*Mathf.PI)*8:0;
-            VisualRoot.anchoredPosition=Vector2.up*(Mathf.Abs(Mathf.Sin(stride))*2*amplitude+reaction);
+            var pose=TownCharacterMotion.Sample(stride,amplitude,facing,IsResting?1:0);
+            float rest=IsResting&&Place?.Activity==TownActivity.Bench?-2:0;
+            VisualRoot.anchoredPosition=Vector2.up*(pose.Hop+reaction+rest);
             VisualRoot.localScale=Vector3.one*(viewScale+.005f*Mathf.Sin(breath*2));
-            VisualRoot.localRotation=Quaternion.Euler(0,0,reactionRemaining>0?Mathf.Sin((1-reactionRemaining/.65f)*Mathf.PI*2)*3:0);
+            float looking=IsResting&&Place?.Activity==TownActivity.Flowers?2*Mathf.Sin(breath*.8f):0;
+            VisualRoot.localRotation=Quaternion.Euler(0,0,pose.Lean+looking+(reactionRemaining>0?Mathf.Sin((1-reactionRemaining/.65f)*Mathf.PI*2)*3:0));
+            body.Pose(pose.Foot,reactionRemaining>0?Mathf.Sin((1-reactionRemaining/.65f)*Mathf.PI*3):0,facing,TownCharacterMotion.Blink(breath,CharacterCatalog.Find(CharacterId).PortraitIndex));
         }
         internal void FreezeMovement()
         {previous=Position;RenderPosition=Position;moving=false;if(life!=null)rect.anchoredPosition=life.Local(Position);}
         internal void ResetVisual()
-        {IsGuided=false;FreezeMovement();stride=amplitude=breath=reactionRemaining=0;if(VisualRoot!=null){VisualRoot.anchoredPosition=Vector2.zero;VisualRoot.localScale=Vector3.one;VisualRoot.localRotation=Quaternion.identity;}if(body!=null&&body.Expression!=CharacterExpression.Normal)body.Bind(CharacterId);}
+        {IsGuided=false;FreezeMovement();stride=amplitude=breath=reactionRemaining=speedBlend=0;if(VisualRoot!=null){VisualRoot.anchoredPosition=Vector2.zero;VisualRoot.localScale=Vector3.one;VisualRoot.localRotation=Quaternion.identity;}if(body!=null){if(body.Expression!=CharacterExpression.Normal)body.Bind(CharacterId);body.Pose(0,0,0,false);}}
         public void React(){if(life==null||!life.CanInteract||!RegionVisible||journeyFade>0)return;surprised=false;reactionRemaining=.65f;life.React(this);}
         internal void SetViewScale(float scale){viewScale=Mathf.Clamp(scale,1,1.15f);}
         internal void Surprise(){surprised=true;reactionRemaining=.65f;}
@@ -148,7 +158,7 @@ namespace Mofumachi.Presentation
         public void OnPointerUp(PointerEventData e)=>Release(e);
         private void Release(PointerEventData e)
         {if(!Controlled||Movement.OwnedPointerId!=e.pointerId)return;Movement.ReleasePointer(e.pointerId);FreezeMovement();life.ActorReleased(this);if(dragged)e.eligibleForClick=false;}
-        public void OnPointerClick(PointerEventData e){if(!dragged)React();}
+        public void OnPointerClick(PointerEventData e){if(!dragged){if(Controlled&&life.CanInteract)life.GetComponent<TownStreetWalkView>()?.Arm();else React();}}
         private void OnDisable(){Movement?.CancelInput();ResetVisual();dragged=false;}
     }
 }

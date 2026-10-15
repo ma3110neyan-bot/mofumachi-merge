@@ -1,4 +1,6 @@
-> 2026-10-15 · 大規模仕上げ候補は `feat/release-experience-pass-20261015`。道・出口タップの街歩き、キャラ表現、磁器Merge盤面、3曲選曲、成長と次目標を実装。**今回のWindows／APK／Pixel受入は未実施、main未統合。** [比較PNG](References/Preview/release-experience-2026-10-15/README.md) · [実装とWindows操作](docs/development-handoff-2026-10-15-release-experience-pass.md)
+> 2026-10-15 · 受領したExperience版PlayMode XMLは **151件：成功15／失敗136／skip0**。共通のCanvasRenderer不足2か所を修正しました。再試験構成は **Edit141／Play151**、Windows全件成功は未確認です。[原因・修正・再試験](docs/development-handoff-2026-10-15-release-experience-pass.md) · [集計](docs/verification/experience-renderer-fix-2026-10-15.json)。APK更新・Pixel受入・main統合は保留。
+
+> 2026-10-15 · 大規模仕上げ候補は `feat/release-experience-pass-20261015`。道・出口タップの街歩き、キャラ表現、磁器Merge盤面、3曲選曲、成長と次目標を実装。**Windows再試験・APK／Pixel受入待ち、main未統合。** [比較PNG](References/Preview/release-experience-2026-10-15/README.md) · [実装とWindows操作](docs/development-handoff-2026-10-15-release-experience-pass.md)
 
 > 2026-10-15・総合Quality Pass候補：**`feat/release-quality-pass-20261015`**。キャラ起点の3地域歩行、1タップのショートカット、Merge受け皿と合体／着地、Klee One本文、3地域の成長比較、6依頼の会話を実装。Core125／Presentation17成功、実Unity DLLの6アセンブリ警告／エラー0。**今回版のWindows全件・APK・Pixelは未実施。main未統合。** 宣言構成はEditMode139／PlayMode135（ネイティブ実発見ではありません）。[変更・検証・Windows／Pixel手順](docs/development-handoff-2026-10-15-release-quality-pass.md)。
 

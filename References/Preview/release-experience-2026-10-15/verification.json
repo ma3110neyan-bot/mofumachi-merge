@@ -1,6 +1,6 @@
 {
   "branch": "feat/release-experience-pass-20261015",
-  "productCommit": "e5e5e10a5cbf872a98d8c33f247e3aed7c2ae3e0",
+  "productCommit": "4d872dca2bd48d0481d3df7d0e039b6a0c4ffc31",
   "checkedUtc": "2026-10-15T07:19:16.894460+00:00",
   "coreDotnet": {
     "passed": 125,
@@ -46,7 +46,7 @@
     },
     "Mofumachi.BuildTests": {
       "AndroidBuildTests": 1,
-      "PresentationContentTests": 9,
+      "PresentationContentTests": 11,
       "QaIdentityTests": 2,
       "TownRegionContentTests": 2
     },
@@ -83,12 +83,97 @@
     }
   },
   "nativeEditMode": {
-    "status": "unrun",
-    "declared": 139
+    "status": "rerun_required",
+    "declared": 141,
+    "receivedXmlForThisFix": false
   },
   "nativePlayMode": {
-    "status": "unrun",
-    "declared": 151
+    "status": "rerun_required",
+    "declared": 151,
+    "previousCandidate": {
+      "file": "EP-be0ecc4-PlayMode.xml",
+      "sha256": "dedfb296f2b5693664fd59349e853c9ff876d4cb5ac899546856a2df49d09536",
+      "bytes": 1691450,
+      "total": 151,
+      "passed": 15,
+      "failed": 136,
+      "skipped": 0,
+      "startUtc": "2026-10-15 12:39:35Z",
+      "endUtc": "2026-10-15 12:40:27Z",
+      "mandatorySuites": [
+        {
+          "name": "TownRegionFlowTests",
+          "discovered": 17,
+          "passed": 0,
+          "failed": 17,
+          "skipped": 0
+        },
+        {
+          "name": "TownRegionLifeTests",
+          "discovered": 8,
+          "passed": 0,
+          "failed": 8,
+          "skipped": 0
+        },
+        {
+          "name": "QualityPassTravelTests",
+          "discovered": 5,
+          "passed": 0,
+          "failed": 5,
+          "skipped": 0
+        },
+        {
+          "name": "QualityPassStoryGrowthTests",
+          "discovered": 5,
+          "passed": 0,
+          "failed": 5,
+          "skipped": 0
+        },
+        {
+          "name": "QualityPassMergeTests",
+          "discovered": 1,
+          "passed": 0,
+          "failed": 1,
+          "skipped": 0
+        },
+        {
+          "name": "ExperienceWalkingTests",
+          "discovered": 7,
+          "passed": 0,
+          "failed": 7,
+          "skipped": 0
+        },
+        {
+          "name": "ExperienceMergeTests",
+          "discovered": 2,
+          "passed": 0,
+          "failed": 2,
+          "skipped": 0
+        },
+        {
+          "name": "ExperienceMusicTests",
+          "discovered": 3,
+          "passed": 0,
+          "failed": 3,
+          "skipped": 0
+        },
+        {
+          "name": "ExperienceGrowthTests",
+          "discovered": 3,
+          "passed": 0,
+          "failed": 3,
+          "skipped": 0
+        },
+        {
+          "name": "ExperienceCaptureTests",
+          "discovered": 1,
+          "passed": 0,
+          "failed": 1,
+          "skipped": 0
+        }
+      ]
+    },
+    "fixCommit": "4d872dca2bd48d0481d3df7d0e039b6a0c4ffc31"
   },
   "qaApk": {
     "status": "not_built_for_this_candidate",
@@ -149,5 +234,42 @@
     "persistentCamera": true,
     "sourceSha256": "70d20ec74b2e23cd8b116761002ae5f4361d83a2e33a695f11dba9ca41acd2e3",
     "followupReview": "No material lifecycle issues; rendering requires native verification"
-  }
+  },
+  "rendererDependencyFix": {
+    "dependencyGuardBeforeFix": {
+      "status": "failed_as_expected",
+      "missing": [
+        "TownBloomGraphic",
+        "TownRouteGraphic"
+      ]
+    },
+    "dependencyGuardAfterFix": {
+      "status": "passed",
+      "method": "actual compiled guard invoked under dotnet, managed metadata only"
+    },
+    "nativeClippingLifecycleGuard": "added; compiled; NOT EXECUTED",
+    "coreDotnet": {
+      "passed": 125,
+      "failed": 0,
+      "skipped": 0
+    },
+    "presentationDotnet": {
+      "passed": 35,
+      "failed": 0,
+      "skipped": 0
+    },
+    "unityAsmdefCompilation": {
+      "assemblies": 6,
+      "warnings": 0,
+      "errors": 0,
+      "nativeTestsExecuted": false
+    },
+    "androidScriptGates": "passed with synthetic XML and mock ADB; no device executed",
+    "independentReview": "no actionable findings; native acceptance unverified",
+    "protectedHashes": {
+      "unchanged": 10
+    },
+    "checkedUtc": "2026-10-15T12:58:14.820024+00:00"
+  },
+  "rendererFailureReport": "../../../docs/verification/experience-renderer-fix-2026-10-15.json"
 }

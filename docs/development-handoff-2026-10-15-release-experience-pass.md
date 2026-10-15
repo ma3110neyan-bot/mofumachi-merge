@@ -1,6 +1,16 @@
 # 2026-10-15 大規模仕上げ候補の引き継ぎ
 
-対象は `feat/release-experience-pass-20261015`。基準は前候補 `4f3a3e8`。今回の実装・試験修正は `43a3796` → `5e4ef38` → `dcd331d` → `920494b` → `70b58fa` → `e5e5e10`。main／前候補ブランチへの統合はしていません。新候補のWindows・Pixel受入は未実施です。
+対象は `feat/release-experience-pass-20261015`。基準は前候補 `4f3a3e8`。今回の実装・試験修正は `43a3796` → `5e4ef38` → `dcd331d` → `920494b` → `70b58fa` → `e5e5e10`。main／前候補ブランチへの統合はしていません。`be0ecc4` のWindows PlayMode XMLを受領し、151件中15成功／136失敗／skip0を確認しました。修正版 `4d872dc` はWindows全件再試験待ちです。Pixel受入とmain統合は保留しています。
+
+## Windows PlayMode 136失敗の修正
+
+受領した `EP-be0ecc4-PlayMode.xml` は151件、成功15・失敗136・skip0。新地域・QualityPass・Experienceの必須suiteはすべて含まれていました。失敗136件のメッセージは、花の光だけ111件／足跡だけ3件／両方22件に集約され、すべて `CanvasRenderer` 不足を含んでいます。別の失敗原因はこのXMLのfailureメッセージには記録されていませんが、この共通エラー解消後の残件数は再試験で確定します。
+
+今回追加した `TownBloomGraphic` と `TownRouteGraphic` には、描画に必要な `[RequireComponent(typeof(CanvasRenderer))]` がありませんでした。UGUIの基底GraphicはRectTransformのみを要求するため、マスクのクリップ解除・画面切替・破棄で例外が波及していました。製品変更は2クラスへ各1行の依存指定を追加したものです。
+
+再発防止として、全カスタムGraphicの依存宣言検査と、実際の生成→マスク→無効化→破棄の検査をEditModeへ2件追加しました。宣言検査は**実コンパイル済みのテスト本体を.NET上で実行**し、修正前に2クラス不足で失敗・修正後に成功。実Unityでのクリップ／破棄検査は未実施です。6アセンブリのコンパイル、Core125、純粋Presentation35、補助スクリプトの模擬検査は成功。独立レビューの追加指摘はありません。保存・納品・報酬・正式素材には変更ありません。
+
+再試験の目安は **EditMode141件／PlayMode151件**。既存151件の削除・無効化・ログ無視はしていません。Windows全件Passed／failed0／skip0と実画面確認が揃うまで、APK更新・Pixel受入・main統合は保留です。[XML集計と確認範囲](verification/experience-renderer-fix-2026-10-15.json)
 
 ## 実装した体験
 
@@ -28,7 +38,7 @@
 | 書体・保護対象・音源 | 4書体の必要字形あり、保護対象10点不変、追加音源2つをデコードし有限値・長さ・ピークを検査 |
 | Android補助スクリプト | 合成XML／模擬ADBでゲート・失敗・`install -r`を検査。実機操作ではない |
 | 独立レビュー | 4件の製品問題と1件のテスト問題を修正し、再レビューで追加指摘なし |
-| Windows EditMode／PlayMode | **今回候補は未実施**。コンパイルした宣言構成はEdit139／Play151。実XMLを正とする |
+| Windows EditMode／PlayMode | `be0ecc4` のPlay151件：15成功／136失敗／skip0。EditMode XMLは未受領。描画部品の不足を修正し、修正版は**全件再試験待ち**。宣言構成Edit141／Play151、実XMLを正とする |
 | Unityの実画面PNG取得 | **未実施**。Windows PlayMode内の隔離キャプチャを追加済み |
 | 今回のQA APK | **未生成**。クラウドはUnityライセンス・Android Build Supportがなく、Windowsで生成する必要がある |
 | Pixel 3a更新／保存保持／10分試遊 | **未実施**。旧候補の結果を流用しない |
@@ -52,7 +62,7 @@ Set-Location -LiteralPath "C:\Users\User\Desktop\Mofumachi\mofumachi-merge"
 powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\build-android.ps1" -TownQa
 ```
 
-この1回の処理が **EditMode全件→PlayMode全件＋実画面PNG→両XMLの合格検査→QA APK生成→SHA記録** の順で進めます。目安はEdit139／Play151ですが、実発見件数・実XMLを確認してください。全件Passed、failed0、skip0、旧suiteと新しい `ExperienceWalkingTests`／`ExperienceMergeTests`／`ExperienceMusicTests`／`ExperienceGrowthTests`／`ExperienceCaptureTests` が必須です。失敗した場合はAPKへ進みません。追加のUnity表示テストには `TownRegionFlowTests`、`TownRegionLifeTests`、既存3つのQualityPass suiteも含みます。
+この1回の処理が **EditMode全件→PlayMode全件＋実画面PNG→両XMLの合格検査→QA APK生成→SHA記録** の順で進めます。目安はEdit141／Play151ですが、実発見件数・実XMLを確認してください。全件Passed、failed0、skip0、旧suiteと新しい `ExperienceWalkingTests`／`ExperienceMergeTests`／`ExperienceMusicTests`／`ExperienceGrowthTests`／`ExperienceCaptureTests` が必須です。失敗した場合はAPKへ進みません。追加のUnity表示テストには `TownRegionFlowTests`、`TownRegionLifeTests`、既存3つのQualityPass suiteも含みます。
 
 6. `Tests passed: ...` の後も待ち、最後に **`APK:` と `SHA256:` が表示され、`PS C:\...>` の入力待ちに戻る**ことを確認する。赤いエラーが出た場合は続行しない。
 7. 表示されたAPKの**同じ日時フォルダー**をエクスプローラーで開く。名前順の一番上で選ばない。`editmode.xml`、`playmode.xml`、`build-info.json` を共有し、`screenshots` のPNGも比較する。以前の `Builds\Android` 直下のAPK／JSONは使わない。

@@ -32,11 +32,26 @@ namespace Mofumachi.Tests
         }
         [UnityTest] public IEnumerator UnknownQuestAndFinaleNeverInventAnotherUnlock()
         {
-            yield return EnterHome();Flow.Game.State.activeQuestId="unknown-quest";Flow.ShowQuest();int writes=Store.Writes;
+            yield return EnterHome();
+            void OpenQuestWithoutChangingProgress()
+            {
+                var before=Flow.Game.State.Clone();int writes=Store.Writes;
+                Flow.ShowQuest();
+                Assert.That(Store.Writes,Is.EqualTo(writes+1),"Preserve exactly one existing navigation save; goal rendering must not save again");
+                var after=Flow.Game.State.Clone();
+                Assert.That(System.DateTimeOffset.TryParse(after.lastSaveTime,out _),Is.True,"Navigation keeps valid save metadata");
+                Assert.That(StateCodec.Encode(Store.Load().State),Is.EqualTo(StateCodec.Encode(after)),"The saved snapshot must match the live state");
+                after.lastSaveTime=before.lastSaveTime;
+                Assert.That(StateCodec.Encode(after),Is.EqualTo(StateCodec.Encode(before)),"Quest preview must not change progress, rewards, or the board");
+            }
+            Flow.Game.State.activeQuestId="unknown-quest";OpenQuestWithoutChangingProgress();
             Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Next goal detail").text,Is.EqualTo(UIStrings.UnknownQuest));
-            Flow.Game.State.activeQuestId="";Flow.Game.State.completedQuestIds.AddRange(QuestCatalog.All.Select(q=>q.Id));Flow.Game.State.townGrowthLevel=6;Flow.ShowQuest();
+            var unknown=TownNextGoal.For(Flow.Game.State);Assert.That(unknown.NextLevel,Is.Zero);Assert.That(unknown.IsFinale,Is.False);Assert.That(unknown.QuestId,Is.Empty);
+            Flow.Game.State.activeQuestId="";Flow.Game.State.completedQuestIds.AddRange(QuestCatalog.All.Select(q=>q.Id));Flow.Game.State.townGrowthLevel=6;OpenQuestWithoutChangingProgress();
             Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Next goal title").text,Does.Contain("お茶会"));
-            Assert.That(TownNextGoal.For(Flow.Game.State).NextLevel,Is.Zero);Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();
+            int writes=Store.Writes;string beforeGoal=StateCodec.Encode(Flow.Game.State);var finale=TownNextGoal.For(Flow.Game.State);
+            Assert.That(finale.NextLevel,Is.Zero);Assert.That(finale.RemainingDeliveries,Is.Zero);Assert.That(finale.QuestId,Is.Empty);Assert.That(finale.IsFinale,Is.True);
+            Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(beforeGoal));Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();
         }
     }
 }

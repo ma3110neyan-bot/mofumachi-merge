@@ -1,4 +1,6 @@
-> 2026-10-15 · 受領したExperience版PlayMode XMLは **151件：成功15／失敗136／skip0**。共通のCanvasRenderer不足2か所を修正しました。再試験構成は **Edit141／Play151**、Windows全件成功は未確認です。[原因・修正・再試験](docs/development-handoff-2026-10-15-release-experience-pass.md) · [集計](docs/verification/experience-renderer-fix-2026-10-15.json)。APK更新・Pixel受入・main統合は保留。
+> 2026-10-15 · 再試験の個別報告 `UnknownQuestAndFinaleNeverInventAnotherUnlock`（期待3／実際4）は、既存の画面遷移保存1回をテストが数えていないことを確認し、検査を修正しました。製品・保存処理は変更なし。構成は **Edit141／Play151**、最新の両XMLによる全件成功確認待ちです。[修正・再試験](docs/development-handoff-2026-10-15-release-experience-pass.md)。APK・main統合は保留。
+
+> 2026-10-15 · 受領したExperience版PlayMode XMLは **151件：成功15／失敗136／skip0**。共通のCanvasRenderer不足2か所を修正しました。[原因・修正・再試験](docs/development-handoff-2026-10-15-release-experience-pass.md) · [集計](docs/verification/experience-renderer-fix-2026-10-15.json)。修正後の全件合否は新しいXMLを正とします。
 
 > 2026-10-15 · 大規模仕上げ候補は `feat/release-experience-pass-20261015`。道・出口タップの街歩き、キャラ表現、磁器Merge盤面、3曲選曲、成長と次目標を実装。**Windows再試験・APK／Pixel受入待ち、main未統合。** [比較PNG](References/Preview/release-experience-2026-10-15/README.md) · [実装とWindows操作](docs/development-handoff-2026-10-15-release-experience-pass.md)
 

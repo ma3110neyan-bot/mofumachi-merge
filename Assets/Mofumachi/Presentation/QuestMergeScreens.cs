@@ -142,10 +142,11 @@ namespace Mofumachi.Presentation
             float toolbarBottom=72+height+2;
             bool compact=root.rect.height<112+toolbarBottom+50+322;
             UIWidgets.Top(root.Find("Header") as RectTransform,10,compact?4:8,10,48);
-            UIWidgets.Top(root.Find("Merge progress") as RectTransform,12,compact?58:62,12,60);
+            UIWidgets.Top(root.Find("Merge progress") as RectTransform,12,compact?54:62,12,compact?48:60);
             if(compact)toolbarBottom=54;
             UIWidgets.Bottom(toolbar,12,toolbarBottom,12,48);
-            tray.offsetMin=new Vector2(10,toolbarBottom+50);tray.offsetMax=new Vector2(-10,compact?-120:-124);
+            tray.offsetMin=new Vector2(10,toolbarBottom+50);tray.offsetMax=new Vector2(-10,compact?-104:-124);
+            var grid=tray.Find("Merge board") as RectTransform;grid.offsetMin=new Vector2(16,compact?4:12);grid.offsetMax=new Vector2(-16,compact?-10:-22);
             var nav=root.Find("Navigation") as RectTransform;UIWidgets.Bottom(nav,8,compact?4:8,8,compact?48:58);
             foreach(var button in nav.GetComponentsInChildren<Button>())
             {var r=(RectTransform)button.transform;r.anchorMin=new Vector2(r.anchorMin.x,compact?0:.06f);r.anchorMax=new Vector2(r.anchorMax.x,compact?1:.94f);}

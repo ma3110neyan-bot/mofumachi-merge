@@ -53,8 +53,8 @@ namespace Mofumachi.Presentation
         public bool GuideToStreetPoint(TownPoint point)
         {
             if(!CanInteract||Regions.ViewingRegion!=Regions.HeroRegion)return false;
-            if(!TownStreetSelection.TryResolve(Regions.HeroRegion,TownLevel,point,out var target)||target.Kind!=StreetTargetKind.Road)return false;
-            var hero=actors.Single(a=>a.Controlled);return hero.GuideTo(target.Point);
+            if(!TownStreetSelection.TryProjectRoad(Regions.HeroRegion,TownLevel,point,out var target))return false;
+            var hero=actors.Single(a=>a.Controlled);return hero.GuideTo(target);
         }
         public bool GuideToRestStop(string id)
         {
@@ -97,7 +97,8 @@ namespace Mofumachi.Presentation
         }
         private void ShowOutings()
         {
-            Regions?.CancelHeroJourney();
+            Regions?.CancelHeroJourney();GetComponent<TownStreetWalkView>()?.CancelSelection();GetComponent<TownViewportView>()?.CancelGesture();
+            foreach(var actor in actors)if(actor.Controlled){actor.Movement?.CancelInput();actor.ResetVisual();}destination=null;
             HideOutings();HideBubble();HideEntrance();
             outings=TownOutingMenu.Open(context,this,(RectTransform)transform.parent);nextTalk=now+9;
         }

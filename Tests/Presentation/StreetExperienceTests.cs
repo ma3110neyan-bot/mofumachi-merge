@@ -28,6 +28,14 @@ namespace Mofumachi.Tests
             Assert.That(TownStreetSelection.TryResolve(TownRegionId.Central,6,new TownPoint(.50f,.275f),out var open),Is.True);
             Assert.That(open.PlaceId,Is.EqualTo("celebration"));
         }
+        [Test] public void AProjectedRoadNearAPlaceCanBeProjectedAgainWithoutChangingItsMeaning()
+        {
+            Assert.That(TownStreetSelection.TryResolve(TownRegionId.East,0,new TownPoint(.50f,.465f),out var target),Is.True);
+            Assert.That(target.Kind,Is.EqualTo(StreetTargetKind.Road));
+            Assert.That(TownStreetSelection.TryProjectRoad(TownRegionId.East,0,target.Point,out var projected),Is.True);
+            Assert.That(projected.X,Is.EqualTo(target.Point.X).Within(.00001f));Assert.That(projected.Y,Is.EqualTo(target.Point.Y).Within(.00001f));
+            Assert.That(TownStreetSelection.TryProjectRoad(TownRegionId.East,0,new TownPoint(.95f,.95f),out _),Is.False);
+        }
         [Test] public void CharacterMotionStaysBoundedAndSettlesAtRest()
         {
             for(int i=0;i<400;i++)

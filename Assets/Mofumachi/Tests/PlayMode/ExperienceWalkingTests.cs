@@ -56,5 +56,24 @@ namespace Mofumachi.Tests
             Assert.That(life.Regions.HasHeroJourney,Is.False);Assert.That(life.Actors.Single(a=>a.Controlled).IsGuided,Is.False);LogAssert.NoUnexpectedReceived();
         }
 
+        [UnityTest] public IEnumerator DestinationsCancelBothDirectWalkingAndArmedSelection()
+        {
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var walking=life.GetComponent<TownStreetWalkView>();var hero=life.Actors.Single(a=>a.Controlled);
+            walking.Arm();Assert.That(walking.Tap(new TownPoint(.53f,.49f)),Is.True);Assert.That(hero.IsGuided,Is.True);life.OpenOutings();
+            Assert.That(hero.IsGuided,Is.False);Assert.That(hero.Movement.OwnedPointerId,Is.Null);var point=hero.Position;
+            for(int i=0;i<12;i++)life.AdvanceFrame(1f/30);Assert.That(hero.Position,Is.EqualTo(point));
+            Flow.GoBack();walking.Arm();life.OpenOutings();Assert.That(walking.IsArmed,Is.False);Flow.GoBack();
+            Assert.That(Flow.GetComponentsInChildren<TownOutingMenu>().Length,Is.Zero);Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));LogAssert.NoUnexpectedReceived();
+        }
+        [UnityTest] public IEnumerator RejectedSecondFingerCannotTurnItsClickIntoAWalk()
+        {
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var walking=life.GetComponent<TownStreetWalkView>();var camera=life.GetComponent<TownViewportView>();walking.Arm();
+            var local=life.Local(new TownPoint(.53f,.49f));var screen=RectTransformUtility.WorldToScreenPoint(null,life.transform.TransformPoint(local));
+            var first=new PointerEventData(EventSystem.current){pointerId=51,position=screen};var second=new PointerEventData(EventSystem.current){pointerId=52,position=screen};
+            camera.OnPointerDown(first);camera.OnPointerDown(second);camera.OnPointerUp(second);camera.OnPointerClick(second);
+            Assert.That(camera.OwnedPointerId,Is.EqualTo(51));Assert.That(life.Actors.Single(a=>a.Controlled).IsGuided,Is.False);Assert.That(walking.IsArmed,Is.True);
+            camera.OnPointerUp(first);camera.OnPointerClick(first);Assert.That(life.Actors.Single(a=>a.Controlled).IsGuided,Is.True);Assert.That(camera.OwnedPointerId,Is.Null);LogAssert.NoUnexpectedReceived();
+        }
+
     }
 }

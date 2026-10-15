@@ -28,7 +28,16 @@ namespace Mofumachi.Presentation
             foreach(var place in map.Places)
             {float distance=Distance(tap,place.Position);if(distance<best){best=distance;nearest=place;}}
             if(nearest!=null){target=new StreetTarget(StreetTargetKind.Place,nearest.Position,region,nearest.Id);return true;}
-            best=.035f;bool found=false;TownPoint point=default;
+            if(!TryProjectRoad(region,level,tap,out var point))return false;
+            target=new StreetTarget(StreetTargetKind.Road,point,region);return true;
+        }
+        // Projection must be idempotent: a road can run close to a named stop.
+        public static bool TryProjectRoad(TownRegionId region,int level,TownPoint tap,out TownPoint point)
+        {
+            point=default;
+            if(!Enum.IsDefined(typeof(TownRegionId),region)||!float.IsFinite(tap.X)||!float.IsFinite(tap.Y))return false;
+            var map=TownRegionCatalog.ForLevel(region,level).Map;
+            float best=.035f;bool found=false;
             foreach(var edge in map.Edges)
             {
                 var a=map.Nodes[edge.From];var b=map.Nodes[edge.To];float x=b.X-a.X,y=b.Y-a.Y;
@@ -36,7 +45,6 @@ namespace Mofumachi.Presentation
                 var p=new TownPoint(a.X+x*t,a.Y+y*t);float distance=Distance(tap,p);
                 if(distance<best){found=true;best=distance;point=p;}
             }
-            if(found)target=new StreetTarget(StreetTargetKind.Road,point,region);
             return found;
         }
     }

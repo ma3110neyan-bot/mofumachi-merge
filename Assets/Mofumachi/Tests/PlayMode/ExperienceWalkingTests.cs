@@ -11,6 +11,7 @@ namespace Mofumachi.Tests
 {
     public sealed class ExperienceWalkingTests : SliceUiTestFixture
     {
+        private bool HasOutings()=>Flow.GetComponentsInChildren<Transform>().Any(t=>t.name=="Town outing choices");
         private static void Walk(TownLifeView life)
         {for(int i=0;i<2400&&(life.Regions.HasHeroJourney||life.Actors.Single(a=>a.Controlled).IsGuided);i++)life.AdvanceFrame(1f/30);}
         [UnityTest] public IEnumerator FavoriteTapSelectsTheStreetWithoutCoveringItWithMenu()
@@ -18,7 +19,7 @@ namespace Mofumachi.Tests
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=life.Actors.Single(a=>a.Controlled);int writes=Store.Writes;
             hero.OnPointerClick(new PointerEventData(EventSystem.current));
             Assert.That(life.GetComponent<TownStreetWalkView>().IsArmed,Is.True);
-            Assert.That(Flow.GetComponentsInChildren<TownOutingMenu>().Length,Is.Zero);
+            Assert.That(HasOutings(),Is.False);
             Assert.That(Flow.GetComponentsInChildren<Transform>().Any(t=>t.name=="Town outing choices"),Is.False);
             Assert.That(Store.Writes,Is.EqualTo(writes));Flow.GoBack();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(life.GetComponent<TownStreetWalkView>().IsArmed,Is.False);
         }
@@ -60,10 +61,10 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var walking=life.GetComponent<TownStreetWalkView>();var hero=life.Actors.Single(a=>a.Controlled);
             walking.Arm();Assert.That(walking.Tap(new TownPoint(.53f,.49f)),Is.True);Assert.That(hero.IsGuided,Is.True);life.OpenOutings();
-            Assert.That(hero.IsGuided,Is.False);Assert.That(hero.Movement.OwnedPointerId,Is.Null);var point=hero.Position;
+            Assert.That(HasOutings(),Is.True);Assert.That(hero.IsGuided,Is.False);Assert.That(hero.Movement.OwnedPointerId,Is.Null);var point=hero.Position;
             for(int i=0;i<12;i++)life.AdvanceFrame(1f/30);Assert.That(hero.Position,Is.EqualTo(point));
-            Flow.GoBack();walking.Arm();life.OpenOutings();Assert.That(walking.IsArmed,Is.False);Flow.GoBack();
-            Assert.That(Flow.GetComponentsInChildren<TownOutingMenu>().Length,Is.Zero);Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));LogAssert.NoUnexpectedReceived();
+            Flow.GoBack();Assert.That(HasOutings(),Is.False);walking.Arm();life.OpenOutings();Assert.That(walking.IsArmed,Is.False);Assert.That(HasOutings(),Is.True);Flow.GoBack();
+            Assert.That(HasOutings(),Is.False);Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator RejectedSecondFingerCannotTurnItsClickIntoAWalk()
         {

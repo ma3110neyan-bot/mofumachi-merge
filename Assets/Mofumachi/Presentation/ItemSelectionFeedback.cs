@@ -22,7 +22,7 @@ namespace Mofumachi.Presentation
             {
                 elapsed+=Time.unscaledDeltaTime;
                 transform.localScale=Vector3.one*MergeVisualTiming.SelectionScale(elapsed);
-                ((RectTransform)transform).anchoredPosition=Vector2.up*((MergeVisualTiming.SelectionScale(elapsed)-1)/.06f);
+                ((RectTransform)transform).anchoredPosition=Vector2.up*MergeVisualTiming.SelectionLift(elapsed);
                 yield return null;
             }
             animation=null;started=false;
@@ -32,7 +32,7 @@ namespace Mofumachi.Presentation
             if(!started||animation==null)return;
             StopCoroutine(animation);animation=null;started=false;
             transform.localScale=Vector3.one*MergeVisualTiming.SelectionScale(MergeVisualTiming.SelectionSeconds);
-            ((RectTransform)transform).anchoredPosition=Vector2.up;
+            ((RectTransform)transform).anchoredPosition=Vector2.up*MergeVisualTiming.SelectionLift(MergeVisualTiming.SelectionSeconds);
         }
         private void OnDisable(){StopAllCoroutines();animation=null;started=false;transform.localScale=Vector3.one;((RectTransform)transform).anchoredPosition=Vector2.zero;}
     }

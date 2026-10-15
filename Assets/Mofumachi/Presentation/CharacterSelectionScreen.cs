@@ -22,7 +22,7 @@ namespace Mofumachi.Presentation
             var body=w.Body("Chosen full body",chosen.Id,hero,new Rect(0,0,1,1));body.raycastTarget=true;body.gameObject.AddComponent<BodyReaction>().Bind(c);
             var name=w.StoryRibbon("Chosen partner name",chosen.Name,content,new Rect(0,0,1,1),20);
             UIWidgets.Top((RectTransform)name.transform.parent,66,156,66,36);
-            var description=w.StoryLabel("Partner description",chosen.Description,content,new Rect(0,0,1,1),14);
+            var description=w.NarrativeLabel("Partner description",chosen.Description,content,new Rect(0,0,1,1),14);
             UIWidgets.Top(description.rectTransform,24,204,24,54);
             for(int i=0;i<CharacterCatalog.All.Count;i++)
             {

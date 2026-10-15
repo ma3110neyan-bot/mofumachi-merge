@@ -19,7 +19,7 @@ namespace Mofumachi.Presentation
         public bool CanInteract=>CanSimulate&&!(Regions?.IsHeroTransitioning??false);
         public bool IsManuallyDragging=>actors!=null&&actors.Any(a=>a.Controlled&&a.Movement.OwnedPointerId.HasValue&&!a.IsGuided);
         private RawImage background;private ScreenContext context;private TownActor[] actors;private RectTransform actorLayer;
-        private GameObject bubble,entrance,outings;private TownActor speaker;private TownPlace destination;private float now,nextTalk,bubbleUntil,outingsUntil,nextSocial;private int choiceIndex;
+        private GameObject bubble,entrance,outings;private TownActor speaker;private TownPlace destination;private float now,nextTalk,bubbleUntil,nextSocial;private int choiceIndex;
         private readonly TownFrameClock clock=new TownFrameClock();
         public void Bind(ScreenContext c,RawImage image)
         {
@@ -90,16 +90,11 @@ namespace Mofumachi.Presentation
         }
         private void ShowOutings()
         {
-            HideOutings();HideBubble();var root=(RectTransform)transform.parent;
-            int rows=context.Game.State.townGrowthLevel>=4?3:2;
-            var row=context.Widgets.OrnatePanel("Town outing choices",root,new Rect(0,0,1,1),UIWidgets.Cream,12).rectTransform;UIWidgets.Top(row,14,70,14,rows*52+8);
-            string[] ids={"bench","flowers","fountain"},labels={"ベンチ","お花","噴水"};
-            for(int i=0;i<3;i++){string id=ids[i];var b=context.Widgets.Button("Visit "+id,labels[i],row,new Rect(i/3f+.008f,0,1/3f-.016f,0),()=>GuideToRestStop(id),true);UIWidgets.Top((RectTransform)b.transform,4+i*(root.rect.width-28)/3,4,4+(2-i)*(root.rect.width-28)/3,48);b.GetComponentInChildren<Text>().fontSize=14;}
-            var quest=context.Widgets.Button("Guide to quest","依頼部屋へ",row,new Rect(0,0,.49f,0),()=>GuideToFacility("quest"),true);var shop=context.Widgets.Button("Guide to shop","ショップへ",row,new Rect(.51f,0,.49f,0),()=>GuideToFacility("shop"),true);
-            foreach(var b in new[]{quest,shop}){var r=(RectTransform)b.transform;r.anchorMin=new Vector2(r.anchorMin.x,1);r.anchorMax=new Vector2(r.anchorMax.x,1);r.offsetMin=new Vector2(4,-104);r.offsetMax=new Vector2(-4,-56);b.GetComponentInChildren<Text>().fontSize=14;}
-            if(rows==3){string place=context.Game.State.townGrowthLevel>=6?"celebration":"front-promenade";var b=context.Widgets.Button("Expanded outing",context.Game.State.townGrowthLevel>=6?"お祝いの道へ":"散歩道の先へ",row,new Rect(0,0,1,1),()=>GuideToPlace(place),true);UIWidgets.Bottom((RectTransform)b.transform,4,4,4,48);b.GetComponentInChildren<Text>().fontSize=14;}
-            outings=row.gameObject;outingsUntil=now+6;nextTalk=now+9;
+            Regions?.CancelHeroJourney();
+            HideOutings();HideBubble();HideEntrance();
+            outings=TownOutingMenu.Open(context,this,(RectTransform)transform.parent);nextTalk=now+9;
         }
+        public bool DismissOutings(){if(outings==null)return false;HideOutings();return true;}
         private void Update()=>AdvanceFrame(Time.unscaledDeltaTime);
         public void AdvanceFrame(float seconds)
         {
@@ -110,12 +105,12 @@ namespace Mofumachi.Presentation
             var camera=GetComponent<TownViewportView>();if(camera!=null){foreach(var a in actors)if(a.Controlled&&a.RegionVisible&&(a.IsGuided||!IsManuallyDragging&&!camera.IsDragging))camera.Focus(a.Position);camera.Advance(seconds);}
             foreach(var a in actors)a.Render(clock.Alpha,seconds);
             Array.Sort(actors,(a,b)=>b.RenderPosition.Y.CompareTo(a.RenderPosition.Y));foreach(var a in actors)a.transform.SetAsLastSibling();
-            if(bubble!=null&&now>=bubbleUntil)HideBubble();if(outings!=null&&now>=outingsUntil)HideOutings();
+            if(bubble!=null&&now>=bubbleUntil)HideBubble();
             if(IsManuallyDragging){HideBubble();return;}
             if(now>=nextSocial)for(int i=0;i<actors.Length;i++)for(int j=i+1;j<actors.Length;j++)if(TryBeginConversation(actors[i],actors[j]))break;
             if(bubble==null&&outings==null&&entrance==null&&now>=nextTalk)
             {
-                var actor=actors.FirstOrDefault(a=>!a.Controlled&&a.IsResting&&Visible(a));if(actor!=null)ShowBubble(CharacterCatalog.Find(actor.CharacterId).Name+"："+actor.Place.Dialogue,actor);nextTalk=now+6;
+                var actor=actors.FirstOrDefault(a=>!a.Controlled&&a.IsResting&&Visible(a));if(actor!=null)ShowBubble(CharacterCatalog.Find(actor.CharacterId).Name+"："+StreetLine(actor),actor);nextTalk=now+6;
             }
             foreach(var a in actors)
             {
@@ -154,11 +149,13 @@ namespace Mofumachi.Presentation
             });UIWidgets.Bottom((RectTransform)b.transform,48,154,48,48);entrance=b.gameObject;
         }
         internal void React(TownActor a)
-        {if(!CanInteract)return;context.Flow.PlayCue(AudioCue.Character);if(!IsManuallyDragging&&entrance==null){if(a.Controlled)ShowOutings();else{HideOutings();ShowBubble(CharacterCatalog.Find(a.CharacterId).Name+"："+(a.Place?.Dialogue??"お隣の街へ、おさんぽに行ってくるね♪"),a);}}}
+        {if(!CanInteract)return;context.Flow.PlayCue(AudioCue.Character);if(!IsManuallyDragging&&entrance==null){if(a.Controlled)ShowOutings();else{HideOutings();ShowBubble(CharacterCatalog.Find(a.CharacterId).Name+"："+StreetLine(a),a);}}}
+        private string StreetLine(TownActor actor)
+        {string reunion=QuestStoryPresentation.ReunionFor(actor.CharacterId,context.Game.State.completedQuestIds);return reunion.Length>0?reunion:actor.Place?.Dialogue??"お隣の街へ、おさんぽに行ってくるね♪";}
         private void ShowBubble(string text,TownActor a)
         {
-            HideBubble();speaker=a;var root=(RectTransform)transform.parent;var p=context.Widgets.OrnatePanel("Town bubble panel",root,new Rect(.5f,.5f,0,0),UIWidgets.Cream,12).rectTransform;p.sizeDelta=new Vector2(Mathf.Min(240,root.rect.width-28),72);
-            context.Widgets.StoryLabel("Town bubble",text,p,new Rect(.045f,.06f,.91f,.88f),14);bubble=p.gameObject;bubbleUntil=now+2.5f;PositionBubble();
+            HideBubble();speaker=a;var root=(RectTransform)transform.parent;var p=context.Widgets.OrnatePanel("Town bubble panel",root,new Rect(.5f,.5f,0,0),UIWidgets.Cream,12).rectTransform;p.sizeDelta=new Vector2(Mathf.Min(272,root.rect.width-28),88);
+            context.Widgets.NarrativeLabel("Town bubble",text,p,new Rect(.045f,.06f,.91f,.88f),14);bubble=p.gameObject;bubbleUntil=now+4;PositionBubble();
         }
         private void PositionBubble()
         {

@@ -33,15 +33,15 @@ namespace Mofumachi.Presentation
             vh.Clear();if(Atlas==null||pixels.width<=0)return;
             Rect target=GetPixelAdjustedRect();float scale=Mathf.Min(target.width/pixels.width,target.height/pixels.height);
             Vector2 size=pixels.size*scale,min=target.center-size/2,max=min+size;
-            if(Polished)Quad(vh,min+new Vector2(.8f,-2.25f),max+new Vector2(.8f,-2.25f),new Color(.29f,.18f,.24f,.17f*color.a));
+            if(Polished)Quad(vh,min+new Vector2(.8f,-2.25f),max+new Vector2(.8f,-2.25f),new Color(.29f,.18f,.24f,.22f*color.a));
             Color tint=new Color(1,1,1,color.a);
-            Quad(vh,min,max,tint);
+            Quad(vh,min,max,tint,Polished?new Color(.94f,.91f,.88f,color.a):tint);
         }
-        private void Quad(VertexHelper vh,Vector2 min,Vector2 max,Color tint)
+        private void Quad(VertexHelper vh,Vector2 min,Vector2 max,Color tint,Color? bottom=null)
         {
             int start=vh.currentVertCount;
-            vh.AddVert(new Vector3(min.x,min.y),tint,UvRect.min);vh.AddVert(new Vector3(min.x,max.y),tint,new Vector2(UvRect.xMin,UvRect.yMax));
-            vh.AddVert(new Vector3(max.x,max.y),tint,UvRect.max);vh.AddVert(new Vector3(max.x,min.y),tint,new Vector2(UvRect.xMax,UvRect.yMin));
+            vh.AddVert(new Vector3(min.x,min.y),bottom??tint,UvRect.min);vh.AddVert(new Vector3(min.x,max.y),tint,new Vector2(UvRect.xMin,UvRect.yMax));
+            vh.AddVert(new Vector3(max.x,max.y),tint,UvRect.max);vh.AddVert(new Vector3(max.x,min.y),bottom??tint,new Vector2(UvRect.xMax,UvRect.yMin));
             vh.AddTriangle(start,start+1,start+2);vh.AddTriangle(start,start+2,start+3);
         }
     }

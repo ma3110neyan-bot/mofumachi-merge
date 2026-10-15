@@ -8,8 +8,8 @@ namespace Mofumachi.Presentation
     {
         public static readonly Color Ink = new Color(.32f,.18f,.29f), Pink=new Color(1,.52f,.70f), Cream=new Color(1,.988f,.945f), Mint=new Color(.54f,.86f,.74f), Sky=new Color(.67f,.88f,1);
         public static readonly Color BlushPaper=new Color(1,.965f,.975f), BluePaper=new Color(.945f,.985f,1), Lavender=new Color(.83f,.76f,.98f), Peach=new Color(1,.78f,.62f);
-        private readonly Font font,bold,story; private readonly Texture2D characters;
-        public UIWidgets(Font font, Texture2D characters) { this.font=font; this.characters=characters; bold=Resources.Load<Font>("Mofumachi/UIFontBold")??font; story=Resources.Load<Font>("Mofumachi/UIFontStory")??font; }
+        private readonly Font font,bold,story,bodyFont; private readonly Texture2D characters;
+        public UIWidgets(Font font, Texture2D characters) { this.font=font; this.characters=characters; bold=Resources.Load<Font>("Mofumachi/UIFontBold")??font; story=Resources.Load<Font>("Mofumachi/UIFontStory")??font;bodyFont=Resources.Load<Font>("Mofumachi/UIFontBody")??story; }
         public static RectTransform Node(string name, RectTransform parent, Rect anchors)
         { var r=new GameObject(name,typeof(RectTransform)).GetComponent<RectTransform>(); r.SetParent(parent,false); r.anchorMin=anchors.min; r.anchorMax=anchors.max; r.offsetMin=r.offsetMax=Vector2.zero; return r; }
         public static void Top(RectTransform r,float left,float top,float right,float height)
@@ -37,6 +37,8 @@ namespace Mofumachi.Presentation
         { var t=Label(name,text,parent,anchors,fontSize);t.font=story;t.lineSpacing=1.2f;return t; }
         public Text StoryHeading(string name,string text,RectTransform parent,Rect anchors,int fontSize)
         { return StoryLabel(name,text,parent,anchors,fontSize); }
+        public Text NarrativeLabel(string name,string text,RectTransform parent,Rect anchors,int fontSize)
+        {var t=Label(name,text,parent,anchors,fontSize);t.font=bodyFont;t.lineSpacing=1.2f;return t;}
         public Text StoryRibbon(string name,string text,RectTransform parent,Rect anchors,int fontSize,Color? tint=null)
         { var r=Node(name+" ribbon",parent,anchors);var g=r.gameObject.AddComponent<RibbonGraphic>();g.color=tint??Pink;g.raycastTarget=false;return StoryHeading(name,text,r,new Rect(.09f,.04f,.82f,.92f),fontSize); }
         public void Flowers(RectTransform panel)
@@ -102,5 +104,14 @@ namespace Mofumachi.Presentation
         private void Fit(){if(isActiveAndEnabled)FitNow();}
     }
     public sealed class ButtonPressFeedback : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
-    { public void OnPointerDown(PointerEventData e){if(GetComponent<Button>().IsInteractable())transform.localScale=Vector3.one*.97f;} public void OnPointerUp(PointerEventData e)=>Reset(); public void OnPointerExit(PointerEventData e)=>Reset(); private void OnDisable()=>Reset(); private void Reset()=>transform.localScale=Vector3.one; }
+    {
+        public bool PreserveHitbox {get;set;}
+        private Transform pressed;
+        public void OnPointerDown(PointerEventData e)
+        {Reset();if(GetComponent<Button>().IsInteractable()){pressed=PreserveHitbox?GetComponentInChildren<Text>(true)?.transform:transform;if(pressed!=null)pressed.localScale=Vector3.one*.97f;}}
+        public void OnPointerUp(PointerEventData e)=>Reset();
+        public void OnPointerExit(PointerEventData e)=>Reset();
+        private void OnDisable()=>Reset();
+        private void Reset(){if(pressed!=null)pressed.localScale=Vector3.one;pressed=null;}
+    }
 }

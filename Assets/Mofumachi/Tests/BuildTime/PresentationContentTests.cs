@@ -14,13 +14,20 @@ namespace Mofumachi.Tests
         }
         [Test] public void StoryFontHasRequiredGlyphs()
         {
-            foreach(var key in new[]{"UIFont","UIFontBold","UIFontStory"})
+            foreach(var key in new[]{"UIFont","UIFontBold","UIFontStory","UIFontBody"})
             {
                 var font=Resources.Load<Font>("Mofumachi/"+key);Assert.That(font,Is.Not.Null,key);
                 foreach(var text in UIStrings.All)Assert.DoesNotThrow(()=>Mofumachi.Editor.AndroidBuild.ValidateGlyphs(font,text));
                 foreach(var text in new[]{"\uffff","\u0378","\u0416"})
                     Assert.Throws<UnityEditor.Build.BuildFailedException>(()=>Mofumachi.Editor.AndroidBuild.ValidateGlyphs(font,text));
             }
+        }
+        [Test] public void GrowthPropsAndNarrativeFontAreBundledAndCommercialLicenseIsIncluded()
+        {
+            var atlas=Resources.Load<Texture2D>("Mofumachi/TownGrowthPropsAtlas");Assert.That(atlas,Is.Not.Null);AssertSharedTextureImport(atlas);
+            Assert.That(Resources.Load<TextAsset>("Mofumachi/UIFontBody-LICENSE").text,Does.Contain("SIL OPEN FONT LICENSE"));
+            var body=Resources.Load<Font>("Mofumachi/UIFontBody");
+            foreach(var text in QuestStoryPresentation.Text)Assert.DoesNotThrow(()=>Mofumachi.Editor.AndroidBuild.ValidateGlyphs(body,text));
         }
         [Test] public void FullBodyAtlasHasSixNamedCharactersAndExpressions()
         {

@@ -88,8 +88,7 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator TransitionUsesAtMostTwoBackgroundsAndNeverInterceptsHud()
         {
             yield return EnterHome();var session=Session();var view=RegionView();var life=Flow.GetComponentInChildren<TownLifeView>();
-            Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Region view West").onClick.Invoke();
-            Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Walk to viewed region").onClick.Invoke();
+            Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Region walk West").onClick.Invoke();
             StepUntil(life,()=>Read<bool>(session,"IsHeroTransitioning"));
             for(int i=0;i<14;i++)
             {
@@ -102,12 +101,14 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator HeroRegionAndViewingRegionRemainSeparate()
         {
             yield return EnterHome();var session=Session();var before=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled).Position;
-            Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Region view East").onClick.Invoke();
+            var favorite=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);favorite.React();
+            Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Browse scenery").onClick.Invoke();
+            Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Region preview East").onClick.Invoke();
             Assert.That(Read<TownRegionId>(session,"HeroRegion"),Is.EqualTo(TownRegionId.Central));
             Assert.That(Read<TownRegionId>(session,"ViewingRegion"),Is.EqualTo(TownRegionId.East));
             Assert.That(Flow.TownBackground.texture,Is.SameAs(Resources.Load<Texture2D>("Mofumachi/TownEastBackground")));
             Assert.That(Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled).Position.Equals(before),Is.True);
-            foreach(var button in Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Region view")||b.name=="Walk to viewed region"||b.name=="Return to town hero"))
+            foreach(var button in Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Region walk")))
                 Assert.That(((RectTransform)button.transform).rect.height,Is.GreaterThanOrEqualTo(48),button.name);
             LogAssert.NoUnexpectedReceived();
         }
@@ -217,7 +218,7 @@ namespace Mofumachi.Tests
                 foreach(var region in new[]{TownRegionId.West,TownRegionId.Central,TownRegionId.East})
                 {
                     Assert.That(life.Regions.LookAtRegion(region),Is.True);Canvas.ForceUpdateCanvases();
-                    foreach(var button in Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Region view")||b.name=="Walk to viewed region"||b.name=="Return to town hero"))
+                    foreach(var button in Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Region walk")))
                     {
                         Assert.That(((RectTransform)button.transform).rect.height,Is.GreaterThanOrEqualTo(48));var label=button.GetComponentInChildren<Text>();
                         Assert.That(label.fontSize,Is.GreaterThanOrEqualTo(14));Assert.That(label.preferredHeight,Is.LessThanOrEqualTo(label.rectTransform.rect.height+1));

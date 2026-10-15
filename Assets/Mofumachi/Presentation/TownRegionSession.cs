@@ -32,6 +32,8 @@ namespace Mofumachi.Presentation
         public TownRegionId HeroRegion=>hero==null?TownRegionId.Central:hero.RegionId;
         public TownRegionId ViewingRegion { get; private set; }=TownRegionId.Central;
         public bool HasHeroJourney=>hero!=null&&journeys.ContainsKey(hero.CharacterId);
+        public string HeroDestinationId=>hero!=null&&journeys.TryGetValue(hero.CharacterId,out var trip)?trip.Destination.Id:null;
+        public TownRegionId? HeroDestinationRegion=>HeroDestinationId==null?(TownRegionId?)null:FindDestinationRegion(HeroDestinationId);
         public bool IsHeroTransitioning=>hero!=null&&journeys.TryGetValue(hero.CharacterId,out var travel)&&travel.Journey.Phase==TownRegionTravelPhase.Fading;
         public event Action<TownRegionId> RegionChanged;
         public event Action<TownRegionId,TownRegionId,float> HeroTransitionChanged;
@@ -74,6 +76,9 @@ namespace Mofumachi.Presentation
         public bool GuideToPlace(string id)
         {
             if(life==null||!life.CanInteract||life.IsManuallyDragging||!TownRegionCatalog.TryFindPlace(id,context.Game.State.townGrowthLevel,out var location,out var place))return false;
+            // Repeated shortcut input follows the existing journey, never restarts
+            // its exit path, gate reservation or fade clock.
+            if(HeroDestinationId==id){followingHero=true;if(ViewingRegion!=HeroRegion)SetViewingRegion(HeroRegion);return true;}
             CancelHeroJourney();followingHero=true;SetViewingRegion(HeroRegion);
             var travel=new Travel {Actor=hero,Journey=new TownRegionJourney(new TownRegionLocation(hero.RegionId,hero.Position),location,context.Game.State.townGrowthLevel),Destination=place};
             journeys[hero.CharacterId]=travel;

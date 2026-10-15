@@ -22,7 +22,7 @@ namespace Mofumachi.Tests
             var art=Art(0);Assert.That(art.Polished,Is.True);Assert.That(art.mainTexture,Is.SameAs(Resources.Load<Texture2D>("Mofumachi/ItemAtlas")));
             Assert.That(art.raycastTarget,Is.False);
             var mesh=art.canvasRenderer.GetMesh();Assert.That(mesh,Is.Not.Null);Assert.That(mesh.vertexCount,Is.EqualTo(8),"A silhouette shadow and the original image share one mesh.");
-            Assert.That(mesh.colors.Any(c=>c.a>0&&c.a<.2f),Is.True,"The shadow should be translucent.");
+            Assert.That(mesh.colors.Any(c=>c.a>0&&c.a<.3f),Is.True,"The shadow should be translucent.");
             Assert.That(cells[0].transform.Find("Item level badge"),Is.Not.Null);
             Assert.That(cells[0].transform.Find("Item contact shadow").GetComponent<Graphic>().raycastTarget,Is.False);
             Assert.That(cells[0].GetComponent<RoundedPanelGraphic>().canvasRenderer.GetMesh().colors.Any(c=>c.r>.99f&&c.g>.99f&&c.b>.99f&&c.a>.4f&&c.a<.6f),Is.True,"A round seat retains its visible white highlight.");
@@ -34,7 +34,7 @@ namespace Mofumachi.Tests
             Flow.TapCell(0);yield return new WaitForSecondsRealtime(.25f);
             Assert.That(Art(0).transform.localScale.x,Is.EqualTo(1.06f).Within(.001));
             Assert.That(Art(0).transform.parent.localScale,Is.EqualTo(Vector3.one));
-            Assert.That(Art(0).rectTransform.anchoredPosition.y,Is.EqualTo(1).Within(.001));
+            Assert.That(Art(0).rectTransform.anchoredPosition.y,Is.EqualTo(3).Within(.001));
             Assert.That(Flow.GetComponentsInChildren<MergeBoardView>().Single(v=>v.name=="Cell 1").transform.Find("Merge candidate glow"),Is.Not.Null);
             Assert.That(Flow.FeedbackFor(ScreenId.Merge),Does.Contain("お茶 Lv.1"));
             Assert.That(Flow.GetComponentsInChildren<MergeSparkleGraphic>().All(g=>!g.raycastTarget),Is.True);

@@ -11,5 +11,8 @@
     <PackageReference Include="NUnit" Version="3.14.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
     <Compile Include="../../Assets/Mofumachi/Presentation/MergeVisualTiming.cs" />
+    <Compile Include="../../Assets/Mofumachi/Core/*.cs" />
+    <Compile Include="../../Assets/Mofumachi/Presentation/QuestStoryPresentation.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/QuestStoryPresentation.cs')" />
+    <Compile Include="../../Assets/Mofumachi/Presentation/TownGrowthPresentation.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownGrowthPresentation.cs')" />
   </ItemGroup>
 </Project>

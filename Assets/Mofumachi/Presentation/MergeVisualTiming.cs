@@ -8,7 +8,11 @@ namespace Mofumachi.Presentation
         private static bool Valid(float elapsed)=>float.IsFinite(elapsed)&&elapsed>=0;
         private static float Smooth(float t){t=Math.Min(1,Math.Max(0,t));return t*t*(3-2*t);}
         public static float SelectionScale(float elapsed)=>Valid(elapsed)?1+.06f*Smooth(elapsed/SelectionSeconds):1;
+        public static float SelectionLift(float elapsed)=>Valid(elapsed)?3*Smooth(elapsed/SelectionSeconds):0;
         public static float GatherProgress(float elapsed)=>Valid(elapsed)?Smooth(elapsed/GatherSeconds):0;
+        public static float LandingProgress(float elapsed)=>Valid(elapsed)?Smooth((elapsed-GatherSeconds)/(LockSeconds-GatherSeconds)):0;
+        public static float ImpactAlpha(float elapsed)
+        {return !Valid(elapsed)||elapsed<GatherSeconds||elapsed>=GatherSeconds+.07f?0:.55f*(1-Smooth((elapsed-GatherSeconds)/.07f));}
         public static float GatherLift(float elapsed)
         {
             if(!Valid(elapsed)||elapsed<=0||elapsed>=GatherSeconds)return 0;

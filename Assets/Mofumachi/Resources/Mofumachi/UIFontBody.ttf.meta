@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: aa930f67e41e4b8ba35aa54a1a899c3c
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  fontNames:
+  - Mofumachi Storybook Body
+  includeFontData: 1
+  use2xBehaviour: 0
+  userData:
+  assetBundleName:
+  assetBundleVariant:

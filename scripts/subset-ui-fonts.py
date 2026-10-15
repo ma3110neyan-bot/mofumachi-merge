@@ -14,6 +14,7 @@ SOURCES = (
     ('ZenMaruGothic-Medium.ttf', 'UIFont', 'Mofumachi Pop UI', '3cfdb98a13571ede17fcc769f5093a97c38b80a7b9b2ab754a26b4d822092b3b'),
     ('ZenMaruGothic-Bold.ttf', 'UIFontBold', 'Mofumachi Pop UI Bold', 'fe24426b9c8b5523a0146a8235c8674eccf0493af354a53ec895c3596d9eb745'),
     ('KiwiMaru-Medium.ttf', 'UIFontStory', 'Mofumachi Story UI', 'b2659f300a7d48c3f29eb273ffc5e1b26cc416ac8c37ff6bb2f3e43c2f4d235a'),
+    ('KleeOne-SemiBold.ttf', 'UIFontBody', 'Mofumachi Storybook Body', 'b031ec426c23ca1143ef1f7d58bee7a79efe119ed654152f121c922202b303fd'),
 )
 
 def required_codepoints():

@@ -17,7 +17,7 @@ namespace Mofumachi.Presentation
             var content=w.OrnatePanel("Settings content",viewport,new Rect(0,1,1,0),UIWidgets.BlushPaper).rectTransform;content.pivot=new Vector2(.5f,1);content.sizeDelta=new Vector2(0,canReselect?490:420);
             var scroll=viewport.gameObject.AddComponent<ScrollRect>();scroll.viewport=viewport;scroll.content=content;scroll.horizontal=false;scroll.vertical=true;scroll.movementType=ScrollRect.MovementType.Clamped;
             var title=w.StoryRibbon("Sound settings title","音の設定",content,new Rect(0,0,1,1),18,UIWidgets.Lavender);UIWidgets.Top((RectTransform)title.transform.parent,48,14,48,42);
-            var desc=w.StoryLabel("Settings description","音の大きさを調整できます。",content,new Rect(0,0,1,1),14);UIWidgets.Top(desc.rectTransform,28,66,28,30);
+            var desc=w.NarrativeLabel("Settings description","音の大きさを調整できます。",content,new Rect(0,0,1,1),14);UIWidgets.Top(desc.rectTransform,28,66,28,30);
             Slider bgm=null,se=null;
             bgm=Row(content,c,"BGM",106,c.Game.State.bgmEnabled,c.Game.State.bgmVolume,()=>c.Flow.CommitAudioPreferences(!c.Game.State.bgmEnabled,c.Game.State.seEnabled,c.Game.State.bgmVolume,c.Game.State.seVolume));
             se=Row(content,c,"SE",252,c.Game.State.seEnabled,c.Game.State.seVolume,()=>c.Flow.CommitAudioPreferences(c.Game.State.bgmEnabled,!c.Game.State.seEnabled,c.Game.State.bgmVolume,c.Game.State.seVolume));

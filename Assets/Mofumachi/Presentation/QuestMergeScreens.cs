@@ -15,9 +15,9 @@ namespace Mofumachi.Presentation
             var ribbon=w.StoryRibbon("Quest title",unavailable?(finished?"すべての依頼が完了しました":UIStrings.UnknownQuest):quest.Title,area,new Rect(.12f,.83f,.76f,.11f),18,UIWidgets.Peach);UIWidgets.Top((RectTransform)ribbon.transform.parent,24,16,24,44);
             if(!unavailable)w.StoryLabel("Quest chapter",ChapterCatalog.ForQuest(quest.Id)?.Title??"",area,new Rect(.08f,.78f,.84f,.05f),14);
             var requester=CharacterCatalog.Find(unavailable?c.Game.State.favoriteCharacterId:quest.RequesterId);
-            w.Body("Quest character",requester.Id,area,new Rect(.35f,.57f,.3f,.20f));
-            w.StoryLabel("Requester",requester.Name,area,new Rect(.25f,.515f,.5f,.055f),14);
-            w.StoryLabel("Quest instruction",unavailable?(finished?"ありがとう！ 街の仲間とお祝いしよう。":UIStrings.UnknownQuest):quest.Dialogue,area,new Rect(.07f,.405f,.86f,.105f),14);
+            w.Body("Quest character",requester.Id,area,new Rect(.35f,.60f,.3f,.17f));
+            w.StoryLabel("Requester",requester.Name,area,new Rect(.25f,.55f,.5f,.05f),14);
+            w.NarrativeLabel("Quest instruction",unavailable?(finished?"ありがとう！ 街の仲間とお祝いしよう。":UIStrings.UnknownQuest):QuestStoryPresentation.For(quest.Id)?.Before??quest.Dialogue,area,new Rect(.07f,.40f,.86f,.145f),14);
             if(!unavailable)
             {
                 var requirements=c.Game.Quests.GetProgress(quest);
@@ -26,7 +26,7 @@ namespace Mofumachi.Presentation
                     var entry=requirements[i];var item=entry.Requirement;float width=.88f/requirements.Count;
                     var required=w.OrnatePanel("Required item "+i,area,new Rect(.06f+i*width,.23f,width-.02f,.17f),UIWidgets.BluePaper,12).rectTransform;
                     w.Item("Required art "+i,item.ItemId,item.Level,required,new Rect(.03f,.1f,.27f,.8f));
-                    w.StoryLabel("Required name "+i,ItemCatalog.Find(item.ItemId).Name+" Lv."+item.Level,required,new Rect(.31f,.50f,.65f,.47f),14);
+                    w.Label("Required name "+i,ItemCatalog.Find(item.ItemId).Name+" Lv."+item.Level,required,new Rect(.31f,.50f,.65f,.47f),14);
                     w.Label("Required count "+i,entry.Available+" / "+item.Count,required,new Rect(.31f,.03f,.65f,.44f),14);
                 }
                 w.Icon("Reward coin",UIIcon.Coin,area,new Rect(.23f,.16f,.09f,.06f));
@@ -49,13 +49,13 @@ namespace Mofumachi.Presentation
                     var entry=requirements[i];var req=entry.Requirement;string id=req.ItemId;float span=1f/requirements.Count;
                     var card=w.Button("Requirement "+id,"",progress,new Rect(i*span+.006f,0,span-.012f,1),()=>c.Flow.FocusRequirement(id),true);card.GetComponent<RoundedPanelGraphic>().color=entry.Available>=req.Count?UIWidgets.Mint:UIWidgets.Cream;
                     w.Item("Requirement art "+id,id,req.Level,(RectTransform)card.transform,new Rect(.025f,.06f,.26f,.88f));
-                    w.StoryLabel("Requirement name "+id,ItemCatalog.Find(id).Name+" Lv."+req.Level,(RectTransform)card.transform,new Rect(.31f,.49f,.66f,.49f),14);
+                    w.Label("Requirement name "+id,ItemCatalog.Find(id).Name+" Lv."+req.Level,(RectTransform)card.transform,new Rect(.31f,.49f,.66f,.49f),14);
                     w.Label("Requirement count "+id,entry.Available+" / "+req.Count+(entry.Available>=req.Count?" 完了":" あと"+Mathf.Max(0,req.Count-entry.Available)),(RectTransform)card.transform,new Rect(.31f,.01f,.66f,.48f),12);
                 }
             }
             else w.StoryLabel("Merge complete hint",UIStrings.DeliveryHint(c.Game),progress,new Rect(.04f,.02f,.92f,.96f),14);
-            var tray=w.Panel("Merge tray",root,new Rect(0,0,1,1),new Color(.87f,.95f,.9f)).rectTransform;tray.offsetMin=new Vector2(10,156);tray.offsetMax=new Vector2(-10,-112);
-            var traySurface=tray.GetComponent<RoundedPanelGraphic>();traySurface.shadowDepth=7;traySurface.gloss=.36f;traySurface.borderWidth=2.2f;
+            var tray=w.Panel("Merge tray",root,new Rect(0,0,1,1),new Color(.71f,.84f,.79f)).rectTransform;tray.offsetMin=new Vector2(10,156);tray.offsetMax=new Vector2(-10,-112);
+            var traySurface=tray.GetComponent<RoundedPanelGraphic>();traySurface.shadowDepth=8;traySurface.gloss=.46f;traySurface.borderWidth=3.5f;
             w.Frame(tray,22,false);
             var grid=UIWidgets.Node("Merge board",tray,new Rect(0,0,1,1));grid.offsetMin=new Vector2(7,7);grid.offsetMax=new Vector2(-7,-7);
             var group=grid.gameObject.AddComponent<GridLayoutGroup>();group.constraint=GridLayoutGroup.Constraint.FixedColumnCount;group.constraintCount=5;group.spacing=new Vector2(4,4);group.childAlignment=TextAnchor.MiddleCenter;
@@ -65,6 +65,7 @@ namespace Mofumachi.Presentation
                 int index=i;var item=c.Game.Board.At(i);var b=w.Button("Cell "+i,"",grid,new Rect(0,0,1,1),()=>{} ,true);
                 var surface=b.GetComponent<RoundedPanelGraphic>();surface.radius=15;surface.borderWidth=item==null?.65f:1.2f;surface.gloss=item==null?.16f:.4f;surface.shadowDepth=item==null?1:4;
                 surface.color=c.Game.Board.IsLocked(i)?new Color(1,.89f,.59f):index==c.Flow.SelectedCell?new Color(1,.69f,.8f):item==null?new Color(.85f,.93f,.88f,.8f):UIWidgets.Cream;
+                UIWidgets.Node("Cell porcelain dish",(RectTransform)b.transform,new Rect(0,0,1,1)).gameObject.AddComponent<MergeCellSurfaceGraphic>().Bind(surface.color);
                 if(index!=c.Flow.SelectedCell&&selectedItem!=null&&item!=null&&item.itemId==selectedItem.itemId&&item.level==selectedItem.level&&item.level<GameState.MaxLevel&&!c.Game.Board.IsLocked(index)&&!c.Game.Board.IsLocked(c.Flow.SelectedCell))
                     UIWidgets.Node("Merge candidate glow",(RectTransform)b.transform,new Rect(0,0,1,1)).gameObject.AddComponent<MergeSparkleGraphic>().BindMatch();
                 var drag=b.gameObject.AddComponent<MergeBoardView>();drag.Initialize(c.Flow,i);
@@ -78,12 +79,15 @@ namespace Mofumachi.Presentation
                         {
                             var halo=w.Panel("Item level halo",cell,new Rect(.13f,.35f,.74f,.52f),new Color(1,.89f,.57f,item.level==3?.16f:.08f));halo.radius=100;halo.decorated=false;
                         }
-                        var ground=w.Panel("Item contact shadow",cell,new Rect(.22f,.34f,.56f,.095f),new Color(.25f,.2f,.25f,.18f));ground.radius=100;ground.decorated=false;
-                        var art=w.Item("Item art",item.itemId,item.level,cell,new Rect(.09f,.36f,.82f,.59f));art.SetPolished(true);
+                        bool raised=index==c.Flow.SelectedCell;
+                        var ground=w.Panel("Item contact shadow",cell,new Rect(raised?.27f:.22f,.34f,raised?.46f:.56f,.095f),new Color(.25f,.2f,.25f,raised?.14f:.24f));ground.radius=100;ground.decorated=false;
+                        var art=w.Item("Item art",item.itemId,item.level,cell,new Rect(.09f,.35f,.82f,.55f));art.SetPolished(true);
+                        if(item.level==3&&index!=c.Flow.SelectedCell)
+                            UIWidgets.Node("High level item glint",art.rectTransform,new Rect(0,0,1,1)).gameObject.AddComponent<MergeSparkleGraphic>().BindSelection();
                         if(index==c.Flow.SelectedCell)
                         {
                             if(animateSelection)art.gameObject.AddComponent<ItemSelectionFeedback>().Play();
-                            else {art.transform.localScale=Vector3.one*MergeVisualTiming.SelectionScale(MergeVisualTiming.SelectionSeconds);art.rectTransform.anchoredPosition=Vector2.up;}
+                            else {art.transform.localScale=Vector3.one*MergeVisualTiming.SelectionScale(MergeVisualTiming.SelectionSeconds);art.rectTransform.anchoredPosition=Vector2.up*MergeVisualTiming.SelectionLift(MergeVisualTiming.SelectionSeconds);}
                             UIWidgets.Node("Selected item glint",art.rectTransform,new Rect(0,0,1,1)).gameObject.AddComponent<MergeSparkleGraphic>().BindSelection();
                         }
                     }

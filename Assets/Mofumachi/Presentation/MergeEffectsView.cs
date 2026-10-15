@@ -9,7 +9,7 @@ namespace Mofumachi.Presentation
         public bool IsPlaying { get; private set; }
         private ItemGraphic source,other,result,hiddenTarget;
         private MergeSparkleGraphic sparkle;
-        private Vector2 fromPoint,toPoint,itemSize,nudge;
+        private Vector2 fromPoint,toPoint,itemSize,meetingPoint;
         private float startedAt;
         private bool targetWasEnabled,itemMotionFinished;
         private void Awake()
@@ -32,8 +32,8 @@ namespace Mofumachi.Presentation
             var a=board.Find("Cell "+from) as RectTransform;var b=board.Find("Cell "+to) as RectTransform;
             if(a==null||b==null){Cancel();return;}
             var root=(RectTransform)transform;
-            fromPoint=Point(root,a);toPoint=Point(root,b);itemSize=new Vector2(b.rect.width*.82f,b.rect.height*.59f);
-            nudge=Vector2.ClampMagnitude(fromPoint-toPoint,b.rect.width)*.09f;
+            fromPoint=Point(root,a);toPoint=Point(root,b);itemSize=new Vector2(b.rect.width*.82f,b.rect.height*.55f);
+            meetingPoint=(fromPoint+toPoint)*.5f;
             source.Bind(itemId,previousLevel);other.Bind(itemId,previousLevel);result.Bind(itemId,previousLevel+1);
             source.rectTransform.sizeDelta=other.rectTransform.sizeDelta=result.rectTransform.sizeDelta=itemSize;
             sparkle.rectTransform.anchoredPosition=toPoint;sparkle.rectTransform.sizeDelta=b.rect.size*.9f;
@@ -43,7 +43,7 @@ namespace Mofumachi.Presentation
         }
         private static Vector2 Point(RectTransform root,RectTransform cell)
         {
-            var r=cell.rect;var center=new Vector2(r.center.x,r.yMin+r.height*.655f);
+            var r=cell.rect;var center=new Vector2(r.center.x,r.yMin+r.height*.625f);
             return root.InverseTransformPoint(cell.TransformPoint(center));
         }
         private void LateUpdate()
@@ -56,12 +56,14 @@ namespace Mofumachi.Presentation
             float p=MergeVisualTiming.GatherProgress(elapsed);
             bool gathering=!itemMotionFinished&&elapsed<MergeVisualTiming.GatherSeconds;
             source.gameObject.SetActive(gathering);other.gameObject.SetActive(gathering);
-            source.rectTransform.anchoredPosition=Vector2.Lerp(fromPoint,toPoint,p)+Vector2.up*(itemSize.y*MergeVisualTiming.GatherLift(elapsed));source.transform.localScale=Vector3.one*(1-.2f*p);
-            other.rectTransform.anchoredPosition=toPoint+nudge*Mathf.Sin(p*Mathf.PI);
+            var lift=Vector2.up*(itemSize.y*MergeVisualTiming.GatherLift(elapsed));
+            source.rectTransform.anchoredPosition=Vector2.Lerp(fromPoint,meetingPoint,p)+lift;source.transform.localScale=Vector3.one*(1-.15f*p);
+            other.rectTransform.anchoredPosition=Vector2.Lerp(toPoint,meetingPoint,p)+lift;other.transform.localScale=Vector3.one*(1-.15f*p);
             bool showingResult=!itemMotionFinished&&elapsed>=MergeVisualTiming.GatherSeconds&&elapsed<MergeVisualTiming.LockSeconds;
-            result.gameObject.SetActive(showingResult);result.rectTransform.anchoredPosition=toPoint+Vector2.up*(itemSize.y*MergeVisualTiming.ResultLift(elapsed));result.transform.localScale=Vector3.one*MergeVisualTiming.ResultScale(elapsed);
+            var landing=Vector2.Lerp(meetingPoint,toPoint,MergeVisualTiming.LandingProgress(elapsed));
+            result.gameObject.SetActive(showingResult);result.rectTransform.anchoredPosition=landing+Vector2.up*(itemSize.y*MergeVisualTiming.ResultLift(elapsed));result.transform.localScale=Vector3.one*MergeVisualTiming.ResultScale(elapsed);
             if(elapsed>=MergeVisualTiming.LockSeconds)FinishItemMotion();
-            sparkle.gameObject.SetActive(true);sparkle.SetBurstFrame(elapsed);
+            sparkle.rectTransform.anchoredPosition=landing;sparkle.gameObject.SetActive(true);sparkle.SetBurstFrame(elapsed);
         }
         public void FinishItemMotion()
         {

@@ -27,6 +27,8 @@ namespace Mofumachi.Presentation
                 Star(vh,r.center+new Vector2(-r.width*.22f,r.height*.23f),2.4f,new Color(1,1,.92f,.6f));
                 Star(vh,r.center+new Vector2(r.width*.21f,r.height*.05f),1.5f,new Color(1,1,1,.38f));return;
             }
+            float flash=MergeVisualTiming.ImpactAlpha(elapsed);
+            if(flash>0)Glow(vh,r.center,Mathf.Min(r.width,r.height)*.36f,flash);
             float alpha=MergeVisualTiming.SparkleAlpha(elapsed);if(alpha<=0)return;
             float t=Mathf.Clamp01((elapsed-MergeVisualTiming.GatherSeconds)/(MergeVisualTiming.LifetimeSeconds-MergeVisualTiming.GatherSeconds));
             Glow(vh,r.center,Mathf.Min(r.width,r.height)*(.18f+.1f*t),alpha*.28f);

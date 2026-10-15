@@ -93,12 +93,15 @@ namespace Mofumachi.Editor
             RequireContent(Resources.Load<Texture2D>("Mofumachi/ItemAtlas"),"ItemAtlas");
             RequireContent(Resources.Load<Texture2D>("Mofumachi/CharacterBodyAtlas"),"CharacterBodyAtlas");
             RequireContent(Resources.Load<Texture2D>("Mofumachi/TownDecorationAtlas"),"TownDecorationAtlas");
+            RequireContent(Resources.Load<Texture2D>("Mofumachi/TownGrowthPropsAtlas"),"TownGrowthPropsAtlas");
             var font=Resources.Load<Font>("Mofumachi/UIFont");RequireContent(font,"UIFont");
             foreach(var text in Mofumachi.Presentation.UIStrings.All)ValidateGlyphs(font,text);
             var bold=Resources.Load<Font>("Mofumachi/UIFontBold");RequireContent(bold,"UIFontBold");
             foreach(var text in Mofumachi.Presentation.UIStrings.All)ValidateGlyphs(bold,text);
             var story=Resources.Load<Font>("Mofumachi/UIFontStory");RequireContent(story,"UIFontStory");
             foreach(var text in Mofumachi.Presentation.UIStrings.All)ValidateGlyphs(story,text);
+            var body=Resources.Load<Font>("Mofumachi/UIFontBody");RequireContent(body,"UIFontBody");
+            foreach(var text in Mofumachi.Presentation.UIStrings.All)ValidateGlyphs(body,text);
             ValidateGlyphs(font,Mofumachi.Presentation.UIStrings.PopLabels);ValidateGlyphs(bold,Mofumachi.Presentation.UIStrings.PopLabels);
             foreach(var key in new[]{"bgm-town-loop","se-confirm","se-character","se-merge","se-delivery","se-reward","se-growth"})RequireContent(Resources.Load<AudioClip>("Mofumachi/Audio/"+key),key);
 

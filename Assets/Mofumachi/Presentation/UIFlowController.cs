@@ -269,6 +269,7 @@ namespace Mofumachi.Presentation
             if (!saved){feedback[ScreenId.Merge] = Game.LastError;if(mergeEffects!=null)mergeEffects.Cancel();}
             else ClearBusyFeedback();
             Render(view,preserveMergeTail:saved);
+            if(saved&&CurrentScreen==ScreenId.Merge&&mergeEffects!=null)mergeEffects.SettleOnto(page.GetComponentInChildren<MergeGridLayout>()?.GetComponent<RectTransform>());
         }
         private void ClearBusyFeedback()
         {

@@ -1,11 +1,47 @@
+using System;
+using System.Linq;
 using Mofumachi.Presentation;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.TestTools;
 
 namespace Mofumachi.Tests
 {
     public sealed class PresentationContentTests
     {
+        private static Type[] CustomGraphics()=>typeof(TownBloomGraphic).Assembly.GetTypes()
+            .Where(t=>!t.IsAbstract&&typeof(Graphic).IsAssignableFrom(t)).OrderBy(t=>t.FullName).ToArray();
+        [Test] public void CustomGraphicsRequireCanvasRendererBeforeTheyEnterAMaskedCanvas()
+        {
+            var graphics=CustomGraphics();Assert.That(graphics,Does.Contain(typeof(TownBloomGraphic)));Assert.That(graphics,Does.Contain(typeof(TownRouteGraphic)));
+            var missing=new System.Collections.Generic.List<string>();
+            foreach(var type in graphics)
+            {
+                bool requiresRenderer=false;
+                for(var current=type;current!=null;current=current.BaseType)
+                    requiresRenderer|=current.GetCustomAttributesData().Any(a=>a.AttributeType==typeof(RequireComponent)&&a.ConstructorArguments.Any(v=>v.Value is Type dependency&&dependency==typeof(CanvasRenderer)));
+                if(!requiresRenderer)missing.Add(type.Name);
+            }
+            Assert.That(missing,Is.Empty,"Custom graphics must declare their CanvasRenderer dependency: "+string.Join(", ",missing));
+        }
+        [Test] public void CustomGraphicsCanBeClippedDisabledAndDestroyedWithoutRendererErrors()
+        {
+            var root=new GameObject("Graphic renderer lifecycle fixture",typeof(RectTransform),typeof(Canvas));
+            try
+            {
+                var mask=UIWidgets.Node("Masked graphics",root.transform as RectTransform,new Rect(0,0,1,1));mask.gameObject.AddComponent<RectMask2D>();
+                foreach(var type in CustomGraphics())
+                {
+                    var node=UIWidgets.Node(type.Name,mask,new Rect(0,0,1,1));var graphic=(Graphic)node.gameObject.AddComponent(type);
+                    Assert.That(node.GetComponent<CanvasRenderer>(),Is.Not.Null,type.Name+" runtime creation must supply a CanvasRenderer");
+                    Canvas.ForceUpdateCanvases();if(graphic is MaskableGraphic masked)masked.RecalculateClipping();
+                    mask.gameObject.SetActive(false);mask.gameObject.SetActive(true);node.gameObject.SetActive(false);UnityEngine.Object.DestroyImmediate(node.gameObject);
+                }
+            }
+            finally{UnityEngine.Object.DestroyImmediate(root);}
+            LogAssert.NoUnexpectedReceived();
+        }
         [Test] public void TownDecorationsUseEffective1024Limit()
         {
             var atlas=Resources.Load<Texture2D>("Mofumachi/TownDecorationAtlas");Assert.That(atlas,Is.Not.Null);AssertSharedTextureImport(atlas);

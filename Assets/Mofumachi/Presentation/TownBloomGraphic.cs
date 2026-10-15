@@ -4,6 +4,7 @@ using Mofumachi.Core;
 namespace Mofumachi.Presentation
 {
     // One bounded, noninteractive mesh. Only the viewed region is drawn.
+    [RequireComponent(typeof(CanvasRenderer))]
     public sealed class TownBloomGraphic : MaskableGraphic
     {
         private RawImage background;private int stage;private float phase,refresh;

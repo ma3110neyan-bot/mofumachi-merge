@@ -69,6 +69,7 @@ namespace Mofumachi.Presentation
         private void LateUpdate()
         {if(life==null)return;var r=(RectTransform)transform;r.anchoredPosition=life.Local(point)+Vector2.up*24;}
     }
+    [RequireComponent(typeof(CanvasRenderer))]
     public sealed class TownRouteGraphic : MaskableGraphic
     {
         private TownLifeView life;private TownStreetMap map;private TownNavigation navigation;private float lastRefresh;

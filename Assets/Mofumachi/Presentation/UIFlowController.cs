@@ -142,6 +142,12 @@ namespace Mofumachi.Presentation
         }
         public string FeedbackFor(ScreenId screen) => feedback.TryGetValue(screen,out var text)?text:"";
         public void PlayCue(AudioCue cue) => audioManager.PlaySe(cue);
+        public void PreviewMusic(string id){if(CurrentScreen==ScreenId.Settings&&!appPaused)audioManager.PreviewMusic(id);}
+        public bool SelectMusic(string id)
+        {
+            if(CurrentScreen!=ScreenId.Settings||appPaused)return false;
+            bool saved=audioManager.SelectMusic(id);feedback[ScreenId.Settings]=saved?"音楽を選びました♪":audioManager.MusicError;Render("settings");return saved;
+        }
         public void GoBack()
         {
             if(IsModalOpen || transitioning)return;
@@ -330,7 +336,7 @@ namespace Mofumachi.Presentation
             if (page != null && session != null) Render(view);
         }
         private void OnApplicationQuit() => Persist();
-        private void OnDestroy() { if (session != null && !transitioning) Persist(); }
+        private void OnDestroy() { if(audioManager!=null)audioManager.CancelMusicPreview();if (session != null && !transitioning) Persist(); }
 
         private void CreateClearCamera()
         {
@@ -349,6 +355,7 @@ namespace Mofumachi.Presentation
 
         private void Render(string target,bool animateSelection=false,bool preserveMergeTail=false)
         {
+            if(CurrentScreen==ScreenId.Settings&&target!="settings")audioManager?.CancelMusicPreview();
             if(page!=null&&!discardHomeRegionSnapshot)
             {
                 var regions=page.GetComponentInChildren<TownRegionSession>();

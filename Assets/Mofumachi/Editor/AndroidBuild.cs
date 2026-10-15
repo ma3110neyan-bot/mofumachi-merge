@@ -94,6 +94,7 @@ namespace Mofumachi.Editor
             RequireContent(Resources.Load<Texture2D>("Mofumachi/CharacterBodyAtlas"),"CharacterBodyAtlas");
             RequireContent(Resources.Load<Texture2D>("Mofumachi/TownDecorationAtlas"),"TownDecorationAtlas");
             RequireContent(Resources.Load<Texture2D>("Mofumachi/TownGrowthPropsAtlas"),"TownGrowthPropsAtlas");
+            RequireContent(Resources.Load<Texture2D>("Mofumachi/MergeBoardFrame"),"MergeBoardFrame");
             var font=Resources.Load<Font>("Mofumachi/UIFont");RequireContent(font,"UIFont");
             foreach(var text in Mofumachi.Presentation.UIStrings.All)ValidateGlyphs(font,text);
             var bold=Resources.Load<Font>("Mofumachi/UIFontBold");RequireContent(bold,"UIFontBold");
@@ -104,6 +105,7 @@ namespace Mofumachi.Editor
             foreach(var text in Mofumachi.Presentation.UIStrings.All)ValidateGlyphs(body,text);
             ValidateGlyphs(font,Mofumachi.Presentation.UIStrings.PopLabels);ValidateGlyphs(bold,Mofumachi.Presentation.UIStrings.PopLabels);
             foreach(var key in new[]{"bgm-town-loop","se-confirm","se-character","se-merge","se-delivery","se-reward","se-growth"})RequireContent(Resources.Load<AudioClip>("Mofumachi/Audio/"+key),key);
+            foreach(var track in Mofumachi.Presentation.MusicCatalog.All)RequireContent(Resources.Load<AudioClip>("Mofumachi/Audio/"+track.Resource),track.Resource);
 
         }
 

@@ -1,0 +1,26 @@
+[
+  {
+    "file": "bgm-beginning-loop.ogg",
+    "sha256": "c4837814a36e56ae829b989891fb392307a3da5c12cf7fb5dc5c4385856d6d1e",
+    "bytes": 661236,
+    "seconds": 34.285714285714285,
+    "peakDbFS": -10.370927810668945,
+    "boundaryDelta": 0.000609950628131628,
+    "tempo": 84,
+    "meter": "3/4",
+    "sampleLicense": "CC0-1.0",
+    "listeningStatus": "not_yet_reviewed_on_Pixel"
+  },
+  {
+    "file": "bgm-merge-loop.ogg",
+    "sha256": "5c869afb107d35a677440301a8cbd6e32ac54801da40a18fd53807fe0d4a388d",
+    "bytes": 611224,
+    "seconds": 34.285714285714285,
+    "peakDbFS": -10.405621528625488,
+    "boundaryDelta": 0.00018963951151818037,
+    "tempo": 112,
+    "meter": "4/4",
+    "sampleLicense": "CC0-1.0",
+    "listeningStatus": "not_yet_reviewed_on_Pixel"
+  }
+]

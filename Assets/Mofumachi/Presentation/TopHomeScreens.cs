@@ -42,24 +42,26 @@ namespace Mofumachi.Presentation
             w.Icon("Coin",UIIcon.Coin,hud,new Rect(.41f,.2f,.1f,.6f));
             w.Heading("Coins value",c.Game.State.coins.ToString("N0"),hud,new Rect(.51f,.08f,.32f,.84f),14);
             var settings=w.Button("Settings","",hud,new Rect(.85f,0,.15f,1),c.Flow.ShowSettings,true); w.Icon("Settings icon",UIIcon.Settings,(RectTransform)settings.transform,new Rect(.2f,.2f,.6f,.6f));
-            var world=UIWidgets.Node("Town characters",root,new Rect(0,0,1,1));world.offsetMin=new Vector2(0,154);world.offsetMax=new Vector2(0,-142);
+            var world=UIWidgets.Node("Town characters",root,new Rect(0,0,1,1));world.offsetMin=new Vector2(0,178);world.offsetMax=new Vector2(0,-142);
             var life=world.gameObject.AddComponent<TownLifeView>();life.Bind(c,background??c.Flow.TownBackground);
             world.gameObject.AddComponent<TownViewportView>().Bind(c,background??c.Flow.TownBackground,life);
             var decorations=UIWidgets.Node("Town growth decorations",world,new Rect(0,0,1,1));decorations.SetAsFirstSibling();
             var growth=decorations.gameObject.AddComponent<TownGrowthView>();growth.Bind(c,life);growth.Apply(c.Game.State.townGrowthLevel);
             var next=QuestCatalog.NextFor(c.Game.State);var requester=CharacterCatalog.Find(next?.RequesterId??c.Game.State.favoriteCharacterId);
-            var quest=w.OrnatePanel("Home quest",root,new Rect(0,0,1,1),null,24).rectTransform; UIWidgets.Bottom(quest,14,78,14,72);
+            var quest=w.OrnatePanel("Home quest",root,new Rect(0,0,1,1),null,24).rectTransform; UIWidgets.Bottom(quest,14,78,14,96);
             var chapter=ChapterProgress.For(c.Game.State);bool unknown=next==null&&!chapter.AllCompleted;
-            w.StoryHeading("Home quest title",chapter.CurrentChapter?.Title??"最初の物語をふりかえる",quest,new Rect(.035f,.625f,.75f,.35f),16);
-            w.Label("Chapter progress",chapter.CurrentChapter==null?"6 / 6":chapter.CompletedInCurrent+" / 2",quest,new Rect(.81f,.65f,.15f,.3f),12);
+            w.StoryHeading("Home quest title",chapter.CurrentChapter?.Title??"最初の物語をふりかえる",quest,new Rect(.035f,.74f,.75f,.23f),14);
+            w.Label("Chapter progress",chapter.CurrentChapter==null?"6 / 6":chapter.CompletedInCurrent+" / 2",quest,new Rect(.81f,.74f,.15f,.23f),12);
             string goal=unknown?UIStrings.UnknownQuest:chapter.AllCompleted?"みんなのお茶会がひらけました！":chapter.CompletedCount==0&&c.Game.State.activeQuestId.Length==0?"仲間とお茶会をひらこう":requester.Name+"："+next.Title;
-            w.StoryLabel("Home quest summary",goal,quest,new Rect(.04f,.28f,.92f,.34f),14);
-            w.StoryLabel("Town growth hint",TownPlaceCatalog.GrowthHint(c.Game.State.townGrowthLevel),quest,new Rect(.04f,.01f,.92f,.25f),12);
+            w.StoryLabel("Home quest summary",goal,quest,new Rect(.04f,.49f,.92f,.23f),14);
+            var nextGoal=TownNextGoal.For(c.Game.State);
+            w.StoryLabel("Next goal title",nextGoal.Title,quest,new Rect(.04f,.27f,.92f,.20f),12);
+            w.Label("Town growth hint",nextGoal.Detail,quest,new Rect(.04f,.01f,.92f,.24f),12);
             if(chapter.LastCompletedChapter!=null)
             {
                 quest.Find("Home quest title").GetComponent<RectTransform>().anchorMax=new Vector2(.68f,.97f);
-                var count=quest.Find("Chapter progress").GetComponent<RectTransform>();count.anchorMin=new Vector2(.68f,.65f);count.anchorMax=new Vector2(.79f,.95f);
-                foreach(string label in new[]{"Home quest summary","Town growth hint"}){var r=quest.Find(label).GetComponent<RectTransform>();r.anchorMax=new Vector2(.79f,r.anchorMax.y);}
+                var count=quest.Find("Chapter progress").GetComponent<RectTransform>();count.anchorMin=new Vector2(.68f,.74f);count.anchorMax=new Vector2(.79f,.97f);
+                foreach(string label in new[]{"Home quest summary","Town growth hint","Next goal title"}){var r=quest.Find(label).GetComponent<RectTransform>();r.anchorMax=new Vector2(.79f,r.anchorMax.y);}
                 var replay=w.Button("Review chapter","おも\nいで",quest,new Rect(1,.5f,0,0),()=>c.Flow.ReviewLastChapter(),true);
                 var replayRect=(RectTransform)replay.transform;replayRect.pivot=new Vector2(1,.5f);replayRect.anchoredPosition=new Vector2(-8,0);replayRect.sizeDelta=new Vector2(48,48);replay.GetComponentInChildren<Text>().fontSize=12;
             }

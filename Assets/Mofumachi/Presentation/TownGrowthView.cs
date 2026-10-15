@@ -10,7 +10,7 @@ namespace Mofumachi.Presentation
         public TownRegionId Region {get;private set;}=TownRegionId.Central;
         public void SetRegion(TownRegionId region){Region=region;Apply(VisibleStage);}
         public bool IsHighlighting=>highlight!=null;
-        private GameObject[] layers;private TownLifeView life;private RawImage background;
+        private TownBloomGraphic bloom;private GameObject[] layers;private TownLifeView life;private RawImage background;
         private readonly RectTransform[] icons=new RectTransform[12];private readonly TownPoint[] positions=new TownPoint[12];
         private sealed class RegionalProp {internal RectTransform Rect;internal TownGrowthPlacement Placement;internal TownRegionId Region;}
         private readonly System.Collections.Generic.List<RegionalProp> regional=new System.Collections.Generic.List<RegionalProp>();
@@ -39,6 +39,7 @@ namespace Mofumachi.Presentation
                 r.pivot=new Vector2(.5f,0);r.gameObject.AddComponent<TownGrowthPropGraphic>().Bind(prop.Prop,region);
                 regional.Add(new RegionalProp{Rect=r,Placement=prop,Region=region});
             }
+            bloom=UIWidgets.Node("Town growing flower light",root,new Rect(0,0,1,1)).gameObject.AddComponent<TownBloomGraphic>();bloom.Bind(background);
             Reposition();
         }
         private Vector2 Local(TownPoint p)
@@ -64,7 +65,7 @@ namespace Mofumachi.Presentation
         private void LateUpdate(){if(dirty||(background!=null&&previousUv!=background.uvRect))Reposition();}
         public void Apply(int level)
         {
-            StopHighlight();VisibleStage=Mathf.Clamp(level,0,6);
+            StopHighlight();VisibleStage=Mathf.Clamp(level,0,6);bloom?.Apply(Region,VisibleStage);
             if(layers!=null)for(int i=0;i<layers.Length;i++)layers[i].SetActive(i<VisibleStage);
             foreach(var icon in icons)if(icon!=null)icon.gameObject.SetActive(Region==TownRegionId.Central);
             foreach(var entry in regional)entry.Rect.gameObject.SetActive(entry.Region==Region);

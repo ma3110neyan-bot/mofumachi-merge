@@ -36,7 +36,7 @@ namespace Mofumachi.Tests
         }
         [Test] public void RequiredItemArtAndNewJapaneseGlyphsArePresent()
         {
-            foreach(var key in new[]{"ItemAtlas","TitleLogo","UIPanelFrame"})
+            foreach(var key in new[]{"ItemAtlas","TitleLogo","UIPanelFrame","MergeBoardFrame"})
             {
                 var texture=Resources.Load<Texture2D>("Mofumachi/"+key);Assert.That(texture,Is.Not.Null,key);
                 AssertSharedTextureImport(texture);
@@ -70,7 +70,7 @@ namespace Mofumachi.Tests
         }
         [Test] public void ContentGateRejectsMissingAssetsAndUnsupportedGlyphs()
         {
-            foreach(var key in new[]{"TownBackground","UIFont","UIFontBold","UIIconAtlas","TitleLogo","UIPanelFrame","ItemAtlas","CharacterBodyAtlas","bgm-town-loop","se-confirm","se-character","se-merge","se-delivery","se-reward","se-growth"})Assert.Throws<UnityEditor.Build.BuildFailedException>(()=>Mofumachi.Editor.AndroidBuild.RequireContent(null,key));
+            foreach(var key in new[]{"TownBackground","UIFont","UIFontBold","UIIconAtlas","TitleLogo","UIPanelFrame","ItemAtlas","CharacterBodyAtlas","bgm-town-loop","bgm-beginning-loop","bgm-merge-loop","se-confirm","se-character","se-merge","se-delivery","se-reward","se-growth"})Assert.Throws<UnityEditor.Build.BuildFailedException>(()=>Mofumachi.Editor.AndroidBuild.RequireContent(null,key));
             var font=Resources.Load<Font>("Mofumachi/UIFont");
             Assert.That(font,Is.Not.Null);
             // None of these characters exists in the bundled subset. Include a
@@ -82,7 +82,7 @@ namespace Mofumachi.Tests
         }
         [Test] public void RecordedAudioAssetsExistAndHaveExpectedImportSettings()
         {
-            foreach(var key in new[]{"bgm-town-loop","se-confirm","se-character","se-merge","se-delivery","se-reward","se-growth"})
+            foreach(var key in new[]{"bgm-town-loop","bgm-beginning-loop","bgm-merge-loop","se-confirm","se-character","se-merge","se-delivery","se-reward","se-growth"})
             {
                 var clip=Resources.Load<AudioClip>("Mofumachi/Audio/"+key); Assert.That(clip,Is.Not.Null,key);Assert.That(clip.length,Is.GreaterThan(.1f));
                 var importer=(UnityEditor.AudioImporter)UnityEditor.AssetImporter.GetAtPath(UnityEditor.AssetDatabase.GetAssetPath(clip));

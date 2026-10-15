@@ -6,6 +6,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.TestTools;
+using UnityEngine.UI;
 namespace Mofumachi.Tests
 {
     public sealed class ExperienceWalkingTests : SliceUiTestFixture
@@ -47,5 +48,13 @@ namespace Mofumachi.Tests
             Assert.That(life.Actors.Single(a=>a.Controlled).IsGuided,Is.False);Assert.That(walking.IsArmed,Is.True);
             Flow.SendMessage("OnApplicationPause",true);Assert.That(walking.IsArmed,Is.False);Assert.That(camera.OwnedPointerId,Is.Null);Flow.SendMessage("OnApplicationPause",false);LogAssert.NoUnexpectedReceived();
         }
+        [UnityTest] public IEnumerator ExitSignInABrowsedRegionNeverUsesThatRegionsCoordinatesForTheHero()
+        {
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();life.Regions.LookAtRegion(TownRegionId.West);yield return null;
+            var b=Flow.GetComponentsInChildren<Button>().Single(x=>x.name=="Street exit Central");b.onClick.Invoke();
+            Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownRegionId.Central));Assert.That(life.Regions.ViewingRegion,Is.EqualTo(TownRegionId.Central));
+            Assert.That(life.Regions.HasHeroJourney,Is.False);Assert.That(life.Actors.Single(a=>a.Controlled).IsGuided,Is.False);LogAssert.NoUnexpectedReceived();
+        }
+
     }
 }

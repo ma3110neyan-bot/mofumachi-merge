@@ -14,19 +14,20 @@ namespace Mofumachi.Presentation
             // rather than an oversized empty cream viewport. Short displays scroll.
             var capture=viewport.gameObject.AddComponent<Image>();capture.color=Color.clear;capture.raycastTarget=true;viewport.gameObject.AddComponent<RectMask2D>();
             bool canReselect=Mofumachi.Core.CharacterCatalog.IsKnown(c.Game.State.favoriteCharacterId);
-            var content=w.OrnatePanel("Settings content",viewport,new Rect(0,1,1,0),UIWidgets.BlushPaper).rectTransform;content.pivot=new Vector2(.5f,1);content.sizeDelta=new Vector2(0,canReselect?490:420);
+            var content=w.OrnatePanel("Settings content",viewport,new Rect(0,1,1,0),UIWidgets.BlushPaper).rectTransform;content.pivot=new Vector2(.5f,1);content.sizeDelta=new Vector2(0,canReselect?850:780);
             var scroll=viewport.gameObject.AddComponent<ScrollRect>();scroll.viewport=viewport;scroll.content=content;scroll.horizontal=false;scroll.vertical=true;scroll.movementType=ScrollRect.MovementType.Clamped;
             var title=w.StoryRibbon("Sound settings title","音の設定",content,new Rect(0,0,1,1),18,UIWidgets.Lavender);UIWidgets.Top((RectTransform)title.transform.parent,48,14,48,42);
-            var desc=w.NarrativeLabel("Settings description","音の大きさを調整できます。",content,new Rect(0,0,1,1),14);UIWidgets.Top(desc.rectTransform,28,66,28,30);
+            var desc=w.NarrativeLabel("Settings description","下へスクロールすると、BGMを選べます♪",content,new Rect(0,0,1,1),14);UIWidgets.Top(desc.rectTransform,20,62,20,40);
             Slider bgm=null,se=null;
             bgm=Row(content,c,"BGM",106,c.Game.State.bgmEnabled,c.Game.State.bgmVolume,()=>c.Flow.CommitAudioPreferences(!c.Game.State.bgmEnabled,c.Game.State.seEnabled,c.Game.State.bgmVolume,c.Game.State.seVolume));
             se=Row(content,c,"SE",252,c.Game.State.seEnabled,c.Game.State.seVolume,()=>c.Flow.CommitAudioPreferences(c.Game.State.bgmEnabled,!c.Game.State.seEnabled,c.Game.State.bgmVolume,c.Game.State.seVolume));
             bgm.gameObject.AddComponent<VolumeControl>().Bind(bgm,v=>c.Flow.PreviewAudioVolumes(v,se.value),v=>c.Flow.CommitAudioPreferences(c.Game.State.bgmEnabled,c.Game.State.seEnabled,v,c.Game.State.seVolume));
             se.gameObject.AddComponent<VolumeControl>().Bind(se,v=>c.Flow.PreviewAudioVolumes(bgm.value,v),v=>c.Flow.CommitAudioPreferences(c.Game.State.bgmEnabled,c.Game.State.seEnabled,c.Game.State.bgmVolume,v));
+            MusicSettingsView.Build(content,c,402);
             if(canReselect)
             {
                 var partner=w.Button("Reselect partner","パートナーを選び直す",content,new Rect(0,0,1,1),c.Flow.ShowCharacterSelection,true);
-                UIWidgets.Top((RectTransform)partner.transform,24,420,24,48);
+                UIWidgets.Top((RectTransform)partner.transform,24,786,24,48);
             }
             var feedback=w.Label("Settings feedback",c.Flow.FeedbackFor(ScreenId.Settings),root,new Rect(0,0,1,1),13);UIWidgets.Bottom(feedback.rectTransform,16,canReturnTitle?116:68,16,36);
             if(canReturnTitle)

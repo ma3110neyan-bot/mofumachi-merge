@@ -9,15 +9,17 @@ namespace Mofumachi.Presentation
         public static void BuildQuest(RectTransform root,ScreenContext c)
         {
             var w=c.Widgets;w.Header(root,c,"キャラ依頼",UIWidgets.Peach);
-            var area=w.ScrollPaper("Quest card",root,136,80,328,UIWidgets.BlushPaper);
+            var paper=w.ScrollPaper("Quest card",root,136,80,442,UIWidgets.BlushPaper);
+            var area=UIWidgets.Node("Quest story layout",paper,new Rect(0,0,1,1));UIWidgets.Top(area,0,0,0,360);
+            TownGoalCard.Build(c,paper,366);
             var quest=QuestCatalog.NextFor(c.Game.State);
             bool unavailable=quest==null,finished=unavailable&&ChapterProgress.For(c.Game.State).AllCompleted,active=!unavailable && c.Game.State.activeQuestId==quest.Id && !c.Game.State.completedQuestIds.Contains(quest.Id);
             var ribbon=w.StoryRibbon("Quest title",unavailable?(finished?"お届け、ありがとう":"依頼を確認"):quest.Title,area,new Rect(.12f,.83f,.76f,.11f),18,UIWidgets.Peach);UIWidgets.Top((RectTransform)ribbon.transform.parent,24,10,24,38);
             if(!unavailable)w.StoryLabel("Quest chapter",ChapterCatalog.ForQuest(quest.Id)?.Title??"",area,new Rect(.08f,.775f,.84f,.065f),14);
             var requester=CharacterCatalog.Find(unavailable?c.Game.State.favoriteCharacterId:quest.RequesterId);
             w.Body("Quest character",requester.Id,area,new Rect(.35f,.61f,.3f,.16f));
-            w.StoryLabel("Requester",requester.Name,area,new Rect(.25f,.535f,.5f,.07f),14);
-            w.NarrativeLabel("Quest instruction",unavailable?(finished?"ありがとう！ 街の仲間とお祝いしよう。":UIStrings.UnknownQuest):QuestStoryPresentation.For(quest.Id)?.Before??quest.Dialogue,area,new Rect(.07f,.385f,.86f,.145f),14);
+            w.NarrativeLabel("Requester",requester.Name,area,new Rect(.25f,.535f,.5f,.07f),14);
+            w.NarrativeLabel("Quest instruction",unavailable?(finished?"ありがとう！ 街の仲間とお祝いしよう。":UIStrings.UnknownQuest):QuestStoryPresentation.For(quest.Id)?.Before??quest.Dialogue,area,new Rect(.07f,.385f,.86f,.145f),16);
             if(!unavailable)
             {
                 var requirements=c.Game.Quests.GetProgress(quest);
@@ -37,7 +39,7 @@ namespace Mofumachi.Presentation
             w.Feedback(root,c,ScreenId.Quest);w.Nav(root,c,ScreenId.Quest);
             var feedback=root.Find("Feedback").GetComponent<Text>();float errorHeight=Mathf.Max(48,Mathf.Ceil(feedback.preferredHeight+4));UIWidgets.Bottom(feedback.rectTransform,16,132,16,errorHeight);
             var error=root.Find("Feedback surface") as RectTransform;if(error!=null)UIWidgets.Bottom(error,12,132,12,errorHeight);
-            if(feedback.text.Length>0)((RectTransform)area.parent).offsetMin=new Vector2(14,132+errorHeight+6);
+            if(feedback.text.Length>0)((RectTransform)paper.parent).offsetMin=new Vector2(14,132+errorHeight+6);
         }
         public static void BuildMerge(RectTransform root,ScreenContext c,bool animateSelection=false)
         {

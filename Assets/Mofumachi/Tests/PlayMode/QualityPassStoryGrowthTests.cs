@@ -38,7 +38,7 @@ namespace Mofumachi.Tests
             foreach(TownRegionId region in System.Enum.GetValues(typeof(TownRegionId)))
             {
                 growth.SetRegion(region);growth.Apply(0);Assert.That(Flow.GetComponentsInChildren<TownGrowthPropGraphic>().Length,Is.Zero);
-                growth.Apply(6);var props=Flow.GetComponentsInChildren<TownGrowthPropGraphic>();Assert.That(props.Length,Is.EqualTo(6),region.ToString());
+                growth.Apply(6);var props=Flow.GetComponentsInChildren<TownGrowthPropGraphic>();Assert.That(props.Length,Is.EqualTo(TownGrowthPresentation.For(region,6).Count),region.ToString());Assert.That(props.Length,Is.GreaterThanOrEqualTo(12),"A flourishing town has several visible clusters");
                 Assert.That(props.All(p=>!p.raycastTarget),Is.True);
                 Assert.That(props.Select(p=>p.Region).Distinct(),Is.EqualTo(new[]{region}));
             }

@@ -10,6 +10,7 @@ namespace Mofumachi.Presentation
         private static Texture2D atlas;private Rect pixels;
         public string CharacterId { get; private set; }
         public CharacterExpression Expression { get; private set; }
+        private static readonly float[] rows={0,.12f,.26f,.40f,.52f,.65f,.80f,1};
         private float foot,wave,facing;private bool blink;
         public void Pose(float stepping,float greeting,float direction,bool eyesClosed)
         {foot=stepping;wave=greeting;facing=direction;blink=eyesClosed;SetVerticesDirty();}
@@ -35,7 +36,7 @@ namespace Mofumachi.Presentation
             // Deform the same formal atlas very slightly at feet/hands. The head
             // keeps its original silhouette; blink uses only the approved smiling
             // eye strip, rather than painting a different face.
-            float[] rows={0,.12f,.26f,.40f,.52f,.65f,.80f,1};const int columns=4;
+            const int columns=4;
             var closed=Bounds[6+CharacterCatalog.Find(CharacterId).PortraitIndex];
             var closedUv=new Rect(closed.x/1536f,1-closed.yMax/1024f,closed.width/1536f,closed.height/1024f);
             for(int y=0;y<rows.Length-1;y++)for(int x=0;x<columns;x++)

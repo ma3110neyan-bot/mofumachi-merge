@@ -31,7 +31,7 @@ namespace Mofumachi.Tests
                 for(int level=0;level<=6;level++)
                 {
                     var props=((IEnumerable)method.Invoke(null,new object[]{region,level})).Cast<object>().ToArray();
-                    Assert.That(props.Length,Is.EqualTo(level),region+" should visibly gain something at every level");
+                    Assert.That(props.Length,level==0?Is.EqualTo(0):Is.GreaterThan(previous),region+" should visibly gain something at every level");
                     Assert.That(props.Length,Is.GreaterThanOrEqualTo(previous));previous=props.Length;
                 }
             }

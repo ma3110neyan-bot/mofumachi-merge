@@ -35,7 +35,7 @@ namespace Mofumachi.Presentation
                 var actor=rect.gameObject.AddComponent<TownActor>();actor.Bind(character.Id,controlled,new TownMovement(nav,point),nav);actor.Connect(this,point,point,1.6f+i*.4f);if(!controlled)actor.SetDestination(place,1.6f+i*.4f);actors[i]=actor;
                 var ground=c.Widgets.Panel("Town actor ground shadow",rect,new Rect(.17f,-.035f,.66f,.095f),new Color(.24f,.19f,.26f,.18f));ground.radius=100;ground.decorated=false;ground.transform.SetAsFirstSibling();
                 var panel=c.Widgets.Panel("Town actor name panel",rect,new Rect(-.13f,-.26f,1.26f,.26f)).rectTransform;
-                c.Widgets.StoryLabel("Town actor name",character.Name,panel,new Rect(.04f,.03f,.92f,.94f),12);
+                c.Widgets.NarrativeLabel("Town actor name",character.Name,panel,new Rect(.04f,.03f,.92f,.94f),12);
                 actor.Render(0,0);
             }
             AddEntrance("依頼部屋",RequestEntrance,"quest",UIWidgets.BluePaper);AddEntrance("ショップ",ShopEntrance,"shop",UIWidgets.BlushPaper);
@@ -53,7 +53,8 @@ namespace Mofumachi.Presentation
         public bool GuideToStreetPoint(TownPoint point)
         {
             if(!CanInteract||Regions.ViewingRegion!=Regions.HeroRegion)return false;
-            var hero=actors.Single(a=>a.Controlled);return hero.GuideTo(point);
+            if(!TownStreetSelection.TryResolve(Regions.HeroRegion,TownLevel,point,out var target)||target.Kind!=StreetTargetKind.Road)return false;
+            var hero=actors.Single(a=>a.Controlled);return hero.GuideTo(target.Point);
         }
         public bool GuideToRestStop(string id)
         {
@@ -152,7 +153,7 @@ namespace Mofumachi.Presentation
             {
                 if(!CanInteract||NearbyFacility!=facility||actor.RegionId!=TownRegionId.Central||!actor.RegionVisible)return;
                 if(facility=="quest")context.Flow.ShowQuest();else context.Flow.OpenShopPreview();
-            });UIWidgets.Bottom((RectTransform)b.transform,48,154,48,48);entrance=b.gameObject;
+            });UIWidgets.Bottom((RectTransform)b.transform,48,178,48,48);entrance=b.gameObject;
         }
         internal void React(TownActor a)
         {if(!CanInteract)return;context.Flow.PlayCue(AudioCue.Character);if(!IsManuallyDragging&&entrance==null){if(a.Controlled)ShowOutings();else{HideOutings();ShowBubble(CharacterCatalog.Find(a.CharacterId).Name+"："+StreetLine(a),a);}}}
@@ -166,7 +167,7 @@ namespace Mofumachi.Presentation
         private void PositionBubble()
         {
             if(bubble==null||speaker==null)return;var root=(RectTransform)transform.parent;var p=(RectTransform)bubble.transform;var world=actorLayer.TransformPoint(Local(speaker.RenderPosition));var target=(Vector2)root.InverseTransformPoint(world)+Vector2.up*122;
-            var r=root.rect;float half=p.rect.width/2;target.x=Mathf.Clamp(target.x,r.xMin+half+14,r.xMax-half-14);target.y=Mathf.Clamp(target.y,r.yMin+154+p.rect.height/2,r.yMax-142-p.rect.height/2);p.anchoredPosition=target;
+            var r=root.rect;float half=p.rect.width/2;target.x=Mathf.Clamp(target.x,r.xMin+half+14,r.xMax-half-14);target.y=Mathf.Clamp(target.y,r.yMin+178+p.rect.height/2,r.yMax-142-p.rect.height/2);p.anchoredPosition=target;
         }
         public void SetViewScale(float scale){if(actors!=null)foreach(var a in actors)a.SetViewScale(scale);}
         public void RefreshViewport()

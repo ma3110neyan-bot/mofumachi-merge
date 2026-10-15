@@ -47,9 +47,9 @@ namespace Mofumachi.Presentation
             foreach(var next in new[]{TownRegionId.West,TownRegionId.Central,TownRegionId.East})
             {
                 if(!TownRegionCatalog.TryGetPortal(shown,next,out var gate))continue;
-                var captured=gate.From.Local;
+                var captured=gate.From.Local;var origin=shown;
                 string copy=next==TownRegionId.West?"西のカフェへ":next==TownRegionId.East?"東の小道へ":"中央の広場へ";
-                var b=context.Widgets.Button("Street exit "+next,copy,markerRoot,new Rect(.5f,.5f,0,0),()=>{if(!IsArmed)Arm();Tap(captured);},true);
+                var b=context.Widgets.Button("Street exit "+next,copy,markerRoot,new Rect(.5f,.5f,0,0),()=>{if(life.Regions.HeroRegion!=origin){life.Regions.ReturnToHero();return;}if(!IsArmed)Arm();Tap(captured);},true);
                 var r=(RectTransform)b.transform;r.sizeDelta=new Vector2(106,48);b.GetComponentInChildren<Text>().fontSize=12;
                 b.gameObject.AddComponent<StreetMarkerAnchor>().Bind(life,gate.From.Local);
             }

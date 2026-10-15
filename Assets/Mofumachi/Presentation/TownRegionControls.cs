@@ -9,7 +9,7 @@ namespace Mofumachi.Presentation
     {
         private TownLifeView life;
         private TownRegionSession session;
-        private Text heading,hint;
+        private Text heading,hint;private string growthGoal;
         private readonly Button[] buttons=new Button[3];
         private readonly Text[] labels=new Text[3];
         private TownRegionId previousView=(TownRegionId)(-1),previousHero=(TownRegionId)(-1);
@@ -17,7 +17,7 @@ namespace Mofumachi.Presentation
         private string previousDestination;
         public void Bind(ScreenContext c,RectTransform root,TownLifeView town)
         {
-            life=town;session=town.Regions;
+            life=town;session=town.Regions;growthGoal=TownNextGoal.For(c.Game.State).Detail;
             var panel=c.Widgets.OrnatePanel("Town region choices",root,new Rect(0,0,1,1),UIWidgets.Cream,12).rectTransform;
             UIWidgets.Top(panel,10,62,10,76);
             heading=c.Widgets.StoryLabel("Town region name","",panel,new Rect(.04f,.73f,.92f,.25f),12);
@@ -57,8 +57,7 @@ namespace Mofumachi.Presentation
                 buttons[i].interactable=allowed;
                 buttons[i].GetComponent<RoundedPanelGraphic>().color=(session.HeroDestinationRegion??hero)==region?UIWidgets.BlushPaper:UIWidgets.BluePaper;
             }
-            if(hint!=null)hint.text=viewed==TownRegionId.Central?TownPlaceCatalog.GrowthHint(life.TownLevel):
-                viewed==TownRegionId.West?"カフェ・ベンチで、ひと休み♪":"花の小道と工房を見てみよう♪";
+            if(hint!=null)hint.text=growthGoal;
         }
         private static string ShortName(TownRegionId region)=>region==TownRegionId.West?"西の庭":region==TownRegionId.Central?"中央の街":"東の小道";
         private void OnDisable(){if(session!=null)session.RegionChanged-=RegionChanged;}

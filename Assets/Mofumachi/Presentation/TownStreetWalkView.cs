@@ -19,18 +19,18 @@ namespace Mofumachi.Presentation
             UIWidgets.Top(panel,16,142,16,48);
             hint=c.Widgets.Label("Street walking instruction","キャラをタップして、道を歩こう",panel,new Rect(.025f,.08f,.76f,.84f),12);
             var menu=c.Widgets.Button("Street destinations","行き先",panel,new Rect(.78f,0,.22f,1),()=>life.OpenOutings(),true);menu.GetComponentInChildren<Text>().fontSize=12;
-            ((RectTransform)menu.transform).sizeDelta=new Vector2(0,0);RefreshMarkers();
+            ((RectTransform)menu.transform).sizeDelta=new Vector2(0,0);panel.gameObject.SetActive(false);RefreshMarkers();
         }
         public bool Arm()
         {
             if(life==null||!life.CanInteract||life.IsManuallyDragging)return false;
-            life.StartInteraction();life.Regions.ReturnToHero();IsArmed=true;
+            life.StartInteraction();life.Regions.ReturnToHero();IsArmed=true;panel.gameObject.SetActive(true);
             var hero=life.Actors.Single(a=>a.Controlled);
             var ring=context.Widgets.Panel("Selected walking partner",(RectTransform)hero.transform,new Rect(-.12f,-.07f,1.24f,.19f),new Color(1,.84f,.39f,.72f));ring.radius=80;ring.decorated=false;ring.transform.SetAsFirstSibling();selection=ring.gameObject;
             hint.text="道・花・ベンチ・出口をタップ♪";return true;
         }
         public void CancelSelection()
-        {IsArmed=false;if(selection!=null){selection.SetActive(false);Destroy(selection);}selection=null;if(hint!=null)hint.text="キャラをタップして、道を歩こう";}
+        {IsArmed=false;if(panel!=null)panel.gameObject.SetActive(false);if(selection!=null){selection.SetActive(false);Destroy(selection);}selection=null;if(hint!=null)hint.text="キャラをタップして、道を歩こう";}
         public bool Tap(TownPoint point)
         {
             if(!IsArmed||!life.CanInteract||life.Regions.ViewingRegion!=life.Regions.HeroRegion)return false;
@@ -58,7 +58,7 @@ namespace Mofumachi.Presentation
         {
             if(life==null)return;if(shown!=life.Regions.ViewingRegion)RefreshMarkers();
             if(!life.CanSimulate)CancelSelection();
-            if(panel!=null)panel.gameObject.SetActive(life.CanSimulate);
+            if(panel!=null)panel.gameObject.SetActive(life.CanSimulate&&IsArmed);
         }
         private void OnDisable()=>CancelSelection();
     }

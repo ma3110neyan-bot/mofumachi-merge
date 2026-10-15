@@ -13,7 +13,7 @@ namespace Mofumachi.Presentation
         private readonly Button[] buttons=new Button[3];
         private readonly Text[] labels=new Text[3];
         private TownRegionId previousView=(TownRegionId)(-1),previousHero=(TownRegionId)(-1);
-        private bool previousAllowed;
+        private bool previousAllowed,previousWalking;
         private string previousDestination;
         public void Bind(ScreenContext c,RectTransform root,TownLifeView town)
         {
@@ -43,11 +43,11 @@ namespace Mofumachi.Presentation
         {
             if(life==null||session==null)return;
             bool allowed=life.CanInteract;var viewed=session.ViewingRegion;var hero=session.HeroRegion;
-            string destination=session.HeroDestinationId;
-            if(previousView==viewed&&previousHero==hero&&previousAllowed==allowed&&previousDestination==destination)return;
-            previousView=viewed;previousHero=hero;previousAllowed=allowed;previousDestination=destination;
+            string destination=session.HeroDestinationId;bool walking=false;foreach(var actor in life.Actors)if(actor.Controlled)walking=actor.IsGuided;
+            if(previousView==viewed&&previousHero==hero&&previousAllowed==allowed&&previousDestination==destination&&previousWalking==walking)return;
+            previousView=viewed;previousHero=hero;previousAllowed=allowed;previousDestination=destination;previousWalking=walking;
             heading.text=session.IsHeroTransitioning?"お隣の街へ…":destination!=null?ShortName(session.HeroDestinationRegion.Value)+"へ、おさんぽ中♪":
-                ShortName(viewed)+(viewed==hero?" · キャラをタップ":" · 主人公は"+ShortName(hero));
+                walking?"道を歩いています♪":ShortName(viewed)+(viewed==hero?" · キャラをタップ":" · 主人公は"+ShortName(hero));
             for(int i=0;i<3;i++)
             {
                 var region=(TownRegionId)i;

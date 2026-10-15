@@ -17,7 +17,8 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator FavoriteTapSelectsTheStreetWithoutCoveringItWithMenu()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=life.Actors.Single(a=>a.Controlled);int writes=Store.Writes;
-            hero.OnPointerClick(new PointerEventData(EventSystem.current));
+            var prompt=Flow.GetComponentsInChildren<Transform>(true).Single(t=>t.name=="Street walking hint").gameObject;Assert.That(prompt.activeSelf,Is.False);
+            hero.OnPointerClick(new PointerEventData(EventSystem.current));Assert.That(prompt.activeSelf,Is.True);
             Assert.That(life.GetComponent<TownStreetWalkView>().IsArmed,Is.True);
             Assert.That(HasOutings(),Is.False);
             Assert.That(Flow.GetComponentsInChildren<Transform>().Any(t=>t.name=="Town outing choices"),Is.False);

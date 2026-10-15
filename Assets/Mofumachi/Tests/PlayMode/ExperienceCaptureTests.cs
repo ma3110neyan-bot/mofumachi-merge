@@ -19,23 +19,37 @@ namespace Mofumachi.Tests
             var args=Environment.GetCommandLineArgs();int i=Array.IndexOf(args,"-mofumachiScreenshots");
             return i>=0&&i+1<args.Length?Path.GetFullPath(args[i+1]):null;
         }
+        private Camera captureCamera;private RenderTexture target;private Canvas captureCanvas;
+        private void EnsurePortraitCamera()
+        {
+            captureCanvas=Flow.GetComponentInChildren<Canvas>();
+            if(captureCamera==null)
+            {
+                var cameraObject=new GameObject("Isolated portrait capture camera",typeof(Camera));captureCamera=cameraObject.GetComponent<Camera>();
+                target=new RenderTexture(720,1280,24);target.Create();captureCamera.targetTexture=target;
+                captureCamera.clearFlags=CameraClearFlags.SolidColor;captureCamera.backgroundColor=new Color(.98f,.94f,.91f);captureCamera.cullingMask=1<<30;
+                captureCamera.orthographic=true;captureCamera.orthographicSize=320;captureCamera.nearClipPlane=.1f;captureCamera.farClipPlane=100;captureCamera.transform.position=new Vector3(0,0,-20);
+                captureCanvas.GetComponent<CanvasScaler>().enabled=false;captureCanvas.renderMode=RenderMode.ScreenSpaceCamera;captureCanvas.worldCamera=captureCamera;captureCanvas.planeDistance=10;captureCanvas.scaleFactor=2;
+                Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(720,1280),new Rect(0,0,720,1280));
+            }
+            foreach(var t in captureCanvas.GetComponentsInChildren<Transform>(true))t.gameObject.layer=30;
+        }
         private Texture2D Portrait()
         {
-            var canvas=Flow.GetComponentInChildren<Canvas>();var scaler=canvas.GetComponent<CanvasScaler>();
-            var cameraObject=new GameObject("Isolated portrait capture camera",typeof(Camera));var camera=cameraObject.GetComponent<Camera>();
-            var target=new RenderTexture(720,1280,24);var previous=RenderTexture.active;Texture2D image=null;
+            EnsurePortraitCamera();var previous=RenderTexture.active;Texture2D image=null;
             try
             {
-                target.Create();camera.targetTexture=target;camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=new Color(.98f,.94f,.91f);camera.cullingMask=1<<30;
-                camera.orthographic=true;camera.orthographicSize=320;camera.nearClipPlane=.1f;camera.farClipPlane=100;camera.transform.position=new Vector3(0,0,-20);
-                foreach(var t in canvas.GetComponentsInChildren<Transform>(true))t.gameObject.layer=30;
-                scaler.enabled=false;canvas.renderMode=RenderMode.ScreenSpaceCamera;canvas.worldCamera=camera;canvas.planeDistance=10;canvas.scaleFactor=2;
-                Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(720,1280),new Rect(0,0,720,1280));
                 Canvas.ForceUpdateCanvases();foreach(var grid in Flow.GetComponentsInChildren<MergeGridLayout>())grid.ResizeNow();Canvas.ForceUpdateCanvases();
-                camera.Render();RenderTexture.active=target;image=new Texture2D(720,1280,TextureFormat.RGB24,false);image.ReadPixels(new Rect(0,0,720,1280),0,0);image.Apply();return image;
+                captureCamera.Render();RenderTexture.active=target;image=new Texture2D(720,1280,TextureFormat.RGB24,false);image.ReadPixels(new Rect(0,0,720,1280),0,0);image.Apply();return image;
             }
             catch{if(image!=null)UnityEngine.Object.DestroyImmediate(image);throw;}
-            finally{RenderTexture.active=previous;canvas.worldCamera=null;canvas.renderMode=RenderMode.WorldSpace;camera.targetTexture=null;target.Release();UnityEngine.Object.DestroyImmediate(target);UnityEngine.Object.DestroyImmediate(cameraObject);}
+            finally{RenderTexture.active=previous;}
+        }
+        [TearDown] public void ReleasePortraitCamera()
+        {
+            if(captureCanvas!=null)captureCanvas.worldCamera=null;
+            if(captureCamera!=null){captureCamera.targetTexture=null;UnityEngine.Object.DestroyImmediate(captureCamera.gameObject);}
+            if(target!=null){target.Release();UnityEngine.Object.DestroyImmediate(target);}captureCamera=null;target=null;captureCanvas=null;
         }
         private void Capture(string directory,string name)
         {

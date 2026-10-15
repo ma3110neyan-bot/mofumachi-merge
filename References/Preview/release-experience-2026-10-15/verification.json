@@ -143,5 +143,11 @@
       }
     ]
   },
-  "mainMerged": false
+  "mainMerged": false,
+  "nativeCaptureHelper": {
+    "status": "compiled_not_native_executed",
+    "persistentCamera": true,
+    "sourceSha256": "70d20ec74b2e23cd8b116761002ae5f4361d83a2e33a695f11dba9ca41acd2e3",
+    "followupReview": "No material lifecycle issues; rendering requires native verification"
+  }
 }

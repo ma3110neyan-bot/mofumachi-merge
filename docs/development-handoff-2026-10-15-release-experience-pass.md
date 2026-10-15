@@ -70,3 +70,5 @@ powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\build-a
 - 10分程度連続操作し、重さ・発熱・フリーズ・クラッシュ・音を記録。問題は症状→再現手順→画面→ログで候補上に修正する。
 
 **現時点のmain統合判定：保留。** 今回候補のWindows全件・新規APK・Pixel受入が済んでから承認を求めます。公開AAB・Google Play提出前の最終端末／公開設定／掲載情報も残作業です。時間帯・CITY・ガチャ・親密度・デイリー等は今回追加していません。
+
+最終補足：実画面キャプチャはテスト中に1つのカメラ／RenderTextureを維持し、歩行8コマの間にCanvas方式を切り替えて移動を止めない構造へ修正しました。解放処理も再レビュー済みで、コンパイルは成功。実際の描画結果はWindows実行後に確認します。

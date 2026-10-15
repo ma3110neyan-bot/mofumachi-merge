@@ -90,17 +90,26 @@ namespace Mofumachi.Tests
             Assert.That(npc.VisualRoot.anchoredPosition.y,Is.GreaterThan(3));
             var hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);
             life.Regions.ReturnToHero();
-            foreach(string place in new[]{"bench","flowers","fountain"})
+            var destinations=new[]{
+                new {Button="Visit bench",Place="bench-right"},
+                new {Button="Visit central fountain",Place="fountain"},
+                new {Button="Visit east flowers",Place="east.flowers"}};
+            string[] expectedChoices={"Visit west cafe","Visit central fountain","Visit east flowers","Visit bench","Guide to quest","Guide to shop"};
+            foreach(var destination in destinations)
             {
-                hero.React();Assert.That(Flow.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Visit ")),Is.EqualTo(3));
-                Canvas.ForceUpdateCanvases();foreach(var visit in Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Visit ")))
+                hero.React();var choices=Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Visit ")||b.name.StartsWith("Guide to ")).ToArray();
+                Assert.That(choices.Select(b=>b.name),Is.EquivalentTo(expectedChoices),"The character menu must offer the six Quality Pass destinations");
+                Canvas.ForceUpdateCanvases();foreach(var visit in choices)
                     Assert.That(((RectTransform)visit.transform).rect.height,Is.GreaterThanOrEqualTo(48),visit.name);
-                Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Visit "+place).onClick.Invoke();Assert.That(hero.IsGuided,Is.True);
-                // Observe arrival, rather than waiting 10s past a greeting that lasts 2.5s.
-                for(int i=0;i<300&&hero.IsGuided;i++)life.AdvanceFrame(1f/30);
-                Assert.That(hero.IsGuided,Is.False,"Rest stop must be reached within 10s");Assert.That(life.NearbyFacility,Is.Null,"A rest stop does not enter a facility.");
-                Assert.That(TownPlaceCatalog.TryFind(life.StreetMap,place=="bench"?"bench-right":place,out var target),Is.True);
-                Assert.That(Vector2.Distance(new Vector2(hero.Position.X,hero.Position.Y),new Vector2(target.Position.X,target.Position.Y)),Is.LessThan(.001f),place);
+                choices.Single(b=>b.name==destination.Button).onClick.Invoke();Assert.That(life.Regions.HasHeroJourney,Is.True);
+                // IsGuided pauses at a regional gate/fade. Wait for the whole
+                // journey, and observe its greeting on the actual arrival frame.
+                for(int i=0;i<2400&&life.Regions.HasHeroJourney;i++)life.AdvanceFrame(1f/30);
+                Assert.That(life.Regions.HasHeroJourney,Is.False,"The outing must finish within its bounded journey budget");
+                Assert.That(hero.IsGuided,Is.False);Assert.That(hero.Movement.OwnedPointerId,Is.Null);Assert.That(life.NearbyFacility,Is.Null,"A rest stop does not enter a facility.");
+                Assert.That(TownRegionCatalog.TryFindPlace(destination.Place,life.TownLevel,out var target,out _),Is.True);
+                Assert.That(hero.RegionId,Is.EqualTo(target.Region),destination.Place);
+                Assert.That(Vector2.Distance(new Vector2(hero.Position.X,hero.Position.Y),new Vector2(target.Local.X,target.Local.Y)),Is.LessThan(.001f),destination.Place);
                 Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"),Is.True,"Observe the greeting immediately when arrival completes");
             }
             Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));Assert.That(Store.Writes,Is.EqualTo(writes));

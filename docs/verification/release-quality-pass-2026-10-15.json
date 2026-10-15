@@ -81,10 +81,25 @@
     "skipped": null
   },
   "windowsPlayMode": {
-    "status": "unrun",
+    "status": "failure_reported_awaiting_retest",
     "passed": null,
     "failed": null,
-    "skipped": null
+    "skipped": null,
+    "reportedFailureCount": 1,
+    "resultsXmlReceived": false,
+    "failureReports": [
+      {
+        "test": "NpcsVisitSeveralStreetStopsWithoutChangingProgress",
+        "file": "Assets/Mofumachi/Tests/PlayMode/TownLifeTests.cs",
+        "reportedLine": 95,
+        "message": "Expected: 3 / But was: 4",
+        "cause": "Legacy destination-menu assertions refer to three old Visit buttons; the Quality Pass menu offers four Visit buttons and two Guide buttons.",
+        "correction": "Assert the six current destination names and hit areas, await the whole regional journey, and check actual region/local coordinates on arrival.",
+        "status": "test_updated_native_retest_unrun",
+        "productionCodeChanged": false,
+        "testCountChanged": false
+      }
+    ]
   },
   "cloudNativeAttempt": {
     "status": "blocked",
@@ -139,6 +154,11 @@
     "android-tools.log": {
       "workspacePath": "/tmp/mofumachi-quality-pass-20261015/android-tools.log",
       "sha256": "da46b6743fa8f5027fd8a103bc40cb2b855ac26abb0d716a2b5e60056316f25b"
+    },
+    "menu-test-fix-compile.log": {
+      "workspacePath": "/tmp/mofumachi-qp-menu-test-fix-20261015/compile.log",
+      "sha256": "54d47fb818bee84f6724f44ddb4dcfc87b3c557c05b423d6534e64cbc417502d",
+      "nativeUnityTestExecution": false
     }
   },
   "assetSha256": {

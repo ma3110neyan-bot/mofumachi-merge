@@ -1,3 +1,5 @@
+> 2026-10-15・総合Quality Pass候補：**`feat/release-quality-pass-20261015`**。キャラ起点の3地域歩行、1タップのショートカット、Merge受け皿と合体／着地、Klee One本文、3地域の成長比較、6依頼の会話を実装。Core125／Presentation17成功、実Unity DLLの6アセンブリ警告／エラー0。**今回版のWindows全件・APK・Pixelは未実施。main未統合。** 宣言構成はEditMode139／PlayMode135（ネイティブ実発見ではありません）。[変更・検証・Windows／Pixel手順](docs/development-handoff-2026-10-15-release-quality-pass.md)。
+
 > 2026-10-14・B案3地域の実装候補：西／中央／東、入口へ歩く→短いフェード→到着側で歩く、NPC分散・訪問・交流を追加。正式素材・保存／納品／報酬・5×6を保持。Core125／演出10成功、実6 DLLコンパイル警告／エラー0。**候補のUnity全件・QA APK・Pixelは未実施。mainへ未統合。** 宣言構成はEditMode138／PlayMode124。[引き継ぎとWindows操作](docs/development-handoff-2026-10-14-town-regions-b.md)、[Pixelチェック](docs/town-regions-b-pixel3a-checklist.md)。
 
 > 2026-10-14・再開：ユーザー回答では**EditMode121件と今回版のPixel一周は未実施**。確認と並行して、本文書体比較・Mergeの情報と立体感・街の左右各約1画面拡張・依頼の楽しさを設計資料にまとめた。製品へ未適用で、ゲーム本体・正式素材・保存／納品／報酬・テストは変更していない。[今回の報告](docs/development-handoff-2026-10-14-design-review.md)、[比較と配置図](References/Preview/quality-review-2026-10-14/README.md)、[設計・変更対象](docs/superpowers/specs/2026-10-14-storybook-and-town-expansion-review.md)。資料更新のためだけの再ビルドは不要。

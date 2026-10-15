@@ -32,9 +32,9 @@ Files: TownLifeView, TownRegionSession, TownRegionControls, new TownOutingMenu; 
 
 Interfaces: `GuideToPlace(string)` remains the single route entry; expose current destination/status read-only. Same destination is idempotent. Separate explicit scenery preview from one-tap walking.
 
-- [ ] Add UI tests for character destination choices, one-click shortcuts, repeated input, cancel/Back and cross-town facility walking.
-- [ ] Implement six destinations, explicit scenery mode, instant button response and status; retain existing B path/fade/cancellation.
-- [ ] Compile all real Unity assemblies; native UI execution remains a Windows gate.
+- [x] Add UI tests for character destination choices, one-click shortcuts, repeated input, cancel/Back and cross-town facility walking.
+- [x] Implement six destinations, explicit scenery mode, instant button response and status; retain existing B path/fade/cancellation.
+- [x] Compile all real Unity assemblies; native UI execution remains a Windows gate.
 
 ## Task 2: Lightweight 2.5D Merge
 
@@ -42,9 +42,9 @@ Files: QuestMergeScreens, new MergeCellSurfaceGraphic, ItemGraphic, ItemSelectio
 
 Interfaces: Same cell rectangles and existing .22-second lock. Decoration has no raycasts. Both consumed items gather before the result lands at the target.
 
-- [ ] Add timing/visual tests, observe executable timing failures before implementation.
-- [ ] Add recessed tray rims, board depth, item polish/ground shadow, floating selection/matching glow and gather/flash/bounce.
-- [ ] Run .NET visual tests and Unity assembly compilation.
+- [x] Add timing/visual tests, observe executable timing failures before implementation.
+- [x] Add recessed tray rims, board depth, item polish/ground shadow, floating selection/matching glow and gather/flash/bounce.
+- [x] Run .NET visual tests and Unity assembly compilation.
 
 ## Task 3: Body font, regional growth and quest stories
 
@@ -52,18 +52,20 @@ Files: UIWidgets and narrative screen builders; new QuestStoryPresentation and r
 
 Interfaces: Klee One via `NarrativeLabel`; original story headings and numeric/button fonts retained. Dialogue keyed by existing quest IDs; decoration keyed by existing town growth level and region.
 
-- [ ] Add tests for all six before/thanks/reunion stories, three regions' progressive decoration, body/control font roles and short portrait fit.
-- [ ] Apply verified Klee One SemiBold subset to narrative text; preserve logo and formal artwork.
-- [ ] Add region-specific additive flowers, seating/lamps/arches and growth previews without repainting the cute starting town.
-- [ ] Connect before/thanks/reunion text and growth descriptions using completed IDs, without new persistence.
-- [ ] Check glyph coverage, asset limits, core regressions, real assembly compilation and protected-file diff.
+- [x] Add tests for all six before/thanks/reunion stories, three regions' progressive decoration, body/control font roles and short portrait fit.
+- [x] Apply verified Klee One SemiBold subset to narrative text; preserve logo and formal artwork.
+- [x] Add region-specific additive flowers, seating/lamps/arches and growth previews without repainting the cute starting town.
+- [x] Connect before/thanks/reunion text and growth descriptions using completed IDs, without new persistence.
+- [x] Check glyph coverage, asset limits, core regressions, real assembly compilation and protected-file diff.
 
 ## Task 4: Review and handoff
 
-- [ ] Independent whole-branch review; resolve material findings and rerun affected checks.
+- [x] Independent whole-branch review; resolve material findings and rerun affected checks.
 - [ ] Record actual test inventory, validation evidence and Windows/Pixel acceptance steps; commit/push candidate only.
 - [ ] New native all-pass/skip-zero XML → QA APK/build-info/SHA → Pixel 10-minute acceptance. If cloud lacks licensing/device, explicitly leave these unrun and provide exact user steps.
 
 ## Execution evidence
 
 Native scene tests cannot run in this unlicensed cloud Unity installation. Tests are written before behavior changes and compiled against real Unity DLLs; pure visual/content tests run under .NET. This limitation does not count as native RED/GREEN or Pixel success.
+
+Review: three Important findings corrected in source (shared walking destinations, two-line narrative height, separate error/retry controls); native UI regressions remain unrun. Current compiled inventory: Edit139 / Play135; Core125 and Presentation17 execute successfully under .NET.

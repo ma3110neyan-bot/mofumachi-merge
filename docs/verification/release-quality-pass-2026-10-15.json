@@ -1,0 +1,153 @@
+{
+  "date": "2026-10-15",
+  "branch": "feat/release-quality-pass-20261015",
+  "base": "88e47ddb0b632d6e661c556d67e25568d57aacff",
+  "sourceCommit": "23438181f16091b0a88957e63a32094e28cb8d0b",
+  "unity": "6000.6.4f1",
+  "coreDotnet": {
+    "passed": 125,
+    "failed": 0,
+    "skipped": 0,
+    "nativeUnity": false
+  },
+  "presentationDotnet": {
+    "passed": 17,
+    "failed": 0,
+    "skipped": 0,
+    "nativeUnity": false
+  },
+  "realUnityDllCompilation": {
+    "assemblyCount": 6,
+    "warnings": 0,
+    "errors": 0,
+    "nativeSceneExecution": false
+  },
+  "compiledInventoryOnly": {
+    "Mofumachi.EditModeTests": {
+      "ChapterProgressTests": 2,
+      "CharacterPreferenceTests": 7,
+      "DeliveryTests": 17,
+      "ItemRemovalTests": 10,
+      "MergeBoardTests": 11,
+      "PreferencesTests": 23,
+      "QuestCatalogTests": 4,
+      "SaveServiceTests": 11,
+      "TownFrameClockTests": 4,
+      "TownMovementTests": 5,
+      "TownPlaceCatalogTests": 8,
+      "TownRegionCatalogTests": 9,
+      "TownRegionJourneyTests": 6,
+      "TownViewportTests": 8
+    },
+    "Mofumachi.BuildTests": {
+      "AndroidBuildTests": 1,
+      "PresentationContentTests": 9,
+      "QaIdentityTests": 2,
+      "TownRegionContentTests": 2
+    },
+    "Mofumachi.PlayModeTests": {
+      "AudioManagerTests": 2,
+      "ChapterFlowTests": 4,
+      "CharacterSelectionTests": 3,
+      "LayoutNoticeTests": 6,
+      "MergeGuidanceTests": 10,
+      "MergeInteractionTests": 4,
+      "MergePolishTests": 8,
+      "MergeProgressionUiTests": 11,
+      "MultiQuestPresentationTests": 4,
+      "PopPresentationTests": 3,
+      "ProductionFrameUiTests": 5,
+      "QualityPassMergeTests": 1,
+      "QualityPassStoryGrowthTests": 5,
+      "QualityPassTravelTests": 5,
+      "RewardGrowthTests": 4,
+      "SettingsScreenTests": 5,
+      "StoryTypographyTests": 1,
+      "TownHabitTests": 5,
+      "TownLifeTests": 8,
+      "TownMotionPresentationTests": 4,
+      "TownRegionFlowTests": 17,
+      "TownRegionLifeTests": 8,
+      "TownViewportPresentationTests": 5,
+      "VerticalSliceFlowTests": 7
+    }
+  },
+  "expectedEditModeCount": 139,
+  "expectedPlayModeCount": 135,
+  "windowsEditMode": {
+    "status": "unrun",
+    "passed": null,
+    "failed": null,
+    "skipped": null
+  },
+  "windowsPlayMode": {
+    "status": "unrun",
+    "passed": null,
+    "failed": null,
+    "skipped": null
+  },
+  "cloudNativeAttempt": {
+    "status": "blocked",
+    "exitCode": 198,
+    "reason": "No valid Unity Editor license found",
+    "testsExecuted": false
+  },
+  "qaApk": {
+    "status": "not_generated",
+    "buildInfo": null,
+    "sha256": null,
+    "appId": "com.mofumachi.merge.qa.townlife"
+  },
+  "pixel3a": {
+    "status": "unrun_for_this_revision",
+    "tenMinuteTrial": "unrun",
+    "screenshots": "not_captured"
+  },
+  "androidScriptChecks": {
+    "status": "passed",
+    "syntheticXml": true,
+    "mockInstaller": true,
+    "deviceTest": false
+  },
+  "independentReview": {
+    "reviewedCommit": "3b27c8c",
+    "critical": 0,
+    "importantFound": 3,
+    "importantSourceFixes": 3,
+    "nativeRegressionExecution": "unrun",
+    "minorPreRewardCaption": "resolved_as_part_of_text_fit_correction",
+    "unjudged": [
+      "Actual Unity rendering",
+      "Android font rasterization",
+      "growth art placement",
+      "animation feel",
+      "Pixel performance"
+    ]
+  },
+  "fontGlyphsPerSubset": 520,
+  "protectedSourcesUnchanged": true,
+  "mainMerged": false,
+  "evidence": {
+    "quality-core.trx": {
+      "workspacePath": "/tmp/mofumachi-quality-pass-20261015/quality-core.trx",
+      "sha256": "3395deb64084eb3490daa7c2660dcfb68ffc3e48cfd8e8afa99628cd10d992f4"
+    },
+    "quality-visual.trx": {
+      "workspacePath": "/tmp/mofumachi-quality-pass-20261015/quality-visual.trx",
+      "sha256": "2d4ab3d5ec965b9c3c5713cfec367e9a0635fee2f486269d780d1c4999f8f1fc"
+    },
+    "android-tools.log": {
+      "workspacePath": "/tmp/mofumachi-quality-pass-20261015/android-tools.log",
+      "sha256": "da46b6743fa8f5027fd8a103bc40cb2b855ac26abb0d716a2b5e60056316f25b"
+    }
+  },
+  "assetSha256": {
+    "TownBackground.png": "971461342858e74c8db5f669f28c3e5c0c1a0f9d364e645ec55b9ea2834e7b51",
+    "TownWestBackground.png": "a4bda540be5347d253d2decd010e2f96f4cb4b64861b4e73859338865342c328",
+    "TownEastBackground.png": "2e45be7b35f6533279def009a0c187bba24f16f7725287e2ffb40e630b0a4e3e",
+    "CharacterBodyAtlas.png": "23d14025f146c429da01b6e3a74ef803254755f8d149f9eb53516aacaa30163d",
+    "TitleLogo.png": "5cbc8451a620d20887f3c74863509e080eddaa235649209c9c8141e053dc3190",
+    "TownGrowthPropsAtlas.png": "3780d259e887a5f1dbea66910e4f5ddc251153cdd21c5467b15164281d68bba1",
+    "UIFontBody.ttf": "589f1e7ed866f91dd89c1fd9e26bc2d5dcc78e5a20adcc43a63ec7992b3b082d"
+  }
+}

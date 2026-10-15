@@ -50,10 +50,10 @@ namespace Mofumachi.Presentation
             var next=QuestCatalog.NextFor(c.Game.State);var requester=CharacterCatalog.Find(next?.RequesterId??c.Game.State.favoriteCharacterId);
             var quest=w.OrnatePanel("Home quest",root,new Rect(0,0,1,1),null,24).rectTransform; UIWidgets.Bottom(quest,14,78,14,72);
             var chapter=ChapterProgress.For(c.Game.State);bool unknown=next==null&&!chapter.AllCompleted;
-            w.StoryHeading("Home quest title",chapter.CurrentChapter?.Title??"最初の物語をふりかえる",quest,new Rect(.035f,.67f,.75f,.3f),16);
+            w.StoryHeading("Home quest title",chapter.CurrentChapter?.Title??"最初の物語をふりかえる",quest,new Rect(.035f,.625f,.75f,.35f),16);
             w.Label("Chapter progress",chapter.CurrentChapter==null?"6 / 6":chapter.CompletedInCurrent+" / 2",quest,new Rect(.81f,.65f,.15f,.3f),12);
             string goal=unknown?UIStrings.UnknownQuest:chapter.AllCompleted?"みんなのお茶会がひらけました！":chapter.CompletedCount==0&&c.Game.State.activeQuestId.Length==0?"仲間とお茶会をひらこう":requester.Name+"："+next.Title;
-            w.StoryLabel("Home quest summary",goal,quest,new Rect(.04f,.28f,.92f,.37f),14);
+            w.StoryLabel("Home quest summary",goal,quest,new Rect(.04f,.28f,.92f,.34f),14);
             w.StoryLabel("Town growth hint",TownPlaceCatalog.GrowthHint(c.Game.State.townGrowthLevel),quest,new Rect(.04f,.01f,.92f,.25f),12);
             if(chapter.LastCompletedChapter!=null)
             {

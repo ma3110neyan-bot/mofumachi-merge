@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
@@ -133,11 +134,30 @@ namespace Mofumachi.Tests
             // Seed a valid full board. This test exercises actual input routing, not DropItem calls.
             Flow.Game.State.mergeBoard.Clear();for(int i=0;i<28;i++)Flow.Game.AddItem("tea",3);
             Flow.Game.AddItem("bread",1);Flow.Game.AddItem("bread",1);Flow.ShowMerge();yield return null;Canvas.ForceUpdateCanvases();
-            var touch=InputSystem.AddDevice<Touchscreen>();
+            var settings=InputSystem.settings;var previousBackground=settings.backgroundBehavior;
+#if UNITY_EDITOR
+            var previousEditorInput=settings.editorInputBehaviorInPlayMode;
+#endif
+            Touchscreen touch=null;
             try
             {
+                // Batch runs do not focus a Game view. Isolate synthetic input from
+                // editor focus without changing the project's settings or device policy.
+                // Keep the same settings object: replacing it can destroy Unity's
+                // temporary default settings. Restore both fields in finally.
+                settings.backgroundBehavior=InputSettings.BackgroundBehavior.IgnoreFocus;
+#if UNITY_EDITOR
+                settings.editorInputBehaviorInPlayMode=InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
+#endif
+                touch=InputSystem.AddDevice<Touchscreen>();
+                yield return null;Canvas.ForceUpdateCanvases();
+                Assert.That(touch.enabled,Is.True,"The synthetic touchscreen must accept queued input");
+                Assert.That(EventSystem.current.currentInputModule,Is.InstanceOf<InputSystemUIInputModule>());
                 var from=Position(Button("Cell 28"));var to=Position(Button("Cell 29"));
+                var hits=new List<RaycastResult>();EventSystem.current.RaycastAll(new PointerEventData(EventSystem.current){position=from},hits);
+                Assert.That(hits,Is.Not.Empty);Assert.That(hits[0].gameObject.GetComponentInParent<MergeBoardView>(),Is.SameAs(Button("Cell 28").GetComponent<MergeBoardView>()),"The bread cell must receive the touch raycast");
                 yield return Touch(touch,from,UnityEngine.InputSystem.TouchPhase.Began);
+                Assert.That(touch.primaryTouch.press.isPressed,Is.True,"The queued touch must reach Input System before dragging");
                 yield return Touch(touch,Vector2.Lerp(from,to,.5f),UnityEngine.InputSystem.TouchPhase.Moved);
                 Assert.That(GameObject.Find("Dragged tea"),Is.Not.Null,"Touch drag must begin before dropping.");
                 yield return Touch(touch,to,UnityEngine.InputSystem.TouchPhase.Moved);
@@ -150,7 +170,21 @@ namespace Mofumachi.Tests
                 yield return Touch(touch,from,UnityEngine.InputSystem.TouchPhase.Began);yield return Touch(touch,from,UnityEngine.InputSystem.TouchPhase.Ended);
                 Assert.That(Flow.Game.Board.At(29),Is.Null);Assert.That(Flow.Game.Board.At(28).level,Is.EqualTo(2));LogAssert.NoUnexpectedReceived();
             }
-            finally {InputSystem.RemoveDevice(touch);}
+            finally
+            {
+                try {if(touch!=null&&touch.added)InputSystem.RemoveDevice(touch);}
+                finally
+                {
+                    settings.backgroundBehavior=previousBackground;
+#if UNITY_EDITOR
+                    settings.editorInputBehaviorInPlayMode=previousEditorInput;
+#endif
+                }
+            }
+            Assert.That(InputSystem.settings,Is.SameAs(settings));Assert.That(settings.backgroundBehavior,Is.EqualTo(previousBackground));
+#if UNITY_EDITOR
+            Assert.That(settings.editorInputBehaviorInPlayMode,Is.EqualTo(previousEditorInput));
+#endif
         }
 
         private void AcceptedBread()

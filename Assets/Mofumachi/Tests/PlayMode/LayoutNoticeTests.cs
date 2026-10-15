@@ -152,6 +152,9 @@ namespace Mofumachi.Tests
             Assert.That(hud.text, Is.EqualTo(int.MaxValue.ToString("N0")));
             Assert.That(hud.resizeTextForBestFit, Is.False);
             Assert.That(hud.preferredWidth, Is.LessThanOrEqualTo(hud.rectTransform.rect.width + 1));
+            var title=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Home quest title");
+            Assert.That(title.preferredHeight,Is.LessThanOrEqualTo(title.rectTransform.rect.height),"The story heading needs a full line at the current Canvas scale");
+            AssertSeparated((RectTransform)title.transform.parent,title.rectTransform,Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Home quest summary").rectTransform);
             foreach (var t in Flow.GetComponentsInChildren<Text>())
             {
                 Assert.That(t.resizeTextForBestFit, Is.False);

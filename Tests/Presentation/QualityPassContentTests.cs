@@ -45,5 +45,16 @@ namespace Mofumachi.Tests
             Assert.That((string)method.Invoke(null,new object[]{"lulu",new[]{"tea-01"}}),Is.Not.Empty);
             Assert.That((string)method.Invoke(null,new object[]{"unknown",new[]{"tea-01"}}),Is.Empty);
         }
+        [Test] public void RegionalDestinationsMatchTheAdvertisedCafeFountainAndFlowerPath()
+        {
+            var type=Content("TownOutingDestinations");var method=type.GetMethod("ForRegion");
+            foreach(int level in new[]{0,1,2,6})
+            foreach(TownRegionId region in Enum.GetValues(typeof(TownRegionId)))
+            {
+                string id=(string)method.Invoke(null,new object[]{region,level});
+                Assert.That(id,Is.EqualTo(region==TownRegionId.West?(level>=2?"west.cafe-front":"west.flowers"):region==TownRegionId.Central?"fountain":"east.flowers"));
+                Assert.That(TownRegionCatalog.TryFindPlace(id,level,out var location,out _),Is.True);Assert.That(location.Region,Is.EqualTo(region));
+            }
+        }
     }
 }

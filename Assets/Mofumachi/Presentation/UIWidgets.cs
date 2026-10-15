@@ -22,6 +22,14 @@ namespace Mofumachi.Presentation
         { var g=Node("Floral gold frame",parent,new Rect(0,0,1,1)).gameObject.AddComponent<DecorativeFrameGraphic>();g.cornerSize=cornerSize;g.showCorners=corners;g.raycastTarget=false;return g; }
         public RoundedPanelGraphic OrnatePanel(string name,RectTransform parent,Rect anchors,Color? color=null,float cornerSize=36)
         { var p=Panel(name,parent,anchors,color);Frame(p.rectTransform,cornerSize);return p; }
+        public RectTransform ScrollPaper(string name,RectTransform parent,float bottom,float top,float minimumHeight,Color tint)
+        {
+            var viewport=Node(name+" viewport",parent,new Rect(0,0,1,1));viewport.offsetMin=new Vector2(14,bottom);viewport.offsetMax=new Vector2(-14,-top);
+            viewport.gameObject.AddComponent<RectMask2D>();var capture=viewport.gameObject.AddComponent<Image>();capture.color=Color.clear;
+            var paper=OrnatePanel(name,viewport,new Rect(0,0,1,1),tint).rectTransform;paper.pivot=new Vector2(.5f,1);Top(paper,0,0,0,minimumHeight);
+            var scroll=viewport.gameObject.AddComponent<ScrollRect>();scroll.viewport=viewport;scroll.content=paper;scroll.horizontal=false;scroll.movementType=ScrollRect.MovementType.Clamped;
+            viewport.gameObject.AddComponent<PaperViewportLayout>().Bind(paper,minimumHeight);return paper;
+        }
         public Text Ribbon(string name,string text,RectTransform parent,Rect anchors,int fontSize,Color? color=null)
         { var r=Node(name+" ribbon",parent,anchors);var g=r.gameObject.AddComponent<RibbonGraphic>();g.color=color??Pink;g.raycastTarget=false;
             var t=Heading(name,text,r,new Rect(.09f,.04f,.82f,.92f),fontSize);return t; }
@@ -102,6 +110,13 @@ namespace Mofumachi.Presentation
             float ratio=r.width/r.height, source=(float)i.texture.width/i.texture.height;
             i.uvRect=ratio>source?new Rect(0,(1-source/ratio)/2,1,source/ratio):new Rect((1-ratio/source)/2,0,ratio/source,1); }
         private void Fit(){if(isActiveAndEnabled)FitNow();}
+    }
+    public sealed class PaperViewportLayout : MonoBehaviour
+    {
+        private RectTransform paper;private float minimum;
+        public void Bind(RectTransform content,float minimumHeight){paper=content;minimum=minimumHeight;Resize();}
+        private void OnRectTransformDimensionsChange()=>Resize();
+        private void Resize(){if(paper!=null)UIWidgets.Top(paper,0,0,0,Mathf.Max(minimum,((RectTransform)transform).rect.height));}
     }
     public sealed class ButtonPressFeedback : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
     {

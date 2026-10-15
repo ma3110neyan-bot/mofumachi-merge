@@ -14,5 +14,6 @@
     <Compile Include="../../Assets/Mofumachi/Core/*.cs" />
     <Compile Include="../../Assets/Mofumachi/Presentation/QuestStoryPresentation.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/QuestStoryPresentation.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownGrowthPresentation.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownGrowthPresentation.cs')" />
+    <Compile Include="../../Assets/Mofumachi/Presentation/TownOutingDestinations.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownOutingDestinations.cs')" />
   </ItemGroup>
 </Project>

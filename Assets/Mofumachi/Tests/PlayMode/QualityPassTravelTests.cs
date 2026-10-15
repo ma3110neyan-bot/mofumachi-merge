@@ -55,5 +55,17 @@ namespace Mofumachi.Tests
             Button("Region walk West").onClick.Invoke();Flow.ShowSettings();Flow.GoBack();life=Flow.GetComponentInChildren<TownLifeView>();
             Assert.That(life.Regions.HasHeroJourney,Is.False);Assert.That(life.Actors.Single(a=>a.Controlled).Movement.OwnedPointerId,Is.Null);LogAssert.NoUnexpectedReceived();
         }
+        [UnityTest] public IEnumerator ShortcutsReachAdvertisedPlacesIncludingTheCurrentRegion()
+        {
+            yield return EnterHome();Flow.Game.State.townGrowthLevel=2;Flow.ShowHome();var life=Flow.GetComponentInChildren<TownLifeView>();
+            var hero=life.Actors.Single(a=>a.Controlled);int writes=Store.Writes;
+            foreach(var region in new[]{TownRegionId.Central,TownRegionId.West,TownRegionId.West,TownRegionId.Central,TownRegionId.East})
+            {
+                Button("Region walk "+region).onClick.Invoke();Walk(life);
+                string id=TownOutingDestinations.ForRegion(region,2);Assert.That(TownRegionCatalog.TryFindPlace(id,2,out var target,out _),Is.True);
+                Assert.That(hero.RegionId,Is.EqualTo(target.Region));Assert.That(hero.Position.X,Is.EqualTo(target.Local.X).Within(.001));Assert.That(hero.Position.Y,Is.EqualTo(target.Local.Y).Within(.001));
+            }
+            Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();
+        }
     }
 }

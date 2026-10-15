@@ -33,8 +33,8 @@ namespace Mofumachi.Presentation
         private void Choose(TownRegionId region)
         {
             if(!life.CanInteract)return;
-            if(region==session.HeroRegion&&!session.HasHeroJourney)session.ReturnToHero();
-            else session.GuideToRegion(region);
+            if(region==session.HeroRegion&&session.ViewingRegion!=session.HeroRegion)session.ReturnToHero();
+            else session.GuideToPlace(TownOutingDestinations.ForRegion(region,life.TownLevel));
             Refresh();
         }
         private void RegionChanged(TownRegionId region)=>Refresh();
@@ -51,8 +51,9 @@ namespace Mofumachi.Presentation
             for(int i=0;i<3;i++)
             {
                 var region=(TownRegionId)i;
-                labels[i].text=(region==TownRegionId.West?"西のカフェ":region==TownRegionId.Central?"中央の噴水":"東の花の小道")+"\n"+
-                    (destination!=null&&session.HeroDestinationRegion==region?"おさんぽ中":region==hero&&!session.HasHeroJourney?(viewed==hero?"いまここ":"主人公へ") :"歩いて行く");
+                bool returnToHero=region==hero&&viewed!=hero;
+                labels[i].text=returnToHero?"主人公へ\n戻る":(region==TownRegionId.West?"西のカフェ":region==TownRegionId.Central?"中央の噴水":"東の花の小道")+"\n"+
+                    (destination!=null&&session.HeroDestinationRegion==region?"おさんぽ中":region==TownRegionId.West&&life.TownLevel<2?"お庭へ歩く":"歩いて行く");
                 buttons[i].interactable=allowed;
                 buttons[i].GetComponent<RoundedPanelGraphic>().color=(session.HeroDestinationRegion??hero)==region?UIWidgets.BlushPaper:UIWidgets.BluePaper;
             }

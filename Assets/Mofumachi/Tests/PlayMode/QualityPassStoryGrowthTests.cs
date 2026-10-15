@@ -22,7 +22,7 @@ namespace Mofumachi.Tests
             {
                 var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;((RectTransform)canvas.transform).sizeDelta=new Vector2(360,height);
                 Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,height),new Rect(0,24,360,height-56));Canvas.ForceUpdateCanvases();
-                foreach(var t in Flow.GetComponentsInChildren<Text>().Where(t=>t.font==body))Assert.That(t.preferredHeight,Is.LessThanOrEqualTo(t.rectTransform.rect.height+1),t.name);
+                foreach(var t in Flow.GetComponentsInChildren<Text>().Where(t=>t.text.Length>0))Assert.That(t.preferredHeight,Is.LessThanOrEqualTo(t.rectTransform.rect.height+1),t.name);
             }
             LogAssert.NoUnexpectedReceived();
         }
@@ -50,6 +50,38 @@ namespace Mofumachi.Tests
             life.Regions.LookAtRegion(TownRegionId.West);int writes=Store.Writes;life.Actors.Single(a=>a.CharacterId=="lulu").React();
             Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town bubble").text,Does.Contain(QuestStoryPresentation.For("tea-01").Reunion));
             Assert.That(Flow.Game.State.coins,Is.EqualTo(30));Assert.That(Flow.Game.State.claimedRewardIds.Count,Is.EqualTo(1));Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();
+        }
+        private static Rect Bounds(RectTransform root,RectTransform item)
+        {var corners=new Vector3[4];item.GetWorldCorners(corners);var min=(Vector2)root.InverseTransformPoint(corners[0]);var max=(Vector2)root.InverseTransformPoint(corners[2]);return Rect.MinMaxRect(min.x,min.y,max.x,max.y);}
+        [UnityTest] public IEnumerator EveryDeliveryAndGrowthStoryFitsShortSafePortraits()
+        {
+            yield return EnterHome();Assert.That(Flow.AcceptQuest(),Is.True);Assert.That(Flow.DropItem(0,1),Is.True);yield return new WaitForSecondsRealtime(.3f);Assert.That(Flow.Deliver().Success,Is.True);
+            var canvas=new GameObject("Quality story layout fixture",typeof(RectTransform),typeof(Canvas));canvas.GetComponent<Canvas>().renderMode=RenderMode.WorldSpace;
+            var root=(RectTransform)canvas.transform;var context=new ScreenContext(Flow,new UIWidgets(Resources.Load<Font>("Mofumachi/UIFont"),Resources.Load<Texture2D>("Mofumachi/CharacterMaster")));
+            void Check(bool grown)
+            {
+                foreach(int height in new[]{536,752})foreach(var quest in QuestCatalog.All)
+                {
+                    root.sizeDelta=new Vector2(360,height);var page=UIWidgets.Node("Story layout sample",root,new Rect(0,0,1,1));var delivery=new DeliveryPresentation(quest,quest.Coins,QuestCatalog.All.ToList().IndexOf(quest),QuestCatalog.All.ToList().IndexOf(quest)+1);
+                    if(grown)RewardGrowthScreens.BuildGrowth(page,context,delivery);else RewardGrowthScreens.BuildResult(page,context,delivery);Canvas.ForceUpdateCanvases();
+                    foreach(var t in page.GetComponentsInChildren<Text>().Where(t=>t.text.Length>0))Assert.That(t.preferredHeight,Is.LessThanOrEqualTo(t.rectTransform.rect.height+1),quest.Id+" "+t.name);
+                    var description=page.GetComponentsInChildren<Text>().Single(t=>t.name==(grown?"Growth description":"Reward description"));
+                    if(!grown){var next=page.GetComponentsInChildren<Button>().Single(b=>b.name=="Show growth");Assert.That(Bounds(page,next.transform as RectTransform).Overlaps(Bounds(page,description.rectTransform)),Is.False);}
+                    Object.DestroyImmediate(page.gameObject);
+                }
+            }
+            try{Check(false);yield return new WaitForSecondsRealtime(1.3f);Check(false);Check(true);}finally{Object.DestroyImmediate(canvas);}
+            LogAssert.NoUnexpectedReceived();
+        }
+        [UnityTest] public IEnumerator GrowthSaveErrorKeepsAnUnobscuredUsableReturnButton()
+        {
+            yield return EnterHome();Flow.AcceptQuest();Flow.DropItem(0,1);yield return new WaitForSecondsRealtime(.3f);Assert.That(Flow.Deliver().Success,Is.True);yield return new WaitForSecondsRealtime(1.3f);Flow.ShowGrowth();
+            Store.Fail=true;Flow.ShowHome();Canvas.ForceUpdateCanvases();
+            var button=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Return town");var root=button.transform.parent as RectTransform;
+            var text=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Feedback");var surface=root.Find("Feedback surface") as RectTransform;
+            Assert.That(button.interactable,Is.True);Assert.That(Bounds(root,button.transform as RectTransform).Overlaps(Bounds(root,text.rectTransform)),Is.False);
+            Assert.That(Bounds(root,button.transform as RectTransform).Overlaps(Bounds(root,surface)),Is.False);
+            Store.Fail=false;button.onClick.Invoke();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(Flow.Game.State.coins,Is.EqualTo(30));LogAssert.NoUnexpectedReceived();
         }
     }
 }

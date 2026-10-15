@@ -25,10 +25,10 @@ namespace Mofumachi.Presentation
             for(int i=0;i<2;i++)
             {
                 var column=UIWidgets.Node("Growth comparison "+i,root,new Rect(i*.5f,0,.5f,1));
-                var preview=UIWidgets.Node(i==0?"Growth before preview":"Growth after preview",column,new Rect(0,0,1,1));UIWidgets.Top(preview,6,108,6,108);
+                var preview=UIWidgets.Node(i==0?"Growth before preview":"Growth after preview",column,new Rect(0,0,1,1));UIWidgets.Top(preview,6,108,6,96);
                 preview.gameObject.AddComponent<RectMask2D>();images[i]=preview.gameObject.AddComponent<RawImage>();images[i].raycastTarget=false;
                 var decor=UIWidgets.Node("Growth preview decorations",preview,new Rect(0,0,1,1));growth[i]=decor.gameObject.AddComponent<TownGrowthView>();growth[i].Bind(c,images[i]);
-                var text=c.Widgets.Label(i==0?"Growth before label":"Growth after label",i==0?"お届けの前":"お届けのあと",column,new Rect(0,0,1,1),14);UIWidgets.Top(text.rectTransform,4,218,4,24);
+                var text=c.Widgets.Label(i==0?"Growth before label":"Growth after label",i==0?"お届けの前":"お届けのあと",column,new Rect(0,0,1,1),14);UIWidgets.Top(text.rectTransform,4,206,4,24);
             }
             Show(TownRegionId.Central);
         }

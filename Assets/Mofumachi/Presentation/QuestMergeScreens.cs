@@ -9,32 +9,35 @@ namespace Mofumachi.Presentation
         public static void BuildQuest(RectTransform root,ScreenContext c)
         {
             var w=c.Widgets;w.Header(root,c,"キャラ依頼",UIWidgets.Peach);
-            var area=w.OrnatePanel("Quest card",root,new Rect(0,0,1,1),UIWidgets.BlushPaper).rectTransform;area.offsetMin=new Vector2(14,128);area.offsetMax=new Vector2(-14,-80);
+            var area=w.ScrollPaper("Quest card",root,136,80,328,UIWidgets.BlushPaper);
             var quest=QuestCatalog.NextFor(c.Game.State);
             bool unavailable=quest==null,finished=unavailable&&ChapterProgress.For(c.Game.State).AllCompleted,active=!unavailable && c.Game.State.activeQuestId==quest.Id && !c.Game.State.completedQuestIds.Contains(quest.Id);
-            var ribbon=w.StoryRibbon("Quest title",unavailable?(finished?"すべての依頼が完了しました":UIStrings.UnknownQuest):quest.Title,area,new Rect(.12f,.83f,.76f,.11f),18,UIWidgets.Peach);UIWidgets.Top((RectTransform)ribbon.transform.parent,24,16,24,44);
-            if(!unavailable)w.StoryLabel("Quest chapter",ChapterCatalog.ForQuest(quest.Id)?.Title??"",area,new Rect(.08f,.78f,.84f,.05f),14);
+            var ribbon=w.StoryRibbon("Quest title",unavailable?(finished?"すべての依頼が完了しました":UIStrings.UnknownQuest):quest.Title,area,new Rect(.12f,.83f,.76f,.11f),18,UIWidgets.Peach);UIWidgets.Top((RectTransform)ribbon.transform.parent,24,10,24,38);
+            if(!unavailable)w.StoryLabel("Quest chapter",ChapterCatalog.ForQuest(quest.Id)?.Title??"",area,new Rect(.08f,.775f,.84f,.065f),14);
             var requester=CharacterCatalog.Find(unavailable?c.Game.State.favoriteCharacterId:quest.RequesterId);
-            w.Body("Quest character",requester.Id,area,new Rect(.35f,.60f,.3f,.17f));
-            w.StoryLabel("Requester",requester.Name,area,new Rect(.25f,.55f,.5f,.05f),14);
-            w.NarrativeLabel("Quest instruction",unavailable?(finished?"ありがとう！ 街の仲間とお祝いしよう。":UIStrings.UnknownQuest):QuestStoryPresentation.For(quest.Id)?.Before??quest.Dialogue,area,new Rect(.07f,.40f,.86f,.145f),14);
+            w.Body("Quest character",requester.Id,area,new Rect(.35f,.61f,.3f,.16f));
+            w.StoryLabel("Requester",requester.Name,area,new Rect(.25f,.535f,.5f,.07f),14);
+            w.NarrativeLabel("Quest instruction",unavailable?(finished?"ありがとう！ 街の仲間とお祝いしよう。":UIStrings.UnknownQuest):QuestStoryPresentation.For(quest.Id)?.Before??quest.Dialogue,area,new Rect(.07f,.385f,.86f,.145f),14);
             if(!unavailable)
             {
                 var requirements=c.Game.Quests.GetProgress(quest);
                 for(int i=0;i<requirements.Count;i++)
                 {
                     var entry=requirements[i];var item=entry.Requirement;float width=.88f/requirements.Count;
-                    var required=w.OrnatePanel("Required item "+i,area,new Rect(.06f+i*width,.23f,width-.02f,.17f),UIWidgets.BluePaper,12).rectTransform;
+                    var required=w.OrnatePanel("Required item "+i,area,new Rect(.06f+i*width,.225f,width-.02f,.155f),UIWidgets.BluePaper,12).rectTransform;
                     w.Item("Required art "+i,item.ItemId,item.Level,required,new Rect(.03f,.1f,.27f,.8f));
                     w.Label("Required name "+i,ItemCatalog.Find(item.ItemId).Name+" Lv."+item.Level,required,new Rect(.31f,.50f,.65f,.47f),14);
                     w.Label("Required count "+i,entry.Available+" / "+item.Count,required,new Rect(.31f,.03f,.65f,.44f),14);
                 }
-                w.Icon("Reward coin",UIIcon.Coin,area,new Rect(.23f,.16f,.09f,.06f));
-                w.Heading("Reward","報酬 "+quest.Coins+" Coins",area,new Rect(.33f,.15f,.56f,.07f),16);
+                w.Icon("Reward coin",UIIcon.Coin,area,new Rect(.23f,.125f,.09f,.085f));
+                w.Heading("Reward","報酬 "+quest.Coins+" Coins",area,new Rect(.33f,.125f,.56f,.085f),16);
             }
-            var accept=w.Button("Accept quest",unavailable?"街へ戻る":active?"依頼を進める":"依頼を受ける",area,new Rect(0,0,1,1),()=>{c.Flow.PlayCue(AudioCue.Confirm);if(unavailable)c.Flow.ShowHome();else if(active)c.Flow.ShowMerge();else c.Flow.AcceptQuest();});
-            UIWidgets.Bottom((RectTransform)accept.transform,20,16,20,52);
+            var accept=w.Button("Accept quest",unavailable?"街へ戻る":active?"依頼を進める":"依頼を受ける",root,new Rect(0,0,1,1),()=>{c.Flow.PlayCue(AudioCue.Confirm);if(unavailable)c.Flow.ShowHome();else if(active)c.Flow.ShowMerge();else c.Flow.AcceptQuest();});
+            UIWidgets.Bottom((RectTransform)accept.transform,28,78,28,48);
             w.Feedback(root,c,ScreenId.Quest);w.Nav(root,c,ScreenId.Quest);
+            var feedback=root.Find("Feedback").GetComponent<Text>();float errorHeight=Mathf.Max(48,Mathf.Ceil(feedback.preferredHeight+4));UIWidgets.Bottom(feedback.rectTransform,16,132,16,errorHeight);
+            var error=root.Find("Feedback surface") as RectTransform;if(error!=null)UIWidgets.Bottom(error,12,132,12,errorHeight);
+            if(feedback.text.Length>0)((RectTransform)area.parent).offsetMin=new Vector2(14,132+errorHeight+6);
         }
         public static void BuildMerge(RectTransform root,ScreenContext c,bool animateSelection=false)
         {

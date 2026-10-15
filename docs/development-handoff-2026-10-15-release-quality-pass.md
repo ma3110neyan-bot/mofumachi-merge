@@ -1,8 +1,8 @@
 # 2026-10-15 総合Quality Pass・候補版引き継ぎ
 
-実装先は `feat/release-quality-pass-20261015`。製品コードの最終変更は `23438181f16091b0a88957e63a32094e28cb8d0b`。B案 `88e47dd` から分離し、mainとB案ブランチは変更していません。
+実装先は `feat/release-quality-pass-20261015`。製品コードの最終変更は `80c34160718d9d8a8a439f25aefaea049ebc262f`。B案 `88e47dd` から分離し、mainとB案ブランチは変更していません。
 
-今回の6項目は製品コードへ適用しました。WindowsからPlayModeの失敗1件の報告を受領し、テストを修正しました（第10節）。**修正後のWindows Unity全件実行・QA APK・Pixel試遊・実画面撮影は未実施です**。公開品質の完成／実機合格とは判定しません。
+今回の6項目は製品コードへ適用しました。前回の行き先テスト修正（第10節）後、Windowsバッチ実行のPlayModeで133成功／2失敗／skip 0のXMLを受領し、見出しと入力試験を修正しました（第11節）。**今回の修正後のWindows Unity全件実行・QA APK・Pixel試遊・実画面撮影は未実施です**。公開品質の完成／実機合格とは判定しません。
 
 ## 1. キャラと歩く地域移動
 
@@ -80,7 +80,7 @@ Klee One SemiBoldの限定適用を製品へ入れました。
 |PowerShellのビルド結果判定・インストーラ検査|成功。合成XML・模擬ADBを含む検査であり、実機試験ではありません|
 |字体の元SHA・文字収録・OFL|4書体、必要520字を確認|
 |正式素材／Core／保存・報酬・納品／設定・パッケージの差分|B案から変更なし|
-|Windows Unity EditMode／PlayMode・この改修版|PlayMode失敗1件の報告を受領。両XMLは未受領。第10節の修正後の再実行は未実施|
+|Windows Unity EditMode／PlayMode・この改修版|GUIの139／135成功XMLを受領（実行時SHA未確定）。その後のバッチPlayModeは133成功／2失敗／skip 0。第11節の修正後は再実行未実施|
 |QA APK・build-info・APK SHA256・この改修版|未生成／未取得|
 |Pixel 3a・10分試遊・実画面比較・この改修版|未実施|
 
@@ -142,4 +142,28 @@ Google Play向けの正式署名AAB、公開設定・ストア素材・利用音
 
 修正後はUnity 6000.6.4f1の実DLLで6アセンブリをコンパイルし、警告0／エラー0。コンパイル済み構成はEditMode139／PlayMode135のままで、テストの追加・削除はありません。これはWindows Unityの実行成功を意味しません。
 
-**Windowsでの修正後の再実行は未実施です。** 同じ候補ブランチをFetch／Pull後、まずこの失敗テストを再実行し、続けてEditMode／PlayModeの両Run AllとExport Resultsを実施してください。両XMLで全件Passed・failed 0・skip 0・必須suite実行を確認するまで、新QA APK生成・Pixel更新・main統合は保留します。ユーザーから受領した情報だけでは、今回の総発見数や残りの成功数は確定していません。
+この修正後に受領したGUI・バッチのXMLでは、この行き先テストの成功を確認しました。その後の別の2件の失敗と最新の再試験状況は、第11節を参照してください。
+
+## 11. バッチ実行で判明した2件の受入修正
+
+第10節の修正後、`QP-fc7fc9b-EditMode.xml` と `QP-fc7fc9b-PlayMode.xml` を受領しました。実ケースまで照合し、EditMode139成功／0失敗／0skip、PlayMode135成功／0失敗／0skip、必須5suite成功、旧行き先テスト成功を確認しました。ただしファイル名は旧名で、XMLにコミットSHAはありません。
+
+その後 `scripts/build-android.ps1 -TownQa` の実行結果として `playmode.xml` と `playmode.log` を受領しました。Unity 6000.6.4f1／Windows／Android対象のバッチ実行で、**135発見・133成功・2失敗・skip 0**。ログ末尾は `Test run completed. Exiting with code 2 (Failed). One or more tests failed.` です。EditMode139成功のコンソール表示後、PlayModeの失敗でAPK生成前に停止しています。このバッチのEditMode XMLは未受領です。
+
+|失敗テスト|判明した内容と今回の修正|
+|---|---|
+|`LayoutNoticeTests.RequiredJapaneseTextFitsAndHomeUsesActualHudValues`|`Home quest title` の必要高さ22.6667に対し領域21.6。`TopHomeScreens.cs` の見出しを25.2へ広げ、本文との重なりを避ける配置へ調整。カード72・書体・文字サイズは維持。テストには見出しの厳密な収まりと本文との非重複を追加。|
+|`MergeProgressionUiTests.InputSystemTouchDragAndTapReachBreadCellsThroughEventSystem`|最初のドラッグでゴーストが存在しない。Gameビューのフォーカスに依存する入力注入条件を修正し、この試験内だけ `IgnoreFocus` と `AllDeviceInputAlwaysGoesToGameView` を使用。入力設定オブジェクトは置換せず2項目を `finally` で復元し、追加デバイスも除去。実際のInput System→EventSystem経路と合成／タップの検査は維持。入力有効・Raycast・押下状態の検査を追加。フォーカス条件の解消でこのWindows失敗が直るかは再実行で確認が必要。|
+
+今回の製品変更は街の見出しと本文の配置2行のみです。保存v3・納品・報酬・5×6・正式6名・ロゴ・背景・パッケージ・ProjectSettingsは変更していません。
+
+独立レビューでは、Input Systemの設定オブジェクトを置換すると既定オブジェクトが自動破棄される問題を指摘され、元オブジェクトを保ったまま2項目を復元する方式へ修正しました。再レビューで当該指摘の解消と追加の指摘なしを確認しました。これはネイティブ実行の成功判定ではありません。
+
+修正後の検証は、.NET Core125成功／0失敗／0skip、.NET Presentation17成功／0失敗／0skip、Unity実DLLの6アセンブリが警告0／エラー0。コンパイル済み構成はEditMode139／PlayMode135で変わらず、テストの追加・削除はありません。**修正版のWindows全件実行・APK・Pixel試遊は未実施です。**
+
+次はUnityを閉じ、同じQuality Pass候補をFetch／Pullし、プロジェクトのPowerShellから次を実行してください。新しい日時フォルダーへ両XMLとログを作り、全件合格・skip 0・必須suite確認後だけAPKを生成します。失敗時はその回の `playmode.xml`／`playmode.log` を確認し、main統合や実機更新へ進めません。
+
+```powershell
+Set-Location -LiteralPath "C:\Users\User\Desktop\Mofumachi\mofumachi-merge"
+powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\build-android.ps1" -TownQa
+```

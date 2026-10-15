@@ -2,7 +2,7 @@
   "date": "2026-10-15",
   "branch": "feat/release-quality-pass-20261015",
   "base": "88e47ddb0b632d6e661c556d67e25568d57aacff",
-  "sourceCommit": "23438181f16091b0a88957e63a32094e28cb8d0b",
+  "sourceCommit": "80c34160718d9d8a8a439f25aefaea049ebc262f",
   "unity": "6000.6.4f1",
   "coreDotnet": {
     "passed": 125,
@@ -75,18 +75,26 @@
   "expectedEditModeCount": 139,
   "expectedPlayModeCount": 135,
   "windowsEditMode": {
-    "status": "unrun",
-    "passed": null,
-    "failed": null,
-    "skipped": null
+    "status": "passed_received_gui_xml_before_current_source_fix_revision_unconfirmed",
+    "discovered": 139,
+    "passed": 139,
+    "failed": 0,
+    "skipped": 0,
+    "resultsXmlReceived": true,
+    "sourceRevisionInXml": null,
+    "retestRequiredForSourceCommit": "80c34160718d9d8a8a439f25aefaea049ebc262f",
+    "batchConsolePassed": 139,
+    "batchResultsXmlReceived": false
   },
   "windowsPlayMode": {
-    "status": "failure_reported_awaiting_retest",
-    "passed": null,
-    "failed": null,
-    "skipped": null,
-    "reportedFailureCount": 1,
-    "resultsXmlReceived": false,
+    "status": "failed_received_batch_xml_before_current_source_fix",
+    "discovered": 135,
+    "passed": 133,
+    "failed": 2,
+    "skipped": 0,
+    "resultsXmlReceived": true,
+    "sourceRevisionInXml": null,
+    "retestRequiredForSourceCommit": "80c34160718d9d8a8a439f25aefaea049ebc262f",
     "failureReports": [
       {
         "test": "NpcsVisitSeveralStreetStopsWithoutChangingProgress",
@@ -95,9 +103,19 @@
         "message": "Expected: 3 / But was: 4",
         "cause": "Legacy destination-menu assertions refer to three old Visit buttons; the Quality Pass menu offers four Visit buttons and two Guide buttons.",
         "correction": "Assert the six current destination names and hit areas, await the whole regional journey, and check actual region/local coordinates on arrival.",
-        "status": "test_updated_native_retest_unrun",
+        "status": "passed_in_received_gui_and_batch_xml",
         "productionCodeChanged": false,
         "testCountChanged": false
+      },
+      {
+        "name": "Mofumachi.Tests.LayoutNoticeTests.RequiredJapaneseTextFitsAndHomeUsesActualHudValues",
+        "message": "  Home quest title\n  Expected: less than or equal to 22.6000023f\n  But was:  22.666666f\n",
+        "stack": "at Mofumachi.Tests.LayoutNoticeTests+<RequiredJapaneseTextFitsAndHomeUsesActualHudValues>d__6.MoveNext () [0x00189] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\LayoutNoticeTests.cs:158\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+      },
+      {
+        "name": "Mofumachi.Tests.MergeProgressionUiTests.InputSystemTouchDragAndTapReachBreadCellsThroughEventSystem",
+        "message": "  Touch drag must begin before dropping.\n  Expected: not null\n  But was:  null\n",
+        "stack": "at Mofumachi.Tests.MergeProgressionUiTests+<InputSystemTouchDragAndTapReachBreadCellsThroughEventSystem>d__14.MoveNext () [0x001c2] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\MergeProgressionUiTests.cs:142\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
       }
     ]
   },
@@ -144,12 +162,12 @@
   "mainMerged": false,
   "evidence": {
     "quality-core.trx": {
-      "workspacePath": "/tmp/mofumachi-quality-pass-20261015/quality-core.trx",
-      "sha256": "3395deb64084eb3490daa7c2660dcfb68ffc3e48cfd8e8afa99628cd10d992f4"
+      "workspacePath": "/tmp/mofumachi-qp-batch-fix-20261015/core.trx",
+      "sha256": "eec5b325b1b784a14813c2d0ec5d446206d901d08df05f3a7ce17607a716afa9"
     },
     "quality-visual.trx": {
-      "workspacePath": "/tmp/mofumachi-quality-pass-20261015/quality-visual.trx",
-      "sha256": "2d4ab3d5ec965b9c3c5713cfec367e9a0635fee2f486269d780d1c4999f8f1fc"
+      "workspacePath": "/tmp/mofumachi-qp-batch-fix-20261015/visual.trx",
+      "sha256": "726fdd455efde4082f61ad7b20445652b006213ea4ba1187ac0f78af0ddb2ab8"
     },
     "android-tools.log": {
       "workspacePath": "/tmp/mofumachi-quality-pass-20261015/android-tools.log",
@@ -159,6 +177,18 @@
       "workspacePath": "/tmp/mofumachi-qp-menu-test-fix-20261015/compile.log",
       "sha256": "54d47fb818bee84f6724f44ddb4dcfc87b3c557c05b423d6534e64cbc417502d",
       "nativeUnityTestExecution": false
+    },
+    "batch-playmode.xml": {
+      "workspacePath": "/workspace/attachments/3933f91e-a0e9-4b3f-8d09-2646786eac27/playmode.xml",
+      "sha256": "464a07942ac0e55e1a263f80e2f8a351574e34c386b8e546bc5405d92f10f1a6"
+    },
+    "batch-playmode.log": {
+      "workspacePath": "/workspace/attachments/dec26368-277c-41ce-a269-ae3555323720/playmode.log",
+      "sha256": "4badf2d072fb59ffed7e80541e8a6950c5b6d41dd70d02f6f3c4eca42fb8985d"
+    },
+    "batch-fix-compile.log": {
+      "workspacePath": "/tmp/mofumachi-qp-batch-fix-20261015/compile-final.log",
+      "sha256": "e8d6e2278a018103307f5ea7dcb3e681936c51c01e4bd7f08922c5b8315aaa32"
     }
   },
   "assetSha256": {
@@ -169,5 +199,91 @@
     "TitleLogo.png": "5cbc8451a620d20887f3c74863509e080eddaa235649209c9c8141e053dc3190",
     "TownGrowthPropsAtlas.png": "3780d259e887a5f1dbea66910e4f5ddc251153cdd21c5467b15164281d68bba1",
     "UIFontBody.ttf": "589f1e7ed866f91dd89c1fd9e26bc2d5dcc78e5a20adcc43a63ec7992b3b082d"
+  },
+  "receivedGuiResultsBeforeBatch": {
+    "EditMode": {
+      "file": "QP-fc7fc9b-EditMode.xml",
+      "sha256": "9980cc81fe16f996e06041175c49a91ca5e8351cc9397d650008ce12afea2f34",
+      "passed": 139,
+      "failed": 0,
+      "skipped": 0,
+      "startUtc": "2026-10-15 04:52:49Z",
+      "sourceRevisionInXml": null
+    },
+    "PlayMode": {
+      "file": "QP-fc7fc9b-PlayMode.xml",
+      "sha256": "a639183b32f817b5705c560ec96305e84dc3acd3596a44ca08f23dc3dd39ad5c",
+      "passed": 135,
+      "failed": 0,
+      "skipped": 0,
+      "startUtc": "2026-10-15 04:53:18Z",
+      "sourceRevisionInXml": null
+    }
+  },
+  "receivedBatchPlayMode": {
+    "discovered": 135,
+    "passed": 133,
+    "failed": 2,
+    "skipped": 0,
+    "startUtc": "2026-10-15 05:06:03Z",
+    "endUtc": "2026-10-15 05:07:14Z",
+    "failures": [
+      {
+        "name": "Mofumachi.Tests.LayoutNoticeTests.RequiredJapaneseTextFitsAndHomeUsesActualHudValues",
+        "message": "  Home quest title\n  Expected: less than or equal to 22.6000023f\n  But was:  22.666666f\n",
+        "stack": "at Mofumachi.Tests.LayoutNoticeTests+<RequiredJapaneseTextFitsAndHomeUsesActualHudValues>d__6.MoveNext () [0x00189] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\LayoutNoticeTests.cs:158\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+      },
+      {
+        "name": "Mofumachi.Tests.MergeProgressionUiTests.InputSystemTouchDragAndTapReachBreadCellsThroughEventSystem",
+        "message": "  Touch drag must begin before dropping.\n  Expected: not null\n  But was:  null\n",
+        "stack": "at Mofumachi.Tests.MergeProgressionUiTests+<InputSystemTouchDragAndTapReachBreadCellsThroughEventSystem>d__14.MoveNext () [0x001c2] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\MergeProgressionUiTests.cs:142\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+      }
+    ],
+    "requiredSuites": {
+      "QualityPassMergeTests": {
+        "total": "1",
+        "passed": "1",
+        "failed": "0",
+        "skipped": "0",
+        "result": "Passed"
+      },
+      "QualityPassStoryGrowthTests": {
+        "total": "5",
+        "passed": "5",
+        "failed": "0",
+        "skipped": "0",
+        "result": "Passed"
+      },
+      "QualityPassTravelTests": {
+        "total": "5",
+        "passed": "5",
+        "failed": "0",
+        "skipped": "0",
+        "result": "Passed"
+      },
+      "TownRegionFlowTests": {
+        "total": "17",
+        "passed": "17",
+        "failed": "0",
+        "skipped": "0",
+        "result": "Passed"
+      },
+      "TownRegionLifeTests": {
+        "total": "8",
+        "passed": "8",
+        "failed": "0",
+        "skipped": "0",
+        "result": "Passed"
+      }
+    }
+  },
+  "acceptanceFixReview": {
+    "baseCommit": "7320436873f0c7e205887d16932ca0256c27e4f1",
+    "sourceFixCommit": "80c34160718d9d8a8a439f25aefaea049ebc262f",
+    "importantFound": 1,
+    "importantCorrected": 1,
+    "remainingActionableFindings": 0,
+    "nativeWindowsRetest": "unrun",
+    "touchFocusHypothesisNativeConfirmation": "pending"
   }
 }

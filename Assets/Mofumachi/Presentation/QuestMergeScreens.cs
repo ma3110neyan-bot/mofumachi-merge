@@ -12,7 +12,7 @@ namespace Mofumachi.Presentation
             var area=w.ScrollPaper("Quest card",root,136,80,328,UIWidgets.BlushPaper);
             var quest=QuestCatalog.NextFor(c.Game.State);
             bool unavailable=quest==null,finished=unavailable&&ChapterProgress.For(c.Game.State).AllCompleted,active=!unavailable && c.Game.State.activeQuestId==quest.Id && !c.Game.State.completedQuestIds.Contains(quest.Id);
-            var ribbon=w.StoryRibbon("Quest title",unavailable?(finished?"すべての依頼が完了しました":UIStrings.UnknownQuest):quest.Title,area,new Rect(.12f,.83f,.76f,.11f),18,UIWidgets.Peach);UIWidgets.Top((RectTransform)ribbon.transform.parent,24,10,24,38);
+            var ribbon=w.StoryRibbon("Quest title",unavailable?(finished?"お届け、ありがとう":"依頼を確認"):quest.Title,area,new Rect(.12f,.83f,.76f,.11f),18,UIWidgets.Peach);UIWidgets.Top((RectTransform)ribbon.transform.parent,24,10,24,38);
             if(!unavailable)w.StoryLabel("Quest chapter",ChapterCatalog.ForQuest(quest.Id)?.Title??"",area,new Rect(.08f,.775f,.84f,.065f),14);
             var requester=CharacterCatalog.Find(unavailable?c.Game.State.favoriteCharacterId:quest.RequesterId);
             w.Body("Quest character",requester.Id,area,new Rect(.35f,.61f,.3f,.16f));

@@ -24,6 +24,12 @@ namespace Mofumachi.Tests
                 Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,height),new Rect(0,24,360,height-56));Canvas.ForceUpdateCanvases();
                 foreach(var t in Flow.GetComponentsInChildren<Text>().Where(t=>t.text.Length>0))Assert.That(t.preferredHeight,Is.LessThanOrEqualTo(t.rectTransform.rect.height+1),t.name);
             }
+            foreach(bool finished in new[]{false,true})
+            {
+                Flow.Game.State.completedQuestIds.Clear();if(finished)Flow.Game.State.completedQuestIds.AddRange(QuestCatalog.All.Select(q=>q.Id));
+                Flow.Game.State.activeQuestId=finished?"":"unknown-quest";Flow.ShowQuest();Canvas.ForceUpdateCanvases();
+                var title=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Quest title");Assert.That(title.preferredHeight,Is.LessThanOrEqualTo(title.rectTransform.rect.height+1));
+            }
             LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator EachRegionVisiblyGrowsAndDecorationNeverSavesOrIntercepts()

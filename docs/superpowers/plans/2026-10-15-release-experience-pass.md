@@ -33,47 +33,51 @@
 
 **Files:** `TownViewportView.cs`, `TownLifeView.cs`, `TownRegionSession.cs`, `TownActor.cs`, new road marker/intent and character motion presentation components, related PlayMode tests and pure Presentation tests.
 
-- [ ] Add tests for selecting a hero, tapping reachable roads/exits, and interruption without saving.
-- [ ] Add direct road-point guidance and stable world-anchored exit signs/footsteps using the existing graph and B transition. Keep prior menu interfaces usable.
-- [ ] Add bounded acceleration, lean, foot/body mesh motion and contextual arrival/rest/flower/social reactions. Keep all six formal designs.
-- [ ] Run pure behavior tests, compile Unity assemblies, record native tests as unrun until Windows.
-- [ ] Commit the independently reviewable walking/character result.
+- [x] Add tests for selecting a hero, tapping reachable roads/exits, and interruption without saving.
+- [x] Add direct road-point guidance and stable world-anchored exit signs/footsteps using the existing graph and B transition. Keep prior menu interfaces usable.
+- [x] Add bounded acceleration, lean, foot/body mesh motion and contextual arrival/rest/flower/social reactions. Keep all six formal designs.
+- [x] Run pure behavior tests, compile Unity assemblies, record native tests as unrun until Windows.
+- [x] Commit the independently reviewable walking/character result.
 
 ## Task 2: Whole Merge presentation
 
 **Files:** `QuestMergeScreens.cs`, cell/board/effect graphics, `ItemGraphic.cs`, new decorative board asset if needed, layout and interaction tests.
 
-- [ ] Preserve tests for real Input System drag, tap, removal, packing, delivery, save failure and lock duration; add visual structure checks.
-- [ ] Rework board frame/dishes, item composition, matching glow and drag shadow; retain 5×6 targets and hit rectangles.
-- [ ] Refine meeting/light/landing/bounce and make requirements/production visually separate and immediately legible.
-- [ ] Compile and run applicable pure/layout checks; retain native/render/performance checks for Windows/Pixel.
-- [ ] Commit the complete Merge presentation change.
+- [x] Preserve tests for real Input System drag, tap, removal, packing, delivery, save failure and lock duration; add visual structure checks.
+- [x] Rework board frame/dishes, item composition, matching glow and drag shadow; retain 5×6 targets and hit rectangles.
+- [x] Refine meeting/light/landing/bounce and make requirements/production visually separate and immediately legible.
+- [x] Compile and run applicable pure/layout checks; retain native/render/performance checks for Windows/Pixel.
+- [x] Commit the complete Merge presentation change.
 
 ## Task 3: Three-track music
 
 **Files:** `AudioManager.cs`, `SettingsScreen.cs`, music catalog/preference store/presentation, 2 additional recorded loop arrangements, relevant audio and settings tests.
 
-- [ ] Add pure tests for track fallback, selection, preview cancellation and failed preference writes; no game-state schema edits.
-- [ ] Render three distinguishable loop arrangements from existing licensed samples and retain replaceable resource keys.
-- [ ] Add 3 rows with titles, preview, choose/current state; keep volume and ON/OFF in the existing scrollable Settings.
-- [ ] Ensure preview cancellation on leave/pause/teardown and persisted selection on restart; keep gameplay writes unchanged.
-- [ ] Decode/measure audio, run tests/compile, commit. Listening and Pixel audio remain explicit checks.
+- [x] Add pure tests for track fallback, selection, preview cancellation and failed preference writes; no game-state schema edits.
+- [x] Render three distinguishable loop arrangements from existing licensed samples and retain replaceable resource keys.
+- [x] Add 3 rows with titles, preview, choose/current state; keep volume and ON/OFF in the existing scrollable Settings.
+- [x] Ensure preview cancellation on leave/pause/teardown and persisted selection on restart; keep gameplay writes unchanged.
+- [x] Decode/measure audio, run tests/compile, commit. Listening and Pixel audio remain explicit checks.
 
 ## Task 4: Growth and next goals
 
 **Files:** growth/quest/story presentation and Home goal UI; pure data and PlayMode tests.
 
-- [ ] Test next unlock at levels 0–6, completed story and unknown quest states without mutation.
-- [ ] Show a concise next-goal card, remaining deliveries and concrete unlock imagery; integrate chapter tease and reunion reactions.
-- [ ] Strengthen region-specific decoration clusters and activities at saved growth stages without repainting base art or spawning duplicate formal residents.
-- [ ] Run pure tests and compile, commit.
+- [x] Test next unlock at levels 0–6, completed story and unknown quest states without mutation.
+- [x] Show a concise next-goal card, remaining deliveries and concrete unlock text; integrate chapter tease and reunion reactions.
+- [x] Strengthen region-specific decoration clusters and activities at saved growth stages without repainting base art or spawning duplicate formal residents.
+- [x] Run pure tests and compile, commit.
 
 ## Task 5: Visible evidence and acceptance
 
 **Files:** editor/native comparison capture helper, comparison PNG/contact sheet/short animation previews, handoff, current test gate requirements if suite counts change.
 
-- [ ] Prepare Before/After from the same approved source assets with explicit labeling where native capture is unavailable; include walking, character motion, Merge, music, levels and goals.
-- [ ] Provide an isolated Windows Unity capture path that does not write the user's actual save; preserve actual screenshots separately from design previews.
-- [ ] Run Core/Presentation suites, real Unity DLL compilation, glyph/audio/content checks and protected-source hashes.
-- [ ] Obtain independent review, address material findings, push this candidate branch only.
-- [ ] Report exact tested/unrun status; Windows all-test XMLs → new QA APK/build-info → Pixel update and 10-minute acceptance. Do not reuse the previous APK or claim native results from compilation.
+- [x] Prepare Before/After from the same approved source assets with explicit labeling where native capture is unavailable; include walking, character motion, Merge, music, levels and goals.
+- [x] Provide an isolated Windows Unity capture path that does not write the user's actual save; preserve actual screenshots separately from design previews.
+- [x] Run Core/Presentation suites, real Unity DLL compilation, glyph/audio/content checks and protected-source hashes.
+- [x] Obtain independent review, address material findings, push this candidate branch only.
+- [x] Report exact tested/unrun status; Windows all-test XMLs → new QA APK/build-info → Pixel update and 10-minute acceptance. Do not reuse the previous APK or claim native results from compilation.
+
+## Execution outcome
+
+Source work, pure tests, six-assembly compilation, independent review, candidate previews and Windows capture/build gate are complete. Windows native tests, actual screenshot output, QA APK generation and Pixel acceptance are **not executed here**; see the current handoff. Rendered previews are explicitly nonnative. Future physical edge connectors/continuous A artwork remain outside this candidate.

@@ -1,0 +1,147 @@
+{
+  "branch": "feat/release-experience-pass-20261015",
+  "productCommit": "e5e5e10a5cbf872a98d8c33f247e3aed7c2ae3e0",
+  "checkedUtc": "2026-10-15T07:19:16.894460+00:00",
+  "coreDotnet": {
+    "passed": 125,
+    "failed": 0,
+    "skipped": 0
+  },
+  "purePresentationDotnet": {
+    "passed": 35,
+    "failed": 0,
+    "skipped": 0
+  },
+  "unityAssemblyCompilation": {
+    "count": 6,
+    "warnings": 0,
+    "errors": 0,
+    "nativeTestsExecuted": false
+  },
+  "fontCoverage": {
+    "fonts": 4,
+    "requiredCodepointsPerFont": 530,
+    "sourceShaVerified": true
+  },
+  "protectedSourcesAndArt": {
+    "checked": 10,
+    "changed": []
+  },
+  "nativeDeclaredInventory": {
+    "Mofumachi.EditModeTests": {
+      "ChapterProgressTests": 2,
+      "CharacterPreferenceTests": 7,
+      "DeliveryTests": 17,
+      "ItemRemovalTests": 10,
+      "MergeBoardTests": 11,
+      "PreferencesTests": 23,
+      "QuestCatalogTests": 4,
+      "SaveServiceTests": 11,
+      "TownFrameClockTests": 4,
+      "TownMovementTests": 5,
+      "TownPlaceCatalogTests": 8,
+      "TownRegionCatalogTests": 9,
+      "TownRegionJourneyTests": 6,
+      "TownViewportTests": 8
+    },
+    "Mofumachi.BuildTests": {
+      "AndroidBuildTests": 1,
+      "PresentationContentTests": 9,
+      "QaIdentityTests": 2,
+      "TownRegionContentTests": 2
+    },
+    "Mofumachi.PlayModeTests": {
+      "AudioManagerTests": 2,
+      "ChapterFlowTests": 4,
+      "CharacterSelectionTests": 3,
+      "ExperienceCaptureTests": 1,
+      "ExperienceGrowthTests": 3,
+      "ExperienceMergeTests": 2,
+      "ExperienceMusicTests": 3,
+      "ExperienceWalkingTests": 7,
+      "LayoutNoticeTests": 6,
+      "MergeGuidanceTests": 10,
+      "MergeInteractionTests": 4,
+      "MergePolishTests": 8,
+      "MergeProgressionUiTests": 11,
+      "MultiQuestPresentationTests": 4,
+      "PopPresentationTests": 3,
+      "ProductionFrameUiTests": 5,
+      "QualityPassMergeTests": 1,
+      "QualityPassStoryGrowthTests": 5,
+      "QualityPassTravelTests": 5,
+      "RewardGrowthTests": 4,
+      "SettingsScreenTests": 5,
+      "StoryTypographyTests": 1,
+      "TownHabitTests": 5,
+      "TownLifeTests": 8,
+      "TownMotionPresentationTests": 4,
+      "TownRegionFlowTests": 17,
+      "TownRegionLifeTests": 8,
+      "TownViewportPresentationTests": 5,
+      "VerticalSliceFlowTests": 7
+    }
+  },
+  "nativeEditMode": {
+    "status": "unrun",
+    "declared": 139
+  },
+  "nativePlayMode": {
+    "status": "unrun",
+    "declared": 151
+  },
+  "qaApk": {
+    "status": "not_built_for_this_candidate",
+    "sha256": null,
+    "packageId": "com.mofumachi.merge.qa.townlife"
+  },
+  "pixel3a": {
+    "status": "unrun_for_this_candidate"
+  },
+  "review": {
+    "productionFindingsFixed": 4,
+    "testFindingFixed": 1,
+    "followup": "No new actionable issues; native execution unverified"
+  },
+  "previews": {
+    "kind": "source-asset/layout reconstruction, NOT Unity or Pixel screenshots",
+    "pngs": [
+      {
+        "file": "characters.png",
+        "bytes": 187884,
+        "sha256": "8db26716caed51c022b92cc77f901aa75946cb4d4f65e593434060e3f36bb8a2"
+      },
+      {
+        "file": "comparison.png",
+        "bytes": 1945599,
+        "sha256": "b4f0713c5cdea89238aecab2911a4e3d4e075cad1868a0486e9883ba8b191a2b"
+      },
+      {
+        "file": "goals.png",
+        "bytes": 65228,
+        "sha256": "d430aec6c193a15254505e1b9edfb6f5c05b515da28b62e0dcc22478b662ecd2"
+      },
+      {
+        "file": "growth.png",
+        "bytes": 722978,
+        "sha256": "d70ab83df9e7899c9d9cff6c69b461a6022167599fda7f0d065225b878734198"
+      },
+      {
+        "file": "merge.png",
+        "bytes": 256134,
+        "sha256": "eb6db6793bbbcd24d4d7f9f0a27eec2e650e4bfa424d73083da0fdd0977c88d3"
+      },
+      {
+        "file": "music.png",
+        "bytes": 70188,
+        "sha256": "5847b85ef07fc7910473bcbb43ab9849eb6e89f9cac6cf1cf0ee40f346d923dd"
+      },
+      {
+        "file": "walking.png",
+        "bytes": 576426,
+        "sha256": "49b6600f7246c8122d945d014fc6948dd00492f38cc954131112ed210f895525"
+      }
+    ]
+  },
+  "mainMerged": false
+}

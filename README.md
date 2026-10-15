@@ -1,3 +1,5 @@
+> 2026-10-15 · 大規模仕上げ候補は `feat/release-experience-pass-20261015`。道・出口タップの街歩き、キャラ表現、磁器Merge盤面、3曲選曲、成長と次目標を実装。**今回のWindows／APK／Pixel受入は未実施、main未統合。** [比較PNG](References/Preview/release-experience-2026-10-15/README.md) · [実装とWindows操作](docs/development-handoff-2026-10-15-release-experience-pass.md)
+
 > 2026-10-15・総合Quality Pass候補：**`feat/release-quality-pass-20261015`**。キャラ起点の3地域歩行、1タップのショートカット、Merge受け皿と合体／着地、Klee One本文、3地域の成長比較、6依頼の会話を実装。Core125／Presentation17成功、実Unity DLLの6アセンブリ警告／エラー0。**今回版のWindows全件・APK・Pixelは未実施。main未統合。** 宣言構成はEditMode139／PlayMode135（ネイティブ実発見ではありません）。[変更・検証・Windows／Pixel手順](docs/development-handoff-2026-10-15-release-quality-pass.md)。
 
 > 2026-10-14・B案3地域の実装候補：西／中央／東、入口へ歩く→短いフェード→到着側で歩く、NPC分散・訪問・交流を追加。正式素材・保存／納品／報酬・5×6を保持。Core125／演出10成功、実6 DLLコンパイル警告／エラー0。**候補のUnity全件・QA APK・Pixelは未実施。mainへ未統合。** 宣言構成はEditMode138／PlayMode124。[引き継ぎとWindows操作](docs/development-handoff-2026-10-14-town-regions-b.md)、[Pixelチェック](docs/town-regions-b-pixel3a-checklist.md)。

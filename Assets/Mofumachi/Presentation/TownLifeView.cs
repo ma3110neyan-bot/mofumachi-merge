@@ -11,6 +11,8 @@ namespace Mofumachi.Presentation
         public static System.Collections.Generic.IReadOnlyList<TownPoint> WalkStops=>TownPlaceCatalog.ForLevel(0).Nodes;
         public TownStreetMap StreetMap {get;private set;}
         public TownRegionSession Regions {get;private set;}
+        private TownContinuousWorldView continuousWorld;
+        public TownContinuousWorldView World=>continuousWorld!=null?continuousWorld:continuousWorld=GetComponent<TownContinuousWorldView>();
         public System.Collections.Generic.IReadOnlyList<TownActor> Actors {get;private set;}
         public int TownLevel=>context?.Game.State.townGrowthLevel??0;
         public RawImage Background=>background;
@@ -52,6 +54,7 @@ namespace Mofumachi.Presentation
         public void OpenOutings(){if(CanInteract)ShowOutings();}
         public bool GuideToStreetPoint(TownPoint point)
         {
+            if(World?.IsReady==true)return World.GuidePoint(TownWorldLayout.ToWorld(Regions.HeroRegion,point));
             if(!CanInteract||Regions.ViewingRegion!=Regions.HeroRegion)return false;
             if(!TownStreetSelection.TryProjectRoad(Regions.HeroRegion,TownLevel,point,out var target))return false;
             var hero=actors.Single(a=>a.Controlled);return hero.GuideTo(target);
@@ -65,6 +68,7 @@ namespace Mofumachi.Presentation
         }
         public bool GuideToPlace(string id)
         {
+            if(World?.IsReady==true)return World.GuidePlace(id);
             if(Regions!=null)return Regions.GuideToPlace(id);
             if(!CanInteract||!TownPlaceCatalog.TryFind(StreetMap,id,out var place))return false;
             foreach(var a in actors)if(a.Controlled&&a.GuideTo(place.Position)){destination=place;return true;}return false;
@@ -109,10 +113,10 @@ namespace Mofumachi.Presentation
             if(context==null||actors==null)return;if(!CanSimulate){CancelInteraction();return;}
             if(!float.IsFinite(seconds)||seconds<=0)return;now+=Mathf.Min(seconds,.1f);
             Regions?.BeginPresentationFrame();
-            int steps=clock.AddElapsed(seconds);for(int step=0;step<steps;step++){foreach(var a in actors)a.Advance(TownFrameClock.StepSeconds);Regions?.Step(TownFrameClock.StepSeconds);}
+            int steps=clock.AddElapsed(seconds);for(int step=0;step<steps;step++){if(World?.IsReady==true)World.Step(TownFrameClock.StepSeconds);else{foreach(var a in actors)a.Advance(TownFrameClock.StepSeconds);Regions?.Step(TownFrameClock.StepSeconds);}}
             var camera=GetComponent<TownViewportView>();if(camera!=null){foreach(var a in actors)if(a.Controlled&&a.RegionVisible&&(a.IsGuided||!IsManuallyDragging&&!camera.IsDragging))camera.Focus(a.Position);camera.Advance(seconds);}
             foreach(var a in actors)a.Render(clock.Alpha,seconds);
-            Array.Sort(actors,(a,b)=>b.RenderPosition.Y.CompareTo(a.RenderPosition.Y));foreach(var a in actors)a.transform.SetAsLastSibling();
+            Array.Sort(actors,(a,b)=>(World?.IsReady==true?b.WorldPosition.Y.CompareTo(a.WorldPosition.Y):b.RenderPosition.Y.CompareTo(a.RenderPosition.Y)));foreach(var a in actors)a.transform.SetAsLastSibling();
             if(bubble!=null&&now>=bubbleUntil)HideBubble();
             if(IsManuallyDragging){HideBubble();return;}
             if(now>=nextSocial)for(int i=0;i<actors.Length;i++)for(int j=i+1;j<actors.Length;j++)if(TryBeginConversation(actors[i],actors[j]))break;
@@ -127,10 +131,10 @@ namespace Mofumachi.Presentation
             PositionBubble();
         }
         private bool Visible(TownActor a)
-        {if(!a.RegionVisible)return false;var p=Local(a.Position);var r=actorLayer.rect;return p.x>r.xMin+38&&p.x<r.xMax-38&&p.y>r.yMin+24&&p.y<r.yMax-86;}
+        {if(!a.RegionVisible)return false;var p=World?.IsReady==true?World.Local(a.WorldPosition):Local(a.Position);var r=actorLayer.rect;return p.x>r.xMin+38&&p.x<r.xMax-38&&p.y>r.yMin+24&&p.y<r.yMax-86;}
         private static float Distance(TownPoint a,TownPoint b)=>Vector2.Distance(new Vector2(a.X,a.Y),new Vector2(b.X,b.Y));
         public Vector2 Local(TownPoint point)
-        {if(background==null)return Vector2.zero;var uv=background.uvRect;var r=background.rectTransform.rect;var p=r.min+Vector2.Scale((new Vector2(point.X,point.Y)-uv.min)/uv.size,r.size);return actorLayer.InverseTransformPoint(background.rectTransform.TransformPoint(p));}
+        {if(World?.IsReady==true)return World.Local(TownWorldLayout.ToWorld(Regions.ViewingRegion,point));if(background==null)return Vector2.zero;var uv=background.uvRect;var r=background.rectTransform.rect;var p=r.min+Vector2.Scale((new Vector2(point.X,point.Y)-uv.min)/uv.size,r.size);return actorLayer.InverseTransformPoint(background.rectTransform.TransformPoint(p));}
         public TownPoint Source(Vector2 screen,Camera camera)
         {if(background==null||!RectTransformUtility.ScreenPointToLocalPointInRectangle(background.rectTransform,screen,camera,out var p))return StreetMap.Nodes[0];var r=background.rectTransform.rect;var uv=background.uvRect;var n=(p-r.min)/r.size;return new TownPoint(uv.x+n.x*uv.width,uv.y+n.y*uv.height);}
         public void StartInteraction(bool preserveJourney=false){if(!preserveJourney)Regions?.CancelHeroJourney();GetComponent<TownStreetWalkView>()?.CancelSelection();GetComponent<TownViewportView>()?.CancelGesture();destination=null;HideOutings();HideBubble();HideEntrance();nextTalk=now+6;}
@@ -139,13 +143,13 @@ namespace Mofumachi.Presentation
         {
             if(context==null||actors==null)return;
             StreetMap=TownRegionCatalog.ForLevel(region,TownLevel).Map;HideBubble();HideOutings();HideEntrance();
-            foreach(var a in actors)a.SetRegionVisible(a.RegionId==region);
+            if(World?.IsReady!=true)foreach(var a in actors)a.SetRegionVisible(a.RegionId==region);
             foreach(string name in new[]{"依頼部屋","ショップ"}){var marker=actorLayer.Find("Facility marker "+name);if(marker!=null)marker.gameObject.SetActive(region==TownRegionId.Central);}
             RefreshViewport();
         }
         public void ActorReleased(TownActor actor)
         {
-            if(!CanInteract||!actor.Controlled||actor.Movement.OwnedPointerId.HasValue)return;actor.FreezeMovement();HideEntrance();
+            if(!CanInteract||!actor.Controlled||actor.Movement.OwnedPointerId.HasValue||World?.Model?.Hero.IsWalking==true)return;actor.FreezeMovement();HideEntrance();
             if(Regions?.OwnsJourney(actor)==true||!actor.RegionVisible)return;
             string facility=actor.RegionId!=TownRegionId.Central?null:Distance(actor.Position,RequestEntrance)<.034f?"quest":Distance(actor.Position,ShopEntrance)<.034f?"shop":null;
             if(facility==null){if(destination!=null&&Distance(actor.Position,destination.Position)<.034f){actor.Surprise();ShowBubble(destination.Dialogue,actor);destination=null;}return;}
@@ -167,7 +171,7 @@ namespace Mofumachi.Presentation
         }
         private void PositionBubble()
         {
-            if(bubble==null||speaker==null)return;var root=(RectTransform)transform.parent;var p=(RectTransform)bubble.transform;var world=actorLayer.TransformPoint(Local(speaker.RenderPosition));var target=(Vector2)root.InverseTransformPoint(world)+Vector2.up*122;
+            if(bubble==null||speaker==null)return;var root=(RectTransform)transform.parent;var p=(RectTransform)bubble.transform;var world=actorLayer.TransformPoint(World?.IsReady==true?World.Local(speaker.WorldPosition):Local(speaker.RenderPosition));var target=(Vector2)root.InverseTransformPoint(world)+Vector2.up*122;
             var r=root.rect;float half=p.rect.width/2;target.x=Mathf.Clamp(target.x,r.xMin+half+14,r.xMax-half-14);target.y=Mathf.Clamp(target.y,r.yMin+178+p.rect.height/2,r.yMax-142-p.rect.height/2);p.anchoredPosition=target;
         }
         public void SetViewScale(float scale){if(actors!=null)foreach(var a in actors)a.SetViewScale(scale);}

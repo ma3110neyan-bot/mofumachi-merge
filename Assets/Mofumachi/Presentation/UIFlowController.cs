@@ -49,6 +49,7 @@ namespace Mofumachi.Presentation
         private Texture2D characters;
         public RawImage TownBackground { get; private set; }
         public TownRegionSnapshot HomeRegionSnapshot {get;private set;}
+        public TownWorldSnapshot HomeWorldSnapshot {get;private set;}
         private bool discardHomeRegionSnapshot;
         private AudioManager audioManager;
         private string view, settingsReturnView = "title", notice = "";
@@ -102,7 +103,7 @@ namespace Mofumachi.Presentation
         }
         public void Initialize(IStateStore store)
         {
-            HomeRegionSnapshot=null;
+            HomeRegionSnapshot=null;HomeWorldSnapshot=null;
             discardHomeRegionSnapshot=true;
             ClearFrameSelection();
             var loaded = store.Load();
@@ -358,6 +359,7 @@ namespace Mofumachi.Presentation
             if(CurrentScreen==ScreenId.Settings&&target!="settings")audioManager?.CancelMusicPreview();
             if(page!=null&&!discardHomeRegionSnapshot)
             {
+                var continuous=page.GetComponentInChildren<TownContinuousWorldView>();if(continuous!=null)HomeWorldSnapshot=continuous.Capture();
                 var regions=page.GetComponentInChildren<TownRegionSession>();
                 if(regions!=null)HomeRegionSnapshot=regions.CaptureSettledSnapshot();
             }

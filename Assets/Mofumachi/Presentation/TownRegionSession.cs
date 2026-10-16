@@ -31,11 +31,12 @@ namespace Mofumachi.Presentation
         private bool followingHero=true;
         public TownRegionId HeroRegion=>hero==null?TownRegionId.Central:hero.RegionId;
         public TownRegionId ViewingRegion { get; private set; }=TownRegionId.Central;
-        public bool HasHeroJourney=>hero!=null&&journeys.ContainsKey(hero.CharacterId);
+        private TownContinuousWorldView World=>life?.World;
+        public bool HasHeroJourney=>World?.IsReady==true?World.Model.Hero.IsWalking:hero!=null&&journeys.ContainsKey(hero.CharacterId);
         public TownPoint HeroLegTarget=>hero!=null&&journeys.TryGetValue(hero.CharacterId,out var leg)?leg.Journey.Target:hero?.Position??default;
-        public string HeroDestinationId=>hero!=null&&journeys.TryGetValue(hero.CharacterId,out var trip)?trip.Destination.Id:null;
+        public string HeroDestinationId=>World?.IsReady==true?(World.Model.Hero.IsWalking?World.Model.Hero.PlaceId:null):hero!=null&&journeys.TryGetValue(hero.CharacterId,out var trip)?trip.Destination.Id:null;
         public TownRegionId? HeroDestinationRegion=>HeroDestinationId==null?(TownRegionId?)null:FindDestinationRegion(HeroDestinationId);
-        public bool IsHeroTransitioning=>hero!=null&&journeys.TryGetValue(hero.CharacterId,out var travel)&&travel.Journey.Phase==TownRegionTravelPhase.Fading;
+        public bool IsHeroTransitioning=>World?.IsReady!=true&&hero!=null&&journeys.TryGetValue(hero.CharacterId,out var travel)&&travel.Journey.Phase==TownRegionTravelPhase.Fading;
         public event Action<TownRegionId> RegionChanged;
         public event Action<TownRegionId,TownRegionId,float> HeroTransitionChanged;
 
@@ -53,17 +54,20 @@ namespace Mofumachi.Presentation
             }
             life.ApplyViewingRegion(ViewingRegion);
         }
+        internal void NotifyWorldRegion(TownRegionId region){if(ViewingRegion!=region)SetViewingRegion(region);}
         private void SetViewingRegion(TownRegionId region)
         {
             ViewingRegion=region;life.ApplyViewingRegion(region);RegionChanged?.Invoke(region);
         }
         public bool LookAtRegion(TownRegionId region)
         {
+            if(World?.IsReady==true)return World.LookAt(region);
             if(!Enum.IsDefined(typeof(TownRegionId),region)||life==null||!life.CanInteract||life.IsManuallyDragging)return false;
             life.GetComponent<TownViewportView>()?.CancelGesture();followingHero=false;SetViewingRegion(region);return true;
         }
         public void ReturnToHero()
         {
+            if(World?.IsReady==true){World.ReturnToHero();return;}
             if(life==null||!life.CanInteract)return;
             followingHero=true;SetViewingRegion(HeroRegion);
             life.GetComponent<TownViewportView>()?.Focus(hero.Position);
@@ -76,6 +80,7 @@ namespace Mofumachi.Presentation
         }
         public bool GuideToPlace(string id)
         {
+            if(World?.IsReady==true)return World.GuidePlace(id);
             if(life==null||!life.CanInteract||life.IsManuallyDragging||!TownRegionCatalog.TryFindPlace(id,context.Game.State.townGrowthLevel,out var location,out var place))return false;
             // Repeated shortcut input follows the existing journey, never restarts
             // its exit path, gate reservation or fade clock.
@@ -101,7 +106,7 @@ namespace Mofumachi.Presentation
             if(travel.Actor.Controlled)life.SetGuidedDestination(travel.Destination);
             return started;
         }
-        internal bool OwnsJourney(TownActor actor)=>actor!=null&&journeys.ContainsKey(actor.CharacterId);
+        internal bool OwnsJourney(TownActor actor)=>World?.IsReady==true?actor?.IsGuided==true:actor!=null&&journeys.ContainsKey(actor.CharacterId);
         internal bool IsStopReserved(string id,TownActor except)=>journeys.Values.Any(t=>t.Actor!=except&&t.Destination.Id==id);
         internal void BeginPresentationFrame(){foreach(var travel in journeys.Values)travel.TransferredThisFrame=false;}
         public bool TryScheduleNpcVisit(string characterId,TownRegionId region)
@@ -195,6 +200,7 @@ namespace Mofumachi.Presentation
         {TownRegionCatalog.TryFindPlace(id,context.Game.State.townGrowthLevel,out var location,out _);return location.Region;}
         internal void CancelHeroJourney()
         {
+            if(World?.IsReady==true){World.CancelHero();return;}
             if(hero==null||!journeys.TryGetValue(hero.CharacterId,out var travel))return;
             CancelTravel(travel);journeys.Remove(hero.CharacterId);
         }
@@ -213,6 +219,7 @@ namespace Mofumachi.Presentation
         }
         public void CancelJourneys()
         {
+            if(World?.IsReady==true){World.Freeze();return;}
             if(actors==null)return;
             for(int i=0;i<actors.Count;i++)if(journeys.TryGetValue(actors[i].CharacterId,out var travel))CancelTravel(travel);
             journeys.Clear();gates.Clear();if(followingHero&&life!=null&&ViewingRegion!=HeroRegion)SetViewingRegion(HeroRegion);
@@ -221,13 +228,14 @@ namespace Mofumachi.Presentation
         {
             CancelJourneys();life.GetComponent<TownViewportView>()?.CancelGesture();
             var saved=new TownRegionActorSnapshot[actors.Count];
-            for(int i=0;i<actors.Count;i++)saved[i]=new TownRegionActorSnapshot(actors[i].CharacterId,new TownRegionLocation(actors[i].RegionId,actors[i].Position),actors[i].DestinationId);
+            for(int i=0;i<actors.Count;i++)saved[i]=new TownRegionActorSnapshot(actors[i].CharacterId,new TownRegionLocation(actors[i].RegionId,new TownPoint(Math.Max(0,Math.Min(1,actors[i].Position.X)),Math.Max(0,Math.Min(1,actors[i].Position.Y)))),actors[i].DestinationId);
             var view=life.GetComponent<TownRegionView>();var centers=view==null?new[]{new TownPoint(.5f,.5f),new TownPoint(.5f,.5f),new TownPoint(.5f,.5f)}:view.CaptureCenters();
             return new TownRegionSnapshot(hero.CharacterId,ViewingRegion,saved,centers);
         }
         public void RestoreSnapshot(TownRegionSnapshot snapshot)
         {
             if(snapshot==null||hero==null||snapshot.FavoriteId!=hero.CharacterId)return;
+            if(World?.IsReady==true){foreach(var saved in snapshot.Actors)World.Model.Restore(saved.CharacterId,TownWorldLayout.ToWorld(saved.Location.Region,saved.Location.Local),saved.PlaceId);World.Refresh();return;}
             CancelJourneys();
             foreach(var saved in snapshot.Actors)
             {

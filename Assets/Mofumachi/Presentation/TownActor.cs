@@ -12,13 +12,15 @@ namespace Mofumachi.Presentation
         public bool RegionVisible { get; private set; }=true;
         public bool IsRegionFading=>journeyFade>0;
         public TownMovement Movement { get; private set; }
-        public TownPoint Position=>Controlled?Movement.Position:npcPosition;
+        private TownWorldResident worldResident;
+        public TownPoint WorldPosition=>worldResident?.Position??TownWorldLayout.ToWorld(RegionId,Position);
+        public TownPoint Position=>worldResident==null?(Controlled?Movement.Position:npcPosition):TownWorldLayout.ToLocal(worldResident.Region,worldResident.Position);
         public TownPoint RenderPosition { get; private set; }
         public RectTransform VisualRoot { get; private set; }
         public bool IsGuided { get; private set; }
         public TownPoint GuidedTarget=>guideTarget;
         public TownPlace Place {get;private set;} public string DestinationId=>Place?.Id;
-        public bool IsResting=>!Controlled&&waitRemaining>0;
+        public bool IsResting=>!Controlled&&(worldResident==null?waitRemaining>0:worldResident.Rest>0);
         private const int GuidePointer=int.MinValue;
         private TownPoint guideTarget;
         private System.Collections.Generic.IReadOnlyList<TownPoint> walkRoute;
@@ -44,6 +46,14 @@ namespace Mofumachi.Presentation
         }
         internal void Connect(TownLifeView view,TownPoint a,TownPoint b,float delay)
         {life=view;npcA=a;npcB=b;npcTarget=b;waitRemaining=delay;ResetVisual();}
+        internal void BindWorld(TownWorldResident resident){worldResident=resident;ApplyWorldStep(0);}
+        internal void ApplyWorldStep(float dt)
+        {
+            if(worldResident==null)return;RegionId=worldResident.Region;IsGuided=worldResident.IsWalking;moving=worldResident.IsWalking;
+            facing=worldResident.Facing;stride=worldResident.Stride;waitRemaining=worldResident.Rest;
+            if(TownRegionCatalog.TryFindPlace(worldResident.PlaceId,life.TownLevel,out _,out var place))Place=place;
+        }
+        internal void SetWorldPlace(TownPlace place){Place=place;IsGuided=false;}
         internal void SetWalkRoute(System.Collections.Generic.IReadOnlyList<TownPoint> route,int start)
         {if(Controlled||route==null||route.Count<3)return;walkRoute=route;routeDirection=start%2==0?1:-1;routeIndex=(start+routeDirection+route.Count)%route.Count;npcTarget=route[routeIndex];}
         internal void SetDestination(TownPlace place,float wait){if(Controlled||place==null)return;regionalGuidance=transitionHeld=false;Place=place;npcTarget=place.Position;waitRemaining=wait;}
@@ -52,6 +62,7 @@ namespace Mofumachi.Presentation
         public bool GuideTo(TownPoint target)=>BeginGuide(target,false);
         private bool BeginGuide(TownPoint target,bool preserveJourney)
         {
+            if(worldResident!=null)return Controlled&&life.CanInteract&&life.World.GuidePoint(TownWorldLayout.ToWorld(RegionId,target));
             if(!Controlled||life==null||!life.CanInteract || !float.IsFinite(target.X)||!float.IsFinite(target.Y) || (Movement.OwnedPointerId.HasValue&&!IsGuided))return false;
             life.StartInteraction(preserveJourney);Movement.CancelInput();IsGuided=false;transitionHeld=false;
             if(!Movement.TryBeginDrag(GuidePointer))return false;
@@ -94,6 +105,7 @@ namespace Mofumachi.Presentation
         }
         internal void Advance(float dt)
         {
+            if(worldResident!=null){ApplyWorldStep(dt);return;}
             previous=Position;
             if(transitionHeld){moving=false;return;}
             if(socialRemaining>0){socialRemaining=Mathf.Max(0,socialRemaining-dt);moving=false;return;}
@@ -126,8 +138,8 @@ namespace Mofumachi.Presentation
         {
             if(life==null||!RegionVisible||!float.IsFinite(elapsedSeconds)||elapsedSeconds<0)return;
             float dt=Mathf.Min(elapsedSeconds,.1f);
-            RenderPosition=navigation.InterpolateAlongPath(previous,Position,alpha);
-            rect.anchoredPosition=life.Local(RenderPosition);
+            RenderPosition=worldResident==null?navigation.InterpolateAlongPath(previous,Position,alpha):Position;
+            rect.anchoredPosition=worldResident==null?life.Local(RenderPosition):life.World.Local(worldResident.Position);
             amplitude=Mathf.MoveTowards(amplitude,moving?1:0,dt/.12f);
             breath+=dt;reactionRemaining=Mathf.Max(0,reactionRemaining-dt);
             var expression=reactionRemaining>0?(surprised?CharacterExpression.Surprise:CharacterExpression.Smile):(!Controlled&&waitRemaining>0?CharacterExpression.Smile:CharacterExpression.Normal);
@@ -142,7 +154,7 @@ namespace Mofumachi.Presentation
             body.Pose(pose.Foot,reactionRemaining>0?Mathf.Sin((1-reactionRemaining/.65f)*Mathf.PI*3):0,facing,TownCharacterMotion.Blink(breath,CharacterCatalog.Find(CharacterId).PortraitIndex));
         }
         internal void FreezeMovement()
-        {previous=Position;RenderPosition=Position;moving=false;if(life!=null)rect.anchoredPosition=life.Local(Position);}
+        {previous=Position;RenderPosition=Position;moving=false;if(life!=null)rect.anchoredPosition=worldResident==null?life.Local(Position):life.World.Local(worldResident.Position);}
         internal void ResetVisual()
         {IsGuided=false;FreezeMovement();stride=amplitude=breath=reactionRemaining=speedBlend=0;if(VisualRoot!=null){VisualRoot.anchoredPosition=Vector2.zero;VisualRoot.localScale=Vector3.one;VisualRoot.localRotation=Quaternion.identity;}if(body!=null){if(body.Expression!=CharacterExpression.Normal)body.Bind(CharacterId);body.Pose(0,0,0,false);}}
         public void React(){if(life==null||!life.CanInteract||!RegionVisible||journeyFade>0)return;surprised=false;reactionRemaining=.65f;life.React(this);}
@@ -153,7 +165,7 @@ namespace Mofumachi.Presentation
         public void OnBeginDrag(PointerEventData e)
         {if(!Controlled||!life.CanInteract)return;if(!Movement.OwnedPointerId.HasValue)OnPointerDown(e);if(Movement.OwnedPointerId==e.pointerId){dragged=true;e.eligibleForClick=false;}}
         public void OnDrag(PointerEventData e)
-        {if(Controlled&&life.CanInteract&&Movement.OwnedPointerId==e.pointerId){dragged=true;Movement.SetTarget(e.pointerId,life.Source(e.position,e.pressEventCamera));}}
+        {if(Controlled&&life.CanInteract&&Movement.OwnedPointerId==e.pointerId){dragged=true;if(worldResident!=null)life.World.GuidePoint(life.World.Source(e.position,e.pressEventCamera));else Movement.SetTarget(e.pointerId,life.Source(e.position,e.pressEventCamera));}}
         public void OnEndDrag(PointerEventData e)=>Release(e);
         public void OnPointerUp(PointerEventData e)=>Release(e);
         private void Release(PointerEventData e)

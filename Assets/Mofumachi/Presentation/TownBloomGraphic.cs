@@ -17,8 +17,11 @@ namespace Mofumachi.Presentation
             if(stage<2||background==null)return;phase+=Mathf.Min(Time.unscaledDeltaTime,.1f);refresh+=Time.unscaledDeltaTime;
             if(refresh>=1f/30){refresh=0;SetVerticesDirty();}
         }
+        public TownContinuousWorldView World {get;set;}
+        public TownRegionId RegionForWorld {get;set;}=TownRegionId.Central;
         private Vector2 Local(Vector2 point)
         {
+            if(World?.IsReady==true)return World.Local(TownWorldLayout.ToWorld(RegionForWorld,new TownPoint(point.x,point.y)),rectTransform);
             var uv=background.uvRect;var r=background.rectTransform.rect;
             return transform.InverseTransformPoint(background.rectTransform.TransformPoint(r.min+Vector2.Scale((point-uv.min)/uv.size,r.size)));
         }

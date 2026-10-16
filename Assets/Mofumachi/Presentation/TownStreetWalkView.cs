@@ -33,6 +33,7 @@ namespace Mofumachi.Presentation
         {IsArmed=false;if(panel!=null)panel.gameObject.SetActive(false);if(selection!=null){selection.SetActive(false);Destroy(selection);}selection=null;if(hint!=null)hint.text="キャラをタップして、道を歩こう";}
         public bool Tap(TownPoint point)
         {
+            if(life.World?.IsReady==true){if(!IsArmed||!life.CanInteract)return false;bool walkingStarted=life.World.GuidePoint(point);if(walkingStarted)CancelSelection();else hint.text="石畳の道を選んでね♪";return walkingStarted;}
             if(!IsArmed||!life.CanInteract||life.Regions.ViewingRegion!=life.Regions.HeroRegion)return false;
             if(!TownStreetSelection.TryResolve(life.Regions.HeroRegion,life.TownLevel,point,out var target))
             {hint.text="石畳の道や、行き先を選んでね";return false;}
@@ -42,6 +43,7 @@ namespace Mofumachi.Presentation
         }
         private void RefreshMarkers()
         {
+            if(life.World?.IsReady==true){shown=life.Regions.ViewingRegion;return;}
             foreach(Transform child in markerRoot){child.gameObject.SetActive(false);Destroy(child.gameObject);}
             shown=life.Regions.ViewingRegion;
             foreach(var next in new[]{TownRegionId.West,TownRegionId.Central,TownRegionId.East})
@@ -77,7 +79,9 @@ namespace Mofumachi.Presentation
         private void LateUpdate(){if(life!=null&&Time.unscaledTime-lastRefresh>=1f/30){lastRefresh=Time.unscaledTime;SetVerticesDirty();}}
         protected override void OnPopulateMesh(VertexHelper vh)
         {
-            vh.Clear();if(life==null||!life.CanSimulate)return;var hero=life.Actors.Single(a=>a.Controlled);
+            vh.Clear();if(life==null||!life.CanSimulate)return;
+            if(life.World?.IsReady==true){if(!life.World.Model.Hero.IsWalking)return;for(int k=1;k<=14;k++){var point=life.World.Local(life.World.Model.SampleHeroRoute(k/14f));int start=vh.currentVertCount;var color=new Color(1,.86f,.36f,.5f);vh.AddVert(point+Vector2.left*2,color,Vector2.zero);vh.AddVert(point+Vector2.up*3,color,Vector2.zero);vh.AddVert(point+Vector2.right*2,color,Vector2.zero);vh.AddVert(point+Vector2.down*3,color,Vector2.zero);vh.AddTriangle(start,start+1,start+2);vh.AddTriangle(start,start+2,start+3);}return;}
+            var hero=life.Actors.Single(a=>a.Controlled);
             if(!hero.RegionVisible||!hero.IsGuided)return;
             var target=life.Regions.HasHeroJourney?life.Regions.HeroLegTarget:hero.GuidedTarget;
             var current=TownRegionCatalog.ForLevel(hero.RegionId,life.TownLevel).Map;if(map!=current){map=current;navigation=new TownNavigation(map.Nodes,map.Edges,.028f);}

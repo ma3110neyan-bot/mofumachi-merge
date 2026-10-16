@@ -10,6 +10,7 @@ namespace Mofumachi.Presentation
     public sealed class TownAmbientGraphic : MaskableGraphic
     {
         private RawImage background;
+        public TownContinuousWorldView World {get;set;}
         private float phase,meshElapsed;
         public float Phase=>phase;
         public TownRegionId Region {get;private set;}=TownRegionId.Central;
@@ -91,6 +92,7 @@ namespace Mofumachi.Presentation
         }
         private Vector2 Local(Vector2 source)
         {
+            if(World?.IsReady==true)return World.Local(TownWorldLayout.ToWorld(TownRegionId.Central,new TownPoint(source.x,source.y)),rectTransform);
             var uv = background.uvRect; var rect = background.rectTransform.rect;
             var point = rect.min + Vector2.Scale((source - uv.min) / uv.size, rect.size);
             return rectTransform.InverseTransformPoint(background.rectTransform.TransformPoint(point));

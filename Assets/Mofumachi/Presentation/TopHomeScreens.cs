@@ -44,6 +44,7 @@ namespace Mofumachi.Presentation
             var settings=w.Button("Settings","",hud,new Rect(.85f,0,.15f,1),c.Flow.ShowSettings,true); w.Icon("Settings icon",UIIcon.Settings,(RectTransform)settings.transform,new Rect(.2f,.2f,.6f,.6f));
             var world=UIWidgets.Node("Town characters",root,new Rect(0,0,1,1));world.offsetMin=new Vector2(0,178);world.offsetMax=new Vector2(0,-142);
             var life=world.gameObject.AddComponent<TownLifeView>();life.Bind(c,background??c.Flow.TownBackground);
+            world.gameObject.AddComponent<TownContinuousWorldView>().Bind(c,life);
             world.gameObject.AddComponent<TownViewportView>().Bind(c,background??c.Flow.TownBackground,life);
             var decorations=UIWidgets.Node("Town growth decorations",world,new Rect(0,0,1,1));decorations.SetAsFirstSibling();
             var growth=decorations.gameObject.AddComponent<TownGrowthView>();growth.Bind(c,life);growth.Apply(c.Game.State.townGrowthLevel);
@@ -72,6 +73,7 @@ namespace Mofumachi.Presentation
             world.gameObject.AddComponent<TownRegionView>().Bind(c,background??c.Flow.TownBackground,life,life.Regions);
             world.gameObject.AddComponent<TownRegionControls>().Bind(c,root,life);
             life.Regions.RestoreSnapshot(c.Flow.HomeRegionSnapshot);
+            life.World.Restore(c.Flow.HomeWorldSnapshot);
             world.gameObject.AddComponent<TownStreetWalkView>().Bind(c,life);
         }
         private static void AttachReaction(RawImage image,ScreenContext c)

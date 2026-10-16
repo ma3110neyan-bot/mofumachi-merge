@@ -19,5 +19,11 @@
     <Compile Include="../../Assets/Mofumachi/Presentation/TownCharacterMotion.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownCharacterMotion.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/MusicSelection.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/MusicSelection.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownNextGoal.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownNextGoal.cs')" />
+    <Compile Include="../../Assets/Mofumachi/Presentation/TownWorldLayout.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownWorldLayout.cs')" />
+    <Compile Include="../../Assets/Mofumachi/Presentation/TownWorldWalkModel.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownWorldWalkModel.cs')" />
+    <Compile Include="../../Assets/Mofumachi/Presentation/MergePerspective.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/MergePerspective.cs')" />
+    <Compile Include="../../Assets/Mofumachi/Presentation/TownDailyProgress.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownDailyProgress.cs')" />
+    <Compile Include="../../Assets/Mofumachi/Presentation/TownDailyStore.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownDailyStore.cs')" />
+    <Compile Include="../../Assets/Mofumachi/Presentation/TownCharacterBook.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownCharacterBook.cs')" />
   </ItemGroup>
 </Project>

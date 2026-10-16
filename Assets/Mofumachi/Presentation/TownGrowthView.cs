@@ -55,12 +55,14 @@ namespace Mofumachi.Presentation
             for(int i=0;i<icons.Length;i++)if(icons[i]!=null)icons[i].anchoredPosition=Local(positions[i]);
             foreach(var entry in regional)
             {
-                var p=entry.Placement;entry.Rect.anchoredPosition=Local(p.Position);
+                var p=entry.Placement;entry.Rect.anchoredPosition=life?.World?.IsReady==true?life.World.Local(TownWorldLayout.ToWorld(entry.Region,p.Position),(RectTransform)transform):Local(p.Position);
                 float width=Vector2.Distance(Local(p.Position),Local(new TownPoint(p.Position.X+p.Width,p.Position.Y)));
                 entry.Rect.sizeDelta=new Vector2(width,width/TownGrowthPropGraphic.Aspect(p.Prop));
+                if(life?.World?.IsReady==true){var bounds=((RectTransform)transform).rect;var at=entry.Rect.anchoredPosition;entry.Rect.gameObject.SetActive(at.y+entry.Rect.rect.height>bounds.yMin&&at.y<bounds.yMax&&at.x+width/2>bounds.xMin&&at.x-width/2<bounds.xMax);}
             }
             dirty=false;if(background!=null)previousUv=background.uvRect;
         }
+        public void NotifyWorldCamera(){dirty=true;if(bloom!=null){bloom.World=life?.World;bloom.RegionForWorld=Region;}}
         private void OnRectTransformDimensionsChange()=>dirty=true;
         private void LateUpdate(){if(dirty||(background!=null&&previousUv!=background.uvRect))Reposition();}
         public void Apply(int level)
@@ -68,7 +70,7 @@ namespace Mofumachi.Presentation
             StopHighlight();VisibleStage=Mathf.Clamp(level,0,6);bloom?.Apply(Region,VisibleStage);
             if(layers!=null)for(int i=0;i<layers.Length;i++)layers[i].SetActive(i<VisibleStage);
             foreach(var icon in icons)if(icon!=null)icon.gameObject.SetActive(Region==TownRegionId.Central);
-            foreach(var entry in regional)entry.Rect.gameObject.SetActive(entry.Region==Region);
+            foreach(var entry in regional)entry.Rect.gameObject.SetActive(life?.World?.IsReady==true||entry.Region==Region);
             dirty=true;
         }
         public void HighlightNewStage(int previous,int current)

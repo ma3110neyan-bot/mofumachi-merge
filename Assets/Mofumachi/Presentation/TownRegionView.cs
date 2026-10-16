@@ -23,11 +23,12 @@ namespace Mofumachi.Presentation
         private readonly UIIconGraphic[] petals=new UIIconGraphic[6];
         private TownRegionId displayed=TownRegionId.Central;
         public Graphic TransitionGraphic=>fade;
-        public int VisibleBackgroundCount=>background!=null&&background.isActiveAndEnabled&&background.texture!=null?1:0;
+        public int VisibleBackgroundCount=>life?.World?.IsReady==true?life.World.VisibleBackgroundCount:background!=null&&background.isActiveAndEnabled&&background.texture!=null?1:0;
         public float TransitionOpacity=>fade==null?0:fade.color.a;
         public void Bind(ScreenContext c,RawImage image,TownLifeView view,TownRegionSession owner)
         {
             background=image;life=view;session=owner;cameraView=view.GetComponent<TownViewportView>();
+            if(life.World?.IsReady==true){central=Resources.Load<Texture2D>("Mofumachi/TownBackground");return;}
             central=Resources.Load<Texture2D>("Mofumachi/TownBackground");textures[(int)TownRegionId.Central]=central;
             water=view.transform.parent.GetComponentInChildren<TownAmbientGraphic>();growth=view.GetComponentInChildren<TownGrowthView>();
             residents=view.gameObject.AddComponent<CanvasGroup>();
@@ -51,6 +52,7 @@ namespace Mofumachi.Presentation
         }
         public void ShowRegion(TownRegionId region)
         {
+            if(life?.World?.IsReady==true)return;
             if(background==null||session==null||!isActiveAndEnabled)return;
             if(cameraView!=null)centers[(int)displayed]=cameraView.Center;
             background.texture=TextureFor(region);displayed=region;cameraView?.ChangeRegion(background);cameraView?.RestoreCenter(centers[(int)region]);
@@ -79,6 +81,7 @@ namespace Mofumachi.Presentation
         }
         public void RestoreCentral()
         {
+            if(life?.World?.IsReady==true)return;
             if(fade!=null){fade.gameObject.SetActive(false);Destroy(fade.gameObject);fade=null;}
             if(residents!=null){residents.alpha=1;residents.blocksRaycasts=true;residents.interactable=true;}
             if(background==null)return;background.texture=central;water?.SetRegion(TownRegionId.Central);growth?.SetRegion(TownRegionId.Central);

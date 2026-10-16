@@ -49,7 +49,7 @@ namespace Mofumachi.Tests
         }
         [Test] public void PaintedConnectingRoadsContinueToTheNeighbourInsteadOfStoppingAtTheEdge()
         {
-            var town=new TownWorldWalkModel(0,"momo");Assert.That(town.TryGuidePoint(new TownPoint(.13f,.72f)),Is.True);
+            var town=new TownWorldWalkModel(0,"momo");Assert.That(town.TryGuidePoint(new TownPoint(.06f,.72f)),Is.True,"The painted connector needs a finger-sized touch corridor");town.CancelHero();Assert.That(town.TryGuidePoint(new TownPoint(.13f,.72f)),Is.True);
             Assert.That(town.Hero.PlaceId,Is.EqualTo("west.flowers"));town.CancelHero();
             Assert.That(town.TryGuidePoint(new TownPoint(.52f,.32f)),Is.True);Assert.That(town.Hero.PlaceId,Is.EqualTo("east.flowers"));
             town.FastTravel(TownRegionId.West);Assert.That(town.TryGuidePoint(new TownPoint(.94f,1.45f)),Is.True);Assert.That(town.Hero.PlaceId,Is.EqualTo("square"));

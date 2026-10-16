@@ -43,7 +43,7 @@ namespace Mofumachi.Presentation
         {if(!TownWorldLayout.Finite(target))return false;actor.StartedRegion=actor.Region;actor.Target=target;actor.PlaceId=place;actor.Rest=0;actor.PauseRemaining=0;actor.IsWalking=TownWorldLayout.Distance(actor.Position,target)>.0001f;return true;}
         public bool TryGuidePoint(TownPoint point)
         {
-            if(!TownWorldLayout.TryProject(point,nodes,edges,out var projected))return false;
+            if(!TownWorldLayout.TryProject(point,nodes,edges,out var projected,.075f))return false;
             // Road exits are part of the painting, not duplicated buttons. Keep
             // the north exit beyond the request-room doorway so both remain tappable.
             var regionNow=Hero.Region;

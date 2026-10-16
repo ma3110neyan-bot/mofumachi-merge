@@ -1,0 +1,7 @@
+<linker>
+  <!-- Reflection-based social journal serialization must survive Android IL2CPP stripping. -->
+  <assembly fullname="Mofumachi.Presentation">
+    <type fullname="Mofumachi.Presentation.TownDailyData" preserve="all" />
+    <type fullname="Mofumachi.Presentation.TownCharacterVisit" preserve="all" />
+  </assembly>
+</linker>

@@ -182,6 +182,8 @@ namespace Mofumachi.Tests
                         Assert.That(((RectTransform)button.transform).rect.height,Is.GreaterThanOrEqualTo(48));var label=button.GetComponentInChildren<Text>();
                         Assert.That(label.fontSize,Is.GreaterThanOrEqualTo(14));Assert.That(label.preferredHeight,Is.LessThanOrEqualTo(label.rectTransform.rect.height+1));
                     }
+                    foreach(var sign in life.GetComponentsInChildren<Text>().Where(t=>t.name.StartsWith("Painted road direction")))
+                    {var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(life.transform,sign.transform);var area=((RectTransform)life.transform).rect;Assert.That(bounds.min.x,Is.GreaterThanOrEqualTo(area.xMin));Assert.That(bounds.max.x,Is.LessThanOrEqualTo(area.xMax));Assert.That(sign.preferredHeight,Is.LessThanOrEqualTo(sign.rectTransform.rect.height+1));Assert.That(sign.raycastTarget,Is.False);}
                     foreach(var name in new[]{"Town region name","Town growth hint"})
                     {var text=Flow.GetComponentsInChildren<Text>().Single(t=>t.name==name);Assert.That(text.preferredHeight,Is.LessThanOrEqualTo(text.rectTransform.rect.height+1),name);}
                     Assert.That(Flow.TownBackground.uvRect.xMin,Is.GreaterThanOrEqualTo(0));Assert.That(Flow.TownBackground.uvRect.xMax,Is.LessThanOrEqualTo(1));

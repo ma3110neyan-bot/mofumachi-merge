@@ -18,6 +18,7 @@ namespace Mofumachi.Presentation
         private readonly List<RawImage> tiles=new List<RawImage>();
         private RectTransform dailyFlower;private int displayedFlowers;
         private readonly List<Text> roadLabels=new List<Text>();
+        private static readonly TownPoint[] SignPoints={new TownPoint(.13f,.72f),new TownPoint(.52f,.32f),new TownPoint(.94f,1.45f),new TownPoint(.09f,-.40f)};
         private ScreenContext context;
         private TownGardenPathGraphic gardenPath;private TownGrowthView growth;private TownAmbientGraphic ambient;
         public event Action<string,string,bool> Arrived;
@@ -34,7 +35,7 @@ namespace Mofumachi.Presentation
             }
             var path=UIWidgets.Node("Continuous connecting garden paths",scenery,new Rect(0,0,1,1)).gameObject.AddComponent<TownGardenPathGraphic>();path.Bind(this);gardenPath=path;
             foreach(var actor in life.Actors)actor.BindWorld(Model.Residents.Single(r=>r.Id==actor.CharacterId));
-            foreach(var sign in new[]{("北のカフェへ ↑",new TownPoint(.13f,.72f)),("↓ 南の花の小道へ",new TownPoint(.52f,.32f)),("中央公園へ ↓",new TownPoint(.94f,1.45f)),("↑ 中央公園へ",new TownPoint(.09f,-.40f))})
+            foreach(var sign in new[]{("北のカフェへ ↑",new TownPoint(.13f,.72f)),("南の小道へ ↓",new TownPoint(.52f,.32f)),("中央公園へ ↓",new TownPoint(.94f,1.45f)),("↑ 中央公園へ",new TownPoint(.09f,-.40f))})
             {var label=c.Widgets.NarrativeLabel("Painted road direction "+roadLabels.Count,sign.Item1,(RectTransform)life.transform,new Rect(.5f,.5f,0,0),13);label.rectTransform.sizeDelta=new Vector2(116,30);label.color=new Color(.34f,.22f,.24f);roadLabels.Add(label);}
             Model.Arrived+=OnArrival;Camera.Jump(new TownPoint(Model.Hero.Position.X,Model.Hero.Position.Y+.04f));Refresh();
         }
@@ -84,9 +85,8 @@ namespace Mofumachi.Presentation
             {var p=Local(actor.WorldPosition);var r=((RectTransform)life.transform).rect;actor.SetRegionVisible(p.x>r.xMin-64&&p.x<r.xMax+64&&p.y>r.yMin-90&&p.y<r.yMax+90);}
             var viewing=TownWorldLayout.RegionAt(Camera.Center);life.Regions.NotifyWorldRegion(viewing);
             gardenPath?.SetVerticesDirty();
-            var signPoints=new[]{new TownPoint(.13f,.72f),new TownPoint(.52f,.32f),new TownPoint(.94f,1.45f),new TownPoint(.09f,-.40f)};
             var actorBounds=((RectTransform)life.transform).rect;
-            for(int sign=0;sign<roadLabels.Count;sign++){var at=Local(signPoints[sign]);roadLabels[sign].rectTransform.anchoredPosition=at+Vector2.up*24;roadLabels[sign].gameObject.SetActive(at.y>actorBounds.yMin+160&&at.y<actorBounds.yMax-142);}
+            for(int sign=0;sign<roadLabels.Count;sign++){var at=Local(SignPoints[sign]);roadLabels[sign].rectTransform.anchoredPosition=new Vector2(Mathf.Clamp(at.x,actorBounds.xMin+66,actorBounds.xMax-66),at.y+24);roadLabels[sign].gameObject.SetActive(at.y>actorBounds.yMin+160&&at.y<actorBounds.yMax-142);}
             int count=Math.Min(6,context.Flow.Daily.Data.DecorationDays.Count);
             if(count>0)
             {

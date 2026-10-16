@@ -12,11 +12,6 @@ namespace Mofumachi.Tests
 {
     public sealed class TownRegionLifeTests : SliceUiTestFixture
     {
-        private static bool Schedule(TownRegionSession session,string id,TownRegionId target)
-        {
-            var method=typeof(TownRegionSession).GetMethod("TryScheduleNpcVisit");Assert.That(method,Is.Not.Null,"NPC regional visiting is not implemented");
-            return (bool)method.Invoke(session,new object[]{id,target});
-        }
         private static void Advance(TownLifeView life,float seconds)
         {for(int i=0;i<Mathf.CeilToInt(seconds*30);i++)life.AdvanceFrame(1f/30);}
         [UnityTest] public IEnumerator OffscreenNpcsKeepLivingWithoutDuplicatedActors()
@@ -34,7 +29,6 @@ namespace Mofumachi.Tests
             for(int i=0;i<9000&&!crossed;i++){life.AdvanceFrame(1f/30);for(int j=0;j<npcs.Length;j++){Assert.That(TownWorldLayout.Distance(previous[j],npcs[j].Position),Is.LessThanOrEqualTo(.00118f));crossed|=npcs[j].Region!=initial[j];previous[j]=npcs[j].Position;}}
             Assert.That(crossed,Is.True,"Residents must visit another region on the same connected paths");Assert.That(life.Actors.Count,Is.EqualTo(6));LogAssert.NoUnexpectedReceived();
         }
-        private static TownRegionId[] NpcRegions(TownActor[] actors)=>actors.Select(a=>a.RegionId).ToArray();
         [UnityTest] public IEnumerator DifferentRegionsNeverConverseOrBlockEachOther()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var west=life.Actors.First(a=>a.RegionId==TownRegionId.West);var east=life.Actors.First(a=>a.RegionId==TownRegionId.East);
@@ -48,7 +42,7 @@ namespace Mofumachi.Tests
             Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,740),new Rect(0,24,360,684));Canvas.ForceUpdateCanvases();
             var life=Flow.GetComponentInChildren<TownLifeView>();life.Regions.LookAtRegion(TownRegionId.West);var actors=life.Actors.Where(a=>!a.Controlled&&a.RegionId==TownRegionId.West).ToArray();Assert.That(actors.Length,Is.EqualTo(2));bool greeted=false;
             for(int i=0;i<3600&&!greeted;i++){life.AdvanceFrame(1f/30);greeted=Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"&&t.text.Contains("こんにちは"));}
-            Assert.That(greeted,Is.True);var paused=actors.Select(a=>a.WorldPosition).ToArray();Advance(life,.5f);
+            Assert.That(greeted,Is.True);actors=life.Actors.Where(a=>life.World.Model.Residents.Single(r=>r.Id==a.CharacterId).PauseRemaining>0).ToArray();Assert.That(actors.Length,Is.EqualTo(2),"Inspect the two actors of the actual encounter");var paused=actors.Select(a=>a.WorldPosition).ToArray();Advance(life,.5f);
             foreach(var actor in actors)Assert.That(life.World.Model.Residents.Single(r=>r.Id==actor.CharacterId).PauseRemaining,Is.GreaterThan(0));
             for(int i=0;i<actors.Length;i++)Assert.That(TownWorldLayout.Distance(paused[i],actors[i].WorldPosition),Is.LessThan(.0001f));
             Advance(life,20);Assert.That(actors.Where((a,i)=>TownWorldLayout.Distance(paused[i],a.WorldPosition)>.001f).Any(),Is.True);LogAssert.NoUnexpectedReceived();

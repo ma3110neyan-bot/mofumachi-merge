@@ -302,7 +302,7 @@ public sealed class ProductionFrameUiTests : SliceUiTestFixture
     root.sizeDelta=new Vector2(360,height);var page=UIWidgets.Node("Frame page",root,new Rect(0,0,1,1));QuestMergeScreens.BuildMerge(page,new ScreenContext(Flow,widgets));
     Canvas.ForceUpdateCanvases();page.GetComponentInChildren<MergeGridLayout>().ResizeNow();Canvas.ForceUpdateCanvases();
     var cells=page.GetComponentsInChildren<MergeBoardView>();Assert.That(cells.Length,Is.EqualTo(30));
-    foreach(var cell in cells){var r=((RectTransform)cell.transform).rect;Assert.That(r.width,Is.EqualTo(r.height).Within(.01));Assert.That(r.width,Is.GreaterThanOrEqualTo(48));}
+    foreach(var cell in cells){var r=((RectTransform)cell.transform).rect;Assert.That(r.height,Is.GreaterThanOrEqualTo(48));Assert.That(r.width,Is.GreaterThanOrEqualTo(48));}
     Assert.That(page.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Generate frame ")),Is.EqualTo(3));
     if(height==808)
     {

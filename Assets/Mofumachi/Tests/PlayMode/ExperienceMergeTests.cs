@@ -12,8 +12,8 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator NewBoardArtworkAndServingDishesKeepThirtyIndependentTargets()
         {
             yield return EnterHome();Flow.ShowMerge();yield return null;Canvas.ForceUpdateCanvases();
-            var frame=Flow.GetComponentsInChildren<RawImage>().Single(g=>g.name=="Merge storybook board");
-            Assert.That(frame.texture,Is.SameAs(Resources.Load<Texture2D>("Mofumachi/MergeBoardFrame")));Assert.That(frame.raycastTarget,Is.False);
+            var frame=Flow.GetComponentsInChildren<PerspectiveBoardGraphic>().Single(g=>g.name=="Merge storybook board");
+            Assert.That(frame.mainTexture,Is.SameAs(Resources.Load<Texture2D>("Mofumachi/MergeBoardFrame")));Assert.That(frame.raycastTarget,Is.False);
             var cells=Flow.GetComponentsInChildren<MergeBoardView>();Assert.That(cells.Length,Is.EqualTo(30));
             Assert.That(cells.All(v=>v.GetComponentInChildren<MergeCellSurfaceGraphic>()!=null),Is.True);
             Assert.That(Flow.GetComponentsInChildren<ItemGraphic>().Where(g=>g.name=="Requirement art tea"||g.name=="Frame item art").All(g=>!g.raycastTarget),Is.True);

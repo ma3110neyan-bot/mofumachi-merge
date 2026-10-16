@@ -50,10 +50,10 @@ namespace Mofumachi.Presentation
         public bool GuidePoint(TownPoint point)
         {
             if(!life.CanInteract||!TownWorldLayout.Finite(point))return false;
-            if(!Model.TryGuidePoint(point))return false;FollowingHero=true;SyncActors();return true;
+            if(!Model.TryGuidePoint(point))return false;life.StartInteraction(true);FollowingHero=true;SyncActors();return true;
         }
         public bool GuidePlace(string id)
-        {if(!life.CanInteract||life.IsManuallyDragging||!Model.TryGuide(Model.Hero.Id,id))return false;FollowingHero=true;SyncActors();return true;}
+        {if(!life.CanInteract||life.IsManuallyDragging||!Model.TryGuide(Model.Hero.Id,id))return false;life.StartInteraction(true);FollowingHero=true;SyncActors();return true;}
         public void FastTravel(TownRegionId region)
         {if(!life.CanInteract||life.IsManuallyDragging)return;life.StartInteraction();Model.FastTravel(region);FollowingHero=true;Camera.Jump(new TownPoint(Model.Hero.Position.X,Model.Hero.Position.Y+.04f));SyncActors();Refresh();}
         public bool LookAt(TownRegionId region)
@@ -94,7 +94,7 @@ namespace Mofumachi.Presentation
                 while(displayedFlowers<count){int slot=displayedFlowers++;var icon=context.Widgets.Icon("Collected flower art "+slot,UIIcon.Flower,dailyFlower,new Rect(.03f+slot%3*.31f,slot/3*.4f,.29f,.58f));icon.color=Color.Lerp(new Color(1,.70f,.80f),new Color(1,.92f,.55f),slot/5f);}
                 dailyFlower.anchoredPosition=Local(TownWorldLayout.ToWorld(TownRegionId.Central,new TownPoint(.62f,.34f)));
             }
-            life.RefreshViewport();if(growth==null)growth=life.GetComponentInChildren<TownGrowthView>();growth?.NotifyWorldCamera();
+            life.RefreshViewport();if(growth==null)growth=life.GetComponentInChildren<TownGrowthView>();if(growth!=null){if(growth.Region!=viewing)growth.SetRegion(viewing);growth.NotifyWorldCamera();}
             if(ambient==null)ambient=life.transform.parent.GetComponentInChildren<TownAmbientGraphic>();if(ambient!=null){ambient.World=this;ambient.NotifyViewportChanged();}
         }
         public TownWorldSnapshot Capture()=>Model==null?null:new TownWorldSnapshot(Model.Residents.Select(r=>r.Id).ToArray(),Model.Residents.Select(r=>r.Position).ToArray(),Model.Residents.Select(r=>r.PlaceId).ToArray(),Camera.Center,FollowingHero,Model.Hero.Id);

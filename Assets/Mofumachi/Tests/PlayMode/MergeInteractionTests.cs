@@ -65,7 +65,7 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();Flow.ShowMerge();Canvas.ForceUpdateCanvases();
             var cells=Flow.GetComponentsInChildren<MergeBoardView>();Assert.That(cells.Length,Is.EqualTo(30));
-            foreach(var cell in cells){var rect=(RectTransform)cell.transform;Assert.That(rect.rect.width,Is.EqualTo(rect.rect.height).Within(.01));Assert.That(rect.rect.width,Is.GreaterThanOrEqualTo(48));}
+            foreach(var cell in cells){var rect=(RectTransform)cell.transform;Assert.That(rect.rect.height,Is.GreaterThanOrEqualTo(48));Assert.That(rect.rect.width,Is.GreaterThanOrEqualTo(48));}
             Assert.That(ResponsiveUILayout.CellSize(new Vector2(336,320)),Is.GreaterThanOrEqualTo(48));
         }
     }

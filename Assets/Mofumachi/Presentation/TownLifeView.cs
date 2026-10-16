@@ -19,7 +19,7 @@ namespace Mofumachi.Presentation
         public string NearbyFacility {get;private set;}
         internal bool CanSimulate=>isActiveAndEnabled&&context!=null&&!context.Flow.IsModalOpen&&!context.Flow.IsAppPaused&&context.Flow.CurrentScreen==ScreenId.Home;
         public bool CanInteract=>CanSimulate&&!(Regions?.IsHeroTransitioning??false);
-        public bool IsManuallyDragging=>actors!=null&&actors.Any(a=>a.Controlled&&a.Movement.OwnedPointerId.HasValue&&!a.IsGuided);
+        public bool IsManuallyDragging=>actors!=null&&actors.Any(a=>a.Controlled&&a.Movement.OwnedPointerId.HasValue&&(World?.IsReady==true||!a.IsGuided));
         private RawImage background;private ScreenContext context;private TownActor[] actors;private RectTransform actorLayer;
         private GameObject bubble,entrance,outings;private TownActor speaker;private TownPlace destination;private float now,nextTalk,bubbleUntil,nextSocial;private int choiceIndex;
         private readonly TownFrameClock clock=new TownFrameClock();
@@ -161,7 +161,7 @@ namespace Mofumachi.Presentation
             });UIWidgets.Bottom((RectTransform)b.transform,48,178,48,48);entrance=b.gameObject;
         }
         internal void React(TownActor a)
-        {if(!CanInteract)return;if(!a.Controlled)context.Flow.TalkToCharacter(a.CharacterId);context.Flow.PlayCue(AudioCue.Character);if(!IsManuallyDragging&&entrance==null){if(a.Controlled)ShowOutings();else{HideOutings();ShowBubble(CharacterCatalog.Find(a.CharacterId).Name+"："+StreetLine(a),a);}}}
+        {if(!CanInteract||IsManuallyDragging||entrance!=null)return;context.Flow.PlayCue(AudioCue.Character);if(a.Controlled)ShowOutings();else{HideOutings();bool recorded=context.Flow.TalkToCharacter(a.CharacterId);ShowBubble(recorded?CharacterCatalog.Find(a.CharacterId).Name+"："+StreetLine(a):context.Flow.Daily.LastError,a);}}
         private string StreetLine(TownActor actor)
         {string reunion=QuestStoryPresentation.ReunionFor(actor.CharacterId,context.Game.State.completedQuestIds);var visits=context.Flow.Daily.Data.Characters.First(c=>c.Id==actor.CharacterId).Meetings;return reunion.Length>0&&visits%3==1?reunion:TownCharacterDialogue.For(actor.CharacterId,visits);}
         private void ShowBubble(string text,TownActor a)

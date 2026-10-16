@@ -63,7 +63,7 @@ namespace Mofumachi.Presentation
         private bool BeginGuide(TownPoint target,bool preserveJourney)
         {
             if(worldResident!=null)return Controlled&&life.CanInteract&&life.World.GuidePoint(TownWorldLayout.ToWorld(RegionId,target));
-            if(!Controlled||life==null||!life.CanInteract || !float.IsFinite(target.X)||!float.IsFinite(target.Y) || (Movement.OwnedPointerId.HasValue&&!IsGuided))return false;
+            if(!Controlled||life==null||!life.CanInteract || !float.IsFinite(target.X)||!float.IsFinite(target.Y) || (Movement.OwnedPointerId.HasValue&&(worldResident!=null||!IsGuided)))return false;
             life.StartInteraction(preserveJourney);Movement.CancelInput();IsGuided=false;transitionHeld=false;
             if(!Movement.TryBeginDrag(GuidePointer))return false;
             guideTarget=target;Movement.SetTarget(GuidePointer,target);IsGuided=true;dragged=false;return true;
@@ -157,11 +157,11 @@ namespace Mofumachi.Presentation
         {previous=Position;RenderPosition=Position;moving=false;if(life!=null)rect.anchoredPosition=worldResident==null?life.Local(Position):life.World.Local(worldResident.Position);}
         internal void ResetVisual()
         {IsGuided=false;FreezeMovement();stride=amplitude=breath=reactionRemaining=speedBlend=0;if(VisualRoot!=null){VisualRoot.anchoredPosition=Vector2.zero;VisualRoot.localScale=Vector3.one;VisualRoot.localRotation=Quaternion.identity;}if(body!=null){if(body.Expression!=CharacterExpression.Normal)body.Bind(CharacterId);body.Pose(0,0,0,false);}}
-        public void React(){if(life==null||!life.CanInteract||!RegionVisible||journeyFade>0)return;if(worldResident!=null&&!Controlled)life.World.Model.Pause(CharacterId,2);surprised=false;reactionRemaining=.65f;life.React(this);}
+        public void React(){if(life==null||!life.CanInteract||!RegionVisible||journeyFade>0||life.IsManuallyDragging||life.NearbyFacility!=null)return;if(worldResident!=null&&!Controlled)life.World.Model.Pause(CharacterId,2);surprised=false;reactionRemaining=.65f;life.React(this);}
         internal void SetViewScale(float scale){viewScale=Mathf.Clamp(scale,1,1.15f);}
         internal void Surprise(){surprised=true;reactionRemaining=.65f;}
         public void OnPointerDown(PointerEventData e)
-        {if(!Controlled||!life.CanInteract||!RegionVisible||Movement.OwnedPointerId.HasValue&&!IsGuided)return;life.StartInteraction();if(IsGuided){Movement.CancelInput();IsGuided=false;FreezeMovement();}if(Movement.TryBeginDrag(e.pointerId))dragged=false;}
+        {if(!Controlled||!life.CanInteract||!RegionVisible||Movement.OwnedPointerId.HasValue&&(worldResident!=null||!IsGuided))return;life.StartInteraction();if(IsGuided){Movement.CancelInput();IsGuided=false;FreezeMovement();}if(Movement.TryBeginDrag(e.pointerId))dragged=false;}
         public void OnBeginDrag(PointerEventData e)
         {if(!Controlled||!life.CanInteract)return;if(!Movement.OwnedPointerId.HasValue)OnPointerDown(e);if(Movement.OwnedPointerId==e.pointerId){dragged=true;e.eligibleForClick=false;}}
         public void OnDrag(PointerEventData e)

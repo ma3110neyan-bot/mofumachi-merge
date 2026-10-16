@@ -160,7 +160,7 @@ namespace Mofumachi.Presentation
             if(CurrentScreen==ScreenId.Home&&page!=null&&page.GetComponentInChildren<TownLifeView>()?.DismissOutings()==true)return;
             if(CurrentScreen==ScreenId.Settings)Navigate(settingsReturnView);
             else if(CurrentScreen==ScreenId.CharacterSelection)
-            { if(selectionReturnView=="settings")Navigate("settings"); else ReturnToTitle(); }
+            { if(selectionReturnView=="settings")Navigate("settings"); else if(CharacterCatalog.IsKnown(Game.State.favoriteCharacterId))Navigate("home");else ReturnToTitle(); }
             else if(CurrentScreen==ScreenId.Home)ReturnToTitle();
             else if(CurrentScreen!=ScreenId.Title)ShowHome();
         }
@@ -259,7 +259,7 @@ namespace Mofumachi.Presentation
             MergeInputDiagnostics.Record(this,"drop-result",from,to,changed?(merged?"merged":"moved"):notice);
             if (merged)
             {
-                Daily.EnsureDay(System.DateTime.Now);Daily.RecordMerge();
+                if(Daily.EnsureDay(System.DateTime.Now))Daily.RecordMerge();
                 audioManager.PlaySe(AudioCue.Merge);
                 mergeAnimation = StartCoroutine(FinishMerge());
             }
@@ -533,9 +533,9 @@ namespace Mofumachi.Presentation
         {if(!CanPlay||CurrentScreen!=ScreenId.Home)return;Daily.EnsureDay(System.DateTime.Now);OpenUtilityModal(ModalKind.Today,TownTodayView.Build);}
         public void CloseToday(){if(modalKind==ModalKind.Today)CloseUtilityModal();}
         public void ClaimDaily()
-        {if(modalKind!=ModalKind.Today)return;Daily.EnsureDay(System.DateTime.Now);if(Daily.Claim())PlayCue(AudioCue.Confirm);OpenUtilityModal(ModalKind.Today,TownTodayView.Build);}
-        public bool TalkToCharacter(string id){Daily.EnsureDay(System.DateTime.Now);return Daily.RecordTalk(id);}
-        public void RecordWorldWalk(){Daily.EnsureDay(System.DateTime.Now);Daily.RecordWalk();}
+        {if(modalKind!=ModalKind.Today)return;if(Daily.EnsureDay(System.DateTime.Now)&&Daily.Claim())PlayCue(AudioCue.Confirm);OpenUtilityModal(ModalKind.Today,TownTodayView.Build);}
+        public bool TalkToCharacter(string id){return Daily.EnsureDay(System.DateTime.Now)&&Daily.RecordTalk(id);}
+        public void RecordWorldWalk(){if(Daily.EnsureDay(System.DateTime.Now))Daily.RecordWalk();}
         public void OpenShopPreview()
         {
             if(!CanPlay || CurrentScreen!=ScreenId.Home)return;

@@ -150,7 +150,7 @@ namespace Mofumachi.Tests
                 var cells=page.GetComponentsInChildren<MergeBoardView>();Assert.That(cells.Length,Is.EqualTo(30));
                 foreach(var cell in cells)
                 {
-                    var rect=(RectTransform)cell.transform;Assert.That(rect.rect.width,Is.GreaterThanOrEqualTo(48));Assert.That(rect.rect.width,Is.EqualTo(rect.rect.height).Within(.01));
+                    var rect=(RectTransform)cell.transform;Assert.That(rect.rect.width,Is.GreaterThanOrEqualTo(48));Assert.That(rect.rect.height,Is.GreaterThanOrEqualTo(48));
                     var art=cell.GetComponentInChildren<ItemGraphic>();if(art==null)continue;
                     var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(rect,art.rectTransform);
                     Assert.That(bounds.min.x,Is.GreaterThanOrEqualTo(rect.rect.xMin));Assert.That(bounds.max.x,Is.LessThanOrEqualTo(rect.rect.xMax));

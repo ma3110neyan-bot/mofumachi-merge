@@ -33,7 +33,8 @@ namespace Mofumachi.Tests
         }
         [UnityTest] public IEnumerator TodayClaimAndConversationNeverWriteOrRewardTheMainSave()
         {
-            yield return EnterHome();int writes=Store.Writes;string before=StateCodec.Encode(Flow.Game.State);
+            yield return EnterHome();Flow.Game.State.activeQuestId="";Flow.Game.State.completedQuestIds.AddRange(QuestCatalog.All.Select(q=>q.Id));Flow.Game.State.townGrowthLevel=6;Flow.ShowHome();int writes=Store.Writes;string before=StateCodec.Encode(Flow.Game.State);
+            Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Home quest").onClick.Invoke();Assert.That(Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Claim today flower").interactable,Is.False);Flow.CloseToday();
             for(int i=0;i<3;i++)Flow.Daily.RecordMerge();Flow.TalkToCharacter("lulu");Flow.Daily.RecordWalk();Flow.ShowToday();
             var claim=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Claim today flower");Assert.That(claim.interactable,Is.True);claim.onClick.Invoke();Assert.That(Flow.Daily.Data.Claimed,Is.True);Assert.That(Flow.Daily.Data.DecorationDays.Count,Is.EqualTo(1));
             Assert.That(Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Claim today flower").interactable,Is.False);Flow.CloseToday();Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));LogAssert.NoUnexpectedReceived();

@@ -18,8 +18,7 @@ namespace Mofumachi.Presentation
             panel=c.Widgets.OrnatePanel("Street walking hint",(RectTransform)transform.parent,new Rect(0,0,1,1),UIWidgets.Cream,12).rectTransform;
             UIWidgets.Top(panel,16,142,16,48);
             hint=c.Widgets.Label("Street walking instruction","キャラをタップして、道を歩こう",panel,new Rect(.025f,.08f,.76f,.84f),12);
-            var menu=c.Widgets.Button("Street destinations","行き先",panel,new Rect(.78f,0,.22f,1),()=>life.OpenOutings(),true);menu.GetComponentInChildren<Text>().fontSize=12;
-            ((RectTransform)menu.transform).sizeDelta=new Vector2(0,0);panel.gameObject.SetActive(false);RefreshMarkers();
+            hint.rectTransform.anchorMax=new Vector2(.975f,.92f);panel.gameObject.SetActive(false);RefreshMarkers();
         }
         public bool Arm()
         {

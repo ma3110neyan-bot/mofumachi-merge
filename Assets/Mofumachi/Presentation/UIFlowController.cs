@@ -14,12 +14,14 @@ namespace Mofumachi.Presentation
     public sealed class UIFlowController : MonoBehaviour
     {
         private static GameStateManager session;
+        private static TownDailyService socialSession;
+        public TownDailyService Daily=>socialSession??(socialSession=new TownDailyService(new MemoryTownDailyStore(),System.DateTime.Now));
         public GameStateManager Game => session;
         private ResponsiveUILayout layout;
         private UIWidgets widgets;
         private ScreenContext context;
         private GameObject modal;
-        private enum ModalKind { None, PurchaseNotice, MergeMenu, Discard, PackFrames, Shop }
+        private enum ModalKind { None, PurchaseNotice, MergeMenu, Discard, PackFrames, Shop, Today }
         private ModalKind modalKind;
         public bool IsModalOpen => modal != null && modal.activeSelf;
         public bool CanInteractBoard => CanPlay && CurrentScreen==ScreenId.Merge && mergeAnimation==null;
@@ -67,7 +69,7 @@ namespace Mofumachi.Presentation
 
         private void Awake()
         {
-            if (session == null) Initialize(new SaveService(Application.persistentDataPath));
+            if (session == null) Initialize(new SaveService(Application.persistentDataPath),new FileTownDailyStore(Application.persistentDataPath));
             ProductionItemId=UIStrings.SuggestedProduction(Game);
             font = Resources.Load<Font>("Mofumachi/UIFont");
             characters = Resources.Load<Texture2D>("Mofumachi/CharacterMaster");
@@ -101,11 +103,12 @@ namespace Mofumachi.Presentation
             Render(SceneManager.GetActiveScene().name == "TitleScene" || !Game.State.purchaseNoticeAcknowledged ? "title" :
                 CharacterCatalog.IsKnown(Game.State.favoriteCharacterId) ? "home" : "characterSelection");
         }
-        public void Initialize(IStateStore store)
+        public void Initialize(IStateStore store,ITownDailyStore socialStore=null)
         {
             HomeRegionSnapshot=null;HomeWorldSnapshot=null;
             discardHomeRegionSnapshot=true;
             ClearFrameSelection();
+            socialSession=new TownDailyService(socialStore??new MemoryTownDailyStore(),System.DateTime.Now);
             var loaded = store.Load();
             session = new GameStateManager(loaded.State, store);
             ProductionItemId=UIStrings.SuggestedProduction(Game);selected=-1;feedback.Remove(ScreenId.Merge);
@@ -151,6 +154,7 @@ namespace Mofumachi.Presentation
         }
         public void GoBack()
         {
+            if(modalKind==ModalKind.Today){CloseToday();return;}
             if(IsModalOpen || transitioning)return;
             if(CurrentScreen==ScreenId.Home&&page!=null&&page.GetComponentInChildren<TownStreetWalkView>()?.IsArmed==true){page.GetComponentInChildren<TownStreetWalkView>().CancelSelection();return;}
             if(CurrentScreen==ScreenId.Home&&page!=null&&page.GetComponentInChildren<TownLifeView>()?.DismissOutings()==true)return;
@@ -255,6 +259,7 @@ namespace Mofumachi.Presentation
             MergeInputDiagnostics.Record(this,"drop-result",from,to,changed?(merged?"merged":"moved"):notice);
             if (merged)
             {
+                Daily.EnsureDay(System.DateTime.Now);Daily.RecordMerge();
                 audioManager.PlaySe(AudioCue.Merge);
                 mergeAnimation = StartCoroutine(FinishMerge());
             }
@@ -524,6 +529,13 @@ namespace Mofumachi.Presentation
         }
         public void CancelDiscard()
         { if(modalKind==ModalKind.Discard){CloseUtilityModal();Render("merge");} }
+        public void ShowToday()
+        {if(!CanPlay||CurrentScreen!=ScreenId.Home)return;Daily.EnsureDay(System.DateTime.Now);OpenUtilityModal(ModalKind.Today,TownTodayView.Build);}
+        public void CloseToday(){if(modalKind==ModalKind.Today)CloseUtilityModal();}
+        public void ClaimDaily()
+        {if(modalKind!=ModalKind.Today)return;Daily.EnsureDay(System.DateTime.Now);if(Daily.Claim())PlayCue(AudioCue.Confirm);OpenUtilityModal(ModalKind.Today,TownTodayView.Build);}
+        public bool TalkToCharacter(string id){Daily.EnsureDay(System.DateTime.Now);return Daily.RecordTalk(id);}
+        public void RecordWorldWalk(){Daily.EnsureDay(System.DateTime.Now);Daily.RecordWalk();}
         public void OpenShopPreview()
         {
             if(!CanPlay || CurrentScreen!=ScreenId.Home)return;

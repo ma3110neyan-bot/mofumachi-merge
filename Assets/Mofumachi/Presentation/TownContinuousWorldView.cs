@@ -16,11 +16,13 @@ namespace Mofumachi.Presentation
         public int VisibleBackgroundCount=>tiles.Count(t=>t.gameObject.activeSelf);
         private TownLifeView life;private RawImage original;private RectTransform scenery;
         private readonly List<RawImage> tiles=new List<RawImage>();
+        private RectTransform dailyFlower;
+        private ScreenContext context;
         private TownGardenPathGraphic gardenPath;private TownGrowthView growth;private TownAmbientGraphic ambient;
         public event Action<string,string,bool> Arrived;
         public void Bind(ScreenContext c,TownLifeView town)
         {
-            life=town;original=town.Background;Model=new TownWorldWalkModel(town.TownLevel,c.Game.State.favoriteCharacterId);
+            context=c;life=town;original=town.Background;Model=new TownWorldWalkModel(town.TownLevel,c.Game.State.favoriteCharacterId);
             scenery=UIWidgets.Node("Continuous town scenery",(RectTransform)original.transform.parent,new Rect(0,0,1,1));scenery.SetSiblingIndex(original.transform.GetSiblingIndex()+1);
             var garden=scenery.gameObject.AddComponent<RawImage>();garden.texture=Resources.Load<Texture2D>("Mofumachi/TownBackground");garden.uvRect=new Rect(.015f,.05f,.13f,.24f);garden.raycastTarget=false;
             original.enabled=false;var cover=original.GetComponent<BackgroundCover>();if(cover!=null)cover.enabled=false;
@@ -52,7 +54,7 @@ namespace Mofumachi.Presentation
         public void FastTravel(TownRegionId region)
         {if(!life.CanInteract||life.IsManuallyDragging)return;life.StartInteraction();Model.FastTravel(region);FollowingHero=true;Camera.Jump(new TownPoint(Model.Hero.Position.X,Model.Hero.Position.Y+.04f));SyncActors();Refresh();}
         public bool LookAt(TownRegionId region)
-        {if(!life.CanInteract)return false;FollowingHero=false;Camera.Jump(TownWorldLayout.ToWorld(region,new TownPoint(.5f,.42f)));Refresh();return true;}
+        {if(!life.CanInteract||!Enum.IsDefined(typeof(TownRegionId),region))return false;FollowingHero=false;Camera.Jump(TownWorldLayout.ToWorld(region,new TownPoint(.5f,.42f)));Refresh();return true;}
         public void ReturnToHero(){FollowingHero=true;Camera.Jump(new TownPoint(Model.Hero.Position.X,Model.Hero.Position.Y+.04f));Refresh();}
         public void Pan(Vector2 delta){FollowingHero=false;float scale=original.rectTransform.rect.width/1.06f;Camera.Pan(-delta.x/scale,-delta.y/(scale*TownWorldLayout.ImageAspect));Refresh();}
         public void CancelHero(){Model?.CancelHero();if(Model!=null)SyncActors();}
@@ -62,7 +64,7 @@ namespace Mofumachi.Presentation
             var actor=life.Actors.Single(a=>a.CharacterId==id);actor.ApplyWorldStep(0);
             if(TownRegionCatalog.TryFindPlace(placeId,life.TownLevel,out _,out var place))
             {actor.SetWorldPlace(place);if(actor.Controlled){life.SetGuidedDestination(place);life.ActorReleased(actor);}}
-            actor.Surprise();Arrived?.Invoke(id,placeId,walked);
+            actor.Surprise();if(actor.Controlled&&walked)context.Flow.RecordWorldWalk();Arrived?.Invoke(id,placeId,walked);
         }
         private void SyncActors(){foreach(var actor in life.Actors)actor.ApplyWorldStep(0);}
         public void Refresh()
@@ -79,6 +81,7 @@ namespace Mofumachi.Presentation
             {var p=Local(actor.WorldPosition);var r=((RectTransform)life.transform).rect;actor.SetRegionVisible(p.x>r.xMin-64&&p.x<r.xMax+64&&p.y>r.yMin-90&&p.y<r.yMax+90);}
             var viewing=TownWorldLayout.RegionAt(Camera.Center);life.Regions.NotifyWorldRegion(viewing);
             gardenPath?.SetVerticesDirty();
+            if(context.Flow.Daily.Data.DecorationDays.Count>0){if(dailyFlower==null){dailyFlower=UIWidgets.Node("Daily collected flower",(RectTransform)life.transform,new Rect(.5f,.5f,0,0));dailyFlower.sizeDelta=new Vector2(32,40);context.Widgets.Icon("Collected flower art",UIIcon.Flower,dailyFlower,new Rect(0,0,1,1));dailyFlower.SetAsFirstSibling();}dailyFlower.anchoredPosition=Local(TownWorldLayout.ToWorld(TownRegionId.Central,new TownPoint(.62f,.34f)));}
             life.RefreshViewport();if(growth==null)growth=life.GetComponentInChildren<TownGrowthView>();growth?.NotifyWorldCamera();
             if(ambient==null)ambient=life.transform.parent.GetComponentInChildren<TownAmbientGraphic>();if(ambient!=null){ambient.World=this;ambient.NotifyViewportChanged();}
         }

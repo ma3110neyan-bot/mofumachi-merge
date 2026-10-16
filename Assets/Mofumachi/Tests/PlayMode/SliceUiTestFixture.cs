@@ -13,7 +13,8 @@ namespace Mofumachi.Tests
     public abstract class SliceUiTestFixture
     {
         private static readonly FieldInfo Session = typeof(UIFlowController).GetField("session", BindingFlags.Static | BindingFlags.NonPublic);
-        private object previousSession;
+        private static readonly FieldInfo SocialSession=typeof(UIFlowController).GetField("socialSession",BindingFlags.Static|BindingFlags.NonPublic);
+        private object previousSession,previousSocialSession;
         protected string DirectoryPath;
         protected TestStore Store;
         protected UIFlowController Flow => UnityEngine.Object.FindAnyObjectByType<UIFlowController>();
@@ -21,7 +22,8 @@ namespace Mofumachi.Tests
 
         [SetUp] public void Isolate()
         {
-            previousSession = Session.GetValue(null);
+            previousSession = Session.GetValue(null);previousSocialSession=SocialSession.GetValue(null);
+            SocialSession.SetValue(null,new TownDailyService(new MemoryTownDailyStore(),DateTime.Now));
             DirectoryPath = Path.Combine(Path.GetTempPath(), "mofumachi-ui-" + Guid.NewGuid());
             Store = new TestStore(new SaveService(DirectoryPath));
             Session.SetValue(null, new GameStateManager(Store.Load().State, Store));
@@ -34,7 +36,7 @@ namespace Mofumachi.Tests
             { ui.StopAllCoroutines(); UnityEngine.Object.DestroyImmediate(ui.gameObject); }
             foreach (var audio in UnityEngine.Object.FindObjectsByType<AudioManager>(FindObjectsInactive.Include))
             { audio.StopAllCoroutines(); UnityEngine.Object.DestroyImmediate(audio.gameObject); }
-            Session.SetValue(null, previousSession);
+            Session.SetValue(null, previousSession);SocialSession.SetValue(null,previousSocialSession);
             if (Directory.Exists(DirectoryPath)) Directory.Delete(DirectoryPath, true);
             cleaned = true;
         }

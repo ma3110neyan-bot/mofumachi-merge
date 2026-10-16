@@ -31,9 +31,9 @@ namespace Mofumachi.Presentation
                 var r=(RectTransform)b.transform;r.anchorMin=new Vector2(column*.5f,1);r.anchorMax=new Vector2((column+1)*.5f,1);
                 r.offsetMin=new Vector2(3,-row*56-52);r.offsetMax=new Vector2(-3,-row*56);b.GetComponentInChildren<Text>().fontSize=14;
             }
-            Add("Visit west cafe",life.TownLevel>=2?"西のカフェへ":"西のカフェのお庭へ",0,0,()=>Walk(TownOutingDestinations.ForRegion(TownRegionId.West,life.TownLevel)));
-            Add("Visit central fountain","中央の噴水へ",1,0,()=>Walk(TownOutingDestinations.ForRegion(TownRegionId.Central,life.TownLevel)));
-            Add("Visit east flowers","東の花の小道へ",0,1,()=>Walk(TownOutingDestinations.ForRegion(TownRegionId.East,life.TownLevel)));
+            Add("Visit west cafe",life.TownLevel>=2?"北のカフェへ":"北のカフェのお庭へ",0,0,()=>Walk(TownOutingDestinations.ForRegion(TownRegionId.West,life.TownLevel)));
+            Add("Visit central fountain","中央公園の噴水へ",1,0,()=>Walk(TownOutingDestinations.ForRegion(TownRegionId.Central,life.TownLevel)));
+            Add("Visit east flowers","南の花の小道へ",0,1,()=>Walk(TownOutingDestinations.ForRegion(TownRegionId.East,life.TownLevel)));
             Add("Visit bench","近くのベンチへ",1,1,()=>{if(life.GuideToRestStop("bench"))life.DismissOutings();});
             Add("Guide to quest","依頼部屋へ歩く",0,2,()=>Walk("quest"));
             Add("Guide to shop","ショップへ歩く",1,2,()=>Walk("shop"));
@@ -51,7 +51,7 @@ namespace Mofumachi.Presentation
                 for(int i=0;i<3;i++)
                 {
                     var region=(TownRegionId)i;
-                    Add("Region preview "+region,i==0?"西の庭を眺める":i==1?"中央の街を眺める":"東の小道を眺める",0,i,()=>{life.Regions.LookAtRegion(region);life.DismissOutings();});
+                    Add("Region preview "+region,i==0?"北の庭を眺める":i==1?"中央公園を眺める":"南の小道を眺める",0,i,()=>{life.Regions.LookAtRegion(region);life.DismissOutings();});
                     var preview=(RectTransform)choices.GetChild(choices.childCount-1);preview.anchorMax=Vector2.one;
                 }
                 card.Find("Browse scenery").GetComponent<Button>().interactable=false;

@@ -26,7 +26,7 @@ namespace Mofumachi.Presentation
             MusicSettingsView.Build(content,c,402);
             if(canReselect)
             {
-                var partner=w.Button("Reselect partner","パートナーを選び直す",content,new Rect(0,0,1,1),c.Flow.ShowCharacterSelection,true);
+                var partner=w.Button("Reselect partner","キャラクター図鑑をひらく",content,new Rect(0,0,1,1),c.Flow.ShowCharacterSelection,true);
                 UIWidgets.Top((RectTransform)partner.transform,24,786,24,48);
             }
             var feedback=w.Label("Settings feedback",c.Flow.FeedbackFor(ScreenId.Settings),root,new Rect(0,0,1,1),13);UIWidgets.Bottom(feedback.rectTransform,16,canReturnTitle?116:68,16,36);

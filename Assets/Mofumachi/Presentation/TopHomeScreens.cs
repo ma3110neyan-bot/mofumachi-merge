@@ -35,10 +35,10 @@ namespace Mofumachi.Presentation
         }
         public static void BuildHome(RectTransform root,ScreenContext c,RawImage background=null)
         {
-            var w=c.Widgets;
+            var w=c.Widgets;c.Flow.Daily.EnsureDay(System.DateTime.Now);
             var hud=w.OrnatePanel("HUD",root,new Rect(0,0,1,1),UIWidgets.Cream,18).rectTransform; UIWidgets.Top(hud,10,8,10,48);
-            w.Icon("Town star",UIIcon.Star,hud,new Rect(.02f,.2f,.1f,.6f));
-            w.Label("Town value","街 Lv."+c.Game.State.townGrowthLevel,hud,new Rect(.13f,.05f,.28f,.9f),14);
+            var today=w.Button("Today town","今日",hud,new Rect(0,0,1,1),c.Flow.ShowToday,true);var todayRect=(RectTransform)today.transform;todayRect.anchorMin=new Vector2(0,0);todayRect.anchorMax=new Vector2(0,1);todayRect.offsetMin=new Vector2(2,0);todayRect.offsetMax=new Vector2(50,0);today.GetComponentInChildren<Text>().fontSize=13;
+            w.Label("Town value","街 Lv."+c.Game.State.townGrowthLevel,hud,new Rect(.17f,.05f,.25f,.9f),14);
             w.Icon("Coin",UIIcon.Coin,hud,new Rect(.41f,.2f,.1f,.6f));
             w.Heading("Coins value",c.Game.State.coins.ToString("N0"),hud,new Rect(.51f,.08f,.32f,.84f),14);
             var settings=w.Button("Settings","",hud,new Rect(.85f,0,.15f,1),c.Flow.ShowSettings,true); w.Icon("Settings icon",UIIcon.Settings,(RectTransform)settings.transform,new Rect(.2f,.2f,.6f,.6f));
@@ -56,8 +56,8 @@ namespace Mofumachi.Presentation
             string goal=unknown?UIStrings.UnknownQuest:chapter.AllCompleted?"みんなのお茶会がひらけました！":chapter.CompletedCount==0&&c.Game.State.activeQuestId.Length==0?"仲間とお茶会をひらこう":requester.Name+"："+next.Title;
             w.StoryLabel("Home quest summary",goal,quest,new Rect(.04f,.49f,.92f,.23f),14);
             var nextGoal=TownNextGoal.For(c.Game.State);
-            w.StoryLabel("Next goal title",nextGoal.Title,quest,new Rect(.04f,.27f,.92f,.20f),12);
-            w.Label("Town growth hint",nextGoal.Detail,quest,new Rect(.04f,.01f,.92f,.24f),12);
+            w.StoryLabel("Next goal title",chapter.AllCompleted?"今日のお願い "+c.Flow.Daily.CompletedGoals+" / 3":nextGoal.Title,quest,new Rect(.04f,.27f,.92f,.20f),12);
+            w.Label("Town growth hint",chapter.AllCompleted?c.Flow.Daily.NextGoal:nextGoal.Detail,quest,new Rect(.04f,.01f,.92f,.24f),12);
             if(chapter.LastCompletedChapter!=null)
             {
                 quest.Find("Home quest title").GetComponent<RectTransform>().anchorMax=new Vector2(.68f,.97f);
@@ -66,6 +66,7 @@ namespace Mofumachi.Presentation
                 var replay=w.Button("Review chapter","おも\nいで",quest,new Rect(1,.5f,0,0),()=>c.Flow.ReviewLastChapter(),true);
                 var replayRect=(RectTransform)replay.transform;replayRect.pivot=new Vector2(1,.5f);replayRect.anchoredPosition=new Vector2(-8,0);replayRect.sizeDelta=new Vector2(48,48);replay.GetComponentInChildren<Text>().fontSize=12;
             }
+            quest.gameObject.AddComponent<TownDailyHomeHint>().Bind(c,chapter.AllCompleted,quest.Find("Next goal title").GetComponent<Text>(),quest.Find("Town growth hint").GetComponent<Text>());
             var tap=quest.gameObject.AddComponent<Button>();quest.GetComponent<RoundedPanelGraphic>().raycastTarget=true;tap.targetGraphic=quest.GetComponent<RoundedPanelGraphic>();tap.onClick.AddListener(()=>{if(chapter.AllCompleted)c.Flow.ReviewLastChapter();else c.Flow.ShowQuest();});
             w.Nav(root,c,ScreenId.Home);
             string message=c.Flow.FeedbackFor(ScreenId.Home);
@@ -75,6 +76,7 @@ namespace Mofumachi.Presentation
             life.Regions.RestoreSnapshot(c.Flow.HomeRegionSnapshot);
             life.World.Restore(c.Flow.HomeWorldSnapshot);
             world.gameObject.AddComponent<TownStreetWalkView>().Bind(c,life);
+            TownTodayView.Welcome(root,c);
         }
         private static void AttachReaction(RawImage image,ScreenContext c)
         {

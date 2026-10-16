@@ -47,7 +47,7 @@ namespace Mofumachi.Presentation
             string destination=session.HeroDestinationId;bool walking=false;foreach(var actor in life.Actors)if(actor.Controlled)walking=actor.IsGuided;
             if(previousView==viewed&&previousHero==hero&&previousAllowed==allowed&&previousDestination==destination&&previousWalking==walking)return;
             previousView=viewed;previousHero=hero;previousAllowed=allowed;previousDestination=destination;previousWalking=walking;
-            if(life.World?.IsReady==true){heading.text=TownWorldLayout.Name(hero)+" · すぐ移動する";for(int j=0;j<3;j++){labels[j].text=TownWorldLayout.Name((TownRegionId)j)+"\nすぐ移動";buttons[j].interactable=allowed;}return;}
+            if(life.World?.IsReady==true){heading.text=life.World.Model.Hero.IsWalking?"おさんぽ中♪ · 上はすぐ移動":TownWorldLayout.Name(hero)+" · キャラをタップ";for(int j=0;j<3;j++){labels[j].text=TownWorldLayout.Name((TownRegionId)j)+"\nすぐ移動";buttons[j].interactable=allowed;}return;}
             heading.text=session.IsHeroTransitioning?"お隣の街へ…":destination!=null?ShortName(session.HeroDestinationRegion.Value)+"へ、おさんぽ中♪":
                 walking?"道を歩いています♪":ShortName(viewed)+(viewed==hero?" · キャラをタップ":" · 主人公は"+ShortName(hero));
             for(int i=0;i<3;i++)

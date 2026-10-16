@@ -161,9 +161,9 @@ namespace Mofumachi.Presentation
             });UIWidgets.Bottom((RectTransform)b.transform,48,178,48,48);entrance=b.gameObject;
         }
         internal void React(TownActor a)
-        {if(!CanInteract)return;context.Flow.PlayCue(AudioCue.Character);if(!IsManuallyDragging&&entrance==null){if(a.Controlled)ShowOutings();else{HideOutings();ShowBubble(CharacterCatalog.Find(a.CharacterId).Name+"："+StreetLine(a),a);}}}
+        {if(!CanInteract)return;if(!a.Controlled)context.Flow.TalkToCharacter(a.CharacterId);context.Flow.PlayCue(AudioCue.Character);if(!IsManuallyDragging&&entrance==null){if(a.Controlled)ShowOutings();else{HideOutings();ShowBubble(CharacterCatalog.Find(a.CharacterId).Name+"："+StreetLine(a),a);}}}
         private string StreetLine(TownActor actor)
-        {string reunion=QuestStoryPresentation.ReunionFor(actor.CharacterId,context.Game.State.completedQuestIds);return reunion.Length>0?reunion:actor.Place?.Dialogue??"お隣の街へ、おさんぽに行ってくるね♪";}
+        {string reunion=QuestStoryPresentation.ReunionFor(actor.CharacterId,context.Game.State.completedQuestIds);var visits=context.Flow.Daily.Data.Characters.First(c=>c.Id==actor.CharacterId).Meetings;return reunion.Length>0&&visits%3==1?reunion:TownCharacterDialogue.For(actor.CharacterId,visits);}
         private void ShowBubble(string text,TownActor a)
         {
             HideBubble();speaker=a;var root=(RectTransform)transform.parent;var p=context.Widgets.OrnatePanel("Town bubble panel",root,new Rect(.5f,.5f,0,0),UIWidgets.Cream,12).rectTransform;p.sizeDelta=new Vector2(Mathf.Min(272,root.rect.width-28),88);

@@ -9,9 +9,9 @@ namespace Mofumachi.Presentation
         public static void BuildQuest(RectTransform root,ScreenContext c)
         {
             var w=c.Widgets;w.Header(root,c,"キャラ依頼",UIWidgets.Peach);
-            var paper=w.ScrollPaper("Quest card",root,136,80,442,UIWidgets.BlushPaper);
+            var paper=w.ScrollPaper("Quest card",root,208,80,360,UIWidgets.BlushPaper);
             var area=UIWidgets.Node("Quest story layout",paper,new Rect(0,0,1,1));UIWidgets.Top(area,0,0,0,360);
-            TownGoalCard.Build(c,paper,366);
+            TownGoalCard.Build(c,root,0);UIWidgets.Bottom(root.Find("Next town goal") as RectTransform,14,132,14,68);
             var quest=QuestCatalog.NextFor(c.Game.State);
             bool unavailable=quest==null,finished=unavailable&&ChapterProgress.For(c.Game.State).AllCompleted,active=!unavailable && c.Game.State.activeQuestId==quest.Id && !c.Game.State.completedQuestIds.Contains(quest.Id);
             var ribbon=w.StoryRibbon("Quest title",unavailable?(finished?"お届け、ありがとう":"依頼を確認"):quest.Title,area,new Rect(.12f,.83f,.76f,.11f),18,UIWidgets.Peach);UIWidgets.Top((RectTransform)ribbon.transform.parent,24,10,24,38);
@@ -37,9 +37,9 @@ namespace Mofumachi.Presentation
             var accept=w.Button("Accept quest",unavailable?"街へ戻る":active?"依頼を進める":"依頼を受ける",root,new Rect(0,0,1,1),()=>{c.Flow.PlayCue(AudioCue.Confirm);if(unavailable)c.Flow.ShowHome();else if(active)c.Flow.ShowMerge();else c.Flow.AcceptQuest();});
             UIWidgets.Bottom((RectTransform)accept.transform,28,78,28,48);
             w.Feedback(root,c,ScreenId.Quest);w.Nav(root,c,ScreenId.Quest);
-            var feedback=root.Find("Feedback").GetComponent<Text>();float errorHeight=Mathf.Max(48,Mathf.Ceil(feedback.preferredHeight+4));UIWidgets.Bottom(feedback.rectTransform,16,132,16,errorHeight);
-            var error=root.Find("Feedback surface") as RectTransform;if(error!=null)UIWidgets.Bottom(error,12,132,12,errorHeight);
-            if(feedback.text.Length>0)((RectTransform)paper.parent).offsetMin=new Vector2(14,132+errorHeight+6);
+            var feedback=root.Find("Feedback").GetComponent<Text>();float errorHeight=Mathf.Max(48,Mathf.Ceil(feedback.preferredHeight+4));UIWidgets.Bottom(feedback.rectTransform,16,208,16,errorHeight);
+            var error=root.Find("Feedback surface") as RectTransform;if(error!=null)UIWidgets.Bottom(error,12,208,12,errorHeight);
+            if(feedback.text.Length>0)((RectTransform)paper.parent).offsetMin=new Vector2(14,208+errorHeight+6);
         }
         public static void BuildMerge(RectTransform root,ScreenContext c,bool animateSelection=false)
         {

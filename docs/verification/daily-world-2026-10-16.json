@@ -1,7 +1,7 @@
 {
   "branch": "feat/daily-world-pass-20261016",
   "baseCommit": "bccb869009fdf5885fd198a0029da8f568a2b65a",
-  "verifiedSourceCommit": "a8c7ed96d9144e06e841b5e22fa9a53535718670",
+  "verifiedSourceCommit": "f86c9dfb8c9915a00fa7fcab16b0f738f281a8e2",
   "recordedUtc": "2026-10-16T03:49:22.199712+00:00",
   "executed": {
     "coreDotNet": {
@@ -167,5 +167,13 @@
     "reviewerPureTests": 55
   },
   "mainIntegrated": false,
-  "mainApprovalRequested": false
+  "mainApprovalRequested": false,
+  "selfReviewAdditionalFixes": [
+    "Book Back to town",
+    "Record events only after date save succeeds",
+    "Phone road caption bounds",
+    "Finger-sized road touch corridor",
+    "Android IL2CPP journal linker preservation",
+    "Completed town goal card opens Today instead of replaying a chapter"
+  ]
 }

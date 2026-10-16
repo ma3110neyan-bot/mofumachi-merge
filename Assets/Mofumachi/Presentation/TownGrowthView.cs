@@ -52,7 +52,7 @@ namespace Mofumachi.Presentation
         }
         private void Reposition()
         {
-            for(int i=0;i<icons.Length;i++)if(icons[i]!=null)icons[i].anchoredPosition=Local(positions[i]);
+            for(int i=0;i<icons.Length;i++)if(icons[i]!=null)icons[i].anchoredPosition=life?.World?.IsReady==true?life.World.Local(TownWorldLayout.ToWorld(TownRegionId.Central,positions[i]),(RectTransform)transform):Local(positions[i]);
             foreach(var entry in regional)
             {
                 var p=entry.Placement;entry.Rect.anchoredPosition=life?.World?.IsReady==true?life.World.Local(TownWorldLayout.ToWorld(entry.Region,p.Position),(RectTransform)transform):Local(p.Position);
@@ -62,16 +62,16 @@ namespace Mofumachi.Presentation
             }
             dirty=false;if(background!=null)previousUv=background.uvRect;
         }
-        public void NotifyWorldCamera(){dirty=true;if(bloom!=null){bloom.World=life?.World;bloom.RegionForWorld=Region;}}
+        public void NotifyWorldCamera(){dirty=true;if(bloom!=null){bloom.World=life?.World;bloom.RegionForWorld=Region;}Reposition();}
         private void OnRectTransformDimensionsChange()=>dirty=true;
         private void LateUpdate(){if(dirty||(background!=null&&previousUv!=background.uvRect))Reposition();}
         public void Apply(int level)
         {
             StopHighlight();VisibleStage=Mathf.Clamp(level,0,6);bloom?.Apply(Region,VisibleStage);
             if(layers!=null)for(int i=0;i<layers.Length;i++)layers[i].SetActive(i<VisibleStage);
-            foreach(var icon in icons)if(icon!=null)icon.gameObject.SetActive(Region==TownRegionId.Central);
+            foreach(var icon in icons)if(icon!=null)icon.gameObject.SetActive(life?.World?.IsReady==true||Region==TownRegionId.Central);
             foreach(var entry in regional)entry.Rect.gameObject.SetActive(life?.World?.IsReady==true||entry.Region==Region);
-            dirty=true;
+            dirty=true;if(life?.World?.IsReady==true)Reposition();
         }
         public void HighlightNewStage(int previous,int current)
         {StopHighlight();if(isActiveAndEnabled&&layers!=null&&Mathf.Clamp(current,0,6)>Mathf.Clamp(previous,0,6))highlight=StartCoroutine(Highlight(Mathf.Clamp(previous,0,6),Mathf.Clamp(current,0,6)));}

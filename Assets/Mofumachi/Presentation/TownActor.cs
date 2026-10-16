@@ -49,16 +49,16 @@ namespace Mofumachi.Presentation
         internal void BindWorld(TownWorldResident resident){worldResident=resident;ApplyWorldStep(0);}
         internal void ApplyWorldStep(float dt)
         {
-            if(worldResident==null)return;RegionId=worldResident.Region;IsGuided=worldResident.IsWalking;moving=worldResident.IsWalking;
-            facing=worldResident.Facing;stride=worldResident.Stride;waitRemaining=worldResident.Rest;
-            if(TownRegionCatalog.TryFindPlace(worldResident.PlaceId,life.TownLevel,out _,out var place))Place=place;
+            if(worldResident==null)return;RegionId=worldResident.Region;IsGuided=worldResident.IsWalking;moving=worldResident.IsWalking&&worldResident.PauseRemaining<=0;
+            facing=Mathf.MoveTowards(facing,worldResident.Facing,dt*6);stride=worldResident.Stride;waitRemaining=worldResident.Rest;
+            TownRegionCatalog.TryFindPlace(worldResident.PlaceId,life.TownLevel,out _,out var place);Place=place;
         }
         internal void SetWorldPlace(TownPlace place){Place=place;IsGuided=false;}
         internal void SetWalkRoute(System.Collections.Generic.IReadOnlyList<TownPoint> route,int start)
         {if(Controlled||route==null||route.Count<3)return;walkRoute=route;routeDirection=start%2==0?1:-1;routeIndex=(start+routeDirection+route.Count)%route.Count;npcTarget=route[routeIndex];}
         internal void SetDestination(TownPlace place,float wait){if(Controlled||place==null)return;regionalGuidance=transitionHeld=false;Place=place;npcTarget=place.Position;waitRemaining=wait;}
-        internal void Greet(){socialRemaining=1;reactionRemaining=.65f;surprised=false;}
-        internal void FaceTowards(TownPoint other){float x=other.X-Position.X;if(Mathf.Abs(x)>.002f)facing=Mathf.Sign(x);}
+        internal void Greet(){if(worldResident!=null)life.World.Model.Pause(CharacterId,1.4f);socialRemaining=1;reactionRemaining=.65f;surprised=false;}
+        internal void FaceTowards(TownPoint other){if(worldResident!=null)life.World.Model.Face(CharacterId,TownWorldLayout.ToWorld(RegionId,other));float x=other.X-Position.X;if(Mathf.Abs(x)>.002f)facing=Mathf.Sign(x);}
         public bool GuideTo(TownPoint target)=>BeginGuide(target,false);
         private bool BeginGuide(TownPoint target,bool preserveJourney)
         {
@@ -157,7 +157,7 @@ namespace Mofumachi.Presentation
         {previous=Position;RenderPosition=Position;moving=false;if(life!=null)rect.anchoredPosition=worldResident==null?life.Local(Position):life.World.Local(worldResident.Position);}
         internal void ResetVisual()
         {IsGuided=false;FreezeMovement();stride=amplitude=breath=reactionRemaining=speedBlend=0;if(VisualRoot!=null){VisualRoot.anchoredPosition=Vector2.zero;VisualRoot.localScale=Vector3.one;VisualRoot.localRotation=Quaternion.identity;}if(body!=null){if(body.Expression!=CharacterExpression.Normal)body.Bind(CharacterId);body.Pose(0,0,0,false);}}
-        public void React(){if(life==null||!life.CanInteract||!RegionVisible||journeyFade>0)return;surprised=false;reactionRemaining=.65f;life.React(this);}
+        public void React(){if(life==null||!life.CanInteract||!RegionVisible||journeyFade>0)return;if(worldResident!=null&&!Controlled)life.World.Model.Pause(CharacterId,2);surprised=false;reactionRemaining=.65f;life.React(this);}
         internal void SetViewScale(float scale){viewScale=Mathf.Clamp(scale,1,1.15f);}
         internal void Surprise(){surprised=true;reactionRemaining=.65f;}
         public void OnPointerDown(PointerEventData e)

@@ -36,19 +36,15 @@ namespace Mofumachi.Tests
             Assert.That(actors.Where(a=>!a.Controlled).All(a=>a.Movement==null),Is.True);
             Assert.That(Read<TownRegionId>(session,"HeroRegion"),Is.EqualTo(TownRegionId.Central));LogAssert.NoUnexpectedReceived();
         }
-        [UnityTest] public IEnumerator HeroWalksToGateThenStartsAtNeighbourEntry()
+        [UnityTest] public IEnumerator HeroWalksContinuouslyAcrossTheNorthConnection()
         {
-            yield return EnterHome();var session=Session();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);
-            int writes=Store.Writes;string before=StateCodec.Encode(Flow.Game.State);
-            Assert.That(Guide(session,TownRegionId.West),Is.True);Assert.That(Region(hero),Is.EqualTo(TownRegionId.Central));
-            StepUntil(life,()=>Read<bool>(session,"IsHeroTransitioning"));
-            Assert.That(Vector2.Distance(new Vector2(hero.Position.X,hero.Position.Y),new Vector2(.15f,.52f)),Is.LessThan(.001f));
-            StepUntil(life,()=>Region(hero)==TownRegionId.West);
-            Assert.That(hero.Position.X,Is.EqualTo(.94f).Within(.001f));Assert.That(hero.Position.Y,Is.EqualTo(.55f).Within(.001f));
-            StepUntil(life,()=>!Read<bool>(session,"HasHeroJourney"));
-            Assert.That(hero.Position.X,Is.Not.EqualTo(.94f),"Walk inward after the transition");
-            Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(Store.Writes,Is.EqualTo(writes));
-            Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));LogAssert.NoUnexpectedReceived();
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var world=life.World;int writes=Store.Writes;string state=StateCodec.Encode(Flow.Game.State);
+            Assert.That(life.Regions.GuideToRegion(TownRegionId.West),Is.True);var previous=world.Model.Hero.Position;bool crossed=false;
+            for(int i=0;i<1800&&world.Model.Hero.IsWalking;i++){life.AdvanceFrame(1f/30);var current=world.Model.Hero.Position;
+                Assert.That(TownWorldLayout.Distance(previous,current),Is.LessThanOrEqualTo(.00401f));previous=current;crossed|=world.Model.Hero.Region==TownRegionId.West;
+                Assert.That(life.Regions.IsHeroTransitioning,Is.False);Assert.That(life.GetComponent<TownRegionView>().TransitionOpacity,Is.Zero);}
+            Assert.That(crossed,Is.True);Assert.That(world.Model.Hero.IsWalking,Is.False);Assert.That(world.Model.Hero.PlaceId,Is.EqualTo("west.flowers"));
+            Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator WestToEastKeepsCentralHopOrder()
         {
@@ -85,97 +81,60 @@ namespace Mofumachi.Tests
             var type=typeof(TownLifeView).Assembly.GetType("Mofumachi.Presentation.TownRegionView");Assert.That(type,Is.Not.Null,"Regional painting view is missing");
             var view=Flow.GetComponentInChildren(type);Assert.That(view,Is.Not.Null);return view;
         }
-        [UnityTest] public IEnumerator TransitionUsesAtMostTwoBackgroundsAndNeverInterceptsHud()
+        [UnityTest] public IEnumerator ContinuousTravelCullsDistantBackgroundsAndNeverInterceptsHud()
         {
-            yield return EnterHome();var session=Session();var view=RegionView();var life=Flow.GetComponentInChildren<TownLifeView>();
-            Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Region walk West").onClick.Invoke();
-            StepUntil(life,()=>Read<bool>(session,"IsHeroTransitioning"));
-            for(int i=0;i<14;i++)
-            {
-                life.AdvanceFrame(1f/30);Canvas.ForceUpdateCanvases();Assert.That(Read<int>(view,"VisibleBackgroundCount"),Is.InRange(1,2));
-                Assert.That(Read<Graphic>(view,"TransitionGraphic").raycastTarget,Is.False);
-            }
-            Assert.That(Read<int>(view,"VisibleBackgroundCount"),Is.EqualTo(1));
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();life.Regions.GuideToRegion(TownRegionId.West);
+            for(int i=0;i<1400&&life.Regions.HasHeroJourney;i++){life.AdvanceFrame(1f/30);Canvas.ForceUpdateCanvases();Assert.That(life.World.VisibleBackgroundCount,Is.InRange(1,2));}
+            Assert.That(life.Regions.HasHeroJourney,Is.False);foreach(var image in Flow.GetComponentsInChildren<RawImage>().Where(g=>g.name.StartsWith("Continuous background")))Assert.That(image.raycastTarget,Is.False);
             Assert.That(Flow.GetComponentsInChildren<TownActor>().Length,Is.EqualTo(6));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator HeroRegionAndViewingRegionRemainSeparate()
         {
-            yield return EnterHome();var session=Session();var before=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled).Position;
-            var favorite=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);favorite.React();
-            Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Browse scenery").onClick.Invoke();
-            Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Region preview East").onClick.Invoke();
-            Assert.That(Read<TownRegionId>(session,"HeroRegion"),Is.EqualTo(TownRegionId.Central));
-            Assert.That(Read<TownRegionId>(session,"ViewingRegion"),Is.EqualTo(TownRegionId.East));
-            Assert.That(Flow.TownBackground.texture,Is.SameAs(Resources.Load<Texture2D>("Mofumachi/TownEastBackground")));
-            Assert.That(Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled).Position.Equals(before),Is.True);
-            foreach(var button in Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Region walk")))
-                Assert.That(((RectTransform)button.transform).rect.height,Is.GreaterThanOrEqualTo(48),button.name);
-            LogAssert.NoUnexpectedReceived();
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=life.World.Model.Hero;var before=hero.Position;
+            Assert.That(life.Regions.LookAtRegion(TownRegionId.East),Is.True);Assert.That(hero.Region,Is.EqualTo(TownRegionId.Central));Assert.That(life.Regions.ViewingRegion,Is.EqualTo(TownRegionId.East));
+            Assert.That(hero.Position.Equals(before),Is.True);Assert.That(life.World.FollowingHero,Is.False);
+            life.Regions.ReturnToHero();Assert.That(life.World.FollowingHero,Is.True);Assert.That(life.Regions.ViewingRegion,Is.EqualTo(TownRegionId.Central));LogAssert.NoUnexpectedReceived();
         }
-        [UnityTest] public IEnumerator CentralWaterAndGrowthDoNotAppearInSideTown()
+        [UnityTest] public IEnumerator WaterAndGrowthShareTheContinuousCameraProjection()
         {
-            yield return EnterHome();var session=Session();var water=Flow.GetComponentInChildren<TownAmbientGraphic>();var growth=Flow.GetComponentInChildren<TownGrowthView>();
-            session.GetType().GetMethod("LookAtRegion").Invoke(session,new object[]{TownRegionId.West});Canvas.ForceUpdateCanvases();
-            Assert.That(Read<TownRegionId>(water,"Region"),Is.EqualTo(TownRegionId.West));Assert.That(water.canvasRenderer.GetMesh().vertexCount,Is.Zero);
-            Assert.That(Read<TownRegionId>(growth,"Region"),Is.EqualTo(TownRegionId.West));
-            Assert.That(Flow.GetComponentsInChildren<TownDecorationGraphic>().Length,Is.Zero);
-            session.GetType().GetMethod("ReturnToHero").Invoke(session,null);Canvas.ForceUpdateCanvases();
-            Assert.That(Read<TownRegionId>(water,"Region"),Is.EqualTo(TownRegionId.Central));Assert.That(water.canvasRenderer.GetMesh().vertexCount,Is.GreaterThan(0));LogAssert.NoUnexpectedReceived();
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var water=Flow.GetComponentInChildren<TownAmbientGraphic>();
+            Assert.That(life.Regions.LookAtRegion(TownRegionId.West),Is.True);Canvas.ForceUpdateCanvases();
+            Assert.That(water.World,Is.SameAs(life.World));Assert.That(water.raycastTarget,Is.False);
+            var north=life.World.Local(TownWorldLayout.ToWorld(TownRegionId.West,new TownPoint(.5f,.42f)));var center=life.World.Local(TownWorldLayout.ToWorld(TownRegionId.Central,new TownPoint(.5f,.42f)));
+            Assert.That(center.y,Is.LessThan(north.y));Assert.That(Flow.GetComponentInChildren<TownGrowthView>().Region,Is.EqualTo(TownRegionId.West));
+            life.Regions.ReturnToHero();Assert.That(life.Regions.ViewingRegion,Is.EqualTo(TownRegionId.Central));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator LeavingHomeRestoresCentralTextureAndCover()
         {
-            yield return EnterHome();var session=Session();session.GetType().GetMethod("LookAtRegion").Invoke(session,new object[]{TownRegionId.West});
-            Assert.That(Flow.TownBackground.texture,Is.SameAs(Resources.Load<Texture2D>("Mofumachi/TownWestBackground")));
-            int writes=Store.Writes;Flow.ShowMerge();Assert.That(Store.Writes,Is.EqualTo(writes+1));
-            Assert.That(Flow.TownBackground.texture,Is.SameAs(Resources.Load<Texture2D>("Mofumachi/TownBackground")));
-            Assert.That(Flow.TownBackground.GetComponent<BackgroundCover>().enabled,Is.True);LogAssert.NoUnexpectedReceived();
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();life.Regions.LookAtRegion(TownRegionId.West);
+            Assert.That(Flow.TownBackground.enabled,Is.False);int writes=Store.Writes;Flow.ShowMerge();
+            Assert.That(Store.Writes,Is.EqualTo(writes+1));Assert.That(Flow.TownBackground.enabled,Is.True);Assert.That(Flow.TownBackground.GetComponent<BackgroundCover>().enabled,Is.True);
+            Assert.That(Flow.TownBackground.texture,Is.SameAs(Resources.Load<Texture2D>("Mofumachi/TownBackground")));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator PauseSettingsBackAndResizeReleaseAllRegionalInput()
         {
-            yield return EnterHome();var session=Session();var life=Flow.GetComponentInChildren<TownLifeView>();
-            Assert.That(Guide(session,TownRegionId.West),Is.True);StepUntil(life,()=>Read<bool>(session,"IsHeroTransitioning"));
-            Flow.ShowSettings();Flow.GoBack();yield return null;
-            session=Session();Assert.That(Read<bool>(session,"HasHeroJourney"),Is.False);Assert.That(Read<bool>(session,"IsHeroTransitioning"),Is.False);
-            var hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);Assert.That(hero.Movement.OwnedPointerId,Is.Null);
-            Assert.That(Guide(session,TownRegionId.East),Is.True);Flow.SendMessage("OnApplicationPause",true);Flow.SendMessage("OnApplicationPause",false);yield return null;
-            session=Session();Assert.That(Read<bool>(session,"HasHeroJourney"),Is.False);
-            Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,592),new Rect(0,24,360,536));Canvas.ForceUpdateCanvases();
-            Assert.That(Flow.GetComponentsInChildren<TownActor>().Where(a=>a.Controlled).All(a=>a.Movement.OwnedPointerId==null),Is.True);LogAssert.NoUnexpectedReceived();
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();life.Regions.GuideToRegion(TownRegionId.West);for(int i=0;i<100;i++)life.AdvanceFrame(1f/30);
+            var position=life.World.Model.Hero.Position;Flow.ShowSettings();Flow.GoBack();life=Flow.GetComponentInChildren<TownLifeView>();
+            Assert.That(life.Regions.HasHeroJourney,Is.False);Assert.That(TownWorldLayout.Distance(position,life.World.Model.Hero.Position),Is.LessThan(.0001f));
+            life.Regions.GuideToRegion(TownRegionId.East);Flow.SendMessage("OnApplicationPause",true);Assert.That(life.Regions.HasHeroJourney,Is.False);Flow.SendMessage("OnApplicationPause",false);
+            life=Flow.GetComponentInChildren<TownLifeView>();Assert.That(life.Actors.Single(a=>a.Controlled).Movement.OwnedPointerId,Is.Null);Assert.That(life.GetComponent<TownRegionView>().TransitionOpacity,Is.Zero);LogAssert.NoUnexpectedReceived();
         }
-        [UnityTest] public IEnumerator RebuildUsesOnlySettledTransientSnapshot()
+        [UnityTest] public IEnumerator RebuildPreservesWorldPositionAndCameraWithoutSavingARegionField()
         {
-            yield return EnterHome();var session=Session();var life=Flow.GetComponentInChildren<TownLifeView>();
-            Assert.That(Guide(session,TownRegionId.West),Is.True);StepUntil(life,()=>!Read<bool>(session,"HasHeroJourney"));
-            var hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);var point=hero.Position;int writes=Store.Writes;
-            // A landscape Editor viewport permits enough vertical crop to put the
-            // hero outside the framing margins; a 1px pan cannot expose the bug.
-            var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;((RectTransform)canvas.transform).sizeDelta=new Vector2(800,600);
-            Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(800,600),new Rect(0,0,800,600));Canvas.ForceUpdateCanvases();
-            var camera=life.GetComponent<TownViewportView>();var originalCenter=camera.Center;camera.OnPointerDown(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current){pointerId=37,position=Vector2.zero});
-            Assert.That(camera.OwnedPointerId,Is.EqualTo(37));camera.OnDrag(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current){pointerId=37,position=new Vector2(0,600)});
-            camera.OnPointerUp(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current){pointerId=37});camera.Advance(1f/30);var center=camera.Center;
-            Assert.That(Mathf.Abs(center.Y-originalCenter.Y),Is.GreaterThan(.1f),"Pan must change the actual source crop");
-            camera.FrameImmediately(hero.Position);Assert.That(Mathf.Abs(camera.Center.Y-center.Y),Is.GreaterThan(.01f),"The old redundant ShowRegion would reframe this crop");camera.RestoreCenter(center);
-            Flow.ShowSettings();Flow.GoBack();session=Session();hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);
-            Assert.That(Region(hero),Is.EqualTo(TownRegionId.West));Assert.That(hero.Position.X,Is.EqualTo(point.X).Within(.001f));
-            Assert.That(Read<bool>(session,"HasHeroJourney"),Is.False);Assert.That(hero.Movement.OwnedPointerId,Is.Null);
-            var restored=Flow.GetComponentInChildren<TownViewportView>().Center;Assert.That(restored.X,Is.EqualTo(center.X).Within(.0001f));Assert.That(restored.Y,Is.EqualTo(center.Y).Within(.0001f));
-            Assert.That(Store.Writes,Is.EqualTo(writes+2),"Only the existing two navigation saves");
-            Flow.Initialize(Store);Flow.ShowHome();session=Session();Assert.That(Read<TownRegionId>(session,"HeroRegion"),Is.EqualTo(TownRegionId.Central),"Reload starts at the center, without a region save field");LogAssert.NoUnexpectedReceived();
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();life.Regions.GuideToRegion(TownRegionId.West);StepUntil(life,()=>!life.Regions.HasHeroJourney);
+            var point=life.World.Model.Hero.Position;life.World.Pan(new Vector2(0,80));var center=life.World.Camera.Center;int writes=Store.Writes;
+            Flow.ShowSettings();Flow.GoBack();life=Flow.GetComponentInChildren<TownLifeView>();
+            Assert.That(TownWorldLayout.Distance(point,life.World.Model.Hero.Position),Is.LessThan(.0001f));Assert.That(TownWorldLayout.Distance(center,life.World.Camera.Center),Is.LessThan(.0001f));
+            Assert.That(life.World.Model.Hero.IsWalking,Is.False);Assert.That(life.World.FollowingHero,Is.False);Assert.That(Store.Writes,Is.EqualTo(writes+2));
+            Flow.Initialize(Store);Flow.ShowHome();Assert.That(Flow.GetComponentInChildren<TownLifeView>().Regions.HeroRegion,Is.EqualTo(TownRegionId.Central));LogAssert.NoUnexpectedReceived();
         }
-        [UnityTest] public IEnumerator InterruptedTransitionLeavesNoInputOrCallbacks()
+        [UnityTest] public IEnumerator InterruptedContinuousWalkLeavesNoInputOrCallbacks()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var session=life.Regions;int writes=Store.Writes;string state=StateCodec.Encode(Flow.Game.State);
-            for(int i=0;i<7;i++)
-            {
-                Assert.That(session.GuideToRegion(TownRegionId.West),Is.True);StepUntil(life,()=>!session.HasHeroJourney);
-                Assert.That(session.GuideToRegion(TownRegionId.Central),Is.True);StepUntil(life,()=>!session.HasHeroJourney);
-            }
-            Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));
-            Assert.That(session.GuideToRegion(TownRegionId.East),Is.True);StepUntil(life,()=>session.IsHeroTransitioning);life.CancelInteraction();
-            Assert.That(session.HasHeroJourney,Is.False);Assert.That(session.IsHeroTransitioning,Is.False);
-            Assert.That(life.GetComponent<TownRegionView>().TransitionOpacity,Is.Zero);Assert.That(life.Actors.Single(a=>a.Controlled).Movement.OwnedPointerId,Is.Null);
-            var region=session.HeroRegion;for(int i=0;i<30;i++)life.AdvanceFrame(1f/30);Assert.That(session.HeroRegion,Is.EqualTo(region),"Cancelled hero travel must never resume");
+            for(int i=0;i<3;i++){Assert.That(session.GuideToRegion(TownRegionId.West),Is.True);StepUntil(life,()=>!session.HasHeroJourney);Assert.That(session.GuideToRegion(TownRegionId.Central),Is.True);StepUntil(life,()=>!session.HasHeroJourney);}
+            session.GuideToRegion(TownRegionId.East);for(int i=0;i<100;i++)life.AdvanceFrame(1f/30);var point=life.World.Model.Hero.Position;life.CancelInteraction();
+            Assert.That(session.HasHeroJourney,Is.False);for(int i=0;i<30;i++)life.AdvanceFrame(1f/30);
+            Assert.That(TownWorldLayout.Distance(point,life.World.Model.Hero.Position),Is.LessThan(.0001f));Assert.That(life.Actors.Single(a=>a.Controlled).Movement.OwnedPointerId,Is.Null);
             Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator RegionVisitThenBreadDeliveryAndReloadPreservesProgress()
@@ -229,25 +188,18 @@ namespace Mofumachi.Tests
                 }
             }LogAssert.NoUnexpectedReceived();
         }
-        [UnityTest] public IEnumerator HitchStillShowsOpaqueTransferFrame()
+        [UnityTest] public IEnumerator HitchKeepsContinuousMovementBoundedWithoutAFade()
         {
-            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var session=life.Regions;var view=life.GetComponent<TownRegionView>();
-            Assert.That(session.GuideToRegion(TownRegionId.West),Is.True);StepUntil(life,()=>session.IsHeroTransitioning);var original=Flow.TownBackground.texture;bool switched=false;
-            for(int i=0;i<8&&!switched;i++)
-            {
-                life.AdvanceFrame(.1f);Canvas.ForceUpdateCanvases();switched=Flow.TownBackground.texture!=original;
-                if(switched)Assert.That(view.TransitionOpacity,Is.EqualTo(1),"The replacement painting must first render under an opaque fade, even when an Update contains three simulation ticks");
-            }
-            Assert.That(switched,Is.True);StepUntil(life,()=>!session.HasHeroJourney);Assert.That(view.TransitionOpacity,Is.Zero);LogAssert.NoUnexpectedReceived();
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();life.Regions.GuideToRegion(TownRegionId.West);
+            var old=life.World.Model.Hero.Position;for(int i=0;i<40;i++){life.AdvanceFrame(.1f);Assert.That(TownWorldLayout.Distance(old,life.World.Model.Hero.Position),Is.LessThanOrEqualTo(.01201f));old=life.World.Model.Hero.Position;Assert.That(life.GetComponent<TownRegionView>().TransitionOpacity,Is.Zero);}
+            Assert.That(life.Regions.HasHeroJourney,Is.True);LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator PreviewDuringTravelDoesNotFadeUnrelatedRegion()
         {
-            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var session=life.Regions;var view=life.GetComponent<TownRegionView>();
-            Assert.That(session.GuideToRegion(TownRegionId.West),Is.True);Assert.That(session.LookAtRegion(TownRegionId.East),Is.True);var east=Flow.TownBackground.texture;
-            StepUntil(life,()=>session.IsHeroTransitioning);for(int i=0;i<12;i++)
-            {life.AdvanceFrame(1f/30);Assert.That(view.TransitionOpacity,Is.Zero,"Looking at East must not fade for an offscreen Central-to-West walk");Assert.That(Flow.TownBackground.texture,Is.SameAs(east));}
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var session=life.Regions;
+            session.GuideToRegion(TownRegionId.West);session.LookAtRegion(TownRegionId.East);var center=life.World.Camera.Center;
             StepUntil(life,()=>!session.HasHeroJourney);Assert.That(session.HeroRegion,Is.EqualTo(TownRegionId.West));Assert.That(session.ViewingRegion,Is.EqualTo(TownRegionId.East));
-            session.ReturnToHero();Assert.That(session.ViewingRegion,Is.EqualTo(TownRegionId.West));LogAssert.NoUnexpectedReceived();
+            Assert.That(life.World.Camera.Center.Equals(center),Is.True);Assert.That(life.GetComponent<TownRegionView>().TransitionOpacity,Is.Zero);session.ReturnToHero();Assert.That(session.ViewingRegion,Is.EqualTo(TownRegionId.West));LogAssert.NoUnexpectedReceived();
         }
     }
 }

@@ -38,6 +38,47 @@ namespace Mofumachi.Tests
             var c=new TownWorldCamera();c.Follow(t.Hero.Position,1f/30);Assert.That(float.IsFinite(c.Center.X)&&float.IsFinite(c.Center.Y),Is.True);c.Follow(new TownPoint(float.NaN,0),.1f);Assert.That(float.IsFinite(c.Center.Y),Is.True);
             Assert.That(TownWorldLayout.Name(TownRegionId.Central),Is.EqualTo("中央公園"));
         }
+        [Test] public void SpecialDialogueIsDiscoveredOnlyAfterSixConversations()
+        {
+            foreach(var c in CharacterCatalog.All)
+            {
+                string special=TownCharacterDialogue.For(c.Id,6);
+                for(int i=0;i<6;i++)Assert.That(TownCharacterDialogue.For(c.Id,i),Is.Not.EqualTo(special));
+                Assert.That(TownCharacterDialogue.For(c.Id,9),Is.EqualTo(special));
+            }
+        }
+        [Test] public void PaintedConnectingRoadsContinueToTheNeighbourInsteadOfStoppingAtTheEdge()
+        {
+            var town=new TownWorldWalkModel(0,"momo");Assert.That(town.TryGuidePoint(new TownPoint(.13f,.72f)),Is.True);
+            Assert.That(town.Hero.PlaceId,Is.EqualTo("west.flowers"));town.CancelHero();
+            Assert.That(town.TryGuidePoint(new TownPoint(.52f,.32f)),Is.True);Assert.That(town.Hero.PlaceId,Is.EqualTo("east.flowers"));
+            town.FastTravel(TownRegionId.West);Assert.That(town.TryGuidePoint(new TownPoint(.94f,1.45f)),Is.True);Assert.That(town.Hero.PlaceId,Is.EqualTo("square"));
+        }
+        [Test] public void AutonomousResidentsActuallyVisitANeighbourAndCanMeetOnSharedRoads()
+        {
+            var t=new TownWorldWalkModel(6,"momo");var npcs=t.Residents.Where(a=>!a.Controlled).ToArray();var starts=npcs.Select(a=>a.Region).ToArray();bool crossed=false,met=false;
+            for(int i=0;i<9000;i++)
+            {t.Step(1f/30);for(int a=0;a<npcs.Length;a++){crossed|=npcs[a].Region!=starts[a];for(int b=a+1;b<npcs.Length;b++)if(npcs[a].Region==npcs[b].Region&&TownWorldLayout.Distance(npcs[a].Position,npcs[b].Position)<.09f)met=true;}}
+            Assert.That(crossed,Is.True);Assert.That(met,Is.True);
+        }
         private static float Distance(TownPoint a,TownPoint b)=>(float)Math.Sqrt((a.X-b.X)*(a.X-b.X)+(a.Y-b.Y)*(a.Y-b.Y));
+        [Test] public void MeetingPausesBothResidentsThenResumesTheirOriginalWalk()
+        {
+            var town=new TownWorldWalkModel(6,"momo");var npc=town.Residents.First(a=>!a.Controlled);
+            town.TryGuide(npc.Id,"square");var p=npc.Position;
+            town.Pause(npc.Id,1.2f);for(int i=0;i<30;i++)town.Step(1f/30);
+            Assert.That(Distance(p,npc.Position),Is.Zero);Assert.That(npc.IsWalking,Is.True);
+            for(int i=0;i<30;i++)town.Step(1f/30);Assert.That(Distance(p,npc.Position),Is.GreaterThan(0));
+        }
+        [Test] public void ResidentsReserveDistinctStopsAndFastTravelUsesAnEntry()
+        {
+            var town=new TownWorldWalkModel(6,"momo");town.FastTravel(TownRegionId.West);
+            Assert.That(town.Hero.PlaceId,Is.EqualTo("west.entry"));
+            for(int i=0;i<12000;i++)
+            {
+                town.Step(1f/30);var stops=town.Residents.Where(a=>!a.Controlled&&a.PlaceId!=null).Select(a=>a.PlaceId).ToArray();
+                Assert.That(stops.Distinct().Count(),Is.EqualTo(stops.Length));
+            }
+        }
     }
 }

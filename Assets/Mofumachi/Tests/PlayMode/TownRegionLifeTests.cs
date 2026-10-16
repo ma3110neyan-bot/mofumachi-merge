@@ -27,28 +27,12 @@ namespace Mofumachi.Tests
             foreach(var a in actors.Where(a=>!a.RegionVisible))Assert.That(a.GetComponent<CanvasGroup>().blocksRaycasts,Is.False);
             Assert.That(Flow.GetComponentsInChildren<TownActor>().Length,Is.EqualTo(6));LogAssert.NoUnexpectedReceived();
         }
-        [UnityTest] public IEnumerator NpcChangesRegionThroughReservedEntrances()
+        [UnityTest] public IEnumerator NpcWalksBetweenRegionsWithoutAnEntryTeleport()
         {
-            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var session=life.Regions;var npcs=life.Actors.Where(a=>!a.Controlled).ToArray();
-            Assert.That(Schedule(session,npcs.First(a=>a.RegionId==TownRegionId.West).CharacterId,TownRegionId.Central),Is.False,"At least 20 seconds before the first regional visit");
-            Assert.That(Schedule(session,life.Actors.Single(a=>a.Controlled).CharacterId,TownRegionId.West),Is.False);
-            bool crossed=false;var last=NpcRegions(npcs);var previous=npcs.Select(a=>a.Position).ToArray();
-            for(int i=0;i<3600&&!crossed;i++)
-            {
-                life.AdvanceFrame(1f/30);
-                for(int j=0;j<npcs.Length;j++)
-                {
-                    var a=npcs[j];if(a.RegionId!=last[j])
-                    {
-                        Assert.That(TownRegionCatalog.TryGetPortal(last[j],a.RegionId,out var portal),Is.True);
-                        Assert.That(Vector2.Distance(new Vector2(previous[j].X,previous[j].Y),new Vector2(portal.From.Local.X,portal.From.Local.Y)),Is.LessThan(.001f));
-                        Assert.That(Vector2.Distance(new Vector2(a.Position.X,a.Position.Y),new Vector2(portal.To.Local.X,portal.To.Local.Y)),Is.LessThan(.001f));crossed=true;
-                    }
-                    previous[j]=a.Position;last[j]=a.RegionId;
-                }
-                foreach(TownRegionId region in Enum.GetValues(typeof(TownRegionId)))Assert.That(npcs.Count(a=>a.RegionId==region),Is.LessThanOrEqualTo(2));
-            }
-            Assert.That(crossed,Is.True,"A resident must reach a neighbouring street through its gate");LogAssert.NoUnexpectedReceived();
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var npcs=life.World.Model.Residents.Where(a=>!a.Controlled).ToArray();
+            var initial=npcs.Select(a=>a.Region).ToArray();var previous=npcs.Select(a=>a.Position).ToArray();bool crossed=false;
+            for(int i=0;i<9000&&!crossed;i++){life.AdvanceFrame(1f/30);for(int j=0;j<npcs.Length;j++){Assert.That(TownWorldLayout.Distance(previous[j],npcs[j].Position),Is.LessThanOrEqualTo(.00118f));crossed|=npcs[j].Region!=initial[j];previous[j]=npcs[j].Position;}}
+            Assert.That(crossed,Is.True,"Residents must visit another region on the same connected paths");Assert.That(life.Actors.Count,Is.EqualTo(6));LogAssert.NoUnexpectedReceived();
         }
         private static TownRegionId[] NpcRegions(TownActor[] actors)=>actors.Select(a=>a.RegionId).ToArray();
         [UnityTest] public IEnumerator DifferentRegionsNeverConverseOrBlockEachOther()
@@ -60,15 +44,14 @@ namespace Mofumachi.Tests
         }
         [UnityTest] public IEnumerator TwoResidentsMeetAndResumeInVisibleRegion()
         {
-            yield return EnterHome();
-            // Keep the two street residents in the intended phone viewport even when the Editor is landscape.
-            var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;((RectTransform)canvas.transform).sizeDelta=new Vector2(360,740);
+            yield return EnterHome();var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;((RectTransform)canvas.transform).sizeDelta=new Vector2(360,740);
             Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,740),new Rect(0,24,360,684));Canvas.ForceUpdateCanvases();
-            var life=Flow.GetComponentInChildren<TownLifeView>();Assert.That(life.Regions.LookAtRegion(TownRegionId.West),Is.True);Canvas.ForceUpdateCanvases();
-            var actors=life.Actors.Where(a=>a.RegionVisible).ToArray();Assert.That(actors.Length,Is.EqualTo(2));Assert.That(actors.All(a=>!a.Controlled&&a.RegionId==TownRegionId.West),Is.True);bool greeted=false;
-            for(int i=0;i<900&&!greeted;i++){life.AdvanceFrame(1f/30);greeted=Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"&&t.text.Contains("こんにちは"));}
-            Assert.That(greeted,Is.True,"Use an actual encounter of the two west residents");var points=actors.Select(a=>a.Position).ToArray();Advance(life,10);
-            Assert.That(actors.Where((a,i)=>!a.Position.Equals(points[i])).Any(),Is.True);LogAssert.NoUnexpectedReceived();
+            var life=Flow.GetComponentInChildren<TownLifeView>();life.Regions.LookAtRegion(TownRegionId.West);var actors=life.Actors.Where(a=>!a.Controlled&&a.RegionId==TownRegionId.West).ToArray();Assert.That(actors.Length,Is.EqualTo(2));bool greeted=false;
+            for(int i=0;i<3600&&!greeted;i++){life.AdvanceFrame(1f/30);greeted=Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"&&t.text.Contains("こんにちは"));}
+            Assert.That(greeted,Is.True);var paused=actors.Select(a=>a.WorldPosition).ToArray();Advance(life,.5f);
+            foreach(var actor in actors)Assert.That(life.World.Model.Residents.Single(r=>r.Id==actor.CharacterId).PauseRemaining,Is.GreaterThan(0));
+            for(int i=0;i<actors.Length;i++)Assert.That(TownWorldLayout.Distance(paused[i],actors[i].WorldPosition),Is.LessThan(.0001f));
+            Advance(life,20);Assert.That(actors.Where((a,i)=>TownWorldLayout.Distance(paused[i],a.WorldPosition)>.001f).Any(),Is.True);LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator SideVisitsNeverMutateCoinsQuestsOrBoard()
         {
@@ -91,34 +74,17 @@ namespace Mofumachi.Tests
                 life.Regions.ReturnToHero();Assert.That(life.GuideToFacility("quest"),Is.True);Assert.That(life.GuideToFacility("shop"),Is.True);
             }LogAssert.NoUnexpectedReceived();
         }
-        [UnityTest] public IEnumerator TappingTravellingResidentHasDialogueInsteadOfNullPlaceException()
+        [UnityTest] public IEnumerator TappingAWalkingResidentPausesForActualDialogue()
         {
-            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();TownActor travelling=null;
-            for(int i=0;i<2400&&travelling==null;i++)
-            {life.AdvanceFrame(1f/30);travelling=life.Actors.FirstOrDefault(a=>!a.Controlled&&a.DestinationId==null);}
-            Assert.That(travelling,Is.Not.Null,"Observe a real regional journey");life.Regions.LookAtRegion(travelling.RegionId);travelling.React();
-            Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"&&t.text.Length>0),Is.True);LogAssert.NoUnexpectedReceived();
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var npc=life.Actors.First(a=>!a.Controlled);life.Regions.LookAtRegion(npc.RegionId);
+            Assert.That(life.World.Model.TryGuide(npc.CharacterId,"west.meeting"),Is.True);life.AdvanceFrame(1f/30);npc.React();
+            Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"&&t.text.Length>0),Is.True);Assert.That(Flow.Daily.Data.Characters.Single(c=>c.Id==npc.CharacterId).Meetings,Is.EqualTo(1));LogAssert.NoUnexpectedReceived();
         }
-        [UnityTest] public IEnumerator LocalStopChoiceHonorsIncomingJourneyReservation()
+        [UnityTest] public IEnumerator ResidentsReserveDifferentStopsThroughoutTheirContinuousVisits()
         {
-            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var session=life.Regions;
-            var journeysField=typeof(TownRegionSession).GetField("journeys",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance);
-            var choose=typeof(TownLifeView).GetMethod("ChooseNextStop",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance);
-            bool inspected=false;
-            for(int i=0;i<7200&&!inspected;i++)
-            {
-                life.AdvanceFrame(1f/30);var journeys=(System.Collections.IDictionary)journeysField.GetValue(session);
-                foreach(System.Collections.DictionaryEntry pair in journeys)
-                {
-                    var type=pair.Value.GetType();var actor=(TownActor)type.GetField("Actor",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance).GetValue(pair.Value);
-                    var target=(TownPlace)type.GetField("Destination",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance).GetValue(pair.Value);
-                    if(actor.Controlled||!TownRegionCatalog.TryFindPlace(target.Id,life.TownLevel,out var location,out _))continue;
-                    var local=life.Actors.FirstOrDefault(a=>!a.Controlled&&a!=actor&&a.RegionId==location.Region&&a.DestinationId!=null);if(local==null)continue;
-                    for(int j=0;j<12;j++){choose.Invoke(life,new object[]{local});Assert.That(local.DestinationId,Is.Not.EqualTo(target.Id),"Local resident selected an incoming visitor's reserved stop");}
-                    inspected=true;break;
-                }
-            }
-            Assert.That(inspected,Is.True,"Inspect a real regional visitor, including walking-in reservations");LogAssert.NoUnexpectedReceived();
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();
+            for(int i=0;i<9000;i++){life.AdvanceFrame(1f/30);var places=life.World.Model.Residents.Where(a=>!a.Controlled&&a.PlaceId!=null).Select(a=>a.PlaceId).ToArray();Assert.That(places.Distinct().Count(),Is.EqualTo(places.Length));}
+            Assert.That(life.Actors.Count,Is.EqualTo(6));LogAssert.NoUnexpectedReceived();
         }
     }
 }

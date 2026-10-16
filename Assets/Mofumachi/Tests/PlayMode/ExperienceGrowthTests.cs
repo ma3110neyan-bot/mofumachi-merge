@@ -24,9 +24,9 @@ namespace Mofumachi.Tests
             yield return EnterHome();int writes=Store.Writes;string before=StateCodec.Encode(Flow.Game.State);var growth=Flow.GetComponentInChildren<TownGrowthView>();
             foreach(TownRegionId region in System.Enum.GetValues(typeof(TownRegionId)))
             {
-                growth.SetRegion(region);growth.Apply(1);var light=growth.GetComponentInChildren<TownBloomGraphic>();Assert.That(light.PetalCount,Is.Zero);
-                int small=growth.GetComponentsInChildren<TownGrowthPropGraphic>().Length;growth.Apply(6);
-                Assert.That(growth.GetComponentsInChildren<TownGrowthPropGraphic>().Length-small,Is.GreaterThanOrEqualTo(10));Assert.That(light.PetalCount,Is.EqualTo(12));Assert.That(light.raycastTarget,Is.False);
+                Flow.GetComponentInChildren<TownLifeView>().Regions.LookAtRegion(region);growth.Apply(1);var light=growth.GetComponentInChildren<TownBloomGraphic>();Assert.That(light.PetalCount,Is.Zero);
+                int small=growth.GetComponentsInChildren<TownGrowthPropGraphic>(true).Count(p=>p.Region==region&&p.transform.parent.gameObject.activeSelf);growth.Apply(6);
+                Assert.That(growth.GetComponentsInChildren<TownGrowthPropGraphic>(true).Count(p=>p.Region==region&&p.transform.parent.gameObject.activeSelf)-small,Is.GreaterThanOrEqualTo(10));Assert.That(light.PetalCount,Is.EqualTo(12));Assert.That(light.raycastTarget,Is.False);
             }
             Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();
         }

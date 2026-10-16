@@ -5,6 +5,29 @@ function Expect-Rejection([scriptblock]$Action){$Rejected=$false;try{& $Action}c
 $Temporary=Join-Path ([IO.Path]::GetTempPath()) ('mofumachi-script-test-'+[guid]::NewGuid())
 New-Item -ItemType Directory -Path $Temporary | Out-Null
 try {
+    # Source identity must work on Windows without git on PATH.
+    $FixtureRepo=Join-Path $Temporary 'repo';$FixtureGit=Join-Path $FixtureRepo '.git'
+    New-Item -ItemType Directory -Path (Join-Path $FixtureGit 'refs/heads/feat') -Force | Out-Null
+    $ShaA='a'*40;$ShaB='b'*40
+    Set-Content (Join-Path $FixtureGit 'HEAD') 'ref: refs/heads/feat/town'
+    Set-Content (Join-Path $FixtureGit 'refs/heads/feat/town') $ShaA
+    if((Read-SourceRevision $FixtureRepo) -ne $ShaA){throw 'Loose branch SHA failed.'}
+    Remove-Item (Join-Path $FixtureGit 'refs/heads/feat/town')
+    Set-Content (Join-Path $FixtureGit 'packed-refs') "$ShaB refs/heads/feat/town"
+    if((Read-SourceRevision $FixtureRepo) -ne $ShaB){throw 'Packed branch SHA failed.'}
+    Expect-Rejection {Assert-SourceUnchanged $FixtureRepo $ShaA}
+    Assert-SourceUnchanged $FixtureRepo $ShaB
+    Set-Content (Join-Path $FixtureGit 'HEAD') $ShaA
+    if((Read-SourceRevision $FixtureRepo) -ne $ShaA){throw 'Detached SHA failed.'}
+    Set-Content (Join-Path $FixtureGit 'HEAD') 'invalid'
+    Expect-Rejection {Read-SourceRevision $FixtureRepo}
+    $Worktree=Join-Path $Temporary 'worktree';New-Item -ItemType Directory -Path $Worktree | Out-Null
+    $WorkGit=Join-Path $FixtureGit 'worktrees/test';New-Item -ItemType Directory -Path $WorkGit -Force | Out-Null
+    Set-Content (Join-Path $Worktree '.git') "gitdir: $WorkGit"
+    Set-Content (Join-Path $WorkGit 'commondir') '../..'
+    Set-Content (Join-Path $WorkGit 'HEAD') 'ref: refs/heads/feat/town'
+    if((Read-SourceRevision $Worktree) -ne $ShaB){throw 'Worktree common packed refs failed.'}
+    Write-Host 'Source SHA checks passed (loose, packed, detached, worktree, changed revision rejected).'
     # Exercise the real wrapper before the mocked installer commands below.
     # Windows PowerShell 5.1 turns redirected native stderr into ErrorRecords;
     # newer pwsh does not, so reproduce that legacy stream policy explicitly.
@@ -59,8 +82,8 @@ exit $Code
         $Extra=('<test-case result="Passed"/>'*($Total-$Suites.Count-1))+"<test-case result='$Case'/>"
         "<test-run result='Passed' total='$Declared' passed='$Declared' failed='0' skipped='0'>$Nodes$Extra</test-run>" | Set-Content $Xml
     }
-    $EditSuites=Read-GateSuites 'EditXml' 141;$PlaySuites=Read-GateSuites 'PlayXml' 151
-    foreach($Gate in @(@{Minimum=141;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests','TownPlaceCatalogTests','TownViewportTests','TownRegionCatalogTests','TownRegionJourneyTests','TownRegionContentTests')},@{Minimum=151;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests')})) {
+    $EditSuites=Read-GateSuites 'EditXml' 141;$PlaySuites=Read-GateSuites 'PlayXml' 157
+    foreach($Gate in @(@{Minimum=141;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests','TownPlaceCatalogTests','TownViewportTests','TownRegionCatalogTests','TownRegionJourneyTests','TownRegionContentTests')},@{Minimum=157;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests')})) {
         $Old=@($Gate.Suites | Where-Object {$_ -notin $Gate.New})
         Write-SuiteXml $Gate.Minimum $Old
         Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}

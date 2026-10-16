@@ -136,7 +136,7 @@ namespace Mofumachi.Presentation
         public Vector2 Local(TownPoint point)
         {if(World?.IsReady==true)return World.Local(TownWorldLayout.ToWorld(Regions.ViewingRegion,point));if(background==null)return Vector2.zero;var uv=background.uvRect;var r=background.rectTransform.rect;var p=r.min+Vector2.Scale((new Vector2(point.X,point.Y)-uv.min)/uv.size,r.size);return actorLayer.InverseTransformPoint(background.rectTransform.TransformPoint(p));}
         public TownPoint Source(Vector2 screen,Camera camera)
-        {if(background==null||!RectTransformUtility.ScreenPointToLocalPointInRectangle(background.rectTransform,screen,camera,out var p))return StreetMap.Nodes[0];var r=background.rectTransform.rect;var uv=background.uvRect;var n=(p-r.min)/r.size;return new TownPoint(uv.x+n.x*uv.width,uv.y+n.y*uv.height);}
+        {if(World?.IsReady==true)return TownWorldLayout.ToLocal(Regions.ViewingRegion,World.Source(screen,camera));if(background==null||!RectTransformUtility.ScreenPointToLocalPointInRectangle(background.rectTransform,screen,camera,out var p))return StreetMap.Nodes[0];var r=background.rectTransform.rect;var uv=background.uvRect;var n=(p-r.min)/r.size;return new TownPoint(uv.x+n.x*uv.width,uv.y+n.y*uv.height);}
         public void StartInteraction(bool preserveJourney=false){if(!preserveJourney)Regions?.CancelHeroJourney();GetComponent<TownStreetWalkView>()?.CancelSelection();GetComponent<TownViewportView>()?.CancelGesture();destination=null;HideOutings();HideBubble();HideEntrance();nextTalk=now+6;}
         internal void SetGuidedDestination(TownPlace place)=>destination=place;
         internal void ApplyViewingRegion(TownRegionId region)

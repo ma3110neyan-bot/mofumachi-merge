@@ -26,7 +26,7 @@ namespace Mofumachi.Tests
             var life=Flow.GetComponentInChildren<TownLifeView>();Assert.That(life.Regions.LookAtRegion(TownRegionId.West),Is.True);Canvas.ForceUpdateCanvases();var actors=Flow.GetComponentsInChildren<TownActor>();int writes=Store.Writes;string state=StateCodec.Encode(Flow.Game.State);
             Assert.That(life.TryBeginConversation(actors[0],actors[0]),Is.False);Assert.That(life.TryBeginConversation(null,actors[0]),Is.False);
             // Wait for an actual encounter; never relocate actors off their streets for a test.
-            for(int i=0;i<600&&!Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"&&t.text.Contains("こんにちは"));i++)life.AdvanceFrame(1f/30);
+            for(int i=0;i<3600&&!Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"&&t.text.Contains("こんにちは"));i++)life.AdvanceFrame(1f/30);
             Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"&&t.text.Contains("こんにちは")),Is.True,"An actual street encounter must occur");
             Assert.That(Flow.GetComponentsInChildren<Text>().Count(t=>t.name=="Town bubble"),Is.LessThanOrEqualTo(1));Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));LogAssert.NoUnexpectedReceived();
         }

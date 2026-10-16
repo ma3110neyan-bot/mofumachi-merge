@@ -26,13 +26,11 @@ namespace Mofumachi.Tests
         }
         [UnityTest] public IEnumerator StreetExitWalksToTheNeighborAndReturnsWithoutProgressWrites()
         {
-            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var walking=life.GetComponent<TownStreetWalkView>();string before=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
-            Assert.That(walking.Arm(),Is.True);Assert.That(walking.Tap(new TownPoint(.15f,.52f)),Is.True);
-            Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownRegionId.Central));Assert.That(life.Regions.HasHeroJourney,Is.True);Walk(life);
-            Assert.That(life.Regions.HasHeroJourney,Is.False);Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownRegionId.West));
-            Assert.That(walking.Arm(),Is.True);Assert.That(walking.Tap(new TownPoint(.94f,.55f)),Is.True);Walk(life);
-            Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownRegionId.Central));Assert.That(life.Regions.HasHeroJourney,Is.False);
-            Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var walking=life.GetComponent<TownStreetWalkView>();string state=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
+            Assert.That(walking.Arm(),Is.True);Assert.That(walking.Tap(new TownPoint(.13f,.72f)),Is.True);Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownRegionId.Central));Walk(life);
+            Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownRegionId.West));Assert.That(walking.Arm(),Is.True);Assert.That(walking.Tap(new TownPoint(.94f,1.45f)),Is.True);Walk(life);
+            Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownRegionId.Central));Assert.That(life.Regions.HasHeroJourney,Is.False);Assert.That(Flow.Daily.Data.Walks,Is.EqualTo(1));
+            Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator BuildingTapKeepsSelectionAndStreetTapReachesConnectedRoad()
         {
@@ -50,12 +48,12 @@ namespace Mofumachi.Tests
             Assert.That(life.Actors.Single(a=>a.Controlled).IsGuided,Is.False);Assert.That(walking.IsArmed,Is.True);
             Flow.SendMessage("OnApplicationPause",true);Assert.That(walking.IsArmed,Is.False);Assert.That(camera.OwnedPointerId,Is.Null);Flow.SendMessage("OnApplicationPause",false);LogAssert.NoUnexpectedReceived();
         }
-        [UnityTest] public IEnumerator ExitSignInABrowsedRegionNeverUsesThatRegionsCoordinatesForTheHero()
+        [UnityTest] public IEnumerator BrowsingHasNoDuplicateExitControlsAndSelectionReturnsToTheHero()
         {
-            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();life.Regions.LookAtRegion(TownRegionId.West);yield return null;
-            var b=Flow.GetComponentsInChildren<Button>().Single(x=>x.name=="Street exit Central");b.onClick.Invoke();
-            Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownRegionId.Central));Assert.That(life.Regions.ViewingRegion,Is.EqualTo(TownRegionId.Central));
-            Assert.That(life.Regions.HasHeroJourney,Is.False);Assert.That(life.Actors.Single(a=>a.Controlled).IsGuided,Is.False);LogAssert.NoUnexpectedReceived();
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();life.Regions.LookAtRegion(TownRegionId.West);
+            Assert.That(Flow.GetComponentsInChildren<Button>().Any(b=>b.name.StartsWith("Street exit ")),Is.False);
+            var p=life.World.Model.Hero.Position;life.GetComponent<TownStreetWalkView>().Arm();Assert.That(life.World.FollowingHero,Is.True);
+            Assert.That(life.World.Model.Hero.Position.Equals(p),Is.True);Assert.That(life.Regions.ViewingRegion,Is.EqualTo(TownRegionId.Central));LogAssert.NoUnexpectedReceived();
         }
 
         [UnityTest] public IEnumerator DestinationsCancelBothDirectWalkingAndArmedSelection()

@@ -35,12 +35,13 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator EachRegionVisiblyGrowsAndDecorationNeverSavesOrIntercepts()
         {
             yield return EnterHome();int writes=Store.Writes;string before=StateCodec.Encode(Flow.Game.State);var growth=Flow.GetComponentInChildren<TownGrowthView>();
+            var life=Flow.GetComponentInChildren<TownLifeView>();
             foreach(TownRegionId region in System.Enum.GetValues(typeof(TownRegionId)))
             {
-                growth.SetRegion(region);growth.Apply(0);Assert.That(Flow.GetComponentsInChildren<TownGrowthPropGraphic>().Length,Is.Zero);
-                growth.Apply(6);var props=Flow.GetComponentsInChildren<TownGrowthPropGraphic>();Assert.That(props.Length,Is.EqualTo(TownGrowthPresentation.For(region,6).Count),region.ToString());Assert.That(props.Length,Is.GreaterThanOrEqualTo(12),"A flourishing town has several visible clusters");
-                Assert.That(props.All(p=>!p.raycastTarget),Is.True);
-                Assert.That(props.Select(p=>p.Region).Distinct(),Is.EqualTo(new[]{region}));
+                life.Regions.LookAtRegion(region);growth.Apply(0);Assert.That(Flow.GetComponentsInChildren<TownGrowthPropGraphic>().Length,Is.Zero);
+                growth.Apply(6);var props=growth.GetComponentsInChildren<TownGrowthPropGraphic>(true).Where(p=>p.Region==region).ToArray();
+                Assert.That(props.Length,Is.EqualTo(TownGrowthPresentation.For(region,6).Count));Assert.That(props.Length,Is.GreaterThanOrEqualTo(12));
+                Assert.That(props.All(p=>!p.raycastTarget),Is.True);Assert.That(props.Any(p=>p.gameObject.activeInHierarchy),Is.True,"The viewed neighbourhood must show its growth");
             }
             Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));LogAssert.NoUnexpectedReceived();
         }

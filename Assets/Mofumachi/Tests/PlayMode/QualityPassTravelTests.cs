@@ -25,17 +25,14 @@ namespace Mofumachi.Tests
             Assert.That(Flow.GetComponentsInChildren<Transform>().Any(t=>t.name=="Town outing choices"),Is.False);
             Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();
         }
-        [UnityTest] public IEnumerator OneShortcutTapWalksAndRepeatedTapDoesNotRestartTheJourney()
+        [UnityTest] public IEnumerator OneFastTravelTapRespondsAndRepeatedTapsDoNotQueueAJourney()
         {
-            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=life.Actors.Single(a=>a.Controlled);int writes=Store.Writes;
-            var button=Button("Region walk West");button.OnPointerDown(new PointerEventData(EventSystem.current){button=PointerEventData.InputButton.Left});
-            button.GetComponent<ButtonPressFeedback>().OnPointerDown(new PointerEventData(EventSystem.current));
-            Assert.That(button.GetComponentInChildren<Text>().transform.localScale.x,Is.LessThan(1));
-            Assert.That(button.transform.localScale,Is.EqualTo(Vector3.one),"Press feedback must not shrink the 48-unit pointer target");button.onClick.Invoke();
-            Assert.That(life.Regions.HasHeroJourney,Is.True);Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownRegionId.Central));
-            for(int i=0;i<8;i++)life.AdvanceFrame(1f/30);var point=hero.Position;
-            button.onClick.Invoke();Assert.That(hero.Position.Equals(point),Is.True);Assert.That(hero.IsGuided,Is.True);
-            Walk(life);Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownRegionId.West));Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();int writes=Store.Writes;
+            var button=Button("Region walk West");button.GetComponent<ButtonPressFeedback>().OnPointerDown(new PointerEventData(EventSystem.current));
+            Assert.That(button.GetComponentInChildren<Text>().transform.localScale.x,Is.LessThan(1));Assert.That(button.transform.localScale,Is.EqualTo(Vector3.one));
+            life.GuideToPlace("east.flowers");button.onClick.Invoke();Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownRegionId.West));Assert.That(life.Regions.HasHeroJourney,Is.False);
+            var point=life.World.Model.Hero.Position;for(int i=0;i<10;i++)button.onClick.Invoke();Assert.That(life.World.Model.Hero.Position.Equals(point),Is.True);
+            Assert.That(Flow.Daily.Data.Walks,Is.Zero);Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator CharacterDestinationCrossesCentralAndReachesQuestEntrance()
         {
@@ -55,17 +52,12 @@ namespace Mofumachi.Tests
             Button("Region walk West").onClick.Invoke();Flow.ShowSettings();Flow.GoBack();life=Flow.GetComponentInChildren<TownLifeView>();
             Assert.That(life.Regions.HasHeroJourney,Is.False);Assert.That(life.Actors.Single(a=>a.Controlled).Movement.OwnedPointerId,Is.Null);LogAssert.NoUnexpectedReceived();
         }
-        [UnityTest] public IEnumerator ShortcutsReachAdvertisedPlacesIncludingTheCurrentRegion()
+        [UnityTest] public IEnumerator FastTravelVisitsEachRegionWithoutCountingAsWalking()
         {
-            yield return EnterHome();Flow.Game.State.townGrowthLevel=2;Flow.ShowHome();var life=Flow.GetComponentInChildren<TownLifeView>();
-            var hero=life.Actors.Single(a=>a.Controlled);int writes=Store.Writes;
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();int writes=Store.Writes;
             foreach(var region in new[]{TownRegionId.Central,TownRegionId.West,TownRegionId.West,TownRegionId.Central,TownRegionId.East})
-            {
-                Button("Region walk "+region).onClick.Invoke();Walk(life);
-                string id=TownOutingDestinations.ForRegion(region,2);Assert.That(TownRegionCatalog.TryFindPlace(id,2,out var target,out _),Is.True);
-                Assert.That(hero.RegionId,Is.EqualTo(target.Region));Assert.That(hero.Position.X,Is.EqualTo(target.Local.X).Within(.001));Assert.That(hero.Position.Y,Is.EqualTo(target.Local.Y).Within(.001));
-            }
-            Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();
+            {Button("Region walk "+region).onClick.Invoke();Assert.That(life.Regions.HeroRegion,Is.EqualTo(region));Assert.That(life.Regions.HasHeroJourney,Is.False);Assert.That(life.World.FollowingHero,Is.True);}
+            Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(Flow.Daily.Data.Walks,Is.Zero);LogAssert.NoUnexpectedReceived();
         }
     }
 }

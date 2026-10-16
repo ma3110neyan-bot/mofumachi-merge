@@ -16,7 +16,8 @@ namespace Mofumachi.Presentation
         public int VisibleBackgroundCount=>tiles.Count(t=>t.gameObject.activeSelf);
         private TownLifeView life;private RawImage original;private RectTransform scenery;
         private readonly List<RawImage> tiles=new List<RawImage>();
-        private RectTransform dailyFlower;
+        private RectTransform dailyFlower;private int displayedFlowers;
+        private readonly List<Text> roadLabels=new List<Text>();
         private ScreenContext context;
         private TownGardenPathGraphic gardenPath;private TownGrowthView growth;private TownAmbientGraphic ambient;
         public event Action<string,string,bool> Arrived;
@@ -33,6 +34,8 @@ namespace Mofumachi.Presentation
             }
             var path=UIWidgets.Node("Continuous connecting garden paths",scenery,new Rect(0,0,1,1)).gameObject.AddComponent<TownGardenPathGraphic>();path.Bind(this);gardenPath=path;
             foreach(var actor in life.Actors)actor.BindWorld(Model.Residents.Single(r=>r.Id==actor.CharacterId));
+            foreach(var sign in new[]{("北のカフェへ ↑",new TownPoint(.13f,.72f)),("↓ 南の花の小道へ",new TownPoint(.52f,.32f)),("中央公園へ ↓",new TownPoint(.94f,1.45f)),("↑ 中央公園へ",new TownPoint(.09f,-.40f))})
+            {var label=c.Widgets.NarrativeLabel("Painted road direction "+roadLabels.Count,sign.Item1,(RectTransform)life.transform,new Rect(.5f,.5f,0,0),13);label.rectTransform.sizeDelta=new Vector2(116,30);label.color=new Color(.34f,.22f,.24f);roadLabels.Add(label);}
             Model.Arrived+=OnArrival;Camera.Jump(new TownPoint(Model.Hero.Position.X,Model.Hero.Position.Y+.04f));Refresh();
         }
         public void Step(float seconds){if(Model==null||!life.CanSimulate)return;Model.Step(seconds);foreach(var actor in life.Actors)actor.ApplyWorldStep(seconds);}
@@ -47,10 +50,10 @@ namespace Mofumachi.Presentation
         public bool GuidePoint(TownPoint point)
         {
             if(!life.CanInteract||!TownWorldLayout.Finite(point))return false;
-            if(!Model.TryGuidePoint(point))return false;FollowingHero=true;return true;
+            if(!Model.TryGuidePoint(point))return false;FollowingHero=true;SyncActors();return true;
         }
         public bool GuidePlace(string id)
-        {if(!life.CanInteract||life.IsManuallyDragging||!Model.TryGuide(Model.Hero.Id,id))return false;FollowingHero=true;return true;}
+        {if(!life.CanInteract||life.IsManuallyDragging||!Model.TryGuide(Model.Hero.Id,id))return false;FollowingHero=true;SyncActors();return true;}
         public void FastTravel(TownRegionId region)
         {if(!life.CanInteract||life.IsManuallyDragging)return;life.StartInteraction();Model.FastTravel(region);FollowingHero=true;Camera.Jump(new TownPoint(Model.Hero.Position.X,Model.Hero.Position.Y+.04f));SyncActors();Refresh();}
         public bool LookAt(TownRegionId region)
@@ -81,7 +84,16 @@ namespace Mofumachi.Presentation
             {var p=Local(actor.WorldPosition);var r=((RectTransform)life.transform).rect;actor.SetRegionVisible(p.x>r.xMin-64&&p.x<r.xMax+64&&p.y>r.yMin-90&&p.y<r.yMax+90);}
             var viewing=TownWorldLayout.RegionAt(Camera.Center);life.Regions.NotifyWorldRegion(viewing);
             gardenPath?.SetVerticesDirty();
-            if(context.Flow.Daily.Data.DecorationDays.Count>0){if(dailyFlower==null){dailyFlower=UIWidgets.Node("Daily collected flower",(RectTransform)life.transform,new Rect(.5f,.5f,0,0));dailyFlower.sizeDelta=new Vector2(32,40);context.Widgets.Icon("Collected flower art",UIIcon.Flower,dailyFlower,new Rect(0,0,1,1));dailyFlower.SetAsFirstSibling();}dailyFlower.anchoredPosition=Local(TownWorldLayout.ToWorld(TownRegionId.Central,new TownPoint(.62f,.34f)));}
+            var signPoints=new[]{new TownPoint(.13f,.72f),new TownPoint(.52f,.32f),new TownPoint(.94f,1.45f),new TownPoint(.09f,-.40f)};
+            var actorBounds=((RectTransform)life.transform).rect;
+            for(int sign=0;sign<roadLabels.Count;sign++){var at=Local(signPoints[sign]);roadLabels[sign].rectTransform.anchoredPosition=at+Vector2.up*24;roadLabels[sign].gameObject.SetActive(at.y>actorBounds.yMin+160&&at.y<actorBounds.yMax-142);}
+            int count=Math.Min(6,context.Flow.Daily.Data.DecorationDays.Count);
+            if(count>0)
+            {
+                if(dailyFlower==null){dailyFlower=UIWidgets.Node("Daily collected flower garden",(RectTransform)life.transform,new Rect(.5f,.5f,0,0));dailyFlower.sizeDelta=new Vector2(100,48);dailyFlower.SetAsFirstSibling();}
+                while(displayedFlowers<count){int slot=displayedFlowers++;var icon=context.Widgets.Icon("Collected flower art "+slot,UIIcon.Flower,dailyFlower,new Rect(.03f+slot%3*.31f,slot/3*.4f,.29f,.58f));icon.color=Color.Lerp(new Color(1,.70f,.80f),new Color(1,.92f,.55f),slot/5f);}
+                dailyFlower.anchoredPosition=Local(TownWorldLayout.ToWorld(TownRegionId.Central,new TownPoint(.62f,.34f)));
+            }
             life.RefreshViewport();if(growth==null)growth=life.GetComponentInChildren<TownGrowthView>();growth?.NotifyWorldCamera();
             if(ambient==null)ambient=life.transform.parent.GetComponentInChildren<TownAmbientGraphic>();if(ambient!=null){ambient.World=this;ambient.NotifyViewportChanged();}
         }

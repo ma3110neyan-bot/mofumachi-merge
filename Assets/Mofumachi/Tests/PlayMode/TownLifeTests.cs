@@ -11,6 +11,8 @@ namespace Mofumachi.Tests
 {
     public sealed class TownLifeTests : SliceUiTestFixture
     {
+        private Vector3 lifePoint(TownActor hero,TownPoint point){var life=Flow.GetComponentInChildren<TownLifeView>();return life.transform.TransformPoint(life.Local(point));}
+
         [UnityTest] public IEnumerator FavoriteDragAndNpcWanderStayOnVisiblePaths()
         {
             yield return EnterHome();
@@ -21,18 +23,17 @@ namespace Mofumachi.Tests
             var pointer=new PointerEventData(EventSystem.current){pointerId=-1,position=RectTransformUtility.WorldToScreenPoint(null,hero.transform.position)};
             var hits=new System.Collections.Generic.List<RaycastResult>();EventSystem.current.RaycastAll(pointer,hits);Assert.That(hits.Any(h=>h.gameObject.GetComponentInParent<TownActor>()==hero),Is.True);
             ExecuteEvents.Execute(hero.gameObject,pointer,ExecuteEvents.pointerDownHandler);Assert.That(hero.Movement.OwnedPointerId,Is.EqualTo(-1));
-            hero.Movement.SetTarget(-1,TownLifeView.RequestEntrance);yield return new WaitForSecondsRealtime(.3f);Assert.That(hero.Position.Y,Is.GreaterThan(.47f));
+            hero.OnDrag(new PointerEventData(EventSystem.current){pointerId=-1,position=RectTransformUtility.WorldToScreenPoint(null,lifePoint(hero,TownLifeView.RequestEntrance))});yield return new WaitForSecondsRealtime(.3f);Assert.That(hero.Position.Y,Is.GreaterThan(.47f));
             ExecuteEvents.Execute(hero.gameObject,pointer,ExecuteEvents.pointerUpHandler);Assert.That(hero.Movement.OwnedPointerId,Is.Null);
             Assert.That(actors.Where(a=>!a.Controlled).All(a=>a.Movement==null),Is.True);Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator ArrivalNeedsReleaseAndExplicitEnter()
         {
-            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);
-            hero.Movement.TryBeginDrag(1);hero.Movement.SetTarget(1,TownLifeView.RequestEntrance);
-            for(int i=0;i<300;i++)hero.Movement.Tick(1f/30);life.ActorReleased(hero);
-            Assert.That(life.NearbyFacility,Is.Null,"Owned pointer must be released first");hero.Movement.ReleasePointer(1);life.ActorReleased(hero);
-            Assert.That(life.NearbyFacility,Is.EqualTo("quest"));Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));
-            Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Enter facility").onClick.Invoke();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Quest));LogAssert.NoUnexpectedReceived();
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=life.Actors.Single(a=>a.Controlled);
+            hero.OnPointerDown(new PointerEventData(EventSystem.current){pointerId=1});
+            life.World.Model.Restore(hero.CharacterId,TownWorldLayout.ToWorld(TownRegionId.Central,TownLifeView.RequestEntrance),"quest");life.AdvanceFrame(1f/30);life.ActorReleased(hero);
+            Assert.That(life.NearbyFacility,Is.Null);hero.OnPointerUp(new PointerEventData(EventSystem.current){pointerId=1});Assert.That(life.NearbyFacility,Is.EqualTo("quest"));
+            Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Enter facility").onClick.Invoke();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Quest));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator NpcBubbleDoesNotCoverActionsOrTakeDrag()
         {

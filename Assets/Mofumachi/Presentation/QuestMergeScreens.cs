@@ -61,9 +61,10 @@ namespace Mofumachi.Presentation
             else w.StoryLabel("Merge complete hint",UIStrings.DeliveryHint(c.Game),progress,new Rect(.04f,.02f,.92f,.96f),14);
             var tray=w.Panel("Merge tray",root,new Rect(0,0,1,1),new Color(.92f,.79f,.64f)).rectTransform;tray.offsetMin=new Vector2(10,156);tray.offsetMax=new Vector2(-10,-124);
             var traySurface=tray.GetComponent<RoundedPanelGraphic>();traySurface.shadowDepth=9;traySurface.gloss=.32f;traySurface.borderWidth=2;
-            var boardArt=UIWidgets.Node("Merge storybook board",tray,new Rect(0,0,1,1)).gameObject.AddComponent<RawImage>();boardArt.texture=Resources.Load<Texture2D>("Mofumachi/MergeBoardFrame");boardArt.raycastTarget=false;
+            var boardArt=UIWidgets.Node("Merge storybook board",tray,new Rect(0,0,1,1)).gameObject.AddComponent<PerspectiveBoardGraphic>();boardArt.raycastTarget=false;
             var grid=UIWidgets.Node("Merge board",tray,new Rect(0,0,1,1));grid.offsetMin=new Vector2(16,12);grid.offsetMax=new Vector2(-16,-22);
             var group=grid.gameObject.AddComponent<GridLayoutGroup>();group.constraint=GridLayoutGroup.Constraint.FixedColumnCount;group.constraintCount=5;group.spacing=new Vector2(4,4);group.childAlignment=TextAnchor.MiddleCenter;
+            group.enabled=false;
             var selectedItem=c.Game.Board.At(c.Flow.SelectedCell);
             for(int i=0;i<30;i++)
             {
@@ -86,7 +87,8 @@ namespace Mofumachi.Presentation
                         }
                         bool raised=index==c.Flow.SelectedCell;
                         var ground=w.Panel("Item contact shadow",cell,new Rect(raised?.27f:.19f,.22f,raised?.46f:.62f,.10f),new Color(.25f,.2f,.25f,raised?.14f:.27f));ground.radius=100;ground.decorated=false;
-                        var art=w.Item("Item art",item.itemId,item.level,cell,new Rect(.04f,.18f,.92f,.70f));art.SetPolished(true);
+                        float depthScale=MergePerspective.ArtScale(index);
+                        var art=w.Item("Item art",item.itemId,item.level,cell,new Rect(.5f-.46f*depthScale,.53f-.35f*depthScale,.92f*depthScale,.70f*depthScale));art.SetPolished(true);
                         if(item.level==3&&index!=c.Flow.SelectedCell)
                             UIWidgets.Node("High level item glint",art.rectTransform,new Rect(0,0,1,1)).gameObject.AddComponent<MergeSparkleGraphic>().BindSelection();
                         if(index==c.Flow.SelectedCell)
@@ -160,6 +162,15 @@ namespace Mofumachi.Presentation
     public sealed class MergeGridLayout : MonoBehaviour
     {
         private void Start()=>ResizeNow();private void OnRectTransformDimensionsChange()=>ResizeNow();
-        public void ResizeNow(){var g=GetComponent<GridLayoutGroup>();if(g==null)return;float size=ResponsiveUILayout.CellSize(((RectTransform)transform).rect.size,g.spacing.x);g.cellSize=new Vector2(size,size);}
+        public void ResizeNow()
+        {
+            var root=(RectTransform)transform;var bounds=root.rect;if(bounds.width<256||bounds.height<308)return;
+            var g=GetComponent<GridLayoutGroup>();if(g!=null){g.enabled=false;g.cellSize=new Vector2((bounds.width-16)/5,(bounds.height-20)/6);}
+            for(int i=0;i<30;i++)
+            {
+                var child=transform.Find("Cell "+i) as RectTransform;if(child==null)continue;var p=MergePerspective.Cell(i,bounds.width,bounds.height);
+                child.anchorMin=child.anchorMax=Vector2.zero;child.pivot=Vector2.zero;child.anchoredPosition=new Vector2(p.X,p.Y);child.sizeDelta=new Vector2(p.Width,p.Height);
+            }
+        }
     }
 }

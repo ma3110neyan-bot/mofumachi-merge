@@ -14,7 +14,7 @@ namespace Mofumachi.Presentation
         {
             vh.Clear();var r=GetPixelAdjustedRect();if(r.width<=0||r.height<=0)return;
             float unit=Mathf.Min(r.width,r.height),radius=unit*.46f;
-            var baseRect=new Rect(r.x+unit*.025f,r.y+unit*.055f,r.width-unit*.05f,r.height-unit*.13f);
+            var baseRect=new Rect(r.x+r.width*.025f,r.y+r.height*.10f,r.width*.95f,r.height*.72f);
             Fill(vh,baseRect,radius,new Color(.32f,.24f,.28f,.19f),new Color(.32f,.24f,.28f,.04f));
             var body=new Rect(baseRect.x,baseRect.y+unit*.045f,baseRect.width,baseRect.height-unit*.07f);
             Fill(vh,body,radius,new Color(.79f,.65f,.48f),new Color(.98f,.9f,.72f));

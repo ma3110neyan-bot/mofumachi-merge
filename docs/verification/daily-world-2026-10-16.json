@@ -1,0 +1,171 @@
+{
+  "branch": "feat/daily-world-pass-20261016",
+  "baseCommit": "bccb869009fdf5885fd198a0029da8f568a2b65a",
+  "verifiedSourceCommit": "a8c7ed96d9144e06e841b5e22fa9a53535718670",
+  "recordedUtc": "2026-10-16T03:49:22.199712+00:00",
+  "executed": {
+    "coreDotNet": {
+      "passed": 125,
+      "failed": 0,
+      "skipped": 0
+    },
+    "purePresentationDotNet": {
+      "passed": 55,
+      "failed": 0,
+      "skipped": 0
+    },
+    "unityReferenceAssemblyCompilation": {
+      "assemblies": 6,
+      "warnings": 0,
+      "errors": 0
+    },
+    "androidPowerShellGates": {
+      "passed": true,
+      "type": "Synthetic XML and mocked installer commands, no Unity or device execution"
+    },
+    "gitIdentity": {
+      "realCheckoutMetadataMatchesGitHead": true,
+      "withoutGitExecutableSupported": true
+    },
+    "protectedFiles": {
+      "protectedFiles": {
+        "Assets/Mofumachi/Core/GameState.cs": "1ba5ac4f3d6a016c1871395d0018770a97ab12b36a489df783bde1983e5a50f6",
+        "Assets/Mofumachi/Core/MergeBoard.cs": "c8cce212aab65f2802585d3897a583987933c5cd04121dd99d5e6f3655710923",
+        "Assets/Mofumachi/Core/QuestManager.cs": "ae79279f4d85db4bd5d7649416839bac0910b5b359e62c1ea3abb8ae16529cff",
+        "Assets/Mofumachi/Core/SaveService.cs": "44a3131818203443aba51874570c0c9c7b2ff48b52b53c03e3a3c4750b6f29e7",
+        "Assets/Mofumachi/Resources/Mofumachi/CharacterBodyAtlas.png": "23d14025f146c429da01b6e3a74ef803254755f8d149f9eb53516aacaa30163d",
+        "Assets/Mofumachi/Resources/Mofumachi/CharacterMaster.png": "cd423f6599cf41346064405240c72ac071aaa8d3fbd326d2b82661b13b0892c8",
+        "Assets/Mofumachi/Resources/Mofumachi/TitleLogo.png": "5cbc8451a620d20887f3c74863509e080eddaa235649209c9c8141e053dc3190",
+        "Assets/Mofumachi/Resources/Mofumachi/TownBackground.png": "971461342858e74c8db5f669f28c3e5c0c1a0f9d364e645ec55b9ea2834e7b51",
+        "Assets/Mofumachi/Resources/Mofumachi/TownEastBackground.png": "2e45be7b35f6533279def009a0c187bba24f16f7725287e2ffb40e630b0a4e3e",
+        "Assets/Mofumachi/Resources/Mofumachi/TownWestBackground.png": "a4bda540be5347d253d2decd010e2f96f4cb4b64861b4e73859338865342c328"
+      },
+      "corePackagesProjectSettingsChanges": 0,
+      "formalImagesAndBackgroundsUnchanged": true,
+      "duplicatePresentationGuids": 0
+    },
+    "fonts": [
+      {
+        "font": "UIFont",
+        "glyphs": 552,
+        "bytes": 164508,
+        "sourceSHA256": "3cfdb98a13571ede17fcc769f5093a97c38b80a7b9b2ab754a26b4d822092b3b",
+        "outputSHA256": "d000bbbba11f29286ad2a5595c3fd64b862d4f472527c244df3c8e4c8363a3f7"
+      },
+      {
+        "font": "UIFontBold",
+        "glyphs": 552,
+        "bytes": 163764,
+        "sourceSHA256": "fe24426b9c8b5523a0146a8235c8674eccf0493af354a53ec895c3596d9eb745",
+        "outputSHA256": "f4a95dddabcae152ebf6ca92357ce37d675d6d25517c7f17422f1ef16e0f496e"
+      },
+      {
+        "font": "UIFontStory",
+        "glyphs": 552,
+        "bytes": 206296,
+        "sourceSHA256": "b2659f300a7d48c3f29eb273ffc5e1b26cc416ac8c37ff6bb2f3e43c2f4d235a",
+        "outputSHA256": "68c27865ba86c2455b31567940f586b4d35fc9d0ff8a186256b935679f958449"
+      },
+      {
+        "font": "UIFontBody",
+        "glyphs": 552,
+        "bytes": 284660,
+        "sourceSHA256": "b031ec426c23ca1143ef1f7d58bee7a79efe119ed654152f121c922202b303fd",
+        "outputSHA256": "3b3107b62db108a94b779211879d4ce5a4e8c60ba2ff3fa4b6b5132345129bb7"
+      }
+    ],
+    "androidLinkerContracts": {
+      "auxiliaryTypesPreserved": 2,
+      "xmlParsed": true,
+      "androidIl2cppRuntime": "unrun"
+    }
+  },
+  "nativeDeclarationInventory": {
+    "editMode": 141,
+    "playMode": 161,
+    "suites": {
+      "Mofumachi.EditModeTests": {
+        "ChapterProgressTests": 2,
+        "CharacterPreferenceTests": 7,
+        "DeliveryTests": 17,
+        "ItemRemovalTests": 10,
+        "MergeBoardTests": 11,
+        "PreferencesTests": 23,
+        "QuestCatalogTests": 4,
+        "SaveServiceTests": 11,
+        "TownFrameClockTests": 4,
+        "TownMovementTests": 5,
+        "TownPlaceCatalogTests": 8,
+        "TownRegionCatalogTests": 9,
+        "TownRegionJourneyTests": 6,
+        "TownViewportTests": 8
+      },
+      "Mofumachi.BuildTests": {
+        "AndroidBuildTests": 1,
+        "PresentationContentTests": 11,
+        "QaIdentityTests": 2,
+        "TownRegionContentTests": 2
+      },
+      "Mofumachi.PlayModeTests": {
+        "AudioManagerTests": 2,
+        "ChapterFlowTests": 4,
+        "CharacterSelectionTests": 3,
+        "DailyWorldTests": 10,
+        "ExperienceCaptureTests": 1,
+        "ExperienceGrowthTests": 3,
+        "ExperienceMergeTests": 2,
+        "ExperienceMusicTests": 3,
+        "ExperienceWalkingTests": 7,
+        "LayoutNoticeTests": 6,
+        "MergeGuidanceTests": 10,
+        "MergeInteractionTests": 4,
+        "MergePolishTests": 8,
+        "MergeProgressionUiTests": 11,
+        "MultiQuestPresentationTests": 4,
+        "PopPresentationTests": 3,
+        "ProductionFrameUiTests": 5,
+        "QualityPassMergeTests": 1,
+        "QualityPassStoryGrowthTests": 5,
+        "QualityPassTravelTests": 5,
+        "RewardGrowthTests": 4,
+        "SettingsScreenTests": 5,
+        "StoryTypographyTests": 1,
+        "TownHabitTests": 5,
+        "TownLifeTests": 8,
+        "TownMotionPresentationTests": 4,
+        "TownRegionFlowTests": 17,
+        "TownRegionLifeTests": 8,
+        "TownViewportPresentationTests": 5,
+        "VerticalSliceFlowTests": 7
+      }
+    },
+    "meaning": "Compiled metadata only; not Unity discovery or success evidence."
+  },
+  "unrun": {
+    "windowsUnityEditMode": true,
+    "windowsUnityPlayMode": true,
+    "newActualUnityPngs": true,
+    "newQaApk": true,
+    "pixel3aAcceptance": true,
+    "pixelMemoryFpsTenMinutePlay": true
+  },
+  "nativeScreenshotPlan": {
+    "count": 36,
+    "fixtureProvenance": "Actual Unity UGUI output after Windows run; isolated state, not real Pixel screenshots. No new images generated in cloud."
+  },
+  "environmentBlocker": "Cloud Unity6000.6.4f1 has no valid Editor license; Android Build Support and Pixel3a connection unavailable.",
+  "review": {
+    "reviewedHead": "8d67e87",
+    "findings": [
+      "obsolete native perspective/type/spacing assertions",
+      "stale facility action after accepting a new walk",
+      "second pointer could interrupt manual world dragging",
+      "rejected NPC taps counted hidden conversations",
+      "growth lighting stayed in Central"
+    ],
+    "resolution": "Addressed in ab552f5; regression source compiles. Native regression runtime unrun.",
+    "reviewerPureTests": 55
+  },
+  "mainIntegrated": false,
+  "mainApprovalRequested": false
+}

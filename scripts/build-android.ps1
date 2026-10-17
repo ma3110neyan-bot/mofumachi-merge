@@ -97,7 +97,7 @@ function Get-ProductFingerprint([string]$RepositoryPath) {
     $Entries=@(foreach($Relative in Source-InputPaths) {
         $Path=Join-Path $RepositoryPath $Relative
         if(-not(Test-Path -LiteralPath $Path)){continue}
-        $Files=if(Test-Path -LiteralPath $Path -PathType Leaf){Get-Item -LiteralPath $Path}else{Get-ChildItem -LiteralPath $Path -File -Recurse}
+        $Files=if(Test-Path -LiteralPath $Path -PathType Leaf){Get-Item -LiteralPath $Path -Force}else{Get-ChildItem -LiteralPath $Path -File -Recurse -Force}
         foreach($File in $Files){$Name=$File.FullName.Substring($RepositoryPath.TrimEnd('/','\').Length+1).Replace('\','/');$Name+':'+(Get-FileHash -LiteralPath $File.FullName -Algorithm SHA256).Hash}
     })
     $Hasher=[Security.Cryptography.SHA256]::Create()

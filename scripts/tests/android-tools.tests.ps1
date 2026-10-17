@@ -38,6 +38,33 @@ try {
     if($LASTEXITCODE -ne 0){throw 'Could not commit the isolated source fixture.'}
     $Revision=Read-SourceRevision $CleanRepo;Assert-CleanProductSource $CleanRepo $RealGit;$Fingerprint=Get-ProductFingerprint $CleanRepo
     Assert-ProductUnchanged $CleanRepo $Revision $Fingerprint
+    # Real hidden filesystem entries: Test-Path sees them but Get-Item and
+    # recursive enumeration need -Force. Windows .meta files can carry this
+    # attribute; dot names reproduce the same provider behavior on Linux.
+    $HiddenFile=Join-Path $CleanRepo 'Assets/Mofumachi/.hidden-source.meta'
+    [IO.File]::WriteAllText($HiddenFile,'hidden fixture')
+    [IO.File]::SetAttributes($HiddenFile,([IO.File]::GetAttributes($HiddenFile) -bor [IO.FileAttributes]::Hidden))
+    $HiddenLeafFingerprint={
+        & {
+            function Source-InputPaths {return @('Assets/Mofumachi/.hidden-source.meta')}
+            Get-ProductFingerprint $CleanRepo
+        }
+    }
+    $LeafBefore=& $HiddenLeafFingerprint
+    $HiddenBefore=Get-ProductFingerprint $CleanRepo
+    [IO.File]::WriteAllText($HiddenFile,'changed hidden fixture')
+    if((& $HiddenLeafFingerprint) -eq $LeafBefore){throw 'Explicit hidden input was omitted from the fingerprint.'}
+    if((Get-ProductFingerprint $CleanRepo) -eq $HiddenBefore){throw 'Recursive hidden input was omitted from the fingerprint.'}
+    $HiddenDirectory=Join-Path $CleanRepo 'Assets/Mofumachi/.hidden-folder'
+    New-Item -ItemType Directory -Path $HiddenDirectory | Out-Null
+    [IO.File]::SetAttributes($HiddenDirectory,([IO.File]::GetAttributes($HiddenDirectory) -bor [IO.FileAttributes]::Hidden))
+    $Nested=Join-Path $HiddenDirectory 'Source.cs';[IO.File]::WriteAllText($Nested,'nested fixture')
+    $NestedBefore=Get-ProductFingerprint $CleanRepo
+    [IO.File]::WriteAllText($Nested,'changed nested fixture')
+    if((Get-ProductFingerprint $CleanRepo) -eq $NestedBefore){throw 'Files inside a hidden directory were omitted from the fingerprint.'}
+    Remove-Item -LiteralPath $HiddenFile -Force;Remove-Item -LiteralPath $HiddenDirectory -Recurse -Force
+    Assert-ProductUnchanged $CleanRepo $Revision $Fingerprint
+    Write-Host 'Hidden source inputs are readable and fingerprinted (explicit file, recursive file and directory).'
     Set-Content -LiteralPath $ProductFile 'edited during acceptance'
     Expect-Rejection {Assert-CleanProductSource $CleanRepo $RealGit};Expect-Rejection {Assert-ProductUnchanged $CleanRepo $Revision $Fingerprint}
     & $RealGit -C $CleanRepo restore --worktree -- Assets

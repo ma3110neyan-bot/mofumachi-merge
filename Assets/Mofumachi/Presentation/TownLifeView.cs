@@ -95,9 +95,15 @@ namespace Mofumachi.Presentation
         }
         public bool TryBeginConversation(TownActor first,TownActor second)
         {
-            if(!CanInteract||first==null||second==null||first==second||first.RegionId!=second.RegionId||!first.RegionVisible||!second.RegionVisible||first.IsRegionFading||second.IsRegionFading||now<nextSocial||IsManuallyDragging||GetComponent<TownViewportView>()?.IsDragging==true||outings!=null||entrance!=null||Distance(first.Position,second.Position)>.09f||!Visible(first)||!Visible(second))return false;
+            if(!CanInteract||first==null||second==null||first==second||first.RegionId!=second.RegionId||!first.RegionVisible||!second.RegionVisible||first.IsRegionFading||second.IsRegionFading||now<nextSocial||IsManuallyDragging||GetComponent<TownViewportView>()?.IsDragging==true||outings!=null||entrance!=null||!WithinConversationRange(first,second)||!Visible(first)||!Visible(second))return false;
             first.FaceTowards(second.Position);second.FaceTowards(first.Position);first.Greet();second.Greet();nextSocial=now+8;
             ShowBubble(CharacterCatalog.Find(first.CharacterId).Name+"：こんにちは、"+CharacterCatalog.Find(second.CharacterId).Name+"♪",first);return true;
+        }
+        private bool WithinConversationRange(TownActor first,TownActor second)
+        {
+            if(World?.IsReady!=true)return Distance(first.Position,second.Position)<=.09f;
+            float width=Mathf.Min(((RectTransform)first.transform).rect.width,((RectTransform)second.transform).rect.width);
+            return TownWorldLayout.WithinConversationRange(first.WorldPosition,second.WorldPosition,background.rectTransform.rect.width,width);
         }
         private void ShowOutings()
         {

@@ -364,9 +364,16 @@ namespace Mofumachi.Presentation
             if(CurrentScreen==ScreenId.Settings&&target!="settings")audioManager?.CancelMusicPreview();
             if(page!=null&&!discardHomeRegionSnapshot)
             {
-                var continuous=page.GetComponentInChildren<TownContinuousWorldView>();if(continuous!=null)HomeWorldSnapshot=continuous.Capture();
-                var regions=page.GetComponentInChildren<TownRegionSession>();
-                if(regions!=null)HomeRegionSnapshot=regions.CaptureSettledSnapshot();
+                var continuous=page.GetComponentInChildren<TownContinuousWorldView>();
+                if(continuous!=null&&continuous.IsReady)
+                {
+                    HomeWorldSnapshot=continuous.Capture();HomeRegionSnapshot=null;
+                }
+                else
+                {
+                    var regions=page.GetComponentInChildren<TownRegionSession>();
+                    if(regions!=null)HomeRegionSnapshot=regions.CaptureSettledSnapshot();
+                }
             }
             discardHomeRegionSnapshot=false;
             view = target; CurrentScreen=(ScreenId)System.Enum.Parse(typeof(ScreenId),target,true);

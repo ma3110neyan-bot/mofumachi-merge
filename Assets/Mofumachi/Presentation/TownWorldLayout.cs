@@ -14,6 +14,15 @@ namespace Mofumachi.Presentation
         public static TownPoint ToLocal(TownRegionId r,TownPoint p)=>new TownPoint(p.X,p.Y-Origin(r));
         public static bool Finite(TownPoint p)=>float.IsFinite(p.X)&&float.IsFinite(p.Y);
         public static float Distance(TownPoint a,TownPoint b)=>(float)Math.Sqrt((a.X-b.X)*(a.X-b.X)+(a.Y-b.Y)*(a.Y-b.Y));
+        public static bool WithinConversationRange(TownPoint a,TownPoint b,float viewportWidth,float actorWidth)
+        {
+            if(!Finite(a)||!Finite(b)||!float.IsFinite(viewportWidth)||viewportWidth<=0||!float.IsFinite(actorWidth)||actorWidth<=0)return false;
+            // Match the field projection, including its taller vertical world units.
+            // Residents can greet across a half-body gap without calling across the street.
+            float scale=viewportWidth/1.06f,dx=(a.X-b.X)*scale,dy=(a.Y-b.Y)*scale*ImageAspect;
+            float reach=actorWidth*1.5f;
+            return dx*dx+dy*dy<=reach*reach;
+        }
         public static TownRegionId RegionAt(TownPoint p)=>p.Y>.82f?TownRegionId.West:p.Y<-.12f?TownRegionId.East:TownRegionId.Central;
         public static readonly TownPoint[] NorthConnection={new TownPoint(.18f,.60f),new TownPoint(.13f,.72f),new TownPoint(.23f,.80f),new TownPoint(.40f,.89f),new TownPoint(.52f,1.04f),new TownPoint(.70f,1.22f),new TownPoint(.94f,1.45f)};
         public static readonly TownPoint[] SouthConnection={new TownPoint(.42f,.47f),new TownPoint(.52f,.32f),new TownPoint(.50f,.12f),new TownPoint(.46f,.01f),new TownPoint(.39f,-.09f),new TownPoint(.23f,-.23f),new TownPoint(.09f,-.40f)};

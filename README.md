@@ -1,4 +1,6 @@
-> 2026-10-16: 北／中央／南の連続フィールド、斜めMerge、キャラクター図鑑、今日のお願いを候補 `feat/daily-world-pass-20261016` に実装。Core125／純粋表示55成功、6DLLコンパイル成功。**新候補のWindows全件・実Unity画像・QA APK・Pixel受入は未実施、main未統合です。** [今回の変更・検証・次の操作](docs/development-handoff-2026-10-16-daily-world.md)
+> 2026-10-17: Daily WorldのWindows PlayModeは **158成功／3失敗／skip0** を受領。連続カメラの退避形式とNPC会話距離の原因2つを修正しました。Core125／純粋表示59成功、6DLLコンパイル警告・エラー0。**修正後のWindows再試験・新PNG／APK・Pixel受入待ち、main未統合です。** [原因・修正・次の操作](docs/development-handoff-2026-10-17-daily-world-acceptance-fix.md)
+
+> 2026-10-16: 北／中央／南の連続フィールド、斜めMerge、キャラクター図鑑、今日のお願いを候補 `feat/daily-world-pass-20261016` に実装。[実装内容と実機確認項目](docs/development-handoff-2026-10-16-daily-world.md)。最新の受入状況は上記10月17日の記録を参照してください。
 
 > 2026-10-15 · 再試験の個別報告 `UnknownQuestAndFinaleNeverInventAnotherUnlock`（期待3／実際4）は、既存の画面遷移保存1回をテストが数えていないことを確認し、検査を修正しました。製品・保存処理は変更なし。構成は **Edit141／Play151**、最新の両XMLによる全件成功確認待ちです。[修正・再試験](docs/development-handoff-2026-10-15-release-experience-pass.md)。APK・main統合は保留。
 

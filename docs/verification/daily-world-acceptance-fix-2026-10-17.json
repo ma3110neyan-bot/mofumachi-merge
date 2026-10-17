@@ -1,0 +1,163 @@
+{
+  "branch": "feat/daily-world-pass-20261016",
+  "failedCandidateCommit": "0799138815941c56976ae2e0fadaf56201ce3770",
+  "recordedUtc": "2026-10-17T00:22:39.170292+00:00",
+  "receivedWindowsRun": {
+    "folder": "20261016-132434-3b8acdeb",
+    "commitProvenance": "User requested candidate 0799138; XML itself does not record a commit. No final build-info was generated.",
+    "editMode": {
+      "passed": 141,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "PowerShell screenshot only; EditMode XML not received"
+    },
+    "playMode": {
+      "total": 161,
+      "passed": 158,
+      "failed": 3,
+      "skipped": 0,
+      "inconclusive": 0,
+      "startUtc": "2026-10-16 04:26:17Z",
+      "endUtc": "2026-10-16 04:27:50Z",
+      "evidenceSha256": "b9590e32b6e033c993d9f57edfe83798617beb01be52ff4235f8772107f7cf8a",
+      "logSha256": "0d0b6cc90db99f6551ff9f1a99672ea43d47b6fbd8a4cb332fecfa5adcc991ea"
+    },
+    "failures": [
+      {
+        "test": "Mofumachi.Tests.DailyWorldTests.SettingsReturnKeepsTheMidWalkWorldPositionWithoutARegionJump",
+        "message": "System.ArgumentException : Invalid camera center"
+      },
+      {
+        "test": "Mofumachi.Tests.TownHabitTests.NearbyConversationBelongsToItsActorsAndDoesNotSave",
+        "message": "An actual street encounter must occur\n  Expected: True\n  But was:  False"
+      },
+      {
+        "test": "Mofumachi.Tests.TownRegionLifeTests.TwoResidentsMeetAndResumeInVisibleRegion",
+        "message": "Expected: True\n  But was:  False"
+      }
+    ],
+    "apk": "Not reached: Unity PlayMode exited 2; do not update Pixel from this run"
+  },
+  "rootCausesAndFixes": [
+    {
+      "type": "product",
+      "symptom": "Settings transition throws Invalid camera center",
+      "cause": "Continuous camera in the northern connector has a valid global Y but a negative legacy region-local Y. Render captured both snapshot formats.",
+      "fix": "UIFlowController captures only TownWorldSnapshot when the continuous world is ready and clears HomeRegionSnapshot. Legacy bounded validation and actual world position/camera are unchanged.",
+      "regression": "Extend the existing DailyWorld Settings test to walk to the connector and check all 6 positions, camera, follow mode, and cancellation of hero movement/pointer on return."
+    },
+    {
+      "type": "product",
+      "symptom": "Two real encounter tests time out without a greeting",
+      "cause": "Actual north NPC routes at levels 0/1/6 never reach normalized distance .09. The world has different horizontal/vertical display scales.",
+      "fix": "Continuous-world range uses projected UI distance <= 1.5 times the smaller actor body width. Preserve existing legacy range and visibility/modal/input/same-region/cooldown rules.",
+      "regression": "Four added pure model cases fail with the old distance rule (55 passed/4 failed), pass after the projection fix (59/0/0). Existing native encounter assertions and 120-second waits remain unchanged."
+    }
+  ],
+  "executedAfterFix": {
+    "coreDotNet": {
+      "passed": 125,
+      "failed": 0,
+      "skipped": 0
+    },
+    "purePresentationDotNet": {
+      "passed": 59,
+      "failed": 0,
+      "skipped": 0
+    },
+    "unityReferenceAssemblyCompilation": {
+      "assemblies": 6,
+      "warnings": 0,
+      "errors": 0,
+      "meaning": "Compilation against real Unity 6000.6.4f1 assemblies, not Editor runtime execution"
+    },
+    "scriptGateRegression": {
+      "passed": true,
+      "meaning": "Synthetic XML and mocked installer commands, no device tested"
+    },
+    "protectedHashes": {
+      "matched": 10,
+      "coreSchemaEconomyFormalArtUnchanged": true
+    },
+    "independentReview": {
+      "blocking": 0,
+      "important": 0,
+      "nativeRuntimeStillPending": true
+    }
+  },
+  "compiledDeclarationInventory": {
+    "editMode": 141,
+    "playMode": 161,
+    "suites": {
+      "Mofumachi.EditModeTests": {
+        "ChapterProgressTests": 2,
+        "CharacterPreferenceTests": 7,
+        "DeliveryTests": 17,
+        "ItemRemovalTests": 10,
+        "MergeBoardTests": 11,
+        "PreferencesTests": 23,
+        "QuestCatalogTests": 4,
+        "SaveServiceTests": 11,
+        "TownFrameClockTests": 4,
+        "TownMovementTests": 5,
+        "TownPlaceCatalogTests": 8,
+        "TownRegionCatalogTests": 9,
+        "TownRegionJourneyTests": 6,
+        "TownViewportTests": 8
+      },
+      "Mofumachi.BuildTests": {
+        "AndroidBuildTests": 1,
+        "PresentationContentTests": 11,
+        "QaIdentityTests": 2,
+        "TownRegionContentTests": 2
+      },
+      "Mofumachi.PlayModeTests": {
+        "AudioManagerTests": 2,
+        "ChapterFlowTests": 4,
+        "CharacterSelectionTests": 3,
+        "DailyWorldTests": 10,
+        "ExperienceCaptureTests": 1,
+        "ExperienceGrowthTests": 3,
+        "ExperienceMergeTests": 2,
+        "ExperienceMusicTests": 3,
+        "ExperienceWalkingTests": 7,
+        "LayoutNoticeTests": 6,
+        "MergeGuidanceTests": 10,
+        "MergeInteractionTests": 4,
+        "MergePolishTests": 8,
+        "MergeProgressionUiTests": 11,
+        "MultiQuestPresentationTests": 4,
+        "PopPresentationTests": 3,
+        "ProductionFrameUiTests": 5,
+        "QualityPassMergeTests": 1,
+        "QualityPassStoryGrowthTests": 5,
+        "QualityPassTravelTests": 5,
+        "RewardGrowthTests": 4,
+        "SettingsScreenTests": 5,
+        "StoryTypographyTests": 1,
+        "TownHabitTests": 5,
+        "TownLifeTests": 8,
+        "TownMotionPresentationTests": 4,
+        "TownRegionFlowTests": 17,
+        "TownRegionLifeTests": 8,
+        "TownViewportPresentationTests": 5,
+        "VerticalSliceFlowTests": 7
+      }
+    },
+    "meaning": "Compiled declarations, not Unity discovery or passing evidence"
+  },
+  "requiredNewEvidence": {
+    "windowsEditMode": "unrun after fix",
+    "windowsPlayMode": "unrun after fix",
+    "actualUnityPngs": 36,
+    "textureMemory": "not received",
+    "newQaApk": "not generated",
+    "buildInfoAndSha256": "not generated",
+    "pixel3a": "unrun after fix"
+  },
+  "environmentLimitations": "Cloud Editor has no valid Unity license; Android module and connected Pixel unavailable. Full native rerun is required on Windows.",
+  "mainIntegrated": false,
+  "mainApprovalRequested": false,
+  "extraFeatureWork": false,
+  "nextGate": "Pull this repaired candidate, rerun the existing TownQa batch, require all passed with failed 0/skip 0 and DailyWorldTests 10 before Pixel update. Review actual 36 PNGs and same-run build-info first."
+}

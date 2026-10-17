@@ -28,8 +28,15 @@ namespace Mofumachi.Tests
         }
         [UnityTest] public IEnumerator SettingsReturnKeepsTheMidWalkWorldPositionWithoutARegionJump()
         {
-            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();life.GuideToPlace("west.flowers");for(int i=0;i<170;i++)life.AdvanceFrame(1f/30);var before=life.World.Model.Hero.Position;
-            Flow.ShowSettings();Flow.GoBack();var after=Flow.GetComponentInChildren<TownContinuousWorldView>().Model.Hero.Position;Assert.That(TownWorldLayout.Distance(before,after),Is.LessThan(.0001f));LogAssert.NoUnexpectedReceived();
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();Assert.That(life.GuideToPlace("west.flowers"),Is.True);
+            for(int i=0;i<3000&&life.World.Camera.Center.Y<.83f;i++)life.AdvanceFrame(1f/30);
+            var camera=life.World.Camera.Center;Assert.That(camera.Y,Is.InRange(.83f,.9f),"Exercise the connector where a legacy region-local camera would be negative");
+            Assert.That(life.World.Model.Hero.IsWalking,Is.True);var before=life.World.Model.Residents.ToDictionary(a=>a.Id,a=>a.Position);bool follow=life.World.FollowingHero;
+            Flow.ShowSettings();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Settings));Assert.That(Flow.HomeWorldSnapshot,Is.Not.Null);Assert.That(Flow.HomeRegionSnapshot,Is.Null,"Continuous cameras must not be encoded as a bounded region snapshot");
+            Flow.GoBack();var after=Flow.GetComponentInChildren<TownContinuousWorldView>();
+            foreach(var actor in after.Model.Residents)Assert.That(TownWorldLayout.Distance(before[actor.Id],actor.Position),Is.LessThan(.0001f));
+            Assert.That(TownWorldLayout.Distance(camera,after.Camera.Center),Is.LessThan(.0001f));Assert.That(after.FollowingHero,Is.EqualTo(follow));Assert.That(after.Model.Hero.IsWalking,Is.False);
+            Assert.That(Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled).Movement.OwnedPointerId,Is.Null);LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator TodayClaimAndConversationNeverWriteOrRewardTheMainSave()
         {

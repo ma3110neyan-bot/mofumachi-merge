@@ -1,28 +1,28 @@
 {
   "branch": "feat/daily-world-pass-20261016",
-  "receivedCandidateCommit": "d5e003918fa53d1c68875d8d40956b164431d2d8",
-  "recordedUtc": "2026-10-17T01:38:04.767857+00:00",
-  "receivedEvidence": {
-    "folder": "20261017-095924-2c6d1843",
-    "editMode": {
+  "latestReceivedWindowsRun": {
+    "candidateCommit": "60f9c7f3dbb90322665f30389ed2c40c27836f00",
+    "folder": "20261017-110108-b2e93743",
+    "recordedUtc": "2026-10-17T02:17:41.348936+00:00",
+    "editmode": {
       "total": 141,
       "passed": 141,
       "failed": 0,
       "skipped": 0,
       "inconclusive": 0,
-      "startUtc": "2026-10-17 00:59:43Z",
-      "endUtc": "2026-10-17 00:59:46Z",
-      "sha256": "5b5630df3ce6b788a6872641f427e6d723d2c9c6385ddecb31f30ab4863fc00c"
+      "startUtc": "2026-10-17 02:01:34Z",
+      "endUtc": "2026-10-17 02:01:36Z",
+      "sha256": "c39b006ba55e3796b2e78edb61dd8b553c40e4bfd7d19b87307b78c3a5dd3f1b"
     },
-    "playMode": {
+    "playmode": {
       "total": 161,
       "passed": 161,
       "failed": 0,
       "skipped": 0,
       "inconclusive": 0,
-      "startUtc": "2026-10-17 01:00:14Z",
-      "endUtc": "2026-10-17 01:01:45Z",
-      "sha256": "a72623c25548e59e6f72185ecd209ef5db7cb002776f37b373365c497e2dba51"
+      "startUtc": "2026-10-17 02:02:04Z",
+      "endUtc": "2026-10-17 02:03:36Z",
+      "sha256": "b3eead68d24a3d38e8b7bccaae7ea4d5d091674f6b3d28e80fc98c1808a8ca87"
     },
     "requiredSuites": {
       "DailyWorldTests": {
@@ -93,113 +93,311 @@
       }
     },
     "buildInfo": {
-      "gitRevision": "d5e003918fa53d1c68875d8d40956b164431d2d8",
+      "gitRevision": "60f9c7f3dbb90322665f30389ed2c40c27836f00",
       "revisionSource": "git-metadata",
       "unity": "6000.6.4f1",
       "appId": "com.mofumachi.merge.qa.townlife",
       "versionCode": 1,
       "apk": "town-life-qa.apk",
-      "sha256": "9d01e1a02afa86963614242b4116c6489cc4e1b2317ec49242710f8e912b16ff",
-      "bytes": 118032962,
-      "builtAtUtc": "2026-10-17T01:08:54.5737804Z",
+      "sha256": "7ac8a9fa5048257afad9c3fdaef5297fc6e0ade7eaa3bbea75643b44888ed481",
+      "bytes": 118049420,
+      "builtAtUtc": "2026-10-17T02:10:29.3337442Z",
       "qa": true,
       "townQa": true
     },
+    "buildInfoSha256": "5a7e833fb29bed5890ffe41866fa86384ae57ad9cd5892e69975ca200d74c782",
     "apkBinaryIndependentlyHashed": false,
-    "pngCount": 36,
-    "pngResolution": [
-      720,
-      1280
-    ],
-    "duplicateOrCorruptPngs": 0,
-    "pngManifestSha256": "2e921713895ce8ecb2bde3dd723b83b5b495761da44aa0a34a4dcb804cb51d1d",
-    "textureMemoryBytes": {
-      "TownBackground": 9503873,
-      "TownWestBackground": 9503873,
-      "TownEastBackground": 9503873,
-      "CharacterBodyAtlas": 5747841,
-      "TownGrowthPropsAtlas": 5747841
-    },
-    "fiveAssetsMiB": 38.15393543243408,
-    "meaning": "Editor asset residency, not total RAM/FPS/temperature on Pixel"
+    "visualGate": "failed: tiny lawn crop repeats in visible grid; paving texels enlarged relative to painted roads. Hard rectangle edges and greeting wrap improved.",
+    "pixelAcceptance": "unrun",
+    "mainIntegration": "withheld",
+    "provenance": "User confirmed60f9c7f before run; build-info revision matches. XML does not itself embed a commit.",
+    "screenshots": {
+      "count": 36,
+      "dimensions": [
+        720,
+        1280
+      ],
+      "integrity": "all files decode, no duplicates or missing expected names",
+      "manifest": "screenshot-manifest.json",
+      "reviewedUtc": "2026-10-17T02:24:40.168075+00:00",
+      "textureMemoryBytes": 40007301,
+      "textureMemoryScope": "5 Editor texture assets; not total app/Pixel memory",
+      "gates": {
+        "paintingHardEdges": "improved",
+        "connectorLawnRepetition": "failed",
+        "connectorPavingScale": "failed",
+        "dailyGreetingWrap": "passed",
+        "mergePerspectiveStatic": "visible",
+        "dailyAndBookStatic": "visible",
+        "pixel": "unrun"
+      }
+    }
   },
-  "visualAcceptance": {
-    "passed": false,
-    "blockingImages": [
-      "09-connected-path-north.png",
-      "09-connected-path-south.png"
-    ],
-    "problems": [
-      "Hard rectangular painting borders",
-      "Blurred fullscreen enlarged garden crop",
-      "Repeated disconnected road strips and visible changes at bends"
-    ],
-    "otherLayoutIssue": "Today greeting wraps a question mark by itself",
-    "staticChecks": [
-      "Perspective Merge and30cells",
-      "Six character book pages and discovery details",
-      "Today goals/claim before and after",
-      "Three music choice labels",
-      "Lv1/Lv3/Lv6 props in three regions",
-      "Eight walking frames; animation feel still untested"
-    ]
-  },
-  "repair": {
-    "scope": "Presentation/UI/capture tests only; no extra product feature",
-    "changes": [
-      "Feather only painting perimeter vertices onto a world-fixed garden",
-      "Reuse clean lawn sample with mirrored UVs at original world scale",
-      "Shared miter ribbon sections and global mirrored UV phase",
-      "Restrict road overlay to connector approaches and soften its edges",
-      "Only rebuild ground/path mesh on camera or size change",
-      "Compact3lineToday greeting",
-      "Center finale capture on hero for daily flower review",
-      "Explicit CanvasRenderer dependencies for new graphics"
-    ],
-    "protectedCoreArtRoutesSaveEconomyUnchanged": true,
-    "extraTexturesShadersOrRenderTextures": false
-  },
-  "executedAfterRepair": {
-    "coreDotNet": {
-      "passed": 125,
-      "failed": 0,
-      "skipped": 0
+  "currentRepair": {
+    "base": "60f9c7f3dbb90322665f30389ed2c40c27836f00",
+    "purpose": "Replace tiny repeated painting crops with one full-panel garden surface atlas at matching texel scale. No new feature.",
+    "atlas": {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownGardenSurface.png",
+      "provenance": "image_gen generated material atlas, lawn refined through image_gen edit. Original generated bytes copied unchanged. No formal art replaced.",
+      "sha256": "473bd2926cfb84b21a5ef5e77872b5b147748bf37885955ff146057decefd59e",
+      "bytes": 2928864,
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceMode": "RGB",
+      "defaultAndAndroidMaxSize": 1024,
+      "mipmaps": false,
+      "cpuReadable": false,
+      "sharedBy": [
+        "TownGardenGroundGraphic",
+        "TownGardenPathGraphic"
+      ],
+      "pixelMemoryMeasured": false
     },
-    "purePresentationDotNet": {
-      "passed": 63,
-      "failed": 0,
-      "skipped": 0
-    },
-    "regressionNegativeChecks": [
-      "Opaque-edge mutation fails",
-      "UV-reset mutation fails",
-      "Long greeting fails before fix"
-    ],
-    "realUnityReferenceCompilation": {
-      "assemblies": 6,
+    "cloudVerification": {
+      "core": {
+        "passed": 125,
+        "failed": 0,
+        "skipped": 0
+      },
+      "purePresentation": {
+        "passed": 66,
+        "failed": 0,
+        "skipped": 0
+      },
+      "unityReferenceAssemblyCompilations": 6,
       "warnings": 0,
-      "errors": 0
+      "errors": 0,
+      "rendererDeclarationCheck": ".NET reflection passed, not Unity lifecycle runtime",
+      "review": "independent read-only review, no important or blocking findings",
+      "protectedFileHashesMatched": 10
     },
-    "compiledRendererDependencyTestOnDotNet": "passed; not Unity lifecycle execution",
-    "protectedHashesMatched": 10,
-    "duplicatePresentationGuids": 0,
-    "independentReview": "No blocking/important findings; visual After still needs native screenshots"
+    "unchanged": [
+      "Core",
+      "SaveData v3",
+      "5x6 rules",
+      "delivery and rewards",
+      "formal six character art",
+      "three original backgrounds",
+      "world navigation routes and camera",
+      "main"
+    ],
+    "actualWindowsUnity": "unrun",
+    "actualUnityAfter36Png": "unreceived",
+    "newQaApk": "unbuilt",
+    "pixelAcceptance": "unrun"
   },
-  "pendingAfterRepair": {
-    "windowsEditMode": "unrun",
-    "windowsPlayMode": "unrun",
-    "actualUnity36Png": "not generated/received",
-    "newQaApk": "not generated",
-    "pixel3aAcceptance": "unrun",
-    "memoryFpsTenMinutePixel": "unrun"
-  },
+  "acceptance": "60f9c7f native gate passed but connector image gate failed. Atlas repair requires fresh same-run XML36PNG6texture-memoryAPK; Pixel and main withheld.",
   "expectedNativeDeclarations": {
     "editMode": 141,
     "playMode": 161,
     "dailyWorldTests": 10
   },
-  "sourceDiagnosticImages": "Software raster diagnostics only, explicitly not Unity screenshots or acceptance evidence",
+  "historyBeforeSurfaceAtlas": {
+    "branch": "feat/daily-world-pass-20261016",
+    "receivedCandidateCommit": "d5e003918fa53d1c68875d8d40956b164431d2d8",
+    "recordedUtc": "2026-10-17T01:38:04.767857+00:00",
+    "receivedEvidence": {
+      "folder": "20261017-095924-2c6d1843",
+      "editMode": {
+        "total": 141,
+        "passed": 141,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0,
+        "startUtc": "2026-10-17 00:59:43Z",
+        "endUtc": "2026-10-17 00:59:46Z",
+        "sha256": "5b5630df3ce6b788a6872641f427e6d723d2c9c6385ddecb31f30ab4863fc00c"
+      },
+      "playMode": {
+        "total": 161,
+        "passed": 161,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0,
+        "startUtc": "2026-10-17 01:00:14Z",
+        "endUtc": "2026-10-17 01:01:45Z",
+        "sha256": "a72623c25548e59e6f72185ecd209ef5db7cb002776f37b373365c497e2dba51"
+      },
+      "requiredSuites": {
+        "DailyWorldTests": {
+          "total": 10,
+          "passed": 10,
+          "failed": 0,
+          "skipped": 0
+        },
+        "ExperienceCaptureTests": {
+          "total": 1,
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0
+        },
+        "ExperienceGrowthTests": {
+          "total": 3,
+          "passed": 3,
+          "failed": 0,
+          "skipped": 0
+        },
+        "ExperienceMergeTests": {
+          "total": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0
+        },
+        "ExperienceMusicTests": {
+          "total": 3,
+          "passed": 3,
+          "failed": 0,
+          "skipped": 0
+        },
+        "ExperienceWalkingTests": {
+          "total": 7,
+          "passed": 7,
+          "failed": 0,
+          "skipped": 0
+        },
+        "QualityPassMergeTests": {
+          "total": 1,
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0
+        },
+        "QualityPassStoryGrowthTests": {
+          "total": 5,
+          "passed": 5,
+          "failed": 0,
+          "skipped": 0
+        },
+        "QualityPassTravelTests": {
+          "total": 5,
+          "passed": 5,
+          "failed": 0,
+          "skipped": 0
+        },
+        "TownRegionFlowTests": {
+          "total": 17,
+          "passed": 17,
+          "failed": 0,
+          "skipped": 0
+        },
+        "TownRegionLifeTests": {
+          "total": 8,
+          "passed": 8,
+          "failed": 0,
+          "skipped": 0
+        }
+      },
+      "buildInfo": {
+        "gitRevision": "d5e003918fa53d1c68875d8d40956b164431d2d8",
+        "revisionSource": "git-metadata",
+        "unity": "6000.6.4f1",
+        "appId": "com.mofumachi.merge.qa.townlife",
+        "versionCode": 1,
+        "apk": "town-life-qa.apk",
+        "sha256": "9d01e1a02afa86963614242b4116c6489cc4e1b2317ec49242710f8e912b16ff",
+        "bytes": 118032962,
+        "builtAtUtc": "2026-10-17T01:08:54.5737804Z",
+        "qa": true,
+        "townQa": true
+      },
+      "apkBinaryIndependentlyHashed": false,
+      "pngCount": 36,
+      "pngResolution": [
+        720,
+        1280
+      ],
+      "duplicateOrCorruptPngs": 0,
+      "pngManifestSha256": "2e921713895ce8ecb2bde3dd723b83b5b495761da44aa0a34a4dcb804cb51d1d",
+      "textureMemoryBytes": {
+        "TownBackground": 9503873,
+        "TownWestBackground": 9503873,
+        "TownEastBackground": 9503873,
+        "CharacterBodyAtlas": 5747841,
+        "TownGrowthPropsAtlas": 5747841
+      },
+      "fiveAssetsMiB": 38.15393543243408,
+      "meaning": "Editor asset residency, not total RAM/FPS/temperature on Pixel"
+    },
+    "visualAcceptance": {
+      "passed": false,
+      "blockingImages": [
+        "09-connected-path-north.png",
+        "09-connected-path-south.png"
+      ],
+      "problems": [
+        "Hard rectangular painting borders",
+        "Blurred fullscreen enlarged garden crop",
+        "Repeated disconnected road strips and visible changes at bends"
+      ],
+      "otherLayoutIssue": "Today greeting wraps a question mark by itself",
+      "staticChecks": [
+        "Perspective Merge and30cells",
+        "Six character book pages and discovery details",
+        "Today goals/claim before and after",
+        "Three music choice labels",
+        "Lv1/Lv3/Lv6 props in three regions",
+        "Eight walking frames; animation feel still untested"
+      ]
+    },
+    "repair": {
+      "scope": "Presentation/UI/capture tests only; no extra product feature",
+      "changes": [
+        "Feather only painting perimeter vertices onto a world-fixed garden",
+        "Reuse clean lawn sample with mirrored UVs at original world scale",
+        "Shared miter ribbon sections and global mirrored UV phase",
+        "Restrict road overlay to connector approaches and soften its edges",
+        "Only rebuild ground/path mesh on camera or size change",
+        "Compact3lineToday greeting",
+        "Center finale capture on hero for daily flower review",
+        "Explicit CanvasRenderer dependencies for new graphics"
+      ],
+      "protectedCoreArtRoutesSaveEconomyUnchanged": true,
+      "extraTexturesShadersOrRenderTextures": false
+    },
+    "executedAfterRepair": {
+      "coreDotNet": {
+        "passed": 125,
+        "failed": 0,
+        "skipped": 0
+      },
+      "purePresentationDotNet": {
+        "passed": 63,
+        "failed": 0,
+        "skipped": 0
+      },
+      "regressionNegativeChecks": [
+        "Opaque-edge mutation fails",
+        "UV-reset mutation fails",
+        "Long greeting fails before fix"
+      ],
+      "realUnityReferenceCompilation": {
+        "assemblies": 6,
+        "warnings": 0,
+        "errors": 0
+      },
+      "compiledRendererDependencyTestOnDotNet": "passed; not Unity lifecycle execution",
+      "protectedHashesMatched": 10,
+      "duplicatePresentationGuids": 0,
+      "independentReview": "No blocking/important findings; visual After still needs native screenshots"
+    },
+    "pendingAfterRepair": {
+      "windowsEditMode": "unrun",
+      "windowsPlayMode": "unrun",
+      "actualUnity36Png": "not generated/received",
+      "newQaApk": "not generated",
+      "pixel3aAcceptance": "unrun",
+      "memoryFpsTenMinutePixel": "unrun"
+    },
+    "expectedNativeDeclarations": {
+      "editMode": 141,
+      "playMode": 161,
+      "dailyWorldTests": 10
+    },
+    "sourceDiagnosticImages": "Software raster diagnostics only, explicitly not Unity screenshots or acceptance evidence",
+    "mainIntegrated": false,
+    "mainApprovalRequested": false
+  },
   "mainIntegrated": false,
-  "mainApprovalRequested": false,
-  "acceptance": "blocked on repaired native run and actual visual quality; do not reuse d5e0039 artifacts as proof of repair"
+  "mainApprovalRequested": false
 }

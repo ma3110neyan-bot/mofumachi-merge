@@ -35,6 +35,37 @@ namespace Mofumachi.Tests
             Assert.That(TownWorldSurface.PathOpacity(.47f,true),Is.Zero);Assert.That(TownWorldSurface.PathOpacity(1.4f,true),Is.Zero);
             Assert.That(TownWorldSurface.PathOpacity(.47f,false),Is.Zero);Assert.That(TownWorldSurface.PathOpacity(-.4f,false),Is.Zero);
         }
+        [Test] public void ConnectorStonesHaveTheSameScaleAcrossAndAlongTheRibbon()
+        {
+            // One atlas half is twice as tall as it is wide. Projected world distance
+            // is already aspect-correct, so a stone must keep its shape at a bend.
+            float across=2*TownWorldSurface.PathHalfWidth/(.5f-.004f);
+            float along=TownWorldSurface.PathTileLength/(1-.004f);
+            Assert.That(across/along,Is.InRange(.95f,1.05f),"The narrow source crop made connector stones much larger across the road");
+            Assert.That(TownWorldSurface.PathTileLength,Is.GreaterThan(.5f),"A few large painted stones must not repeat every short step");
+        }
+        [Test] public void LawnUsesTheWholeMaterialAndRemainsContinuousAcrossNegativeWorldTiles()
+        {
+            var a=TownWorldSurface.LawnUV(.12f,.21f);var b=TownWorldSurface.LawnUV(.22f,.235f);
+            Assert.That(TownWorldLayout.Distance(a,b),Is.GreaterThan(.04f),"The old .10 by .025 world crop repeated the same grass in a visible grid");
+            foreach(float edge in new[]{-2f,-1f,0f,1f,2f})
+            {
+                var left=TownWorldSurface.LawnUV(edge-.0001f,.31f);var right=TownWorldSurface.LawnUV(edge+.0001f,.31f);
+                Assert.That(TownWorldLayout.Distance(left,right),Is.LessThan(.001f),"Mirrored lawn tiles must meet at the same texels");
+                var below=TownWorldSurface.LawnUV(.31f,edge-.0001f);var above=TownWorldSurface.LawnUV(.31f,edge+.0001f);
+                Assert.That(TownWorldLayout.Distance(below,above),Is.LessThan(.001f));
+            }
+        }
+        [Test] public void LawnAndPavingStayInsideTheirOwnAtlasHalves()
+        {
+            foreach(float x in new[]{-2.7f,-1f,-.2f,0f,.5f,1f,2.7f})foreach(float y in new[]{-2.7f,-.2f,0f,.5f,1f,2.7f})
+            {
+                var lawn=TownWorldSurface.LawnUV(x,y);Assert.That(lawn.X,Is.InRange(.0019f,.4981f));Assert.That(lawn.Y,Is.InRange(.0019f,.9981f));
+            }
+            var left=TownWorldSurface.PavingUV(-1,0);var right=TownWorldSurface.PavingUV(1,1);
+            Assert.That(left.X,Is.InRange(.5019f,.5021f));Assert.That(right.X,Is.InRange(.9979f,.9981f));
+            Assert.That(right.Y-left.Y,Is.GreaterThan(.99f),"Use the complete paving panel instead of magnifying a small crop");
+        }
         [Test] public void DailyGreetingHasShortLinesAndNoStrandedQuestionMarkForAnyFriend()
         {
             var daily=new TownDailyService(new MemoryTownDailyStore(),new DateTime(2026,10,17));

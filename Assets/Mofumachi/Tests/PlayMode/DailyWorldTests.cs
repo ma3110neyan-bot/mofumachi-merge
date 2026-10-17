@@ -16,6 +16,9 @@ namespace Mofumachi.Tests
             yield return EnterHome();var world=Flow.GetComponentInChildren<TownContinuousWorldView>();Assert.That(world,Is.Not.Null);Assert.That(world.Model.Residents.Count,Is.EqualTo(6));
             Assert.That(Flow.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Street exit ")),Is.Zero);
             var fast=Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Region walk ")).ToArray();Assert.That(fast.Length,Is.EqualTo(3));Assert.That(fast.All(b=>b.GetComponentInChildren<Text>().text.Contains("すぐ移動")),Is.True);
+            var surface=Resources.Load<Texture2D>("Mofumachi/TownGardenSurface");Assert.That(surface,Is.Not.Null,"Connectors need their own full-size surface material, not a small crop from a painting");
+            Assert.That(Flow.GetComponentInChildren<TownGardenGroundGraphic>().mainTexture,Is.SameAs(surface));Assert.That(Flow.GetComponentInChildren<TownGardenPathGraphic>().mainTexture,Is.SameAs(surface),"Both meshes share one atlas rather than allocate material copies");
+            Assert.That(surface.width,Is.LessThanOrEqualTo(1024));Assert.That(surface.height,Is.LessThanOrEqualTo(1024));Assert.That(surface.isReadable,Is.False);
             fast.Single(b=>b.name=="Region walk East").onClick.Invoke();Assert.That(world.Model.Hero.Region,Is.EqualTo(TownRegionId.East));Assert.That(Flow.Daily.Data.Walks,Is.Zero,"Fast travel is not a completed daily walk");LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator ActualWalkingHasNoFadeAndDailyCountsOnlyItsCompletedArrival()

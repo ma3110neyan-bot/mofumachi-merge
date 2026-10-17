@@ -128,27 +128,27 @@ namespace Mofumachi.Presentation
             for(int y=0;y<Rows.Length-1;y++)for(int x=0;x<width-1;x++){int n=y*width+x;vh.AddTriangle(n,n+width,n+width+1);vh.AddTriangle(n,n+width+1,n+1);}
         }
     }
-    // Reuse a small clean lawn patch at its original world scale, mirrored at tile edges.
-    // The previous full-screen enlarged flower crop had no relationship to camera position.
+    // One large lawn panel per world tile. Mirroring joins its edges without
+    // stamping a tiny grass crop across the view; position is anchored to the world.
     [RequireComponent(typeof(CanvasRenderer))]
     public sealed class TownGardenGroundGraphic:MaskableGraphic
     {
         private TownContinuousWorldView world;private Texture2D texture;public override Texture mainTexture=>texture;
-        public void Bind(TownContinuousWorldView view){world=view;texture=Resources.Load<Texture2D>("Mofumachi/TownWestBackground");raycastTarget=false;SetVerticesDirty();}
+        public void Bind(TownContinuousWorldView view){world=view;texture=Resources.Load<Texture2D>(TownWorldSurface.AtlasResource);raycastTarget=false;SetVerticesDirty();}
         protected override void OnPopulateMesh(VertexHelper vh)
         {
             vh.Clear();if(world?.IsReady!=true||world.RenderScale<=0)return;
-            const float width=.10f,height=.025f;
+            const float width=TownWorldSurface.LawnTileWidth,height=TownWorldSurface.LawnTileHeight;
             float halfY=rectTransform.rect.height/(2*world.RenderScale*TownWorldLayout.ImageAspect);
             int left=Mathf.FloorToInt((world.Camera.Center.X-.6f)/width),right=Mathf.CeilToInt((world.Camera.Center.X+.6f)/width);
             int bottom=Mathf.FloorToInt((world.Camera.Center.Y-halfY)/height)-1,top=Mathf.CeilToInt((world.Camera.Center.Y+halfY)/height)+1;
             for(int y=bottom;y<top;y++)for(int x=left;x<right;x++)
             {
-                float u0=(x&1)==0?.65f:.75f,u1=(x&1)==0?.75f:.65f,v0=(y&1)==0?.32f:.345f,v1=(y&1)==0?.345f:.32f;int n=vh.currentVertCount;
-                vh.AddVert(world.Local(new TownPoint(x*width,y*height),rectTransform),Color.white,new Vector2(u0,v0));
-                vh.AddVert(world.Local(new TownPoint(x*width,(y+1)*height),rectTransform),Color.white,new Vector2(u0,v1));
-                vh.AddVert(world.Local(new TownPoint((x+1)*width,(y+1)*height),rectTransform),Color.white,new Vector2(u1,v1));
-                vh.AddVert(world.Local(new TownPoint((x+1)*width,y*height),rectTransform),Color.white,new Vector2(u1,v0));vh.AddTriangle(n,n+1,n+2);vh.AddTriangle(n,n+2,n+3);
+                var uv0=TownWorldSurface.LawnUV(x*width,y*height);var uv1=TownWorldSurface.LawnUV((x+1)*width,(y+1)*height);int n=vh.currentVertCount;
+                vh.AddVert(world.Local(new TownPoint(x*width,y*height),rectTransform),Color.white,new Vector2(uv0.X,uv0.Y));
+                vh.AddVert(world.Local(new TownPoint(x*width,(y+1)*height),rectTransform),Color.white,new Vector2(uv0.X,uv1.Y));
+                vh.AddVert(world.Local(new TownPoint((x+1)*width,(y+1)*height),rectTransform),Color.white,new Vector2(uv1.X,uv1.Y));
+                vh.AddVert(world.Local(new TownPoint((x+1)*width,y*height),rectTransform),Color.white,new Vector2(uv1.X,uv0.Y));vh.AddTriangle(n,n+1,n+2);vh.AddTriangle(n,n+2,n+3);
             }
         }
     }
@@ -160,7 +160,7 @@ namespace Mofumachi.Presentation
         private IReadOnlyList<TownPathSection> north,south;
         public override Texture mainTexture=>texture;
         public void Bind(TownContinuousWorldView view)
-        {world=view;texture=Resources.Load<Texture2D>("Mofumachi/TownBackground");north=TownWorldSurface.BuildPath(TownWorldLayout.NorthConnection);south=TownWorldSurface.BuildPath(TownWorldLayout.SouthConnection);raycastTarget=false;SetVerticesDirty();}
+        {world=view;texture=Resources.Load<Texture2D>(TownWorldSurface.AtlasResource);north=TownWorldSurface.BuildPath(TownWorldLayout.NorthConnection);south=TownWorldSurface.BuildPath(TownWorldLayout.SouthConnection);raycastTarget=false;SetVerticesDirty();}
         protected override void OnPopulateMesh(VertexHelper vh)
         {
             vh.Clear();if(world?.IsReady!=true)return;Draw(vh,north,true);Draw(vh,south,false);
@@ -174,8 +174,8 @@ namespace Mofumachi.Presentation
                 for(int band=0;band<4;band++)
                 {
                     float across=band==0?-outer:band==1?-half:band==2?half:outer;
-                    float u=band<2?.50f:.60f;var tint=Color.white;tint.a=band==0||band==3?0:alpha;
-                    vh.AddVert(world.Local(s.Point(across),rectTransform),tint,new Vector2(u,.15f+s.TextureV*.04f));
+                    var uv=TownWorldSurface.PavingUV(band<2?-1:1,s.TextureV);var tint=Color.white;tint.a=band==0||band==3?0:alpha;
+                    vh.AddVert(world.Local(s.Point(across),rectTransform),tint,new Vector2(uv.X,uv.Y));
                 }
                 if(i==0)continue;int previous=offset+(i-1)*4,current=offset+i*4;
                 for(int band=0;band<3;band++){int a=previous+band,b=current+band;vh.AddTriangle(a,b,b+1);vh.AddTriangle(a,b+1,a+1);}

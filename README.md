@@ -1,4 +1,4 @@
-> 2026-10-17実画面受入：`d5e0039` のWindows **Edit141／Play161全成功・skip0**、QA APK、36PNGを確認。ただし地域の接続描画は品質不合格のため、背景端・草地・園路と挨拶の改行を修正しました。Core125／純粋表示63成功、6DLLコンパイル警告・エラー0。**描画修正後のWindows／画像／APKは再取得待ち、Pixel未実施、main未統合です。** [画像の判定・修正・次の操作](docs/development-handoff-2026-10-17-daily-world-visual-acceptance.md) · [前回のテスト修正](docs/development-handoff-2026-10-17-daily-world-acceptance-fix.md)
+> 2026-10-17実画面再受入：`60f9c7f` のWindows **Edit141／Play161全成功・skip0**、QA APK、36PNGを確認。挨拶と硬い背景端は改善しましたが、草地の反復と石畳の縮尺が接続品質の条件に届かず、専用の接続面アトラス1枚とUVへ修正しました。Core125／純粋表示66成功、6DLLコンパイル警告・エラー0。**この素材修正版のWindows／実画像／APKは再取得待ち、Pixel未実施、main未統合です。** [画像の判定・修正・次の操作](docs/development-handoff-2026-10-17-daily-world-visual-acceptance.md) · [前回のテスト修正](docs/development-handoff-2026-10-17-daily-world-acceptance-fix.md)
 
 > 2026-10-16: 北／中央／南の連続フィールド、斜めMerge、キャラクター図鑑、今日のお願いを候補 `feat/daily-world-pass-20261016` に実装。[実装内容と実機確認項目](docs/development-handoff-2026-10-16-daily-world.md)。最新の受入状況は上記10月17日の記録を参照してください。
 

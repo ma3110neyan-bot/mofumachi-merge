@@ -10,14 +10,22 @@ namespace Mofumachi.Presentation
         public TownPathSection(TownPoint center,TownPoint normal,float distance)
         {
             Center=center;Normal=normal;Distance=distance;
-            float phase=distance/TownWorldSurface.PathTileLength%2;TextureV=phase<=1?phase:2-phase;
+            TextureV=TownWorldSurface.Mirror(distance/TownWorldSurface.PathTileLength);
         }
         public TownPoint Point(float across)=>new TownPoint(Center.X+Normal.X*across,Center.Y+Normal.Y*across);
     }
     // Display geometry only: never rewrites the navigation graph or camera state.
     public static class TownWorldSurface
     {
-        public const float PathTileLength=.14f,PathHalfWidth=.085f,PathFeather=.018f;
+        // The shared atlas is lawn on the left and paving on the right. Use the
+        // whole panels at the same texel scale, rather than magnify painting crops.
+        public const string AtlasResource="Mofumachi/TownGardenSurface";
+        public const float LawnTileWidth=1,LawnTileHeight=1;
+        public const float PathTileLength=.64f,PathHalfWidth=.16f,PathFeather=.025f;
+        public static TownPoint LawnUV(float x,float y)=>new TownPoint(.002f+Mirror(x/LawnTileWidth)*.496f,.002f+Mirror(y/LawnTileHeight)*.996f);
+        public static TownPoint PavingUV(float across,float v)=>new TownPoint(.502f+(across+1)*.248f,.002f+v*.996f);
+        internal static float Mirror(float value)
+        {float phase=value%2;if(phase<0)phase+=2;return phase<=1?phase:2-phase;}
         public static float PaintingOpacity(float x,float y)
         {
             if(!float.IsFinite(x)||!float.IsFinite(y))return 0;

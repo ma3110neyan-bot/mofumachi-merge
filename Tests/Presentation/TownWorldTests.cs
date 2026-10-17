@@ -61,6 +61,21 @@ namespace Mofumachi.Tests
             {t.Step(1f/30);for(int a=0;a<npcs.Length;a++){crossed|=npcs[a].Region!=starts[a];for(int b=a+1;b<npcs.Length;b++)if(npcs[a].Region==npcs[b].Region&&TownWorldLayout.Distance(npcs[a].Position,npcs[b].Position)<.09f)met=true;}}
             Assert.That(crossed,Is.True,"Residents never crossed: "+string.Join("; ",npcs.Select(n=>n.Id+":"+n.Region+" "+n.PlaceId+" "+n.Position.X+","+n.Position.Y)));Assert.That(met,Is.True,"Residents never met");
         }
+        [TestCase(0)] [TestCase(6)] public void NpcStepsStayWithinTheirWalkingBudgetIncludingArrivals(int level)
+        {
+            var town=new TownWorldWalkModel(level,"momo");var npcs=town.Residents.Where(a=>!a.Controlled).ToArray();
+            var previous=npcs.Select(a=>a.Position).ToArray();bool crossed=false;var initial=npcs.Select(a=>a.Region).ToArray();
+            for(int frame=0;frame<9000;frame++)
+            {
+                town.Step(1f/30);
+                for(int i=0;i<npcs.Length;i++)
+                {
+                    Assert.That(TownWorldLayout.Distance(previous[i],npcs[i].Position),Is.LessThanOrEqualTo(.047f/30+.00001f),npcs[i].Id+" at frame "+frame+" (including the final arrival step)");
+                    Assert.That(town.Area.Contains(npcs[i].Position),Is.True);crossed|=npcs[i].Region!=initial[i];previous[i]=npcs[i].Position;
+                }
+            }
+            Assert.That(crossed,Is.True,"NPCs must really cross a region boundary during this check");
+        }
         private static float Distance(TownPoint a,TownPoint b)=>(float)Math.Sqrt((a.X-b.X)*(a.X-b.X)+(a.Y-b.Y)*(a.Y-b.Y));
         [Test] public void MeetingPausesBothResidentsThenResumesTheirOriginalWalk()
         {

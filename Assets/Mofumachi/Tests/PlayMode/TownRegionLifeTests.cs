@@ -26,7 +26,10 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var npcs=life.World.Model.Residents.Where(a=>!a.Controlled).ToArray();
             var initial=npcs.Select(a=>a.Region).ToArray();var previous=npcs.Select(a=>a.Position).ToArray();bool crossed=false;
-            for(int i=0;i<9000&&!crossed;i++){life.AdvanceFrame(1f/30);for(int j=0;j<npcs.Length;j++){Assert.That(TownWorldLayout.Distance(previous[j],npcs[j].Position),Is.LessThanOrEqualTo(.00118f));crossed|=npcs[j].Region!=initial[j];previous[j]=npcs[j].Position;}}
+            // Area walking uses .047 world units/second; the old .00118 cap
+            // assumed the previous .035 speed. Keep a strict one-tick bound,
+            // including the actual region-crossing step and obstacle avoidance.
+            for(int i=0;i<9000&&!crossed;i++){life.AdvanceFrame(1f/30);for(int j=0;j<npcs.Length;j++){Assert.That(TownWorldLayout.Distance(previous[j],npcs[j].Position),Is.LessThanOrEqualTo(.047f/30+.00001f),npcs[j].Id+" frame "+i);Assert.That(life.World.Model.Area.Contains(npcs[j].Position),Is.True);crossed|=npcs[j].Region!=initial[j];previous[j]=npcs[j].Position;}}
             Assert.That(crossed,Is.True,"Residents must visit another region on the same connected paths");Assert.That(life.Actors.Count,Is.EqualTo(6));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator DifferentRegionsNeverConverseOrBlockEachOther()

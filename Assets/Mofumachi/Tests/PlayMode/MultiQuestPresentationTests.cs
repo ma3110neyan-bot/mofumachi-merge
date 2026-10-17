@@ -32,8 +32,10 @@ namespace Mofumachi.Tests
             Assert.That(icons.Select(i=>i.UvRect).Distinct().Count(),Is.EqualTo(9));
             var item=Flow.GetComponentsInChildren<MergeBoardView>()[3];
             item.OnBeginDrag(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current));
-            var ghost=GameObject.Find("Dragged tea").GetComponent<ItemGraphic>();
+            var lifted=GameObject.Find("Dragged tea");Assert.That(lifted,Is.Not.Null);
+            var ghost=lifted.GetComponentInChildren<ItemGraphic>();Assert.That(ghost,Is.Not.Null,"The lifted item is drawn above its separate contact shadow");
             Assert.That(ghost.ItemId,Is.EqualTo("bread"));Assert.That(ghost.Level,Is.EqualTo(1));
+            Assert.That(ghost.raycastTarget,Is.False);Assert.That(item.GetComponentInChildren<ItemGraphic>().enabled,Is.False,"Only the lifted copy should be visible during a drag");
             Assert.That(Flow.DropItem(0,3),Is.False);LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator DiscardCancelFailureAndStaleTargetConsumeNothing()

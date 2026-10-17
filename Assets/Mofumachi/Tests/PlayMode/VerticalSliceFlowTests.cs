@@ -199,10 +199,16 @@ namespace Mofumachi.Tests
             Assert.That(ui.CurrentScreen, Is.EqualTo(ScreenId.Merge));
             Assert.That(ui.CanInteractBoard, Is.True);
             Assert.That(ui.DropItem(0, 1), Is.True);
-            var lockedColor = ui.GetComponentsInChildren<MergeBoardView>()[1].GetComponent<UnityEngine.UI.Image>().color;
+            Assert.That(ui.Game.Board.IsLocked(1), Is.True);
+            Canvas.ForceUpdateCanvases();
+            var lockedColors = ui.GetComponentsInChildren<MergeBoardView>().Single(c=>c.name=="Cell 1").GetComponentInChildren<MergeCellSurfaceGraphic>().canvasRenderer.GetMesh().colors32;
+            Assert.That(lockedColors, Is.Not.Empty,"Inspect the rendered porcelain, not the invisible input rectangle");
             ui.SendMessage("OnApplicationPause", true);
             Assert.That(ui.Game.Board.IsLocked(1), Is.False);
-            Assert.That(ui.GetComponentsInChildren<MergeBoardView>()[1].GetComponent<UnityEngine.UI.Image>().color, Is.Not.EqualTo(lockedColor));
+            Canvas.ForceUpdateCanvases();
+            var unlockedColors=ui.GetComponentsInChildren<MergeBoardView>().Single(c=>c.name=="Cell 1").GetComponentInChildren<MergeCellSurfaceGraphic>().canvasRenderer.GetMesh().colors32;
+            Assert.That(unlockedColors, Is.Not.Empty);
+            Assert.That(unlockedColors, Is.Not.EqualTo(lockedColors),"The visible dish must leave its locked tint after pause unlocks the board");
             var drag = ui.GetComponentsInChildren<MergeBoardView>()[1];
             Assert.That(ui.IsAppPaused, Is.True);
             Assert.That(ui.CanInteractBoard, Is.False);

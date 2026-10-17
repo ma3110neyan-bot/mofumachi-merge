@@ -1,0 +1,79 @@
+{
+  "dateJst": "2026-10-18",
+  "status": "test repair candidate; Windows rerun and QA APK / Pixel pending",
+  "receivedRun": "20261018-081639-7d051b2d",
+  "receivedCommit": "not independently extracted from the uploaded XML or log",
+  "receivedFiles": {
+    "playmode.xml": {
+      "sha256": "0c040376276f0330d147c724891fe76d2b524dfba73a83a0c0cf1415dd794176",
+      "bytes": 141251
+    },
+    "playmode.log": {
+      "sha256": "d289955d170000d19527e04b759604ee8032486029a51bc20d4d395bdaa4024e",
+      "bytes": 259129
+    }
+  },
+  "receivedPlayMode": {
+    "total": 167,
+    "passed": 164,
+    "failed": 3,
+    "skipped": 0
+  },
+  "passedRequiredSuites": {
+    "DailyWorldTests": 10,
+    "MajorPolishTests": 6,
+    "ExperienceCaptureTests": 1
+  },
+  "repairs": [
+    {
+      "test": "AllItemKindsUseTheirOwnBoardAndDragArt",
+      "cause": "Drag visual now has a shadow container and a child ItemGraphic; direct root lookup returned null.",
+      "assertion": "Check lifted bread artwork ID/level, non-intercepting raycast and hidden source artwork."
+    },
+    {
+      "test": "PauseDuringMergeAndDragRebuildsUnlockedBoard",
+      "cause": "Input rectangle is now nearly transparent; visible locked tint belongs to porcelain mesh.",
+      "assertion": "Check nonempty rendered dish colors change when pause releases locks, with all prior pause/drag/save assertions retained."
+    },
+    {
+      "test": "NpcWalksBetweenRegionsWithoutAnEntryTeleport",
+      "cause": "Old .00118 per-tick cap assumed .035 world units/second; current area walker uses .047.",
+      "assertion": "Check .047/30+.00001 one-tick maximum and floor containment through actual region crossing.",
+      "reproducedOldBound": {
+        "character": "lulu",
+        "tick": 79,
+        "step": 0.00130558014,
+        "levels": [
+          0,
+          6
+        ]
+      },
+      "additionalRegression": "9000 steps each at levels0/6; every NPC stays within the one-tick cap and floor, with a region crossing required."
+    }
+  ],
+  "cloudVerification": {
+    "core": {
+      "passed": 125,
+      "failed": 0,
+      "skipped": 0
+    },
+    "presentation": {
+      "passed": 83,
+      "failed": 0,
+      "skipped": 0
+    },
+    "unityReferenceCompile": {
+      "assemblies": 6,
+      "errors": 0,
+      "warnings": 0,
+      "nativeExecution": false
+    }
+  },
+  "expectedWindowsDeclarationCounts": {
+    "editMode": 142,
+    "playMode": 167
+  },
+  "nativeTestsRemovedOrSkipped": false,
+  "productCodeAndBuildGatesChanged": false,
+  "mainMerged": false
+}

@@ -19,7 +19,7 @@ namespace Mofumachi.Presentation
             {
                 var region=(TownRegionId)i;
                 var column=UIWidgets.Node("Growth region column",root,new Rect(i/3f,0,1/3f,1));
-                buttons[i]=c.Widgets.Button("Growth region "+region,i==0?"西のカフェ":i==1?"中央の街":"東の工房",column,new Rect(0,0,1,1),()=>Show(region),true);
+                buttons[i]=c.Widgets.Button("Growth region "+region,i==0?"北エリア":i==1?"中央公園":"南エリア",column,new Rect(0,0,1,1),()=>Show(region),true);
                 UIWidgets.Top((RectTransform)buttons[i].transform,4,54,4,48);buttons[i].GetComponentInChildren<Text>().fontSize=14;
             }
             for(int i=0;i<2;i++)

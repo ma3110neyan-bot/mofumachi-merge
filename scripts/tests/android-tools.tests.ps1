@@ -28,6 +28,39 @@ try {
     Set-Content (Join-Path $WorkGit 'HEAD') 'ref: refs/heads/feat/town'
     if((Read-SourceRevision $Worktree) -ne $ShaB){throw 'Worktree common packed refs failed.'}
     Write-Host 'Source SHA checks passed (loose, packed, detached, worktree, changed revision rejected).'
+    $RealGit=Find-SourceGit;$CleanRepo=Join-Path $Temporary 'clean source'
+    New-Item -ItemType Directory -Path (Join-Path $CleanRepo 'Assets/Mofumachi') -Force | Out-Null
+    & $RealGit -C $CleanRepo init --quiet
+    if($LASTEXITCODE -ne 0){throw 'Could not create the isolated source fixture.'}
+    $ProductFile=Join-Path $CleanRepo 'Assets/Mofumachi/Fixture.cs';Set-Content -LiteralPath $ProductFile 'fixture'
+    & $RealGit -C $CleanRepo add -- Assets
+    & $RealGit -C $CleanRepo -c user.name=ScriptFixture -c user.email=fixture@example.invalid commit --quiet -m fixture
+    if($LASTEXITCODE -ne 0){throw 'Could not commit the isolated source fixture.'}
+    $Revision=Read-SourceRevision $CleanRepo;Assert-CleanProductSource $CleanRepo $RealGit;$Fingerprint=Get-ProductFingerprint $CleanRepo
+    Assert-ProductUnchanged $CleanRepo $Revision $Fingerprint
+    Set-Content -LiteralPath $ProductFile 'edited during acceptance'
+    Expect-Rejection {Assert-CleanProductSource $CleanRepo $RealGit};Expect-Rejection {Assert-ProductUnchanged $CleanRepo $Revision $Fingerprint}
+    & $RealGit -C $CleanRepo restore --worktree -- Assets
+    $Untracked=Join-Path $CleanRepo 'Assets/Mofumachi/New.cs';Set-Content -LiteralPath $Untracked 'untracked'
+    Expect-Rejection {Assert-CleanProductSource $CleanRepo $RealGit};Expect-Rejection {Assert-ProductUnchanged $CleanRepo $Revision $Fingerprint}
+    Remove-Item -LiteralPath $Untracked
+    New-Item -ItemType Directory -Path (Join-Path $CleanRepo 'Assets/Settings') -Force | Out-Null
+    Set-Content (Join-Path $CleanRepo 'Assets/Settings/Generated.asset') 'local Unity cache'
+    Assert-CleanProductSource $CleanRepo $RealGit;Assert-ProductUnchanged $CleanRepo $Revision $Fingerprint
+    Remove-Item -LiteralPath $ProductFile;Expect-Rejection {Assert-ProductUnchanged $CleanRepo $Revision $Fingerprint}
+    Write-Host 'Clean product and same-run fingerprint gates passed (isolated real Git fixture).'
+    $CaptureDir=Join-Path $Temporary 'screenshots';New-Item -ItemType Directory -Path $CaptureDir | Out-Null
+    Expect-Rejection {Assert-NativeCaptures $CaptureDir}
+    # Header-only fixtures exercise metadata gates, not Unity rendering or CRC.
+    [byte[]]$Header=137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,2,208,0,0,5,0,0
+    $Names=@('15-wide-park-left','15-wide-park-right','16-residents-passing-00','17-finger-follow-00','17-finger-released','18-continuous-walk-north','18-continuous-walk-central','18-continuous-walk-south','19-book-new-in-town','19-book-discovery-first-page')
+    $Names+=@(1..43 | ForEach-Object {'fixture-'+$_})
+    foreach($Name in $Names){[IO.File]::WriteAllBytes((Join-Path $CaptureDir ($Name+'.png')),$Header)}
+    Assert-NativeCaptures $CaptureDir
+    [IO.File]::WriteAllBytes((Join-Path $CaptureDir '17-finger-released.png'),[byte[]](0,1,2));Expect-Rejection {Assert-NativeCaptures $CaptureDir}
+    [IO.File]::WriteAllBytes((Join-Path $CaptureDir '17-finger-released.png'),$Header)
+    $WrongHeader=$Header.Clone();$WrongHeader[19]=0;[IO.File]::WriteAllBytes((Join-Path $CaptureDir '17-finger-released.png'),$WrongHeader);Expect-Rejection {Assert-NativeCaptures $CaptureDir}
+    Remove-Item (Join-Path $CaptureDir '19-book-new-in-town.png');Expect-Rejection {Assert-NativeCaptures $CaptureDir}
     # Exercise the real wrapper before the mocked installer commands below.
     # Windows PowerShell 5.1 turns redirected native stderr into ErrorRecords;
     # newer pwsh does not, so reproduce that legacy stream policy explicitly.
@@ -78,12 +111,17 @@ exit $Code
     }
     function Write-SuiteXml([int]$Total,[string[]]$Suites,[string]$Case='Passed',[int]$Declared=0) {
         if($Declared -eq 0){$Declared=$Total}
-        $Nodes=($Suites | ForEach-Object {"<test-suite name='$_' result='Passed'><test-case result='Passed'/></test-suite>"}) -join ''
-        $Extra=('<test-case result="Passed"/>'*($Total-$Suites.Count-1))+"<test-case result='$Case'/>"
+        $SuiteCases=0
+        $Nodes=foreach($Name in $Suites) {
+            $Count=if($Name -eq 'DailyWorldTests'){10}elseif($Name -eq 'MajorPolishTests'){6}else{1}
+            $SuiteCases+=$Count;"<test-suite name='$Name' result='Passed'>"+('<test-case result="Passed"/>'*$Count)+"</test-suite>"
+        }
+        $Nodes=$Nodes -join ''
+        $Extra=('<test-case result="Passed"/>'*($Total-$SuiteCases-1))+"<test-case result='$Case'/>"
         "<test-run result='Passed' total='$Declared' passed='$Declared' failed='0' skipped='0'>$Nodes$Extra</test-run>" | Set-Content $Xml
     }
-    $EditSuites=Read-GateSuites 'EditXml' 141;$PlaySuites=Read-GateSuites 'PlayXml' 161
-    foreach($Gate in @(@{Minimum=141;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests','TownPlaceCatalogTests','TownViewportTests','TownRegionCatalogTests','TownRegionJourneyTests','TownRegionContentTests')},@{Minimum=161;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests')})) {
+    $EditSuites=Read-GateSuites 'EditXml' 142;$PlaySuites=Read-GateSuites 'PlayXml' 167
+    foreach($Gate in @(@{Minimum=142;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests','TownPlaceCatalogTests','TownViewportTests','TownRegionCatalogTests','TownRegionJourneyTests','TownRegionContentTests')},@{Minimum=167;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests')})) {
         $Old=@($Gate.Suites | Where-Object {$_ -notin $Gate.New})
         Write-SuiteXml $Gate.Minimum $Old
         Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}
@@ -99,6 +137,14 @@ exit $Code
         Write-SuiteXml $Gate.Minimum $Gate.Suites;Assert-TestRun $Xml $Gate.Minimum $Gate.Suites
         foreach($BadCase in @('Skipped','Failed','Inconclusive')){Write-SuiteXml $Gate.Minimum $Gate.Suites $BadCase;Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}}
         Write-SuiteXml $Gate.Minimum $Gate.Suites -Declared ($Gate.Minimum+1);Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}
+    }
+    foreach($Name in @('DailyWorldTests','MajorPolishTests')) {
+        Write-SuiteXml 167 $PlaySuites
+        $Data=Get-Content -LiteralPath $Xml -Raw
+        $SuiteStart="<test-suite name='$Name' result='Passed'>"
+        $Data=$Data.Replace($SuiteStart+'<test-case result="Passed"/>','<test-case result="Passed"/>'+$SuiteStart)
+        $Data | Set-Content -LiteralPath $Xml
+        Expect-Rejection {Assert-TestRun $Xml 167 $PlaySuites}
     }
     Write-Host 'Chapter build gates passed (synthetic result XML, Unity tests not executed).'
     Expect-Rejection {Select-AuthorizedDevice 'List of devices attached' ''}

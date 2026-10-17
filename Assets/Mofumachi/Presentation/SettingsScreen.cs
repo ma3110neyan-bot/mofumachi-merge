@@ -36,6 +36,8 @@ namespace Mofumachi.Presentation
                 UIWidgets.Bottom((RectTransform)titleReturn.transform,28,68,28,48);
             }
             var back=w.Button("Return settings","戻る",root,new Rect(0,0,1,1),c.Flow.GoBack,true);UIWidgets.Bottom((RectTransform)back.transform,28,12,28,48);
+            var revision=Resources.Load<TextAsset>("Mofumachi/QaBuildRevision");
+            if(revision!=null){string sha=revision.text.Trim();var build=w.Label("QA build revision","街QA · "+(sha.Length>7?sha.Substring(0,7):sha),root,new Rect(0,0,1,1),9);UIWidgets.Bottom(build.rectTransform,20,0,20,10);}
         }
         private static Slider Row(RectTransform content,ScreenContext c,string name,float top,bool enabled,float volume,UnityEngine.Events.UnityAction toggle)
         {

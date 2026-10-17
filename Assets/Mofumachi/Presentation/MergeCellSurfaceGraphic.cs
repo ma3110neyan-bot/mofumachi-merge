@@ -29,14 +29,13 @@ namespace Mofumachi.Presentation
         }
         private static void Fill(VertexHelper vh,Rect r,float radius,Color bottom,Color top)
         {
-            if(r.width<=0||r.height<=0)return;float corner=Mathf.Min(radius,Mathf.Min(r.width,r.height)/2);
+            if(r.width<=0||r.height<=0)return;
             int start=vh.currentVertCount;vh.AddVert(r.center,Color.Lerp(bottom,top,.5f),Vector2.zero);
-            const int steps=6;int count=0;
-            for(int c=0;c<4;c++)
+            const int steps=40;int count=0;
+            for(int c=0;c<steps;c++)
             {
-                var center=new Vector2(c==0||c==3?r.xMax-corner:r.xMin+corner,c<2?r.yMax-corner:r.yMin+corner);
-                for(int k=0;k<=steps;k++)
-                {float a=(c*90+k*90f/steps)*Mathf.Deg2Rad;var p=center+new Vector2(Mathf.Cos(a),Mathf.Sin(a))*corner;vh.AddVert(p,Color.Lerp(bottom,top,Mathf.InverseLerp(r.yMin,r.yMax,p.y)),Vector2.zero);count++;}
+                float a=c*Mathf.PI*2/steps;var p=r.center+new Vector2(Mathf.Cos(a)*r.width*.5f,Mathf.Sin(a)*r.height*.5f);
+                vh.AddVert(p,Color.Lerp(bottom,top,Mathf.InverseLerp(r.yMin,r.yMax,p.y)),Vector2.zero);count++;
             }
             for(int i=1;i<=count;i++)vh.AddTriangle(start,start+i,start+(i==count?1:i+1));
         }

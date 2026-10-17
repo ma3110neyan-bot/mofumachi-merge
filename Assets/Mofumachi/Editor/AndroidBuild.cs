@@ -137,8 +137,16 @@ namespace Mofumachi.Editor
             Directory.CreateDirectory(Path.GetDirectoryName(output));
             // Publish this attempt only after success; an older APK is preserved on failure.
             string temporary = Path.Combine(Path.GetDirectoryName(output), "vertical-slice-" + Guid.NewGuid().ToString("N") + ".apk");
+            string stamp=Path.Combine(Application.dataPath,"Mofumachi/Resources/Mofumachi/QaBuildRevision.txt");bool wroteStamp=false;
             try
             {
+                if(qa)
+                {
+                    if(File.Exists(stamp))throw new BuildFailedException("A QA revision asset already exists; preserve it and inspect before building.");
+                    string revision=QaRevision(Environment.GetCommandLineArgs());
+                    File.WriteAllText(stamp,revision,new System.Text.UTF8Encoding(false));wroteStamp=true;
+                    AssetDatabase.ImportAsset("Assets/Mofumachi/Resources/Mofumachi/QaBuildRevision.txt",ImportAssetOptions.ForceSynchronousImport);
+                }
                 var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
                 {
                     scenes = Scenes, locationPathName = temporary, target = BuildTarget.Android,
@@ -150,7 +158,14 @@ namespace Mofumachi.Editor
                 else File.Move(temporary, output);
                 Debug.Log("MOFUMACHI_APK_SUCCESS " + output + " (" + new FileInfo(output).Length + " bytes)");
             }
-            finally { if (File.Exists(temporary)) File.Delete(temporary); }
+            finally { if (File.Exists(temporary)) File.Delete(temporary);if(wroteStamp)AssetDatabase.DeleteAsset("Assets/Mofumachi/Resources/Mofumachi/QaBuildRevision.txt"); }
+        }
+        public static string QaRevision(string[] args)
+        {
+            int index=Array.IndexOf(args,"-mofumachiRevision");
+            if(index<0){if(Application.isBatchMode)throw new BuildFailedException("Batch QA builds require -mofumachiRevision.");return "local";}
+            if(index+1>=args.Length||!System.Text.RegularExpressions.Regex.IsMatch(args[index+1],"^[a-fA-F0-9]{40}$"))throw new BuildFailedException("QA source revision must be a full SHA.");
+            return args[index+1].ToLowerInvariant();
         }
         private static string ResolveOutput(bool qa,string defaultFileName=null)
         {

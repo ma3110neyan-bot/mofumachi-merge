@@ -176,13 +176,14 @@ namespace Mofumachi.Presentation
         public void ShowHome() => Navigate("home");
         public void ShowQuest() => Navigate("quest");
         public void ShowMerge() => Navigate("merge");
-        public void ShowCharacterSelection()
+        public void ShowCharacterSelection()=>ShowCharacterBook(Game.State.favoriteCharacterId);
+        private void ShowCharacterBook(string characterId)
         {
             if(transitioning || IsModalOpen || !Game.State.purchaseNoticeAcknowledged)return;
             string returnView = CurrentScreen==ScreenId.Settings ? "settings" : "home";
             if(!Persist()){Render(view??"title");return;}
             selectionReturnView=returnView;
-            PreviewFavoriteId=CharacterCatalog.IsKnown(Game.State.favoriteCharacterId)?Game.State.favoriteCharacterId:"momo";
+            PreviewFavoriteId=CharacterCatalog.IsKnown(characterId)?characterId:"momo";
             Render("characterSelection");
         }
         public void PreviewFavorite(string id)
@@ -541,7 +542,13 @@ namespace Mofumachi.Presentation
         public void CloseToday(){if(modalKind==ModalKind.Today)CloseUtilityModal();}
         public void ClaimDaily()
         {if(modalKind!=ModalKind.Today)return;if(Daily.EnsureDay(System.DateTime.Now)&&Daily.Claim())PlayCue(AudioCue.Confirm);OpenUtilityModal(ModalKind.Today,TownTodayView.Build);}
-        public bool TalkToCharacter(string id){return Daily.EnsureDay(System.DateTime.Now)&&Daily.RecordTalk(id);}
+        public bool TalkToCharacter(string id)
+        {if(!CharacterCatalog.IsKnown(id))return false;int before=TownCharacterBook.For(id,Game.State,Daily.Data).Reactions;bool saved=Daily.EnsureDay(System.DateTime.Now)&&Daily.RecordTalk(id);if(saved)NotifyDiscovery(id,before);return saved;}
+        public void RecordCharacterOuting(string id)
+        {if(!CharacterCatalog.IsKnown(id))return;int before=TownCharacterBook.For(id,Game.State,Daily.Data).Reactions;if(Daily.EnsureDay(System.DateTime.Now)&&Daily.RecordOuting(id))NotifyDiscovery(id,before);}
+        private void NotifyDiscovery(string id,int before)
+        {if(CurrentScreen==ScreenId.Home&&page!=null&&TownCharacterBook.For(id,Game.State,Daily.Data).Reactions>before)TownDiscoveryNotice.Show((RectTransform)page.transform,context,id);}
+        public void OpenCharacterBook(string id){if(CharacterCatalog.IsKnown(id))ShowCharacterBook(id);}
         public void RecordWorldWalk(){if(Daily.EnsureDay(System.DateTime.Now))Daily.RecordWalk();}
         public void OpenShopPreview()
         {

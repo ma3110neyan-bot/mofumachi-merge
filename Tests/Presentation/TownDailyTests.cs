@@ -44,5 +44,24 @@ namespace Mofumachi.Tests
                 File.WriteAllText(store.Path,"broken auxiliary data");var recovered=store.Load();Assert.That(recovered.Merges,Is.EqualTo(1));Assert.That(File.ReadAllText(main),Is.EqualTo("main-save-must-stay-untouched"));
             }finally{Directory.Delete(dir,true);}
         }
+        [Test] public void WalkingDiscoversExpressionsWithoutInventingAConversationOrDailyReward()
+        {
+            var daily=New();var game=GameState.CreateInitial();string before=StateCodec.Encode(game);
+            Assert.That(daily.RecordOuting("noah"),Is.True);var entry=TownCharacterBook.For("noah",game,daily.Data);
+            Assert.That(entry.Reactions,Is.EqualTo(1));Assert.That(entry.IsNew,Is.True);Assert.That(entry.Meetings,Is.Zero);
+            Assert.That(daily.Data.Talks,Is.Zero);Assert.That(daily.ReadyToClaim,Is.False);
+            Assert.That(daily.MarkBookSeen("noah"),Is.True);Assert.That(TownCharacterBook.For("noah",game,daily.Data).IsNew,Is.False);
+            daily.RecordOuting("noah");daily.RecordOuting("noah");Assert.That(TownCharacterBook.For("noah",game,daily.Data).IsNew,Is.True);
+            Assert.That(StateCodec.Encode(game),Is.EqualTo(before));
+        }
+        [Test] public void OptionalCollectionFieldsLoadOldJournalsAndKeepDiscoveryAcknowledgementOnRestart()
+        {
+            var store=new MemoryTownDailyStore();var d=new TownDailyService(store,Day);d.RecordOuting("momo");d.MarkBookSeen("momo");
+            var reload=new TownDailyService(store,Day);Assert.That(TownCharacterBook.For("momo",GameState.CreateInitial(),reload.Data).IsNew,Is.False);
+            var old=System.Text.Encoding.UTF8.GetString(TownDailyCodec.Encode(d.Data));
+            old=System.Text.RegularExpressions.Regex.Replace(old,",?\"(?:Outings|SeenReactions)\":\\d+","");
+            var decoded=TownDailyCodec.Decode(System.Text.Encoding.UTF8.GetBytes(old));TownDailyCodec.Validate(decoded);
+            Assert.That(decoded.Characters.Single(c=>c.Id=="momo").Outings,Is.Zero);
+        }
     }
 }

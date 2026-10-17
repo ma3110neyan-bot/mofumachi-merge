@@ -29,7 +29,7 @@ namespace Mofumachi.Presentation
         public static float PaintingOpacity(float x,float y)
         {
             if(!float.IsFinite(x)||!float.IsFinite(y))return 0;
-            return Smooth(x/.09f)*Smooth((1-x)/.09f)*Smooth(y/.12f)*Smooth((1-y)/.12f);
+            return Smooth(y/.035f)*Smooth((1-y)/.035f);
         }
         public static float PathOpacity(float y,bool north)=>north?Smooth((y-.62f)/.1f)*Smooth((1.13f-y)/.1f):Smooth((y+.33f)/.1f)*Smooth((.17f-y)/.1f);
         private static float Smooth(float t){t=Math.Max(0,Math.Min(1,t));return t*t*(3-2*t);}

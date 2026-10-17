@@ -11,6 +11,8 @@ namespace Mofumachi.Presentation
     {
         [DataMember(IsRequired=true)] public string Id;
         [DataMember(IsRequired=true)] public int Meetings;
+        [DataMember(EmitDefaultValue=false)] public int Outings;
+        [DataMember(EmitDefaultValue=false)] public int SeenReactions;
         public TownCharacterVisit(string id){Id=id;}
     }
     [DataContract] public sealed class TownDailyData
@@ -31,6 +33,8 @@ namespace Mofumachi.Presentation
         public bool ShouldGreet=>!data.GreetingShown;
         public bool ReadyToClaim=>data.Merges>=3&&data.Talks>=1&&data.Walks>=1&&!data.Claimed;
         public int CompletedGoals=>(data.Merges>=3?1:0)+(data.Talks>=1?1:0)+(data.Walks>=1?1:0);
+        public int NewDiscoveryCount=>data.Characters.Count(c=>TownCharacterBook.ReactionCount(c.Meetings,c.Outings)>c.SeenReactions);
+        public string FirstNewDiscovery=>data.Characters.FirstOrDefault(c=>TownCharacterBook.ReactionCount(c.Meetings,c.Outings)>c.SeenReactions)?.Id;
         public string CharacterOfDay=>CharacterCatalog.All[(DayNumber()%6+6)%6].Id;
         public string Greeting=>CharacterCatalog.Find(CharacterOfDay).Name+"と、今日はどこへ？\nお話とおさんぽで、\n小さな発見を集めよう♪";
         public string NextGoal=>data.Claimed?"今日のお花を集めたよ♪ 仲間に会いに行こう":ReadyToClaim?"今日のお花を受け取ろう♪":data.Talks<1?"あと1会話で、仲間をもっと知ろう♪":data.Walks<1?"あと1おさんぽで、今日のお花へ♪":"あと"+(3-data.Merges)+"合成で、今日のお花へ♪";
@@ -49,6 +53,10 @@ namespace Mofumachi.Presentation
         public bool RecordWalk()=>Mutate(()=>{if(data.Walks>=1)return false;data.Walks=1;return true;});
         public bool RecordTalk(string id)=>Mutate(()=>
         {var c=data.Characters.FirstOrDefault(x=>x.Id==id);if(c==null)return false;c.Meetings=Math.Min(999999,c.Meetings+1);data.Talks=1;return true;});
+        public bool RecordOuting(string id)=>Mutate(()=>
+        {var c=data.Characters.FirstOrDefault(x=>x.Id==id);if(c==null||c.Outings>=999999)return false;c.Outings++;return true;});
+        public bool MarkBookSeen(string id)=>Mutate(()=>
+        {var c=data.Characters.FirstOrDefault(x=>x.Id==id);if(c==null)return false;int count=TownCharacterBook.ReactionCount(c.Meetings,c.Outings);if(c.SeenReactions>=count)return false;c.SeenReactions=count;return true;});
         public bool Claim()=>Mutate(()=>
         {if(!ReadyToClaim||data.Day.Length==0||data.DecorationDays.Contains(data.Day))return false;data.Claimed=true;data.DecorationDays.Add(data.Day);return true;});
         private bool Mutate(Func<bool> action)

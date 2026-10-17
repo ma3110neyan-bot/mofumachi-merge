@@ -17,7 +17,7 @@ namespace Mofumachi.Presentation
             const int strips=8;
             for(int i=0;i<strips;i++)
             {
-                float v=i/(float)strips,u=(i+1f)/strips;float low=r.width*.10f*v,high=r.width*.10f*u;
+                float v=i/(float)strips,u=(i+1f)/strips;float low=r.width*.12f*v,high=r.width*.12f*u;
                 Quad(vh,new Vector2(r.xMin+low,r.yMin+r.height*v),new Vector2(r.xMin+high,r.yMin+r.height*u),new Vector2(r.xMax-high,r.yMin+r.height*u),new Vector2(r.xMax-low,r.yMin+r.height*v),Color.white,new Vector2(0,v),new Vector2(1,u));
             }
         }

@@ -59,7 +59,7 @@ namespace Mofumachi.Tests
             var t=new TownWorldWalkModel(6,"momo");var npcs=t.Residents.Where(a=>!a.Controlled).ToArray();var starts=npcs.Select(a=>a.Region).ToArray();bool crossed=false,met=false;
             for(int i=0;i<9000;i++)
             {t.Step(1f/30);for(int a=0;a<npcs.Length;a++){crossed|=npcs[a].Region!=starts[a];for(int b=a+1;b<npcs.Length;b++)if(npcs[a].Region==npcs[b].Region&&TownWorldLayout.Distance(npcs[a].Position,npcs[b].Position)<.09f)met=true;}}
-            Assert.That(crossed,Is.True);Assert.That(met,Is.True);
+            Assert.That(crossed,Is.True,"Residents never crossed: "+string.Join("; ",npcs.Select(n=>n.Id+":"+n.Region+" "+n.PlaceId+" "+n.Position.X+","+n.Position.Y)));Assert.That(met,Is.True,"Residents never met");
         }
         private static float Distance(TownPoint a,TownPoint b)=>(float)Math.Sqrt((a.X-b.X)*(a.X-b.X)+(a.Y-b.Y)*(a.Y-b.Y));
         [Test] public void MeetingPausesBothResidentsThenResumesTheirOriginalWalk()

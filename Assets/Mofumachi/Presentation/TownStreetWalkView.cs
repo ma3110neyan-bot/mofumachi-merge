@@ -18,7 +18,9 @@ namespace Mofumachi.Presentation
             panel=c.Widgets.OrnatePanel("Street walking hint",(RectTransform)transform.parent,new Rect(0,0,1,1),UIWidgets.Cream,12).rectTransform;
             UIWidgets.Top(panel,16,142,16,48);
             hint=c.Widgets.Label("Street walking instruction","キャラをタップして、道を歩こう",panel,new Rect(.025f,.08f,.76f,.84f),12);
-            hint.rectTransform.anchorMax=new Vector2(.975f,.92f);panel.gameObject.SetActive(false);RefreshMarkers();
+            hint.rectTransform.anchorMax=new Vector2(.76f,.92f);
+            var book=c.Widgets.Button("Walking partner book","図鑑",panel,new Rect(.77f,0,.23f,1),()=>c.Flow.OpenCharacterBook(c.Game.State.favoriteCharacterId),true);book.GetComponentInChildren<Text>().fontSize=13;
+            panel.gameObject.SetActive(false);RefreshMarkers();
         }
         public bool Arm()
         {
@@ -26,13 +28,13 @@ namespace Mofumachi.Presentation
             life.StartInteraction();life.Regions.ReturnToHero();IsArmed=true;panel.gameObject.SetActive(true);
             var hero=life.Actors.Single(a=>a.Controlled);
             var ring=context.Widgets.Panel("Selected walking partner",(RectTransform)hero.transform,new Rect(-.12f,-.07f,1.24f,.19f),new Color(1,.84f,.39f,.72f));ring.radius=80;ring.decorated=false;ring.transform.SetAsFirstSibling();selection=ring.gameObject;
-            hint.text="道・花・ベンチ・出口をタップ♪";return true;
+            hint.text="道をタップ、または\nキャラを押したままおさんぽ♪";return true;
         }
         public void CancelSelection()
         {IsArmed=false;if(panel!=null)panel.gameObject.SetActive(false);if(selection!=null){selection.SetActive(false);Destroy(selection);}selection=null;if(hint!=null)hint.text="キャラをタップして、道を歩こう";}
         public bool Tap(TownPoint point)
         {
-            if(life.World?.IsReady==true){if(!IsArmed||!life.CanInteract)return false;bool walkingStarted=life.World.GuidePoint(point);if(walkingStarted)CancelSelection();else hint.text="石畳の道を選んでね♪";return walkingStarted;}
+            if(life.World?.IsReady==true){if(!life.CanInteract||life.IsManuallyDragging)return false;bool walkingStarted=life.World.GuidePoint(point);if(walkingStarted)CancelSelection();else hint.text="石畳や広場を選んでね♪";return walkingStarted;}
             if(!IsArmed||!life.CanInteract||life.Regions.ViewingRegion!=life.Regions.HeroRegion)return false;
             if(!TownStreetSelection.TryResolve(life.Regions.HeroRegion,life.TownLevel,point,out var target))
             {hint.text="石畳の道や、行き先を選んでね";return false;}

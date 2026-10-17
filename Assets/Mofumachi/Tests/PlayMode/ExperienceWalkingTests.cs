@@ -37,8 +37,8 @@ namespace Mofumachi.Tests
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var walking=life.GetComponent<TownStreetWalkView>();var hero=life.Actors.Single(a=>a.Controlled);
             walking.Arm();Assert.That(walking.Tap(new TownPoint(.95f,.95f)),Is.False);Assert.That(walking.IsArmed,Is.True);Assert.That(hero.IsGuided,Is.False);
             Assert.That(walking.Tap(new TownPoint(.53f,.49f)),Is.True);Walk(life);Assert.That(hero.IsGuided,Is.False);
-            Assert.That(TownStreetSelection.TryResolve(TownRegionId.Central,0,new TownPoint(.53f,.49f),out var target),Is.True);
-            Assert.That(Vector2.Distance(new Vector2(hero.Position.X,hero.Position.Y),new Vector2(target.Point.X,target.Point.Y)),Is.LessThan(.001f));LogAssert.NoUnexpectedReceived();
+            Assert.That(life.World.Model.Area.Contains(new TownPoint(.53f,.49f)),Is.True);
+            Assert.That(Vector2.Distance(new Vector2(hero.Position.X,hero.Position.Y),new Vector2(.53f,.49f)),Is.LessThan(.001f),"A valid floor tap keeps its position rather than snapping to a line");LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator PanningDoesNotBecomeATapAndPauseClearsSelection()
         {

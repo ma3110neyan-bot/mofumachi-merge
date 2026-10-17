@@ -20,7 +20,7 @@ namespace Mofumachi.Presentation
         public bool IsGuided { get; private set; }
         public TownPoint GuidedTarget=>guideTarget;
         public TownPlace Place {get;private set;} public string DestinationId=>Place?.Id;
-        public bool IsResting=>!Controlled&&(worldResident==null?waitRemaining>0:worldResident.Rest>0);
+        public bool IsResting=>worldResident==null?!Controlled&&waitRemaining>0:!worldResident.IsWalking&&worldResident.Rest>0;
         private const int GuidePointer=int.MinValue;
         private TownPoint guideTarget;
         private System.Collections.Generic.IReadOnlyList<TownPoint> walkRoute;
@@ -49,7 +49,7 @@ namespace Mofumachi.Presentation
         internal void BindWorld(TownWorldResident resident){worldResident=resident;ApplyWorldStep(0);}
         internal void ApplyWorldStep(float dt)
         {
-            if(worldResident==null)return;RegionId=worldResident.Region;IsGuided=worldResident.IsWalking;moving=worldResident.IsWalking&&worldResident.PauseRemaining<=0;
+            if(worldResident==null)return;RegionId=worldResident.Region;IsGuided=worldResident.IsWalking;moving=worldResident.IsWalking&&worldResident.PauseRemaining<=0&&TownWorldLayout.Distance(worldResident.Previous,worldResident.Position)>.000001f;
             facing=Mathf.MoveTowards(facing,worldResident.Facing,dt*6);stride=worldResident.Stride;waitRemaining=worldResident.Rest;
             TownRegionCatalog.TryFindPlace(worldResident.PlaceId,life.TownLevel,out _,out var place);Place=place;
         }
@@ -165,11 +165,11 @@ namespace Mofumachi.Presentation
         public void OnBeginDrag(PointerEventData e)
         {if(!Controlled||!life.CanInteract)return;if(!Movement.OwnedPointerId.HasValue)OnPointerDown(e);if(Movement.OwnedPointerId==e.pointerId){dragged=true;e.eligibleForClick=false;}}
         public void OnDrag(PointerEventData e)
-        {if(Controlled&&life.CanInteract&&Movement.OwnedPointerId==e.pointerId){dragged=true;if(worldResident!=null)life.World.GuidePoint(life.World.Source(e.position,e.pressEventCamera));else Movement.SetTarget(e.pointerId,life.Source(e.position,e.pressEventCamera));}}
+        {if(Controlled&&life.CanInteract&&Movement.OwnedPointerId==e.pointerId){dragged=true;if(worldResident!=null)life.World.FollowPointer(e.position,e.pressEventCamera);else Movement.SetTarget(e.pointerId,life.Source(e.position,e.pressEventCamera));}}
         public void OnEndDrag(PointerEventData e)=>Release(e);
         public void OnPointerUp(PointerEventData e)=>Release(e);
         private void Release(PointerEventData e)
-        {if(!Controlled||Movement.OwnedPointerId!=e.pointerId)return;Movement.ReleasePointer(e.pointerId);FreezeMovement();life.ActorReleased(this);if(dragged)e.eligibleForClick=false;}
+        {if(!Controlled||Movement.OwnedPointerId!=e.pointerId)return;Movement.ReleasePointer(e.pointerId);if(worldResident!=null&&dragged)life.World.ReleasePointer();FreezeMovement();life.ActorReleased(this);if(dragged)e.eligibleForClick=false;}
         public void OnPointerClick(PointerEventData e){if(!dragged){if(Controlled&&life.CanInteract)life.GetComponent<TownStreetWalkView>()?.Arm();else React();}}
         private void OnDisable(){Movement?.CancelInput();ResetVisual();dragged=false;}
     }

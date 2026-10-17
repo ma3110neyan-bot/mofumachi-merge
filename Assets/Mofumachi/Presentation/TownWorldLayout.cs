@@ -7,7 +7,7 @@ namespace Mofumachi.Presentation
     // Rendering coordinates only. Stable region/place IDs and savev3 remain unchanged.
     public static class TownWorldLayout
     {
-        public const float RegionSpacing=.9f,ArtHeight=.75f,ImageAspect=1798f/875f;
+        public const float RegionSpacing=.9f,ArtHeight=.75f,ImageAspect=1798f/875f,ViewWidth=.94f;
         public static float Origin(TownRegionId r)=>r==TownRegionId.West?RegionSpacing:r==TownRegionId.East?-RegionSpacing:0;
         public static string Name(TownRegionId r)=>r==TownRegionId.West?"北のカフェ":r==TownRegionId.East?"南の花の小道":"中央公園";
         public static TownPoint ToWorld(TownRegionId r,TownPoint p)=>new TownPoint(p.X,p.Y+Origin(r));
@@ -19,7 +19,7 @@ namespace Mofumachi.Presentation
             if(!Finite(a)||!Finite(b)||!float.IsFinite(viewportWidth)||viewportWidth<=0||!float.IsFinite(actorWidth)||actorWidth<=0)return false;
             // Match the field projection, including its taller vertical world units.
             // Residents can greet across a half-body gap without calling across the street.
-            float scale=viewportWidth/1.06f,dx=(a.X-b.X)*scale,dy=(a.Y-b.Y)*scale*ImageAspect;
+            float scale=viewportWidth/ViewWidth,dx=(a.X-b.X)*scale,dy=(a.Y-b.Y)*scale*ImageAspect;
             float reach=actorWidth*1.5f;
             return dx*dx+dy*dy<=reach*reach;
         }

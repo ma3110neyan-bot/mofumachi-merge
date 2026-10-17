@@ -73,7 +73,7 @@ namespace Mofumachi.Tests
                 Flow.ShowMerge();Capture(output,"02-merge-all-items");Flow.TapCell(0);Capture(output,"03-merge-selection");
                 foreach(int level in new[]{1,3,6})foreach(TownRegionId region in Enum.GetValues(typeof(TownRegionId)))
                 {
-                    Flow.Game.State.townGrowthLevel=level;Flow.ShowHome();var life=Flow.GetComponentInChildren<TownLifeView>();life.Regions.LookAtRegion(region);Canvas.ForceUpdateCanvases();
+                    Flow.Game.State.townGrowthLevel=level;Flow.ShowHome();var life=Flow.GetComponentInChildren<TownLifeView>();life.Regions.LookAtRegion(region);yield return null;Canvas.ForceUpdateCanvases();
                     Capture(output,"04-town-lv"+level+"-"+region);
                 }
                 Flow.ShowHome();var town=Flow.GetComponentInChildren<TownLifeView>();town.Regions.ReturnToHero();town.GetComponent<TownStreetWalkView>().Arm();Capture(output,"05-street-selected");
@@ -90,9 +90,33 @@ namespace Mofumachi.Tests
                 Flow.ShowHome();Flow.ShowToday();Capture(output,"11-today-start");Flow.CloseToday();
                 Flow.TalkToCharacter("lulu");Flow.Daily.RecordWalk();for(int n=0;n<3;n++)Flow.Daily.RecordMerge();Flow.ShowToday();Capture(output,"12-today-ready");Flow.ClaimDaily();Capture(output,"13-today-flower-collected");Flow.CloseToday();
                 Flow.Game.State.activeQuestId="";Flow.Game.State.completedQuestIds.Clear();Flow.Game.State.completedQuestIds.AddRange(QuestCatalog.All.Select(q=>q.Id));Flow.ShowHome();Flow.GetComponentInChildren<TownLifeView>().Regions.ReturnToHero();Capture(output,"14-finale-still-has-daily-goals");
+                // Major Polish: same native renderer, actual simulation and actual
+                // pointer handlers. These are fixture captures, never Pixel claims.
+                Flow.ShowHome();town=Flow.GetComponentInChildren<TownLifeView>();
+                foreach(var side in new[]{("left",new TownPoint(.15f,.55f)),("right",new TownPoint(.79f,.55f))})
+                {town.World.Model.Restore("momo",side.Item2);town.World.Camera.Jump(new TownPoint(.5f,.55f));town.World.Refresh();town.AdvanceFrame(1f/30);Capture(output,"15-wide-park-"+side.Item1);}
+                town.World.Model.Restore("momo",new TownPoint(.30f,.46f));town.World.Model.Restore("lulu",new TownPoint(.68f,.46f));town.World.Model.TryGuidePoint(new TownPoint(.72f,.50f));town.World.Model.TryGuide("lulu","bench-left");
+                for(int frame=0;frame<4;frame++){for(int step=0;step<30;step++)town.AdvanceFrame(1f/30);Capture(output,"16-residents-passing-"+frame.ToString("D2"));}
+                town.World.Model.FastTravel(TownRegionId.Central);town.AdvanceFrame(1f/30);EnsurePortraitCamera();
+                var controlled=town.Actors.Single(a=>a.Controlled);var drag=new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current){pointerId=777};
+                drag.pointerPressRaycast=new UnityEngine.EventSystems.RaycastResult{module=captureCanvas.GetComponent<GraphicRaycaster>()};
+                controlled.OnPointerDown(drag);controlled.OnBeginDrag(drag);
+                drag.position=RectTransformUtility.WorldToScreenPoint(captureCamera,town.transform.TransformPoint(town.World.Local(new TownPoint(.78f,.54f))));controlled.OnDrag(drag);
+                for(int frame=0;frame<3;frame++){for(int step=0;step<20;step++)town.AdvanceFrame(1f/30);Capture(output,"17-finger-follow-"+frame.ToString("D2"));}
+                controlled.OnPointerUp(drag);for(int step=0;step<15;step++)town.AdvanceFrame(1f/30);Capture(output,"17-finger-released");
+                town.World.FastTravel(TownRegionId.West);Assert.That(town.GuideToPlace("east.flowers"),Is.True);
+                var checkpoints=new[]{("north",1.40f),("north-join",.85f),("central",.48f),("south-join",.01f),("south",-.43f)};
+                foreach(var checkpoint in checkpoints)
+                {
+                    for(int step=0;step<6000&&town.World.Model.Hero.IsWalking&&town.World.Model.Hero.Position.Y>checkpoint.Item2;step++)town.AdvanceFrame(1f/30);
+                    Assert.That(town.World.Model.Hero.Position.Y,Is.LessThanOrEqualTo(checkpoint.Item2+.01f),checkpoint.Item1+" must be reached by walking");
+                    Capture(output,"18-continuous-walk-"+checkpoint.Item1);
+                }
+                Flow.ShowHome();Flow.TalkToCharacter("noah");Flow.TalkToCharacter("noah");Flow.TalkToCharacter("noah");Capture(output,"19-book-new-in-town");
+                Flow.OpenCharacterBook("noah");Capture(output,"19-book-discovery-first-page");
                 string[] art={"TownBackground","TownWestBackground","TownEastBackground","CharacterBodyAtlas","TownGrowthPropsAtlas","TownGardenSurface"};
                 File.WriteAllLines(Path.Combine(output,"texture-memory.txt"),art.Select(key=>key+": "+UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(Resources.Load<Texture2D>("Mofumachi/"+key))+" bytes"));
-                File.WriteAllText(Path.Combine(output,"README.txt"),"Actual Unity UGUI RenderTexture captures, 720x1280. Isolated test-only save state; not Pixel 3a captures. Lv1/Lv6 and item grid are fixture states, not claims of completed gameplay. Walking simulation is 30 Hz; captures are four ticks apart. North/Central/South reuse West/Central/East stable IDs. Today goals, book and finale are isolated fixture states, not evidence of actual daily play. Texture memory is asset residency in this Editor run, not Pixel RAM/FPS. Compare with the previous APK on Pixel for feel/performance.\n");
+                File.WriteAllText(Path.Combine(output,"README.txt"),"Actual Unity UGUI RenderTexture captures, 720x1280. Isolated test-only save state; not Pixel 3a captures. 53 PNG: original36 plus17major-polish views. Level/item/book states are fixtures, not claims of completed gameplay. 15wide-floor positions;16passing frames;17actual pointer-handler following/release;18north-through-central-to-south continuous simulation with camera following;19book discovery. 30Hz simulation, not measured device FPS. Stable region/place/save IDs retained. Texture memory is Editor asset residency, not Pixel RAM. Pixel save retention, audio, 10minuteplay and subjective quality still require acceptance.\n");
             }
             LogAssert.NoUnexpectedReceived();
         }

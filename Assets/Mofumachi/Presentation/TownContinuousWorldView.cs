@@ -22,7 +22,8 @@ namespace Mofumachi.Presentation
         private ScreenContext context;
         private TownGardenPathGraphic gardenPath;private TownGardenGroundGraphic gardenGround;private TownGrowthView growth;private TownAmbientGraphic ambient;
         private TownPoint surfaceCenter;private Vector2 surfaceSize;private bool surfaceReady;
-        internal float RenderScale=>original.rectTransform.rect.width/1.06f;
+        private bool trackingFinger;private Vector2 fingerScreen;private UnityEngine.Camera fingerCamera;
+        internal float RenderScale=>original.rectTransform.rect.width/TownWorldLayout.ViewWidth;
         public event Action<string,string,bool> Arrived;
         public void Bind(ScreenContext c,TownLifeView town)
         {
@@ -41,15 +42,23 @@ namespace Mofumachi.Presentation
             {var label=c.Widgets.NarrativeLabel("Painted road direction "+roadLabels.Count,sign.Item1,(RectTransform)life.transform,new Rect(.5f,.5f,0,0),13);label.rectTransform.sizeDelta=new Vector2(116,30);label.color=new Color(.34f,.22f,.24f);roadLabels.Add(label);}
             Model.Arrived+=OnArrival;Camera.Jump(new TownPoint(Model.Hero.Position.X,Model.Hero.Position.Y+.04f));Refresh();
         }
-        public void Step(float seconds){if(Model==null||!life.CanSimulate)return;Model.Step(seconds);foreach(var actor in life.Actors)actor.ApplyWorldStep(seconds);}
+        public void Step(float seconds)
+        {
+            if(Model==null||!life.CanSimulate)return;
+            if(trackingFinger&&life.IsManuallyDragging&&life.CanInteract)Model.FollowFinger(Source(fingerScreen,fingerCamera));
+            Model.Step(seconds);foreach(var actor in life.Actors)actor.ApplyWorldStep(seconds);
+        }
+        public bool FollowPointer(Vector2 screen,UnityEngine.Camera camera)
+        {if(!life.CanInteract||!life.IsManuallyDragging)return false;fingerScreen=screen;fingerCamera=camera;trackingFinger=true;FollowingHero=true;return Model.FollowFinger(Source(screen,camera));}
+        public void ReleasePointer(){trackingFinger=false;Model.ReleaseFinger();SyncActors();}
         public void AdvanceCamera(float seconds)
         {if(!IsReady||!life.CanSimulate)return;if(FollowingHero)Camera.Follow(new TownPoint(Model.Hero.Position.X,Model.Hero.Position.Y+.04f),seconds);Refresh();}
         private Vector2 Project(TownPoint p)
-        {var rect=original.rectTransform.rect;float scale=rect.width/1.06f;return rect.center+new Vector2((p.X-Camera.Center.X)*scale,(p.Y-Camera.Center.Y)*scale*TownWorldLayout.ImageAspect);}
+        {var rect=original.rectTransform.rect;float scale=RenderScale;return rect.center+new Vector2((p.X-Camera.Center.X)*scale,(p.Y-Camera.Center.Y)*scale*TownWorldLayout.ImageAspect);}
         public Vector2 Local(TownPoint world,RectTransform target=null)
         {return (target??(RectTransform)life.transform).InverseTransformPoint(original.rectTransform.TransformPoint(Project(world)));}
         public TownPoint Source(Vector2 screen,UnityEngine.Camera camera)
-        {if(!RectTransformUtility.ScreenPointToLocalPointInRectangle(original.rectTransform,screen,camera,out var p))return Model.Hero.Position;var r=original.rectTransform.rect;float scale=r.width/1.06f;return new TownPoint(Camera.Center.X+(p.x-r.center.x)/scale,Camera.Center.Y+(p.y-r.center.y)/(scale*TownWorldLayout.ImageAspect));}
+        {if(!RectTransformUtility.ScreenPointToLocalPointInRectangle(original.rectTransform,screen,camera,out var p))return Model.Hero.Position;var r=original.rectTransform.rect;float scale=RenderScale;return new TownPoint(Camera.Center.X+(p.x-r.center.x)/scale,Camera.Center.Y+(p.y-r.center.y)/(scale*TownWorldLayout.ImageAspect));}
         public bool GuidePoint(TownPoint point)
         {
             if(!life.CanInteract||!TownWorldLayout.Finite(point))return false;
@@ -62,21 +71,22 @@ namespace Mofumachi.Presentation
         public bool LookAt(TownRegionId region)
         {if(!life.CanInteract||!Enum.IsDefined(typeof(TownRegionId),region))return false;FollowingHero=false;Camera.Jump(TownWorldLayout.ToWorld(region,new TownPoint(.5f,.42f)));Refresh();return true;}
         public void ReturnToHero(){FollowingHero=true;Camera.Jump(new TownPoint(Model.Hero.Position.X,Model.Hero.Position.Y+.04f));Refresh();}
-        public void Pan(Vector2 delta){FollowingHero=false;float scale=original.rectTransform.rect.width/1.06f;Camera.Pan(-delta.x/scale,-delta.y/(scale*TownWorldLayout.ImageAspect));Refresh();}
-        public void CancelHero(){Model?.CancelHero();if(Model!=null)SyncActors();}
-        public void Freeze(){Model?.CancelHero();foreach(var actor in life.Actors)actor.ApplyWorldStep(0);}
+        public void Pan(Vector2 delta){FollowingHero=false;float scale=RenderScale;Camera.Pan(-delta.x/scale,-delta.y/(scale*TownWorldLayout.ImageAspect));Refresh();}
+        public void CancelHero(){trackingFinger=false;Model?.CancelHero();if(Model!=null)SyncActors();}
+        public void Freeze(){trackingFinger=false;Model?.CancelHero();foreach(var actor in life.Actors)actor.ApplyWorldStep(0);}
         private void OnArrival(string id,string placeId,bool walked)
         {
             var actor=life.Actors.Single(a=>a.CharacterId==id);actor.ApplyWorldStep(0);
             if(TownRegionCatalog.TryFindPlace(placeId,life.TownLevel,out _,out var place))
-            {actor.SetWorldPlace(place);if(actor.Controlled){life.SetGuidedDestination(place);life.ActorReleased(actor);}}
-            actor.Surprise();if(actor.Controlled&&walked)context.Flow.RecordWorldWalk();Arrived?.Invoke(id,placeId,walked);
+            {actor.SetWorldPlace(place);if(actor.Controlled)life.SetGuidedDestination(place);}
+            if(actor.Controlled)life.ActorReleased(actor);
+            actor.Surprise();if(actor.Controlled){if(walked)context.Flow.RecordWorldWalk();if(Model.Hero.DistanceWalked>=.14f)context.Flow.RecordCharacterOuting(id);}Arrived?.Invoke(id,placeId,walked);
         }
         private void SyncActors(){foreach(var actor in life.Actors)actor.ApplyWorldStep(0);}
         public void Refresh()
         {
             if(!IsReady||original==null||scenery==null)return;
-            var bounds=original.rectTransform.rect;float scale=bounds.width/1.06f;int i=0;
+            var bounds=original.rectTransform.rect;float scale=RenderScale;int i=0;
             foreach(TownRegionId region in Enum.GetValues(typeof(TownRegionId)))
             {
                 var tile=tiles[i++];var r=tile.rectTransform;r.pivot=new Vector2(.5f,0);r.anchoredPosition=Project(TownWorldLayout.ToWorld(region,new TownPoint(.5f,0)));
@@ -119,7 +129,7 @@ namespace Mofumachi.Presentation
     [RequireComponent(typeof(CanvasRenderer))]
     public sealed class TownPaintingGraphic:RawImage
     {
-        private static readonly float[] Columns={0,.04f,.09f,.5f,.91f,.96f,1},Rows={0,.04f,.12f,.5f,.88f,.96f,1};
+        private static readonly float[] Columns={0,.5f,1},Rows={0,.015f,.035f,.5f,.965f,.985f,1};
         protected override void OnPopulateMesh(VertexHelper vh)
         {
             vh.Clear();var r=GetPixelAdjustedRect();int width=Columns.Length;

@@ -25,7 +25,8 @@ namespace Mofumachi.Tests
             Assert.That(mesh.colors.Any(c=>c.a>0&&c.a<.3f),Is.True,"The shadow should be translucent.");
             Assert.That(cells[0].transform.Find("Item level badge"),Is.Not.Null);
             Assert.That(cells[0].transform.Find("Item contact shadow").GetComponent<Graphic>().raycastTarget,Is.False);
-            Assert.That(cells[0].GetComponent<RoundedPanelGraphic>().canvasRenderer.GetMesh().colors.Any(c=>c.r>.99f&&c.g>.99f&&c.b>.99f&&c.a>.4f&&c.a<.6f),Is.True,"A round seat retains its visible white highlight.");
+            var dish=cells[0].GetComponentInChildren<MergeCellSurfaceGraphic>();Assert.That(dish.canvasRenderer.GetMesh().colors.Any(c=>c.r>.99f&&c.g>.99f&&c.b>.99f&&c.a>.4f&&c.a<.8f),Is.True,"The oval dish retains its visible white highlight.");
+            Assert.That(cells[0].GetComponent<RoundedPanelGraphic>().color.a,Is.LessThan(.005f),"The input rectangle must not cover the oval dish with a flat seat");
             Assert.That(Flow.Game.State.mergeBoard.Count,Is.EqualTo(2));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator SelectionScalesOnlyTheItemAndDoesNotSave()

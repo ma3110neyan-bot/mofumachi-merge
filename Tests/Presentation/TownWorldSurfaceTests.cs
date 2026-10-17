@@ -6,12 +6,12 @@ namespace Mofumachi.Tests
 {
     public sealed class TownWorldSurfaceTests
     {
-        [Test] public void PaintingEdgesBlendIntoTheGardenButTheInteriorStaysOpaque()
+        [Test] public void PaintedTownFillsBothSidesAndOnlyTheVerticalJoinsBlend()
         {
             Assert.That(TownWorldSurface.PaintingOpacity(.5f,.5f),Is.EqualTo(1));
-            foreach(var p in new[]{(0f,.5f),(1f,.5f),(.5f,0f),(.5f,1f)})Assert.That(TownWorldSurface.PaintingOpacity(p.Item1,p.Item2),Is.Zero);
-            Assert.That(TownWorldSurface.PaintingOpacity(.03f,.5f),Is.InRange(.01f,.99f));
-            Assert.That(TownWorldSurface.PaintingOpacity(.5f,.04f),Is.InRange(.01f,.99f));
+            foreach(float x in new[]{0f,.03f,.5f,.97f,1f})Assert.That(TownWorldSurface.PaintingOpacity(x,.5f),Is.EqualTo(1),"Do not fade away benches/flowers at the sides");
+            Assert.That(TownWorldSurface.PaintingOpacity(.5f,0),Is.Zero);Assert.That(TownWorldSurface.PaintingOpacity(.5f,1),Is.Zero);
+            Assert.That(TownWorldSurface.PaintingOpacity(.5f,.02f),Is.InRange(.01f,.99f));
         }
         [Test] public void GardenPathsShareOneCrossSectionAtEveryBendAndKeepTexturePhaseContinuous()
         {

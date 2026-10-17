@@ -20,7 +20,7 @@ namespace Mofumachi.Presentation
         public static void Validate(TownDailyData d)
         {
             if(d==null||d.Version!=1||!Day(d.Day,true)||d.Merges<0||d.Merges>3||d.Talks<0||d.Talks>1||d.Walks<0||d.Walks>1||d.Characters==null||d.Characters.Count!=6||d.DecorationDays==null)throw new InvalidDataException("Invalid social journal");
-            if(d.Characters.Any(c=>c==null||!CharacterCatalog.IsKnown(c.Id)||c.Meetings<0||c.Meetings>999999)||d.Characters.Select(c=>c.Id).Distinct().Count()!=6||d.DecorationDays.Any(x=>!Day(x)||string.CompareOrdinal(x,d.Day)>0)||d.DecorationDays.Distinct().Count()!=d.DecorationDays.Count)throw new InvalidDataException("Invalid social collection");
+            if(d.Characters.Any(c=>c==null||!CharacterCatalog.IsKnown(c.Id)||c.Meetings<0||c.Meetings>999999||c.Outings<0||c.Outings>999999||c.SeenReactions<0||c.SeenReactions>3)||d.Characters.Select(c=>c.Id).Distinct().Count()!=6||d.DecorationDays.Any(x=>!Day(x)||string.CompareOrdinal(x,d.Day)>0)||d.DecorationDays.Distinct().Count()!=d.DecorationDays.Count)throw new InvalidDataException("Invalid social collection");
             if(d.Claimed&&(d.Merges<3||d.Talks<1||d.Walks<1||!d.DecorationDays.Contains(d.Day)))throw new InvalidDataException("Invalid daily claim");
         }
     }

@@ -9,7 +9,7 @@ namespace Mofumachi.Presentation
         public static void BuildResult(RectTransform root,ScreenContext c,DeliveryPresentation delivery)
         {
             var w=c.Widgets;w.Header(root,c,"納品／報酬");
-            var card=w.OrnatePanel("Delivery result",root,new Rect(0,0,1,1),UIWidgets.BlushPaper).rectTransform;card.offsetMin=new Vector2(14,130);card.offsetMax=new Vector2(-14,-78);card.gameObject.AddComponent<SoftReveal>();
+            var card=w.StoryPanel("Delivery result",root,new Rect(0,0,1,1)).rectTransform;card.offsetMin=new Vector2(14,130);card.offsetMax=new Vector2(-14,-78);card.gameObject.AddComponent<SoftReveal>();
             var title=w.StoryRibbon("Delivery title","納品完了！",card,new Rect(0,0,1,1),23);UIWidgets.Top((RectTransform)title.transform.parent,24,10,24,38);
             var conversation=UIWidgets.Node("Delivery conversation",card,new Rect(0,0,1,1));UIWidgets.Top(conversation,12,56,12,98);
             w.Body("Delivery requester",delivery.RequesterId,conversation,new Rect(.015f,.23f,.27f,.77f),CharacterExpression.Smile);

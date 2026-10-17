@@ -9,6 +9,12 @@ namespace Mofumachi.Tests
 {
     public sealed class AndroidBuildTests
     {
+        [Test] public void QaBuildStampRejectsAMissingOrMalformedSourceRevision()
+        {
+            string sha=new string('a',40);Assert.That(AndroidBuild.QaRevision(new[]{"-mofumachiRevision",sha}),Is.EqualTo(sha));
+            Assert.Throws<BuildFailedException>(()=>AndroidBuild.QaRevision(new[]{"-mofumachiRevision"}));
+            Assert.Throws<BuildFailedException>(()=>AndroidBuild.QaRevision(new[]{"-mofumachiRevision","19253e2"}));
+        }
         [Test]
         public void PixelBuildConfigurationIsPortraitArm64AndApk()
         {

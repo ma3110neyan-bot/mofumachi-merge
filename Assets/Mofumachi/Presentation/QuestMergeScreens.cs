@@ -60,7 +60,7 @@ namespace Mofumachi.Presentation
             }
             else w.StoryLabel("Merge complete hint",UIStrings.DeliveryHint(c.Game),progress,new Rect(.04f,.02f,.92f,.96f),14);
             var tray=w.Panel("Merge tray",root,new Rect(0,0,1,1),new Color(.92f,.79f,.64f)).rectTransform;tray.offsetMin=new Vector2(10,156);tray.offsetMax=new Vector2(-10,-124);
-            var traySurface=tray.GetComponent<RoundedPanelGraphic>();traySurface.shadowDepth=9;traySurface.gloss=.32f;traySurface.borderWidth=2;
+            var traySurface=tray.GetComponent<RoundedPanelGraphic>();traySurface.decorated=false;traySurface.color=Color.clear;
             var boardArt=UIWidgets.Node("Merge storybook board",tray,new Rect(0,0,1,1)).gameObject.AddComponent<PerspectiveBoardGraphic>();boardArt.raycastTarget=false;
             var grid=UIWidgets.Node("Merge board",tray,new Rect(0,0,1,1));grid.offsetMin=new Vector2(16,12);grid.offsetMax=new Vector2(-16,-22);
             var group=grid.gameObject.AddComponent<GridLayoutGroup>();group.constraint=GridLayoutGroup.Constraint.FixedColumnCount;group.constraintCount=5;group.spacing=new Vector2(4,4);group.childAlignment=TextAnchor.MiddleCenter;
@@ -72,6 +72,9 @@ namespace Mofumachi.Presentation
                 var surface=b.GetComponent<RoundedPanelGraphic>();surface.radius=100;surface.borderWidth=item==null?.5f:1f;surface.gloss=item==null?.16f:.4f;surface.shadowDepth=item==null?1:4;
                 surface.color=c.Game.Board.IsLocked(i)?new Color(1,.89f,.59f):index==c.Flow.SelectedCell?new Color(1,.74f,.82f):item==null?new Color(.98f,.93f,.84f,.84f):UIWidgets.Cream;
                 UIWidgets.Node("Cell porcelain dish",(RectTransform)b.transform,new Rect(0,0,1,1)).gameObject.AddComponent<MergeCellSurfaceGraphic>().Bind(surface.color);
+                // Keep one alpha byte for the raycast rectangle; a fully culled
+                // transparent mesh can be skipped by Unity's GraphicRaycaster.
+                surface.color=new Color(1,1,1,1f/255);surface.decorated=false;
                 if(index!=c.Flow.SelectedCell&&selectedItem!=null&&item!=null&&item.itemId==selectedItem.itemId&&item.level==selectedItem.level&&item.level<GameState.MaxLevel&&!c.Game.Board.IsLocked(index)&&!c.Game.Board.IsLocked(c.Flow.SelectedCell))
                     UIWidgets.Node("Merge candidate glow",(RectTransform)b.transform,new Rect(0,0,1,1)).gameObject.AddComponent<MergeSparkleGraphic>().BindMatch();
                 var drag=b.gameObject.AddComponent<MergeBoardView>();drag.Initialize(c.Flow,i);

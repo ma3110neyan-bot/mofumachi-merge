@@ -27,7 +27,7 @@ namespace Mofumachi.Tests
                 {
                     Assert.That(text.font,Is.EqualTo(text.name=="Partner description"?Resources.Load<Font>("Mofumachi/UIFontBody"):story),text.name);
                     Assert.That(text.resizeTextForBestFit,Is.False);
-                    Assert.That(text.lineSpacing,Is.EqualTo(text.name=="Partner description"?1.28f:1.2f));
+                    Assert.That(text.lineSpacing,Is.EqualTo(1.28f));
                     Assert.That(text.fontSize,Is.GreaterThanOrEqualTo(text.name.StartsWith("Candidate")?12:14));
                     Assert.That(text.preferredHeight,Is.LessThanOrEqualTo(text.rectTransform.rect.height+1),text.name);
                 }

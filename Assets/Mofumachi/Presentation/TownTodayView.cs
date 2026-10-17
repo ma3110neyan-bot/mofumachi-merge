@@ -8,14 +8,14 @@ namespace Mofumachi.Presentation
         {
             var w=c.Widgets;var daily=c.Flow.Daily;
             var overlay=w.Panel("Today overlay",root,new Rect(0,0,1,1),new Color(.25f,.17f,.26f,.48f)).rectTransform;overlay.GetComponent<RoundedPanelGraphic>().raycastTarget=true;
-            var card=w.OrnatePanel("Today storybook",overlay,new Rect(.5f,.5f,0,0),UIWidgets.BlushPaper,18).rectTransform;card.sizeDelta=new Vector2(Mathf.Min(340,root.rect.width-24),Mathf.Min(508,root.rect.height-24));
+            var card=w.StoryPanel("Today storybook",overlay,new Rect(.5f,.5f,0,0)).rectTransform;card.sizeDelta=new Vector2(Mathf.Min(340,root.rect.width-24),Mathf.Min(508,root.rect.height-24));
             var title=w.StoryRibbon("Today title","今日のもふまち",card,new Rect(0,0,1,1),18);UIWidgets.Top((RectTransform)title.transform.parent,18,12,18,36);
             var character=UIWidgets.Node("Today friend",card,new Rect(0,0,1,1));UIWidgets.Top(character,22,56,card.rect.width-102,82);w.Body("Today friend body",daily.CharacterOfDay,character,new Rect(0,0,1,1));
             var greeting=w.NarrativeLabel("Today greeting",daily.Greeting,card,new Rect(0,0,1,1),14);UIWidgets.Top(greeting.rectTransform,110,56,20,82);greeting.color=new Color(.38f,.23f,.31f);greeting.lineSpacing=1.28f;
             string[] names={"合成を3回","仲間とお話を1回","お隣の地域まで歩く"};int[] counts={daily.Data.Merges,daily.Data.Talks,daily.Data.Walks};int[] goals={3,1,1};
             for(int i=0;i<3;i++)
             {
-                var row=w.OrnatePanel("Today goal "+i,card,new Rect(0,0,1,1),counts[i]>=goals[i]?UIWidgets.BluePaper:UIWidgets.Cream,10).rectTransform;UIWidgets.Top(row,18,150+i*57,18,50);
+                var row=w.StoryPanel("Today goal "+i,card,new Rect(0,0,1,1)).rectTransform;row.GetComponent<RoundedPanelGraphic>().color=counts[i]>=goals[i]?UIWidgets.BluePaper:UIWidgets.StoryPaper;UIWidgets.Top(row,18,150+i*57,18,50);
                 w.Icon("Today goal flower "+i,UIIcon.Flower,row,new Rect(.035f,.24f,.10f,.52f));
                 w.NarrativeLabel("Today goal name "+i,names[i],row,new Rect(.16f,.13f,.66f,.74f),14);
                 w.Heading("Today goal count "+i,counts[i]+"/"+goals[i],row,new Rect(.82f,.13f,.15f,.74f),14);

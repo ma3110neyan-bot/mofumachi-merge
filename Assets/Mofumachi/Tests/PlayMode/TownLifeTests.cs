@@ -104,7 +104,8 @@ namespace Mofumachi.Tests
             int meetings=Flow.Daily.Data.Characters.Single(c=>c.Id==npc.CharacterId).Meetings;
             npc.React();
             Assert.That(Flow.Daily.Data.Characters.Single(c=>c.Id==npc.CharacterId).Meetings,Is.EqualTo(meetings+1));
-            Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"&&t.text.StartsWith(CharacterCatalog.Find(npc.CharacterId).Name+"：")),Is.True,"The tapped resident must actually speak");
+            Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Speaker name"&&t.text==CharacterCatalog.Find(npc.CharacterId).Name),Is.True,"The speaker's own name plate must identify the tapped resident");
+            Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"&&t.text.Length>0),Is.True,"The tapped resident must actually speak");
             life.AdvanceFrame(.1f);Assert.That(npc.GetComponentInChildren<CharacterBodyGraphic>().Expression,Is.EqualTo(CharacterExpression.Smile));
             Assert.That(npc.VisualRoot.anchoredPosition.y,Is.GreaterThan(3));
             var hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);

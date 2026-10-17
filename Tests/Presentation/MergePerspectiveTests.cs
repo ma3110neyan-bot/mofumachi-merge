@@ -15,5 +15,12 @@ namespace Mofumachi.Tests
         }
         [Test] public void InvalidIndexDoesNotAliasAnotherBoardCell()
         {Assert.Throws<System.ArgumentOutOfRangeException>(()=>MergePerspective.Cell(-1,300,322));Assert.Throws<System.ArgumentOutOfRangeException>(()=>MergePerspective.Cell(30,300,322));}
+        [Test] public void RearRowsAreVisiblyNarrowerAndShallowerWhileCompactTargetsStayUsable()
+        {
+            var rear=MergePerspective.Cell(0,328,390);var front=MergePerspective.Cell(25,328,390);
+            Assert.That(rear.Width/front.Width,Is.LessThanOrEqualTo(.81f),"The old 14% width change remained visually frontal");
+            Assert.That(rear.Height,Is.LessThan(front.Height));Assert.That(MergePerspective.ArtScale(0),Is.LessThanOrEqualTo(.84f));
+            foreach(int i in Enumerable.Range(0,30)){var r=MergePerspective.Cell(i,256,308);Assert.That(r.Width,Is.GreaterThanOrEqualTo(48));Assert.That(r.Height,Is.GreaterThanOrEqualTo(48));}
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace Mofumachi.Presentation
     {
         public static readonly Color Ink = new Color(.32f,.18f,.29f), Pink=new Color(1,.52f,.70f), Cream=new Color(1,.988f,.945f), Mint=new Color(.54f,.86f,.74f), Sky=new Color(.67f,.88f,1);
         public static readonly Color BlushPaper=new Color(1,.965f,.975f), BluePaper=new Color(.945f,.985f,1), Lavender=new Color(.83f,.76f,.98f), Peach=new Color(1,.78f,.62f);
+        public static readonly Color StoryPaper=new Color(1,.977f,.914f),RosePaper=new Color(.98f,.79f,.81f),StoryInk=new Color(.36f,.24f,.29f);
         private readonly Font font,bold,story,bodyFont; private readonly Texture2D characters;
         public UIWidgets(Font font, Texture2D characters) { this.font=font; this.characters=characters; bold=Resources.Load<Font>("Mofumachi/UIFontBold")??font; story=Resources.Load<Font>("Mofumachi/UIFontStory")??font;bodyFont=Resources.Load<Font>("Mofumachi/UIFontBody")??story; }
         public static RectTransform Node(string name, RectTransform parent, Rect anchors)
@@ -22,11 +23,13 @@ namespace Mofumachi.Presentation
         { var g=Node("Floral gold frame",parent,new Rect(0,0,1,1)).gameObject.AddComponent<DecorativeFrameGraphic>();g.cornerSize=cornerSize;g.showCorners=corners;g.raycastTarget=false;return g; }
         public RoundedPanelGraphic OrnatePanel(string name,RectTransform parent,Rect anchors,Color? color=null,float cornerSize=36)
         { var p=Panel(name,parent,anchors,color);Frame(p.rectTransform,cornerSize);return p; }
+        public RoundedPanelGraphic StoryPanel(string name,RectTransform parent,Rect anchors,bool speech=false)
+        {var p=Panel(name,parent,anchors,StoryPaper);p.radius=12;p.gloss=.035f;p.borderWidth=1;p.shadowDepth=3;Node("Story paper grain",p.rectTransform,new Rect(0,0,1,1)).gameObject.AddComponent<StoryPaperGraphic>().Speech=speech;return p;}
         public RectTransform ScrollPaper(string name,RectTransform parent,float bottom,float top,float minimumHeight,Color tint)
         {
             var viewport=Node(name+" viewport",parent,new Rect(0,0,1,1));viewport.offsetMin=new Vector2(14,bottom);viewport.offsetMax=new Vector2(-14,-top);
             viewport.gameObject.AddComponent<RectMask2D>();var capture=viewport.gameObject.AddComponent<Image>();capture.color=Color.clear;
-            var paper=OrnatePanel(name,viewport,new Rect(0,0,1,1),tint).rectTransform;paper.pivot=new Vector2(.5f,1);Top(paper,0,0,0,minimumHeight);
+            var paper=StoryPanel(name,viewport,new Rect(0,0,1,1)).rectTransform;paper.pivot=new Vector2(.5f,1);Top(paper,0,0,0,minimumHeight);
             var scroll=viewport.gameObject.AddComponent<ScrollRect>();scroll.viewport=viewport;scroll.content=paper;scroll.horizontal=false;scroll.movementType=ScrollRect.MovementType.Clamped;
             viewport.gameObject.AddComponent<PaperViewportLayout>().Bind(paper,minimumHeight);return paper;
         }
@@ -42,13 +45,13 @@ namespace Mofumachi.Presentation
         public Text Heading(string name,string text,RectTransform parent,Rect anchors,int fontSize)
         { var t=Label(name,text,parent,anchors,fontSize);t.font=bold;var shadow=t.gameObject.AddComponent<Shadow>();shadow.effectColor=new Color(.84f,.65f,.33f,.35f);shadow.effectDistance=new Vector2(0,-.6f);return t; }
         public Text StoryLabel(string name,string text,RectTransform parent,Rect anchors,int fontSize)
-        { var t=Label(name,text,parent,anchors,fontSize);t.font=story;t.lineSpacing=1.2f;return t; }
+        { var t=Label(name,text,parent,anchors,fontSize);t.font=story;t.lineSpacing=1.28f;t.color=StoryInk;return t; }
         public Text StoryHeading(string name,string text,RectTransform parent,Rect anchors,int fontSize)
         { return StoryLabel(name,text,parent,anchors,fontSize); }
         public Text NarrativeLabel(string name,string text,RectTransform parent,Rect anchors,int fontSize)
-        {var t=Label(name,text,parent,anchors,fontSize);t.font=bodyFont;t.lineSpacing=1.2f;return t;}
+        {var t=Label(name,text,parent,anchors,fontSize);t.font=bodyFont;t.lineSpacing=1.28f;t.color=StoryInk;return t;}
         public Text StoryRibbon(string name,string text,RectTransform parent,Rect anchors,int fontSize,Color? tint=null)
-        { var r=Node(name+" ribbon",parent,anchors);var g=r.gameObject.AddComponent<RibbonGraphic>();g.color=tint??Pink;g.raycastTarget=false;return StoryHeading(name,text,r,new Rect(.09f,.04f,.82f,.92f),fontSize); }
+        { var r=Node(name+" ribbon",parent,anchors);var g=r.gameObject.AddComponent<RibbonGraphic>();g.color=tint??RosePaper;g.raycastTarget=false;return StoryHeading(name,text,r,new Rect(.09f,.04f,.82f,.92f),fontSize); }
         public void Flowers(RectTransform panel)
         { Icon("Flower left",UIIcon.Flower,panel,new Rect(.015f,.81f,.08f,.16f));Icon("Flower right",UIIcon.Flower,panel,new Rect(.905f,.025f,.08f,.16f)); }
         public Button Button(string name,string text,RectTransform parent,Rect anchors,UnityAction action,bool secondary=false)

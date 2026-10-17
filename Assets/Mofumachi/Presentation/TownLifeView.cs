@@ -172,8 +172,11 @@ namespace Mofumachi.Presentation
         {string reunion=QuestStoryPresentation.ReunionFor(actor.CharacterId,context.Game.State.completedQuestIds);var visits=context.Flow.Daily.Data.Characters.First(c=>c.Id==actor.CharacterId).Meetings;return reunion.Length>0&&visits%3==1?reunion:TownCharacterDialogue.For(actor.CharacterId,visits);}
         private void ShowBubble(string text,TownActor a)
         {
-            HideBubble();speaker=a;var root=(RectTransform)transform.parent;var p=context.Widgets.OrnatePanel("Town bubble panel",root,new Rect(.5f,.5f,0,0),UIWidgets.Cream,12).rectTransform;p.sizeDelta=new Vector2(Mathf.Min(272,root.rect.width-28),88);
-            context.Widgets.NarrativeLabel("Town bubble",text,p,new Rect(.045f,.06f,.91f,.88f),14);bubble=p.gameObject;bubbleUntil=now+4;PositionBubble();
+            HideBubble();speaker=a;var root=(RectTransform)transform.parent;var p=context.Widgets.StoryPanel("Town bubble panel",root,new Rect(.5f,.5f,0,0),true).rectTransform;p.sizeDelta=new Vector2(Mathf.Min(288,root.rect.width-28),116);
+            string who=CharacterCatalog.Find(a.CharacterId).Name;if(text.StartsWith(who+"：",StringComparison.Ordinal))text=text.Substring(who.Length+1);
+            var name=context.Widgets.Panel("Speaker name plate",p,new Rect(.05f,.70f,.36f,.24f),UIWidgets.RosePaper);name.radius=8;name.gloss=.05f;
+            context.Widgets.StoryHeading("Speaker name",who,name.rectTransform,new Rect(.04f,0,.92f,1),14);
+            context.Widgets.NarrativeLabel("Town bubble",text,p,new Rect(.07f,.09f,.86f,.58f),15);bubble=p.gameObject;bubbleUntil=now+4;PositionBubble();
         }
         private void PositionBubble()
         {

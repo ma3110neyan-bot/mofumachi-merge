@@ -1,4 +1,4 @@
-> 2026-10-17: Daily WorldのWindows PlayModeは **158成功／3失敗／skip0** を受領。連続カメラの退避形式とNPC会話距離の原因2つを修正しました。Core125／純粋表示59成功、6DLLコンパイル警告・エラー0。**修正後のWindows再試験・新PNG／APK・Pixel受入待ち、main未統合です。** [原因・修正・次の操作](docs/development-handoff-2026-10-17-daily-world-acceptance-fix.md)
+> 2026-10-17再試験：Daily WorldのWindows PlayModeは **160成功／1失敗／skip0**。前回の3失敗は全成功しました。残るNPC表情テストは、接続道にいる画面外のNPCをタップする旧前提を修正。本人が見える状態で笑顔・動作・台詞・会話記録を検査します。Core125／純粋表示59成功、6DLLコンパイル警告・エラー0。**修正後のWindows再試験・新PNG／APK・Pixel受入待ち、main未統合です。** [原因・修正・次の操作](docs/development-handoff-2026-10-17-daily-world-acceptance-fix.md)
 
 > 2026-10-16: 北／中央／南の連続フィールド、斜めMerge、キャラクター図鑑、今日のお願いを候補 `feat/daily-world-pass-20261016` に実装。[実装内容と実機確認項目](docs/development-handoff-2026-10-16-daily-world.md)。最新の受入状況は上記10月17日の記録を参照してください。
 

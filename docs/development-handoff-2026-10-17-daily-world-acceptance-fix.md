@@ -1,5 +1,7 @@
 # 2026-10-17 Daily World受入・3件の失敗への対応
 
+> 最新の再試験は `4cb3631` 対象、**160成功／1失敗／skip0**。下記の旧3失敗はすべて成功しました。残るNPC表情テストの修正は末尾の「再試験で残った1件」を参照してください。全件合格・APK・Pixelはまだ保留です。
+
 対象は引き続き **`feat/daily-world-pass-20261016`** です。`0799138` 候補のWindows失敗を受け、製品側の原因2つを修正しました。追加機能、main統合、公開AAB作成は行っていません。
 
 **修正版のWindows全件実行・新QA APK・Pixel受入は未実施です。** クラウド検証の成功を、Windowsや実機の成功として扱いません。
@@ -67,3 +69,23 @@ powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\build-a
 全件Passed／failed0／skip0、必須suite（DailyWorld10・地域・QualityPass・Experience）、36枚の実Unity画像、同じ実行のAPK・SHAを確認してからPixelを更新します。packageIdは `com.mofumachi.merge.qa.townlife`。アンインストールやデータ削除は行いません。
 
 Pixelでは通常歩行とカメラ接続、設定／Back／pause、NPC会話と再開、斜めMerge、図鑑・今日のお願い・1日1回の花、BGM、保存保持・コアループ・再起動・10分試遊を確認します。実画面の楽しさや継ぎ目も未評価です。**main統合は引き続き保留**します。
+
+## 再試験で残った1件
+
+ユーザーが `4cb3631` を確認後に実行した `20261017-094530-05ca1e11` のXML／ログを受領しました。EditModeは141成功の画面表示、PlayMode XMLは **161件・160成功／1失敗／skip0** です。前回の設定復帰・NPC会話2件はすべて成功。DailyWorld10、地域、QualityPass、Experience suiteも全成功でした。APKはPlayMode失敗により未生成です。
+
+残る失敗は `TownLifeTests.NpcsVisitSeveralStreetStopsWithoutChangingProgress` の `Expected: Smile / But was: Normal`（旧90行目）。120秒散歩した同じNPCへ、地域の中心にカメラを向けただけでタップするテストになっていました。
+
+実際の散歩モデルと画面の投影を使った診断では、360×740の縦画面で対象フィオは120秒後に北への接続道 `(0.286, 0.830)` 付近にいます。所属判定は北ですが、地域中心カメラはY=1.320のため、キャラは表示範囲外です。`TownActor.React` は画面外入力を正常に拒否し、表情は通常のままとなります。この診断は純粋モデルであり、修正版Unity実行の代用ではありません。
+
+今回の変更は **TownLifeTests.csだけ**です。製品の入力・会話・表情・保存処理は変更していません。
+
+- 他の実機向けテストと同じ360×740／Safe Areaを固定し、EditorのGameビュー寸法による差を除きます。
+- 120秒の散歩、3か所以上の訪問、保存不変の検査を維持します。
+- 同じNPCを動かさず、カメラをその現在位置へ向けてからタップします。NPCの位置不変と、身体全体が街の表示内に入ることも検査します。
+- 笑顔・上下動の検査を維持し、タップ直後の本人の吹き出しと会話記録+1を追加します。表情を強制設定せず、通常の反応処理を通します。
+- 後半のベンチ／噴水／花への実移動、6行き先、48以上の操作領域、到着、pause、保存不変の検査も維持します。
+
+今回もCore125／純粋Presentation59成功、6アセンブリのUnity参照コンパイルは警告・エラー0。宣言構成は141／161（DailyWorld10）のままです。**このテスト修正後のWindows実行は未実施**で、同じ一括コマンドを最初から再実行してください。両XML・36PNG・新APK・build-infoを新しい同一日時フォルダーで揃えます。
+
+最新の機械可読記録は [daily-world-acceptance-retest-2026-10-17.json](verification/daily-world-acceptance-retest-2026-10-17.json)。main統合、旧APKの流用、Pixel更新は保留です。

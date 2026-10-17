@@ -78,7 +78,11 @@ namespace Mofumachi.Tests
         }
         [UnityTest] public IEnumerator NpcsVisitSeveralStreetStopsWithoutChangingProgress()
         {
-            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var npc=Flow.GetComponentsInChildren<TownActor>().First(a=>!a.Controlled&&a.RegionVisible);
+            yield return EnterHome();
+            // Keep real actor visibility independent of the Editor's current Game view.
+            var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;((RectTransform)canvas.transform).sizeDelta=new Vector2(360,740);
+            Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,740),new Rect(0,24,360,684));Canvas.ForceUpdateCanvases();
+            var life=Flow.GetComponentInChildren<TownLifeView>();life.World.Refresh();var npc=life.Actors.First(a=>!a.Controlled&&a.RegionVisible);
             int writes=Store.Writes;string before=StateCodec.Encode(Flow.Game.State);var visited=new System.Collections.Generic.HashSet<string>();
             for(int i=0;i<1200;i++)
             {
@@ -87,7 +91,21 @@ namespace Mofumachi.Tests
                 for(int j=0;j<stops.Count;j++)if(Vector2.Distance(new Vector2(npc.Position.X,npc.Position.Y),new Vector2(stops[j].X,stops[j].Y))<.004f)visited.Add(npc.RegionId+":"+j);
             }
             Assert.That(visited.Count,Is.GreaterThanOrEqualTo(3));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));Assert.That(Store.Writes,Is.EqualTo(writes));
-            life.Regions.LookAtRegion(npc.RegionId);npc.React();life.AdvanceFrame(.1f);Assert.That(npc.GetComponentInChildren<CharacterBodyGraphic>().Expression,Is.EqualTo(CharacterExpression.Smile));
+            Assert.That(life.Regions.LookAtRegion(npc.RegionId),Is.True);
+            // A resident can still be on a connecting road, outside the region-center
+            // camera. Frame its actual position without relocating or stopping it.
+            var npcPosition=npc.WorldPosition;life.World.Camera.Jump(npcPosition);life.World.Refresh();
+            Assert.That(TownWorldLayout.Distance(npcPosition,npc.WorldPosition),Is.LessThan(.0001f),"Framing must not move the resident");
+            life.AdvanceFrame(1f/30); // Render at the new camera before attempting the tap.
+            Assert.That(npc.RegionVisible,Is.True,"Tap only a resident actually visible to the camera");
+            var bounds=((RectTransform)life.transform).rect;var corners=new Vector3[4];npc.GetComponentInChildren<CharacterBodyGraphic>().rectTransform.GetWorldCorners(corners);
+            Assert.That(corners.All(p=>bounds.Contains(life.transform.InverseTransformPoint(p))),Is.True,"The rendered body must fit inside the town viewport");
+            Assert.That(Vector2.Distance(((RectTransform)npc.transform).anchoredPosition,life.World.Local(npc.WorldPosition)),Is.LessThan(.001f));
+            int meetings=Flow.Daily.Data.Characters.Single(c=>c.Id==npc.CharacterId).Meetings;
+            npc.React();
+            Assert.That(Flow.Daily.Data.Characters.Single(c=>c.Id==npc.CharacterId).Meetings,Is.EqualTo(meetings+1));
+            Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"&&t.text.StartsWith(CharacterCatalog.Find(npc.CharacterId).Name+"：")),Is.True,"The tapped resident must actually speak");
+            life.AdvanceFrame(.1f);Assert.That(npc.GetComponentInChildren<CharacterBodyGraphic>().Expression,Is.EqualTo(CharacterExpression.Smile));
             Assert.That(npc.VisualRoot.anchoredPosition.y,Is.GreaterThan(3));
             var hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);
             life.Regions.ReturnToHero();

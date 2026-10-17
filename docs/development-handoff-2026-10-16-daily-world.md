@@ -1,6 +1,6 @@
 # 2026-10-16 北・中央・南／毎日の交流候補
 
-> 10月17日追記：Windows PlayModeは158成功／3失敗／skip0でした。連続カメラ退避・NPC会話距離を修正し、全件再試験待ちです。最新状況は[受入修正と次の操作](development-handoff-2026-10-17-daily-world-acceptance-fix.md)。以下は実装時点の履歴です。
+> 10月17日再試験：Windows PlayModeは160成功／1失敗／skip0。連続カメラ退避・NPC会話距離の旧3失敗は成功しました。残るNPC表情テストのカメラ前提を修正し、全件再試験待ちです。最新状況は[受入修正と次の操作](development-handoff-2026-10-17-daily-world-acceptance-fix.md)。以下は実装時点の履歴です。
 
 対象ブランチは **`feat/daily-world-pass-20261016`**。基準は `bccb869`、製品コードの検証対象は `f86c9df`。この資料の追加後も製品コードは同一です。mainと前候補は変更していません。
 

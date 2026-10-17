@@ -32,7 +32,7 @@ namespace Mofumachi.Presentation
         public bool ReadyToClaim=>data.Merges>=3&&data.Talks>=1&&data.Walks>=1&&!data.Claimed;
         public int CompletedGoals=>(data.Merges>=3?1:0)+(data.Talks>=1?1:0)+(data.Walks>=1?1:0);
         public string CharacterOfDay=>CharacterCatalog.All[(DayNumber()%6+6)%6].Id;
-        public string Greeting=>CharacterCatalog.Find(CharacterOfDay).Name+"と、今日はどこへ行こう？\nお話とおさんぽで、小さな発見を集めよう♪";
+        public string Greeting=>CharacterCatalog.Find(CharacterOfDay).Name+"と、今日はどこへ？\nお話とおさんぽで、\n小さな発見を集めよう♪";
         public string NextGoal=>data.Claimed?"今日のお花を集めたよ♪ 仲間に会いに行こう":ReadyToClaim?"今日のお花を受け取ろう♪":data.Talks<1?"あと1会話で、仲間をもっと知ろう♪":data.Walks<1?"あと1おさんぽで、今日のお花へ♪":"あと"+(3-data.Merges)+"合成で、今日のお花へ♪";
         public TownDailyService(ITownDailyStore store,DateTime today)
         {this.store=store??throw new ArgumentNullException(nameof(store));data=store.Load();TownDailyCodec.Validate(data);EnsureDay(today);}

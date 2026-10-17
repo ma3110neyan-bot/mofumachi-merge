@@ -43,6 +43,7 @@ namespace Mofumachi.Tests
             yield return EnterHome();Flow.Game.State.activeQuestId="";Flow.Game.State.completedQuestIds.AddRange(QuestCatalog.All.Select(q=>q.Id));Flow.Game.State.townGrowthLevel=6;Flow.ShowHome();int writes=Store.Writes;string before=StateCodec.Encode(Flow.Game.State);
             Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Home quest").onClick.Invoke();Assert.That(Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Claim today flower").interactable,Is.False);Flow.CloseToday();
             for(int i=0;i<3;i++)Flow.Daily.RecordMerge();Flow.TalkToCharacter("lulu");Flow.Daily.RecordWalk();Flow.ShowToday();
+            Canvas.ForceUpdateCanvases();var greeting=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Today greeting");Assert.That(greeting.preferredHeight,Is.LessThanOrEqualTo(greeting.rectTransform.rect.height+1),"All three greeting lines must fit the friend column");
             var claim=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Claim today flower");Assert.That(claim.interactable,Is.True);claim.onClick.Invoke();Assert.That(Flow.Daily.Data.Claimed,Is.True);Assert.That(Flow.Daily.Data.DecorationDays.Count,Is.EqualTo(1));
             Assert.That(Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Claim today flower").interactable,Is.False);Flow.CloseToday();Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));LogAssert.NoUnexpectedReceived();
         }

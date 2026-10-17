@@ -20,18 +20,20 @@ namespace Mofumachi.Presentation
         private readonly List<Text> roadLabels=new List<Text>();
         private static readonly TownPoint[] SignPoints={new TownPoint(.13f,.72f),new TownPoint(.52f,.32f),new TownPoint(.94f,1.45f),new TownPoint(.09f,-.40f)};
         private ScreenContext context;
-        private TownGardenPathGraphic gardenPath;private TownGrowthView growth;private TownAmbientGraphic ambient;
+        private TownGardenPathGraphic gardenPath;private TownGardenGroundGraphic gardenGround;private TownGrowthView growth;private TownAmbientGraphic ambient;
+        private TownPoint surfaceCenter;private Vector2 surfaceSize;private bool surfaceReady;
+        internal float RenderScale=>original.rectTransform.rect.width/1.06f;
         public event Action<string,string,bool> Arrived;
         public void Bind(ScreenContext c,TownLifeView town)
         {
             context=c;life=town;original=town.Background;Model=new TownWorldWalkModel(town.TownLevel,c.Game.State.favoriteCharacterId);
             scenery=UIWidgets.Node("Continuous town scenery",(RectTransform)original.transform.parent,new Rect(0,0,1,1));scenery.SetSiblingIndex(original.transform.GetSiblingIndex()+1);
-            var garden=scenery.gameObject.AddComponent<RawImage>();garden.texture=Resources.Load<Texture2D>("Mofumachi/TownBackground");garden.uvRect=new Rect(.015f,.05f,.13f,.24f);garden.raycastTarget=false;
+            gardenGround=scenery.gameObject.AddComponent<TownGardenGroundGraphic>();gardenGround.Bind(this);
             original.enabled=false;var cover=original.GetComponent<BackgroundCover>();if(cover!=null)cover.enabled=false;
             foreach(TownRegionId region in Enum.GetValues(typeof(TownRegionId)))
             {
                 var r=UIWidgets.Node("Continuous background "+region,scenery,new Rect(.5f,.5f,0,0));
-                var image=r.gameObject.AddComponent<RawImage>();image.texture=Resources.Load<Texture2D>(TownRegionCatalog.ForLevel(region,0).BackgroundResource);image.uvRect=new Rect(0,0,1,TownWorldLayout.ArtHeight);image.raycastTarget=false;tiles.Add(image);
+                var image=r.gameObject.AddComponent<TownPaintingGraphic>();image.texture=Resources.Load<Texture2D>(TownRegionCatalog.ForLevel(region,0).BackgroundResource);image.uvRect=new Rect(0,0,1,TownWorldLayout.ArtHeight);image.raycastTarget=false;tiles.Add(image);
             }
             var path=UIWidgets.Node("Continuous connecting garden paths",scenery,new Rect(0,0,1,1)).gameObject.AddComponent<TownGardenPathGraphic>();path.Bind(this);gardenPath=path;
             foreach(var actor in life.Actors)actor.BindWorld(Model.Residents.Single(r=>r.Id==actor.CharacterId));
@@ -84,7 +86,8 @@ namespace Mofumachi.Presentation
             foreach(var actor in life.Actors)
             {var p=Local(actor.WorldPosition);var r=((RectTransform)life.transform).rect;actor.SetRegionVisible(p.x>r.xMin-64&&p.x<r.xMax+64&&p.y>r.yMin-90&&p.y<r.yMax+90);}
             var viewing=TownWorldLayout.RegionAt(Camera.Center);life.Regions.NotifyWorldRegion(viewing);
-            gardenPath?.SetVerticesDirty();
+            if(!surfaceReady||!surfaceCenter.Equals(Camera.Center)||surfaceSize!=bounds.size)
+            {gardenGround?.SetVerticesDirty();gardenPath?.SetVerticesDirty();surfaceCenter=Camera.Center;surfaceSize=bounds.size;surfaceReady=true;}
             var actorBounds=((RectTransform)life.transform).rect;
             for(int sign=0;sign<roadLabels.Count;sign++){var at=Local(SignPoints[sign]);roadLabels[sign].rectTransform.anchoredPosition=new Vector2(Mathf.Clamp(at.x,actorBounds.xMin+66,actorBounds.xMax-66),at.y+24);roadLabels[sign].gameObject.SetActive(at.y>actorBounds.yMin+160&&at.y<actorBounds.yMax-142);}
             int count=Math.Min(6,context.Flow.Daily.Data.DecorationDays.Count);
@@ -112,22 +115,70 @@ namespace Mofumachi.Presentation
         public string[] Ids {get;} public TownPoint[] Positions {get;} public string[] Places {get;} public TownPoint Center {get;} public bool Follow {get;} public string FavoriteId {get;}
         public TownWorldSnapshot(string[] ids,TownPoint[] positions,string[] places,TownPoint center,bool follow,string favorite){FavoriteId=favorite;Ids=ids;Positions=positions;Places=places;Center=center;Follow=follow;}
     }
-    // Reuses a stone patch from the formal painting; no destructive image edits or extra texture.
+    // Preserve each painting's interior; only its boundary blends into the shared garden.
+    [RequireComponent(typeof(CanvasRenderer))]
+    public sealed class TownPaintingGraphic:RawImage
+    {
+        private static readonly float[] Columns={0,.04f,.09f,.5f,.91f,.96f,1},Rows={0,.04f,.12f,.5f,.88f,.96f,1};
+        protected override void OnPopulateMesh(VertexHelper vh)
+        {
+            vh.Clear();var r=GetPixelAdjustedRect();int width=Columns.Length;
+            foreach(float y in Rows)foreach(float x in Columns)
+            {var tint=color;tint.a*=TownWorldSurface.PaintingOpacity(x,y);vh.AddVert(new Vector2(r.xMin+x*r.width,r.yMin+y*r.height),tint,new Vector2(uvRect.x+x*uvRect.width,uvRect.y+y*uvRect.height));}
+            for(int y=0;y<Rows.Length-1;y++)for(int x=0;x<width-1;x++){int n=y*width+x;vh.AddTriangle(n,n+width,n+width+1);vh.AddTriangle(n,n+width+1,n+1);}
+        }
+    }
+    // Reuse a small clean lawn patch at its original world scale, mirrored at tile edges.
+    // The previous full-screen enlarged flower crop had no relationship to camera position.
+    [RequireComponent(typeof(CanvasRenderer))]
+    public sealed class TownGardenGroundGraphic:MaskableGraphic
+    {
+        private TownContinuousWorldView world;private Texture2D texture;public override Texture mainTexture=>texture;
+        public void Bind(TownContinuousWorldView view){world=view;texture=Resources.Load<Texture2D>("Mofumachi/TownWestBackground");raycastTarget=false;SetVerticesDirty();}
+        protected override void OnPopulateMesh(VertexHelper vh)
+        {
+            vh.Clear();if(world?.IsReady!=true||world.RenderScale<=0)return;
+            const float width=.10f,height=.025f;
+            float halfY=rectTransform.rect.height/(2*world.RenderScale*TownWorldLayout.ImageAspect);
+            int left=Mathf.FloorToInt((world.Camera.Center.X-.6f)/width),right=Mathf.CeilToInt((world.Camera.Center.X+.6f)/width);
+            int bottom=Mathf.FloorToInt((world.Camera.Center.Y-halfY)/height)-1,top=Mathf.CeilToInt((world.Camera.Center.Y+halfY)/height)+1;
+            for(int y=bottom;y<top;y++)for(int x=left;x<right;x++)
+            {
+                float u0=(x&1)==0?.65f:.75f,u1=(x&1)==0?.75f:.65f,v0=(y&1)==0?.32f:.345f,v1=(y&1)==0?.345f:.32f;int n=vh.currentVertCount;
+                vh.AddVert(world.Local(new TownPoint(x*width,y*height),rectTransform),Color.white,new Vector2(u0,v0));
+                vh.AddVert(world.Local(new TownPoint(x*width,(y+1)*height),rectTransform),Color.white,new Vector2(u0,v1));
+                vh.AddVert(world.Local(new TownPoint((x+1)*width,(y+1)*height),rectTransform),Color.white,new Vector2(u1,v1));
+                vh.AddVert(world.Local(new TownPoint((x+1)*width,y*height),rectTransform),Color.white,new Vector2(u1,v0));vh.AddTriangle(n,n+1,n+2);vh.AddTriangle(n,n+2,n+3);
+            }
+        }
+    }
+    // One joined ribbon per route. UV phase follows distance, never restarts at a bend.
     [RequireComponent(typeof(CanvasRenderer))]
     public sealed class TownGardenPathGraphic : MaskableGraphic
     {
         private TownContinuousWorldView world;private Texture2D texture;
+        private IReadOnlyList<TownPathSection> north,south;
         public override Texture mainTexture=>texture;
-        public void Bind(TownContinuousWorldView view){world=view;texture=Resources.Load<Texture2D>("Mofumachi/TownBackground");raycastTarget=false;SetVerticesDirty();}
+        public void Bind(TownContinuousWorldView view)
+        {world=view;texture=Resources.Load<Texture2D>("Mofumachi/TownBackground");north=TownWorldSurface.BuildPath(TownWorldLayout.NorthConnection);south=TownWorldSurface.BuildPath(TownWorldLayout.SouthConnection);raycastTarget=false;SetVerticesDirty();}
         protected override void OnPopulateMesh(VertexHelper vh)
         {
-            vh.Clear();if(world==null||!world.IsReady)return;
-            foreach(var path in new[]{TownWorldLayout.NorthConnection,TownWorldLayout.SouthConnection})
-            for(int i=1;i<path.Length;i++)
+            vh.Clear();if(world?.IsReady!=true)return;Draw(vh,north,true);Draw(vh,south,false);
+        }
+        private void Draw(VertexHelper vh,IReadOnlyList<TownPathSection> sections,bool isNorth)
+        {
+            float half=TownWorldSurface.PathHalfWidth,outer=half+TownWorldSurface.PathFeather;int offset=vh.currentVertCount;
+            for(int i=0;i<sections.Count;i++)
             {
-                var a=world.Local(path[i-1],rectTransform);var b=world.Local(path[i],rectTransform);var direction=(b-a).normalized;var normal=new Vector2(-direction.y,direction.x)*rectTransform.rect.width*.073f;
-                int n=vh.currentVertCount;var color=new Color(1,1,1,.98f);
-                vh.AddVert(a-normal,color,new Vector2(.36f,.07f));vh.AddVert(a+normal,color,new Vector2(.62f,.07f));vh.AddVert(b+normal,color,new Vector2(.62f,.24f));vh.AddVert(b-normal,color,new Vector2(.36f,.24f));vh.AddTriangle(n,n+1,n+2);vh.AddTriangle(n,n+2,n+3);
+                var s=sections[i];float alpha=TownWorldSurface.PathOpacity(s.Center.Y,isNorth);
+                for(int band=0;band<4;band++)
+                {
+                    float across=band==0?-outer:band==1?-half:band==2?half:outer;
+                    float u=band<2?.50f:.60f;var tint=Color.white;tint.a=band==0||band==3?0:alpha;
+                    vh.AddVert(world.Local(s.Point(across),rectTransform),tint,new Vector2(u,.15f+s.TextureV*.04f));
+                }
+                if(i==0)continue;int previous=offset+(i-1)*4,current=offset+i*4;
+                for(int band=0;band<3;band++){int a=previous+band,b=current+band;vh.AddTriangle(a,b,b+1);vh.AddTriangle(a,b+1,a+1);}
             }
         }
     }

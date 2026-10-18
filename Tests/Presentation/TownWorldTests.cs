@@ -7,7 +7,7 @@ namespace Mofumachi.Tests
 {
     public sealed class TownWorldTests
     {
-        [Test] public void NorthAndSouthReuseStableIdsOnOneVerticalCoordinateSystem()
+        [Test] public void LegacyRegionTransformsKeepTheirVerticalCoordinatesAndRoundTrip()
         {
             var p=new TownPoint(.4f,.5f);
             var north=TownWorldLayout.ToWorld(TownRegionId.West,p);var center=TownWorldLayout.ToWorld(TownRegionId.Central,p);var south=TownWorldLayout.ToWorld(TownRegionId.East,p);
@@ -15,7 +15,7 @@ namespace Mofumachi.Tests
             foreach(TownRegionId r in Enum.GetValues(typeof(TownRegionId)))
             {var round=TownWorldLayout.ToLocal(r,TownWorldLayout.ToWorld(r,p));Assert.That(round.X,Is.EqualTo(p.X).Within(.00001));Assert.That(round.Y,Is.EqualTo(p.Y).Within(.00001));}
         }
-        [Test] public void HeroWalksNorthToSouthContinuouslyThroughTheCentralPark()
+        [Test] public void HeroWalksWestToEastContinuouslyThroughTheCentralPlaza()
         {
             var town=new TownWorldWalkModel(6,"momo");town.FastTravel(TownRegionId.West);
             Assert.That(town.TryGuide("momo","east.flowers"),Is.True);var previous=town.Hero.Position;bool sawCenter=false;int arrived=0;town.Arrived+=(id,place,walked)=>{if(id=="momo"&&walked)arrived++;};
@@ -36,7 +36,7 @@ namespace Mofumachi.Tests
         {
             var t=new TownWorldWalkModel(6,"momo");int walks=0;t.Arrived+=(id,place,walked)=>{if(walked&&id=="momo")walks++;};t.FastTravel(TownRegionId.East);Assert.That(walks,Is.Zero);Assert.That(t.Hero.Region,Is.EqualTo(TownRegionId.East));
             var c=new TownWorldCamera();c.Follow(t.Hero.Position,1f/30);Assert.That(float.IsFinite(c.Center.X)&&float.IsFinite(c.Center.Y),Is.True);c.Follow(new TownPoint(float.NaN,0),.1f);Assert.That(float.IsFinite(c.Center.Y),Is.True);
-            Assert.That(TownWorldLayout.Name(TownRegionId.Central),Is.EqualTo("中央公園"));
+            Assert.That(TownWorldLayout.Name(TownRegionId.Central),Is.EqualTo("中央広場"));
         }
         [Test] public void SpecialDialogueIsDiscoveredOnlyAfterSixConversations()
         {
@@ -49,10 +49,12 @@ namespace Mofumachi.Tests
         }
         [Test] public void PaintedConnectingRoadsContinueToTheNeighbourInsteadOfStoppingAtTheEdge()
         {
-            var town=new TownWorldWalkModel(0,"momo");var road=TownWorldMap.Point(.45f,.33f);
+            var town=new TownWorldWalkModel(0,"momo");var road=TownWorldMap.Point(.37f,.52f);
+            Assert.That(town.Area.Contains(road),Is.True);
+            Assert.That(town.Hero.Region,Is.EqualTo(TownRegionId.Central));Assert.That(TownWorldLayout.RegionAt(road),Is.EqualTo(TownRegionId.West));
             Assert.That(town.TryGuidePoint(road),Is.True);Assert.That(town.Hero.Target,Is.EqualTo(road),"Walking taps keep the actual point rather than jump to a distant painting");
             for(int i=0;i<6000&&town.Hero.IsWalking;i++)town.Step(1f/30);
-            Assert.That(town.Hero.IsWalking,Is.False);Assert.That(TownWorldLayout.Distance(town.Hero.Position,road),Is.LessThan(.002f));
+            Assert.That(town.Hero.IsWalking,Is.False);Assert.That(TownWorldLayout.Distance(town.Hero.Position,road),Is.LessThan(.002f));Assert.That(town.Hero.Region,Is.EqualTo(TownRegionId.West));
             Assert.That(town.TryGuide("momo","west.flowers"),Is.True);for(int i=0;i<6000&&town.Hero.IsWalking;i++)town.Step(1f/30);Assert.That(town.Hero.Region,Is.EqualTo(TownRegionId.West));
 
         }

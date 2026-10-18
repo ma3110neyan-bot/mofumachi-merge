@@ -10,6 +10,12 @@ namespace Mofumachi.Tests
 {
     public sealed class PopPresentationTests : SliceUiTestFixture
     {
+        private static Rect BoundsIn(RectTransform root,RectTransform item)
+        {
+            var corners=new Vector3[4];item.GetWorldCorners(corners);
+            var min=(Vector2)root.InverseTransformPoint(corners[0]);var max=(Vector2)root.InverseTransformPoint(corners[2]);
+            return Rect.MinMaxRect(min.x,min.y,max.x,max.y);
+        }
         [UnityTest] public IEnumerator FullBodyActorsFollowTheWorldMapOnShortAndTallScreens()
         {
             yield return EnterHome();
@@ -23,21 +29,42 @@ namespace Mofumachi.Tests
                     root.sizeDelta=new Vector2(360,height);var background=widgets.Background(Resources.Load<Texture2D>("Mofumachi/TownBackground"),root);background.GetComponent<BackgroundCover>().SendMessage("Fit");
                     var page=UIWidgets.Node("Home crop fixture",root,new Rect(0,0,1,1));TopHomeScreens.BuildHome(page,new ScreenContext(Flow,widgets),background);Canvas.ForceUpdateCanvases();yield return null;
                     var actors=page.GetComponentsInChildren<TownActor>();Assert.That(actors.Length,Is.EqualTo(6));Assert.That(actors.Count(a=>a.Controlled),Is.EqualTo(1));
-                    var life=page.GetComponentInChildren<TownLifeView>();
+                    var life=page.GetComponentInChildren<TownLifeView>();var mask=life.GetComponent<RectMask2D>();
+                    Assert.That(mask,Is.Not.Null);Assert.That(mask.isActiveAndEnabled,Is.True);
+                    Canvas.ForceUpdateCanvases();
+                    var field=BoundsIn(page,(RectTransform)life.transform);var quest=BoundsIn(page,(RectTransform)page.Find("Home quest"));
+                    Assert.That(field.yMin,Is.GreaterThan(quest.yMax),"The playable field must end above the quest card");
+                    int rendered=0;
                     foreach(var actor in actors)
                     {
                         var rect=(RectTransform)actor.transform;Assert.That(rect.rect.width,Is.EqualTo(62));Assert.That(rect.rect.height,Is.EqualTo(78));
                         if(actor.RegionVisible)
                         {
                             var expected=life.World.Local(actor.WorldPosition);Assert.That(Vector2.Distance(rect.anchoredPosition,expected),Is.LessThan(3),actor.CharacterId+" at height "+height);
-                            var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(page,rect);var quest=RectTransformUtility.CalculateRelativeRectTransformBounds(page,page.Find("Home quest"));
-                            Assert.That(bounds.min.y,Is.GreaterThan(quest.max.y));
                         }
                         var body=actor.GetComponentInChildren<CharacterBodyGraphic>();
                         Assert.That(body,Is.Not.Null,"Each town actor must have its own full-body graphic.");
                         Assert.That(body.rectTransform,Is.SameAs(actor.VisualRoot));
                         Assert.That(body.CharacterId,Is.EqualTo(actor.CharacterId));
+                        foreach(var graphic in actor.GetComponentsInChildren<MaskableGraphic>())
+                        {
+                            Assert.That(graphic.maskable,Is.True,graphic.name);
+                            Assert.That(graphic.GetComponentInParent<RectMask2D>(),Is.SameAs(mask));
+                            Assert.That(graphic.canvasRenderer.hasRectClipping,Is.True,"Town actors must use native rectangle clipping: "+graphic.name);
+                        }
+                        // RegionVisible includes a 90-unit prewarm margin. A
+                        // resident can enter smoothly from outside the field;
+                        // only its native-mask-clipped portion is drawn.
+                        var bounds=BoundsIn(page,body.rectTransform);
+                        if(actor.Controlled)
+                        {Assert.That(field.Contains(bounds.min)&&field.Contains(bounds.max),Is.True,"Keep the controlled character's whole body inside the field at height "+height);}
+                        if(actor.RegionVisible&&field.Overlaps(bounds))
+                        {
+                            rendered++;var drawn=Rect.MinMaxRect(Mathf.Max(field.xMin,bounds.xMin),Mathf.Max(field.yMin,bounds.yMin),Mathf.Min(field.xMax,bounds.xMax),Mathf.Min(field.yMax,bounds.yMax));
+                            Assert.That(drawn.yMin,Is.GreaterThan(quest.yMax));Assert.That(drawn.Overlaps(quest),Is.False,actor.CharacterId+" must not draw over the quest card");
+                        }
                     }
+                    Assert.That(rendered,Is.GreaterThan(0),"The clipping check must include a rendered resident");
                     Object.DestroyImmediate(page.gameObject);Object.DestroyImmediate(background.gameObject);
                 }
             }

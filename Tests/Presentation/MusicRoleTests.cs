@@ -17,11 +17,19 @@ namespace Mofumachi.Tests
             string choice=role==MusicRole.Title?"title-garden":"merge-ribbon";Assert.That(roles.Select(choice),Is.True);
             Assert.That(legacy.Value,Is.EqualTo(oldId));Assert.That(new MusicRoleSelection(title,town,merge,legacy).For(role),Is.EqualTo(choice));
         }
-        [Test] public void EachReplacementRoleHasTwoRealDistinctCandidatesAndTownIsUnchanged()
+        [Test] public void MergeAddsOnePopCandidateAndTitleAndTownCandidatesArePreserved()
         {
             foreach(var role in new[]{MusicRole.Title,MusicRole.Merge})
-            {var songs=MusicCatalog.Candidates.Where(t=>t.Role==role).ToArray();Assert.That(songs.Length,Is.EqualTo(2));Assert.That(songs.Select(t=>t.Resource).Distinct().Count(),Is.EqualTo(2));}
+            {int count=role==MusicRole.Merge?3:2;var songs=MusicCatalog.Candidates.Where(t=>t.Role==role).ToArray();Assert.That(songs.Length,Is.EqualTo(count));Assert.That(songs.Select(t=>t.Resource).Distinct().Count(),Is.EqualTo(count));}
             Assert.That(MusicCatalog.Candidates.Single(t=>t.Role==MusicRole.Town).Resource,Is.EqualTo("bgm-town-loop"));
+            var pop=MusicCatalog.Candidates.Single(t=>t.Id=="merge-pop-promenade");Assert.That(pop.Role,Is.EqualTo(MusicRole.Merge));Assert.That(pop.Resource,Is.EqualTo("bgm-merge-pop-promenade"));
+        }
+        [Test] public void PopSelectionPersistsOnlyInMergeRoleAndLeavesExistingChoicesIntact()
+        {
+            var title=new Store{Value="title-garden"};var town=new Store{Value="town"};var merge=new Store{Value="merge-ribbon"};var legacy=new Store{Value="beginning"};
+            var roles=new MusicRoleSelection(title,town,merge,legacy);Assert.That(roles.Select("merge-pop-promenade"),Is.True);
+            var restored=new MusicRoleSelection(title,town,merge,legacy);Assert.That(restored.For(MusicRole.Merge),Is.EqualTo("merge-pop-promenade"));
+            Assert.That(restored.For(MusicRole.Title),Is.EqualTo("title-garden"));Assert.That(restored.For(MusicRole.Town),Is.EqualTo("town"));Assert.That(legacy.Value,Is.EqualTo("beginning"));
         }
         [Test] public void RoleChoicesSurviveRestartWithoutReplacingOtherRolesOrTheMainSave()
         {

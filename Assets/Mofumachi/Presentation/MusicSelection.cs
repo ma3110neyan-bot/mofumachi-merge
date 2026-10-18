@@ -20,7 +20,8 @@ namespace Mofumachi.Presentation
             new MusicTrack("title-letter","花あかりの招待状","bgm-title-letter","TOP候補A · ピアノとベル、やさしいワルツ"),
             new MusicTrack("title-garden","ひだまりの庭の扉","bgm-title-garden","TOP候補B · マリンバと弦、明るいおとぎ話"),
             new MusicTrack("merge-picnic","こもれびピクニック","bgm-merge-picnic","Merge候補A · 軽快な木の音とピアノ"),
-            new MusicTrack("merge-ribbon","リボンを結ぶ午後","bgm-merge-ribbon","Merge候補B · はずむピアノ、きらめくベル")});
+            new MusicTrack("merge-ribbon","リボンを結ぶ午後","bgm-merge-ribbon","Merge候補B · はずむピアノ、きらめくベル"),
+            new MusicTrack("merge-pop-promenade","はずむ花みち","bgm-merge-pop-promenade","Merge候補C · 120 BPM、軽快なピアノとマリンバのPOP")});
         public static IReadOnlyList<MusicTrack> Candidates {get;}=Array.AsReadOnly(All.Where(t=>t.Id!="beginning"&&t.Id!="merge-time").OrderBy(t=>t.Role).ToArray());
         public static MusicTrack Find(string id)=>All.FirstOrDefault(t=>t.Id==id);
     }

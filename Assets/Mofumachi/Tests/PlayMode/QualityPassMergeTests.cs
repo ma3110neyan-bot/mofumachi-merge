@@ -9,7 +9,7 @@ namespace Mofumachi.Tests
 {
     public sealed class QualityPassMergeTests : SliceUiTestFixture
     {
-        [UnityTest] public IEnumerator ThirtyDishesKeepRectangularInputAndReadableLevelBadges()
+        [UnityTest] public IEnumerator ThirtyRoundedSquaresKeepRectangularInputAndReadableLevelBadges()
         {
             yield return EnterHome();Flow.ShowMerge();Canvas.ForceUpdateCanvases();
             var dishes=Flow.GetComponentsInChildren<Graphic>().Where(g=>g.name=="Cell porcelain dish").ToArray();

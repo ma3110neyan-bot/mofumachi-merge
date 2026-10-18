@@ -3,8 +3,7 @@ using UnityEngine.UI;
 
 namespace Mofumachi.Presentation
 {
-    // A shallow porcelain dish, rendered in one UGUI mesh. The rectangular
-    // button underneath remains the complete input target, including its corners.
+    // The rounded square is decorative; the complete cell remains the input target.
     [RequireComponent(typeof(CanvasRenderer))]
     public sealed class MergeCellSurfaceGraphic : MaskableGraphic
     {
@@ -13,29 +12,30 @@ namespace Mofumachi.Presentation
         protected override void OnPopulateMesh(VertexHelper vh)
         {
             vh.Clear();var r=GetPixelAdjustedRect();if(r.width<=0||r.height<=0)return;
-            float unit=Mathf.Min(r.width,r.height),radius=unit*.46f;
-            var baseRect=new Rect(r.x+r.width*.025f,r.y+r.height*.10f,r.width*.95f,r.height*.72f);
-            Fill(vh,baseRect,radius,new Color(.32f,.24f,.28f,.19f),new Color(.32f,.24f,.28f,.04f));
-            var body=new Rect(baseRect.x,baseRect.y+unit*.045f,baseRect.width,baseRect.height-unit*.07f);
-            Fill(vh,body,radius,new Color(.79f,.65f,.48f),new Color(.98f,.9f,.72f));
-            var lip=new Rect(body.x,body.y+unit*.065f,body.width,body.height-unit*.065f);
-            Fill(vh,lip,radius,Color.Lerp(paper,new Color(.9f,.79f,.63f),.36f),Color.Lerp(paper,Color.white,.8f));
-            var well=new Rect(lip.x+unit*.08f,lip.y+unit*.07f,lip.width-unit*.16f,lip.height-unit*.16f);
-            Fill(vh,well,radius*.76f,Color.Lerp(paper,Color.white,.4f),Color.Lerp(paper,new Color(.75f,.72f,.65f),.23f));
-            var inner=new Rect(well.x+unit*.025f,well.y,well.width-unit*.05f,well.height-unit*.055f);
-            Fill(vh,inner,radius*.67f,Color.Lerp(paper,new Color(.95f,.86f,.7f),.12f),Color.Lerp(paper,Color.white,.38f));
-            // Fine reflected light along the upper lip; never outside the cell.
-            Fill(vh,new Rect(lip.x+unit*.23f,lip.yMax-unit*.038f,lip.width-unit*.46f,unit*.018f),unit*.009f,new Color(1,1,1,.6f),new Color(1,1,1,.6f));
+            float unit=Mathf.Min(r.width,r.height),inset=unit*.025f,radius=unit*.13f;
+            var seat=new Rect(r.x+inset,r.y+inset,r.width-inset*2,r.height-inset*2);
+            Fill(vh,seat,radius,new Color(.45f,.31f,.23f,.16f),new Color(.45f,.31f,.23f,.04f));
+            var rim=new Rect(seat.x,seat.y+1,seat.width,seat.height-1);
+            Fill(vh,rim,radius,Color.Lerp(paper,new Color(.75f,.58f,.39f),.42f),Color.Lerp(paper,Color.white,.48f));
+            var face=new Rect(rim.x+1,rim.y+1,rim.width-2,rim.height-2);
+            Fill(vh,face,radius-1,Color.Lerp(paper,new Color(.89f,.79f,.63f),.12f),Color.Lerp(paper,Color.white,.30f));
+            Fill(vh,new Rect(face.x+radius,face.yMax-1,face.width-radius*2,.7f),.35f,new Color(1,1,1,.6f),new Color(1,1,1,.6f));
         }
-        private static void Fill(VertexHelper vh,Rect r,float radius,Color bottom,Color top)
+        internal static void Fill(VertexHelper vh,Rect r,float radius,Color bottom,Color top)
         {
             if(r.width<=0||r.height<=0)return;
+            radius=Mathf.Clamp(radius,0,Mathf.Min(r.width,r.height)/2);
             int start=vh.currentVertCount;vh.AddVert(r.center,Color.Lerp(bottom,top,.5f),Vector2.zero);
-            const int steps=40;int count=0;
-            for(int c=0;c<steps;c++)
+            const int steps=8;int count=0;
+            for(int corner=0;corner<4;corner++)
             {
-                float a=c*Mathf.PI*2/steps;var p=r.center+new Vector2(Mathf.Cos(a)*r.width*.5f,Mathf.Sin(a)*r.height*.5f);
-                vh.AddVert(p,Color.Lerp(bottom,top,Mathf.InverseLerp(r.yMin,r.yMax,p.y)),Vector2.zero);count++;
+                var center=new Vector2(corner==0||corner==3?r.xMax-radius:r.xMin+radius,corner<2?r.yMax-radius:r.yMin+radius);
+                for(int step=0;step<=steps;step++)
+                {
+                    float angle=(corner*90+step*90f/steps)*Mathf.Deg2Rad;
+                    var p=center+new Vector2(Mathf.Cos(angle),Mathf.Sin(angle))*radius;
+                    vh.AddVert(p,Color.Lerp(bottom,top,Mathf.InverseLerp(r.yMin,r.yMax,p.y)),Vector2.zero);count++;
+                }
             }
             for(int i=1;i<=count;i++)vh.AddTriangle(start,start+i,start+(i==count?1:i+1));
         }

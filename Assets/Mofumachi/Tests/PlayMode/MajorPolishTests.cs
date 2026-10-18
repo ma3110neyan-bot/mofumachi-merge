@@ -73,13 +73,13 @@ namespace Mofumachi.Tests
             }
             LogAssert.NoUnexpectedReceived();
         }
-        [UnityTest] public IEnumerator TrapezoidHasNoRectangularBackingAndAllThirtyCellsActuallyReceiveRaycasts()
+        [UnityTest] public IEnumerator FlatBoardKeepsAlignedEdgesAndAllThirtyCellsActuallyReceiveRaycasts()
         {
             yield return EnterHome();Flow.ShowMerge();yield return null;Canvas.ForceUpdateCanvases();
             var grid=Flow.GetComponentInChildren<MergeGridLayout>();grid.ResizeNow();Canvas.ForceUpdateCanvases();
             var board=Flow.GetComponentInChildren<PerspectiveBoardGraphic>();var mesh=board.canvasRenderer.GetMesh();float top=board.rectTransform.rect.yMax;
-            var back=mesh.vertices.Where(v=>v.y>=top-.01f).ToArray();Assert.That(back.Max(v=>v.x)-back.Min(v=>v.x),Is.LessThan(board.rectTransform.rect.width*.80f));
-            Assert.That(board.GetComponentInParent<RoundedPanelGraphic>().color.a,Is.Zero,"A rectangular mat must not hide the board silhouette");
+            var back=mesh.vertices.Where(v=>v.y>=top-.01f).ToArray();Assert.That(back.Max(v=>v.x)-back.Min(v=>v.x),Is.GreaterThan(board.rectTransform.rect.width*.88f));
+            Assert.That(board.GetComponentInParent<RoundedPanelGraphic>().color.a,Is.Zero,"Only the thin ivory panel draws the board surface");
             using(var viewport=new FixedViewport(Flow))
             foreach(int height in new[]{592,640,740,808})
             {

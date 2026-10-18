@@ -89,11 +89,11 @@ namespace Mofumachi.Tests
             life.World.Camera.Jump(npc.WorldPosition);life.World.Refresh();Assert.That(npc.RegionVisible,Is.True);npc.React();
             Assert.That(life.NearbyFacility,Is.EqualTo("quest"));Assert.That(Flow.Daily.Data.Talks,Is.Zero);Assert.That(Flow.Daily.Data.Characters.Sum(c=>c.Meetings),Is.Zero);LogAssert.NoUnexpectedReceived();
         }
-        [UnityTest] public IEnumerator PerspectiveCellsHaveStableIndexesAndRealNonOverlappingHitRects()
+        [UnityTest] public IEnumerator FlatCellsHaveStableIndexesAndRealNonOverlappingHitRects()
         {
             yield return EnterHome();Flow.ShowMerge();Canvas.ForceUpdateCanvases();var grid=Flow.GetComponentInChildren<MergeGridLayout>();grid.ResizeNow();
             var cells=grid.GetComponentsInChildren<MergeBoardView>();Assert.That(cells.Length,Is.EqualTo(30));var back=(RectTransform)grid.transform.Find("Cell 0");var front=(RectTransform)grid.transform.Find("Cell 25");
-            Assert.That(back.rect.width,Is.LessThan(front.rect.width));foreach(var cell in cells){var r=((RectTransform)cell.transform).rect;Assert.That(r.width,Is.GreaterThanOrEqualTo(48));Assert.That(r.height,Is.GreaterThanOrEqualTo(48));}var area=((RectTransform)grid.transform).rect;for(int i=0;i<30;i++){var actual=(RectTransform)grid.transform.Find("Cell "+i);var projected=MergePerspective.Cell(i,area.width,area.height);Assert.That(actual.anchoredPosition.x,Is.EqualTo(projected.X).Within(.001f));Assert.That(actual.anchoredPosition.y,Is.EqualTo(projected.Y).Within(.001f));Assert.That(actual.rect.width,Is.EqualTo(projected.Width).Within(.001f));}
+            Assert.That(back.rect.width,Is.EqualTo(front.rect.width).Within(.001f));foreach(var cell in cells){var r=((RectTransform)cell.transform).rect;Assert.That(r.width,Is.GreaterThanOrEqualTo(48));Assert.That(r.height,Is.EqualTo(r.width).Within(.001f));}var area=((RectTransform)grid.transform).rect;for(int i=0;i<30;i++){var actual=(RectTransform)grid.transform.Find("Cell "+i);var projected=MergePerspective.Cell(i,area.width,area.height);Assert.That(actual.anchoredPosition.x,Is.EqualTo(projected.X).Within(.001f));Assert.That(actual.anchoredPosition.y,Is.EqualTo(projected.Y).Within(.001f));Assert.That(actual.rect.width,Is.EqualTo(projected.Width).Within(.001f));}
             Assert.That(Flow.GetComponentInChildren<PerspectiveBoardGraphic>(),Is.Not.Null);LogAssert.NoUnexpectedReceived();
         }
     }

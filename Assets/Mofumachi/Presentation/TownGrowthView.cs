@@ -52,11 +52,11 @@ namespace Mofumachi.Presentation
         }
         private void Reposition()
         {
-            for(int i=0;i<icons.Length;i++)if(icons[i]!=null)icons[i].anchoredPosition=life?.World?.IsReady==true?life.World.Local(TownWorldLayout.ToWorld(TownRegionId.Central,positions[i]),(RectTransform)transform):Local(positions[i]);
+            for(int i=0;i<icons.Length;i++)if(icons[i]!=null)icons[i].anchoredPosition=life?.World?.IsReady==true?life.World.Local(TownWorldMap.Point(.30f+(i-9)*.18f,.36f),(RectTransform)transform):Local(positions[i]);
             foreach(var entry in regional)
             {
-                var p=entry.Placement;entry.Rect.anchoredPosition=life?.World?.IsReady==true?life.World.Local(TownWorldLayout.ToWorld(entry.Region,p.Position),(RectTransform)transform):Local(p.Position);
-                float width=Vector2.Distance(Local(p.Position),Local(new TownPoint(p.Position.X+p.Width,p.Position.Y)));
+                var p=entry.Placement;entry.Rect.anchoredPosition=life?.World?.IsReady==true?life.World.Local(TownWorldMap.Growth(entry.Region,p),(RectTransform)transform):Local(p.Position);
+                float width=Vector2.Distance(Local(p.Position),Local(new TownPoint(p.Position.X+p.Width,p.Position.Y)))*(life?.World?.IsReady==true?.58f:1);
                 entry.Rect.sizeDelta=new Vector2(width,width/TownGrowthPropGraphic.Aspect(p.Prop));
                 if(life?.World?.IsReady==true){var bounds=((RectTransform)transform).rect;var at=entry.Rect.anchoredPosition;entry.Rect.gameObject.SetActive(at.y+entry.Rect.rect.height>bounds.yMin&&at.y<bounds.yMax&&at.x+width/2>bounds.xMin&&at.x-width/2<bounds.xMax);}
             }

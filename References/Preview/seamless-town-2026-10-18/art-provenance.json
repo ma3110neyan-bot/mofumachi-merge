@@ -1,0 +1,15 @@
+{
+  "asset": "Assets/Mofumachi/Resources/Mofumachi/TownSeamlessMap.png",
+  "sha256": "71c6034c83dd21e8d72028b22ce6525e29e34aa9eeeb7cb3670ab3dc880a912b",
+  "source": "New generated artwork, inspected and traced into the runtime walkable polygons",
+  "styleReference": "Existing TownBackground.png, original file unchanged",
+  "composition": "One continuous constant-scale north cafe and quest cottage / central fountain park / south workshop and shop; no characters, no UI, no fades",
+  "runtimeStatus": "Implemented candidate; native Unity/Pixel capture pending",
+  "worldBounds": {
+    "left": -0.3,
+    "bottom": -0.75,
+    "width": 1.6,
+    "height": 2.4
+  },
+  "imageUV": "Top-left origin, TownWorldMap.Point"
+}

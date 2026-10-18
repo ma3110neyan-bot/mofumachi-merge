@@ -40,8 +40,8 @@ namespace Mofumachi.Tests
             life.Actors.Single(a=>a.Controlled).React();Button("Visit east flowers").onClick.Invoke();Walk(life);
             Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownRegionId.East));
             life.Actors.Single(a=>a.Controlled).React();Button("Guide to quest").onClick.Invoke();Walk(life);
-            Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownRegionId.Central));Assert.That(life.NearbyFacility,Is.EqualTo("quest"));
-            Assert.That(Store.Writes,Is.EqualTo(writes));Button("Enter facility").onClick.Invoke();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Quest));LogAssert.NoUnexpectedReceived();
+            Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownRegionId.West));Assert.That(life.NearbyFacility,Is.EqualTo("quest"));
+            Assert.That(Store.Writes,Is.EqualTo(writes));Button("Enter facility").onClick.Invoke();for(int i=0;i<30&&Flow.CurrentScreen==ScreenId.Home;i++)life.AdvanceFrame(1f/30);Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Quest));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator RetargetAndSettingsReleaseJourneyWithoutSaveMutation()
         {

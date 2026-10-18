@@ -17,8 +17,8 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();var preferences=new MusicStore();var audio=AudioManager.Instance;audio.UseMusicPreferences(preferences);Flow.ShowSettings();int writes=Store.Writes;string before=StateCodec.Encode(Flow.Game.State);
             var music=audio.GetComponents<AudioSource>().Single(a=>a.loop);var original=music.clip;
-            Assert.That(MusicCatalog.All.Select(t=>Resources.Load<AudioClip>("Mofumachi/Audio/"+t.Resource)).Distinct().Count(),Is.EqualTo(3));
-            foreach(var track in MusicCatalog.All)Assert.That(Flow.GetComponentsInChildren<Button>().Any(b=>b.name=="Preview music "+track.Id),Is.True);
+            Assert.That(MusicCatalog.All.Select(t=>Resources.Load<AudioClip>("Mofumachi/Audio/"+t.Resource)).Distinct().Count(),Is.EqualTo(7));
+            foreach(var track in MusicCatalog.Candidates)Assert.That(Flow.GetComponentsInChildren<Button>().Any(b=>b.name=="Preview music "+track.Id),Is.True);
             Assert.That(Flow.SelectMusic("beginning"),Is.True);Assert.That(music.clip,Is.Not.SameAs(original));Assert.That(preferences.Value,Is.EqualTo("beginning"));
             Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));LogAssert.NoUnexpectedReceived();
         }

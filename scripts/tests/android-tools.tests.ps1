@@ -80,8 +80,8 @@ try {
     Expect-Rejection {Assert-NativeCaptures $CaptureDir}
     # Header-only fixtures exercise metadata gates, not Unity rendering or CRC.
     [byte[]]$Header=137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,2,208,0,0,5,0,0
-    $Names=@('15-wide-park-left','15-wide-park-right','16-residents-passing-00','17-finger-follow-00','17-finger-released','18-continuous-walk-north','18-continuous-walk-central','18-continuous-walk-south','19-book-new-in-town','19-book-discovery-first-page')
-    $Names+=@(1..43 | ForEach-Object {'fixture-'+$_})
+    $Names=@('15-wide-park-left','15-wide-park-right','16-residents-passing-00','17-finger-follow-00','17-finger-released','18-continuous-walk-north','18-continuous-walk-central','18-continuous-walk-south','19-book-new-in-town','19-book-discovery-first-page','20-quest-cabin','20-quest-door-opening','20-quest-inside','21-shop-cabin','21-shop-door-opening','21-shop-inside','22-title-candidates','22-merge-candidates','23-title-letter','23-title-garden','23-merge-picnic','23-merge-ribbon')
+    $Names+=@(1..45 | ForEach-Object {'fixture-'+$_})
     foreach($Name in $Names){[IO.File]::WriteAllBytes((Join-Path $CaptureDir ($Name+'.png')),$Header)}
     Assert-NativeCaptures $CaptureDir
     [IO.File]::WriteAllBytes((Join-Path $CaptureDir '17-finger-released.png'),[byte[]](0,1,2));Expect-Rejection {Assert-NativeCaptures $CaptureDir}
@@ -140,15 +140,15 @@ exit $Code
         if($Declared -eq 0){$Declared=$Total}
         $SuiteCases=0
         $Nodes=foreach($Name in $Suites) {
-            $Count=if($Name -eq 'DailyWorldTests'){10}elseif($Name -eq 'MajorPolishTests'){6}else{1}
+            $Count=if($Name -eq 'DailyWorldTests'){10}elseif($Name -eq 'MajorPolishTests'){6}elseif($Name -eq 'SeamlessFieldTests'){7}else{1}
             $SuiteCases+=$Count;"<test-suite name='$Name' result='Passed'>"+('<test-case result="Passed"/>'*$Count)+"</test-suite>"
         }
         $Nodes=$Nodes -join ''
         $Extra=('<test-case result="Passed"/>'*($Total-$SuiteCases-1))+"<test-case result='$Case'/>"
         "<test-run result='Passed' total='$Declared' passed='$Declared' failed='0' skipped='0'>$Nodes$Extra</test-run>" | Set-Content $Xml
     }
-    $EditSuites=Read-GateSuites 'EditXml' 142;$PlaySuites=Read-GateSuites 'PlayXml' 167
-    foreach($Gate in @(@{Minimum=142;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests','TownPlaceCatalogTests','TownViewportTests','TownRegionCatalogTests','TownRegionJourneyTests','TownRegionContentTests')},@{Minimum=167;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests')})) {
+    $EditSuites=Read-GateSuites 'EditXml' 142;$PlaySuites=Read-GateSuites 'PlayXml' 174
+    foreach($Gate in @(@{Minimum=142;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests','TownPlaceCatalogTests','TownViewportTests','TownRegionCatalogTests','TownRegionJourneyTests','TownRegionContentTests')},@{Minimum=174;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests')})) {
         $Old=@($Gate.Suites | Where-Object {$_ -notin $Gate.New})
         Write-SuiteXml $Gate.Minimum $Old
         Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}
@@ -165,13 +165,13 @@ exit $Code
         foreach($BadCase in @('Skipped','Failed','Inconclusive')){Write-SuiteXml $Gate.Minimum $Gate.Suites $BadCase;Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}}
         Write-SuiteXml $Gate.Minimum $Gate.Suites -Declared ($Gate.Minimum+1);Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}
     }
-    foreach($Name in @('DailyWorldTests','MajorPolishTests')) {
-        Write-SuiteXml 167 $PlaySuites
+    foreach($Name in @('DailyWorldTests','MajorPolishTests','SeamlessFieldTests')) {
+        Write-SuiteXml 174 $PlaySuites
         $Data=Get-Content -LiteralPath $Xml -Raw
         $SuiteStart="<test-suite name='$Name' result='Passed'>"
         $Data=$Data.Replace($SuiteStart+'<test-case result="Passed"/>','<test-case result="Passed"/>'+$SuiteStart)
         $Data | Set-Content -LiteralPath $Xml
-        Expect-Rejection {Assert-TestRun $Xml 167 $PlaySuites}
+        Expect-Rejection {Assert-TestRun $Xml 174 $PlaySuites}
     }
     Write-Host 'Chapter build gates passed (synthetic result XML, Unity tests not executed).'
     Expect-Rejection {Select-AuthorizedDevice 'List of devices attached' ''}

@@ -8,8 +8,8 @@ namespace Mofumachi.Tests
     {
         private sealed class Store:IMusicPreferenceStore
         {public string Value;public int Writes;public bool Fail;public string Load()=>Value;public void Save(string id){if(Fail)throw new InvalidOperationException("disk");Value=id;Writes++;}}
-        [Test] public void ThreeSongsHaveDistinctReplaceableAudioResources()
-        {Assert.That(MusicCatalog.All.Count,Is.EqualTo(3));Assert.That(MusicCatalog.All.Select(t=>t.Resource).Distinct().Count(),Is.EqualTo(3));}
+        [Test] public void LegacySongsAndFourCandidatesHaveDistinctReplaceableResources()
+        {Assert.That(MusicCatalog.All.Count,Is.EqualTo(7));Assert.That(MusicCatalog.All.Select(t=>t.Resource).Distinct().Count(),Is.EqualTo(7));}
         [Test] public void OldInstallAndUnknownTrackKeepTheExistingTownMusicWithoutWriting()
         {var store=new Store{Value="future"};var music=new MusicSelection(store);Assert.That(music.SelectedId,Is.EqualTo("town"));Assert.That(store.Writes,Is.Zero);}
         [Test] public void PreviewIsTemporaryAndNeverPersistsASelection()

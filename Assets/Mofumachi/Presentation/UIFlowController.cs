@@ -152,6 +152,13 @@ namespace Mofumachi.Presentation
             if(CurrentScreen!=ScreenId.Settings||appPaused)return false;
             bool saved=audioManager.SelectMusic(id);feedback[ScreenId.Settings]=saved?"音楽を選びました♪":audioManager.MusicError;Render("settings");return saved;
         }
+        public void ListenMusicInScene(string id)
+        {
+            if(CurrentScreen!=ScreenId.Settings||!SelectMusic(id))return;
+            var role=MusicCatalog.Find(id).Role;
+            if(role==MusicRole.Title)Render("title");
+            else if(Game.State.purchaseNoticeAcknowledged&&CharacterCatalog.IsKnown(Game.State.favoriteCharacterId))Navigate(role==MusicRole.Merge?"merge":"home");
+        }
         public void GoBack()
         {
             if(modalKind==ModalKind.Today){CloseToday();return;}
@@ -175,6 +182,8 @@ namespace Mofumachi.Presentation
         }
         public void ShowHome() => Navigate("home");
         public void ShowQuest() => Navigate("quest");
+        public void VisitQuestCabin()
+        {if(CurrentScreen==ScreenId.Home&&page!=null)page.GetComponentInChildren<TownLifeView>()?.GuideToFacility("quest");else ShowQuest();}
         public void ShowMerge() => Navigate("merge");
         public void ShowCharacterSelection()=>ShowCharacterBook(Game.State.favoriteCharacterId);
         private void ShowCharacterBook(string characterId)
@@ -378,6 +387,9 @@ namespace Mofumachi.Presentation
             }
             discardHomeRegionSnapshot=false;
             view = target; CurrentScreen=(ScreenId)System.Enum.Parse(typeof(ScreenId),target,true);
+            if(CurrentScreen==ScreenId.Title)audioManager.EnterMusicRole(MusicRole.Title);
+            else if(CurrentScreen==ScreenId.Home)audioManager.EnterMusicRole(MusicRole.Town);
+            else if(CurrentScreen==ScreenId.Merge)audioManager.EnterMusicRole(MusicRole.Merge);
             if(mergeEffects!=null&&(!preserveMergeTail||CurrentScreen!=ScreenId.Merge))mergeEffects.Cancel();
             if (page != null) { page.SetActive(false); Destroy(page); }
             page = layout.CreatePage(target).gameObject;
@@ -558,7 +570,7 @@ namespace Mofumachi.Presentation
                 var overlay=c.Widgets.Panel("Shop preview",root,new Rect(0,0,1,1),new Color(.25f,.15f,.25f,.6f)).rectTransform;overlay.GetComponent<RoundedPanelGraphic>().raycastTarget=true;
                 var card=c.Widgets.OrnatePanel("Shop preview card",overlay,new Rect(0,0,1,1),UIWidgets.BlushPaper).rectTransform;card.anchorMin=card.anchorMax=new Vector2(.5f,.5f);card.sizeDelta=new Vector2(320,280);
                 c.Widgets.Ribbon("Shop title","ショップ",card,new Rect(.08f,.72f,.84f,.18f),20);
-                c.Widgets.Label("Shop status","お店は準備中です。\n販売機能は未実装です。",card,new Rect(.08f,.3f,.84f,.35f),16);
+                c.Widgets.Label("Shop status","お花と飾りの小さなお店へ、ようこそ♪\n飾り棚は、ただいま準備中です。",card,new Rect(.08f,.3f,.84f,.35f),16);
                 var close=c.Widgets.Button("Close shop","街へ戻る",card,new Rect(0,0,1,1),CloseShopPreview,true);UIWidgets.Bottom((RectTransform)close.transform,24,12,24,48);
             });
         }

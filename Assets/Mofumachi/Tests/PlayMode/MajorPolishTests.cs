@@ -35,7 +35,7 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator ReleasingAMovingFingerAtEitherDoorOffersEntryAfterCoasting()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var actor=life.Actors.Single(a=>a.Controlled);
-            foreach(var door in new[]{("quest",TownLifeView.RequestEntrance),("shop",TownLifeView.ShopEntrance)})
+            foreach(var door in new[]{("quest",TownWorldMap.Place("quest")),("shop",TownWorldMap.Place("shop"))})
             {
                 life.CancelInteraction();var start=new TownPoint(door.Item2.X-.015f,door.Item2.Y);life.World.Model.Restore(actor.CharacterId,start);life.World.ReturnToHero();life.AdvanceFrame(1f/30);
                 var e=new PointerEventData(EventSystem.current){pointerId=714};actor.OnPointerDown(e);actor.OnBeginDrag(e);

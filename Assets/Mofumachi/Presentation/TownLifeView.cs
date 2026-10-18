@@ -40,15 +40,9 @@ namespace Mofumachi.Presentation
                 c.Widgets.NarrativeLabel("Town actor name",character.Name,panel,new Rect(.04f,.03f,.92f,.94f),12);
                 actor.Render(0,0);
             }
-            AddEntrance("依頼部屋",RequestEntrance,"quest",UIWidgets.BluePaper);AddEntrance("ショップ",ShopEntrance,"shop",UIWidgets.BlushPaper);
+
             Actors=Array.AsReadOnly(actors);Regions=gameObject.AddComponent<TownRegionSession>();Regions.Bind(c,this,Actors);
             nextTalk=4.5f;nextSocial=3;
-        }
-        private void AddEntrance(string name,TownPoint location,string id,Color tint)
-        {
-            var marker=context.Widgets.Button("Facility marker "+name,name,actorLayer,new Rect(.5f,.5f,0,0),()=>GuideToFacility(id),true);
-            var rect=(RectTransform)marker.transform;rect.sizeDelta=new Vector2(92,48);rect.anchoredPosition=MarkerLocal(location);
-            marker.GetComponent<RoundedPanelGraphic>().color=tint;marker.GetComponentInChildren<Text>().fontSize=14;
         }
         public bool GuideToFacility(string id)=>id=="quest"||id=="shop"?GuideToPlace(id):false;
         public void OpenOutings(){if(CanInteract)ShowOutings();}
@@ -134,7 +128,7 @@ namespace Mofumachi.Presentation
             {
                 var label=a.transform.Find("Town actor name panel");if(label!=null)label.gameObject.SetActive(a.RegionVisible&&(a.Controlled||a==speaker||a.IsResting&&Visible(a)));
             }
-            PositionBubble();
+            PositionBubble();GetComponent<TownFacilityView>()?.Advance(seconds);
         }
         private bool Visible(TownActor a)
         {if(!a.RegionVisible)return false;var p=World?.IsReady==true?World.Local(a.WorldPosition):Local(a.Position);var r=actorLayer.rect;return p.x>r.xMin+38&&p.x<r.xMax-38&&p.y>r.yMin+24&&p.y<r.yMax-86;}
@@ -143,7 +137,7 @@ namespace Mofumachi.Presentation
         {if(World?.IsReady==true)return World.Local(TownWorldLayout.ToWorld(Regions.ViewingRegion,point));if(background==null)return Vector2.zero;var uv=background.uvRect;var r=background.rectTransform.rect;var p=r.min+Vector2.Scale((new Vector2(point.X,point.Y)-uv.min)/uv.size,r.size);return actorLayer.InverseTransformPoint(background.rectTransform.TransformPoint(p));}
         public TownPoint Source(Vector2 screen,Camera camera)
         {if(World?.IsReady==true)return TownWorldLayout.ToLocal(Regions.ViewingRegion,World.Source(screen,camera));if(background==null||!RectTransformUtility.ScreenPointToLocalPointInRectangle(background.rectTransform,screen,camera,out var p))return StreetMap.Nodes[0];var r=background.rectTransform.rect;var uv=background.uvRect;var n=(p-r.min)/r.size;return new TownPoint(uv.x+n.x*uv.width,uv.y+n.y*uv.height);}
-        public void StartInteraction(bool preserveJourney=false){if(!preserveJourney)Regions?.CancelHeroJourney();GetComponent<TownStreetWalkView>()?.CancelSelection();GetComponent<TownViewportView>()?.CancelGesture();destination=null;HideOutings();HideBubble();HideEntrance();nextTalk=now+6;}
+        public void StartInteraction(bool preserveJourney=false){GetComponent<TownFacilityView>()?.Cancel();if(!preserveJourney)Regions?.CancelHeroJourney();GetComponent<TownStreetWalkView>()?.CancelSelection();GetComponent<TownViewportView>()?.CancelGesture();destination=null;HideOutings();HideBubble();HideEntrance();nextTalk=now+6;}
         internal void SetGuidedDestination(TownPlace place)=>destination=place;
         internal void ApplyViewingRegion(TownRegionId region)
         {
@@ -157,12 +151,15 @@ namespace Mofumachi.Presentation
         {
             if(!CanInteract||!actor.Controlled||actor.Movement.OwnedPointerId.HasValue||World?.Model?.Hero.IsWalking==true)return;actor.FreezeMovement();HideEntrance();
             if(Regions?.OwnsJourney(actor)==true||!actor.RegionVisible)return;
-            string facility=actor.RegionId!=TownRegionId.Central?null:Distance(actor.Position,RequestEntrance)<.034f?"quest":Distance(actor.Position,ShopEntrance)<.034f?"shop":null;
-            if(facility==null){if(destination!=null&&Distance(actor.Position,destination.Position)<.034f){actor.Surprise();ShowBubble(destination.Dialogue,actor);destination=null;}return;}
+            string facility=World?.IsReady==true?
+                (TownWalkableArea.Distance(actor.WorldPosition,TownWorldMap.Place("quest"))<.034f?"quest":TownWalkableArea.Distance(actor.WorldPosition,TownWorldMap.Place("shop"))<.034f?"shop":null):
+                actor.RegionId!=TownRegionId.Central?null:Distance(actor.Position,RequestEntrance)<.034f?"quest":Distance(actor.Position,ShopEntrance)<.034f?"shop":null;
+            if(facility==null){if(destination!=null&&(World?.IsReady==true?TownWalkableArea.Distance(actor.WorldPosition,TownWorldMap.Place(destination.Id)):Distance(actor.Position,destination.Position))<.034f){actor.Surprise();ShowBubble(destination.Dialogue,actor);destination=null;}return;}
             NearbyFacility=facility;HideBubble();actor.Surprise();var root=(RectTransform)transform.parent;
             var b=context.Widgets.Button("Enter facility",facility=="quest"?"依頼部屋に入る":"ショップへ",root,new Rect(0,0,1,1),()=>
             {
-                if(!CanInteract||NearbyFacility!=facility||actor.RegionId!=TownRegionId.Central||!actor.RegionVisible)return;
+                if(!CanInteract||NearbyFacility!=facility||!actor.RegionVisible)return;
+                if(World?.IsReady==true){GetComponent<TownFacilityView>().RequestEnter(facility);return;}
                 if(facility=="quest")context.Flow.ShowQuest();else context.Flow.OpenShopPreview();
             });UIWidgets.Bottom((RectTransform)b.transform,48,178,48,48);entrance=b.gameObject;
         }
@@ -198,7 +195,7 @@ namespace Mofumachi.Presentation
         private void HideBubble(){if(bubble!=null){bubble.SetActive(false);Destroy(bubble);}bubble=null;speaker=null;}
         private void HideEntrance(){NearbyFacility=null;if(entrance!=null){entrance.SetActive(false);Destroy(entrance);}entrance=null;}
         private void HideOutings(){if(outings!=null){outings.SetActive(false);Destroy(outings);}outings=null;}
-        public void CancelInteraction(){Regions?.CancelJourneys();GetComponent<TownStreetWalkView>()?.CancelSelection();GetComponent<TownViewportView>()?.CancelGesture();clock.Reset();destination=null;HideOutings();if(actors!=null)foreach(var a in actors){a?.Movement?.CancelInput();a?.ResetVisual();}HideBubble();HideEntrance();nextTalk=now+6;}
+        public void CancelInteraction(){GetComponent<TownFacilityView>()?.Cancel();Regions?.CancelJourneys();GetComponent<TownStreetWalkView>()?.CancelSelection();GetComponent<TownViewportView>()?.CancelGesture();clock.Reset();destination=null;HideOutings();if(actors!=null)foreach(var a in actors){a?.Movement?.CancelInput();a?.ResetVisual();}HideBubble();HideEntrance();nextTalk=now+6;}
         private void OnRectTransformDimensionsChange(){CancelInteraction();RefreshViewport();}
         private void OnDisable()=>CancelInteraction();
     }

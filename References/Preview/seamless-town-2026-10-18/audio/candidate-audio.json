@@ -1,0 +1,62 @@
+[
+  {
+    "id": "title-letter",
+    "title": "花あかりの招待状",
+    "bpm": 88,
+    "meter": "3/4",
+    "bars": 32,
+    "seconds": 65.45453514739229,
+    "peakDbFS": -6.836546897888184,
+    "rmsDbFS": -27.620067596435547,
+    "loopBoundaryDelta": 0.00034034205600619316,
+    "sha256": "04e5edb0569630461f02f83e4fe7b8258eeb9ffa338c2489e3270d7dcab47821",
+    "preview": "title-letter-8s.mp3",
+    "sampleLicense": "CC0-1.0",
+    "listeningStatus": "Pixel listening pending"
+  },
+  {
+    "id": "title-garden",
+    "title": "ひだまりの庭の扉",
+    "bpm": 96,
+    "meter": "3/4",
+    "bars": 32,
+    "seconds": 60.0,
+    "peakDbFS": -6.892265319824219,
+    "rmsDbFS": -28.713092803955078,
+    "loopBoundaryDelta": 0.0013323596213012934,
+    "sha256": "adbb65abe86c8ee8e5a8446030d607a1dc67f3c1312d4e7c520faaaa3b20876c",
+    "preview": "title-garden-8s.mp3",
+    "sampleLicense": "CC0-1.0",
+    "listeningStatus": "Pixel listening pending"
+  },
+  {
+    "id": "merge-picnic",
+    "title": "こもれびピクニック",
+    "bpm": 104,
+    "meter": "4/4",
+    "bars": 32,
+    "seconds": 73.84614512471656,
+    "peakDbFS": -6.750938892364502,
+    "rmsDbFS": -26.825836181640625,
+    "loopBoundaryDelta": 0.0017812098376452923,
+    "sha256": "2481d0216b9990a41d91fcf4341a5945d1010380cb1301dc7d5977412b2121b6",
+    "preview": "merge-picnic-8s.mp3",
+    "sampleLicense": "CC0-1.0",
+    "listeningStatus": "Pixel listening pending"
+  },
+  {
+    "id": "merge-ribbon",
+    "title": "リボンを結ぶ午後",
+    "bpm": 112,
+    "meter": "4/4",
+    "bars": 32,
+    "seconds": 68.57142857142857,
+    "peakDbFS": -6.7357282638549805,
+    "rmsDbFS": -26.705018997192383,
+    "loopBoundaryDelta": 0.003630349412560463,
+    "sha256": "1d2e755eb7aaf09d8c493ca514b400916d0a7d92b1d67516ada11d7af84d66f6",
+    "preview": "merge-ribbon-8s.mp3",
+    "sampleLicense": "CC0-1.0",
+    "listeningStatus": "Pixel listening pending"
+  }
+]

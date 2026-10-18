@@ -9,8 +9,8 @@ namespace Mofumachi.Presentation
         public static void BuildQuest(RectTransform root,ScreenContext c)
         {
             var w=c.Widgets;w.Header(root,c,"キャラ依頼",UIWidgets.Peach);
-            var paper=w.ScrollPaper("Quest card",root,208,80,360,UIWidgets.BlushPaper);
-            var area=UIWidgets.Node("Quest story layout",paper,new Rect(0,0,1,1));UIWidgets.Top(area,0,0,0,360);
+            var paper=w.ScrollPaper("Quest card",root,208,80,404,UIWidgets.BlushPaper);
+            var area=UIWidgets.Node("Quest story layout",paper,new Rect(0,0,1,1));UIWidgets.Top(area,0,0,0,404);
             TownGoalCard.Build(c,root,0);UIWidgets.Bottom(root.Find("Next town goal") as RectTransform,14,132,14,68);
             var quest=QuestCatalog.NextFor(c.Game.State);
             bool unavailable=quest==null,finished=unavailable&&ChapterProgress.For(c.Game.State).AllCompleted,active=!unavailable && c.Game.State.activeQuestId==quest.Id && !c.Game.State.completedQuestIds.Contains(quest.Id);
@@ -19,7 +19,7 @@ namespace Mofumachi.Presentation
             var requester=CharacterCatalog.Find(unavailable?c.Game.State.favoriteCharacterId:quest.RequesterId);
             w.Body("Quest character",requester.Id,area,new Rect(.35f,.61f,.3f,.16f));
             w.NarrativeLabel("Requester",requester.Name,area,new Rect(.25f,.535f,.5f,.07f),14);
-            w.NarrativeLabel("Quest instruction",unavailable?(finished?"ありがとう！ 街の仲間とお祝いしよう。":UIStrings.UnknownQuest):QuestStoryPresentation.For(quest.Id)?.Before??quest.Dialogue,area,new Rect(.07f,.385f,.86f,.145f),16);
+            w.NarrativeLabel("Quest instruction",unavailable?(finished?"ありがとう！ 街の仲間とお祝いしよう。":UIStrings.UnknownQuest):QuestStoryPresentation.For(quest.Id)?.Before??quest.Dialogue,area,new Rect(.07f,.385f,.86f,.15f),15);
             if(!unavailable)
             {
                 var requirements=c.Game.Quests.GetProgress(quest);

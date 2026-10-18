@@ -29,6 +29,18 @@ namespace Mofumachi.Presentation
         protected override void OnPopulateMesh(VertexHelper vertices)
         {
             vertices.Clear(); if (Region!=TownRegionId.Central||background == null || background.texture == null) return;
+            if(World?.IsReady==true)
+            {
+                // New fountain's water is authored into the single map. Its
+                // animated highlights use that same map, not the old painting.
+                for(int i=0;i<6;i++)
+                {
+                    float t=Mathf.Repeat(phase*.4f+i/6f,1);var center=World.Local(TownWorldMap.Point(.50f,.45f),rectTransform);
+                    float width=(.025f+t*.085f)*World.RenderScale;
+                    AddWorldRing(vertices,center,new Vector2(width,width*.28f),new Color(.87f,1,1,(1-t)*.42f));
+                }
+                return;
+            }
             // The rear waterfall and the two fountain bowls have separate falls.
             // Coordinates are in the source painting, so safe-area/aspect changes
             // cannot shift the water away from the original fountain.
@@ -50,6 +62,12 @@ namespace Mofumachi.Presentation
                 Ellipse(vertices, p, new Vector2(.0022f, .005f) * glow, new Color(1, 1, .86f, .5f * glow));
                 Ellipse(vertices, p, new Vector2(.006f, .0014f) * glow, new Color(1, 1, .86f, .5f * glow));
             }
+        }
+        private static void AddWorldRing(VertexHelper vh,Vector2 center,Vector2 radius,Color tint)
+        {
+            for(int i=0;i<28;i++){float a=i*Mathf.PI*2/28,b=(i+1)*Mathf.PI*2/28;int n=vh.currentVertCount;
+                var p=new Vector2(Mathf.Cos(a)*radius.x,Mathf.Sin(a)*radius.y);var q=new Vector2(Mathf.Cos(b)*radius.x,Mathf.Sin(b)*radius.y);
+                vh.AddVert(center+p,tint,Vector2.zero);vh.AddVert(center+p*.97f,tint,Vector2.zero);vh.AddVert(center+q*.97f,tint,Vector2.zero);vh.AddVert(center+q,tint,Vector2.zero);vh.AddTriangle(n,n+1,n+2);vh.AddTriangle(n,n+2,n+3);}
         }
         private void Jet(VertexHelper vertices,Vector2 start,Vector2 control,Vector2 end)
         {

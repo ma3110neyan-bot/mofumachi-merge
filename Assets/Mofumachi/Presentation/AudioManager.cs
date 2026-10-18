@@ -12,9 +12,12 @@ namespace Mofumachi.Presentation
         private float effectUntil;
         private AudioCue playingCue;
         private MusicSelection selection;private AudioClip[] tracks;private float previewUntil,resumeTime;
-        public string SelectedMusicId=>selection.SelectedId;
+        private MusicRoleSelection roleSelection;
+        public MusicRole CurrentRole {get;private set;}=MusicRole.Title;
+        public string SelectedMusicId=>roleSelection?.For(CurrentRole)??selection.SelectedId;
+        public bool IsRoleSelected(string id){var track=MusicCatalog.Find(id);return track!=null&&(roleSelection==null?selection.SelectedId==id:roleSelection.For(track.Role)==id);}
         public string PreviewMusicId=>selection.IsPreviewing?selection.ActiveId:null;
-        public string MusicError=>selection.Error;
+        public string MusicError=>roleSelection?.Error??selection.Error;
         public static AudioManager GetOrCreate()
         { if(Instance!=null)return Instance; return new GameObject("Mofumachi Audio").AddComponent<AudioManager>(); }
         private void Awake()
@@ -25,7 +28,9 @@ namespace Mofumachi.Presentation
             effects=gameObject.AddComponent<AudioSource>();effects.playOnAwake=false;effects.spatialBlend=0;
             if(FindAnyObjectByType<AudioListener>()==null)gameObject.AddComponent<AudioListener>();
             tracks=new AudioClip[MusicCatalog.All.Count];for(int i=0;i<tracks.Length;i++)tracks[i]=Resources.Load<AudioClip>("Mofumachi/Audio/"+MusicCatalog.All[i].Resource);
-            selection=new MusicSelection(new MusicPreferenceStore());music.clip=TrackClip(selection.SelectedId);
+            selection=new MusicSelection(new MusicPreferenceStore());
+            roleSelection=new MusicRoleSelection(new MusicPreferenceStore(MusicRole.Title),new MusicPreferenceStore(MusicRole.Town),new MusicPreferenceStore(MusicRole.Merge));
+            music.clip=TrackClip(SelectedMusicId);
             string[] keys={"se-confirm","se-merge","se-reward","se-character","se-delivery","se-growth"};
             cues=new AudioClip[keys.Length];for(int i=0;i<keys.Length;i++)cues[i]=Resources.Load<AudioClip>("Mofumachi/Audio/"+keys[i]);
             if(Array.Exists(tracks,c=>c==null) || Array.Exists(cues,c=>c==null))throw new InvalidOperationException("Mofumachi recorded audio resources are missing.");
@@ -46,7 +51,14 @@ namespace Mofumachi.Presentation
             if(!paused&&(bgmEnabled||selection.IsPreviewing)){music.Play();started=true;}
         }
         public void UseMusicPreferences(IMusicPreferenceStore store)
-        {CancelMusicPreview();selection=new MusicSelection(store);ChangeTrack(selection.SelectedId,0);}
+        {CancelMusicPreview();roleSelection=null;selection=new MusicSelection(store);ChangeTrack(SelectedMusicId,0);}
+        public void UseMusicRolePreferences(IMusicPreferenceStore title,IMusicPreferenceStore town,IMusicPreferenceStore merge)
+        {CancelMusicPreview();roleSelection=new MusicRoleSelection(title,town,merge);ChangeTrack(SelectedMusicId,0);}
+        public void EnterMusicRole(MusicRole role)
+        {
+            if(role==CurrentRole)return;CancelMusicPreview();string previous=SelectedMusicId;CurrentRole=role;
+            if(previous!=SelectedMusicId)ChangeTrack(SelectedMusicId,0);
+        }
         public bool PreviewMusic(string id)
         {
             if(MusicCatalog.Find(id)==null||paused)return false;
@@ -57,13 +69,13 @@ namespace Mofumachi.Presentation
         public bool SelectMusic(string id)
         {
             if(MusicCatalog.Find(id)==null)return false;
-            string previous=selection.SelectedId;bool previewed=selection.IsPreviewing;bool saved=selection.Select(id);
-            if(saved&&previous!=selection.SelectedId)ChangeTrack(selection.SelectedId,0);
-            else if(previewed)ChangeTrack(selection.SelectedId,resumeTime);
+            string previous=SelectedMusicId;bool previewed=selection.IsPreviewing;selection.CancelPreview();bool saved=roleSelection?.Select(id)??selection.Select(id);
+            if(saved&&previous!=SelectedMusicId)ChangeTrack(SelectedMusicId,0);
+            else if(previewed)ChangeTrack(SelectedMusicId,resumeTime);
             return saved;
         }
         public void CancelMusicPreview()
-        {if(selection==null||!selection.IsPreviewing)return;selection.CancelPreview();ChangeTrack(selection.SelectedId,resumeTime);}
+        {if(selection==null||!selection.IsPreviewing)return;selection.CancelPreview();ChangeTrack(SelectedMusicId,resumeTime);}
         private void Update(){if(selection.IsPreviewing&&Time.unscaledTime>=previewUntil)CancelMusicPreview();}
         public void PlaySe(AudioCue cue)
         {

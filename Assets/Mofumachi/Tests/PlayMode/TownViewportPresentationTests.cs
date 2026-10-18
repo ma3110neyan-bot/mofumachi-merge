@@ -27,8 +27,10 @@ namespace Mofumachi.Tests
             var life=Flow.GetComponentInChildren<TownLifeView>();var camera=life.GetComponent<TownViewportView>();var background=Flow.TownBackground;
             Vector2 Screen(float y)=>RectTransformUtility.WorldToScreenPoint(null,background.rectTransform.TransformPoint(new Vector2(0,background.rectTransform.rect.yMin+y*background.rectTransform.rect.height)));
             camera.OnPointerDown(new PointerEventData(EventSystem.current){pointerId=5,position=Screen(.1f)});camera.OnDrag(new PointerEventData(EventSystem.current){pointerId=5,position=Screen(.9f)});camera.OnPointerUp(new PointerEventData(EventSystem.current){pointerId=5});camera.Advance(1f/30);
-            Assert.That(life.GuideToFacility("quest"),Is.True);camera.Focus(TownLifeView.RequestEntrance);camera.Advance(1f/30);life.RefreshViewport();Canvas.ForceUpdateCanvases();
-            var root=(RectTransform)life.transform;var marker=life.GetComponentsInChildren<Button>().Single(b=>b.name=="Facility marker 依頼部屋");var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(root,marker.transform);
+            life.World.FastTravel(TownRegionId.West);Assert.That(life.GuideToFacility("quest"),Is.True);
+            for(int i=0;i<1800&&life.Regions.HasHeroJourney;i++)life.AdvanceFrame(1f/30);
+            Canvas.ForceUpdateCanvases();var root=(RectTransform)life.transform;var marker=life.GetComponentsInChildren<Button>().Single(b=>b.name=="Facility entrance quest");
+            var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(root,marker.transform);
             Assert.That(bounds.min.y,Is.GreaterThanOrEqualTo(root.rect.yMin));Assert.That(bounds.max.y,Is.LessThanOrEqualTo(root.rect.yMax));Assert.That(((RectTransform)marker.transform).rect.height,Is.GreaterThanOrEqualTo(48));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator ActorAndCameraGesturesHaveOneOwner()

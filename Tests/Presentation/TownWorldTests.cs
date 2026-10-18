@@ -49,10 +49,12 @@ namespace Mofumachi.Tests
         }
         [Test] public void PaintedConnectingRoadsContinueToTheNeighbourInsteadOfStoppingAtTheEdge()
         {
-            var town=new TownWorldWalkModel(0,"momo");Assert.That(town.TryGuidePoint(new TownPoint(.06f,.72f)),Is.True,"The painted connector needs a finger-sized touch corridor");town.CancelHero();Assert.That(town.TryGuidePoint(new TownPoint(.13f,.72f)),Is.True);
-            Assert.That(town.Hero.PlaceId,Is.EqualTo("west.flowers"));town.CancelHero();
-            Assert.That(town.TryGuidePoint(new TownPoint(.52f,.32f)),Is.True);Assert.That(town.Hero.PlaceId,Is.EqualTo("east.flowers"));
-            town.FastTravel(TownRegionId.West);Assert.That(town.TryGuidePoint(new TownPoint(.94f,1.45f)),Is.True);Assert.That(town.Hero.PlaceId,Is.EqualTo("square"));
+            var town=new TownWorldWalkModel(0,"momo");var road=TownWorldMap.Point(.45f,.33f);
+            Assert.That(town.TryGuidePoint(road),Is.True);Assert.That(town.Hero.Target,Is.EqualTo(road),"Walking taps keep the actual point rather than jump to a distant painting");
+            for(int i=0;i<6000&&town.Hero.IsWalking;i++)town.Step(1f/30);
+            Assert.That(town.Hero.IsWalking,Is.False);Assert.That(TownWorldLayout.Distance(town.Hero.Position,road),Is.LessThan(.002f));
+            Assert.That(town.TryGuide("momo","west.flowers"),Is.True);for(int i=0;i<6000&&town.Hero.IsWalking;i++)town.Step(1f/30);Assert.That(town.Hero.Region,Is.EqualTo(TownRegionId.West));
+
         }
         [Test] public void AutonomousResidentsActuallyVisitANeighbourAndCanMeetOnSharedRoads()
         {

@@ -11,7 +11,7 @@ namespace Mofumachi.Tests
 {
     public sealed class TownLifeTests : SliceUiTestFixture
     {
-        private Vector3 lifePoint(TownActor hero,TownPoint point){var life=Flow.GetComponentInChildren<TownLifeView>();return life.transform.TransformPoint(life.Local(point));}
+        private Vector3 lifePoint(TownActor hero,TownPoint point){var life=Flow.GetComponentInChildren<TownLifeView>();return life.transform.TransformPoint(life.World.Local(point));}
 
         [UnityTest] public IEnumerator FavoriteDragAndNpcWanderStayOnVisiblePaths()
         {
@@ -23,7 +23,7 @@ namespace Mofumachi.Tests
             var pointer=new PointerEventData(EventSystem.current){pointerId=-1,position=RectTransformUtility.WorldToScreenPoint(null,hero.transform.position)};
             var hits=new System.Collections.Generic.List<RaycastResult>();EventSystem.current.RaycastAll(pointer,hits);Assert.That(hits.Any(h=>h.gameObject.GetComponentInParent<TownActor>()==hero),Is.True);
             ExecuteEvents.Execute(hero.gameObject,pointer,ExecuteEvents.pointerDownHandler);Assert.That(hero.Movement.OwnedPointerId,Is.EqualTo(-1));
-            hero.OnDrag(new PointerEventData(EventSystem.current){pointerId=-1,position=RectTransformUtility.WorldToScreenPoint(null,lifePoint(hero,TownLifeView.RequestEntrance))});yield return new WaitForSecondsRealtime(.3f);Assert.That(hero.Position.Y,Is.GreaterThan(.47f));
+            hero.OnDrag(new PointerEventData(EventSystem.current){pointerId=-1,position=RectTransformUtility.WorldToScreenPoint(null,lifePoint(hero,TownWorldMap.Place("quest")))});yield return new WaitForSecondsRealtime(.3f);Assert.That(hero.WorldPosition.Y,Is.GreaterThan(TownWorldMap.Place("square").Y));
             ExecuteEvents.Execute(hero.gameObject,pointer,ExecuteEvents.pointerUpHandler);Assert.That(hero.Movement.OwnedPointerId,Is.Null);
             Assert.That(actors.Where(a=>!a.Controlled).All(a=>a.Movement==null),Is.True);Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));LogAssert.NoUnexpectedReceived();
         }
@@ -31,9 +31,9 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=life.Actors.Single(a=>a.Controlled);
             hero.OnPointerDown(new PointerEventData(EventSystem.current){pointerId=1});
-            life.World.Model.Restore(hero.CharacterId,TownWorldLayout.ToWorld(TownRegionId.Central,TownLifeView.RequestEntrance),"quest");life.AdvanceFrame(1f/30);life.ActorReleased(hero);
+            life.World.Model.Restore(hero.CharacterId,TownWorldMap.Place("quest"),"quest");life.AdvanceFrame(1f/30);life.ActorReleased(hero);
             Assert.That(life.NearbyFacility,Is.Null);hero.OnPointerUp(new PointerEventData(EventSystem.current){pointerId=1});Assert.That(life.NearbyFacility,Is.EqualTo("quest"));
-            Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Enter facility").onClick.Invoke();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Quest));LogAssert.NoUnexpectedReceived();
+            Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Enter facility").onClick.Invoke();for(int i=0;i<30&&Flow.CurrentScreen==ScreenId.Home;i++)life.AdvanceFrame(1f/30);Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Quest));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator NpcBubbleDoesNotCoverActionsOrTakeDrag()
         {
@@ -61,18 +61,18 @@ namespace Mofumachi.Tests
             Assert.That(Flow.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Guide to ")),Is.EqualTo(2));
             Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Guide to quest").onClick.Invoke();
             var hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);Assert.That(hero.IsGuided,Is.True);
-            for(int i=0;i<300;i++)life.AdvanceFrame(1f/30);
+            for(int i=0;i<1800&&life.Regions.HasHeroJourney;i++)life.AdvanceFrame(1f/30);
             Assert.That(hero.IsGuided,Is.False);Assert.That(hero.Movement.OwnedPointerId,Is.Null);Assert.That(life.NearbyFacility,Is.EqualTo("quest"));
             Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(Store.Writes,Is.EqualTo(writes));
-            Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Enter facility").onClick.Invoke();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Quest));
+            Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Enter facility").onClick.Invoke();for(int i=0;i<30&&Flow.CurrentScreen==ScreenId.Home;i++)life.AdvanceFrame(1f/30);Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Quest));
             LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator ManualDragAndPauseCanInterruptFacilityGuidance()
         {
             yield return EnterHome();var hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);
-            Assert.That(hero.GuideTo(new TownPoint(float.NaN,0)),Is.False);Assert.That(hero.GuideTo(TownLifeView.ShopEntrance),Is.True);
+            Assert.That(hero.GuideTo(new TownPoint(float.NaN,0)),Is.False);Assert.That(hero.GuideTo(TownWorldLayout.ToLocal(hero.RegionId,TownWorldMap.Place("shop"))),Is.True);
             hero.OnPointerDown(new PointerEventData(EventSystem.current){pointerId=17});Assert.That(hero.IsGuided,Is.False);Assert.That(hero.Movement.OwnedPointerId,Is.EqualTo(17));
-            hero.OnPointerUp(new PointerEventData(EventSystem.current){pointerId=17});Assert.That(hero.GuideTo(TownLifeView.ShopEntrance),Is.True);
+            hero.OnPointerUp(new PointerEventData(EventSystem.current){pointerId=17});Assert.That(hero.GuideTo(TownWorldLayout.ToLocal(hero.RegionId,TownWorldMap.Place("shop"))),Is.True);
             Flow.SendMessage("OnApplicationPause",true);Assert.That(hero.IsGuided,Is.False);Assert.That(hero.Movement.OwnedPointerId,Is.Null);
             Flow.SendMessage("OnApplicationPause",false);Assert.That(Flow.Game.State.favoriteCharacterId,Is.EqualTo("momo"));LogAssert.NoUnexpectedReceived();
         }
@@ -87,8 +87,8 @@ namespace Mofumachi.Tests
             for(int i=0;i<1200;i++)
             {
                 life.AdvanceFrame(.1f);
-                var stops=TownRegionCatalog.ForLevel(npc.RegionId,life.TownLevel).Map.Nodes;
-                for(int j=0;j<stops.Count;j++)if(Vector2.Distance(new Vector2(npc.Position.X,npc.Position.Y),new Vector2(stops[j].X,stops[j].Y))<.004f)visited.Add(npc.RegionId+":"+j);
+                var stops=TownRegionCatalog.ForLevel(npc.RegionId,life.TownLevel).Map.Places;
+                foreach(var stop in stops)if(TownWorldLayout.Distance(npc.WorldPosition,TownWorldMap.Place(stop.Id))<.004f)visited.Add(stop.Id);
             }
             Assert.That(visited.Count,Is.GreaterThanOrEqualTo(3));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));Assert.That(Store.Writes,Is.EqualTo(writes));
             Assert.That(life.Regions.LookAtRegion(npc.RegionId),Is.True);
@@ -129,7 +129,7 @@ namespace Mofumachi.Tests
                 Assert.That(hero.IsGuided,Is.False);Assert.That(hero.Movement.OwnedPointerId,Is.Null);Assert.That(life.NearbyFacility,Is.Null,"A rest stop does not enter a facility.");
                 Assert.That(TownRegionCatalog.TryFindPlace(destination.Place,life.TownLevel,out var target,out _),Is.True);
                 Assert.That(hero.RegionId,Is.EqualTo(target.Region),destination.Place);
-                Assert.That(Vector2.Distance(new Vector2(hero.Position.X,hero.Position.Y),new Vector2(target.Local.X,target.Local.Y)),Is.LessThan(.001f),destination.Place);
+                Assert.That(Vector2.Distance(new Vector2(hero.WorldPosition.X,hero.WorldPosition.Y),new Vector2(TownWorldMap.Place(destination.Place).X,TownWorldMap.Place(destination.Place).Y)),Is.LessThan(.001f),destination.Place);
                 Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"),Is.True,"Observe the greeting immediately when arrival completes");
             }
             Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));Assert.That(Store.Writes,Is.EqualTo(writes));

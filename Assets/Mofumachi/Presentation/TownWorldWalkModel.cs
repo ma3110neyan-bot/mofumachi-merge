@@ -38,15 +38,15 @@ namespace Mofumachi.Presentation
             foreach(var c in CharacterCatalog.All)
             {
                 bool hero=c.Id==favorite;string place=hero?"square":starts[npc++];TownRegionCatalog.TryFindPlace(place,level,out var loc,out _);
-                var p=TownWorldLayout.ToWorld(loc.Region,loc.Local);if(Area.TryClamp(p,out var floor,.12f))p=floor;
+                var p=TownWorldMap.Place(place);if(Area.TryClamp(p,out var floor,.12f))p=floor;
                 var actor=new TownWorldResident(c.Id,hero,p){PlaceId=place,Rest=2+residents.Count*.5f};residents.Add(actor);if(hero)Hero=actor;
             }
         }
         public bool TryGuide(string id,string place)
         {
             var actor=residents.FirstOrDefault(a=>a.Id==id);if(actor==null||!TownRegionCatalog.TryFindPlace(place,level,out var loc,out _))return false;
-            if(actor.Controlled){IsFollowingFinger=finishingFinger=false;GiveWay(TownWorldLayout.ToWorld(loc.Region,loc.Local));}
-            return Guide(actor,TownWorldLayout.ToWorld(loc.Region,loc.Local),place);
+            if(actor.Controlled){IsFollowingFinger=finishingFinger=false;GiveWay(TownWorldMap.Place(place));}
+            return Guide(actor,TownWorldMap.Place(place),place);
         }
         private bool Guide(TownWorldResident actor,TownPoint target,string place,bool restart=true,bool avoidResidents=false)
         {
@@ -59,13 +59,8 @@ namespace Mofumachi.Presentation
         public bool TryGuidePoint(TownPoint point)
         {
             if(!Area.TryClamp(point,out var projected,.075f))return false;
-            var regionNow=Hero.Region;
-            if(regionNow==TownRegionId.Central&&TownWorldLayout.Distance(projected,new TownPoint(.13f,.72f))<.085f)return TryGuide(Hero.Id,"west.flowers");
-            if(regionNow==TownRegionId.Central&&TownWorldLayout.Distance(projected,new TownPoint(.52f,.32f))<.06f)return TryGuide(Hero.Id,"east.flowers");
-            if(regionNow==TownRegionId.West&&TownWorldLayout.Distance(projected,new TownPoint(.94f,1.45f))<.06f)return TryGuide(Hero.Id,"square");
-            if(regionNow==TownRegionId.East&&TownWorldLayout.Distance(projected,new TownPoint(.09f,-.40f))<.06f)return TryGuide(Hero.Id,"square");
             foreach(TownRegionId region in Enum.GetValues(typeof(TownRegionId)))foreach(var place in TownRegionCatalog.ForLevel(region,level).Map.Places)
-                if(TownWorldLayout.Distance(point,TownWorldLayout.ToWorld(region,place.Position))<.025f)return TryGuide(Hero.Id,place.Id);
+                if(TownWorldLayout.Distance(point,TownWorldMap.Place(place.Id))<.025f)return TryGuide(Hero.Id,place.Id);
             IsFollowingFinger=finishingFinger=false;GiveWay(projected);return Guide(Hero,projected,null);
         }
         // Direct following has no tap-exit shortcut: the character follows the
@@ -109,7 +104,7 @@ namespace Mofumachi.Presentation
         {
             if(!Enum.IsDefined(typeof(TownRegionId),region))return;CancelHero();
             string id=region==TownRegionId.West?"west.entry":region==TownRegionId.East?"east.entry":"square";
-            TownRegionCatalog.TryFindPlace(id,level,out var loc,out _);Hero.Position=Hero.Previous=Hero.Target=TownWorldLayout.ToWorld(region,loc.Local);Hero.PlaceId=id;Hero.PauseRemaining=0;GiveWay(Hero.Position);Arrived?.Invoke(Hero.Id,id,false);
+            TownRegionCatalog.TryFindPlace(id,level,out var loc,out _);Hero.Position=Hero.Previous=Hero.Target=TownWorldMap.Place(id);Hero.PlaceId=id;Hero.PauseRemaining=0;GiveWay(Hero.Position);Arrived?.Invoke(Hero.Id,id,false);
         }
         public void Step(float seconds)
         {

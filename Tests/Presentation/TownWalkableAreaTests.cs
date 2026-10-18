@@ -10,10 +10,10 @@ namespace Mofumachi.Tests
         [Test] public void ParkHasAWalkableSurfaceOnBothSidesOfTheFountain()
         {
             var area=new TownWalkableArea(0);
-            foreach(var p in new[]{new TownPoint(.15f,.55f),new TownPoint(.79f,.55f),new TownPoint(.32f,.47f),new TownPoint(.55f,.47f)})
+            foreach(var p in new[]{TownWorldMap.Point(.19f,.45f),TownWorldMap.Point(.80f,.45f),TownWorldMap.Place("square"),TownWorldMap.Place("fountain")})
                 Assert.That(area.Contains(p),Is.True,p.ToString());
-            Assert.That(area.Contains(new TownPoint(.42f,.555f)),Is.False,"The fountain is an obstacle, not floor");
-            Assert.That(area.Contains(new TownPoint(.02f,.70f)),Is.False,"Painted buildings cannot be crossed");
+            Assert.That(area.Contains(TownWorldMap.Point(.50f,.455f)),Is.False,"The fountain is an obstacle, not floor");
+            Assert.That(area.Contains(TownWorldMap.Point(.80f,.15f)),Is.False,"Painted buildings cannot be crossed");
         }
         [Test] public void AFreeFloorTapKeepsItsPositionRatherThanSnappingToTheOldCenterline()
         {
@@ -24,28 +24,28 @@ namespace Mofumachi.Tests
         [Test] public void RoutesGoAroundTheFountainAndStayInsideTheAuthoredFloor()
         {
             var area=new TownWalkableArea(0);var nav=new TownAreaNavigation(area);
-            var start=new TownPoint(.15f,.55f);var end=new TownPoint(.79f,.55f);var route=nav.FindRoute(start,end);
+            var start=TownWorldMap.Point(.19f,.45f);var end=TownWorldMap.Point(.80f,.45f);var route=nav.FindRoute(start,end);
             Assert.That(route.Count,Is.GreaterThan(1),"A straight segment would cross the fountain");
             var previous=start;foreach(var point in route){Assert.That(area.CanTravel(previous,point),Is.True);previous=point;}
             Assert.That(TownWorldLayout.Distance(previous,end),Is.LessThan(.0001f));
         }
         [Test] public void AThinGapBetweenPaintedFloorAndConnectorCannotBeSkippedBySampling()
         {
-            var area=new TownWalkableArea(6);var a=new TownPoint(.2845566f,-.36020723f);var b=new TownPoint(.275f,-.28121245f);
+            var area=new TownWalkableArea(6);var center=TownWorldMap.Point(.5f,.455f);var a=new TownPoint(center.X-.15f,center.Y+.1799f);var b=new TownPoint(center.X+.15f,center.Y+.1799f);
             Assert.That(area.Contains(a)&&area.Contains(b),Is.True);
             Assert.That(area.CanTravel(a,b),Is.False,"There is a narrow off-floor interval, even though both endpoints are on floor");
         }
         [Test] public void NeighbouringFloorTargetsHaveDifferentRoutesAndAllThreeAreasConnect()
         {
             var area=new TownWalkableArea(6);var nav=new TownAreaNavigation(area);
-            var a=nav.FindRoute(new TownPoint(.42f,.47f),new TownPoint(.72f,.50f));
-            var b=nav.FindRoute(new TownPoint(.42f,.47f),new TownPoint(.78f,.54f));
+            var a=nav.FindRoute(TownWorldMap.Place("square"),TownWorldMap.Point(.74f,.47f));
+            var b=nav.FindRoute(TownWorldMap.Place("square"),TownWorldMap.Point(.78f,.48f));
             Assert.That(a.Last(),Is.Not.EqualTo(b.Last()));
             foreach(var r in new[]{TownRegionId.West,TownRegionId.East})
             {
-                var p=TownWorldLayout.ToWorld(r,TownRegionCatalog.ForLevel(r,6).Map.Places.First(x=>x.Activity==TownActivity.Flowers).Position);
-                var path=nav.FindRoute(new TownPoint(.42f,.47f),p);Assert.That(path,Is.Not.Empty,r.ToString());
-                var previous=new TownPoint(.42f,.47f);foreach(var next in path){Assert.That(area.CanTravel(previous,next),Is.True);previous=next;}
+                var p=TownWorldMap.Place(TownRegionCatalog.ForLevel(r,6).Map.Places.First(x=>x.Activity==TownActivity.Flowers).Id);
+                var path=nav.FindRoute(TownWorldMap.Place("square"),p);Assert.That(path,Is.Not.Empty,r.ToString());
+                var previous=TownWorldMap.Place("square");foreach(var next in path){Assert.That(area.CanTravel(previous,next),Is.True);previous=next;}
                 Assert.That(TownWorldLayout.Distance(previous,p),Is.LessThan(.0001f));
             }
         }
@@ -78,13 +78,13 @@ namespace Mofumachi.Tests
         }
         [TestCase(0)] [TestCase(6)] public void EveryUnlockedPlaceHasAnObstacleSafeRouteFromThePark(int level)
         {
-            var area=new TownWalkableArea(level);var nav=new TownAreaNavigation(area);var start=new TownPoint(.42f,.47f);
+            var area=new TownWalkableArea(level);var nav=new TownAreaNavigation(area);var start=TownWorldMap.Place("square");
             foreach(TownRegionId region in Enum.GetValues(typeof(TownRegionId)))foreach(var place in TownRegionCatalog.ForLevel(region,level).Map.Places)
-            {var target=TownWorldLayout.ToWorld(region,place.Position);Assert.That(area.Contains(target),Is.True,place.Id);var route=nav.FindRoute(start,target);Assert.That(route,Is.Not.Empty,place.Id);var previous=start;foreach(var next in route){Assert.That(area.CanTravel(previous,next),Is.True,place.Id);previous=next;}}
+            {var target=TownWorldMap.Place(place.Id);Assert.That(area.Contains(target),Is.True,place.Id);var route=nav.FindRoute(start,target);Assert.That(route,Is.Not.Empty,place.Id);var previous=start;foreach(var next in route){Assert.That(area.CanTravel(previous,next),Is.True,place.Id);previous=next;}}
         }
-        [TestCase(.26523182f,-.41486222f,.39041013f,.33571947f)]
-        [TestCase(.7202649f,1.4161435f,.3507642f,-.08219892f)]
-        [TestCase(.2868635f,-.44436878f,.07910282f,-.4456663f)]
+        [TestCase(.02f,.57f,.90f,-.33f)]
+        [TestCase(.50f,1.11f,.50f,-.45f)]
+        [TestCase(.90f,-.33f,.02f,.57f)]
         public void AvoidanceDoesNotLoseTheRouteAndLoopAroundAnObstacle(float x,float y,float tx,float ty)
         {
             var town=new TownWorldWalkModel(6,"momo");town.Restore("momo",new TownPoint(x,y));

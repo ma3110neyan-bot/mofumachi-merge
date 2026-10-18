@@ -58,7 +58,7 @@ namespace Mofumachi.Presentation
             w.StoryLabel("Home quest summary",goal,quest,new Rect(.04f,.49f,.92f,.23f),14);
             var nextGoal=TownNextGoal.For(c.Game.State);
             w.StoryLabel("Next goal title",chapter.AllCompleted?"今日のお願い "+c.Flow.Daily.CompletedGoals+" / 3":nextGoal.Title,quest,new Rect(.04f,.27f,.92f,.20f),12);
-            w.Label("Town growth hint",chapter.AllCompleted?c.Flow.Daily.NextGoal:nextGoal.Detail,quest,new Rect(.04f,.01f,.92f,.24f),12);
+            w.Label("Town growth hint",chapter.AllCompleted?c.Flow.Daily.NextGoal:nextGoal.Detail,quest,new Rect(.04f,.015f,.92f,.25f),11);
             if(chapter.LastCompletedChapter!=null)
             {
                 quest.Find("Home quest title").GetComponent<RectTransform>().anchorMax=new Vector2(.68f,.97f);
@@ -68,7 +68,7 @@ namespace Mofumachi.Presentation
                 var replayRect=(RectTransform)replay.transform;replayRect.pivot=new Vector2(1,.5f);replayRect.anchoredPosition=new Vector2(-8,0);replayRect.sizeDelta=new Vector2(48,48);replay.GetComponentInChildren<Text>().fontSize=12;
             }
             quest.gameObject.AddComponent<TownDailyHomeHint>().Bind(c,chapter.AllCompleted,quest.Find("Next goal title").GetComponent<Text>(),quest.Find("Town growth hint").GetComponent<Text>());
-            var tap=quest.gameObject.AddComponent<Button>();quest.GetComponent<RoundedPanelGraphic>().raycastTarget=true;tap.targetGraphic=quest.GetComponent<RoundedPanelGraphic>();tap.onClick.AddListener(()=>{if(chapter.AllCompleted)c.Flow.ShowToday();else c.Flow.ShowQuest();});
+            var tap=quest.gameObject.AddComponent<Button>();quest.GetComponent<RoundedPanelGraphic>().raycastTarget=true;tap.targetGraphic=quest.GetComponent<RoundedPanelGraphic>();tap.onClick.AddListener(()=>{if(chapter.AllCompleted)c.Flow.ShowToday();else life.GuideToFacility("quest");});
             w.Nav(root,c,ScreenId.Home);
             string message=c.Flow.FeedbackFor(ScreenId.Home);
             if(message.Length>0){var error=w.Panel("Home feedback surface",root,new Rect(0,0,1,1),UIWidgets.Cream).rectTransform;UIWidgets.Top(error,12,144,12,64);w.Label("Feedback",message,error,new Rect(.04f,.03f,.92f,.94f),14);}

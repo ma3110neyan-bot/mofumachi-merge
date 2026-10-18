@@ -3,23 +3,33 @@ using System.Collections.Generic;
 using Mofumachi.Core;
 namespace Mofumachi.Presentation
 {
-    // Feet-space floor polygons measured against the three original paintings.
+    // Feet-space polygons measured against the single seamless town painting.
     // Stable places/save IDs are unchanged. Furniture/fountain islands are holes.
     public sealed class TownWalkableArea
     {
         private readonly List<(TownPoint[] Points,float Left,float Right,float Bottom,float Top)> floors=new List<(TownPoint[],float,float,float,float)>();
         private readonly List<(TownPoint Center,float X,float Y)> islands=new List<(TownPoint,float,float)>();
-        private readonly TownPoint[][] connections={TownWorldLayout.NorthConnection,TownWorldLayout.SouthConnection};
+        private readonly TownPoint[][] connections=Array.Empty<TownPoint[]>();
         private const float Corridor=.115f;
         [ThreadStatic] private static List<float> segmentCuts;
         public TownWalkableArea(int level)
         {
-            Add(TownRegionId.Central,new[]{P(.10f,.50f),P(.12f,.61f),P(.17f,.66f),P(.36f,.675f),P(.58f,.655f),P(.80f,.64f),P(.86f,.60f),P(.84f,.51f),P(.73f,.45f),P(.62f,.41f),P(.59f,.29f),P(.47f,.25f),P(.37f,.31f),P(.32f,.40f),P(.23f,.425f),P(.12f,.46f)});
-            Add(TownRegionId.West,new[]{P(.17f,.27f),P(.33f,.26f),P(.50f,.29f),P(.66f,.36f),P(.93f,.46f),P(.99f,.53f),P(.95f,.61f),P(.80f,.625f),P(.65f,.61f),P(.52f,.56f),P(.42f,.51f),P(.28f,.49f),P(.19f,.40f)});
-            Add(TownRegionId.East,new[]{P(.045f,.41f),P(.065f,.52f),P(.18f,.565f),P(.30f,.58f),P(.40f,.57f),P(.51f,.54f),P(.64f,.54f),P(.76f,.49f),P(.80f,.44f),P(.70f,.38f),P(.52f,.365f),P(.38f,.37f),P(.21f,.38f)});
-            islands.Add((P(.42f,.555f),.19f,.045f));
-            islands.Add((TownWorldLayout.ToWorld(TownRegionId.West,P(.60f,.515f)),.075f,.025f));
-            islands.Add((TownWorldLayout.ToWorld(TownRegionId.East,P(.42f,.525f)),.105f,.034f));
+            // Paving outlines traced on TownSeamlessMap, in image UV coordinates.
+            // These overlap at plazas; planted beds and furniture remain islands.
+            AddMap(new[]{P(.43f,0),P(.60f,0),P(.61f,.06f),P(.52f,.10f),P(.53f,.16f),P(.62f,.23f),P(.62f,.29f),P(.58f,.34f),P(.65f,.37f),P(.52f,.40f),P(.38f,.37f),P(.41f,.32f),P(.50f,.26f),P(.50f,.19f),P(.44f,.14f),P(.40f,.10f),P(.42f,.05f)});
+            AddMap(new[]{P(.14f,.185f),P(.30f,.175f),P(.43f,.18f),P(.46f,.21f),P(.49f,.23f),P(.52f,.25f),P(.49f,.28f),P(.43f,.27f),P(.40f,.25f),P(.36f,.25f),P(.28f,.24f),P(.19f,.23f),P(.13f,.218f)});
+            AddMap(new[]{P(.57f,.28f),P(.69f,.25f),P(.77f,.24f),P(.85f,.24f),P(.91f,.28f),P(.88f,.32f),P(.80f,.35f),P(.72f,.37f),P(.61f,.34f)});
+            AddMap(new[]{P(.37f,.33f),P(.46f,.35f),P(.54f,.35f),P(.64f,.34f),P(.78f,.36f),P(.86f,.40f),P(.83f,.48f),P(.82f,.53f),P(.88f,.58f),P(.76f,.61f),P(.65f,.60f),P(.58f,.64f),P(.42f,.64f),P(.32f,.60f),P(.23f,.60f),P(.16f,.57f),P(.18f,.51f),P(.15f,.47f),P(.16f,.42f),P(.25f,.38f)});
+            AddMap(new[]{P(.42f,.60f),P(.58f,.60f),P(.62f,.65f),P(.58f,.72f),P(.58f,.80f),P(.56f,.85f),P(.61f,.91f),P(.61f,1),P(.42f,1),P(.40f,.94f),P(.44f,.88f),P(.40f,.82f),P(.39f,.75f),P(.43f,.70f),P(.39f,.65f)});
+            AddMap(new[]{P(.43f,.70f),P(.43f,.78f),P(.39f,.82f),P(.29f,.81f),P(.22f,.78f),P(.27f,.73f),P(.31f,.71f)});
+            AddMap(new[]{P(.56f,.79f),P(.66f,.80f),P(.76f,.80f),P(.87f,.81f),P(.89f,.84f),P(.82f,.88f),P(.71f,.87f),P(.60f,.89f),P(.54f,.86f)});
+            AddMap(new[]{P(.42f,.275f),P(.50f,.275f),P(.47f,.32f),P(.36f,.355f),P(.30f,.37f),P(.24f,.40f),P(.19f,.43f),P(.13f,.41f),P(.17f,.37f),P(.22f,.34f),P(.31f,.315f),P(.35f,.29f)});
+            Island(.68f,.275f,.085f,.024f);Island(.88f,.282f,.025f,.020f);
+            Island(.5f,.455f,.157f,.075f); // fountain, stone lip and planted apron
+            Island(.325f,.407f,.063f,.035f);Island(.681f,.405f,.070f,.037f);
+            Island(.361f,.552f,.070f,.029f);Island(.649f,.554f,.074f,.031f);
+            Island(.165f,.219f,.035f,.014f);Island(.262f,.232f,.034f,.014f);Island(.380f,.192f,.037f,.014f);
+
         }
         private static TownPoint P(float x,float y)=>new TownPoint(x,y);
         private void Add(TownRegionId region,TownPoint[] polygon)
@@ -28,6 +38,9 @@ namespace Mofumachi.Presentation
             for(int i=0;i<polygon.Length;i++){polygon[i]=TownWorldLayout.ToWorld(region,polygon[i]);left=Math.Min(left,polygon[i].X);right=Math.Max(right,polygon[i].X);bottom=Math.Min(bottom,polygon[i].Y);top=Math.Max(top,polygon[i].Y);}
             floors.Add((polygon,left,right,bottom,top));
         }
+        private void AddMap(TownPoint[] polygon)
+        {for(int i=0;i<polygon.Length;i++)polygon[i]=TownWorldMap.Point(polygon[i].X,polygon[i].Y);Add(TownRegionId.Central,polygon);}
+        private void Island(float u,float v,float rx,float ry)=>islands.Add((TownWorldMap.Point(u,v),rx*TownWorldMap.Width,ry*TownWorldMap.Height));
         public static float Distance(TownPoint a,TownPoint b)
         {float x=a.X-b.X,y=(a.Y-b.Y)*TownWorldLayout.ImageAspect;return (float)Math.Sqrt(x*x+y*y);}
         private static TownPoint Closest(TownPoint p,TownPoint a,TownPoint b)

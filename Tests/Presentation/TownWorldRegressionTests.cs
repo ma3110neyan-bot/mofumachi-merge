@@ -25,9 +25,9 @@ namespace Mofumachi.Tests
         [Test] public void ConversationRangeUsesVisibleBodySpacingAndTheSameVerticalProjectionAsTheTown()
         {
             var p=new TownPoint(.5f,1.3f);
-            Assert.That(TownWorldLayout.WithinConversationRange(p,new TownPoint(.74f,1.3f),360,62),Is.True);
-            Assert.That(TownWorldLayout.WithinConversationRange(p,new TownPoint(.74f,1.3f),720,62),Is.False,"Do not converse across more than the bodies' visual spacing");
-            Assert.That(TownWorldLayout.WithinConversationRange(p,new TownPoint(.5f,1.44f),360,62),Is.False,"Vertical world units project taller than horizontal units");
+            Assert.That(TownWorldLayout.WithinConversationRange(p,new TownPoint(.70f,1.3f),360,62),Is.True);
+            Assert.That(TownWorldLayout.WithinConversationRange(p,new TownPoint(.70f,1.3f),720,62),Is.False,"Do not converse across more than the bodies' visual spacing");
+            Assert.That(TownWorldLayout.WithinConversationRange(p,new TownPoint(.5f,1.58f),360,62),Is.False,"Conversation distance uses the map's actual projection");
             Assert.That(TownWorldLayout.WithinConversationRange(p,new TownPoint(float.NaN,1.3f),360,62),Is.False);
             Assert.That(TownWorldLayout.WithinConversationRange(p,p,0,62),Is.False);
         }

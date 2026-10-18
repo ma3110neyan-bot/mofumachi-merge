@@ -61,10 +61,11 @@ namespace Mofumachi.Tests
             yield return EnterHome();var session=Session();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);
             Assert.That(Guide(session,TownRegionId.West),Is.True);StepUntil(life,()=>!Read<bool>(session,"HasHeroJourney"));
             int writes=Store.Writes;Assert.That(life.GuideToFacility("quest"),Is.True);StepUntil(life,()=>!Read<bool>(session,"HasHeroJourney"));
-            Assert.That(Region(hero),Is.EqualTo(TownRegionId.Central));Assert.That(life.NearbyFacility,Is.EqualTo("quest"));
+            Assert.That(Region(hero),Is.EqualTo(TownRegionId.West));Assert.That(life.NearbyFacility,Is.EqualTo("quest"));
             Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(Store.Writes,Is.EqualTo(writes));
-            Assert.That(hero.Position.X,Is.EqualTo(.18f).Within(.001f));Assert.That(hero.Position.Y,Is.EqualTo(.635f).Within(.001f));
+            Assert.That(TownWorldLayout.Distance(hero.WorldPosition,TownWorldMap.Place("quest")),Is.LessThan(.001f));
             Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Enter facility").onClick.Invoke();
+            for(int i=0;i<30&&Flow.CurrentScreen==ScreenId.Home;i++)life.AdvanceFrame(1f/30);
             Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Quest));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator ViewingOnlyDoesNotMoveHeroOrWriteSave()

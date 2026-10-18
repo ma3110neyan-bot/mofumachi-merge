@@ -12,9 +12,9 @@ namespace Mofumachi.Presentation
         private readonly List<int>[] neighbours;
         public TownAreaNavigation(TownWalkableArea floor)
         {
-            area=floor;const int columns=33,rows=140;var grid=new int[columns,rows];
+            area=floor;const int columns=47,rows=70;var grid=new int[columns,rows];
             for(int x=0;x<columns;x++)for(int y=0;y<rows;y++)
-            {var p=new TownPoint(-.04f+x*.035f,-.69f+y*.035f/TownWorldLayout.ImageAspect);grid[x,y]=-1;if(area.Contains(p)){grid[x,y]=points.Count;points.Add(p);}}
+            {var p=new TownPoint(TownWorldMap.Left+x*.035f,TownWorldMap.Bottom+y*.035f/TownWorldLayout.ImageAspect);grid[x,y]=-1;if(area.Contains(p)){grid[x,y]=points.Count;points.Add(p);}}
             neighbours=new List<int>[points.Count];for(int i=0;i<points.Count;i++)neighbours[i]=new List<int>(8);
             for(int x=0;x<columns;x++)for(int y=0;y<rows;y++)if(grid[x,y]>=0)
             for(int dx=-1;dx<=1;dx++)for(int dy=-1;dy<=1;dy++)

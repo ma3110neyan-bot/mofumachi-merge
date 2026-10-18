@@ -34,7 +34,7 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator RenderedCornerAndArrivalUseTheSameStreet()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=life.Actors.Single(a=>a.Controlled);life.GuideToFacility("quest");
-            for(int i=0;i<300&&life.Regions.HasHeroJourney;i++)life.AdvanceFrame(1f/30);
+            for(int i=0;i<1800&&life.Regions.HasHeroJourney;i++)life.AdvanceFrame(1f/30);
             Assert.That(life.Regions.HasHeroJourney,Is.False);Assert.That(life.NearbyFacility,Is.EqualTo("quest"));Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));
             Assert.That(hero.RenderPosition.X,Is.EqualTo(hero.Position.X).Within(.00001f));Assert.That(Vector2.Distance(((RectTransform)hero.transform).anchoredPosition,life.World.Local(hero.WorldPosition)),Is.LessThan(.01f));LogAssert.NoUnexpectedReceived();
         }

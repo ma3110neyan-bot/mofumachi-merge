@@ -17,8 +17,8 @@ namespace Mofumachi.Tests
             Assert.That(clip,Is.Not.Null);yield return new WaitForSecondsRealtime(.3f);float position=music.time;
             Flow.ShowSettings();Flow.GoBack();yield return null;
             yield return SceneManager.LoadSceneAsync("TitleScene");yield return null;
-            Assert.That(AudioManager.GetOrCreate(),Is.SameAs(audio));Assert.That(music.clip,Is.SameAs(clip));
-            Assert.That(music.time,Is.GreaterThanOrEqualTo(position));
+            Assert.That(AudioManager.GetOrCreate(),Is.SameAs(audio));Assert.That(audio.CurrentRole,Is.EqualTo(MusicRole.Title));Assert.That(music.clip,Is.Not.SameAs(clip),"Title uses its own selected role candidate");
+            Assert.That(music.time,Is.GreaterThanOrEqualTo(0));
             Assert.That(Object.FindObjectsByType<AudioManager>(FindObjectsInactive.Include).Length,Is.EqualTo(1));
             Assert.That(Object.FindObjectsByType<AudioListener>(FindObjectsInactive.Exclude).Length,Is.EqualTo(1));
         }

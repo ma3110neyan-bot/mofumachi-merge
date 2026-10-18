@@ -7,9 +7,9 @@ namespace Mofumachi.Presentation
     // Rendering coordinates only. Stable region/place IDs and savev3 remain unchanged.
     public static class TownWorldLayout
     {
-        public const float RegionSpacing=.9f,ArtHeight=.75f,ImageAspect=1798f/875f,ViewWidth=.94f;
+        public const float RegionSpacing=.9f,ArtHeight=.75f,ImageAspect=1f,ViewWidth=.78f;
         public static float Origin(TownRegionId r)=>r==TownRegionId.West?RegionSpacing:r==TownRegionId.East?-RegionSpacing:0;
-        public static string Name(TownRegionId r)=>r==TownRegionId.West?"北のカフェ":r==TownRegionId.East?"南の花の小道":"中央公園";
+        public static string Name(TownRegionId r)=>r==TownRegionId.West?"北の街・依頼小屋":r==TownRegionId.East?"南の花・ショップ":"中央公園";
         public static TownPoint ToWorld(TownRegionId r,TownPoint p)=>new TownPoint(p.X,p.Y+Origin(r));
         public static TownPoint ToLocal(TownRegionId r,TownPoint p)=>new TownPoint(p.X,p.Y-Origin(r));
         public static bool Finite(TownPoint p)=>float.IsFinite(p.X)&&float.IsFinite(p.Y);
@@ -23,7 +23,7 @@ namespace Mofumachi.Presentation
             float reach=actorWidth*1.5f;
             return dx*dx+dy*dy<=reach*reach;
         }
-        public static TownRegionId RegionAt(TownPoint p)=>p.Y>.82f?TownRegionId.West:p.Y<-.12f?TownRegionId.East:TownRegionId.Central;
+        public static TownRegionId RegionAt(TownPoint p)=>p.Y>.834f?TownRegionId.West:p.Y<.114f?TownRegionId.East:TownRegionId.Central;
         public static readonly TownPoint[] NorthConnection={new TownPoint(.18f,.60f),new TownPoint(.13f,.72f),new TownPoint(.23f,.80f),new TownPoint(.40f,.89f),new TownPoint(.52f,1.04f),new TownPoint(.70f,1.22f),new TownPoint(.94f,1.45f)};
         public static readonly TownPoint[] SouthConnection={new TownPoint(.42f,.47f),new TownPoint(.52f,.32f),new TownPoint(.50f,.12f),new TownPoint(.46f,.01f),new TownPoint(.39f,-.09f),new TownPoint(.23f,-.23f),new TownPoint(.09f,-.40f)};
         public static void BuildGraph(int level,out TownPoint[] nodes,out TownEdge[] edges)
@@ -50,11 +50,14 @@ namespace Mofumachi.Presentation
     }
     public sealed class TownWorldCamera
     {
+        private float halfWidth=TownWorldLayout.ViewWidth/2,halfHeight=.70f;
         public TownPoint Center {get;private set;}=new TownPoint(.5f,.45f);
+        public void Fit(float width,float height)
+        {if(!float.IsFinite(width)||!float.IsFinite(height)||width<=0||height<=0)return;halfWidth=Math.Min(width,TownWorldMap.Width)/2;halfHeight=Math.Min(height,TownWorldMap.Height)/2;Center=Clamp(Center);}
         public void Jump(TownPoint p){if(TownWorldLayout.Finite(p))Center=Clamp(p);}
         public void Follow(TownPoint p,float dt)
         {if(!TownWorldLayout.Finite(p)||!float.IsFinite(dt)||dt<=0)return;float t=1-(float)Math.Exp(-Math.Min(dt,.1f)*8);var target=Clamp(p);Center=new TownPoint(Center.X+(target.X-Center.X)*t,Center.Y+(target.Y-Center.Y)*t);}
         public void Pan(float x,float y){if(float.IsFinite(x)&&float.IsFinite(y))Jump(new TownPoint(Center.X+x,Center.Y+y));}
-        private static TownPoint Clamp(TownPoint p)=>new TownPoint(Math.Max(.42f,Math.Min(.58f,p.X)),Math.Max(-.63f,Math.Min(1.42f,p.Y)));
+        private TownPoint Clamp(TownPoint p)=>new TownPoint(Math.Max(TownWorldMap.Left+halfWidth,Math.Min(TownWorldMap.Right-halfWidth,p.X)),Math.Max(TownWorldMap.Bottom+halfHeight,Math.Min(TownWorldMap.Top-halfHeight,p.Y)));
     }
 }

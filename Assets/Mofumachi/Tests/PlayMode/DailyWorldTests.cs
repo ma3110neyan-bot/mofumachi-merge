@@ -16,9 +16,9 @@ namespace Mofumachi.Tests
             yield return EnterHome();var world=Flow.GetComponentInChildren<TownContinuousWorldView>();Assert.That(world,Is.Not.Null);Assert.That(world.Model.Residents.Count,Is.EqualTo(6));
             Assert.That(Flow.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Street exit ")),Is.Zero);
             var fast=Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Region walk ")).ToArray();Assert.That(fast.Length,Is.EqualTo(3));Assert.That(fast.All(b=>b.GetComponentInChildren<Text>().text.Contains("すぐ移動")),Is.True);
-            var surface=Resources.Load<Texture2D>("Mofumachi/TownGardenSurface");Assert.That(surface,Is.Not.Null,"Connectors need their own full-size surface material, not a small crop from a painting");
-            Assert.That(Flow.GetComponentInChildren<TownGardenGroundGraphic>().mainTexture,Is.SameAs(surface));Assert.That(Flow.GetComponentInChildren<TownGardenPathGraphic>().mainTexture,Is.SameAs(surface),"Both meshes share one atlas rather than allocate material copies");
-            Assert.That(surface.width,Is.LessThanOrEqualTo(1024));Assert.That(surface.height,Is.LessThanOrEqualTo(1024));Assert.That(surface.isReadable,Is.False);
+            var surface=Resources.Load<Texture2D>(TownWorldMap.Resource);Assert.That(surface,Is.Not.Null);
+            Assert.That(Flow.GetComponentsInChildren<RawImage>().Count(i=>i.name=="Seamless town map"&&i.texture==surface),Is.EqualTo(1));
+            Assert.That(surface.width,Is.LessThanOrEqualTo(2048));Assert.That(surface.height,Is.LessThanOrEqualTo(2048));Assert.That(surface.isReadable,Is.False);
             fast.Single(b=>b.name=="Region walk East").onClick.Invoke();Assert.That(world.Model.Hero.Region,Is.EqualTo(TownRegionId.East));Assert.That(Flow.Daily.Data.Walks,Is.Zero,"Fast travel is not a completed daily walk");LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator ActualWalkingHasNoFadeAndDailyCountsOnlyItsCompletedArrival()
@@ -32,8 +32,8 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator SettingsReturnKeepsTheMidWalkWorldPositionWithoutARegionJump()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();Assert.That(life.GuideToPlace("west.flowers"),Is.True);
-            for(int i=0;i<3000&&life.World.Camera.Center.Y<.83f;i++)life.AdvanceFrame(1f/30);
-            var camera=life.World.Camera.Center;Assert.That(camera.Y,Is.InRange(.83f,.9f),"Exercise the connector where a legacy region-local camera would be negative");
+            for(int i=0;i<90;i++)life.AdvanceFrame(1f/30);
+            var camera=life.World.Camera.Center;Assert.That(camera.Y,Is.GreaterThan(TownWorldMap.Place("square").Y),"Exercise a moving continuous camera");
             Assert.That(life.World.Model.Hero.IsWalking,Is.True);var before=life.World.Model.Residents.ToDictionary(a=>a.Id,a=>a.Position);bool follow=life.World.FollowingHero;
             Flow.ShowSettings();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Settings));Assert.That(Flow.HomeWorldSnapshot,Is.Not.Null);Assert.That(Flow.HomeRegionSnapshot,Is.Null,"Continuous cameras must not be encoded as a bounded region snapshot");
             Flow.GoBack();var after=Flow.GetComponentInChildren<TownContinuousWorldView>();
@@ -64,7 +64,7 @@ namespace Mofumachi.Tests
         }
         [UnityTest] public IEnumerator ANewWalkDismissesTheOldFacilityEntryAndItsCallback()
         {
-            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();life.GuideToFacility("quest");for(int i=0;i<600&&life.Regions.HasHeroJourney;i++)life.AdvanceFrame(1f/30);
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();life.GuideToFacility("quest");for(int i=0;i<2400&&life.Regions.HasHeroJourney;i++)life.AdvanceFrame(1f/30);
             var oldEntry=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Enter facility");Assert.That(life.NearbyFacility,Is.EqualTo("quest"));Assert.That(life.GuideToFacility("shop"),Is.True);
             Assert.That(life.NearbyFacility,Is.Null);oldEntry.onClick.Invoke();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(life.Regions.HasHeroJourney,Is.True);LogAssert.NoUnexpectedReceived();
         }
@@ -82,7 +82,7 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=life.Actors.Single(a=>a.Controlled);var npc=life.Actors.First(a=>!a.Controlled&&a.RegionVisible);
             hero.OnPointerDown(new PointerEventData(EventSystem.current){pointerId=91});npc.React();Assert.That(Flow.Daily.Data.Talks,Is.Zero);Assert.That(Flow.Daily.Data.Characters.Sum(c=>c.Meetings),Is.Zero);
-            hero.OnPointerUp(new PointerEventData(EventSystem.current){pointerId=91});life.GuideToFacility("quest");for(int i=0;i<600&&life.Regions.HasHeroJourney;i++)life.AdvanceFrame(1f/30);npc.React();
+            hero.OnPointerUp(new PointerEventData(EventSystem.current){pointerId=91});life.GuideToFacility("quest");for(int i=0;i<2400&&life.Regions.HasHeroJourney;i++)life.AdvanceFrame(1f/30);npc.React();
             Assert.That(life.NearbyFacility,Is.EqualTo("quest"));Assert.That(Flow.Daily.Data.Talks,Is.Zero);Assert.That(Flow.Daily.Data.Characters.Sum(c=>c.Meetings),Is.Zero);LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator PerspectiveCellsHaveStableIndexesAndRealNonOverlappingHitRects()

@@ -4,6 +4,8 @@ namespace Mofumachi.Presentation
 {
     public sealed class MusicSettingsView : MonoBehaviour
     {
+        private const float HeadingOffset=40,CardHeight=160,CardGap=8;
+        internal static float RequiredHeight=>HeadingOffset+MusicCatalog.Candidates.Count*(CardHeight+CardGap)-CardGap;
         private AudioManager audio;private Text state,chooseLabel,previewLabel;private Button choose;private string track;
         public static void Build(RectTransform content,ScreenContext c,float top)
         {
@@ -11,7 +13,7 @@ namespace Mofumachi.Presentation
             for(int i=0;i<MusicCatalog.Candidates.Count;i++)
             {
                 var song=MusicCatalog.Candidates[i];var card=c.Widgets.OrnatePanel("Music track "+song.Id,content,new Rect(0,0,1,1),UIWidgets.Cream,12).rectTransform;
-                UIWidgets.Top(card,12,top+40+i*168,12,160);
+                UIWidgets.Top(card,12,top+HeadingOffset+i*(CardHeight+CardGap),12,CardHeight);
                 c.Widgets.StoryLabel("Music title "+song.Id,song.Title,card,new Rect(.035f,.78f,.93f,.20f),15);
                 c.Widgets.NarrativeLabel("Music direction "+song.Id,song.Description,card,new Rect(.045f,.42f,.91f,.33f),13);
                 var status=c.Widgets.Label("Music state "+song.Id,"",card,new Rect(.04f,.32f,.92f,.12f),11);

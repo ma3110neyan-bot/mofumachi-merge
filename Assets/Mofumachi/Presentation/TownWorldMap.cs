@@ -24,6 +24,12 @@ namespace Mofumachi.Presentation
         public static TownPoint Place(string id)=>anchors.TryGetValue(id??"",out var p)?p:throw new ArgumentException("Unknown map place",nameof(id));
         public static TownPoint Growth(TownRegionId region,TownGrowthPlacement prop)
         {
+            // Early growth must appear beside the regional arrival path, inside
+            // a short phone's masked field, rather than only at the map edges.
+            if(prop.Prop==TownGrowthProp.Flowers&&prop.Level==1)
+                return region==TownRegionId.West?Point(.48f,.24f):region==TownRegionId.East?Point(.42f,.68f):Point(.68f,.58f);
+            if(prop.Prop==TownGrowthProp.Lamp&&prop.Level==3&&prop.Width>=.10f)
+                return region==TownRegionId.West?Point(.62f,.29f):region==TownRegionId.East?Point(.62f,.72f):Point(.72f,.575f);
             float v=region==TownRegionId.West?.27f:region==TownRegionId.East?.83f:.50f;
             float side=prop.Position.X<.5f?.10f:.90f;
             if(prop.Prop==TownGrowthProp.Arch||prop.Prop==TownGrowthProp.Garland)return Point(.50f,v-.11f-(prop.Level%2)*.08f);

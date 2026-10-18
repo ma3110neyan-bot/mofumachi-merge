@@ -80,9 +80,13 @@ namespace Mofumachi.Tests
         }
         [UnityTest] public IEnumerator RejectedNpcTapsDoNotCountAConversationThatWasNeverShown()
         {
-            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=life.Actors.Single(a=>a.Controlled);var npc=life.Actors.First(a=>!a.Controlled&&a.RegionVisible);
-            hero.OnPointerDown(new PointerEventData(EventSystem.current){pointerId=91});npc.React();Assert.That(Flow.Daily.Data.Talks,Is.Zero);Assert.That(Flow.Daily.Data.Characters.Sum(c=>c.Meetings),Is.Zero);
-            hero.OnPointerUp(new PointerEventData(EventSystem.current){pointerId=91});life.GuideToFacility("quest");for(int i=0;i<2400&&life.Regions.HasHeroJourney;i++)life.AdvanceFrame(1f/30);npc.React();
+            yield return EnterHome();var npc=FrameTownNpc();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=life.Actors.Single(a=>a.Controlled);
+            Assert.That(hero.RegionVisible,Is.True);hero.OnPointerDown(new PointerEventData(EventSystem.current){pointerId=91});Assert.That(hero.Movement.OwnedPointerId,Is.EqualTo(91));
+            npc.React();Assert.That(Flow.Daily.Data.Talks,Is.Zero);Assert.That(Flow.Daily.Data.Characters.Sum(c=>c.Meetings),Is.Zero);
+            hero.OnPointerUp(new PointerEventData(EventSystem.current){pointerId=91});Assert.That(life.GuideToFacility("quest"),Is.True);for(int i=0;i<2400&&life.Regions.HasHeroJourney;i++)life.AdvanceFrame(1f/30);
+            // Frame the same naturally moving NPC without clearing the pending
+            // entrance. An offscreen tap would not exercise the entrance guard.
+            life.World.Camera.Jump(npc.WorldPosition);life.World.Refresh();Assert.That(npc.RegionVisible,Is.True);npc.React();
             Assert.That(life.NearbyFacility,Is.EqualTo("quest"));Assert.That(Flow.Daily.Data.Talks,Is.Zero);Assert.That(Flow.Daily.Data.Characters.Sum(c=>c.Meetings),Is.Zero);LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator PerspectiveCellsHaveStableIndexesAndRealNonOverlappingHitRects()

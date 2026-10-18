@@ -50,9 +50,10 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();foreach(int height in new[]{592,640,808})
             {
-                Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,height),new Rect(0,24,360,height-56));Canvas.ForceUpdateCanvases();var life=Flow.GetComponentInChildren<TownLifeView>();Flow.GetComponentsInChildren<TownActor>().First(a=>!a.Controlled&&a.RegionVisible).React();Canvas.ForceUpdateCanvases();
+                var npc=FrameTownNpc(height);var life=Flow.GetComponentInChildren<TownLifeView>();npc.React();Canvas.ForceUpdateCanvases();
                 var bubble=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town bubble");Assert.That(bubble.preferredHeight,Is.LessThanOrEqualTo(bubble.rectTransform.rect.height+1));Assert.That(bubble.fontSize,Is.GreaterThanOrEqualTo(14));
-                foreach(var button in life.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Facility marker")))Assert.That(((RectTransform)button.transform).rect.height,Is.GreaterThanOrEqualTo(48));
+                var doors=life.GetComponentsInChildren<Button>(true).Where(b=>b.name.StartsWith("Facility entrance ")).ToArray();Assert.That(doors.Length,Is.EqualTo(2));
+                foreach(var button in doors)Assert.That(((RectTransform)button.transform).rect.height,Is.GreaterThanOrEqualTo(48));
             }LogAssert.NoUnexpectedReceived();
         }
     }

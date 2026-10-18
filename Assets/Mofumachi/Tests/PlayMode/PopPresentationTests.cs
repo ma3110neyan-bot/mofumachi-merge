@@ -10,7 +10,7 @@ namespace Mofumachi.Tests
 {
     public sealed class PopPresentationTests : SliceUiTestFixture
     {
-        [UnityTest] public IEnumerator FullBodyActorsFollowBackgroundCropOnShortAndTallScreens()
+        [UnityTest] public IEnumerator FullBodyActorsFollowTheWorldMapOnShortAndTallScreens()
         {
             yield return EnterHome();
             var canvas=new GameObject("Town crop fixture",typeof(RectTransform),typeof(Canvas));canvas.GetComponent<Canvas>().renderMode=RenderMode.WorldSpace;
@@ -29,7 +29,7 @@ namespace Mofumachi.Tests
                         var rect=(RectTransform)actor.transform;Assert.That(rect.rect.width,Is.EqualTo(62));Assert.That(rect.rect.height,Is.EqualTo(78));
                         if(actor.RegionVisible)
                         {
-                            var expected=life.Local(actor.Position);Assert.That(Vector2.Distance(rect.anchoredPosition,expected),Is.LessThan(3));
+                            var expected=life.World.Local(actor.WorldPosition);Assert.That(Vector2.Distance(rect.anchoredPosition,expected),Is.LessThan(3),actor.CharacterId+" at height "+height);
                             var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(page,rect);var quest=RectTransformUtility.CalculateRelativeRectTransformBounds(page,page.Find("Home quest"));
                             Assert.That(bounds.min.y,Is.GreaterThan(quest.max.y));
                         }
@@ -45,7 +45,7 @@ namespace Mofumachi.Tests
         }
         [UnityTest] public IEnumerator CharacterReactionDoesNotWriteOrChangeGameProgress()
         {
-            yield return EnterHome();var actor=Flow.GetComponentsInChildren<TownActor>().First(a=>!a.Controlled&&a.RegionVisible);
+            yield return EnterHome();var actor=FrameTownNpc();
             int writes=Store.Writes,coins=Flow.Game.State.coins;actor.React();yield return new WaitForSecondsRealtime(.12f);
             var body=actor.GetComponentInChildren<CharacterBodyGraphic>();
             Assert.That(body,Is.Not.Null,"The tapped actor must have a full-body graphic.");

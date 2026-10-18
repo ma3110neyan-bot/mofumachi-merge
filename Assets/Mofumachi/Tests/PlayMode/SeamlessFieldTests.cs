@@ -30,13 +30,16 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator QuestDoorWalksThenOpensAndReturnsToTheSameTownPosition()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var facility=life.GetComponent<TownFacilityView>();
-            string state=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;var initial=life.World.Model.Hero.Position;
+            var before=Flow.Game.State.Clone();int writes=Store.Writes;var initial=life.World.Model.Hero.Position;
             Assert.That(facility.RequestEnter("quest"),Is.True);Assert.That(life.World.Model.Hero.Position,Is.EqualTo(initial));Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));
             for(int i=0;i<2400&&facility.Entry.Phase==TownEntryPhase.Walking;i++)life.AdvanceFrame(1f/30);
             Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Opening));Assert.That(Store.Writes,Is.EqualTo(writes));
             var position=life.World.Model.Hero.Position;Assert.That(TownWorldLayout.Distance(position,TownWorldMap.Place("quest")),Is.LessThan(.032f));
             for(int i=0;i<30&&Flow.CurrentScreen==ScreenId.Home;i++)life.AdvanceFrame(1f/30);
-            Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Quest));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));
+            Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Quest));Assert.That(Store.Writes,Is.EqualTo(writes+1),"Preserve the existing navigation save");
+            var after=Flow.Game.State.Clone();Assert.That(System.DateTimeOffset.TryParse(after.lastSaveTime,out _),Is.True);
+            Assert.That(StateCodec.Encode(Store.Load().State),Is.EqualTo(StateCodec.Encode(after)),"Disk and live state must agree after entry");
+            after.lastSaveTime=before.lastSaveTime;Assert.That(StateCodec.Encode(after),Is.EqualTo(StateCodec.Encode(before)),"Entering the cabin must not change progress or rewards");
             Flow.GoBack();Assert.That(TownWorldLayout.Distance(Flow.GetComponentInChildren<TownLifeView>().World.Model.Hero.Position,position),Is.LessThan(.001f));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator SouthShopIsEnteredThroughItsDoorWithoutPurchaseOrSaveMutation()

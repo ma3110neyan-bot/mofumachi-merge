@@ -37,7 +37,7 @@ namespace Mofumachi.Tests
         }
         [UnityTest] public IEnumerator NpcBubbleDoesNotCoverActionsOrTakeDrag()
         {
-            yield return EnterHome();var actors=Flow.GetComponentsInChildren<TownActor>();int writes=Store.Writes;actors.First(a=>!a.Controlled&&a.RegionVisible).React();
+            yield return EnterHome();var npc=FrameTownNpc();int writes=Store.Writes;npc.React();
             Assert.That(Flow.GetComponentsInChildren<Text>().Count(t=>t.name=="Town bubble"),Is.LessThanOrEqualTo(1));
             Assert.That(Flow.GetComponentsInChildren<Text>().Where(t=>t.name=="Town bubble").All(t=>!t.raycastTarget),Is.True);
             Canvas.ForceUpdateCanvases();

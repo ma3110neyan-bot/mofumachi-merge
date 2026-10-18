@@ -7,6 +7,8 @@ using Mofumachi.Presentation;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using System.Linq;
 
 namespace Mofumachi.Tests
 {
@@ -48,6 +50,22 @@ namespace Mofumachi.Tests
             if (Flow.IsPurchaseNoticeOpen) Assert.That(Flow.ConfirmPurchaseNotice(), Is.True);
             yield return null; yield return null;
             if(Flow.CurrentScreen==ScreenId.CharacterSelection){Flow.PreviewFavorite("momo");Assert.That(Flow.ConfirmFavorite(),Is.True);}
+        }
+        protected TownLifeView FrameTownPortrait(int height=740)
+        {
+            // Native batch runs inherit the Editor's Game view, which may be
+            // landscape. Exercise the phone field without moving any resident.
+            var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;
+            canvas.renderMode=RenderMode.WorldSpace;((RectTransform)canvas.transform).sizeDelta=new Vector2(360,height);
+            Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,height),new Rect(0,24,360,height-56));
+            Canvas.ForceUpdateCanvases();var life=Flow.GetComponentInChildren<TownLifeView>();life.World.Refresh();life.AdvanceFrame(1f/30);return life;
+        }
+        protected TownActor FrameTownNpc(int height=740)
+        {
+            var life=FrameTownPortrait(height);Assert.That(life.Regions.LookAtRegion(TownRegionId.Central),Is.True);
+            life.AdvanceFrame(1f/30);Canvas.ForceUpdateCanvases();
+            var npc=life.Actors.FirstOrDefault(a=>!a.Controlled&&a.RegionVisible);
+            Assert.That(npc,Is.Not.Null,"The framed central park must contain a real visible resident");return npc;
         }
         protected sealed class TestStore : IStateStore
         {

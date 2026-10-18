@@ -8,6 +8,26 @@ namespace Mofumachi.Tests
     public sealed class SeamlessTownTests
     {
         private static TownPoint Map(float u,float v)=>new TownPoint(-.3f+1.6f*u,1.65f-2.4f*v);
+        [TestCase(TownRegionId.West)] [TestCase(TownRegionId.Central)] [TestCase(TownRegionId.East)]
+        public void FirstFlowersAndLevelThreeLampsAreVisibleFromTheRegionalPhoneView(TownRegionId region)
+        {
+            foreach(float height in new[]{592,640,808})
+            {
+                float scale=TownWorldLayout.ScaleForViewport(360,height);
+                var camera=new TownWorldCamera();camera.Fit(360/scale,height/scale);
+                camera.Jump(TownWorldMap.Place(region==TownRegionId.West?"west.entry":region==TownRegionId.East?"east.entry":"square"));
+                foreach(var kind in new[]{TownGrowthProp.Flowers,TownGrowthProp.Lamp})
+                {
+                    var prop=TownGrowthPresentation.For(region,kind==TownGrowthProp.Flowers?1:3).First(p=>p.Prop==kind);
+                    var point=TownWorldMap.Growth(region,prop);
+                    // Match the native 24/32-unit safe margins, 142-unit HUD,
+                    // 178-unit footer, and the resulting field-center offset.
+                    float x=(point.X-camera.Center.X)*scale,y=(point.Y-camera.Center.Y)*scale-14;
+                    Assert.That(Math.Abs(x),Is.LessThan(168),region+" "+kind+" at height "+height);
+                    Assert.That(y,Is.InRange(-(height-376)/2+8,(height-376)/2-48),region+" "+kind+" at height "+height);
+                }
+            }
+        }
         [Test] public void CaptionsStayInsideTheActualTownMaskWithoutMovingThePaintedDoor()
         {
             foreach(float x in new[]{-300f,0,300f})

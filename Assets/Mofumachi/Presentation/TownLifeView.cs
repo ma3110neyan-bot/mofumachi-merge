@@ -89,7 +89,7 @@ namespace Mofumachi.Presentation
         }
         public bool TryBeginConversation(TownActor first,TownActor second)
         {
-            if(!CanInteract||first==null||second==null||first==second||first.RegionId!=second.RegionId||!first.RegionVisible||!second.RegionVisible||first.IsRegionFading||second.IsRegionFading||now<nextSocial||IsManuallyDragging||GetComponent<TownViewportView>()?.IsDragging==true||outings!=null||entrance!=null||!WithinConversationRange(first,second)||!Visible(first)||!Visible(second))return false;
+            if(!CanInteract||first==null||second==null||first==second||first.RegionId!=second.RegionId||!first.RegionVisible||!second.RegionVisible||first.IsRegionFading||second.IsRegionFading||now<nextSocial||IsManuallyDragging||GetComponent<TownViewportView>()?.IsDragging==true||outings!=null||NearbyFacility!=null||!WithinConversationRange(first,second)||!Visible(first)||!Visible(second))return false;
             first.FaceTowards(second.Position);second.FaceTowards(first.Position);first.Greet();second.Greet();nextSocial=now+8;
             ShowBubble(CharacterCatalog.Find(first.CharacterId).Name+"：こんにちは、"+CharacterCatalog.Find(second.CharacterId).Name+"♪",first);return true;
         }
@@ -120,7 +120,7 @@ namespace Mofumachi.Presentation
             if(bubble!=null&&now>=bubbleUntil)HideBubble();
             if(IsManuallyDragging){HideBubble();return;}
             if(now>=nextSocial)for(int i=0;i<actors.Length;i++)for(int j=i+1;j<actors.Length;j++)if(TryBeginConversation(actors[i],actors[j]))break;
-            if(bubble==null&&outings==null&&entrance==null&&now>=nextTalk)
+            if(bubble==null&&outings==null&&NearbyFacility==null&&now>=nextTalk)
             {
                 var actor=actors.FirstOrDefault(a=>!a.Controlled&&a.IsResting&&Visible(a));if(actor!=null)ShowBubble(CharacterCatalog.Find(actor.CharacterId).Name+"："+StreetLine(actor),actor);nextTalk=now+6;
             }
@@ -155,7 +155,11 @@ namespace Mofumachi.Presentation
                 (TownWalkableArea.Distance(actor.WorldPosition,TownWorldMap.Place("quest"))<.034f?"quest":TownWalkableArea.Distance(actor.WorldPosition,TownWorldMap.Place("shop"))<.034f?"shop":null):
                 actor.RegionId!=TownRegionId.Central?null:Distance(actor.Position,RequestEntrance)<.034f?"quest":Distance(actor.Position,ShopEntrance)<.034f?"shop":null;
             if(facility==null){if(destination!=null&&(World?.IsReady==true?TownWalkableArea.Distance(actor.WorldPosition,TownWorldMap.Place(destination.Id)):Distance(actor.Position,destination.Position))<.034f){actor.Surprise();ShowBubble(destination.Dialogue,actor);destination=null;}return;}
-            NearbyFacility=facility;HideBubble();actor.Surprise();var root=(RectTransform)transform.parent;
+            NearbyFacility=facility;HideBubble();actor.Surprise();
+            // A tapped doorway already owns walking and opening. A second
+            // confirmation here hides the arriving character on short screens.
+            if(GetComponent<TownFacilityView>()?.Entry.OwnsArrival(facility)==true)return;
+            var root=(RectTransform)transform.parent;
             var b=context.Widgets.Button("Enter facility",facility=="quest"?"依頼部屋に入る":"ショップへ",root,new Rect(0,0,1,1),()=>
             {
                 if(!CanInteract||NearbyFacility!=facility||!actor.RegionVisible)return;
@@ -164,7 +168,7 @@ namespace Mofumachi.Presentation
             });UIWidgets.Bottom((RectTransform)b.transform,48,178,48,48);entrance=b.gameObject;
         }
         internal void React(TownActor a)
-        {if(!CanInteract||IsManuallyDragging||entrance!=null)return;context.Flow.PlayCue(AudioCue.Character);if(a.Controlled)ShowOutings();else{HideOutings();bool recorded=context.Flow.TalkToCharacter(a.CharacterId);ShowBubble(recorded?CharacterCatalog.Find(a.CharacterId).Name+"："+StreetLine(a):context.Flow.Daily.LastError,a);}}
+        {if(!CanInteract||IsManuallyDragging||NearbyFacility!=null)return;context.Flow.PlayCue(AudioCue.Character);if(a.Controlled)ShowOutings();else{HideOutings();bool recorded=context.Flow.TalkToCharacter(a.CharacterId);ShowBubble(recorded?CharacterCatalog.Find(a.CharacterId).Name+"："+StreetLine(a):context.Flow.Daily.LastError,a);}}
         private string StreetLine(TownActor actor)
         {string reunion=QuestStoryPresentation.ReunionFor(actor.CharacterId,context.Game.State.completedQuestIds);var visits=context.Flow.Daily.Data.Characters.First(c=>c.Id==actor.CharacterId).Meetings;return reunion.Length>0&&visits%3==1?reunion:TownCharacterDialogue.For(actor.CharacterId,visits);}
         private void ShowBubble(string text,TownActor a)

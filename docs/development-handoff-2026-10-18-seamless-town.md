@@ -10,7 +10,7 @@
 - 依頼の最終行・Home次目標の表示枠を調整。フォント566字を収録。図鑑・今日・花・5×6・保存／納品／報酬は既存仕様。
 
 ## 検証の区別
-- Core125件・純粋Presentation102件はクラウドで成功。実Unity DLL参照の6アセンブリはコンパイル成功。これはUnity内の実行成功を意味しない。
+- Core125件・純粋Presentation105件はクラウドで成功。実Unity DLL参照の6アセンブリはコンパイル成功。これはUnity内の実行成功を意味しない。
 - PowerShellの実Git／合成XML／モックADBの検査に成功。これは端末へのインストールではない。
 - Windows宣言構成はEdit142／Play174（DailyWorld10、MajorPolish6、SeamlessField7）。実際のXMLが正。
 - クラウドUnityは有効なEditorライセンスがなくexit198。AndroidPlayerモジュールもなく、PixelへUSB接続できない。実描画／新APK／PixelはWindowsで続行する。
@@ -56,3 +56,17 @@ After：今回のWindows生成67枚＋そのAPKを更新したPixel画面。新�
 `20261018-104913-757fbe58` の実XMLはPlay174件中173成功・1失敗・skip0。前記7件のうち6件が成功し、残るのはPopの全身表示テスト。740単位の高さでは、画面外90単位の先読み範囲に南の住民が入り、`RegionVisible`でも生の座標が依頼カードより下になる。描画は街の`RectMask2D`内へ切り取られるため、生の座標を全員の画面内判定に使うのは誤り。
 
 テストはワールド投影の照合を維持し、ネイティブCanvasRendererの矩形クリップがキャラの全MaskableGraphicに有効であること、街マスクが依頼カードの上で終わること、描画部分がカードに重ならないことを確認する。操作キャラは全身が街の中に収まることを別途確認。先読み余白を狭めて出入りを不自然にする変更や、テストのskipは行わない。今回の変更はテスト側のみで、Windows実行成功は再検証待ち。
+
+## Windows 105742 実行：全件成功と67枚レビュー
+
+`20261018-105742-26c6980f`、ソース`3686bbc818eea73f25067f69e829a8042bbd9969`。受領XMLでEdit142/142・Play174/174、failed0/skip0。Daily10、Major6、Seamless7、従来地域・QualityPass・Experienceを含む全suiteを確認。build-infoとcapture-manifestのSHA・productFingerprintは一致、全67枚720×1280のバイト数・SHA256を照合。Androidログの成功マーカーとAPK118134856 bytesも一致。
+
+この候補のAPK SHA256は`afa0a50d94e484ffc96f1c3545dab52eae6bd7251bc9846a86a8f5aa2d727ea6`。端末への更新はまだ行っていない。新マップのEditorアセット常駐計測は7144577 bytesで、PixelのRAM計測ではない。
+
+67枚を一覧で確認し、接続・中央公園・小屋開扉・Mergeを拡大確認。従来46dcf8eと同名fixtureの10場面をBefore/After比較した。新しい街と物理小屋、両用途2候補、図鑑・今日の維持は実Unity画面で確認。静止画からFPS・音質・保存保持・10分試遊・楽しさの最終合格は判定しない。
+
+実画像で次の2点を見つけ、Pixelへの受け渡しを保留して表示を調整した。
+- `21-shop-door-opening.png`：自動開扉中にも「ショップへ」の大きな確認ボタンが出てキャラを隠す。扉の予約がある到着では確認を重ねず、そのまま開扉する。単に施設へ散歩した場合の手動確認は維持。
+- `09-connected-path-north.png`：道案内テキストがキャラの顔と重なる。住民の体・名前にかかる間は道案内を隠し、空いたら表示する。上部の地域案内は維持。
+
+純粋ロジックの回帰3件は失敗を確認してから実装し、Presentation全105件成功。ネイティブ7件の既存suiteに自動入場中の重複確認と道案内の非重複を追加。補修後のWindows実行・同じ候補の再生成とPixelは未確認。保存・報酬・5×6・正式キャラ・BGM素材は変更していない。

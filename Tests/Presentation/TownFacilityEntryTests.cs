@@ -5,6 +5,17 @@ namespace Mofumachi.Tests
 {
     public sealed class TownFacilityEntryTests
     {
+        [TestCase("quest")] [TestCase("shop")]
+        public void AutomaticEntryOwnsItsArrivalUntilCancelled(string id)
+        {
+            var entry=new TownFacilityEntry();Assert.That(entry.OwnsArrival(id),Is.False,"A manual walk still needs explicit entry");
+            Assert.That(entry.Request(id),Is.True);Assert.That(entry.OwnsArrival(id),Is.True);
+            Assert.That(entry.OwnsArrival(id=="quest"?"shop":"quest"),Is.False);
+            entry.Step(TownWorldMap.Place(id),false,.1f);Assert.That(entry.Phase,Is.EqualTo(TownEntryPhase.Opening));Assert.That(entry.OwnsArrival(id),Is.True);
+            for(int i=0;i<10;i++)entry.Step(TownWorldMap.Place(id),false,.1f);
+            Assert.That(entry.Phase,Is.EqualTo(TownEntryPhase.Entered));Assert.That(entry.OwnsArrival(id),Is.True);
+            entry.Cancel();Assert.That(entry.OwnsArrival(id),Is.False);Assert.That(entry.OwnsArrival(null),Is.False);
+        }
         [Test] public void DoorCanOnlyOpenAtItsThresholdAfterWalkingStops()
         {
             var entry=new TownFacilityEntry();Assert.That(entry.Request("quest"),Is.True);

@@ -8,6 +8,15 @@ namespace Mofumachi.Tests
     public sealed class SeamlessTownTests
     {
         private static TownPoint Map(float u,float v)=>new TownPoint(-.3f+1.6f*u,1.65f-2.4f*v);
+        [Test] public void RoadLabelsYieldToAResidentsBodyInsteadOfPrintingAcrossItsFace()
+        {
+            var label=new TownViewportRect(-71,24,142,30);
+            Assert.That(TownWorldLayout.LabelOverlapsResident(label,new TownPoint(0,0),62,78),Is.True);
+            Assert.That(TownWorldLayout.LabelOverlapsResident(label,new TownPoint(80,20),62,78),Is.True);
+            Assert.That(TownWorldLayout.LabelOverlapsResident(label,new TownPoint(110,20),62,78),Is.False);
+            Assert.That(TownWorldLayout.LabelOverlapsResident(label,new TownPoint(0,60),62,78),Is.False);
+            Assert.That(TownWorldLayout.LabelOverlapsResident(label,new TownPoint(0,-80),62,78),Is.False);
+        }
         [TestCase(TownRegionId.West)] [TestCase(TownRegionId.Central)] [TestCase(TownRegionId.East)]
         public void FirstFlowersAndLevelThreeLampsAreVisibleFromTheRegionalPhoneView(TownRegionId region)
         {

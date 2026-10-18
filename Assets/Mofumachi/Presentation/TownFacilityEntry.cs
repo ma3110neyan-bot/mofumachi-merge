@@ -9,6 +9,7 @@ namespace Mofumachi.Presentation
         public TownEntryPhase Phase {get;private set;}
         public string Facility {get;private set;}
         public float OpenAmount {get;private set;}
+        public bool OwnsArrival(string id)=>Phase!=TownEntryPhase.Idle&&Facility==id;
         public bool Request(string id)
         {if(id!="quest"&&id!="shop")return false;Facility=id;Phase=TownEntryPhase.Walking;OpenAmount=0;return true;}
         public void Cancel(){Facility=null;Phase=TownEntryPhase.Idle;OpenAmount=0;}

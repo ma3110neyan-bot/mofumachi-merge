@@ -96,7 +96,19 @@ namespace Mofumachi.Presentation
             if(!surfaceReady||!surfaceCenter.Equals(Camera.Center)||surfaceSize!=bounds.size)
             {surfaceCenter=Camera.Center;surfaceSize=bounds.size;surfaceReady=true;}
             var actorBounds=((RectTransform)life.transform).rect;
-            for(int sign=0;sign<roadLabels.Count;sign++){var at=Local(SignPoints[sign]);roadLabels[sign].rectTransform.anchoredPosition=new Vector2(TownWorldLayout.LabelCenter(at.x,actorBounds.xMin,actorBounds.xMax,roadLabels[sign].rectTransform.rect.width),at.y+24);roadLabels[sign].gameObject.SetActive(at.y>actorBounds.yMin+18&&at.y<actorBounds.yMax-44);}
+            for(int sign=0;sign<roadLabels.Count;sign++)
+            {
+                var label=roadLabels[sign];var at=Local(SignPoints[sign]);var size=label.rectTransform.rect.size;
+                var center=new Vector2(TownWorldLayout.LabelCenter(at.x,actorBounds.xMin,actorBounds.xMax,size.x),at.y+24);label.rectTransform.anchoredPosition=center;
+                var area=new TownViewportRect(center.x-size.x/2,center.y-size.y/2,size.x,size.y);
+                bool covered=false;
+                foreach(var actor in life.Actors)
+                {
+                    if(!actor.RegionVisible)continue;var feet=Local(actor.WorldPosition);var body=((RectTransform)actor.transform).rect;
+                    if(TownWorldLayout.LabelOverlapsResident(area,new TownPoint(feet.x,feet.y-24),body.width*1.26f+8,body.height+40)){covered=true;break;}
+                }
+                label.gameObject.SetActive(!covered&&at.y>actorBounds.yMin+18&&at.y<actorBounds.yMax-44);
+            }
             int count=Math.Min(6,context.Flow.Daily.Data.DecorationDays.Count);
             if(count>0)
             {

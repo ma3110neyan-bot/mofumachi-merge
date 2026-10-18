@@ -25,6 +25,10 @@ namespace Mofumachi.Tests
                 var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(Flow.TownBackground.rectTransform,map.transform);var viewport=Flow.TownBackground.rectTransform.rect;
                 Assert.That(bounds.min.x,Is.LessThanOrEqualTo(viewport.xMin+.01f));Assert.That(bounds.max.x,Is.GreaterThanOrEqualTo(viewport.xMax-.01f));Assert.That(bounds.min.y,Is.LessThanOrEqualTo(viewport.yMin+.01f));Assert.That(bounds.max.y,Is.GreaterThanOrEqualTo(viewport.yMax-.01f));
             }
+            var guideSpot=TownWorldMap.Point(.44f,.33f);life.World.Model.Restore(life.World.Model.Hero.Id,guideSpot);life.World.ReturnToHero();
+            Assert.That(TownWorldLayout.Distance(life.World.Model.Hero.Position,guideSpot),Is.LessThan(.001f));
+            var guide=life.GetComponentsInChildren<Text>(true).Single(t=>t.name=="Painted road direction 0");
+            Assert.That(guide.gameObject.activeInHierarchy,Is.False,"A road label must yield while the character crosses it");
             LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator QuestDoorWalksThenOpensAndReturnsToTheSameTownPosition()
@@ -34,6 +38,7 @@ namespace Mofumachi.Tests
             Assert.That(facility.RequestEnter("quest"),Is.True);Assert.That(life.World.Model.Hero.Position,Is.EqualTo(initial));Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));
             for(int i=0;i<2400&&facility.Entry.Phase==TownEntryPhase.Walking;i++)life.AdvanceFrame(1f/30);
             Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Opening));Assert.That(Store.Writes,Is.EqualTo(writes));
+            Assert.That(Flow.GetComponentsInChildren<Button>().Any(b=>b.name=="Enter facility"),Is.False,"Automatic opening must not cover the character with a duplicate entry button");
             var position=life.World.Model.Hero.Position;Assert.That(TownWorldLayout.Distance(position,TownWorldMap.Place("quest")),Is.LessThan(.032f));
             for(int i=0;i<30&&Flow.CurrentScreen==ScreenId.Home;i++)life.AdvanceFrame(1f/30);
             Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Quest));Assert.That(Store.Writes,Is.EqualTo(writes+1),"Preserve the existing navigation save");
@@ -46,7 +51,10 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var facility=life.GetComponent<TownFacilityView>();int writes=Store.Writes;string before=StateCodec.Encode(Flow.Game.State);
             Assert.That(facility.RequestEnter("shop"),Is.True);
-            for(int i=0;i<3000&&!Flow.IsModalOpen;i++)life.AdvanceFrame(1f/30);
+            for(int i=0;i<3000&&facility.Entry.Phase==TownEntryPhase.Walking;i++)life.AdvanceFrame(1f/30);
+            Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Opening));
+            Assert.That(Flow.GetComponentsInChildren<Button>().Any(b=>b.name=="Enter facility"),Is.False,"Automatic opening must leave the shop arrival visible");
+            for(int i=0;i<30&&!Flow.IsModalOpen;i++)life.AdvanceFrame(1f/30);
             Assert.That(Flow.IsModalOpen,Is.True);Assert.That(life.World.Model.Hero.Region,Is.EqualTo(TownRegionId.East));
             Assert.That(TownWorldLayout.Distance(life.World.Model.Hero.Position,TownWorldMap.Place("shop")),Is.LessThan(.032f));
             Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));

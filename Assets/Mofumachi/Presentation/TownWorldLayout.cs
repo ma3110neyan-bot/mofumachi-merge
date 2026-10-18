@@ -13,6 +13,8 @@ namespace Mofumachi.Presentation
         public static float LabelCenter(float x,float left,float right,float width)
         {float half=Math.Min(width/2,(right-left)/2);return Math.Max(left+half,Math.Min(right-half,x));}
         public static float CaptionDrop(float doorTop,float captionHeight,float viewportTop)=>Math.Min(0,viewportTop-4-doorTop-captionHeight);
+        public static bool LabelOverlapsResident(TownViewportRect label,TownPoint feet,float width,float height)=>
+            label.X<feet.X+width/2&&label.X+label.Width>feet.X-width/2&&label.Y<feet.Y+height&&label.Y+label.Height>feet.Y;
         public static float Origin(TownRegionId r)=>r==TownRegionId.West?RegionSpacing:r==TownRegionId.East?-RegionSpacing:0;
         public static string Name(TownRegionId r)=>r==TownRegionId.West?"北の街・依頼小屋":r==TownRegionId.East?"南の花・ショップ":"中央公園";
         public static TownPoint ToWorld(TownRegionId r,TownPoint p)=>new TownPoint(p.X,p.Y+Origin(r));

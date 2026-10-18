@@ -7,7 +7,7 @@ namespace Mofumachi.Presentation
     // Rendering coordinates only. Stable region/place IDs and savev3 remain unchanged.
     public static class TownWorldLayout
     {
-        public const float RegionSpacing=.9f,ArtHeight=.75f,ImageAspect=1f,ViewWidth=.78f;
+        public const float RegionSpacing=.9f,ArtHeight=.75f,ImageAspect=1f,ViewWidth=.98f;
         public static float ScaleForViewport(float width,float height)
         {if(!float.IsFinite(width)||!float.IsFinite(height)||width<=0||height<=0)return 1;return Math.Max(width/ViewWidth,height/(TownWorldMap.Height*ImageAspect));}
         public static float LabelCenter(float x,float left,float right,float width)
@@ -16,7 +16,7 @@ namespace Mofumachi.Presentation
         public static bool LabelOverlapsResident(TownViewportRect label,TownPoint feet,float width,float height)=>
             label.X<feet.X+width/2&&label.X+label.Width>feet.X-width/2&&label.Y<feet.Y+height&&label.Y+label.Height>feet.Y;
         public static float Origin(TownRegionId r)=>r==TownRegionId.West?RegionSpacing:r==TownRegionId.East?-RegionSpacing:0;
-        public static string Name(TownRegionId r)=>r==TownRegionId.West?"北の街・依頼小屋":r==TownRegionId.East?"南の花・ショップ":"中央公園";
+        public static string Name(TownRegionId r)=>r==TownRegionId.West?"西のカフェ通り":r==TownRegionId.East?"東の花屋通り":"中央広場";
         public static TownPoint ToWorld(TownRegionId r,TownPoint p)=>new TownPoint(p.X,p.Y+Origin(r));
         public static TownPoint ToLocal(TownRegionId r,TownPoint p)=>new TownPoint(p.X,p.Y-Origin(r));
         public static bool Finite(TownPoint p)=>float.IsFinite(p.X)&&float.IsFinite(p.Y);
@@ -30,7 +30,7 @@ namespace Mofumachi.Presentation
             float reach=actorWidth*1.5f;
             return dx*dx+dy*dy<=reach*reach;
         }
-        public static TownRegionId RegionAt(TownPoint p)=>p.Y>.834f?TownRegionId.West:p.Y<.114f?TownRegionId.East:TownRegionId.Central;
+        public static TownRegionId RegionAt(TownPoint p)=>p.X<.17f?TownRegionId.West:p.X>1.07f?TownRegionId.East:TownRegionId.Central;
         public static readonly TownPoint[] NorthConnection={new TownPoint(.18f,.60f),new TownPoint(.13f,.72f),new TownPoint(.23f,.80f),new TownPoint(.40f,.89f),new TownPoint(.52f,1.04f),new TownPoint(.70f,1.22f),new TownPoint(.94f,1.45f)};
         public static readonly TownPoint[] SouthConnection={new TownPoint(.42f,.47f),new TownPoint(.52f,.32f),new TownPoint(.50f,.12f),new TownPoint(.46f,.01f),new TownPoint(.39f,-.09f),new TownPoint(.23f,-.23f),new TownPoint(.09f,-.40f)};
         public static void BuildGraph(int level,out TownPoint[] nodes,out TownEdge[] edges)

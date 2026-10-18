@@ -18,7 +18,7 @@ namespace Mofumachi.Presentation
         public static int ReactionCount(int meetings,int outings)=>meetings>=6?3:meetings+outings>=3?2:meetings+outings>=1?1:0;
         private static readonly string[] Likes={"ふわふわのパン、お友だち","お茶、新しい発見","焼きたてパン、のんびりお茶会","手作りの飾り、花束","お花、やさしい風","かわいい小物、みんなの笑顔"};
         private static readonly string[] Talents={"仲間をお茶会に誘うこと","小さな発見を見つけること","おいしいものを作ること","飾りや小物を作ること","お花を大切に育てること","お気に入りを集めること"};
-        private static readonly string[] Places={"北のカフェ","中央公園の噴水","北の木陰のベンチ","南の工房","南の花の小道","中央公園のお祝いの道"};
+        private static readonly string[] Places={"西のカフェ","中央広場の噴水","西の木陰のベンチ","東の花屋","東の花屋通り","中央広場のお祝いの道"};
         public static TownBookEntry For(string id,GameState game,TownDailyData data)
         {var c=CharacterCatalog.Find(id)??throw new ArgumentException("Unknown character",nameof(id));int i=c.PortraitIndex;return new TownBookEntry(c,Likes[i],Talents[i],Places[i],game,data);}
         public static IEnumerable<string> Text=>Likes.Concat(Talents).Concat(Places).Concat(new[]{"もふまちキャラクター図鑑","好きなもの","得意なこと","好きな場所","出会った回数","達成した依頼","リアクション","？？？","笑顔","手を振る","とっておきのお話"});

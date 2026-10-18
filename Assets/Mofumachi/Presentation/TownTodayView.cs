@@ -28,7 +28,7 @@ namespace Mofumachi.Presentation
         public static void Welcome(RectTransform root,ScreenContext c)
         {
             if(!c.Flow.Daily.ShouldGreet||!c.Flow.Daily.MarkGreeting())return;
-            var p=c.Widgets.OrnatePanel("Daily welcome",root,new Rect(0,0,1,1),UIWidgets.Cream,14).rectTransform;UIWidgets.Top(p,20,145,20,48);
+            var p=c.Widgets.OrnatePanel("Daily welcome",root,new Rect(0,0,1,1),UIWidgets.Cream,14).rectTransform;UIWidgets.Top(p,20,84,20,48);
             string who=Mofumachi.Core.CharacterCatalog.Find(c.Flow.Daily.CharacterOfDay).Name;
             c.Widgets.NarrativeLabel("Daily welcome line","今日は"+who+"と、おさんぽしよう♪",p,new Rect(.04f,.10f,.92f,.80f),14);
             p.gameObject.AddComponent<TownWelcomeLifetime>();

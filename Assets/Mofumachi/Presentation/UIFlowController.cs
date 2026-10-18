@@ -21,7 +21,7 @@ namespace Mofumachi.Presentation
         private UIWidgets widgets;
         private ScreenContext context;
         private GameObject modal;
-        private enum ModalKind { None, PurchaseNotice, MergeMenu, Discard, PackFrames, Shop, Today }
+        private enum ModalKind { None, PurchaseNotice, MergeMenu, Discard, PackFrames, Shop, Today, TownMenu }
         private ModalKind modalKind;
         public bool IsModalOpen => modal != null && modal.activeSelf;
         public bool CanInteractBoard => CanPlay && CurrentScreen==ScreenId.Merge && mergeAnimation==null;
@@ -162,6 +162,7 @@ namespace Mofumachi.Presentation
         public void GoBack()
         {
             if(modalKind==ModalKind.Today){CloseToday();return;}
+            if(modalKind==ModalKind.TownMenu){CloseTownMenu();return;}
             if(IsModalOpen || transitioning)return;
             if(CurrentScreen==ScreenId.Home&&page!=null&&page.GetComponentInChildren<TownStreetWalkView>()?.IsArmed==true){page.GetComponentInChildren<TownStreetWalkView>().CancelSelection();return;}
             if(CurrentScreen==ScreenId.Home&&page!=null&&page.GetComponentInChildren<TownLifeView>()?.DismissOutings()==true)return;
@@ -549,6 +550,9 @@ namespace Mofumachi.Presentation
         }
         public void CancelDiscard()
         { if(modalKind==ModalKind.Discard){CloseUtilityModal();Render("merge");} }
+        public void OpenTownMenu()
+        {if(CanPlay&&CurrentScreen==ScreenId.Home)OpenUtilityModal(ModalKind.TownMenu,TownMenuView.Build);}
+        public void CloseTownMenu(){if(modalKind==ModalKind.TownMenu)CloseUtilityModal();}
         public void ShowToday()
         {if(!CanPlay||CurrentScreen!=ScreenId.Home)return;Daily.EnsureDay(System.DateTime.Now);OpenUtilityModal(ModalKind.Today,TownTodayView.Build);}
         public void CloseToday(){if(modalKind==ModalKind.Today)CloseUtilityModal();}

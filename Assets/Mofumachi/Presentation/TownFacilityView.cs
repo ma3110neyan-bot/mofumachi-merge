@@ -11,7 +11,7 @@ namespace Mofumachi.Presentation
         public TownFacilityEntry Entry {get;}=new TownFacilityEntry();
         public void Bind(ScreenContext c,TownLifeView town)
         {
-            context=c;life=town;Build("quest","北の依頼小屋",.796f,.214f,.052f,.054f);Build("shop","南のお花ショップ",.806f,.777f,.045f,.054f);Refresh();
+            context=c;life=town;Build("quest","西の依頼小屋",.171f,.240f,.026f,.069f);Build("shop","東のお花ショップ",.815f,.411f,.030f,.085f);Refresh();
         }
         private void Build(string id,string title,float u,float v,float width,float height)
         {
@@ -52,7 +52,7 @@ namespace Mofumachi.Presentation
                 bool near=TownWalkableArea.Distance(life.World.Model.Hero.Position,TownWorldMap.Place(door.Id))<.23f;
                 float amount=Entry.Facility==door.Id?Entry.OpenAmount:0;
                 door.Leaf.localScale=new Vector3(1-amount,1,1);door.Light.color=Color.Lerp(new Color(.28f,.14f,.10f),new Color(1,.86f,.48f),Mathf.Max(amount,near?.35f:0));
-                string title=door.Id=="quest"?"北の依頼小屋":"南のお花ショップ";
+                string title=door.Id=="quest"?"西の依頼小屋":"東のお花ショップ";
                 door.Caption.text=Entry.Facility==door.Id?(Entry.Phase==TownEntryPhase.Walking?"入口までおさんぽ中♪":"扉がひらくよ♪"):near?title+"\nタップして入る":title;
                 float captionHeight=near||Entry.Facility==door.Id?44:28;door.Sign.sizeDelta=new Vector2(146,captionHeight);
                 float captionX=TownWorldLayout.LabelCenter(p.x,bounds.xMin,bounds.xMax,146)-p.x;

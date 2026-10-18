@@ -21,7 +21,7 @@ namespace Mofumachi.Presentation
         public TownRegionId RegionForWorld {get;set;}=TownRegionId.Central;
         private Vector2 Local(Vector2 point)
         {
-            if(World?.IsReady==true)return World.Local(TownWorldLayout.ToWorld(RegionForWorld,new TownPoint(point.x,point.y)),rectTransform);
+            if(World?.IsReady==true)return World.Local(TownWorldMap.Point(point.x,point.y),rectTransform);
             var uv=background.uvRect;var r=background.rectTransform.rect;
             return transform.InverseTransformPoint(background.rectTransform.TransformPoint(r.min+Vector2.Scale((point-uv.min)/uv.size,r.size)));
         }
@@ -38,7 +38,7 @@ namespace Mofumachi.Presentation
             if(stage>=3)
             foreach(var prop in lamps)
                 {
-                    var p=Local(new Vector2(prop.Position.X,prop.Position.Y+.045f));
+                    var p=Local(new Vector2(prop.Position.X,prop.Position.Y-.065f));
                     AddDiamond(vh,p,2+Mathf.Sin(phase*1.8f)*.6f,new Color(1,.95f,.64f,.45f));
                 }
         }

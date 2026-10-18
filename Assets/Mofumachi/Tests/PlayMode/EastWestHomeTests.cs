@@ -1,0 +1,39 @@
+using System.Collections;
+using System.Linq;
+using Mofumachi.Core;
+using Mofumachi.Presentation;
+using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.TestTools;
+using UnityEngine.UI;
+namespace Mofumachi.Tests
+{
+ public sealed class EastWestHomeTests:SliceUiTestFixture
+ {
+  [UnityTest] public IEnumerator StreetHasACompactHudAndMenuActionsAreOnlyExpandedOnRequest()
+  {
+   yield return EnterHome();Canvas.ForceUpdateCanvases();var life=Flow.GetComponentInChildren<TownLifeView>();var field=(RectTransform)life.transform;
+   Assert.That(field.offsetMin.y,Is.EqualTo(62));Assert.That(field.offsetMax.y,Is.EqualTo(-80));
+   Assert.That(Flow.GetComponentsInChildren<Button>().Any(b=>b.name=="Region walk West"),Is.False);
+   Flow.OpenTownMenu();Assert.That(Flow.IsModalOpen,Is.True);Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));
+   foreach(var name in new[]{"Region walk West","Region walk Central","Region walk East","Nav Quest","Walk to cafe","Walk to florist","Town book","Town today"})Assert.That(Flow.GetComponentsInChildren<Button>().Single(b=>b.name==name),Is.Not.Null);
+   Flow.GoBack();Assert.That(Flow.IsModalOpen,Is.False);Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));LogAssert.NoUnexpectedReceived();
+  }
+  [UnityTest] public IEnumerator ExpandedMenuCancelsMovementAndGuideWalksWithoutChangingProgress()
+  {
+   yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=life.World.Model.Hero;
+   Assert.That(life.World.GuidePlace("west.cafe-front"),Is.True);life.AdvanceFrame(1f/30);var p=hero.Position;string save=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
+   Flow.OpenTownMenu();for(int i=0;i<30;i++)life.AdvanceFrame(1f/30);Assert.That(hero.Position,Is.EqualTo(p));Assert.That(hero.IsWalking,Is.False);
+   Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Walk to florist").onClick.Invoke();Assert.That(Flow.IsModalOpen,Is.False);Assert.That(hero.IsWalking,Is.True);Assert.That(hero.PlaceId,Is.EqualTo("shop"));
+   Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(save));LogAssert.NoUnexpectedReceived();
+  }
+  [UnityTest] public IEnumerator ResidentsPassBehindAndInFrontOfTheSameFountainPixels()
+  {
+   yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=life.Actors.Single(a=>a.Controlled);var foreground=life.GetComponentInChildren<TownFountainGraphic>();
+   life.World.Model.Restore(hero.CharacterId,TownWorldMap.Point(.52f,.395f));life.World.ReturnToHero();life.AdvanceFrame(1f/30);
+   Assert.That(hero.transform.GetSiblingIndex(),Is.LessThan(foreground.transform.GetSiblingIndex()));
+   life.World.Model.Restore(hero.CharacterId,TownWorldMap.Point(.52f,.60f));life.World.ReturnToHero();life.AdvanceFrame(1f/30);
+   Assert.That(hero.transform.GetSiblingIndex(),Is.GreaterThan(foreground.transform.GetSiblingIndex()));Assert.That(foreground.raycastTarget,Is.False);LogAssert.NoUnexpectedReceived();
+  }
+ }
+}

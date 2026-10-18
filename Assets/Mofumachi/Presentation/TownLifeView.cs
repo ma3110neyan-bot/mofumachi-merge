@@ -35,7 +35,6 @@ namespace Mofumachi.Presentation
                 var point=controlled?StreetMap.Nodes[0]:place.Position;
                 var rect=UIWidgets.Node("Town actor "+character.Id,actorLayer,new Rect(.5f,.5f,0,0));rect.pivot=new Vector2(.5f,0);rect.sizeDelta=new Vector2(62,78);
                 var actor=rect.gameObject.AddComponent<TownActor>();actor.Bind(character.Id,controlled,new TownMovement(nav,point),nav);actor.Connect(this,point,point,1.6f+i*.4f);if(!controlled)actor.SetDestination(place,1.6f+i*.4f);actors[i]=actor;
-                var ground=c.Widgets.Panel("Town actor ground shadow",rect,new Rect(.17f,-.035f,.66f,.095f),new Color(.24f,.19f,.26f,.18f));ground.radius=100;ground.decorated=false;ground.transform.SetAsFirstSibling();
                 var panel=c.Widgets.Panel("Town actor name panel",rect,new Rect(-.13f,-.26f,1.26f,.26f)).rectTransform;
                 c.Widgets.NarrativeLabel("Town actor name",character.Name,panel,new Rect(.04f,.03f,.92f,.94f),12);
                 actor.Render(0,0);
@@ -116,7 +115,7 @@ namespace Mofumachi.Presentation
             int steps=clock.AddElapsed(seconds);for(int step=0;step<steps;step++){if(World?.IsReady==true)World.Step(TownFrameClock.StepSeconds);else{foreach(var a in actors)a.Advance(TownFrameClock.StepSeconds);Regions?.Step(TownFrameClock.StepSeconds);}}
             var camera=GetComponent<TownViewportView>();if(camera!=null){foreach(var a in actors)if(a.Controlled&&a.RegionVisible&&(a.IsGuided||!IsManuallyDragging&&!camera.IsDragging))camera.Focus(a.Position);camera.Advance(seconds);}
             foreach(var a in actors)a.Render(clock.Alpha,seconds);
-            Array.Sort(actors,(a,b)=>(World?.IsReady==true?b.WorldPosition.Y.CompareTo(a.WorldPosition.Y):b.RenderPosition.Y.CompareTo(a.RenderPosition.Y)));foreach(var a in actors)a.transform.SetAsLastSibling();
+            Array.Sort(actors,(a,b)=>{int depth=World?.IsReady==true?b.WorldPosition.Y.CompareTo(a.WorldPosition.Y):b.RenderPosition.Y.CompareTo(a.RenderPosition.Y);return depth!=0?depth:CharacterCatalog.Find(a.CharacterId).PortraitIndex.CompareTo(CharacterCatalog.Find(b.CharacterId).PortraitIndex);});if(World?.IsReady==true)World.SortResidents(actors);else foreach(var a in actors)a.transform.SetAsLastSibling();
             if(bubble!=null&&now>=bubbleUntil)HideBubble();
             if(IsManuallyDragging){HideBubble();return;}
             if(now>=nextSocial)for(int i=0;i<actors.Length;i++)for(int j=i+1;j<actors.Length;j++)if(TryBeginConversation(actors[i],actors[j]))break;
@@ -165,7 +164,7 @@ namespace Mofumachi.Presentation
                 if(!CanInteract||NearbyFacility!=facility||!actor.RegionVisible)return;
                 if(World?.IsReady==true){GetComponent<TownFacilityView>().RequestEnter(facility);return;}
                 if(facility=="quest")context.Flow.ShowQuest();else context.Flow.OpenShopPreview();
-            });UIWidgets.Bottom((RectTransform)b.transform,48,178,48,48);entrance=b.gameObject;
+            });UIWidgets.Bottom((RectTransform)b.transform,48,68,48,48);entrance=b.gameObject;
         }
         internal void React(TownActor a)
         {if(!CanInteract||IsManuallyDragging||NearbyFacility!=null)return;context.Flow.PlayCue(AudioCue.Character);if(a.Controlled)ShowOutings();else{HideOutings();bool recorded=context.Flow.TalkToCharacter(a.CharacterId);ShowBubble(recorded?CharacterCatalog.Find(a.CharacterId).Name+"："+StreetLine(a):context.Flow.Daily.LastError,a);}}

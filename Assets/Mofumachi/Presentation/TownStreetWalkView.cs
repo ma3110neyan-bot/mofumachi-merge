@@ -16,7 +16,7 @@ namespace Mofumachi.Presentation
             context=c;life=town;markerRoot=UIWidgets.Node("Street exits",(RectTransform)transform,new Rect(0,0,1,1));
             markerRoot.SetAsFirstSibling();route=UIWidgets.Node("Walking footsteps",(RectTransform)transform,new Rect(0,0,1,1)).gameObject.AddComponent<TownRouteGraphic>();route.Bind(life);
             panel=c.Widgets.OrnatePanel("Street walking hint",(RectTransform)transform.parent,new Rect(0,0,1,1),UIWidgets.Cream,12).rectTransform;
-            UIWidgets.Top(panel,16,142,16,48);
+            UIWidgets.Top(panel,16,84,16,48);
             hint=c.Widgets.Label("Street walking instruction","キャラをタップして、道を歩こう",panel,new Rect(.025f,.08f,.76f,.84f),12);
             hint.rectTransform.anchorMax=new Vector2(.76f,.92f);
             var book=c.Widgets.Button("Walking partner book","図鑑",panel,new Rect(.77f,0,.23f,1),()=>c.Flow.OpenCharacterBook(c.Game.State.favoriteCharacterId),true);book.GetComponentInChildren<Text>().fontSize=13;

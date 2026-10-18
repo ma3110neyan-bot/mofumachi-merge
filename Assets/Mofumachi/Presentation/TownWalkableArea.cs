@@ -14,21 +14,23 @@ namespace Mofumachi.Presentation
         [ThreadStatic] private static List<float> segmentCuts;
         public TownWalkableArea(int level)
         {
-            // Paving outlines traced on TownSeamlessMap, in image UV coordinates.
-            // These overlap at plazas; planted beds and furniture remain islands.
-            AddMap(new[]{P(.43f,0),P(.60f,0),P(.61f,.06f),P(.52f,.10f),P(.53f,.16f),P(.62f,.23f),P(.62f,.29f),P(.58f,.34f),P(.65f,.37f),P(.52f,.40f),P(.38f,.37f),P(.41f,.32f),P(.50f,.26f),P(.50f,.19f),P(.44f,.14f),P(.40f,.10f),P(.42f,.05f)});
-            AddMap(new[]{P(.14f,.185f),P(.30f,.175f),P(.43f,.18f),P(.46f,.21f),P(.49f,.23f),P(.52f,.25f),P(.49f,.28f),P(.43f,.27f),P(.40f,.25f),P(.36f,.25f),P(.28f,.24f),P(.19f,.23f),P(.13f,.218f)});
-            AddMap(new[]{P(.57f,.28f),P(.69f,.25f),P(.77f,.24f),P(.85f,.24f),P(.91f,.28f),P(.88f,.32f),P(.80f,.35f),P(.72f,.37f),P(.61f,.34f)});
-            AddMap(new[]{P(.37f,.33f),P(.46f,.35f),P(.54f,.35f),P(.64f,.34f),P(.78f,.36f),P(.86f,.40f),P(.83f,.48f),P(.82f,.53f),P(.88f,.58f),P(.76f,.61f),P(.65f,.60f),P(.58f,.64f),P(.42f,.64f),P(.32f,.60f),P(.23f,.60f),P(.16f,.57f),P(.18f,.51f),P(.15f,.47f),P(.16f,.42f),P(.25f,.38f)});
-            AddMap(new[]{P(.42f,.60f),P(.58f,.60f),P(.62f,.65f),P(.58f,.72f),P(.58f,.80f),P(.56f,.85f),P(.61f,.91f),P(.61f,1),P(.42f,1),P(.40f,.94f),P(.44f,.88f),P(.40f,.82f),P(.39f,.75f),P(.43f,.70f),P(.39f,.65f)});
-            AddMap(new[]{P(.43f,.70f),P(.43f,.78f),P(.39f,.82f),P(.29f,.81f),P(.22f,.78f),P(.27f,.73f),P(.31f,.71f)});
-            AddMap(new[]{P(.56f,.79f),P(.66f,.80f),P(.76f,.80f),P(.87f,.81f),P(.89f,.84f),P(.82f,.88f),P(.71f,.87f),P(.60f,.89f),P(.54f,.86f)});
-            AddMap(new[]{P(.42f,.275f),P(.50f,.275f),P(.47f,.32f),P(.36f,.355f),P(.30f,.37f),P(.24f,.40f),P(.19f,.43f),P(.13f,.41f),P(.17f,.37f),P(.22f,.34f),P(.31f,.315f),P(.35f,.29f)});
-            Island(.68f,.275f,.085f,.024f);Island(.88f,.282f,.025f,.020f);
-            Island(.5f,.455f,.157f,.075f); // fountain, stone lip and planted apron
-            Island(.325f,.407f,.063f,.035f);Island(.681f,.405f,.070f,.037f);
-            Island(.361f,.552f,.070f,.029f);Island(.649f,.554f,.074f,.031f);
-            Island(.165f,.219f,.035f,.014f);Island(.262f,.232f,.034f,.014f);Island(.380f,.192f,.037f,.014f);
+            // The October18 east-west map, UV from top-left. Broad floor polygons
+            // overlap at the central plaza. Planted islands are excluded below.
+            AddMap(new[]{P(.33f,.38f),P(.67f,.38f),P(.74f,.47f),P(.74f,.59f),P(.67f,.73f),P(.59f,.83f),P(.55f,.93f),P(.59f,1),P(.40f,1),P(.42f,.92f),P(.44f,.84f),P(.39f,.77f),P(.32f,.73f),P(.25f,.66f),P(.27f,.55f),P(.30f,.45f)});
+            AddMap(new[]{P(.065f,.48f),P(.15f,.48f),P(.19f,.50f),P(.30f,.48f),P(.42f,.42f),P(.44f,.54f),P(.35f,.58f),P(.27f,.56f),P(.14f,.56f),P(.08f,.55f)});
+            AddMap(new[]{P(.02f,.55f),P(.09f,.53f),P(.15f,.58f),P(.26f,.59f),P(.34f,.64f),P(.45f,.71f),P(.47f,.78f),P(.38f,.79f),P(.28f,.74f),P(.17f,.71f),P(.05f,.73f),P(0,.69f)});
+            AddMap(new[]{P(.62f,.39f),P(.71f,.40f),P(.74f,.45f),P(.81f,.46f),P(.90f,.50f),P(1,.45f),P(1,.53f),P(.93f,.62f),P(.84f,.65f),P(.77f,.61f),P(.68f,.59f),P(.63f,.55f)});
+            AddMap(new[]{P(.61f,.66f),P(.72f,.68f),P(.80f,.65f),P(.88f,.59f),P(.96f,.59f),P(.96f,.65f),P(.88f,.71f),P(.80f,.76f),P(.70f,.78f),P(.60f,.77f),P(.57f,.73f)});
+            AddMap(new[]{P(.31f,0),P(.61f,0),P(.58f,.08f),P(.53f,.14f),P(.53f,.20f),P(.61f,.23f),P(.61f,.31f),P(.67f,.35f),P(.67f,.41f),P(.42f,.43f),P(.38f,.35f),P(.36f,.28f),P(.38f,.23f),P(.40f,.19f),P(.34f,.13f),P(.30f,.07f)});
+            AddMap(new[]{P(.16f,.29f),P(.19f,.29f),P(.225f,.26f),P(.28f,.24f),P(.34f,.20f),P(.42f,.23f),P(.43f,.17f),P(.36f,.15f),P(.29f,.18f),P(.25f,.205f),P(.21f,.225f),P(.17f,.25f),P(.15f,.27f)});
+            // Keep a lower loop between the two large planted garden islands.
+            AddMap(new[]{P(0,.73f),P(.06f,.72f),P(.15f,.81f),P(.26f,.90f),P(.40f,.95f),P(.55f,.96f),P(.70f,.93f),P(.86f,.87f),P(1,.76f),P(1,.85f),P(.86f,.94f),P(.69f,1),P(.30f,1),P(.15f,.92f),P(.04f,.84f),P(0,.80f)});
+            Island(.14f,.53f,.05f,.027f);Island(.215f,.55f,.046f,.025f); // reserved cafe furniture slots at every level
+            Island(.52f,.49f,.128f,.080f); // fountain and planted stone apron
+            Island(.35f,.635f,.094f,.066f);Island(.70f,.642f,.105f,.074f);
+            Island(.19f,.582f,.092f,.043f);
+            Island(.28f,.839f,.198f,.100f);Island(.735f,.827f,.195f,.104f);
+            Island(.39f,.305f,.078f,.057f);Island(.61f,.283f,.087f,.058f);
 
         }
         private static TownPoint P(float x,float y)=>new TownPoint(x,y);

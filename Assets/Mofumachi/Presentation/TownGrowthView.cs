@@ -14,6 +14,7 @@ namespace Mofumachi.Presentation
         private readonly RectTransform[] icons=new RectTransform[12];private readonly TownPoint[] positions=new TownPoint[12];
         private sealed class RegionalProp {internal RectTransform Rect;internal TownGrowthPlacement Placement;internal TownRegionId Region;}
         private readonly System.Collections.Generic.List<RegionalProp> regional=new System.Collections.Generic.List<RegionalProp>();
+        private bool MapPreview=>background?.texture!=null&&background.texture.name=="TownSeamlessMap";
         private bool dirty;private Coroutine highlight;private Rect previousUv;
         public void Bind(ScreenContext c,TownLifeView life){this.life=life;this.background=life.Background;Build(c);}
         public void Bind(ScreenContext c,RawImage background){this.background=background;Build(c);}
@@ -23,7 +24,7 @@ namespace Mofumachi.Presentation
             for(int i=0;i<6;i++)
             {
                 var layer=UIWidgets.Node("Town growth layer "+(i+1),root,new Rect(0,0,1,1));layers[i]=layer.gameObject;
-                if(i>=3)
+                if(i>=3&&life?.World?.IsReady!=true&&!MapPreview)
                 {
                     var kind=(TownDecorationKind)(i-3);var icon=UIWidgets.Node("Chapter town decoration",layer,new Rect(.5f,.5f,0,0));
                     icon.gameObject.AddComponent<TownDecorationGraphic>().Bind(kind);float width=i==3?64:i==4?52:140;
@@ -47,7 +48,8 @@ namespace Mofumachi.Presentation
             if(life!=null)return ((RectTransform)transform).InverseTransformPoint(life.transform.TransformPoint(life.Local(p)));
             if(background==null)return Vector2.zero;
             var r=background.rectTransform.rect;var uv=background.uvRect;
-            var local=r.min+Vector2.Scale((new Vector2(p.X,p.Y)-uv.min)/uv.size,r.size);
+            var source=MapPreview?new Vector2(p.X,1-p.Y):new Vector2(p.X,p.Y);
+            var local=r.min+Vector2.Scale((source-uv.min)/uv.size,r.size);
             return transform.InverseTransformPoint(background.rectTransform.TransformPoint(local));
         }
         private void Reposition()
@@ -56,7 +58,7 @@ namespace Mofumachi.Presentation
             foreach(var entry in regional)
             {
                 var p=entry.Placement;entry.Rect.anchoredPosition=life?.World?.IsReady==true?life.World.Local(TownWorldMap.Growth(entry.Region,p),(RectTransform)transform):Local(p.Position);
-                float width=Vector2.Distance(Local(p.Position),Local(new TownPoint(p.Position.X+p.Width,p.Position.Y)))*(life?.World?.IsReady==true?.58f:1);
+                float width=life?.World?.IsReady==true?p.Width*life.World.RenderScale:MapPreview?p.Width/TownWorldMap.Width/background.uvRect.width*background.rectTransform.rect.width:Vector2.Distance(Local(p.Position),Local(new TownPoint(p.Position.X+p.Width,p.Position.Y)));
                 entry.Rect.sizeDelta=new Vector2(width,width/TownGrowthPropGraphic.Aspect(p.Prop));
                 if(life?.World?.IsReady==true){var bounds=((RectTransform)transform).rect;var at=entry.Rect.anchoredPosition;entry.Rect.gameObject.SetActive(at.y+entry.Rect.rect.height>bounds.yMin&&at.y<bounds.yMax&&at.x+width/2>bounds.xMin&&at.x-width/2<bounds.xMax);}
             }

@@ -18,8 +18,8 @@ namespace Mofumachi.Presentation
         private readonly List<RawImage> tiles=new List<RawImage>();
         private RectTransform dailyFlower;private int displayedFlowers;
         private readonly List<Text> roadLabels=new List<Text>();
-        private static readonly TownPoint[] SignPoints={TownWorldMap.Point(.44f,.33f),TownWorldMap.Point(.52f,.65f)};
-        private ScreenContext context;
+        private static readonly TownPoint[] SignPoints={TownWorldMap.Point(.36f,.53f),TownWorldMap.Point(.69f,.59f)};
+        private ScreenContext context;private TownFountainGraphic fountain;
         private TownGrowthView growth;private TownAmbientGraphic ambient;
         private TownPoint surfaceCenter;private Vector2 surfaceSize;private bool surfaceReady;
         private TownRegionId? lookRegion;
@@ -36,8 +36,9 @@ namespace Mofumachi.Presentation
             var map=mapRect.gameObject.AddComponent<RawImage>();map.texture=Resources.Load<Texture2D>(TownWorldMap.Resource);map.raycastTarget=false;tiles.Add(map);
             if(map.texture==null)throw new InvalidOperationException("The authored seamless town map is missing.");
             foreach(var actor in life.Actors)actor.BindWorld(Model.Residents.Single(r=>r.Id==actor.CharacterId));
-            foreach(var text in new[]{"北の依頼小屋へ ↑","南のショップへ ↓"})
+            foreach(var text in new[]{"← 西のカフェ・依頼小屋","東のお花ショップ →"})
             {var label=c.Widgets.NarrativeLabel("Painted road direction "+roadLabels.Count,text,(RectTransform)life.transform,new Rect(.5f,.5f,0,0),13);label.rectTransform.sizeDelta=new Vector2(142,30);label.color=new Color(.34f,.22f,.24f);roadLabels.Add(label);}
+            fountain=UIWidgets.Node("Town fountain foreground",(RectTransform)life.transform,new Rect(0,0,1,1)).gameObject.AddComponent<TownFountainGraphic>();fountain.Bind(this);
             life.gameObject.AddComponent<TownFacilityView>().Bind(c,life);
             Model.Arrived+=OnArrival;Camera.Jump(new TownPoint(Model.Hero.Position.X,Model.Hero.Position.Y+.04f));Refresh();
         }
@@ -107,18 +108,28 @@ namespace Mofumachi.Presentation
                     if(!actor.RegionVisible)continue;var feet=Local(actor.WorldPosition);var body=((RectTransform)actor.transform).rect;
                     if(TownWorldLayout.LabelOverlapsResident(area,new TownPoint(feet.x,feet.y-24),body.width*1.26f+8,body.height+40)){covered=true;break;}
                 }
-                label.gameObject.SetActive(!covered&&at.y>actorBounds.yMin+18&&at.y<actorBounds.yMax-44);
+                label.gameObject.SetActive(Model.Hero.IsWalking&&!covered&&at.y>actorBounds.yMin+18&&at.y<actorBounds.yMax-44);
             }
             int count=Math.Min(6,context.Flow.Daily.Data.DecorationDays.Count);
             if(count>0)
             {
                 if(dailyFlower==null){dailyFlower=UIWidgets.Node("Daily collected flower garden",(RectTransform)life.transform,new Rect(.5f,.5f,0,0));dailyFlower.sizeDelta=new Vector2(100,48);dailyFlower.SetAsFirstSibling();}
                 while(displayedFlowers<count){int slot=displayedFlowers++;var icon=context.Widgets.Icon("Collected flower art "+slot,UIIcon.Flower,dailyFlower,new Rect(.03f+slot%3*.31f,slot/3*.4f,.29f,.58f));icon.color=Color.Lerp(new Color(1,.70f,.80f),new Color(1,.92f,.55f),slot/5f);}
-                dailyFlower.anchoredPosition=Local(TownWorldMap.Point(.64f,.555f));
+                dailyFlower.anchoredPosition=Local(TownWorldMap.Point(.64f,.72f));
             }
-            life.GetComponent<TownFacilityView>()?.Refresh();
+            fountain?.Refresh();life.GetComponent<TownFacilityView>()?.Refresh();
             life.RefreshViewport();if(growth==null)growth=life.GetComponentInChildren<TownGrowthView>();if(growth!=null){if(growth.Region!=viewing)growth.SetRegion(viewing);growth.NotifyWorldCamera();}
             if(ambient==null)ambient=life.transform.parent.GetComponentInChildren<TownAmbientGraphic>();if(ambient!=null){ambient.World=this;ambient.NotifyViewportChanged();}
+        }
+        internal void SortResidents(TownActor[] ordered)
+        {
+            bool placed=fountain==null;
+            foreach(var actor in ordered)
+            {
+                if(!placed&&actor.WorldPosition.Y<=fountain.Feet.Y){fountain.transform.SetAsLastSibling();placed=true;}
+                actor.transform.SetAsLastSibling();
+            }
+            if(!placed)fountain.transform.SetAsLastSibling();
         }
         public TownWorldSnapshot Capture()=>Model==null?null:new TownWorldSnapshot(Model.Residents.Select(r=>r.Id).ToArray(),Model.Residents.Select(r=>r.Position).ToArray(),Model.Residents.Select(r=>r.PlaceId).ToArray(),Camera.Center,FollowingHero,Model.Hero.Id,lookRegion);
         public void Restore(TownWorldSnapshot snapshot)

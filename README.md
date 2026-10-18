@@ -1,3 +1,5 @@
+> 2026-10-18：旧3背景の接続描画を単一の街マップへ置換し、北の依頼小屋・南のショップへの徒歩入場と、TOP／Merge各2曲の試聴候補を実装。**Unity実描画・新QA APK・Pixelは未確認、main未統合。** [実装とWindows一括検証](docs/development-handoff-2026-10-18-seamless-town.md) · [BGM候補4曲の8秒試聴](References/Preview/seamless-town-2026-10-18/README.md)
+
 > 2026-10-17 大幅Polish Pass：広い歩行面・NPC回避・指追従・左右のぼかし削減・台形Merge・紙の文字UI・図鑑NEWを製品コードへまとめた実装候補。Core125／純粋表示81成功、6DLLコンパイル警告・エラー0。**本版のUnity実描画・QA APK・Pixelは未確認、main未統合。** [変更と同一候補の検証手順](docs/development-handoff-2026-10-17-major-polish.md)。
 
 > 2026-10-17実画面再受入：`60f9c7f` のWindows **Edit141／Play161全成功・skip0**、QA APK、36PNGを確認。挨拶と硬い背景端は改善しましたが、草地の反復と石畳の縮尺が接続品質の条件に届かず、専用の接続面アトラス1枚とUVへ修正しました。Core125／純粋表示66成功、6DLLコンパイル警告・エラー0。**この素材修正版のWindows／実画像／APKは再取得待ち、Pixel未実施、main未統合です。** [画像の判定・修正・次の操作](docs/development-handoff-2026-10-17-daily-world-visual-acceptance.md) · [前回のテスト修正](docs/development-handoff-2026-10-17-daily-world-acceptance-fix.md)

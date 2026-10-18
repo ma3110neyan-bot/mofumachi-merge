@@ -13,7 +13,7 @@ namespace Mofumachi.Tests
     {
         private sealed class MusicStore:IMusicPreferenceStore
         {public string Value="town";public bool Fail;public string Load()=>Value;public void Save(string id){if(Fail)throw new InvalidOperationException("Test preference failure");Value=id;}}
-        [UnityTest] public IEnumerator ThreeRealClipsCanBeSelectedWithoutWritingTheGameSave()
+        [UnityTest] public IEnumerator LegacyAndCandidateClipsCanBeSelectedWithoutWritingTheGameSave()
         {
             yield return EnterHome();var preferences=new MusicStore();var audio=AudioManager.Instance;audio.UseMusicPreferences(preferences);Flow.ShowSettings();int writes=Store.Writes;string before=StateCodec.Encode(Flow.Game.State);
             var music=audio.GetComponents<AudioSource>().Single(a=>a.loop);var original=music.clip;

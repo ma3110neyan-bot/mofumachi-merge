@@ -171,7 +171,7 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator RegionalControlsAndTextFitShortAndTallSafeAreas()
         {
             yield return EnterHome();var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;
-            foreach(int height in new[]{592,640,808})
+            foreach(int height in new[]{592,640,808,1280})
             {
                 ((RectTransform)canvas.transform).sizeDelta=new Vector2(360,height);Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,height),new Rect(0,24,360,height-56));Canvas.ForceUpdateCanvases();
                 var life=Flow.GetComponentInChildren<TownLifeView>();
@@ -183,6 +183,7 @@ namespace Mofumachi.Tests
                         Assert.That(((RectTransform)button.transform).rect.height,Is.GreaterThanOrEqualTo(48));var label=button.GetComponentInChildren<Text>();
                         Assert.That(label.fontSize,Is.GreaterThanOrEqualTo(14));Assert.That(label.preferredHeight,Is.LessThanOrEqualTo(label.rectTransform.rect.height+1));
                     }
+                    life.World.Camera.Pan(.5f,0);life.World.Refresh();Canvas.ForceUpdateCanvases();
                     foreach(var sign in life.GetComponentsInChildren<Text>().Where(t=>t.name.StartsWith("Painted road direction")))
                     {var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(life.transform,sign.transform);var area=((RectTransform)life.transform).rect;Assert.That(bounds.min.x,Is.GreaterThanOrEqualTo(area.xMin));Assert.That(bounds.max.x,Is.LessThanOrEqualTo(area.xMax));Assert.That(sign.preferredHeight,Is.LessThanOrEqualTo(sign.rectTransform.rect.height+1));Assert.That(sign.raycastTarget,Is.False);}
                     foreach(var name in new[]{"Town region name","Town growth hint"})

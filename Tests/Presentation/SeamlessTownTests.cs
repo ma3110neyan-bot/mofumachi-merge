@@ -8,6 +8,29 @@ namespace Mofumachi.Tests
     public sealed class SeamlessTownTests
     {
         private static TownPoint Map(float u,float v)=>new TownPoint(-.3f+1.6f*u,1.65f-2.4f*v);
+        [Test] public void CaptionsStayInsideTheActualTownMaskWithoutMovingThePaintedDoor()
+        {
+            foreach(float x in new[]{-300f,0,300f})
+            {
+                float center=TownWorldLayout.LabelCenter(x,-180,180,142);
+                Assert.That(center-71,Is.GreaterThanOrEqualTo(-180));Assert.That(center+71,Is.LessThanOrEqualTo(180));
+            }
+            float doorTop=75.86f,maskTop=108,height=44;
+            float offset=TownWorldLayout.CaptionDrop(doorTop,height,maskTop);
+            Assert.That(offset,Is.LessThan(0));Assert.That(doorTop+offset+height,Is.LessThanOrEqualTo(maskTop));
+            Assert.That(TownWorldLayout.CaptionDrop(0,28,108),Is.Zero,"Leave an already fitting sign attached to its doorway");
+        }
+        [Test] public void MapProjectionCoversShortTallAndUnusuallyTallViewportsWithoutStretching()
+        {
+            foreach(float height in new[]{592,808,1280,1800})
+            {
+                float scale=TownWorldLayout.ScaleForViewport(360,height);
+                Assert.That(TownWorldMap.Width*scale,Is.GreaterThanOrEqualTo(360));
+                Assert.That(TownWorldMap.Height*TownWorldLayout.ImageAspect*scale,Is.GreaterThanOrEqualTo(height-.001f));
+                var camera=new TownWorldCamera();camera.Fit(360/scale,height/(scale*TownWorldLayout.ImageAspect));
+                camera.Jump(Map(1,0));Assert.That(camera.Center.Y+height/(2*scale),Is.LessThanOrEqualTo(TownWorldMap.Top+.001f));
+            }
+        }
         [Test] public void CafeAndQuestGardenFencesAreObstaclesInsteadOfShortcuts()
         {
             var floor=new TownWalkableArea(0);

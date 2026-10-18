@@ -20,24 +20,24 @@ Preserve save v3, 5x6 rules, reward/delivery arithmetic and six masters. No paym
 ### Task 1: Unified map and floor
 Files: TownWorldMap.cs (new), TownWorldLayout.cs, TownWalkableArea.cs, TownAreaNavigation.cs, TownWorldWalkModel.cs, TownContinuousWorldView.cs, Resources/Mofumachi/TownSeamlessMap.png; tests SeamlessTownTests.cs.
 Produces: TownWorldMap.Point(u,v), Place(id), bounds; map-backed routes. Consumes stable Core IDs.
-- [ ] Add tests for all stable destinations, paths on both sides of fountain, map boundary camera and no teleport.
-- [ ] Run Presentation tests and observe expected missing-map/floor failures.
-- [ ] Trace the generated coherent artwork and implement opaque world projection, camera fit, navigation and anchors.
-- [ ] Run all Presentation tests and real Unity asmdef compile. Commit.
+- [x] Add tests for all stable destinations, paths on both sides of fountain, map boundary camera and no teleport.
+- [x] Run Presentation tests and observe expected missing-map/floor failures.
+- [x] Trace the generated coherent artwork and implement opaque world projection, camera fit, navigation and anchors.
+- [x] Run all Presentation tests and real Unity asmdef compile. Commit.
 
 ### Task 2: Actual facility entry and destination UI
 Files: TownFacilityEntry.cs, TownFacilityView.cs (new), TownLifeView.cs, TownContinuousWorldView.cs, TopHomeScreens.cs; native SeamlessTownTests.
 Consumes Task 1 coordinates. Produces cancellable walking/opening/entered facility states and mapped door view.
-- [ ] Add threshold/cancel/remote-entry tests, observe failures.
-- [ ] Implement north quest/south shop door views, proximity response, walking then opening then existing screen, destination hints, and return state.
-- [ ] Verify pure tests, native compile, retain daily/book and fix home/quest clipping. Commit.
+- [x] Add threshold/cancel/remote-entry tests, observe failures.
+- [x] Implement north quest/south shop door views, proximity response, walking then opening then existing screen, destination hints, and return state.
+- [x] Verify pure tests, native compile, retain daily/book and fix home/quest clipping. Commit.
 
 ### Task 3: Four audio candidates and role playback
 Files: MusicSelection.cs, MusicRoleSelection.cs (new), AudioManager.cs, MusicSettingsView.cs, UIFlowController.cs, SettingsScreen.cs, scripts/render-town-candidates.py, four OGGs and preview exports.
 Consumes existing MusicPreferenceStore and sample sources. Produces MusicRole, role selection persistence and eight-second preview.
-- [ ] Add role/legacy/rollback/preview tests, observe failures.
-- [ ] Compose distinct title A/B and Merge A/B with hash-verified acoustic samples; preserve town asset.
-- [ ] Implement role routing and candidate cards with game-screen listening. Validate audio decode/duration/peak/loop and tests. Commit.
+- [x] Add role/legacy/rollback/preview tests, observe failures.
+- [x] Compose distinct title A/B and Merge A/B with hash-verified acoustic samples; preserve town asset.
+- [x] Implement role routing and candidate cards with game-screen listening. Validate audio decode/duration/peak/loop and tests. Commit.
 
 ### Task 4: Bundle validation and Windows handoff
 Files: native tests/captures, build scripts, UIStrings/font subsets, README and acceptance report.

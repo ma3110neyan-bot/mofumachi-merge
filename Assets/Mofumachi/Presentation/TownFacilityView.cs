@@ -54,7 +54,9 @@ namespace Mofumachi.Presentation
                 door.Leaf.localScale=new Vector3(1-amount,1,1);door.Light.color=Color.Lerp(new Color(.28f,.14f,.10f),new Color(1,.86f,.48f),Mathf.Max(amount,near?.35f:0));
                 string title=door.Id=="quest"?"北の依頼小屋":"南のお花ショップ";
                 door.Caption.text=Entry.Facility==door.Id?(Entry.Phase==TownEntryPhase.Walking?"入口までおさんぽ中♪":"扉がひらくよ♪"):near?title+"\nタップして入る":title;
-                door.Sign.sizeDelta=new Vector2(146,near||Entry.Facility==door.Id?44:28);
+                float captionHeight=near||Entry.Facility==door.Id?44:28;door.Sign.sizeDelta=new Vector2(146,captionHeight);
+                float captionX=TownWorldLayout.LabelCenter(p.x,bounds.xMin,bounds.xMax,146)-p.x;
+                door.Sign.anchoredPosition=new Vector2(captionX,TownWorldLayout.CaptionDrop(p.y+door.Hit.rect.height/2,captionHeight,bounds.yMax));
             }
         }
     }

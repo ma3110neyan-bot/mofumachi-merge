@@ -8,7 +8,7 @@ namespace Mofumachi.Presentation
         private readonly string Key;
         public MusicPreferenceStore(){Key="Mofumachi.Music.Selection.v1";}
         public MusicPreferenceStore(MusicRole role){Key="Mofumachi.Music.Role.v1."+role;}
-        public string Load()=>PlayerPrefs.GetString(Key,MusicCatalog.DefaultId);
+        public string Load()=>PlayerPrefs.GetString(Key,Key=="Mofumachi.Music.Selection.v1"?MusicCatalog.DefaultId:"");
         public void Save(string id)
         {
             bool existed=PlayerPrefs.HasKey(Key);string previous=Load();

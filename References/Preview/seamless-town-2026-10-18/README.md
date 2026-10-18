@@ -11,6 +11,6 @@ The existing おさんぽタウン OGG and official character masters are unchan
 | Merge A | こもれびピクニック | 104 BPM, wood/piano, light 4/4 | [8 seconds](audio/merge-picnic-8s.mp3) |
 | Merge B | リボンを結ぶ午後 | 112 BPM, piano/bells, buoyant 4/4 | [8 seconds](audio/merge-ribbon-8s.mp3) |
 
-Settings: 8-second audition, select for its role, or listen in the actual TOP/town/Merge screen. Selection uses auxiliary per-role preferences; main save schema and volumes unchanged. Old audio resources/IDs remain loadable. Initial A choices are comparison defaults, **not final adoption**. Pixel speaker/listening acceptance remains pending.
+Settings: 8-second audition, select for its role, or listen in the actual TOP/town/Merge screen. Selection uses auxiliary per-role preferences; main save schema and volumes unchanged. Old audio resources/IDs remain loadable. On upgrade, a legacy global choice is retained for its matching role until an explicit role choice is saved. Initial A choices are comparison defaults, **not final adoption**. Pixel speaker/listening acceptance remains pending.
 
 `candidate-audio.json` records decoded durations, peaks, RMS, loop boundary deltas and hashes. These are signal checks, not proof of subjective music quality or device playback.

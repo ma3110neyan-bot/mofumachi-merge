@@ -18,6 +18,13 @@ namespace Mofumachi.Tests
             Assert.That(Flow.GetComponentsInChildren<Transform>().Any(t=>t.name.StartsWith("Continuous background")),Is.False);
             foreach(var region in new[]{TownRegionId.West,TownRegionId.Central,TownRegionId.East})
             {life.World.FastTravel(region);life.AdvanceFrame(1f/30);Assert.That(life.World.VisibleBackgroundCount,Is.EqualTo(1));Assert.That(life.World.Model.Area.Contains(life.World.Model.Hero.Position),Is.True);}
+            var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;
+            foreach(int height in new[]{592,808,1280})
+            {
+                ((RectTransform)canvas.transform).sizeDelta=new Vector2(360,height);Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,height),new Rect(0,24,360,height-56));Canvas.ForceUpdateCanvases();life.World.Refresh();Canvas.ForceUpdateCanvases();
+                var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(Flow.TownBackground.rectTransform,map.transform);var viewport=Flow.TownBackground.rectTransform.rect;
+                Assert.That(bounds.min.x,Is.LessThanOrEqualTo(viewport.xMin+.01f));Assert.That(bounds.max.x,Is.GreaterThanOrEqualTo(viewport.xMax-.01f));Assert.That(bounds.min.y,Is.LessThanOrEqualTo(viewport.yMin+.01f));Assert.That(bounds.max.y,Is.GreaterThanOrEqualTo(viewport.yMax-.01f));
+            }
             LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator QuestDoorWalksThenOpensAndReturnsToTheSameTownPosition()
@@ -47,6 +54,9 @@ namespace Mofumachi.Tests
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var facility=life.GetComponent<TownFacilityView>();
             facility.RequestEnter("quest");life.World.GuidePoint(TownWorldMap.Place("square"));Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Idle));
             facility.RequestEnter("shop");life.World.FastTravel(TownRegionId.Central);Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Idle));
+            facility.RequestEnter("quest");life.World.Pan(new Vector2(80,0));Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Idle));
+            life.World.Model.Restore(life.World.Model.Hero.Id,TownWorldMap.Place("quest"));life.World.ReturnToHero();facility.RequestEnter("quest");life.AdvanceFrame(1f/30);Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Opening));
+            life.World.Pan(new Vector2(-80,0));Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Idle));for(int i=0;i<30;i++)life.AdvanceFrame(1f/30);Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));
             facility.RequestEnter("quest");Flow.SendMessage("OnApplicationPause",true);Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Idle));Flow.SendMessage("OnApplicationPause",false);
             Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(Flow.IsModalOpen,Is.False);LogAssert.NoUnexpectedReceived();
         }

@@ -24,7 +24,7 @@ namespace Mofumachi.Presentation
         private TownPoint surfaceCenter;private Vector2 surfaceSize;private bool surfaceReady;
         private TownRegionId? lookRegion;
         private bool trackingFinger;private Vector2 fingerScreen;private UnityEngine.Camera fingerCamera;
-        internal float RenderScale=>original.rectTransform.rect.width/TownWorldLayout.ViewWidth;
+        internal float RenderScale=>TownWorldLayout.ScaleForViewport(original.rectTransform.rect.width,original.rectTransform.rect.height);
         public event Action<string,string,bool> Arrived;
         public void Bind(ScreenContext c,TownLifeView town)
         {
@@ -70,7 +70,7 @@ namespace Mofumachi.Presentation
         public bool LookAt(TownRegionId region)
         {if(!life.CanInteract||!Enum.IsDefined(typeof(TownRegionId),region))return false;FollowingHero=false;lookRegion=region;Camera.Jump(TownWorldMap.Place(region==TownRegionId.West?"west.entry":region==TownRegionId.East?"east.entry":"square"));Refresh();return true;}
         public void ReturnToHero(){FollowingHero=true;Camera.Jump(new TownPoint(Model.Hero.Position.X,Model.Hero.Position.Y+.04f));Refresh();}
-        public void Pan(Vector2 delta){FollowingHero=false;lookRegion=null;float scale=RenderScale;Camera.Pan(-delta.x/scale,-delta.y/(scale*TownWorldLayout.ImageAspect));Refresh();}
+        public void Pan(Vector2 delta){life.GetComponent<TownFacilityView>()?.Cancel();FollowingHero=false;lookRegion=null;float scale=RenderScale;Camera.Pan(-delta.x/scale,-delta.y/(scale*TownWorldLayout.ImageAspect));Refresh();}
         public void CancelHero(){trackingFinger=false;Model?.CancelHero();if(Model!=null)SyncActors();}
         public void Freeze(){trackingFinger=false;Model?.CancelHero();foreach(var actor in life.Actors)actor.ApplyWorldStep(0);}
         private void OnArrival(string id,string placeId,bool walked)
@@ -86,7 +86,7 @@ namespace Mofumachi.Presentation
         {
             if(!IsReady||original==null||scenery==null)return;
             var bounds=original.rectTransform.rect;float scale=RenderScale;
-            Camera.Fit(TownWorldLayout.ViewWidth,bounds.height/(scale*TownWorldLayout.ImageAspect));
+            Camera.Fit(bounds.width/scale,bounds.height/(scale*TownWorldLayout.ImageAspect));
             var tile=tiles[0];var mapRect=tile.rectTransform;mapRect.pivot=new Vector2(0,0);
             mapRect.anchoredPosition=Project(new TownPoint(TownWorldMap.Left,TownWorldMap.Bottom));
             mapRect.sizeDelta=new Vector2(TownWorldMap.Width*scale,TownWorldMap.Height*TownWorldLayout.ImageAspect*scale);
@@ -96,7 +96,7 @@ namespace Mofumachi.Presentation
             if(!surfaceReady||!surfaceCenter.Equals(Camera.Center)||surfaceSize!=bounds.size)
             {surfaceCenter=Camera.Center;surfaceSize=bounds.size;surfaceReady=true;}
             var actorBounds=((RectTransform)life.transform).rect;
-            for(int sign=0;sign<roadLabels.Count;sign++){var at=Local(SignPoints[sign]);roadLabels[sign].rectTransform.anchoredPosition=new Vector2(Mathf.Clamp(at.x,actorBounds.xMin+66,actorBounds.xMax-66),at.y+24);roadLabels[sign].gameObject.SetActive(at.y>actorBounds.yMin+160&&at.y<actorBounds.yMax-142);}
+            for(int sign=0;sign<roadLabels.Count;sign++){var at=Local(SignPoints[sign]);roadLabels[sign].rectTransform.anchoredPosition=new Vector2(TownWorldLayout.LabelCenter(at.x,actorBounds.xMin,actorBounds.xMax,roadLabels[sign].rectTransform.rect.width),at.y+24);roadLabels[sign].gameObject.SetActive(at.y>actorBounds.yMin+18&&at.y<actorBounds.yMax-44);}
             int count=Math.Min(6,context.Flow.Daily.Data.DecorationDays.Count);
             if(count>0)
             {

@@ -31,7 +31,7 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=life.Actors.Single(a=>a.Controlled);
             hero.OnPointerDown(new PointerEventData(EventSystem.current){pointerId=1});
-            life.World.Model.Restore(hero.CharacterId,TownWorldMap.Place("quest"),"quest");life.AdvanceFrame(1f/30);life.ActorReleased(hero);
+            life.World.Model.Restore(hero.CharacterId,TownWorldMap.Place("quest"),"quest");life.World.ReturnToHero();life.AdvanceFrame(1f/30);life.ActorReleased(hero);
             Assert.That(life.NearbyFacility,Is.Null);hero.OnPointerUp(new PointerEventData(EventSystem.current){pointerId=1});Assert.That(life.NearbyFacility,Is.EqualTo("quest"));
             Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Enter facility").onClick.Invoke();for(int i=0;i<30&&Flow.CurrentScreen==ScreenId.Home;i++)life.AdvanceFrame(1f/30);Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Quest));LogAssert.NoUnexpectedReceived();
         }

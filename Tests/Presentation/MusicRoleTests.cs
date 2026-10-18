@@ -8,6 +8,15 @@ namespace Mofumachi.Tests
     {
         private sealed class Store:IMusicPreferenceStore
         {public string Value;public bool Fail;public string Load()=>Value;public void Save(string id){if(Fail)throw new InvalidOperationException();Value=id;}}
+        [TestCase("beginning",MusicRole.Title)] [TestCase("merge-time",MusicRole.Merge)]
+        public void UpgradeReadsTheActualLegacyStoreUntilAnExplicitRoleChoice(string oldId,MusicRole role)
+        {
+            var legacy=new Store{Value=oldId};var title=new Store();var town=new Store();var merge=new Store();
+            var roles=new MusicRoleSelection(title,town,merge,legacy);
+            Assert.That(roles.For(role),Is.EqualTo(oldId));Assert.That(title.Value,Is.Null);Assert.That(town.Value,Is.Null);Assert.That(merge.Value,Is.Null);
+            string choice=role==MusicRole.Title?"title-garden":"merge-ribbon";Assert.That(roles.Select(choice),Is.True);
+            Assert.That(legacy.Value,Is.EqualTo(oldId));Assert.That(new MusicRoleSelection(title,town,merge,legacy).For(role),Is.EqualTo(choice));
+        }
         [Test] public void EachReplacementRoleHasTwoRealDistinctCandidatesAndTownIsUnchanged()
         {
             foreach(var role in new[]{MusicRole.Title,MusicRole.Merge})

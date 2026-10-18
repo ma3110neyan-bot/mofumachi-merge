@@ -8,6 +8,11 @@ namespace Mofumachi.Presentation
     public static class TownWorldLayout
     {
         public const float RegionSpacing=.9f,ArtHeight=.75f,ImageAspect=1f,ViewWidth=.78f;
+        public static float ScaleForViewport(float width,float height)
+        {if(!float.IsFinite(width)||!float.IsFinite(height)||width<=0||height<=0)return 1;return Math.Max(width/ViewWidth,height/(TownWorldMap.Height*ImageAspect));}
+        public static float LabelCenter(float x,float left,float right,float width)
+        {float half=Math.Min(width/2,(right-left)/2);return Math.Max(left+half,Math.Min(right-half,x));}
+        public static float CaptionDrop(float doorTop,float captionHeight,float viewportTop)=>Math.Min(0,viewportTop-4-doorTop-captionHeight);
         public static float Origin(TownRegionId r)=>r==TownRegionId.West?RegionSpacing:r==TownRegionId.East?-RegionSpacing:0;
         public static string Name(TownRegionId r)=>r==TownRegionId.West?"北の街・依頼小屋":r==TownRegionId.East?"南の花・ショップ":"中央公園";
         public static TownPoint ToWorld(TownRegionId r,TownPoint p)=>new TownPoint(p.X,p.Y+Origin(r));

@@ -27,7 +27,7 @@ namespace Mofumachi.Presentation
             float v=region==TownRegionId.West?.27f:region==TownRegionId.East?.83f:.50f;
             float side=prop.Position.X<.5f?.10f:.90f;
             if(prop.Prop==TownGrowthProp.Arch||prop.Prop==TownGrowthProp.Garland)return Point(.50f,v-.11f-(prop.Level%2)*.08f);
-            if(prop.Prop==TownGrowthProp.CafeTable)return Point(.19f,.20f);
+            if(prop.Prop==TownGrowthProp.CafeTable)return prop.Level<4?Point(.165f,.219f):Point(.380f,.192f);
             if(prop.Prop==TownGrowthProp.Workshop)return Point(.22f,.70f);
             return Point(side+(prop.Level%2==0?.015f:-.015f),v+(prop.Position.Y-.5f)*.42f);
         }

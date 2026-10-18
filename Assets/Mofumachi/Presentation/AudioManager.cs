@@ -29,7 +29,7 @@ namespace Mofumachi.Presentation
             if(FindAnyObjectByType<AudioListener>()==null)gameObject.AddComponent<AudioListener>();
             tracks=new AudioClip[MusicCatalog.All.Count];for(int i=0;i<tracks.Length;i++)tracks[i]=Resources.Load<AudioClip>("Mofumachi/Audio/"+MusicCatalog.All[i].Resource);
             selection=new MusicSelection(new MusicPreferenceStore());
-            roleSelection=new MusicRoleSelection(new MusicPreferenceStore(MusicRole.Title),new MusicPreferenceStore(MusicRole.Town),new MusicPreferenceStore(MusicRole.Merge));
+            roleSelection=new MusicRoleSelection(new MusicPreferenceStore(MusicRole.Title),new MusicPreferenceStore(MusicRole.Town),new MusicPreferenceStore(MusicRole.Merge),new MusicPreferenceStore());
             music.clip=TrackClip(SelectedMusicId);
             string[] keys={"se-confirm","se-merge","se-reward","se-character","se-delivery","se-growth"};
             cues=new AudioClip[keys.Length];for(int i=0;i<keys.Length;i++)cues[i]=Resources.Load<AudioClip>("Mofumachi/Audio/"+keys[i]);

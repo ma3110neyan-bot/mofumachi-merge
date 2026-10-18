@@ -35,7 +35,7 @@ namespace Mofumachi.Presentation
         private void Show(TownRegionId region)
         {
             var texture=Resources.Load<Texture2D>(TownWorldMap.Resource);
-            var addition=TownGrowthPresentation.For(region,delivery.CurrentTownLevel).LastOrDefault(p=>p.Level==delivery.CurrentTownLevel);
+            var addition=TownGrowthPresentation.FocusFor(region,delivery.CurrentTownLevel);
             var anchor=TownWorldMap.Place(region==TownRegionId.West?"west.entry":region==TownRegionId.East?"east.entry":"square");
             float u=addition?.Position.X??(anchor.X-TownWorldMap.Left)/TownWorldMap.Width;
             float v=addition?.Position.Y??(TownWorldMap.Top-anchor.Y)/TownWorldMap.Height;

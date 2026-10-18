@@ -26,12 +26,20 @@ namespace Mofumachi.Presentation
                 P(TownGrowthProp.Lamp,3,.40f,.66f,.07f),P(TownGrowthProp.Bench,3,.685f,.67f,.22f),P(TownGrowthProp.Lamp,3,.65f,.65f,.07f),
                 P(TownGrowthProp.Flowers,4,.45f,.49f,.16f),P(TownGrowthProp.FlowerDisplay,4,.59f,.49f,.16f),P(TownGrowthProp.Lamp,4,.33f,.81f,.07f),
                 P(TownGrowthProp.Arch,5,.51f,.33f,.75f),P(TownGrowthProp.Flowers,5,.57f,.83f,.17f),
-                P(TownGrowthProp.Garland,6,.735f,.827f,.38f),P(TownGrowthProp.StreetBunting,6,.51f,.87f,.50f),P(TownGrowthProp.Lamp,6,.64f,.82f,.07f)},
+                P(TownGrowthProp.Garland,6,.28f,.839f,.38f),P(TownGrowthProp.StreetBunting,6,.51f,.87f,.50f),P(TownGrowthProp.Lamp,6,.64f,.82f,.07f)},
             new[]{P(TownGrowthProp.Flowers,1,.73f,.665f,.16f),P(TownGrowthProp.FlowerDisplay,2,.89f,.47f,.19f),P(TownGrowthProp.Flowers,2,.69f,.67f,.16f),
                 P(TownGrowthProp.Lamp,3,.74f,.67f,.07f),P(TownGrowthProp.Bench,3,.80f,.78f,.22f),P(TownGrowthProp.CafeSign,3,.72f,.39f,.08f),
                 P(TownGrowthProp.Workshop,4,.90f,.47f,.24f),P(TownGrowthProp.Flowers,4,.78f,.81f,.15f),P(TownGrowthProp.Lamp,4,.90f,.73f,.07f),
                 P(TownGrowthProp.Arch,5,.815f,.43f,.34f),P(TownGrowthProp.FlowerDisplay,5,.76f,.43f,.16f),
                 P(TownGrowthProp.StreetBunting,6,.81f,.445f,.34f),P(TownGrowthProp.Garland,6,.735f,.827f,.30f),P(TownGrowthProp.Flowers,6,.68f,.75f,.16f)}};
+        // The delivery comparison should frame the landmark just earned, not a
+        // small last-listed flower that happens to share its growth level.
+        public static TownGrowthPlacement FocusFor(TownRegionId region,int level)
+        {
+            int stage=Math.Max(0,Math.Min(6,level));
+            int Priority(TownGrowthProp p)=>p==TownGrowthProp.Arch?6:p==TownGrowthProp.StreetBunting?5:p==TownGrowthProp.Workshop?4:p==TownGrowthProp.CafeTable?3:p==TownGrowthProp.FlowerDisplay?2:p==TownGrowthProp.Bench?1:0;
+            return For(region,stage).Where(p=>p.Level==stage).OrderByDescending(p=>Priority(p.Prop)).FirstOrDefault();
+        }
         public static IReadOnlyList<TownGrowthPlacement> For(TownRegionId region,int level)
         {
             if(!Enum.IsDefined(typeof(TownRegionId),region))return Array.Empty<TownGrowthPlacement>();

@@ -59,5 +59,20 @@ namespace Mofumachi.Tests
    }
    Assert.That(violations,Is.Empty,string.Join("; ",violations));
   }
+  [Test] public void OneContinuousWorldNeverDrawsTheSameGrowthSpriteTwiceAtOneAnchor()
+  {
+   var all=Enum.GetValues(typeof(TownRegionId)).Cast<TownRegionId>().SelectMany(r=>TownGrowthPresentation.For(r,6));
+   var duplicates=all.GroupBy(p=>new{p.Prop,p.Position.X,p.Position.Y}).Where(g=>g.Count()>1);
+   Assert.That(duplicates,Is.Empty);
+  }
+  [Test] public void DeliveryPreviewFramesTheNewLandmarkRatherThanTheLastSmallFlower()
+  {
+   Assert.That(TownGrowthPresentation.FocusFor(TownRegionId.West,2).Prop,Is.EqualTo(TownGrowthProp.CafeTable));
+   Assert.That(TownGrowthPresentation.FocusFor(TownRegionId.Central,2).Prop,Is.EqualTo(TownGrowthProp.Bench));
+   Assert.That(TownGrowthPresentation.FocusFor(TownRegionId.East,4).Prop,Is.EqualTo(TownGrowthProp.Workshop));
+   foreach(TownRegionId r in Enum.GetValues(typeof(TownRegionId)))
+   {Assert.That(TownGrowthPresentation.FocusFor(r,5).Prop,Is.EqualTo(TownGrowthProp.Arch));Assert.That(TownGrowthPresentation.FocusFor(r,6).Prop,Is.EqualTo(TownGrowthProp.StreetBunting));}
+   Assert.That(TownGrowthPresentation.FocusFor(TownRegionId.Central,0),Is.Null);
+  }
  }
 }

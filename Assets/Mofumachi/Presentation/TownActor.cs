@@ -30,19 +30,28 @@ namespace Mofumachi.Presentation
         private float waitRemaining,reactionRemaining,stride,amplitude,breath,socialRemaining,viewScale=1;
         private TownLifeView life;
         private CharacterBodyGraphic body;
+        private RoundedPanelGraphic softShadow,contactShadow;
         private RectTransform rect;
         private bool dragged,surprised,moving;
         private bool regionalGuidance,transitionHeld;
         private CanvasGroup visibility;
         private float journeyFade;
-        private float facing,speedBlend;
+        private float facing,facingTarget,speedBlend;
         public void Bind(string characterId,bool controlled,TownMovement movement,TownNavigation navigation)
         {
             CharacterId=characterId;Controlled=controlled;Movement=controlled?movement:null;
             this.navigation=navigation;npcPosition=movement.Position;previous=Position;rect=(RectTransform)transform;
             VisualRoot=UIWidgets.Node("Town actor visual",rect,new Rect(0,0,1,1));VisualRoot.pivot=new Vector2(.5f,0);
             body=VisualRoot.gameObject.AddComponent<CharacterBodyGraphic>();body.Bind(characterId);body.raycastTarget=true;
+            softShadow=CreateShadow("Town actor soft shadow",new Rect(.12f,-.06f,.76f,.12f),.075f);
+            contactShadow=CreateShadow("Town actor contact shadow",new Rect(.27f,-.032f,.46f,.064f),.19f);
+            softShadow.transform.SetAsFirstSibling();contactShadow.transform.SetSiblingIndex(1);
             visibility=gameObject.AddComponent<CanvasGroup>();
+        }
+        private RoundedPanelGraphic CreateShadow(string name,Rect bounds,float opacity)
+        {
+            var shadow=UIWidgets.Node(name,rect,bounds).gameObject.AddComponent<RoundedPanelGraphic>();
+            shadow.radius=100;shadow.decorated=false;shadow.raycastTarget=false;shadow.color=new Color(.24f,.19f,.26f,opacity);return shadow;
         }
         internal void Connect(TownLifeView view,TownPoint a,TownPoint b,float delay)
         {life=view;npcA=a;npcB=b;npcTarget=b;waitRemaining=delay;ResetVisual();}
@@ -50,7 +59,7 @@ namespace Mofumachi.Presentation
         internal void ApplyWorldStep(float dt)
         {
             if(worldResident==null)return;RegionId=worldResident.Region;IsGuided=worldResident.IsWalking;moving=worldResident.IsWalking&&worldResident.PauseRemaining<=0&&TownWorldLayout.Distance(worldResident.Previous,worldResident.Position)>.000001f;
-            facing=Mathf.MoveTowards(facing,worldResident.Facing,dt*6);stride=worldResident.Stride;waitRemaining=worldResident.Rest;
+            facingTarget=worldResident.Facing;stride=worldResident.Stride;waitRemaining=worldResident.Rest;
             TownRegionCatalog.TryFindPlace(worldResident.PlaceId,life.TownLevel,out _,out var place);Place=place;
         }
         internal void SetWorldPlace(TownPlace place){Place=place;IsGuided=false;}
@@ -58,7 +67,7 @@ namespace Mofumachi.Presentation
         {if(Controlled||route==null||route.Count<3)return;walkRoute=route;routeDirection=start%2==0?1:-1;routeIndex=(start+routeDirection+route.Count)%route.Count;npcTarget=route[routeIndex];}
         internal void SetDestination(TownPlace place,float wait){if(Controlled||place==null)return;regionalGuidance=transitionHeld=false;Place=place;npcTarget=place.Position;waitRemaining=wait;}
         internal void Greet(){if(worldResident!=null)life.World.Model.Pause(CharacterId,1.4f);socialRemaining=1;reactionRemaining=.65f;surprised=false;}
-        internal void FaceTowards(TownPoint other){if(worldResident!=null)life.World.Model.Face(CharacterId,TownWorldLayout.ToWorld(RegionId,other));float x=other.X-Position.X;if(Mathf.Abs(x)>.002f)facing=Mathf.Sign(x);}
+        internal void FaceTowards(TownPoint other){if(worldResident!=null)life.World.Model.Face(CharacterId,TownWorldLayout.ToWorld(RegionId,other));float x=other.X-Position.X;if(Mathf.Abs(x)>.002f)facingTarget=Mathf.Sign(x);}
         public bool GuideTo(TownPoint target)=>BeginGuide(target,false);
         private bool BeginGuide(TownPoint target,bool preserveJourney)
         {
@@ -131,34 +140,48 @@ namespace Mofumachi.Presentation
                 }
             }
             float distance=navigation.DistanceAlongPath(previous,Position);
-            if(Mathf.Abs(Position.X-previous.X)>.000001f)facing=Mathf.MoveTowards(facing,Mathf.Sign(Position.X-previous.X),dt*6);
+            if(Mathf.Abs(Position.X-previous.X)>.000001f)facingTarget=Mathf.Sign(Position.X-previous.X);
             moving=distance>.000001f;stride=Mathf.Repeat(stride+distance*140,Mathf.PI*2);
         }
         internal void Render(float alpha,float elapsedSeconds)
         {
             if(life==null||!RegionVisible||!float.IsFinite(elapsedSeconds)||elapsedSeconds<0)return;
-            float dt=Mathf.Min(elapsedSeconds,.1f);
+            float dt=life.CanSimulate?Mathf.Min(elapsedSeconds,.1f):0;
+            alpha=float.IsFinite(alpha)?Mathf.Clamp01(alpha):0;
             RenderPosition=worldResident==null?navigation.InterpolateAlongPath(previous,Position,alpha):Position;
             rect.anchoredPosition=worldResident==null?life.Local(RenderPosition):life.World.Local(worldResident.Position);
             amplitude=Mathf.MoveTowards(amplitude,moving?1:0,dt/.12f);
+            facing=TownCharacterMotion.Turn(facing,facingTarget,dt);
             breath+=dt;reactionRemaining=Mathf.Max(0,reactionRemaining-dt);
             var expression=reactionRemaining>0?(surprised?CharacterExpression.Surprise:CharacterExpression.Smile):(!Controlled&&waitRemaining>0?CharacterExpression.Smile:CharacterExpression.Normal);
             if(body.Expression!=expression)body.Bind(CharacterId,expression);
             float reaction=reactionRemaining>0?Mathf.Sin((1-reactionRemaining/.65f)*Mathf.PI)*8:0;
-            var pose=TownCharacterMotion.Sample(stride,amplitude,facing,IsResting?1:0);
+            int resident=CharacterCatalog.Find(CharacterId).PortraitIndex;
+            var pose=TownCharacterMotion.Sample(stride,amplitude,facing,IsResting?1:0,breath,resident);
             float rest=IsResting&&Place?.Activity==TownActivity.Bench?-2:0;
             VisualRoot.anchoredPosition=Vector2.up*(pose.Hop+reaction+rest);
-            VisualRoot.localScale=Vector3.one*(viewScale+.005f*Mathf.Sin(breath*2));
+            float scale=viewScale*DepthScale;
+            VisualRoot.localScale=new Vector3(scale*(1-pose.Breath*.35f),scale*(1+pose.Breath),1);
             float looking=IsResting&&Place?.Activity==TownActivity.Flowers?2*Mathf.Sin(breath*.8f):0;
             VisualRoot.localRotation=Quaternion.Euler(0,0,pose.Lean+looking+(reactionRemaining>0?Mathf.Sin((1-reactionRemaining/.65f)*Mathf.PI*2)*3:0));
-            body.Pose(pose.Foot,reactionRemaining>0?Mathf.Sin((1-reactionRemaining/.65f)*Mathf.PI*3):0,facing,TownCharacterMotion.Blink(breath,CharacterCatalog.Find(CharacterId).PortraitIndex));
+            body.Pose(pose.Foot,pose.Hand+(reactionRemaining>0?Mathf.Sin((1-reactionRemaining/.65f)*Mathf.PI*3):0),pose.Look,TownCharacterMotion.Blink(breath,resident));
+            UpdateShadows(pose.Hop+reaction,scale);
+        }
+        private float DepthScale=>TownCharacterMotion.DepthScale((TownWorldMap.Top-WorldPosition.Y)/TownWorldMap.Height);
+        private void UpdateShadows(float height,float scale)
+        {
+            if(softShadow==null||contactShadow==null)return;height=Mathf.Clamp(height,0,12);
+            softShadow.rectTransform.localScale=Vector3.one*(scale*(1+height*.006f));
+            contactShadow.rectTransform.localScale=Vector3.one*(scale*(1-height*.012f));
+            softShadow.color=new Color(.24f,.19f,.26f,.075f*(1-height*.015f));
+            contactShadow.color=new Color(.24f,.19f,.26f,.19f*(1-height*.025f));
         }
         internal void FreezeMovement()
         {previous=Position;RenderPosition=Position;moving=false;if(life!=null)rect.anchoredPosition=worldResident==null?life.Local(Position):life.World.Local(worldResident.Position);}
         internal void ResetVisual()
-        {IsGuided=false;FreezeMovement();stride=amplitude=breath=reactionRemaining=speedBlend=0;if(VisualRoot!=null){VisualRoot.anchoredPosition=Vector2.zero;VisualRoot.localScale=Vector3.one;VisualRoot.localRotation=Quaternion.identity;}if(body!=null){if(body.Expression!=CharacterExpression.Normal)body.Bind(CharacterId);body.Pose(0,0,0,false);}}
+        {IsGuided=false;FreezeMovement();stride=amplitude=breath=reactionRemaining=speedBlend=socialRemaining=facing=facingTarget=0;surprised=false;float scale=viewScale*DepthScale;if(VisualRoot!=null){VisualRoot.anchoredPosition=Vector2.zero;VisualRoot.localScale=new Vector3(scale,scale,1);VisualRoot.localRotation=Quaternion.identity;}UpdateShadows(0,scale);if(body!=null){if(body.Expression!=CharacterExpression.Normal)body.Bind(CharacterId);body.Pose(0,0,0,false);}}
         public void React(){if(life==null||!life.CanInteract||!RegionVisible||journeyFade>0||life.IsManuallyDragging||life.NearbyFacility!=null)return;if(worldResident!=null&&!Controlled)life.World.Model.Pause(CharacterId,2);surprised=false;reactionRemaining=.65f;life.React(this);}
-        internal void SetViewScale(float scale){viewScale=Mathf.Clamp(scale,1,1.15f);}
+        internal void SetViewScale(float scale){viewScale=float.IsFinite(scale)?Mathf.Clamp(scale,1,1.15f):1;}
         internal void Surprise(){surprised=true;reactionRemaining=.65f;}
         public void OnPointerDown(PointerEventData e)
         {if(!Controlled||!life.CanInteract||!RegionVisible||Movement.OwnedPointerId.HasValue&&(worldResident!=null||!IsGuided))return;life.StartInteraction();if(IsGuided){Movement.CancelInput();IsGuided=false;FreezeMovement();}if(Movement.TryBeginDrag(e.pointerId))dragged=false;}

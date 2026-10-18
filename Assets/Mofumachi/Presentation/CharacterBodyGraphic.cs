@@ -46,11 +46,8 @@ namespace Mofumachi.Presentation
                 int n=vh.currentVertCount;
                 void Vertex(float u,float v)
                 {
-                    float side=u<.5f?-1:1;
-                    float lift=v<.26f?side*foot*2.5f*(1-v/.26f):0;
-                    float hand=v>=.26f&&v<=.52f?(wave+foot*.32f)*side*Mathf.Sin((v-.26f)/.26f*Mathf.PI)*Mathf.Abs(u-.5f)*7:0;
-                    float turn=v>.52f?facing*(v-.52f)*1.3f:0;
-                    vh.AddVert(new Vector3(min.x+size.x*u+hand+turn,min.y+size.y*v+lift),tint,new Vector2(source.x+u*source.width,source.y+v*source.height));
+                    var offset=TownCharacterMotion.VertexOffset(u,v,foot,wave,facing);
+                    vh.AddVert(new Vector3(min.x+size.x*u+offset.X,min.y+size.y*v+offset.Y),tint,new Vector2(source.x+u*source.width,source.y+v*source.height));
                 }
                 Vertex(left,bottom);Vertex(left,top);Vertex(right,top);Vertex(right,bottom);vh.AddTriangle(n,n+1,n+2);vh.AddTriangle(n,n+2,n+3);
             }

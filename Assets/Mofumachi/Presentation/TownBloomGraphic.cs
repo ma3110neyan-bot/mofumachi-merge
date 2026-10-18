@@ -23,7 +23,8 @@ namespace Mofumachi.Presentation
         {
             if(World?.IsReady==true)return World.Local(TownWorldMap.Point(point.x,point.y),rectTransform);
             var uv=background.uvRect;var r=background.rectTransform.rect;
-            return transform.InverseTransformPoint(background.rectTransform.TransformPoint(r.min+Vector2.Scale((point-uv.min)/uv.size,r.size)));
+            var source=background.texture!=null&&background.texture.name=="TownSeamlessMap"?new Vector2(point.x,1-point.y):point;
+            return transform.InverseTransformPoint(background.rectTransform.TransformPoint(r.min+Vector2.Scale((source-uv.min)/uv.size,r.size)));
         }
         protected override void OnPopulateMesh(VertexHelper vh)
         {

@@ -12,7 +12,7 @@ function Assert-TestRun([string]$ResultPath,[int]$MinimumTests,[string[]]$Requir
     foreach($Suite in $RequiredSuites) {
         if(@($Results.SelectNodes('//test-suite') | Where-Object { $_.GetAttribute('name') -eq $Suite -and $_.GetAttribute('result') -eq 'Passed' -and $_.SelectNodes('.//test-case').Count -gt 0 }).Count -eq 0) { throw "Missing passed suite: $Suite" }
     }
-    foreach($Gate in @(@{Name='DailyWorldTests';Count=10},@{Name='MajorPolishTests';Count=6},@{Name='SeamlessFieldTests';Count=7},@{Name='EastWestHomeTests';Count=3},@{Name='ResidentPresenceTests';Count=4})) {
+    foreach($Gate in @(@{Name='DailyWorldTests';Count=10},@{Name='MajorPolishTests';Count=6},@{Name='SeamlessFieldTests';Count=7},@{Name='EastWestHomeTests';Count=4},@{Name='ResidentPresenceTests';Count=4})) {
         if($Gate.Name -in $RequiredSuites) {
             $Suite=$Results.SelectNodes('//test-suite') | Where-Object {$_.GetAttribute('name') -eq $Gate.Name} | Select-Object -First 1
             if($Suite.SelectNodes('.//test-case').Count -ne $Gate.Count){throw "Incomplete suite: $($Gate.Name), expected $($Gate.Count) cases."}

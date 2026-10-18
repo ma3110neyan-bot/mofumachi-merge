@@ -59,7 +59,7 @@ namespace Mofumachi.Presentation
             var goal=TownNextGoal.For(c.Game.State);bool finale=ChapterProgress.For(c.Game.State).AllCompleted;
             var quest=w.Panel("Home quest",bar,new Rect(0,0,.59f,1),new Color(1,1,1,0)).rectTransform;quest.GetComponent<RoundedPanelGraphic>().raycastTarget=true;
             var title=w.StoryLabel("Next goal title",finale?"今日のお願い "+c.Flow.Daily.CompletedGoals+" / 3":goal.Title,quest,new Rect(.05f,.50f,.90f,.45f),12);
-            var hint=w.Label("Town growth hint",finale?c.Flow.Daily.NextGoal:goal.Detail,quest,new Rect(.05f,.06f,.90f,.42f),10);
+            var hint=w.Label("Town growth hint",TownNextGoal.CompactDetail(c.Game.State,c.Flow.Daily),quest,new Rect(.05f,.06f,.90f,.42f),10);
             quest.gameObject.AddComponent<TownDailyHomeHint>().Bind(c,finale,title,hint);
             var tap=quest.gameObject.AddComponent<Button>();tap.targetGraphic=quest.GetComponent<RoundedPanelGraphic>();tap.onClick.AddListener(()=>{if(finale)c.Flow.ShowToday();else life.GuideToFacility("quest");});
             var merge=w.Button("Nav Merge","マージ",bar,new Rect(.60f,0,.25f,1),c.Flow.ShowMerge);merge.GetComponentInChildren<Text>().fontSize=13;

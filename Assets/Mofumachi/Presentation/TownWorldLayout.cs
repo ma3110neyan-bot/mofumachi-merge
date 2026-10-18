@@ -7,7 +7,7 @@ namespace Mofumachi.Presentation
     // Rendering coordinates only. Stable region/place IDs and savev3 remain unchanged.
     public static class TownWorldLayout
     {
-        public const float RegionSpacing=.9f,ArtHeight=.75f,ImageAspect=1f,ViewWidth=.98f;
+        public const float RegionSpacing=.9f,ArtHeight=.75f,ImageAspect=1f,ViewWidth=.955f;
         public static float ScaleForViewport(float width,float height)
         {if(!float.IsFinite(width)||!float.IsFinite(height)||width<=0||height<=0)return 1;return Math.Max(width/ViewWidth,height/(TownWorldMap.Height*ImageAspect));}
         public static float LabelCenter(float x,float left,float right,float width)

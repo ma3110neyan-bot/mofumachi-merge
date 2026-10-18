@@ -47,7 +47,7 @@ namespace Mofumachi.Presentation
         {
             if(context==null||Time.unscaledTime<nextCheck)return;nextCheck=Time.unscaledTime+.25f;
             var daily=context.Flow.Daily;daily.EnsureDay(System.DateTime.Now);
-            if(finale){title.text="今日のお願い "+daily.CompletedGoals+" / 3";hint.text=daily.Data.Claimed?TownCharacterBook.For(daily.CharacterOfDay,context.Game.State,daily.Data).NextDiscovery:daily.NextGoal;}
+            if(finale){title.text="今日のお願い "+daily.CompletedGoals+" / 3";hint.text=TownNextGoal.CompactDetail(context.Game.State,daily);}
         }
     }
 }

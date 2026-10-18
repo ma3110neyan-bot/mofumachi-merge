@@ -16,7 +16,7 @@ namespace Mofumachi.Presentation
             {"quest",Point(.171f,.290f)},{"shop",Point(.815f,.485f)},
             {"bench-left",Point(.43f,.73f)},{"bench-right",Point(.63f,.73f)},
             {"home-front",Point(.45f,.37f)},{"flower-walk",Point(.69f,.52f)},
-            {"front-promenade",Point(.52f,.80f)},{"celebration",Point(.51f,.85f)},
+            {"front-promenade",Point(.52f,.80f)},{"celebration",Point(.51f,.83f)},
             {"west.entry",Point(.31f,.55f)},{"west.cafe-front",Point(.261f,.50f)},
             {"west.flowers",Point(.25f,.68f)},{"west.bench-front",Point(.33f,.73f)},{"west.meeting",Point(.36f,.53f)},
             {"east.entry",Point(.80f,.58f)},{"east.meeting",Point(.84f,.57f)},

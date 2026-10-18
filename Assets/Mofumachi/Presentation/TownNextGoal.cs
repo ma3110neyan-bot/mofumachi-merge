@@ -27,6 +27,22 @@ namespace Mofumachi.Presentation
             int next=Math.Max(0,state.townGrowthLevel)+1;
             return new TownNextGoal("あと1お届けで、街に変化♪","Lv."+next+" · "+UnlockAt(next),quest.Id,next,1);
         }
+        // A one-line invitation on the compact street bar; full details stay in
+        // the actual quest, book and Today screens.
+        public static string CompactDetail(GameState state,TownDailyService daily)
+        {
+            var goal=For(state);
+            if(!goal.IsFinale)
+            {
+                string[] shortUnlocks={"","お茶会のお花","カフェの席","街灯とベンチ","花屋の飾り","お祝いのアーチ","街のリボン"};
+                return goal.NextLevel>0&&goal.NextLevel<shortUnlocks.Length?"Lv."+goal.NextLevel+" · "+shortUnlocks[goal.NextLevel]:"依頼小屋で物語のつづきを";
+            }
+            if(daily.Data.Claimed)return daily.NewDiscoveryCount>0?"図鑑に新しい発見があるよ♪":"仲間の新しい一面を探そう";
+            if(daily.ReadyToClaim)return "今日のお花を受け取ろう♪";
+            if(daily.Data.Talks<1)return "あと1会話で、小さな発見♪";
+            if(daily.Data.Walks<1)return "東西の通りを歩いてみよう";
+            return "あと"+(3-daily.Data.Merges)+"合成で今日のお花♪";
+        }
         public static IEnumerable<string> Text=>Unlocks.Concat(new[]{"依頼を確認しよう","みんなのお茶会ができました♪","街のあちこちの仲間に会いに行こう♪","物語のつづきへ","あと1お届けで、街に変化♪"});
     }
 }

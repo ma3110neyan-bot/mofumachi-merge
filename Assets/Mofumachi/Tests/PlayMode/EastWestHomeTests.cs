@@ -35,5 +35,24 @@ namespace Mofumachi.Tests
    life.World.Model.Restore(hero.CharacterId,TownWorldMap.Point(.52f,.60f));life.World.ReturnToHero();life.AdvanceFrame(1f/30);
    Assert.That(hero.transform.GetSiblingIndex(),Is.GreaterThan(foreground.transform.GetSiblingIndex()));Assert.That(foreground.raycastTarget,Is.False);LogAssert.NoUnexpectedReceived();
   }
+  [UnityTest] public IEnumerator CompactNextGoalFitsForEveryLevelAndDailyStateOnNarrowPhones()
+  {
+   yield return EnterHome();var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;
+   ((RectTransform)canvas.transform).sizeDelta=new Vector2(320,592);Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(320,592),new Rect(0,24,320,536));
+   for(int stage=0;stage<7;stage++)
+   {
+    Flow.Game.State.townGrowthLevel=stage;Flow.ShowHome();Canvas.ForceUpdateCanvases();
+    var title=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Next goal title");Assert.That(title.preferredWidth,Is.LessThanOrEqualTo(title.rectTransform.rect.width+1));Assert.That(title.preferredHeight,Is.LessThanOrEqualTo(title.rectTransform.rect.height+1));
+    var hint=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town growth hint");Assert.That(hint.preferredWidth,Is.LessThanOrEqualTo(hint.rectTransform.rect.width+1));Assert.That(hint.preferredHeight,Is.LessThanOrEqualTo(hint.rectTransform.rect.height+1));
+   }
+   Flow.Game.State.completedQuestIds.Clear();Flow.Game.State.completedQuestIds.AddRange(QuestCatalog.All.Select(q=>q.Id));Flow.Game.State.activeQuestId="";
+   foreach(bool claimed in new[]{false,true})foreach(int talks in new[]{0,1})foreach(int walks in new[]{0,1})foreach(int merges in new[]{0,3})
+   {
+    var d=Flow.Daily.Data;d.Claimed=claimed;d.Talks=talks;d.Walks=walks;d.Merges=merges;Flow.ShowHome();Canvas.ForceUpdateCanvases();
+    var title=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Next goal title");Assert.That(title.preferredWidth,Is.LessThanOrEqualTo(title.rectTransform.rect.width+1));Assert.That(title.preferredHeight,Is.LessThanOrEqualTo(title.rectTransform.rect.height+1));
+    var hint=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town growth hint");Assert.That(hint.preferredWidth,Is.LessThanOrEqualTo(hint.rectTransform.rect.width+1));Assert.That(hint.preferredHeight,Is.LessThanOrEqualTo(hint.rectTransform.rect.height+1));
+   }
+   LogAssert.NoUnexpectedReceived();
+  }
  }
 }

@@ -40,13 +40,24 @@ namespace Mofumachi.Tests
   }
   [Test] public void EveryAuthoredStopKeepsTheWholeResidentAboveTheCompactFooter()
   {
-   foreach(float height in new[]{592f,640f,740f,808f,1280f})
-   {float scale=TownWorldLayout.ScaleForViewport(360,height);var camera=new TownWorldCamera();camera.Fit(360/scale,height/scale);
+   foreach(float width in new[]{320f,360f})foreach(float height in new[]{592f,640f,740f,808f,1280f})
+   {float scale=TownWorldLayout.ScaleForViewport(width,height);var camera=new TownWorldCamera();camera.Fit(width/scale,height/scale);
     foreach(TownRegionId r in Enum.GetValues(typeof(TownRegionId)))foreach(var stop in TownRegionCatalog.ForLevel(r,6).Map.Places)
     {var p=TownWorldMap.Place(stop.Id);camera.Jump(new TownPoint(p.X,p.Y+.04f));float feet=(p.Y-camera.Center.Y)*scale;
      Assert.That(feet-20,Is.GreaterThanOrEqualTo(-height/2+24+62),stop.Id+" below footer at "+height);
      Assert.That(feet+82,Is.LessThanOrEqualTo(height/2-32-80),stop.Id+" behind HUD at "+height);}
    }
+  }
+  [Test] public void SolidFurnitureAndPlanterBasesStayOutsideTheWalkableSurface()
+  {
+   var floor=new TownWalkableArea(6);var violations=new System.Collections.Generic.List<string>();
+   foreach(TownRegionId region in Enum.GetValues(typeof(TownRegionId)))foreach(var prop in TownGrowthPresentation.For(region,6))
+   {
+    if(prop.Prop==TownGrowthProp.Arch||prop.Prop==TownGrowthProp.Garland||prop.Prop==TownGrowthProp.StreetBunting)continue;
+    var feet=TownWorldMap.Growth(region,prop);
+    if(floor.Contains(feet))violations.Add(region+" "+prop.Prop+" Lv"+prop.Level+" at "+prop.Position.X+","+prop.Position.Y);
+   }
+   Assert.That(violations,Is.Empty,string.Join("; ",violations));
   }
  }
 }

@@ -140,7 +140,7 @@ exit $Code
         if($Declared -eq 0){$Declared=$Total}
         $SuiteCases=0
         $Nodes=foreach($Name in $Suites) {
-            $Count=if($Name -eq 'DailyWorldTests'){10}elseif($Name -eq 'MajorPolishTests'){6}elseif($Name -eq 'SeamlessFieldTests'){7}elseif($Name -eq 'EastWestHomeTests'){3}elseif($Name -eq 'ResidentPresenceTests'){4}else{1}
+            $Count=if($Name -eq 'DailyWorldTests'){10}elseif($Name -eq 'MajorPolishTests'){6}elseif($Name -eq 'SeamlessFieldTests'){7}elseif($Name -eq 'EastWestHomeTests'){4}elseif($Name -eq 'ResidentPresenceTests'){4}else{1}
             $SuiteCases+=$Count;"<test-suite name='$Name' result='Passed'>"+('<test-case result="Passed"/>'*$Count)+"</test-suite>"
         }
         $Nodes=$Nodes -join ''

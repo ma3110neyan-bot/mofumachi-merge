@@ -32,8 +32,8 @@ namespace Mofumachi.Tests
                     var life=page.GetComponentInChildren<TownLifeView>();var mask=life.GetComponent<RectMask2D>();
                     Assert.That(mask,Is.Not.Null);Assert.That(mask.isActiveAndEnabled,Is.True);
                     Canvas.ForceUpdateCanvases();
-                    var field=BoundsIn(page,(RectTransform)life.transform);var quest=BoundsIn(page,(RectTransform)page.Find("Home quest"));
-                    Assert.That(field.yMin,Is.GreaterThan(quest.yMax),"The playable field must end above the quest card");
+                    var field=BoundsIn(page,(RectTransform)life.transform);var quest=BoundsIn(page,(RectTransform)page.Find("Navigation/Home quest"));
+                    Assert.That(field.yMin,Is.GreaterThan(quest.yMax),"The playable field must end above the compact navigation bar");
                     int rendered=0;
                     foreach(var actor in actors)
                     {
@@ -61,7 +61,7 @@ namespace Mofumachi.Tests
                         if(actor.RegionVisible&&field.Overlaps(bounds))
                         {
                             rendered++;var drawn=Rect.MinMaxRect(Mathf.Max(field.xMin,bounds.xMin),Mathf.Max(field.yMin,bounds.yMin),Mathf.Min(field.xMax,bounds.xMax),Mathf.Min(field.yMax,bounds.yMax));
-                            Assert.That(drawn.yMin,Is.GreaterThan(quest.yMax));Assert.That(drawn.Overlaps(quest),Is.False,actor.CharacterId+" must not draw over the quest card");
+                            Assert.That(drawn.yMin,Is.GreaterThan(quest.yMax));Assert.That(drawn.Overlaps(quest),Is.False,actor.CharacterId+" must not draw over the next-step action");
                         }
                     }
                     Assert.That(rendered,Is.GreaterThan(0),"The clipping check must include a rendered resident");

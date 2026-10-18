@@ -14,10 +14,10 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator CameraKeepsWaterActorsMarkersAndGrowthAligned()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var camera=life.GetComponent<TownViewportView>();
-            int writes=Store.Writes;string saved=StateCodec.Encode(Flow.Game.State);camera.Focus(new TownPoint(.5f,.28f));camera.Advance(1f/30);life.AdvanceFrame(1f/30);Canvas.ForceUpdateCanvases();
+            int writes=Store.Writes;string saved=StateCodec.Encode(Flow.Game.State);life.World.Pan(new Vector2(24,16));camera.Advance(1f/30);life.AdvanceFrame(1f/30);Canvas.ForceUpdateCanvases();
             foreach(var actor in Flow.GetComponentsInChildren<TownActor>().Where(a=>a.RegionVisible))Assert.That(Vector2.Distance(((RectTransform)actor.transform).anchoredPosition,life.World.Local(actor.WorldPosition)),Is.LessThan(.02f));
-            var point=life.Local(TownLifeView.RequestEntrance);var rect=(RectTransform)life.transform;var screen=RectTransformUtility.WorldToScreenPoint(null,rect.TransformPoint(point));var source=life.Source(screen,null);
-            Assert.That(source.X,Is.EqualTo(TownLifeView.RequestEntrance.X).Within(.0001f));Assert.That(source.Y,Is.EqualTo(TownLifeView.RequestEntrance.Y).Within(.0001f));
+            var entrance=TownWorldMap.Place("quest");var point=life.World.Local(entrance);var rect=(RectTransform)life.transform;var screen=RectTransformUtility.WorldToScreenPoint(null,rect.TransformPoint(point));var source=life.World.Source(screen,null);
+            Assert.That(source.X,Is.EqualTo(entrance.X).Within(.0001f));Assert.That(source.Y,Is.EqualTo(entrance.Y).Within(.0001f));
             Assert.That(Flow.GetComponentInChildren<TownAmbientGraphic>().raycastTarget,Is.False);Assert.That(Flow.GetComponentInChildren<TownGrowthView>().VisibleStage,Is.EqualTo(Flow.Game.State.townGrowthLevel));Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(saved));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator EntranceMarkerRemainsFullyVisibleAfterCameraGuidance()
@@ -48,7 +48,7 @@ namespace Mofumachi.Tests
         }
         [UnityTest] public IEnumerator LeavingHomeRestoresBackgroundAndDoesNotSaveCamera()
         {
-            yield return EnterHome();var camera=Flow.GetComponentInChildren<TownViewportView>();camera.Focus(new TownPoint(.5f,.28f));camera.Advance(1f/30);int writes=Store.Writes;
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();life.World.Pan(new Vector2(24,16));life.GetComponent<TownViewportView>().Advance(1f/30);int writes=Store.Writes;
             Flow.ShowMerge();Assert.That(Store.Writes,Is.EqualTo(writes+1));Assert.That(Flow.TownBackground.GetComponent<BackgroundCover>().enabled,Is.True);
             var size=Flow.TownBackground.rectTransform.rect;float aspect=size.width/size.height,source=(float)Flow.TownBackground.texture.width/Flow.TownBackground.texture.height;
             Assert.That(Flow.TownBackground.uvRect.width,Is.EqualTo(Mathf.Min(1,aspect/source)).Within(.0001f));Assert.That(Flow.Game.State.favoriteCharacterId,Is.EqualTo("momo"));LogAssert.NoUnexpectedReceived();

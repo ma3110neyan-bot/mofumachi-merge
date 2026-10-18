@@ -23,7 +23,7 @@ namespace Mofumachi.Tests
             var pointer=new PointerEventData(EventSystem.current){pointerId=-1,position=RectTransformUtility.WorldToScreenPoint(null,hero.transform.position)};
             var hits=new System.Collections.Generic.List<RaycastResult>();EventSystem.current.RaycastAll(pointer,hits);Assert.That(hits.Any(h=>h.gameObject.GetComponentInParent<TownActor>()==hero),Is.True);
             ExecuteEvents.Execute(hero.gameObject,pointer,ExecuteEvents.pointerDownHandler);Assert.That(hero.Movement.OwnedPointerId,Is.EqualTo(-1));
-            hero.OnDrag(new PointerEventData(EventSystem.current){pointerId=-1,position=RectTransformUtility.WorldToScreenPoint(null,lifePoint(hero,TownWorldMap.Place("quest")))});yield return new WaitForSecondsRealtime(.3f);Assert.That(hero.WorldPosition.Y,Is.GreaterThan(TownWorldMap.Place("square").Y));
+            hero.OnDrag(new PointerEventData(EventSystem.current){pointerId=-1,position=RectTransformUtility.WorldToScreenPoint(null,lifePoint(hero,TownWorldMap.Place("quest")))});yield return new WaitForSecondsRealtime(.3f);Assert.That(hero.WorldPosition.X,Is.LessThan(TownWorldMap.Place("square").X));Assert.That(Flow.GetComponentInChildren<TownLifeView>().World.Model.Area.Contains(hero.WorldPosition),Is.True);
             ExecuteEvents.Execute(hero.gameObject,pointer,ExecuteEvents.pointerUpHandler);Assert.That(hero.Movement.OwnedPointerId,Is.Null);
             Assert.That(actors.Where(a=>!a.Controlled).All(a=>a.Movement==null),Is.True);Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));LogAssert.NoUnexpectedReceived();
         }
@@ -41,7 +41,7 @@ namespace Mofumachi.Tests
             Assert.That(Flow.GetComponentsInChildren<Text>().Count(t=>t.name=="Town bubble"),Is.LessThanOrEqualTo(1));
             Assert.That(Flow.GetComponentsInChildren<Text>().Where(t=>t.name=="Town bubble").All(t=>!t.raycastTarget),Is.True);
             Canvas.ForceUpdateCanvases();
-            var guide=(RectTransform)Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Nav Home").transform;
+            var guide=(RectTransform)Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Home quest").transform;
             var panel=(RectTransform)Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town bubble").transform.parent;
             var a=new Vector3[4];var b=new Vector3[4];guide.GetWorldCorners(a);panel.GetWorldCorners(b);
             Assert.That(new Rect((Vector2)a[0],(Vector2)(a[2]-a[0])).Overlaps(new Rect((Vector2)b[0],(Vector2)(b[2]-b[0]))),Is.False,"Dialogue must leave facility guidance readable.");

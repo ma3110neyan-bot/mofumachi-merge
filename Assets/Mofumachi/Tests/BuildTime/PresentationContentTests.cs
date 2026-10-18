@@ -60,10 +60,31 @@ namespace Mofumachi.Tests
         }
         [Test] public void GrowthPropsAndNarrativeFontAreBundledAndCommercialLicenseIsIncluded()
         {
-            var atlas=Resources.Load<Texture2D>("Mofumachi/TownGrowthPropsAtlas");Assert.That(atlas,Is.Not.Null);AssertSharedTextureImport(atlas);
+            foreach(string key in new[]{"TownGrowthPropsAtlas","TownStreetPropsAtlas"})
+            {var atlas=Resources.Load<Texture2D>("Mofumachi/"+key);Assert.That(atlas,Is.Not.Null,key);AssertSharedTextureImport(atlas);}
             Assert.That(Resources.Load<TextAsset>("Mofumachi/UIFontBody-LICENSE").text,Does.Contain("SIL OPEN FONT LICENSE"));
             var body=Resources.Load<Font>("Mofumachi/UIFontBody");
             foreach(var text in QuestStoryPresentation.Text)Assert.DoesNotThrow(()=>Mofumachi.Editor.AndroidBuild.ValidateGlyphs(body,text));
+        }
+        [Test] public void EveryGrowthPropRendersBundledFiniteGeometryWithoutTakingInput()
+        {
+            var canvas=new GameObject("Growth atlas fixture",typeof(RectTransform),typeof(Canvas));canvas.GetComponent<Canvas>().renderMode=RenderMode.WorldSpace;
+            ((RectTransform)canvas.transform).sizeDelta=new Vector2(360,740);
+            var node=UIWidgets.Node("Growth prop",(RectTransform)canvas.transform,new Rect(.5f,.5f,0,0));node.sizeDelta=new Vector2(80,80);
+            var graphic=node.gameObject.AddComponent<TownGrowthPropGraphic>();
+            try
+            {
+                foreach(TownGrowthProp prop in Enum.GetValues(typeof(TownGrowthProp)))
+                {
+                    graphic.Bind(prop,Mofumachi.Core.TownRegionId.Central);Canvas.ForceUpdateCanvases();
+                    Assert.That(graphic.mainTexture,Is.Not.Null,prop.ToString());Assert.That(graphic.raycastTarget,Is.False);
+                    var mesh=graphic.canvasRenderer.GetMesh();Assert.That(mesh.vertexCount,Is.EqualTo(4),prop.ToString());
+                    foreach(var vertex in mesh.vertices)Assert.That(float.IsFinite(vertex.x)&&float.IsFinite(vertex.y),Is.True,prop.ToString());
+                    foreach(var uv in mesh.uv){Assert.That(uv.x,Is.InRange(0f,1f),prop.ToString());Assert.That(uv.y,Is.InRange(0f,1f),prop.ToString());}
+                }
+            }
+            finally{UnityEngine.Object.DestroyImmediate(canvas);}
+            LogAssert.NoUnexpectedReceived();
         }
         [Test] public void FullBodyAtlasHasSixNamedCharactersAndExpressions()
         {

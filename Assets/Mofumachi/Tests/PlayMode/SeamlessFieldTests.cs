@@ -25,7 +25,7 @@ namespace Mofumachi.Tests
                 var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(Flow.TownBackground.rectTransform,map.transform);var viewport=Flow.TownBackground.rectTransform.rect;
                 Assert.That(bounds.min.x,Is.LessThanOrEqualTo(viewport.xMin+.01f));Assert.That(bounds.max.x,Is.GreaterThanOrEqualTo(viewport.xMax-.01f));Assert.That(bounds.min.y,Is.LessThanOrEqualTo(viewport.yMin+.01f));Assert.That(bounds.max.y,Is.GreaterThanOrEqualTo(viewport.yMax-.01f));
             }
-            var guideSpot=TownWorldMap.Point(.44f,.33f);life.World.Model.Restore(life.World.Model.Hero.Id,guideSpot);life.World.ReturnToHero();
+            var guideSpot=TownWorldMap.Place("west.meeting");life.World.Model.Restore(life.World.Model.Hero.Id,guideSpot);life.World.ReturnToHero();
             Assert.That(TownWorldLayout.Distance(life.World.Model.Hero.Position,guideSpot),Is.LessThan(.001f));
             var guide=life.GetComponentsInChildren<Text>(true).Single(t=>t.name=="Painted road direction 0");
             Assert.That(guide.gameObject.activeInHierarchy,Is.False,"A road label must yield while the character crosses it");
@@ -47,7 +47,7 @@ namespace Mofumachi.Tests
             after.lastSaveTime=before.lastSaveTime;Assert.That(StateCodec.Encode(after),Is.EqualTo(StateCodec.Encode(before)),"Entering the cabin must not change progress or rewards");
             Flow.GoBack();Assert.That(TownWorldLayout.Distance(Flow.GetComponentInChildren<TownLifeView>().World.Model.Hero.Position,position),Is.LessThan(.001f));LogAssert.NoUnexpectedReceived();
         }
-        [UnityTest] public IEnumerator SouthShopIsEnteredThroughItsDoorWithoutPurchaseOrSaveMutation()
+        [UnityTest] public IEnumerator EastShopIsEnteredThroughItsDoorWithoutPurchaseOrSaveMutation()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var facility=life.GetComponent<TownFacilityView>();int writes=Store.Writes;string before=StateCodec.Encode(Flow.Game.State);
             Assert.That(facility.RequestEnter("shop"),Is.True);
@@ -71,10 +71,11 @@ namespace Mofumachi.Tests
             facility.RequestEnter("quest");Flow.SendMessage("OnApplicationPause",true);Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Idle));Flow.SendMessage("OnApplicationPause",false);
             Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(Flow.IsModalOpen,Is.False);LogAssert.NoUnexpectedReceived();
         }
-        [UnityTest] public IEnumerator HomeQuestNavigationIsARealNorthernDestination()
+        [UnityTest] public IEnumerator HomeMenuQuestNavigationIsARealWesternDestination()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();int writes=Store.Writes;
-            Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Nav Quest").onClick.Invoke();
+            Assert.That(Flow.GetComponentsInChildren<Button>().Any(b=>b.name=="Nav Quest"),Is.False);
+            TownMenuButton("Nav Quest").onClick.Invoke();Assert.That(Flow.IsModalOpen,Is.False);
             Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(life.World.Model.Hero.PlaceId,Is.EqualTo("quest"));
             for(int i=0;i<2400&&life.Regions.HasHeroJourney;i++)life.AdvanceFrame(1f/30);
             Assert.That(life.World.Model.Hero.Region,Is.EqualTo(TownRegionId.West));Assert.That(life.NearbyFacility,Is.EqualTo("quest"));Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();

@@ -73,8 +73,9 @@ namespace Mofumachi.Tests
         }
         [UnityTest] public IEnumerator TappingAWalkingResidentPausesForActualDialogue()
         {
-            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var npc=life.Actors.First(a=>!a.Controlled);life.Regions.LookAtRegion(npc.RegionId);
-            Assert.That(life.World.Model.TryGuide(npc.CharacterId,"west.meeting"),Is.True);life.AdvanceFrame(1f/30);npc.React();
+            yield return EnterHome();var life=FrameTownPortrait();var npc=life.Actors.First(a=>!a.Controlled);life.Regions.LookAtRegion(npc.RegionId);
+            Assert.That(life.World.Model.TryGuide(npc.CharacterId,"west.meeting"),Is.True);life.World.Camera.Jump(npc.WorldPosition);life.World.Refresh();life.AdvanceFrame(1f/30);
+            Assert.That(npc.RegionVisible,Is.True);Assert.That(life.World.Model.Residents.Single(r=>r.Id==npc.CharacterId).IsWalking,Is.True);npc.React();
             Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"&&t.text.Length>0),Is.True);Assert.That(Flow.Daily.Data.Characters.Single(c=>c.Id==npc.CharacterId).Meetings,Is.EqualTo(1));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator ResidentsReserveDifferentStopsThroughoutTheirContinuousVisits()

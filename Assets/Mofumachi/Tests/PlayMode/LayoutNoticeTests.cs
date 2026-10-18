@@ -87,8 +87,11 @@ namespace Mofumachi.Tests
                     var start=(RectTransform)title.Find("Start");
                     foreach(var image in title.GetComponentsInChildren<RawImage>())AssertSeparated(title,(RectTransform)image.transform.parent,start);
                     AssertSeparated(title,(RectTransform)title.Find("Title feedback"),start);Object.DestroyImmediate(title.gameObject);
-                    var background=widgets.Background(Resources.Load<Texture2D>("Mofumachi/TownBackground"),rect);background.GetComponent<BackgroundCover>().SendMessage("Fit");var home=UIWidgets.Node("Home fixture",rect,new Rect(0,0,1,1));TopHomeScreens.BuildHome(home,context,background);Canvas.ForceUpdateCanvases();var quest=(RectTransform)home.Find("Home quest");
-                    foreach(var actor in home.GetComponentsInChildren<TownActor>())AssertSeparated(home,(RectTransform)actor.transform,quest);
+                    var background=widgets.Background(Resources.Load<Texture2D>("Mofumachi/TownBackground"),rect);background.GetComponent<BackgroundCover>().SendMessage("Fit");var home=UIWidgets.Node("Home fixture",rect,new Rect(0,0,1,1));TopHomeScreens.BuildHome(home,context,background);Canvas.ForceUpdateCanvases();var quest=(RectTransform)home.Find("Navigation/Home quest");
+                    var life=home.GetComponentInChildren<TownLifeView>();var field=(RectTransform)life.transform;var mask=life.GetComponent<RectMask2D>();
+                    Assert.That(mask.isActiveAndEnabled,Is.True);Assert.That(RectBounds(home,field).Overlaps(RectBounds(home,quest)),Is.False,"The native field mask must end above the next-step action");
+                    foreach(var actor in life.Actors)foreach(var graphic in actor.GetComponentsInChildren<MaskableGraphic>())
+                    {Assert.That(graphic.maskable,Is.True);Assert.That(graphic.GetComponentInParent<RectMask2D>(),Is.SameAs(mask));Assert.That(graphic.canvasRenderer.hasRectClipping,Is.True);}
                     Object.DestroyImmediate(home.gameObject);Object.DestroyImmediate(background.gameObject);
                 }
             }
@@ -100,6 +103,8 @@ namespace Mofumachi.Tests
             var r1=new Rect(first.min.x,first.min.y,first.size.x,first.size.y);var r2=new Rect(second.min.x,second.min.y,second.size.x,second.size.y);
             Assert.That(r1.Overlaps(r2),Is.False,a.name+" overlaps "+b.name);
         }
+        private static Rect RectBounds(RectTransform root,RectTransform item)
+        {var corners=new Vector3[4];item.GetWorldCorners(corners);var min=root.InverseTransformPoint(corners[0]);var max=root.InverseTransformPoint(corners[2]);return Rect.MinMaxRect(min.x,min.y,max.x,max.y);}
 
         [UnityTest] public IEnumerator NoticeBlocksUntilSaveSucceedsAndCannotBeBypassed()
         {
@@ -147,14 +152,14 @@ namespace Mofumachi.Tests
             yield return EnterHome();
             Flow.Game.State.coins = int.MaxValue; Flow.Game.State.townGrowthLevel = int.MaxValue;
             Flow.ShowHome(); Canvas.ForceUpdateCanvases();
-            Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Home quest title").font.name, Is.EqualTo(Resources.Load<Font>("Mofumachi/UIFontStory").name));
+            Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Next goal title").font.name, Is.EqualTo(Resources.Load<Font>("Mofumachi/UIFontStory").name));
             var hud = Flow.GetComponentsInChildren<Text>().Single(t => t.name == "Coins value");
             Assert.That(hud.text, Is.EqualTo(int.MaxValue.ToString("N0")));
             Assert.That(hud.resizeTextForBestFit, Is.False);
             Assert.That(hud.preferredWidth, Is.LessThanOrEqualTo(hud.rectTransform.rect.width + 1));
-            var title=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Home quest title");
+            var title=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Next goal title");
             Assert.That(title.preferredHeight,Is.LessThanOrEqualTo(title.rectTransform.rect.height),"The story heading needs a full line at the current Canvas scale");
-            AssertSeparated((RectTransform)title.transform.parent,title.rectTransform,Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Home quest summary").rectTransform);
+            AssertSeparated((RectTransform)title.transform.parent,title.rectTransform,Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town growth hint").rectTransform);
             foreach (var t in Flow.GetComponentsInChildren<Text>())
             {
                 Assert.That(t.resizeTextForBestFit, Is.False);

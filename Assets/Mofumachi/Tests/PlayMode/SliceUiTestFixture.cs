@@ -67,6 +67,13 @@ namespace Mofumachi.Tests
             var npc=life.Actors.FirstOrDefault(a=>!a.Controlled&&a.RegionVisible);
             Assert.That(npc,Is.Not.Null,"The framed central park must contain a real visible resident");return npc;
         }
+        protected Button TownMenuButton(string name)
+        {
+            if(!Flow.GetComponentsInChildren<Transform>().Any(t=>t.name=="Town menu overlay"))Flow.OpenTownMenu();
+            Assert.That(Flow.IsModalOpen,Is.True,"Town actions must be reached through the expanded menu");
+            var overlay=Flow.GetComponentsInChildren<Transform>().Single(t=>t.name=="Town menu overlay");
+            return overlay.GetComponentsInChildren<Button>().Single(b=>b.name==name);
+        }
         protected sealed class TestStore : IStateStore
         {
             private readonly IStateStore disk;

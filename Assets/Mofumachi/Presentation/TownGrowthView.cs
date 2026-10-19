@@ -14,10 +14,15 @@ namespace Mofumachi.Presentation
         private readonly RectTransform[] icons=new RectTransform[12];private readonly TownPoint[] positions=new TownPoint[12];
         private sealed class RegionalProp {internal RectTransform Rect;internal TownGrowthPlacement Placement;internal TownRegionId Region;}
         private readonly System.Collections.Generic.List<RegionalProp> regional=new System.Collections.Generic.List<RegionalProp>();
-        private bool MapPreview=>background?.texture!=null&&background.texture.name=="TownSeamlessMap";
+        private bool scenePreview;private TownPoint previewCenter;private float previewWidth;
+        private bool MapPreview=>scenePreview;
         private bool dirty;private Coroutine highlight;private Rect previousUv;
         public void Bind(ScreenContext c,TownLifeView life){this.life=life;this.background=life.Background;Build(c);}
         public void Bind(ScreenContext c,RawImage background){this.background=background;Build(c);}
+        public void BindPreview(ScreenContext c,TownPoint center,float width){scenePreview=true;previewCenter=center;previewWidth=width;Build(c);}
+        public void SetPreview(TownPoint center,float width){previewCenter=center;previewWidth=width;Reposition();}
+        internal void AddDepthEntries(System.Collections.Generic.List<(Transform Transform,float Feet)> result)
+        {foreach(var entry in regional)if(entry.Rect.gameObject.activeInHierarchy)result.Add((entry.Rect,entry.Placement.Position.Y));}
         private void Build(ScreenContext c)
         {
             layers=new GameObject[6];var root=(RectTransform)transform;
@@ -36,7 +41,7 @@ namespace Mofumachi.Presentation
             foreach(TownRegionId region in System.Enum.GetValues(typeof(TownRegionId)))
             foreach(var prop in TownGrowthPresentation.For(region,6))
             {
-                var r=UIWidgets.Node("Town grown "+region+" "+prop.Level,layers[prop.Level-1].transform as RectTransform,new Rect(.5f,.5f,0,0));
+                var r=UIWidgets.Node("Town grown "+region+" "+prop.Level,life?.World?.IsReady==true?(RectTransform)life.transform:layers[prop.Level-1].transform as RectTransform,new Rect(.5f,.5f,0,0));
                 r.pivot=new Vector2(.5f,0);r.gameObject.AddComponent<TownGrowthPropGraphic>().Bind(prop.Prop,region);
                 regional.Add(new RegionalProp{Rect=r,Placement=prop,Region=region});
             }
@@ -46,6 +51,7 @@ namespace Mofumachi.Presentation
         private Vector2 Local(TownPoint p)
         {
             if(life!=null)return ((RectTransform)transform).InverseTransformPoint(life.transform.TransformPoint(life.Local(p)));
+            if(scenePreview){var rect=((RectTransform)transform).rect;float scale=rect.width/previewWidth;return rect.center+new Vector2((p.X-previewCenter.X)*scale,(p.Y-previewCenter.Y)*scale);}
             if(background==null)return Vector2.zero;
             var r=background.rectTransform.rect;var uv=background.uvRect;
             var source=MapPreview?new Vector2(p.X,1-p.Y):new Vector2(p.X,p.Y);
@@ -58,9 +64,9 @@ namespace Mofumachi.Presentation
             foreach(var entry in regional)
             {
                 var p=entry.Placement;entry.Rect.anchoredPosition=life?.World?.IsReady==true?life.World.Local(TownWorldMap.Growth(entry.Region,p),(RectTransform)transform):Local(p.Position);
-                float width=life?.World?.IsReady==true?p.Width*life.World.RenderScale:MapPreview?p.Width/TownWorldMap.Width/background.uvRect.width*background.rectTransform.rect.width:Vector2.Distance(Local(p.Position),Local(new TownPoint(p.Position.X+p.Width,p.Position.Y)));
+                float width=life?.World?.IsReady==true?p.Width*life.World.RenderScale:MapPreview?p.Width*((RectTransform)transform).rect.width/previewWidth:Vector2.Distance(Local(p.Position),Local(new TownPoint(p.Position.X+p.Width,p.Position.Y)));
                 entry.Rect.sizeDelta=new Vector2(width,width/TownGrowthPropGraphic.Aspect(p.Prop));
-                if(life?.World?.IsReady==true){var bounds=((RectTransform)transform).rect;var at=entry.Rect.anchoredPosition;entry.Rect.gameObject.SetActive(at.y+entry.Rect.rect.height>bounds.yMin&&at.y<bounds.yMax&&at.x+width/2>bounds.xMin&&at.x-width/2<bounds.xMax);}
+                if(life?.World?.IsReady==true){var bounds=((RectTransform)transform).rect;var at=entry.Rect.anchoredPosition;entry.Rect.gameObject.SetActive(p.Level<=VisibleStage&&at.y+entry.Rect.rect.height>bounds.yMin&&at.y<bounds.yMax&&at.x+width/2>bounds.xMin&&at.x-width/2<bounds.xMax);}
             }
             dirty=false;if(background!=null)previousUv=background.uvRect;
         }
@@ -72,18 +78,19 @@ namespace Mofumachi.Presentation
             StopHighlight();VisibleStage=Mathf.Clamp(level,0,6);bloom?.Apply(Region,VisibleStage);
             if(layers!=null)for(int i=0;i<layers.Length;i++)layers[i].SetActive(i<VisibleStage);
             foreach(var icon in icons)if(icon!=null)icon.gameObject.SetActive(life?.World?.IsReady==true||Region==TownRegionId.Central);
-            foreach(var entry in regional)entry.Rect.gameObject.SetActive(life?.World?.IsReady==true||entry.Region==Region);
-            dirty=true;if(life?.World?.IsReady==true)Reposition();
+            foreach(var entry in regional)entry.Rect.gameObject.SetActive(entry.Placement.Level<=VisibleStage&&(life?.World?.IsReady==true||MapPreview||entry.Region==Region));
+            dirty=true;if(life?.World?.IsReady==true||MapPreview)Reposition();
         }
         public void HighlightNewStage(int previous,int current)
         {StopHighlight();if(isActiveAndEnabled&&layers!=null&&Mathf.Clamp(current,0,6)>Mathf.Clamp(previous,0,6))highlight=StartCoroutine(Highlight(Mathf.Clamp(previous,0,6),Mathf.Clamp(current,0,6)));}
         private IEnumerator Highlight(int from,int to)
         {
             float elapsed=0;while(elapsed<1){elapsed+=Mathf.Min(Time.unscaledDeltaTime,.1f);float scale=1+.1f*Mathf.Sin(Mathf.Clamp01(elapsed)*Mathf.PI);
-                for(int i=from;i<to;i++)foreach(Transform child in layers[i].transform)child.localScale=Vector3.one*scale;yield return null;}
+                for(int i=from;i<to;i++)foreach(Transform child in layers[i].transform)child.localScale=Vector3.one*scale;
+                if(life?.World?.IsReady==true)foreach(var entry in regional)if(entry.Placement.Level>from&&entry.Placement.Level<=to)entry.Rect.localScale=Vector3.one*scale;yield return null;}
             ResetScales();highlight=null;
         }
-        private void ResetScales(){if(layers!=null)foreach(var layer in layers)foreach(Transform child in layer.transform)child.localScale=Vector3.one;}
+        private void ResetScales(){foreach(var entry in regional)entry.Rect.localScale=Vector3.one;if(layers!=null)foreach(var layer in layers)foreach(Transform child in layer.transform)child.localScale=Vector3.one;}
         private void StopHighlight(){if(highlight!=null)StopCoroutine(highlight);highlight=null;ResetScales();}
         private void OnDisable()=>StopHighlight();
     }

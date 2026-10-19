@@ -16,7 +16,7 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var actor=life.Actors.Single(a=>a.Controlled);string state=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
             var e=new PointerEventData(EventSystem.current){pointerId=711};actor.OnPointerDown(e);actor.OnBeginDrag(e);
-            var point=life.transform.TransformPoint(life.World.Local(TownWorldMap.Point(.59f,.65f)));e.position=RectTransformUtility.WorldToScreenPoint(null,point);actor.OnDrag(e);
+            var point=life.transform.TransformPoint(life.World.Local(new TownPoint(.28f,-.05f)));e.position=RectTransformUtility.WorldToScreenPoint(null,point);actor.OnDrag(e);
             Assert.That(life.World.Model.IsFollowingFinger,Is.True);for(int i=0;i<70;i++)life.AdvanceFrame(1f/30);
             Assert.That(life.World.Model.Area.Contains(actor.WorldPosition),Is.True);var before=actor.WorldPosition;
             actor.OnPointerUp(e);Assert.That(actor.Movement.OwnedPointerId,Is.Null);for(int i=0;i<45;i++)life.AdvanceFrame(1f/30);
@@ -26,7 +26,7 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator PauseCancelsTheFingerAndANewWorldPointDoesNotOwnAnotherPointer()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var actor=life.Actors.Single(a=>a.Controlled);
-            var e=new PointerEventData(EventSystem.current){pointerId=712,position=RectTransformUtility.WorldToScreenPoint(null,life.transform.TransformPoint(life.World.Local(TownWorldMap.Point(.59f,.65f))))};
+            var e=new PointerEventData(EventSystem.current){pointerId=712,position=RectTransformUtility.WorldToScreenPoint(null,life.transform.TransformPoint(life.World.Local(new TownPoint(.28f,-.05f))))};
             actor.OnPointerDown(e);actor.OnBeginDrag(e);actor.OnDrag(e);var target=life.World.Model.Hero.Target;
             actor.OnDrag(new PointerEventData(EventSystem.current){pointerId=713,position=Vector2.zero});Assert.That(life.World.Model.Hero.Target,Is.EqualTo(target));
             Flow.SendMessage("OnApplicationPause",true);var stopped=actor.WorldPosition;for(int i=0;i<10;i++)life.AdvanceFrame(1f/30);

@@ -44,33 +44,44 @@ namespace Mofumachi.Presentation
         public static void BuildMerge(RectTransform root,ScreenContext c,bool animateSelection=false)
         {
             var w=c.Widgets;w.Header(root,c,UIStrings.MergeTitle,UIWidgets.Sky,48);
-            var progress=w.OrnatePanel("Merge progress",root,new Rect(0,0,1,1),UIWidgets.Cream,12).rectTransform;UIWidgets.Top(progress,12,62,12,60);
+            var progress=w.OrnatePanel("Merge progress",root,new Rect(0,0,1,1),UIWidgets.Cream,12).rectTransform;UIWidgets.Top(progress,12,62,12,72);
+            var goal=UIWidgets.Node("Merge goal content",progress,new Rect(0,0,1,1));goal.offsetMin=new Vector2(4,20);goal.offsetMax=new Vector2(-4,-2);
+            var selectedItem=c.Game.Board.At(c.Flow.SelectedCell);
+            var selection=w.Heading("Merge selected item",MergePresentation.SelectionName(selectedItem),progress,new Rect(0,0,1,1),12);selection.rectTransform.anchorMin=Vector2.zero;selection.rectTransform.anchorMax=new Vector2(.36f,0);selection.rectTransform.offsetMin=new Vector2(8,2);selection.rectTransform.offsetMax=new Vector2(-2,20);selection.alignment=TextAnchor.MiddleLeft;
+            var selectionHint=w.Label("Merge selected hint",MergePresentation.SelectionHint(selectedItem),progress,new Rect(0,0,1,1),11);selectionHint.rectTransform.anchorMin=new Vector2(.36f,0);selectionHint.rectTransform.anchorMax=new Vector2(1,0);selectionHint.rectTransform.offsetMin=new Vector2(2,2);selectionHint.rectTransform.offsetMax=new Vector2(-6,20);selectionHint.alignment=TextAnchor.MiddleRight;
             var quest=QuestCatalog.NextFor(c.Game.State);bool accepted=UIStrings.IsAccepted(c.Game.State,quest),deliverable=accepted&&c.Game.Quests.CheckDelivery();
+            bool finale=quest==null&&ChapterProgress.For(c.Game.State).AllCompleted;
             if(quest!=null)
             {
                 var requirements=c.Game.Quests.GetProgress(quest);
                 for(int i=0;i<requirements.Count;i++)
                 {
                     var entry=requirements[i];var req=entry.Requirement;string id=req.ItemId;float span=1f/requirements.Count;
-                    var card=w.Button("Requirement "+id,"",progress,new Rect(i*span+.006f,0,span-.012f,1),()=>c.Flow.FocusRequirement(id),true);card.GetComponent<RoundedPanelGraphic>().color=entry.Available>=req.Count?UIWidgets.Mint:UIWidgets.Cream;
+                    var card=w.Button("Requirement "+id,"",goal,new Rect(i*span+.006f,0,span-.012f,1),()=>c.Flow.FocusRequirement(id),true);card.GetComponent<RoundedPanelGraphic>().color=entry.Available>=req.Count?UIWidgets.Mint:UIWidgets.Cream;
                     w.Item("Requirement art "+id,id,req.Level,(RectTransform)card.transform,new Rect(.025f,.06f,.26f,.88f));
                     w.Label("Requirement name "+id,ItemCatalog.Find(id).Name+" Lv."+req.Level,(RectTransform)card.transform,new Rect(.31f,.49f,.66f,.49f),14);
                     w.Label("Requirement count "+id,entry.Available+" / "+req.Count+(entry.Available>=req.Count?" 完了":" あと"+Mathf.Max(0,req.Count-entry.Available)),(RectTransform)card.transform,new Rect(.31f,.01f,.66f,.48f),12);
                 }
             }
-            else w.StoryLabel("Merge complete hint",UIStrings.DeliveryHint(c.Game),progress,new Rect(.04f,.02f,.92f,.96f),14);
+            else if(finale)
+            {
+                var purpose=w.Button("Merge daily purpose","",goal,new Rect(0,0,1,1),c.Flow.ShowHome,true);purpose.GetComponent<RoundedPanelGraphic>().color=UIWidgets.Cream;
+                w.Heading("Merge daily progress",MergePresentation.DailySummary(c.Flow.Daily.Data),(RectTransform)purpose.transform,new Rect(.02f,.48f,.96f,.52f),14);
+                w.Label("Merge daily next action",MergePresentation.DailyPurpose(c.Flow.Daily.Data),(RectTransform)purpose.transform,new Rect(.02f,0,.96f,.5f),12);
+            }
+            else w.StoryLabel("Merge complete hint",UIStrings.UnknownQuest,goal,new Rect(.04f,.02f,.92f,.96f),14);
             var tray=w.Panel("Merge tray",root,new Rect(0,0,1,1),new Color(.92f,.79f,.64f)).rectTransform;tray.offsetMin=new Vector2(10,156);tray.offsetMax=new Vector2(-10,-124);
             var traySurface=tray.GetComponent<RoundedPanelGraphic>();traySurface.decorated=false;traySurface.color=Color.clear;
             var boardArt=UIWidgets.Node("Merge storybook board",tray,new Rect(0,0,1,1)).gameObject.AddComponent<PerspectiveBoardGraphic>();boardArt.raycastTarget=false;
+            w.Frame(tray,12);
             var grid=UIWidgets.Node("Merge board",tray,new Rect(0,0,1,1));grid.offsetMin=new Vector2(16,12);grid.offsetMax=new Vector2(-16,-22);
             var group=grid.gameObject.AddComponent<GridLayoutGroup>();group.constraint=GridLayoutGroup.Constraint.FixedColumnCount;group.constraintCount=5;group.spacing=new Vector2(4,4);group.childAlignment=TextAnchor.MiddleCenter;
             group.enabled=false;
-            var selectedItem=c.Game.Board.At(c.Flow.SelectedCell);
             for(int i=0;i<30;i++)
             {
                 int index=i;var item=c.Game.Board.At(i);var b=w.Button("Cell "+i,"",grid,new Rect(0,0,1,1),()=>{} ,true);
                 var surface=b.GetComponent<RoundedPanelGraphic>();surface.radius=100;surface.borderWidth=item==null?.5f:1f;surface.gloss=item==null?.16f:.4f;surface.shadowDepth=item==null?1:4;
-                surface.color=c.Game.Board.IsLocked(i)?new Color(1,.89f,.59f):index==c.Flow.SelectedCell?new Color(1,.74f,.82f):item==null?new Color(.98f,.93f,.84f,.84f):UIWidgets.Cream;
+                surface.color=c.Game.Board.IsLocked(i)?new Color(1,.89f,.59f):index==c.Flow.SelectedCell?new Color(1,.76f,.82f):item==null?new Color(.96f,.85f,.68f):new Color(1,.97f,.88f);
                 UIWidgets.Node("Cell porcelain dish",(RectTransform)b.transform,new Rect(0,0,1,1)).gameObject.AddComponent<MergeCellSurfaceGraphic>().Bind(surface.color);
                 // Keep one alpha byte for the raycast rectangle; a fully culled
                 // transparent mesh can be skipped by Unity's GraphicRaycaster.
@@ -86,12 +97,12 @@ namespace Mofumachi.Presentation
                     {
                         if(item.level>1)
                         {
-                            var halo=w.Panel("Item level halo",cell,new Rect(.13f,.35f,.74f,.52f),new Color(1,.89f,.57f,item.level==3?.16f:.08f));halo.radius=100;halo.decorated=false;
+                            var halo=w.Panel("Item level halo",cell,new Rect(.08f,.25f,.84f,.64f),new Color(1,.89f,.57f,item.level==3?.16f:.08f));halo.radius=100;halo.decorated=false;
                         }
                         bool raised=index==c.Flow.SelectedCell;
-                        var ground=w.Panel("Item contact shadow",cell,new Rect(raised?.27f:.19f,.22f,raised?.46f:.62f,.10f),new Color(.25f,.2f,.25f,raised?.14f:.27f));ground.radius=100;ground.decorated=false;
+                        var ground=w.Panel("Item contact shadow",cell,new Rect(raised?.27f:.19f,.17f,raised?.46f:.62f,.08f),new Color(.25f,.2f,.25f,raised?.14f:.27f));ground.radius=100;ground.decorated=false;
                         float depthScale=MergePerspective.ArtScale(index);
-                        var art=w.Item("Item art",item.itemId,item.level,cell,new Rect(.5f-.46f*depthScale,.53f-.35f*depthScale,.92f*depthScale,.70f*depthScale));art.SetPolished(true);
+                        var art=w.Item("Item art",item.itemId,item.level,cell,new Rect(.5f-.48f*depthScale,.56f-.40f*depthScale,.96f*depthScale,.80f*depthScale));art.SetPolished(true);
                         if(item.level==3&&index!=c.Flow.SelectedCell)
                             UIWidgets.Node("High level item glint",art.rectTransform,new Rect(0,0,1,1)).gameObject.AddComponent<MergeSparkleGraphic>().BindSelection();
                         if(index==c.Flow.SelectedCell)
@@ -103,8 +114,8 @@ namespace Mofumachi.Presentation
                     }
                     else w.Heading("Unknown item","?",cell,new Rect(.09f,.36f,.82f,.59f),20);
                     var tint=item.itemId=="tea"?new Color(.9f,.97f,.94f):item.itemId=="bread"?new Color(1,.94f,.84f):new Color(.99f,.91f,.96f);
-                    var badge=w.Panel("Item level badge",cell,new Rect(.35f,.015f,.63f,.31f),tint);badge.radius=8;badge.borderWidth=.8f;badge.gloss=.24f;
-                    w.Heading("Item level","Lv."+item.level,cell,new Rect(.34f,.005f,.65f,.35f),11);
+                    var badge=w.Panel("Item level badge",cell,new Rect(.40f,.015f,.56f,.31f),tint);badge.radius=8;badge.borderWidth=.8f;badge.gloss=.24f;
+                    w.Heading("Item level","Lv."+item.level,cell,new Rect(.39f,.005f,.58f,.35f),11);
                 }
             }
             grid.gameObject.AddComponent<MergeGridLayout>();
@@ -121,46 +132,63 @@ namespace Mofumachi.Presentation
             }
             var menu=w.Button("Merge actions","生成枠\n整理",toolbar,new Rect(0,0,0,1),c.Flow.OpenMergeActions,true);var mr=(RectTransform)menu.transform;mr.pivot=new Vector2(0,.5f);mr.anchoredPosition=new Vector2(198,0);mr.sizeDelta=new Vector2(48,0);menu.GetComponentInChildren<Text>().fontSize=12;
             bool preview=quest!=null&&!accepted;
-            var delivery=w.Button("Deliver",preview?"依頼を見る":"納品する",toolbar,new Rect(0,0,1,1),()=>{if(preview)c.Flow.ShowQuest();else c.Flow.Deliver();});((RectTransform)delivery.transform).offsetMin=new Vector2(250,0);delivery.GetComponentInChildren<Text>().fontSize=14;delivery.interactable=preview||deliverable;
+            var delivery=w.Button("Deliver",finale?"街で続きを見る":preview?"依頼を見る":"納品する",toolbar,new Rect(0,0,1,1),()=>{if(finale)c.Flow.ShowHome();else if(preview)c.Flow.ShowQuest();else c.Flow.Deliver();});((RectTransform)delivery.transform).offsetMin=new Vector2(250,0);delivery.GetComponentInChildren<Text>().fontSize=14;delivery.interactable=finale||preview||deliverable;
             w.Feedback(root,c,ScreenId.Merge);
             var text=root.Find("Feedback").GetComponent<Text>();text.fontSize=14;text.lineSpacing=1f;
+            string obsoleteHint=finale?UIStrings.DeliveryHint(c.Game):null;if(text.text==obsoleteHint)text.text="";
             var feedbackSurface=root.Find("Feedback surface") as RectTransform;
             if(feedbackSurface==null)feedbackSurface=w.Panel("Feedback surface",root,new Rect(0,0,1,1),new Color(1,.988f,.945f,.97f)).rectTransform;
             feedbackSurface.SetSiblingIndex(text.transform.GetSiblingIndex());
             w.Nav(root,c,ScreenId.Merge,58);
-            root.gameObject.AddComponent<ProductionFrameLayout>().Bind(tray,toolbar,text,feedbackSurface,c.Game.State.mergeBoard.Count>=30?UIStrings.BoardFull:UIStrings.DeliveryHint(c.Game));
+            root.gameObject.AddComponent<ProductionFrameLayout>().Bind(tray,toolbar,text,feedbackSurface,c.Game.State.mergeBoard.Count>=30?UIStrings.BoardFull:finale?MergePresentation.PlayHint:UIStrings.DeliveryHint(c.Game),obsoleteHint);
         }
     }
     public sealed class ProductionFrameLayout : MonoBehaviour
     {
-        private RectTransform tray,toolbar,surface;private Text feedback;private string hint,message;
-        public void Bind(RectTransform boardTray,RectTransform frameStrip,Text feedbackText,RectTransform feedbackSurface,string defaultHint)
-        {tray=boardTray;toolbar=frameStrip;feedback=feedbackText;surface=feedbackSurface;hint=defaultHint;message=feedback.text;ResizeNow();}
-        public void SetMessage(string value){message=value??"";ResizeNow();}
+        private RectTransform tray,toolbar,surface;private Text feedback;private string hint,message,obsoleteHint;
+        public void Bind(RectTransform boardTray,RectTransform frameStrip,Text feedbackText,RectTransform feedbackSurface,string defaultHint,string completedStoryHint=null)
+        {tray=boardTray;toolbar=frameStrip;feedback=feedbackText;surface=feedbackSurface;hint=defaultHint;obsoleteHint=completedStoryHint;message=feedback.text;ResizeNow();}
+        public void SetMessage(string value){message=value==obsoleteHint?"":value??"";ResizeNow();}
         private void OnRectTransformDimensionsChange()=>ResizeNow();
         public void ResizeNow()
         {
             if(tray==null||feedback==null)return;var root=(RectTransform)transform;
             feedback.text=message.Length>0?message:hint;
-            // Reserve readable lines before allocating the board; never shrink text/cells.
+            // Fit the actual feedback first. When room is tight the same five
+            // actions remain full input targets in one row, with a board toast.
             float height=Mathf.Max(46,Mathf.Ceil(feedback.preferredHeight+4));
-            float toolbarBottom=72+height+2;
-            bool compact=root.rect.height<112+toolbarBottom+50+322;
-            UIWidgets.Top(root.Find("Header") as RectTransform,10,compact?4:8,10,48);
-            UIWidgets.Top(root.Find("Merge progress") as RectTransform,12,compact?54:62,12,compact?48:60);
-            if(compact)toolbarBottom=54;
-            UIWidgets.Bottom(toolbar,12,toolbarBottom,12,48);
-            tray.offsetMin=new Vector2(10,toolbarBottom+50);tray.offsetMax=new Vector2(-10,compact?-104:-124);
-            var grid=tray.Find("Merge board") as RectTransform;grid.offsetMin=new Vector2(16,compact?4:12);grid.offsetMax=new Vector2(-16,compact?-10:-22);
-            var nav=root.Find("Navigation") as RectTransform;UIWidgets.Bottom(nav,8,compact?4:8,8,compact?48:58);
+            var layout=MergeScreenLayout.For(root.rect.height,height);
+            UIWidgets.Top(root.Find("Header") as RectTransform,10,layout.TwoToolbarRows?8:0,10,48);
+            UIWidgets.Top(root.Find("Merge progress") as RectTransform,12,layout.ProgressTop,12,layout.ProgressHeight);
+            UIWidgets.Bottom(toolbar,12,layout.ToolbarBottom,12,layout.ToolbarHeight);
+            ResizeToolbar(layout);
+            tray.offsetMin=new Vector2(10,layout.TrayBottom);tray.offsetMax=new Vector2(-10,-layout.TrayTop);
+            var grid=tray.Find("Merge board") as RectTransform;grid.offsetMin=new Vector2(8,layout.GridInset);grid.offsetMax=new Vector2(-8,-layout.GridInset);
+            var nav=root.Find("Navigation") as RectTransform;UIWidgets.Bottom(nav,8,layout.NavBottom,8,layout.NavHeight);
             foreach(var button in nav.GetComponentsInChildren<Button>())
-            {var r=(RectTransform)button.transform;r.anchorMin=new Vector2(r.anchorMin.x,compact?0:.06f);r.anchorMax=new Vector2(r.anchorMax.x,compact?1:.94f);}
-            // On short screens, feedback is a nonblocking toast over the board only after an action.
-            feedback.text=message.Length>0?message:compact?"":hint;
-            UIWidgets.Bottom(feedback.rectTransform,14,compact?108:72,14,height);
-            UIWidgets.Bottom(surface,12,compact?108:72,12,height);
+            {var r=(RectTransform)button.transform;r.anchorMin=new Vector2(r.anchorMin.x,layout.TwoToolbarRows?.06f:0);r.anchorMax=new Vector2(r.anchorMax.x,layout.TwoToolbarRows?.94f:1);}
+            feedback.text=message.Length>0?message:layout.TwoToolbarRows?hint:"";
+            UIWidgets.Bottom(feedback.rectTransform,14,layout.TwoToolbarRows?72:108,14,height);
+            UIWidgets.Bottom(surface,12,layout.TwoToolbarRows?72:108,12,height);
             feedback.gameObject.SetActive(feedback.text.Length>0);surface.gameObject.SetActive(feedback.text.Length>0);
         }
+        private void ResizeToolbar(MergeScreenLayout layout)
+        {
+            float width=toolbar.rect.width;if(width<292)return;bool roomy=layout.TwoToolbarRows;int i=0;
+            foreach(var item in ItemCatalog.All)
+            {
+                var r=toolbar.Find("Generate frame "+item.Id) as RectTransform;PlaceAction(r,layout.ToolbarAction(i++,width));
+                var copy=r.GetComponentInChildren<Text>();bool placed=copy.text.Contains("作る");
+                copy.text=item.Name+(roomy?(placed?"を作る":"を置く"):"\n"+(placed?"作る":"置く"));copy.fontSize=roomy?14:12;
+            }
+            var menu=toolbar.Find("Merge actions") as RectTransform;var delivery=toolbar.Find("Deliver") as RectTransform;
+            PlaceAction(menu,layout.ToolbarAction(3,width));PlaceAction(delivery,layout.ToolbarAction(4,width));
+            var menuCopy=menu.GetComponentInChildren<Text>();menuCopy.text=roomy?"生成枠と整理":"生成枠\n整理";menuCopy.fontSize=roomy?14:12;
+            delivery.GetComponentInChildren<Text>().fontSize=roomy?14:12;
+        }
+        private static void PlaceAction(RectTransform target,MergeCellRect rect)
+        {target.anchorMin=target.anchorMax=Vector2.zero;target.pivot=Vector2.zero;target.anchoredPosition=new Vector2(rect.X,rect.Y);target.sizeDelta=new Vector2(rect.Width,rect.Height);}
+
     }
     public sealed class MergeGridLayout : MonoBehaviour
     {

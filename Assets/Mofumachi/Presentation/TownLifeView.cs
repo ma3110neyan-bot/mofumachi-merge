@@ -96,7 +96,7 @@ namespace Mofumachi.Presentation
         {
             if(World?.IsReady!=true)return Distance(first.Position,second.Position)<=.09f;
             float width=Mathf.Min(((RectTransform)first.transform).rect.width,((RectTransform)second.transform).rect.width);
-            return TownWorldLayout.WithinConversationRange(first.WorldPosition,second.WorldPosition,background.rectTransform.rect.width,width);
+            return TownWorldLayout.WithinConversationRange(first.WorldPosition,second.WorldPosition,actorLayer.rect.width,width);
         }
         private void ShowOutings()
         {

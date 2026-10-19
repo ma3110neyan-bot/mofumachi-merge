@@ -15,7 +15,7 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator GrowthHighlightStopsAndDecorationNeverTakesInput()
         {
             yield return EnterHome();var growth=Flow.GetComponentInChildren<TownGrowthView>();growth.Apply(6);growth.HighlightNewStage(3,6);
-            Assert.That(growth.IsHighlighting,Is.True);var props=growth.GetComponentsInChildren<TownGrowthPropGraphic>(true);
+            Assert.That(growth.IsHighlighting,Is.True);var props=Flow.GetComponentInChildren<TownLifeView>().GetComponentsInChildren<TownGrowthPropGraphic>(true);
             Assert.That(props.Length,Is.EqualTo(System.Enum.GetValues(typeof(TownRegionId)).Cast<TownRegionId>().Sum(r=>TownGrowthPresentation.For(r,6).Count)));
             Assert.That(props.Length,Is.GreaterThan(0));Assert.That(props.All(g=>!g.raycastTarget),Is.True);
             growth.enabled=false;Assert.That(growth.IsHighlighting,Is.False);Assert.That(growth.VisibleStage,Is.EqualTo(6));

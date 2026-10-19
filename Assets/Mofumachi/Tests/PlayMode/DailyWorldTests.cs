@@ -11,15 +11,17 @@ namespace Mofumachi.Tests
 {
     public sealed class DailyWorldTests:SliceUiTestFixture
     {
-        [UnityTest] public IEnumerator HomeUsesOneContinuousFieldAndTheMenuHasOnlyThreeFastTravelButtons()
+        [UnityTest] public IEnumerator HomeUsesOneContinuousFieldAndTheMenuHasFiveSecondaryFastTravelButtons()
         {
             yield return EnterHome();var world=Flow.GetComponentInChildren<TownContinuousWorldView>();Assert.That(world,Is.Not.Null);Assert.That(world.Model.Residents.Count,Is.EqualTo(6));
             Assert.That(Flow.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Street exit ")),Is.Zero);
             Assert.That(Flow.GetComponentsInChildren<Button>().Any(b=>b.name.StartsWith("Region walk ")),Is.False);
-            TownMenuButton("Region walk East");var fast=Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Region walk ")).ToArray();Assert.That(fast.Length,Is.EqualTo(3));
+            TownMenuButton("Region walk East");var fast=Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Region walk ")).ToArray();Assert.That(fast.Length,Is.EqualTo(5));
             Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Fast travel help").text,Does.Contain("ファストトラベル"));
-            var surface=Resources.Load<Texture2D>(TownWorldMap.Resource);Assert.That(surface,Is.Not.Null);
-            Assert.That(Flow.GetComponentsInChildren<RawImage>().Count(i=>i.name=="Seamless town map"&&i.texture==surface),Is.EqualTo(1));
+            Assert.That(fast.Select(b=>b.name),Is.EquivalentTo(TownDistrictLayout.All.Select(d=>"Region walk "+d)));
+            var surface=Resources.Load<Texture2D>(TownWorldSurface.AtlasResource);Assert.That(surface,Is.Not.Null);
+            Assert.That(Flow.GetComponentsInChildren<TownGroundGraphic>().Single().mainTexture,Is.SameAs(surface));
+            Assert.That(Flow.GetComponentsInChildren<RawImage>().Any(i=>i.name=="Seamless town map"),Is.False);
             Assert.That(surface.width,Is.LessThanOrEqualTo(2048));Assert.That(surface.height,Is.LessThanOrEqualTo(2048));Assert.That(surface.isReadable,Is.False);
             fast.Single(b=>b.name=="Region walk East").onClick.Invoke();Assert.That(Flow.IsModalOpen,Is.False);Assert.That(world.Model.Hero.Region,Is.EqualTo(TownRegionId.East));Assert.That(Flow.Daily.Data.Walks,Is.Zero,"Fast travel is not a completed daily walk");LogAssert.NoUnexpectedReceived();
         }
@@ -82,7 +84,9 @@ namespace Mofumachi.Tests
         }
         [UnityTest] public IEnumerator RejectedNpcTapsDoNotCountAConversationThatWasNeverShown()
         {
-            yield return EnterHome();var npc=FrameTownNpc();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=life.Actors.Single(a=>a.Controlled);
+            yield return EnterHome();var life=FrameTownPortrait();Assert.That(life.World.GuideDistrict(TownDistrictId.West),Is.True);
+            for(int i=0;i<2400&&life.Regions.HasHeroJourney;i++)life.AdvanceFrame(1f/30);Assert.That(life.Regions.HasHeroJourney,Is.False);
+            var hero=life.Actors.Single(a=>a.Controlled);var npc=life.Actors.First(a=>!a.Controlled&&a.RegionVisible&&TownDistrictLayout.At(a.WorldPosition)==TownDistrictId.West);
             Assert.That(hero.RegionVisible,Is.True);hero.OnPointerDown(new PointerEventData(EventSystem.current){pointerId=91});Assert.That(hero.Movement.OwnedPointerId,Is.EqualTo(91));
             npc.React();Assert.That(Flow.Daily.Data.Talks,Is.Zero);Assert.That(Flow.Daily.Data.Characters.Sum(c=>c.Meetings),Is.Zero);
             hero.OnPointerUp(new PointerEventData(EventSystem.current){pointerId=91});Assert.That(life.GuideToFacility("quest"),Is.True);for(int i=0;i<2400&&life.Regions.HasHeroJourney;i++)life.AdvanceFrame(1f/30);

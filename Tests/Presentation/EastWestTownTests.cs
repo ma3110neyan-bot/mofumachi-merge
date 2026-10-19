@@ -12,7 +12,7 @@ namespace Mofumachi.Tests
    var center=TownWorldMap.Place("square");var cafe=TownWorldMap.Place("west.cafe-front");var flower=TownWorldMap.Place("shop");
    Assert.That(cafe.X,Is.LessThan(center.X-.5f));Assert.That(flower.X,Is.GreaterThan(center.X+.5f));
    Assert.That(Math.Abs(cafe.Y-flower.Y),Is.LessThan(.18f));
-   Assert.That(TownWorldMap.Width/TownWorldMap.Height,Is.EqualTo(1.5f).Within(.001));
+   Assert.That(TownWorldMap.Width/TownWorldMap.Height,Is.EqualTo(.6f).Within(.001));
    Assert.That(TownWorldLayout.RegionAt(cafe),Is.EqualTo(TownRegionId.West));Assert.That(TownWorldLayout.RegionAt(flower),Is.EqualTo(TownRegionId.East));
   }
   [TestCase(0)] [TestCase(6)] public void EveryDestinationIsOnTheAuthoredFloorAndReachableAtEveryLevel(int level)
@@ -24,8 +24,8 @@ namespace Mofumachi.Tests
   [Test] public void FountainAndStorefrontBuildingsAreNotWalkableShortcuts()
   {
    var f=new TownWalkableArea(6);
-   foreach(var p in new[]{TownWorldMap.Point(.52f,.49f),TownWorldMap.Point(.27f,.4f),TownWorldMap.Point(.82f,.35f),TownWorldMap.Point(.35f,.63f),TownWorldMap.Point(.70f,.64f)})Assert.That(f.Contains(p),Is.False,p.X+","+p.Y);
-   Assert.That(f.CanTravel(TownWorldMap.Point(.36f,.50f),TownWorldMap.Point(.70f,.50f)),Is.False);
+   foreach(var p in new[]{new TownPoint(0,.30f),new TownPoint(-1.2f,.4f),new TownPoint(1.2f,.4f),new TownPoint(0,2.4f),new TownPoint(0,-1.65f)})Assert.That(f.Contains(p),Is.False,p.X+","+p.Y);
+   Assert.That(f.CanTravel(new TownPoint(-.30f,.30f),new TownPoint(.30f,.30f)),Is.False);
   }
   [Test] public void WalkingCrossesBothHorizontalBoundariesWithoutAnInstantMove()
   {

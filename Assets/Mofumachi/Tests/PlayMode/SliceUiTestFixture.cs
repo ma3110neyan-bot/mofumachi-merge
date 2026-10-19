@@ -62,10 +62,13 @@ namespace Mofumachi.Tests
         }
         protected TownActor FrameTownNpc(int height=740)
         {
-            var life=FrameTownPortrait(height);Assert.That(life.Regions.LookAtRegion(TownRegionId.Central),Is.True);
+            var life=FrameTownPortrait(height);var npc=life.Actors.First(a=>!a.Controlled);
+            // Residents now inhabit all five rooms. Frame a real resident where
+            // it lives; camera setup must never relocate it to a central fixture.
+            var feet=npc.WorldPosition;Assert.That(life.World.LookAt(TownDistrictLayout.At(feet)),Is.True);
+            life.World.Camera.Jump(new TownPoint(feet.X,feet.Y+.18f));life.World.Refresh();
             life.AdvanceFrame(1f/30);Canvas.ForceUpdateCanvases();
-            var npc=life.Actors.FirstOrDefault(a=>!a.Controlled&&a.RegionVisible);
-            Assert.That(npc,Is.Not.Null,"The framed central park must contain a real visible resident");return npc;
+            Assert.That(npc.RegionVisible,Is.True,"The actual resident must be visible before any tap or mesh assertion");return npc;
         }
         protected Button TownMenuButton(string name)
         {

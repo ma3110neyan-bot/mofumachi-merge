@@ -42,7 +42,7 @@ namespace Mofumachi.Tests
                 for(int stage=1;stage<=6;stage++)
                 {
                     var props=TownGrowthPresentation.For(region,stage);Assert.That(props.Count,Is.GreaterThan(previous));previous=props.Count;
-                    Assert.That(props.All(p=>p.Position.X>0&&p.Position.X<1&&p.Position.Y>0&&p.Position.Y<1),Is.True);
+                    Assert.That(props.All(p=>p.Position.X>TownWorldMap.Left&&p.Position.X<TownWorldMap.Right&&p.Position.Y>TownWorldMap.Bottom&&p.Position.Y<TownWorldMap.Top),Is.True);
                     Assert.That(props.Select(p=>(p.Prop,p.Position.X,p.Position.Y)).Distinct().Count(),Is.EqualTo(props.Count));
                 }
                 Assert.That(TownGrowthPresentation.For(region,6).Count,Is.GreaterThanOrEqualTo(TownGrowthPresentation.For(region,1).Count+10));

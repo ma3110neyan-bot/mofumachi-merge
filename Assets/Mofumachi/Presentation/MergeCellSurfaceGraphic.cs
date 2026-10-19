@@ -12,13 +12,13 @@ namespace Mofumachi.Presentation
         protected override void OnPopulateMesh(VertexHelper vh)
         {
             vh.Clear();var r=GetPixelAdjustedRect();if(r.width<=0||r.height<=0)return;
-            float unit=Mathf.Min(r.width,r.height),inset=unit*.025f,radius=unit*.13f;
+            float unit=Mathf.Min(r.width,r.height),inset=unit*.018f,radius=unit*.11f;
             var seat=new Rect(r.x+inset,r.y+inset,r.width-inset*2,r.height-inset*2);
-            Fill(vh,seat,radius,new Color(.45f,.31f,.23f,.16f),new Color(.45f,.31f,.23f,.04f));
+            Fill(vh,seat,radius,new Color(.48f,.30f,.17f,.24f),new Color(.48f,.30f,.17f,.10f));
             var rim=new Rect(seat.x,seat.y+1,seat.width,seat.height-1);
-            Fill(vh,rim,radius,Color.Lerp(paper,new Color(.75f,.58f,.39f),.42f),Color.Lerp(paper,Color.white,.48f));
-            var face=new Rect(rim.x+1,rim.y+1,rim.width-2,rim.height-2);
-            Fill(vh,face,radius-1,Color.Lerp(paper,new Color(.89f,.79f,.63f),.12f),Color.Lerp(paper,Color.white,.30f));
+            Fill(vh,rim,radius,Color.Lerp(paper,new Color(.60f,.36f,.18f),.48f),Color.Lerp(paper,Color.white,.62f));
+            var face=new Rect(rim.x+1.25f,rim.y+1.25f,rim.width-2.5f,rim.height-2.5f);
+            Fill(vh,face,radius-1,Color.Lerp(paper,new Color(.88f,.71f,.46f),.08f),Color.Lerp(paper,Color.white,.14f));
             Fill(vh,new Rect(face.x+radius,face.yMax-1,face.width-radius*2,.7f),.35f,new Color(1,1,1,.6f),new Color(1,1,1,.6f));
         }
         internal static void Fill(VertexHelper vh,Rect r,float radius,Color bottom,Color top)

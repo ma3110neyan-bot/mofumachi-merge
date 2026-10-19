@@ -22,11 +22,23 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator AFlowerLightLayerGrowsWithoutInterceptingInputOrSavingProgress()
         {
             yield return EnterHome();int writes=Store.Writes;string before=StateCodec.Encode(Flow.Game.State);var growth=Flow.GetComponentInChildren<TownGrowthView>();
+            var life=FrameTownPortrait();
             foreach(TownRegionId region in System.Enum.GetValues(typeof(TownRegionId)))
             {
-                Flow.GetComponentInChildren<TownLifeView>().Regions.LookAtRegion(region);growth.Apply(1);var light=growth.GetComponentInChildren<TownBloomGraphic>();Assert.That(light.PetalCount,Is.Zero);
-                int small=growth.GetComponentsInChildren<TownGrowthPropGraphic>(true).Count(p=>p.Region==region&&p.transform.parent.gameObject.activeSelf);growth.Apply(6);
-                Assert.That(growth.GetComponentsInChildren<TownGrowthPropGraphic>(true).Count(p=>p.Region==region&&p.transform.parent.gameObject.activeSelf)-small,Is.GreaterThanOrEqualTo(10));Assert.That(light.PetalCount,Is.EqualTo(12));Assert.That(light.raycastTarget,Is.False);
+                var light=growth.GetComponentInChildren<TownBloomGraphic>();
+                int VisibleAcrossAllDistricts(int level)
+                {
+                    growth.Apply(level);var seen=new System.Collections.Generic.HashSet<TownGrowthPropGraphic>();
+                    foreach(var district in TownDistrictLayout.All)
+                    {
+                        Assert.That(life.World.LookAt(district),Is.True);life.World.Refresh();
+                        foreach(var prop in life.GetComponentsInChildren<TownGrowthPropGraphic>().Where(p=>p.Region==region))seen.Add(prop);
+                    }
+                    return seen.Count;
+                }
+                int small=VisibleAcrossAllDistricts(1);Assert.That(small,Is.EqualTo(TownGrowthPresentation.For(region,1).Count));Assert.That(light.PetalCount,Is.Zero);
+                int grown=VisibleAcrossAllDistricts(6);Assert.That(grown,Is.EqualTo(TownGrowthPresentation.For(region,6).Count));
+                Assert.That(grown-small,Is.GreaterThanOrEqualTo(10),"New decorations remain visible across the five real rooms");Assert.That(light.PetalCount,Is.EqualTo(12));Assert.That(light.raycastTarget,Is.False);
             }
             Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();
         }

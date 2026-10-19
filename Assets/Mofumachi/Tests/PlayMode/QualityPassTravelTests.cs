@@ -42,7 +42,7 @@ namespace Mofumachi.Tests
             life.Actors.Single(a=>a.Controlled).React();Button("Visit east flowers").onClick.Invoke();Walk(life);
             Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownRegionId.East));
             life.Actors.Single(a=>a.Controlled).React();Button("Guide to quest").onClick.Invoke();Walk(life);
-            Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownRegionId.West));Assert.That(life.NearbyFacility,Is.EqualTo("quest"));
+            Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownRegionId.Central));Assert.That(life.World.Model.Hero.District,Is.EqualTo(TownDistrictId.North));Assert.That(life.NearbyFacility,Is.EqualTo("quest"));
             Assert.That(Store.Writes,Is.EqualTo(writes));Button("Enter facility").onClick.Invoke();for(int i=0;i<30&&Flow.CurrentScreen==ScreenId.Home;i++)life.AdvanceFrame(1f/30);Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Quest));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator RetargetAndSettingsReleaseJourneyWithoutSaveMutation()
@@ -57,8 +57,8 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator FastTravelVisitsEachRegionWithoutCountingAsWalking()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();int writes=Store.Writes;
-            foreach(var region in new[]{TownRegionId.Central,TownRegionId.West,TownRegionId.West,TownRegionId.Central,TownRegionId.East})
-            {TownMenuButton("Region walk "+region).onClick.Invoke();Assert.That(Flow.IsModalOpen,Is.False);Assert.That(life.Regions.HeroRegion,Is.EqualTo(region));Assert.That(life.Regions.HasHeroJourney,Is.False);Assert.That(life.World.FollowingHero,Is.True);}
+            foreach(var district in new[]{TownDistrictId.Central,TownDistrictId.West,TownDistrictId.West,TownDistrictId.Central,TownDistrictId.East,TownDistrictId.North,TownDistrictId.South})
+            {TownMenuButton("Region walk "+district).onClick.Invoke();Assert.That(Flow.IsModalOpen,Is.False);Assert.That(life.World.Model.Hero.District,Is.EqualTo(district));Assert.That(life.Regions.HeroRegion,Is.EqualTo(TownDistrictLayout.LegacyRegion(district)));Assert.That(life.Regions.HasHeroJourney,Is.False);Assert.That(life.World.FollowingHero,Is.True);}
             Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(Flow.Daily.Data.Walks,Is.Zero);LogAssert.NoUnexpectedReceived();
         }
     }

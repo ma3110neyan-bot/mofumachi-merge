@@ -10,14 +10,14 @@ namespace Mofumachi.Tests
         [Test] public void ParkHasAWalkableSurfaceOnBothSidesOfTheFountain()
         {
             var area=new TownWalkableArea(0);
-            foreach(var p in new[]{TownWorldMap.Point(.36f,.50f),TownWorldMap.Point(.70f,.50f),TownWorldMap.Place("square"),TownWorldMap.Place("fountain")})
+            foreach(var p in new[]{new TownPoint(-.30f,.30f),new TownPoint(.30f,.30f),TownWorldMap.Place("square"),TownWorldMap.Place("fountain")})
                 Assert.That(area.Contains(p),Is.True,p.ToString());
-            Assert.That(area.Contains(TownWorldMap.Point(.52f,.49f)),Is.False,"The fountain is an obstacle, not floor");
-            Assert.That(area.Contains(TownWorldMap.Point(.82f,.35f)),Is.False,"The painted florist building cannot be crossed");
+            Assert.That(area.Contains(new TownPoint(0,.30f)),Is.False,"The fountain is an obstacle, not floor");
+            Assert.That(area.Contains(new TownPoint(1.2f,.40f)),Is.False,"The painted florist building cannot be crossed");
         }
         [Test] public void AFreeFloorTapKeepsItsPositionRatherThanSnappingToTheOldCenterline()
         {
-            var town=new TownWorldWalkModel(0,"momo");var target=TownWorldMap.Point(.68f,.52f);
+            var town=new TownWorldWalkModel(0,"momo");var target=new TownPoint(.34f,.18f);
             Assert.That(town.Area.Contains(target),Is.True);
             Assert.That(town.TryGuidePoint(target),Is.True);
             Assert.That(TownWorldLayout.Distance(town.Hero.Target,target),Is.LessThan(.0001f));
@@ -25,7 +25,7 @@ namespace Mofumachi.Tests
         [Test] public void RoutesGoAroundTheFountainAndStayInsideTheAuthoredFloor()
         {
             var area=new TownWalkableArea(0);var nav=new TownAreaNavigation(area);
-            var start=TownWorldMap.Point(.36f,.50f);var end=TownWorldMap.Point(.70f,.50f);var route=nav.FindRoute(start,end);
+            var start=new TownPoint(-.30f,.30f);var end=new TownPoint(.30f,.30f);var route=nav.FindRoute(start,end);
             Assert.That(area.Contains(start)&&area.Contains(end),Is.True);
             Assert.That(area.CanTravel(start,end),Is.False);
             Assert.That(route.Count,Is.GreaterThan(1),"A straight segment would cross the fountain");
@@ -34,10 +34,10 @@ namespace Mofumachi.Tests
         }
         [Test] public void AThinFountainEdgeCrossingCannotBeSkippedBySampling()
         {
-            // Graze the north edge of the actual fountain island (UV radius .080).
+            // Graze the north edge of the actual fountain island (world radius .12).
             // The blocked interval is under .01 world units, between valid endpoints.
-            var area=new TownWalkableArea(6);var center=TownWorldMap.Point(.52f,.49f);
-            float y=center.Y+.080f*TownWorldMap.Height-.00002f;
+            var area=new TownWalkableArea(6);var center=new TownPoint(0,.30f);
+            float y=center.Y+.12f-.00002f;
             var a=new TownPoint(center.X-.05f,y);var b=new TownPoint(center.X+.07f,y);
             Assert.That(area.Contains(a)&&area.Contains(b),Is.True);
             Assert.That(area.Contains(new TownPoint(center.X,y)),Is.False);
@@ -46,8 +46,8 @@ namespace Mofumachi.Tests
         [Test] public void NeighbouringFloorTargetsHaveDifferentRoutesAndAllThreeAreasConnect()
         {
             var area=new TownWalkableArea(6);var nav=new TownAreaNavigation(area);
-            var a=nav.FindRoute(TownWorldMap.Place("square"),TownWorldMap.Point(.68f,.50f));
-            var b=nav.FindRoute(TownWorldMap.Place("square"),TownWorldMap.Point(.70f,.52f));
+            var a=nav.FindRoute(TownWorldMap.Place("square"),new TownPoint(.32f,.20f));
+            var b=nav.FindRoute(TownWorldMap.Place("square"),new TownPoint(.38f,.18f));
             Assert.That(a,Is.Not.Empty);Assert.That(b,Is.Not.Empty);
             Assert.That(a.Last(),Is.Not.EqualTo(b.Last()));
             foreach(var r in new[]{TownRegionId.West,TownRegionId.East})
@@ -61,9 +61,9 @@ namespace Mofumachi.Tests
         [Test] public void FingerInputClampsBuildingsAndReleaseStopsWithoutWalkingToTheOldTarget()
         {
             var town=new TownWorldWalkModel(6,"momo");var area=town.Area;
-            Assert.That(town.FollowFinger(TownWorldMap.Point(.70f,.52f)),Is.True);
+            Assert.That(town.FollowFinger(new TownPoint(.38f,.18f)),Is.True);
             for(int i=0;i<90;i++)town.Step(1f/30);
-            var building=TownWorldMap.Point(.82f,.35f);Assert.That(area.Contains(building),Is.False);
+            var building=new TownPoint(1.2f,.40f);Assert.That(area.Contains(building),Is.False);
             Assert.That(town.FollowFinger(building),Is.True);
             Assert.That(area.Contains(town.Hero.Target),Is.True);
             Assert.That(TownWalkableArea.Distance(town.Hero.Target,building),Is.GreaterThan(.01f));
@@ -74,11 +74,11 @@ namespace Mofumachi.Tests
         }
         [Test] public void OpposingResidentsPassWithoutPushingAStationaryResidentOrGettingStuck()
         {
-            var town=new TownWorldWalkModel(6,"momo");var a=TownWorldMap.Place("bench-left");var b=TownWorldMap.Place("bench-right");
-            var middle=TownWorldMap.Point(.53f,.73f);Assert.That(town.Area.Contains(middle),Is.True);Assert.That(town.Area.CanTravel(a,b),Is.True);
+            var town=new TownWorldWalkModel(6,"momo");var a=TownWorldMap.Place("square");var b=TownWorldMap.Place("bench-right");
+            var middle=new TownPoint((a.X+b.X)/2,(a.Y+b.Y)/2);Assert.That(town.Area.Contains(middle),Is.True);Assert.That(town.Area.CanTravel(a,b),Is.True);
             town.Restore("momo",a);town.Restore("lulu",b);town.Restore("pom",middle);town.Pause("pom",4);var idle=town.Residents.Single(x=>x.Id=="pom").Position;
             Assert.That(idle,Is.EqualTo(middle),"The stationary resident starts on the actual shared paving");
-            Assert.That(town.TryGuidePoint(b),Is.True);Assert.That(town.TryGuide("lulu","bench-left"),Is.True);
+            Assert.That(town.TryGuidePoint(b),Is.True);Assert.That(town.TryGuide("lulu","square"),Is.True);
             bool separated=false;
             for(int i=0;i<1800&&town.Hero.IsWalking;i++)
             {
@@ -95,12 +95,12 @@ namespace Mofumachi.Tests
             foreach(TownRegionId region in Enum.GetValues(typeof(TownRegionId)))foreach(var place in TownRegionCatalog.ForLevel(region,level).Map.Places)
             {var target=TownWorldMap.Place(place.Id);Assert.That(area.Contains(target),Is.True,place.Id);var route=nav.FindRoute(start,target);Assert.That(route,Is.Not.Empty,place.Id);var previous=start;foreach(var next in route){Assert.That(area.CanTravel(previous,next),Is.True,place.Id);previous=next;}}
         }
-        [TestCase(.261f,.50f,.815f,.485f)]
-        [TestCase(.52f,.38f,.50f,.92f)]
-        [TestCase(.815f,.485f,.261f,.50f)]
+        [TestCase(-1.2f,.04f,1.2f,.04f)]
+        [TestCase(0,.65f,0,-2.4f)]
+        [TestCase(1.2f,.04f,-1.2f,.04f)]
         public void AvoidanceDoesNotLoseTheRouteAndLoopAroundAnObstacle(float u,float v,float tu,float tv)
         {
-            var town=new TownWorldWalkModel(6,"momo");var start=TownWorldMap.Point(u,v);var end=TownWorldMap.Point(tu,tv);
+            var town=new TownWorldWalkModel(6,"momo");var start=new TownPoint(u,v);var end=new TownPoint(tu,tv);
             Assert.That(town.Area.Contains(start)&&town.Area.Contains(end),Is.True);
             town.Restore("momo",start);Assert.That(town.Hero.Position,Is.EqualTo(start));
             Assert.That(town.TryGuidePoint(end),Is.True);var target=town.Hero.Target;

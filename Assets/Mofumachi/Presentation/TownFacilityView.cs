@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 namespace Mofumachi.Presentation
@@ -11,19 +12,30 @@ namespace Mofumachi.Presentation
         public TownFacilityEntry Entry {get;}=new TownFacilityEntry();
         public void Bind(ScreenContext c,TownLifeView town)
         {
-            context=c;life=town;Build("quest","西の依頼小屋",.171f,.240f,.026f,.069f);Build("shop","東のお花ショップ",.815f,.411f,.030f,.085f);Refresh();
+            context=c;life=town;Build("quest","北の依頼小屋",TownSceneryKind.QuestCottage,new Rect(352f/1254,1-1145f/1254,68f/1254,115f/1254));Build("shop","東の花屋",TownSceneryKind.Florist,new Rect(796f/1254,1-588f/1254,78f/1254,130f/1254));Refresh();
         }
-        private void Build(string id,string title,float u,float v,float width,float height)
+        private void Build(string id,string title,TownSceneryKind kind,Rect uv)
         {
-            var door=new Door{Id=id,Art=TownWorldMap.Point(u,v),Size=new Vector2(width*TownWorldMap.Width,height*TownWorldMap.Height)};
+            var landmark=TownSceneryLayout.Landmarks.Single(p=>p.Kind==kind);var source=TownLandmarkGraphic.LandmarkUV(kind);
+            var art=new Mofumachi.Core.TownPoint(landmark.Feet.X+((uv.center.x-source.xMin)/source.width-.5f)*landmark.Width,landmark.Feet.Y+(uv.center.y-source.yMin)/source.height*landmark.Height);
+            var door=new Door{Id=id,Art=art,Size=new Vector2(uv.width/source.width*landmark.Width,uv.height/source.height*landmark.Height)};
             var frame=UIWidgets.Node("Facility doorway "+id,(RectTransform)life.transform,new Rect(.5f,.5f,0,0));door.Frame=frame;
             door.Light=context.Widgets.Panel("Warm doorway "+id,frame,new Rect(0,0,1,1),new Color(.29f,.15f,.12f)).GetComponent<RoundedPanelGraphic>();door.Light.decorated=false;door.Light.radius=8;door.Light.raycastTarget=false;
             var leaf=UIWidgets.Node("Opening door leaf "+id,frame,new Rect(0,0,1,1));leaf.pivot=new Vector2(0,.5f);door.Leaf=leaf;
-            var image=leaf.gameObject.AddComponent<RawImage>();image.texture=Resources.Load<Texture2D>(TownWorldMap.Resource);image.uvRect=new Rect(u-width/2,1-v-height/2,width,height);image.raycastTarget=false;
+            var image=leaf.gameObject.AddComponent<RawImage>();image.texture=Resources.Load<Texture2D>(TownSceneryLayout.LandmarkResource);image.uvRect=uv;image.raycastTarget=false;
             var hit=UIWidgets.Node("Facility entrance "+id,(RectTransform)life.transform,new Rect(.5f,.5f,0,0));hit.sizeDelta=new Vector2(72,80);door.Hit=hit;
             var ray=hit.gameObject.AddComponent<Image>();ray.color=new Color(1,1,1,1f/255);var button=hit.gameObject.AddComponent<Button>();button.targetGraphic=ray;button.transition=Selectable.Transition.None;button.onClick.AddListener(()=>RequestEnter(id));
             var sign=context.Widgets.StoryPanel("Facility sign "+id,hit,new Rect(-.40f,1,1.80f,.37f),true).rectTransform;door.Sign=sign;sign.anchorMin=sign.anchorMax=new Vector2(.5f,1);sign.pivot=new Vector2(.5f,0);sign.anchoredPosition=Vector2.zero;sign.sizeDelta=new Vector2(146,28);
             door.Caption=context.Widgets.NarrativeLabel("Facility name "+id,title,sign,new Rect(.03f,.02f,.94f,.96f),12);doors.Add(door);
+        }
+        internal void AddDepthEntries(List<(Transform Transform,float Feet)> depth)
+        {foreach(var door in doors)if(door.Frame.gameObject.activeSelf)depth.Add((door.Frame,door.Id=="quest"?2.139f:.099f));}
+        internal void RaiseControls()
+        {
+            int visible=0;foreach(var door in doors)if(door.Hit.gameObject.activeSelf)visible++;
+            bool correct=true;int index=transform.childCount-visible;
+            foreach(var door in doors)if(door.Hit.gameObject.activeSelf&&door.Hit.GetSiblingIndex()!=index++)correct=false;
+            if(!correct)foreach(var door in doors)if(door.Hit.gameObject.activeSelf)door.Hit.SetAsLastSibling();
         }
         public bool RequestEnter(string id)
         {
@@ -52,7 +64,7 @@ namespace Mofumachi.Presentation
                 bool near=TownWalkableArea.Distance(life.World.Model.Hero.Position,TownWorldMap.Place(door.Id))<.23f;
                 float amount=Entry.Facility==door.Id?Entry.OpenAmount:0;
                 door.Leaf.localScale=new Vector3(1-amount,1,1);door.Light.color=Color.Lerp(new Color(.28f,.14f,.10f),new Color(1,.86f,.48f),Mathf.Max(amount,near?.35f:0));
-                string title=door.Id=="quest"?"西の依頼小屋":"東のお花ショップ";
+                string title=door.Id=="quest"?"北の依頼小屋":"東の花屋";
                 door.Caption.text=Entry.Facility==door.Id?(Entry.Phase==TownEntryPhase.Walking?"入口までおさんぽ中♪":"扉がひらくよ♪"):near?title+"\nタップして入る":title;
                 float captionHeight=near||Entry.Facility==door.Id?44:28;door.Sign.sizeDelta=new Vector2(146,captionHeight);
                 float captionX=TownWorldLayout.LabelCenter(p.x,bounds.xMin,bounds.xMax,146)-p.x;

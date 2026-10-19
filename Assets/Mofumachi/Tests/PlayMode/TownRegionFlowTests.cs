@@ -25,14 +25,15 @@ namespace Mofumachi.Tests
         private static void StepUntil(TownLifeView life,Func<bool> ready,int frames=1800)
         {for(int i=0;i<frames&&!ready();i++)life.AdvanceFrame(1f/30);Assert.That(ready(),Is.True,"Regional walk did not finish within its bounded frame budget");}
 
-        [UnityTest] public IEnumerator SixOfficialCharactersHaveOneControllerAndThreeRegions()
+        [UnityTest] public IEnumerator SixOfficialCharactersHaveOneControllerAcrossFiveDistricts()
         {
             yield return EnterHome();var session=Session();var actors=Flow.GetComponentsInChildren<TownActor>();
             Assert.That(actors.Length,Is.EqualTo(6));Assert.That(actors.Count(a=>a.Controlled),Is.EqualTo(1));
             Assert.That(actors.Select(a=>a.CharacterId),Is.EquivalentTo(CharacterCatalog.All.Select(c=>c.Id)));
             Assert.That(actors.Count(a=>Region(a)==TownRegionId.West),Is.EqualTo(2));
-            Assert.That(actors.Count(a=>Region(a)==TownRegionId.Central),Is.EqualTo(2));
-            Assert.That(actors.Count(a=>Region(a)==TownRegionId.East),Is.EqualTo(2));
+            Assert.That(actors.Count(a=>Region(a)==TownRegionId.Central),Is.EqualTo(3));
+            Assert.That(actors.Count(a=>Region(a)==TownRegionId.East),Is.EqualTo(1));
+            Assert.That(actors.Select(a=>TownDistrictLayout.At(a.WorldPosition)).Distinct(),Is.EquivalentTo(TownDistrictLayout.All));
             Assert.That(actors.Where(a=>!a.Controlled).All(a=>a.Movement==null),Is.True);
             Assert.That(Read<TownRegionId>(session,"HeroRegion"),Is.EqualTo(TownRegionId.Central));LogAssert.NoUnexpectedReceived();
         }
@@ -61,7 +62,7 @@ namespace Mofumachi.Tests
             yield return EnterHome();var session=Session();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=Flow.GetComponentsInChildren<TownActor>().Single(a=>a.Controlled);
             Assert.That(Guide(session,TownRegionId.West),Is.True);StepUntil(life,()=>!Read<bool>(session,"HasHeroJourney"));
             int writes=Store.Writes;Assert.That(life.GuideToFacility("quest"),Is.True);StepUntil(life,()=>!Read<bool>(session,"HasHeroJourney"));
-            Assert.That(Region(hero),Is.EqualTo(TownRegionId.West));Assert.That(life.NearbyFacility,Is.EqualTo("quest"));
+            Assert.That(Region(hero),Is.EqualTo(TownRegionId.Central));Assert.That(life.World.Model.Hero.District,Is.EqualTo(TownDistrictId.North));Assert.That(life.NearbyFacility,Is.EqualTo("quest"));
             Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(Store.Writes,Is.EqualTo(writes));
             Assert.That(TownWorldLayout.Distance(hero.WorldPosition,TownWorldMap.Place("quest")),Is.LessThan(.001f));
             Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Enter facility").onClick.Invoke();
@@ -86,7 +87,8 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();life.Regions.GuideToRegion(TownRegionId.West);
             for(int i=0;i<1400&&life.Regions.HasHeroJourney;i++){life.AdvanceFrame(1f/30);Canvas.ForceUpdateCanvases();Assert.That(life.World.VisibleBackgroundCount,Is.EqualTo(1));}
-            Assert.That(life.Regions.HasHeroJourney,Is.False);var map=Flow.GetComponentsInChildren<RawImage>().Single(g=>g.name=="Seamless town map");Assert.That(map.raycastTarget,Is.False);
+            Assert.That(life.Regions.HasHeroJourney,Is.False);var ground=Flow.GetComponentsInChildren<TownGroundGraphic>().Single();Assert.That(ground.raycastTarget,Is.False);Assert.That(ground.mainTexture,Is.SameAs(Resources.Load<Texture2D>(TownWorldSurface.AtlasResource)));
+            Assert.That(Flow.GetComponentsInChildren<RawImage>().Any(g=>g.name=="Seamless town map"),Is.False);
             Assert.That(Flow.GetComponentsInChildren<TownActor>().Length,Is.EqualTo(6));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator HeroRegionAndViewingRegionRemainSeparate()
@@ -104,7 +106,7 @@ namespace Mofumachi.Tests
             var west=life.World.Local(TownWorldMap.Place("west.entry"));var center=life.World.Local(TownWorldMap.Place("square"));
             Assert.That(west.x,Is.LessThan(center.x));var growth=Flow.GetComponentInChildren<TownGrowthView>();Assert.That(growth.Region,Is.EqualTo(TownRegionId.West));
             growth.Apply(1);var placement=TownGrowthPresentation.For(TownRegionId.West,1).Single();
-            var flower=growth.GetComponentsInChildren<TownGrowthPropGraphic>(true).Single(p=>p.Region==TownRegionId.West&&p.name=="Town grown West 1");
+            var flower=life.GetComponentsInChildren<TownGrowthPropGraphic>(true).Single(p=>p.Region==TownRegionId.West&&p.name=="Town grown West 1");
             Assert.That(Vector2.Distance(flower.rectTransform.anchoredPosition,life.World.Local(TownWorldMap.Growth(TownRegionId.West,placement),(RectTransform)growth.transform)),Is.LessThan(.001f));
             life.Regions.ReturnToHero();Assert.That(life.Regions.ViewingRegion,Is.EqualTo(TownRegionId.Central));LogAssert.NoUnexpectedReceived();
         }
@@ -178,10 +180,10 @@ namespace Mofumachi.Tests
             {
                 ((RectTransform)canvas.transform).sizeDelta=new Vector2(360,height);Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,height),new Rect(0,24,360,height-56));Canvas.ForceUpdateCanvases();
                 var life=Flow.GetComponentInChildren<TownLifeView>();
-                foreach(var region in new[]{TownRegionId.West,TownRegionId.Central,TownRegionId.East})
+                foreach(var district in TownDistrictLayout.All)
                 {
-                    Assert.That(life.Regions.LookAtRegion(region),Is.True);Canvas.ForceUpdateCanvases();
-                    TownMenuButton("Region walk "+region);Canvas.ForceUpdateCanvases();var travel=Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Region walk ")).ToArray();Assert.That(travel.Length,Is.EqualTo(3));
+                    Assert.That(life.World.LookAt(district),Is.True);Canvas.ForceUpdateCanvases();
+                    TownMenuButton("Region walk "+district);Canvas.ForceUpdateCanvases();var travel=Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Region walk ")).ToArray();Assert.That(travel.Length,Is.EqualTo(5));
                     foreach(var button in travel)
                     {
                         Assert.That(((RectTransform)button.transform).rect.height,Is.GreaterThanOrEqualTo(48));var label=button.GetComponentInChildren<Text>();
@@ -193,7 +195,9 @@ namespace Mofumachi.Tests
                     {var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(life.transform,sign.transform);var area=((RectTransform)life.transform).rect;Assert.That(bounds.min.x,Is.GreaterThanOrEqualTo(area.xMin));Assert.That(bounds.max.x,Is.LessThanOrEqualTo(area.xMax));Assert.That(sign.preferredHeight,Is.LessThanOrEqualTo(sign.rectTransform.rect.height+1));Assert.That(sign.raycastTarget,Is.False);}
                     foreach(var name in new[]{"Town region name","Town growth hint"})
                     {var text=Flow.GetComponentsInChildren<Text>().Single(t=>t.name==name);Assert.That(text.preferredHeight,Is.LessThanOrEqualTo(text.rectTransform.rect.height+1),name);}
-                    Assert.That(Flow.TownBackground.uvRect.xMin,Is.GreaterThanOrEqualTo(0));Assert.That(Flow.TownBackground.uvRect.xMax,Is.LessThanOrEqualTo(1));
+                    var field=(RectTransform)life.transform;float scale=TownWorldLayout.ScaleForViewport(field.rect.width,field.rect.height);var camera=life.World.Camera.Center;
+                    Assert.That(camera.X-field.rect.width/(2*scale),Is.GreaterThanOrEqualTo(TownWorldMap.Left-.0001f));Assert.That(camera.X+field.rect.width/(2*scale),Is.LessThanOrEqualTo(TownWorldMap.Right+.0001f));
+                    Assert.That(camera.Y-field.rect.height/(2*scale),Is.GreaterThanOrEqualTo(TownWorldMap.Bottom-.0001f));Assert.That(camera.Y+field.rect.height/(2*scale),Is.LessThanOrEqualTo(TownWorldMap.Top+.0001f));
                 }
             }LogAssert.NoUnexpectedReceived();
         }

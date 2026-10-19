@@ -11,27 +11,27 @@ namespace Mofumachi.Presentation
         internal TownGrowthPlacement(TownGrowthProp prop,int level,float x,float y,float width)
         {Prop=prop;Level=level;Position=new TownPoint(x,y);Width=width;}
     }
-    // Authored map UV coordinates; widths are world units, independent of the camera.
-    // All additions sit beside the existing street graph. Painted fixtures remain.
+    // Furniture grows on planted verges in world coordinates. The floor and
+    // scenery share these reserved foundations, so a bench cannot block a route.
     public static class TownGrowthPresentation
     {
         private static TownGrowthPlacement P(TownGrowthProp prop,int level,float x,float y,float width)=>new TownGrowthPlacement(prop,level,x,y,width);
         private static readonly TownGrowthPlacement[][] Regions={
-            new[]{P(TownGrowthProp.Flowers,1,.24f,.61f,.16f),P(TownGrowthProp.CafeTable,2,.14f,.53f,.23f),P(TownGrowthProp.CafeSign,2,.295f,.445f,.09f),
-                P(TownGrowthProp.Lamp,3,.24f,.60f,.07f),P(TownGrowthProp.Bench,3,.345f,.66f,.22f),P(TownGrowthProp.Flowers,3,.20f,.603f,.15f),
-                P(TownGrowthProp.CafeTable,4,.215f,.55f,.22f),P(TownGrowthProp.Flowers,4,.15f,.60f,.16f),P(TownGrowthProp.Lamp,4,.17f,.73f,.07f),
-                P(TownGrowthProp.Arch,5,.19f,.32f,.28f),P(TownGrowthProp.CafeSign,5,.37f,.29f,.08f),
-                P(TownGrowthProp.StreetBunting,6,.255f,.42f,.28f),P(TownGrowthProp.Flowers,6,.20f,.30f,.17f),P(TownGrowthProp.Garland,6,.17f,.21f,.26f)},
-            new[]{P(TownGrowthProp.Flowers,1,.41f,.65f,.16f),P(TownGrowthProp.Flowers,2,.635f,.655f,.16f),P(TownGrowthProp.Bench,2,.36f,.67f,.22f),
-                P(TownGrowthProp.Lamp,3,.40f,.66f,.07f),P(TownGrowthProp.Bench,3,.685f,.67f,.22f),P(TownGrowthProp.Lamp,3,.65f,.65f,.07f),
-                P(TownGrowthProp.Flowers,4,.45f,.49f,.16f),P(TownGrowthProp.FlowerDisplay,4,.59f,.49f,.16f),P(TownGrowthProp.Lamp,4,.33f,.81f,.07f),
-                P(TownGrowthProp.Arch,5,.51f,.33f,.75f),P(TownGrowthProp.Flowers,5,.57f,.83f,.17f),
-                P(TownGrowthProp.Garland,6,.28f,.839f,.38f),P(TownGrowthProp.StreetBunting,6,.51f,.87f,.50f),P(TownGrowthProp.Lamp,6,.64f,.82f,.07f)},
-            new[]{P(TownGrowthProp.Flowers,1,.73f,.665f,.16f),P(TownGrowthProp.FlowerDisplay,2,.89f,.47f,.19f),P(TownGrowthProp.Flowers,2,.69f,.67f,.16f),
-                P(TownGrowthProp.Lamp,3,.74f,.67f,.07f),P(TownGrowthProp.Bench,3,.80f,.78f,.22f),P(TownGrowthProp.CafeSign,3,.72f,.39f,.08f),
-                P(TownGrowthProp.Workshop,4,.90f,.47f,.24f),P(TownGrowthProp.Flowers,4,.78f,.81f,.15f),P(TownGrowthProp.Lamp,4,.90f,.73f,.07f),
-                P(TownGrowthProp.Arch,5,.815f,.43f,.34f),P(TownGrowthProp.FlowerDisplay,5,.76f,.43f,.16f),
-                P(TownGrowthProp.StreetBunting,6,.81f,.445f,.34f),P(TownGrowthProp.Garland,6,.735f,.827f,.30f),P(TownGrowthProp.Flowers,6,.68f,.75f,.16f)}};
+            new[]{P(TownGrowthProp.Flowers,1,-1.50f,-.08f,.14f),P(TownGrowthProp.CafeTable,2,-1.50f,-.63f,.19f),P(TownGrowthProp.CafeSign,2,-.95f,.76f,.07f),
+                P(TownGrowthProp.Lamp,3,-1.46f,-.10f,.045f),P(TownGrowthProp.Bench,3,-.90f,-.66f,.17f),P(TownGrowthProp.Flowers,3,-1.57f,.75f,.13f),
+                P(TownGrowthProp.CafeTable,4,-.95f,.78f,.16f),P(TownGrowthProp.Flowers,4,-.93f,-.69f,.12f),P(TownGrowthProp.Lamp,4,-1.59f,.72f,.045f),
+                P(TownGrowthProp.Arch,5,-1.2f,-.79f,.34f),P(TownGrowthProp.CafeSign,5,-1.43f,.24f,.07f),
+                P(TownGrowthProp.StreetBunting,6,-1.2f,.72f,.56f),P(TownGrowthProp.Flowers,6,-1.53f,-.66f,.10f),P(TownGrowthProp.Garland,6,-1.2f,.60f,.43f)},
+            new[]{P(TownGrowthProp.Flowers,1,-.42f,.06f,.13f),P(TownGrowthProp.Flowers,2,.42f,-.43f,.13f),P(TownGrowthProp.Bench,2,-.44f,-.31f,.16f),
+                P(TownGrowthProp.Lamp,3,-.44f,.07f,.045f),P(TownGrowthProp.Bench,3,-.49f,2.36f,.16f),P(TownGrowthProp.Lamp,3,.47f,-2.48f,.045f),
+                P(TownGrowthProp.Flowers,4,.22f,1.31f,.13f),P(TownGrowthProp.FlowerDisplay,4,-.20f,-2.67f,.16f),P(TownGrowthProp.Lamp,4,-.40f,-2.13f,.045f),
+                P(TownGrowthProp.Arch,5,0,1.04f,.48f),P(TownGrowthProp.Flowers,5,.45f,-2.53f,.13f),
+                P(TownGrowthProp.Garland,6,0,2.55f,.39f),P(TownGrowthProp.StreetBunting,6,0,.78f,.48f),P(TownGrowthProp.Lamp,6,.44f,-.45f,.045f)},
+            new[]{P(TownGrowthProp.Flowers,1,1.48f,-.08f,.14f),P(TownGrowthProp.FlowerDisplay,2,1.0f,-.72f,.16f),P(TownGrowthProp.Flowers,2,1.52f,.75f,.13f),
+                P(TownGrowthProp.Lamp,3,1.45f,-.10f,.045f),P(TownGrowthProp.Bench,3,1.51f,-.76f,.17f),P(TownGrowthProp.CafeSign,3,.87f,.72f,.07f),
+                P(TownGrowthProp.Workshop,4,.87f,.77f,.18f),P(TownGrowthProp.Flowers,4,1.51f,-.80f,.12f),P(TownGrowthProp.Lamp,4,1.54f,.73f,.045f),
+                P(TownGrowthProp.Arch,5,1.2f,-.83f,.34f),P(TownGrowthProp.FlowerDisplay,5,1.01f,-.74f,.12f),
+                P(TownGrowthProp.StreetBunting,6,1.2f,.74f,.53f),P(TownGrowthProp.Garland,6,1.2f,.59f,.41f),P(TownGrowthProp.Flowers,6,1.50f,-.12f,.10f)}};
         // The delivery comparison should frame the landmark just earned, not a
         // small last-listed flower that happens to share its growth level.
         public static TownGrowthPlacement FocusFor(TownRegionId region,int level)

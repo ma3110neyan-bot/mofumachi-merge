@@ -3,46 +3,77 @@ using System.Collections.Generic;
 using Mofumachi.Core;
 namespace Mofumachi.Presentation
 {
-    // Feet-space polygons measured against the single seamless town painting.
-    // Stable places/save IDs are unchanged. Furniture/fountain islands are holes.
+    // Shared floor geometry is used by both rendering and navigation.
     public sealed class TownWalkableArea
     {
-        private readonly List<(TownPoint[] Points,float Left,float Right,float Bottom,float Top)> floors=new List<(TownPoint[],float,float,float,float)>();
-        private readonly List<(TownPoint Center,float X,float Y)> islands=new List<(TownPoint,float,float)>();
-        private readonly TownPoint[][] connections=Array.Empty<TownPoint[]>();
-        private const float Corridor=.115f;
+        private static readonly TownPoint[][] polygons=BuildPolygons();
+        private static readonly (TownPoint Center,float X,float Y)[] excluded={
+            (new TownPoint(0,.30f),.17f,.12f),
+            (new TownPoint(-1.2f,.4f),.29f,.31f),
+            (new TownPoint(1.2f,.4f),.275f,.31f),
+            (new TownPoint(0,2.4f),.24f,.26f),
+            (new TownPoint(0,-1.65f),.25f,.225f),
+            (new TownPoint(-.22f,-.65f),.11f,.13f),
+            (new TownPoint(-1.50f,-.60f),.11f,.14f),
+            (new TownPoint(1.00f,-.70f),.10f,.12f),
+            (new TownPoint(.22f,1.35f),.12f,.13f),
+            (new TownPoint(-.20f,-2.65f),.12f,.13f),
+            (new TownPoint(-1.50f,-.08f),.10f,.08f),
+            (new TownPoint(-.90f,-.66f),.10f,.09f),
+            (new TownPoint(-1.57f,.75f),.09f,.09f),
+            (new TownPoint(-.95f,.78f),.10f,.09f),
+            (new TownPoint(1.48f,-.08f),.10f,.08f),
+            (new TownPoint(1.51f,-.76f),.10f,.09f),
+            (new TownPoint(.87f,.77f),.10f,.09f),
+            (new TownPoint(1.52f,.75f),.09f,.09f),
+            (new TownPoint(-.42f,.06f),.08f,.10f),
+            (new TownPoint(.44f,-.45f),.07f,.09f),
+            (new TownPoint(-.44f,-.31f),.08f,.09f),
+            (new TownPoint(-.49f,2.36f),.08f,.10f),
+            (new TownPoint(.46f,-2.50f),.08f,.09f),
+            (new TownPoint(-.40f,-2.13f),.09f,.10f)};
+        private static readonly IReadOnlyList<TownPoint[]> sharedPolygons=Array.AsReadOnly(polygons);
+        // The painted front bases have corners; an ellipse alone leaves those
+        // opaque posts walkable. Keep their footprints shared with the ground.
+        private static readonly IReadOnlyList<TownPoint[]> frontBases=Array.AsReadOnly(new[]{
+            Box(-.15f,.18f,.15f,.30f),Box(-1.49f,.10f,-.91f,.34f),
+            Box(.925f,.10f,1.475f,.34f),Box(-.24f,2.14f,.24f,2.36f),
+            Box(-.25f,-1.90f,.25f,-1.68f),
+            Box(-.18f,1.03f,-.13f,1.09f),Box(.13f,1.03f,.18f,1.09f),
+            Box(-1.33f,-.80f,-1.28f,-.74f),Box(-1.12f,-.80f,-1.07f,-.74f),
+            Box(1.07f,-.84f,1.12f,-.78f),Box(1.28f,-.84f,1.33f,-.78f)});
+        private static readonly IReadOnlyList<(TownPoint Center,float X,float Y)> islands=Array.AsReadOnly(excluded);
+        private static readonly List<(TownPoint[] Points,float Left,float Right,float Bottom,float Top)> floors=BuildFloors();
+        public IReadOnlyList<TownPoint[]> FloorPolygons=>sharedPolygons;
+        public IReadOnlyList<TownPoint[]> ExcludedPolygons=>frontBases;
+        public IReadOnlyList<(TownPoint Center,float X,float Y)> ExcludedIslands=>islands;
         [ThreadStatic] private static List<float> segmentCuts;
-        public TownWalkableArea(int level)
-        {
-            // The October18 east-west map, UV from top-left. Broad floor polygons
-            // overlap at the central plaza. Planted islands are excluded below.
-            AddMap(new[]{P(.33f,.38f),P(.67f,.38f),P(.74f,.47f),P(.74f,.59f),P(.67f,.73f),P(.59f,.83f),P(.55f,.93f),P(.59f,1),P(.40f,1),P(.42f,.92f),P(.44f,.84f),P(.39f,.77f),P(.32f,.73f),P(.25f,.66f),P(.27f,.55f),P(.30f,.45f)});
-            AddMap(new[]{P(.065f,.48f),P(.15f,.48f),P(.19f,.50f),P(.30f,.48f),P(.42f,.42f),P(.44f,.54f),P(.35f,.58f),P(.27f,.56f),P(.14f,.56f),P(.08f,.55f)});
-            AddMap(new[]{P(.02f,.55f),P(.09f,.53f),P(.15f,.58f),P(.26f,.59f),P(.34f,.64f),P(.45f,.71f),P(.47f,.78f),P(.38f,.79f),P(.28f,.74f),P(.17f,.71f),P(.05f,.73f),P(0,.69f)});
-            AddMap(new[]{P(.62f,.39f),P(.71f,.40f),P(.74f,.45f),P(.81f,.46f),P(.90f,.50f),P(1,.45f),P(1,.53f),P(.93f,.62f),P(.84f,.65f),P(.77f,.61f),P(.68f,.59f),P(.63f,.55f)});
-            AddMap(new[]{P(.61f,.66f),P(.72f,.68f),P(.80f,.65f),P(.88f,.59f),P(.96f,.59f),P(.96f,.65f),P(.88f,.71f),P(.80f,.76f),P(.70f,.78f),P(.60f,.77f),P(.57f,.73f)});
-            AddMap(new[]{P(.31f,0),P(.61f,0),P(.58f,.08f),P(.53f,.14f),P(.53f,.20f),P(.61f,.23f),P(.61f,.31f),P(.67f,.35f),P(.67f,.41f),P(.42f,.43f),P(.38f,.35f),P(.36f,.28f),P(.38f,.23f),P(.40f,.19f),P(.34f,.13f),P(.30f,.07f)});
-            AddMap(new[]{P(.16f,.29f),P(.19f,.29f),P(.225f,.26f),P(.28f,.24f),P(.34f,.20f),P(.42f,.23f),P(.43f,.17f),P(.36f,.15f),P(.29f,.18f),P(.25f,.205f),P(.21f,.225f),P(.17f,.25f),P(.15f,.27f)});
-            // Keep a lower loop between the two large planted garden islands.
-            AddMap(new[]{P(0,.73f),P(.06f,.72f),P(.15f,.81f),P(.26f,.90f),P(.40f,.95f),P(.55f,.96f),P(.70f,.93f),P(.86f,.87f),P(1,.76f),P(1,.85f),P(.86f,.94f),P(.69f,1),P(.30f,1),P(.15f,.92f),P(.04f,.84f),P(0,.80f)});
-            Island(.14f,.53f,.05f,.027f);Island(.215f,.55f,.046f,.025f); // reserved cafe furniture slots at every level
-            Island(.52f,.49f,.128f,.080f); // fountain and planted stone apron
-            Island(.35f,.635f,.094f,.066f);Island(.70f,.642f,.105f,.074f);
-            Island(.19f,.582f,.092f,.043f);
-            Island(.28f,.839f,.198f,.100f);Island(.735f,.827f,.195f,.104f);
-            Island(.39f,.305f,.078f,.057f);Island(.61f,.283f,.087f,.058f);
-
-        }
+        public TownWalkableArea(int level) { }
         private static TownPoint P(float x,float y)=>new TownPoint(x,y);
-        private void Add(TownRegionId region,TownPoint[] polygon)
+        private static TownPoint[] Box(float left,float bottom,float right,float top)=>new[]{P(left,bottom),P(right,bottom),P(right,top),P(left,top)};
+        private static TownPoint[][] BuildPolygons()
         {
-            float left=float.PositiveInfinity,right=float.NegativeInfinity,bottom=float.PositiveInfinity,top=float.NegativeInfinity;
-            for(int i=0;i<polygon.Length;i++){polygon[i]=TownWorldLayout.ToWorld(region,polygon[i]);left=Math.Min(left,polygon[i].X);right=Math.Max(right,polygon[i].X);bottom=Math.Min(bottom,polygon[i].Y);top=Math.Max(top,polygon[i].Y);}
-            floors.Add((polygon,left,right,bottom,top));
+            var result=new TownPoint[TownDistrictLayout.All.Count][];
+            for(int i=0;i<result.Length;i++)
+            {
+                var c=TownDistrictLayout.Center(TownDistrictLayout.All[i]);
+                // Convex rooms meet along wide shared edges; each landmark leaves
+                // two independently usable routes across its surrounding floor.
+                result[i]=new[]{P(c.X-.60f,c.Y-.76f),P(c.X-.44f,c.Y-1),P(c.X+.44f,c.Y-1),P(c.X+.60f,c.Y-.76f),P(c.X+.60f,c.Y+.76f),P(c.X+.44f,c.Y+1),P(c.X-.44f,c.Y+1),P(c.X-.60f,c.Y+.76f)};
+            }
+            return result;
         }
-        private void AddMap(TownPoint[] polygon)
-        {for(int i=0;i<polygon.Length;i++)polygon[i]=TownWorldMap.Point(polygon[i].X,polygon[i].Y);Add(TownRegionId.Central,polygon);}
-        private void Island(float u,float v,float rx,float ry)=>islands.Add((TownWorldMap.Point(u,v),rx*TownWorldMap.Width,ry*TownWorldMap.Height));
+        private static List<(TownPoint[] Points,float Left,float Right,float Bottom,float Top)> BuildFloors()
+        {
+            var result=new List<(TownPoint[],float,float,float,float)>();
+            foreach(var polygon in polygons)
+            {
+                float left=float.PositiveInfinity,right=float.NegativeInfinity,bottom=float.PositiveInfinity,top=float.NegativeInfinity;
+                foreach(var p in polygon){left=Math.Min(left,p.X);right=Math.Max(right,p.X);bottom=Math.Min(bottom,p.Y);top=Math.Max(top,p.Y);}
+                result.Add((polygon,left,right,bottom,top));
+            }
+            return result;
+        }
         public static float Distance(TownPoint a,TownPoint b)
         {float x=a.X-b.X,y=(a.Y-b.Y)*TownWorldLayout.ImageAspect;return (float)Math.Sqrt(x*x+y*y);}
         private static TownPoint Closest(TownPoint p,TownPoint a,TownPoint b)
@@ -68,10 +99,11 @@ namespace Mofumachi.Presentation
         public bool Contains(TownPoint p)
         {
             if(!TownWorldLayout.Finite(p))return false;
+            foreach(var shape in frontBases)
+                if(p.X>=shape[0].X-.00005f&&p.X<=shape[2].X+.00005f&&p.Y>=shape[0].Y-.00005f&&p.Y<=shape[2].Y+.00005f&&InPolygon(p,shape))return false;
             foreach(var hole in islands)
             {float x=(p.X-hole.Center.X)/hole.X,y=(p.Y-hole.Center.Y)/hole.Y;if(x*x+y*y<.9999f)return false;}
             foreach(var floor in floors)if(p.X>=floor.Left-.00005f&&p.X<=floor.Right+.00005f&&p.Y>=floor.Bottom-.00005f&&p.Y<=floor.Top+.00005f&&InPolygon(p,floor.Points))return true;
-            foreach(var path in connections)for(int i=1;i<path.Length;i++)if(Distance(p,Closest(p,path[i-1],path[i]))<=Corridor)return true;
             return false;
         }
         public bool CanTravel(TownPoint a,TownPoint b)
@@ -88,16 +120,7 @@ namespace Mofumachi.Presentation
                 for(int i=0;i<floor.Points.Length;i++)EdgeCuts(a,b,floor.Points[i],floor.Points[(i+1)%floor.Points.Length],cuts);
             }
             foreach(var hole in islands)EllipseCuts(a,b,hole.Center,hole.X,hole.Y,cuts);
-            foreach(var path in connections)for(int i=1;i<path.Length;i++)
-            {
-                var p=path[i-1];var q=path[i];float ry=Corridor/TownWorldLayout.ImageAspect;
-                if(right<Math.Min(p.X,q.X)-Corridor||left>Math.Max(p.X,q.X)+Corridor||top<Math.Min(p.Y,q.Y)-ry||bottom>Math.Max(p.Y,q.Y)+ry)continue;
-                EllipseCuts(a,b,p,Corridor,ry,cuts);EllipseCuts(a,b,q,Corridor,ry,cuts);
-                float dx=q.X-p.X,dy=(q.Y-p.Y)*TownWorldLayout.ImageAspect,length=(float)Math.Sqrt(dx*dx+dy*dy);
-                if(length<.000001f)continue;float nx=-dy/length*Corridor,ny=dx/length*ry;
-                EdgeCuts(a,b,P(p.X+nx,p.Y+ny),P(q.X+nx,q.Y+ny),cuts);
-                EdgeCuts(a,b,P(p.X-nx,p.Y-ny),P(q.X-nx,q.Y-ny),cuts);
-            }
+            foreach(var shape in frontBases)for(int i=0;i<shape.Length;i++)EdgeCuts(a,b,shape[i],shape[(i+1)%shape.Length],cuts);
             cuts.Sort();for(int i=1;i<cuts.Count;i++)
             {float t=(cuts[i-1]+cuts[i])*.5f;if(!Contains(P(a.X+(b.X-a.X)*t,a.Y+(b.Y-a.Y)*t)))return false;}
             return true;
@@ -123,10 +146,10 @@ namespace Mofumachi.Presentation
             void Offer(TownPoint candidate)
             {float d=Distance(p,candidate);if(d<best&&Contains(candidate)){best=d;nearest=candidate;}}
             foreach(var floor in floors)for(int i=0;i<floor.Points.Length;i++)Offer(Closest(p,floor.Points[i],floor.Points[(i+1)%floor.Points.Length]));
-            foreach(var path in connections)for(int i=1;i<path.Length;i++)
+            foreach(var shape in frontBases)for(int i=0;i<shape.Length;i++)
             {
-                var center=Closest(p,path[i-1],path[i]);float distance=Distance(p,center),t=distance>0?Math.Min(1,(Corridor-.0001f)/distance):0;
-                Offer(P(center.X+(p.X-center.X)*t,center.Y+(p.Y-center.Y)*t));
+                var a=shape[i];var b=shape[(i+1)%shape.Length];var q=Closest(p,a,b);float dx=b.X-a.X,dy=b.Y-a.Y,length=(float)Math.Sqrt(dx*dx+dy*dy);
+                Offer(P(q.X+dy/length*.00015f,q.Y-dx/length*.00015f));
             }
             foreach(var hole in islands)
             {

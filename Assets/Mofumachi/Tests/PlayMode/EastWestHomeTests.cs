@@ -16,7 +16,7 @@ namespace Mofumachi.Tests
    Assert.That(field.offsetMin.y,Is.EqualTo(62));Assert.That(field.offsetMax.y,Is.EqualTo(-80));
    Assert.That(Flow.GetComponentsInChildren<Button>().Any(b=>b.name=="Region walk West"),Is.False);
    Flow.OpenTownMenu();Assert.That(Flow.IsModalOpen,Is.True);Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));
-   foreach(var name in new[]{"Region walk West","Region walk Central","Region walk East","Nav Quest","Walk to cafe","Walk to florist","Town book","Town today"})Assert.That(Flow.GetComponentsInChildren<Button>().Single(b=>b.name==name),Is.Not.Null);
+   foreach(var name in new[]{"Region walk West","Region walk Central","Region walk East","Region walk North","Region walk South","Nav Quest","Walk to cafe","Walk to florist","Town book","Town today"})Assert.That(Flow.GetComponentsInChildren<Button>().Single(b=>b.name==name),Is.Not.Null);
    Flow.GoBack();Assert.That(Flow.IsModalOpen,Is.False);Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));LogAssert.NoUnexpectedReceived();
   }
   [UnityTest] public IEnumerator ExpandedMenuCancelsMovementAndGuideWalksWithoutChangingProgress()
@@ -34,9 +34,10 @@ namespace Mofumachi.Tests
   [UnityTest] public IEnumerator ResidentsPassBehindAndInFrontOfTheSameFountainPixels()
   {
    yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=life.Actors.Single(a=>a.Controlled);var foreground=life.GetComponentInChildren<TownFountainGraphic>();
-   life.World.Model.Restore(hero.CharacterId,TownWorldMap.Point(.52f,.395f));life.World.ReturnToHero();life.AdvanceFrame(1f/30);
+   Assert.That(life.World.Model.Area.Contains(new TownPoint(-.21f,.30f)),Is.True);Assert.That(life.World.Model.Area.Contains(new TownPoint(0,.02f)),Is.True);
+   life.World.Model.Restore(hero.CharacterId,new TownPoint(-.21f,.30f));life.World.ReturnToHero();life.AdvanceFrame(1f/30);
    Assert.That(hero.transform.GetSiblingIndex(),Is.LessThan(foreground.transform.GetSiblingIndex()));
-   life.World.Model.Restore(hero.CharacterId,TownWorldMap.Point(.52f,.60f));life.World.ReturnToHero();life.AdvanceFrame(1f/30);
+   life.World.Model.Restore(hero.CharacterId,new TownPoint(0,.02f));life.World.ReturnToHero();life.AdvanceFrame(1f/30);
    Assert.That(hero.transform.GetSiblingIndex(),Is.GreaterThan(foreground.transform.GetSiblingIndex()));Assert.That(foreground.raycastTarget,Is.False);LogAssert.NoUnexpectedReceived();
   }
   [UnityTest] public IEnumerator CompactNextGoalFitsForEveryLevelAndDailyStateOnNarrowPhones()

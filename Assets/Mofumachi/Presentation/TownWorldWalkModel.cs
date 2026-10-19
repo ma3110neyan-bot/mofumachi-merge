@@ -13,7 +13,8 @@ namespace Mofumachi.Presentation
         public float Facing {get;internal set;} public float Speed {get;internal set;} public float Stride {get;internal set;}
         public float DistanceWalked {get;internal set;}
         public TownRegionId Region=>TownWorldLayout.RegionAt(Position);
-        internal TownRegionId StartedRegion;
+        public TownDistrictId District=>TownDistrictLayout.At(Position);
+        internal bool CrossedDistrict;
         internal IReadOnlyList<TownPoint> Route=Array.Empty<TownPoint>();internal int Waypoint;internal float Waiting,NoProgress,BestRemaining;internal bool AvoidingResidents;
         public float PauseRemaining {get;internal set;}
         internal TownWorldResident(string id,bool controlled,TownPoint p){Id=id;Controlled=controlled;Position=Previous=Target=p;}
@@ -34,7 +35,7 @@ namespace Mofumachi.Presentation
         {
             if(!CharacterCatalog.IsKnown(favorite))throw new ArgumentException("Unknown resident",nameof(favorite));this.level=level;
             Area=SharedArea;navigation=SharedNavigation;int npc=0;
-            string[] starts={"west.flowers","west.bench-front","bench-right","east.flowers","east.meeting"};
+            string[] starts={"west.flowers","west.bench-front","east.flowers","bench-left","front-promenade"};
             foreach(var c in CharacterCatalog.All)
             {
                 bool hero=c.Id==favorite;string place=hero?"square":starts[npc++];TownRegionCatalog.TryFindPlace(place,level,out var loc,out _);
@@ -48,12 +49,18 @@ namespace Mofumachi.Presentation
             if(actor.Controlled){IsFollowingFinger=finishingFinger=false;GiveWay(TownWorldMap.Place(place));}
             return Guide(actor,TownWorldMap.Place(place),place);
         }
+        public bool TryGuideDistrict(TownDistrictId district)
+        {
+            if(!Enum.IsDefined(typeof(TownDistrictId),district))return false;
+            string id=TownDistrictLayout.EntranceId(district);IsFollowingFinger=finishingFinger=false;
+            GiveWay(TownWorldMap.Place(id));return Guide(Hero,TownWorldMap.Place(id),id);
+        }
         private bool Guide(TownWorldResident actor,TownPoint target,string place,bool restart=true,bool avoidResidents=false)
         {
             if(!Area.TryClamp(target,out target,.09f))return false;
             var occupied=avoidResidents?residents.Where(a=>a!=actor).Select(a=>a.Position).ToArray():null;
             var route=navigation.FindRoute(actor.Position,target,occupied);if(route.Count==0)return false;
-            if(restart){actor.StartedRegion=actor.Region;actor.DistanceWalked=0;}actor.Target=target;actor.PlaceId=place;actor.Rest=0;actor.PauseRemaining=0;
+            if(restart){actor.CrossedDistrict=false;actor.DistanceWalked=0;}actor.Target=target;actor.PlaceId=place;actor.Rest=0;actor.PauseRemaining=0;
             actor.Route=route;actor.AvoidingResidents=avoidResidents;actor.Waypoint=0;actor.Waiting=actor.NoProgress=0;actor.BestRemaining=Remaining(actor);actor.IsWalking=TownWorldLayout.Distance(actor.Position,target)>.0001f;return true;
         }
         public bool TryGuidePoint(TownPoint point)
@@ -68,7 +75,7 @@ namespace Mofumachi.Presentation
         public bool FollowFinger(TownPoint point)
         {
             if(!Area.TryClamp(point,out var target,.8f))return false;
-            if(!IsFollowingFinger){Hero.StartedRegion=Hero.Region;Hero.DistanceWalked=0;IsFollowingFinger=true;finishingFinger=false;}
+            if(!IsFollowingFinger){Hero.CrossedDistrict=false;Hero.DistanceWalked=0;IsFollowingFinger=true;finishingFinger=false;}
             if(TownWalkableArea.Distance(Hero.Target,target)<.018f&&Hero.IsWalking)return true;
             return Guide(Hero,target,null,false);
         }
@@ -102,9 +109,18 @@ namespace Mofumachi.Presentation
         }
         public void FastTravel(TownRegionId region)
         {
-            if(!Enum.IsDefined(typeof(TownRegionId),region))return;CancelHero();
-            string id=region==TownRegionId.West?"west.entry":region==TownRegionId.East?"east.entry":"square";
-            TownRegionCatalog.TryFindPlace(id,level,out var loc,out _);Hero.Position=Hero.Previous=Hero.Target=TownWorldMap.Place(id);Hero.PlaceId=id;Hero.PauseRemaining=0;GiveWay(Hero.Position);Arrived?.Invoke(Hero.Id,id,false);
+            if(!Enum.IsDefined(typeof(TownRegionId),region))return;
+            TravelTo(region==TownRegionId.West?"west.entry":region==TownRegionId.East?"east.entry":"square");
+        }
+        public void FastTravel(TownDistrictId district)
+        {
+            if(!Enum.IsDefined(typeof(TownDistrictId),district))return;
+            TravelTo(TownDistrictLayout.EntranceId(district));
+        }
+        private void TravelTo(string id)
+        {
+            CancelHero();Hero.Position=Hero.Previous=Hero.Target=TownWorldMap.Place(id);Hero.PlaceId=id;Hero.PauseRemaining=0;
+            Hero.CrossedDistrict=false;Hero.DistanceWalked=0;GiveWay(Hero.Position);Arrived?.Invoke(Hero.Id,id,false);
         }
         public void Step(float seconds)
         {
@@ -129,6 +145,7 @@ namespace Mofumachi.Presentation
                 float budget=Math.Min(distance,speed*dt);var next=Steer(actor,waypoint,budget);
                 float moved=TownWorldLayout.Distance(actor.Position,next);actor.Waiting=moved<.000001f?actor.Waiting+dt:0;
                 if(moved>.000001f){float x=next.X-actor.Position.X;if(Math.Abs(x)>.000001f)actor.Facing=Math.Sign(x);actor.Stride=(actor.Stride+moved*140)%(float)(Math.PI*2);}
+                if(TownDistrictLayout.At(next)!=actor.District)actor.CrossedDistrict=true;
                 actor.Position=next;actor.DistanceWalked+=moved;
                 if(TownWorldLayout.Distance(next,waypoint)<.001f&&actor.Waypoint<actor.Route.Count-1)actor.Waypoint++;
                 if(TownWorldLayout.Distance(next,actor.Target)<.001f)
@@ -146,7 +163,7 @@ namespace Mofumachi.Presentation
         private void Complete(TownWorldResident actor)
         {
             if(actor.Controlled&&IsFollowingFinger)return;
-            bool walked=actor.StartedRegion!=actor.Region;if(actor.Controlled&&finishingFinger)finishingFinger=false;
+            bool walked=actor.CrossedDistrict;actor.CrossedDistrict=false;if(actor.Controlled&&finishingFinger)finishingFinger=false;
             Arrived?.Invoke(actor.Id,actor.PlaceId,walked);
         }
         private static float Remaining(TownWorldResident actor)

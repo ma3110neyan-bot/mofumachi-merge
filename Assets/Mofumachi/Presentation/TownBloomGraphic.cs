@@ -21,7 +21,7 @@ namespace Mofumachi.Presentation
         public TownRegionId RegionForWorld {get;set;}=TownRegionId.Central;
         private Vector2 Local(Vector2 point)
         {
-            if(World?.IsReady==true)return World.Local(TownWorldMap.Point(point.x,point.y),rectTransform);
+            if(World?.IsReady==true)return World.Local(new TownPoint(point.x,point.y),rectTransform);
             var uv=background.uvRect;var r=background.rectTransform.rect;
             var source=background.texture!=null&&background.texture.name=="TownSeamlessMap"?new Vector2(point.x,1-point.y):point;
             return transform.InverseTransformPoint(background.rectTransform.TransformPoint(r.min+Vector2.Scale((source-uv.min)/uv.size,r.size)));
@@ -32,14 +32,14 @@ namespace Mofumachi.Presentation
             for(int i=0;i<PetalCount;i++)
             {
                 float t=Mathf.Repeat(phase*.055f+i*.173f,1),x=.16f+(i*.139f% .68f)+.025f*Mathf.Sin(phase+i);
-                var p=Local(new Vector2(x,.72f-t*.39f));float size=1.5f+(i%3)*.35f;
+                var sample=World?.IsReady==true?new Vector2(World.Camera.Center.X+(x-.5f)*TownWorldLayout.ViewWidth,World.Camera.Center.Y+.50f-t*1.1f):new Vector2(x,.72f-t*.39f);var p=Local(sample);float size=1.5f+(i%3)*.35f;
                 var tint=i%2==0?new Color(1,.70f,.80f,Mathf.Sin(t*Mathf.PI)*.62f):new Color(1,.95f,.69f,Mathf.Sin(t*Mathf.PI)*.60f);
                 AddDiamond(vh,p,size,tint);
             }
             if(stage>=3)
             foreach(var prop in lamps)
                 {
-                    var p=Local(new Vector2(prop.Position.X,prop.Position.Y-.065f));
+                    var p=Local(new Vector2(prop.Position.X,prop.Position.Y+(World?.IsReady==true?.08f:-.065f)));
                     AddDiamond(vh,p,2+Mathf.Sin(phase*1.8f)*.6f,new Color(1,.95f,.64f,.45f));
                 }
         }

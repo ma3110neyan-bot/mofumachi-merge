@@ -99,3 +99,12 @@ Unity Editorの描画、Mask／Canvasの実レイアウト、実入力、FontEng
 今回の質感・選択・合成演出はUGUIの描画と共有素材で実装。背景・6名原画／全身・タイトルロゴ・ItemAtlasのPNG、UV、インポート設定、フォント原本を変更していません。ItemGraphicのPolished表示だけ同じatlasのシルエットを薄い影として重ね、Merge／ドラッグ／演出に適用。選択の小さな光と成功時の星8粒・淡い光は白テクスチャの軽いメッシュ、外部のパーティクル素材・シェーダー・依存追加なし。
 
 背景SHA `971461342858e74c8db5f669f28c3e5c0c1a0f9d364e645ec55b9ea2834e7b51`、原画SHA `cd423f6599cf41346064405240c72ac071aaa8d3fbd326d2b82661b13b0892c8`、全身SHA `23d14025f146c429da01b6e3a74ef803254755f8d149f9eb53516aacaa30163d`、ロゴSHA `5cbc8451a620d20887f3c74863509e080eddaa235649209c9c8141e053dc3190`、ItemAtlas SHA `7cbceaa1b5dd73d07ed916178bd45ee7b026908a4e6386a021f41d1df344bb2d`が基準と一致。新表示文も3書体445字形の範囲で網羅。実機の質感・文字・性能は確認待ち。[最新報告](development-handoff-2026-10-12.md)。
+
+## 2026-10-19 5広場の独立した街パーツ
+
+画像生成で、既存の街の色・描画方向を参照した建物4点と植栽4点を制作。原本PNGを保持し、実測UVを共有します。5つの広場の地面は画像ではなく、歩行可能面と同じポリゴンに既存の芝・石畳素材を敷きます。正式6名・ロゴ・ItemAtlasは変更していません。
+
+- `TownLandmarksAtlas.png`: SHA256 `8f6d31d8cde0a9610f534d838793c6ca39e8c159f56920c44ba073bfc9f9205b`。透過RGBA、Default／Android最大1024、mipmapなし・非Read/Write。
+- `TownNatureAtlas.png`: SHA256 `5821e085e20fdf02494b78807e8aac406c7cf2a036b262a8f79cc2eeb01c8b33`。透過RGBA、Default／Android最大1024、mipmapなし・非Read/Write。
+
+建物はカフェ・花屋・依頼小屋・南の休憩所。植栽は緑樹・桜・花壇・柵付き生垣。これは製品用素材の記録であり、Unity実描画やPixel合格の証拠ではありません。

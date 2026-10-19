@@ -35,7 +35,7 @@ namespace Mofumachi.Presentation
             Add("Visit central fountain","中央広場の噴水へ",1,0,()=>Walk(TownOutingDestinations.ForRegion(TownRegionId.Central,life.TownLevel)));
             Add("Visit east flowers","東の花屋通りへ",0,1,()=>Walk(TownOutingDestinations.ForRegion(TownRegionId.East,life.TownLevel)));
             Add("Visit bench","近くのベンチへ",1,1,()=>{if(life.GuideToRestStop("bench"))life.DismissOutings();});
-            Add("Guide to quest","西の依頼小屋へ",0,2,()=>Walk("quest"));
+            Add("Guide to quest","北の依頼小屋へ",0,2,()=>Walk("quest"));
             Add("Guide to shop","東のお花ショップへ",1,2,()=>Walk("shop"));
             if(life.TownLevel>=2)
             {

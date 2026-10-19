@@ -7,7 +7,6 @@ namespace Mofumachi.Tests
 {
     public sealed class SeamlessTownTests
     {
-        private static TownPoint Map(float u,float v)=>TownWorldMap.Point(u,v);
         [Test] public void RoadLabelsYieldToAResidentsBodyInsteadOfPrintingAcrossItsFace()
         {
             var label=new TownViewportRect(-71,24,142,30);
@@ -69,17 +68,17 @@ namespace Mofumachi.Tests
                 Assert.That(TownWorldMap.Width*scale,Is.GreaterThanOrEqualTo(360));
                 Assert.That(TownWorldMap.Height*TownWorldLayout.ImageAspect*scale,Is.GreaterThanOrEqualTo(height-.001f));
                 var camera=new TownWorldCamera();camera.Fit(360/scale,height/(scale*TownWorldLayout.ImageAspect));
-                camera.Jump(Map(1,0));Assert.That(camera.Center.Y+height/(2*scale),Is.LessThanOrEqualTo(TownWorldMap.Top+.001f));
+                camera.Jump(new TownPoint(TownWorldMap.Right,TownWorldMap.Top));Assert.That(camera.Center.Y+height/(2*scale),Is.LessThanOrEqualTo(TownWorldMap.Top+.001f));
             }
         }
         [Test] public void CafeAndQuestGardenFencesAreObstaclesInsteadOfShortcuts()
         {
             var floor=new TownWalkableArea(0);
-            Assert.That(floor.Contains(Map(.27f,.40f)),Is.False,"The western cafe building is not paving");
-            Assert.That(floor.Contains(Map(.17f,.20f)),Is.False,"The quest cottage and its fenced garden are not paving");
-            var street=Map(.26f,.52f);var door=TownWorldMap.Place("quest");
+            Assert.That(floor.Contains(new TownPoint(-1.2f,.4f)),Is.False,"The western cafe building is not paving");
+            Assert.That(floor.Contains(new TownPoint(0,2.4f)),Is.False,"The quest cottage and its fenced garden are not paving");
+            var street=new TownPoint(0,2.80f);var door=TownWorldMap.Place("quest");
             Assert.That(floor.Contains(street)&&floor.Contains(door),Is.True);
-            Assert.That(floor.CanTravel(street,door),Is.False,"Use the upper garden gate instead of crossing the cafe");
+            Assert.That(floor.CanTravel(street,door),Is.False,"Use the garden floor around the cottage instead of crossing the building");
             Assert.That(new TownAreaNavigation(floor).FindRoute(street,door),Is.Not.Empty,"The blocked shortcut must still have a route around the buildings");
         }
         [TestCase(0)] [TestCase(6)] public void EveryStableDestinationAndBothPhysicalEntrancesHaveAFloorSafeRoute(int level)
@@ -90,7 +89,7 @@ namespace Mofumachi.Tests
                 var p=TownWorldMap.Place(place.Id);Assert.That(area.Contains(p),Is.True,place.Id);
                 Assert.That(nav.FindRoute(TownWorldMap.Place("square"),p),Is.Not.Empty,place.Id);
             }
-            Assert.That(TownWorldLayout.RegionAt(TownWorldMap.Place("quest")),Is.EqualTo(TownRegionId.West));
+            Assert.That(TownWorldLayout.RegionAt(TownWorldMap.Place("quest")),Is.EqualTo(TownRegionId.Central));
             Assert.That(TownWorldLayout.RegionAt(TownWorldMap.Place("shop")),Is.EqualTo(TownRegionId.East));
         }
         [Test] public void CameraCannotExposeAnyMapEdgeAtShortAndTallPhoneAspects()
@@ -105,15 +104,15 @@ namespace Mofumachi.Tests
         [Test] public void NewMapHasBroadPavingOnBothSidesOfTheFountainAndAtBothCabins()
         {
             var area=new TownWalkableArea(0);
-            foreach(var p in new[]{Map(.36f,.50f),Map(.70f,.50f),Map(.52f,.61f),Map(.52f,.38f),Map(.261f,.50f),Map(.815f,.485f),Map(.171f,.29f),Map(.34f,.96f),Map(.81f,.95f),Map(.5f,.92f)})
+            foreach(var p in new[]{new TownPoint(-.30f,.30f),new TownPoint(.30f,.30f),new TownPoint(0,.60f),new TownPoint(0,.02f),TownWorldMap.Place("west.cafe-front"),TownWorldMap.Place("shop"),TownWorldMap.Place("quest"),new TownPoint(-.40f,-2.40f),new TownPoint(.40f,-2.40f),new TownPoint(0,-2.70f)})
                 Assert.That(area.Contains(p),Is.True,"New artwork paving at "+p.X+","+p.Y);
-            foreach(var p in new[]{Map(.52f,.49f),Map(.17f,.20f),Map(.27f,.40f),Map(.82f,.35f),Map(.35f,.635f),Map(.70f,.642f),Map(.28f,.839f),Map(.735f,.827f)})
+            foreach(var p in new[]{new TownPoint(0,.30f),new TownPoint(0,2.4f),new TownPoint(-1.2f,.4f),new TownPoint(1.2f,.4f),new TownPoint(-.22f,-.65f),new TownPoint(1.00f,-.70f),new TownPoint(-.20f,-2.65f),new TownPoint(0,-1.65f)})
                 Assert.That(area.Contains(p),Is.False,"Fountain, buildings and garden islands are visible blockers at "+p.X+","+p.Y);
         }
         [Test] public void BothFountainRoutesAndTheEntireTownAreConnectedWithoutCuttingAcrossWater()
         {
             var area=new TownWalkableArea(0);var nav=new TownAreaNavigation(area);
-            var points=new[]{Map(.36f,.50f),Map(.70f,.50f),Map(.52f,.61f),Map(.52f,.38f),Map(.261f,.50f),Map(.815f,.485f),Map(.171f,.29f),Map(.34f,.96f),Map(.81f,.95f),Map(.5f,.92f)};
+            var points=new[]{new TownPoint(-.30f,.30f),new TownPoint(.30f,.30f),new TownPoint(0,.60f),new TownPoint(0,.02f),TownWorldMap.Place("west.cafe-front"),TownWorldMap.Place("shop"),TownWorldMap.Place("quest"),new TownPoint(-.40f,-2.40f),new TownPoint(.40f,-2.40f),new TownPoint(0,-2.70f)};
             foreach(var target in points)
             {
                 var current=points[0];var route=nav.FindRoute(current,target);Assert.That(route,Is.Not.Empty,"Paving at "+target.X+","+target.Y);

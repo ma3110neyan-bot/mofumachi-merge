@@ -3,31 +3,27 @@ using System.Collections.Generic;
 using Mofumachi.Core;
 namespace Mofumachi.Presentation
 {
-    // One authored map. UVs below are measured from its top-left corner.
-    // Stable Core IDs remain unchanged; only their presentation anchors move.
+    // Continuous presentation coordinates. Stable Core place IDs retain their activities.
     public static class TownWorldMap
     {
         public const string Resource="Mofumachi/TownSeamlessMap";
-        public const float Left=-1f,Bottom=-.6f,Width=3f,Height=2f;
+        public const float Left=-1.8f,Bottom=-3f,Width=3.6f,Height=6f;
         public const float Right=Left+Width,Top=Bottom+Height;
         public static TownPoint Point(float u,float v)=>new TownPoint(Left+Width*u,Top-Height*v);
         private static readonly Dictionary<string,TownPoint> anchors=new Dictionary<string,TownPoint>{
-            {"square",Point(.52f,.68f)},{"fountain",Point(.52f,.595f)},{"flowers",Point(.43f,.60f)},
-            {"quest",Point(.171f,.290f)},{"shop",Point(.815f,.485f)},
-            {"bench-left",Point(.43f,.73f)},{"bench-right",Point(.63f,.73f)},
-            {"home-front",Point(.45f,.37f)},{"flower-walk",Point(.69f,.52f)},
-            {"front-promenade",Point(.52f,.80f)},{"celebration",Point(.51f,.83f)},
-            {"west.entry",Point(.31f,.55f)},{"west.cafe-front",Point(.261f,.50f)},
-            {"west.flowers",Point(.25f,.68f)},{"west.bench-front",Point(.33f,.73f)},{"west.meeting",Point(.36f,.53f)},
-            {"east.entry",Point(.80f,.58f)},{"east.meeting",Point(.84f,.57f)},
-            {"east.flowers",Point(.80f,.70f)},{"east.workshop-front",Point(.817f,.49f)},{"east.bench-front",Point(.84f,.70f)}};
+            {"square",new TownPoint(0,-.25f)},{"fountain",new TownPoint(0,.08f)},{"flowers",new TownPoint(-.34f,-.10f)},
+            {"quest",new TownPoint(0,2.08f)},{"shop",new TownPoint(1.2f,.04f)},
+            {"bench-left",new TownPoint(-.30f,1.55f)},{"bench-right",new TownPoint(.32f,-.40f)},
+            {"home-front",new TownPoint(.32f,2.05f)},{"flower-walk",new TownPoint(1.47f,-.20f)},
+            {"front-promenade",new TownPoint(-.30f,-2.35f)},{"celebration",new TownPoint(0,-2.50f)},
+            {"west.entry",new TownPoint(-1.2f,-.30f)},{"west.cafe-front",new TownPoint(-1.2f,.04f)},
+            {"west.flowers",new TownPoint(-1.48f,-.25f)},{"west.bench-front",new TownPoint(-.98f,-.40f)},{"west.meeting",new TownPoint(-1.02f,-.12f)},
+            {"east.entry",new TownPoint(1.2f,-.30f)},{"east.meeting",new TownPoint(1.0f,-.40f)},
+            {"east.flowers",new TownPoint(1.48f,-.24f)},{"east.workshop-front",new TownPoint(1.46f,.04f)},{"east.bench-front",new TownPoint(1.48f,-.60f)},
+            {"district.west.entry",new TownPoint(-1.2f,-.30f)},{"district.central.entry",new TownPoint(0,-.25f)},
+            {"district.east.entry",new TownPoint(1.2f,-.30f)},{"district.north.entry",new TownPoint(0,1.65f)},{"district.south.entry",new TownPoint(0,-2.25f)}};
         public static TownPoint Place(string id)=>anchors.TryGetValue(id??"",out var p)?p:throw new ArgumentException("Unknown map place",nameof(id));
-        public static TownPoint Growth(TownRegionId region,TownGrowthPlacement prop)
-        {
-            // Placement coordinates are authored on the same painting as the paving.
-            // Props grow on verges/patios, never as navigation obstacles added later.
-            return Point(prop.Position.X,prop.Position.Y);
-        }
+        public static TownPoint Growth(TownRegionId region,TownGrowthPlacement prop)=>prop.Position;
         public static bool TryPlace(string id,out TownPoint p)=>anchors.TryGetValue(id??"",out p);
     }
 }

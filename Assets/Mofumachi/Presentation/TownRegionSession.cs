@@ -228,7 +228,7 @@ namespace Mofumachi.Presentation
         {
             CancelJourneys();life.GetComponent<TownViewportView>()?.CancelGesture();
             var saved=new TownRegionActorSnapshot[actors.Count];
-            for(int i=0;i<actors.Count;i++)saved[i]=new TownRegionActorSnapshot(actors[i].CharacterId,new TownRegionLocation(actors[i].RegionId,new TownPoint(Math.Max(0,Math.Min(1,actors[i].Position.X)),Math.Max(0,Math.Min(1,actors[i].Position.Y)))),actors[i].DestinationId);
+            for(int i=0;i<actors.Count;i++)saved[i]=new TownRegionActorSnapshot(actors[i].CharacterId,new TownRegionLocation(actors[i].RegionId,World?.IsReady==true?actors[i].Position:new TownPoint(Math.Max(0,Math.Min(1,actors[i].Position.X)),Math.Max(0,Math.Min(1,actors[i].Position.Y)))),actors[i].DestinationId);
             var view=life.GetComponent<TownRegionView>();var centers=view==null?new[]{new TownPoint(.5f,.5f),new TownPoint(.5f,.5f),new TownPoint(.5f,.5f)}:view.CaptureCenters();
             return new TownRegionSnapshot(hero.CharacterId,ViewingRegion,saved,centers);
         }

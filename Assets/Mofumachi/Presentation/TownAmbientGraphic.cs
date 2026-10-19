@@ -35,7 +35,7 @@ namespace Mofumachi.Presentation
                 // animated highlights use that same map, not the old painting.
                 for(int i=0;i<6;i++)
                 {
-                    float t=Mathf.Repeat(phase*.4f+i/6f,1);var center=World.Local(TownWorldMap.Point(.52f,.455f),rectTransform);
+                    float t=Mathf.Repeat(phase*.4f+i/6f,1);var center=World.Local(new TownPoint(0,.18f+.102f/.202f*TownSceneryLayout.FountainHeight),rectTransform);
                     float width=(.025f+t*.085f)*World.RenderScale;
                     AddWorldRing(vertices,center,new Vector2(width,width*.28f),new Color(.87f,1,1,(1-t)*.42f));
                 }

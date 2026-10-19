@@ -18,20 +18,23 @@ namespace Mofumachi.Tests
             foreach(var actor in Flow.GetComponentsInChildren<TownActor>().Where(a=>a.RegionVisible))Assert.That(Vector2.Distance(((RectTransform)actor.transform).anchoredPosition,life.World.Local(actor.WorldPosition)),Is.LessThan(.02f));
             var entrance=TownWorldMap.Place("quest");var point=life.World.Local(entrance);var rect=(RectTransform)life.transform;var screen=RectTransformUtility.WorldToScreenPoint(null,rect.TransformPoint(point));var source=life.World.Source(screen,null);
             Assert.That(source.X,Is.EqualTo(entrance.X).Within(.0001f));Assert.That(source.Y,Is.EqualTo(entrance.Y).Within(.0001f));
+            float scale=TownWorldLayout.ScaleForViewport(rect.rect.width,rect.rect.height);var square=TownWorldMap.Place("square");
+            var expected=rect.rect.center+new Vector2((square.X-life.World.Camera.Center.X)*scale,(square.Y-life.World.Camera.Center.Y)*scale*TownWorldLayout.ImageAspect);
+            Assert.That(Vector2.Distance(life.World.Local(square),expected),Is.LessThan(.001f),"Actor projection must use the actual playable field, including its safe-area offsets");
             Assert.That(Flow.GetComponentInChildren<TownAmbientGraphic>().raycastTarget,Is.False);Assert.That(Flow.GetComponentInChildren<TownGrowthView>().VisibleStage,Is.EqualTo(Flow.Game.State.townGrowthLevel));Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(saved));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator EntranceMarkerRemainsFullyVisibleAfterCameraGuidance()
         {
             yield return EnterHome();var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;((RectTransform)canvas.transform).sizeDelta=new Vector2(360,592);
             Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,592),new Rect(0,24,360,536));Canvas.ForceUpdateCanvases();
-            var life=Flow.GetComponentInChildren<TownLifeView>();var camera=life.GetComponent<TownViewportView>();var background=Flow.TownBackground;
-            Vector2 Screen(float y)=>RectTransformUtility.WorldToScreenPoint(null,background.rectTransform.TransformPoint(new Vector2(0,background.rectTransform.rect.yMin+y*background.rectTransform.rect.height)));
+            var life=Flow.GetComponentInChildren<TownLifeView>();var camera=life.GetComponent<TownViewportView>();var field=(RectTransform)life.transform;
+            Vector2 Screen(float y)=>RectTransformUtility.WorldToScreenPoint(null,field.TransformPoint(new Vector2(field.rect.center.x,field.rect.yMin+y*field.rect.height)));
             camera.OnPointerDown(new PointerEventData(EventSystem.current){pointerId=5,position=Screen(.1f)});camera.OnDrag(new PointerEventData(EventSystem.current){pointerId=5,position=Screen(.9f)});camera.OnPointerUp(new PointerEventData(EventSystem.current){pointerId=5});camera.Advance(1f/30);
-            life.World.FastTravel(TownRegionId.West);Assert.That(life.GuideToFacility("quest"),Is.True);
+            life.World.FastTravel(TownDistrictId.North);Assert.That(life.GuideToFacility("quest"),Is.True);
             for(int i=0;i<1800&&life.Regions.HasHeroJourney;i++)life.AdvanceFrame(1f/30);
             Canvas.ForceUpdateCanvases();var root=(RectTransform)life.transform;var marker=life.GetComponentsInChildren<Button>().Single(b=>b.name=="Facility entrance quest");
             var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(root,marker.transform);
-            Assert.That(bounds.min.y,Is.GreaterThanOrEqualTo(root.rect.yMin));Assert.That(bounds.max.y,Is.LessThanOrEqualTo(root.rect.yMax));Assert.That(((RectTransform)marker.transform).rect.height,Is.GreaterThanOrEqualTo(48));LogAssert.NoUnexpectedReceived();
+            Assert.That(bounds.min.x,Is.GreaterThanOrEqualTo(root.rect.xMin));Assert.That(bounds.max.x,Is.LessThanOrEqualTo(root.rect.xMax));Assert.That(bounds.min.y,Is.GreaterThanOrEqualTo(root.rect.yMin));Assert.That(bounds.max.y,Is.LessThanOrEqualTo(root.rect.yMax));Assert.That(((RectTransform)marker.transform).rect.height,Is.GreaterThanOrEqualTo(48));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator ActorAndCameraGesturesHaveOneOwner()
         {

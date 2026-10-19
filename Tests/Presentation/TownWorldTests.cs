@@ -7,11 +7,12 @@ namespace Mofumachi.Tests
 {
     public sealed class TownWorldTests
     {
-        [Test] public void LegacyRegionTransformsKeepTheirVerticalCoordinatesAndRoundTrip()
+        [Test] public void LegacyRegionTransformsPlaceWestAndEastHorizontallyAndRoundTrip()
         {
             var p=new TownPoint(.4f,.5f);
-            var north=TownWorldLayout.ToWorld(TownRegionId.West,p);var center=TownWorldLayout.ToWorld(TownRegionId.Central,p);var south=TownWorldLayout.ToWorld(TownRegionId.East,p);
-            Assert.That(north.Y,Is.GreaterThan(center.Y));Assert.That(south.Y,Is.LessThan(center.Y));
+            var west=TownWorldLayout.ToWorld(TownRegionId.West,p);var center=TownWorldLayout.ToWorld(TownRegionId.Central,p);var east=TownWorldLayout.ToWorld(TownRegionId.East,p);
+            Assert.That(west.X,Is.LessThan(center.X));Assert.That(east.X,Is.GreaterThan(center.X));
+            Assert.That(west.Y,Is.EqualTo(center.Y));Assert.That(east.Y,Is.EqualTo(center.Y));
             foreach(TownRegionId r in Enum.GetValues(typeof(TownRegionId)))
             {var round=TownWorldLayout.ToLocal(r,TownWorldLayout.ToWorld(r,p));Assert.That(round.X,Is.EqualTo(p.X).Within(.00001));Assert.That(round.Y,Is.EqualTo(p.Y).Within(.00001));}
         }
@@ -47,9 +48,9 @@ namespace Mofumachi.Tests
                 Assert.That(TownCharacterDialogue.For(c.Id,9),Is.EqualTo(special));
             }
         }
-        [Test] public void PaintedConnectingRoadsContinueToTheNeighbourInsteadOfStoppingAtTheEdge()
+        [Test] public void SharedFloorContinuesToTheNeighbourInsteadOfStoppingAtTheEdge()
         {
-            var town=new TownWorldWalkModel(0,"momo");var road=TownWorldMap.Point(.37f,.52f);
+            var town=new TownWorldWalkModel(0,"momo");var road=new TownPoint(-.72f,0);
             Assert.That(town.Area.Contains(road),Is.True);
             Assert.That(town.Hero.Region,Is.EqualTo(TownRegionId.Central));Assert.That(TownWorldLayout.RegionAt(road),Is.EqualTo(TownRegionId.West));
             Assert.That(town.TryGuidePoint(road),Is.True);Assert.That(town.Hero.Target,Is.EqualTo(road),"Walking taps keep the actual point rather than jump to a distant painting");

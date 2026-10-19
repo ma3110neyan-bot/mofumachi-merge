@@ -35,11 +35,11 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator BuildingTapKeepsSelectionAndStreetTapReachesConnectedRoad()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var walking=life.GetComponent<TownStreetWalkView>();var hero=life.Actors.Single(a=>a.Controlled);
-            Assert.That(life.World.Model.Area.Contains(TownWorldMap.Point(.815f,.37f)),Is.False,"The fixture must target the painted florist building");
-            walking.Arm();Assert.That(walking.Tap(TownWorldMap.Point(.815f,.37f)),Is.False);Assert.That(walking.IsArmed,Is.True);Assert.That(hero.IsGuided,Is.False);
-            Assert.That(walking.Tap(TownWorldMap.Point(.59f,.65f)),Is.True);Walk(life);Assert.That(hero.IsGuided,Is.False);
-            Assert.That(life.World.Model.Area.Contains(TownWorldMap.Point(.59f,.65f)),Is.True);
-            Assert.That(Vector2.Distance(new Vector2(hero.WorldPosition.X,hero.WorldPosition.Y),new Vector2(TownWorldMap.Point(.59f,.65f).X,TownWorldMap.Point(.59f,.65f).Y)),Is.LessThan(.001f),"A valid floor tap keeps its position rather than snapping to a line");LogAssert.NoUnexpectedReceived();
+            Assert.That(life.World.Model.Area.Contains(new TownPoint(1.2f,.40f)),Is.False,"The fixture must target the florist foundation");
+            walking.Arm();Assert.That(walking.Tap(new TownPoint(1.2f,.40f)),Is.False);Assert.That(walking.IsArmed,Is.True);Assert.That(hero.IsGuided,Is.False);
+            Assert.That(walking.Tap(new TownPoint(.28f,-.05f)),Is.True);Walk(life);Assert.That(hero.IsGuided,Is.False);
+            Assert.That(life.World.Model.Area.Contains(new TownPoint(.28f,-.05f)),Is.True);
+            Assert.That(Vector2.Distance(new Vector2(hero.WorldPosition.X,hero.WorldPosition.Y),new Vector2(new TownPoint(.28f,-.05f).X,new TownPoint(.28f,-.05f).Y)),Is.LessThan(.001f),"A valid floor tap keeps its position rather than snapping to a line");LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator PanningDoesNotBecomeATapAndPauseClearsSelection()
         {
@@ -60,7 +60,7 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator DestinationsCancelBothDirectWalkingAndArmedSelection()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var walking=life.GetComponent<TownStreetWalkView>();var hero=life.Actors.Single(a=>a.Controlled);
-            walking.Arm();Assert.That(walking.Tap(TownWorldMap.Point(.59f,.65f)),Is.True);Assert.That(hero.IsGuided,Is.True);life.OpenOutings();
+            walking.Arm();Assert.That(walking.Tap(new TownPoint(.28f,-.05f)),Is.True);Assert.That(hero.IsGuided,Is.True);life.OpenOutings();
             Assert.That(HasOutings(),Is.True);Assert.That(hero.IsGuided,Is.False);Assert.That(hero.Movement.OwnedPointerId,Is.Null);var point=hero.Position;
             for(int i=0;i<12;i++)life.AdvanceFrame(1f/30);Assert.That(hero.Position,Is.EqualTo(point));
             Flow.GoBack();Assert.That(HasOutings(),Is.False);walking.Arm();life.OpenOutings();Assert.That(walking.IsArmed,Is.False);Assert.That(HasOutings(),Is.True);Flow.GoBack();
@@ -69,7 +69,7 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator RejectedSecondFingerCannotTurnItsClickIntoAWalk()
         {
             yield return EnterHome();var life=FrameTownPortrait();var walking=life.GetComponent<TownStreetWalkView>();var camera=life.GetComponent<TownViewportView>();walking.Arm();
-            var local=life.World.Local(TownWorldMap.Point(.59f,.65f));var screen=RectTransformUtility.WorldToScreenPoint(null,life.transform.TransformPoint(local));
+            var local=life.World.Local(new TownPoint(.28f,-.05f));var screen=RectTransformUtility.WorldToScreenPoint(null,life.transform.TransformPoint(local));
             var first=new PointerEventData(EventSystem.current){pointerId=51,position=screen};var second=new PointerEventData(EventSystem.current){pointerId=52,position=screen};
             camera.OnPointerDown(first);camera.OnPointerDown(second);camera.OnPointerUp(second);camera.OnPointerClick(second);
             Assert.That(camera.OwnedPointerId,Is.EqualTo(51));Assert.That(life.Actors.Single(a=>a.Controlled).IsGuided,Is.False);Assert.That(walking.IsArmed,Is.True);

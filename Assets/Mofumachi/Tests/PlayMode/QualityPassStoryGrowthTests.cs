@@ -41,9 +41,9 @@ namespace Mofumachi.Tests
                 foreach(TownRegionId region in System.Enum.GetValues(typeof(TownRegionId)))
                 {
                     life.Regions.LookAtRegion(region);growth.Apply(0);Assert.That(Flow.GetComponentsInChildren<TownGrowthPropGraphic>().Length,Is.Zero);
-                    growth.Apply(1);Assert.That(growth.GetComponentsInChildren<TownGrowthPropGraphic>().Any(p=>p.Region==region&&p.Prop==TownGrowthProp.Flowers),Is.True,region+" first flowers at height "+height);
-                    growth.Apply(3);Assert.That(growth.GetComponentsInChildren<TownGrowthPropGraphic>().Any(p=>p.Region==region&&p.Prop==TownGrowthProp.Lamp),Is.True,region+" new lamp at height "+height);
-                    growth.Apply(6);var props=growth.GetComponentsInChildren<TownGrowthPropGraphic>(true).Where(p=>p.Region==region).ToArray();
+                    growth.Apply(1);Assert.That(life.GetComponentsInChildren<TownGrowthPropGraphic>().Any(p=>p.Region==region&&p.Prop==TownGrowthProp.Flowers),Is.True,region+" first flowers at height "+height);
+                    growth.Apply(3);Assert.That(life.GetComponentsInChildren<TownGrowthPropGraphic>().Any(p=>p.Region==region&&p.Prop==TownGrowthProp.Lamp),Is.True,region+" new lamp at height "+height);
+                    growth.Apply(6);var props=life.GetComponentsInChildren<TownGrowthPropGraphic>(true).Where(p=>p.Region==region).ToArray();
                     Assert.That(props.Length,Is.EqualTo(TownGrowthPresentation.For(region,6).Count));Assert.That(props.Length,Is.GreaterThanOrEqualTo(12));
                     Assert.That(props.All(p=>!p.raycastTarget),Is.True);Assert.That(props.Any(p=>p.gameObject.activeInHierarchy),Is.True,region+" must show growth at height "+height);
                 }

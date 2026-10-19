@@ -10,20 +10,32 @@ namespace Mofumachi.Tests
 {
     public sealed class SeamlessFieldTests:SliceUiTestFixture
     {
-        [UnityTest] public IEnumerator OneOpaqueAuthoredMapReplacesAllThreeFadedPaintings()
+        [UnityTest] public IEnumerator OneSharedGroundAndFiveLandmarksReplaceTheOpaquePainting()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();
-            var map=Flow.GetComponentsInChildren<RawImage>().Single(i=>i.name=="Seamless town map");
-            Assert.That(map.texture,Is.SameAs(Resources.Load<Texture2D>(TownWorldMap.Resource)));Assert.That(map.color.a,Is.EqualTo(1));Assert.That(map.raycastTarget,Is.False);
+            var ground=Flow.GetComponentsInChildren<TownGroundGraphic>().Single();
+            Assert.That(ground.mainTexture,Is.SameAs(Resources.Load<Texture2D>(TownWorldSurface.AtlasResource)));Assert.That(ground.color.a,Is.EqualTo(1));Assert.That(ground.raycastTarget,Is.False);
+            var scenery=life.GetComponent<TownSceneryView>();var landmarks=scenery.Pieces.Where(p=>p.Placement.Kind<=TownSceneryKind.Gazebo).ToArray();
+            Assert.That(landmarks.Select(p=>p.Placement.Kind),Is.EquivalentTo(new[]{TownSceneryKind.Cafe,TownSceneryKind.Florist,TownSceneryKind.QuestCottage,TownSceneryKind.Gazebo}));
+            foreach(var landmark in landmarks)
+            {var graphic=landmark.Rect.GetComponent<TownLandmarkGraphic>();Assert.That(graphic.mainTexture,Is.SameAs(Resources.Load<Texture2D>(TownSceneryLayout.LandmarkResource)));Assert.That(graphic.raycastTarget,Is.False);}
+            var fountain=life.GetComponentsInChildren<TownFountainGraphic>().Single();Assert.That(fountain.mainTexture,Is.SameAs(Resources.Load<Texture2D>(TownWorldMap.Resource)));Assert.That(fountain.raycastTarget,Is.False);
+            Assert.That(Flow.GetComponentsInChildren<RawImage>(true).Any(i=>i.name=="Seamless town map"||i.texture==Resources.Load<Texture2D>(TownWorldMap.Resource)),Is.False,"The old map supplies only the small fountain silhouette");
             Assert.That(Flow.GetComponentsInChildren<Transform>().Any(t=>t.name.StartsWith("Continuous background")),Is.False);
-            foreach(var region in new[]{TownRegionId.West,TownRegionId.Central,TownRegionId.East})
-            {life.World.FastTravel(region);life.AdvanceFrame(1f/30);Assert.That(life.World.VisibleBackgroundCount,Is.EqualTo(1));Assert.That(life.World.Model.Area.Contains(life.World.Model.Hero.Position),Is.True);}
+            foreach(var district in TownDistrictLayout.All)
+            {
+                life.World.FastTravel(district);life.AdvanceFrame(1f/30);Assert.That(life.World.VisibleBackgroundCount,Is.EqualTo(1));Assert.That(life.World.Model.Hero.District,Is.EqualTo(district));Assert.That(life.World.Model.Area.Contains(life.World.Model.Hero.Position),Is.True);
+                if(district!=TownDistrictId.Central)Assert.That(landmarks.Single(p=>p.Placement.District==district).Rect.gameObject.activeInHierarchy,Is.True,"The destination landmark must actually be drawn");
+            }
             var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;
             foreach(int height in new[]{592,808,1280})
             {
                 ((RectTransform)canvas.transform).sizeDelta=new Vector2(360,height);Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,height),new Rect(0,24,360,height-56));Canvas.ForceUpdateCanvases();life.World.Refresh();Canvas.ForceUpdateCanvases();
-                var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(Flow.TownBackground.rectTransform,map.transform);var viewport=Flow.TownBackground.rectTransform.rect;
-                Assert.That(bounds.min.x,Is.LessThanOrEqualTo(viewport.xMin+.01f));Assert.That(bounds.max.x,Is.GreaterThanOrEqualTo(viewport.xMax-.01f));Assert.That(bounds.min.y,Is.LessThanOrEqualTo(viewport.yMin+.01f));Assert.That(bounds.max.y,Is.GreaterThanOrEqualTo(viewport.yMax-.01f));
+                var mesh=ground.canvasRenderer.GetMesh();Assert.That(mesh.vertexCount,Is.GreaterThan(0));
+                var vertices=mesh.vertices.Select(v=>life.transform.InverseTransformPoint(ground.transform.TransformPoint(v))).ToArray();var viewport=((RectTransform)life.transform).rect;
+                Assert.That(vertices.Min(v=>v.x),Is.LessThanOrEqualTo(viewport.xMin+.01f));Assert.That(vertices.Max(v=>v.x),Is.GreaterThanOrEqualTo(viewport.xMax-.01f));Assert.That(vertices.Min(v=>v.y),Is.LessThanOrEqualTo(viewport.yMin+.01f));Assert.That(vertices.Max(v=>v.y),Is.GreaterThanOrEqualTo(viewport.yMax-.01f));
+                var fieldCenter=RectTransformUtility.WorldToScreenPoint(null,life.transform.TransformPoint(viewport.center));var source=life.World.Source(fieldCenter,null);
+                Assert.That(source.X,Is.EqualTo(life.World.Camera.Center.X).Within(.0001f));Assert.That(source.Y,Is.EqualTo(life.World.Camera.Center.Y).Within(.0001f),"Projection must use the playable field center after safe-area resizing");
             }
             var guideSpot=TownWorldMap.Place("west.meeting");life.World.Model.Restore(life.World.Model.Hero.Id,guideSpot);life.World.ReturnToHero();
             Assert.That(TownWorldLayout.Distance(life.World.Model.Hero.Position,guideSpot),Is.LessThan(.001f));
@@ -71,14 +83,14 @@ namespace Mofumachi.Tests
             facility.RequestEnter("quest");Flow.SendMessage("OnApplicationPause",true);Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Idle));Flow.SendMessage("OnApplicationPause",false);
             Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(Flow.IsModalOpen,Is.False);LogAssert.NoUnexpectedReceived();
         }
-        [UnityTest] public IEnumerator HomeMenuQuestNavigationIsARealWesternDestination()
+        [UnityTest] public IEnumerator HomeMenuQuestNavigationIsARealNorthernDestination()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();int writes=Store.Writes;
             Assert.That(Flow.GetComponentsInChildren<Button>().Any(b=>b.name=="Nav Quest"),Is.False);
             TownMenuButton("Nav Quest").onClick.Invoke();Assert.That(Flow.IsModalOpen,Is.False);
             Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(life.World.Model.Hero.PlaceId,Is.EqualTo("quest"));
             for(int i=0;i<2400&&life.Regions.HasHeroJourney;i++)life.AdvanceFrame(1f/30);
-            Assert.That(life.World.Model.Hero.Region,Is.EqualTo(TownRegionId.West));Assert.That(life.NearbyFacility,Is.EqualTo("quest"));Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();
+            Assert.That(life.World.Model.Hero.Region,Is.EqualTo(TownRegionId.Central));Assert.That(life.World.Model.Hero.District,Is.EqualTo(TownDistrictId.North));Assert.That(life.NearbyFacility,Is.EqualTo("quest"));Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator CandidateCardsExposeEightSecondPreviewAndRealSceneListening()
         {

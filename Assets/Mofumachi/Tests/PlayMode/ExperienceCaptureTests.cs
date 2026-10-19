@@ -73,10 +73,10 @@ namespace Mofumachi.Tests
                 Flow.Game.State.mergeBoard.Clear();int cell=0;
                 foreach(var item in ItemCatalog.All)for(int level=1;level<=3;level++)Flow.Game.State.mergeBoard.Add(new BoardItem(item.Id,level,cell++));
                 Flow.ShowMerge();Capture(output,"02-merge-all-items");Flow.TapCell(0);Capture(output,"03-merge-selection");
-                foreach(int level in new[]{1,3,6})foreach(TownRegionId region in Enum.GetValues(typeof(TownRegionId)))
+                foreach(int level in new[]{1,3,6})foreach(var district in TownDistrictLayout.All)
                 {
-                    Flow.Game.State.townGrowthLevel=level;Flow.ShowHome();var life=Flow.GetComponentInChildren<TownLifeView>();life.Regions.LookAtRegion(region);yield return null;Canvas.ForceUpdateCanvases();
-                    Capture(output,"04-town-lv"+level+"-"+region);
+                    Flow.Game.State.townGrowthLevel=level;Flow.ShowHome();var life=Flow.GetComponentInChildren<TownLifeView>();life.World.LookAt(district);yield return null;Canvas.ForceUpdateCanvases();
+                    Capture(output,"04-town-lv"+level+"-"+district);
                 }
                 Flow.ShowHome();var town=Flow.GetComponentInChildren<TownLifeView>();town.Regions.ReturnToHero();town.GetComponent<TownStreetWalkView>().Arm();Capture(output,"05-street-selected");
                 town.GuideToPlace("fountain");
@@ -84,7 +84,7 @@ namespace Mofumachi.Tests
                 Flow.ShowQuest();Capture(output,"07-quest-story-goal");Flow.ShowSettings();
                 var scroll=Flow.GetComponentsInChildren<ScrollRect>().Single();scroll.verticalNormalizedPosition=.12f;Canvas.ForceUpdateCanvases();Capture(output,"08-music-selection");
                 Flow.GoBack();Flow.ShowHome();town=Flow.GetComponentInChildren<TownLifeView>();
-                foreach(var seam in new[]{("west",TownWorldMap.Point(.36f,.53f)),("east",TownWorldMap.Point(.69f,.59f))})
+                foreach(var seam in new[]{("west",new TownPoint(-.60f,0)),("east",new TownPoint(.60f,0)),("north",new TownPoint(0,1)),("south",new TownPoint(0,-1))})
                 {town.World.Camera.Jump(seam.Item2);town.World.Refresh();Canvas.ForceUpdateCanvases();Capture(output,"09-connected-path-"+seam.Item1);}
                 Flow.ShowCharacterSelection();
                 foreach(var character in CharacterCatalog.All){Flow.PreviewFavorite(character.Id);var bookScroll=Flow.GetComponentsInChildren<ScrollRect>().Single();bookScroll.verticalNormalizedPosition=.85f;Canvas.ForceUpdateCanvases();Capture(output,"10-book-"+character.Id);}
@@ -95,19 +95,19 @@ namespace Mofumachi.Tests
                 // Major Polish: same native renderer, actual simulation and actual
                 // pointer handlers. These are fixture captures, never Pixel claims.
                 Flow.ShowHome();town=Flow.GetComponentInChildren<TownLifeView>();
-                foreach(var side in new[]{("left",TownWorldMap.Point(.36f,.53f)),("right",TownWorldMap.Point(.69f,.59f))})
+                foreach(var side in new[]{("left",new TownPoint(-.30f,.30f)),("right",new TownPoint(.30f,.30f))})
                 {town.World.Model.Restore("momo",side.Item2);town.World.Camera.Jump(TownWorldMap.Place("square"));town.World.Refresh();town.AdvanceFrame(1f/30);Capture(output,"15-wide-park-"+side.Item1);}
-                town.World.Model.Restore("momo",TownWorldMap.Point(.44f,.72f));town.World.Model.Restore("lulu",TownWorldMap.Point(.60f,.72f));town.World.Model.TryGuidePoint(TownWorldMap.Point(.63f,.74f));town.World.Model.TryGuide("lulu","bench-left");
+                town.World.Model.Restore("momo",new TownPoint(-.30f,-.20f));town.World.Model.Restore("lulu",new TownPoint(.30f,-.20f));town.World.Model.TryGuidePoint(new TownPoint(.40f,-.20f));town.World.Model.TryGuide("lulu","flowers");
                 for(int frame=0;frame<4;frame++){for(int step=0;step<30;step++)town.AdvanceFrame(1f/30);Capture(output,"16-residents-passing-"+frame.ToString("D2"));}
                 town.World.Model.FastTravel(TownRegionId.Central);town.AdvanceFrame(1f/30);EnsurePortraitCamera();
                 var controlled=town.Actors.Single(a=>a.Controlled);var drag=new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current){pointerId=777};
                 drag.pointerPressRaycast=new UnityEngine.EventSystems.RaycastResult{module=captureCanvas.GetComponent<GraphicRaycaster>()};
                 controlled.OnPointerDown(drag);controlled.OnBeginDrag(drag);
-                drag.position=RectTransformUtility.WorldToScreenPoint(captureCamera,town.transform.TransformPoint(town.World.Local(TownWorldMap.Point(.65f,.72f))));controlled.OnDrag(drag);
+                drag.position=RectTransformUtility.WorldToScreenPoint(captureCamera,town.transform.TransformPoint(town.World.Local(new TownPoint(.40f,-.15f))));controlled.OnDrag(drag);
                 for(int frame=0;frame<3;frame++){for(int step=0;step<20;step++)town.AdvanceFrame(1f/30);Capture(output,"17-finger-follow-"+frame.ToString("D2"));}
                 controlled.OnPointerUp(drag);for(int step=0;step<15;step++)town.AdvanceFrame(1f/30);Capture(output,"17-finger-released");
                 town.World.FastTravel(TownRegionId.West);Assert.That(town.GuideToPlace("east.flowers"),Is.True);
-                var checkpoints=new[]{("west",-.07f),("west-join",.17f),("central",.56f),("east-join",1.07f),("east",1.40f)};
+                var checkpoints=new[]{("west",-1.20f),("west-join",-.60f),("central",0f),("east-join",.60f),("east",1.20f)};
                 foreach(var checkpoint in checkpoints)
                 {
                     for(int step=0;step<6000&&town.World.Model.Hero.IsWalking&&town.World.Model.Hero.Position.X<checkpoint.Item2;step++)town.AdvanceFrame(1f/30);
@@ -120,7 +120,7 @@ namespace Mofumachi.Tests
                 // repositioned actors or generated mockups of a future screen.
                 foreach(string facilityId in new[]{"quest","shop"})
                 {
-                    Flow.ShowHome();town=Flow.GetComponentInChildren<TownLifeView>();town.World.FastTravel(facilityId=="quest"?TownRegionId.West:TownRegionId.East);
+                    Flow.ShowHome();town=Flow.GetComponentInChildren<TownLifeView>();town.World.FastTravel(facilityId=="quest"?TownDistrictId.North:TownDistrictId.East);
                     string prefix=facilityId=="quest"?"20-quest":"21-shop";Capture(output,prefix+"-cabin");
                     var facility=town.GetComponent<TownFacilityView>();Assert.That(facility.RequestEnter(facilityId),Is.True);
                     for(int step=0;step<18;step++)town.AdvanceFrame(1f/30);Capture(output,prefix+"-walking");
@@ -147,11 +147,21 @@ namespace Mofumachi.Tests
                 var representative=town.Actors.Single(a=>a.Controlled);for(int step=0;step<30;step++)town.AdvanceFrame(1f/30);Capture(output,"25-character-idle");
                 Assert.That(town.World.GuidePlace("bench-right"),Is.True);for(int step=0;step<8;step++)town.AdvanceFrame(1f/30);Capture(output,"25-character-step-a");
                 for(int step=0;step<12;step++)town.AdvanceFrame(1f/30);Capture(output,"25-character-step-b");typeof(TownActor).GetMethod("Surprise",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).Invoke(representative,null);for(int step=0;step<4;step++)town.AdvanceFrame(1f/30);Capture(output,"25-character-greeting");
-                foreach(var depth in new[]{("behind",TownWorldMap.Point(.52f,.395f)),("in-front",TownWorldMap.Point(.52f,.60f))})
+                foreach(var depth in new[]{("behind",new TownPoint(0,.53f)),("in-front",new TownPoint(0,.06f))})
                 {town.World.Model.Restore(representative.CharacterId,depth.Item2);town.World.ReturnToHero();town.AdvanceFrame(1f/30);Capture(output,"25-character-"+depth.Item1+"-fountain");}
-                string[] art={"TownBackground","TownWestBackground","TownEastBackground","CharacterBodyAtlas","TownGrowthPropsAtlas","TownGardenSurface","TownSeamlessMap","TownStreetPropsAtlas"};
+                foreach(var district in new[]{TownDistrictId.North,TownDistrictId.South})
+                {
+                    town.World.FastTravel(TownDistrictId.Central);Assert.That(town.World.GuideDistrict(district),Is.True);
+                    bool north=district==TownDistrictId.North;float direction=north?1:-1;
+                    for(int step=0;step<5000&&town.World.Model.Hero.IsWalking&&town.World.Model.Hero.Position.Y*direction<.99f;step++)town.AdvanceFrame(1f/30);
+                    Assert.That(town.World.Model.Hero.Position.Y*direction,Is.GreaterThanOrEqualTo(.99f));Capture(output,"26-cardinal-"+district+"-join");
+                    for(int step=0;step<5000&&town.World.Model.Hero.IsWalking;step++)town.AdvanceFrame(1f/30);
+                    Assert.That(town.World.Model.Hero.District,Is.EqualTo(district));Assert.That(town.World.Model.Hero.IsWalking,Is.False);Capture(output,"26-cardinal-"+district+"-arrival");
+                }
+                Flow.ShowMerge();Flow.TapCell(0);Capture(output,"27-merge-finale-live-purpose");
+                string[] art={"TownBackground","TownWestBackground","TownEastBackground","CharacterBodyAtlas","TownGrowthPropsAtlas","TownGardenSurface","TownSeamlessMap","TownStreetPropsAtlas","TownLandmarksAtlas","TownNatureAtlas"};
                 File.WriteAllLines(Path.Combine(output,"texture-memory.txt"),art.Select(key=>key+": "+UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(Resources.Load<Texture2D>("Mofumachi/"+key))+" bytes"));
-                File.WriteAllText(Path.Combine(output,"README.txt"),"Actual Unity UGUI RenderTexture captures, 720x1280. Isolated test-only save state; not Pixel 3a captures. 77 PNG: complete east-west/compact-UI/flat-Merge/acoustic-POP bundle. Level/item/book states are fixtures, not claims of completed gameplay. 15wide-floor positions;16passing frames;17actual pointer-handler following/release;18west-through-central-to-east continuous simulation with camera following;19book discovery. 20/21 actual facility walking, opening and entry;22 candidate UI;23 actual role playback screens including POP;24 collapsed/open/returned menu;25 resident idle/walking/reaction. 30Hz simulation, not measured device FPS. Stable region/place/save IDs retained. Texture memory is Editor asset residency, not Pixel RAM. Pixel save retention, audio, 10minuteplay and subjective quality still require acceptance.\n");
+                File.WriteAllText(Path.Combine(output,"README.txt"),"Actual Unity UGUI RenderTexture captures, 720x1280. Isolated test-only save state; not Pixel 3a captures. 90 PNG: five full plazas/shared ground/compact UI/reference-led flat Merge bundle. Level/item/book states are fixtures, not claims of completed gameplay. 15wide-floor positions;16passing frames;17actual pointer-handler following/release;18west-through-central-to-east continuous simulation with camera following;19book discovery. 20/21 actual facility walking, opening and entry;22 candidate UI;23 actual role playback screens including POP;24 collapsed/open/returned menu;25 resident idle/walking/reaction;26 continuous North/South joins and arrivals;27 finale live daily-purpose Merge. Three growth stages in each of five independent plazas, four shared boundary views. Building/ground sprite layers are product code, not a stretched world painting. 30Hz simulation, not measured device FPS. Stable region/place/save IDs retained. Texture memory is Editor asset residency, not Pixel RAM. Pixel save retention, audio, 10minuteplay and subjective quality still require acceptance.\n");
             }
             LogAssert.NoUnexpectedReceived();
         }

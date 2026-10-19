@@ -23,7 +23,7 @@ namespace Mofumachi.Tests
             var pointer=new PointerEventData(EventSystem.current){pointerId=-1,position=RectTransformUtility.WorldToScreenPoint(null,hero.transform.position)};
             var hits=new System.Collections.Generic.List<RaycastResult>();EventSystem.current.RaycastAll(pointer,hits);Assert.That(hits.Any(h=>h.gameObject.GetComponentInParent<TownActor>()==hero),Is.True);
             ExecuteEvents.Execute(hero.gameObject,pointer,ExecuteEvents.pointerDownHandler);Assert.That(hero.Movement.OwnedPointerId,Is.EqualTo(-1));
-            hero.OnDrag(new PointerEventData(EventSystem.current){pointerId=-1,position=RectTransformUtility.WorldToScreenPoint(null,lifePoint(hero,TownWorldMap.Place("quest")))});yield return new WaitForSecondsRealtime(.3f);Assert.That(hero.WorldPosition.X,Is.LessThan(TownWorldMap.Place("square").X));Assert.That(Flow.GetComponentInChildren<TownLifeView>().World.Model.Area.Contains(hero.WorldPosition),Is.True);
+            hero.OnDrag(new PointerEventData(EventSystem.current){pointerId=-1,position=RectTransformUtility.WorldToScreenPoint(null,lifePoint(hero,TownWorldMap.Place("quest")))});yield return new WaitForSecondsRealtime(.3f);Assert.That(hero.WorldPosition.Y,Is.GreaterThan(TownWorldMap.Place("square").Y));Assert.That(Flow.GetComponentInChildren<TownLifeView>().World.Model.Area.Contains(hero.WorldPosition),Is.True);
             ExecuteEvents.Execute(hero.gameObject,pointer,ExecuteEvents.pointerUpHandler);Assert.That(hero.Movement.OwnedPointerId,Is.Null);
             Assert.That(actors.Where(a=>!a.Controlled).All(a=>a.Movement==null),Is.True);Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));LogAssert.NoUnexpectedReceived();
         }
@@ -82,7 +82,7 @@ namespace Mofumachi.Tests
             // Keep real actor visibility independent of the Editor's current Game view.
             var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;((RectTransform)canvas.transform).sizeDelta=new Vector2(360,740);
             Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,740),new Rect(0,24,360,684));Canvas.ForceUpdateCanvases();
-            var life=Flow.GetComponentInChildren<TownLifeView>();life.World.Refresh();var npc=life.Actors.First(a=>!a.Controlled&&a.RegionVisible);
+            var life=Flow.GetComponentInChildren<TownLifeView>();life.Regions.LookAtRegion(TownRegionId.West);life.World.Refresh();var npc=life.Actors.First(a=>!a.Controlled&&a.RegionVisible);
             int writes=Store.Writes;string before=StateCodec.Encode(Flow.Game.State);var visited=new System.Collections.Generic.HashSet<string>();
             for(int i=0;i<1200;i++)
             {

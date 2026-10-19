@@ -20,7 +20,7 @@ namespace Mofumachi.Presentation
         private void Refresh()
         {
             if(life==null||session==null||heading==null)return;
-            string text=TownWorldLayout.Name(life.World?.IsReady==true?life.World.Model.Hero.Region:session.ViewingRegion)+(life.World?.Model?.Hero.IsWalking==true?" · おさんぽ♪":"");
+            string text=(life.World?.IsReady==true?TownDistrictLayout.Name(life.World.Model.Hero.District):TownWorldLayout.Name(session.ViewingRegion))+(life.World?.Model?.Hero.IsWalking==true?" · おさんぽ♪":"");
             if(previous==text)return;previous=text;heading.text=text;
         }
         private void OnDisable(){if(session!=null)session.RegionChanged-=RegionChanged;}

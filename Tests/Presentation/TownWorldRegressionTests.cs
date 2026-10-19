@@ -27,7 +27,7 @@ namespace Mofumachi.Tests
             var p=TownWorldMap.Place("square");
             Assert.That(TownWorldLayout.WithinConversationRange(p,new TownPoint(p.X+.20f,p.Y),360,62),Is.True);
             Assert.That(TownWorldLayout.WithinConversationRange(p,new TownPoint(p.X+.20f,p.Y),720,62),Is.False,"Do not converse across more than the bodies' visual spacing");
-            Assert.That(TownWorldLayout.WithinConversationRange(p,new TownPoint(p.X,p.Y+.28f),360,62),Is.False,"Conversation distance uses the map's actual projection");
+            Assert.That(TownWorldLayout.WithinConversationRange(p,new TownPoint(p.X,p.Y+.30f),360,62),Is.False,"Conversation distance uses the map's actual projection");
             Assert.That(TownWorldLayout.WithinConversationRange(p,new TownPoint(float.NaN,1.3f),360,62),Is.False);
             Assert.That(TownWorldLayout.WithinConversationRange(p,p,0,62),Is.False);
         }

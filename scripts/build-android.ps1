@@ -12,7 +12,7 @@ function Assert-TestRun([string]$ResultPath,[int]$MinimumTests,[string[]]$Requir
     foreach($Suite in $RequiredSuites) {
         if(@($Results.SelectNodes('//test-suite') | Where-Object { $_.GetAttribute('name') -eq $Suite -and $_.GetAttribute('result') -eq 'Passed' -and $_.SelectNodes('.//test-case').Count -gt 0 }).Count -eq 0) { throw "Missing passed suite: $Suite" }
     }
-    foreach($Gate in @(@{Name='DailyWorldTests';Count=10},@{Name='MajorPolishTests';Count=6},@{Name='SeamlessFieldTests';Count=7},@{Name='EastWestHomeTests';Count=4},@{Name='ResidentPresenceTests';Count=4})) {
+    foreach($Gate in @(@{Name='DailyWorldTests';Count=10},@{Name='MajorPolishTests';Count=6},@{Name='SeamlessFieldTests';Count=7},@{Name='EastWestHomeTests';Count=4},@{Name='ResidentPresenceTests';Count=4},@{Name='FivePlazaTests';Count=5})) {
         if($Gate.Name -in $RequiredSuites) {
             $Suite=$Results.SelectNodes('//test-suite') | Where-Object {$_.GetAttribute('name') -eq $Gate.Name} | Select-Object -First 1
             if($Suite.SelectNodes('.//test-case').Count -ne $Gate.Count){throw "Incomplete suite: $($Gate.Name), expected $($Gate.Count) cases."}
@@ -55,8 +55,8 @@ function Read-SourceRevision([string]$RepositoryPath) {
 }
 function Assert-NativeCaptures([string]$Directory) {
     $Images=@(Get-ChildItem -LiteralPath $Directory -Filter '*.png' -File -ErrorAction SilentlyContinue)
-    if($Images.Count -lt 77){throw "Native captures incomplete: $($Images.Count)/77. Inspect the same-run PlayMode log."}
-    foreach($Name in @('15-wide-park-left','15-wide-park-right','16-residents-passing-00','17-finger-follow-00','17-finger-released','18-continuous-walk-west','18-continuous-walk-central','18-continuous-walk-east','19-book-new-in-town','19-book-discovery-first-page','20-quest-cabin','20-quest-door-opening','20-quest-inside','21-shop-cabin','21-shop-door-opening','21-shop-inside','22-title-candidates','22-merge-candidates','23-title-letter','23-title-garden','23-merge-picnic','23-merge-ribbon','23-merge-pop-promenade','24-home-unobstructed','24-menu-open','24-menu-return','25-character-idle','25-character-step-a','25-character-step-b','25-character-greeting','25-character-behind-fountain','25-character-in-front-fountain')) {
+    if($Images.Count -lt 90){throw "Native captures incomplete: $($Images.Count)/90. Inspect the same-run PlayMode log."}
+    foreach($Name in @('15-wide-park-left','15-wide-park-right','16-residents-passing-00','17-finger-follow-00','17-finger-released','18-continuous-walk-west','18-continuous-walk-central','18-continuous-walk-east','19-book-new-in-town','19-book-discovery-first-page','20-quest-cabin','20-quest-door-opening','20-quest-inside','21-shop-cabin','21-shop-door-opening','21-shop-inside','22-title-candidates','22-merge-candidates','23-title-letter','23-title-garden','23-merge-picnic','23-merge-ribbon','23-merge-pop-promenade','24-home-unobstructed','24-menu-open','24-menu-return','25-character-idle','25-character-step-a','25-character-step-b','25-character-greeting','25-character-behind-fountain','25-character-in-front-fountain','04-town-lv1-North','04-town-lv1-South','04-town-lv6-North','04-town-lv6-South','09-connected-path-north','09-connected-path-south','26-cardinal-North-join','26-cardinal-North-arrival','26-cardinal-South-join','26-cardinal-South-arrival','27-merge-finale-live-purpose')) {
         if(-not(Test-Path -LiteralPath (Join-Path $Directory ($Name+'.png')) -PathType Leaf)){throw "Missing native capture: $Name"}
     }
     foreach($Image in $Images) {
@@ -71,6 +71,25 @@ function Assert-NativeCaptures([string]$Directory) {
 }
 function Assert-SourceUnchanged([string]$RepositoryPath,[string]$ExpectedRevision) {
     if((Read-SourceRevision $RepositoryPath) -ne $ExpectedRevision){throw 'Source commit changed during acceptance; repeat the same-run tests and build.'}
+}
+function Write-NativeReviewArchives([string]$Directory) {
+    # Keep review uploads under 32 MiB without asking the player to copy a long
+    # packing command. APK bytes stay in the run directory, outside review ZIPs.
+    $Files=@(foreach($Name in @('editmode.xml','playmode.xml','build-info.json','capture-manifest.json','android-build.log','playmode.log','screenshots/texture-memory.txt','screenshots/README.txt')) {
+        $Path=Join-Path $Directory $Name
+        if(Test-Path -LiteralPath $Path -PathType Leaf){Get-Item -LiteralPath $Path}
+    })+@(Get-ChildItem -LiteralPath (Join-Path $Directory 'screenshots') -Filter '*.png' -File | Sort-Object Name)
+    $Batch=New-Object 'System.Collections.Generic.List[string]';$Bytes=0L;$Part=1
+    foreach($File in $Files) {
+        if($File.Length -gt 20MB){throw "Review file exceeds upload budget: $($File.FullName)"}
+        if($Batch.Count -gt 0 -and $Bytes+$File.Length -gt 20MB) {
+            Compress-Archive -LiteralPath $Batch.ToArray() -DestinationPath (Join-Path $Directory ('five-plaza-review-{0:D2}.zip' -f $Part)) -Force
+            $Part++;$Batch.Clear();$Bytes=0L
+        }
+        $Batch.Add($File.FullName);$Bytes+=$File.Length
+    }
+    if($Batch.Count -gt 0){Compress-Archive -LiteralPath $Batch.ToArray() -DestinationPath (Join-Path $Directory ('five-plaza-review-{0:D2}.zip' -f $Part)) -Force}
+    Write-Host "Review ZIPs: $Directory\five-plaza-review-*.zip (Unity fixture images; Pixel acceptance pending)."
 }
 function Find-SourceGit {
     foreach($Name in @('git.exe','git')) {
@@ -137,7 +156,7 @@ Assert-ProductUnchanged $ProjectPath $GitRevision $ProductFingerprint
 $PlayXml=Join-Path $OutputDir 'playmode.xml'
 Write-Host '[2/4] Running all PlayMode tests and capturing native Unity images...'
 Invoke-Unity @('-batchmode','-projectPath',$ProjectPath,'-buildTarget','Android','-runTests','-testPlatform','PlayMode','-testResults',$PlayXml,'-mofumachiScreenshots',(Join-Path $OutputDir 'screenshots'),'-logFile',(Join-Path $OutputDir 'playmode.log'))
-Assert-TestRun $PlayXml 174 @('VerticalSliceFlowTests','LayoutNoticeTests','AudioManagerTests','MergeInteractionTests','RewardGrowthTests','SettingsScreenTests','PopPresentationTests','CharacterSelectionTests','MultiQuestPresentationTests','TownLifeTests','StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests')
+Assert-TestRun $PlayXml 174 @('VerticalSliceFlowTests','LayoutNoticeTests','AudioManagerTests','MergeInteractionTests','RewardGrowthTests','SettingsScreenTests','PopPresentationTests','CharacterSelectionTests','MultiQuestPresentationTests','TownLifeTests','StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests')
 $CaptureDir=Join-Path $OutputDir 'screenshots'
 Assert-ProductUnchanged $ProjectPath $GitRevision $ProductFingerprint
 Assert-NativeCaptures $CaptureDir
@@ -158,3 +177,4 @@ $Hash=(Get-FileHash -LiteralPath $ApkPath -Algorithm SHA256).Hash.ToLowerInvaria
 Write-Host '[4/4] Recording APK identity and SHA256...'
 [ordered]@{gitRevision=$GitRevision;revisionSource='git-metadata + clean product inputs';productFingerprint=$ProductFingerprint;localUnityConfigurationChanges=$ConfigurationChanges;nativeCaptureCount=$CaptureEntries.Count;unity='6000.6.4f1';appId=$PackageId;versionCode=[int]$VersionCode;apk=$ApkName;sha256=$Hash;bytes=(Get-Item -LiteralPath $ApkPath).Length;builtAtUtc=[DateTime]::UtcNow.ToString('o');qa=[bool]($Qa -or $TownQa);townQa=[bool]$TownQa} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $OutputDir 'build-info.json') -Encoding UTF8
 Write-Host "APK: $ApkPath`nSHA256: $Hash"
+if($TownQa){Write-NativeReviewArchives $OutputDir}

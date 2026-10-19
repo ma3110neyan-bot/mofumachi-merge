@@ -1,3 +1,7 @@
+> **今後の開発方針（2026-10-19）**：[ユーザー指定の開発ルール](AGENTS.md) を優先してください。9月22日基準・5エリアの連続街歩き・高品質な平面Merge・同条件の実機Before／Afterを基準にします。下記の旧方針は経緯の記録です。
+
+> **現在の確認状態**：候補 `3274472` は **実装済み・実機未確認**。Windows実行 `20261019-184230-2b3e6878` は、共有スクリーンショットでEditMode143/143成功・PlayMode終了コード2による停止を確認。失敗内容は同じ実行の `playmode.xml`／`playmode.log` の確認待ちです。APK作成前に停止しており、原因・失敗件数・実機改善は未確認です。今回の方針記録はゲーム本体の変更ではありません。
+
 > 2026-10-18：旧3背景の接続描画を単一の街マップへ置換し、北の依頼小屋・南のショップへの徒歩入場と、TOP／Merge各2曲の試聴候補を実装。**Unity実描画・新QA APK・Pixelは未確認、main未統合。** [実装とWindows一括検証](docs/development-handoff-2026-10-18-seamless-town.md) · [BGM候補4曲の8秒試聴](References/Preview/seamless-town-2026-10-18/README.md)
 
 > 2026-10-17 大幅Polish Pass：広い歩行面・NPC回避・指追従・左右のぼかし削減・台形Merge・紙の文字UI・図鑑NEWを製品コードへまとめた実装候補。Core125／純粋表示81成功、6DLLコンパイル警告・エラー0。**本版のUnity実描画・QA APK・Pixelは未確認、main未統合。** [変更と同一候補の検証手順](docs/development-handoff-2026-10-17-major-polish.md)。

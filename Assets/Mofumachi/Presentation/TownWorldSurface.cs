@@ -20,8 +20,31 @@ namespace Mofumachi.Presentation
         // The shared atlas is lawn on the left and paving on the right. Use the
         // whole panels at the same texel scale, rather than magnify painting crops.
         public const string AtlasResource="Mofumachi/TownGardenSurface";
+        // Paving is a visual material, not the limit of movement. The same wide
+        // five rooms include walkable lawns, with the existing planted obstacles.
+        public static IReadOnlyList<TownPoint[]> PavingPolygons {get;}=BuildPaving();
         public const float LawnTileWidth=1,LawnTileHeight=1;
         public const float PathTileLength=.64f,PathHalfWidth=.16f,PathFeather=.025f;
+        private static IReadOnlyList<TownPoint[]> BuildPaving()
+        {
+            var patches=new List<TownPoint[]>();
+            TownPoint[] Box(float left,float bottom,float right,float top)=>new[]{new TownPoint(left,bottom),new TownPoint(right,bottom),new TownPoint(right,top),new TownPoint(left,top)};
+            // Broad streets join the same four exits. They do not constrain the
+            // independent walking surface or replace a room with a narrow lane.
+            patches.Add(Box(TownWorldMap.Left,-.39f,TownWorldMap.Right,-.01f));
+            patches.Add(Box(-.18f,TownWorldMap.Bottom,.18f,TownWorldMap.Top));
+            foreach(var district in TownDistrictLayout.All)
+            {
+                var c=TownDistrictLayout.Center(district);bool central=district==TownDistrictId.Central;
+                float y=c.Y+(central?-.06f:-.20f),radiusX=central?.44f:district==TownDistrictId.South?.41f:.43f;
+                float radiusY=central?.62f:district==TownDistrictId.South?.43f:.42f;
+                var plaza=new TownPoint[24];
+                for(int i=0;i<plaza.Length;i++)
+                {float angle=i*(float)Math.PI*2/plaza.Length;plaza[i]=new TownPoint(c.X+(float)Math.Cos(angle)*radiusX,y+(float)Math.Sin(angle)*radiusY);}
+                patches.Add(plaza);
+            }
+            return patches.AsReadOnly();
+        }
         public static TownPoint LawnUV(float x,float y)=>new TownPoint(.002f+Mirror(x/LawnTileWidth)*.496f,.002f+Mirror(y/LawnTileHeight)*.996f);
         public static TownPoint PavingUV(float across,float v)=>new TownPoint(.502f+(across+1)*.248f,.002f+v*.996f);
         internal static float Mirror(float value)

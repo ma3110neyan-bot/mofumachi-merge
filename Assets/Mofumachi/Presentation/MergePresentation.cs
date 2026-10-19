@@ -17,6 +17,17 @@ namespace Mofumachi.Presentation
         }
         public static string SelectionName(BoardItem item)=>item==null?"アイテムを選ぶ":(ItemCatalog.Find(item.itemId)?.Name??"アイテム")+" Lv."+item.level;
         public static string SelectionHint(BoardItem item)=>item==null?"タップで名前・Lv.を確認":item.level>=GameState.MaxLevel?"最高Lv.！ 空きマスへ移動できるよ":"同じ種類・Lv.を重ねよう";
+        public static string CompactFeedback(string message,string deliveryHint,string selectionHint)
+        {
+            if(string.IsNullOrEmpty(message)||message==deliveryHint)return "";
+            foreach(var item in ItemCatalog.All)
+            {
+                string created=item.Name+" Lv.1を作りました。",chosen=item.Name+"を作れます。";
+                if(message==created+selectionHint)return created;
+                if(message==chosen+selectionHint)return chosen;
+            }
+            return message;
+        }
         public static MergeCellRect ItemArt(int index)
         {
             float scale=MergePerspective.ArtScale(index);
@@ -30,11 +41,22 @@ namespace Mofumachi.Presentation
         public float ProgressTop {get;} public float ProgressHeight {get;} public float TrayTop {get;} public float TrayBottom {get;}
         public float ToolbarBottom {get;} public float ToolbarHeight {get;} public float GridInset {get;} public float NavBottom {get;} public float NavHeight {get;}
         public bool TwoToolbarRows {get;}
+        public float DetailsHeight=>TwoToolbarRows?20:22;
         private MergeScreenLayout(bool roomy,float feedbackHeight)
         {
             TwoToolbarRows=roomy;ProgressTop=roomy?62:50;ProgressHeight=roomy?72:64;TrayTop=roomy?140:116;
             ToolbarBottom=roomy?72+feedbackHeight+6:52;ToolbarHeight=roomy?100:48;TrayBottom=ToolbarBottom+ToolbarHeight+4;
             GridInset=4;NavBottom=roomy?8:2;NavHeight=roomy?58:48;
+        }
+        public MergeCellRect FeedbackRect(float width,float height,float textHeight)
+        {
+            if(TwoToolbarRows)return new MergeCellRect(14,72,width-28,Math.Max(46,textHeight+4));
+            // Compact screens have exactly enough room for six 48-unit rows.
+            // A normal one-line notice replaces only the item-details row so
+            // live delivery counts stay visible. Longer errors use the card.
+            bool detailRow=textHeight<=DetailsHeight;
+            float available=detailRow?DetailsHeight:ProgressHeight-2;
+            return new MergeCellRect(14,height-ProgressTop-ProgressHeight+(detailRow?0:1),width-28,available);
         }
         public MergeCellRect ToolbarAction(int index,float width)
         {

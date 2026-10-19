@@ -97,7 +97,7 @@ namespace Mofumachi.Presentation
             var icons=new[]{UIIcon.Home,UIIcon.Mail,UIIcon.Tea};
             for(int i=0;i<3;i++){ int j=i; var b=Button("Nav "+ids[i],"",nav,new Rect(i/3f+.012f,.06f,1/3f-.024f,.88f),()=>{ c.Flow.PlayCue(AudioCue.Confirm); if(j==0)c.Flow.ShowHome();else if(j==1)c.Flow.VisitQuestCabin();else c.Flow.ShowMerge(); },ids[i]!=active);
                 Frame((RectTransform)b.transform,12);
-                Icon("Nav icon",icons[i],(RectTransform)b.transform,new Rect(.31f,.39f,.38f,.53f)); Heading("Nav label",names[i],(RectTransform)b.transform,new Rect(.02f,.025f,.96f,.34f),12); }
+                Icon("Nav icon",icons[i],(RectTransform)b.transform,new Rect(.31f,.39f,.38f,.53f)); Heading("Nav label",names[i],(RectTransform)b.transform,new Rect(.02f,.005f,.96f,.38f),12); }
         }
         public void Feedback(RectTransform root,ScreenContext c,ScreenId id)
         {

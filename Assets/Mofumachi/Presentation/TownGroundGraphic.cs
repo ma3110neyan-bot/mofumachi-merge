@@ -5,8 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 namespace Mofumachi.Presentation
 {
-    // The visible paving is the actual navigation polygon union, with the same
-    // planted holes. Source art is a repeating material, never a magnified map.
+    // Wide walking rooms contain both lawns and paved plazas/roads. Planted
+    // holes and building bases remain shared with navigation.
     [RequireComponent(typeof(CanvasRenderer))]
     public sealed class TownGroundGraphic:MaskableGraphic
     {
@@ -26,7 +26,7 @@ namespace Mofumachi.Presentation
             raycastTarget=false;atlas=Resources.Load<Texture2D>(TownWorldSurface.AtlasResource);patches.Clear();
             var floor=new TownWalkableArea(0);
             Tile(new[]{new TownPoint(TownWorldMap.Left-.8f,TownWorldMap.Bottom-.8f),new TownPoint(TownWorldMap.Right+.8f,TownWorldMap.Bottom-.8f),new TownPoint(TownWorldMap.Right+.8f,TownWorldMap.Top+.8f),new TownPoint(TownWorldMap.Left-.8f,TownWorldMap.Top+.8f)},false);
-            foreach(var polygon in floor.FloorPolygons)Tile(polygon,true);
+            foreach(var polygon in TownWorldSurface.PavingPolygons)Tile(polygon,true);
             foreach(var hole in floor.ExcludedIslands)
             {
                 var ring=new TownPoint[40];for(int i=0;i<ring.Length;i++){float a=i*Mathf.PI*2/ring.Length;ring[i]=new TownPoint(hole.Center.X+Mathf.Cos(a)*hole.X,hole.Center.Y+Mathf.Sin(a)*hole.Y);}

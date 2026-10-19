@@ -135,31 +135,37 @@ namespace Mofumachi.Presentation
             var delivery=w.Button("Deliver",finale?"街で続きを見る":preview?"依頼を見る":"納品する",toolbar,new Rect(0,0,1,1),()=>{if(finale)c.Flow.ShowHome();else if(preview)c.Flow.ShowQuest();else c.Flow.Deliver();});((RectTransform)delivery.transform).offsetMin=new Vector2(250,0);delivery.GetComponentInChildren<Text>().fontSize=14;delivery.interactable=finale||preview||deliverable;
             w.Feedback(root,c,ScreenId.Merge);
             var text=root.Find("Feedback").GetComponent<Text>();text.fontSize=14;text.lineSpacing=1f;
-            string obsoleteHint=finale?UIStrings.DeliveryHint(c.Game):null;if(text.text==obsoleteHint)text.text="";
+            string obsoleteHint=finale?UIStrings.DeliveryHint(c.Game):null;
+            string selectionMessage=selectedItem==null?null:UIStrings.ItemLabel(selectedItem)+"　"+UIStrings.MergeSelectionHint;
+            if(text.text==obsoleteHint||text.text==selectionMessage)text.text="";
             var feedbackSurface=root.Find("Feedback surface") as RectTransform;
             if(feedbackSurface==null)feedbackSurface=w.Panel("Feedback surface",root,new Rect(0,0,1,1),new Color(1,.988f,.945f,.97f)).rectTransform;
-            feedbackSurface.SetSiblingIndex(text.transform.GetSiblingIndex());
+            if(feedbackSurface.GetSiblingIndex()>text.transform.GetSiblingIndex())feedbackSurface.SetSiblingIndex(text.transform.GetSiblingIndex());
             w.Nav(root,c,ScreenId.Merge,58);
-            root.gameObject.AddComponent<ProductionFrameLayout>().Bind(tray,toolbar,text,feedbackSurface,c.Game.State.mergeBoard.Count>=30?UIStrings.BoardFull:finale?MergePresentation.PlayHint:UIStrings.DeliveryHint(c.Game),obsoleteHint);
+            root.gameObject.AddComponent<ProductionFrameLayout>().Bind(tray,toolbar,text,feedbackSurface,c.Game.State.mergeBoard.Count>=30?UIStrings.BoardFull:finale?MergePresentation.PlayHint:UIStrings.DeliveryHint(c.Game),obsoleteHint,UIStrings.DeliveryHint(c.Game));
         }
     }
     public sealed class ProductionFrameLayout : MonoBehaviour
     {
-        private RectTransform tray,toolbar,surface;private Text feedback;private string hint,message,obsoleteHint;
-        public void Bind(RectTransform boardTray,RectTransform frameStrip,Text feedbackText,RectTransform feedbackSurface,string defaultHint,string completedStoryHint=null)
-        {tray=boardTray;toolbar=frameStrip;feedback=feedbackText;surface=feedbackSurface;hint=defaultHint;obsoleteHint=completedStoryHint;message=feedback.text;ResizeNow();}
+        private RectTransform tray,toolbar,surface;private Text feedback;private string hint,message,obsoleteHint,deliveryHint;
+        public void Bind(RectTransform boardTray,RectTransform frameStrip,Text feedbackText,RectTransform feedbackSurface,string defaultHint,string completedStoryHint=null,string normalDeliveryHint=null)
+        {tray=boardTray;toolbar=frameStrip;feedback=feedbackText;surface=feedbackSurface;hint=defaultHint;obsoleteHint=completedStoryHint;deliveryHint=normalDeliveryHint;message=feedback.text;ResizeNow();}
         public void SetMessage(string value){message=value==obsoleteHint?"":value??"";ResizeNow();}
         private void OnRectTransformDimensionsChange()=>ResizeNow();
         public void ResizeNow()
         {
             if(tray==null||feedback==null)return;var root=(RectTransform)transform;
             feedback.text=message.Length>0?message:hint;
-            // Fit the actual feedback first. When room is tight the same five
-            // actions remain full input targets in one row, with a board toast.
+            // Fit the actual feedback first. Compact screens keep the same five
+            // action targets and use the progress card for messages above the board.
             float height=Mathf.Max(46,Mathf.Ceil(feedback.preferredHeight+4));
             var layout=MergeScreenLayout.For(root.rect.height,height);
             UIWidgets.Top(root.Find("Header") as RectTransform,10,layout.TwoToolbarRows?8:0,10,48);
-            UIWidgets.Top(root.Find("Merge progress") as RectTransform,12,layout.ProgressTop,12,layout.ProgressHeight);
+            var progress=root.Find("Merge progress") as RectTransform;
+            UIWidgets.Top(progress,12,layout.ProgressTop,12,layout.ProgressHeight);
+            (progress.Find("Merge goal content") as RectTransform).offsetMin=new Vector2(4,layout.DetailsHeight);
+            foreach(string name in new[]{"Merge selected item","Merge selected hint"})
+            {var detail=progress.Find(name) as RectTransform;detail.offsetMax=new Vector2(detail.offsetMax.x,layout.DetailsHeight);}
             UIWidgets.Bottom(toolbar,12,layout.ToolbarBottom,12,layout.ToolbarHeight);
             ResizeToolbar(layout);
             tray.offsetMin=new Vector2(10,layout.TrayBottom);tray.offsetMax=new Vector2(-10,-layout.TrayTop);
@@ -168,9 +174,16 @@ namespace Mofumachi.Presentation
             foreach(var button in nav.GetComponentsInChildren<Button>())
             {var r=(RectTransform)button.transform;r.anchorMin=new Vector2(r.anchorMin.x,layout.TwoToolbarRows?.06f:0);r.anchorMax=new Vector2(r.anchorMax.x,layout.TwoToolbarRows?.94f:1);}
             feedback.text=message.Length>0?message:layout.TwoToolbarRows?hint:"";
-            UIWidgets.Bottom(feedback.rectTransform,14,layout.TwoToolbarRows?72:108,14,height);
-            UIWidgets.Bottom(surface,12,layout.TwoToolbarRows?72:108,12,height);
+            if(!layout.TwoToolbarRows)feedback.text=MergePresentation.CompactFeedback(feedback.text,deliveryHint,UIStrings.MergeSelectionHint);
+            var feedbackRect=layout.FeedbackRect(root.rect.width,root.rect.height,feedback.preferredHeight);
+            UIWidgets.Bottom(feedback.rectTransform,14,feedbackRect.Y,14,feedbackRect.Height);
+            UIWidgets.Bottom(surface,12,feedbackRect.Y,12,feedbackRect.Height);
             feedback.gameObject.SetActive(feedback.text.Length>0);surface.gameObject.SetActive(feedback.text.Length>0);
+            bool compactMessage=!layout.TwoToolbarRows&&feedback.text.Length>0;
+            root.Find("Merge progress/Merge goal content").gameObject.SetActive(!compactMessage||feedbackRect.Height<=layout.DetailsHeight);
+            bool showSelection=!compactMessage;
+            root.Find("Merge progress/Merge selected item").gameObject.SetActive(showSelection);
+            root.Find("Merge progress/Merge selected hint").gameObject.SetActive(showSelection);
         }
         private void ResizeToolbar(MergeScreenLayout layout)
         {

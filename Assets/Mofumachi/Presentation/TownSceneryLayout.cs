@@ -49,7 +49,11 @@ namespace Mofumachi.Presentation
                     if(count++%2!=0)continue;
                     var tree=new TownPoint(x+nx*.20f,y+ny*.20f);
                     if(floor.Contains(tree))continue;
-                    result.Add(new TownSceneryPlacement(count%4==1?TownSceneryKind.Blossom:TownSceneryKind.Tree,district,new TownPoint(tree.X,tree.Y-.04f),tree,.40f,.36f));
+                    var kind=count%4==1?TownSceneryKind.Blossom:TownSceneryKind.Tree;
+                    // The foundations stay outside the walking rooms; crowns
+                    // overhang their verges rather than disappear offscreen.
+                    const float crown=.66f;float height=crown*(kind==TownSceneryKind.Tree?600f/690:622f/682);
+                    result.Add(new TownSceneryPlacement(kind,district,new TownPoint(tree.X,tree.Y-.04f),tree,crown,height));
                 }
             }
             return result.AsReadOnly();

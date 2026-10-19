@@ -25,20 +25,34 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator CompletedStoryKeepsSparseSavedItemsAndShowsLiveDailyPurpose()
         {
             yield return EnterHome();var state=Flow.Game.State;
+            void NavigateWithoutChangingProgress(System.Action navigate)
+            {
+                var beforeNavigation=state.Clone();int navigationWrites=Store.Writes;
+                navigate();
+                Assert.That(Store.Writes,Is.EqualTo(navigationWrites+1),"Preserve exactly one existing navigation save; completed-story rendering must not save again");
+                var after=Flow.Game.State.Clone();
+                Assert.That(System.DateTimeOffset.TryParse(after.lastSaveTime,out _),Is.True,"Navigation keeps valid save metadata");
+                Assert.That(Mofumachi.Core.StateCodec.Encode(Store.Load().State),Is.EqualTo(Mofumachi.Core.StateCodec.Encode(after)),"The saved snapshot must match the live state");
+                after.lastSaveTime=beforeNavigation.lastSaveTime;
+                Assert.That(Mofumachi.Core.StateCodec.Encode(after),Is.EqualTo(Mofumachi.Core.StateCodec.Encode(beforeNavigation)),"Completed-story navigation must not change progress, rewards, or the sparse board");
+            }
             state.completedQuestIds.Clear();state.completedQuestIds.AddRange(Mofumachi.Core.QuestCatalog.All.Select(q=>q.Id));
             state.activeQuestId=Mofumachi.Core.QuestCatalog.All.Last().Id;state.townGrowthLevel=6;
-            Flow.Daily.RecordMerge();Flow.Daily.RecordMerge();int writes=Store.Writes;string before=Mofumachi.Core.StateCodec.Encode(state);
-            Flow.ShowMerge();yield return null;Canvas.ForceUpdateCanvases();
+            Flow.Daily.RecordMerge();Flow.Daily.RecordMerge();NavigateWithoutChangingProgress(Flow.ShowMerge);
+            int writes=Store.Writes;string before=Mofumachi.Core.StateCodec.Encode(state);yield return null;Canvas.ForceUpdateCanvases();
             Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Merge daily progress").text,Is.EqualTo("今日の合成　2 / 3"));
             Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Merge daily next action").text,Does.Contain("あと1回"));
             Assert.That(Flow.GetComponentsInChildren<Text>().All(t=>!t.text.Contains("すべての依頼が完了")),Is.True);
-            Assert.That(Flow.GetComponentsInChildren<MergeBoardView>().Length,Is.EqualTo(30));
-            Assert.That(Flow.GetComponentsInChildren<ItemGraphic>().Count(a=>a.name=="Item art"),Is.EqualTo(state.mergeBoard.Count));
+            Assert.That(Flow.GetComponentsInChildren<MergeBoardView>().Length,Is.EqualTo(30),"Completed-story rendering must retain all thirty board cells");
+            Assert.That(Flow.GetComponentsInChildren<ItemGraphic>().Count(a=>a.name=="Item art"),Is.EqualTo(state.mergeBoard.Count),"Completed-story rendering must show only the saved items without filling empty cells");
             Assert.That(Mofumachi.Core.StateCodec.Encode(state),Is.EqualTo(before));Assert.That(Store.Writes,Is.EqualTo(writes));
-            Flow.Daily.RecordMerge();Flow.ShowMerge();yield return null;
+            Flow.Daily.RecordMerge();NavigateWithoutChangingProgress(Flow.ShowMerge);
+            writes=Store.Writes;before=Mofumachi.Core.StateCodec.Encode(state);yield return null;
             Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Merge daily next action").text,Does.Contain("話しかけ"));
-            var next=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Deliver");Assert.That(next.interactable,Is.True);next.onClick.Invoke();yield return null;
-            Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(Mofumachi.Core.StateCodec.Encode(state),Is.EqualTo(before));
+            Assert.That(Mofumachi.Core.StateCodec.Encode(state),Is.EqualTo(before));Assert.That(Store.Writes,Is.EqualTo(writes));
+            var next=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Deliver");Assert.That(next.interactable,Is.True);NavigateWithoutChangingProgress(next.onClick.Invoke);
+            before=Mofumachi.Core.StateCodec.Encode(state);yield return null;
+            Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(Mofumachi.Core.StateCodec.Encode(state),Is.EqualTo(before));Assert.That(Store.Writes,Is.EqualTo(writes+1));
             LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator PortraitCompositionKeepsItemDetailsAndAllActionsReadable()

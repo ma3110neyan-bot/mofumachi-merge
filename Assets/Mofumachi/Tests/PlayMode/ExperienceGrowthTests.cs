@@ -22,23 +22,44 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator AFlowerLightLayerGrowsWithoutInterceptingInputOrSavingProgress()
         {
             yield return EnterHome();int writes=Store.Writes;string before=StateCodec.Encode(Flow.Game.State);var growth=Flow.GetComponentInChildren<TownGrowthView>();
-            var life=FrameTownPortrait();
-            foreach(TownRegionId region in System.Enum.GetValues(typeof(TownRegionId)))
+            foreach(int height in new[]{592,740,808})
             {
-                var light=growth.GetComponentInChildren<TownBloomGraphic>();
-                int VisibleAcrossAllDistricts(int level)
+                var life=FrameTownPortrait(height);
+                foreach(TownRegionId region in System.Enum.GetValues(typeof(TownRegionId)))
                 {
-                    growth.Apply(level);var seen=new System.Collections.Generic.HashSet<TownGrowthPropGraphic>();
-                    foreach(var district in TownDistrictLayout.All)
+                    var light=growth.GetComponentInChildren<TownBloomGraphic>();
+                    int VisibleAcrossAllDistricts(int level)
                     {
-                        Assert.That(life.World.LookAt(district),Is.True);life.World.Refresh();
-                        foreach(var prop in life.GetComponentsInChildren<TownGrowthPropGraphic>().Where(p=>p.Region==region))seen.Add(prop);
+                        growth.Apply(level);var seen=new System.Collections.Generic.HashSet<TownGrowthPropGraphic>();
+                        foreach(var district in TownDistrictLayout.All)
+                        {
+                            Assert.That(life.World.LookAt(district),Is.True);var arrival=life.World.Camera.Center;
+                            // A room is taller than the phone's field mask. Survey
+                            // its lower/upper gardens too, without moving residents
+                            // or requiring offscreen furniture to remain active.
+                            foreach(float offset in new[]{0f,-.30f,.30f})
+                            {
+                                life.World.Camera.Jump(new TownPoint(arrival.X,arrival.Y+offset));life.World.Refresh();
+                                foreach(var prop in life.GetComponentsInChildren<TownGrowthPropGraphic>().Where(p=>p.Region==region))
+                                {
+                                    var rect=(RectTransform)prop.transform;var corners=new Vector3[4];rect.GetWorldCorners(corners);
+                                    var field=(RectTransform)life.transform;var min=field.InverseTransformPoint(corners[0]);var max=field.InverseTransformPoint(corners[2]);
+                                    Assert.That(new Rect(min.x,min.y,max.x-min.x,max.y-min.y).Overlaps(field.rect),Is.True,
+                                        region+" "+prop.Prop+" must intersect the actual field at height "+height);
+                                    Assert.That(prop.raycastTarget,Is.False);seen.Add(prop);
+                                }
+                            }
+                        }
+                        string missing=string.Join(", ",life.GetComponentsInChildren<TownGrowthPropGraphic>(true)
+                            .Where(p=>p.Region==region&&!seen.Contains(p)).Select(p=>p.Prop+" "+p.name));
+                        Assert.That(seen.Count,Is.EqualTo(TownGrowthPresentation.For(region,level).Count),
+                            region+" stage "+level+" at height "+height+"; unseen: "+missing);
+                        return seen.Count;
                     }
-                    return seen.Count;
+                    int small=VisibleAcrossAllDistricts(1);Assert.That(light.PetalCount,Is.Zero);
+                    int grown=VisibleAcrossAllDistricts(6);
+                    Assert.That(grown-small,Is.GreaterThanOrEqualTo(10),"New decorations remain visible across the five real rooms");Assert.That(light.PetalCount,Is.EqualTo(12));Assert.That(light.raycastTarget,Is.False);
                 }
-                int small=VisibleAcrossAllDistricts(1);Assert.That(small,Is.EqualTo(TownGrowthPresentation.For(region,1).Count));Assert.That(light.PetalCount,Is.Zero);
-                int grown=VisibleAcrossAllDistricts(6);Assert.That(grown,Is.EqualTo(TownGrowthPresentation.For(region,6).Count));
-                Assert.That(grown-small,Is.GreaterThanOrEqualTo(10),"New decorations remain visible across the five real rooms");Assert.That(light.PetalCount,Is.EqualTo(12));Assert.That(light.raycastTarget,Is.False);
             }
             Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();
         }

@@ -101,8 +101,8 @@ namespace Mofumachi.Presentation
                         }
                         bool raised=index==c.Flow.SelectedCell;
                         var ground=w.Panel("Item contact shadow",cell,new Rect(raised?.27f:.19f,.17f,raised?.46f:.62f,.08f),new Color(.25f,.2f,.25f,raised?.14f:.27f));ground.radius=100;ground.decorated=false;
-                        float depthScale=MergePerspective.ArtScale(index);
-                        var art=w.Item("Item art",item.itemId,item.level,cell,new Rect(.5f-.48f*depthScale,.56f-.40f*depthScale,.96f*depthScale,.80f*depthScale));art.SetPolished(true);
+                        var artBounds=MergePresentation.ItemArt(index);
+                        var art=w.Item("Item art",item.itemId,item.level,cell,new Rect(artBounds.X,artBounds.Y,artBounds.Width,artBounds.Height));art.SetPolished(true);
                         if(item.level==3&&index!=c.Flow.SelectedCell)
                             UIWidgets.Node("High level item glint",art.rectTransform,new Rect(0,0,1,1)).gameObject.AddComponent<MergeSparkleGraphic>().BindSelection();
                         if(index==c.Flow.SelectedCell)

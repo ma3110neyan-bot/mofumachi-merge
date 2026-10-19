@@ -52,19 +52,37 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator AllFourExitsWalkContinuouslyAndCompleteOnlyOnArrival()
         {
             yield return EnterHome();var life=FrameTownPortrait();string save=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
-            int walks=Flow.Daily.Data.Walks;
+            var hero=life.World.Model.Hero;int arrivals=0,walkedArrivals=0;string arrivedPlace=null;bool arrivedWhileWalking=false;
+            life.World.Arrived+=(id,place,walked)=>
+            {
+                if(id!=hero.Id)return;
+                arrivals++;if(walked)walkedArrivals++;arrivedPlace=place;arrivedWhileWalking|=hero.IsWalking;
+            };
+            Assert.That(Flow.Daily.Data.Walks,Is.Zero,"The first trip must exercise an incomplete daily walk goal");
             foreach(var district in new[]{TownDistrictId.North,TownDistrictId.South,TownDistrictId.West,TownDistrictId.East})
             {
+                int walks=Flow.Daily.Data.Walks;
                 life.World.FastTravel(TownDistrictId.Central);var start=life.World.Model.Hero.Position;
+                int arrivalsBefore=arrivals,walkedBefore=walkedArrivals;
                 Assert.That(life.World.GuideDistrict(district),Is.True);Assert.That(Flow.Daily.Data.Walks,Is.EqualTo(walks));Assert.That(life.World.Model.Hero.Position,Is.EqualTo(start));
+                Assert.That(hero.IsWalking,Is.True);Assert.That(arrivals,Is.EqualTo(arrivalsBefore),district+" must not arrive when guidance starts");
                 var previous=start;var camera=life.World.Camera.Center;
                 for(int frame=0;frame<5000&&life.World.Model.Hero.IsWalking;frame++)
                 {
                     life.AdvanceFrame(1f/30);var p=life.World.Model.Hero.Position;
                     Assert.That(TownWalkableArea.Distance(p,previous),Is.LessThanOrEqualTo(.0041f));Assert.That(TownWorldLayout.Distance(camera,life.World.Camera.Center),Is.LessThan(.05f));
                     Assert.That(life.Regions.IsHeroTransitioning,Is.False);previous=p;camera=life.World.Camera.Center;
+                    if(hero.IsWalking)
+                    {
+                        Assert.That(arrivals,Is.EqualTo(arrivalsBefore),district+" must not announce arrival while still walking");
+                        Assert.That(Flow.Daily.Data.Walks,Is.EqualTo(walks),district+" must not advance the daily goal before arrival");
+                    }
                 }
-                Assert.That(life.World.Model.Hero.IsWalking,Is.False);Assert.That(life.World.Model.Hero.District,Is.EqualTo(district));Assert.That(Flow.Daily.Data.Walks,Is.EqualTo(++walks));
+                Assert.That(life.World.Model.Hero.IsWalking,Is.False);Assert.That(life.World.Model.Hero.District,Is.EqualTo(district));Assert.That(hero.Position,Is.EqualTo(hero.Target));
+                Assert.That(arrivals,Is.EqualTo(arrivalsBefore+1),district+" must emit exactly one hero arrival");
+                Assert.That(walkedArrivals,Is.EqualTo(walkedBefore+1),district+" must count exactly one physical crossing");
+                Assert.That(arrivedPlace,Is.EqualTo(TownDistrictLayout.EntranceId(district)));Assert.That(arrivedWhileWalking,Is.False);
+                Assert.That(Flow.Daily.Data.Walks,Is.EqualTo(1),district+" completes the once-per-day goal without counting extra trips");
             }
             Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(save));LogAssert.NoUnexpectedReceived();
         }

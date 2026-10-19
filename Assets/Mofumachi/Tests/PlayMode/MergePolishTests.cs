@@ -143,7 +143,7 @@ namespace Mofumachi.Tests
             yield return EnterHome();Flow.ShowMerge();Flow.TapCell(0);
             var canvas=new GameObject("Polish layout fixture",typeof(RectTransform),typeof(Canvas));canvas.GetComponent<Canvas>().renderMode=RenderMode.WorldSpace;
             var root=(RectTransform)canvas.transform;var widgets=new UIWidgets(Resources.Load<Font>("Mofumachi/UIFont"),Resources.Load<Texture2D>("Mofumachi/CharacterMaster"));
-            try{foreach(float height in new[]{592f,640f,808f})
+            try{foreach(float height in new[]{536f,592f,640f,808f})
             {
                 root.sizeDelta=new Vector2(360,height);var page=UIWidgets.Node("Merge fixture",root,new Rect(0,0,1,1));
                 QuestMergeScreens.BuildMerge(page,new ScreenContext(Flow,widgets));Canvas.ForceUpdateCanvases();
@@ -151,14 +151,16 @@ namespace Mofumachi.Tests
                 var cells=page.GetComponentsInChildren<MergeBoardView>();Assert.That(cells.Length,Is.EqualTo(30));
                 foreach(var cell in cells)
                 {
-                    var rect=(RectTransform)cell.transform;Assert.That(rect.rect.width,Is.GreaterThanOrEqualTo(48));Assert.That(rect.rect.height,Is.GreaterThanOrEqualTo(48));
+                    var rect=(RectTransform)cell.transform;string context=$"height={height}, cell={cell.name}, cellRect={rect.rect}";
+                    Assert.That(rect.rect.width,Is.GreaterThanOrEqualTo(48),context);Assert.That(rect.rect.height,Is.GreaterThanOrEqualTo(48),context);
                     var art=cell.GetComponentInChildren<ItemGraphic>();if(art==null)continue;
                     var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(rect,art.rectTransform);
-                    Assert.That(bounds.min.x,Is.GreaterThanOrEqualTo(rect.rect.xMin));Assert.That(bounds.max.x,Is.LessThanOrEqualTo(rect.rect.xMax));
-                    Assert.That(bounds.min.y,Is.GreaterThanOrEqualTo(rect.rect.yMin));Assert.That(bounds.max.y,Is.LessThanOrEqualTo(rect.rect.yMax));
+                    context+=$", artBounds={bounds}, scale={art.transform.localScale}, lift={art.rectTransform.anchoredPosition}";
+                    Assert.That(bounds.min.x,Is.GreaterThanOrEqualTo(rect.rect.xMin),context+" left");Assert.That(bounds.max.x,Is.LessThanOrEqualTo(rect.rect.xMax),context+" right");
+                    Assert.That(bounds.min.y,Is.GreaterThanOrEqualTo(rect.rect.yMin),context+" bottom");Assert.That(bounds.max.y,Is.LessThanOrEqualTo(rect.rect.yMax),context+" top");
                     var level=cell.GetComponentsInChildren<Text>().Single(t=>t.name=="Item level");
-                    Assert.That(level.resizeTextForBestFit,Is.False);Assert.That(level.fontSize,Is.GreaterThanOrEqualTo(11));
-                    Assert.That(level.preferredHeight,Is.LessThanOrEqualTo(level.rectTransform.rect.height+1));
+                    Assert.That(level.resizeTextForBestFit,Is.False,context);Assert.That(level.fontSize,Is.GreaterThanOrEqualTo(11),context);
+                    Assert.That(level.preferredHeight,Is.LessThanOrEqualTo(level.rectTransform.rect.height+1),context);
                 }
                 Object.DestroyImmediate(page.gameObject);
             }}finally{Object.DestroyImmediate(canvas);}LogAssert.NoUnexpectedReceived();

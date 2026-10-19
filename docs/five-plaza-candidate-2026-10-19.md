@@ -2,9 +2,18 @@
 
 **実装済み・実機未確認。Unity実描画の受入、新QA APK、Pixel 3a確認は未完了です。**
 
-最新の共有画面：Windows実行 `20261019-184230-2b3e6878` はEditMode143/143成功、PlayModeのUnityプロセスが終了コード2で停止。APK作成前に停止しています。同じ実行の `playmode.xml` と `playmode.log` が未受領のため、失敗件数・原因・画像生成状況は未確認です。終了コードだけで製品修正や検査の緩和を行いません。
+Windows実行 `20261019-184230-2b3e6878` はEditMode143/143成功（共有画面）、PlayMode193件中189成功・4失敗・skip0（同じ実行のXML／ログ）でAPK作成前に停止。下記の停止修正をまとめました。修正版のWindows全件再実行・実描画の受入・新APK・Pixel比較は未完了です。
 
 以後の判断は [最新の開発ルール](../AGENTS.md) を優先します。
+
+## PlayMode停止4件の原因と修正
+
+- `MergePolishTests.ShortAndTallLayoutsKeepLevelTextAndSelectedArtInsideCells`：幅96%の絵を選択時に1.06倍するとセル幅を超え、左端が−0.50453186になっていました。高さ方向も持ち上げ3単位の余白が不足。絵の矩形を幅92%・高さ80%・中央位置へ調整し、選択倍率／持ち上げ・操作領域・Lv文字は保持しました。純粋計算で同じ左端−0.504529953と上下の逸脱を再現し、48単位の最小セルから短／長画面まで収まることを確認。ネイティブ検査にも最小536高さと失敗時の寸法表示を追加しました。
+- `FivePlazaTests.AllFourExitsWalkContinuouslyAndCompleteOnlyOnArrival`：日次の散歩達成は1で止まる仕様に対して、検査が2以上を要求。各徒歩移動で主人公の到着イベントが正確に1回発生すること、途中では日次達成せず、到着後の達成値は1であることを検査します。通常移動・カメラ連続性・フェードなし・保存不変の検査を維持しました。
+- `QualityPassMergeTests.CompletedStoryKeepsSparseSavedItemsAndShowsLiveDailyPurpose`：最初の `ShowMerge()` で既存の正常な画面移動保存が実行され、保存時刻だけが変わっていました。2回のMerge表示と最後の街へ戻る操作で「保存は正確に1回・保存内容と実状態が一致・時刻以外の進行は不変」を検査し、描画中は保存／状態変更がない検査も保持しました。保存処理本体は変更していません。
+- `ExperienceGrowthTests.AFlowerLightLayerGrowsWithoutInterceptingInputOrSavingProgress`：到着時の画面だけで全部屋の全装飾が映るという前提が誤りでした。740高さでは東広場のLv4花の上端−0.73671が表示範囲の下端−0.70806より下にあり、正しく画面外になります。同じ部屋の上下もカメラで巡り、全14点の表示・実際の表示矩形との交差・入力非遮蔽・保存不変を592／740／808高さで検査します。配置や画面外非表示の製品処理を変えて合格させていません。
+
+修正版のクラウド確認：Core125/125、表示182/182、失敗・skip0。実Unity 6000.6.4f1のDLL参照6アセンブリは警告0・エラー0。Android補助スクリプトのモック／合成XMLも成功。これはネイティブPlayMode再成功やPixelの見た目を確認した結果ではありません。宣言済みのネイティブ検査件数193件は維持しています。
 
 最新の12ページのPixelフィードバックを優先します。前候補`7f11cee`はテスト成功後にユーザーから見た目を否定されたため、合格版として扱いません。9月22日の比較画像をMergeの基準にします。
 
@@ -44,14 +53,14 @@ WindowsのUnity 6000.6.4f1で、同じソースから全EditMode／PlayMode検�
 - レビューで見つけた噴水の水面の描画順、背景と街の矩形の差、小屋の足元・アーチの柱への侵入を修正。共有する立入禁止ポリゴンで、描画・歩行・ドラッグ補正を合わせました。正面の柱を塞ぎ、門の中央と建物の左右を通れることを検査。
 - Core／Packages／ProjectSettings、正式6名・ロゴ・ItemAtlas、音源の今回の差分なし。mainは更新していません。
 
-実行ログはクラウドの `/workspace/acceptance/cardinal-town-20261019/final-checks/` に保存。これらの成功をプレイヤーの見た目の合格として扱いません。
+最初の候補の実行ログはクラウドの `/workspace/acceptance/cardinal-town-20261019/final-checks/`、今回の停止ログと修正検証は `/workspace/acceptance/cardinal-town-20261019/windows-184230-2b3e6878/` に保存。これらの成功をプレイヤーの見た目の合格として扱いません。
 
 ## Windowsで次に実行する1行
 
 作業ブランチ `feat/daily-world-pass-20261016` をPullし、Unity Editorを閉じて実行します。Unity Hubは起動したままで構いません。
 
 ```powershell
-& { $ErrorActionPreference="Stop"; Set-Location -LiteralPath "C:\Users\User\Desktop\Mofumachi\mofumachi-merge"; if(-not(Test-Path -LiteralPath ".\Assets\Mofumachi\Presentation\TownDistrictLayout.cs")){throw "先にGitHub DesktopでPullしてください。"}; powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\build-android.ps1" -TownQa }
+& { $ErrorActionPreference="Stop"; Set-Location -LiteralPath "C:\Users\User\Desktop\Mofumachi\mofumachi-merge"; powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\build-android.ps1" -TownQa }
 ```
 
 最後のAPK／SHA256と、同じ出力先の `five-plaza-review-*.zip` が次の確認対象です。既存の古いAPKを今回版としてインストールしません。

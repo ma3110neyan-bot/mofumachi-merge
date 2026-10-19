@@ -17,6 +17,12 @@ namespace Mofumachi.Presentation
         }
         public static string SelectionName(BoardItem item)=>item==null?"アイテムを選ぶ":(ItemCatalog.Find(item.itemId)?.Name??"アイテム")+" Lv."+item.level;
         public static string SelectionHint(BoardItem item)=>item==null?"タップで名前・Lv.を確認":item.level>=GameState.MaxLevel?"最高Lv.！ 空きマスへ移動できるよ":"同じ種類・Lv.を重ねよう";
+        public static MergeCellRect ItemArt(int index)
+        {
+            float scale=MergePerspective.ArtScale(index);
+            // Leave room for the 1.06 selection scale and 3-unit lift, including in a 48-unit cell.
+            return new MergeCellRect(.5f-.46f*scale,.5f-.40f*scale,.92f*scale,.80f*scale);
+        }
         public static string[] Text=>new[]{PlayHint,"今日の合成　0 / 3","あと3回、同じ種類・Lv.を合成しよう♪","合成クリア！ 街で仲間に話しかけよう♪","合成クリア！ 別の広場へおさんぽしよう♪","今日のお花を受け取りに、街へ戻ろう♪","今日のお花を集めたよ♪ 仲間に会いに行こう",SelectionName(null),SelectionHint(null),SelectionHint(new BoardItem("tea",3,0)),"今日のお願いへ","街で続きを見る","生成枠と整理"};
     }
     public readonly struct MergeScreenLayout

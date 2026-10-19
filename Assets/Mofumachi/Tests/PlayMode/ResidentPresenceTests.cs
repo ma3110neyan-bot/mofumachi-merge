@@ -54,17 +54,29 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator PauseAndDisableClearReactionGaitAndKeepPositiveDepthScale()
         {
             yield return EnterHome();var actor=FrameTownNpc();var life=Flow.GetComponentInChildren<TownLifeView>();
+            // RegionVisible includes a prefetch margin outside the RectMask2D.
+            // Frame this real resident before asking UGUI for its rendered mesh.
+            life.World.Camera.Jump(actor.WorldPosition);life.World.Refresh();RenderNow(actor);
+            var body=actor.GetComponentInChildren<CharacterBodyGraphic>();
+            Assert.That(life.World.Model.TryGuide(actor.CharacterId,"square"),Is.True);life.AdvanceFrame(.1f);
+            Assert.That(actor.VisualRoot.anchoredPosition.y,Is.GreaterThan(0),"The resident must have a gait to clear.");
             actor.React();life.AdvanceFrame(.1f);Assert.That(actor.VisualRoot.anchoredPosition.y,Is.GreaterThan(0));
             Flow.OpenShopPreview();life.AdvanceFrame(.1f);Canvas.ForceUpdateCanvases();
-            var body=actor.GetComponentInChildren<CharacterBodyGraphic>();var mesh=body.canvasRenderer.GetMesh();
+            Assert.That(Flow.IsModalOpen,Is.True);Assert.That(body.isActiveAndEnabled,Is.True);
+            Assert.That(body.canvasRenderer.cull,Is.False,"The framed resident must remain inside the town mask.");
+            var mesh=body.canvasRenderer.GetMesh();Assert.That(mesh,Is.Not.Null);AssertFinite(mesh);
             Assert.That(actor.VisualRoot.anchoredPosition,Is.EqualTo(Vector2.zero));Assert.That(actor.VisualRoot.localRotation,Is.EqualTo(Quaternion.identity));
             Assert.That(body.Expression,Is.EqualTo(CharacterExpression.Normal));
             var scale=actor.VisualRoot.localScale;var vertices=mesh.vertices;
             for(int frame=0;frame<12;frame++)life.AdvanceFrame(.1f);Canvas.ForceUpdateCanvases();
-            Assert.That(body.canvasRenderer.GetMesh().vertices.SequenceEqual(vertices),Is.True);
+            mesh=body.canvasRenderer.GetMesh();Assert.That(mesh,Is.Not.Null);AssertFinite(mesh);
+            Assert.That(body.canvasRenderer.cull,Is.False);Assert.That(mesh.vertices.SequenceEqual(vertices),Is.True);
             Assert.That(actor.VisualRoot.localScale,Is.EqualTo(scale));Assert.That(scale.x,Is.GreaterThan(0));Assert.That(scale.y,Is.GreaterThan(0));
+            Flow.CloseShopPreview();actor.React();life.AdvanceFrame(.1f);
+            Assert.That(actor.VisualRoot.anchoredPosition.y,Is.GreaterThan(0),"Disable must clear a fresh reaction.");
             actor.gameObject.SetActive(false);Assert.That(actor.VisualRoot.anchoredPosition,Is.EqualTo(Vector2.zero));
-            Flow.CloseShopPreview();actor.gameObject.SetActive(true);LogAssert.NoUnexpectedReceived();
+            Assert.That(actor.VisualRoot.localRotation,Is.EqualTo(Quaternion.identity));Assert.That(body.Expression,Is.EqualTo(CharacterExpression.Normal));
+            actor.gameObject.SetActive(true);LogAssert.NoUnexpectedReceived();
         }
 
         [UnityTest] public IEnumerator AllApprovedExpressionsRenderFiniteUnmirroredGeometryWithInvalidPoseInputs()

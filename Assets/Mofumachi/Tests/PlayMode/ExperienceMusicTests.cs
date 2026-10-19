@@ -50,13 +50,38 @@ namespace Mofumachi.Tests
         }
         private static Rect Bounds(RectTransform root,RectTransform item)
         {var corners=new Vector3[4];item.GetWorldCorners(corners);var min=(Vector2)root.InverseTransformPoint(corners[0]);var max=(Vector2)root.InverseTransformPoint(corners[2]);return Rect.MinMaxRect(min.x,min.y,max.x,max.y);}
+        private static void AssertInsideViewport(ScrollRect scroll,RectTransform item)
+        {
+            var rect=Bounds(scroll.viewport,item);var visible=scroll.viewport.rect;
+            Assert.That(rect.xMin,Is.GreaterThanOrEqualTo(visible.xMin-.5f),item.name);
+            Assert.That(rect.xMax,Is.LessThanOrEqualTo(visible.xMax+.5f),item.name);
+            Assert.That(rect.yMin,Is.GreaterThanOrEqualTo(visible.yMin-.5f),item.name);
+            Assert.That(rect.yMax,Is.LessThanOrEqualTo(visible.yMax+.5f),item.name);
+        }
+        private bool TitleIsReady()
+        {
+            var flow=Flow;
+            return flow!=null&&flow.gameObject.scene.name=="TitleScene"&&flow.CurrentScreen==ScreenId.Title&&
+                flow.GetComponentsInChildren<Button>().Any(b=>b.name=="Start");
+        }
         [UnityTest] public IEnumerator LastMusicCardAndOptionalPartnerStayVisibleAboveTheFixedFooterAtScrollBottom()
         {
             yield return EnterHome();
             foreach(bool hasPartner in new[]{true,false})
             {
-                if(!hasPartner){Flow.ReturnToTitle();Flow.Game.State.favoriteCharacterId="";}
+                if(!hasPartner)
+                {
+                    Assert.That(Flow.ReturnToTitle(),Is.True);
+                    // Wait for the replacement scene's Start-rendered title UI,
+                    // rather than inspecting the previous settings during its load.
+                    float deadline=Time.realtimeSinceStartup+5;
+                    while(!TitleIsReady()&&Time.realtimeSinceStartup<deadline)yield return null;
+                    Assert.That(TitleIsReady(),Is.True,"The title scene and its Start button must be ready before opening settings");
+                    Flow.Game.State.favoriteCharacterId="";
+                }
                 Flow.ShowSettings();int writes=Store.Writes;string before=StateCodec.Encode(Flow.Game.State);
+                Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Settings));
+                Assert.That(Flow.SettingsOpenedFromGame,Is.EqualTo(hasPartner),"Exercise both fixed footer layouts");
                 var scroll=Flow.GetComponentsInChildren<ScrollRect>().Single();var page=scroll.viewport.parent as RectTransform;
                 var card=Flow.GetComponentsInChildren<RectTransform>().Single(t=>t.name=="Music track merge-pop-promenade");
                 var partner=Flow.GetComponentsInChildren<Button>().SingleOrDefault(b=>b.name=="Reselect partner");Assert.That(partner!=null,Is.EqualTo(hasPartner));
@@ -65,13 +90,16 @@ namespace Mofumachi.Tests
                     var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;((RectTransform)canvas.transform).sizeDelta=size;
                     Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(size,new Rect(0,24,size.x,size.y-56));Canvas.ForceUpdateCanvases();scroll.StopMovement();scroll.verticalNormalizedPosition=0;Canvas.ForceUpdateCanvases();
                     var cardInContent=Bounds(scroll.content,card);Assert.That(cardInContent.yMin,Is.GreaterThanOrEqualTo(scroll.content.rect.yMin),"The whole last card must belong to scrollable content");
+                    AssertInsideViewport(scroll,card);
+                    var viewportInPage=Bounds(page,scroll.viewport);
+                    foreach(var fixedControl in page.GetComponentsInChildren<RectTransform>().Where(t=>t.name=="Return settings"||t.name=="Return title"||t.name=="Settings feedback"||t.name=="QA build revision"))
+                        Assert.That(viewportInPage.yMin,Is.GreaterThanOrEqualTo(Bounds(page,fixedControl).yMax),"The scroll viewport must stay above "+fixedControl.name);
                     foreach(var text in card.GetComponentsInChildren<Text>().Where(t=>t.text.Length>0))Assert.That(text.preferredHeight,Is.LessThanOrEqualTo(text.rectTransform.rect.height+1),text.name);
                     var controls=card.GetComponentsInChildren<Button>().ToList();Assert.That(controls.Count,Is.EqualTo(3));if(partner!=null)controls.Add(partner);
                     foreach(var button in controls)
                     {
-                        var rect=Bounds(scroll.viewport,button.transform as RectTransform);var visible=scroll.viewport.rect;
-                        Assert.That(rect.xMin,Is.GreaterThanOrEqualTo(visible.xMin-.5f),button.name);Assert.That(rect.xMax,Is.LessThanOrEqualTo(visible.xMax+.5f),button.name);
-                        Assert.That(rect.yMin,Is.GreaterThanOrEqualTo(visible.yMin-.5f),button.name);Assert.That(rect.yMax,Is.LessThanOrEqualTo(visible.yMax+.5f),button.name);
+                        var rect=Bounds(scroll.viewport,button.transform as RectTransform);
+                        AssertInsideViewport(scroll,button.transform as RectTransform);
                         Assert.That(rect.width,Is.GreaterThanOrEqualTo(48),button.name);Assert.That(rect.height,Is.GreaterThanOrEqualTo(48),button.name);
                         var text=button.GetComponentInChildren<Text>();Assert.That(text.preferredHeight,Is.LessThanOrEqualTo(text.rectTransform.rect.height+1),button.name);
                         foreach(var fixedControl in page.GetComponentsInChildren<RectTransform>().Where(t=>t.name=="Return settings"||t.name=="Return title"||t.name=="Settings feedback"||t.name=="QA build revision"))

@@ -22,6 +22,7 @@ namespace Mofumachi.Presentation
             void Button(string name,string text,float x,float y,float width,Action action,bool secondary=true)
             {
                 var b=w.Button(name,text,content,new Rect(x,1,0,0),()=>{c.Flow.CloseTownMenu();action();},secondary);
+                b.GetComponent<ButtonPressFeedback>().PreserveHitbox=true;
                 var r=(RectTransform)b.transform;r.pivot=new Vector2(0,1);r.anchoredPosition=new Vector2(x*content.rect.width,-y);r.sizeDelta=new Vector2(width,48);b.GetComponentInChildren<Text>().fontSize=13;
             }
             var life=c.Flow.GetComponentInChildren<TownLifeView>();float width=card.sizeDelta.x-24,gap=6,half=(width-gap)/2,third=(width-gap*2)/3;

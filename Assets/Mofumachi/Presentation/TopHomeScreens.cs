@@ -46,7 +46,8 @@ namespace Mofumachi.Presentation
             var hud=w.Panel("HUD",root,new Rect(0,0,1,1),new Color(1,.988f,.945f,.94f)).rectTransform;UIWidgets.Top(hud,8,6,8,44);
             var today=w.Button("Today town","今日",hud,new Rect(0,0,.18f,1),c.Flow.ShowToday,true);
             today.GetComponentInChildren<Text>().fontSize=11;
-            var todayNew=w.Label("Today NEW","",(RectTransform)today.transform,new Rect(.54f,.76f,.65f,.24f),9);todayNew.color=new Color(.71f,.24f,.38f);
+            var todayNew=w.Label("Today NEW","",(RectTransform)today.transform,new Rect(1,1,0,0),9);todayNew.color=new Color(.71f,.24f,.38f);
+            todayNew.rectTransform.pivot=new Vector2(.5f,1);todayNew.rectTransform.anchoredPosition=new Vector2(-2,0);todayNew.rectTransform.sizeDelta=new Vector2(26,16);
             today.gameObject.AddComponent<TownTodayBadge>().Bind(c,today.GetComponentInChildren<Text>(),todayNew);
             w.Label("Town value","街 Lv."+c.Game.State.townGrowthLevel,hud,new Rect(.20f,.05f,.24f,.9f),13);
             w.Icon("Coin",UIIcon.Coin,hud,new Rect(.44f,.22f,.075f,.56f));

@@ -22,7 +22,11 @@ namespace Mofumachi.Tests
   [UnityTest] public IEnumerator ExpandedMenuCancelsMovementAndGuideWalksWithoutChangingProgress()
   {
    yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=life.World.Model.Hero;
-   Assert.That(life.World.GuidePlace("west.cafe-front"),Is.True);life.AdvanceFrame(1f/30);var p=hero.Position;string save=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
+   // At the initial level the named cafe activity is locked; the menu still
+   // lets the player walk to its physical doorstep without changing unlocks.
+   TownMenuButton("Walk to cafe").onClick.Invoke();Assert.That(Flow.IsModalOpen,Is.False);Assert.That(hero.IsWalking,Is.True);
+   Assert.That(TownWalkableArea.Distance(hero.Target,TownWorldMap.Place("west.cafe-front")),Is.LessThan(.001f));
+   life.AdvanceFrame(1f/30);var p=hero.Position;string save=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
    Flow.OpenTownMenu();for(int i=0;i<30;i++)life.AdvanceFrame(1f/30);Assert.That(hero.Position,Is.EqualTo(p));Assert.That(hero.IsWalking,Is.False);
    Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Walk to florist").onClick.Invoke();Assert.That(Flow.IsModalOpen,Is.False);Assert.That(hero.IsWalking,Is.True);Assert.That(hero.PlaceId,Is.EqualTo("shop"));
    Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(save));LogAssert.NoUnexpectedReceived();

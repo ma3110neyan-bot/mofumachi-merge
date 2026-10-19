@@ -5,6 +5,7 @@ namespace Mofumachi.Presentation
 {
     // Reuses exact pixels from the opaque map as a small foreground silhouette.
     // Residents above its feet are rendered behind the fountain; no new texture.
+    [RequireComponent(typeof(CanvasRenderer))]
     public sealed class TownFountainGraphic:MaskableGraphic
     {
         private TownContinuousWorldView world;private Texture2D painting;

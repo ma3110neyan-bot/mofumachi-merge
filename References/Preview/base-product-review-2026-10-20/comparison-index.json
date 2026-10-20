@@ -1,0 +1,249 @@
+{
+  "scope": "Actual Unity fixture comparisons; received180369d excludes subsequent source refinements; not Pixel",
+  "before_run": "20261020-104223-10416661",
+  "received_run": "20261020-224724-e8a2fc33",
+  "pages": 42,
+  "entries": [
+    {
+      "title": "TOP",
+      "file": "23-title-letter.png",
+      "note": "元の正式ロゴ・キャラクター・明るい街背景を維持。曲は静止画では評価できません。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "中央広場 / Lv.1",
+      "file": "04-town-lv1-Central.png",
+      "note": "街の表示範囲と景観を比較。道の終端・芝生の空白は受領版に残り、追加修正の対象です。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "西カフェ / Lv.1",
+      "file": "04-town-lv1-West.png",
+      "note": "街の表示範囲と景観を比較。道の終端・芝生の空白は受領版に残り、追加修正の対象です。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "東花屋 / Lv.1",
+      "file": "04-town-lv1-East.png",
+      "note": "街の表示範囲と景観を比較。道の終端・芝生の空白は受領版に残り、追加修正の対象です。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "北依頼小屋 / Lv.1",
+      "file": "04-town-lv1-North.png",
+      "note": "街の表示範囲と景観を比較。道の終端・芝生の空白は受領版に残り、追加修正の対象です。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "南の庭 / Lv.1",
+      "file": "04-town-lv1-South.png",
+      "note": "街の表示範囲と景観を比較。道の終端・芝生の空白は受領版に残り、追加修正の対象です。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "中央広場 / Lv.6",
+      "file": "04-town-lv6-Central.png",
+      "note": "前ページのLv.1と併せて成長差を確認。受領後の舗装修正・配置調整はこの画像に含まれません。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "西カフェ / Lv.6",
+      "file": "04-town-lv6-West.png",
+      "note": "前ページのLv.1と併せて成長差を確認。受領後の舗装修正・配置調整はこの画像に含まれません。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "東花屋 / Lv.6",
+      "file": "04-town-lv6-East.png",
+      "note": "前ページのLv.1と併せて成長差を確認。受領後の舗装修正・配置調整はこの画像に含まれません。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "北依頼小屋 / Lv.6",
+      "file": "04-town-lv6-North.png",
+      "note": "前ページのLv.1と併せて成長差を確認。受領後の舗装修正・配置調整はこの画像に含まれません。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "南の庭 / Lv.6",
+      "file": "04-town-lv6-South.png",
+      "note": "前ページのLv.1と併せて成長差を確認。受領後の舗装修正・配置調整はこの画像に含まれません。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "中央から西への接続",
+      "file": "09-connected-path-west.png",
+      "note": "同じ方向の接続を比較。5エリアの位置・役割を維持。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "中央から東への接続",
+      "file": "09-connected-path-east.png",
+      "note": "同じ方向の接続を比較。5エリアの位置・役割を維持。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "中央から北への接続",
+      "file": "09-connected-path-north.png",
+      "note": "同じ方向の接続を比較。5エリアの位置・役割を維持。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "中央から南への接続",
+      "file": "09-connected-path-south.png",
+      "note": "同じ方向の接続を比較。5エリアの位置・役割を維持。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "移動中の街",
+      "file": "06-walking-04.png",
+      "note": "同じ撮影工程。HUD変更により街の見える範囲が広がっています。動きの合否は静止画では判定しません。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "NPCすれ違い",
+      "file": "16-residents-passing-01.png",
+      "note": "連続撮影の同じ段階。実機の詰まり・反応速度はPixelで確認が必要です。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "指追従",
+      "file": "17-finger-follow-01.png",
+      "note": "実入力経路の撮影。指に追従する感覚はPixel操作で確認が必要です。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "街HUD",
+      "file": "24-home-unobstructed.png",
+      "note": "下部の常時表示を削減。街とキャラクターを優先。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "開閉メニュー",
+      "file": "24-menu-open.png",
+      "note": "施設へ歩く・図鑑・今日・設定などを収納。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "Merge / 初期の保存盤面",
+      "file": "01-merge-start.png",
+      "note": "5×6と既存のアイテム数を維持。見栄えのために空きマスを埋めていません。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "Merge / 全種類の検査盤面",
+      "file": "02-merge-all-items.png",
+      "note": "隔離テストで全種類を配置。大きな原画・明るい平面・枠を比較。実セーブの内容ではありません。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "Merge / 選択",
+      "file": "03-merge-selection.png",
+      "note": "選択・合成候補とLv表示を比較。保存・ルール・納品報酬は変更なし。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "キャラ / 待機",
+      "file": "25-character-idle.png",
+      "note": "正式原画を維持。影・表情・動作は実操作でも評価が必要です。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "キャラ / 歩行の一瞬",
+      "file": "25-character-step-a.png",
+      "note": "同じ撮影段階。キャラクター・NPC位置は撮影までのシミュレーションに応じて異なります。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "キャラ / 挨拶",
+      "file": "25-character-greeting.png",
+      "note": "原画の表情を活かした反応。動作のタイミングは静止画では評価できません。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "図鑑 / 開いた最初の画面",
+      "file": "19-book-discovery-first-page.png",
+      "note": "受領版では選択欄が大きく全身が隠れています。横一列への追加修正は、この画像には未反映です。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "図鑑 / 未発見と次の解放",
+      "file": "10-book-discovery-details.png",
+      "note": "指定スクロール位置の比較。上下の途中切れはスクロール領域の端です。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "今日のお願い / 開始",
+      "file": "11-today-start.png",
+      "note": "受領版の3目標と受取状態を比較。受取後の固定表示・3目標を同時に見せる修正は未反映です。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "今日のお願い / 受取可能",
+      "file": "12-today-ready.png",
+      "note": "受領版の3目標と受取状態を比較。受取後の固定表示・3目標を同時に見せる修正は未反映です。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "今日のお願い / 受取後",
+      "file": "13-today-flower-collected.png",
+      "note": "受領版の3目標と受取状態を比較。受取後の固定表示・3目標を同時に見せる修正は未反映です。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "依頼・文字の表現",
+      "file": "07-quest-story-goal.png",
+      "note": "絵本調の本文・紙枠・リボンを維持。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "BGM候補 / 選択画面",
+      "file": "22-merge-candidates.png",
+      "note": "候補リストの指定スクロール位置。試聴・選択の操作は実機で確認が必要です。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "北の依頼小屋 / 徒歩",
+      "file": "20-quest-walking.png",
+      "note": "通常徒歩から施設入口へ。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "北の依頼小屋 / 入場",
+      "file": "20-quest-inside.png",
+      "note": "到着後にドアを押して入場する対応画面。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "東の花屋 / 入場",
+      "file": "21-shop-inside.png",
+      "note": "既存のお花づくりへ接続。新しい商品購入・課金は追加していません。",
+      "same_named_before_available": true
+    },
+    {
+      "title": "西カフェ / 入場",
+      "file": "21b-cafe-inside.png",
+      "note": "受領版の新しい場面。近くにいる仲間との会話へ接続。旧同条件の画像はありません。",
+      "same_named_before_available": false
+    },
+    {
+      "title": "仲間のところへ歩く",
+      "file": "28-meet-friend-walking.png",
+      "note": "新規の撮影場面。仲間の実際の位置へ向かい、到着してから交流します。",
+      "same_named_before_available": false
+    },
+    {
+      "title": "Merge / 指で持ち上げる",
+      "file": "29-merge-drag-lift.png",
+      "note": "新規の撮影場面。指位置から持ち上がる表示。実機の操作感は未確認。",
+      "same_named_before_available": false
+    },
+    {
+      "title": "Merge / 相手に近づける",
+      "file": "29-merge-drag-match.png",
+      "note": "新規の撮影場面。合成相手へ寄る・候補を光らせる表示。",
+      "same_named_before_available": false
+    }
+  ],
+  "condition_limit": "Same-named fixture/level/resolution; book stats and moving NPC state can differ. This is a composition comparison, not an exact-state comparison for those pages."
+}

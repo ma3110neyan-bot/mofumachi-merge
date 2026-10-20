@@ -37,10 +37,11 @@ namespace Mofumachi.Presentation
             void Add(TownSceneryKind kind,TownDistrictId district,float x,float y,float width,int level=0,float solidWidth=0,float solidDepth=0)
             {list.Add(new TownSceneryPlacement(kind,district,new TownPoint(x,y),new TownPoint(x,y+solidDepth/2),width,width/Aspect(kind),level,solidWidth>0?Box(x,y,solidWidth,solidDepth):null));}
             Add(TownSceneryKind.CottagePair,TownDistrictId.Central,-.40f,.66f,.56f,0,.49f,.12f);
-            Add(TownSceneryKind.CottagePair,TownDistrictId.West,-1.66f,.78f,.57f,0,.49f,.12f);
-            Add(TownSceneryKind.CottagePair,TownDistrictId.East,1.65f,.78f,.58f,0,.50f,.12f);
-            Add(TownSceneryKind.CottagePair,TownDistrictId.North,.43f,2.78f,.57f,0,.49f,.12f);
-            Add(TownSceneryKind.CottagePair,TownDistrictId.South,-.43f,-1.25f,.55f,0,.47f,.12f);
+            Add(TownSceneryKind.CottagePair,TownDistrictId.Central,.45f,.74f,.46f,0,.38f,.10f);
+            Add(TownSceneryKind.CottagePair,TownDistrictId.West,-1.66f,.70f,.55f,0,.47f,.12f);
+            Add(TownSceneryKind.CottagePair,TownDistrictId.East,1.65f,.70f,.56f,0,.48f,.12f);
+            Add(TownSceneryKind.CottagePair,TownDistrictId.North,.43f,2.70f,.54f,0,.46f,.12f);
+            Add(TownSceneryKind.CottagePair,TownDistrictId.South,-.43f,-1.28f,.55f,0,.47f,.12f);
             Add(TownSceneryKind.NoticeBoard,TownDistrictId.North,-.45f,2.28f,.24f,0,.14f,.07f);
             // The hedge banks make frontcourts feel planted while leaving
             // the continuous east/west and north/south openings broad.

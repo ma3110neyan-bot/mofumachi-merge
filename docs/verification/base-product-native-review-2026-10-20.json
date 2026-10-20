@@ -1,0 +1,72 @@
+{
+  "run": "20261020-224724-e8a2fc33",
+  "build": {
+    "gitRevision": "180369dc32dfee6cacc908f05ba38278ca3b0e73",
+    "revisionSource": "git-metadata + clean product inputs",
+    "productFingerprint": "a5710379674997c5a969dbecb9755f9a54b7fda8e32984509e7a3fe9d7500ec8",
+    "localUnityConfigurationChanges": [
+      "\"Assets/Settings/Build Profiles/Android\\342\\204\\242.asset\"",
+      "Assets/Settings/UniversalRP.asset",
+      "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+      "ProjectSettings/ProjectSettings.asset"
+    ],
+    "nativeCaptureCount": 102,
+    "unity": "6000.6.4f1",
+    "appId": "com.mofumachi.merge.qa.townlife",
+    "versionCode": 1,
+    "apk": "town-life-qa.apk",
+    "sha256": "ab5a1fbd6279373b271b40180cbec76796bc4bf8c67b3537ebae6a380a40089b",
+    "bytes": 118189562,
+    "builtAtUtc": "2026-10-20T13:54:45.8758544Z",
+    "qa": true,
+    "townQa": true
+  },
+  "capture_scope": "Unity fixture renders; not Pixel captures",
+  "capture_hashes_verified": 102,
+  "xml": {
+    "editmode": {
+      "count": 143,
+      "passed": "143",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "3.1844077"
+    },
+    "playmode": {
+      "count": 203,
+      "passed": "203",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "153.2551523"
+    }
+  },
+  "apk_success_marker_verified": true,
+  "apk_bytes_independently_available_in_cloud": false,
+  "pixel_verified": false,
+  "visual_verdict": "requires refinements; paving composition, book opening page, daily claim feedback",
+  "superseded_by_unverified_refinements": true,
+  "refinement_verification": {
+    "pure_presentation": {
+      "passed": 235,
+      "failed": 0,
+      "skipped": 0
+    },
+    "actual_unity_dll_reference_compilation": {
+      "assemblies": 6,
+      "warnings": 0,
+      "errors": 0,
+      "native_execution": false
+    },
+    "powershell_gates": "passed; synthetic XML and PNG headers/mockADB; no actual device",
+    "planned_playmode_cases": 205,
+    "planned_captures": 102,
+    "native_after_refinements_verified": false,
+    "new_apk_generated": false,
+    "pixel_verified": false
+  },
+  "comparison_pdf": {
+    "path": "References/Preview/base-product-review-2026-10-20/mofumachi-before-received-20261020.pdf",
+    "sha256": "937c25fe42abc3f9d3ab198f464f56a2e8b14ae364e71b9a61531be276c106e9",
+    "pages": 42,
+    "scope": "Old80e535d versus received180369d, excludes subsequent refinements; not Pixel"
+  }
+}

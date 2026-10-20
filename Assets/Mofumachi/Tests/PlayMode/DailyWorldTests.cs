@@ -59,6 +59,53 @@ namespace Mofumachi.Tests
             yield return EnterHome();string favorite=Flow.Game.State.favoriteCharacterId;Flow.ShowToday();Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Open character book").onClick.Invoke();
             Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.CharacterSelection));Flow.PreviewFavorite("noah");Flow.GoBack();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(Flow.Game.State.favoriteCharacterId,Is.EqualTo(favorite));LogAssert.NoUnexpectedReceived();
         }
+        [UnityTest] public IEnumerator TodayReadyAndCollectedKeepAllGoalsAndTheFlowerStateOnTheOpeningPage()
+        {
+            yield return EnterHome();
+            var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;
+            int day=0;
+            foreach(var size in new[]{new Vector2(320,592),new Vector2(360,640),new Vector2(360,808)})
+            {
+                // A new in-memory journal day lets both states be exercised at
+                // every size, without editing the saved data or reopening a claim.
+                Assert.That(Flow.Daily.EnsureDay(System.DateTime.Today.AddDays(day++)),Is.True);
+                for(int i=0;i<3;i++)Flow.Daily.RecordMerge();Flow.Daily.RecordTalk("lulu");Flow.Daily.RecordWalk();
+                ((RectTransform)canvas.transform).sizeDelta=size;
+                Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(size,new Rect(0,24,size.x,size.y-56));
+                foreach(bool collected in new[]{false,true})
+                {
+                    Flow.ShowToday();Canvas.ForceUpdateCanvases();
+                    var scroll=Flow.GetComponentsInChildren<ScrollRect>().Single();var claim=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Claim today flower");
+                    Assert.That(Flow.Daily.Data.Claimed,Is.EqualTo(collected));
+                    Assert.That(claim.transform.parent.name,Is.EqualTo("Today storybook"),"The flower state must remain visible without scrolling");
+                    Assert.That(claim.interactable,Is.EqualTo(!collected));
+                    var goals=Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Today goal ")).ToArray();
+                    Assert.That(goals.Length,Is.EqualTo(3),"All three real daily goals must exist");
+                    foreach(var goal in goals)
+                    {
+                        var rect=(RectTransform)goal.transform;var bounds=Bounds(scroll.viewport,rect);
+                        Assert.That(rect.rect.height,Is.GreaterThanOrEqualTo(48));
+                        Assert.That(bounds.yMin,Is.GreaterThanOrEqualTo(scroll.viewport.rect.yMin-.5f),goal.name+" at "+size);
+                        Assert.That(bounds.yMax,Is.LessThanOrEqualTo(scroll.viewport.rect.yMax+.5f));
+                    }
+                    if(!collected)
+                    {
+                        claim.onClick.Invoke();Canvas.ForceUpdateCanvases();claim=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Claim today flower");
+                        Assert.That(Flow.Daily.Data.Claimed,Is.True);
+                    }
+                    Assert.That(claim.interactable,Is.False);
+                    var label=claim.GetComponentInChildren<Text>();Assert.That(label.text,Does.Contain("集めたお花 "+day+"こ"));
+                    Assert.That(label.preferredHeight,Is.LessThanOrEqualTo(label.rectTransform.rect.height+1));
+                    scroll=Flow.GetComponentsInChildren<ScrollRect>().Single();scroll.verticalNormalizedPosition=0;Canvas.ForceUpdateCanvases();
+                    var next=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Today visit request");
+                    Assert.That(Bounds(scroll.viewport,(RectTransform)next.transform).yMin,Is.GreaterThanOrEqualTo(scroll.viewport.rect.yMin-.5f),"The next invitation must remain reachable by scrolling");
+                    Flow.CloseToday();
+                }
+            }
+            LogAssert.NoUnexpectedReceived();
+        }
+        private static Rect Bounds(RectTransform root,RectTransform item)
+        {var corners=new Vector3[4];item.GetWorldCorners(corners);var min=(Vector2)root.InverseTransformPoint(corners[0]);var max=(Vector2)root.InverseTransformPoint(corners[2]);return Rect.MinMaxRect(min.x,min.y,max.x,max.y);}
         [UnityTest] public IEnumerator SixProfilesShowBookFieldsAndKeepFavoriteConfirmationSeparate()
         {
             yield return EnterHome();Flow.ShowCharacterSelection();string favorite=Flow.Game.State.favoriteCharacterId;

@@ -7,7 +7,7 @@
 **Tech Stack:** Unity6000.6.4f1 / uGUI / C# / NUnit / Android ARM64。
 **Spec:** `docs/superpowers/specs/2026-10-20-base-product-quality.md`
 
-**2026-10-20状態：実装済み・実機未確認。** Core125／純粋Presentation232成功、6DLLコンパイル警告・エラー0。実Unity／新APK／Pixelは未実施。[確認段階と一括実行](../../base-product-quality-2026-10-20.md)。以下の完了チェックは実装またはクラウド検査の範囲のみ。
+**2026-10-20実画像レビュー後：追加修正は実装済み・実機未確認。** 受領180369dは実Edit143／Play203成功、102枚・APK記録を確認。画像から街の接合／配置・図鑑初画面・今日の受取表示に不足を発見し、同じ工程内で修正した。新しい実Unity／修正版APK／Pixelは未実施。[段階を分けた報告](../../base-product-quality-2026-10-20.md)。完了チェックはその範囲だけを示す。
 
 ## Global Constraints
 
@@ -61,5 +61,7 @@ Interfaces: `DestinationFor(string id)`, `TapDoor`, `VisitTownCharacter(string i
 - [x] Run Core/pure Presentation suites, actual Unity-reference6assemblies and glyph/resource checks; inspect failures rather than weakening assertions.
 - [x] Fresh whole-change review; fix important issues with reproduction tests and full green suite.
 - [x] Commit the combined candidate on the current feature branch; no main integration.
-- [ ] One Windows-native run captures all scenes and builds same-fingerprint APK; review actual After against Before.
+- [x] Receive180369d: native143/203 pass,102images and same-fingerprint APK records; inspect Before/received images.
+- [x] Reject unfinished paving/book/daily composition and implement bounded refinements.
+- [ ] New Windows-native run for the refinements:205 declared PlayMode cases,102 captures, same-fingerprint APK; compare the actual new After.
 - [ ] Pixel walks/drag/merge/doors/daily/book/BGM/save restart and user experience acceptance. Explicitly leave unavailable stages pending; never infer them from compilation.

@@ -14,6 +14,57 @@ namespace Mofumachi.Tests
             {var a=shape[i];var b=shape[j];if((a.Y>p.Y)!=(b.Y>p.Y)&&p.X<(b.X-a.X)*(p.Y-a.Y)/(b.Y-a.Y)+a.X)inside=!inside;}
             return inside;
         }
+        [Test] public void FountainApproachHasNoUnplantedGrassHoleBetweenItsTwoWalkingSides()
+        {
+            // The native Lv6 image showed an isolated green triangle here,
+            // between the two side paths and the north-bound street.
+            var floor=new TownWalkableArea(0);
+            foreach(float x in new[]{-.015f,0,.015f})foreach(float y in new[]{.545f,.565f,.585f})
+            {
+                Assert.That(TownWorldSurface.PavingPolygons.Any(s=>Inside(new TownPoint(x,y),s)),Is.True,"Unplanted gap above the fountain at "+x+","+y);
+                Assert.That(floor.Contains(new TownPoint(x,y)),Is.True,"The filled fountain approach must remain walkable");
+            }
+        }
+        [Test] public void LocalWalksReachClearApronsWithContinuousPavingAndNavigation()
+        {
+            var floor=new TownWalkableArea(0);
+            Assert.That(TownWorldSurface.LocalWalks.Count,Is.EqualTo(6),"Both sides of each shop and both request-plaza nooks need a clear approach");
+            foreach(var walk in TownWorldSurface.LocalWalks)
+            {
+                Assert.That(walk.Length,Is.GreaterThanOrEqualTo(2));
+                for(int i=1;i<walk.Length;i++)
+                {
+                    var a=walk[i-1];var b=walk[i];float dx=b.X-a.X,dy=b.Y-a.Y,length=(float)Math.Sqrt(dx*dx+dy*dy);
+                    foreach(float side in new[]{-.9f,0,.9f})
+                    {
+                        float nx=-dy/length*TownWorldSurface.LocalWalkHalfWidth*side,ny=dx/length*TownWorldSurface.LocalWalkHalfWidth*side;
+                        Assert.That(floor.CanTravel(new TownPoint(a.X+nx,a.Y+ny),new TownPoint(b.X+nx,b.Y+ny)),Is.True,"Local walking width must clear buildings and planting: "+a.X+","+a.Y+" to "+b.X+","+b.Y);
+                    }
+                    for(int sample=0;sample<=8;sample++)
+                    {
+                        float t=sample/8f;var point=new TownPoint(a.X+dx*t,a.Y+dy*t);
+                        Assert.That(TownWorldSurface.PavingPolygons.Any(s=>Inside(point,s)),Is.True,"The declared walk must actually be paved");
+                    }
+                }
+                var end=walk[walk.Length-1];
+                for(int i=0;i<16;i++)
+                {
+                    double angle=i*Math.PI*2/16;var edge=new TownPoint(end.X+(float)Math.Cos(angle)*TownWorldSurface.LocalCourtRadius*.95f,end.Y+(float)Math.Sin(angle)*TownWorldSurface.LocalCourtRadius*.95f);
+                    Assert.That(floor.CanTravel(end,edge),Is.True,"A rounded destination court must stay outside solid and planted islands");
+                    Assert.That(TownWorldSurface.PavingPolygons.Any(s=>Inside(edge,s)),Is.True,"Local walks need rounded paved ends");
+                }
+            }
+        }
+        [Test] public void FirstCafeAndFloristGrowthFurnishingsStayBesideTheirActualEntrances()
+        {
+            foreach(var region in new[]{TownRegionId.West,TownRegionId.East})
+            {
+                var prop=TownGrowthPresentation.For(region,2).Single(p=>p.Prop==(region==TownRegionId.West?TownGrowthProp.CafeTable:TownGrowthProp.FlowerDisplay));
+                var door=TownWorldMap.Place(region==TownRegionId.West?"west.cafe-front":"shop");
+                Assert.That(Math.Abs(prop.Position.Y-door.Y),Is.LessThan(.25f),"Early growth should furnish the visible storefront, rather than the far lower edge");
+                Assert.That(Math.Abs(prop.Position.X-door.X),Is.InRange(.25f,.39f),"Keep the entrance and street clear beside the furniture");
+            }
+        }
         [Test] public void ForecourtsKeepLargeMeadowCornersBesideTheBranchedRoutes()
         {
             foreach(var p in new[]{new TownPoint(-.27f,-.50f),new TownPoint(.27f,-.50f),new TownPoint(-1.42f,-.46f),new TownPoint(1.42f,-.46f)})

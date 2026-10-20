@@ -21,7 +21,13 @@ namespace Mofumachi.Tests
     {
         private Button Button(string name)=>Flow.GetComponentsInChildren<Button>().Single(b=>b.name==name);
         private Text Text(string name)=>Flow.GetComponentsInChildren<Text>().Single(t=>t.name==name);
-        private static Vector2 Position(Component c)=>RectTransformUtility.WorldToScreenPoint(null,c.transform.position);
+        private static Vector2 Position(Component c)
+        {
+            var rect=c.transform as RectTransform;var canvas=c.GetComponentInParent<Canvas>();
+            var camera=canvas!=null&&canvas.renderMode!=RenderMode.ScreenSpaceOverlay?canvas.worldCamera:null;
+            // Merge cells use a bottom-left pivot; the pivot is not the touch center.
+            return RectTransformUtility.WorldToScreenPoint(camera,rect!=null?rect.TransformPoint(rect.rect.center):c.transform.position);
+        }
         private void AssertFeedbackFits()
         {
             Canvas.ForceUpdateCanvases();var label=Text("Feedback");
@@ -160,7 +166,14 @@ namespace Mofumachi.Tests
                 yield return null;Canvas.ForceUpdateCanvases();
                 Assert.That(touch.enabled,Is.True,"The synthetic touchscreen must accept queued input");
                 Assert.That(EventSystem.current.currentInputModule,Is.InstanceOf<InputSystemUIInputModule>());
-                var from=Position(Button("Cell 28"));var to=Position(Button("Cell 29"));
+                var source=(RectTransform)Button("Cell 28").transform;var target=(RectTransform)Button("Cell 29").transform;
+                var canvas=target.GetComponentInParent<Canvas>();var eventCamera=canvas.renderMode==RenderMode.ScreenSpaceOverlay?null:canvas.worldCamera;
+                var from=Position(source);var to=Position(target);
+                foreach(var cell in new[]{source,target})
+                {
+                    Assert.That(RectTransformUtility.ScreenPointToLocalPointInRectangle(cell,Position(cell),eventCamera,out var center),Is.True);
+                    Assert.That(Vector2.Distance(center,cell.rect.center),Is.LessThan(.05f),"Queued touches must address the visible cell center, independent of its pivot");
+                }
                 int writes=Store.Writes;string before=StateCodec.Encode(Flow.Game.State);
                 var hits=new List<RaycastResult>();EventSystem.current.RaycastAll(new PointerEventData(EventSystem.current){position=from},hits);
                 Assert.That(hits,Is.Not.Empty);Assert.That(hits[0].gameObject.GetComponentInParent<MergeBoardView>(),Is.SameAs(Button("Cell 28").GetComponent<MergeBoardView>()),"The bread cell must receive the touch raycast");
@@ -174,12 +187,11 @@ namespace Mofumachi.Tests
                 var freeOffset=DragOffset(ghost,between);
                 Assert.That(freeOffset.x,Is.EqualTo(0).Within(.05f));Assert.That(freeOffset.y,Is.GreaterThan(0).And.LessThan(ghost.rect.height*.5f),"The icon lifts above the touch while staying close enough to follow it");
                 Assert.That(ghost.GetComponentsInChildren<Graphic>().All(g=>!g.raycastTarget),Is.True,"Lifted art and shadow must let the touch reach cells");
-                var target=(RectTransform)Button("Cell 29").transform;
                 var guidance=target.Find("Drag match guidance");Assert.That(guidance,Is.Not.Null);
                 Assert.That(Flow.GetComponentsInChildren<MergeSparkleGraphic>().Count(g=>g.name=="Drag match guidance"),Is.EqualTo(1));
                 // Approach inside the candidate so a missing or reversed horizontal pull fails.
                 var approachWorld=target.TransformPoint(target.rect.center+Vector2.left*target.rect.width*.2f);
-                var approach=RectTransformUtility.WorldToScreenPoint(null,approachWorld);
+                var approach=RectTransformUtility.WorldToScreenPoint(eventCamera,approachWorld);
                 yield return Touch(touch,approach,UnityEngine.InputSystem.TouchPhase.Moved);
                 var approachOffset=DragOffset(ghost,approach);
                 float remainingX=ghost.parent.InverseTransformPoint(target.TransformPoint(target.rect.center)).x-ghost.parent.InverseTransformPoint(approachWorld).x;
@@ -190,7 +202,7 @@ namespace Mofumachi.Tests
                 Assert.That(candidateOffset.y,Is.GreaterThan(0).And.LessThan(freeOffset.y),"The candidate reduces the observed lift while keeping the item above the finger");
                 var glow=target.Find("Drag target glow");Assert.That(glow,Is.Not.Null);
                 var glowBounds=RectTransformUtility.CalculateRelativeRectTransformBounds(target,glow);
-                Assert.That(glowBounds.center.magnitude,Is.LessThan(.05f));Assert.That(Vector2.Distance(glowBounds.size,target.rect.size),Is.LessThan(.05f));
+                Assert.That(Vector2.Distance(glowBounds.center,target.rect.center),Is.LessThan(.05f));Assert.That(Vector2.Distance(glowBounds.size,target.rect.size),Is.LessThan(.05f));
                 hits.Clear();EventSystem.current.RaycastAll(new PointerEventData(EventSystem.current){position=to},hits);
                 Assert.That(hits,Is.Not.Empty);Assert.That(hits[0].gameObject.GetComponentInParent<MergeBoardView>(),Is.SameAs(target.GetComponent<MergeBoardView>()),"Drag feedback must not intercept the drop raycast");
                 Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));

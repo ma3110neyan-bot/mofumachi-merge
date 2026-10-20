@@ -2,6 +2,18 @@
 
 **実装済み・実機未確認。完成判定は保留。** 最新ユーザーの「今回は機能追加ではなく商品化」に従い、街・施設・仲間・Merge・日次の接続を一括で改修した。旧製品 `80e535d` の実Unity90枚／APKの確認結果は、新候補へ引き継がない。
 
+## Windows実行 `20261020-183917-4ab92b8e` の停止と修正
+
+受領した実EditMode XMLは **143件：成功142／失敗1／skip0**。失敗は `PresentationContentTests.CustomGraphicsCanBeClippedDisabledAndDestroyedWithoutRendererErrors`。ログとXMLの同じスタックが `TownVillageDressing.SpriteBounds` → `TownVillageDetailGraphic.Bound` → `OnPopulateMesh` を指す。PlayMode・撮影・APK生成へは進んでいない。
+
+追加した `TownVillageDetailGraphic` は、絵柄の設定前でもUnityのCanvas更新から描画を呼ばれる。初期値 `TownSceneryKind.Cafe` は別アトラスの種類で、村の部品の切出しには使用できない。未設定状態を区別せず切り出そうとした初期化不備だった。
+
+設定前は空のメッシュで終了し、`Bind` では種類を検証してから描画状態を更新するよう修正した。不正な種類は呼出元で拒否し、最後の有効な設定を壊さない。失敗した既存検査を維持し、未設定時は空・設定後8種類は有限な四角形／正しいUV・入力を取らない・再表示と破棄まで確認する内容へ強化した。検査件数は増えていない。
+
+修正後のクラウド再検査は **純粋Presentation232全成功・skip0、実Unity DLL参照の6アセンブリは警告／エラー0**。これはネイティブCanvasでの再実行ではない。**修正後のWindows全件・実描画・新APK・Pixelは確認待ち**。同じ統合候補としてPull後に下記の一括QAを再開する。
+
+受領証拠と修正後のクラウド結果は `/workspace/acceptance/base-rebuild-20261020/windows-183917-4ab92b8e/` に保持した。今回のソース修正は描画部品1つと関連検査のみで、保存・盤面ルール・納品報酬・キャラ原画は変更なし。
+
 ## 実装した体験と、これから目で確かめること
 
 - **街**：中央＋東西南北の役割・座標を保持。反復する樹木の列を整理し、住宅・植栽・カフェ席・花屋の店先・掲示板・庭のまとまりを追加。地面は控えめな草地と分岐する小道へ。新しい透明素材は共有アトラス1枚、Android上限1024・mipmapなし・読み取りコピーなし。画面外の小物は個別に非表示。実描画では密度、色、足元、道の幅、境界の自然さを判定する。

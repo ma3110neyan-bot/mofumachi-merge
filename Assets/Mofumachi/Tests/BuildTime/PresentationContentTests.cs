@@ -28,6 +28,7 @@ namespace Mofumachi.Tests
         [Test] public void CustomGraphicsCanBeClippedDisabledAndDestroyedWithoutRendererErrors()
         {
             var root=new GameObject("Graphic renderer lifecycle fixture",typeof(RectTransform),typeof(Canvas));
+            root.GetComponent<Canvas>().renderMode=RenderMode.WorldSpace;((RectTransform)root.transform).sizeDelta=new Vector2(360,740);
             try
             {
                 var mask=UIWidgets.Node("Masked graphics",root.transform as RectTransform,new Rect(0,0,1,1));mask.gameObject.AddComponent<RectMask2D>();
@@ -36,6 +37,18 @@ namespace Mofumachi.Tests
                     var node=UIWidgets.Node(type.Name,mask,new Rect(0,0,1,1));var graphic=(Graphic)node.gameObject.AddComponent(type);
                     Assert.That(node.GetComponent<CanvasRenderer>(),Is.Not.Null,type.Name+" runtime creation must supply a CanvasRenderer");
                     Canvas.ForceUpdateCanvases();if(graphic is MaskableGraphic masked)masked.RecalculateClipping();
+                    if(graphic is TownVillageDetailGraphic village)
+                    {
+                        var pending=village.canvasRenderer.GetMesh();Assert.That(pending==null?0:pending.vertexCount,Is.Zero,"A village part must not draw an arbitrary sprite before Bind");
+                        foreach(var kind in Enum.GetValues(typeof(TownSceneryKind)).Cast<TownSceneryKind>().Where(k=>k>=TownSceneryKind.CottagePair))
+                        {
+                            village.Bind(kind);Canvas.ForceUpdateCanvases();var mesh=village.canvasRenderer.GetMesh();
+                            Assert.That(mesh.vertexCount,Is.EqualTo(4),kind.ToString());Assert.That(village.mainTexture,Is.Not.Null,kind.ToString());Assert.That(village.raycastTarget,Is.False);
+                            foreach(var vertex in mesh.vertices)Assert.That(float.IsFinite(vertex.x)&&float.IsFinite(vertex.y),Is.True,kind.ToString());
+                            foreach(var uv in mesh.uv){Assert.That(uv.x,Is.InRange(0f,1f),kind.ToString());Assert.That(uv.y,Is.InRange(0f,1f),kind.ToString());}
+                        }
+                        Assert.Throws<ArgumentOutOfRangeException>(()=>village.Bind(TownSceneryKind.Cafe),"An unsupported binding must still be rejected at the call site");
+                    }
                     mask.gameObject.SetActive(false);mask.gameObject.SetActive(true);node.gameObject.SetActive(false);UnityEngine.Object.DestroyImmediate(node.gameObject);
                 }
             }

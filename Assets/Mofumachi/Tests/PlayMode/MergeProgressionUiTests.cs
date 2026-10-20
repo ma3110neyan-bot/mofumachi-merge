@@ -121,6 +121,13 @@ namespace Mofumachi.Tests
             InputSystem.QueueStateEvent(screen,new TouchState{touchId=71,position=position,phase=phase});
             yield return null;yield return null;
         }
+        private static Vector2 DragOffset(RectTransform ghost,Vector2 finger)
+        {
+            var parent=(RectTransform)ghost.parent;var canvas=ghost.GetComponentInParent<Canvas>();
+            var camera=canvas.renderMode==RenderMode.ScreenSpaceOverlay?null:canvas.worldCamera;
+            Assert.That(RectTransformUtility.ScreenPointToLocalPointInRectangle(parent,finger,camera,out var point),Is.True);
+            return (Vector2)parent.InverseTransformPoint(ghost.TransformPoint(ghost.rect.center))-point;
+        }
         [UnityTest] public IEnumerator UnknownSavedItemCanBeDiscardedThroughConfirmation()
         {
             yield return EnterHome();Assert.That(Flow.Game.AddItem("future-item",1),Is.True);Flow.Initialize(Store);Flow.ShowMerge();
@@ -154,21 +161,53 @@ namespace Mofumachi.Tests
                 Assert.That(touch.enabled,Is.True,"The synthetic touchscreen must accept queued input");
                 Assert.That(EventSystem.current.currentInputModule,Is.InstanceOf<InputSystemUIInputModule>());
                 var from=Position(Button("Cell 28"));var to=Position(Button("Cell 29"));
+                int writes=Store.Writes;string before=StateCodec.Encode(Flow.Game.State);
                 var hits=new List<RaycastResult>();EventSystem.current.RaycastAll(new PointerEventData(EventSystem.current){position=from},hits);
                 Assert.That(hits,Is.Not.Empty);Assert.That(hits[0].gameObject.GetComponentInParent<MergeBoardView>(),Is.SameAs(Button("Cell 28").GetComponent<MergeBoardView>()),"The bread cell must receive the touch raycast");
                 yield return Touch(touch,from,UnityEngine.InputSystem.TouchPhase.Began);
                 Assert.That(touch.primaryTouch.press.isPressed,Is.True,"The queued touch must reach Input System before dragging");
-                yield return Touch(touch,Vector2.Lerp(from,to,.5f),UnityEngine.InputSystem.TouchPhase.Moved);
-                Assert.That(GameObject.Find("Dragged tea"),Is.Not.Null,"Touch drag must begin before dropping.");
+                var between=Vector2.Lerp(from,to,.5f);
+                yield return Touch(touch,between,UnityEngine.InputSystem.TouchPhase.Moved);
+                var ghostObject=GameObject.Find("Dragged tea");Assert.That(ghostObject,Is.Not.Null,"Touch drag must begin before dropping.");
+                var ghost=(RectTransform)ghostObject.transform;
+                // Lift and magnetic pull are measured in the ghost canvas, not screen pixels.
+                var freeOffset=DragOffset(ghost,between);
+                Assert.That(freeOffset.x,Is.EqualTo(0).Within(.05f));Assert.That(freeOffset.y,Is.GreaterThan(0).And.LessThan(ghost.rect.height*.5f),"The icon lifts above the touch while staying close enough to follow it");
+                Assert.That(ghost.GetComponentsInChildren<Graphic>().All(g=>!g.raycastTarget),Is.True,"Lifted art and shadow must let the touch reach cells");
+                var target=(RectTransform)Button("Cell 29").transform;
+                var guidance=target.Find("Drag match guidance");Assert.That(guidance,Is.Not.Null);
+                Assert.That(Flow.GetComponentsInChildren<MergeSparkleGraphic>().Count(g=>g.name=="Drag match guidance"),Is.EqualTo(1));
+                // Approach inside the candidate so a missing or reversed horizontal pull fails.
+                var approachWorld=target.TransformPoint(target.rect.center+Vector2.left*target.rect.width*.2f);
+                var approach=RectTransformUtility.WorldToScreenPoint(null,approachWorld);
+                yield return Touch(touch,approach,UnityEngine.InputSystem.TouchPhase.Moved);
+                var approachOffset=DragOffset(ghost,approach);
+                float remainingX=ghost.parent.InverseTransformPoint(target.TransformPoint(target.rect.center)).x-ghost.parent.InverseTransformPoint(approachWorld).x;
+                Assert.That(approachOffset.x,Is.GreaterThan(0).And.LessThan(remainingX),"The candidate attracts the icon without taking over the touch");
                 yield return Touch(touch,to,UnityEngine.InputSystem.TouchPhase.Moved);
-                var ghost=GameObject.Find("Dragged tea");Assert.That(Vector2.Distance(Position(ghost.transform),to),Is.LessThan(3));
-                yield return Touch(touch,to,UnityEngine.InputSystem.TouchPhase.Ended);yield return new WaitForSecondsRealtime(.3f);
+                var candidateOffset=DragOffset(ghost,to);
+                Assert.That(candidateOffset.x,Is.EqualTo(0).Within(.05f));
+                Assert.That(candidateOffset.y,Is.GreaterThan(0).And.LessThan(freeOffset.y),"The candidate reduces the observed lift while keeping the item above the finger");
+                var glow=target.Find("Drag target glow");Assert.That(glow,Is.Not.Null);
+                var glowBounds=RectTransformUtility.CalculateRelativeRectTransformBounds(target,glow);
+                Assert.That(glowBounds.center.magnitude,Is.LessThan(.05f));Assert.That(Vector2.Distance(glowBounds.size,target.rect.size),Is.LessThan(.05f));
+                hits.Clear();EventSystem.current.RaycastAll(new PointerEventData(EventSystem.current){position=to},hits);
+                Assert.That(hits,Is.Not.Empty);Assert.That(hits[0].gameObject.GetComponentInParent<MergeBoardView>(),Is.SameAs(target.GetComponent<MergeBoardView>()),"Drag feedback must not intercept the drop raycast");
+                Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));
+                yield return Touch(touch,to,UnityEngine.InputSystem.TouchPhase.Ended);
                 Assert.That(Flow.Game.Board.At(28),Is.Null);Assert.That(Flow.Game.Board.At(29).level,Is.EqualTo(2));
+                Assert.That(GameObject.Find("Dragged tea"),Is.Null);Assert.That(GameObject.Find("Drag target glow"),Is.Null);
+                float deadline=Time.realtimeSinceStartup+1;
+                while(!Flow.CanInteractBoard&&Time.realtimeSinceStartup<deadline)yield return null;
+                Assert.That(Flow.CanInteractBoard,Is.True,"The committed merge must unlock before the next touch");
+                Assert.That(Store.Writes,Is.GreaterThan(writes));Assert.That(StateCodec.Encode(Store.Load().State),Is.EqualTo(StateCodec.Encode(Flow.Game.State)));
+                int mergedWrites=Store.Writes;
                 to=Position(Button("Cell 29"));from=Position(Button("Cell 28"));
                 yield return Touch(touch,to,UnityEngine.InputSystem.TouchPhase.Began);yield return Touch(touch,to,UnityEngine.InputSystem.TouchPhase.Ended);
-                Assert.That(Flow.SelectedCell,Is.EqualTo(29));
+                Assert.That(Flow.SelectedCell,Is.EqualTo(29));Assert.That(Store.Writes,Is.EqualTo(mergedWrites));
                 yield return Touch(touch,from,UnityEngine.InputSystem.TouchPhase.Began);yield return Touch(touch,from,UnityEngine.InputSystem.TouchPhase.Ended);
-                Assert.That(Flow.Game.Board.At(29),Is.Null);Assert.That(Flow.Game.Board.At(28).level,Is.EqualTo(2));LogAssert.NoUnexpectedReceived();
+                Assert.That(Flow.Game.Board.At(29),Is.Null);Assert.That(Flow.Game.Board.At(28).level,Is.EqualTo(2));
+                Assert.That(Store.Writes,Is.EqualTo(mergedWrites+1));Assert.That(StateCodec.Encode(Store.Load().State),Is.EqualTo(StateCodec.Encode(Flow.Game.State)));LogAssert.NoUnexpectedReceived();
             }
             finally
             {

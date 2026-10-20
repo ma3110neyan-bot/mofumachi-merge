@@ -14,6 +14,25 @@
 
 受領証拠と修正後のクラウド結果は `/workspace/acceptance/base-rebuild-20261020/windows-183917-4ab92b8e/` に保持した。今回のソース修正は描画部品1つと関連検査のみで、保存・盤面ルール・納品報酬・キャラ原画は変更なし。
 
+## 次のWindows実行 `20261020-184914-b47689c0`
+
+ユーザーの終了画面では **Edit143／143成功**。受領した実PlayMode XMLは **203件：成功197／失敗6／skip0**。撮影を含むPlayMode全件の成功条件に達しておらず、スクリプトはAPK生成前で停止した。
+
+6件を例外・期待値・製品コードへ追跡した結果、承認済みの表示／入場操作へ変更した際に、旧仕様の検査条件が残っていた。以下は**検査条件の修正**で、ゲームの画面改善実績や実機合格には数えない。製品コード・合否ゲート・203件の検査数は変更していない。
+
+|失敗した検査|原因と維持する検査|
+|---|---|
+|`ExperienceGrowthTests.NextUnlockIsVisibleAndUpdatesFromTheExistingSuccessfulDelivery`|小さい街HUDへ依頼主入りの全文を要求していた。HUDに次Lvと解放物、依頼画面に依頼主と詳細があることを確認し、納品30Coins／重複受取なし／余分な保存なしの検査を維持。|
+|`ExperienceGrowthTests.UnknownQuestAndFinaleNeverInventAnotherUnlock`|全依頼完了後の案内を旧「お茶会」の文言へ固定していた。仲間と今日の会話へ戻る現在の案内と、架空の次Lv／依頼／報酬を増やさない保証を確認。|
+|`MergeProgressionUiTests.InputSystemTouchDragAndTapReachBreadCellsThroughEventSystem`|意図的に持ち上がるアイコンの中心を指と同じ位置へ要求していた。Canvas内で近くに持ち上がり、候補へ寄り、指の位置へ正しく落とせることを確認。実Touchscreen経由の合成・タップ移動・保存・入力設定復元を維持し、演出後の操作可能状態を上限付きで待つ。|
+|`ResidentPresenceTests.PauseAndDisableClearReactionGaitAndKeepPositiveDepthScale`|遠くからショップを開こうとしてモーダルにならず、停止姿勢の検査まで進めなかった。街のメニューを実際に開き、接地・表情・有限な描画・無効化の復元を検査。|
+|`TownLifeTests.GrowthLayersFollowSavedLevelWithoutChangingPaths`|同じく遠隔入店を期待していた。成長段階と6名の確認に加え、花屋へ歩く→到着して待つ→ドアをタップ→入店を実行し、進行・Coins・メイン保存が変わらないことを確認。|
+|`TownViewportPresentationTests.PauseModalAndResizeReleaseCameraInput`|同じ遠隔入店をカメラ入力解除のきっかけにしていた。街のメニューを開き、操作中の指を持っている状態からメニュー・実際の画面リサイズ・アプリ中断で解除されることを確認。|
+
+同じ旧入店の前提が残っていた、成功済みの `TownMotionPresentationTests.StationaryDragAndLifecycleStopGait` も、実際に指を持ってメニューを開いて解除する条件へ揃えた。既に指が解除された状態だけで停止検査が成功しないようにした。
+
+修正後は6アセンブリの実Unity DLL参照コンパイルを実行し、警告／エラー0。**修正後のネイティブ203件全成功・After画像レビュー・APK・Pixelは未確認**。受領XML／logと診断は `/workspace/acceptance/base-rebuild-20261020/windows-184914-b47689c0/` に保持する。引き続き下記の同じ一括QAから再開する。
+
 ## 実装した体験と、これから目で確かめること
 
 - **街**：中央＋東西南北の役割・座標を保持。反復する樹木の列を整理し、住宅・植栽・カフェ席・花屋の店先・掲示板・庭のまとまりを追加。地面は控えめな草地と分岐する小道へ。新しい透明素材は共有アトラス1枚、Android上限1024・mipmapなし・読み取りコピーなし。画面外の小物は個別に非表示。実描画では密度、色、足元、道の幅、境界の自然さを判定する。

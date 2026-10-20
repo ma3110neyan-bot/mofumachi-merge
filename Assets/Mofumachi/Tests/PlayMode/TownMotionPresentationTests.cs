@@ -29,7 +29,7 @@ namespace Mofumachi.Tests
             Assert.That(hero.VisualRoot.anchoredPosition.y,Is.EqualTo(0).Within(.01f));Assert.That(hero.GetComponentInChildren<Text>().rectTransform.localPosition,Is.EqualTo(label));
             Assert.That(hero.Movement.TryBeginDrag(2),Is.False);hero.OnPointerUp(new PointerEventData(EventSystem.current){pointerId=1});life.GuideToFacility("quest");for(int i=0;i<12;i++)life.AdvanceFrame(1f/60);
             Assert.That(hero.VisualRoot.anchoredPosition.y,Is.GreaterThan(0));life.CancelInteraction();var stopped=hero.WorldPosition;life.AdvanceFrame(10);Assert.That(TownWorldLayout.Distance(hero.WorldPosition,stopped),Is.LessThan(.0001f));
-            Flow.OpenShopPreview();Assert.That(hero.Movement.OwnedPointerId,Is.Null);Flow.CloseShopPreview();Flow.ShowSettings();Flow.GoBack();Flow.SendMessage("OnApplicationPause",true);
+            Assert.That(hero.Movement.TryBeginDrag(3),Is.True);Flow.OpenTownMenu();Assert.That(Flow.IsModalOpen,Is.True);Assert.That(hero.Movement.OwnedPointerId,Is.Null);Flow.CloseTownMenu();Flow.ShowSettings();Flow.GoBack();Flow.SendMessage("OnApplicationPause",true);
             Assert.That(Flow.GetComponentsInChildren<TownLifeView>().All(v=>!v.enabled),Is.True);Flow.SendMessage("OnApplicationPause",false);LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator RenderedCornerAndArrivalUseTheSameStreet()

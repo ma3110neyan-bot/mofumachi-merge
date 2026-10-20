@@ -61,8 +61,12 @@ namespace Mofumachi.Tests
             Assert.That(life.World.Model.TryGuide(actor.CharacterId,"square"),Is.True);life.AdvanceFrame(.1f);
             Assert.That(actor.VisualRoot.anchoredPosition.y,Is.GreaterThan(0),"The resident must have a gait to clear.");
             actor.React();life.AdvanceFrame(.1f);Assert.That(actor.VisualRoot.anchoredPosition.y,Is.GreaterThan(0));
-            Flow.OpenShopPreview();life.AdvanceFrame(.1f);Canvas.ForceUpdateCanvases();
-            Assert.That(Flow.IsModalOpen,Is.True);Assert.That(body.isActiveAndEnabled,Is.True);
+            // The town menu pauses residents from anywhere. Shop entry now
+            // requires the hero to walk to its door before it can open.
+            Flow.OpenTownMenu();
+            Assert.That(Flow.IsModalOpen,Is.True,"The town menu must open before checking the paused resident.");
+            life.AdvanceFrame(.1f);Canvas.ForceUpdateCanvases();
+            Assert.That(body.isActiveAndEnabled,Is.True);
             Assert.That(body.canvasRenderer.cull,Is.False,"The framed resident must remain inside the town mask.");
             var mesh=body.canvasRenderer.GetMesh();Assert.That(mesh,Is.Not.Null);AssertFinite(mesh);
             Assert.That(actor.VisualRoot.anchoredPosition,Is.EqualTo(Vector2.zero));Assert.That(actor.VisualRoot.localRotation,Is.EqualTo(Quaternion.identity));
@@ -72,7 +76,7 @@ namespace Mofumachi.Tests
             mesh=body.canvasRenderer.GetMesh();Assert.That(mesh,Is.Not.Null);AssertFinite(mesh);
             Assert.That(body.canvasRenderer.cull,Is.False);Assert.That(mesh.vertices.SequenceEqual(vertices),Is.True);
             Assert.That(actor.VisualRoot.localScale,Is.EqualTo(scale));Assert.That(scale.x,Is.GreaterThan(0));Assert.That(scale.y,Is.GreaterThan(0));
-            Flow.CloseShopPreview();actor.React();life.AdvanceFrame(.1f);
+            Flow.CloseTownMenu();Assert.That(Flow.IsModalOpen,Is.False);actor.React();life.AdvanceFrame(.1f);
             Assert.That(actor.VisualRoot.anchoredPosition.y,Is.GreaterThan(0),"Disable must clear a fresh reaction.");
             actor.gameObject.SetActive(false);Assert.That(actor.VisualRoot.anchoredPosition,Is.EqualTo(Vector2.zero));
             Assert.That(actor.VisualRoot.localRotation,Is.EqualTo(Quaternion.identity));Assert.That(body.Expression,Is.EqualTo(CharacterExpression.Normal));

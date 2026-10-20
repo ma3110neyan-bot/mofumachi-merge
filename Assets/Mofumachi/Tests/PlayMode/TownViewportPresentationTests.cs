@@ -45,9 +45,10 @@ namespace Mofumachi.Tests
         }
         [UnityTest] public IEnumerator PauseModalAndResizeReleaseCameraInput()
         {
-            yield return EnterHome();var camera=Flow.GetComponentInChildren<TownViewportView>();var e=new PointerEventData(EventSystem.current){pointerId=7};camera.OnPointerDown(e);Flow.OpenShopPreview();camera.Advance(1f/30);Assert.That(camera.OwnedPointerId,Is.Null);Flow.CloseShopPreview();
-            camera.OnPointerDown(e);Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,592),new Rect(0,24,360,536));Canvas.ForceUpdateCanvases();Assert.That(camera.OwnedPointerId,Is.Null);
-            camera.OnPointerDown(e);Flow.SendMessage("OnApplicationPause",true);Assert.That(Flow.GetComponentsInChildren<TownViewportView>().All(v=>v.OwnedPointerId==null),Is.True);Flow.SendMessage("OnApplicationPause",false);LogAssert.NoUnexpectedReceived();
+            yield return EnterHome();var life=FrameTownPortrait();var camera=life.GetComponent<TownViewportView>();var e=new PointerEventData(EventSystem.current){pointerId=7};
+            camera.OnPointerDown(e);Assert.That(camera.OwnedPointerId,Is.EqualTo(7));Flow.OpenTownMenu();Assert.That(Flow.IsModalOpen,Is.True);camera.Advance(1f/30);Assert.That(camera.OwnedPointerId,Is.Null);Flow.CloseTownMenu();Assert.That(Flow.IsModalOpen,Is.False);
+            camera.OnPointerDown(e);Assert.That(camera.OwnedPointerId,Is.EqualTo(7));Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,592),new Rect(0,24,360,536));Canvas.ForceUpdateCanvases();Assert.That(camera.OwnedPointerId,Is.Null);
+            camera.OnPointerDown(e);Assert.That(camera.OwnedPointerId,Is.EqualTo(7));Flow.SendMessage("OnApplicationPause",true);Assert.That(Flow.GetComponentsInChildren<TownViewportView>().All(v=>v.OwnedPointerId==null),Is.True);Flow.SendMessage("OnApplicationPause",false);LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator LeavingHomeRestoresBackgroundAndDoesNotSaveCamera()
         {

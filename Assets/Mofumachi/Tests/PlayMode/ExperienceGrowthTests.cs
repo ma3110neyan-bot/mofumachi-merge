@@ -12,8 +12,11 @@ namespace Mofumachi.Tests
     {
         [UnityTest] public IEnumerator NextUnlockIsVisibleAndUpdatesFromTheExistingSuccessfulDelivery()
         {
-            yield return EnterHome();var goal=TownNextGoal.For(Flow.Game.State);
-            Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town growth hint").text,Is.EqualTo(goal.Detail));
+            yield return EnterHome();
+            var hint=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town growth hint").text;
+            Assert.That(hint,Does.Contain("Lv.1"));Assert.That(hint,Does.Contain("お茶会のお花"),"The compact street HUD still promises the actual next growth");
+            Flow.ShowQuest();var detail=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Next goal detail").text;
+            Assert.That(detail,Does.Contain("ルル"));Assert.That(detail,Does.Contain("Lv.1"));Assert.That(detail,Does.Contain("お茶会のお花"),"The full quest card retains the requester and growth detail");
             Flow.AcceptQuest();Flow.DropItem(0,1);yield return new WaitForSecondsRealtime(.3f);Assert.That(Flow.Deliver().Success,Is.True);
             yield return new WaitForSecondsRealtime(1.3f);Flow.ShowGrowth();int writes=Store.Writes;
             Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Next goal detail").text,Does.Contain(TownNextGoal.UnlockAt(2)));
@@ -81,7 +84,8 @@ namespace Mofumachi.Tests
             Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Next goal detail").text,Is.EqualTo(UIStrings.UnknownQuest));
             var unknown=TownNextGoal.For(Flow.Game.State);Assert.That(unknown.NextLevel,Is.Zero);Assert.That(unknown.IsFinale,Is.False);Assert.That(unknown.QuestId,Is.Empty);
             Flow.Game.State.activeQuestId="";Flow.Game.State.completedQuestIds.AddRange(QuestCatalog.All.Select(q=>q.Id));Flow.Game.State.townGrowthLevel=6;OpenQuestWithoutChangingProgress();
-            Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Next goal title").text,Does.Contain("お茶会"));
+            Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Next goal title").text,Does.Contain("仲間"),"After the story, the invitation returns to the town's friends");
+            Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Next goal detail").text,Does.Contain("会話"),"An incomplete daily conversation remains an actionable next step");
             int writes=Store.Writes;string beforeGoal=StateCodec.Encode(Flow.Game.State);var finale=TownNextGoal.For(Flow.Game.State);
             Assert.That(finale.NextLevel,Is.Zero);Assert.That(finale.RemainingDeliveries,Is.Zero);Assert.That(finale.QuestId,Is.Empty);Assert.That(finale.IsFinale,Is.True);
             Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(beforeGoal));Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();

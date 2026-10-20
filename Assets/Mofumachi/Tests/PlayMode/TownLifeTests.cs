@@ -143,7 +143,14 @@ namespace Mofumachi.Tests
             {
                 Flow.Game.State.townGrowthLevel=level;Flow.ShowHome();var growth=Flow.GetComponentInChildren<TownGrowthView>();Assert.That(growth.VisibleStage,Is.EqualTo(Mathf.Min(level,6)));Assert.That(Flow.GetComponentsInChildren<TownActor>().Length,Is.EqualTo(6));
             }
-            Flow.OpenShopPreview();Assert.That(Flow.IsModalOpen,Is.True);Assert.That(Flow.Game.State.coins,Is.EqualTo(0));Flow.CloseShopPreview();LogAssert.NoUnexpectedReceived();
+            var life=FrameTownPortrait();var facility=life.GetComponent<TownFacilityView>();string before=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
+            Assert.That(facility.RequestEnter("shop"),Is.True);
+            for(int i=0;i<3000&&facility.Entry.Phase==TownEntryPhase.Walking;i++)life.AdvanceFrame(1f/30);
+            Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Arrived));Assert.That(Flow.IsModalOpen,Is.False,"Reaching the flower shop waits for a door tap");
+            Assert.That(facility.RequestEnter("shop"),Is.True);
+            for(int i=0;i<30&&!Flow.IsModalOpen;i++)life.AdvanceFrame(1f/30);
+            Assert.That(Flow.IsModalOpen,Is.True);Assert.That(Flow.Game.State.coins,Is.EqualTo(0));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));Assert.That(Store.Writes,Is.EqualTo(writes));
+            Flow.CloseShopPreview();LogAssert.NoUnexpectedReceived();
         }
     }
 }

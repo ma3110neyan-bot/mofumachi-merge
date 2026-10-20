@@ -48,7 +48,21 @@ namespace Mofumachi.Tests
             Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Merge menu title").font,Is.EqualTo(story));
             Flow.CancelMergeActions();Flow.ShowQuest();
             foreach(var t in Flow.GetComponentsInChildren<Text>().Where(t=>t.name=="Quest title"||t.name.StartsWith("Required name "))){Assert.That(t.font,Is.EqualTo(t.name=="Quest title"?story:Resources.Load<Font>("Mofumachi/UIFont")));Assert.That(t.preferredHeight,Is.LessThanOrEqualTo(t.rectTransform.rect.height+1));}
-            Flow.ShowMerge();foreach(var t in Flow.GetComponentsInChildren<Text>().Where(t=>t.name.StartsWith("Requirement name "))){Assert.That(t.font,Is.EqualTo(Resources.Load<Font>("Mofumachi/UIFont")));Assert.That(t.fontSize,Is.GreaterThanOrEqualTo(14));Assert.That(t.resizeTextForBestFit,Is.False);}
+            Flow.ShowMerge();
+            var mergeCanvas=Flow.GetComponentInChildren<Canvas>();mergeCanvas.GetComponent<CanvasScaler>().enabled=false;mergeCanvas.renderMode=RenderMode.WorldSpace;
+            foreach(int height in new[]{536,808})
+            {
+                ((RectTransform)mergeCanvas.transform).sizeDelta=new Vector2(360,height);
+                Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,height),new Rect(0,0,360,height));
+                Canvas.ForceUpdateCanvases();Flow.GetComponentInChildren<ProductionFrameLayout>().ResizeNow();Canvas.ForceUpdateCanvases();
+                foreach(var t in Flow.GetComponentsInChildren<Text>().Where(t=>t.name.StartsWith("Requirement name ")))
+                {
+                    Assert.That(t.font,Is.EqualTo(Resources.Load<Font>("Mofumachi/UIFontBold")));
+                    Assert.That(t.fontSize,Is.EqualTo(height==536?12:14));Assert.That(t.resizeTextForBestFit,Is.False);
+                    Assert.That(t.preferredHeight,Is.LessThanOrEqualTo(t.rectTransform.rect.height+.5f),"The full target name must fit instead of silently truncating");
+                    Assert.That(t.cachedTextGenerator.vertexCount,Is.GreaterThan(4),"The name must actually generate glyphs");
+                }
+            }
             LogAssert.NoUnexpectedReceived();
         }
     }

@@ -9,19 +9,22 @@ namespace Mofumachi.Presentation
     {
         public sealed class Piece {public RectTransform Rect;public TownSceneryPlacement Placement;}
         public IReadOnlyList<Piece> Pieces=>pieces;
-        private readonly List<Piece> pieces=new List<Piece>();private TownContinuousWorldView world;private RectTransform field;private TownPoint previewCenter;private float previewWidth;
+        private readonly List<Piece> pieces=new List<Piece>();private TownContinuousWorldView world;private RectTransform field;private TownPoint previewCenter;private float previewWidth;private int townLevel;
         public void Bind(TownContinuousWorldView source){world=source;field=(RectTransform)transform;Build();}
         public void BindPreview(TownPoint center,float width){previewCenter=center;previewWidth=width;field=(RectTransform)transform;Build();}
         public void SetPreview(TownPoint center,float width){previewCenter=center;previewWidth=width;Refresh();}
+        public void SetTownLevel(int level){level=Mathf.Clamp(level,0,6);if(townLevel==level)return;townLevel=level;Refresh();}
         private void Build()
         {
             foreach(var p in TownSceneryLayout.Landmarks)if(p.Kind!=TownSceneryKind.Fountain)Add(p);
-            foreach(var p in TownSceneryLayout.Nature)Add(p);Refresh();
+            foreach(var p in TownSceneryLayout.Nature)Add(p);
+            foreach(var p in TownVillageDressing.All)Add(p);Refresh();
         }
         private void Add(TownSceneryPlacement p)
         {
             var rect=UIWidgets.Node("Town scenery "+p.Kind+" "+pieces.Count,field,new Rect(.5f,.5f,0,0));rect.pivot=new Vector2(.5f,0);
-            rect.gameObject.AddComponent<TownLandmarkGraphic>().Bind(p.Kind);pieces.Add(new Piece{Rect=rect,Placement=p});
+            if(p.Kind>=TownSceneryKind.CottagePair)rect.gameObject.AddComponent<TownVillageDetailGraphic>().Bind(p.Kind);
+            else rect.gameObject.AddComponent<TownLandmarkGraphic>().Bind(p.Kind);pieces.Add(new Piece{Rect=rect,Placement=p});
         }
         public void Refresh()
         {
@@ -31,7 +34,7 @@ namespace Mofumachi.Presentation
                 var p=entry.Placement;var local=world!=null?world.Local(p.Feet,field):field.rect.center+new Vector2((p.Feet.X-previewCenter.X)*scale,(p.Feet.Y-previewCenter.Y)*scale);
                 entry.Rect.anchoredPosition=local;entry.Rect.sizeDelta=new Vector2(p.Width*scale,p.Height*scale);
                 var b=field.rect;bool visible=local.x+p.Width*scale/2>b.xMin&&local.x-p.Width*scale/2<b.xMax&&local.y+p.Height*scale>b.yMin&&local.y<b.yMax;
-                entry.Rect.gameObject.SetActive(visible);
+                entry.Rect.gameObject.SetActive(visible&&p.Level<=townLevel);
             }
             if(world==null){pieces.Sort((a,b)=>b.Placement.Feet.Y.CompareTo(a.Placement.Feet.Y));foreach(var p in pieces)p.Rect.SetAsLastSibling();}
         }

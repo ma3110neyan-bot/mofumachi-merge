@@ -103,5 +103,21 @@ namespace Mofumachi.Tests
             foreach(var actor in life.Actors)Assert.That(float.IsFinite(actor.VisualRoot.localScale.x),Is.True);
             LogAssert.NoUnexpectedReceived();
         }
+
+        [UnityTest] public IEnumerator DisablingTitleReactionRestoresTheOriginalBodyMeshAndTransform()
+        {
+            yield return LoadTitle();
+            var reaction=Flow.GetComponentInChildren<BodyReaction>();var body=reaction.GetComponent<CharacterBodyGraphic>();
+            reaction.enabled=false;
+            body.Bind(body.CharacterId);body.Pose(0,0,0,false);Canvas.ForceUpdateCanvases();
+            var original=body.canvasRenderer.GetMesh().vertices;var scale=body.transform.localScale;var rotation=body.transform.localRotation;
+            reaction.enabled=true;reaction.Celebrate();yield return null;Canvas.ForceUpdateCanvases();
+            Assert.That(body.Expression,Is.EqualTo(CharacterExpression.Smile));
+            reaction.enabled=false;Canvas.ForceUpdateCanvases();
+            Assert.That(body.Expression,Is.EqualTo(CharacterExpression.Normal));
+            Assert.That(body.canvasRenderer.GetMesh().vertices.SequenceEqual(original),Is.True,"Disable must clear the arm and gaze pose as well as the expression.");
+            Assert.That(body.transform.localScale,Is.EqualTo(scale));Assert.That(body.transform.localRotation,Is.EqualTo(rotation));
+            LogAssert.NoUnexpectedReceived();
+        }
     }
 }

@@ -12,11 +12,11 @@ namespace Mofumachi.Presentation
         {
             vh.Clear();var r=GetPixelAdjustedRect();if(r.width<=0||r.height<=0)return;
             float radius=Mathf.Min(12,Mathf.Min(r.width,r.height)*.045f);
-            MergeCellSurfaceGraphic.Fill(vh,r,radius,new Color(.46f,.31f,.20f,.19f),new Color(.46f,.31f,.20f,.08f));
-            var rim=new Rect(r.x+1,r.y+2,r.width-2,r.height-2);
-            MergeCellSurfaceGraphic.Fill(vh,rim,radius,new Color(.78f,.50f,.30f),new Color(.93f,.76f,.50f));
-            var paper=new Rect(rim.x+2,rim.y+2,rim.width-4,rim.height-4);
-            MergeCellSurfaceGraphic.Fill(vh,paper,radius-2,new Color(.98f,.90f,.73f),new Color(1,.965f,.85f));
+            MergeCellSurfaceGraphic.Fill(vh,r,radius,new Color(.79f,.49f,.57f),new Color(.96f,.72f,.78f));
+            var rim=new Rect(r.x+1.5f,r.y+1.5f,r.width-3,r.height-3);
+            MergeCellSurfaceGraphic.Fill(vh,rim,radius-1,new Color(1,.89f,.71f),new Color(1,.96f,.87f));
+            var paper=new Rect(r.x+3,r.y+3,r.width-6,r.height-6);
+            MergeCellSurfaceGraphic.Fill(vh,paper,radius-2,new Color(1,.966f,.930f),new Color(1,.986f,.955f));
         }
     }
 }

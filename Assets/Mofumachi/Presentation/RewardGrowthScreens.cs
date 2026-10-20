@@ -30,12 +30,14 @@ namespace Mofumachi.Presentation
         public static void BuildGrowth(RectTransform root,ScreenContext c,DeliveryPresentation delivery)
         {
             var w=c.Widgets;w.Header(root,c,"もふまちの成長",UIWidgets.Peach);
-            var card=w.ScrollPaper("Town growth",root,136,78,398,UIWidgets.BluePaper);var viewport=(RectTransform)card.parent;
+            var card=w.ScrollPaper("Town growth",root,136,78,456,UIWidgets.BluePaper);var viewport=(RectTransform)card.parent;
             var title=w.StoryRibbon("Growth title","街が成長しました",card,new Rect(0,0,1,1),20,UIWidgets.Peach);UIWidgets.Top((RectTransform)title.transform.parent,12,10,12,38);
             card.gameObject.AddComponent<TownGrowthComparisonView>().Bind(c,delivery);
             var levels=w.Heading("Growth levels","街 Lv."+delivery.PreviousTownLevel+" → Lv."+delivery.CurrentTownLevel,card,new Rect(0,0,1,1),18);UIWidgets.Top(levels.rectTransform,12,232,12,28);
             var description=w.NarrativeLabel("Growth description",QuestStoryPresentation.For(delivery.QuestId)?.TownMoment??"みんなへのお届けが、街を明るくします。",card,new Rect(0,0,1,1),14);UIWidgets.Top(description.rectTransform,16,264,16,48);
             TownGoalCard.Build(c,card,320);
+            var book=w.Button("Growth character discovery",CharacterCatalog.Find(delivery.RequesterId).Name+"の図鑑を見る",card,new Rect(0,0,1,1),()=>c.Flow.OpenCharacterBook(delivery.RequesterId),true);
+            UIWidgets.Top((RectTransform)book.transform,18,396,18,48);
             var chapter=ChapterCatalog.ForQuest(delivery.QuestId);bool complete=chapter!=null&&ChapterProgress.For(c.Game.State).IsComplete(chapter.Id);
             var home=w.Button("Return town",complete?"章のおもいでへ":"街へ戻る",root,new Rect(0,0,1,1),c.Flow.ContinueAfterGrowth);UIWidgets.Bottom((RectTransform)home.transform,28,84,28,48);
             w.Feedback(root,c,ScreenId.Growth);w.Nav(root,c,ScreenId.Growth);

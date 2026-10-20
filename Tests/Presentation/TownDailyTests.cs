@@ -63,5 +63,21 @@ namespace Mofumachi.Tests
             var decoded=TownDailyCodec.Decode(System.Text.Encoding.UTF8.GetBytes(old));TownDailyCodec.Validate(decoded);
             Assert.That(decoded.Characters.Single(c=>c.Id=="momo").Outings,Is.Zero);
         }
+        [Test] public void BookDiscoveryNamesMatchTheActualUnlockedTierAndNeverInventAnInteraction()
+        {
+            var d=New();var game=GameState.CreateInitial();var before=TownDailyCodec.Encode(d.Data);
+            Assert.That(TownCharacterBook.For("fio",game,d.Data).LatestDiscovery,Is.EqualTo("まだ知らない一面"));
+            Assert.That(TownDailyCodec.Encode(d.Data),Is.EqualTo(before));
+            d.RecordOuting("fio");Assert.That(TownCharacterBook.For("fio",game,d.Data).LatestDiscovery,Is.EqualTo("笑顔のリアクション"));
+            d.RecordTalk("fio");d.RecordTalk("fio");Assert.That(TownCharacterBook.For("fio",game,d.Data).LatestDiscovery,Is.EqualTo("手を振るリアクション"));
+            for(int i=0;i<4;i++)d.RecordTalk("fio");Assert.That(TownCharacterBook.For("fio",game,d.Data).LatestDiscovery,Is.EqualTo("とっておきのお話"));
+        }
+        [Test] public void CurrentLocationLabelsUseActualDistrictWhenAResidentIsBetweenPlaces()
+        {
+            Assert.That(TownCharacterBook.PlaceLabel(null,TownDistrictId.South),Is.EqualTo("南の庭園をおさんぽ中"));
+            Assert.That(TownCharacterBook.PlaceLabel("west.cafe-front",TownDistrictId.West),Is.EqualTo("西のカフェの前"));
+            Assert.That(TownCharacterBook.PlaceLabel("shop",TownDistrictId.East),Is.EqualTo("東の花屋の前"));
+            Assert.That(TownCharacterBook.PlaceLabel("quest",TownDistrictId.North),Is.EqualTo("北の依頼小屋の前"));
+        }
     }
 }

@@ -7,13 +7,19 @@ namespace Mofumachi.Presentation
     [RequireComponent(typeof(CanvasRenderer))]
     public sealed class CharacterBodyGraphic : MaskableGraphic
     {
-        private static Texture2D atlas;private Rect pixels;
+        private static Texture2D atlas;private Rect pixels;private int portrait=-1;
         public string CharacterId { get; private set; }
         public CharacterExpression Expression { get; private set; }
         private static readonly float[] rows={0,.12f,.26f,.40f,.52f,.65f,.80f,1};
         private float foot,wave,facing;private bool blink;
         public void Pose(float stepping,float greeting,float direction,bool eyesClosed)
-        {foot=stepping;wave=greeting;facing=direction;blink=eyesClosed;SetVerticesDirty();}
+        {
+            stepping=float.IsFinite(stepping)?Mathf.Clamp(stepping,-1,1):0;
+            greeting=float.IsFinite(greeting)?Mathf.Clamp(greeting,-1,1):0;
+            direction=float.IsFinite(direction)?Mathf.Clamp(direction,-1,1):0;
+            if(foot==stepping&&wave==greeting&&facing==direction&&blink==eyesClosed)return;
+            foot=stepping;wave=greeting;facing=direction;blink=eyesClosed;SetVerticesDirty();
+        }
         public override Texture mainTexture=>atlas!=null?atlas:atlas=Resources.Load<Texture2D>("Mofumachi/CharacterBodyAtlas");
         // Atlas coordinates measured at 1536 x 1024; no image/text cropping is done at runtime.
         private static readonly Rect[] Bounds={
@@ -23,8 +29,8 @@ namespace Mofumachi.Presentation
         public void Bind(string characterId)=>Bind(characterId,CharacterExpression.Normal);
         public void Bind(string characterId,CharacterExpression expression)
         {
-            var definition=CharacterCatalog.Find(characterId);CharacterId=characterId;Expression=expression;
-            pixels=definition==null?Rect.zero:Bounds[(int)expression*6+definition.PortraitIndex];SetAllDirty();
+            var definition=CharacterCatalog.Find(characterId);CharacterId=characterId;Expression=expression;portrait=definition?.PortraitIndex??-1;
+            pixels=portrait<0?Rect.zero:Bounds[(int)expression*6+portrait];SetAllDirty();
         }
         protected override void OnPopulateMesh(VertexHelper vh)
         {
@@ -36,8 +42,8 @@ namespace Mofumachi.Presentation
             // Deform the same formal atlas very slightly at feet/hands. The head
             // keeps its original silhouette; blink uses only the approved smiling
             // eye strip, rather than painting a different face.
-            const int columns=4;
-            var closed=Bounds[6+CharacterCatalog.Find(CharacterId).PortraitIndex];
+            const int columns=8;
+            var closed=Bounds[6+portrait];
             var closedUv=new Rect(closed.x/1536f,1-closed.yMax/1024f,closed.width/1536f,closed.height/1024f);
             for(int y=0;y<rows.Length-1;y++)for(int x=0;x<columns;x++)
             {

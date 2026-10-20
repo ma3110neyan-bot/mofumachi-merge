@@ -74,7 +74,7 @@ namespace Mofumachi.Tests
                     if(height>=740)foreach(var frame in frames)Assert.That(((RectTransform)frame.transform).rect.width,Is.GreaterThanOrEqualTo(96));
                     var board=page.GetComponentsInChildren<MergeBoardView>();Assert.That(board.Length,Is.EqualTo(30));
                     foreach(var cell in board){var r=((RectTransform)cell.transform).rect;Assert.That(r.width,Is.GreaterThanOrEqualTo(48));Assert.That(r.height,Is.GreaterThanOrEqualTo(48));}
-                    foreach(var button in page.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Nav ")||b.name.StartsWith("Generate frame ")||b.name=="Merge actions"||b.name=="Deliver"))
+                    foreach(var button in page.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Nav ")||b.name.StartsWith("Requirement ")||b.name.StartsWith("Generate frame ")||b.name=="Merge actions"||b.name=="Deliver"))
                     {var target=((RectTransform)button.transform).rect;Assert.That(target.width,Is.GreaterThanOrEqualTo(48),button.name+" "+size);Assert.That(target.height,Is.GreaterThanOrEqualTo(48),button.name+" "+size);}
                     var labels=page.GetComponentsInChildren<Text>().Where(t=>t.name=="Nav label").ToArray();Assert.That(labels.Length,Is.EqualTo(3));
                     foreach(var label in labels)

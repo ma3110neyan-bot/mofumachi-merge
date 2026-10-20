@@ -12,8 +12,10 @@ namespace Mofumachi.Tests
  {
   [UnityTest] public IEnumerator StreetHasACompactHudAndMenuActionsAreOnlyExpandedOnRequest()
   {
-   yield return EnterHome();Canvas.ForceUpdateCanvases();var life=Flow.GetComponentInChildren<TownLifeView>();var field=(RectTransform)life.transform;
-   Assert.That(field.offsetMin.y,Is.EqualTo(62));Assert.That(field.offsetMax.y,Is.EqualTo(-80));
+   yield return EnterHome();var life=FrameTownPortrait();var field=(RectTransform)life.transform;
+   Assert.That(field.offsetMin,Is.EqualTo(Vector2.zero));Assert.That(field.offsetMax,Is.EqualTo(Vector2.zero),"The street now fills the safe view behind floating controls");
+   foreach(var name in new[]{"Today town","Town menu","Nav Merge"})
+   {var button=Flow.GetComponentsInChildren<Button>().Single(b=>b.name==name);var hit=((RectTransform)button.transform).rect;Assert.That(hit.width,Is.GreaterThanOrEqualTo(48),name);Assert.That(hit.height,Is.GreaterThanOrEqualTo(48),name);Assert.That(button.GetComponent<ButtonPressFeedback>().PreserveHitbox,Is.True,name);}
    Assert.That(Flow.GetComponentsInChildren<Button>().Any(b=>b.name=="Region walk West"),Is.False);
    Flow.OpenTownMenu();Assert.That(Flow.IsModalOpen,Is.True);Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));
    foreach(var name in new[]{"Region walk West","Region walk Central","Region walk East","Region walk North","Region walk South","Nav Quest","Walk to cafe","Walk to florist","Town book","Town today"})Assert.That(Flow.GetComponentsInChildren<Button>().Single(b=>b.name==name),Is.Not.Null);

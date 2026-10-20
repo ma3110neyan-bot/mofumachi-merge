@@ -11,7 +11,7 @@ namespace Mofumachi.Presentation
         {
             life=town;session=town.Regions;
             var panel=c.Widgets.Panel("Town location ribbon",root,new Rect(0,0,1,1),new Color(1,.988f,.945f,.82f)).rectTransform;
-            UIWidgets.Top(panel,60,53,60,24);panel.GetComponent<RoundedPanelGraphic>().raycastTarget=false;
+            UIWidgets.Top(panel,60,57,60,24);panel.GetComponent<RoundedPanelGraphic>().raycastTarget=false;
             heading=c.Widgets.StoryLabel("Town region name","",panel,new Rect(.03f,0,.94f,1),12);
             session.RegionChanged+=RegionChanged;Refresh();
         }
@@ -20,7 +20,7 @@ namespace Mofumachi.Presentation
         private void Refresh()
         {
             if(life==null||session==null||heading==null)return;
-            string text=(life.World?.IsReady==true?TownDistrictLayout.Name(life.World.Model.Hero.District):TownWorldLayout.Name(session.ViewingRegion))+(life.World?.Model?.Hero.IsWalking==true?" · おさんぽ♪":"");
+            string text=(life.World?.IsReady==true?TownDistrictLayout.Name(life.World.FollowingHero?life.World.Model.Hero.District:TownDistrictLayout.At(life.World.Camera.Center)):TownWorldLayout.Name(session.ViewingRegion))+(life.World?.FollowingHero==true&&life.World.Model.Hero.IsWalking?" · おさんぽ♪":"");
             if(previous==text)return;previous=text;heading.text=text;
         }
         private void OnDisable(){if(session!=null)session.RegionChanged-=RegionChanged;}

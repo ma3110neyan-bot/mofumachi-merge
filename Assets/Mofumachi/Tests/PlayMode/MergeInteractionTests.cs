@@ -51,6 +51,25 @@ namespace Mofumachi.Tests
             Assert.That(Flow.SelectedCell,Is.EqualTo(0));
             Store.Fail=false;Assert.That(Flow.AcceptQuest(),Is.True);var deliver=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Deliver");Assert.That(deliver.interactable,Is.False);
         }
+        [UnityTest] public IEnumerator DragShowsOnlyValidPartnersAndHoverThenCleansUpWithoutExtraSaves()
+        {
+            yield return EnterHome();Flow.ShowMerge();yield return null;Canvas.ForceUpdateCanvases();
+            var cells=Flow.GetComponentsInChildren<MergeBoardView>();var source=cells.Single(v=>v.name=="Cell 0");var target=cells.Single(v=>v.name=="Cell 1");
+            var pointer=Pointer(source.transform);int writes=Store.Writes;string before=Mofumachi.Core.StateCodec.Encode(Flow.Game.State);
+            source.OnBeginDrag(pointer);
+            Assert.That(target.transform.Find("Drag match guidance"),Is.Not.Null);
+            Assert.That(cells.Where(v=>v.name!="Cell 1").All(v=>v.transform.Find("Drag match guidance")==null),Is.True);
+            Assert.That(source.GetComponentInChildren<ItemGraphic>().enabled,Is.False);
+            pointer.position=Pointer(target.transform).position;source.OnDrag(pointer);
+            Assert.That(target.transform.Find("Drag target glow"),Is.Not.Null);
+            Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(Mofumachi.Core.StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));
+            pointer.position=new Vector2(-200,-200);source.OnDrag(pointer);source.OnEndDrag(pointer);yield return null;
+            Assert.That(GameObject.Find("Dragged tea"),Is.Null);
+            Assert.That(Flow.GetComponentsInChildren<MergeSparkleGraphic>().Any(g=>g.name.StartsWith("Drag ")),Is.False);
+            Assert.That(source.GetComponentInChildren<ItemGraphic>().enabled,Is.True);
+            Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(Mofumachi.Core.StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));
+            LogAssert.NoUnexpectedReceived();
+        }
         [UnityTest] public IEnumerator DifferentMaxLevelAndLockedItemsRefuseWithoutMutation()
         {
             yield return EnterHome();Flow.ShowMerge();

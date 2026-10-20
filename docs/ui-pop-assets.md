@@ -108,3 +108,13 @@ Unity Editorの描画、Mask／Canvasの実レイアウト、実入力、FontEng
 - `TownNatureAtlas.png`: SHA256 `5821e085e20fdf02494b78807e8aac406c7cf2a036b262a8f79cc2eeb01c8b33`。透過RGBA、Default／Android最大1024、mipmapなし・非Read/Write。
 
 建物はカフェ・花屋・依頼小屋・南の休憩所。植栽は緑樹・桜・花壇・柵付き生垣。これは製品用素材の記録であり、Unity実描画やPixel合格の証拠ではありません。
+
+
+## 2026-10-20 街のまとまりを作る追加素材
+
+`TownVillageDetailsAtlas.png` は既存の明るい街の世界観に合わせて画像生成ツールで制作した専用の透過素材。生成原本をそのまま同梱し、住宅・カフェ席・花屋の台車・掲示板・パーゴラ・生垣・木陰・花の縁の8区画を実測UVで描画する。正式6名やロゴは含めていない。
+
+- 原本：1536×1024 RGBA、SHA256 `6bafb741c5113bea5cf37b9c84387eaf51b7421a84f031cd93d8e79eca7652f3`。
+- Default／Android最大1024、mipmapなし、非Read/Write、共有テクスチャ。
+- 部品ごとの表示／非表示、Lv.別配置、足元の除外範囲は製品の `TownVillageDressing`／`TownSceneryView` へ接続。
+- 素材の導入は実画面の改善証拠ではない。縮小後の輪郭・接地・元絵との調和・密度はUnity／Pixel未確認。

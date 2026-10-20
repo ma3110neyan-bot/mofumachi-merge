@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 namespace Mofumachi.Presentation
 {
-    public sealed class UIFlowController : MonoBehaviour
+    public sealed partial class UIFlowController : MonoBehaviour
     {
         private static GameStateManager session;
         private static TownDailyService socialSession;
@@ -21,7 +21,7 @@ namespace Mofumachi.Presentation
         private UIWidgets widgets;
         private ScreenContext context;
         private GameObject modal;
-        private enum ModalKind { None, PurchaseNotice, MergeMenu, Discard, PackFrames, Shop, Today, TownMenu }
+        private enum ModalKind { None, PurchaseNotice, MergeMenu, Discard, PackFrames, Shop, Today, TownMenu, Cafe }
         private ModalKind modalKind;
         public bool IsModalOpen => modal != null && modal.activeSelf;
         public bool CanInteractBoard => CanPlay && CurrentScreen==ScreenId.Merge && mergeAnimation==null;
@@ -163,6 +163,7 @@ namespace Mofumachi.Presentation
         {
             if(modalKind==ModalKind.Today){CloseToday();return;}
             if(modalKind==ModalKind.TownMenu){CloseTownMenu();return;}
+            if(modalKind==ModalKind.Shop||modalKind==ModalKind.Cafe){CloseUtilityModal();return;}
             if(IsModalOpen || transitioning)return;
             if(CurrentScreen==ScreenId.Home&&page!=null&&page.GetComponentInChildren<TownStreetWalkView>()?.IsArmed==true){page.GetComponentInChildren<TownStreetWalkView>().CancelSelection();return;}
             if(CurrentScreen==ScreenId.Home&&page!=null&&page.GetComponentInChildren<TownLifeView>()?.DismissOutings()==true)return;
@@ -568,15 +569,8 @@ namespace Mofumachi.Presentation
         public void RecordWorldWalk(){if(Daily.EnsureDay(System.DateTime.Now))Daily.RecordWalk();}
         public void OpenShopPreview()
         {
-            if(!CanPlay || CurrentScreen!=ScreenId.Home)return;
-            OpenUtilityModal(ModalKind.Shop,(root,c)=>
-            {
-                var overlay=c.Widgets.Panel("Shop preview",root,new Rect(0,0,1,1),new Color(.25f,.15f,.25f,.6f)).rectTransform;overlay.GetComponent<RoundedPanelGraphic>().raycastTarget=true;
-                var card=c.Widgets.OrnatePanel("Shop preview card",overlay,new Rect(0,0,1,1),UIWidgets.BlushPaper).rectTransform;card.anchorMin=card.anchorMax=new Vector2(.5f,.5f);card.sizeDelta=new Vector2(320,280);
-                c.Widgets.Ribbon("Shop title","ショップ",card,new Rect(.08f,.72f,.84f,.18f),20);
-                c.Widgets.Label("Shop status","お花と飾りの小さなお店へ、ようこそ♪\n飾り棚は、ただいま準備中です。",card,new Rect(.08f,.3f,.84f,.35f),16);
-                var close=c.Widgets.Button("Close shop","街へ戻る",card,new Rect(0,0,1,1),CloseShopPreview,true);UIWidgets.Bottom((RectTransform)close.transform,24,12,24,48);
-            });
+            if(!CanPlay||CurrentScreen!=ScreenId.Home||!AtTownFacility("shop"))return;
+            OpenUtilityModal(ModalKind.Shop,TownPlacesView.BuildFlorist);
         }
         public void CloseShopPreview(){if(modalKind==ModalKind.Shop)CloseUtilityModal();}
         private void ApplySavedAudio() => audioManager.ApplySettings(Game.State.bgmEnabled,Game.State.seEnabled,Game.State.bgmVolume,Game.State.seVolume);

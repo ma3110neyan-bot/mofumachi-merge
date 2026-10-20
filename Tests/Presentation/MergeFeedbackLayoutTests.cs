@@ -5,6 +5,13 @@ namespace Mofumachi.Tests
 {
     public sealed class MergeFeedbackLayoutTests
     {
+        [TestCase(536)] [TestCase(592)] [TestCase(808)]
+        public void LiveRequirementsKeepAFortyEightUnitHitHeight(float height)
+        {
+            var layout=MergeScreenLayout.For(height,46);
+            Assert.That(layout.ProgressHeight-layout.DetailsHeight-2,Is.GreaterThanOrEqualTo(48));
+            Assert.That(height-layout.TrayTop-layout.TrayBottom-2*layout.GridInset,Is.GreaterThanOrEqualTo(308));
+        }
         private const string SelectionAdvice="同じ種類・Lv.を重ねよう";
         [Test] public void CompactAcceptanceAndDeselectionDoNotRepeatTheRequirementCard()
         {

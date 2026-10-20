@@ -65,7 +65,7 @@ namespace Mofumachi.Visual.Tests
         [Test] public void TurnCrossesFacingSmoothlyAndIgnoresInvalidElapsedTime()
         {
             float turn=1;
-            for(int frame=0;frame<20;frame++)
+            for(int frame=0;frame<90;frame++)
             {
                 float next=TownCharacterMotion.Turn(turn,-1,1f/60);
                 Assert.That(Math.Abs(next-turn),Is.LessThanOrEqualTo(.10001f));
@@ -74,6 +74,83 @@ namespace Mofumachi.Visual.Tests
             Assert.That(turn,Is.EqualTo(-1).Within(.00001f));
             Assert.That(TownCharacterMotion.Turn(.5f,-1,float.NaN),Is.EqualTo(.5f));
             Assert.That(TownCharacterMotion.Turn(float.NaN,float.PositiveInfinity,.03f),Is.Zero);
+        }
+
+        [Test] public void EveryStepLeavesOneFootOnTheContactShadowAndLiftsTheOther()
+        {
+            foreach(float phase in new[]{.3f,.8f,1.4f,3.5f,4.1f,4.8f})
+            foreach(float blend in new[]{.25f,.65f,1f})
+            {
+                var pose=TownCharacterMotion.Sample(phase,blend,1,0);
+                float left=pose.Hop+TownCharacterMotion.VertexOffset(.25f,0,pose.Foot,0,0).Y;
+                float right=pose.Hop+TownCharacterMotion.VertexOffset(.75f,0,pose.Foot,0,0).Y;
+                Assert.That(Math.Min(left,right),Is.EqualTo(0).Within(.00001f),"The supporting foot must meet the navigation floor.");
+                Assert.That(Math.Max(left,right),Is.GreaterThan(.1f).And.LessThanOrEqualTo(4.8f));
+            }
+        }
+
+        [Test] public void GreetingMovesTheOuterArmsWithoutStretchingTheCentreOfTheOutfit()
+        {
+            foreach(float v in new[]{.26f,.32f,.4f,.48f,.52f})
+            foreach(float u in new[]{.375f,.5f,.625f})
+            {
+                var centre=TownCharacterMotion.VertexOffset(u,v,0,1,0);
+                Assert.That(centre.X,Is.Zero.Within(.00001f));Assert.That(centre.Y,Is.Zero);
+            }
+            Assert.That(TownCharacterMotion.VertexOffset(.125f,.4f,0,1,0).X,Is.LessThan(-.1f));
+            Assert.That(TownCharacterMotion.VertexOffset(.875f,.4f,0,1,0).X,Is.GreaterThan(.1f));
+        }
+
+        [Test] public void FacingEasesIntoItsTargetInsteadOfSnappingTheLastPartOfATurn()
+        {
+            float near=TownCharacterMotion.Turn(.9f,1,1f/60);
+            Assert.That(near,Is.GreaterThan(.9f).And.LessThan(.99f));
+            float later=TownCharacterMotion.Turn(near,1,1f/60);
+            Assert.That(later-near,Is.LessThan(near-.9f));
+        }
+
+        [Test] public void MovementPresentationAcceleratesAndSettlesWithoutOvershootOrTimeJumps()
+        {
+            Assert.That(TownCharacterMotion.BlendMovement(0,1,0),Is.Zero);
+            float start=TownCharacterMotion.BlendMovement(0,1,1f/60);
+            Assert.That(start,Is.InRange(.05f,.3f));
+            float stop=TownCharacterMotion.BlendMovement(start,0,1f/60);
+            Assert.That(stop,Is.GreaterThan(0).And.LessThan(start));
+            Assert.That(TownCharacterMotion.BlendMovement(.5f,1,10),Is.EqualTo(TownCharacterMotion.BlendMovement(.5f,1,.1f)));
+            Assert.That(TownCharacterMotion.BlendMovement(.5f,1,float.NaN),Is.EqualTo(.5f));
+            foreach(float value in new[]{float.NaN,float.PositiveInfinity,-100f,100f})
+                Assert.That(TownCharacterMotion.BlendMovement(value,value,.03f),Is.InRange(0f,1f));
+        }
+
+        [Test] public void GreetingsAndArrivalsHaveBoundedMotionAndReturnExactlyToTheOriginalPose()
+        {
+            foreach(bool arrival in new[]{false,true})
+            {
+                foreach(float remaining in new[]{-.1f,0,.65f,1,float.NaN,float.PositiveInfinity})
+                {
+                    var still=TownCharacterMotion.Reaction(remaining,.65f,arrival);
+                    Assert.That(still.Hop,Is.Zero);Assert.That(still.Hand,Is.Zero);Assert.That(still.Lean,Is.Zero);
+                }
+                for(int frame=1;frame<65;frame++)
+                {
+                    var pose=TownCharacterMotion.Reaction(frame*.01f,.65f,arrival);
+                    Assert.That(pose.Hop,Is.InRange(0f,arrival?4.6f:8f));
+                    Assert.That(Math.Abs(pose.Lean),Is.LessThanOrEqualTo(3));
+                    Assert.That(Math.Abs(pose.Hand),Is.LessThanOrEqualTo(1));
+                    Assert.That(Math.Abs(pose.Breath),Is.LessThanOrEqualTo(.015f));
+                }
+            }
+            Assert.That(TownCharacterMotion.Reaction(.325f,.65f,true).Hop,Is.LessThan(TownCharacterMotion.Reaction(.325f,.65f,false).Hop));
+        }
+
+        [Test] public void InvalidResidentIdsCannotHoldTheEyesClosed()
+        {
+            int closed=0;
+            for(int frame=0;frame<1000;frame++)if(TownCharacterMotion.Blink(frame*.01f,int.MinValue))closed++;
+            Assert.That(closed,Is.InRange(10,60));
+            Assert.That(TownCharacterMotion.Blink(float.NaN,0),Is.False);
+            Assert.That(TownCharacterMotion.Blink(float.PositiveInfinity,0),Is.False);
+            Assert.That(TownCharacterMotion.Blink(-1,0),Is.False);
         }
 
         [Test] public void AtlasVertexOffsetsStayFiniteForHostilePoseInputs()

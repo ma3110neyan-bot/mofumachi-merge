@@ -8,7 +8,7 @@ namespace Mofumachi.Presentation
         public string Error {get;private set;}="";
         public MusicRoleSelection(IMusicPreferenceStore title,IMusicPreferenceStore town,IMusicPreferenceStore merge,IMusicPreferenceStore legacy=null)
         {
-            stores=new[]{title,town,merge};string[] defaults={"title-letter","town","merge-picnic"};
+            stores=new[]{title,town,merge};string[] defaults={"title-letter","town","merge-pop-promenade"};
             string oldId=null;try{oldId=legacy?.Load();}catch(Exception){Error="音楽の設定を読み込めませんでした。";}
             var oldTrack=MusicCatalog.Find(oldId);
             for(int i=0;i<3;i++)

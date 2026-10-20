@@ -89,7 +89,9 @@ namespace Mofumachi.Tests
                     AssertSeparated(title,(RectTransform)title.Find("Title feedback"),start);Object.DestroyImmediate(title.gameObject);
                     var background=widgets.Background(Resources.Load<Texture2D>("Mofumachi/TownBackground"),rect);background.GetComponent<BackgroundCover>().SendMessage("Fit");var home=UIWidgets.Node("Home fixture",rect,new Rect(0,0,1,1));TopHomeScreens.BuildHome(home,context,background);Canvas.ForceUpdateCanvases();var quest=(RectTransform)home.Find("Navigation/Home quest");
                     var life=home.GetComponentInChildren<TownLifeView>();var field=(RectTransform)life.transform;var mask=life.GetComponent<RectMask2D>();
-                    Assert.That(mask.isActiveAndEnabled,Is.True);Assert.That(RectBounds(home,field).Overlaps(RectBounds(home,quest)),Is.False,"The native field mask must end above the next-step action");
+                    Assert.That(mask.isActiveAndEnabled,Is.True);Assert.That(RectBounds(home,field).height,Is.EqualTo(home.rect.height).Within(.1f),"The street fills the safe view behind floating controls");
+                    Assert.That(quest.parent.GetSiblingIndex(),Is.GreaterThan(field.GetSiblingIndex()),"The next-step action stays above the scenery in render and input order");
+                    var hero=life.Actors.Single(a=>a.Controlled);Assert.That(RectBounds(home,hero.VisualRoot).Overlaps(RectBounds(home,quest)),Is.False,"The whole controlled character must remain clear of the floating next-step action");
                     foreach(var actor in life.Actors)foreach(var graphic in actor.GetComponentsInChildren<MaskableGraphic>())
                     {Assert.That(graphic.maskable,Is.True);Assert.That(graphic.GetComponentInParent<RectMask2D>(),Is.SameAs(mask));Assert.That(graphic.canvasRenderer.hasRectClipping,Is.True);}
                     Object.DestroyImmediate(home.gameObject);Object.DestroyImmediate(background.gameObject);

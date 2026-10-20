@@ -40,7 +40,7 @@ namespace Mofumachi.Presentation
             var center=new TownPoint(anchor.X,anchor.Y+.07f);
             for(int i=0;i<2;i++)
             {
-                ground[i].SetPreview(center,.70f);scenery[i].SetPreview(center,.70f);fountain[i].SetPreview(center,.70f);
+                ground[i].SetPreview(center,.70f);scenery[i].SetTownLevel(i==0?delivery.PreviousTownLevel:delivery.CurrentTownLevel);scenery[i].SetPreview(center,.70f);fountain[i].SetPreview(center,.70f);
                 growth[i].SetPreview(center,.70f);growth[i].SetRegion(region);growth[i].Apply(i==0?delivery.PreviousTownLevel:delivery.CurrentTownLevel);growth[i].transform.SetAsLastSibling();
             }
             growth[1].HighlightNewStage(delivery.PreviousTownLevel,delivery.CurrentTownLevel);

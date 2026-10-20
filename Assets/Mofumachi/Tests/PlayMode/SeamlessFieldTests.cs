@@ -16,6 +16,10 @@ namespace Mofumachi.Tests
             var ground=Flow.GetComponentsInChildren<TownGroundGraphic>().Single();
             Assert.That(ground.mainTexture,Is.SameAs(Resources.Load<Texture2D>(TownWorldSurface.AtlasResource)));Assert.That(ground.color.a,Is.EqualTo(1));Assert.That(ground.raycastTarget,Is.False);
             var scenery=life.GetComponent<TownSceneryView>();var landmarks=scenery.Pieces.Where(p=>p.Placement.Kind<=TownSceneryKind.Gazebo).ToArray();
+            var villageAtlas=Resources.Load<Texture2D>(TownVillageDressing.AtlasResource);
+            Assert.That(villageAtlas,Is.Not.Null,"The composed village artwork must be imported as a runtime resource");
+            var details=life.GetComponentsInChildren<TownVillageDetailGraphic>(true);Assert.That(details.Length,Is.GreaterThan(0));
+            foreach(var detail in details){Assert.That(detail.mainTexture,Is.SameAs(villageAtlas));Assert.That(detail.raycastTarget,Is.False);}
             Assert.That(landmarks.Select(p=>p.Placement.Kind),Is.EquivalentTo(new[]{TownSceneryKind.Cafe,TownSceneryKind.Florist,TownSceneryKind.QuestCottage,TownSceneryKind.Gazebo}));
             foreach(var landmark in landmarks)
             {var graphic=landmark.Rect.GetComponent<TownLandmarkGraphic>();Assert.That(graphic.mainTexture,Is.SameAs(Resources.Load<Texture2D>(TownSceneryLayout.LandmarkResource)));Assert.That(graphic.raycastTarget,Is.False);}
@@ -43,14 +47,17 @@ namespace Mofumachi.Tests
             Assert.That(guide.gameObject.activeInHierarchy,Is.False,"A road label must yield while the character crosses it");
             LogAssert.NoUnexpectedReceived();
         }
-        [UnityTest] public IEnumerator QuestDoorWalksThenOpensAndReturnsToTheSameTownPosition()
+        [UnityTest] public IEnumerator QuestDoorWaitsForATapAfterArrivalAndReturnsToTheSameTownPosition()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var facility=life.GetComponent<TownFacilityView>();
             var before=Flow.Game.State.Clone();int writes=Store.Writes;var initial=life.World.Model.Hero.Position;
             Assert.That(facility.RequestEnter("quest"),Is.True);Assert.That(life.World.Model.Hero.Position,Is.EqualTo(initial));Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));
             for(int i=0;i<2400&&facility.Entry.Phase==TownEntryPhase.Walking;i++)life.AdvanceFrame(1f/30);
-            Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Opening));Assert.That(Store.Writes,Is.EqualTo(writes));
-            Assert.That(Flow.GetComponentsInChildren<Button>().Any(b=>b.name=="Enter facility"),Is.False,"Automatic opening must not cover the character with a duplicate entry button");
+            Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Arrived));Assert.That(Store.Writes,Is.EqualTo(writes));
+            for(int i=0;i<90;i++)life.AdvanceFrame(1f/30);
+            Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Arrived));Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));
+            Assert.That(facility.RequestEnter("quest"),Is.True);Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Opening));
+            Assert.That(Flow.GetComponentsInChildren<Button>().Any(b=>b.name=="Enter facility"),Is.False,"The doorway itself stays the deliberate entry action");
             var position=life.World.Model.Hero.Position;Assert.That(TownWorldLayout.Distance(position,TownWorldMap.Place("quest")),Is.LessThan(.032f));
             for(int i=0;i<30&&Flow.CurrentScreen==ScreenId.Home;i++)life.AdvanceFrame(1f/30);
             Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Quest));Assert.That(Store.Writes,Is.EqualTo(writes+1),"Preserve the existing navigation save");
@@ -64,13 +71,30 @@ namespace Mofumachi.Tests
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var facility=life.GetComponent<TownFacilityView>();int writes=Store.Writes;string before=StateCodec.Encode(Flow.Game.State);
             Assert.That(facility.RequestEnter("shop"),Is.True);
             for(int i=0;i<3000&&facility.Entry.Phase==TownEntryPhase.Walking;i++)life.AdvanceFrame(1f/30);
-            Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Opening));
-            Assert.That(Flow.GetComponentsInChildren<Button>().Any(b=>b.name=="Enter facility"),Is.False,"Automatic opening must leave the shop arrival visible");
+            Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Arrived));
+            for(int i=0;i<90;i++)life.AdvanceFrame(1f/30);
+            Assert.That(Flow.IsModalOpen,Is.False);Assert.That(facility.Entry.OpenAmount,Is.Zero);
+            Assert.That(facility.RequestEnter("shop"),Is.True);Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Opening));
+            Assert.That(Flow.GetComponentsInChildren<Button>().Any(b=>b.name=="Enter facility"),Is.False,"The doorway itself stays the deliberate entry action");
             for(int i=0;i<30&&!Flow.IsModalOpen;i++)life.AdvanceFrame(1f/30);
             Assert.That(Flow.IsModalOpen,Is.True);Assert.That(life.World.Model.Hero.Region,Is.EqualTo(TownRegionId.East));
             Assert.That(TownWorldLayout.Distance(life.World.Model.Hero.Position,TownWorldMap.Place("shop")),Is.LessThan(.032f));
             Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));
             Flow.CloseShopPreview();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));LogAssert.NoUnexpectedReceived();
+        }
+        [UnityTest] public IEnumerator CafeIsARealWalkingDestinationWithATappedDoorAndAMeetingInside()
+        {
+            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var facility=life.GetComponent<TownFacilityView>();
+            string before=StateCodec.Encode(Flow.Game.State);int talks=Flow.Daily.Data.Talks;
+            Assert.That(facility.RequestEnter("cafe"),Is.True);
+            for(int i=0;i<3000&&facility.Entry.Phase==TownEntryPhase.Walking;i++)life.AdvanceFrame(1f/30);
+            Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Arrived));Assert.That(Flow.IsModalOpen,Is.False);
+            Assert.That(life.World.Model.Hero.District,Is.EqualTo(TownDistrictId.West));Assert.That(Flow.Daily.Data.Talks,Is.EqualTo(talks));
+            Assert.That(facility.RequestEnter("cafe"),Is.True);
+            for(int i=0;i<30&&!Flow.IsModalOpen;i++)life.AdvanceFrame(1f/30);
+            Assert.That(Flow.IsModalOpen,Is.True);Assert.That(Flow.Daily.Data.Talks,Is.EqualTo(talks),"Opening a cafe cannot count as talking");
+            Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));Flow.GoBack();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));
+            LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator RetargetPauseAndFastTravelCancelPendingFacilityEntry()
         {

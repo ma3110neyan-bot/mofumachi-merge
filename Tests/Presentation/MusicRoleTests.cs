@@ -6,6 +6,12 @@ namespace Mofumachi.Tests
 {
     public sealed class MusicRoleTests
     {
+        [Test] public void ANewMergePlayerHearsThePopCandidateWhileExplicitChoicesSurvive()
+        {
+            Assert.That(new MusicRoleSelection(new Store(),new Store(),new Store()).For(MusicRole.Merge),Is.EqualTo("merge-pop-promenade"));
+            var saved=new Store{Value="merge-picnic"};
+            Assert.That(new MusicRoleSelection(new Store(),new Store(),saved).For(MusicRole.Merge),Is.EqualTo("merge-picnic"));
+        }
         private sealed class Store:IMusicPreferenceStore
         {public string Value;public bool Fail;public string Load()=>Value;public void Save(string id){if(Fail)throw new InvalidOperationException();Value=id;}}
         [TestCase("beginning",MusicRole.Title)] [TestCase("merge-time",MusicRole.Merge)]

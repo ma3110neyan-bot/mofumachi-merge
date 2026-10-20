@@ -12,7 +12,7 @@ namespace Mofumachi.Presentation
         public TownFacilityEntry Entry {get;}=new TownFacilityEntry();
         public void Bind(ScreenContext c,TownLifeView town)
         {
-            context=c;life=town;Build("quest","北の依頼小屋",TownSceneryKind.QuestCottage,new Rect(352f/1254,1-1145f/1254,68f/1254,115f/1254));Build("shop","東の花屋",TownSceneryKind.Florist,new Rect(796f/1254,1-588f/1254,78f/1254,130f/1254));Refresh();
+            context=c;life=town;Build("quest","北の依頼小屋",TownSceneryKind.QuestCottage,new Rect(352f/1254,1-1145f/1254,68f/1254,115f/1254));Build("shop","東の花屋",TownSceneryKind.Florist,new Rect(796f/1254,1-588f/1254,78f/1254,130f/1254));Build("cafe","西のカフェ",TownSceneryKind.Cafe,new Rect(410f/1254,1-550f/1254,53f/1254,147f/1254));Refresh();
         }
         private void Build(string id,string title,TownSceneryKind kind,Rect uv)
         {
@@ -39,7 +39,15 @@ namespace Mofumachi.Presentation
         }
         public bool RequestEnter(string id)
         {
-            if(!life.CanInteract||life.IsManuallyDragging||!life.GuideToFacility(id))return false;
+            if(!life.CanInteract||life.IsManuallyDragging||TownFacilityEntry.DestinationFor(id)==null)return false;
+            if(Entry.Phase==TownEntryPhase.Opening||Entry.Phase==TownEntryPhase.Entered)return false;
+            var hero=life.World.Model.Hero;
+            if(!hero.IsWalking&&TownWalkableArea.Distance(hero.Position,TownWorldMap.Place(TownFacilityEntry.DestinationFor(id)))<=.032f)
+            {
+                life.StartInteraction();dispatched=false;bool opened=Entry.TapDoor(id,hero.Position,false);Refresh();return opened;
+            }
+            bool guided=id=="cafe"?(life.TownLevel>=2?life.GuideToPlace(TownFacilityEntry.DestinationFor(id)):life.World.GuidePoint(TownWorldMap.Place(TownFacilityEntry.DestinationFor(id)))):life.GuideToFacility(id);
+            if(!guided)return false;
             dispatched=false;return Entry.Request(id);
         }
         public void Cancel(){Entry.Cancel();dispatched=false;}
@@ -49,7 +57,7 @@ namespace Mofumachi.Presentation
             Entry.Step(life.World.Model.Hero.Position,life.World.Model.Hero.IsWalking,seconds);Refresh();
             if(Entry.Phase!=TownEntryPhase.Entered||dispatched)return;dispatched=true;
             context.Flow.PlayCue(AudioCue.Confirm);
-            if(Entry.Facility=="quest")context.Flow.ShowQuest();else context.Flow.OpenShopPreview();
+            if(Entry.Facility=="quest")context.Flow.ShowQuest();else if(Entry.Facility=="cafe")context.Flow.OpenCafe();else context.Flow.OpenShopPreview();
         }
         public void Refresh()
         {
@@ -61,11 +69,11 @@ namespace Mofumachi.Presentation
                 var p=door.Hit.anchoredPosition;var bounds=((RectTransform)life.transform).rect;
                 bool visible=p.x>bounds.xMin-64&&p.x<bounds.xMax+64&&p.y>bounds.yMin-80&&p.y<bounds.yMax-10;
                 door.Hit.gameObject.SetActive(visible);door.Frame.gameObject.SetActive(visible);
-                bool near=TownWalkableArea.Distance(life.World.Model.Hero.Position,TownWorldMap.Place(door.Id))<.23f;
+                bool near=TownWalkableArea.Distance(life.World.Model.Hero.Position,TownWorldMap.Place(TownFacilityEntry.DestinationFor(door.Id)))<.23f;
                 float amount=Entry.Facility==door.Id?Entry.OpenAmount:0;
                 door.Leaf.localScale=new Vector3(1-amount,1,1);door.Light.color=Color.Lerp(new Color(.28f,.14f,.10f),new Color(1,.86f,.48f),Mathf.Max(amount,near?.35f:0));
-                string title=door.Id=="quest"?"北の依頼小屋":"東の花屋";
-                door.Caption.text=Entry.Facility==door.Id?(Entry.Phase==TownEntryPhase.Walking?"入口までおさんぽ中♪":"扉がひらくよ♪"):near?title+"\nタップして入る":title;
+                string title=door.Id=="quest"?"北の依頼小屋":door.Id=="cafe"?"西のカフェ":"東の花屋";
+                door.Caption.text=Entry.Facility==door.Id?(Entry.Phase==TownEntryPhase.Walking?"入口までおさんぽ中♪":Entry.Phase==TownEntryPhase.Arrived?title+"\nドアをタップして入る":"扉がひらくよ♪"):near?title+"\nドアをタップして入る":title;
                 float captionHeight=near||Entry.Facility==door.Id?44:28;door.Sign.sizeDelta=new Vector2(146,captionHeight);
                 float captionX=TownWorldLayout.LabelCenter(p.x,bounds.xMin,bounds.xMax,146)-p.x;
                 door.Sign.anchoredPosition=new Vector2(captionX,TownWorldLayout.CaptionDrop(p.y+door.Hit.rect.height/2,captionHeight,bounds.yMax));

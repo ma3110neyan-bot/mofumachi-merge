@@ -7,6 +7,36 @@ namespace Mofumachi.Tests
     public sealed class MergePresentationTests
     {
         private static TownDailyService Daily()=>new TownDailyService(new MemoryTownDailyStore(),new DateTime(2026,10,19));
+        [Test] public void MatchGuidanceUsesOnlyUnlockedIdenticalItemsBelowMaximumLevel()
+        {
+            var state=GameState.CreateInitial();string before=StateCodec.Encode(state);
+            var source=state.mergeBoard[0];var target=state.mergeBoard[1];
+            Assert.That(MergePresentation.IsMatch(source,target,false,false),Is.True);
+            Assert.That(MergePresentation.IsMatch(source,target,true,false),Is.False);
+            Assert.That(MergePresentation.IsMatch(source,target,false,true),Is.False);
+            Assert.That(MergePresentation.IsMatch(source,null,false,false),Is.False);
+            Assert.That(MergePresentation.IsMatch(null,target,false,false),Is.False);
+            Assert.That(MergePresentation.IsMatch(source,new BoardItem("bread",1,3),false,false),Is.False);
+            Assert.That(MergePresentation.IsMatch(source,new BoardItem("tea",2,3),false,false),Is.False);
+            Assert.That(MergePresentation.IsMatch(new BoardItem("tea",3,4),new BoardItem("tea",3,5),false,false),Is.False);
+            Assert.That(StateCodec.Encode(state),Is.EqualTo(before),"Hints must never fill, lock or save the board");
+        }
+        [Test] public void RequirementCopyNamesTheMissingAmountAndCompletedState()
+        {
+            Assert.That(MergePresentation.RequirementCount(0,2),Is.EqualTo("0 / 2  あと2個"));
+            Assert.That(MergePresentation.RequirementCount(1,2),Is.EqualTo("1 / 2  あと1個"));
+            Assert.That(MergePresentation.RequirementCount(2,2),Is.EqualTo("2 / 2  完了"));
+            Assert.That(MergePresentation.RequirementCount(3,2),Is.EqualTo("3 / 2  完了"));
+            Assert.That(MergePresentation.RequirementCount(2147483648L,2),Is.EqualTo("2147483648 / 2  完了"),"Read the long inventory count without narrowing or overflow");
+        }
+        [Test] public void TallProductionShelfKeepsTheBoardStillWhenAnOrdinaryNoticeAppears()
+        {
+            var idle=MergeScreenLayout.For(808,0);var notice=MergeScreenLayout.For(808,46);
+            Assert.That(idle.TwoToolbarRows,Is.True);
+            Assert.That(idle.ToolbarBottom,Is.EqualTo(notice.ToolbarBottom));
+            Assert.That(idle.TrayBottom,Is.EqualTo(notice.TrayBottom));
+            Assert.That(idle.ToolbarAction(4,336).Width,Is.GreaterThan(idle.ToolbarAction(3,336).Width*1.8f),"Delivery is primary; frame management is secondary");
+        }
         [Test] public void FinalePurposeUsesActualDailyMergesThenNextAchievableAction()
         {
             var daily=Daily();
@@ -41,7 +71,7 @@ namespace Mofumachi.Tests
             float boardHeight=height-layout.TrayTop-layout.TrayBottom;
             Assert.That(boardHeight-2*layout.GridInset,Is.GreaterThanOrEqualTo(308));
             Assert.That(layout.TrayTop,Is.GreaterThanOrEqualTo(layout.ProgressTop+layout.ProgressHeight+2));
-            Assert.That(layout.TrayBottom,Is.GreaterThanOrEqualTo(layout.ToolbarBottom+layout.ToolbarHeight+4));
+            Assert.That(layout.TrayBottom,Is.GreaterThanOrEqualTo(layout.ToolbarBottom+layout.ToolbarHeight+2),"Keep board and production targets separate even on the shortest supported view");
             Assert.That(layout.ToolbarBottom,Is.GreaterThanOrEqualTo(layout.NavBottom+layout.NavHeight+2));
             Assert.That(layout.ProgressHeight,Is.GreaterThanOrEqualTo(64),"Requirements/purpose and selected name stay visible");
             Assert.That(layout.ToolbarHeight,Is.EqualTo(layout.TwoToolbarRows?100:48));

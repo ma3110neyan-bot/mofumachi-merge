@@ -23,26 +23,56 @@ namespace Mofumachi.Presentation
         // Paving is a visual material, not the limit of movement. The same wide
         // five rooms include walkable lawns, with the existing planted obstacles.
         public static IReadOnlyList<TownPoint[]> PavingPolygons {get;}=BuildPaving();
-        public const float LawnTileWidth=1,LawnTileHeight=1;
+        public const float LawnTileWidth=.72f,LawnTileHeight=1.44f;
         public const float PathTileLength=.64f,PathHalfWidth=.16f,PathFeather=.025f;
         private static IReadOnlyList<TownPoint[]> BuildPaving()
         {
             var patches=new List<TownPoint[]>();
-            TownPoint[] Box(float left,float bottom,float right,float top)=>new[]{new TownPoint(left,bottom),new TownPoint(right,bottom),new TownPoint(right,top),new TownPoint(left,top)};
-            // Broad streets join the same four exits. They do not constrain the
-            // independent walking surface or replace a room with a narrow lane.
-            patches.Add(Box(TownWorldMap.Left,-.39f,TownWorldMap.Right,-.01f));
-            patches.Add(Box(-.18f,TownWorldMap.Bottom,.18f,TownWorldMap.Top));
-            foreach(var district in TownDistrictLayout.All)
+            void Court(float x,float y,float rx,float ry)
             {
-                var c=TownDistrictLayout.Center(district);bool central=district==TownDistrictId.Central;
-                float y=c.Y+(central?-.06f:-.20f),radiusX=central?.44f:district==TownDistrictId.South?.41f:.43f;
-                float radiusY=central?.62f:district==TownDistrictId.South?.43f:.42f;
-                var plaza=new TownPoint[24];
-                for(int i=0;i<plaza.Length;i++)
-                {float angle=i*(float)Math.PI*2/plaza.Length;plaza[i]=new TownPoint(c.X+(float)Math.Cos(angle)*radiusX,y+(float)Math.Sin(angle)*radiusY);}
-                patches.Add(plaza);
+                // Uneven stone skirts meet the garden rather than forming five
+                // identical large discs. These are convex for the shared mesh.
+                var shape=new TownPoint[16];
+                for(int i=0;i<shape.Length;i++)
+                {float angle=i*(float)Math.PI*2/shape.Length,edge=1+(i%3-1)*.035f;shape[i]=new TownPoint(x+(float)Math.Cos(angle)*rx*edge,y+(float)Math.Sin(angle)*ry*edge);}
+                patches.Add(shape);
             }
+            void Route(float half,params TownPoint[] path)
+            {
+                for(int i=1;i<path.Length;i++)
+                {
+                    var a=path[i-1];var b=path[i];float dx=b.X-a.X,dy=b.Y-a.Y,length=(float)Math.Sqrt(dx*dx+dy*dy);
+                    if(length<.0001f)continue;float nx=-dy/length*half,ny=dx/length*half;
+                    patches.Add(new[]{new TownPoint(a.X+nx,a.Y+ny),new TownPoint(a.X-nx,a.Y-ny),new TownPoint(b.X-nx,b.Y-ny),new TownPoint(b.X+nx,b.Y+ny)});
+                    if(i<path.Length-1)Court(b.X,b.Y,half,half);
+                }
+            }
+            TownPoint P(float x,float y)=>new TownPoint(x,y);
+            // A shared street, distinct forecourts and branching garden routes.
+            // Lawns beside these stones remain freely walkable.
+            Route(.115f,P(TownWorldMap.Left,-.24f),P(-1.2f,-.24f),P(-.60f,-.20f),P(0,-.22f),P(.60f,-.20f),P(1.2f,-.24f),P(TownWorldMap.Right,-.24f));
+            Court(0,-.02f,.31f,.34f);Court(0,.30f,.30f,.24f);
+            Court(-1.2f,-.11f,.29f,.22f);Court(1.2f,-.11f,.29f,.22f);
+            foreach(float side in new[]{-1.2f,1.2f})
+            {
+                // Side walks lead to the terrace, display and shaded nooks;
+                // both sides of each shop remain usable beside the main street.
+                Route(.072f,P(side,-.24f),P(side-.34f,-.40f),P(side-.38f,.03f),P(side-.38f,.56f));
+                Route(.072f,P(side,-.24f),P(side+.34f,-.40f),P(side+.38f,.03f),P(side+.38f,.62f));
+            }
+            Route(.085f,P(0,-.36f),P(-.29f,.06f),P(-.28f,.44f),P(0,.70f));
+            Route(.085f,P(0,-.36f),P(.29f,.06f),P(.28f,.44f),P(0,.70f));
+            Route(.115f,P(0,.67f),P(.05f,1.04f),P(-.04f,1.43f),P(0,1.70f),P(0,2.09f));
+            Court(0,1.87f,.28f,.28f);
+            Route(.075f,P(0,1.66f),P(-.34f,1.85f),P(-.34f,2.24f));
+            Route(.08f,P(-.34f,2.12f),P(-.43f,2.24f));
+            Court(-.36f,2.18f,.13f,.16f);
+            Route(.075f,P(0,1.66f),P(.35f,1.87f),P(.35f,2.18f));
+            Route(.115f,P(0,-.30f),P(.04f,-.78f),P(-.02f,-1.12f),P(0,-1.30f));
+            Route(.09f,P(0,-1.28f),P(-.34f,-1.50f),P(-.34f,-1.94f),P(0,-2.20f));
+            Route(.09f,P(0,-1.28f),P(.34f,-1.50f),P(.34f,-1.94f),P(0,-2.20f));
+            Court(0,-2.30f,.28f,.24f);
+            Route(.065f,P(-.12f,-2.23f),P(-.31f,-2.45f),P(-.08f,-2.66f),P(.25f,-2.53f),P(.30f,-2.28f),P(.10f,-2.15f));
             return patches.AsReadOnly();
         }
         public static TownPoint LawnUV(float x,float y)=>new TownPoint(.002f+Mirror(x/LawnTileWidth)*.496f,.002f+Mirror(y/LawnTileHeight)*.996f);

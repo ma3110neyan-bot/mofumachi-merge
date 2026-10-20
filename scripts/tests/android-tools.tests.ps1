@@ -81,9 +81,16 @@ try {
     # Header-only fixtures exercise metadata gates, not Unity rendering or CRC.
     [byte[]]$Header=137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,2,208,0,0,5,0,0
     $Names=@('15-wide-park-left','15-wide-park-right','16-residents-passing-00','17-finger-follow-00','17-finger-released','18-continuous-walk-west','18-continuous-walk-central','18-continuous-walk-east','19-book-new-in-town','19-book-discovery-first-page','20-quest-cabin','20-quest-door-opening','20-quest-inside','21-shop-cabin','21-shop-door-opening','21-shop-inside','22-title-candidates','22-merge-candidates','23-title-letter','23-title-garden','23-merge-picnic','23-merge-ribbon','23-merge-pop-promenade','24-home-unobstructed','24-menu-open','24-menu-return','25-character-idle','25-character-step-a','25-character-step-b','25-character-greeting','25-character-behind-fountain','25-character-in-front-fountain','04-town-lv1-North','04-town-lv1-South','04-town-lv6-North','04-town-lv6-South','09-connected-path-north','09-connected-path-south','26-cardinal-North-join','26-cardinal-North-arrival','26-cardinal-South-join','26-cardinal-South-arrival','27-merge-finale-live-purpose')
+    $NewBaseCaptures=@('20-quest-arrived-door-prompt','21-shop-arrived-door-prompt','21b-cafe-cabin','21b-cafe-walking','21b-cafe-arrived-door-prompt','21b-cafe-door-opening','21b-cafe-inside','28-meet-friend-walking','28-meet-friend-arrived','29-merge-drag-lift','29-merge-drag-match','29-merge-landed')
+    $Names+=$NewBaseCaptures
     $Names+=@(1..47 | ForEach-Object {'fixture-'+$_})
     foreach($Name in $Names){[IO.File]::WriteAllBytes((Join-Path $CaptureDir ($Name+'.png')),$Header)}
     Assert-NativeCaptures $CaptureDir
+    foreach($RequiredBaseCapture in $NewBaseCaptures) {
+        $CaptureFile=Join-Path $CaptureDir ($RequiredBaseCapture+'.png');Remove-Item -LiteralPath $CaptureFile
+        Expect-Rejection {Assert-NativeCaptures $CaptureDir}
+        [IO.File]::WriteAllBytes($CaptureFile,$Header)
+    }
     [IO.File]::WriteAllBytes((Join-Path $CaptureDir '17-finger-released.png'),[byte[]](0,1,2));Expect-Rejection {Assert-NativeCaptures $CaptureDir}
     [IO.File]::WriteAllBytes((Join-Path $CaptureDir '17-finger-released.png'),$Header)
     $WrongHeader=$Header.Clone();$WrongHeader[19]=0;[IO.File]::WriteAllBytes((Join-Path $CaptureDir '17-finger-released.png'),$WrongHeader);Expect-Rejection {Assert-NativeCaptures $CaptureDir}
@@ -140,15 +147,15 @@ exit $Code
         if($Declared -eq 0){$Declared=$Total}
         $SuiteCases=0
         $Nodes=foreach($Name in $Suites) {
-            $Count=if($Name -eq 'DailyWorldTests'){10}elseif($Name -eq 'MajorPolishTests'){6}elseif($Name -eq 'SeamlessFieldTests'){7}elseif($Name -eq 'EastWestHomeTests'){4}elseif($Name -eq 'ResidentPresenceTests'){4}elseif($Name -eq 'FivePlazaTests'){5}else{1}
+            $Count=if($Name -eq 'DailyWorldTests'){12}elseif($Name -eq 'MajorPolishTests'){6}elseif($Name -eq 'SeamlessFieldTests'){8}elseif($Name -eq 'EastWestHomeTests'){4}elseif($Name -eq 'ResidentPresenceTests'){5}elseif($Name -eq 'FivePlazaTests'){5}elseif($Name -eq 'BaseProductLoopTests'){5}else{1}
             $SuiteCases+=$Count;"<test-suite name='$Name' result='Passed'>"+('<test-case result="Passed"/>'*$Count)+"</test-suite>"
         }
         $Nodes=$Nodes -join ''
         $Extra=('<test-case result="Passed"/>'*($Total-$SuiteCases-1))+"<test-case result='$Case'/>"
         "<test-run result='Passed' total='$Declared' passed='$Declared' failed='0' skipped='0'>$Nodes$Extra</test-run>" | Set-Content $Xml
     }
-    $EditSuites=Read-GateSuites 'EditXml' 142;$PlaySuites=Read-GateSuites 'PlayXml' 174
-    foreach($Gate in @(@{Minimum=142;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests','TownPlaceCatalogTests','TownViewportTests','TownRegionCatalogTests','TownRegionJourneyTests','TownRegionContentTests')},@{Minimum=174;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests')})) {
+    $EditSuites=Read-GateSuites 'EditXml' 142;$PlaySuites=Read-GateSuites 'PlayXml' 203
+    foreach($Gate in @(@{Minimum=142;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests','TownPlaceCatalogTests','TownViewportTests','TownRegionCatalogTests','TownRegionJourneyTests','TownRegionContentTests')},@{Minimum=203;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests')})) {
         $Old=@($Gate.Suites | Where-Object {$_ -notin $Gate.New})
         Write-SuiteXml $Gate.Minimum $Old
         Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}
@@ -165,13 +172,13 @@ exit $Code
         foreach($BadCase in @('Skipped','Failed','Inconclusive')){Write-SuiteXml $Gate.Minimum $Gate.Suites $BadCase;Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}}
         Write-SuiteXml $Gate.Minimum $Gate.Suites -Declared ($Gate.Minimum+1);Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}
     }
-    foreach($Name in @('DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests')) {
-        Write-SuiteXml 174 $PlaySuites
+    foreach($Name in @('DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests')) {
+        Write-SuiteXml 203 $PlaySuites
         $Data=Get-Content -LiteralPath $Xml -Raw
         $SuiteStart="<test-suite name='$Name' result='Passed'>"
         $Data=$Data.Replace($SuiteStart+'<test-case result="Passed"/>','<test-case result="Passed"/>'+$SuiteStart)
         $Data | Set-Content -LiteralPath $Xml
-        Expect-Rejection {Assert-TestRun $Xml 174 $PlaySuites}
+        Expect-Rejection {Assert-TestRun $Xml 203 $PlaySuites}
     }
     Write-Host 'Chapter build gates passed (synthetic result XML, Unity tests not executed).'
     Expect-Rejection {Select-AuthorizedDevice 'List of devices attached' ''}

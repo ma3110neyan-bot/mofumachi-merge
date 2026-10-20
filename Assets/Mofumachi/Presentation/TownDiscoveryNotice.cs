@@ -9,9 +9,10 @@ namespace Mofumachi.Presentation
         public static void Show(RectTransform root,ScreenContext c,string id)
         {
             var old=root.Find("New book discovery");if(old!=null){old.gameObject.SetActive(false);Destroy(old.gameObject);}
-            var button=c.Widgets.Button("New book discovery",CharacterCatalog.Find(id).Name+"の新しい一面を発見♪",root,new Rect(0,0,1,1),()=>c.Flow.OpenCharacterBook(id),true);
+            var entry=TownCharacterBook.For(id,c.Game.State,c.Flow.Daily.Data);
+            var button=c.Widgets.Button("New book discovery",CharacterCatalog.Find(id).Name+"の"+entry.LatestDiscovery+"♪\nタップして図鑑で見よう",root,new Rect(0,0,1,1),()=>c.Flow.OpenCharacterBook(id),true);
             var r=(RectTransform)button.transform;UIWidgets.Top(r,18,84,18,48);button.GetComponent<RoundedPanelGraphic>().color=UIWidgets.RosePaper;
-            var text=button.GetComponentInChildren<Text>();text.font=Resources.Load<Font>("Mofumachi/UIFontStory");text.fontSize=14;
+            var text=button.GetComponentInChildren<Text>();text.font=Resources.Load<Font>("Mofumachi/UIFontBody");text.fontSize=12;
             var notice=button.gameObject.AddComponent<TownDiscoveryNotice>();notice.flow=c.Flow;
         }
         private void Update(){if(flow==null||flow.IsAppPaused||flow.IsModalOpen)return;remaining-=Mathf.Min(Time.unscaledDeltaTime,.1f);if(remaining<=0){gameObject.SetActive(false);Destroy(gameObject);}}

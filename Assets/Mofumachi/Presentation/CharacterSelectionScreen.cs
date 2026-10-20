@@ -12,8 +12,8 @@ namespace Mofumachi.Presentation
             c.Flow.Daily.MarkBookSeen(chosen.Id);
             var discovery=w.StoryPanel("Book discovery bookmark",root,new Rect(0,0,1,1)).rectTransform;UIWidgets.Top(discovery,14,70,14,72);
             var stats=w.Label("Book collection counts",Counts(entry),discovery,new Rect(.04f,.58f,.92f,.35f),12);
-            var next=w.StoryLabel("Book next discovery",entry.NextDiscovery,discovery,new Rect(.05f,.06f,.90f,.50f),13);
-            var content=w.ScrollPaper("Partner content",root,128,150,1060,UIWidgets.BlushPaper);
+            var next=w.StoryLabel("Book next discovery",entry.IsNew?"NEW · "+entry.LatestDiscovery:entry.NextDiscovery,discovery,new Rect(.05f,.06f,.90f,.50f),13);
+            var content=w.ScrollPaper("Partner content",root,174,150,1132,UIWidgets.BlushPaper);
             for(int i=0;i<6;i++)
             {
                 var candidate=CharacterCatalog.All[i];int column=i%3,row=i/3;
@@ -39,16 +39,17 @@ namespace Mofumachi.Presentation
             }
             var heading=w.StoryRibbon("Book expressions title","見つけたリアクション",content,new Rect(0,0,1,1),16);UIWidgets.Top((RectTransform)heading.transform.parent,28,816,28,34);
             var react=w.NarrativeLabel("Book unlocked reactions",Reactions(entry),content,new Rect(0,0,1,1),14);UIWidgets.Top(react.rectTransform,18,866,18,54);
-            var hint=w.StoryLabel("Book collection hint","お話とおさんぽで、\nこの子のページが増えていくよ♪",content,new Rect(0,0,1,1),15);UIWidgets.Top(hint.rectTransform,22,936,22,66);
-            var talk=w.Button("Talk to character",chosen.Name+"とお話する",root,new Rect(0,0,1,1),()=>
+            var hint=w.StoryLabel("Book collection hint","街で会って、お話しよう♪\nおさんぽでも新しい一面が見つかるよ",content,new Rect(0,0,1,1),14);UIWidgets.Top(hint.rectTransform,18,936,18,66);
+            var request=QuestCatalog.NextFor(c.Game.State);
+            string connection=request!=null&&request.RequesterId==chosen.Id?chosen.Name+"のお願い「"+request.Title+"」\n依頼小屋 → Merge → お届けで、街も成長♪":entry.CompletedRequests>0?"この子に届けたお願い "+entry.CompletedRequests+"件\nお届けのおもいでも、このページに♪":"お願いとおさんぽで、\n仲間とのおもいでを重ねよう♪";
+            var memories=w.NarrativeLabel("Book request connection",connection,content,new Rect(0,0,1,1),13);UIWidgets.Top(memories.rectTransform,18,1018,18,80);
+            bool hasPartner=CharacterCatalog.IsKnown(c.Game.State.favoriteCharacterId);
+            var location=w.NarrativeLabel("Book current location",hasPartner?c.Flow.TownCharacterDestination(chosen.Id):"お気に入りを選んで、街で会おう♪",root,new Rect(0,0,1,1),12);UIWidgets.Bottom(location.rectTransform,20,122,20,38);
+            var talk=w.Button("Talk to character",chosen.Id==c.Game.State.favoriteCharacterId?"いっしょに、おさんぽへ":"会いに行く",root,new Rect(0,0,1,1),()=>
             {
-                if(!c.Flow.TalkToCharacter(chosen.Id)){quote.text=c.Flow.Daily.LastError;return;}
-                c.Flow.PlayCue(AudioCue.Character);reaction.Celebrate();var updated=TownCharacterBook.For(chosen.Id,c.Game.State,c.Flow.Daily.Data);quote.text=TownCharacterDialogue.For(chosen.Id,updated.Meetings);
-                stats.text=Counts(updated);next.text=updated.NextDiscovery;react.text=Reactions(updated);
-                c.Flow.Daily.MarkBookSeen(chosen.Id);
-                content.parent.GetComponent<ScrollRect>().verticalNormalizedPosition=.45f;
-            },true);UIWidgets.Bottom((RectTransform)talk.transform,28,70,28,48);talk.GetComponent<RoundedPanelGraphic>().color=UIWidgets.BluePaper;
-            var feedback=w.Label("Selection feedback",c.Flow.FeedbackFor(ScreenId.CharacterSelection),root,new Rect(0,0,1,1),13);UIWidgets.Bottom(feedback.rectTransform,20,120,20,28);feedback.gameObject.SetActive(feedback.text.Length>0);
+                c.Flow.PlayCue(AudioCue.Character);c.Flow.VisitTownCharacter(chosen.Id);
+            },true);UIWidgets.Bottom((RectTransform)talk.transform,28,70,28,48);talk.GetComponent<RoundedPanelGraphic>().color=UIWidgets.BluePaper;talk.interactable=hasPartner;
+            var feedback=w.Label("Selection feedback",c.Flow.FeedbackFor(ScreenId.CharacterSelection),root,new Rect(0,0,1,1),13);UIWidgets.Bottom(feedback.rectTransform,20,122,20,38);feedback.gameObject.SetActive(feedback.text.Length>0);location.gameObject.SetActive(feedback.text.Length==0);
             var confirm=w.Button("Confirm partner","この子にする",root,new Rect(0,0,1,1),()=>c.Flow.ConfirmFavorite());UIWidgets.Bottom((RectTransform)confirm.transform,28,12,28,52);
         }
         private static string Counts(TownBookEntry e)=>"会話 "+e.Meetings+"回 · おさんぽ "+e.Outings+"回 · 依頼 "+e.CompletedRequests+"件";

@@ -66,6 +66,30 @@ namespace Mofumachi.Tests
             {Flow.PreviewFavorite(c.Id);Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Book favorite place"&&t.text.Contains(TownCharacterBook.For(c.Id,Flow.Game.State,Flow.Daily.Data).FavoritePlace)),Is.True);Assert.That(Flow.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Partner ")),Is.EqualTo(6));Assert.That(Flow.Game.State.favoriteCharacterId,Is.EqualTo(favorite));}
             LogAssert.NoUnexpectedReceived();
         }
+        [UnityTest] public IEnumerator TodayVisitAndBookVisitStartARealWalkWithoutCreatingAConversation()
+        {
+            yield return EnterHome();Flow.ShowToday();string featured=Flow.Daily.CharacterOfDay;
+            Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Today friend destination").text,Is.EqualTo(Flow.TownCharacterDestination(featured)));
+            var visit=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Visit today friend");Assert.That(((RectTransform)visit.transform).rect.height,Is.GreaterThanOrEqualTo(48));visit.onClick.Invoke();
+            Assert.That(Flow.IsModalOpen,Is.False);Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(Flow.Daily.Data.Talks,Is.Zero);
+            Assert.That(Flow.Daily.Data.Characters.Sum(c=>c.Meetings),Is.Zero);
+            Flow.OpenCharacterBook("noah");string favorite=Flow.Game.State.favoriteCharacterId;
+            var bookVisit=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Talk to character");bookVisit.onClick.Invoke();
+            Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(Flow.Game.State.favoriteCharacterId,Is.EqualTo(favorite));
+            Assert.That(Flow.Daily.Data.Talks,Is.Zero);Assert.That(Flow.Daily.Data.Characters.Sum(c=>c.Meetings),Is.Zero);LogAssert.NoUnexpectedReceived();
+        }
+        [UnityTest] public IEnumerator EveryTodayRowIsActionableAndItsPaperScrollsOnAShortScreen()
+        {
+            yield return EnterHome();var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;((RectTransform)canvas.transform).sizeDelta=new Vector2(320,592);
+            Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(320,592),new Rect(0,24,320,536));Canvas.ForceUpdateCanvases();Flow.ShowToday();Canvas.ForceUpdateCanvases();
+            var scroll=Flow.GetComponentsInChildren<ScrollRect>().Single();Assert.That(scroll.content.rect.height,Is.GreaterThan(scroll.viewport.rect.height));
+            foreach(var button in Flow.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Today goal ")))
+                Assert.That(((RectTransform)button.transform).rect.height,Is.GreaterThanOrEqualTo(48));
+            Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Today goal 0").onClick.Invoke();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Merge));Assert.That(Flow.Daily.Data.Merges,Is.Zero);
+            Flow.ShowHome();Flow.ShowToday();Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Today goal 2").onClick.Invoke();
+            Assert.That(Flow.IsModalOpen,Is.False);Assert.That(Flow.GetComponentInChildren<TownLifeView>().World.Model.Hero.IsWalking,Is.True);Assert.That(Flow.Daily.Data.Walks,Is.Zero,"Only completed cross-district walking counts");
+            LogAssert.NoUnexpectedReceived();
+        }
         [UnityTest] public IEnumerator ANewWalkDismissesTheOldFacilityEntryAndItsCallback()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();life.GuideToFacility("quest");for(int i=0;i<2400&&life.Regions.HasHeroJourney;i++)life.AdvanceFrame(1f/30);

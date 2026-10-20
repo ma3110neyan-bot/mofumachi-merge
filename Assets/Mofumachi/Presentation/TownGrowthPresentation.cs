@@ -15,7 +15,13 @@ namespace Mofumachi.Presentation
     // scenery share these reserved foundations, so a bench cannot block a route.
     public static class TownGrowthPresentation
     {
-        private static TownGrowthPlacement P(TownGrowthProp prop,int level,float x,float y,float width)=>new TownGrowthPlacement(prop,level,x,y,width);
+        private static TownGrowthPlacement P(TownGrowthProp prop,int level,float x,float y,float width)
+        {
+            // Furniture reads as a destination group, while lamps/flowers stay
+            // subordinate and the clear courts continue to belong to residents.
+            float size=prop==TownGrowthProp.CafeTable?1.47f:prop==TownGrowthProp.FlowerDisplay?1.55f:prop==TownGrowthProp.Workshop?1.20f:prop==TownGrowthProp.Bench?1.20f:prop==TownGrowthProp.CafeSign?1.25f:prop==TownGrowthProp.Flowers?1.12f:1;
+            return new TownGrowthPlacement(prop,level,x,y,width*size);
+        }
         private static readonly TownGrowthPlacement[][] Regions={
             new[]{P(TownGrowthProp.Flowers,1,-1.50f,-.08f,.14f),P(TownGrowthProp.CafeTable,2,-1.50f,-.63f,.19f),P(TownGrowthProp.CafeSign,2,-.95f,.76f,.07f),
                 P(TownGrowthProp.Lamp,3,-1.46f,-.10f,.045f),P(TownGrowthProp.Bench,3,-.90f,-.66f,.17f),P(TownGrowthProp.Flowers,3,-1.57f,.75f,.13f),

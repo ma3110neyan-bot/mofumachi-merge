@@ -35,13 +35,17 @@ namespace Mofumachi.Presentation
         private static readonly IReadOnlyList<TownPoint[]> sharedPolygons=Array.AsReadOnly(polygons);
         // The painted front bases have corners; an ellipse alone leaves those
         // opaque posts walkable. Keep their footprints shared with the ground.
-        private static readonly IReadOnlyList<TownPoint[]> frontBases=Array.AsReadOnly(new[]{
+        private static readonly IReadOnlyList<TownPoint[]> frontBases=BuildFrontBases();
+        private static IReadOnlyList<TownPoint[]> BuildFrontBases()
+        {var result=new List<TownPoint[]>(new[]{
             Box(-.15f,.18f,.15f,.30f),Box(-1.49f,.10f,-.91f,.34f),
             Box(.925f,.10f,1.475f,.34f),Box(-.24f,2.14f,.24f,2.36f),
             Box(-.25f,-1.90f,.25f,-1.68f),
             Box(-.18f,1.03f,-.13f,1.09f),Box(.13f,1.03f,.18f,1.09f),
             Box(-1.33f,-.80f,-1.28f,-.74f),Box(-1.12f,-.80f,-1.07f,-.74f),
             Box(1.07f,-.84f,1.12f,-.78f),Box(1.28f,-.84f,1.33f,-.78f)});
+            result.AddRange(TownVillageDressing.SolidFootprints);return result.AsReadOnly();
+        }
         private static readonly IReadOnlyList<(TownPoint Center,float X,float Y)> islands=Array.AsReadOnly(excluded);
         private static readonly List<(TownPoint[] Points,float Left,float Right,float Bottom,float Top)> floors=BuildFloors();
         public IReadOnlyList<TownPoint[]> FloorPolygons=>sharedPolygons;

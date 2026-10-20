@@ -20,7 +20,8 @@ namespace Mofumachi.Presentation
             var group=gameObject.AddComponent<CanvasGroup>();group.blocksRaycasts=false;group.interactable=false;
             source=Create("Gathered source",root);other=Create("Gathered target",root);result=Create("Merged result",root);
             sparkle=UIWidgets.Node("Merge success light",root,new Rect(.5f,.5f,0,0)).gameObject.AddComponent<MergeSparkleGraphic>();
-            levelLabel=UIWidgets.Node("Merged level label",root,new Rect(.5f,.5f,0,0)).gameObject.AddComponent<Text>();levelLabel.font=Resources.Load<Font>("Mofumachi/UIFontBold");levelLabel.fontSize=17;levelLabel.alignment=TextAnchor.MiddleCenter;levelLabel.raycastTarget=false;levelLabel.rectTransform.sizeDelta=new Vector2(84,28);
+            levelLabel=UIWidgets.Node("Merged level label",root,new Rect(.5f,.5f,0,0)).gameObject.AddComponent<Text>();levelLabel.font=Resources.Load<Font>("Mofumachi/UIFontBold");levelLabel.fontSize=16;levelLabel.alignment=TextAnchor.MiddleCenter;levelLabel.raycastTarget=false;levelLabel.rectTransform.sizeDelta=new Vector2(112,28);
+            var labelShadow=levelLabel.gameObject.AddComponent<Shadow>();labelShadow.effectColor=new Color(1,1,.94f,.9f);labelShadow.effectDistance=new Vector2(0,-1);
             ResetVisuals();
         }
         private static ItemGraphic Create(string name,RectTransform root)
@@ -35,7 +36,7 @@ namespace Mofumachi.Presentation
             var a=board.Find("Cell "+from) as RectTransform;var b=board.Find("Cell "+to) as RectTransform;
             if(a==null||b==null){Cancel();return;}
             var root=(RectTransform)transform;
-            fromPoint=Point(root,a);toPoint=Point(root,b);itemSize=new Vector2(b.rect.width*.92f,b.rect.height*.70f);landingCell=to;
+            fromPoint=Point(root,a);toPoint=Point(root,b);itemSize=new Vector2(b.rect.width*.92f,b.rect.height*.80f);landingCell=to;
             meetingPoint=(fromPoint+toPoint)*.5f;
             source.Bind(itemId,previousLevel);other.Bind(itemId,previousLevel);result.Bind(itemId,previousLevel+1);
             source.rectTransform.sizeDelta=other.rectTransform.sizeDelta=result.rectTransform.sizeDelta=itemSize;
@@ -43,7 +44,7 @@ namespace Mofumachi.Presentation
             hiddenTarget=b.GetComponentInChildren<ItemGraphic>();
             if(hiddenTarget!=null){targetWasEnabled=hiddenTarget.enabled;hiddenTarget.enabled=false;}
             itemMotionFinished=false;startedAt=Time.unscaledTime;IsPlaying=true;Apply(0);
-            levelLabel.text="Lv."+(previousLevel+1);
+            levelLabel.text="Lv.UP!  "+(previousLevel+1);
         }
         private static Vector2 Point(RectTransform root,RectTransform cell)
         {
@@ -68,7 +69,9 @@ namespace Mofumachi.Presentation
             result.gameObject.SetActive(showingResult);result.rectTransform.anchoredPosition=landing+Vector2.up*(itemSize.y*MergeVisualTiming.ResultLift(elapsed));result.transform.localScale=Vector3.one*MergeVisualTiming.ResultScale(elapsed);
             if(elapsed>=MergeVisualTiming.LockSeconds)FinishItemMotion();
             sparkle.rectTransform.anchoredPosition=landing;sparkle.gameObject.SetActive(true);sparkle.SetBurstFrame(elapsed);
-            levelLabel.gameObject.SetActive(elapsed>=MergeVisualTiming.GatherSeconds);levelLabel.color=new Color(.67f,.36f,.16f,MergeVisualTiming.SparkleAlpha(elapsed));levelLabel.rectTransform.anchoredPosition=toPoint+Vector2.up*(itemSize.y*.5f+12+elapsed*12);
+            levelLabel.gameObject.SetActive(elapsed>=MergeVisualTiming.GatherSeconds);levelLabel.color=new Color(.81f,.25f,.43f,Mathf.Clamp01(MergeVisualTiming.SparkleAlpha(elapsed)*1.5f));
+            var labelPoint=toPoint+Vector2.up*(itemSize.y*.5f+12+elapsed*12);var bounds=((RectTransform)transform).rect;
+            labelPoint.x=Mathf.Clamp(labelPoint.x,bounds.xMin+58,bounds.xMax-58);labelPoint.y=Mathf.Min(labelPoint.y,bounds.yMax-16);levelLabel.rectTransform.anchoredPosition=labelPoint;
         }
         public void FinishItemMotion()
         {

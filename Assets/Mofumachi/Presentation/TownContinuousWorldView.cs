@@ -36,7 +36,7 @@ namespace Mofumachi.Presentation
 
             original.enabled=false;var cover=original.GetComponent<BackgroundCover>();if(cover!=null)cover.enabled=false;
             ground=UIWidgets.Node("Continuous shared paving",scenery,new Rect(0,0,1,1)).gameObject.AddComponent<TownGroundGraphic>();ground.Bind(this);
-            props=life.gameObject.AddComponent<TownSceneryView>();props.Bind(this);
+            props=life.gameObject.AddComponent<TownSceneryView>();props.Bind(this);props.SetTownLevel(town.TownLevel);
             foreach(var actor in life.Actors)actor.BindWorld(Model.Residents.Single(r=>r.Id==actor.CharacterId));
             foreach(var text in new[]{"← 西のカフェ広場","東の花屋広場 →","北のおねがい広場 ↑","南の庭園広場 ↓"})
             {var label=c.Widgets.NarrativeLabel("Painted road direction "+roadLabels.Count,text,(RectTransform)life.transform,new Rect(.5f,.5f,0,0),13);label.rectTransform.sizeDelta=new Vector2(142,30);label.color=new Color(.34f,.22f,.24f);roadLabels.Add(label);}
@@ -61,25 +61,25 @@ namespace Mofumachi.Presentation
         {return (target??(RectTransform)life.transform).InverseTransformPoint(Field.TransformPoint(Project(world)));}
         public TownPoint Source(Vector2 screen,UnityEngine.Camera camera)
         {if(!RectTransformUtility.ScreenPointToLocalPointInRectangle(Field,screen,camera,out var p))return Model.Hero.Position;var r=Field.rect;float scale=RenderScale;return new TownPoint(Camera.Center.X+(p.x-r.center.x)/scale,Camera.Center.Y+(p.y-r.center.y)/(scale*TownWorldLayout.ImageAspect));}
-        public bool GuidePoint(TownPoint point)
+        public bool GuidePoint(TownPoint point,bool preserveMeeting=false)
         {
             if(!life.CanInteract||!TownWorldLayout.Finite(point))return false;
-            if(!Model.TryGuidePoint(point))return false;life.StartInteraction(true);FollowingHero=true;SyncActors();return true;
+            if(!Model.TryGuidePoint(point))return false;if(!preserveMeeting)life.GetComponent<TownMeetingJourney>()?.Cancel();life.StartInteraction(true);FollowingHero=true;SyncActors();return true;
         }
         public bool GuidePlace(string id)
-        {if(!life.CanInteract||life.IsManuallyDragging||!Model.TryGuide(Model.Hero.Id,id))return false;life.StartInteraction(true);FollowingHero=true;SyncActors();return true;}
+        {if(!life.CanInteract||life.IsManuallyDragging||!Model.TryGuide(Model.Hero.Id,id))return false;life.GetComponent<TownMeetingJourney>()?.Cancel();life.StartInteraction(true);FollowingHero=true;SyncActors();return true;}
         public void FastTravel(TownRegionId region)=>FastTravel((TownDistrictId)region);
         public void FastTravel(TownDistrictId district)
         {if(!life.CanInteract||life.IsManuallyDragging)return;life.StartInteraction();Model.FastTravel(district);FollowingHero=true;Camera.Jump(new TownPoint(Model.Hero.Position.X,Model.Hero.Position.Y+TownSceneryLayout.CameraLift));SyncActors();Refresh();}
         public bool GuideDistrict(TownDistrictId district)
-        {if(!life.CanInteract||life.IsManuallyDragging||!Model.TryGuideDistrict(district))return false;life.StartInteraction(true);FollowingHero=true;SyncActors();return true;}
+        {if(!life.CanInteract||life.IsManuallyDragging||!Model.TryGuideDistrict(district))return false;life.GetComponent<TownMeetingJourney>()?.Cancel();life.StartInteraction(true);FollowingHero=true;SyncActors();return true;}
         public bool LookAt(TownRegionId region)=>Enum.IsDefined(typeof(TownRegionId),region)&&LookAt((TownDistrictId)region);
         public bool LookAt(TownDistrictId district)
         {if(!life.CanInteract||!Enum.IsDefined(typeof(TownDistrictId),district))return false;FollowingHero=false;lookRegion=TownDistrictLayout.LegacyRegion(district);var p=TownWorldMap.Place(TownDistrictLayout.EntranceId(district));Camera.Jump(new TownPoint(p.X,p.Y+TownSceneryLayout.CameraLift));Refresh();return true;}
         public void ReturnToHero(){FollowingHero=true;Camera.Jump(new TownPoint(Model.Hero.Position.X,Model.Hero.Position.Y+TownSceneryLayout.CameraLift));Refresh();}
-        public void Pan(Vector2 delta){life.GetComponent<TownFacilityView>()?.Cancel();FollowingHero=false;lookRegion=null;float scale=RenderScale;Camera.Pan(-delta.x/scale,-delta.y/(scale*TownWorldLayout.ImageAspect));Refresh();}
-        public void CancelHero(){trackingFinger=false;Model?.CancelHero();if(Model!=null)SyncActors();}
-        public void Freeze(){trackingFinger=false;Model?.CancelHero();foreach(var actor in life.Actors)actor.ApplyWorldStep(0);}
+        public void Pan(Vector2 delta){life.GetComponent<TownMeetingJourney>()?.Cancel();life.GetComponent<TownFacilityView>()?.Cancel();FollowingHero=false;lookRegion=null;float scale=RenderScale;Camera.Pan(-delta.x/scale,-delta.y/(scale*TownWorldLayout.ImageAspect));Refresh();}
+        public void CancelHero(){life.GetComponent<TownMeetingJourney>()?.Cancel();trackingFinger=false;Model?.CancelHero();if(Model!=null)SyncActors();}
+        public void Freeze(){life.GetComponent<TownMeetingJourney>()?.Cancel();trackingFinger=false;Model?.CancelHero();foreach(var actor in life.Actors)actor.ApplyWorldStep(0);}
         private void OnArrival(string id,string placeId,bool walked)
         {
             var actor=life.Actors.Single(a=>a.CharacterId==id);actor.ApplyWorldStep(0);
@@ -92,6 +92,7 @@ namespace Mofumachi.Presentation
         public void Refresh()
         {
             if(!IsReady||original==null||scenery==null)return;
+            props?.SetTownLevel(life.TownLevel);
             var bounds=Field.rect;float scale=RenderScale;
             Camera.Fit(bounds.width/scale,bounds.height/(scale*TownWorldLayout.ImageAspect));
             bool sceneChanged=!sceneReady||!renderedCenter.Equals(Camera.Center)||renderedSize!=bounds.size;

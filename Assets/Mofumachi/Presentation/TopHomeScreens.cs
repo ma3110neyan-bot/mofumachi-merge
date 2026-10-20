@@ -36,15 +36,17 @@ namespace Mofumachi.Presentation
         public static void BuildHome(RectTransform root,ScreenContext c,RawImage background=null)
         {
             var w=c.Widgets;c.Flow.Daily.EnsureDay(System.DateTime.Now);
-            // The street is the main view. Only two small floating bars stay open.
-            var world=UIWidgets.Node("Town characters",root,new Rect(0,0,1,1));world.offsetMin=new Vector2(0,62);world.offsetMax=new Vector2(0,-80);
+            // The town fills the safe view. Controls float above its scenery;
+            // they no longer cut a strip out of the walking world's projection.
+            var world=UIWidgets.Node("Town characters",root,new Rect(0,0,1,1));
             var life=world.gameObject.AddComponent<TownLifeView>();life.Bind(c,background??c.Flow.TownBackground);
             world.gameObject.AddComponent<TownContinuousWorldView>().Bind(c,life);
             world.gameObject.AddComponent<TownViewportView>().Bind(c,background??c.Flow.TownBackground,life);
             var decorations=UIWidgets.Node("Town growth decorations",world,new Rect(0,0,1,1));decorations.SetAsFirstSibling();
             var growth=decorations.gameObject.AddComponent<TownGrowthView>();growth.Bind(c,life);growth.Apply(c.Game.State.townGrowthLevel);
-            var hud=w.Panel("HUD",root,new Rect(0,0,1,1),new Color(1,.988f,.945f,.94f)).rectTransform;UIWidgets.Top(hud,8,6,8,44);
+            var hud=w.Panel("HUD",root,new Rect(0,0,1,1),new Color(1,.988f,.945f,.94f)).rectTransform;UIWidgets.Top(hud,8,6,8,48);
             var today=w.Button("Today town","今日",hud,new Rect(0,0,.18f,1),c.Flow.ShowToday,true);
+            today.GetComponent<ButtonPressFeedback>().PreserveHitbox=true;
             today.GetComponentInChildren<Text>().fontSize=11;
             var todayNew=w.Label("Today NEW","",(RectTransform)today.transform,new Rect(1,1,0,0),9);todayNew.color=new Color(.71f,.24f,.38f);
             todayNew.rectTransform.pivot=new Vector2(.5f,1);todayNew.rectTransform.anchoredPosition=new Vector2(-2,0);todayNew.rectTransform.sizeDelta=new Vector2(26,16);
@@ -53,19 +55,20 @@ namespace Mofumachi.Presentation
             w.Icon("Coin",UIIcon.Coin,hud,new Rect(.44f,.22f,.075f,.56f));
             w.Heading("Coins value",c.Game.State.coins.ToString("N0"),hud,new Rect(.52f,.08f,.29f,.84f),13);
             var menu=w.Button("Town menu","メニュー",hud,new Rect(.82f,0,.18f,1),c.Flow.OpenTownMenu,true);menu.GetComponentInChildren<Text>().fontSize=11;
+            menu.GetComponent<ButtonPressFeedback>().PreserveHitbox=true;
             world.gameObject.AddComponent<TownRegionView>().Bind(c,background??c.Flow.TownBackground,life,life.Regions);
             world.gameObject.AddComponent<TownRegionControls>().Bind(c,root,life);
             // Compact next-step card replaces the old permanently expanded chapter panel.
-            var bar=w.Panel("Navigation",root,new Rect(0,0,1,1),new Color(1,.988f,.945f,.94f)).rectTransform;UIWidgets.Bottom(bar,8,6,8,50);
+            var bar=w.Panel("Navigation",root,new Rect(0,0,1,1),new Color(1,1,1,0)).rectTransform;UIWidgets.Bottom(bar,12,10,12,48);
             var goal=TownNextGoal.For(c.Game.State);bool finale=ChapterProgress.For(c.Game.State).AllCompleted;
-            var quest=w.Panel("Home quest",bar,new Rect(0,0,.59f,1),new Color(1,1,1,0)).rectTransform;quest.GetComponent<RoundedPanelGraphic>().raycastTarget=true;
+            var quest=w.StoryPanel("Home quest",bar,new Rect(0,0,.69f,1),true).rectTransform;quest.GetComponent<RoundedPanelGraphic>().raycastTarget=true;
             var title=w.StoryLabel("Next goal title",finale?"今日のお願い "+c.Flow.Daily.CompletedGoals+" / 3":goal.Title,quest,new Rect(.05f,.50f,.90f,.45f),12);
-            var hint=w.Label("Town growth hint",TownNextGoal.CompactDetail(c.Game.State,c.Flow.Daily),quest,new Rect(.05f,.06f,.90f,.42f),10);
+            var hint=w.Label("Town growth hint",TownNextGoal.CompactDetail(c.Game.State,c.Flow.Daily),quest,new Rect(.05f,.06f,.90f,.42f),12);
             quest.gameObject.AddComponent<TownDailyHomeHint>().Bind(c,finale,title,hint);
             var tap=quest.gameObject.AddComponent<Button>();tap.targetGraphic=quest.GetComponent<RoundedPanelGraphic>();tap.onClick.AddListener(()=>{if(finale)c.Flow.ShowToday();else life.GuideToFacility("quest");});
-            var merge=w.Button("Nav Merge","マージ",bar,new Rect(.60f,0,.25f,1),c.Flow.ShowMerge);merge.GetComponentInChildren<Text>().fontSize=13;
-            var more=w.Button("Town menu bottom","…",bar,new Rect(.86f,0,.14f,1),c.Flow.OpenTownMenu,true);
-            more.GetComponentInChildren<Text>().fontSize=22;
+            var merge=w.Button("Nav Merge","マージ",bar,new Rect(.72f,0,.28f,1),c.Flow.ShowMerge);merge.GetComponentInChildren<Text>().fontSize=14;
+            merge.GetComponent<ButtonPressFeedback>().PreserveHitbox=true;
+            root.gameObject.AddComponent<TownStreetHud>().Bind(life,hud,quest,(RectTransform)merge.transform);
             life.Regions.RestoreSnapshot(c.Flow.HomeRegionSnapshot);life.World.Restore(c.Flow.HomeWorldSnapshot);
             world.gameObject.AddComponent<TownStreetWalkView>().Bind(c,life);
             string message=c.Flow.FeedbackFor(ScreenId.Home);

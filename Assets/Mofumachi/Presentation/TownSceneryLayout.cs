@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using Mofumachi.Core;
 namespace Mofumachi.Presentation
 {
-    public enum TownSceneryKind {Cafe,Florist,QuestCottage,Gazebo,Fountain,Tree,Blossom,Flowerbed,Fence}
+    public enum TownSceneryKind {Cafe,Florist,QuestCottage,Gazebo,Fountain,Tree,Blossom,Flowerbed,Fence,CottagePair,CafeTerrace,FloristCart,NoticeBoard,GardenPergola,FlowerHedge,TreeGrove,FlowerBorder}
     public sealed class TownSceneryPlacement
     {
         public TownSceneryKind Kind {get;} public TownDistrictId District {get;}
         public TownPoint Feet {get;} public TownPoint Foundation {get;}
-        public float Width {get;} public float Height {get;}
-        public TownSceneryPlacement(TownSceneryKind kind,TownDistrictId district,TownPoint feet,TownPoint foundation,float width,float height)
-        {Kind=kind;District=district;Feet=feet;Foundation=foundation;Width=width;Height=height;}
+        public float Width {get;} public float Height {get;} public int Level {get;} public TownPoint[] Footprint {get;}
+        public TownSceneryPlacement(TownSceneryKind kind,TownDistrictId district,TownPoint feet,TownPoint foundation,float width,float height,int level=0,TownPoint[] footprint=null)
+        {Kind=kind;District=district;Feet=feet;Foundation=foundation;Width=width;Height=height;Level=level;Footprint=footprint;}
     }
     // World units, independent of source artwork dimensions and phone aspect.
     public static class TownSceneryLayout
@@ -33,29 +33,19 @@ namespace Mofumachi.Presentation
                 if(hole.X>.16f)continue;
                 result.Add(new TownSceneryPlacement(TownSceneryKind.Flowerbed,TownDistrictLayout.At(hole.Center),new TownPoint(hole.Center.X,hole.Center.Y-hole.Y*.65f),hole.Center,hole.X*2.05f,hole.X*2.05f/1.8f));
             }
-            // Only outer edges receive hedges. Shared edges remain wide open.
-            int count=0;
-            foreach(var polygon in floor.FloorPolygons)for(int edge=0;edge<polygon.Length;edge++)
+            // Deliberate groups give the village a skyline without outlining every
+            // floor edge with the same repeated fence/tree silhouette.
+            void Tree(TownDistrictId district,float x,float y,float width,bool blossom=false)
             {
-                var a=polygon[edge];var b=polygon[(edge+1)%polygon.Length];float dx=b.X-a.X,dy=b.Y-a.Y;
-                float length=(float)Math.Sqrt(dx*dx+dy*dy),nx=dy/length,ny=-dx/length;
-                int steps=(int)Math.Ceiling(length/.20f);
-                for(int step=0;step<steps;step++)
-                {
-                    float t=(step+.5f)/steps,x=a.X+dx*t,y=a.Y+dy*t;
-                    if(floor.Contains(new TownPoint(x+nx*.02f,y+ny*.02f)))continue;
-                    var hedge=new TownPoint(x+nx*.055f,y+ny*.055f);var district=TownDistrictLayout.At(new TownPoint(x-nx*.02f,y-ny*.02f));
-                    result.Add(new TownSceneryPlacement(TownSceneryKind.Fence,district,new TownPoint(hedge.X,hedge.Y-.035f),hedge,.23f,.13f));
-                    if(count++%2!=0)continue;
-                    var tree=new TownPoint(x+nx*.20f,y+ny*.20f);
-                    if(floor.Contains(tree))continue;
-                    var kind=count%4==1?TownSceneryKind.Blossom:TownSceneryKind.Tree;
-                    // The foundations stay outside the walking rooms; crowns
-                    // overhang their verges rather than disappear offscreen.
-                    const float crown=.66f;float height=crown*(kind==TownSceneryKind.Tree?600f/690:622f/682);
-                    result.Add(new TownSceneryPlacement(kind,district,new TownPoint(tree.X,tree.Y-.04f),tree,crown,height));
-                }
+                var kind=blossom?TownSceneryKind.Blossom:TownSceneryKind.Tree;
+                result.Add(new TownSceneryPlacement(kind,district,new TownPoint(x,y),new TownPoint(x,y+.03f),width,width*(blossom?622f/682:600f/690)));
             }
+            Tree(TownDistrictId.West,-1.88f,-.18f,.72f);Tree(TownDistrictId.West,-1.82f,.78f,.61f,true);
+            Tree(TownDistrictId.East,1.86f,.27f,.72f,true);Tree(TownDistrictId.East,1.86f,-.72f,.65f);
+            Tree(TownDistrictId.Central,-.70f,-1.12f,.60f,true);Tree(TownDistrictId.Central,.73f,1.12f,.66f);
+            Tree(TownDistrictId.North,-.70f,1.72f,.66f,true);Tree(TownDistrictId.North,.72f,2.48f,.69f);
+            Tree(TownDistrictId.South,-.72f,-2.65f,.72f,true);Tree(TownDistrictId.South,.73f,-1.79f,.70f);
+            Tree(TownDistrictId.South,-.36f,-3.08f,.65f);
             return result.AsReadOnly();
         }
     }

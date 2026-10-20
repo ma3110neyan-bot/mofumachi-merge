@@ -27,7 +27,7 @@ namespace Mofumachi.Tests
                 Assert.That(feet.y+landmark.Height*scale,Is.LessThanOrEqualTo(field.yMax+.1f),district+" roof must fit in the real field");
                 if(district!=TownDistrictId.Central)Assert.That(scene.Pieces.Single(p=>p.Placement.Kind==landmark.Kind).Rect.gameObject.activeInHierarchy,Is.True);
             }
-            foreach(var key in new[]{TownSceneryLayout.LandmarkResource,TownSceneryLayout.NatureResource,TownWorldSurface.AtlasResource})
+            foreach(var key in new[]{TownSceneryLayout.LandmarkResource,TownSceneryLayout.NatureResource,TownWorldSurface.AtlasResource,TownVillageDressing.AtlasResource})
             {var art=Resources.Load<Texture2D>(key);Assert.That(art,Is.Not.Null,key);Assert.That(art.isReadable,Is.False,key);Assert.That(art.width,Is.LessThanOrEqualTo(1024),key);}
             LogAssert.NoUnexpectedReceived();
         }

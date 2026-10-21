@@ -35,11 +35,11 @@ namespace Mofumachi.Presentation
         {
             if(!CharacterCatalog.IsKnown(favorite))throw new ArgumentException("Unknown resident",nameof(favorite));this.level=level;
             Area=SharedArea;navigation=SharedNavigation;int npc=0;
-            string[] starts={"bench-right","west.bench-front","east.flowers","bench-left","front-promenade"};
+            string[] starts={"square","west.bench-front","east.flowers","bench-left","front-promenade"};
             foreach(var c in CharacterCatalog.All)
             {
                 bool hero=c.Id==favorite;string place=hero?"square":starts[npc++];TownRegionCatalog.TryFindPlace(place,level,out var loc,out _);
-                var p=TownWorldMap.Place(place);if(Area.TryClamp(p,out var floor,.12f))p=floor;
+                var p=!hero&&place=="square"?TownCentralMasterLayout.ArrivalFriend:TownWorldMap.Place(place);if(Area.TryClamp(p,out var floor,.12f))p=floor;
                 var actor=new TownWorldResident(c.Id,hero,p){PlaceId=place,Rest=2+residents.Count*.5f};residents.Add(actor);if(hero)Hero=actor;
             }
         }

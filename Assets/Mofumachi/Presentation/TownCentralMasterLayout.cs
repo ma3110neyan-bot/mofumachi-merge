@@ -16,15 +16,20 @@ namespace Mofumachi.Presentation
         // existing broad floor and routes around a correctly sized focal point.
         public const float FountainWidth=.58f,FountainHeight=FountainWidth*977f/1610f,FountainFeetY=.10f;
         public const float FountainCenterY=.285f,FountainRadiusX=.255f,FountainRadiusY=.155f;
+        public const float FestivalFeetY=.47f;
+        public static TownPoint ArrivalFriend=>new TownPoint(.34f,-.22f);
         public static TownPoint TexturePoint(TownPoint world)=>new TownPoint((world.X-SourceLeft)/SourceWidth,(world.Y-SourceBottom)/SourceHeight);
         public static IReadOnlyList<TownSceneryPlacement> Dressing {get;}=Build();
         public static bool VisibleAtLevel(TownSceneryPlacement piece,int level)
         {
             if(piece.Level>level)return false;
-            // These two gardens are replacements, not three overlapping banks.
-            if((Math.Abs(Math.Abs(piece.Feet.X)-.50f)<.001f&&Math.Abs(piece.Feet.Y+.89f)<.001f)||
+            // Both the new foreground bed and the legacy left bank replace.
+            // Keeping the old Lv3 sprite under Lv6 makes a visible flower heap.
+            if((Math.Abs(piece.Feet.X+.43f)<.001f&&Math.Abs(piece.Feet.Y-.01f)<.001f)||
                (Math.Abs(Math.Abs(piece.Feet.X)-.43f)<.001f&&Math.Abs(piece.Feet.Y+.52f)<.001f))
                 return piece.Level==(level>=6?6:level>=3?3:0);
+            if(piece.Kind==TownSceneryKind.StreetLamp&&Math.Abs(Math.Abs(piece.Feet.X)-.18f)<.001f&&Math.Abs(piece.Feet.Y-.65f)<.001f)
+                return piece.Level==(level>=3?3:0);
             return true;
         }
         private static IReadOnlyList<TownSceneryPlacement> Build()
@@ -44,16 +49,20 @@ namespace Mofumachi.Presentation
                 Add(TownSceneryKind.TreeGrove,side*.68f,-.98f,.40f);
                 // The base is already a little finished flower bank at Lv1.
                 Add(TownSceneryKind.FlowerBorder,side*.50f,-.89f,.20f,0,.12f,.04f);
-                Add(TownSceneryKind.FlowerHedge,side*.50f,-.89f,.25f,3);
-                Add(TownSceneryKind.FlowerBorder,side*.50f,-.89f,.31f,6);
                 // The old lower gardens sit beneath the portrait footer. Keep
                 // them finished, and put visible upgrades on planted verges.
                 Add(TownSceneryKind.FlowerBorder,side*.43f,-.52f,.16f,0,.10f,.035f);
-                Add(TownSceneryKind.FlowerBorder,side*.43f,-.52f,.26f,3);
-                Add(TownSceneryKind.FlowerHedge,side*.43f,-.52f,.31f,6);
+                Add(TownSceneryKind.FlowerBorder,side*.43f,-.52f,.22f,3);
+                Add(TownSceneryKind.FlowerBorder,side*.43f,-.52f,.28f,6);
                 Add(TownSceneryKind.StreetLamp,side*.55f,-.60f,.09f,0,.025f,.025f);
                 Add(TownSceneryKind.FlowerBorder,side*.56f,.12f,.18f,0,.07f,.035f);
+                // Upper approach: a pair of framed destinations rather than a
+                // blank stone wedge. Planters are also the future bunting bases.
+                Add(TownSceneryKind.FlowerBorder,side*.23f,FestivalFeetY,.16f,0,.10f,.045f);
+                Add(TownSceneryKind.StreetLamp,side*.18f,.65f,.06f,0,.02f,.025f);
+                Add(TownSceneryKind.StreetLamp,side*.18f,.65f,.08f,3);
             }
+            Add(TownSceneryKind.NoticeBoard,.30f,.58f,.15f,0,.08f,.04f);
             return result.AsReadOnly();
         }
     }

@@ -41,21 +41,29 @@ namespace Mofumachi.Tests
         }
         [UnityTest] public IEnumerator CentralGardensReplaceTheirVisibleStageWithoutChangingProgress()
         {
-            yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var scene=life.GetComponent<TownSceneryView>();
+            yield return EnterHome();var life=FrameTownPortrait(640);var scene=life.GetComponent<TownSceneryView>();var growth=Flow.GetComponentInChildren<TownGrowthView>();
             life.World.Camera.Jump(new TownPoint(0,-.25f));life.World.Refresh();Canvas.ForceUpdateCanvases();
             string before=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
             foreach(int level in new[]{1,3,6})
             {
-                scene.SetTownLevel(level);
+                scene.SetTownLevel(level);growth.Apply(level);
                 foreach(float side in new[]{-1f,1f})
                 {
                     var bank=scene.Pieces.Where(p=>TownCentralMasterLayout.Dressing.Contains(p.Placement)&&Mathf.Abs(p.Placement.Feet.X-side*.50f)<.001f&&Mathf.Abs(p.Placement.Feet.Y+.89f)<.001f).ToArray();
                     Assert.That(bank.Count(p=>p.Rect.gameObject.activeSelf),Is.EqualTo(1));
-                    Assert.That(bank.Single(p=>p.Rect.gameObject.activeSelf).Placement.Level,Is.EqualTo(level==1?0:level));
+                    Assert.That(bank.Single(p=>p.Rect.gameObject.activeSelf).Placement.Level,Is.Zero,"The lower verge stays finished, rather than growing hidden piles");
                     var foreground=scene.Pieces.Where(p=>TownCentralMasterLayout.Dressing.Contains(p.Placement)&&Mathf.Abs(p.Placement.Feet.X-side*.43f)<.001f&&Mathf.Abs(p.Placement.Feet.Y+.52f)<.001f).ToArray();
                     Assert.That(foreground.Count(p=>p.Rect.gameObject.activeSelf),Is.EqualTo(1),"Visible foreground gardens replace rather than stack");
                     Assert.That(foreground.Single(p=>p.Rect.gameObject.activeSelf).Placement.Level,Is.EqualTo(level==1?0:level));
+                    if(level>=3&&side<0)
+                    {
+                        var bench=Flow.GetComponentsInChildren<TownGrowthPropGraphic>().Single(p=>p.Prop==TownGrowthProp.Bench&&p.Region==TownRegionId.Central).rectTransform;
+                        var bed=foreground.Single(p=>p.Rect.gameObject.activeSelf).Rect;
+                        Assert.That(bed.anchoredPosition.y+bed.rect.height,Is.LessThan(bench.anchoredPosition.y),"Foreground flowers must leave the bench silhouette exposed");
+                    }
                 }
+                var legacy=scene.Pieces.Count(p=>p.Rect.gameObject.activeSelf&&Mathf.Abs(p.Placement.Feet.X+.43f)<.001f&&Mathf.Abs(p.Placement.Feet.Y-.01f)<.001f);
+                Assert.That(legacy,Is.EqualTo(level>=3?1:0),"The legacy bank also replaces Lv3 with Lv6");
             }
             Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));
             LogAssert.NoUnexpectedReceived();

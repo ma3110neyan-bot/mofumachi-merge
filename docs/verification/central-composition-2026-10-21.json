@@ -1,0 +1,121 @@
+{
+  "date": "2026-10-21",
+  "stage": "central composition source candidate, native review pending",
+  "base_revision": "2fcab4af03b6953bdd2a0108af954da68d1d67af",
+  "actual_native_run": "20261021-214913-a0b7b926",
+  "actual_native_review": "References/Review/central-master-2026-10-21-r2/native-review.json",
+  "actual_native_tests_passed": 3,
+  "actual_native_walking": "live controller loop around fountain passed",
+  "actual_native_visual_accepted": false,
+  "current_source_native_images": 0,
+  "current_source_native_reviewed": false,
+  "central_accepted": false,
+  "pure_tests": {
+    "total": "253",
+    "executed": "253",
+    "passed": "253",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "tdd": [
+    "composition4 RED then GREEN",
+    "growth-layout mutation RED then GREEN",
+    "measured stone-strip guest position RED then full253 GREEN"
+  ],
+  "reference_compile": {
+    "assemblies": 6,
+    "warnings": 0,
+    "errors": 0,
+    "not_unity_execution": true
+  },
+  "fresh_image_review": {
+    "result": "FAIL current 2fcab4a actual images",
+    "important_findings": [
+      "upper inactive paving",
+      "growth layers obscure bench",
+      "guest/nameplate integration"
+    ],
+    "response": "one source fix pass, no re-review of code/CPU as visual acceptance"
+  },
+  "new_native_assertions": [
+    "bench silhouette not covered",
+    "legacy bank replaces rather than stacks",
+    "guest nameplate not under foreground sprites",
+    "festival display below location ribbon"
+  ],
+  "native_editor_probe": {
+    "exit_code": 198,
+    "reason": "No valid Unity Editor license found"
+  },
+  "frozen_inputs_unchanged": 153,
+  "approved_design_unchanged": true,
+  "game_art_or_textures_changed": false,
+  "core_save_rules_rewards_changed": false,
+  "other_districts_or_merge_expanded": false,
+  "internal_cpu_preview": "debug only; not native, not submitted as After",
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "evidence_logs": {
+    "upload-native-focus-identity.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/upload-native-focus-identity.log",
+      "sha256": "e8b46ea1c70997150ef4b2b8f28bc43b1217a9df830661c40342c360585c9196"
+    },
+    "central-composition-red.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/central-composition-red.log",
+      "sha256": "543c04b41f1504dba0ed0fc94801ae248405cb764b6fff6dcc40ed21cfe01ea5"
+    },
+    "central-composition-green.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/central-composition-green.log",
+      "sha256": "71caf8a54cded6d08574673ef71580b82a4ef48867725583f2a233d52c7876db"
+    },
+    "central-stone-guest-red.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/central-stone-guest-red.log",
+      "sha256": "4c0508ee5474e4f45403d7bbc58fe5c2491412acba660d62c98a121036ba7cb0"
+    },
+    "central-composition-final.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/central-composition-final.log",
+      "sha256": "0ca7566c2bcc663f140c970ae9fa1e90c0ffb9e59d18e044d51465d3a2314b4d"
+    },
+    "growth-identity-red.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/growth-identity-red.log",
+      "sha256": "2a9a941e3488ebcf5d9fd74ddd8ea9f92f4bf7bea78618d3beba3743bdc8721f"
+    },
+    "growth-identity-green.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/growth-identity-green.log",
+      "sha256": "31a02baec52e8f3426ca1a673605cb4f119e9d9c0088ea1906829c1545e3c8bf"
+    },
+    "unity-reference-composition-final.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/unity-reference-composition-final.log",
+      "sha256": "41135d38839e9a77f37e6b012b2617bcd60bae9e31057b8bcbeb1cb13f82677c"
+    },
+    "android-composition-final.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/android-composition-final.log",
+      "sha256": "b5e005808f35200ae8c1e53e736daea6d63413137c9d10a34d687ef4d34566fd"
+    },
+    "capture-composition-final.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/capture-composition-final.log",
+      "sha256": "f7c476226c565c2ab5e0c4d07aab225daa185c0d2ea97dafe81874af4d188e96"
+    },
+    "native-editor-composition-probe.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/native-editor-composition-probe.log",
+      "sha256": "9877ec6b480a6084c2337b7c7d1b84a60d566a530d0155b517a1c8e47e7d9876"
+    },
+    "frozen-composition-final.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/frozen-composition-final.log",
+      "sha256": "59ccec5be72c57002e3635c288b8c6a6d62a70bfb77c985fd26491e1b3c53c20"
+    }
+  },
+  "next_command": "powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File .\\scripts\\build-android.ps1 -CentralReview"
+}

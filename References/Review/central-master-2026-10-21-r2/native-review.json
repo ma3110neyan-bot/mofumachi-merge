@@ -1,0 +1,57 @@
+{
+  "reviewed_revision": "2fcab4af03b6953bdd2a0108af954da68d1d67af",
+  "run": "20261021-214913-a0b7b926",
+  "upload_file_id": "file_00000000aac88211b4a0023bb19d7447",
+  "zip_sha256": "f48917d3f51592d48c9d4f489f0802636ea82f23e2322ae134b895dc686ccd77",
+  "native_tests": {
+    "passed": 3,
+    "failed": 0,
+    "skipped": 0
+  },
+  "native_pairs_verified": 3,
+  "centralInputFingerprint": "a43825b1588d9f31d6de3343fa7b7da5f94d4db3c709416df0a4587d1c22555e",
+  "approved_design_sha256": "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf",
+  "comparison_sha256": "3e075eb0cc1198cba2336e25eb1e73e5d199f63bd2443da6c37669dd9e6e78a5",
+  "images": [
+    {
+      "file": "04-town-lv1-Central.png",
+      "bytes": 1801767,
+      "sha256": "135fc8abc85c29c5959372d73f15c76f93b07fe43e4f8e53e93509b6b1e5840e"
+    },
+    {
+      "file": "04-town-lv3-Central.png",
+      "bytes": 1815544,
+      "sha256": "1370e3af7a6a46264532f7a298cb097306ce63d723991f9c29381fb68c57be2f"
+    },
+    {
+      "file": "04-town-lv6-Central.png",
+      "bytes": 1827554,
+      "sha256": "eeadacc850279ef141ee79fcb9d38e77343cf75ae8dd9f2084c687e360696c95"
+    }
+  ],
+  "native_unity": true,
+  "visual": false,
+  "town_density": false,
+  "walking": true,
+  "walking_scope": "Automated central controller loop around fountain; not Pixel touch acceptance",
+  "pixel_verified": false,
+  "adopted": false,
+  "decision": "Rejected after author and independent fresh image review. Improvement is real, but central is still below formal composition/integration floor.",
+  "improvements": [
+    "Fountain now reads as the plaza focus",
+    "Initial central resident visible",
+    "Foreground Lv1/3/6 garden change visible",
+    "Native controller loop around fountain passed"
+  ],
+  "blockers": [
+    "Broad inactive upper paving wedge lacks depth/destinations",
+    "Lv6 repeated flower banks obscure lower-left bench",
+    "Lulu overlaps bench/flower edge and nameplate is partly occluded"
+  ],
+  "next_correction": [
+    "Articulate upper approach using existing noticeboard, lamp and planter art",
+    "Replace overlapping growth groups and keep bench silhouette visible; festival bunting must be inside viewport",
+    "Place initial central guest on clear foreground paving using existing square activity"
+  ],
+  "scope": "Central only; no west/east/north/south/Merge advance"
+}

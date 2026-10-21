@@ -6,7 +6,7 @@
     "walking": null,
     "reviewed_candidate": null,
     "native_image_count": 0,
-    "status": "Reworking central after actual Unity b25658e was rejected against the approved design; new candidate not natively reviewed",
+    "status": "Central composition repair after actual Unity 2fcab4a failed formal visual gate; new candidate not natively reviewed",
     "review_directory": null,
     "central_input_fingerprint": null
   },
@@ -28,14 +28,14 @@
   "pixel_verified": false,
   "adopted": false,
   "last_review": {
-    "candidate": "b25658efd37c6fd4a2efed82b6586ea4e633dd73",
-    "run": "20261021-202704-1d9ab213",
+    "candidate": "2fcab4af03b6953bdd2a0108af954da68d1d67af",
+    "run": "20261021-214913-a0b7b926",
     "native_unity": true,
     "native_image_count": 3,
     "visual": false,
     "town_density": false,
-    "walking": null,
+    "walking": true,
     "accepted": false,
-    "record": "References/Review/central-master-2026-10-21/native-review.json"
+    "record": "References/Review/central-master-2026-10-21-r2/native-review.json"
   }
 }

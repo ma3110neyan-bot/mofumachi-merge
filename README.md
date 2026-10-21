@@ -1,4 +1,4 @@
-**2026-10-21：中央の実Unity画像を確認し、b25658eはVisual Lock未達で不採用。中央を再調整した実装候補は実Unity／Pixel未確認・未採用。** [現在の工程と再撮影手順](docs/central-master-2026-10-21.md)。
+**2026-10-21：2fcab4aも実Unity確認でVisual Lock未達・不採用。中央の構図／成長／住人を統合し直したソース候補は実Unity／Pixel未確認。** [現在の工程と再撮影手順](docs/central-master-2026-10-21.md)。
 
 > **2026-10-21追加・デザインを先に確認**：修正の往復を減らすため、今後は **画面案 → ユーザーの方向確認 → 実装 → Unity比較 → Pixel確認** の順。[中央／Mergeの事前デザイン案](References/Preview/design-first-2026-10-21/README.md) を提示し、確認待ちです。生成案は未実装イメージで、現行候補のAfterではありません。
 

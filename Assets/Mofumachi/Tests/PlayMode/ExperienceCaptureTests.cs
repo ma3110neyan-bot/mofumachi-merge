@@ -86,6 +86,19 @@ namespace Mofumachi.Tests
                         Assert.That(Vector2.Distance(piece.Rect.anchoredPosition,life.World.Local(piece.Placement.Feet,(RectTransform)life.transform)),Is.LessThan(.01f),"First portrait must not retain scenery coordinates from the Editor viewport");
                     foreach(var actor in life.Actors.Where(a=>a.RegionVisible))
                         Assert.That(Vector2.Distance(((RectTransform)actor.transform).anchoredPosition,life.World.Local(actor.WorldPosition)),Is.LessThan(.01f),"Portrait actor and ground must use the same settled projection");
+                    var guest=life.Actors.Single(a=>!a.Controlled&&TownDistrictLayout.At(a.WorldPosition)==TownDistrictId.Central);
+                    var name=guest.transform.Find("Town actor name panel");Assert.That(name.gameObject.activeInHierarchy,Is.True);
+                    var plate=RectTransformUtility.CalculateRelativeRectTransformBounds(life.transform,name);
+                    foreach(var piece in life.GetComponent<TownSceneryView>().Pieces.Where(p=>p.Rect.gameObject.activeSelf&&p.Placement.Feet.Y<guest.WorldPosition.Y))
+                        Assert.That(plate.Intersects(RectTransformUtility.CalculateRelativeRectTransformBounds(life.transform,piece.Rect)),Is.False,"Arrival nameplate must not be covered by foreground scenery");
+                    if(level==6)
+                    {
+                        var bunting=Flow.GetComponentsInChildren<TownGrowthPropGraphic>().Single(p=>p.Prop==TownGrowthProp.StreetBunting&&p.Region==TownRegionId.Central);
+                        var ribbon=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town region name");
+                        var festive=RectTransformUtility.CalculateRelativeRectTransformBounds(life.transform,bunting.transform);
+                        var caption=RectTransformUtility.CalculateRelativeRectTransformBounds(life.transform,ribbon.transform);
+                        Assert.That(festive.max.y,Is.LessThan(caption.min.y),"The festival display must fit below the location ribbon");
+                    }
                     Capture(output,"04-town-lv"+level+"-Central",TownDistrictId.Central);
                 }
                 if(output!=null)File.WriteAllLines(Path.Combine(output,"texture-memory.txt"),new[]{TownCentralMasterLayout.Resource,TownFountainGraphic.Resource}.Select(key=>key+": "+UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(Resources.Load<Texture2D>(key))+" bytes"));

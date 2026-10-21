@@ -15,6 +15,49 @@ namespace Mofumachi.Tests
         }
         private static IReadOnlyList<TownSceneryPlacement> Dressing()=>
             (IReadOnlyList<TownSceneryPlacement>)Master().GetProperty("Dressing").GetValue(null);
+        [Test] public void UpperApproachHasAReadableDestinationAndLightsAroundAnOpenRoad()
+        {
+            var all=Dressing();
+            Assert.That(all.Any(p=>p.Kind==TownSceneryKind.NoticeBoard&&p.Level==0&&p.Feet.Y>.50f&&p.Feet.Y<.68f&&p.Feet.X>.18f&&p.Feet.X<.38f),Is.True,"The upper paving needs a little destination, not another empty wedge");
+            foreach(float side in new[]{-1f,1f})
+                Assert.That(all.Any(p=>p.Kind==TownSceneryKind.StreetLamp&&p.Level==0&&p.Feet.Y>.60f&&p.Feet.Y<.73f&&p.Feet.X*side>.12f&&p.Feet.X*side<.24f),Is.True);
+            var floor=new TownWalkableArea(0);
+            Assert.That(floor.CanTravel(new TownPoint(0,.46f),new TownPoint(0,.90f)),Is.True);
+        }
+        [Test] public void GrowthUsesOneBankPerPlaceAndKeepsTheBenchSilhouetteExposed()
+        {
+            var all=TownVillageDressing.All.Concat(Dressing()).ToArray();var visible=Master().GetMethod("VisibleAtLevel");
+            foreach(int level in new[]{3,6})
+            {
+                Assert.That(all.Count(p=>Math.Abs(p.Feet.X+.43f)<.001f&&Math.Abs(p.Feet.Y-.01f)<.001f&&(bool)visible.Invoke(null,new object[]{p,level})),Is.EqualTo(1),"Legacy Lv3/6 banks must replace, not accumulate");
+                var foreground=all.Single(p=>Math.Abs(p.Feet.X+.43f)<.001f&&Math.Abs(p.Feet.Y+.52f)<.001f&&(bool)visible.Invoke(null,new object[]{p,level}));
+                var bench=TownGrowthPresentation.For(TownRegionId.Central,level).Single(p=>p.Prop==TownGrowthProp.Bench&&p.Level==2);
+                Assert.That(foreground.Feet.Y+foreground.Height,Is.LessThan(bench.Position.Y-.004f),"Keep the whole bench above the foreground flowers");
+            }
+        }
+        [Test] public void FestivalBuntingFitsBelowTheBannerAndStandsOnInitialPlanters()
+        {
+            var bunting=TownGrowthPresentation.For(TownRegionId.Central,6).Single(p=>p.Prop==TownGrowthProp.StreetBunting);
+            float height=bunting.Width*512f/585f;
+            float screenTop=640+(.17f-bunting.Position.Y-height)*720/TownWorldLayout.ViewWidth;
+            Assert.That(screenTop,Is.GreaterThanOrEqualTo(165),"Festival decoration must be visible below the location ribbon");
+            foreach(float side in new[]{-1f,1f})
+                Assert.That(Dressing().Any(p=>p.Level==0&&p.Kind==TownSceneryKind.FlowerBorder&&p.Footprint!=null&&TownWalkableArea.Distance(p.Feet,new TownPoint(side*.23f,bunting.Position.Y))<.025f),Is.True,"No invisible future pole foundation");
+        }
+        [Test] public void InitialCentralGuestAndNameHaveClearPavingInFrontOfTheFountain()
+        {
+            var model=new TownWorldWalkModel(0,"momo");var guest=model.Residents.Single(a=>!a.Controlled&&a.District==TownDistrictId.Central);
+            // Measured stone strip in the authored ground. The model's broad
+            // floor also includes grass, so Contains alone cannot prove paving.
+            Assert.That(guest.Position.X,Is.InRange(.28f,.38f));Assert.That(guest.Position.Y,Is.InRange(-.27f,-.18f));
+            Assert.That(guest.PlaceId,Is.EqualTo("square"),"The guest is waiting in the plaza, not pretending to sit at a distant bench");
+            var label=new TownViewportRect(guest.Position.X-.13f,guest.Position.Y-.075f,.26f,.075f);
+            foreach(var p in TownSceneryLayout.Nature.Concat(TownVillageDressing.All).Concat(Dressing()).Where(p=>p.Level==0&&p.Feet.Y<guest.Position.Y))
+            {
+                bool overlaps=p.Feet.X+p.Width/2>label.X&&p.Feet.X-p.Width/2<label.X+label.Width&&p.Feet.Y+p.Height>label.Y&&p.Feet.Y<label.Y+label.Height;
+                Assert.That(overlaps,Is.False,"Foreground scenery cannot swallow the arrival nameplate: "+p.Kind);
+            }
+        }
         [Test] public void FountainIsThePlazaFocusAndItsLargerBaseStillLeavesBothWalkingRoutes()
         {
             var fountain=TownSceneryLayout.Landmarks.Single(p=>p.Kind==TownSceneryKind.Fountain);
@@ -77,19 +120,19 @@ namespace Mofumachi.Tests
                 Assert.That(floor.Contains(outside),Is.True);
             }
         }
-        [Test] public void GrowthUpgradesAnAlreadyFinishedCentralGardenAndNeverRemodelsAnotherDistrict()
+        [Test] public void LowerVergeStaysFinishedWithoutGrowingHiddenStacksOrRemodelingAnotherDistrict()
         {
             var all=Dressing();Assert.That(all.All(p=>p.District==TownDistrictId.Central),Is.True);
             var visible=Master().GetMethod("VisibleAtLevel");
             foreach(float side in new[]{-1f,1f})
             {
                 var garden=all.Where(p=>Math.Abs(p.Feet.X-side*.50f)<.001f&&Math.Abs(p.Feet.Y+.89f)<.001f).ToArray();
-                Assert.That(garden.Select(p=>p.Level),Is.EquivalentTo(new[]{0,3,6}));
+                Assert.That(garden.Select(p=>p.Level),Is.EquivalentTo(new[]{0}));
                 foreach(int level in new[]{1,3,6})
                 {
                     var shown=garden.Where(p=>(bool)visible.Invoke(null,new object[]{p,level})).ToArray();
                     Assert.That(shown.Length,Is.EqualTo(1),"Upgrade the garden instead of piling all three versions on it");
-                    Assert.That(shown[0].Level,Is.EqualTo(level==1?0:level));
+                    Assert.That(shown[0].Level,Is.Zero,"Growth belongs in the visible composed gardens, not beneath the footer");
                 }
                 Assert.That(garden.Where(p=>p.Footprint!=null).All(p=>p.Level==0),Is.True,"No invisible future blocker");
             }

@@ -30,6 +30,12 @@ try {
     $Header=[byte[]]@(137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,2,208,0,0,5,0,0)
     foreach($Level in @(1,3,6)){[IO.File]::WriteAllBytes((Join-Path $Screens "04-town-lv$Level-Central.png"),$Header)}
     $Entries=@(Get-CentralCaptureEntries $Screens)
+    $GrowthInput=Join-Path $Root 'Assets/Mofumachi/Presentation/TownGrowthPresentation.cs'
+    [IO.File]::WriteAllText($GrowthInput,'synthetic growth layout')
+    $BeforeGrowth=Get-CentralInputFingerprint $Root
+    [IO.File]::AppendAllText($GrowthInput,'changed')
+    if((Get-CentralInputFingerprint $Root) -eq $BeforeGrowth){throw 'Changed central growth layout did not invalidate its image review.'}
+    [IO.File]::WriteAllText($GrowthInput,'synthetic growth layout')
     $Digest=Get-CentralInputFingerprint $Root
     $Info=@{gitRevision=('a'*40);productFingerprint=('c'*64);centralInputFingerprint=$Digest}
     $Manifest=@{gitRevision=$Info.gitRevision;productFingerprint=$Info.productFingerprint;centralInputFingerprint=$Digest;images=$Entries}

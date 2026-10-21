@@ -8,6 +8,7 @@ namespace Mofumachi.Presentation
     public sealed class TownGrowthComparisonView:MonoBehaviour
     {
         private readonly TownGroundGraphic[] ground=new TownGroundGraphic[2];
+        private readonly TownCentralGroundGraphic[] centralGround=new TownCentralGroundGraphic[2];
         private readonly TownSceneryView[] scenery=new TownSceneryView[2];
         private readonly TownFountainGraphic[] fountain=new TownFountainGraphic[2];
         private readonly TownGrowthView[] growth=new TownGrowthView[2];
@@ -26,6 +27,7 @@ namespace Mofumachi.Presentation
                 var column=UIWidgets.Node("Growth comparison "+i,root,new Rect(i*.5f,0,.5f,1));
                 var preview=UIWidgets.Node(i==0?"Growth before preview":"Growth after preview",column,new Rect(0,0,1,1));UIWidgets.Top(preview,6,108,6,96);preview.gameObject.AddComponent<RectMask2D>();
                 ground[i]=UIWidgets.Node("Growth shared ground",preview,new Rect(0,0,1,1)).gameObject.AddComponent<TownGroundGraphic>();ground[i].BindPreview(new TownPoint(0,0),.70f);
+                centralGround[i]=UIWidgets.Node("Growth central master ground",preview,new Rect(0,0,1,1)).gameObject.AddComponent<TownCentralGroundGraphic>();centralGround[i].BindPreview(new TownPoint(0,0),.70f);
                 scenery[i]=preview.gameObject.AddComponent<TownSceneryView>();scenery[i].BindPreview(new TownPoint(0,0),.70f);
                 fountain[i]=UIWidgets.Node("Growth fountain",preview,new Rect(0,0,1,1)).gameObject.AddComponent<TownFountainGraphic>();fountain[i].BindPreview(new TownPoint(0,0),.70f);
                 growth[i]=UIWidgets.Node("Growth preview decorations",preview,new Rect(0,0,1,1)).gameObject.AddComponent<TownGrowthView>();growth[i].BindPreview(c,new TownPoint(0,0),.70f);
@@ -40,7 +42,7 @@ namespace Mofumachi.Presentation
             var center=new TownPoint(anchor.X,anchor.Y+.07f);
             for(int i=0;i<2;i++)
             {
-                ground[i].SetPreview(center,.70f);scenery[i].SetTownLevel(i==0?delivery.PreviousTownLevel:delivery.CurrentTownLevel);scenery[i].SetPreview(center,.70f);fountain[i].SetPreview(center,.70f);
+                ground[i].SetPreview(center,.70f);centralGround[i].SetPreview(center,.70f);scenery[i].SetTownLevel(i==0?delivery.PreviousTownLevel:delivery.CurrentTownLevel);scenery[i].SetPreview(center,.70f);fountain[i].SetPreview(center,.70f);
                 growth[i].SetPreview(center,.70f);growth[i].SetRegion(region);growth[i].Apply(i==0?delivery.PreviousTownLevel:delivery.CurrentTownLevel);growth[i].transform.SetAsLastSibling();
             }
             growth[1].HighlightNewStage(delivery.PreviousTownLevel,delivery.CurrentTownLevel);

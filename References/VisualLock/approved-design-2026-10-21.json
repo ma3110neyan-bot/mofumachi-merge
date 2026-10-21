@@ -1,0 +1,50 @@
+{
+  "approved_by": "user: 2026-10-21 base recovery / Visual Lock instruction",
+  "role": "Formal quality floor; still a design image, never native Unity evidence",
+  "reference": "References/Preview/design-first-2026-10-21/design-proposal.png",
+  "source_width": 1199,
+  "source_height": 1312,
+  "central_panel_pixels": [
+    27,
+    146,
+    572,
+    1042
+  ],
+  "merge_panel_pixels": [
+    622,
+    146,
+    556,
+    1042
+  ],
+  "rules": [
+    "central first; do not advance to west/east/north/south/Merge until central native visual pass",
+    "Lv1 already cute; Lv3 lively; Lv6 festive",
+    "do not weaken scenery to obtain walkability",
+    "roll back a visibly worse candidate instead of preserving sunk work"
+  ],
+  "no_regression_axes": [
+    "visual",
+    "input",
+    "information",
+    "world",
+    "town_density",
+    "merge_fun",
+    "fps",
+    "pixel_load"
+  ],
+  "recovery_tag": "checkpoint/pre-central-visual-lock-20261021",
+  "recovery_revision": "7085af7",
+  "actual_before_product": "bd3f357d9da5ac1aa6ab3debe2362131b643a6d7",
+  "files": [
+    {
+      "path": "References/Preview/design-first-2026-10-21/design-proposal.png",
+      "mode": "binary",
+      "sha256": "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf"
+    },
+    {
+      "path": "References/Preview/design-first-2026-10-21/design-proposal.jpg",
+      "mode": "binary",
+      "sha256": "cabdc96c5d3a5a00349529b9cca86fa4fde17ff535cc1c8167bf62a8ccc257e8"
+    }
+  ]
+}

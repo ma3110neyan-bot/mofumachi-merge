@@ -44,7 +44,9 @@ namespace Mofumachi.Presentation
             Box(-.18f,1.03f,-.13f,1.09f),Box(.13f,1.03f,.18f,1.09f),
             Box(-1.33f,-.80f,-1.28f,-.74f),Box(-1.12f,-.80f,-1.07f,-.74f),
             Box(1.07f,-.84f,1.12f,-.78f),Box(1.28f,-.84f,1.33f,-.78f)});
-            result.AddRange(TownVillageDressing.SolidFootprints);return result.AsReadOnly();
+            result.AddRange(TownVillageDressing.SolidFootprints);
+            foreach(var piece in TownCentralMasterLayout.Dressing)if(piece.Footprint!=null)result.Add(piece.Footprint);
+            return result.AsReadOnly();
         }
         private static readonly IReadOnlyList<(TownPoint Center,float X,float Y)> islands=Array.AsReadOnly(excluded);
         private static readonly List<(TownPoint[] Points,float Left,float Right,float Bottom,float Top)> floors=BuildFloors();

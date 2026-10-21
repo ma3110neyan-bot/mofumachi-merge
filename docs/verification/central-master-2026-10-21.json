@@ -1,0 +1,160 @@
+{
+  "date": "2026-10-21",
+  "stage": "central master candidate; implemented, native/Pixel unverified",
+  "approved_visual_lock": {
+    "path": "References/Preview/design-first-2026-10-21/design-proposal.png",
+    "sha256": "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf",
+    "role": "user-approved design quality floor, not Unity evidence"
+  },
+  "before": {
+    "product_revision": "bd3f357d9da5ac1aa6ab3debe2362131b643a6d7",
+    "run": "20261021-113845-fbcafb0d",
+    "role": "old actual Unity evidence; success is not inherited by candidate"
+  },
+  "recovery": {
+    "tag": "checkpoint/pre-central-visual-lock-20261021",
+    "revision": "7085af7",
+    "role": "unadopted pre-central candidate, not a visually accepted release"
+  },
+  "pure_tests": {
+    "presentation": {
+      "counters": {
+        "total": "245",
+        "executed": "245",
+        "passed": "245",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "5a5cc6decd19551e3f94b5d4967942e9536fd2f46ee360eeb9a1a2eb771dc6ee"
+    },
+    "core": {
+      "counters": {
+        "total": "125",
+        "executed": "125",
+        "passed": "125",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "dcce871571a290f1518ecdc8e2e26650ee10fc76769432feaa004bcfc0e0afc0"
+    }
+  },
+  "reference_compile": {
+    "assemblies": 6,
+    "warning_count": 0,
+    "error_count": 0,
+    "role": "compiled against actual Unity DLLs; Editor was not executing tests"
+  },
+  "script_checks": {
+    "suites": [
+      "approved-design",
+      "central-review",
+      "visual-lock",
+      "android-tools",
+      "pixel-visual-check"
+    ],
+    "result": "passed",
+    "limits": "synthetic PNG headers/XML and mock ADB; not Windows JPEG/native rendering/device evidence"
+  },
+  "review": {
+    "important_findings": 3,
+    "fixes": [
+      "central acceptance bound to current central inputs, native captures, immutable Before/design and comparison hashes",
+      "APK requires ordered west/east/north/south/connections/Merge/UI/basic-loop completion and then full native tests",
+      "portrait initialized before central build; native capture asserts prop and actor projection"
+    ],
+    "native_test_execution": "not run"
+  },
+  "native_editor_probe": {
+    "editor": "6000.6.4f1",
+    "exit_code": 198,
+    "reason": "No valid Unity Editor license found"
+  },
+  "candidate_native_images": 0,
+  "central_accepted": false,
+  "west_started": false,
+  "east_started": false,
+  "north_started": false,
+  "south_started": false,
+  "merge_visual_lock_started": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "next_command": "powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File .\\scripts\\build-android.ps1 -CentralReview",
+  "next_outputs": [
+    "Builds/CentralReview/<run>/central-master-review.zip",
+    "Builds/CentralReview/<run>/central-before-lock-candidate.jpg"
+  ],
+  "unresolved": [
+    "actual central density and quality vs approved design",
+    "fountain scale and depth/occlusion",
+    "walking and touch feel",
+    "world joins at stage 8",
+    "Lv1/3/6 visible changes",
+    "Windows System.Drawing JPEG execution",
+    "native/Pixel FPS, RAM, save and stability"
+  ],
+  "evidence_logs": {
+    "gate-review-red.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/gate-review-red.log",
+      "sha256": "fe36f3933e5212198c96a3b94012374ebab99bcd3f8e8bbfc715836189438aa6"
+    },
+    "gate-review-green.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/gate-review-green.log",
+      "sha256": "31a02baec52e8f3426ca1a673605cb4f119e9d9c0088ea1906829c1545e3c8bf"
+    },
+    "central-review-final.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/central-review-final.log",
+      "sha256": "f7c476226c565c2ab5e0c4d07aab225daa185c0d2ea97dafe81874af4d188e96"
+    },
+    "visual-lock-final.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/visual-lock-final.log",
+      "sha256": "11c9224887f63792ca3909255acb5480cac7be0a86a36a9c2d38441991f24874"
+    },
+    "android-tools-final.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/android-tools-final.log",
+      "sha256": "d58daf4859d5f46e32432d2776a128cda0d0a947621ef5fbee695281094365cd"
+    },
+    "pixel-final.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/pixel-final.log",
+      "sha256": "1c280dd589e229d4cce103bab61bb0ee699ae04cba3a1fb24cfe9038c67b1de1"
+    },
+    "unity-reference-final.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/unity-reference-final.log",
+      "sha256": "8fd4c104438efcc5c473b579f26f4ac844ea1616a22c1778ca5c1643e4e9f6d2"
+    },
+    "native-editor-probe.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/native-editor-probe.log",
+      "sha256": "84f2024d3ce60b0fa1c7a710a15b175e38f642b068e5c23efeb33378428bbac8"
+    },
+    "core-final.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/core-final.log",
+      "sha256": "69d58916d36546a6a192b7a4a12aa386aa7990799c435208d930c45dc58a5dd0"
+    },
+    "central-full.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/central-full.log",
+      "sha256": "c10961a7b39346ae02d11837717f40e014dba6ac06660a09fc4913a12aba95f9"
+    }
+  }
+}

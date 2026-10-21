@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([string]$UnityEditor = "$env:ProgramFiles\Unity\Hub\Editor\6000.6.4f1\Editor\Unity.exe", [switch]$Qa,[switch]$TownQa)
+param([string]$UnityEditor = "$env:ProgramFiles\Unity\Hub\Editor\6000.6.4f1\Editor\Unity.exe", [switch]$Qa,[switch]$TownQa,[switch]$CentralReview)
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 . (Join-Path $PSScriptRoot 'visual-lock.ps1')
@@ -13,7 +13,7 @@ function Assert-TestRun([string]$ResultPath,[int]$MinimumTests,[string[]]$Requir
     foreach($Suite in $RequiredSuites) {
         if(@($Results.SelectNodes('//test-suite') | Where-Object { $_.GetAttribute('name') -eq $Suite -and $_.GetAttribute('result') -eq 'Passed' -and $_.SelectNodes('.//test-case').Count -gt 0 }).Count -eq 0) { throw "Missing passed suite: $Suite" }
     }
-    foreach($Gate in @(@{Name='CharacterSelectionTests';Count=4},@{Name='DailyWorldTests';Count=13},@{Name='MajorPolishTests';Count=6},@{Name='SeamlessFieldTests';Count=8},@{Name='EastWestHomeTests';Count=4},@{Name='ResidentPresenceTests';Count=5},@{Name='FivePlazaTests';Count=5},@{Name='BaseProductLoopTests';Count=5},@{Name='VisualLockPresentationTests';Count=2})) {
+    foreach($Gate in @(@{Name='CharacterSelectionTests';Count=4},@{Name='DailyWorldTests';Count=13},@{Name='MajorPolishTests';Count=6},@{Name='SeamlessFieldTests';Count=8},@{Name='EastWestHomeTests';Count=4},@{Name='ResidentPresenceTests';Count=5},@{Name='FivePlazaTests';Count=5},@{Name='BaseProductLoopTests';Count=5},@{Name='VisualLockPresentationTests';Count=2},@{Name='CentralMasterReviewTests';Count=2})) {
         if($Gate.Name -in $RequiredSuites) {
             $Suite=$Results.SelectNodes('//test-suite') | Where-Object {$_.GetAttribute('name') -eq $Gate.Name} | Select-Object -First 1
             if($Suite.SelectNodes('.//test-case').Count -ne $Gate.Count){throw "Incomplete suite: $($Gate.Name), expected $($Gate.Count) cases."}
@@ -128,6 +128,7 @@ function Assert-ProductUnchanged([string]$RepositoryPath,[string]$ExpectedRevisi
     if((Get-ProductFingerprint $RepositoryPath) -ne $ExpectedFingerprint){throw 'Product inputs changed during acceptance; repeat tests, captures and APK together.'}
     $LockPath=Join-Path $RepositoryPath 'References/VisualLock/base-2026-10-21.json'
     if(Test-Path -LiteralPath $LockPath){Assert-BaseVisualLock $RepositoryPath $LockPath}
+    if(Test-Path -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/approved-design-2026-10-21.json')){Assert-ApprovedVisualLock $RepositoryPath}
 }
 function Invoke-Unity([string[]]$UnityArguments) {
     $ArgumentText=($UnityArguments | ForEach-Object { '"'+$_+'"' }) -join ' '
@@ -137,6 +138,7 @@ function Invoke-Unity([string[]]$UnityArguments) {
 # Dot sourcing exposes the same gates to script tests without starting Unity.
 if($MyInvocation.InvocationName -eq '.'){return}
 if($Qa -and $TownQa){throw 'Select -Qa or -TownQa, not both.'}
+if($CentralReview -and ($Qa -or $TownQa)){throw 'Central review is a native image checkpoint, separate from APK generation.'}
 $ProjectPath=(Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 if($ProjectPath -match '[^\x00-\x7F]'){throw 'Move the entire repository to an ASCII path before Android builds.'}
 if(-not(Test-Path -LiteralPath $UnityEditor -PathType Leaf)){throw 'Pass -UnityEditor with Unity 6000.6.4f1 Unity.exe.'}
@@ -146,12 +148,29 @@ $GitRevision=Read-SourceRevision $ProjectPath
 $SourceGit=Find-SourceGit
 Assert-CleanProductSource $ProjectPath $SourceGit
 Assert-BaseVisualLock $ProjectPath (Join-Path $ProjectPath 'References/VisualLock/base-2026-10-21.json')
+Assert-ApprovedVisualLock $ProjectPath
+if(-not $CentralReview){Assert-BaseStagesReadyForAcceptance $ProjectPath}
 $ProductFingerprint=Get-ProductFingerprint $ProjectPath
 $ConfigurationChanges=@(& $SourceGit -C $ProjectPath diff --name-only HEAD -- Assets/Settings ProjectSettings)
 if($LASTEXITCODE -ne 0){throw 'Cannot record local Unity configuration deviations.'}
 $RunName=(Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::NewGuid().ToString('N').Substring(0,8)
-$OutputDir=Join-Path $ProjectPath "Builds\Android\$RunName"
+$OutputDir=if($CentralReview){Join-Path $ProjectPath "Builds\CentralReview\$RunName"}else{Join-Path $ProjectPath "Builds\Android\$RunName"}
 New-Item -ItemType Directory -Path $OutputDir | Out-Null
+if($CentralReview) {
+    $CentralInputFingerprint=Get-CentralInputFingerprint $ProjectPath
+    $CentralXml=Join-Path $OutputDir 'central-playmode.xml'
+    Write-Host 'Rendering the central master only (Lv1/3/6). No APK will be generated.'
+    Invoke-Unity @('-batchmode','-projectPath',$ProjectPath,'-buildTarget','Android','-runTests','-testPlatform','PlayMode','-testFilter','Mofumachi.Tests.ExperienceCaptureTests;Mofumachi.Tests.CentralMasterReviewTests','-testResults',$CentralXml,'-mofumachiCentralReview','-mofumachiScreenshots',(Join-Path $OutputDir 'screenshots'),'-logFile',(Join-Path $OutputDir 'central-playmode.log'))
+    Assert-TestRun $CentralXml 3 @('ExperienceCaptureTests','CentralMasterReviewTests')
+    [xml]$CentralResults=Get-Content -LiteralPath $CentralXml -Raw
+    if([int]$CentralResults.'test-run'.total -ne 3){throw 'Central-only review must run exactly the capture and two central native checks.'}
+    Assert-ProductUnchanged $ProjectPath $GitRevision $ProductFingerprint
+    $CaptureEntries=@(Get-CentralCaptureEntries (Join-Path $OutputDir 'screenshots'))
+    [ordered]@{gitRevision=$GitRevision;productFingerprint=$ProductFingerprint;centralInputFingerprint=$CentralInputFingerprint;scope='central native Unity fixture; not Pixel';width=720;height=1280;images=$CaptureEntries} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $OutputDir 'capture-manifest.json') -Encoding UTF8
+    [ordered]@{gitRevision=$GitRevision;productFingerprint=$ProductFingerprint;centralInputFingerprint=$CentralInputFingerprint;unity='6000.6.4f1';scope='central review only';nativeCaptureCount=3;localUnityConfigurationChanges=$ConfigurationChanges;apk_generated=$false;pixel_verified=$false;adopted=$false} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $OutputDir 'central-review-info.json') -Encoding UTF8
+    Write-CentralReview $ProjectPath $OutputDir
+    return
+}
 $EditXml=Join-Path $OutputDir 'editmode.xml'
 Write-Host '[1/4] Running all EditMode tests...'
 Invoke-Unity @('-batchmode','-nographics','-projectPath',$ProjectPath,'-buildTarget','Android','-runTests','-testPlatform','EditMode','-testResults',$EditXml,'-logFile',(Join-Path $OutputDir 'editmode.log'))
@@ -160,7 +179,7 @@ Assert-ProductUnchanged $ProjectPath $GitRevision $ProductFingerprint
 $PlayXml=Join-Path $OutputDir 'playmode.xml'
 Write-Host '[2/4] Running all PlayMode tests and capturing native Unity images...'
 Invoke-Unity @('-batchmode','-projectPath',$ProjectPath,'-buildTarget','Android','-runTests','-testPlatform','PlayMode','-testResults',$PlayXml,'-mofumachiScreenshots',(Join-Path $OutputDir 'screenshots'),'-logFile',(Join-Path $OutputDir 'playmode.log'))
-Assert-TestRun $PlayXml 207 @('VerticalSliceFlowTests','LayoutNoticeTests','AudioManagerTests','MergeInteractionTests','RewardGrowthTests','SettingsScreenTests','PopPresentationTests','CharacterSelectionTests','MultiQuestPresentationTests','TownLifeTests','StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests')
+Assert-TestRun $PlayXml 209 @('VerticalSliceFlowTests','LayoutNoticeTests','AudioManagerTests','MergeInteractionTests','RewardGrowthTests','SettingsScreenTests','PopPresentationTests','CharacterSelectionTests','MultiQuestPresentationTests','TownLifeTests','StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests')
 $CaptureDir=Join-Path $OutputDir 'screenshots'
 Assert-ProductUnchanged $ProjectPath $GitRevision $ProductFingerprint
 Assert-NativeCaptures $CaptureDir

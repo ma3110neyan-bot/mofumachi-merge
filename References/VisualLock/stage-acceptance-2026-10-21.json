@@ -1,0 +1,30 @@
+{
+  "central": {
+    "native_unity": false,
+    "visual": null,
+    "town_density": null,
+    "walking": null,
+    "reviewed_candidate": null,
+    "native_image_count": 0,
+    "status": "central master production; no native render or acceptance yet",
+    "review_directory": null,
+    "central_input_fingerprint": null
+  },
+  "remaining_sequence": [
+    "west_cafe",
+    "east_florist_shop",
+    "north_quest",
+    "south_garden",
+    "connections",
+    "merge_visual_lock",
+    "ui",
+    "basic_loop",
+    "full_native_suite",
+    "qa_apk",
+    "pixel_acceptance"
+  ],
+  "completed_after_central": [],
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false
+}

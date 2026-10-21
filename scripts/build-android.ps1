@@ -2,6 +2,7 @@
 param([string]$UnityEditor = "$env:ProgramFiles\Unity\Hub\Editor\6000.6.4f1\Editor\Unity.exe", [switch]$Qa,[switch]$TownQa)
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
+. (Join-Path $PSScriptRoot 'visual-lock.ps1')
 function Assert-TestRun([string]$ResultPath,[int]$MinimumTests,[string[]]$RequiredSuites) {
     if (-not (Test-Path -LiteralPath $ResultPath)) { throw "Missing current test XML: $ResultPath" }
     [xml]$Results = Get-Content -LiteralPath $ResultPath -Raw
@@ -12,7 +13,7 @@ function Assert-TestRun([string]$ResultPath,[int]$MinimumTests,[string[]]$Requir
     foreach($Suite in $RequiredSuites) {
         if(@($Results.SelectNodes('//test-suite') | Where-Object { $_.GetAttribute('name') -eq $Suite -and $_.GetAttribute('result') -eq 'Passed' -and $_.SelectNodes('.//test-case').Count -gt 0 }).Count -eq 0) { throw "Missing passed suite: $Suite" }
     }
-    foreach($Gate in @(@{Name='CharacterSelectionTests';Count=4},@{Name='DailyWorldTests';Count=13},@{Name='MajorPolishTests';Count=6},@{Name='SeamlessFieldTests';Count=8},@{Name='EastWestHomeTests';Count=4},@{Name='ResidentPresenceTests';Count=5},@{Name='FivePlazaTests';Count=5},@{Name='BaseProductLoopTests';Count=5})) {
+    foreach($Gate in @(@{Name='CharacterSelectionTests';Count=4},@{Name='DailyWorldTests';Count=13},@{Name='MajorPolishTests';Count=6},@{Name='SeamlessFieldTests';Count=8},@{Name='EastWestHomeTests';Count=4},@{Name='ResidentPresenceTests';Count=5},@{Name='FivePlazaTests';Count=5},@{Name='BaseProductLoopTests';Count=5},@{Name='VisualLockPresentationTests';Count=2})) {
         if($Gate.Name -in $RequiredSuites) {
             $Suite=$Results.SelectNodes('//test-suite') | Where-Object {$_.GetAttribute('name') -eq $Gate.Name} | Select-Object -First 1
             if($Suite.SelectNodes('.//test-case').Count -ne $Gate.Count){throw "Incomplete suite: $($Gate.Name), expected $($Gate.Count) cases."}
@@ -75,7 +76,7 @@ function Assert-SourceUnchanged([string]$RepositoryPath,[string]$ExpectedRevisio
 function Write-NativeReviewArchives([string]$Directory) {
     # Keep review uploads under 32 MiB without asking the player to copy a long
     # packing command. APK bytes stay in the run directory, outside review ZIPs.
-    $Files=@(foreach($Name in @('editmode.xml','playmode.xml','build-info.json','capture-manifest.json','android-build.log','playmode.log','screenshots/texture-memory.txt','screenshots/README.txt')) {
+    $Files=@(foreach($Name in @('editmode.xml','playmode.xml','build-info.json','capture-manifest.json','android-build.log','playmode.log','before-after.html','visual-adoption.json','screenshots/texture-memory.txt','screenshots/README.txt')) {
         $Path=Join-Path $Directory $Name
         if(Test-Path -LiteralPath $Path -PathType Leaf){Get-Item -LiteralPath $Path}
     })+@(Get-ChildItem -LiteralPath (Join-Path $Directory 'screenshots') -Filter '*.png' -File | Sort-Object Name)
@@ -105,7 +106,7 @@ function Find-SourceGit {
 function Source-InputPaths {
     # Unity rewrites local graphics/build-profile caches. Product inputs must be
     # committed; cache deviations are recorded separately instead of discarded.
-    return @('Assets/Mofumachi','Assets/Mofumachi.meta','Assets/Scenes','Assets/Scenes.meta','Packages','ProjectSettings/ProjectVersion.txt','scripts')
+    return @('Assets/Mofumachi','Assets/Mofumachi.meta','Assets/Scenes','Assets/Scenes.meta','Packages','ProjectSettings/ProjectVersion.txt','scripts','References/VisualLock')
 }
 function Assert-CleanProductSource([string]$RepositoryPath,[string]$GitPath) {
     $Changes=@(& $GitPath -C $RepositoryPath status --porcelain=v1 --untracked-files=all -- @(Source-InputPaths))
@@ -125,6 +126,8 @@ function Get-ProductFingerprint([string]$RepositoryPath) {
 function Assert-ProductUnchanged([string]$RepositoryPath,[string]$ExpectedRevision,[string]$ExpectedFingerprint) {
     Assert-SourceUnchanged $RepositoryPath $ExpectedRevision
     if((Get-ProductFingerprint $RepositoryPath) -ne $ExpectedFingerprint){throw 'Product inputs changed during acceptance; repeat tests, captures and APK together.'}
+    $LockPath=Join-Path $RepositoryPath 'References/VisualLock/base-2026-10-21.json'
+    if(Test-Path -LiteralPath $LockPath){Assert-BaseVisualLock $RepositoryPath $LockPath}
 }
 function Invoke-Unity([string[]]$UnityArguments) {
     $ArgumentText=($UnityArguments | ForEach-Object { '"'+$_+'"' }) -join ' '
@@ -142,6 +145,7 @@ if((Get-Content (Join-Path $ProjectPath 'ProjectSettings\ProjectVersion.txt') -R
 $GitRevision=Read-SourceRevision $ProjectPath
 $SourceGit=Find-SourceGit
 Assert-CleanProductSource $ProjectPath $SourceGit
+Assert-BaseVisualLock $ProjectPath (Join-Path $ProjectPath 'References/VisualLock/base-2026-10-21.json')
 $ProductFingerprint=Get-ProductFingerprint $ProjectPath
 $ConfigurationChanges=@(& $SourceGit -C $ProjectPath diff --name-only HEAD -- Assets/Settings ProjectSettings)
 if($LASTEXITCODE -ne 0){throw 'Cannot record local Unity configuration deviations.'}
@@ -156,7 +160,7 @@ Assert-ProductUnchanged $ProjectPath $GitRevision $ProductFingerprint
 $PlayXml=Join-Path $OutputDir 'playmode.xml'
 Write-Host '[2/4] Running all PlayMode tests and capturing native Unity images...'
 Invoke-Unity @('-batchmode','-projectPath',$ProjectPath,'-buildTarget','Android','-runTests','-testPlatform','PlayMode','-testResults',$PlayXml,'-mofumachiScreenshots',(Join-Path $OutputDir 'screenshots'),'-logFile',(Join-Path $OutputDir 'playmode.log'))
-Assert-TestRun $PlayXml 205 @('VerticalSliceFlowTests','LayoutNoticeTests','AudioManagerTests','MergeInteractionTests','RewardGrowthTests','SettingsScreenTests','PopPresentationTests','CharacterSelectionTests','MultiQuestPresentationTests','TownLifeTests','StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests')
+Assert-TestRun $PlayXml 207 @('VerticalSliceFlowTests','LayoutNoticeTests','AudioManagerTests','MergeInteractionTests','RewardGrowthTests','SettingsScreenTests','PopPresentationTests','CharacterSelectionTests','MultiQuestPresentationTests','TownLifeTests','StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests')
 $CaptureDir=Join-Path $OutputDir 'screenshots'
 Assert-ProductUnchanged $ProjectPath $GitRevision $ProductFingerprint
 Assert-NativeCaptures $CaptureDir
@@ -177,4 +181,4 @@ $Hash=(Get-FileHash -LiteralPath $ApkPath -Algorithm SHA256).Hash.ToLowerInvaria
 Write-Host '[4/4] Recording APK identity and SHA256...'
 [ordered]@{gitRevision=$GitRevision;revisionSource='git-metadata + clean product inputs';productFingerprint=$ProductFingerprint;localUnityConfigurationChanges=$ConfigurationChanges;nativeCaptureCount=$CaptureEntries.Count;unity='6000.6.4f1';appId=$PackageId;versionCode=[int]$VersionCode;apk=$ApkName;sha256=$Hash;bytes=(Get-Item -LiteralPath $ApkPath).Length;builtAtUtc=[DateTime]::UtcNow.ToString('o');qa=[bool]($Qa -or $TownQa);townQa=[bool]$TownQa} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $OutputDir 'build-info.json') -Encoding UTF8
 Write-Host "APK: $ApkPath`nSHA256: $Hash"
-if($TownQa){Write-NativeReviewArchives $OutputDir}
+if($TownQa){Write-VisualLockComparison $ProjectPath $OutputDir;Write-NativeReviewArchives $OutputDir}

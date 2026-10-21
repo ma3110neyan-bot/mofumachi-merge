@@ -5,9 +5,18 @@ namespace Mofumachi.Presentation
     [RequireComponent(typeof(CanvasRenderer))]
     public sealed class TownVillageDetailGraphic:MaskableGraphic
     {
-        private static Texture2D atlas;
+        private static readonly System.Collections.Generic.Dictionary<string,Texture2D> atlases=new System.Collections.Generic.Dictionary<string,Texture2D>();
         private TownSceneryKind kind;private bool bound;
-        public override Texture mainTexture=>atlas!=null?atlas:atlas=Resources.Load<Texture2D>(TownVillageDressing.AtlasResource);
+        public override Texture mainTexture
+        {
+            get
+            {
+                if(!bound)return Texture2D.whiteTexture;
+                var source=TownVillageDressing.SpriteSource(kind);
+                if(!atlases.TryGetValue(source.Resource,out var texture)||texture==null)atlases[source.Resource]=texture=Resources.Load<Texture2D>(source.Resource);
+                return texture;
+            }
+        }
         public static Rect Bound(TownSceneryKind source)
         {var b=TownVillageDressing.SpriteBounds(source);return new Rect(b.X,b.Y,b.Width,b.Height);}
         public void Bind(TownSceneryKind source)
@@ -19,7 +28,7 @@ namespace Mofumachi.Presentation
         protected override void OnPopulateMesh(VertexHelper vh)
         {
             // Unity may rebuild immediately after AddComponent, before Bind.
-            vh.Clear();if(!bound||mainTexture==null)return;var r=GetPixelAdjustedRect();var b=Bound(kind);var uv=new Rect(b.x/1536f,1-b.yMax/1024f,b.width/1536f,b.height/1024f);
+            vh.Clear();if(!bound||mainTexture==null)return;var r=GetPixelAdjustedRect();var b=Bound(kind);var source=TownVillageDressing.SpriteSource(kind);var uv=new Rect(b.x/source.Width,1-b.yMax/source.Height,b.width/source.Width,b.height/source.Height);
             vh.AddVert(new Vector2(r.xMin,r.yMin),color,uv.min);vh.AddVert(new Vector2(r.xMin,r.yMax),color,new Vector2(uv.xMin,uv.yMax));
             vh.AddVert(new Vector2(r.xMax,r.yMax),color,uv.max);vh.AddVert(new Vector2(r.xMax,r.yMin),color,new Vector2(uv.xMax,uv.yMin));vh.AddTriangle(0,1,2);vh.AddTriangle(0,2,3);
         }

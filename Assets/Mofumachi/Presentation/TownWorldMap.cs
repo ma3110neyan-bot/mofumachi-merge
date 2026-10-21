@@ -13,7 +13,7 @@ namespace Mofumachi.Presentation
         private static readonly Dictionary<string,TownPoint> anchors=new Dictionary<string,TownPoint>{
             {"square",new TownPoint(0,-.25f)},{"fountain",new TownPoint(0,.08f)},{"flowers",new TownPoint(-.34f,-.10f)},
             {"quest",new TownPoint(0,2.08f)},{"shop",new TownPoint(1.2f,.04f)},
-            {"bench-left",new TownPoint(-.30f,1.55f)},{"bench-right",new TownPoint(.32f,-.40f)},
+            {"bench-left",new TownPoint(-.40f,2.21f)},{"bench-right",new TownPoint(.30f,.24f)},
             {"home-front",new TownPoint(.32f,2.05f)},{"flower-walk",new TownPoint(1.47f,-.20f)},
             {"front-promenade",new TownPoint(-.30f,-2.35f)},{"celebration",new TownPoint(0,-2.50f)},
             {"west.entry",new TownPoint(-1.2f,-.30f)},{"west.cafe-front",new TownPoint(-1.2f,.04f)},

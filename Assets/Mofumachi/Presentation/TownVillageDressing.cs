@@ -10,6 +10,13 @@ namespace Mofumachi.Presentation
     public static class TownVillageDressing
     {
         public const string AtlasResource="Mofumachi/TownVillageDetailsAtlas";
+        public static (string Resource,int Width,int Height) SpriteSource(TownSceneryKind kind)
+        {
+            if(kind==TownSceneryKind.ParkBench)return ("Mofumachi/TownStreetPropsAtlas",1254,1254);
+            if(kind==TownSceneryKind.StreetLamp)return ("Mofumachi/TownGrowthPropsAtlas",1536,1024);
+            if(kind==TownSceneryKind.Fence)return (TownSceneryLayout.NatureResource,1536,1024);
+            return (AtlasResource,1536,1024);
+        }
         public static IReadOnlyList<TownSceneryPlacement> All {get;}=Build();
         public static IReadOnlyList<TownPoint[]> SolidFootprints {get;}=Array.AsReadOnly(All.Where(p=>p.Footprint!=null).Select(p=>p.Footprint).ToArray());
         // Source pixels, top-left origin. Rendering and world proportions share
@@ -18,6 +25,9 @@ namespace Mofumachi.Presentation
         {
             switch(kind)
             {
+                case TownSceneryKind.ParkBench:return (52,92,617,492);
+                case TownSceneryKind.StreetLamp:return (1090,3,161,351);
+                case TownSceneryKind.Fence:return (782,628,742,384);
                 case TownSceneryKind.CottagePair:return (7,75,451,396);
                 case TownSceneryKind.CafeTerrace:return (458,106,335,407);
                 case TownSceneryKind.FloristCart:return (805,134,349,367);
@@ -67,6 +77,58 @@ namespace Mofumachi.Presentation
             Add(TownSceneryKind.FlowerHedge,TownDistrictId.Central,-.43f,.01f,.31f,6);
             Add(TownSceneryKind.FlowerBorder,TownDistrictId.North,-.45f,2.28f,.31f,6);
             Add(TownSceneryKind.FlowerHedge,TownDistrictId.South,-.21f,-2.70f,.39f,6);
+            // The fountain's two seats establish the park at the initial level.
+            // Keep their foundations outside both broad fountain-side routes.
+            Add(TownSceneryKind.ParkBench,TownDistrictId.Central,-.40f,.31f,.23f,0,.10f,.05f);
+            Add(TownSceneryKind.ParkBench,TownDistrictId.Central,.40f,.31f,.23f,0,.10f,.05f);
+            Add(TownSceneryKind.StreetLamp,TownDistrictId.Central,-.47f,.35f,.05f,0,.025f,.025f);
+            Add(TownSceneryKind.StreetLamp,TownDistrictId.Central,.47f,.35f,.05f,0,.025f,.025f);
+            Add(TownSceneryKind.TreeGrove,TownDistrictId.Central,-.66f,.52f,.40f);
+            Add(TownSceneryKind.TreeGrove,TownDistrictId.Central,.66f,.52f,.37f);
+            Add(TownSceneryKind.FlowerBorder,TownDistrictId.Central,-.46f,-.08f,.24f,0,.13f,.04f);
+            Add(TownSceneryKind.FlowerHedge,TownDistrictId.Central,.47f,.02f,.27f,0,.14f,.04f);
+            Add(TownSceneryKind.FlowerBorder,TownDistrictId.Central,-.48f,.55f,.21f,0,.13f,.045f);
+            Add(TownSceneryKind.FlowerBorder,TownDistrictId.Central,.48f,.55f,.21f,0,.13f,.045f);
+            Add(TownSceneryKind.FlowerBorder,TownDistrictId.Central,.45f,-.73f,.34f,0,.20f,.05f);
+            Add(TownSceneryKind.Fence,TownDistrictId.Central,-.47f,-.93f,.34f,0,.22f,.035f);
+            Add(TownSceneryKind.Fence,TownDistrictId.Central,.46f,-.98f,.28f,0,.18f,.035f);
+            // One vocabulary crosses all four joins. These are world objects,
+            // not separate room backdrops or a fence across an exit.
+            foreach(int side in new[]{-1,1})
+            {
+                Add(TownSceneryKind.FlowerBorder,TownDistrictId.Central,side*.62f,-.06f,.25f,0,.15f,.04f);
+                Add(TownSceneryKind.FlowerHedge,TownDistrictId.Central,side*.70f,-.64f,.30f,0,.18f,.045f);
+                Add(TownSceneryKind.StreetLamp,TownDistrictId.Central,side*.70f,-.53f,.045f,0,.025f,.025f);
+                Add(TownSceneryKind.FlowerBorder,TownDistrictId.Central,side*.44f,.91f,.24f,0,.15f,.04f);
+                Add(TownSceneryKind.FlowerBorder,TownDistrictId.South,side*.39f,-1.20f,.22f,0,.13f,.035f);
+                Add(TownSceneryKind.StreetLamp,TownDistrictId.Central,side*.36f,.95f,.045f,0,.025f,.025f);
+            }
+            // Give each side walk a visible reason to end: a seat or display
+            // beside its open circular apron, never on the walking centreline.
+            Add(TownSceneryKind.ParkBench,TownDistrictId.West,-1.48f,.57f,.18f,0,.09f,.045f);
+            Add(TownSceneryKind.CafeTerrace,TownDistrictId.West,-.73f,.61f,.18f,0,.09f,.04f);
+            Add(TownSceneryKind.ParkBench,TownDistrictId.East,1.48f,.57f,.18f,0,.09f,.045f);
+            Add(TownSceneryKind.FloristCart,TownDistrictId.East,.73f,.61f,.18f,0,.09f,.04f);
+            Add(TownSceneryKind.ParkBench,TownDistrictId.North,.56f,2.59f,.18f,0,.09f,.04f);
+            foreach(int side in new[]{-1,1})
+            {
+                var district=side<0?TownDistrictId.West:TownDistrictId.East;
+                Add(TownSceneryKind.FlowerBorder,district,side*1.53f,.26f,.22f,0,.12f,.04f);
+                Add(TownSceneryKind.FlowerBorder,district,side*.65f,.16f,.20f,0,.10f,.035f);
+                Add(TownSceneryKind.TreeGrove,district,side*1.78f,-.36f,.34f,0,.12f,.04f);
+                Add(TownSceneryKind.Fence,district,side*1.20f,-.63f,.28f,0,.16f,.035f);
+                Add(TownSceneryKind.StreetLamp,district,side*1.53f,.32f,.045f,0,.025f,.025f);
+                Add(TownSceneryKind.FlowerBorder,district,side*.97f,-.94f,.32f,0,.19f,.04f);
+            }
+            Add(TownSceneryKind.FlowerBorder,TownDistrictId.North,-.46f,1.45f,.30f,0,.17f,.04f);
+            Add(TownSceneryKind.Fence,TownDistrictId.North,-.36f,2.78f,.30f,0,.16f,.035f);
+            Add(TownSceneryKind.FlowerBorder,TownDistrictId.North,.48f,1.86f,.20f,0,.11f,.035f);
+            Add(TownSceneryKind.StreetLamp,TownDistrictId.North,-.52f,2.10f,.05f,0,.025f,.025f);
+            Add(TownSceneryKind.ParkBench,TownDistrictId.South,-.47f,-2.25f,.22f,0,.12f,.05f);
+            Add(TownSceneryKind.FlowerBorder,TownDistrictId.South,.48f,-2.10f,.30f,0,.17f,.04f);
+            Add(TownSceneryKind.TreeGrove,TownDistrictId.South,-.65f,-1.96f,.37f);
+            Add(TownSceneryKind.Fence,TownDistrictId.South,.46f,-2.83f,.30f,0,.18f,.04f);
+            Add(TownSceneryKind.StreetLamp,TownDistrictId.South,-.50f,-2.19f,.05f,0,.025f,.025f);
             return list.AsReadOnly();
         }
     }

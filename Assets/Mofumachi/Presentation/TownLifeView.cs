@@ -24,6 +24,7 @@ namespace Mofumachi.Presentation
         private RawImage background;private ScreenContext context;private TownActor[] actors;private RectTransform actorLayer;
         private GameObject bubble,entrance,outings;private TownActor speaker;private TownPlace destination;private float now,nextTalk,bubbleUntil,nextSocial;private int choiceIndex;
         private readonly TownFrameClock clock=new TownFrameClock();
+        private readonly Bounds[] residentBodyBounds=new Bounds[6];
         public void Bind(ScreenContext c,RawImage image)
         {
             context=c;background=image;actorLayer=(RectTransform)transform;actorLayer.gameObject.AddComponent<RectMask2D>();
@@ -123,17 +124,32 @@ namespace Mofumachi.Presentation
             foreach(var a in actors)a.Render(clock.Alpha,seconds);
             Array.Sort(actors,(a,b)=>{int depth=World?.IsReady==true?b.WorldPosition.Y.CompareTo(a.WorldPosition.Y):b.RenderPosition.Y.CompareTo(a.RenderPosition.Y);return depth!=0?depth:CharacterCatalog.Find(a.CharacterId).PortraitIndex.CompareTo(CharacterCatalog.Find(b.CharacterId).PortraitIndex);});if(World?.IsReady==true)World.SortResidents(actors);else foreach(var a in actors)a.transform.SetAsLastSibling();
             if(bubble!=null&&now>=bubbleUntil)HideBubble();
-            if(IsManuallyDragging){HideBubble();return;}
+            if(IsManuallyDragging){HideBubble();RefreshResidentNames();return;}
             if(now>=nextSocial)for(int i=0;i<actors.Length;i++)for(int j=i+1;j<actors.Length;j++)if(TryBeginConversation(actors[i],actors[j]))break;
             if(bubble==null&&outings==null&&NearbyFacility==null&&now>=nextTalk)
             {
                 var actor=actors.FirstOrDefault(a=>!a.Controlled&&a.IsResting&&Visible(a));if(actor!=null)ShowBubble(CharacterCatalog.Find(actor.CharacterId).Name+"："+StreetLine(actor),actor);nextTalk=now+6;
             }
-            foreach(var a in actors)
-            {
-                var label=a.transform.Find("Town actor name panel");if(label!=null)label.gameObject.SetActive(a.RegionVisible&&(a.Controlled||a==speaker||a.IsResting&&Visible(a)));
-            }
+            RefreshResidentNames();
             PositionBubble();GetComponent<TownFacilityView>()?.Advance(seconds);
+        }
+        private void RefreshResidentNames()
+        {
+            // Keep the original drawings/touch targets intact. Name cards are
+            // optional context and withdraw before hiding another resident.
+            for(int i=0;i<actors.Length;i++)if(actors[i].RegionVisible)
+                residentBodyBounds[i]=RectTransformUtility.CalculateRelativeRectTransformBounds(actorLayer,actors[i].VisualRoot);
+            for(int i=0;i<actors.Length;i++)
+            {
+                var actor=actors[i];var label=actor.transform.Find("Town actor name panel");if(label==null)continue;
+                bool visible=actor.RegionVisible&&(actor.Controlled||actor==speaker||actor.IsResting&&Visible(actor));
+                if(visible)
+                {
+                    var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(actorLayer,label);
+                    for(int j=0;j<actors.Length;j++)if(j!=i&&actors[j].RegionVisible&&bounds.Intersects(residentBodyBounds[j])){visible=false;break;}
+                }
+                label.gameObject.SetActive(visible);
+            }
         }
         private bool Visible(TownActor a)
         {if(!a.RegionVisible)return false;var p=World?.IsReady==true?World.Local(a.WorldPosition):Local(a.Position);var r=actorLayer.rect;return p.x>r.xMin+38&&p.x<r.xMax-38&&p.y>r.yMin+24&&p.y<r.yMax-86;}

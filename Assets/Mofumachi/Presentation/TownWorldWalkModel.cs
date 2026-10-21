@@ -178,7 +178,10 @@ namespace Mofumachi.Presentation
             {
                 float x=other.Position.X-actor.Position.X,y=(other.Position.Y-actor.Position.Y)*TownWorldLayout.ImageAspect;
                 float along=x*dx+y*dy,across=x*dy-y*dx;
-                if(along>-.018f&&along<.21f&&Math.Abs(across)<.10f)sideways=Math.Max(sideways,(.21f-Math.Max(0,along))/.21f*1.55f);
+                // Start yielding while the bodies are still visibly apart.
+                // Keep the established hard foot clearance for entrances and
+                // conversations; widening that hard radius strands short visits.
+                if(along>-.018f&&along<.26f&&Math.Abs(across)<.15f)sideways=Math.Max(sideways,(.26f-Math.Max(0,along))/.26f*2f);
             }
             for(int option=0;option<4;option++)
             {

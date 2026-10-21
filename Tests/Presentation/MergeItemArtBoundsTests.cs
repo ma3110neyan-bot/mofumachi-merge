@@ -4,6 +4,17 @@ namespace Mofumachi.Tests
 {
     public sealed class MergeItemArtBoundsTests
     {
+        [Test] public void ArtUsesTheAvailableCellBeforeAddingMoreInterfaceChrome()
+        {
+            // Original sprites are the focus. This guard rejects shrinking them
+            // again to make room for a thicker dish or an oversized level band.
+            for(int index=0;index<30;index++)
+            {
+                var art=MergePresentation.ItemArt(index);
+                Assert.That(art.Width,Is.GreaterThan(.93f));
+                Assert.That(art.Height,Is.GreaterThan(.81f));
+            }
+        }
         // The minimum 48-unit cell, then the 360-wide native fixtures at heights 592, 640 and 808.
         [TestCase(256,308)] [TestCase(324,364)] [TestCase(324,412)] [TestCase(324,432)]
         public void SelectionKeepsArtInsideEachCellHorizontally(float boardWidth,float boardHeight)

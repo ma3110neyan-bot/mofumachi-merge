@@ -1,0 +1,77 @@
+{
+  "work": "2026-10-21 Visual Lock base quality candidate",
+  "diff_base": "80ea5075a6e4f6226aa8cafdfe651dc17642f6d9",
+  "before_product": "bd3f357d9da5ac1aa6ab3debe2362131b643a6d7",
+  "before_native_run": "20261021-113845-fbcafb0d",
+  "status": {
+    "designed": true,
+    "implemented": true,
+    "native_unity_verified": false,
+    "apk_generated": false,
+    "pixel_verified": false,
+    "adopted": false,
+    "release_accepted": false
+  },
+  "frozen_input_count": 153,
+  "baseline_native_images": 102,
+  "checks": {
+    "core": {
+      "total": 125,
+      "executed": 125,
+      "passed": 125,
+      "failed": 0,
+      "notExecuted": 0,
+      "trx": "core-final.trx",
+      "sha256": "82b2d396c7018deb172c340077df001f2dbcd5cc737e0769cd971b00c45783b7",
+      "native_unity": false
+    },
+    "presentation": {
+      "total": 241,
+      "executed": 241,
+      "passed": 241,
+      "failed": 0,
+      "notExecuted": 0,
+      "trx": "visual-lock-final-seats.trx",
+      "sha256": "9e26d48cb27f9f4630b83cdeb9486085dc80a072d06e5cc864ccd34b58c966d2",
+      "native_unity": false
+    }
+  },
+  "unity_reference_compile": {
+    "assemblies": 6,
+    "warnings": 0,
+    "errors": 0,
+    "native_execution": false
+  },
+  "powershell_checks": {
+    "visual_lock": true,
+    "pixel_metrics_and_argument_forwarding": true,
+    "android_gate_mock_suite": true,
+    "pixel_device_contacted": false
+  },
+  "review": {
+    "important_code_findings_resolved": [
+      "manual-pointer name refresh",
+      "forward ADB/serial when importing helper parameters",
+      "sample full ceramic palette instead of constant white highlights"
+    ],
+    "minor_pending": "Unity appearance of corners/flowers/ground repetition must be assessed from new real renders."
+  },
+  "native_editor_probe": {
+    "exit": 198,
+    "reason": "No valid Unity Editor license found",
+    "native_renders_generated": false
+  },
+  "environment_limits": [
+    "Only LinuxStandaloneSupport installed; no Android Build Support in cloud",
+    "No Pixel3a USB route"
+  ],
+  "adoption_axes": {
+    "visual": null,
+    "input": null,
+    "information": null,
+    "world": null,
+    "fps": null,
+    "pixel_load": null
+  },
+  "next": "Licensed Windows same-source full tests +102UnityPNG+QAAPK+BeforeAfter; inspect actual render; Pixel save-preserving update and same-condition measurements. Never reuse Before success for this candidate."
+}

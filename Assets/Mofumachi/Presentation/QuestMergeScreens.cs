@@ -79,7 +79,6 @@ namespace Mofumachi.Presentation
             var tray=w.Panel("Merge tray",root,new Rect(0,0,1,1),new Color(.92f,.79f,.64f)).rectTransform;tray.offsetMin=new Vector2(10,156);tray.offsetMax=new Vector2(-10,-124);
             var traySurface=tray.GetComponent<RoundedPanelGraphic>();traySurface.decorated=false;traySurface.color=Color.clear;
             var boardArt=UIWidgets.Node("Merge storybook board",tray,new Rect(0,0,1,1)).gameObject.AddComponent<PerspectiveBoardGraphic>();boardArt.raycastTarget=false;
-            w.Frame(tray,12);
             var grid=UIWidgets.Node("Merge board",tray,new Rect(0,0,1,1));grid.offsetMin=new Vector2(16,12);grid.offsetMax=new Vector2(-16,-22);
             var group=grid.gameObject.AddComponent<GridLayoutGroup>();group.constraint=GridLayoutGroup.Constraint.FixedColumnCount;group.constraintCount=5;group.spacing=new Vector2(4,4);group.childAlignment=TextAnchor.MiddleCenter;
             group.enabled=false;
@@ -88,7 +87,10 @@ namespace Mofumachi.Presentation
                 int index=i;var item=c.Game.Board.At(i);var b=w.Button("Cell "+i,"",grid,new Rect(0,0,1,1),()=>{} ,true);
                 var surface=b.GetComponent<RoundedPanelGraphic>();surface.radius=100;surface.borderWidth=item==null?.5f:1f;surface.gloss=item==null?.16f:.4f;surface.shadowDepth=item==null?1:4;
                 bool match=index!=c.Flow.SelectedCell&&MergePresentation.IsMatch(selectedItem,item,c.Game.Board.IsLocked(c.Flow.SelectedCell),c.Game.Board.IsLocked(index));
-                surface.color=c.Game.Board.IsLocked(i)?new Color(1,.92f,.67f):index==c.Flow.SelectedCell?new Color(1,.78f,.86f):match?new Color(.82f,.96f,.87f):item==null?new Color(.985f,.936f,.91f):new Color(1,.985f,.946f);
+                // A warm, quiet checker keeps empty cells intentional and the
+                // original items readable. Selection/candidates override it.
+                var porcelain=(i/5+i%5)%2==0?new Color(1,.933f,.837f):new Color(.887f,.963f,.916f);
+                surface.color=c.Game.Board.IsLocked(i)?new Color(1,.90f,.60f):index==c.Flow.SelectedCell?new Color(1,.68f,.80f):match?new Color(.66f,.92f,.76f):item==null?porcelain:Color.Lerp(porcelain,Color.white,.52f);
                 UIWidgets.Node("Cell porcelain dish",(RectTransform)b.transform,new Rect(0,0,1,1)).gameObject.AddComponent<MergeCellSurfaceGraphic>().Bind(surface.color);
                 // Keep one alpha byte for the raycast rectangle; a fully culled
                 // transparent mesh can be skipped by Unity's GraphicRaycaster.
@@ -123,8 +125,8 @@ namespace Mofumachi.Presentation
                     }
                     else w.Heading("Unknown item","?",cell,new Rect(.09f,.36f,.82f,.59f),20);
                     var tint=item.itemId=="tea"?new Color(.9f,.97f,.94f):item.itemId=="bread"?new Color(1,.94f,.84f):new Color(.99f,.91f,.96f);
-                    var badge=w.Panel("Item level badge",cell,new Rect(.40f,.015f,.56f,.31f),tint);badge.radius=8;badge.borderWidth=.8f;badge.gloss=.24f;
-                    w.Heading("Item level","Lv."+item.level,cell,new Rect(.39f,.005f,.58f,.35f),11);
+                    var badge=w.Panel("Item level badge",cell,new Rect(.50f,.005f,.47f,.28f),tint);badge.radius=6;badge.borderWidth=.7f;badge.gloss=.18f;
+                    w.Heading("Item level","Lv."+item.level,cell,new Rect(.43f,-.01f,.56f,.33f),11);
                 }
             }
             grid.gameObject.AddComponent<MergeGridLayout>();
@@ -141,7 +143,7 @@ namespace Mofumachi.Presentation
             }
             var menu=w.Button("Merge actions","生成枠\n整理",toolbar,new Rect(0,0,0,1),c.Flow.OpenMergeActions,true);var mr=(RectTransform)menu.transform;mr.pivot=new Vector2(0,.5f);mr.anchoredPosition=new Vector2(198,0);mr.sizeDelta=new Vector2(48,0);menu.GetComponentInChildren<Text>().fontSize=12;menu.GetComponent<RoundedPanelGraphic>().color=UIWidgets.Cream;
             bool preview=quest!=null&&!accepted;
-            var delivery=w.Button("Deliver",finale?"街で続きを見る":preview?"依頼を見る":"納品する",toolbar,new Rect(0,0,1,1),()=>{if(finale)c.Flow.ShowHome();else if(preview)c.Flow.ShowQuest();else c.Flow.Deliver();});((RectTransform)delivery.transform).offsetMin=new Vector2(250,0);delivery.GetComponentInChildren<Text>().fontSize=14;delivery.interactable=finale||preview||deliverable;
+            var delivery=w.Button("Deliver",finale?"街で\n続きを見る":preview?"依頼を見る":"納品する",toolbar,new Rect(0,0,1,1),()=>{if(finale)c.Flow.ShowHome();else if(preview)c.Flow.ShowQuest();else c.Flow.Deliver();});((RectTransform)delivery.transform).offsetMin=new Vector2(250,0);delivery.GetComponentInChildren<Text>().fontSize=14;delivery.interactable=finale||preview||deliverable;
             w.Feedback(root,c,ScreenId.Merge);
             var text=root.Find("Feedback").GetComponent<Text>();text.fontSize=14;text.lineSpacing=1f;
             string obsoleteHint=finale?UIStrings.DeliveryHint(c.Game):null;

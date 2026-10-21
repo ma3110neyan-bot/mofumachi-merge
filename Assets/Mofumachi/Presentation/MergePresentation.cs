@@ -35,7 +35,7 @@ namespace Mofumachi.Presentation
         {
             float scale=MergePerspective.ArtScale(index);
             // Leave room for the 1.06 selection scale and 3-unit lift, including in a 48-unit cell.
-            return new MergeCellRect(.5f-.46f*scale,.5f-.40f*scale,.92f*scale,.80f*scale);
+            return new MergeCellRect(.5f-.47f*scale,.5f-.41f*scale,.94f*scale,.82f*scale);
         }
         public static string[] Text=>new[]{PlayHint,"今日の合成　0 / 3","あと3回、同じ種類・Lv.を合成しよう♪","合成クリア！ 街で仲間に話しかけよう♪","合成クリア！ 別の広場へおさんぽしよう♪","今日のお花を受け取りに、街へ戻ろう♪","今日のお花を集めたよ♪ 仲間に会いに行こう",SelectionName(null),SelectionHint(null),SelectionHint(new BoardItem("tea",3,0)),"同じ種類・Lv. → 光る1個へ","0 / 1  あと1個","Lv.UP!  2","今日のお願いへ","街で続きを見る","生成枠と整理"};
     }

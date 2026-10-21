@@ -45,7 +45,7 @@ namespace Mofumachi.Presentation
         {
             float left=float.PositiveInfinity,right=float.NegativeInfinity,bottom=float.PositiveInfinity,top=float.NegativeInfinity;
             foreach(var p in polygon){left=Math.Min(left,p.X);right=Math.Max(right,p.X);bottom=Math.Min(bottom,p.Y);top=Math.Max(top,p.Y);}
-            float tileWidth=stone?.26f:TownWorldSurface.LawnTileWidth,tileHeight=stone?tileWidth*2:TownWorldSurface.LawnTileHeight;
+            float tileWidth=stone?.14f:TownWorldSurface.LawnTileWidth,tileHeight=stone?tileWidth*2:TownWorldSurface.LawnTileHeight;
             for(int x=(int)Math.Floor(left/tileWidth);x<(int)Math.Ceiling(right/tileWidth);x++)
             for(int y=(int)Math.Floor(bottom/tileHeight);y<(int)Math.Ceiling(top/tileHeight);y++)
             {

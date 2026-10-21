@@ -15,10 +15,11 @@ namespace Mofumachi.Presentation
             var card=w.StoryPanel("Town menu card",overlay,new Rect(.5f,.5f,0,0)).rectTransform;
             card.sizeDelta=new Vector2(Mathf.Min(340,root.rect.width-20),Mathf.Min(506,root.rect.height-20));
             var title=w.StoryRibbon("Town menu title","街のてちょう",card,new Rect(0,0,1,1),18);UIWidgets.Top((RectTransform)title.transform.parent,18,12,18,36);
-            var viewport=UIWidgets.Node("Town menu viewport",card,new Rect(0,0,1,1));viewport.offsetMin=new Vector2(12,70);viewport.offsetMax=new Vector2(-12,-54);viewport.gameObject.AddComponent<RectMask2D>();
+            var viewport=UIWidgets.Node("Town menu viewport",card,new Rect(0,0,1,1));viewport.offsetMin=new Vector2(12,82);viewport.offsetMax=new Vector2(-12,-54);viewport.gameObject.AddComponent<RectMask2D>();
             var content=UIWidgets.Node("Town menu content",viewport,new Rect(0,1,1,0));content.pivot=new Vector2(.5f,1);content.sizeDelta=new Vector2(0,546);
             var scroll=viewport.gameObject.AddComponent<ScrollRect>();scroll.viewport=viewport;scroll.content=content;scroll.horizontal=false;scroll.vertical=true;scroll.movementType=ScrollRect.MovementType.Clamped;
             var ray=viewport.gameObject.AddComponent<Image>();ray.color=new Color(1,1,1,.001f);
+            var scrollHint=w.StoryLabel("Town menu scroll hint","下へスクロール ↓",card,new Rect(0,0,1,1),11);UIWidgets.Bottom(scrollHint.rectTransform,20,60,20,16);
             void Button(string name,string text,float x,float y,float width,Action action,bool secondary=true)
             {
                 var b=w.Button(name,text,content,new Rect(x,1,0,0),()=>{c.Flow.CloseTownMenu();action();},secondary);

@@ -70,7 +70,7 @@ namespace Mofumachi.Presentation
             // A shared street, distinct forecourts and branching garden routes.
             // Lawns beside these stones remain freely walkable.
             Route(.115f,P(TownWorldMap.Left,-.24f),P(-1.2f,-.24f),P(-.60f,-.20f),P(0,-.22f),P(.60f,-.20f),P(1.2f,-.24f),P(TownWorldMap.Right,-.24f));
-            Court(0,-.02f,.31f,.34f);Court(0,.30f,.30f,.24f);
+            Court(0,-.06f,.27f,.25f);Court(0,.30f,.255f,.20f);
             // The two fountain-side walks meet as one forecourt. Without this
             // overlap their V-shaped join left an isolated grass triangle.
             Court(0,.57f,.15f,.17f);
@@ -80,8 +80,8 @@ namespace Mofumachi.Presentation
                 Route(LocalWalkHalfWidth,walk);var end=walk[walk.Length-1];
                 Court(end.X,end.Y,LocalCourtRadius,LocalCourtRadius);
             }
-            Route(.085f,P(0,-.36f),P(-.29f,.06f),P(-.28f,.44f),P(0,.70f));
-            Route(.085f,P(0,-.36f),P(.29f,.06f),P(.28f,.44f),P(0,.70f));
+            Route(.075f,P(0,-.36f),P(-.25f,.06f),P(-.25f,.44f),P(0,.70f));
+            Route(.075f,P(0,-.36f),P(.25f,.06f),P(.25f,.44f),P(0,.70f));
             Route(.115f,P(0,.67f),P(.05f,1.04f),P(-.04f,1.43f),P(0,1.70f),P(0,2.09f));
             Court(0,1.87f,.28f,.28f);
             Court(0,2.09f,.11f,.10f);

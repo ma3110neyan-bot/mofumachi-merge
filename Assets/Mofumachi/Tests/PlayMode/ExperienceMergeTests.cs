@@ -13,7 +13,7 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();Flow.ShowMerge();yield return null;Canvas.ForceUpdateCanvases();
             var frame=Flow.GetComponentsInChildren<PerspectiveBoardGraphic>().Single(g=>g.name=="Merge storybook board");
-            Assert.That(frame.mainTexture,Is.SameAs(Texture2D.whiteTexture));Assert.That(frame.raycastTarget,Is.False);
+            Assert.That(frame.mainTexture,Is.SameAs(Resources.Load<Texture2D>("Mofumachi/MergeBoardFrame")));Assert.That(frame.raycastTarget,Is.False);
             var panel=frame.rectTransform.rect;var panelVertices=frame.canvasRenderer.GetMesh().vertices;
             Assert.That(panelVertices.Min(v=>v.y),Is.GreaterThanOrEqualTo(panel.yMin-.01f),"The panel has no thick platform below it");
             Assert.That(panelVertices.Max(v=>v.y),Is.LessThanOrEqualTo(panel.yMax+.01f));

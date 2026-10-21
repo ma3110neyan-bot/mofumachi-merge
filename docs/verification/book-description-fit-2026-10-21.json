@@ -1,0 +1,78 @@
+{
+  "run": "20261021-111836-1d5fbefd",
+  "source_candidate_expected": "b0c12bda82ceb036288b1182b2923dd758fa92dc",
+  "source_revision_independently_recorded_in_received_files": false,
+  "native": {
+    "total": "205",
+    "passed": "202",
+    "failed": "3",
+    "skipped": "0",
+    "duration": "152.5991126"
+  },
+  "failures": [
+    {
+      "name": "Mofumachi.Tests.CharacterSelectionTests.BookOpensWithTheWholeCharacterAndDescriptionAcrossPortraitWidths",
+      "message": "  Expected: less than or equal to 45.0f\n  But was:  49.0f\n",
+      "stack": "at Mofumachi.Tests.CharacterSelectionTests+<BookOpensWithTheWholeCharacterAndDescriptionAcrossPortraitWidths>d__4.MoveNext () [0x003b3] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\CharacterSelectionTests.cs:104\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    },
+    {
+      "name": "Mofumachi.Tests.MajorPolishTests.BookNextDiscoveryAndStoryPaperFitShortAndPixelHeightScreens",
+      "message": "  Partner description momo 592\n  Expected: less than or equal to 45.0f\n  But was:  49.0f\n",
+      "stack": "at Mofumachi.Tests.MajorPolishTests+<BookNextDiscoveryAndStoryPaperFitShortAndPixelHeightScreens>d__4.MoveNext () [0x00104] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\MajorPolishTests.cs:69\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    },
+    {
+      "name": "Mofumachi.Tests.StoryTypographyTests.StoryRolesAndNoticeFitPortraitSizes",
+      "message": "  Partner description\n  Expected: less than or equal to 45.0f\n  But was:  48.0f\n",
+      "stack": "at Mofumachi.Tests.StoryTypographyTests+<StoryRolesAndNoticeFitPortraitSizes>d__0.MoveNext () [0x00260] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\StoryTypographyTests.cs:32\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    }
+  ],
+  "received_hashes": {
+    "playmode.xml": "393f9b8067c0c3d18914689b02e2436791dc9e40efb06dd151271fbfbcb7543b",
+    "playmode.log": "b33f561314ac21955d087969cbe30eb92e262ec659b90cd9fd299eb0a2af7aaf"
+  },
+  "root_cause": "Book profile compression allocated44 logical height to original15px narrative font/1.28spacing that needs48–49 for two lines. Product layout defect, not a stale expectation.",
+  "fix_scope": "CharacterSelectionScreen: retain128-high hero,15px font and1.28spacing; adjust gaps and allocate52-high description inside316-high opening viewport; existing native assertions/count205 unchanged.",
+  "new_native_verified": false,
+  "new_apk_generated": false,
+  "pixel_verified": false,
+  "layout_arithmetic": {
+    "scope": "Source layout arithmetic against actual received native preferred text heights; not Unity rendering or native GREEN",
+    "native_measured_heights": [
+      49.0,
+      49.0,
+      48.0
+    ],
+    "before": {
+      "hero_top": 134,
+      "hero_height": 128,
+      "description_top": 268,
+      "description_height": 44
+    },
+    "after": {
+      "hero_top": 130,
+      "hero_height": 128,
+      "description_top": 264,
+      "description_height": 52
+    },
+    "preserved_hero_height": 128,
+    "preserved_font_size": 15,
+    "preserved_line_spacing": 1.28,
+    "opening_viewport_at640": 316,
+    "description_end": 316,
+    "gap_after_description": 10,
+    "arithmetic_passed": true,
+    "native_fix_verified": false
+  },
+  "reference_compilation": {
+    "assemblies": 6,
+    "warnings": 0,
+    "errors": 0,
+    "native_execution": false
+  },
+  "review": {
+    "important_or_critical_findings": 0,
+    "actual_body_font_max_line_width_at15": 240,
+    "minimum_description_width": 252,
+    "scope": "Code geometry/font-advance review, not Unity visual or native verification"
+  }
+}

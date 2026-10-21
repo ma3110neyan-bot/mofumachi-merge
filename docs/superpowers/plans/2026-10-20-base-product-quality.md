@@ -63,5 +63,5 @@ Interfaces: `DestinationFor(string id)`, `TapDoor`, `VisitTownCharacter(string i
 - [x] Commit the combined candidate on the current feature branch; no main integration.
 - [x] Receive180369d: native143/203 pass,102images and same-fingerprint APK records; inspect Before/received images.
 - [x] Reject unfinished paving/book/daily composition and implement bounded refinements.
-- [ ] New Windows-native run for the refinements:205 declared PlayMode cases,102 captures, same-fingerprint APK; compare the actual new After.
+- [ ] New Windows-native run for the refinements:205 declared PlayMode cases,102 captures, same-fingerprint APK; compare the actual new After. Received20261021-111836:202/205passed,3biography-height failures; description layout fixed with unchanged tests/count, native rerun pending.
 - [ ] Pixel walks/drag/merge/doors/daily/book/BGM/save restart and user experience acceptance. Explicitly leave unavailable stages pending; never infer them from compilation.

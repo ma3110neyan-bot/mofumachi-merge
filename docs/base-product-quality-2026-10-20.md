@@ -2,6 +2,23 @@
 
 **実装済み・実機未確認。完成判定は保留。** 受領した7ZIPの実画像を比較し、テスト成功だけでは合格にしない判断を行った。受領版 `180369d` はUnity検査とAPK生成まで確認できたが、舗装・図鑑初画面・今日の受取表示に品質不足が残ったため、同じQuality Pass内で追加修正した。追加修正後のUnity画像とAPKはまだ取得していない。
 
+
+## 2026-10-21：PlayMode205件中3件停止への対応
+
+実行 `20261021-111836-1d5fbefd` は、終了画面でEditMode143／143成功。受領したPlayMode XMLは **205件中202成功／3失敗／skip0**。3件は次の同じ製品側の表示枠不足を検出していた。APK生成段階には到達していない。
+
+- `CharacterSelectionTests.BookOpensWithTheWholeCharacterAndDescriptionAcrossPortraitWidths`：本文の必要高さ49、表示枠44。
+- `MajorPolishTests.BookNextDiscoveryAndStoryPaperFitShortAndPixelHeightScreens`：モモの紹介文で同じ49対44。
+- `StoryTypographyTests.StoryRolesAndNoticeFitPortraitSizes`：同じ本文で48対44。
+
+前回、図鑑初画面へ全身と紹介文を収めるために配置を詰めた際、実フォントの2行に必要な高さを不足させていた。検査条件の古さではなく、製品レイアウトの不備。紹介文を **高さ52・上端264** へ、全身枠を **上端130** へ調整した。全身の高さ128、本文15、行間1.28、6人の48以上の選択領域、統計・NEW・詳細ページは保持。既存の検査コード／合否ゲート／205件の件数は変更していない。
+
+640高の画面ではスクロール表示高316に対し、紹介文の下端も316。次の会話枠まで10、全身と本文の間に6を確保する。狭い320幅でも実フォントの最長行240は本文幅252に収まることを独立レビューで確認した。さらに短い有効画面では詳細のスクロールが必要であり、全画面サイズで最初から全内容が見える保証には拡大しない。
+
+修正後の実Unity DLL参照6アセンブリは警告／エラー0。受領XMLのREDと修正後の寸法計算を照合し、独立レビューでも具体的な阻害指摘なし。ただし、これはネイティブのGREENや新しい実画面ではない。**修正後のUnity全件・After画像・新APKは再検証待ち、Pixel未確認**。同じ下記一括QAを使用する。
+
+証拠：`/workspace/acceptance/base-rebuild-20261020/windows-20261021-111836-1d5fbefd/`。受領XML／log、`diagnosis.json`、`layout-arithmetic.json`、`unity-reference-fix.log` を区別して保持。撮影検査と新しい「今日」の検査は今回成功したが、画像ファイル自体はこの2添付には含まれないため、最新Afterの目視合格には数えない。
+
 ## 受領した証拠
 
 実行 **`20261020-224724-e8a2fc33`**、ソース **`180369dc32dfee6cacc908f05ba38278ca3b0e73`**。

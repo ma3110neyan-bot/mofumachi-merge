@@ -25,10 +25,10 @@ namespace Mofumachi.Presentation
                 {var badge=w.Label("Book NEW "+candidate.Id,"NEW",rect,new Rect(.05f,.77f,.90f,.23f),10);badge.color=new Color(.71f,.24f,.38f);}
             }
             var name=w.StoryRibbon("Chosen partner name",chosen.Name+"のページ",content,new Rect(0,0,1,1),20);UIWidgets.Top((RectTransform)name.transform.parent,30,88,30,38);
-            var hero=UIWidgets.Node("Partner hero",content,new Rect(0,0,1,1));UIWidgets.Top(hero,85,134,85,128);
+            var hero=UIWidgets.Node("Partner hero",content,new Rect(0,0,1,1));UIWidgets.Top(hero,85,130,85,128);
             var body=w.Body("Chosen full body",chosen.Id,hero,new Rect(0,0,1,1));body.raycastTarget=true;var reaction=body.gameObject.AddComponent<BodyReaction>();reaction.Bind(c);
             string personality=entry.Personality.Replace("。","。\n").TrimEnd('\n');
-            var description=w.NarrativeLabel("Partner description",personality,content,new Rect(0,0,1,1),15);UIWidgets.Top(description.rectTransform,20,268,20,44);
+            var description=w.NarrativeLabel("Partner description",personality,content,new Rect(0,0,1,1),15);UIWidgets.Top(description.rectTransform,20,264,20,52);
             var memory=w.StoryPanel("Book conversation paper",content,new Rect(0,0,1,1),true).rectTransform;UIWidgets.Top(memory,18,326,18,96);
             var quote=w.NarrativeLabel("Book conversation",TownCharacterDialogue.For(chosen.Id,entry.Meetings),memory,new Rect(.06f,.10f,.88f,.80f),15);
             string[] titles={"好きなもの","得意なこと","好きな場所"};string[] values={entry.Likes,entry.Talent,entry.FavoritePlace};string[] ids={"Book likes","Book talent","Book favorite place"};

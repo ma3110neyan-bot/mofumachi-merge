@@ -4,7 +4,11 @@
 
 **方向確認待ち・未実装イメージ。Unity実描画でも、dfc2a92のAfterでもない。** 生成画像を使い、まず中央広場とMergeの見た目を先に確認する。この画像を基準版として採用した扱いにしない。
 
-[画面案](design-proposal.png) ／ [現状との比較ページ](index.html)
+[PDF（3ページ：画面案・中央比較・Merge比較）](design-preview-2026-10-21.pdf) ／ [JPEG（画面案）](design-proposal.jpg)
+
+[PNG原本](design-proposal.png) ／ [現状との比較ページ](index.html)
+
+PDF／JPEGは提示済みの画像の書き出しで、デザインは変更していない。PDFの追加ページは実Unity現状と未実装提案を並べたものであり、新しいUnity Afterではない。
 
 ## 見てほしい方向
 

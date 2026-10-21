@@ -1,0 +1,247 @@
+{
+  "before_run": "20261020-224724-e8a2fc33",
+  "after_run": "20261021-113845-fbcafb0d",
+  "pages": 41,
+  "entries": [
+    {
+      "title": "TOP",
+      "file": "23-title-letter.png",
+      "note": "ロゴ・正式6名・既存の街背景を維持。この比較期間に新しいタイトルの絵は追加していません。曲の聴感は静止画では評価不可。 ※この2枚はファイルハッシュも同一です。",
+      "same_bytes": true
+    },
+    {
+      "title": "中央広場 / Lv.1",
+      "file": "04-town-lv1-Central.png",
+      "note": "同じ地区・街Lv。噴水前の穴、道の端、入口近くの家具、住宅の配置を比較。余白と終端の目的感は改善余地あり。",
+      "same_bytes": false
+    },
+    {
+      "title": "西カフェ / Lv.1",
+      "file": "04-town-lv1-West.png",
+      "note": "同じ地区・街Lv。噴水前の穴、道の端、入口近くの家具、住宅の配置を比較。余白と終端の目的感は改善余地あり。",
+      "same_bytes": false
+    },
+    {
+      "title": "東花屋 / Lv.1",
+      "file": "04-town-lv1-East.png",
+      "note": "同じ地区・街Lv。噴水前の穴、道の端、入口近くの家具、住宅の配置を比較。余白と終端の目的感は改善余地あり。",
+      "same_bytes": false
+    },
+    {
+      "title": "北依頼小屋 / Lv.1",
+      "file": "04-town-lv1-North.png",
+      "note": "同じ地区・街Lv。噴水前の穴、道の端、入口近くの家具、住宅の配置を比較。余白と終端の目的感は改善余地あり。",
+      "same_bytes": false
+    },
+    {
+      "title": "南の庭 / Lv.1",
+      "file": "04-town-lv1-South.png",
+      "note": "同じ地区・街Lv。噴水前の穴、道の端、入口近くの家具、住宅の配置を比較。余白と終端の目的感は改善余地あり。",
+      "same_bytes": false
+    },
+    {
+      "title": "中央広場 / Lv.6",
+      "file": "04-town-lv6-Central.png",
+      "note": "同じ地区・街Lv。噴水前の穴、道の端、入口近くの家具、住宅の配置を比較。余白と終端の目的感は改善余地あり。",
+      "same_bytes": false
+    },
+    {
+      "title": "西カフェ / Lv.6",
+      "file": "04-town-lv6-West.png",
+      "note": "同じ地区・街Lv。噴水前の穴、道の端、入口近くの家具、住宅の配置を比較。余白と終端の目的感は改善余地あり。",
+      "same_bytes": false
+    },
+    {
+      "title": "東花屋 / Lv.6",
+      "file": "04-town-lv6-East.png",
+      "note": "同じ地区・街Lv。噴水前の穴、道の端、入口近くの家具、住宅の配置を比較。余白と終端の目的感は改善余地あり。",
+      "same_bytes": false
+    },
+    {
+      "title": "北依頼小屋 / Lv.6",
+      "file": "04-town-lv6-North.png",
+      "note": "同じ地区・街Lv。噴水前の穴、道の端、入口近くの家具、住宅の配置を比較。余白と終端の目的感は改善余地あり。",
+      "same_bytes": false
+    },
+    {
+      "title": "南の庭 / Lv.6",
+      "file": "04-town-lv6-South.png",
+      "note": "同じ地区・街Lv。噴水前の穴、道の端、入口近くの家具、住宅の配置を比較。余白と終端の目的感は改善余地あり。",
+      "same_bytes": false
+    },
+    {
+      "title": "中央から西への接続",
+      "file": "09-connected-path-west.png",
+      "note": "同じ撮影段階。人物位置や反応はシミュレーションに応じて異なります。実機での詰まり・追従の自然さは未判定。",
+      "same_bytes": false
+    },
+    {
+      "title": "中央から東への接続",
+      "file": "09-connected-path-east.png",
+      "note": "同じ撮影段階。人物位置や反応はシミュレーションに応じて異なります。実機での詰まり・追従の自然さは未判定。",
+      "same_bytes": false
+    },
+    {
+      "title": "中央から北への接続",
+      "file": "09-connected-path-north.png",
+      "note": "同じ撮影段階。人物位置や反応はシミュレーションに応じて異なります。実機での詰まり・追従の自然さは未判定。",
+      "same_bytes": false
+    },
+    {
+      "title": "中央から南への接続",
+      "file": "09-connected-path-south.png",
+      "note": "同じ撮影段階。人物位置や反応はシミュレーションに応じて異なります。実機での詰まり・追従の自然さは未判定。",
+      "same_bytes": false
+    },
+    {
+      "title": "移動中の街",
+      "file": "06-walking-04.png",
+      "note": "同じ撮影段階。人物位置や反応はシミュレーションに応じて異なります。実機での詰まり・追従の自然さは未判定。",
+      "same_bytes": false
+    },
+    {
+      "title": "NPCすれ違い",
+      "file": "16-residents-passing-01.png",
+      "note": "同じ撮影段階。人物位置や反応はシミュレーションに応じて異なります。実機での詰まり・追従の自然さは未判定。",
+      "same_bytes": false
+    },
+    {
+      "title": "指追従",
+      "file": "17-finger-follow-01.png",
+      "note": "同じ撮影段階。人物位置や反応はシミュレーションに応じて異なります。実機での詰まり・追従の自然さは未判定。",
+      "same_bytes": false
+    },
+    {
+      "title": "街HUD",
+      "file": "24-home-unobstructed.png",
+      "note": "街とキャラを優先する小さいHUDを維持。奥の仲間が隠れる場面は残り、全体の完成判定は保留。",
+      "same_bytes": false
+    },
+    {
+      "title": "開閉メニュー",
+      "file": "24-menu-open.png",
+      "note": "偶発的な操作をメニューへ収納。下のファストトラベルはスクロールで表示されますが、誘導の分かりやすさに改善余地あり。",
+      "same_bytes": false
+    },
+    {
+      "title": "Merge / 初期の保存盤面",
+      "file": "01-merge-start.png",
+      "note": "平面5×6と保存内容を維持。見栄えのために空きマスは埋めていません。持ち上げ／合成の感触はPixelで確認。 ※この2枚はファイルハッシュも同一です。",
+      "same_bytes": true
+    },
+    {
+      "title": "Merge / 全種類の検査盤面",
+      "file": "02-merge-all-items.png",
+      "note": "平面5×6と保存内容を維持。見栄えのために空きマスは埋めていません。持ち上げ／合成の感触はPixelで確認。 ※この2枚はファイルハッシュも同一です。",
+      "same_bytes": true
+    },
+    {
+      "title": "Merge / 選択",
+      "file": "03-merge-selection.png",
+      "note": "平面5×6と保存内容を維持。見栄えのために空きマスは埋めていません。持ち上げ／合成の感触はPixelで確認。 ※この2枚はファイルハッシュも同一です。",
+      "same_bytes": true
+    },
+    {
+      "title": "キャラ / 待機",
+      "file": "25-character-idle.png",
+      "note": "正式原画を維持。影・表情・動作の静止場面。NPC同士の絵と名札の重なりは残るため、実操作でも確認が必要。",
+      "same_bytes": false
+    },
+    {
+      "title": "キャラ / 歩行の一瞬",
+      "file": "25-character-step-a.png",
+      "note": "正式原画を維持。影・表情・動作の静止場面。NPC同士の絵と名札の重なりは残るため、実操作でも確認が必要。",
+      "same_bytes": false
+    },
+    {
+      "title": "キャラ / 挨拶",
+      "file": "25-character-greeting.png",
+      "note": "正式原画を維持。影・表情・動作の静止場面。NPC同士の絵と名札の重なりは残るため、実操作でも確認が必要。",
+      "same_bytes": false
+    },
+    {
+      "title": "図鑑 / 開いた最初の画面",
+      "file": "19-book-discovery-first-page.png",
+      "note": "2段の選択欄を横一列へ。全身と紹介文2行を確認。本文の書体・15のサイズ・行間1.28を維持。",
+      "same_bytes": false
+    },
+    {
+      "title": "図鑑 / 未発見と次の解放",
+      "file": "10-book-discovery-details.png",
+      "note": "指定スクロール位置での比較。詳細・？？？・次の解放を維持。現在地案内の背景とのコントラストは改善余地あり。",
+      "same_bytes": false
+    },
+    {
+      "title": "今日のお願い / 開始",
+      "file": "11-today-start.png",
+      "note": "同じ目標段階。今日の相手は撮影日で異なります。3目標と受取／受取済みの花の数を同時に表示。",
+      "same_bytes": false
+    },
+    {
+      "title": "今日のお願い / 受取可能",
+      "file": "12-today-ready.png",
+      "note": "同じ目標段階。今日の相手は撮影日で異なります。3目標と受取／受取済みの花の数を同時に表示。",
+      "same_bytes": false
+    },
+    {
+      "title": "今日のお願い / 受取後",
+      "file": "13-today-flower-collected.png",
+      "note": "同じ目標段階。今日の相手は撮影日で異なります。3目標と受取／受取済みの花の数を同時に表示。",
+      "same_bytes": false
+    },
+    {
+      "title": "依頼・文字の表現",
+      "file": "07-quest-story-goal.png",
+      "note": "同名の撮影工程。実Unity画像の比較で、Pixelでの操作確認はこれからです。 ※この2枚はファイルハッシュも同一です。",
+      "same_bytes": true
+    },
+    {
+      "title": "BGM候補 / 選択画面",
+      "file": "22-merge-candidates.png",
+      "note": "既存のBGM候補と選択画面を維持。指定スクロール位置のため、上下のカードは途中で見切れます。 ※この2枚はファイルハッシュも同一です。",
+      "same_bytes": true
+    },
+    {
+      "title": "北の依頼小屋 / 徒歩",
+      "file": "20-quest-walking.png",
+      "note": "徒歩→到着して待つ→ドアをタップ→入場、の対応画面。カフェの交流／花屋の既存Merge導線を維持。",
+      "same_bytes": false
+    },
+    {
+      "title": "北の依頼小屋 / 入場",
+      "file": "20-quest-inside.png",
+      "note": "徒歩→到着して待つ→ドアをタップ→入場、の対応画面。カフェの交流／花屋の既存Merge導線を維持。 ※この2枚はファイルハッシュも同一です。",
+      "same_bytes": true
+    },
+    {
+      "title": "東の花屋 / 入場",
+      "file": "21-shop-inside.png",
+      "note": "徒歩→到着して待つ→ドアをタップ→入場、の対応画面。カフェの交流／花屋の既存Merge導線を維持。",
+      "same_bytes": false
+    },
+    {
+      "title": "西カフェ / 入場",
+      "file": "21b-cafe-inside.png",
+      "note": "徒歩→到着して待つ→ドアをタップ→入場、の対応画面。カフェの交流／花屋の既存Merge導線を維持。",
+      "same_bytes": false
+    },
+    {
+      "title": "仲間のところへ歩く",
+      "file": "28-meet-friend-walking.png",
+      "note": "実際の仲間の位置へ歩く場面。相手に会う前に会話回数を増やす操作へ戻していません。",
+      "same_bytes": false
+    },
+    {
+      "title": "Merge / 指で持ち上げる",
+      "file": "29-merge-drag-lift.png",
+      "note": "平面5×6と保存内容を維持。見栄えのために空きマスは埋めていません。持ち上げ／合成の感触はPixelで確認。 ※この2枚はファイルハッシュも同一です。",
+      "same_bytes": true
+    },
+    {
+      "title": "Merge / 相手に近づける",
+      "file": "29-merge-drag-match.png",
+      "note": "平面5×6と保存内容を維持。見栄えのために空きマスは埋めていません。持ち上げ／合成の感触はPixelで確認。 ※この2枚はファイルハッシュも同一です。",
+      "same_bytes": true
+    }
+  ]
+}

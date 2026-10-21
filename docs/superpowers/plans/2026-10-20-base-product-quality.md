@@ -7,7 +7,7 @@
 **Tech Stack:** Unity6000.6.4f1 / uGUI / C# / NUnit / Android ARM64。
 **Spec:** `docs/superpowers/specs/2026-10-20-base-product-quality.md`
 
-**2026-10-20実画像レビュー後：追加修正は実装済み・実機未確認。** 受領180369dは実Edit143／Play203成功、102枚・APK記録を確認。画像から街の接合／配置・図鑑初画面・今日の受取表示に不足を発見し、同じ工程内で修正した。新しい実Unity／修正版APK／Pixelは未実施。[段階を分けた報告](../../base-product-quality-2026-10-20.md)。完了チェックはその範囲だけを示す。
+**2026-10-21の確認：製品bd3f357はUnity確認済み・APK生成済み・Pixel未確認。** 受領実行113845は143／205全成功、102枚・同一ソースAPK記録を照合。図鑑／今日／噴水前の実画像修正を確認。道の終端・余白・人物の重なりが残り、完成した街の合格は保留。[段階と次の実機確認](../../base-product-quality-2026-10-20.md)。
 
 ## Global Constraints
 
@@ -29,7 +29,7 @@ Files: `TownSceneryLayout/View`, `TownWorldSurface`, `TownGroundGraphic`, `TownW
 Interface: `TownSceneryView.SetTownLevel(int)`; same declarative dressing provides drawing and solid footprints. All stable `TownWorldMap.Place` anchors remain reachable.
 - [x] Focused geometry tests first: every entrance / anchor walkable or intentional approach; four joins connected; multiple landmark routes; solids match rendering.
 - [x] Build composed destination groups and quieter continuous materials; preserve dimensions and locations of the 5 areas.
-- [ ] Verify Lv1/3/6 composition, culling and local growth highlight in native captures.
+- [x] Inspect Lv1/3/6 native composition; storefront growth is visible. Record remaining empty-lawn/end-of-path finish issues instead of accepting a finished town.
 
 ## Task 2: Flat Merge readability and tactile manipulation
 
@@ -38,7 +38,7 @@ Interface: same30-cell mapping, UIFlow actions, sparse saved inventory and node 
 - [x] Write and run failing geometry/drag feedback tests before changing behavior.
 - [x] Implement clear cells / selected pairs / lift / merge attraction / sparkle / landing and concise tool shelf.
 - [x] Pure geometry verifies all30targets and requirement hit height at320wide/small and tall sizes.
-- [ ] Native verification: failed/invalid drag, busy delivery, pause/resume and saved-cell invariance; visual legibility and actual48+target accessibility.
+- [x] Native205 pass including Merge input/state checks; inspect flat board/item/match stills. Pixel touch feel/performance remains pending.
 
 ## Task 3: Original-art character life
 
@@ -46,7 +46,7 @@ Files: `TownActor`, `TownCharacterMotion`, `CharacterBodyGraphic`, `BodyReaction
 Interface: retain resident positions, original atlas UVs, depth and pointer/facility locks.
 - [x] Pin finite/bounded motion, footfall and turn/rest/arrival semantics in focused tests.
 - [x] Improve weight transfer, walk/readiness/reaction without redesigning faces/clothes.
-- [ ] Check frozen input, live walking, resting and six art silhouettes.
+- [x] Native motion tests pass and six silhouettes/stills inspected; record visual overlap and defer actual life/input feel to Pixel.
 
 ## Task 4: Real destinations and daily/book integration
 
@@ -63,5 +63,5 @@ Interfaces: `DestinationFor(string id)`, `TapDoor`, `VisitTownCharacter(string i
 - [x] Commit the combined candidate on the current feature branch; no main integration.
 - [x] Receive180369d: native143/203 pass,102images and same-fingerprint APK records; inspect Before/received images.
 - [x] Reject unfinished paving/book/daily composition and implement bounded refinements.
-- [ ] New Windows-native run for the refinements:205 declared PlayMode cases,102 captures, same-fingerprint APK; compare the actual new After. Received20261021-111836:202/205passed,3biography-height failures; description layout fixed with unchanged tests/count, native rerun pending.
+- [x] Receive20261021-113845/bd3f357:143/205allpass,102native captures/same-sourceAPK records; inspect new After. Finished-town/release acceptance remains withheld for known composition/overlap issues.
 - [ ] Pixel walks/drag/merge/doors/daily/book/BGM/save restart and user experience acceptance. Explicitly leave unavailable stages pending; never infer them from compilation.

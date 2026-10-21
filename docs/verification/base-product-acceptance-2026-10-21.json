@@ -1,0 +1,98 @@
+{
+  "run": "20261021-113845-fbcafb0d",
+  "build": {
+    "gitRevision": "bd3f357d9da5ac1aa6ab3debe2362131b643a6d7",
+    "revisionSource": "git-metadata + clean product inputs",
+    "productFingerprint": "fe009784111a5e00021f20396eb59808ccfc91750e81791b6c19c67104a7ea54",
+    "localUnityConfigurationChanges": [
+      "\"Assets/Settings/Build Profiles/Android\\342\\204\\242.asset\"",
+      "Assets/Settings/UniversalRP.asset",
+      "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+      "ProjectSettings/ProjectSettings.asset"
+    ],
+    "nativeCaptureCount": 102,
+    "unity": "6000.6.4f1",
+    "appId": "com.mofumachi.merge.qa.townlife",
+    "versionCode": 1,
+    "apk": "town-life-qa.apk",
+    "sha256": "7feb4456b1a92ec62ccbeafea86e1b668ca109fd5627dfa44ac708e24f7c0f01",
+    "bytes": 118189555,
+    "builtAtUtc": "2026-10-21T02:44:39.2392357Z",
+    "qa": true,
+    "townQa": true
+  },
+  "xml_results": {
+    "editmode": {
+      "total": "143",
+      "passed": "143",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "2.6196549"
+    },
+    "playmode": {
+      "total": "205",
+      "passed": "205",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "147.7981485"
+    }
+  },
+  "capture_scope": "Unity fixture renders; not Pixel captures",
+  "capture_dimensions": [
+    720,
+    1280
+  ],
+  "capture_count_and_hashes_verified": 102,
+  "png_decode_verified": 102,
+  "build_success_marker_verified": true,
+  "apk_binary_uploaded": false,
+  "apk_binary_independently_rehashed_in_cloud": false,
+  "visual_review": {
+    "all_current_images_viewed": 102,
+    "before_run": "20261020-224724-e8a2fc33",
+    "ready_for_pixel_trial": true,
+    "release_or_finished_town_accepted": false,
+    "verified_improvements": [
+      "fountain paving hole filled",
+      "storefront table/cart moved beside facilities",
+      "whole book character and both biography lines visible",
+      "today three goals/claim/collected state visible",
+      "cardinal arrival district ribbon current"
+    ],
+    "remaining_visible_concerns": [
+      "sparse lawn and long path termini retain unfinished composition",
+      "resident art/nameplate overlap in several stills; movement blockage not established",
+      "menu lower rows require scrolling with weak affordance",
+      "book location contrast and small sprite remnants",
+      "finale Merge action awkward line wrapping"
+    ],
+    "identical_image_files_vs_previous": [
+      "01-merge-start.png",
+      "02-merge-all-items.png",
+      "03-merge-selection.png",
+      "07-quest-story-goal.png",
+      "08-music-selection.png",
+      "20-quest-inside.png",
+      "22-merge-candidates.png",
+      "22-title-candidates.png",
+      "23-merge-picnic.png",
+      "23-merge-pop-promenade.png",
+      "23-merge-ribbon.png",
+      "23-title-garden.png",
+      "23-title-letter.png",
+      "27-merge-finale-live-purpose.png",
+      "29-merge-drag-lift.png",
+      "29-merge-drag-match.png"
+    ],
+    "condition_limits": "same720x1280 and named fixture/level; daily character/date and NPC simulation can vary; scroll positions intentional"
+  },
+  "pixel_verified": false,
+  "status": {
+    "designed": true,
+    "implemented": true,
+    "native_unity_verified": true,
+    "apk_generation_record_verified": true,
+    "pixel_verified": false
+  },
+  "next": "Preserve save with installer on Pixel99RAY1BELH using exact run APK; verify visual experience/input/doors/Merge/audio/restart/performance."
+}

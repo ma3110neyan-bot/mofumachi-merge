@@ -15,11 +15,11 @@ namespace Mofumachi.Presentation
     // World units, independent of source artwork dimensions and phone aspect.
     public static class TownSceneryLayout
     {
-        public const float CameraLift=.42f,FountainHeight=.214f;
+        public const float CameraLift=.42f,FountainHeight=TownCentralMasterLayout.FountainHeight;
         public const string LandmarkResource="Mofumachi/TownLandmarksAtlas",NatureResource="Mofumachi/TownNatureAtlas";
         private static TownSceneryPlacement P(TownSceneryKind kind,TownDistrictId district,float x,float footY,float centerY,float width,float height)=>new TownSceneryPlacement(kind,district,new TownPoint(x,footY),new TownPoint(x,centerY),width,height);
         public static IReadOnlyList<TownSceneryPlacement> Landmarks {get;}=Array.AsReadOnly(new[]{
-            P(TownSceneryKind.Fountain,TownDistrictId.Central,0,.18f,.30f,.36f,FountainHeight),
+            P(TownSceneryKind.Fountain,TownDistrictId.Central,0,TownCentralMasterLayout.FountainFeetY,TownCentralMasterLayout.FountainCenterY,TownCentralMasterLayout.FountainWidth,FountainHeight),
             P(TownSceneryKind.Cafe,TownDistrictId.West,-1.2f,.10f,.40f,.58f,.58f*560/602),
             P(TownSceneryKind.Florist,TownDistrictId.East,1.2f,.10f,.40f,.55f,.55f*610/579),
             P(TownSceneryKind.QuestCottage,TownDistrictId.North,0,2.14f,2.40f,.48f,.48f*547/510),

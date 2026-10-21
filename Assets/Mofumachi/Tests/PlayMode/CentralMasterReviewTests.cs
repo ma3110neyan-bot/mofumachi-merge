@@ -26,7 +26,18 @@ namespace Mofumachi.Tests
             AssertProjection();life.World.Pan(new Vector2(36,-20));AssertProjection();
             var fountain=Flow.GetComponentInChildren<TownFountainGraphic>();
             Assert.That(fountain.mainTexture,Is.SameAs(Resources.Load<Texture2D>(TownFountainGraphic.Resource)),"Never reuse an opaque meadow crop over the new stone");
-            Assert.That(fountain.raycastTarget,Is.False);LogAssert.NoUnexpectedReceived();
+            Assert.That(fountain.raycastTarget,Is.False);
+            // Exercise the live controller and actor simulation around the new
+            // larger landmark; successful static captures alone do not prove it.
+            foreach(var stop in new[]{new TownPoint(-.30f,.30f),new TownPoint(0,.60f),new TownPoint(.30f,.30f),TownWorldMap.Place("fountain"),TownWorldMap.Place("square")})
+            {
+                Assert.That(life.World.GuidePoint(stop),Is.True);
+                for(int step=0;step<1800&&life.World.Model.Hero.IsWalking;step++)
+                {life.AdvanceFrame(1f/30);Assert.That(life.World.Model.Area.Contains(life.World.Model.Hero.Position),Is.True);}
+                Assert.That(life.World.Model.Hero.IsWalking,Is.False,"The fountain-side journey must finish");
+                Assert.That(TownWalkableArea.Distance(life.World.Model.Hero.Position,stop),Is.LessThan(.002f));
+            }
+            LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator CentralGardensReplaceTheirVisibleStageWithoutChangingProgress()
         {
@@ -41,6 +52,9 @@ namespace Mofumachi.Tests
                     var bank=scene.Pieces.Where(p=>TownCentralMasterLayout.Dressing.Contains(p.Placement)&&Mathf.Abs(p.Placement.Feet.X-side*.50f)<.001f&&Mathf.Abs(p.Placement.Feet.Y+.89f)<.001f).ToArray();
                     Assert.That(bank.Count(p=>p.Rect.gameObject.activeSelf),Is.EqualTo(1));
                     Assert.That(bank.Single(p=>p.Rect.gameObject.activeSelf).Placement.Level,Is.EqualTo(level==1?0:level));
+                    var foreground=scene.Pieces.Where(p=>TownCentralMasterLayout.Dressing.Contains(p.Placement)&&Mathf.Abs(p.Placement.Feet.X-side*.43f)<.001f&&Mathf.Abs(p.Placement.Feet.Y+.52f)<.001f).ToArray();
+                    Assert.That(foreground.Count(p=>p.Rect.gameObject.activeSelf),Is.EqualTo(1),"Visible foreground gardens replace rather than stack");
+                    Assert.That(foreground.Single(p=>p.Rect.gameObject.activeSelf).Placement.Level,Is.EqualTo(level==1?0:level));
                 }
             }
             Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));

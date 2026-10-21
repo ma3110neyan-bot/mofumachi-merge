@@ -1,0 +1,41 @@
+{
+  "reviewed_revision": "b25658efd37c6fd4a2efed82b6586ea4e633dd73",
+  "run": "20261021-202704-1d9ab213",
+  "upload_file_id": "file_0000000008e88209ae767b871859c9fd",
+  "zip_sha256": "6ce00e6ae9abf75feb65bb3110a163a4827701002e387437f85d09bc8fe7dc70",
+  "native_tests": {
+    "passed": 3,
+    "failed": 0,
+    "skipped": 0
+  },
+  "native_pairs_verified": 3,
+  "centralInputFingerprint": "5788f229f74289f3e5a6f8a6414d351bf9d2e4ef0ffde2655a05ddcd5aa58348",
+  "approved_design_sha256": "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf",
+  "comparison_sha256": "1388da1acf8fd651061a8fd597f1e6ad8bdd8b366f50d30819c7b0839e8e0107",
+  "native_unity": true,
+  "visual": false,
+  "town_density": false,
+  "walking": null,
+  "pixel_verified": false,
+  "adopted": false,
+  "decision": "Rejected: clearly fuller than the old Before, but below the approved Visual Lock. Do not advance to other districts or Merge.",
+  "findings": [
+    "Fountain is too small for the broad round paving; the plaza still reads as empty stone around a miniature landmark.",
+    "Growth garden replacement feet at y=-0.89 are beneath the footer in the actual initial portrait; Lv1/3/6 look too similar.",
+    "All five NPCs start outside the central district, leaving the initial square with only the hero.",
+    "Lamps are visually weak relative to the character and buildings.",
+    "Walking/input and Pixel performance are not established by these three still images."
+  ],
+  "root_causes": [
+    "Fountain width remains 0.36 in a 1.10 viewport, rather than the larger focal silhouette in the lock.",
+    "New staged gardens use an off-view world anchor.",
+    "Initial starts reserve two NPCs for west and none for central."
+  ],
+  "editor_asset_residency_bytes": {
+    "TownCentralGround": 7144577,
+    "TownCentralFountain": 5231745
+  },
+  "residency_limit": "Editor asset values, not measured Pixel RAM",
+  "density_vs_old_before": "improved",
+  "density_vs_formal_visual_lock": "below required floor"
+}

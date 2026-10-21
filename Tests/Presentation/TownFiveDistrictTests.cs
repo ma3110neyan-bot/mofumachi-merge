@@ -35,7 +35,7 @@ namespace Mofumachi.Tests
         [Test] public void AllFiveLandmarksAreHolesAndHaveFloorLoopsOnBothSides()
         {
             var floor=new TownWalkableArea(0);var nav=new TownAreaNavigation(floor);
-            foreach(var hole in new[]{(new TownPoint(0,.30f),.17f,.12f),(new TownPoint(-1.2f,.4f),.29f,.31f),(new TownPoint(1.2f,.4f),.275f,.31f),(new TownPoint(0,2.4f),.24f,.26f),(new TownPoint(0,-1.65f),.25f,.225f)})
+            foreach(var hole in floor.ExcludedIslands.Take(5))
             {
                 Assert.That(floor.Contains(hole.Item1),Is.False);
                 var left=new TownPoint(hole.Item1.X-hole.Item2-.08f,hole.Item1.Y);var right=new TownPoint(hole.Item1.X+hole.Item2+.08f,hole.Item1.Y);

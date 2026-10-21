@@ -15,6 +15,57 @@ namespace Mofumachi.Tests
         }
         private static IReadOnlyList<TownSceneryPlacement> Dressing()=>
             (IReadOnlyList<TownSceneryPlacement>)Master().GetProperty("Dressing").GetValue(null);
+        [Test] public void FountainIsThePlazaFocusAndItsLargerBaseStillLeavesBothWalkingRoutes()
+        {
+            var fountain=TownSceneryLayout.Landmarks.Single(p=>p.Kind==TownSceneryKind.Fountain);
+            Assert.That(fountain.Width/TownWorldLayout.ViewWidth,Is.InRange(.48f,.56f),"The approved fountain is a focal landmark, not a miniature inside an empty stone circle");
+            var floor=new TownWalkableArea(0);var nav=new TownAreaNavigation(floor);
+            foreach(float side in new[]{-1f,1f})
+            {
+                Assert.That(floor.Contains(new TownPoint(side*.21f,.30f)),Is.False,"The enlarged flower rim cannot be walked through");
+                var around=new TownPoint(side*.30f,.30f);
+                Assert.That(floor.Contains(around),Is.True,"Keep independent routes on both sides");
+                Assert.That(nav.FindRoute(TownWorldMap.Place("square"),around),Is.Not.Empty);
+                Assert.That(nav.FindRoute(around,new TownPoint(0,.60f)),Is.Not.Empty);
+            }
+        }
+        [Test] public void EachGrowthStageChangesGardensAboveTheActualPortraitFooter()
+        {
+            var all=Dressing();var visible=Master().GetMethod("VisibleAtLevel");
+            foreach(float side in new[]{-1f,1f})
+            {
+                var bank=all.Where(p=>Math.Abs(p.Feet.X-side*.43f)<.001f&&Math.Abs(p.Feet.Y+.52f)<.001f).ToArray();
+                Assert.That(bank.Select(p=>p.Level),Is.EquivalentTo(new[]{0,3,6}));
+                float previous=0;
+                foreach(int level in new[]{1,3,6})
+                {
+                    var shown=bank.Single(p=>(bool)visible.Invoke(null,new object[]{p,level}));
+                    float feet=640+(.17f-shown.Feet.Y)*720/TownWorldLayout.ViewWidth;
+                    Assert.That(feet,Is.LessThan(1160),"Replacement must be above the old footer at the same 720x1280 framing");
+                    Assert.That(shown.Width,Is.GreaterThan(previous));previous=shown.Width;
+                }
+                Assert.That(bank.Where(p=>p.Footprint!=null).All(p=>p.Level==0),Is.True);
+            }
+        }
+        [Test] public void CentralHasAFriendAtArrivalWhileEveryOtherDistrictStaysPopulated()
+        {
+            foreach(var character in CharacterCatalog.All)
+            {
+                var town=new TownWorldWalkModel(0,character.Id);
+                Assert.That(town.Residents.Count(p=>p.District==TownDistrictId.Central),Is.GreaterThanOrEqualTo(2),"The central gathering place cannot start empty of friends");
+                Assert.That(town.Residents.Select(p=>p.District).Distinct().Count(),Is.EqualTo(5));
+                Assert.That(town.Residents.Select(p=>p.Id).Distinct().Count(),Is.EqualTo(6));
+                Assert.That(town.Residents.All(p=>town.Area.Contains(p.Position)),Is.True);
+            }
+        }
+        [Test] public void FountainSideLampsReadAtCharacterScale()
+        {
+            foreach(float side in new[]{-1f,1f})
+            {
+                var lamp=TownVillageDressing.All.Single(p=>p.District==TownDistrictId.Central&&p.Kind==TownSceneryKind.StreetLamp&&Math.Abs(p.Feet.X-side*.47f)<.001f&&Math.Abs(p.Feet.Y-.35f)<.001f);
+                Assert.That(lamp.Height*720/TownWorldLayout.ViewWidth,Is.GreaterThan(115),"Lamp silhouette should be visible beside residents at the reviewed framing");
+            }
+        }
         [Test] public void InitialGardenBanksHaveVisibleFoundationsRatherThanWalkThroughFlowers()
         {
             var floor=new TownWalkableArea(0);

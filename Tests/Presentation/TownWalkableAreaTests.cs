@@ -34,10 +34,10 @@ namespace Mofumachi.Tests
         }
         [Test] public void AThinFountainEdgeCrossingCannotBeSkippedBySampling()
         {
-            // Graze the north edge of the actual fountain island (world radius .12).
+            // Graze the north edge of the actual fountain island.
             // The blocked interval is under .01 world units, between valid endpoints.
-            var area=new TownWalkableArea(6);var center=new TownPoint(0,.30f);
-            float y=center.Y+.12f-.00002f;
+            var area=new TownWalkableArea(6);var island=area.ExcludedIslands[0];var center=island.Center;
+            float y=center.Y+island.Y-.00002f;
             var a=new TownPoint(center.X-.05f,y);var b=new TownPoint(center.X+.07f,y);
             Assert.That(area.Contains(a)&&area.Contains(b),Is.True);
             Assert.That(area.Contains(new TownPoint(center.X,y)),Is.False);

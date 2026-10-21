@@ -1,0 +1,108 @@
+{
+  "date": "2026-10-21",
+  "stage": "source follow-through after rejected native central review",
+  "previous_native_candidate": "b25658efd37c6fd4a2efed82b6586ea4e633dd73",
+  "previous_native_run": "20261021-202704-1d9ab213",
+  "previous_native_identity_verified": true,
+  "previous_native_tests_passed": 3,
+  "previous_native_decision": "rejected against formal Visual Lock",
+  "review_record": "References/Review/central-master-2026-10-21/native-review.json",
+  "new_source_candidate_native_reviewed": false,
+  "new_source_candidate_native_images": 0,
+  "central_accepted": false,
+  "walking": "new native walking assertions authored/compiled, not run",
+  "pure_tests": {
+    "total": "249",
+    "executed": "249",
+    "passed": "249",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "regression_evidence": [
+    "four new focal/growth/central-friend/lamp checks failed before implementation",
+    "initial full249 failed one existing square-to-bench passing check",
+    "removed obsolete rectangle after measured alpha base analysis; targeted9 then full249 passed"
+  ],
+  "reference_compile": {
+    "assemblies": 6,
+    "warnings": 0,
+    "errors": 0,
+    "not_native_execution": true
+  },
+  "source_constraints": {
+    "core_changed": false,
+    "original_art_or_existing_texture_changed": false,
+    "five_district_topology_changed": false,
+    "savedata_changed": false,
+    "merge_or_rewards_changed": false,
+    "other_districts_expanded": false
+  },
+  "final_review": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "limitations": "new native projection/occlusion/growth/controller run and Pixel remain unverified"
+  },
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "evidence_logs": {
+    "upload-native-identity.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/upload-native-identity.log",
+      "sha256": "0900e34ecaaa80b70bd20b1f4ef8fa7dbe62c1c85dcdc37b5c2f1cbba32abfc2"
+    },
+    "central-focus-red.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/central-focus-red.log",
+      "sha256": "66d4b9596f993d4a60066f8a5d484ef5ded95bf10d4023eba0e11a1d8ebe866e"
+    },
+    "central-focus-green.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/central-focus-green.log",
+      "sha256": "8116176dcc6c9c40022290be8eb2334c0a30107e0672eaae56014a542ba62e83"
+    },
+    "central-focus-full.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/central-focus-full.log",
+      "sha256": "7ad41d3e5e0931c0c3009813b9cf30be2ae90306233f8f074f953192b7b0ef01"
+    },
+    "central-focus-path-green.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/central-focus-path-green.log",
+      "sha256": "ec479d0c350755c46140ad5103b74417f41f1b27e7c6a9bf0b1e906ebb0f0f0c"
+    },
+    "central-focus-final.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/central-focus-final.log",
+      "sha256": "7c6ad37502b76bcdd8a88a5c8f7c5c03b2ccfcd86701048f501cb621207345f4"
+    },
+    "unity-reference-focus-final.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/unity-reference-focus-final.log",
+      "sha256": "1b58bc72cec1470f78d8c3331b40591137108a422090ab02fadb4d969cbbadee"
+    },
+    "approved-focus-final.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/approved-focus-final.log",
+      "sha256": "31a02baec52e8f3426ca1a673605cb4f119e9d9c0088ea1906829c1545e3c8bf"
+    },
+    "native-editor-focus-probe.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/native-editor-focus-probe.log",
+      "sha256": "907deb4c4bfb090d186721b684c1473a3364a2d0c6652c3034cce6614f7e1afd"
+    },
+    "frozen-focus-final.log": {
+      "path": "/workspace/acceptance/central-visual-lock-20261021/frozen-focus-final.log",
+      "sha256": "1e6aff7212cdca83749f66fd77812de063a25b7c0af965a4dcc6b53e3430166c"
+    }
+  },
+  "next_command": "powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File .\\scripts\\build-android.ps1 -CentralReview",
+  "native_editor_probe": {
+    "editor": "6000.6.4f1",
+    "exit_code": 198,
+    "reason": "No valid Unity Editor license found"
+  }
+}

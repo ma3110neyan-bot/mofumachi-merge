@@ -36,8 +36,8 @@ namespace Mofumachi.Tests
   [UnityTest] public IEnumerator ResidentsPassBehindAndInFrontOfTheSameFountainPixels()
   {
    yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var hero=life.Actors.Single(a=>a.Controlled);var foreground=life.GetComponentInChildren<TownFountainGraphic>();
-   Assert.That(life.World.Model.Area.Contains(new TownPoint(-.21f,.30f)),Is.True);Assert.That(life.World.Model.Area.Contains(new TownPoint(0,.02f)),Is.True);
-   life.World.Model.Restore(hero.CharacterId,new TownPoint(-.21f,.30f));life.World.ReturnToHero();life.AdvanceFrame(1f/30);
+   Assert.That(life.World.Model.Area.Contains(new TownPoint(-.30f,.30f)),Is.True);Assert.That(life.World.Model.Area.Contains(new TownPoint(0,.02f)),Is.True);
+   life.World.Model.Restore(hero.CharacterId,new TownPoint(-.30f,.30f));life.World.ReturnToHero();life.AdvanceFrame(1f/30);
    Assert.That(hero.transform.GetSiblingIndex(),Is.LessThan(foreground.transform.GetSiblingIndex()));
    life.World.Model.Restore(hero.CharacterId,new TownPoint(0,.02f));life.World.ReturnToHero();life.AdvanceFrame(1f/30);
    Assert.That(hero.transform.GetSiblingIndex(),Is.GreaterThan(foreground.transform.GetSiblingIndex()));Assert.That(foreground.raycastTarget,Is.False);LogAssert.NoUnexpectedReceived();

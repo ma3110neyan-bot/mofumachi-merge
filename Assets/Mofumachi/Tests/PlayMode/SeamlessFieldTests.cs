@@ -23,7 +23,7 @@ namespace Mofumachi.Tests
             Assert.That(landmarks.Select(p=>p.Placement.Kind),Is.EquivalentTo(new[]{TownSceneryKind.Cafe,TownSceneryKind.Florist,TownSceneryKind.QuestCottage,TownSceneryKind.Gazebo}));
             foreach(var landmark in landmarks)
             {var graphic=landmark.Rect.GetComponent<TownLandmarkGraphic>();Assert.That(graphic.mainTexture,Is.SameAs(Resources.Load<Texture2D>(TownSceneryLayout.LandmarkResource)));Assert.That(graphic.raycastTarget,Is.False);}
-            var fountain=life.GetComponentsInChildren<TownFountainGraphic>().Single();Assert.That(fountain.mainTexture,Is.SameAs(Resources.Load<Texture2D>(TownWorldMap.Resource)));Assert.That(fountain.raycastTarget,Is.False);
+            var fountain=life.GetComponentsInChildren<TownFountainGraphic>().Single();Assert.That(fountain.mainTexture,Is.SameAs(Resources.Load<Texture2D>(TownFountainGraphic.Resource)));Assert.That(fountain.raycastTarget,Is.False);
             Assert.That(Flow.GetComponentsInChildren<RawImage>(true).Any(i=>i.name=="Seamless town map"||i.texture==Resources.Load<Texture2D>(TownWorldMap.Resource)),Is.False,"The old map supplies only the small fountain silhouette");
             Assert.That(Flow.GetComponentsInChildren<Transform>().Any(t=>t.name.StartsWith("Continuous background")),Is.False);
             foreach(var district in TownDistrictLayout.All)

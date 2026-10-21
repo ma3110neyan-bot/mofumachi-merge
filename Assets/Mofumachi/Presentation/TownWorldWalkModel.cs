@@ -35,7 +35,7 @@ namespace Mofumachi.Presentation
         {
             if(!CharacterCatalog.IsKnown(favorite))throw new ArgumentException("Unknown resident",nameof(favorite));this.level=level;
             Area=SharedArea;navigation=SharedNavigation;int npc=0;
-            string[] starts={"west.flowers","west.bench-front","east.flowers","bench-left","front-promenade"};
+            string[] starts={"bench-right","west.bench-front","east.flowers","bench-left","front-promenade"};
             foreach(var c in CharacterCatalog.All)
             {
                 bool hero=c.Id==favorite;string place=hero?"square":starts[npc++];TownRegionCatalog.TryFindPlace(place,level,out var loc,out _);

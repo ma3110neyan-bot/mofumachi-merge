@@ -81,8 +81,8 @@ namespace Mofumachi.Presentation
             // Keep their foundations outside both broad fountain-side routes.
             Add(TownSceneryKind.ParkBench,TownDistrictId.Central,-.40f,.31f,.23f,0,.10f,.05f);
             Add(TownSceneryKind.ParkBench,TownDistrictId.Central,.40f,.31f,.23f,0,.10f,.05f);
-            Add(TownSceneryKind.StreetLamp,TownDistrictId.Central,-.47f,.35f,.05f,0,.025f,.025f);
-            Add(TownSceneryKind.StreetLamp,TownDistrictId.Central,.47f,.35f,.05f,0,.025f,.025f);
+            Add(TownSceneryKind.StreetLamp,TownDistrictId.Central,-.47f,.35f,.085f,0,.025f,.025f);
+            Add(TownSceneryKind.StreetLamp,TownDistrictId.Central,.47f,.35f,.085f,0,.025f,.025f);
             Add(TownSceneryKind.TreeGrove,TownDistrictId.Central,-.66f,.52f,.40f);
             Add(TownSceneryKind.TreeGrove,TownDistrictId.Central,.66f,.52f,.37f);
             Add(TownSceneryKind.FlowerBorder,TownDistrictId.Central,-.46f,-.08f,.24f,0,.13f,.04f);

@@ -8,7 +8,7 @@ namespace Mofumachi.Presentation
     {
         private static readonly TownPoint[][] polygons=BuildPolygons();
         private static readonly (TownPoint Center,float X,float Y)[] excluded={
-            (new TownPoint(0,.30f),.17f,.12f),
+            (new TownPoint(0,TownCentralMasterLayout.FountainCenterY),TownCentralMasterLayout.FountainRadiusX,TownCentralMasterLayout.FountainRadiusY),
             (new TownPoint(-1.2f,.4f),.29f,.31f),
             (new TownPoint(1.2f,.4f),.275f,.31f),
             (new TownPoint(0,2.4f),.24f,.26f),
@@ -38,7 +38,9 @@ namespace Mofumachi.Presentation
         private static readonly IReadOnlyList<TownPoint[]> frontBases=BuildFrontBases();
         private static IReadOnlyList<TownPoint[]> BuildFrontBases()
         {var result=new List<TownPoint[]>(new[]{
-            Box(-.15f,.18f,.15f,.30f),Box(-1.49f,.10f,-.91f,.34f),
+            // The new round fountain follows its ellipse. The old rectangular
+            // front-post blocker would put invisible corners across its path.
+            Box(-1.49f,.10f,-.91f,.34f),
             Box(.925f,.10f,1.475f,.34f),Box(-.24f,2.14f,.24f,2.36f),
             Box(-.25f,-1.90f,.25f,-1.68f),
             Box(-.18f,1.03f,-.13f,1.09f),Box(.13f,1.03f,.18f,1.09f),

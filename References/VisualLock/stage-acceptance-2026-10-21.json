@@ -6,7 +6,7 @@
     "walking": null,
     "reviewed_candidate": null,
     "native_image_count": 0,
-    "status": "central master production; no native render or acceptance yet",
+    "status": "Reworking central after actual Unity b25658e was rejected against the approved design; new candidate not natively reviewed",
     "review_directory": null,
     "central_input_fingerprint": null
   },
@@ -26,5 +26,16 @@
   "completed_after_central": [],
   "apk_generated": false,
   "pixel_verified": false,
-  "adopted": false
+  "adopted": false,
+  "last_review": {
+    "candidate": "b25658efd37c6fd4a2efed82b6586ea4e633dd73",
+    "run": "20261021-202704-1d9ab213",
+    "native_unity": true,
+    "native_image_count": 3,
+    "visual": false,
+    "town_density": false,
+    "walking": null,
+    "accepted": false,
+    "record": "References/Review/central-master-2026-10-21/native-review.json"
+  }
 }

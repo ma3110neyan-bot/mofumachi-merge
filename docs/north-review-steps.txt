@@ -20,6 +20,8 @@ east-florist-review.zip
 north-quest-review.zip
 
 表示用の比較画像は各ZIPに含む .jpg です。
+北はLv1／3／6をBefore／Candidate／Visual Lock参照の3列で提出します。
+Visual Lockは中央の承認デザイン参照で、北の実Unity画面とは区別します。
 成功時の予定：Unityテスト12件、画像21枚、Before比較12組。
 4ZIPの同じテストXMLを重複して数えません。
 
@@ -29,4 +31,5 @@ central-playmode.log
 
 旧版で -NorthReview が認識されない場合は、Pullの反映を確認してください。
 親PowerShellでbuildスクリプトをドットソースする必要はありません。
-北の実画面を確認してから南へ進みます。
+北の実画面を確認し、候補画像について承認をいただいてから南へ進みます。
+同様に南候補、5エリア統合候補でも承認を得てから次へ進みます。

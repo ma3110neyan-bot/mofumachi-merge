@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-22",
+  "base_revision": "f9ed0a8f9b8e834638053fcf0e49873e847b524a",
+  "scope": "Development quality freeze and three explicit user image checkpoints; no game feature/layout changes",
+  "central_west_east_quality_reference": "97aac99 / 20261022-193224-39bef67c / References/Review/east-florist-2026-10-22-accepted",
+  "formal_visual_lock_primary": true,
+  "render_input_fingerprint_unchanged": "ff5a1aa43497e966b4515e5fb41fd0ed2343ab4a1ee3ff4406eecfb31884ba86",
+  "game_assets_code_and_accepted_evidence_changed": false,
+  "protected_frozen_input_count": 153,
+  "approval_red_observed": "Old gate admitted all old stages without user image approval; expected rejection failed",
+  "approval_green": true,
+  "powershell_suites_passed": [
+    "android-tools",
+    "approved-design",
+    "central-review",
+    "pixel-visual-check",
+    "visual-lock",
+    "west-review",
+    "east-review",
+    "north-review"
+  ],
+  "coverage": [
+    "Five ordered town stages can reach QA preparation without Merge redesign only after three user approvals",
+    "Reject missing/false/non-user approvals, missing user reference, failed native or quality axes",
+    "Reject stale integrated input, changed evidence, duplicate district/Lv, substituted Visual Lock and renamed non-JPEG",
+    "North approval does not approve South/integration",
+    "Keep native exact capture/source/Before/export guards"
+  ],
+  "native_probe": {
+    "unity": "6000.6.4f1",
+    "exit_code": 198,
+    "reason": "No valid Unity Editor license",
+    "fresh": true
+  },
+  "north_jpeg_layout": "2160x4250 Before/Candidate/approved CENTRAL design reference; Lv1/3/6. Windows drawing not executed here.",
+  "north_native_tests_executed": 0,
+  "north_images_generated": 0,
+  "expected_next_native_tests": 12,
+  "expected_next_png": 21,
+  "return_zips": [
+    "central-master-review.zip",
+    "west-cafe-review.zip",
+    "east-florist-review.zip",
+    "north-quest-review.zip"
+  ],
+  "user_approvals": {
+    "north_quest": false,
+    "south_garden": false,
+    "five_area": false
+  },
+  "north": {
+    "designed": true,
+    "implemented": true,
+    "unity_verified": false,
+    "pixel_verified": false
+  },
+  "south": "Not started: requires North native result and explicit user image approval",
+  "apk_generated": false,
+  "pixel_verified": false,
+  "completed_product": false,
+  "next_action": "Licensed Windows: Pull feature, run child powershell RemoteSigned -File scripts/build-android.ps1 -NorthReview and provide same-run four ZIPs",
+  "self_review": "Checked bounded gate/layout-export diff. No independent review result claimed. Prior service limit prevented independent North source reviewer.",
+  "ai_next_candidates": "None this pass; focus on actual North quality gate",
+  "logs_sha256": {
+    "android-tools-tests.log": "06969e814e35d005fc97116cf26246bef192c129354670e496ebad8323875944",
+    "approval-green.log": "31a02baec52e8f3426ca1a673605cb4f119e9d9c0088ea1906829c1545e3c8bf",
+    "approval-red.log": "fe36f3933e5212198c96a3b94012374ebab99bcd3f8e8bbfc715836189438aa6",
+    "approved-design-tests.log": "31a02baec52e8f3426ca1a673605cb4f119e9d9c0088ea1906829c1545e3c8bf",
+    "central-review-tests.log": "f7c476226c565c2ab5e0c4d07aab225daa185c0d2ea97dafe81874af4d188e96",
+    "east-review-tests.log": "7c4826c398cab910f8f4caa4d88a53976e0a8d1a5ca1f9ccdcc82b2e6821f1e5",
+    "north-review-tests.log": "d146035c7c8dc9f6f3cc942681cff47023d1dd5fb2940d7867f08e1dfb9b205c",
+    "pixel-visual-check-tests.log": "1c280dd589e229d4cce103bab61bb0ee699ae04cba3a1fb24cfe9038c67b1de1",
+    "real-gates.log": "7d47cf20245cc39478ae8bab52f8c64aa78399860f8b52aeb5b2d4dda457a9ff",
+    "visual-lock-tests.log": "33834cf56fcb8a436f1a38bc7837b30d3d5f989b2200fca4269b7942cb6a31f0",
+    "west-review-tests.log": "b46b53a9f7e8beeef9fc9df82e18c365d70b78e4f3d8ebc520a5800fbdecc0c0"
+  }
+}

@@ -21,12 +21,14 @@
     }
   },
   "remaining_sequence": [
-    "north_quest",
+    "north_native_review",
+    "north_user_approval",
     "south_garden",
+    "south_native_review",
+    "south_user_approval",
+    "five_area_integration",
     "connections",
-    "merge_visual_lock",
-    "ui",
-    "basic_loop",
+    "five_area_user_approval",
     "full_native_suite",
     "qa_apk",
     "pixel_acceptance"
@@ -204,5 +206,96 @@
     "native_image_count": 0,
     "status": "Implemented; native comparison and Pixel unverified",
     "prerequisite_review": "References/Review/east-florist-2026-10-22-accepted/native-review.json"
-  }
+  },
+  "quality_reference": {
+    "policy": "2026-10-22 user quality freeze and five-area completion directive",
+    "scope": "Central/West/East accepted Candidate quality floor; not acceptance of new North/shared inputs",
+    "record": "References/Review/east-florist-2026-10-22-accepted/native-review.json",
+    "record_sha256": "60823c7e73a70f7ca7230bcfc2e02e596962b92a59311c816ddfe182d0851260",
+    "revision": "97aac99713859e721e103371f27f12fa541b778e",
+    "run": "20261022-193224-39bef67c",
+    "formal_visual_lock_still_primary": true,
+    "user_direction_approved": true,
+    "dimensions_to_preserve": [
+      "density",
+      "flowers",
+      "trees",
+      "benches",
+      "lamps",
+      "buildings",
+      "paving",
+      "walkable_space",
+      "hud_amount",
+      "palette",
+      "character_scale"
+    ]
+  },
+  "user_review_checkpoints": {
+    "north_quest": {
+      "user_approved": false,
+      "approved_by": null,
+      "approval_reference": null,
+      "native_unity": false,
+      "reviewed_candidate": null,
+      "input_fingerprint": null,
+      "approved_visual_lock_sha256": null,
+      "images": [],
+      "quality": {
+        "density": null,
+        "cuteness": null,
+        "walkability": null,
+        "ui_readability": null,
+        "level_difference": null,
+        "world": null,
+        "characters": null
+      },
+      "status": "North native capture and explicit user approval pending"
+    },
+    "south_garden": {
+      "user_approved": false,
+      "approved_by": null,
+      "approval_reference": null,
+      "native_unity": false,
+      "reviewed_candidate": null,
+      "input_fingerprint": null,
+      "approved_visual_lock_sha256": null,
+      "images": [],
+      "quality": {
+        "density": null,
+        "cuteness": null,
+        "walkability": null,
+        "ui_readability": null,
+        "level_difference": null,
+        "world": null,
+        "characters": null
+      },
+      "status": "Not started; requires previous checkpoint approval"
+    },
+    "five_area": {
+      "user_approved": false,
+      "approved_by": null,
+      "approval_reference": null,
+      "native_unity": false,
+      "reviewed_candidate": null,
+      "input_fingerprint": null,
+      "approved_visual_lock_sha256": null,
+      "images": [],
+      "quality": {
+        "density": null,
+        "cuteness": null,
+        "walkability": null,
+        "ui_readability": null,
+        "level_difference": null,
+        "world": null,
+        "characters": null
+      },
+      "status": "Not started; requires previous checkpoint approval"
+    }
+  },
+  "deferred_until_five_area_acceptance": [
+    "character_2_5d",
+    "merge_finish",
+    "daily_enhancements",
+    "release_preparation"
+  ]
 }

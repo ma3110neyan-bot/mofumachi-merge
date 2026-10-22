@@ -26,30 +26,35 @@ function Assert-NorthCaptureIdentity($Info,$Manifest,[string]$Directory) {
 }
 function Write-NorthComparisonJpeg([string]$Directory) {
     Add-Type -AssemblyName System.Drawing
-    $Bitmap=New-Object Drawing.Bitmap 1440,4250
+    $Bitmap=New-Object Drawing.Bitmap 2160,4250
     $Graphics=[Drawing.Graphics]::FromImage($Bitmap)
     $Font=New-Object Drawing.Font 'Arial',26
     $Small=New-Object Drawing.Font 'Arial',20
     $Brush=New-Object Drawing.SolidBrush ([Drawing.Color]::FromArgb(80,47,57))
+    $Lock=[Drawing.Image]::FromFile((Join-Path $Directory 'approved-design.png'))
     try {
         $Graphics.Clear([Drawing.Color]::FromArgb(255,247,239))
-        $Graphics.DrawString('NORTH QUEST COTTAGE / NATIVE CANDIDATE / NOT ACCEPTED / PIXEL PENDING',$Font,$Brush,16,12)
+        $Graphics.DrawString('NORTH QUEST COTTAGE / NATIVE CANDIDATE / USER APPROVAL AND PIXEL PENDING',$Font,$Brush,16,12)
         for($Row=0;$Row -lt 3;$Row++) {
             $Level=@(1,3,6)[$Row];$Y=80+$Row*1380
             $Graphics.DrawString("Before / Unity Lv.$Level",$Font,$Brush,16,$Y)
             $Graphics.DrawString("Candidate / Unity Lv.$Level",$Font,$Brush,736,$Y)
+            $Graphics.DrawString('Visual Lock / central design',$Font,$Brush,1456,$Y)
             $Name="04-town-lv$Level-North.png"
             foreach($Column in @(0,1)) {
                 $Path=if($Column -eq 0){Join-Path $Directory ('before-'+$Name)}else{Join-Path (Join-Path $Directory 'screenshots') $Name}
                 $Image=[Drawing.Image]::FromFile($Path)
                 try{$Graphics.DrawImage($Image,[Drawing.Rectangle]::new($Column*720,$Y+48,720,1280))}finally{$Image.Dispose()}
             }
+            # This immutable central design is a quality reference for North,
+            # never represented as a native North screenshot.
+            $Graphics.DrawImage($Lock,[Drawing.Rectangle]::new(1440,$Y+48,720,1280),[Drawing.Rectangle]::new(27,146,572,1042),[Drawing.GraphicsUnit]::Pixel)
         }
-        $Graphics.DrawString('Original PNGs and separate approved design included. Walking frames have no Before pairing.',$Small,$Brush,16,4220)
+        $Graphics.DrawString('Visual Lock is CENTRAL DESIGN, not a North render. Original PNGs included. Walking frames have no Before pairing.',$Small,$Brush,16,4220)
         $Encoder=[Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object {$_.MimeType -eq 'image/jpeg'}
         $Parameters=New-Object Drawing.Imaging.EncoderParameters 1
         try{$Parameters.Param[0]=[Drawing.Imaging.EncoderParameter]::new([Drawing.Imaging.Encoder]::Quality,[long]92);$Bitmap.Save((Join-Path $Directory 'north-before-candidate.jpg'),$Encoder,$Parameters)}finally{$Parameters.Dispose()}
-    } finally {$Brush.Dispose();$Small.Dispose();$Font.Dispose();$Graphics.Dispose();$Bitmap.Dispose()}
+    } finally {$Lock.Dispose();$Brush.Dispose();$Small.Dispose();$Font.Dispose();$Graphics.Dispose();$Bitmap.Dispose()}
 }
 function Write-NorthReview([string]$RepositoryPath,[string]$RunDirectory) {
     $CentralInfo=Assert-CentralReviewEvidence $RepositoryPath $RunDirectory

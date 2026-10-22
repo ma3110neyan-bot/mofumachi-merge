@@ -89,14 +89,52 @@ function Assert-CentralStageApproved([string]$RepositoryPath) {
     $Info=Assert-CentralReviewEvidence $RepositoryPath (Join-Path $RepositoryPath $Relative)
     if($Stage.reviewed_candidate -ne $Info.gitRevision -or $Stage.central_input_fingerprint -ne $Info.centralInputFingerprint){throw 'Central acceptance is for a different candidate or input digest.'}
 }
+function Assert-TownCheckpointApproved([string]$RepositoryPath,[string]$Checkpoint) {
+    $Order=@('north_quest','south_garden','five_area')
+    if($Checkpoint -notin $Order){throw 'Unknown town image approval checkpoint.'}
+    Assert-ApprovedVisualLock $RepositoryPath
+    $Stages=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/stage-acceptance-2026-10-21.json') -Raw | ConvertFrom-Json
+    $Checkpoints=$Stages.PSObject.Properties['user_review_checkpoints']
+    if(-not $Checkpoints){throw 'Town progress blocked: north, south and integrated town require explicit user image approval.'}
+    $Lock=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/approved-design-2026-10-21.json') -Raw | ConvertFrom-Json
+    $ReferenceHash=(Get-FileHash -LiteralPath (Join-Path $RepositoryPath $Lock.reference) -Algorithm SHA256).Hash.ToLowerInvariant()
+    foreach($Name in $Order) {
+        $Property=$Checkpoints.Value.PSObject.Properties[$Name]
+        if(-not $Property){throw "Missing user image checkpoint: $Name"}
+        $Approval=$Property.Value
+        if($Approval.user_approved -isnot [bool] -or $Approval.user_approved -ne $true -or $Approval.approved_by -ne 'user' -or [string]::IsNullOrWhiteSpace([string]$Approval.approval_reference)){throw "Town progress blocked: explicit user image approval missing for $Name."}
+        if($Approval.native_unity -isnot [bool] -or $Approval.native_unity -ne $true -or $Approval.reviewed_candidate -notmatch '^[a-fA-F0-9]{40}$' -or $Approval.input_fingerprint -notmatch '^[a-fA-F0-9]{64}$' -or $Approval.approved_visual_lock_sha256 -ne $ReferenceHash){throw "Town checkpoint has no source-bound native/Visual Lock review: $Name"}
+        foreach($Axis in @('density','cuteness','walkability','ui_readability','level_difference','world','characters')) {
+            if($Approval.quality.$Axis -isnot [bool] -or $Approval.quality.$Axis -ne $true){throw "Town quality regressed or unreviewed: $Name/$Axis"}
+        }
+        $Districts=if($Name -eq 'north_quest'){@('North')}elseif($Name -eq 'south_garden'){@('South')}else{@('Central','West','East','North','South')}
+        if(@($Approval.images).Count -ne $Districts.Count*3){throw "Town checkpoint needs Lv1/3/6 images for every district: $Name"}
+        foreach($District in $Districts){foreach($Level in @(1,3,6)) {
+            $Images=@($Approval.images | Where-Object {$_.district -eq $District -and $_.level -eq $Level})
+            if($Images.Count -ne 1){throw "Missing or duplicate town image: $Name/$District/Lv$Level"}
+            $Image=$Images[0];$Relative=[string]$Image.file
+            if(-not $Relative -or [IO.Path]::IsPathRooted($Relative) -or $Relative -match '(^|[/\\])\.\.([/\\]|$)' -or $Relative.Contains(':') -or $Relative -notmatch '(?i)\.jpg$'){throw 'Town approval must reference repository-relative JPEG files.'}
+            $Path=Join-Path $RepositoryPath $Relative
+            if(-not(Test-Path -LiteralPath $Path -PathType Leaf) -or $Image.sha256 -notmatch '^[a-fA-F0-9]{64}$' -or (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash -ne $Image.sha256){throw "Reviewed town JPEG missing or changed: $Relative"}
+            $Bytes=[IO.File]::ReadAllBytes($Path)
+            if($Bytes.Length -lt 4 -or $Bytes[0] -ne 255 -or $Bytes[1] -ne 216 -or $Bytes[-2] -ne 255 -or $Bytes[-1] -ne 217){throw "Reviewed town file is not a JPEG: $Relative"}
+        }}
+        # Earlier approvals prove sequence, while the integrated approval must
+        # match current inputs. Neither metadata nor JPEG signatures replaces
+        # actual native image review and the user's explicit approval.
+        if($Name -eq 'five_area' -and $Approval.input_fingerprint -ne (Get-CentralInputFingerprint $RepositoryPath)){throw 'Integrated town approval is for stale rendering inputs.'}
+        if($Name -eq $Checkpoint){return}
+    }
+}
 function Assert-BaseStagesReadyForAcceptance([string]$RepositoryPath) {
     Assert-CentralStageApproved $RepositoryPath
     $Stages=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/stage-acceptance-2026-10-21.json') -Raw | ConvertFrom-Json
-    $Required=@('west_cafe','east_florist_shop','north_quest','south_garden','connections','merge_visual_lock','ui','basic_loop')
+    $Required=@('west_cafe','east_florist_shop','north_quest','south_garden','connections')
     $Completed=@($Stages.completed_after_central)
-    if($Completed.Count -lt $Required.Count){throw 'QA APK blocked: central alone is insufficient. Finish west/east/north/south/connections/Merge/UI/basic-loop in order.'}
+    if($Completed.Count -lt $Required.Count){throw 'QA APK blocked: finish west/east/north/south/connections in order, with user image approvals.'}
     for($Index=0;$Index -lt $Required.Count;$Index++) {
         if($Completed[$Index] -ne $Required[$Index]){throw "QA APK blocked: expected stage $($Required[$Index]) at position $Index."}
     }
+    Assert-TownCheckpointApproved $RepositoryPath 'five_area'
     # The build then runs the full native suite before producing this same APK.
 }

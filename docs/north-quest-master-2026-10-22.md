@@ -1,5 +1,7 @@
 # 北の依頼小屋 — 実装済み・Unity実画面／Pixel未確認
 
+最上位手順は [5エリア品質固定と画像承認](town-quality-checkpoints-2026-10-22.md)。中央・西・東Candidateを維持し、北候補→南候補→5地区統合候補の各段階で画像に対するユーザー承認を得てから次へ進む。北の実Unity結果もまだ未取得。
+
 中央・西・東の修正版97aac99／20261022-193224-39bef67cはUnity工程を通過し、フィオの名前もLv1／3／6すべてで読めることを確認した。原本と判定は `References/Review/east-florist-2026-10-22-accepted/native-review.json` に保存。今回の北はその後の共有描画／歩行入力を変更するため、前版の合格を新版へ引き継がない。
 
 ## 実装した範囲
@@ -40,9 +42,9 @@ powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\build-a
 - `east-florist-review.zip`
 - `north-quest-review.zip`
 
-比較資料は各ZIP内のJPEG（`.jpg`）。チャットへ画像を貼る必要はない。各ZIPは32MiB以下を検査する。採用JSONのfalse／nullは撮影時の未採用原本として保持し、実画面確認後の判定を別に保存する。同じXMLが4ZIPにあるだけなので、12件を48件とは数えない。
+比較資料は各ZIP内のJPEG（`.jpg`）。北はLv1／3／6を、Before／Candidate／中央のVisual Lockデザイン参照の3列で示す。参照は北の実Unity画面ではない。チャットへ画像を貼る必要はない。各ZIPは32MiB以下を検査する。採用JSONのfalse／nullは撮影時の未採用原本として保持し、実画面確認後の判定を別に保存する。同じXMLが4ZIPにあるだけなので、12件を48件とは数えない。
 
-失敗時は当該runの `central-playmode.xml` と `central-playmode.log` を送付する。北を含む同じ12件の結果だが、互換性のためファイル名は従来どおり。**APKは生成しない。** 北の新実画面を確認するまでは南へ進めない。
+失敗時は当該runの `central-playmode.xml` と `central-playmode.log` を送付する。北を含む同じ12件の結果だが、互換性のためファイル名は従来どおり。**APKは生成しない。** 北の新実画面の確認と、北候補画像へのユーザー承認の両方が揃うまでは南へ進めない。
 
 ## 未解決と次の候補
 

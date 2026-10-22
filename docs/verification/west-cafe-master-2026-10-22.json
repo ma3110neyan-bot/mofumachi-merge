@@ -1,9 +1,9 @@
 {
   "date": "2026-10-22",
   "base_revision": "01fa9824d28f63bb8dbc4913135c9921b26b82f0",
-  "scope": "west arrival fix native run failed at level-dependent test setup; test-only central-start correction",
-  "status": "test setup corrected; native six-case rerun and images pending",
-  "central_current_native_verified": false,
+  "scope": "475671f actual native central/west acceptance evidence",
+  "status": "Central and west native Unity checkpoint passed; base/APK/Pixel pending",
+  "central_current_native_verified": true,
   "west_design_unchanged": true,
   "pixel_verified": false,
   "apk_generated": false,
@@ -33,7 +33,7 @@
   "native_expected_tests": 6,
   "native_tests_executed_here": 0,
   "native_expected_png": 9,
-  "actual_current_source_native_png": 0,
+  "actual_current_source_native_png": 9,
   "source_review": {
     "critical": 0,
     "important": 0,
@@ -49,7 +49,6 @@
     "Review level-up pace and decoration longevity",
     "Separate page explaining growth changes, later"
   ],
-  "next_command": "powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File .\\scripts\\build-android.ps1 -WestReview",
   "evidence_logs": {
     "west-red.log": {
       "sha256": "75bcaf33542416c4dacb2920ea8e735cb64667862681d73eab1faa2fc0254908"
@@ -155,18 +154,44 @@
     },
     "cafe-setup-green.log": {
       "sha256": "4f135b67d429d761474c4dbc2f1fccbae96e5d9dbb50f96a469a648f86978a7b"
+    },
+    "accepted-identity-check.log": {
+      "sha256": "0ad2317dec0d04f4fc11285f68b6362585ccb5cd72e9fe03afb78c3ef4e77196"
+    },
+    "accepted-pixel-visual-check.tests.log": {
+      "sha256": "1c280dd589e229d4cce103bab61bb0ee699ae04cba3a1fb24cfe9038c67b1de1"
+    },
+    "accepted-approved-design.tests.log": {
+      "sha256": "31a02baec52e8f3426ca1a673605cb4f119e9d9c0088ea1906829c1545e3c8bf"
+    },
+    "accepted-visual-lock.tests.log": {
+      "sha256": "9364844c1693c2843d1efbd908b6af5ad160d40eaaa9036d398d648c414533a8"
+    },
+    "accepted-central-review.tests.log": {
+      "sha256": "f7c476226c565c2ab5e0c4d07aab225daa185c0d2ea97dafe81874af4d188e96"
+    },
+    "accepted-android-tools.tests.log": {
+      "sha256": "83e86190313b035fcf0cb01071a57855ed64fc0ab96a4a7d3ed2d8a07338e1b2"
+    },
+    "accepted-stage-gates.log": {
+      "sha256": "5527eb6bf4c6b7ef370c9b7111971fbd5d0d54f3679435314ea507a9745a4ece"
+    },
+    "accepted-west-review.tests.log": {
+      "sha256": "6df4e65eb93ba3e0e957dcbbefa47a15f799038f72fe520a8a8affd3e3b229ad"
     }
   },
   "reference_compile_warnings": 0,
   "reference_compile_errors": 0,
   "received_native": {
-    "source": "01fa9824d28f63bb8dbc4913135c9921b26b82f0",
-    "tests_passed": 5,
+    "source": "475671f9657943f8b5711bf0350714f5a1ff9433",
+    "run": "20261022-182106-d5e104a3",
+    "tests_passed": 6,
     "images": 9,
-    "record": "References/Review/west-cafe-2026-10-22/native-review.json",
+    "record": "References/Review/west-cafe-2026-10-22-accepted/native-review.json",
     "central_stage_passed": true,
     "west_static_passed": true,
-    "west_arrival_held": true
+    "west_arrival_held": false,
+    "west_stage_passed": true
   },
   "fix_verification": {
     "pure_policy_red": 2,
@@ -175,7 +200,8 @@
     "asmdef_compile": 6,
     "powershell_suites": 6,
     "native_journey_test_added": "CafeDoorStaysReadableDuringTravelAndWaitsForTheSecondTap: Lv1 and Lv3, click-handler route/arrival wait/second tap/interior",
-    "native_fix_tests_executed_here": 0
+    "native_fix_tests_executed_here": 0,
+    "native_fix_tests_received": 6
   },
   "latest_native_failed_run": {
     "run": "20261022-140307-5a764ae6",
@@ -186,11 +212,30 @@
     "test_setup_corrected": true,
     "production_behavior_changed": false,
     "gate_weakened": false,
-    "current_native_recheck_pending": true
+    "current_native_recheck_pending": false,
+    "status": "Historical; corrected setup now passes native run20261022-182106-d5e104a3"
   },
   "test_setup_diagnostic": {
     "red_exit": 1,
     "green_exit": 0,
     "scope": "actual pure model/entry policy; not Unity execution"
+  },
+  "current_native_unity_verified": true,
+  "actual_image_review": {
+    "central": "PASS",
+    "west": "PASS",
+    "critical": 0,
+    "important": 0,
+    "minor": 3
+  },
+  "next_stage": "east_florist_shop",
+  "reviewed_revision": "475671f9657943f8b5711bf0350714f5a1ff9433",
+  "native_tests_received_from_windows": 6,
+  "powershell_suites_after_stage_update": 6,
+  "stage_checks": {
+    "central_passes_current_input_gate": true,
+    "west_native_checkpoint_passed": true,
+    "whole_base_qa_apk_still_blocked": true,
+    "pixel_verified": false
   }
 }

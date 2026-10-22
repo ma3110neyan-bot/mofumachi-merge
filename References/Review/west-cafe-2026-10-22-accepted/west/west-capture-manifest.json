@@ -1,0 +1,39 @@
+﻿{
+    "gitRevision":  "475671f9657943f8b5711bf0350714f5a1ff9433",
+    "productFingerprint":  "92fcf752cfee1834047cda0f4b4bb412f5aa78948c46244e8ea55010f840bf38",
+    "centralInputFingerprint":  "226dfeb13fb871c92bba025e37fc4a30fdbce029c1a51d02642ef34e55ddca17",
+    "width":  720,
+    "height":  1280,
+    "images":  [
+                   {
+                       "file":  "04-town-lv1-West.png",
+                       "bytes":  1754104,
+                       "sha256":  "280eb3bb35091c77569dd947e86484a62d81c6cecd56e2a6144a6805c81fcf0c"
+                   },
+                   {
+                       "file":  "04-town-lv3-West.png",
+                       "bytes":  1756078,
+                       "sha256":  "34ad13bff8e84c1208a6329306578c3f191038f1d7e78ca2b7976853915bd3ca"
+                   },
+                   {
+                       "file":  "04-town-lv6-West.png",
+                       "bytes":  1766708,
+                       "sha256":  "ce8a60f6493df7730b36b58980cc4e232d491ee4c527f24387f331e51748c74a"
+                   },
+                   {
+                       "file":  "west-connection.png",
+                       "bytes":  1816086,
+                       "sha256":  "1d022aeff95a7a35815ce18aa41c4626e1653de65f42dce7235567941f1d461d"
+                   },
+                   {
+                       "file":  "west-walking.png",
+                       "bytes":  1863386,
+                       "sha256":  "9766cbb268007c5e998cd8f40d38098aa92315b7a3173087b64d44d70ef1b3ad"
+                   },
+                   {
+                       "file":  "west-door-arrived.png",
+                       "bytes":  1573157,
+                       "sha256":  "c4162913be5223d0ab77bdf712f4452356b00de68a43f13179e3beb7d3abf8ea"
+                   }
+               ]
+}

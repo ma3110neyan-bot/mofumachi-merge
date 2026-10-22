@@ -1,0 +1,137 @@
+{
+  "reviewed_revision": "475671f9657943f8b5711bf0350714f5a1ff9433",
+  "run": "20261022-182106-d5e104a3",
+  "upload_files": [
+    {
+      "file_id": "file_00000000d97c82099c2542d7ac16de33",
+      "zip_sha256": "552691abff52f2d774162ab10f712261bc9f7486a6e92a04d196935ca2f8d067"
+    },
+    {
+      "file_id": "file_00000000ecd8820989efb2e681a39ae5",
+      "zip_sha256": "332f22659d6033807b23343b561957b7f5976bdf40ccc8021e2a093af1cde993"
+    }
+  ],
+  "productFingerprint": "92fcf752cfee1834047cda0f4b4bb412f5aa78948c46244e8ea55010f840bf38",
+  "centralInputFingerprint": "226dfeb13fb871c92bba025e37fc4a30fdbce029c1a51d02642ef34e55ddca17",
+  "identity_verified": true,
+  "native_tests": {
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "skipped": 0,
+    "scope": "one run duplicated in two archives; six tests total, not twelve"
+  },
+  "images": [
+    {
+      "file": "central/screenshots/04-town-lv1-Central.png",
+      "sha256": "a8a6b1975e6f4bfa66c545e3822a8def445b14915d6fc1d9ca7bd3e2421d7092",
+      "bytes": 1815536
+    },
+    {
+      "file": "central/screenshots/04-town-lv3-Central.png",
+      "sha256": "a2892fa1d7fb75407b790157b0c07152e5a23384e623eedfec0dcca29e435f1c",
+      "bytes": 1829963
+    },
+    {
+      "file": "central/screenshots/04-town-lv6-Central.png",
+      "sha256": "ba7b6e78124fd990a8fc62b7271c62adde9255910a186b3dc9d4dd7f88712055",
+      "bytes": 1835600
+    },
+    {
+      "file": "west/screenshots/04-town-lv1-West.png",
+      "sha256": "280eb3bb35091c77569dd947e86484a62d81c6cecd56e2a6144a6805c81fcf0c",
+      "bytes": 1754104
+    },
+    {
+      "file": "west/screenshots/04-town-lv3-West.png",
+      "sha256": "34ad13bff8e84c1208a6329306578c3f191038f1d7e78ca2b7976853915bd3ca",
+      "bytes": 1756078
+    },
+    {
+      "file": "west/screenshots/04-town-lv6-West.png",
+      "sha256": "ce8a60f6493df7730b36b58980cc4e232d491ee4c527f24387f331e51748c74a",
+      "bytes": 1766708
+    },
+    {
+      "file": "west/screenshots/west-connection.png",
+      "sha256": "1d022aeff95a7a35815ce18aa41c4626e1653de65f42dce7235567941f1d461d",
+      "bytes": 1816086
+    },
+    {
+      "file": "west/screenshots/west-walking.png",
+      "sha256": "9766cbb268007c5e998cd8f40d38098aa92315b7a3173087b64d44d70ef1b3ad",
+      "bytes": 1863386
+    },
+    {
+      "file": "west/screenshots/west-door-arrived.png",
+      "sha256": "c4162913be5223d0ab77bdf712f4452356b00de68a43f13179e3beb7d3abf8ea",
+      "bytes": 1573157
+    }
+  ],
+  "central": {
+    "native_unity": true,
+    "visual": true,
+    "town_density": true,
+    "walking": true,
+    "unity_stage_accepted": true
+  },
+  "west": {
+    "native_unity": true,
+    "visual": true,
+    "town_density": true,
+    "walking": true,
+    "arrival_readability": true,
+    "deliberate_second_tap_and_cafe_view": true,
+    "unity_stage_accepted": true
+  },
+  "comparison_jpegs": {
+    "central": {
+      "file": "central/central-before-lock-candidate.jpg",
+      "sha256": "d22f86e7074c17630ceb7315ad673daf2316d47a7c1d823f6dbd45be1bf51d21"
+    },
+    "west": {
+      "file": "west/west-before-candidate.jpg",
+      "sha256": "0c21c41c869a0c7f0b9f8231339e660c22ee39440b2c4dfc71980e33bc0e89d1"
+    }
+  },
+  "reviewer": "west_native_acceptance_475671f: independent actual-image review of all9, references and all9 preserved comparables; root validates identities, behaviors, stage scope",
+  "decision": "Central and west PASS for the bounded native Unity checkpoint. Walking/door captures no longer contain obstructing automatic dialogue; cafe facade and current entry cue remain readable. No Critical/Important findings. This does not adopt the whole base or verify Pixel.",
+  "improvements": [
+    "Central fountain, landscape density, seating and lights retained",
+    "West facade visible without permanent sign hiding blue awning",
+    "Walking/arrival scene no longer obscured by automatic dialogue",
+    "Arrival cue tells player to tap the door; Lv1/3 click-handler route, silent waiting, second tap and cafe view pass native tests"
+  ],
+  "minor_deferred": [
+    {
+      "item": "Foreground flowers substantially obscure Momo in west-connection.png; still does not establish a blocked route",
+      "stage": "connections",
+      "severity": "Minor"
+    },
+    {
+      "item": "West paving is visibly repetitive",
+      "stage": "connections/material consistency review",
+      "severity": "Minor"
+    },
+    {
+      "item": "Contextual arrival cue overlaps part of blue awning, while doorway remains readable",
+      "stage": "ui",
+      "severity": "Minor"
+    }
+  ],
+  "deferred_user_feedback": [
+    "Lv1/Lv6 differentiation",
+    "Growth pace and decoration longevity",
+    "Separate explanation page later"
+  ],
+  "not_verified": [
+    "Pixel3a touch and device performance/memory/FPS",
+    "Continuous movement and camera tracking quality",
+    "East/north/south/joins/Merge/UI/basic-loop whole-game native pass",
+    "QA APK and final Pixel acceptance"
+  ],
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "next_stage": "east_florist_shop; preserve pre-design-preview requirement; no new-feature expansion"
+}

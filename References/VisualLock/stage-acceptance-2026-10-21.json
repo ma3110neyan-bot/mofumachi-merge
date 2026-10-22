@@ -1,17 +1,16 @@
 {
   "central": {
-    "native_unity": false,
-    "visual": null,
-    "town_density": null,
-    "walking": null,
-    "reviewed_candidate": null,
-    "native_image_count": 0,
-    "status": "Received 01fa982 central passed actual-image review. Subsequent dialogue/cafe-caption fix changes shared inputs; current source requires a new central recheck with west.",
-    "review_directory": null,
-    "central_input_fingerprint": null
+    "native_unity": true,
+    "visual": true,
+    "town_density": true,
+    "walking": true,
+    "reviewed_candidate": "475671f9657943f8b5711bf0350714f5a1ff9433",
+    "native_image_count": 3,
+    "status": "475671f native actual-image/density/controller checkpoint passed; Pixel and base acceptance pending",
+    "review_directory": "References/Review/west-cafe-2026-10-22-accepted/central",
+    "central_input_fingerprint": "226dfeb13fb871c92bba025e37fc4a30fdbce029c1a51d02642ef34e55ddca17"
   },
   "remaining_sequence": [
-    "west_cafe",
     "east_florist_shop",
     "north_quest",
     "south_garden",
@@ -23,13 +22,15 @@
     "qa_apk",
     "pixel_acceptance"
   ],
-  "completed_after_central": [],
+  "completed_after_central": [
+    "west_cafe"
+  ],
   "apk_generated": false,
   "pixel_verified": false,
   "adopted": false,
   "last_review": {
-    "candidate": "01fa9824d28f63bb8dbc4913135c9921b26b82f0",
-    "run": "20261022-133501-349b7828",
+    "candidate": "475671f9657943f8b5711bf0350714f5a1ff9433",
+    "run": "20261022-182106-d5e104a3",
     "native_unity": true,
     "native_image_count": 3,
     "visual": true,
@@ -38,7 +39,7 @@
     "central_unity_stage_accepted": true,
     "pixel_verified": false,
     "adopted": false,
-    "record": "References/Review/west-cafe-2026-10-22/native-review.json"
+    "record": "References/Review/west-cafe-2026-10-22-accepted/native-review.json"
   },
   "previous_review": {
     "candidate": "2fcab4af03b6953bdd2a0108af954da68d1d67af",
@@ -54,12 +55,19 @@
   "west": {
     "design_direction_approved": true,
     "implemented": true,
-    "native_unity": false,
-    "visual": null,
-    "town_density": null,
-    "walking": null,
-    "status": "Arrival-fix native run20261022-140307-5a764ae6:5passed/1failed at incorrect second-level starting-position assumption. Test-only central-start correction implemented; native6 rerun/actual images pending. No east/APK/Pixel.",
-    "last_review": {
+    "native_unity": true,
+    "visual": true,
+    "town_density": true,
+    "walking": true,
+    "status": "475671f native images/density/route/arrival cue and second-tap cafe-view checkpoint passed. Minor visibility/paving/caption issues deferred to joins/UI. Not Pixel/base acceptance.",
+    "arrival_readability": true,
+    "deliberate_second_tap": true,
+    "unity_stage_accepted": true,
+    "reviewed_candidate": "475671f9657943f8b5711bf0350714f5a1ff9433",
+    "native_image_count": 6,
+    "review_directory": "References/Review/west-cafe-2026-10-22-accepted/west",
+    "central_input_fingerprint": "226dfeb13fb871c92bba025e37fc4a30fdbce029c1a51d02642ef34e55ddca17",
+    "previous_review": {
       "candidate": "01fa9824d28f63bb8dbc4913135c9921b26b82f0",
       "run": "20261022-133501-349b7828",
       "native_unity": true,
@@ -70,6 +78,18 @@
       "arrival_readability": false,
       "unity_stage_accepted": false,
       "record": "References/Review/west-cafe-2026-10-22/native-review.json"
+    },
+    "last_review": {
+      "candidate": "475671f9657943f8b5711bf0350714f5a1ff9433",
+      "run": "20261022-182106-d5e104a3",
+      "native_unity": true,
+      "native_image_count": 6,
+      "visual": true,
+      "town_density": true,
+      "walking": true,
+      "arrival_readability": true,
+      "unity_stage_accepted": true,
+      "record": "References/Review/west-cafe-2026-10-22-accepted/native-review.json"
     }
   },
   "historical_central_reviews": [
@@ -85,6 +105,20 @@
       "pixel_verified": false,
       "adopted": false,
       "record": "References/Review/central-master-2026-10-22/native-review.json"
+    },
+    {
+      "candidate": "01fa9824d28f63bb8dbc4913135c9921b26b82f0",
+      "run": "20261022-133501-349b7828",
+      "native_unity": true,
+      "native_image_count": 3,
+      "visual": true,
+      "town_density": true,
+      "walking": true,
+      "central_unity_stage_accepted": true,
+      "pixel_verified": false,
+      "adopted": false,
+      "record": "References/Review/west-cafe-2026-10-22/native-review.json"
     }
-  ]
+  ],
+  "current_stage": "east_florist_shop"
 }

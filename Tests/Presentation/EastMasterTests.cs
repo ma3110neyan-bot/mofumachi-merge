@@ -45,6 +45,31 @@ namespace Mofumachi.Tests
             foreach(var p in Pieces().Where(p=>p.Kind==TownSceneryKind.FlowerBorder&&Math.Abs(p.Feet.X-bench.Feet.X)<.15f&&p.Feet.Y<bench.Feet.Y))
                 Assert.That(p.Feet.Y+p.Height,Is.LessThan(bench.Feet.Y));
         }
+        [TestCase(1)][TestCase(2)][TestCase(3)][TestCase(6)]
+        public void RestingFioNameRemainsClearOfInitialAndEarnedBenches(int level)
+        {
+            var benches=Pieces().Where(p=>p.Kind==TownSceneryKind.ParkBench&&Visible(p,level))
+                .Select(p=>(Feet:p.Feet,Width:p.Width,Height:p.Height)).ToList();
+            var source=TownVillageDressing.SpriteBounds(TownSceneryKind.ParkBench);
+            benches.AddRange(TownGrowthPresentation.For(TownRegionId.East,level).Where(p=>p.Prop==TownGrowthProp.Bench)
+                .Select(p=>(Feet:p.Position,Width:p.Width,Height:p.Width*source.Height/source.Width)));
+            foreach(string stop in new[]{"east.flowers","east.bench-front","east.meeting"})
+            {
+                var feet=TownWorldMap.Place(stop);var plate=new TownViewportRect(feet.X-.13f,feet.Y-.075f,.26f,.075f);
+                foreach(var b in benches.Where(b=>b.Feet.Y<feet.Y))
+                {
+                    bool covers=b.Feet.X+b.Width/2>plate.X&&b.Feet.X-b.Width/2<plate.X+plate.Width&&b.Feet.Y+b.Height>plate.Y&&b.Feet.Y<plate.Y+plate.Height;
+                    Assert.That(covers,Is.False,$"Lv{level} {stop} name hidden by bench at {b.Feet.X},{b.Feet.Y}");
+                }
+            }
+        }
+        [Test] public void EarnedBenchReplacesTheFinishedInitialSeatAtTheSameReservedSite()
+        {
+            var initial=Pieces().Single(p=>p.Kind==TownSceneryKind.ParkBench);
+            var earned=TownGrowthPresentation.For(TownRegionId.East,3).Single(p=>p.Prop==TownGrowthProp.Bench);
+            Assert.That(earned.Position,Is.EqualTo(initial.Feet),"Keep one seat site, away from the resident's name card");
+            foreach(int level in new[]{1,2,3,6})Assert.That(Visible(initial,level),Is.EqualTo(level<3));
+        }
         [Test] public void GroundSharesTheAcceptedPaintingButProjectsOnlyIntoEast()
         {
             var t=Master();Assert.That(t.GetField("Resource").GetRawConstantValue(),Is.EqualTo(TownWestMasterLayout.Resource));

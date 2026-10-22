@@ -62,16 +62,34 @@ namespace Mofumachi.Tests
             }
             LogAssert.NoUnexpectedReceived();
         }
+        // Actual rendered bounds and depth order, not a text/layout mock.
+        internal static void AssertNameClearOfBenches(TownLifeView life,TownActor actor)
+        {
+            var plate=actor.transform.Find("Town actor name panel");
+            Assert.That(plate.gameObject.activeInHierarchy,Is.True,"The resting resident must keep a readable name");
+            var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(life.transform,plate);
+            var benches=life.GetComponent<TownSceneryView>().Pieces
+                .Where(p=>p.Rect.gameObject.activeInHierarchy&&p.Placement.Kind==TownSceneryKind.ParkBench)
+                .Select(p=>p.Rect).Concat(life.GetComponentsInChildren<TownGrowthPropGraphic>()
+                .Where(p=>p.Prop==TownGrowthProp.Bench).Select(p=>p.rectTransform));
+            foreach(var bench in benches.Where(b=>b.GetSiblingIndex()>actor.transform.GetSiblingIndex()))
+                Assert.That(bounds.Intersects(RectTransformUtility.CalculateRelativeRectTransformBounds(life.transform,bench)),Is.False,"A foreground bench must not draw over "+actor.CharacterId+"'s name");
+        }
         [UnityTest] public IEnumerator FlowerCartReplacesWithEarnedDisplayWithoutChangingProgress()
         {
             yield return EnterHome();var life=FrameTownPortrait(640);life.World.LookAt(TownDistrictId.East);Canvas.ForceUpdateCanvases();
             var scene=life.GetComponent<TownSceneryView>();var growth=Flow.GetComponentInChildren<TownGrowthView>();
             var initial=scene.Pieces.Single(p=>TownEastMasterLayout.Dressing.Contains(p.Placement)&&p.Placement.Kind==TownSceneryKind.FloristCart);
+            var initialBench=scene.Pieces.Single(p=>TownEastMasterLayout.Dressing.Contains(p.Placement)&&p.Placement.Kind==TownSceneryKind.ParkBench);
             string before=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
             foreach(int level in new[]{1,2,3,6})
             {
                 scene.SetTownLevel(level);growth.Apply(level);Canvas.ForceUpdateCanvases();
                 Assert.That(initial.Rect.gameObject.activeSelf,Is.EqualTo(level<2));
+                Assert.That(initialBench.Rect.gameObject.activeSelf,Is.EqualTo(level<3));
+                var earnedBench=Flow.GetComponentsInChildren<TownGrowthPropGraphic>(true).Single(p=>p.Region==TownRegionId.East&&p.Prop==TownGrowthProp.Bench);
+                Assert.That(earnedBench.gameObject.activeSelf,Is.EqualTo(level>=3));
+                if(level>=3)Assert.That(Vector2.Distance(initialBench.Rect.anchoredPosition,earnedBench.rectTransform.anchoredPosition),Is.LessThan(.01f),"Upgrade the same finished seat, without leaving a second bench over the name card");
                 var earned=Flow.GetComponentsInChildren<TownGrowthPropGraphic>(true).Where(p=>p.Region==TownRegionId.East&&p.Prop==TownGrowthProp.FlowerDisplay&&p.name=="Town grown East 2").ToArray();
                 Assert.That(earned.Length,Is.EqualTo(1));Assert.That(earned[0].gameObject.activeSelf,Is.EqualTo(level>=2));
                 foreach(var site in new[]{new TownPoint(1.70f,-.67f),new TownPoint(.70f,-.58f)})

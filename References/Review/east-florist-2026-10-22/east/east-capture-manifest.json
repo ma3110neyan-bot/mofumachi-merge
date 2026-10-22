@@ -1,0 +1,39 @@
+﻿{
+    "gitRevision":  "28487824da0be859bae2313f164bbc806a3bbee2",
+    "productFingerprint":  "94e775b2edcba0efb364560675fd542030196adc77ae4f60ba1da1952581a7f0",
+    "centralInputFingerprint":  "2e012befe7b96b6523d944bc411ea34797f5fb99bc0de37aba40bb92c6ffb54a",
+    "width":  720,
+    "height":  1280,
+    "images":  [
+                   {
+                       "file":  "04-town-lv1-East.png",
+                       "bytes":  1754199,
+                       "sha256":  "6c045f7ad8f68de950883dc0f90af48bacc3767ea4a7a39d36af0f901c7f23f2"
+                   },
+                   {
+                       "file":  "04-town-lv3-East.png",
+                       "bytes":  1765480,
+                       "sha256":  "9768b03727beb9b4d581f743c8398f57d82671b0c76d0f3f0467367156840cf0"
+                   },
+                   {
+                       "file":  "04-town-lv6-East.png",
+                       "bytes":  1779224,
+                       "sha256":  "d27c982c94baa8398404082e70ea336caf9752593dc73d804a044e3759aa8ad6"
+                   },
+                   {
+                       "file":  "east-connection.png",
+                       "bytes":  1808436,
+                       "sha256":  "3100b00f6dcfe5373fbccf8c625ad4926dd80319870a0b0f50bfd590262cd5bd"
+                   },
+                   {
+                       "file":  "east-walking.png",
+                       "bytes":  1866473,
+                       "sha256":  "4e1db79e9557c198e004400dd0da992a92cecc6d76fa9e907aa6b81b3ebb33b4"
+                   },
+                   {
+                       "file":  "east-door-arrived.png",
+                       "bytes":  1588970,
+                       "sha256":  "2ecb39933d298a73c4bacd22e09d7f9b0adb4b705dc468342b640e6913f46e1d"
+                   }
+               ]
+}

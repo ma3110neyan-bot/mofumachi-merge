@@ -1,4 +1,4 @@
-# 東花屋マスター — 実装済み・実Unity／Pixel未確認
+# 東花屋マスター — 表示修正済み・修正版Unity確認待ち
 
 中央・西のUnity合格475671f／20261022-182106-d5e104a3を経て、承認済みVisual Lockの品質を既存の東花屋へ展開する。新しい街構成やショップ機能、原画の作り替えではない。見た目の採否は次の実Unity比較で判断する。
 
@@ -9,9 +9,15 @@
 
 ## 検証状態
 
-純粋C#の回帰265件通過。実Unity DLLを参照した6 asmdefのコンパイル、7 PowerShell検証を通過。これらはUnityの実行／描画やPixelでの確認を意味しない。クラウドEditorはライセンス不足で終了198。変更後の実PNGはまだ0枚、APK未生成、Pixel未確認。
+受領版2848782／実行20261022-190004-5597dca1は実Unity9/9、実PNG15枚・固定Before9組・承認画像と比較JPEGの同じ版／SHAを検証。中央PASS、西PASS（西6枚は前回合格と完全同一）。[判定と原本](../References/Review/east-florist-2026-10-22/native-review.json) を保存した。
 
-共有描画／歩行入力を変更したため、中央・西の旧合格は履歴として残し、現在版の採用フラグを閉じた。過去の承認を引き継がず、同じ版の中央・西・東を再検査する。合格するまで北へ展開しない。
+東の店先・移動／再タップ入場は良いが、Lv3／Lv6でフィオの名前を前景ベンチが隠す。Beforeで読めていた情報が失われたため東はHOLD。実テストの成功を採用理由にせず、北への展開を止めた。
+
+成長ベンチ `(1.51,-.76)` が休憩地点 `(1.48,-.60)` の名札にかかることを純粋テストで再現。初期ベンチと成長ベンチを同じ側面の場所へ配置し、Lv3で置換する修正を実施した。ベンチの原画・レベル条件／速度・保存／報酬／依頼を変更せず、初期の席も残す。名札を消す対応はしない。実Unityの撮影にも、名札と前景ベンチの描画範囲を照合する検査を追加した。
+
+修正版の純粋C#回帰270件、実Unity DLLを参照する6 asmdefコンパイル、7 PowerShell検証は通過。修正版のUnity実PNGはまだ0枚。クラウドEditorはライセンス不足のため、下記のWindows実行で確認する。APK未生成、Pixel未確認。
+
+共有描画入力を変更したため中央・西の合格も履歴として残し、現在版の採用フラグは閉じた。同じ修正版で3地区を再検査し、東が合格するまで北へ展開しない。
 
 ## Windowsでの一括確認
 
@@ -19,6 +25,7 @@ GitHub Desktopで `feat/daily-world-pass-20261016` を選択して **Pull**。Un
 
 ```powershell
 Set-Location -LiteralPath "C:\Users\User\Desktop\Mofumachi\mofumachi-merge"
+if (-not (Select-String -LiteralPath ".\Assets\Mofumachi\Tests\PlayMode\ExperienceCaptureTests.cs" -SimpleMatch "AssertNameClearOfBenches" -Quiet)) { throw "GitHub Desktopで修正版をPullしてください。" }
 powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\build-android.ps1" -EastReview
 ```
 
@@ -38,4 +45,4 @@ powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\build-a
 
 ## 未解決
 
-実Unityでの東の景観／案内／移動比較、3地区のNo Regression判定、Pixelの操作／FPS／メモリ。従来の接続部の花による主人公の隠れ、舗装反復、案内とひさしの部分的重なりは接続／UI工程に持ち越す。北／南／接続／Merge／UI／基本ループ／全件Unity／QA APK／Pixelは未完了。
+修正版の名札の実Unity可読性と3地区のNo Regression再判定、Pixelの操作／FPS／メモリ。従来の接続部の花による主人公の隠れ、舗装反復、案内とひさしの部分的重なりは接続／UI工程に持ち越す。北／南／接続／Merge／UI／基本ループ／全件Unity／QA APK／Pixelは未完了。

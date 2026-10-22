@@ -34,7 +34,7 @@ namespace Mofumachi.Presentation
                 P(TownGrowthProp.Arch,5,0,1.04f,.48f),P(TownGrowthProp.Flowers,5,.45f,-2.53f,.13f),
                 P(TownGrowthProp.Garland,6,0,2.55f,.39f),P(TownGrowthProp.StreetBunting,6,0,TownCentralMasterLayout.FestivalFeetY,.48f),P(TownGrowthProp.Lamp,6,.44f,-.45f,.045f)},
             new[]{P(TownGrowthProp.Flowers,1,1.48f,-.08f,.14f),P(TownGrowthProp.FlowerDisplay,2,1.49f,-.14f,.16f),P(TownGrowthProp.Flowers,2,1.52f,.75f,.13f),
-                P(TownGrowthProp.Lamp,3,1.45f,-.10f,.045f),P(TownGrowthProp.Bench,3,1.51f,-.76f,.17f),P(TownGrowthProp.CafeSign,3,.87f,.72f,.07f),
+                P(TownGrowthProp.Lamp,3,1.45f,-.10f,.045f),P(TownGrowthProp.Bench,3,TownEastMasterLayout.BenchX,TownEastMasterLayout.BenchY,.17f),P(TownGrowthProp.CafeSign,3,.87f,.72f,.07f),
                 P(TownGrowthProp.Workshop,4,.87f,.77f,.18f),P(TownGrowthProp.Flowers,4,1.51f,-.80f,.12f),P(TownGrowthProp.Lamp,4,1.54f,.73f,.045f),
                 P(TownGrowthProp.Arch,5,1.2f,-.83f,.34f),P(TownGrowthProp.FlowerDisplay,5,1.01f,-.74f,.12f),
                 P(TownGrowthProp.StreetBunting,6,1.2f,.74f,.53f),P(TownGrowthProp.Garland,6,1.2f,.59f,.41f),P(TownGrowthProp.Flowers,6,1.50f,-.12f,.10f)}};

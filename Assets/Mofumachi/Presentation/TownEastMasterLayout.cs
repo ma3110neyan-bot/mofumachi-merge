@@ -9,6 +9,7 @@ namespace Mofumachi.Presentation
     {
         public const string Resource=TownWestMasterLayout.Resource;
         public const float Left=.60f,Right=1.8f,Bottom=-1f,Top=1.23f;
+        public const float BenchX=1.63f,BenchY=-.49f;
         public static TownPoint TexturePoint(TownPoint p)=>new TownPoint(1-(p.X-.45f)/1.5f,(p.Y+1)/2.25f);
         public static IReadOnlyList<TownSceneryPlacement> Dressing {get;}=Build();
         public static bool VisibleAtLevel(TownSceneryPlacement p,int level)
@@ -19,6 +20,9 @@ namespace Mofumachi.Presentation
             if(p.Kind==TownSceneryKind.FlowerHedge&&p.Feet.Equals(new TownPoint(1.52f,-.84f)))return false;
             if(p.Kind==TownSceneryKind.Tree&&p.Feet.Equals(new TownPoint(1.86f,-.72f))&&p.Width>.5f)return false;
             if(p.Kind==TownSceneryKind.FlowerBorder&&p.Feet.Equals(new TownPoint(1.49f,-.12f)))return false;
+            // The initial and earned bench share one side site, clear of the
+            // resting friend's below-feet name card. Keep the initial seat at Lv1.
+            if(p.Kind==TownSceneryKind.ParkBench&&p.Feet.Equals(new TownPoint(BenchX,BenchY)))return level<3;
             // The existing Lv2 display occupies this initial, already finished site.
             if(p.Kind==TownSceneryKind.FloristCart&&p.Feet.Equals(new TownPoint(1.50f,-.14f)))return level<2;
             if((Math.Abs(p.Feet.X-1.70f)<.001f&&Math.Abs(p.Feet.Y+.67f)<.001f)||
@@ -36,7 +40,7 @@ namespace Mofumachi.Presentation
                 result.Add(new TownSceneryPlacement(kind,TownDistrictId.East,new TownPoint(x,y),new TownPoint(x,y+depth/2),width,width*pixels.Height/pixels.Width,level,footprint));
             }
             Add(TownSceneryKind.FloristCart,1.50f,-.14f,.25f,0,.14f,.05f);
-            Add(TownSceneryKind.ParkBench,1.67f,-.47f,.18f,0,.075f,.035f);
+            Add(TownSceneryKind.ParkBench,BenchX,BenchY,.18f,0,.09f,.035f);
             Add(TownSceneryKind.StreetLamp,1.73f,-.32f,.08f,0,.02f,.025f);
             Add(TownSceneryKind.StreetLamp,.72f,-.36f,.08f,0,.02f,.025f);
             foreach(var site in new[]{new TownPoint(1.70f,-.67f),new TownPoint(.70f,-.58f)})

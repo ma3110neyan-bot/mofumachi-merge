@@ -1,0 +1,4 @@
+Same-source native9/9, actual15 PNG dimensions/full decode/SHA, Before9, refs3 and JPEG3 verified.
+run 20261022-190004-5597dca1 revision 28487824da0be859bae2313f164bbc806a3bbee2 input 2e012befe7b96b6523d944bc411ea34797f5fb99bc0de37aba40bb92c6ffb54a
+prior9 byte-identical 6 changed ['central/04-town-lv1-Central.png', 'central/04-town-lv3-Central.png', 'central/04-town-lv6-Central.png']
+Archive metadata remains NOT ACCEPTED; visual judgment and Pixel separate.

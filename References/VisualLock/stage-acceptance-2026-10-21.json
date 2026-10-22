@@ -6,7 +6,7 @@
     "walking": false,
     "reviewed_candidate": "475671f9657943f8b5711bf0350714f5a1ff9433",
     "native_image_count": 0,
-    "status": "East shared-input candidate implemented; current central/west recheck pending. Accepted 475671f evidence retained as historical checkpoint, not current-source acceptance.",
+    "status": "Historical2848782 central/west native checkpoint passed; shared-input bench correction requires same-source recheck. Current acceptance remains closed.",
     "review_directory": "References/Review/west-cafe-2026-10-22-accepted/central",
     "central_input_fingerprint": "226dfeb13fb871c92bba025e37fc4a30fdbce029c1a51d02642ef34e55ddca17"
   },
@@ -27,17 +27,16 @@
   "pixel_verified": false,
   "adopted": false,
   "last_review": {
-    "candidate": "475671f9657943f8b5711bf0350714f5a1ff9433",
-    "run": "20261022-182106-d5e104a3",
+    "candidate": "28487824da0be859bae2313f164bbc806a3bbee2",
+    "run": "20261022-190004-5597dca1",
     "native_unity": true,
     "native_image_count": 3,
     "visual": true,
     "town_density": true,
     "walking": true,
     "central_unity_stage_accepted": true,
-    "pixel_verified": false,
-    "adopted": false,
-    "record": "References/Review/west-cafe-2026-10-22-accepted/native-review.json"
+    "record": "References/Review/east-florist-2026-10-22/native-review.json",
+    "scope": "received2848782; historical after East bench correction"
   },
   "previous_review": {
     "candidate": "2fcab4af03b6953bdd2a0108af954da68d1d67af",
@@ -57,7 +56,7 @@
     "visual": false,
     "town_density": false,
     "walking": false,
-    "status": "East shared-input candidate implemented; current central/west recheck pending. Accepted 475671f evidence retained as historical checkpoint, not current-source acceptance.",
+    "status": "Historical2848782 central/west native checkpoint passed; shared-input bench correction requires same-source recheck. Current acceptance remains closed.",
     "arrival_readability": false,
     "deliberate_second_tap": false,
     "unity_stage_accepted": false,
@@ -78,8 +77,8 @@
       "record": "References/Review/west-cafe-2026-10-22/native-review.json"
     },
     "last_review": {
-      "candidate": "475671f9657943f8b5711bf0350714f5a1ff9433",
-      "run": "20261022-182106-d5e104a3",
+      "candidate": "28487824da0be859bae2313f164bbc806a3bbee2",
+      "run": "20261022-190004-5597dca1",
       "native_unity": true,
       "native_image_count": 6,
       "visual": true,
@@ -87,7 +86,7 @@
       "walking": true,
       "arrival_readability": true,
       "unity_stage_accepted": true,
-      "record": "References/Review/west-cafe-2026-10-22-accepted/native-review.json"
+      "record": "References/Review/east-florist-2026-10-22/native-review.json"
     }
   },
   "historical_central_reviews": [
@@ -116,6 +115,19 @@
       "pixel_verified": false,
       "adopted": false,
       "record": "References/Review/west-cafe-2026-10-22/native-review.json"
+    },
+    {
+      "candidate": "475671f9657943f8b5711bf0350714f5a1ff9433",
+      "run": "20261022-182106-d5e104a3",
+      "native_unity": true,
+      "native_image_count": 3,
+      "visual": true,
+      "town_density": true,
+      "walking": true,
+      "central_unity_stage_accepted": true,
+      "pixel_verified": false,
+      "adopted": false,
+      "record": "References/Review/west-cafe-2026-10-22-accepted/native-review.json"
     }
   ],
   "current_stage": "east_florist_shop",
@@ -131,7 +143,18 @@
     "deliberate_second_tap": false,
     "unity_stage_accepted": false,
     "native_image_count": 0,
-    "status": "Implemented; native Unity comparison and Pixel unverified",
-    "prerequisite_review": "References/Review/west-cafe-2026-10-22-accepted/native-review.json"
+    "status": "2848782 native9/9 and15 images received; East HOLD for introduced Fio name-card occlusion. Bench replacement fix implemented; corrected-source native recheck required. North blocked.",
+    "prerequisite_review": "References/Review/west-cafe-2026-10-22-accepted/native-review.json",
+    "last_review": {
+      "candidate": "28487824da0be859bae2313f164bbc806a3bbee2",
+      "run": "20261022-190004-5597dca1",
+      "native_unity": true,
+      "native_image_count": 6,
+      "static_visual": true,
+      "walking": true,
+      "nameplate_readability": false,
+      "unity_stage_accepted": false,
+      "record": "References/Review/east-florist-2026-10-22/native-review.json"
+    }
   }
 }

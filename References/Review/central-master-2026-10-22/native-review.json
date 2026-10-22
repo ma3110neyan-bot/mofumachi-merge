@@ -1,0 +1,60 @@
+{
+  "reviewed_revision": "c11e197c7ea4a4f6c3de4d4f1829808a7266e206",
+  "run": "20261022-105639-a8919567",
+  "upload_file_id": "file_00000000d15c8211bbeb8f5678547db4",
+  "zip_sha256": "b157f5354af1ca986398482d6eb4a69624f341a5650325bd479163d2ed73e012",
+  "native_tests": {
+    "passed": 3,
+    "failed": 0,
+    "skipped": 0
+  },
+  "native_pairs_verified": 3,
+  "centralInputFingerprint": "96a5f172192628ee025245813ee1704fe8feb257ac8f53c112aacd4de010dc25",
+  "approved_design_sha256": "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf",
+  "comparison_sha256": "1b1c2337d0feef5bc1631f8064df2c8a415c404a3ae4f4fea5f09f9d9b8dfff9",
+  "images": [
+    {
+      "file": "04-town-lv1-Central.png",
+      "bytes": 1815703,
+      "sha256": "8242f8a3f1e3713f3347245c1193ffaed110ad9320f607b9b6d7ec18976671bc"
+    },
+    {
+      "file": "04-town-lv3-Central.png",
+      "bytes": 1830084,
+      "sha256": "816605b97ae480ea31b1628421cab1b5def85c4686c81dabea598a34dba445cd"
+    },
+    {
+      "file": "04-town-lv6-Central.png",
+      "bytes": 1835864,
+      "sha256": "1801d553a5e6806fd7dbf0abf5ebf42445e6d763c2d743afa6db5fbf045a94ed"
+    }
+  ],
+  "native_unity": true,
+  "visual": true,
+  "town_density": true,
+  "walking": true,
+  "walking_scope": "Automated live central controller fountain loop in Editor; no Pixel touch acceptance",
+  "central_unity_stage_accepted": true,
+  "pixel_verified": false,
+  "apk_generated": false,
+  "adopted": false,
+  "decision": "Central Unity visual/density/walking checkpoint PASSED after author and independent actual-image review. Base game and Pixel acceptance remain pending.",
+  "improvements": [
+    "Fountain focus and dense planted streets retained",
+    "Upper approach framed by lamps, planters and noticeboard; Lv6 festive arch fully visible",
+    "Growth banks replace instead of accumulating; benches remain visible",
+    "Lulu and nameplate clear of scenery, standing on stone"
+  ],
+  "blockers": [],
+  "minor_deferred": [
+    "Lv1-to-Lv3 central growth is quieter than Lv3-to-Lv6; visible and non-blocking, review with full growth loop later"
+  ],
+  "not_verified": [
+    "Pixel touch and movement feel",
+    "FPS and device memory/load",
+    "Other districts and joins",
+    "Whole game regression, APK, final Pixel acceptance"
+  ],
+  "reviewer": "central_oct22_native_gate, read-only actual-image review",
+  "next_stage": "west_cafe visual proposal first; no other stage automatically marked complete"
+}

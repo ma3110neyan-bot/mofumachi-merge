@@ -82,6 +82,8 @@ try {
     $Complete.town_density=$true;$Complete.merge_fun=$true;$Complete | ConvertTo-Json | Set-Content -LiteralPath $Adoption
     Assert-BaseAdoption $Adoption
     Assert-ApprovedVisualLock (Join-Path $PSScriptRoot '../..')
-    Reject {Assert-CentralStageApproved (Join-Path $PSScriptRoot '../..')}
+    # The real central checkpoint can now pass after a native image review.
+    # A central-only checkpoint must still refuse the full QA APK pipeline.
+    Reject {Assert-BaseStagesReadyForAcceptance (Join-Path $PSScriptRoot '../..')}
     Write-Host 'Approved design, source/evidence hashes and mandatory stage order checked. Synthetic images only; no Unity or Pixel execution.'
 } finally {Remove-Item -LiteralPath $Root -Recurse -Force}

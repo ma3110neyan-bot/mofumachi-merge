@@ -1,14 +1,14 @@
 {
   "central": {
-    "native_unity": false,
-    "visual": null,
-    "town_density": null,
-    "walking": null,
-    "reviewed_candidate": null,
-    "native_image_count": 0,
-    "status": "Central composition repair after actual Unity 2fcab4a failed formal visual gate; new candidate not natively reviewed",
-    "review_directory": null,
-    "central_input_fingerprint": null
+    "native_unity": true,
+    "visual": true,
+    "town_density": true,
+    "walking": true,
+    "reviewed_candidate": "c11e197c7ea4a4f6c3de4d4f1829808a7266e206",
+    "native_image_count": 3,
+    "status": "Central Unity visual/density and automated controller walking passed; Pixel and final base acceptance pending",
+    "review_directory": "Builds/CentralReview/20261022-105639-a8919567",
+    "central_input_fingerprint": "96a5f172192628ee025245813ee1704fe8feb257ac8f53c112aacd4de010dc25"
   },
   "remaining_sequence": [
     "west_cafe",
@@ -28,6 +28,19 @@
   "pixel_verified": false,
   "adopted": false,
   "last_review": {
+    "candidate": "c11e197c7ea4a4f6c3de4d4f1829808a7266e206",
+    "run": "20261022-105639-a8919567",
+    "native_unity": true,
+    "native_image_count": 3,
+    "visual": true,
+    "town_density": true,
+    "walking": true,
+    "central_unity_stage_accepted": true,
+    "pixel_verified": false,
+    "adopted": false,
+    "record": "References/Review/central-master-2026-10-22/native-review.json"
+  },
+  "previous_review": {
     "candidate": "2fcab4af03b6953bdd2a0108af954da68d1d67af",
     "run": "20261021-214913-a0b7b926",
     "native_unity": true,

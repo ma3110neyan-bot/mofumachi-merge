@@ -1,0 +1,27 @@
+{
+  "status": "design proposal only; not approved, implemented or Unity/Pixel evidence",
+  "source_generated_image": "exec-ba51623e-f70e-4bb6-8ffd-40eec8984f47.png",
+  "source_sha256": "dba75004972606f969b620a59aa8b92bc339f339b9ad46b8324c7a0fbd6b2ad8",
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "files": {
+    "west-cafe-proposal.jpg": {
+      "bytes": 1221163,
+      "sha256": "91b60d74f0f68e0993e88611aaf228adceadff5b5c4b1298ee38c374ef664c87"
+    },
+    "west-cafe-proposal.pdf": {
+      "bytes": 429912,
+      "sha256": "0b2136c4c884718b14e23c0551a9c49fd3b963a7472e7c487e8843d4aa8c9046"
+    }
+  },
+  "format_only_export": true,
+  "approved_visual_lock_changed": false,
+  "reference_images": [
+    "central Unity c11e197 Lv6",
+    "fixed Before bd3f357 west Lv1",
+    "frozen TownLandmarksAtlas original cafe",
+    "frozen TownVillageDetailsAtlas props"
+  ]
+}

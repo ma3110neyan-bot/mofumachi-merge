@@ -1,19 +1,19 @@
 {
   "date": "2026-10-22",
-  "base_revision": "16c5d4755c8018a39222ba22dc2fc3c021647b82",
-  "scope": "west cafe implementation source, same-source central/west native review preparation",
-  "status": "implemented; Unity/Pixel unverified",
+  "base_revision": "01fa9824d28f63bb8dbc4913135c9921b26b82f0",
+  "scope": "west native review received; bounded automatic-dialogue and contextual cafe-caption fix",
+  "status": "arrival-readability fix implemented; current-source Unity/Pixel unverified",
   "central_current_native_verified": false,
   "west_design_unchanged": true,
   "pixel_verified": false,
   "apk_generated": false,
   "formal_design_unchanged": true,
-  "centralInputFingerprint": "3e165cf81f64216bc44a67f08a438cc6bbc48871f9cef3416cef058721b0ce3f",
+  "centralInputFingerprint": "226dfeb13fb871c92bba025e37fc4a30fdbce029c1a51d02642ef34e55ddca17",
   "frozen_inputs": 153,
   "pure_presentation_tests": {
-    "total": "258",
-    "executed": "258",
-    "passed": "258",
+    "total": "260",
+    "executed": "260",
+    "passed": "260",
     "failed": "0",
     "error": "0",
     "timeout": "0",
@@ -30,7 +30,7 @@
   },
   "reference_compile_assemblies": 6,
   "reference_compile_not_unity_execution": true,
-  "native_expected_tests": 5,
+  "native_expected_tests": 6,
   "native_tests_executed_here": 0,
   "native_expected_png": 9,
   "actual_current_source_native_png": 0,
@@ -38,10 +38,10 @@
     "critical": 0,
     "important": 0,
     "minor": 0,
-    "scope": "one fresh read-only source review; not visual/Pixel acceptance"
+    "scope": "01fa982 source review historical; fresh actual-image review plus root arrival-readability ruling led to one bounded fix, no repeated source-review churn"
   },
-  "windows_jpeg_export_verified": false,
-  "packaging_test": "real folder moves/Before SHA/JSON/ZIP; JPEG drawing stubbed, synthetic PNG headers",
+  "windows_jpeg_export_verified": true,
+  "packaging_test": "Actual Windows central/west JPEG and ZIP received and hashes verified for 01fa982. Current packaging regression is synthetic on Linux; no current-source native render.",
   "original_central_checkpoint": "c11e197/run20261022-105639-a8919567 is historical, not acceptance of changed world inputs",
   "progression_save_rewards_original_characters_changed": false,
   "deferred_user_feedback": [
@@ -104,8 +104,62 @@
     },
     "unity-reference-final.log": {
       "sha256": "33bc5f2f6fef2b42329f5e6226587b41d752abe2ecb3b20aa48287df7fac3e79"
+    },
+    "arrival-approved-design.tests.log": {
+      "sha256": "31a02baec52e8f3426ca1a673605cb4f119e9d9c0088ea1906829c1545e3c8bf"
+    },
+    "arrival-unity-reference.log": {
+      "sha256": "6f09e551beb17c3a23b694f7e24af5f229a2b8e5a4b1a4975bc83d8a29acf947"
+    },
+    "arrival-pixel-visual-check.tests.log": {
+      "sha256": "1c280dd589e229d4cce103bab61bb0ee699ae04cba3a1fb24cfe9038c67b1de1"
+    },
+    "arrival-gate-red.log": {
+      "sha256": "aca0580c166046b19140117a9f8a4d9e3bfdbaf976a93c9490759e5fd9684d06"
+    },
+    "arrival-west-review.tests.log": {
+      "sha256": "e62e9bc73b0c0ccc6108ff1716e1c297fd0cb64e3b50bfa302d5e020b7bba87c"
+    },
+    "arrival-frozen-gates.log": {
+      "sha256": "25d6fa3ce8f8f8ce224a678ddf699614f6e6a69cbb13fbea0ab566193dc1ae3b"
+    },
+    "arrival-visual-lock.tests.log": {
+      "sha256": "dae703ff0ed615e2f0d5e212f343492ffdfb443f8e79e9741d872799650ba893"
+    },
+    "arrival-android-tools.tests.log": {
+      "sha256": "b4feddbe3b6ce355f58176b86027ed43add7afa74b3d8d60178fe09d4bc5b259"
+    },
+    "arrival-central-review.tests.log": {
+      "sha256": "f7c476226c565c2ab5e0c4d07aab225daa185c0d2ea97dafe81874af4d188e96"
+    },
+    "west-arrival-red.log": {
+      "sha256": "398d8775b0632afe9d3790dcaf8063c0632db86890eba2d7b92f05d4330f6641"
+    },
+    "west-arrival-full.log": {
+      "sha256": "4472b4fd9282bfcb46dd2f49b321026f3582ed431b5ac8d8c547813025285117"
+    },
+    "west-arrival-green.log": {
+      "sha256": "db4294d790fae70abeaef86aee128f3b9d660c31efdc4e4c212e0fa241e1d815"
     }
   },
   "reference_compile_warnings": 0,
-  "reference_compile_errors": 0
+  "reference_compile_errors": 0,
+  "received_native": {
+    "source": "01fa9824d28f63bb8dbc4913135c9921b26b82f0",
+    "tests_passed": 5,
+    "images": 9,
+    "record": "References/Review/west-cafe-2026-10-22/native-review.json",
+    "central_stage_passed": true,
+    "west_static_passed": true,
+    "west_arrival_held": true
+  },
+  "fix_verification": {
+    "pure_policy_red": 2,
+    "pure_policy_green": 9,
+    "presentation_full_green": 260,
+    "asmdef_compile": 6,
+    "powershell_suites": 6,
+    "native_journey_test_added": "CafeDoorStaysReadableDuringTravelAndWaitsForTheSecondTap: Lv1 and Lv3, click-handler route/arrival wait/second tap/interior",
+    "native_fix_tests_executed_here": 0
+  }
 }

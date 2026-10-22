@@ -1,0 +1,15 @@
+﻿{
+    "candidate_revision":  "01fa9824d28f63bb8dbc4913135c9921b26b82f0",
+    "productFingerprint":  "1134c770cb311049f1a1c11d9a012770b778cf0403c3af04203e51dda5f3cf31",
+    "centralInputFingerprint":  "3e165cf81f64216bc44a67f08a438cc6bbc48871f9cef3416cef058721b0ce3f",
+    "comparison_sha256":  "3729d5106815ac413511f361002655adf636699b3edfa75c12246076056e5a06",
+    "approved_design_sha256":  "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf",
+    "native_pairs_verified":  3,
+    "native_unity":  true,
+    "visual":  null,
+    "town_density":  null,
+    "walking":  null,
+    "pixel_verified":  false,
+    "adopted":  false,
+    "reason":  "Review central against the approved design before advancing to west/east/north/south/Merge. No APK was built."
+}

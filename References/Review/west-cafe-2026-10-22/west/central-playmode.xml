@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="5" result="Passed" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-22 04:36:40Z" end-time="2026-10-22 04:36:49Z" duration="8.9692143">
+  <test-suite type="TestSuite" id="1257" name="もふまちメルジュ" fullname="もふまちメルジュ" runstate="Runnable" testcasecount="211" result="Passed" start-time="2026-10-22 04:36:40Z" end-time="2026-10-22 04:36:49Z" duration="8.969214" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1508" name="Mofumachi.PlayModeTests.dll" fullname="C:/Users/User/Desktop/Mofumachi/mofumachi-merge/Library/ScriptAssemblies/Mofumachi.PlayModeTests.dll" runstate="Runnable" testcasecount="211" result="Passed" start-time="2026-10-22 04:36:40Z" end-time="2026-10-22 04:36:49Z" duration="8.958477" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="4976" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1509" name="Mofumachi" fullname="Mofumachi" runstate="Runnable" testcasecount="211" result="Passed" start-time="2026-10-22 04:36:40Z" end-time="2026-10-22 04:36:49Z" duration="8.946682" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1510" name="Tests" fullname="Mofumachi.Tests" runstate="Runnable" testcasecount="211" result="Passed" start-time="2026-10-22 04:36:40Z" end-time="2026-10-22 04:36:49Z" duration="8.943901" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1267" name="CentralMasterReviewTests" fullname="Mofumachi.Tests.CentralMasterReviewTests" classname="Mofumachi.Tests.CentralMasterReviewTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-22 04:36:40Z" end-time="2026-10-22 04:36:44Z" duration="3.692397" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1269" name="CentralGardensReplaceTheirVisibleStageWithoutChangingProgress" fullname="Mofumachi.Tests.CentralMasterReviewTests.CentralGardensReplaceTheirVisibleStageWithoutChangingProgress" methodname="CentralGardensReplaceTheirVisibleStageWithoutChangingProgress" classname="Mofumachi.Tests.CentralMasterReviewTests" runstate="Runnable" seed="680475947" result="Passed" start-time="2026-10-22 04:36:40Z" end-time="2026-10-22 04:36:42Z" duration="2.346170" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1268" name="CentralGroundTracksWorldProjectionAndNeverCapturesPointerInput" fullname="Mofumachi.Tests.CentralMasterReviewTests.CentralGroundTracksWorldProjectionAndNeverCapturesPointerInput" methodname="CentralGroundTracksWorldProjectionAndNeverCapturesPointerInput" classname="Mofumachi.Tests.CentralMasterReviewTests" runstate="Runnable" seed="536095510" result="Passed" start-time="2026-10-22 04:36:42Z" end-time="2026-10-22 04:36:44Z" duration="1.328510" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1299" name="ExperienceCaptureTests" fullname="Mofumachi.Tests.ExperienceCaptureTests" classname="Mofumachi.Tests.ExperienceCaptureTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-22 04:36:44Z" end-time="2026-10-22 04:36:47Z" duration="2.925946" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1300" name="PortraitScreensRenderFromIsolatedStateWithoutWritingProgress" fullname="Mofumachi.Tests.ExperienceCaptureTests.PortraitScreensRenderFromIsolatedStateWithoutWritingProgress" methodname="PortraitScreensRenderFromIsolatedStateWithoutWritingProgress" classname="Mofumachi.Tests.ExperienceCaptureTests" runstate="Runnable" seed="61089589" result="Passed" start-time="2026-10-22 04:36:44Z" end-time="2026-10-22 04:36:47Z" duration="2.923075" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1505" name="WestMasterReviewTests" fullname="Mofumachi.Tests.WestMasterReviewTests" classname="Mofumachi.Tests.WestMasterReviewTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-22 04:36:47Z" end-time="2026-10-22 04:36:49Z" duration="2.311895" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1506" name="WestGroundFollowsTheWorldAndBothCafeSideWalksRemainUsable" fullname="Mofumachi.Tests.WestMasterReviewTests.WestGroundFollowsTheWorldAndBothCafeSideWalksRemainUsable" methodname="WestGroundFollowsTheWorldAndBothCafeSideWalksRemainUsable" classname="Mofumachi.Tests.WestMasterReviewTests" runstate="Runnable" seed="1050575081" result="Passed" start-time="2026-10-22 04:36:47Z" end-time="2026-10-22 04:36:49Z" duration="2.009680" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1507" name="WestPatioReplacesItsInitialStageWithoutChangingProgress" fullname="Mofumachi.Tests.WestMasterReviewTests.WestPatioReplacesItsInitialStageWithoutChangingProgress" methodname="WestPatioReplacesItsInitialStageWithoutChangingProgress" classname="Mofumachi.Tests.WestMasterReviewTests" runstate="Runnable" seed="1346242046" result="Passed" start-time="2026-10-22 04:36:49Z" end-time="2026-10-22 04:36:49Z" duration="0.293267" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

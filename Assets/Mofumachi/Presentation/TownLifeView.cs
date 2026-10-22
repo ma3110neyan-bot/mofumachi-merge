@@ -95,9 +95,14 @@ namespace Mofumachi.Presentation
         }
         public bool TryBeginConversation(TownActor first,TownActor second)
         {
-            if(!CanInteract||first==null||second==null||first==second||first.RegionId!=second.RegionId||!first.RegionVisible||!second.RegionVisible||first.IsRegionFading||second.IsRegionFading||now<nextSocial||IsManuallyDragging||GetComponent<TownViewportView>()?.IsDragging==true||outings!=null||NearbyFacility!=null||!WithinConversationRange(first,second)||!Visible(first)||!Visible(second))return false;
+            if(!CanInteract||!AmbientConversationAllowed()||first==null||second==null||first==second||first.RegionId!=second.RegionId||!first.RegionVisible||!second.RegionVisible||first.IsRegionFading||second.IsRegionFading||now<nextSocial||IsManuallyDragging||GetComponent<TownViewportView>()?.IsDragging==true||outings!=null||NearbyFacility!=null||!WithinConversationRange(first,second)||!Visible(first)||!Visible(second))return false;
             first.FaceTowards(second.Position);second.FaceTowards(first.Position);first.Greet();second.Greet();nextSocial=now+8;
             ShowBubble(CharacterCatalog.Find(first.CharacterId).Name+"：こんにちは、"+CharacterCatalog.Find(second.CharacterId).Name+"♪",first);return true;
+        }
+        private bool AmbientConversationAllowed()
+        {
+            bool walking=World?.IsReady==true?World.Model.Hero.IsWalking:actors.Any(a=>a.Controlled&&a.IsGuided);
+            return GetComponent<TownFacilityView>()?.Entry.CanStartAmbientConversation(walking)??!walking;
         }
         private bool WithinConversationRange(TownActor first,TownActor second)
         {
@@ -126,7 +131,7 @@ namespace Mofumachi.Presentation
             if(bubble!=null&&now>=bubbleUntil)HideBubble();
             if(IsManuallyDragging){HideBubble();RefreshResidentNames();return;}
             if(now>=nextSocial)for(int i=0;i<actors.Length;i++)for(int j=i+1;j<actors.Length;j++)if(TryBeginConversation(actors[i],actors[j]))break;
-            if(bubble==null&&outings==null&&NearbyFacility==null&&now>=nextTalk)
+            if(AmbientConversationAllowed()&&bubble==null&&outings==null&&NearbyFacility==null&&now>=nextTalk)
             {
                 var actor=actors.FirstOrDefault(a=>!a.Controlled&&a.IsResting&&Visible(a));if(actor!=null)ShowBubble(CharacterCatalog.Find(actor.CharacterId).Name+"："+StreetLine(actor),actor);nextTalk=now+6;
             }
@@ -172,6 +177,10 @@ namespace Mofumachi.Presentation
         {
             if(!CanInteract||!actor.Controlled||actor.Movement.OwnedPointerId.HasValue||World?.Model?.Hero.IsWalking==true)return;actor.FreezeMovement();HideEntrance();
             if(Regions?.OwnsJourney(actor)==true||!actor.RegionVisible)return;
+            // A requested cafe visit owns its arrival cue, including Lv2+ named
+            // routes. A rest-stop dialogue here would cover the waiting door.
+            if(GetComponent<TownFacilityView>()?.Entry.OwnsArrival("cafe")==true&&World?.IsReady==true&&TownWalkableArea.Distance(actor.WorldPosition,TownWorldMap.Place("west.cafe-front"))<.034f)
+            {destination=null;HideBubble();return;}
             string facility=World?.IsReady==true?
                 (TownWalkableArea.Distance(actor.WorldPosition,TownWorldMap.Place("quest"))<.034f?"quest":TownWalkableArea.Distance(actor.WorldPosition,TownWorldMap.Place("shop"))<.034f?"shop":null):
                 actor.RegionId!=TownRegionId.Central?null:Distance(actor.Position,RequestEntrance)<.034f?"quest":Distance(actor.Position,ShopEntrance)<.034f?"shop":null;

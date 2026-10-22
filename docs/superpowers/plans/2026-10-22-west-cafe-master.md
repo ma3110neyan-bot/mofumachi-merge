@@ -40,8 +40,21 @@
 - [x] 承認と後工程FBを記録し、共有入力が変わった中央段階を再確認待ちへ。西を未採用として保持。
 - [x] 一度の独立レビュー、重大／重要のみ一度のRED→GREEN修正。
 - [x] 凍結SHAと全関連検査を確認しfeatureへコミット。Windows -WestReviewを一つのコマンドで渡す。
-- [ ] 実画像受領後に中央／西を比較して合否判定。APK／Pixel／ベース完成は未了のまま。
+- [x] 実画像受領後に中央／西を比較して合否判定。01fa982の中央は再合格、西の静止景観は合格、到着の可読性は保留。APK／Pixel／ベース完成は未了。
 
-## 実行結果
+### Task 4: 実画像で検出した到着可読性の限定修正
+**Files:** TownLifeView.cs; TownFacilityEntry.cs; TownFacilityView.cs; TownFacilityEntryTests.cs; WestMasterReviewTests.cs; ExperienceCaptureTests.cs; scripts/build-android.ps1; scripts/central-review.ps1; scripts/tests/android-tools.tests.ps1; review/stage/docs。
+**Contract:** 自動会話は主人公の徒歩／施設の入店待ちを遮らず、意図的なNPC会話を維持。カフェ看板は文脈表示、ドア操作は維持。景観・成長速度・保存・報酬は不変。
+- [x] 受領原本・同ソース／SHA照合を保存し、独立画像レビューと担当側の可読性保留判断を分けて記録。
+- [x] 自動会話／看板の規則2RED→GREEN。Lv2以降のカフェ到着会話も競合しないよう接続。
+- [x] Lv1／Lv3のクリック経路と二度目のタップ・入店、撮影時の会話なしをネイティブ検査へ。必須件数を6／West3／全件212へ引き上げ。
+- [x] 純C#全260、DLL6asmdef、PS6、凍結／旧証拠拒否を確認。中央／西の新ソースゲートを再確認待ちへ。
+- [ ] 修正版の中央3＋西6画像とネイティブ6検査を受領し、入口可読性と中央後退を判定してから東へ。APK／Pixelは後工程。
+
+## 初回ソース引き渡し結果（履歴）
 
 Task1–2とTask3のソース引き渡しまで。実装済み・実機未確認。新規配置4RED→GREEN、旧植栽の隠れ1RED→GREEN、既存の広い床／小道2件を配置修正で復旧、最終258／258。PS6スイート、実際のZIP／移動／Before照合（Windows JPEG描画のみ代替）、実DLL6asmdef警告／エラー0。独立ソースレビューの重大／重要／軽微指摘なし。Editor起動198でネイティブ検査は未実行。中央も含む-WestReview待ち。
+
+## 実画像受領後の限定修正結果
+
+01fa982の実Unity9枚・5検査を照合し、中央を再合格、西の静止景観を合格とした。到着中の自動会話の重なりは保留とし、一度の修正で自動会話／文脈看板を調整。全純C#260、DLL6、PS6が成功。修正版のネイティブ6検査・9画像は未確認、Pixel／APKなし。次の実画像判定後に東へ進む。

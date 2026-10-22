@@ -14,7 +14,7 @@ function Assert-TestRun([string]$ResultPath,[int]$MinimumTests,[string[]]$Requir
     foreach($Suite in $RequiredSuites) {
         if(@($Results.SelectNodes('//test-suite') | Where-Object { $_.GetAttribute('name') -eq $Suite -and $_.GetAttribute('result') -eq 'Passed' -and $_.SelectNodes('.//test-case').Count -gt 0 }).Count -eq 0) { throw "Missing passed suite: $Suite" }
     }
-    foreach($Gate in @(@{Name='CharacterSelectionTests';Count=4},@{Name='DailyWorldTests';Count=13},@{Name='MajorPolishTests';Count=6},@{Name='SeamlessFieldTests';Count=8},@{Name='EastWestHomeTests';Count=4},@{Name='ResidentPresenceTests';Count=5},@{Name='FivePlazaTests';Count=5},@{Name='BaseProductLoopTests';Count=5},@{Name='VisualLockPresentationTests';Count=2},@{Name='CentralMasterReviewTests';Count=2},@{Name='WestMasterReviewTests';Count=2})) {
+    foreach($Gate in @(@{Name='CharacterSelectionTests';Count=4},@{Name='DailyWorldTests';Count=13},@{Name='MajorPolishTests';Count=6},@{Name='SeamlessFieldTests';Count=8},@{Name='EastWestHomeTests';Count=4},@{Name='ResidentPresenceTests';Count=5},@{Name='FivePlazaTests';Count=5},@{Name='BaseProductLoopTests';Count=5},@{Name='VisualLockPresentationTests';Count=2},@{Name='CentralMasterReviewTests';Count=2},@{Name='WestMasterReviewTests';Count=3})) {
         if($Gate.Name -in $RequiredSuites) {
             $Suite=$Results.SelectNodes('//test-suite') | Where-Object {$_.GetAttribute('name') -eq $Gate.Name} | Select-Object -First 1
             if($Suite.SelectNodes('.//test-case').Count -ne $Gate.Count){throw "Incomplete suite: $($Gate.Name), expected $($Gate.Count) cases."}
@@ -164,7 +164,7 @@ if($CentralReview -or $WestReview) {
     $ReviewFlag=if($WestReview){'-mofumachiWestReview'}else{'-mofumachiCentralReview'}
     $Filter='Mofumachi.Tests.ExperienceCaptureTests;Mofumachi.Tests.CentralMasterReviewTests'
     $Suites=@('ExperienceCaptureTests','CentralMasterReviewTests');$ExpectedTests=3
-    if($WestReview){$Filter+=';Mofumachi.Tests.WestMasterReviewTests';$Suites+='WestMasterReviewTests';$ExpectedTests=5}
+    if($WestReview){$Filter+=';Mofumachi.Tests.WestMasterReviewTests';$Suites+='WestMasterReviewTests';$ExpectedTests=6}
     Write-Host 'Rendering the central master (Lv1/3/6); west mode also captures cafe levels, connection, walking and door. No APK will be generated.'
     Invoke-Unity @('-batchmode','-projectPath',$ProjectPath,'-buildTarget','Android','-runTests','-testPlatform','PlayMode','-testFilter',$Filter,'-testResults',$CentralXml,$ReviewFlag,'-mofumachiScreenshots',(Join-Path $OutputDir 'screenshots'),'-logFile',(Join-Path $OutputDir 'central-playmode.log'))
     Assert-TestRun $CentralXml $ExpectedTests $Suites
@@ -186,7 +186,7 @@ Assert-ProductUnchanged $ProjectPath $GitRevision $ProductFingerprint
 $PlayXml=Join-Path $OutputDir 'playmode.xml'
 Write-Host '[2/4] Running all PlayMode tests and capturing native Unity images...'
 Invoke-Unity @('-batchmode','-projectPath',$ProjectPath,'-buildTarget','Android','-runTests','-testPlatform','PlayMode','-testResults',$PlayXml,'-mofumachiScreenshots',(Join-Path $OutputDir 'screenshots'),'-logFile',(Join-Path $OutputDir 'playmode.log'))
-Assert-TestRun $PlayXml 211 @('VerticalSliceFlowTests','LayoutNoticeTests','AudioManagerTests','MergeInteractionTests','RewardGrowthTests','SettingsScreenTests','PopPresentationTests','CharacterSelectionTests','MultiQuestPresentationTests','TownLifeTests','StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests')
+Assert-TestRun $PlayXml 212 @('VerticalSliceFlowTests','LayoutNoticeTests','AudioManagerTests','MergeInteractionTests','RewardGrowthTests','SettingsScreenTests','PopPresentationTests','CharacterSelectionTests','MultiQuestPresentationTests','TownLifeTests','StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests')
 $CaptureDir=Join-Path $OutputDir 'screenshots'
 Assert-ProductUnchanged $ProjectPath $GitRevision $ProductFingerprint
 Assert-NativeCaptures $CaptureDir

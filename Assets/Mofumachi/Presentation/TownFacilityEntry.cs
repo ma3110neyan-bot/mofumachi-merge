@@ -11,6 +11,8 @@ namespace Mofumachi.Presentation
         public float OpenAmount {get;private set;}
         public static string DestinationFor(string id)=>id=="cafe"?"west.cafe-front":id=="quest"||id=="shop"?id:null;
         public bool OwnsArrival(string id)=>Phase!=TownEntryPhase.Idle&&Facility==id;
+        public bool CanStartAmbientConversation(bool heroWalking)=>!heroWalking&&Phase==TownEntryPhase.Idle;
+        public bool ShowsSign(string id,bool near)=>id!="cafe"||near||OwnsArrival(id);
         public bool Request(string id)
         {if(DestinationFor(id)==null)return false;Facility=id;Phase=TownEntryPhase.Walking;OpenAmount=0;return true;}
         public bool TapDoor(string id,TownPoint feet,bool walking)

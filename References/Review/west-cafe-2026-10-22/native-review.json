@@ -1,0 +1,112 @@
+{
+  "reviewed_revision": "01fa9824d28f63bb8dbc4913135c9921b26b82f0",
+  "run": "20261022-133501-349b7828",
+  "centralInputFingerprint": "3e165cf81f64216bc44a67f08a438cc6bbc48871f9cef3416cef058721b0ce3f",
+  "productFingerprint": "1134c770cb311049f1a1c11d9a012770b778cf0403c3af04203e51dda5f3cf31",
+  "uploads": [
+    {
+      "file_id": "file_00000000c6208211a876c93210374bf0",
+      "sha256": "723a70be12ece1aec7a59bf3d73fee9e199a3f0453b92b6c1afd199777db6de1"
+    },
+    {
+      "file_id": "file_00000000480882098339dc541801e55b",
+      "sha256": "11e6f008812d2f59a9b1a9244bc8560668e6321c213159fc128004b3705d0ab2"
+    }
+  ],
+  "identity_verified": true,
+  "native_unity": true,
+  "native_tests": {
+    "passed": 5,
+    "failed": 0,
+    "skipped": 0
+  },
+  "images": [
+    {
+      "file": "central/04-town-lv1-Central.png",
+      "bytes": 1815610,
+      "sha256": "9ab5c555e1244ba0c2e5cee5242ec86ac3bacdff7818bd842c28e815e5c1d13b"
+    },
+    {
+      "file": "central/04-town-lv3-Central.png",
+      "bytes": 1829963,
+      "sha256": "a2892fa1d7fb75407b790157b0c07152e5a23384e623eedfec0dcca29e435f1c"
+    },
+    {
+      "file": "central/04-town-lv6-Central.png",
+      "bytes": 1835600,
+      "sha256": "ba7b6e78124fd990a8fc62b7271c62adde9255910a186b3dc9d4dd7f88712055"
+    },
+    {
+      "file": "west/04-town-lv1-West.png",
+      "bytes": 1727168,
+      "sha256": "4069b31b12645f8912a26d7317ce456f4e4c3b272f9e7472e923634435f23ea1"
+    },
+    {
+      "file": "west/04-town-lv3-West.png",
+      "bytes": 1729178,
+      "sha256": "a415bcb0fc242ca9d103a92fbd5da2272a930745d606cc4b7e95fcf421c3d9c3"
+    },
+    {
+      "file": "west/04-town-lv6-West.png",
+      "bytes": 1740056,
+      "sha256": "5f2042fc460731c3fd00b816ebf4101c12347b78d029ae67e3d672616910b8c2"
+    },
+    {
+      "file": "west/west-connection.png",
+      "bytes": 1790428,
+      "sha256": "d67aa9c0bc96b8a3c696a5547f6bd08d7b5a4744cae99744621780591c1e5601"
+    },
+    {
+      "file": "west/west-door-arrived.png",
+      "bytes": 1463299,
+      "sha256": "56b74e9b10bd71a63b118730dc985db878fada63446ddeedff0beb568cdb0ffa"
+    },
+    {
+      "file": "west/west-walking.png",
+      "bytes": 1660410,
+      "sha256": "a8047a6a3864501ed527389980535e9b403c2f0870a616ec1312ea1b031fe8ae"
+    }
+  ],
+  "central": {
+    "visual": true,
+    "town_density": true,
+    "walking": true,
+    "unity_stage_accepted": true
+  },
+  "west": {
+    "static_visual": true,
+    "town_density": true,
+    "walking": true,
+    "arrival_readability": false,
+    "unity_stage_accepted": false
+  },
+  "walking_scope": "Editor automated live controller route; not Pixel touch or continuous motion review",
+  "review": {
+    "independent_actual_image_reviewer": "west_cafe_actual_visual_gate_oct22",
+    "independent_conclusion": "Central and west static visual PASS; arrival interaction remains unverified",
+    "root_ruling": "Hold west acceptance: unsolicited social/ambient dialogue visibly covers walking/door-arrival cues. Treat as an Important player-task obstruction, not a proven modal or navigation block.",
+    "fix_scope": [
+      "Do not start automatic chatter during deliberate travel or facility arrival/opening; preserve idle and explicit conversations",
+      "Do not place a permanent cafe caption over the facade; retain the tappable door and contextual entry prompt",
+      "Verify actual second door tap opens cafe, without automatic entry"
+    ]
+  },
+  "minor_deferred": [
+    "Foreground planting occludes hero in connection still: review tracking with continuous motion during five-area joins; no blocked path established",
+    "Repeated paving and individual planting props are more apparent than proposal"
+  ],
+  "deferred_user_feedback": [
+    "Growth differences at Lv1/3/6",
+    "Level pace and decoration longevity",
+    "Separate growth explanation page later"
+  ],
+  "not_verified": [
+    "Pixel3a touch/input/FPS/memory",
+    "Whole-game native regression and APK",
+    "Successful cafe entry in received arrival still"
+  ],
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "next_stage": "One bounded arrival-readability fix; recapture central+west before east"
+}

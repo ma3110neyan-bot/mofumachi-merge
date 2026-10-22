@@ -117,12 +117,16 @@ namespace Mofumachi.Tests
                     west.World.LookAt(TownDistrictId.West);west.World.Camera.Jump(new TownPoint(-.60f,0));west.World.Refresh();Capture(westOutput,"west-connection");
                     west.World.FastTravel(TownDistrictId.Central);Assert.That(west.World.GuideDistrict(TownDistrictId.West),Is.True);
                     for(int i=0;i<3000&&west.World.Model.Hero.Position.X>-.85f;i++)west.AdvanceFrame(1f/30);
-                    Assert.That(west.World.Model.Hero.Position.X,Is.LessThanOrEqualTo(-.85f));Capture(westOutput,"west-walking");
+                    Assert.That(west.World.Model.Hero.Position.X,Is.LessThanOrEqualTo(-.85f));
+                    Assert.That(west.IsSpeaking,Is.False,"Walking must stay visible without unsolicited dialogue");Capture(westOutput,"west-walking");
                     for(int i=0;i<3000&&west.World.Model.Hero.IsWalking;i++)west.AdvanceFrame(1f/30);
                     Assert.That(west.World.Model.Hero.IsWalking,Is.False);
                     var facility=west.GetComponent<TownFacilityView>();Assert.That(facility.RequestEnter("cafe"),Is.True);
                     for(int i=0;i<3000&&facility.Entry.Phase==TownEntryPhase.Walking;i++)west.AdvanceFrame(1f/30);
-                    Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Arrived));Capture(westOutput,"west-door-arrived");
+                    Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Arrived));
+                    Assert.That(west.IsSpeaking,Is.False,"The cafe arrival cue must not be covered by dialogue");
+                    Assert.That(west.transform.Find("Facility entrance cafe/Facility sign cafe").gameObject.activeInHierarchy,Is.True);
+                    Capture(westOutput,"west-door-arrived");
                     Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home),"Walking to the cafe does not automatically enter");
                 }
                 if(output!=null)File.WriteAllLines(Path.Combine(output,"texture-memory.txt"),new[]{TownCentralMasterLayout.Resource,TownFountainGraphic.Resource,TownWestMasterLayout.Resource}.Select(key=>key+": "+UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(Resources.Load<Texture2D>(key))+" bytes"));

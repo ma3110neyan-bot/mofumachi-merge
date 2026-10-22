@@ -5,6 +5,28 @@ namespace Mofumachi.Tests
 {
     public sealed class TownFacilityEntryTests
     {
+        [Test] public void AmbientDialogueWaitsForTravelAndDeliberateEntryButResumesAfterCancellation()
+        {
+            var entry=new TownFacilityEntry();
+            Assert.That(entry.CanStartAmbientConversation(false),Is.True);Assert.That(entry.CanStartAmbientConversation(true),Is.False);
+            entry.Request("cafe");Assert.That(entry.CanStartAmbientConversation(true),Is.False);
+            var feet=TownWorldMap.Place("west.cafe-front");entry.Step(feet,false,.1f);
+            Assert.That(entry.CanStartAmbientConversation(false),Is.False,"Waiting at the door must remain readable even after walking stops");
+            entry.TapDoor("cafe",feet,false);Assert.That(entry.CanStartAmbientConversation(false),Is.False);
+            for(int i=0;i<10;i++)entry.Step(feet,false,.1f);
+            Assert.That(entry.CanStartAmbientConversation(false),Is.False);
+            entry.Cancel();Assert.That(entry.CanStartAmbientConversation(false),Is.True);
+        }
+        [Test] public void CafeSignAppearsForProximityOrItsOwnJourneyAndWithdrawsWhenRetargeted()
+        {
+            var entry=new TownFacilityEntry();
+            Assert.That(entry.ShowsSign("cafe",false),Is.False);Assert.That(entry.ShowsSign("cafe",true),Is.True);
+            Assert.That(entry.ShowsSign("quest",false),Is.True);Assert.That(entry.ShowsSign("shop",false),Is.True);
+            entry.Request("cafe");Assert.That(entry.ShowsSign("cafe",false),Is.True);
+            entry.Step(TownWorldMap.Place("west.cafe-front"),false,.1f);Assert.That(entry.ShowsSign("cafe",true),Is.True);
+            entry.Request("quest");Assert.That(entry.ShowsSign("cafe",false),Is.False);
+            entry.Cancel();Assert.That(entry.ShowsSign("cafe",false),Is.False);
+        }
         [TestCase("quest")] [TestCase("shop")] [TestCase("cafe")]
         public void WalkingToADoorWaitsForADeliberateTapBeforeOpening(string id)
         {

@@ -6,7 +6,7 @@
     "walking": null,
     "reviewed_candidate": null,
     "native_image_count": 0,
-    "status": "West cafe implementation changed shared world inputs; central must be recaptured with west. Previous c11e197 native checkpoint remains historical, not approval of this source.",
+    "status": "Received 01fa982 central passed actual-image review. Subsequent dialogue/cafe-caption fix changes shared inputs; current source requires a new central recheck with west.",
     "review_directory": null,
     "central_input_fingerprint": null
   },
@@ -28,8 +28,8 @@
   "pixel_verified": false,
   "adopted": false,
   "last_review": {
-    "candidate": "c11e197c7ea4a4f6c3de4d4f1829808a7266e206",
-    "run": "20261022-105639-a8919567",
+    "candidate": "01fa9824d28f63bb8dbc4913135c9921b26b82f0",
+    "run": "20261022-133501-349b7828",
     "native_unity": true,
     "native_image_count": 3,
     "visual": true,
@@ -38,7 +38,7 @@
     "central_unity_stage_accepted": true,
     "pixel_verified": false,
     "adopted": false,
-    "record": "References/Review/central-master-2026-10-22/native-review.json"
+    "record": "References/Review/west-cafe-2026-10-22/native-review.json"
   },
   "previous_review": {
     "candidate": "2fcab4af03b6953bdd2a0108af954da68d1d67af",
@@ -58,6 +58,33 @@
     "visual": null,
     "town_density": null,
     "walking": null,
-    "status": "source implemented; native central/west review pending; no APK or Pixel"
-  }
+    "status": "01fa982 native static visual/density and Editor route passed; hold arrival usability due unsolicited dialogue. Fix implemented, current-source native recheck pending. No east/APK/Pixel.",
+    "last_review": {
+      "candidate": "01fa9824d28f63bb8dbc4913135c9921b26b82f0",
+      "run": "20261022-133501-349b7828",
+      "native_unity": true,
+      "native_image_count": 6,
+      "static_visual": true,
+      "town_density": true,
+      "walking": true,
+      "arrival_readability": false,
+      "unity_stage_accepted": false,
+      "record": "References/Review/west-cafe-2026-10-22/native-review.json"
+    }
+  },
+  "historical_central_reviews": [
+    {
+      "candidate": "c11e197c7ea4a4f6c3de4d4f1829808a7266e206",
+      "run": "20261022-105639-a8919567",
+      "native_unity": true,
+      "native_image_count": 3,
+      "visual": true,
+      "town_density": true,
+      "walking": true,
+      "central_unity_stage_accepted": true,
+      "pixel_verified": false,
+      "adopted": false,
+      "record": "References/Review/central-master-2026-10-22/native-review.json"
+    }
+  ]
 }

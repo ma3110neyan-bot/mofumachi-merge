@@ -70,6 +70,7 @@ namespace Mofumachi.Presentation
                 bool visible=p.x>bounds.xMin-64&&p.x<bounds.xMax+64&&p.y>bounds.yMin-80&&p.y<bounds.yMax-10;
                 door.Hit.gameObject.SetActive(visible);door.Frame.gameObject.SetActive(visible);
                 bool near=TownWalkableArea.Distance(life.World.Model.Hero.Position,TownWorldMap.Place(TownFacilityEntry.DestinationFor(door.Id)))<.23f;
+                door.Sign.gameObject.SetActive(Entry.ShowsSign(door.Id,near));
                 float amount=Entry.Facility==door.Id?Entry.OpenAmount:0;
                 door.Leaf.localScale=new Vector3(1-amount,1,1);door.Light.color=Color.Lerp(new Color(.28f,.14f,.10f),new Color(1,.86f,.48f),Mathf.Max(amount,near?.35f:0));
                 string title=door.Id=="quest"?"北の依頼小屋":door.Id=="cafe"?"西のカフェ":"東の花屋";

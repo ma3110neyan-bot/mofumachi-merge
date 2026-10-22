@@ -1,0 +1,17 @@
+﻿{
+    "gitRevision":  "01fa9824d28f63bb8dbc4913135c9921b26b82f0",
+    "productFingerprint":  "1134c770cb311049f1a1c11d9a012770b778cf0403c3af04203e51dda5f3cf31",
+    "centralInputFingerprint":  "3e165cf81f64216bc44a67f08a438cc6bbc48871f9cef3416cef058721b0ce3f",
+    "unity":  "6000.6.4f1",
+    "scope":  "central review only",
+    "nativeCaptureCount":  3,
+    "localUnityConfigurationChanges":  [
+                                           "\"Assets/Settings/Build Profiles/Android\\342\\204\\242.asset\"",
+                                           "Assets/Settings/UniversalRP.asset",
+                                           "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+                                           "ProjectSettings/ProjectSettings.asset"
+                                       ],
+    "apk_generated":  false,
+    "pixel_verified":  false,
+    "adopted":  false
+}

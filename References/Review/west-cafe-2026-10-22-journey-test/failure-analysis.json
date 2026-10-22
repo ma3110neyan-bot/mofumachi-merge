@@ -1,0 +1,42 @@
+{
+  "run": "20261022-140307-5a764ae6",
+  "upload_ids": [
+    "file_00000000c0608209a9e392969daef4d9",
+    "file_0000000077b8821194414fb109776927"
+  ],
+  "files": [
+    {
+      "file": "central-playmode.xml",
+      "sha256": "c5ebde5ae9904da325ca1b80aa14f7b97b8e3e880c89fb23311018211a2abbc7",
+      "bytes": 9681
+    },
+    {
+      "file": "central-playmode.log",
+      "sha256": "21be022e71c5cd84b267920863cc4a78da55f35596517b078e94a34ab47544b4",
+      "bytes": 59284
+    }
+  ],
+  "native_tests": {
+    "total": 6,
+    "passed": 5,
+    "failed": 1,
+    "skipped": 0
+  },
+  "failed_test": "CafeDoorStaysReadableDuringTravelAndWaitsForTheSecondTap",
+  "failure_message": "  A distant cafe facade stays visible\n  Expected: False\n  But was:  True\n",
+  "failure_line": 24,
+  "source_identity": "Corrected test name and six-case native suite present. Exact git SHA/product fingerprint are not in these two uploaded files; do not treat them as complete source-bound acceptance evidence.",
+  "root_cause": "The second level case inherits the Lv1 cafe doorway through UIFlow.Render/Capture and BuildHome/World.Restore. LookAt changes the camera only. Near=true correctly shows the sign, contradicting the test assumption of a distant hero.",
+  "diagnostic": {
+    "scope": "Actual pure TownWorldWalkModel/TownFacilityEntry; not native Unity rendering",
+    "red": "Lv1 far/hidden then restored Lv3 at(-1.2,0.04) near/shown; exit1",
+    "green": "Explicit FastTravel(Central) per level starts both at(0,-0.25), far/hidden; exit0"
+  },
+  "fix": "Test setup only: central fast travel and explicit starting-district assertion at each level. Original hidden-far/shown-near, silent travel/wait, deliberate second-tap/opening/interior assertions retained.",
+  "production_behavior_changed": false,
+  "native_gate_weakened": false,
+  "current_native_recheck_pending": true,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false
+}

@@ -58,7 +58,7 @@
     "visual": null,
     "town_density": null,
     "walking": null,
-    "status": "01fa982 native static visual/density and Editor route passed; hold arrival usability due unsolicited dialogue. Fix implemented, current-source native recheck pending. No east/APK/Pixel.",
+    "status": "Arrival-fix native run20261022-140307-5a764ae6:5passed/1failed at incorrect second-level starting-position assumption. Test-only central-start correction implemented; native6 rerun/actual images pending. No east/APK/Pixel.",
     "last_review": {
       "candidate": "01fa9824d28f63bb8dbc4913135c9921b26b82f0",
       "run": "20261022-133501-349b7828",

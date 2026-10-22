@@ -16,6 +16,10 @@ namespace Mofumachi.Tests
             foreach(int level in new[]{1,3})
             {
                 Flow.Game.State.townGrowthLevel=level;Flow.ShowHome();var life=FrameTownPortrait(640);
+                // ShowHome preserves the previous visit's feet. Each level
+                // must start in central, rather than at the Lv1 cafe doorway.
+                life.World.FastTravel(TownDistrictId.Central);
+                Assert.That(life.World.Model.Hero.District,Is.EqualTo(TownDistrictId.Central),"Each level starts a fresh cafe journey from central");
                 life.World.LookAt(TownDistrictId.West);Canvas.ForceUpdateCanvases();
                 var facility=life.GetComponent<TownFacilityView>();
                 var hit=life.transform.Find("Facility entrance cafe");

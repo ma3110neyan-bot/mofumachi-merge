@@ -25,6 +25,8 @@
 
 ## 次の確認手順
 
+最新のWindows実行 `20261022-140307-5a764ae6` は6件中5成功・1失敗だった。追加した検査が、Lv1のカフェ到着位置をLv3へ復元したまま遠方の看板非表示を要求していた。検査の準備に各Lvの中央開始を追加し、元の合格条件は維持した。[受領ログと原因](../References/Review/west-cafe-2026-10-22-journey-test/README.md)。実モデルの診断は失敗→成功、全純C#260と実DLL6asmdefは成功。ゲーム側の挙動は変更していない。ネイティブ6件の成功と実画像の確認は、再実行まで未確認。
+
 GitHub Desktopで既存featureブランチをPullし、Unity Editorを閉じて実行する。
 
 ```powershell

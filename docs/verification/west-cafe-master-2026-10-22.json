@@ -1,8 +1,8 @@
 {
   "date": "2026-10-22",
   "base_revision": "01fa9824d28f63bb8dbc4913135c9921b26b82f0",
-  "scope": "west native review received; bounded automatic-dialogue and contextual cafe-caption fix",
-  "status": "arrival-readability fix implemented; current-source Unity/Pixel unverified",
+  "scope": "west arrival fix native run failed at level-dependent test setup; test-only central-start correction",
+  "status": "test setup corrected; native six-case rerun and images pending",
   "central_current_native_verified": false,
   "west_design_unchanged": true,
   "pixel_verified": false,
@@ -140,6 +140,21 @@
     },
     "west-arrival-green.log": {
       "sha256": "db4294d790fae70abeaef86aee128f3b9d660c31efdc4e4c212e0fa241e1d815"
+    },
+    "cafe-setup-red.log": {
+      "sha256": "61bd1a35a2c5431c0693a99089b8bbfd85b528ce627923ff895d696f4927b35e"
+    },
+    "cafe-setup-reference.log": {
+      "sha256": "be701997e48f15c8c4b78e07915a2a550fb6e189a8d85e77f21825deb5529071"
+    },
+    "cafe-setup-gates.log": {
+      "sha256": "42d1a5300abd0582776b69a5f24b401b4796f44e9c3b2ecda950522df70319c7"
+    },
+    "cafe-setup-full.log": {
+      "sha256": "4cceb45c74ca9ae47a2107532850248b152b27050c079f5b808c36a781527fd0"
+    },
+    "cafe-setup-green.log": {
+      "sha256": "4f135b67d429d761474c4dbc2f1fccbae96e5d9dbb50f96a469a648f86978a7b"
     }
   },
   "reference_compile_warnings": 0,
@@ -161,5 +176,21 @@
     "powershell_suites": 6,
     "native_journey_test_added": "CafeDoorStaysReadableDuringTravelAndWaitsForTheSecondTap: Lv1 and Lv3, click-handler route/arrival wait/second tap/interior",
     "native_fix_tests_executed_here": 0
+  },
+  "latest_native_failed_run": {
+    "run": "20261022-140307-5a764ae6",
+    "passed": 5,
+    "failed": 1,
+    "failed_test": "CafeDoorStaysReadableDuringTravelAndWaitsForTheSecondTap",
+    "record": "References/Review/west-cafe-2026-10-22-journey-test/failure-analysis.json",
+    "test_setup_corrected": true,
+    "production_behavior_changed": false,
+    "gate_weakened": false,
+    "current_native_recheck_pending": true
+  },
+  "test_setup_diagnostic": {
+    "red_exit": 1,
+    "green_exit": 0,
+    "scope": "actual pure model/entry policy; not Unity execution"
   }
 }

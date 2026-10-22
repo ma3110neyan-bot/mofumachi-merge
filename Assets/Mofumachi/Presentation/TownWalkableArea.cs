@@ -50,6 +50,7 @@ namespace Mofumachi.Presentation
             foreach(var piece in TownCentralMasterLayout.Dressing)if(piece.Footprint!=null)result.Add(piece.Footprint);
             foreach(var piece in TownWestMasterLayout.Dressing)if(piece.Footprint!=null)result.Add(piece.Footprint);
             foreach(var piece in TownEastMasterLayout.Dressing)if(piece.Footprint!=null)result.Add(piece.Footprint);
+            foreach(var piece in TownNorthMasterLayout.Dressing)if(piece.Footprint!=null)result.Add(piece.Footprint);
             return result.AsReadOnly();
         }
         private static readonly IReadOnlyList<(TownPoint Center,float X,float Y)> islands=Array.AsReadOnly(excluded);

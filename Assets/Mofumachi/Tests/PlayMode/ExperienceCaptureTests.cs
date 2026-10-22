@@ -73,7 +73,8 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator PortraitScreensRenderFromIsolatedStateWithoutWritingProgress()
         {
             yield return EnterHome();string output=OutputDirectory();
-            bool eastReview=Environment.GetCommandLineArgs().Contains("-mofumachiEastReview");
+            bool northReview=Environment.GetCommandLineArgs().Contains("-mofumachiNorthReview");
+            bool eastReview=northReview||Environment.GetCommandLineArgs().Contains("-mofumachiEastReview");
             bool westReview=eastReview||Environment.GetCommandLineArgs().Contains("-mofumachiWestReview");
             if(Environment.GetCommandLineArgs().Contains("-mofumachiCentralReview")||westReview)
             {
@@ -157,6 +158,35 @@ namespace Mofumachi.Tests
                     Assert.That(east.transform.Find("Facility entrance shop/Facility sign shop").gameObject.activeInHierarchy,Is.True);
                     Capture(eastOutput,"east-door-arrived");
                     Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home),"Walking to the florist does not automatically enter");
+                }
+                if(northReview)
+                {
+                    string northOutput=output==null?null:Path.Combine(output,"north");
+                    foreach(int level in new[]{1,3,6})
+                    {
+                        Flow.Game.State.townGrowthLevel=level;Flow.ShowHome();EnsurePortraitCamera();Canvas.ForceUpdateCanvases();
+                        var town=Flow.GetComponentInChildren<TownLifeView>();town.World.FastTravel(TownDistrictId.Central);town.World.LookAt(TownDistrictId.North);town.World.Refresh();yield return null;Canvas.ForceUpdateCanvases();
+                        foreach(var piece in town.GetComponent<TownSceneryView>().Pieces.Where(p=>p.Rect.gameObject.activeSelf))
+                            Assert.That(Vector2.Distance(piece.Rect.anchoredPosition,town.World.Local(piece.Placement.Feet,(RectTransform)town.transform)),Is.LessThan(.01f));
+                        foreach(var resident in town.Actors.Where(a=>a.RegionVisible&&a.transform.Find("Town actor name panel").gameObject.activeInHierarchy))
+                            EastMasterReviewTests.AssertNameClearOfBenches(town,resident);
+                        Capture(northOutput,"04-town-lv"+level+"-North",TownDistrictId.North);
+                    }
+                    Flow.Game.State.townGrowthLevel=1;Flow.ShowHome();EnsurePortraitCamera();var north=Flow.GetComponentInChildren<TownLifeView>();
+                    north.World.LookAt(TownDistrictId.North);north.World.Camera.Jump(new TownPoint(0,1f));north.World.Refresh();Capture(northOutput,"north-connection");
+                    north.World.FastTravel(TownDistrictId.Central);Assert.That(north.World.GuideDistrict(TownDistrictId.North),Is.True);
+                    for(int i=0;i<3000&&north.World.Model.Hero.Position.Y<1.32f;i++)north.AdvanceFrame(1f/30);
+                    Assert.That(north.World.Model.Hero.Position.Y,Is.GreaterThanOrEqualTo(1.32f));
+                    Assert.That(north.IsSpeaking,Is.False,"Walking must stay visible without unsolicited dialogue");Capture(northOutput,"north-walking");
+                    for(int i=0;i<3000&&north.World.Model.Hero.IsWalking;i++)north.AdvanceFrame(1f/30);
+                    Assert.That(north.World.Model.Hero.IsWalking,Is.False);
+                    var facility=north.GetComponent<TownFacilityView>();Assert.That(facility.RequestEnter("quest"),Is.True);
+                    for(int i=0;i<3000&&facility.Entry.Phase==TownEntryPhase.Walking;i++)north.AdvanceFrame(1f/30);
+                    Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Arrived));
+                    Assert.That(north.IsSpeaking,Is.False,"The cottage arrival cue must not be covered by dialogue");
+                    Assert.That(north.transform.Find("Facility entrance quest/Facility sign quest").gameObject.activeInHierarchy,Is.True);
+                    Capture(northOutput,"north-door-arrived");
+                    Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home),"Walking to the cottage does not automatically enter");
                 }
                 if(output!=null)File.WriteAllLines(Path.Combine(output,"texture-memory.txt"),new[]{TownCentralMasterLayout.Resource,TownFountainGraphic.Resource,TownWestMasterLayout.Resource}.Select(key=>key+": "+UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(Resources.Load<Texture2D>(key))+" bytes"));
                 LogAssert.NoUnexpectedReceived();yield break;

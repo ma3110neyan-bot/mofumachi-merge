@@ -1,0 +1,32 @@
+もふまちメルジュ：北の依頼小屋・Unity確認手順
+2026-10-22
+
+状態：実装済み・Unity実画面未確認・APK未生成・Pixel 3a未確認。
+この手順ではAPKを作りません。
+
+1. GitHub Desktopで feat/daily-world-pass-20261016 を選び、Pullしてください。
+2. Unity Editorを閉じてください。
+3. PowerShellへ次の2行を貼り付けて実行してください。
+
+Set-Location -LiteralPath "C:\Users\User\Desktop\Mofumachi\mofumachi-merge"
+powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\build-android.ps1" -NorthReview
+
+4. 成功すると Builds\NorthReview\日時-ID のフォルダーが開きます。
+   同じフォルダーの次の4ファイルを送ってください。
+
+central-master-review.zip
+west-cafe-review.zip
+east-florist-review.zip
+north-quest-review.zip
+
+表示用の比較画像は各ZIPに含む .jpg です。
+成功時の予定：Unityテスト12件、画像21枚、Before比較12組。
+4ZIPの同じテストXMLを重複して数えません。
+
+失敗した場合：その実行フォルダーの次の2ファイルを送ってください。
+central-playmode.xml
+central-playmode.log
+
+旧版で -NorthReview が認識されない場合は、Pullの反映を確認してください。
+親PowerShellでbuildスクリプトをドットソースする必要はありません。
+北の実画面を確認してから南へ進みます。

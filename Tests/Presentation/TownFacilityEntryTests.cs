@@ -17,15 +17,14 @@ namespace Mofumachi.Tests
             Assert.That(entry.CanStartAmbientConversation(false),Is.False);
             entry.Cancel();Assert.That(entry.CanStartAmbientConversation(false),Is.True);
         }
-        [TestCase("cafe")] [TestCase("shop")]
-        public void CommercialSignAppearsForProximityOrItsOwnJourneyAndWithdrawsWhenRetargeted(string id)
+        [TestCase("cafe")] [TestCase("shop")] [TestCase("quest")]
+        public void FacilitySignAppearsForProximityOrItsOwnJourneyAndWithdrawsWhenRetargeted(string id)
         {
             var entry=new TownFacilityEntry();
             Assert.That(entry.ShowsSign(id,false),Is.False);Assert.That(entry.ShowsSign(id,true),Is.True);
-            Assert.That(entry.ShowsSign("quest",false),Is.True);
             entry.Request(id);Assert.That(entry.ShowsSign(id,false),Is.True);
             entry.Step(TownWorldMap.Place(TownFacilityEntry.DestinationFor(id)),false,.1f);Assert.That(entry.ShowsSign(id,true),Is.True);
-            entry.Request("quest");Assert.That(entry.ShowsSign(id,false),Is.False);
+            entry.Request(id=="quest"?"shop":"quest");Assert.That(entry.ShowsSign(id,false),Is.False);
             entry.Cancel();Assert.That(entry.ShowsSign(id,false),Is.False);
         }
         [TestCase("quest")] [TestCase("shop")] [TestCase("cafe")]

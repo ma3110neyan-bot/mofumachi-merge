@@ -37,7 +37,7 @@
     "east-review"
   ],
   "expected_native_tests": 9,
-  "native_tests_executed": 0,
+  "native_tests_executed": 9,
   "expected_native_images": 15,
   "current_native_images": 15,
   "expected_review_zips": 3,

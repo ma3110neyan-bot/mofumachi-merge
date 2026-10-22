@@ -1,0 +1,126 @@
+{
+  "date": "2026-10-22",
+  "base_revision": "601ac54c281173d8edb2792c338aaaf6b086d7b6",
+  "scope": "North existing quest cottage scenery and contextual door; same approved five-area sequence",
+  "status": "implemented; native Unity/Pixel unverified",
+  "world_input_fingerprint": "ff5a1aa43497e966b4515e5fb41fd0ed2343ab4a1ee3ff4406eecfb31884ba86",
+  "historical_accepted_native": {
+    "revision": "97aac99713859e721e103371f27f12fa541b778e",
+    "run": "20261022-193224-39bef67c",
+    "tests": 9,
+    "images": 15,
+    "record": "References/Review/east-florist-2026-10-22-accepted/native-review.json",
+    "accepts_current_source": false
+  },
+  "pure_tests": {
+    "total": "276",
+    "executed": "276",
+    "passed": "276",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "unity_dll_reference_compile": {
+    "assemblies": 6,
+    "warnings": 0,
+    "errors": 0,
+    "is_editor_execution": false
+  },
+  "powershell_suites": [
+    "android-tools",
+    "approved-design",
+    "central-review",
+    "pixel-visual-check",
+    "visual-lock",
+    "west-review",
+    "east-review",
+    "north-review"
+  ],
+  "source_review": {
+    "independent_review_requested": true,
+    "independent_review_completed": false,
+    "reason": "Reviewer service returned usage-limit error before reviewing",
+    "self_review_completed": true,
+    "independent_severity_counts": null,
+    "scope_checked": [
+      "Runtime/preview shared layouts and projection",
+      "Static initialization, staged density and visible collision boundaries",
+      "Quest arrival, second tap, existing Quest screen and no unsolicited dialogue",
+      "Both walking sides and resting name clearance",
+      "Exact native count12/capture21 and companion source identities",
+      "Fixed Before hashes, previous accepted15 and current acceptance closed"
+    ],
+    "native_visual_judgment": false
+  },
+  "local_regression": {
+    "red_failed": 6,
+    "red_passed": 2,
+    "target_green": 8,
+    "full_green": 276,
+    "powershell_red_before_helpers_implemented": true
+  },
+  "native_tests_executed": 0,
+  "expected_native_tests": 12,
+  "current_native_images": 0,
+  "expected_native_images": 21,
+  "fixed_before_pairs": 12,
+  "return_zips": [
+    "central-master-review.zip",
+    "west-cafe-review.zip",
+    "east-florist-review.zip",
+    "north-quest-review.zip"
+  ],
+  "frozen_inputs": 153,
+  "new_large_texture_assets": 0,
+  "save_rules_rewards_quest_progression_level_pace_originals_changed": false,
+  "current_stage_flags": {
+    "central_current_source_accepted": false,
+    "west_current_source_accepted": false,
+    "east_current_source_accepted": false,
+    "north_current_source_accepted": false,
+    "qa_apk_blocked": true
+  },
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "next_action": "Pull feature and run child powershell RemoteSigned -File scripts/build-android.ps1 -NorthReview; submit same-run four ZIPs",
+  "no_south_before_north_native_pass": true,
+  "editor_limitation": "Last cloud probe exit198: no valid Unity Editor license. Android module/Pixel connection unavailable.",
+  "deferred": [
+    "Continuous movement/camera/occlusion duration and native visual density",
+    "Pixel operation/FPS/memory",
+    "Join flower occlusion, repetitive paving and cue/awning overlap at joins/UI stage",
+    "Lv differentiation/pace/decoration longevity/growth explanation page later as directed"
+  ],
+  "evidence_logs": {
+    "android-script-red.log": "aca0580c166046b19140117a9f8a4d9e3bfdbaf976a93c9490759e5fd9684d06",
+    "android-tools-tests.log": "0c2e65f19ff0bbe5c52e80b95b010d08fab4f81d5b359e4ff53e7ddcda4636cc",
+    "approved-design-tests.log": "31a02baec52e8f3426ca1a673605cb4f119e9d9c0088ea1906829c1545e3c8bf",
+    "central-review-tests.log": "f7c476226c565c2ab5e0c4d07aab225daa185c0d2ea97dafe81874af4d188e96",
+    "east-review-tests.log": "08aeefab6c6d5f097fc3f63d42c62283b2ee01145d0ff34521f241a4b29f2e0e",
+    "frozen-stage-gates.log": "195631e6ffee4b1575c3bb73a98fd4f14901d3d1ff8d2319aa68ecbdc1c8c60a",
+    "meta-check.log": "767a0c6acef9a04efb4634c18a15d4952ae4e6c0dced76c5b6efe291309cd773",
+    "mutual-mode-check.log": "b05956dde500494f619d6cb6c5b926221ae283ff8be47db189552794cec05148",
+    "north-green.log": "ca753d5200392e79fb3e5f823429a43245f04f316ca6feafbf346373db058940",
+    "north-red.log": "66b969ec25a184b538b39508205d8e9ba261005a7301d159293b18098b5da6ef",
+    "north-review-tests.log": "ba07ee2da5f80dc75135970f7aa322759962334af21c67261a5fa83b25155962",
+    "north-script-green.log": "36cdd18aebfda35bf5413203532f4d3c001052a9ee2846bdac6c95498f2cf6be",
+    "north-script-red.log": "978e7c9ef891da8fd5043f74017c02dd02e4b428ae4e7b2b6ed290ac8365abfd",
+    "pixel-visual-check-tests.log": "1c280dd589e229d4cce103bab61bb0ee699ae04cba3a1fb24cfe9038c67b1de1",
+    "production-gates.log": "195631e6ffee4b1575c3bb73a98fd4f14901d3d1ff8d2319aa68ecbdc1c8c60a",
+    "pure-full.log": "4f0c1da01a53e6108af3f5c805bf35c77792d1c95b4ab78165e160166f915e1c",
+    "unity-dll-compile.log": "b83b141d05d4eb56d41ceb928b30da7c0d3ee02b0ceaa1659865423dec929897",
+    "visual-lock-tests.log": "6fbc9e8045042a06bb5a0e261fc04c0b29aa1531ca5d3ec21e48cb63b6b0eeeb",
+    "west-review-tests.log": "305a8497dbfb7753315680ce0893337e549a7e6ae7bbf0f760d92ed6e9625c51"
+  }
+}

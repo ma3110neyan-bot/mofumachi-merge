@@ -1,12 +1,12 @@
 {
   "central": {
-    "native_unity": true,
-    "visual": true,
-    "town_density": true,
-    "walking": true,
+    "native_unity": false,
+    "visual": false,
+    "town_density": false,
+    "walking": false,
     "reviewed_candidate": "475671f9657943f8b5711bf0350714f5a1ff9433",
-    "native_image_count": 3,
-    "status": "475671f native actual-image/density/controller checkpoint passed; Pixel and base acceptance pending",
+    "native_image_count": 0,
+    "status": "East shared-input candidate implemented; current central/west recheck pending. Accepted 475671f evidence retained as historical checkpoint, not current-source acceptance.",
     "review_directory": "References/Review/west-cafe-2026-10-22-accepted/central",
     "central_input_fingerprint": "226dfeb13fb871c92bba025e37fc4a30fdbce029c1a51d02642ef34e55ddca17"
   },
@@ -22,9 +22,7 @@
     "qa_apk",
     "pixel_acceptance"
   ],
-  "completed_after_central": [
-    "west_cafe"
-  ],
+  "completed_after_central": [],
   "apk_generated": false,
   "pixel_verified": false,
   "adopted": false,
@@ -55,16 +53,16 @@
   "west": {
     "design_direction_approved": true,
     "implemented": true,
-    "native_unity": true,
-    "visual": true,
-    "town_density": true,
-    "walking": true,
-    "status": "475671f native images/density/route/arrival cue and second-tap cafe-view checkpoint passed. Minor visibility/paving/caption issues deferred to joins/UI. Not Pixel/base acceptance.",
-    "arrival_readability": true,
-    "deliberate_second_tap": true,
-    "unity_stage_accepted": true,
+    "native_unity": false,
+    "visual": false,
+    "town_density": false,
+    "walking": false,
+    "status": "East shared-input candidate implemented; current central/west recheck pending. Accepted 475671f evidence retained as historical checkpoint, not current-source acceptance.",
+    "arrival_readability": false,
+    "deliberate_second_tap": false,
+    "unity_stage_accepted": false,
     "reviewed_candidate": "475671f9657943f8b5711bf0350714f5a1ff9433",
-    "native_image_count": 6,
+    "native_image_count": 0,
     "review_directory": "References/Review/west-cafe-2026-10-22-accepted/west",
     "central_input_fingerprint": "226dfeb13fb871c92bba025e37fc4a30fdbce029c1a51d02642ef34e55ddca17",
     "previous_review": {
@@ -120,5 +118,20 @@
       "record": "References/Review/west-cafe-2026-10-22/native-review.json"
     }
   ],
-  "current_stage": "east_florist_shop"
+  "current_stage": "east_florist_shop",
+  "east": {
+    "design_direction_approved": true,
+    "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
+    "implemented": true,
+    "native_unity": false,
+    "visual": false,
+    "town_density": false,
+    "walking": false,
+    "arrival_readability": false,
+    "deliberate_second_tap": false,
+    "unity_stage_accepted": false,
+    "native_image_count": 0,
+    "status": "Implemented; native Unity comparison and Pixel unverified",
+    "prerequisite_review": "References/Review/west-cafe-2026-10-22-accepted/native-review.json"
+  }
 }

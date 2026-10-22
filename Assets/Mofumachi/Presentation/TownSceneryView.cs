@@ -20,7 +20,8 @@ namespace Mofumachi.Presentation
             foreach(var p in TownSceneryLayout.Nature)Add(p);
             foreach(var p in TownVillageDressing.All)Add(p);
             foreach(var p in TownCentralMasterLayout.Dressing)Add(p);
-            foreach(var p in TownWestMasterLayout.Dressing)Add(p);Refresh();
+            foreach(var p in TownWestMasterLayout.Dressing)Add(p);
+            foreach(var p in TownEastMasterLayout.Dressing)Add(p);Refresh();
         }
         private void Add(TownSceneryPlacement p)
         {
@@ -36,7 +37,7 @@ namespace Mofumachi.Presentation
                 var p=entry.Placement;var local=world!=null?world.Local(p.Feet,field):field.rect.center+new Vector2((p.Feet.X-previewCenter.X)*scale,(p.Feet.Y-previewCenter.Y)*scale);
                 entry.Rect.anchoredPosition=local;entry.Rect.sizeDelta=new Vector2(p.Width*scale,p.Height*scale);
                 var b=field.rect;bool visible=local.x+p.Width*scale/2>b.xMin&&local.x-p.Width*scale/2<b.xMax&&local.y+p.Height*scale>b.yMin&&local.y<b.yMax;
-                entry.Rect.gameObject.SetActive(visible&&TownCentralMasterLayout.VisibleAtLevel(p,townLevel)&&TownWestMasterLayout.VisibleAtLevel(p,townLevel));
+                entry.Rect.gameObject.SetActive(visible&&TownCentralMasterLayout.VisibleAtLevel(p,townLevel)&&TownWestMasterLayout.VisibleAtLevel(p,townLevel)&&TownEastMasterLayout.VisibleAtLevel(p,townLevel));
             }
             if(world==null){pieces.Sort((a,b)=>b.Placement.Feet.Y.CompareTo(a.Placement.Feet.Y));foreach(var p in pieces)p.Rect.SetAsLastSibling();}
         }

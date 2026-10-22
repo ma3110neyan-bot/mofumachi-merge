@@ -73,7 +73,8 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator PortraitScreensRenderFromIsolatedStateWithoutWritingProgress()
         {
             yield return EnterHome();string output=OutputDirectory();
-            bool westReview=Environment.GetCommandLineArgs().Contains("-mofumachiWestReview");
+            bool eastReview=Environment.GetCommandLineArgs().Contains("-mofumachiEastReview");
+            bool westReview=eastReview||Environment.GetCommandLineArgs().Contains("-mofumachiWestReview");
             if(Environment.GetCommandLineArgs().Contains("-mofumachiCentralReview")||westReview)
             {
                 // Configure portrait before building the first town, rather than
@@ -128,6 +129,33 @@ namespace Mofumachi.Tests
                     Assert.That(west.transform.Find("Facility entrance cafe/Facility sign cafe").gameObject.activeInHierarchy,Is.True);
                     Capture(westOutput,"west-door-arrived");
                     Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home),"Walking to the cafe does not automatically enter");
+                }
+                if(eastReview)
+                {
+                    string eastOutput=output==null?null:Path.Combine(output,"east");
+                    foreach(int level in new[]{1,3,6})
+                    {
+                        Flow.Game.State.townGrowthLevel=level;Flow.ShowHome();EnsurePortraitCamera();Canvas.ForceUpdateCanvases();
+                        var town=Flow.GetComponentInChildren<TownLifeView>();town.World.FastTravel(TownDistrictId.Central);town.World.LookAt(TownDistrictId.East);town.World.Refresh();yield return null;Canvas.ForceUpdateCanvases();
+                        foreach(var piece in town.GetComponent<TownSceneryView>().Pieces.Where(p=>p.Rect.gameObject.activeSelf))
+                            Assert.That(Vector2.Distance(piece.Rect.anchoredPosition,town.World.Local(piece.Placement.Feet,(RectTransform)town.transform)),Is.LessThan(.01f));
+                        Capture(eastOutput,"04-town-lv"+level+"-East",TownDistrictId.East);
+                    }
+                    Flow.Game.State.townGrowthLevel=1;Flow.ShowHome();EnsurePortraitCamera();var east=Flow.GetComponentInChildren<TownLifeView>();
+                    east.World.LookAt(TownDistrictId.East);east.World.Camera.Jump(new TownPoint(.60f,0));east.World.Refresh();Capture(eastOutput,"east-connection");
+                    east.World.FastTravel(TownDistrictId.Central);Assert.That(east.World.GuideDistrict(TownDistrictId.East),Is.True);
+                    for(int i=0;i<3000&&east.World.Model.Hero.Position.X<.85f;i++)east.AdvanceFrame(1f/30);
+                    Assert.That(east.World.Model.Hero.Position.X,Is.GreaterThanOrEqualTo(.85f));
+                    Assert.That(east.IsSpeaking,Is.False,"Walking must stay visible without unsolicited dialogue");Capture(eastOutput,"east-walking");
+                    for(int i=0;i<3000&&east.World.Model.Hero.IsWalking;i++)east.AdvanceFrame(1f/30);
+                    Assert.That(east.World.Model.Hero.IsWalking,Is.False);
+                    var facility=east.GetComponent<TownFacilityView>();Assert.That(facility.RequestEnter("shop"),Is.True);
+                    for(int i=0;i<3000&&facility.Entry.Phase==TownEntryPhase.Walking;i++)east.AdvanceFrame(1f/30);
+                    Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Arrived));
+                    Assert.That(east.IsSpeaking,Is.False,"The florist arrival cue must not be covered by dialogue");
+                    Assert.That(east.transform.Find("Facility entrance shop/Facility sign shop").gameObject.activeInHierarchy,Is.True);
+                    Capture(eastOutput,"east-door-arrived");
+                    Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home),"Walking to the florist does not automatically enter");
                 }
                 if(output!=null)File.WriteAllLines(Path.Combine(output,"texture-memory.txt"),new[]{TownCentralMasterLayout.Resource,TownFountainGraphic.Resource,TownWestMasterLayout.Resource}.Select(key=>key+": "+UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(Resources.Load<Texture2D>(key))+" bytes"));
                 LogAssert.NoUnexpectedReceived();yield break;

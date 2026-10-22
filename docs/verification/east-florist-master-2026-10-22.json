@@ -1,0 +1,104 @@
+{
+  "date": "2026-10-22",
+  "base_revision": "7b1ac3b367acdcc61ddf69212d0b7be306bca0af",
+  "scope": "east florist master, existing approved role and art; no new shop subsystem",
+  "status": "Implemented; current-source native Unity and Pixel unverified",
+  "world_input_fingerprint": "2e012befe7b96b6523d944bc411ea34797f5fb99bc0de37aba40bb92c6ffb54a",
+  "pure_tests": {
+    "total": "265",
+    "executed": "265",
+    "passed": "265",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "unity_dll_reference_compile": {
+    "assemblies": 6,
+    "warnings": 0,
+    "errors": 0,
+    "is_editor_execution": false
+  },
+  "powershell_suites": [
+    "android-tools",
+    "approved-design",
+    "central-review",
+    "pixel-visual-check",
+    "visual-lock",
+    "west-review",
+    "east-review"
+  ],
+  "expected_native_tests": 9,
+  "native_tests_executed": 0,
+  "expected_native_images": 15,
+  "current_native_images": 0,
+  "expected_review_zips": 3,
+  "fixed_before_pairs": 9,
+  "frozen_inputs": 153,
+  "new_large_texture_assets": 0,
+  "source_review": {
+    "reviewer": "east_master_source_review",
+    "base": "7b1ac3b367acdcc61ddf69212d0b7be306bca0af",
+    "critical": 0,
+    "important": 0,
+    "minor": 1,
+    "finding": "East comparison JPEG title incorrectly says WEST FLORIST",
+    "resolution": "Corrected presentation text to EAST FLORIST; no behavioral or capture changes",
+    "declined_to_judge": [
+      "Actual appearance/occlusion/quality",
+      "FPS or memory on Pixel",
+      "Pixel acceptance"
+    ],
+    "native_current_source_accepted": false
+  },
+  "stage_flags": {
+    "central_current_source_accepted": false,
+    "west_current_source_accepted": false,
+    "east_current_source_accepted": false,
+    "qa_apk_blocked": true
+  },
+  "historical_checkpoint": "References/Review/west-cafe-2026-10-22-accepted/native-review.json",
+  "editor_probe": {
+    "exit_code": 198,
+    "reason": "No valid Unity Editor license found"
+  },
+  "save_progression_rewards_rules_original_art_changed": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "deferred": [
+    "Lv differences, progression pace, growth explanation page later as directed",
+    "West join flower occlusion, repetitive paving, partial cue/awning overlap at joins/UI stage"
+  ],
+  "evidence_logs": {
+    "android-script-red.log": "aca0580c166046b19140117a9f8a4d9e3bfdbaf976a93c9490759e5fd9684d06",
+    "android-tools-tests.log": "f831cf26c93afa9b15ba371c1df88e4e4f088ecedee271ec48ba4df4b1c692fc",
+    "approved-design-tests.log": "31a02baec52e8f3426ca1a673605cb4f119e9d9c0088ea1906829c1545e3c8bf",
+    "central-review-tests.log": "f7c476226c565c2ab5e0c4d07aab225daa185c0d2ea97dafe81874af4d188e96",
+    "east-green.log": "37757ebbbed253ac9ab78b1f2aac2906144684bd133191418dbafa56c1b393ee",
+    "east-prerequisite-green.log": "9d8f6f4c12f3b736353b7f73a9cf96ed6ade50db0c6e6c79fc71dc90f3e587b4",
+    "east-prerequisite-red.log": "8a55aa76e8850c09ab2bc924294a0eb5d671dc269423a99b6ef85b09e58130f2",
+    "east-red.log": "11950d18f234cef804e2c844397c1ab6faa1ca7ea1e83a94acb029543a31d9d6",
+    "east-review-tests.log": "64de8f95d0b348bd326c6201ed73104b139c8d6d3d62361388e892a2ad585387",
+    "east-script-green.log": "f896819483038a72eecf6e9940a9b43babeb902b85e1051f7e49d2fa58db4c56",
+    "east-script-red.log": "4d2c7f5101ef6b425c7fcb1c1b80fd4af85bd2dd467528f4ef940063e2643ea0",
+    "frozen-stage-gates.log": "b042a3e2f32cc2385037875983a4985484945f19edb45860bfbae81fe2818963",
+    "mutual-mode-check.log": "e1d8a26e5f34e4ef0230f95833290a9a96e6230593ec6198979daa48aad21337",
+    "native-editor-probe.log": "3c29c362b29084a9418d740c54ddc5bce83546d8946ffafde0dae5c0850c15fe",
+    "native-editor-stdout.log": "9ec5fc57151dbedd5f8f26ffe5fb142aa044fc9e32b2e223cdcdfabd74738d49",
+    "pixel-visual-check-tests.log": "1c280dd589e229d4cce103bab61bb0ee699ae04cba3a1fb24cfe9038c67b1de1",
+    "pure-full.log": "380d5c7ad59eeb414e1ac6bfe1249f986042f72bc82b7e90d288fba2fba86d13",
+    "unity-dll-compile.log": "32155daf56f1b5f8ad5b9c5b7ce5aab51e45f0666ef4a8cc0adbe81a8371589e",
+    "visual-lock-tests.log": "2b911c2a13602c7f7d948026d684b5e799f91728d58e3d4ead0ec5915897dcbf",
+    "west-review-tests.log": "7084e69cb647fbb45411ea895f296804488e654ffde3df41917d73ede3b7ea49"
+  }
+}

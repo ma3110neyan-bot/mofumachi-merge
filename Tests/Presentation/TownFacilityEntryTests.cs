@@ -17,15 +17,16 @@ namespace Mofumachi.Tests
             Assert.That(entry.CanStartAmbientConversation(false),Is.False);
             entry.Cancel();Assert.That(entry.CanStartAmbientConversation(false),Is.True);
         }
-        [Test] public void CafeSignAppearsForProximityOrItsOwnJourneyAndWithdrawsWhenRetargeted()
+        [TestCase("cafe")] [TestCase("shop")]
+        public void CommercialSignAppearsForProximityOrItsOwnJourneyAndWithdrawsWhenRetargeted(string id)
         {
             var entry=new TownFacilityEntry();
-            Assert.That(entry.ShowsSign("cafe",false),Is.False);Assert.That(entry.ShowsSign("cafe",true),Is.True);
-            Assert.That(entry.ShowsSign("quest",false),Is.True);Assert.That(entry.ShowsSign("shop",false),Is.True);
-            entry.Request("cafe");Assert.That(entry.ShowsSign("cafe",false),Is.True);
-            entry.Step(TownWorldMap.Place("west.cafe-front"),false,.1f);Assert.That(entry.ShowsSign("cafe",true),Is.True);
-            entry.Request("quest");Assert.That(entry.ShowsSign("cafe",false),Is.False);
-            entry.Cancel();Assert.That(entry.ShowsSign("cafe",false),Is.False);
+            Assert.That(entry.ShowsSign(id,false),Is.False);Assert.That(entry.ShowsSign(id,true),Is.True);
+            Assert.That(entry.ShowsSign("quest",false),Is.True);
+            entry.Request(id);Assert.That(entry.ShowsSign(id,false),Is.True);
+            entry.Step(TownWorldMap.Place(TownFacilityEntry.DestinationFor(id)),false,.1f);Assert.That(entry.ShowsSign(id,true),Is.True);
+            entry.Request("quest");Assert.That(entry.ShowsSign(id,false),Is.False);
+            entry.Cancel();Assert.That(entry.ShowsSign(id,false),Is.False);
         }
         [TestCase("quest")] [TestCase("shop")] [TestCase("cafe")]
         public void WalkingToADoorWaitsForADeliberateTapBeforeOpening(string id)

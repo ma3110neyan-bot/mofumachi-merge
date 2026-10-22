@@ -1,17 +1,26 @@
 {
   "central": {
-    "native_unity": false,
-    "visual": false,
-    "town_density": false,
-    "walking": false,
-    "reviewed_candidate": "475671f9657943f8b5711bf0350714f5a1ff9433",
-    "native_image_count": 0,
-    "status": "Historical2848782 central/west native checkpoint passed; shared-input bench correction requires same-source recheck. Current acceptance remains closed.",
-    "review_directory": "References/Review/west-cafe-2026-10-22-accepted/central",
-    "central_input_fingerprint": "226dfeb13fb871c92bba025e37fc4a30fdbce029c1a51d02642ef34e55ddca17"
+    "native_unity": true,
+    "visual": true,
+    "town_density": true,
+    "walking": true,
+    "reviewed_candidate": "97aac99713859e721e103371f27f12fa541b778e",
+    "native_image_count": 3,
+    "status": "97aac99 bounded native checkpoint passed; not base/APK/Pixel acceptance",
+    "review_directory": "References/Review/east-florist-2026-10-22-accepted/central",
+    "central_input_fingerprint": "5e419d0348d5897a3378d228a5afcea388aac02e654990c0770c9bb6dda4bbb8",
+    "last_review": {
+      "candidate": "97aac99713859e721e103371f27f12fa541b778e",
+      "run": "20261022-193224-39bef67c",
+      "native_unity": true,
+      "visual": true,
+      "town_density": true,
+      "walking": true,
+      "unity_stage_accepted": true,
+      "record": "References/Review/east-florist-2026-10-22-accepted/native-review.json"
+    }
   },
   "remaining_sequence": [
-    "east_florist_shop",
     "north_quest",
     "south_garden",
     "connections",
@@ -22,21 +31,23 @@
     "qa_apk",
     "pixel_acceptance"
   ],
-  "completed_after_central": [],
+  "completed_after_central": [
+    "west_cafe",
+    "east_florist_shop"
+  ],
   "apk_generated": false,
   "pixel_verified": false,
   "adopted": false,
   "last_review": {
-    "candidate": "28487824da0be859bae2313f164bbc806a3bbee2",
-    "run": "20261022-190004-5597dca1",
+    "candidate": "97aac99713859e721e103371f27f12fa541b778e",
+    "run": "20261022-193224-39bef67c",
     "native_unity": true,
     "native_image_count": 3,
     "visual": true,
     "town_density": true,
     "walking": true,
     "central_unity_stage_accepted": true,
-    "record": "References/Review/east-florist-2026-10-22/native-review.json",
-    "scope": "received2848782; historical after East bench correction"
+    "record": "References/Review/east-florist-2026-10-22-accepted/native-review.json"
   },
   "previous_review": {
     "candidate": "2fcab4af03b6953bdd2a0108af954da68d1d67af",
@@ -52,18 +63,18 @@
   "west": {
     "design_direction_approved": true,
     "implemented": true,
-    "native_unity": false,
-    "visual": false,
-    "town_density": false,
-    "walking": false,
-    "status": "Historical2848782 central/west native checkpoint passed; shared-input bench correction requires same-source recheck. Current acceptance remains closed.",
-    "arrival_readability": false,
-    "deliberate_second_tap": false,
-    "unity_stage_accepted": false,
-    "reviewed_candidate": "475671f9657943f8b5711bf0350714f5a1ff9433",
-    "native_image_count": 0,
-    "review_directory": "References/Review/west-cafe-2026-10-22-accepted/west",
-    "central_input_fingerprint": "226dfeb13fb871c92bba025e37fc4a30fdbce029c1a51d02642ef34e55ddca17",
+    "native_unity": true,
+    "visual": true,
+    "town_density": true,
+    "walking": true,
+    "status": "97aac99 bounded native checkpoint passed; not base/APK/Pixel acceptance",
+    "arrival_readability": true,
+    "deliberate_second_tap": true,
+    "unity_stage_accepted": true,
+    "reviewed_candidate": "97aac99713859e721e103371f27f12fa541b778e",
+    "native_image_count": 6,
+    "review_directory": "References/Review/east-florist-2026-10-22-accepted/west",
+    "central_input_fingerprint": "5e419d0348d5897a3378d228a5afcea388aac02e654990c0770c9bb6dda4bbb8",
     "previous_review": {
       "candidate": "01fa9824d28f63bb8dbc4913135c9921b26b82f0",
       "run": "20261022-133501-349b7828",
@@ -77,16 +88,14 @@
       "record": "References/Review/west-cafe-2026-10-22/native-review.json"
     },
     "last_review": {
-      "candidate": "28487824da0be859bae2313f164bbc806a3bbee2",
-      "run": "20261022-190004-5597dca1",
+      "candidate": "97aac99713859e721e103371f27f12fa541b778e",
+      "run": "20261022-193224-39bef67c",
       "native_unity": true,
-      "native_image_count": 6,
       "visual": true,
       "town_density": true,
       "walking": true,
-      "arrival_readability": true,
       "unity_stage_accepted": true,
-      "record": "References/Review/east-florist-2026-10-22/native-review.json"
+      "record": "References/Review/east-florist-2026-10-22-accepted/native-review.json"
     }
   },
   "historical_central_reviews": [
@@ -128,24 +137,46 @@
       "pixel_verified": false,
       "adopted": false,
       "record": "References/Review/west-cafe-2026-10-22-accepted/native-review.json"
+    },
+    {
+      "candidate": "28487824da0be859bae2313f164bbc806a3bbee2",
+      "run": "20261022-190004-5597dca1",
+      "native_unity": true,
+      "native_image_count": 3,
+      "visual": true,
+      "town_density": true,
+      "walking": true,
+      "central_unity_stage_accepted": true,
+      "record": "References/Review/east-florist-2026-10-22/native-review.json",
+      "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "east_florist_shop",
+  "current_stage": "north_quest",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
     "implemented": true,
-    "native_unity": false,
-    "visual": false,
-    "town_density": false,
-    "walking": false,
-    "arrival_readability": false,
-    "deliberate_second_tap": false,
-    "unity_stage_accepted": false,
-    "native_image_count": 0,
-    "status": "2848782 native9/9 and15 images received; East HOLD for introduced Fio name-card occlusion. Bench replacement fix implemented; corrected-source native recheck required. North blocked.",
+    "native_unity": true,
+    "visual": true,
+    "town_density": true,
+    "walking": true,
+    "arrival_readability": true,
+    "deliberate_second_tap": true,
+    "unity_stage_accepted": true,
+    "native_image_count": 6,
+    "status": "97aac99 actual Fio name readability/restored, density/route/entry checkpoint passed; not Pixel/base acceptance",
     "prerequisite_review": "References/Review/west-cafe-2026-10-22-accepted/native-review.json",
     "last_review": {
+      "candidate": "97aac99713859e721e103371f27f12fa541b778e",
+      "run": "20261022-193224-39bef67c",
+      "native_unity": true,
+      "native_image_count": 6,
+      "visual": true,
+      "nameplate_readability": true,
+      "unity_stage_accepted": true,
+      "record": "References/Review/east-florist-2026-10-22-accepted/native-review.json"
+    },
+    "previous_review": {
       "candidate": "28487824da0be859bae2313f164bbc806a3bbee2",
       "run": "20261022-190004-5597dca1",
       "native_unity": true,
@@ -155,6 +186,10 @@
       "nameplate_readability": false,
       "unity_stage_accepted": false,
       "record": "References/Review/east-florist-2026-10-22/native-review.json"
-    }
+    },
+    "nameplate_readability": true,
+    "reviewed_candidate": "97aac99713859e721e103371f27f12fa541b778e",
+    "review_directory": "References/Review/east-florist-2026-10-22-accepted/east",
+    "central_input_fingerprint": "5e419d0348d5897a3378d228a5afcea388aac02e654990c0770c9bb6dda4bbb8"
   }
 }

@@ -2,7 +2,7 @@
   "date": "2026-10-22",
   "base_revision": "7b1ac3b367acdcc61ddf69212d0b7be306bca0af",
   "scope": "east florist master, existing approved role and art; no new shop subsystem",
-  "status": "2848782 native received; central/west PASS, East HOLD for nameplate regression. Bench fix implemented and locally verified; corrected-source native/Pixel pending.",
+  "status": "97aac99 central/west/east bounded native Unity checkpoint passed; base/APK/Pixel pending",
   "pure_tests": {
     "total": "270",
     "executed": "270",
@@ -39,7 +39,7 @@
   "expected_native_tests": 9,
   "native_tests_executed": 0,
   "expected_native_images": 15,
-  "current_native_images": 0,
+  "current_native_images": 15,
   "expected_review_zips": 3,
   "fixed_before_pairs": 9,
   "frozen_inputs": 153,
@@ -60,9 +60,9 @@
     "native_current_source_accepted": false
   },
   "stage_flags": {
-    "central_current_source_accepted": false,
-    "west_current_source_accepted": false,
-    "east_current_source_accepted": false,
+    "central_current_source_accepted": true,
+    "west_current_source_accepted": true,
+    "east_current_source_accepted": true,
     "qa_apk_blocked": true
   },
   "historical_checkpoint": "References/Review/west-cafe-2026-10-22-accepted/native-review.json",
@@ -117,15 +117,14 @@
     "west-review-tests.log": "7084e69cb647fbb45411ea895f296804488e654ffde3df41917d73ede3b7ea49"
   },
   "received_native": {
-    "revision": "28487824da0be859bae2313f164bbc806a3bbee2",
-    "run": "20261022-190004-5597dca1",
+    "revision": "97aac99713859e721e103371f27f12fa541b778e",
+    "run": "20261022-193224-39bef67c",
     "tests_passed": 9,
     "actual_png": 15,
     "central": "PASS",
     "west": "PASS",
-    "east": "HOLD",
-    "reason": "Demonstrated introduced loss of Fio name readability atLv3/Lv6",
-    "record": "References/Review/east-florist-2026-10-22/native-review.json"
+    "east": "PASS",
+    "record": "References/Review/east-florist-2026-10-22-accepted/native-review.json"
   },
   "world_input_fingerprint_before_name_fix": "2e012befe7b96b6523d944bc411ea34797f5fb99bc0de37aba40bb92c6ffb54a",
   "name_fix": {
@@ -137,10 +136,32 @@
     "originals_save_rules_rewards_level_pace_changed": false,
     "native_expected_tests_unchanged": 9,
     "native_capture_asserts_actual_nameplate_and_bench_bounds": true,
-    "corrected_source_native_verified": false,
-    "north_blocked": true
+    "corrected_source_native_verified": true,
+    "north_blocked": false
   },
   "actual_image_review": {
+    "central": "PASS",
+    "west": "PASS",
+    "east": "PASS",
+    "critical": 0,
+    "important": 0,
+    "minor_deferred": 3,
+    "changed_images_inspected": 5,
+    "unchanged_images_verified": 10
+  },
+  "world_input_fingerprint": "5e419d0348d5897a3378d228a5afcea388aac02e654990c0770c9bb6dda4bbb8",
+  "held_native": {
+    "revision": "28487824da0be859bae2313f164bbc806a3bbee2",
+    "run": "20261022-190004-5597dca1",
+    "tests_passed": 9,
+    "actual_png": 15,
+    "central": "PASS",
+    "west": "PASS",
+    "east": "HOLD",
+    "reason": "Demonstrated introduced loss of Fio name readability atLv3/Lv6",
+    "record": "References/Review/east-florist-2026-10-22/native-review.json"
+  },
+  "held_actual_image_review": {
     "reviewer": "east_native_actual_review_2848782",
     "root_grade": {
       "critical": 0,
@@ -148,6 +169,5 @@
     },
     "decision": "Do not adopt East until readable-name correction is demonstrated in new native evidence",
     "minor_deferred_count": 3
-  },
-  "world_input_fingerprint": "5e419d0348d5897a3378d228a5afcea388aac02e654990c0770c9bb6dda4bbb8"
+  }
 }

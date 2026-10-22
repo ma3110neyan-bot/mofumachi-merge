@@ -1,0 +1,194 @@
+{
+  "reviewed_revision": "97aac99713859e721e103371f27f12fa541b778e",
+  "run": "20261022-193224-39bef67c",
+  "productFingerprint": "f308726114ca86255c4600d48f1c055016c4a40e009300ea30fd7562e6a91c51",
+  "centralInputFingerprint": "5e419d0348d5897a3378d228a5afcea388aac02e654990c0770c9bb6dda4bbb8",
+  "identity_verified": true,
+  "upload_files": [
+    {
+      "file_id": "file_0000000043c882098efd2c11468027d2",
+      "zip_sha256": "e1531d46e78321ebda0572b63b8523bbc7b8d0e1b1b7971e9824f3b1bc1e60f1"
+    },
+    {
+      "file_id": "file_00000000b0a48209b03e125e520cd3f6",
+      "zip_sha256": "307c660ad4853bf6a6f0b1414b75ebcf6130d00cdda992b631a1080ec585b1d7"
+    },
+    {
+      "file_id": "file_0000000000d48209ac0b121a25aaeaf5",
+      "zip_sha256": "a346a741f6f882d77dedd9884fa03dfcbf16ae1a4bb81ed8b8b603def8642025"
+    }
+  ],
+  "native_tests": {
+    "total": 9,
+    "passed": 9,
+    "failed": 0,
+    "skipped": 0,
+    "scope": "one same-run9 in3 archives, not27; not full native suite"
+  },
+  "images": [
+    {
+      "file": "central/screenshots/04-town-lv1-Central.png",
+      "bytes": 1815464,
+      "sha256": "cf08dd090f5e38cbf508cf46d286d790576e33abd17ffa1bd772aa11380e074c"
+    },
+    {
+      "file": "central/screenshots/04-town-lv3-Central.png",
+      "bytes": 1829914,
+      "sha256": "f4b9303d4431c3e1cdb2f6a818588f17177a43fb8fd7ea4b1bb3d8a2b94c0edd"
+    },
+    {
+      "file": "central/screenshots/04-town-lv6-Central.png",
+      "bytes": 1835520,
+      "sha256": "891f5bfc14562d1c1828c2ebfdb378da0c17cc4cf71c1e4e90f776b4ce1c9ea4"
+    },
+    {
+      "file": "west/screenshots/04-town-lv1-West.png",
+      "bytes": 1754104,
+      "sha256": "280eb3bb35091c77569dd947e86484a62d81c6cecd56e2a6144a6805c81fcf0c"
+    },
+    {
+      "file": "west/screenshots/04-town-lv3-West.png",
+      "bytes": 1756078,
+      "sha256": "34ad13bff8e84c1208a6329306578c3f191038f1d7e78ca2b7976853915bd3ca"
+    },
+    {
+      "file": "west/screenshots/04-town-lv6-West.png",
+      "bytes": 1766708,
+      "sha256": "ce8a60f6493df7730b36b58980cc4e232d491ee4c527f24387f331e51748c74a"
+    },
+    {
+      "file": "west/screenshots/west-connection.png",
+      "bytes": 1816086,
+      "sha256": "1d022aeff95a7a35815ce18aa41c4626e1653de65f42dce7235567941f1d461d"
+    },
+    {
+      "file": "west/screenshots/west-walking.png",
+      "bytes": 1863386,
+      "sha256": "9766cbb268007c5e998cd8f40d38098aa92315b7a3173087b64d44d70ef1b3ad"
+    },
+    {
+      "file": "west/screenshots/west-door-arrived.png",
+      "bytes": 1573157,
+      "sha256": "c4162913be5223d0ab77bdf712f4452356b00de68a43f13179e3beb7d3abf8ea"
+    },
+    {
+      "file": "east/screenshots/04-town-lv1-East.png",
+      "bytes": 1754782,
+      "sha256": "c52df064f31a05e1feac3c453e8be6c79c1a81cebd87b76213a07859731537cf"
+    },
+    {
+      "file": "east/screenshots/04-town-lv3-East.png",
+      "bytes": 1758892,
+      "sha256": "3a4e220b7321ab9c4d1a0013094bc7f130202a8a8476f4bbbf637d785ce36211"
+    },
+    {
+      "file": "east/screenshots/04-town-lv6-East.png",
+      "bytes": 1772498,
+      "sha256": "b3229e6dbcdbd9726c00d97737ac633c6ec952d336f7de2be5bb662c736ae67f"
+    },
+    {
+      "file": "east/screenshots/east-connection.png",
+      "bytes": 1808436,
+      "sha256": "3100b00f6dcfe5373fbccf8c625ad4926dd80319870a0b0f50bfd590262cd5bd"
+    },
+    {
+      "file": "east/screenshots/east-walking.png",
+      "bytes": 1866473,
+      "sha256": "4e1db79e9557c198e004400dd0da992a92cecc6d76fa9e907aa6b81b3ebb33b4"
+    },
+    {
+      "file": "east/screenshots/east-door-arrived.png",
+      "bytes": 1588679,
+      "sha256": "491390f59ea5bba0d20594093f221b816b51f1eca7835241b2a77e3f28e41e19"
+    }
+  ],
+  "comparison_jpegs": {
+    "central": {
+      "file": "central/central-before-lock-candidate.jpg",
+      "sha256": "1692919a8f7e9ff14a8c393d84b91b261679dce6228d082d42b4d5edc11cddcf"
+    },
+    "west": {
+      "file": "west/west-before-candidate.jpg",
+      "sha256": "0c21c41c869a0c7f0b9f8231339e660c22ee39440b2c4dfc71980e33bc0e89d1"
+    },
+    "east": {
+      "file": "east/east-before-candidate.jpg",
+      "sha256": "837de60fb23239b0f2da500d14b95dc73da60a74f4d8fae609705a97e35c5a31"
+    }
+  },
+  "byte_identical_to_held_2848782": [
+    "central/04-town-lv3-Central.png",
+    "central/04-town-lv6-Central.png",
+    "west/04-town-lv1-West.png",
+    "west/04-town-lv3-West.png",
+    "west/04-town-lv6-West.png",
+    "west/west-connection.png",
+    "west/west-walking.png",
+    "west/west-door-arrived.png",
+    "east/east-connection.png",
+    "east/east-walking.png"
+  ],
+  "central": {
+    "native_unity": true,
+    "visual": true,
+    "town_density": true,
+    "walking": true,
+    "unity_stage_accepted": true
+  },
+  "west": {
+    "native_unity": true,
+    "visual": true,
+    "town_density": true,
+    "walking": true,
+    "arrival_readability": true,
+    "deliberate_second_tap_and_cafe_view": true,
+    "unity_stage_accepted": true
+  },
+  "east": {
+    "native_unity": true,
+    "visual": true,
+    "town_density": true,
+    "walking": true,
+    "arrival_readability": true,
+    "deliberate_second_tap_and_shop_view": true,
+    "nameplate_readability": true,
+    "unity_stage_accepted": true
+  },
+  "reviewer": "east_native_actual_review_2848782: actual corrected5 changed images compared to held and originalBefore; independent exact-byte verification of other10. No new code review.",
+  "decision": "Central/west/east PASS for bounded97aac99 native checkpoint. Fio name fully readable atLv1/3/6, bench above/right no longer covers name. Density, original art, frontage, side paths, hero, doorway and arrival instruction retain quality. No Critical/Important. Base/APK/Pixel not accepted.",
+  "critical": 0,
+  "important": 0,
+  "resolved_important": "2848782 FioLv3/Lv6 information loss now corrected in actual native images and checked by native name/bench bounds assertion.",
+  "minor_deferred": [
+    {
+      "item": "Foreground flowers hide Momo at connection captures",
+      "stage": "connections",
+      "severity": "Minor"
+    },
+    {
+      "item": "Repeated paving/hard material boundary",
+      "stage": "connections/materials",
+      "severity": "Minor"
+    },
+    {
+      "item": "Arrival instruction partly overlaps awning while door/instruction remain clear",
+      "stage": "ui",
+      "severity": "Minor"
+    }
+  ],
+  "not_verified": [
+    "Continuous movement/camera/occlusion duration",
+    "Pixel3a touch/FPS/memory",
+    "North/south/joins/Merge/UI/basic-loop/full-native-suite",
+    "QA APK and whole-base acceptance"
+  ],
+  "deferred_user_feedback": [
+    "Lv differences",
+    "Progression pace and decoration longevity",
+    "Growth explanation page later"
+  ],
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "next_stage": "north_quest"
+}

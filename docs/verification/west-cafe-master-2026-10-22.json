@@ -1,0 +1,111 @@
+{
+  "date": "2026-10-22",
+  "base_revision": "16c5d4755c8018a39222ba22dc2fc3c021647b82",
+  "scope": "west cafe implementation source, same-source central/west native review preparation",
+  "status": "implemented; Unity/Pixel unverified",
+  "central_current_native_verified": false,
+  "west_design_unchanged": true,
+  "pixel_verified": false,
+  "apk_generated": false,
+  "formal_design_unchanged": true,
+  "centralInputFingerprint": "3e165cf81f64216bc44a67f08a438cc6bbc48871f9cef3416cef058721b0ce3f",
+  "frozen_inputs": 153,
+  "pure_presentation_tests": {
+    "total": "258",
+    "executed": "258",
+    "passed": "258",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "reference_compile_assemblies": 6,
+  "reference_compile_not_unity_execution": true,
+  "native_expected_tests": 5,
+  "native_tests_executed_here": 0,
+  "native_expected_png": 9,
+  "actual_current_source_native_png": 0,
+  "source_review": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "scope": "one fresh read-only source review; not visual/Pixel acceptance"
+  },
+  "windows_jpeg_export_verified": false,
+  "packaging_test": "real folder moves/Before SHA/JSON/ZIP; JPEG drawing stubbed, synthetic PNG headers",
+  "original_central_checkpoint": "c11e197/run20261022-105639-a8919567 is historical, not acceptance of changed world inputs",
+  "progression_save_rewards_original_characters_changed": false,
+  "deferred_user_feedback": [
+    "Make level differences clearer",
+    "Review level-up pace and decoration longevity",
+    "Separate page explaining growth changes, later"
+  ],
+  "next_command": "powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File .\\scripts\\build-android.ps1 -WestReview",
+  "evidence_logs": {
+    "west-red.log": {
+      "sha256": "75bcaf33542416c4dacb2920ea8e735cb64667862681d73eab1faa2fc0254908"
+    },
+    "west-legacy-red.log": {
+      "sha256": "8f0f3181a8d0ac6390307ea04d5c046a361776bdb45f13d4284fcf8dd211f7ae"
+    },
+    "west-repair-green.log": {
+      "sha256": "825ee8ac34b2b3d1251882caf683ecd48a93cddce164a59622c44b7a5346b6bb"
+    },
+    "west-full.log": {
+      "sha256": "9ba8d5fff15c190d7a8f00effeb4ff3e4aeed62f96bdceaeda928a5a18980320"
+    },
+    "west-final.log": {
+      "sha256": "9535bf00dc768d9871ab536626efb0bb685b8a03cef1893c9c27d4d200444e17"
+    },
+    "west-script-red.log": {
+      "sha256": "1fe98d66bbdaa0ee34d9f8cc4ab47fdd096f5a3040e9d5b92bab81bb511e16e6"
+    },
+    "west-script-green.log": {
+      "sha256": "5e497b15bedc5b753b459e49c591fb5b4034086622f08113018b532a2e22a522"
+    },
+    "west-review-packaging.log": {
+      "sha256": "46a942bd62d21b514b2f3554bda6f638f4e70f4ac2ea3f57524554ceffaab200"
+    },
+    "android-tools.log": {
+      "sha256": "aca0580c166046b19140117a9f8a4d9e3bfdbaf976a93c9490759e5fd9684d06"
+    },
+    "android-tools-final.log": {
+      "sha256": "ed4e2e9833d9b401fc75e1a6b5c64e7f71632701b9a08f42e76fffd5df407016"
+    },
+    "approved-design.log": {
+      "sha256": "31a02baec52e8f3426ca1a673605cb4f119e9d9c0088ea1906829c1545e3c8bf"
+    },
+    "central-review.log": {
+      "sha256": "f7c476226c565c2ab5e0c4d07aab225daa185c0d2ea97dafe81874af4d188e96"
+    },
+    "pixel-visual-check.log": {
+      "sha256": "1c280dd589e229d4cce103bab61bb0ee699ae04cba3a1fb24cfe9038c67b1de1"
+    },
+    "visual-lock.log": {
+      "sha256": "23d01819065bed7b71da5d19220e7fa7db398a856d86a0ed46288611ab78a3dc"
+    },
+    "west-review.log": {
+      "sha256": "5e497b15bedc5b753b459e49c591fb5b4034086622f08113018b532a2e22a522"
+    },
+    "native-editor-probe.log": {
+      "sha256": "a64a8e83edf9fa9e4e3368170ab8af46299b0e7356778ff915f0c4f118f8a58f"
+    },
+    "frozen-stage-gates.log": {
+      "sha256": "d788aedaca3f6cf0d1a9094a849412521084d3e460dd1398d92738dbda4c2b41"
+    },
+    "unity-reference-final.log": {
+      "sha256": "33bc5f2f6fef2b42329f5e6226587b41d752abe2ecb3b20aa48287df7fac3e79"
+    }
+  },
+  "reference_compile_warnings": 0,
+  "reference_compile_errors": 0
+}

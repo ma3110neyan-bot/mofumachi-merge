@@ -1,14 +1,14 @@
 {
   "central": {
-    "native_unity": true,
-    "visual": true,
-    "town_density": true,
-    "walking": true,
-    "reviewed_candidate": "c11e197c7ea4a4f6c3de4d4f1829808a7266e206",
-    "native_image_count": 3,
-    "status": "Central Unity visual/density and automated controller walking passed; Pixel and final base acceptance pending",
-    "review_directory": "Builds/CentralReview/20261022-105639-a8919567",
-    "central_input_fingerprint": "96a5f172192628ee025245813ee1704fe8feb257ac8f53c112aacd4de010dc25"
+    "native_unity": false,
+    "visual": null,
+    "town_density": null,
+    "walking": null,
+    "reviewed_candidate": null,
+    "native_image_count": 0,
+    "status": "West cafe implementation changed shared world inputs; central must be recaptured with west. Previous c11e197 native checkpoint remains historical, not approval of this source.",
+    "review_directory": null,
+    "central_input_fingerprint": null
   },
   "remaining_sequence": [
     "west_cafe",
@@ -50,5 +50,14 @@
     "walking": true,
     "accepted": false,
     "record": "References/Review/central-master-2026-10-21-r2/native-review.json"
+  },
+  "west": {
+    "design_direction_approved": true,
+    "implemented": true,
+    "native_unity": false,
+    "visual": null,
+    "town_density": null,
+    "walking": null,
+    "status": "source implemented; native central/west review pending; no APK or Pixel"
   }
 }

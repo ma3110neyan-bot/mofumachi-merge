@@ -1,0 +1,16 @@
+{
+  "approved_by": "user 2026-10-22: design evaluated and implement-first instructed",
+  "role": "west layout direction, not Unity/Pixel evidence; central formal Visual Lock unchanged",
+  "deferred_feedback": [
+    "Clarify what changed at each level",
+    "Avoid exhausting decoration growth with fast level intervals",
+    "Show growth details on a separate page later; not this implementation"
+  ],
+  "files": [
+    {
+      "path": "References/Preview/west-cafe-2026-10-22/west-cafe-proposal.jpg",
+      "mode": "binary",
+      "sha256": "91b60d74f0f68e0993e88611aaf228adceadff5b5c4b1298ee38c374ef664c87"
+    }
+  ]
+}

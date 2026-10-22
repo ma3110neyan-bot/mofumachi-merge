@@ -1,0 +1,66 @@
+$ErrorActionPreference='Stop'
+. (Join-Path $PSScriptRoot '../visual-lock.ps1')
+if(Test-Path (Join-Path $PSScriptRoot '../west-review.ps1')){. (Join-Path $PSScriptRoot '../west-review.ps1')}
+function Reject([scriptblock]$Action){$Rejected=$false;try{& $Action}catch{$Rejected=$true};if(-not $Rejected){throw 'Invalid west native evidence accepted.'}}
+$Root=Join-Path ([IO.Path]::GetTempPath()) ('mofu-west-review-'+[guid]::NewGuid())
+New-Item -ItemType Directory -Path $Root -Force | Out-Null
+try {
+    $Names=@('04-town-lv1-West.png','04-town-lv3-West.png','04-town-lv6-West.png','west-connection.png','west-walking.png','west-door-arrived.png')
+    $Header=[byte[]]@(137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,2,208,0,0,5,0,0)
+    foreach($Name in $Names){[IO.File]::WriteAllBytes((Join-Path $Root $Name),$Header)}
+    $Images=@(Get-WestCaptureEntries $Root)
+    if($Images.Count -ne 6){throw 'Exactly six west frames required.'}
+    $Info=@{gitRevision=('a'*40);productFingerprint=('b'*64);centralInputFingerprint=('c'*64)}
+    $Manifest=@{gitRevision=$Info.gitRevision;productFingerprint=$Info.productFingerprint;centralInputFingerprint=$Info.centralInputFingerprint;images=$Images}
+    Assert-WestCaptureIdentity $Info $Manifest $Root
+    $Manifest.gitRevision=('d'*40);Reject {Assert-WestCaptureIdentity $Info $Manifest $Root};$Manifest.gitRevision=$Info.gitRevision
+    $Manifest.centralInputFingerprint=('d'*64);Reject {Assert-WestCaptureIdentity $Info $Manifest $Root};$Manifest.centralInputFingerprint=$Info.centralInputFingerprint
+    [IO.File]::AppendAllText((Join-Path $Root $Names[0]),'changed');Reject {Assert-WestCaptureIdentity $Info $Manifest $Root};[IO.File]::WriteAllBytes((Join-Path $Root $Names[0]),$Header)
+    Remove-Item -LiteralPath (Join-Path $Root $Names[5]);Reject {Get-WestCaptureEntries $Root};[IO.File]::WriteAllBytes((Join-Path $Root $Names[5]),$Header)
+    [IO.File]::WriteAllBytes((Join-Path $Root 'extra.png'),$Header);Reject {Get-WestCaptureEntries $Root};Remove-Item -LiteralPath (Join-Path $Root 'extra.png')
+    $Bad=$Header.Clone();$Bad[19]=0;[IO.File]::WriteAllBytes((Join-Path $Root $Names[0]),$Bad);Reject {Get-WestCaptureEntries $Root}
+    Write-Host 'West exact frame list, dimensions, source/input identity and changed evidence rejected. Synthetic PNGs only; no Unity or Pixel execution.'
+} finally {Remove-Item -LiteralPath $Root -Recurse -Force}
+# Exercise the real move/Before checks/metadata/archive pipeline on Linux.
+# Only Windows JPEG drawing is stubbed; these are synthetic headers, not renders.
+$Root=Join-Path ([IO.Path]::GetTempPath()) ('mofu-west-package-'+[guid]::NewGuid())
+try {
+    foreach($Relative in Get-CentralInputPaths) {
+        $Path=Join-Path $Root $Relative;New-Item -ItemType Directory -Path (Split-Path -Parent $Path) -Force | Out-Null
+        [IO.File]::WriteAllText($Path,'synthetic input')
+    }
+    $Art=Join-Path $Root 'approved.png';[IO.File]::WriteAllBytes($Art,[byte[]]@(1,2,3,4));$ArtHash=(Get-FileHash $Art -Algorithm SHA256).Hash.ToLowerInvariant()
+    @{reference='approved.png';files=@(@{path='approved.png';mode='binary';sha256=$ArtHash})} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $Root 'References/VisualLock/approved-design-2026-10-21.json')
+    $WestArtRelative='References/Preview/west-cafe-2026-10-22/west-cafe-proposal.jpg';$WestArt=Join-Path $Root $WestArtRelative
+    New-Item -ItemType Directory -Path (Split-Path -Parent $WestArt) -Force | Out-Null;Copy-Item -LiteralPath $Art -Destination $WestArt
+    @{files=@(@{path=$WestArtRelative;mode='binary';sha256=$ArtHash})} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $Root 'References/VisualLock/west-cafe-design-2026-10-22.json')
+    $Run=Join-Path $Root 'Builds/WestReview/synthetic';$Screens=Join-Path $Run 'screenshots';$WestScreens=Join-Path $Screens 'west'
+    $Before=Join-Path $Root 'Builds/Android/baseline/screenshots'
+    foreach($Path in @($Screens,$WestScreens,$Before)){New-Item -ItemType Directory -Path $Path -Force | Out-Null}
+    foreach($Level in @(1,3,6)){[IO.File]::WriteAllBytes((Join-Path $Screens "04-town-lv$Level-Central.png"),$Header);[IO.File]::WriteAllBytes((Join-Path $Before "04-town-lv$Level-West.png"),$Header)}
+    foreach($Name in $Names){[IO.File]::WriteAllBytes((Join-Path $WestScreens $Name),$Header)}
+    $Central=@(Get-CentralCaptureEntries $Screens);$WestEntries=@(Get-WestCaptureEntries $WestScreens)
+    @{run='baseline';capture=@{images=($Central+@($WestEntries | Where-Object {$_.file -like '04-town*'}))}} | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $Root 'References/VisualLock/baseline-native-2026-10-21.json')
+    foreach($Entry in $Central){Copy-Item -LiteralPath (Join-Path $Screens $Entry.file) -Destination (Join-Path $Run ('before-'+$Entry.file))}
+    Copy-Item -LiteralPath $Art -Destination (Join-Path $Run 'approved-design.png')
+    $Comparison=Join-Path $Run 'central-before-lock-candidate.jpg';[IO.File]::WriteAllBytes($Comparison,[byte[]]@(5,6,7))
+    $Digest=Get-CentralInputFingerprint $Root
+    $Info=@{gitRevision=('a'*40);productFingerprint=('b'*64);centralInputFingerprint=$Digest}
+    $Info | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $Run 'central-review-info.json')
+    @{gitRevision=$Info.gitRevision;productFingerprint=$Info.productFingerprint;centralInputFingerprint=$Digest;images=$Central} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $Run 'capture-manifest.json')
+    @{candidate_revision=$Info.gitRevision;productFingerprint=$Info.productFingerprint;centralInputFingerprint=$Digest;native_unity=$true;native_pairs_verified=3;approved_design_sha256=$ArtHash;comparison_sha256=(Get-FileHash $Comparison -Algorithm SHA256).Hash.ToLowerInvariant()} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $Run 'central-adoption.json')
+    foreach($Name in @('central-playmode.xml','central-playmode.log')){Set-Content -LiteralPath (Join-Path $Run $Name) -Value 'synthetic native metadata'}
+    function Write-WestComparisonJpeg([string]$Directory){[IO.File]::WriteAllBytes((Join-Path $Directory 'west-before-candidate.jpg'),[byte[]]@(5,6,7))}
+    $Missing=Join-Path $Before '04-town-lv3-West.png';Remove-Item -LiteralPath $Missing
+    Reject {Write-WestReview $Root $Run}
+    if(Test-Path (Join-Path $Run 'west-cafe-review.zip')){throw 'Incomplete Before produced a review archive.'}
+    [IO.File]::WriteAllBytes($Missing,$Header)
+    Move-Item -LiteralPath (Join-Path $Run 'west/screenshots') -Destination $WestScreens
+    Write-WestReview $Root $Run
+    $Expanded=Join-Path $Root 'expanded';Expand-Archive -LiteralPath (Join-Path $Run 'west-cafe-review.zip') -DestinationPath $Expanded
+    foreach($Name in $Names){if(-not(Test-Path (Join-Path $Expanded $Name))){throw "Archive lost west frame: $Name"}}
+    $Meta=Get-Content -LiteralPath (Join-Path $Expanded 'west-adoption.json') -Raw | ConvertFrom-Json
+    if($Meta.adopted -ne $false -or $Meta.pixel_verified -ne $false -or $Meta.native_pairs_verified -ne 3){throw 'Archive wrongly adopted or lost Before pairs.'}
+    if(@(Get-CentralCaptureEntries $Screens).Count -ne 3){throw 'West archive disturbed companion central evidence.'}
+    Write-Host 'Real west export/archive pipeline checked, missing Before refused; JPEG drawing stubbed; no native renders or Pixel execution.'
+} finally {if(Test-Path $Root){Remove-Item -LiteralPath $Root -Recurse -Force}}

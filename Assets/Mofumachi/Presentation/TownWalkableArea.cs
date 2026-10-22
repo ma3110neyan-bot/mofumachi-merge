@@ -48,6 +48,7 @@ namespace Mofumachi.Presentation
             Box(1.07f,-.84f,1.12f,-.78f),Box(1.28f,-.84f,1.33f,-.78f)});
             result.AddRange(TownVillageDressing.SolidFootprints);
             foreach(var piece in TownCentralMasterLayout.Dressing)if(piece.Footprint!=null)result.Add(piece.Footprint);
+            foreach(var piece in TownWestMasterLayout.Dressing)if(piece.Footprint!=null)result.Add(piece.Footprint);
             return result.AsReadOnly();
         }
         private static readonly IReadOnlyList<(TownPoint Center,float X,float Y)> islands=Array.AsReadOnly(excluded);

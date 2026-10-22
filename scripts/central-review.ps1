@@ -2,10 +2,10 @@
 function Get-CentralInputPaths {
     # Shared files are intentional: later district-only commits may retain the
     # review, but changing projection/scenery/navigation requires central review.
-    foreach($Name in @('TownCentralMasterLayout','TownCentralGroundGraphic','TownFountainGraphic','TownContinuousWorldView','TownWalkableArea','TownSceneryView','TownSceneryLayout','TownVillageDressing','TownVillageDetailGraphic','TownWorldSurface','TownWorldLayout','TownWorldMap','TownWorldWalkModel','TownGroundGraphic','TownLifeView','TownActor','TownStreetHud','TownGrowthView','TownGrowthPresentation','TownGrowthComparisonView','TownFacilityView')) {
+    foreach($Name in @('TownCentralMasterLayout','TownCentralGroundGraphic','TownWestMasterLayout','TownWestGroundGraphic','TownFountainGraphic','TownContinuousWorldView','TownWalkableArea','TownSceneryView','TownSceneryLayout','TownVillageDressing','TownVillageDetailGraphic','TownWorldSurface','TownWorldLayout','TownWorldMap','TownWorldWalkModel','TownGroundGraphic','TownLifeView','TownActor','TownStreetHud','TownGrowthView','TownGrowthPresentation','TownGrowthComparisonView','TownFacilityView')) {
         'Assets/Mofumachi/Presentation/'+$Name+'.cs'
     }
-    foreach($Name in @('TownCentralGround.png','TownCentralGround.png.meta','TownCentralFountain.png','TownCentralFountain.png.meta')) {'Assets/Mofumachi/Resources/Mofumachi/'+$Name}
+    foreach($Name in @('TownCentralGround.png','TownCentralGround.png.meta','TownCentralFountain.png','TownCentralFountain.png.meta','TownWestGround.png','TownWestGround.png.meta')) {'Assets/Mofumachi/Resources/Mofumachi/'+$Name}
     'Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs'
     'References/VisualLock/approved-design-2026-10-21.json'
 }

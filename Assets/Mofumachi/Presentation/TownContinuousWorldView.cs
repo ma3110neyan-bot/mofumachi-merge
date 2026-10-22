@@ -15,7 +15,7 @@ namespace Mofumachi.Presentation
         public bool FollowingHero {get;private set;}=true;
         public int VisibleBackgroundCount=>ground!=null&&ground.isActiveAndEnabled?1:0;
         private TownLifeView life;private RawImage original;private RectTransform scenery;
-        private TownGroundGraphic ground;private TownCentralGroundGraphic centralGround;private TownSceneryView props;
+        private TownGroundGraphic ground;private TownCentralGroundGraphic centralGround;private TownWestGroundGraphic westGround;private TownSceneryView props;
         private readonly List<(Transform Transform,float Feet)> depth=new List<(Transform,float)>();
         private RectTransform Field=>(RectTransform)life.transform;
         private RectTransform dailyFlower;private int displayedFlowers;
@@ -37,6 +37,7 @@ namespace Mofumachi.Presentation
             original.enabled=false;var cover=original.GetComponent<BackgroundCover>();if(cover!=null)cover.enabled=false;
             ground=UIWidgets.Node("Continuous shared paving",scenery,new Rect(0,0,1,1)).gameObject.AddComponent<TownGroundGraphic>();ground.Bind(this);
             centralGround=UIWidgets.Node("Central master ground",scenery,new Rect(0,0,1,1)).gameObject.AddComponent<TownCentralGroundGraphic>();centralGround.Bind(this);
+            westGround=UIWidgets.Node("West cafe master ground",scenery,new Rect(0,0,1,1)).gameObject.AddComponent<TownWestGroundGraphic>();westGround.Bind(this);
             props=life.gameObject.AddComponent<TownSceneryView>();props.Bind(this);props.SetTownLevel(town.TownLevel);
             foreach(var actor in life.Actors)actor.BindWorld(Model.Residents.Single(r=>r.Id==actor.CharacterId));
             foreach(var text in new[]{"← 西のカフェ広場","東の花屋広場 →","北のおねがい広場 ↑","南の庭園広場 ↓"})
@@ -97,7 +98,7 @@ namespace Mofumachi.Presentation
             var bounds=Field.rect;float scale=RenderScale;
             Camera.Fit(bounds.width/scale,bounds.height/(scale*TownWorldLayout.ImageAspect));
             bool sceneChanged=!sceneReady||!renderedCenter.Equals(Camera.Center)||renderedSize!=bounds.size;
-            if(sceneChanged){ground.Refresh();centralGround.Refresh();props.Refresh();fountain?.Refresh();renderedCenter=Camera.Center;renderedSize=bounds.size;sceneReady=true;}
+            if(sceneChanged){ground.Refresh();centralGround.Refresh();westGround.Refresh();props.Refresh();fountain?.Refresh();renderedCenter=Camera.Center;renderedSize=bounds.size;sceneReady=true;}
             foreach(var actor in life.Actors)
             {var p=Local(actor.WorldPosition);var r=((RectTransform)life.transform).rect;actor.SetRegionVisible(p.x>r.xMin-64&&p.x<r.xMax+64&&p.y>r.yMin-90&&p.y<r.yMax+90);}
             var viewing=FollowingHero?Model.Hero.Region:lookRegion??TownWorldLayout.RegionAt(Camera.Center);life.Regions.NotifyWorldRegion(viewing);

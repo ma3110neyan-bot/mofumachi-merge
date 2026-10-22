@@ -73,7 +73,8 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator PortraitScreensRenderFromIsolatedStateWithoutWritingProgress()
         {
             yield return EnterHome();string output=OutputDirectory();
-            if(Environment.GetCommandLineArgs().Contains("-mofumachiCentralReview"))
+            bool westReview=Environment.GetCommandLineArgs().Contains("-mofumachiWestReview");
+            if(Environment.GetCommandLineArgs().Contains("-mofumachiCentralReview")||westReview)
             {
                 // Configure portrait before building the first town, rather than
                 // changing its projection for the first time inside Capture().
@@ -101,7 +102,30 @@ namespace Mofumachi.Tests
                     }
                     Capture(output,"04-town-lv"+level+"-Central",TownDistrictId.Central);
                 }
-                if(output!=null)File.WriteAllLines(Path.Combine(output,"texture-memory.txt"),new[]{TownCentralMasterLayout.Resource,TownFountainGraphic.Resource}.Select(key=>key+": "+UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(Resources.Load<Texture2D>(key))+" bytes"));
+                if(westReview)
+                {
+                    string westOutput=output==null?null:Path.Combine(output,"west");
+                    foreach(int level in new[]{1,3,6})
+                    {
+                        Flow.Game.State.townGrowthLevel=level;Flow.ShowHome();EnsurePortraitCamera();Canvas.ForceUpdateCanvases();
+                        var town=Flow.GetComponentInChildren<TownLifeView>();town.World.LookAt(TownDistrictId.West);town.World.Refresh();yield return null;Canvas.ForceUpdateCanvases();
+                        foreach(var piece in town.GetComponent<TownSceneryView>().Pieces.Where(p=>p.Rect.gameObject.activeSelf))
+                            Assert.That(Vector2.Distance(piece.Rect.anchoredPosition,town.World.Local(piece.Placement.Feet,(RectTransform)town.transform)),Is.LessThan(.01f));
+                        Capture(westOutput,"04-town-lv"+level+"-West",TownDistrictId.West);
+                    }
+                    Flow.Game.State.townGrowthLevel=1;Flow.ShowHome();EnsurePortraitCamera();var west=Flow.GetComponentInChildren<TownLifeView>();
+                    west.World.LookAt(TownDistrictId.West);west.World.Camera.Jump(new TownPoint(-.60f,0));west.World.Refresh();Capture(westOutput,"west-connection");
+                    west.World.FastTravel(TownDistrictId.Central);Assert.That(west.World.GuideDistrict(TownDistrictId.West),Is.True);
+                    for(int i=0;i<3000&&west.World.Model.Hero.Position.X>-.85f;i++)west.AdvanceFrame(1f/30);
+                    Assert.That(west.World.Model.Hero.Position.X,Is.LessThanOrEqualTo(-.85f));Capture(westOutput,"west-walking");
+                    for(int i=0;i<3000&&west.World.Model.Hero.IsWalking;i++)west.AdvanceFrame(1f/30);
+                    Assert.That(west.World.Model.Hero.IsWalking,Is.False);
+                    var facility=west.GetComponent<TownFacilityView>();Assert.That(facility.RequestEnter("cafe"),Is.True);
+                    for(int i=0;i<3000&&facility.Entry.Phase==TownEntryPhase.Walking;i++)west.AdvanceFrame(1f/30);
+                    Assert.That(facility.Entry.Phase,Is.EqualTo(TownEntryPhase.Arrived));Capture(westOutput,"west-door-arrived");
+                    Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home),"Walking to the cafe does not automatically enter");
+                }
+                if(output!=null)File.WriteAllLines(Path.Combine(output,"texture-memory.txt"),new[]{TownCentralMasterLayout.Resource,TownFountainGraphic.Resource,TownWestMasterLayout.Resource}.Select(key=>key+": "+UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(Resources.Load<Texture2D>(key))+" bytes"));
                 LogAssert.NoUnexpectedReceived();yield break;
             }
             Flow.ShowMerge();yield return null;Capture(output,"01-merge-start");
@@ -216,7 +240,7 @@ namespace Mofumachi.Tests
                 mergeSource.OnBeginDrag(mergeDrag);Capture(output,"29-merge-drag-lift");
                 mergeDrag.position=PointerAt(mergeTarget.transform);mergeSource.OnDrag(mergeDrag);Capture(output,"29-merge-drag-match");mergeSource.OnEndDrag(mergeDrag);
                 yield return new WaitForSecondsRealtime(.8f);Assert.That(Flow.Game.Board.At(targetCell).level,Is.EqualTo(2));Capture(output,"29-merge-landed");
-                string[] art={"TownBackground","TownWestBackground","TownEastBackground","CharacterBodyAtlas","TownGrowthPropsAtlas","TownGardenSurface","TownSeamlessMap","TownStreetPropsAtlas","TownLandmarksAtlas","TownNatureAtlas","TownVillageDetailsAtlas","MergeBoardFrame","TownCentralGround","TownCentralFountain"};
+                string[] art={"TownBackground","TownWestBackground","TownEastBackground","CharacterBodyAtlas","TownGrowthPropsAtlas","TownGardenSurface","TownSeamlessMap","TownStreetPropsAtlas","TownLandmarksAtlas","TownNatureAtlas","TownVillageDetailsAtlas","MergeBoardFrame","TownCentralGround","TownCentralFountain","TownWestGround"};
                 File.WriteAllLines(Path.Combine(output,"texture-memory.txt"),art.Select(key=>key+": "+UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(Resources.Load<Texture2D>("Mofumachi/"+key))+" bytes"));
                 File.WriteAllText(Path.Combine(output,"README.txt"),"Actual Unity UGUI RenderTexture captures, 720x1280. Isolated test-only save state; not Pixel 3a captures. 102 PNG: integrated village scenery/compact street HUD/real resident visits/explicit facility doors/flat Merge interaction bundle. Level/item/book states are fixtures, not claims of completed gameplay. 15wide-floor positions;16passing frames;17actual pointer-handler following/release;18west-through-central-to-east continuous simulation with camera following;19book discovery. 20/21 actual facility walking, opening and entry;22 candidate UI;23 actual role playback screens including POP;24 collapsed/open/returned menu;25 resident idle/walking/reaction;26 continuous North/South joins and arrivals;27 finale live daily-purpose Merge;28 real resident approach and arrival without invented conversation;29 real drag lift, matching and landed merge. Three growth stages in each of five independent plazas, four shared boundary views. Building/ground sprite layers are product code, not a stretched world painting. 30Hz simulation, not measured device FPS. Stable region/place/save IDs retained. Texture memory is Editor asset residency, not Pixel RAM. Pixel save retention, audio, 10minuteplay and subjective quality still require acceptance.\n");
             }

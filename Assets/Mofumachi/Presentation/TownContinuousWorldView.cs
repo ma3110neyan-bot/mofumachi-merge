@@ -15,7 +15,7 @@ namespace Mofumachi.Presentation
         public bool FollowingHero {get;private set;}=true;
         public int VisibleBackgroundCount=>ground!=null&&ground.isActiveAndEnabled?1:0;
         private TownLifeView life;private RawImage original;private RectTransform scenery;
-        private TownGroundGraphic ground;private TownCentralGroundGraphic centralGround;private TownWestGroundGraphic westGround;private TownEastGroundGraphic eastGround;private TownNorthGroundGraphic northGround;private TownSceneryView props;
+        private TownGroundGraphic ground;private TownCentralGroundGraphic centralGround;private TownWestGroundGraphic westGround;private TownEastGroundGraphic eastGround;private TownNorthGroundGraphic northGround;private TownSouthGroundGraphic southGround;private TownSceneryView props;
         private readonly List<(Transform Transform,float Feet)> depth=new List<(Transform,float)>();
         private RectTransform Field=>(RectTransform)life.transform;
         private RectTransform dailyFlower;private int displayedFlowers;
@@ -40,6 +40,7 @@ namespace Mofumachi.Presentation
             westGround=UIWidgets.Node("West cafe master ground",scenery,new Rect(0,0,1,1)).gameObject.AddComponent<TownWestGroundGraphic>();westGround.Bind(this);
             eastGround=UIWidgets.Node("East florist master ground",scenery,new Rect(0,0,1,1)).gameObject.AddComponent<TownEastGroundGraphic>();eastGround.Bind(this);
             northGround=UIWidgets.Node("North quest master ground",scenery,new Rect(0,0,1,1)).gameObject.AddComponent<TownNorthGroundGraphic>();northGround.Bind(this);
+            southGround=UIWidgets.Node("South garden master ground",scenery,new Rect(0,0,1,1)).gameObject.AddComponent<TownSouthGroundGraphic>();southGround.Bind(this);
             props=life.gameObject.AddComponent<TownSceneryView>();props.Bind(this);props.SetTownLevel(town.TownLevel);
             foreach(var actor in life.Actors)actor.BindWorld(Model.Residents.Single(r=>r.Id==actor.CharacterId));
             foreach(var text in new[]{"← 西のカフェ広場","東の花屋広場 →","北のおねがい広場 ↑","南の庭園広場 ↓"})
@@ -100,7 +101,7 @@ namespace Mofumachi.Presentation
             var bounds=Field.rect;float scale=RenderScale;
             Camera.Fit(bounds.width/scale,bounds.height/(scale*TownWorldLayout.ImageAspect));
             bool sceneChanged=!sceneReady||!renderedCenter.Equals(Camera.Center)||renderedSize!=bounds.size;
-            if(sceneChanged){ground.Refresh();centralGround.Refresh();westGround.Refresh();eastGround.Refresh();northGround.Refresh();props.Refresh();fountain?.Refresh();renderedCenter=Camera.Center;renderedSize=bounds.size;sceneReady=true;}
+            if(sceneChanged){ground.Refresh();centralGround.Refresh();westGround.Refresh();eastGround.Refresh();northGround.Refresh();southGround.Refresh();props.Refresh();fountain?.Refresh();renderedCenter=Camera.Center;renderedSize=bounds.size;sceneReady=true;}
             foreach(var actor in life.Actors)
             {
                 var p=Local(actor.WorldPosition);var r=((RectTransform)life.transform).rect;
@@ -144,7 +145,7 @@ namespace Mofumachi.Presentation
         internal void SortResidents(TownActor[] ordered)
         {
             depth.Clear();
-            if(props!=null)foreach(var piece in props.Pieces)if(piece.Rect.gameObject.activeSelf)depth.Add((piece.Rect,TownNorthMasterLayout.DepthY(piece.Placement)));
+            if(props!=null)foreach(var piece in props.Pieces)if(piece.Rect.gameObject.activeSelf)depth.Add((piece.Rect,TownSouthMasterLayout.DepthY(piece.Placement)));
             if(fountain!=null)depth.Add((fountain.transform,fountain.Feet.Y));
             if(growth!=null)growth.AddDepthEntries(depth);
             life.GetComponent<TownFacilityView>()?.AddDepthEntries(depth);

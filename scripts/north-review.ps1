@@ -37,14 +37,15 @@ function Copy-NorthPreviousCandidate([string]$RepositoryPath,[string]$Directory)
     }
     Copy-Item -LiteralPath $Path -Destination (Join-Path $Directory 'previous-candidate-source.json')
 }
-function Assert-NorthRouteProjection([string]$Directory) {
-    $Route=Get-Content -LiteralPath (Join-Path $Directory 'north-route-projection.json') -Raw | ConvertFrom-Json
-    if($Route.image -ne '04-town-lv1-North.png' -or $Route.width -ne 720 -or $Route.height -ne 1280 -or $Route.origin -ne 'top-left' -or $Route.kind -ne 'navigation-route-overlay-not-gameplay-trace'){throw 'North routes must identify the exact Lv1 native viewport and annotation type.'}
+function Assert-TownRouteProjection([string]$Directory,[string]$District,[string[]]$Ids) {
+    $Route=Get-Content -LiteralPath (Join-Path $Directory ($District.ToLowerInvariant()+'-route-projection.json')) -Raw | ConvertFrom-Json
+    if($Route.image -ne "04-town-lv1-$District.png" -or $Route.width -ne 720 -or $Route.height -ne 1280 -or $Route.origin -ne 'top-left' -or $Route.kind -ne 'navigation-route-overlay-not-gameplay-trace'){throw 'North routes must identify the exact Lv1 native viewport and annotation type.'}
     $Image=Join-Path (Join-Path $Directory 'screenshots') $Route.image
     if(-not(Test-Path -LiteralPath $Image)){$Image=Join-Path $Directory $Route.image}
     if($Route.image_sha256 -notmatch '^[a-fA-F0-9]{64}$' -or (Get-FileHash -LiteralPath $Image -Algorithm SHA256).Hash -ne $Route.image_sha256){throw 'North route projection does not match its native image.'}
-    $Ids=@('cottage','board','waiting','left','right')
-    if(@($Route.routes).Count -ne 5){throw 'North routes require the door, two waiting destinations and both side walks.'}
+    if(@($Route.routes).Count -ne 6){throw 'North routes require four pair links, a mosaic crossing and a circuit.'}
+    $Origins=@($Route.routes | ForEach-Object {"$($_.points[0].x),$($_.points[0].y)"} | Select-Object -Unique)
+    if($Origins.Count -lt 3){throw 'North circulation must not funnel every annotation through one entry.'}
     foreach($Id in $Ids) {
         $Found=@($Route.routes | Where-Object {$_.id -eq $Id})
         if($Found.Count -ne 1 -or @($Found[0].points).Count -lt 2){throw 'Missing or duplicated North route.'}
@@ -57,10 +58,10 @@ function Assert-NorthRouteProjection([string]$Directory) {
         }
     }
 }
-function Write-NorthRoutesJpeg([string]$Directory) {
-    Assert-NorthRouteProjection $Directory
+function Write-TownRoutesJpeg([string]$Directory,[string]$District,[string]$Title,[hashtable]$Labels) {
+    Assert-TownRouteProjection $Directory $District @($Labels.Keys)
     Add-Type -AssemblyName System.Drawing
-    $Route=Get-Content -LiteralPath (Join-Path $Directory 'north-route-projection.json') -Raw | ConvertFrom-Json
+    $Route=Get-Content -LiteralPath (Join-Path $Directory ($District.ToLowerInvariant()+'-route-projection.json')) -Raw | ConvertFrom-Json
     $Bitmap=New-Object Drawing.Bitmap 720,1460
     $Graphics=[Drawing.Graphics]::FromImage($Bitmap)
     $Image=[Drawing.Image]::FromFile((Join-Path (Join-Path $Directory 'screenshots') $Route.image))
@@ -68,11 +69,10 @@ function Write-NorthRoutesJpeg([string]$Directory) {
     $Brush=New-Object Drawing.SolidBrush ([Drawing.Color]::FromArgb(65,40,50))
     try {
         $Graphics.Clear([Drawing.Color]::FromArgb(255,247,239));$Graphics.DrawImage($Image,0,100,720,1280)
-        $Graphics.DrawString('北エリア／歩行導線（Lv.1 Unity実画面）',$Font,$Brush,12,10)
+        $Graphics.DrawString(($Title+'／歩行導線（Lv.1 Unity実画面）'),$Font,$Brush,12,10)
         $Graphics.DrawString('実画面にナビ経路を重ねた図。実操作の軌跡ではありません。',$Font,$Brush,12,36)
-        $Colors=@([Drawing.Color]::DeepPink,[Drawing.Color]::RoyalBlue,[Drawing.Color]::DarkOrange,[Drawing.Color]::DarkViolet,[Drawing.Color]::Teal)
-        $Labels=@{cottage='依頼小屋';board='掲示板';waiting='待ち合わせ';left='左の小道';right='右の小道'}
-        for($i=0;$i -lt 5;$i++) {
+        $Colors=@([Drawing.Color]::DeepPink,[Drawing.Color]::RoyalBlue,[Drawing.Color]::DarkOrange,[Drawing.Color]::DarkViolet,[Drawing.Color]::Teal,[Drawing.Color]::ForestGreen)
+        for($i=0;$i -lt 6;$i++) {
             $Pen=New-Object Drawing.Pen $Colors[$i],3
             $Pen.EndCap=[Drawing.Drawing2D.LineCap]::ArrowAnchor
             try {
@@ -82,8 +82,14 @@ function Write-NorthRoutesJpeg([string]$Directory) {
                 try{$Graphics.DrawString($Labels[$Route.routes[$i].id],$Font,$LegendBrush,12+($i%3)*230,1390+[math]::Floor($i/3)*28)}finally{$LegendBrush.Dispose()}
             } finally {$Pen.Dispose()}
         }
-        $Bitmap.Save((Join-Path $Directory 'north-walking-routes.jpg'),[Drawing.Imaging.ImageFormat]::Jpeg)
+        $Bitmap.Save((Join-Path $Directory ($District.ToLowerInvariant()+'-walking-routes.jpg')),[Drawing.Imaging.ImageFormat]::Jpeg)
     } finally {$Brush.Dispose();$Font.Dispose();$Image.Dispose();$Graphics.Dispose();$Bitmap.Dispose()}
+}
+function Assert-NorthRouteProjection([string]$Directory) {
+    Assert-TownRouteProjection $Directory 'North' @('cottage-left','cottage-right','left-waiting','right-waiting','mosaic-cross','mosaic-loop')
+}
+function Write-NorthRoutesJpeg([string]$Directory) {
+    Write-TownRoutesJpeg $Directory 'North' '北エリア' @{'cottage-left'='小屋 ↔ 左小道';'cottage-right'='小屋 ↔ 右小道';'left-waiting'='左 ↔ 待ち合わせ';'right-waiting'='右 ↔ 待ち合わせ';'mosaic-cross'='モザイク横断';'mosaic-loop'='前庭の回遊'}
 }
 function Write-NorthComparisonJpeg([string]$Directory) {
     Add-Type -AssemblyName System.Drawing

@@ -94,30 +94,38 @@ namespace Mofumachi.Tests
         }
         private void WriteNorthRouteEvidence(string directory,TownLifeView town)
         {
+            WriteRouteEvidence(directory,town,"North",TownNorthMasterLayout.Circulation,new[]{"cottage-left","cottage-right","left-waiting","right-waiting","mosaic-cross","mosaic-loop"});
+        }
+        private void WriteRouteEvidence(string directory,TownLifeView town,string district,System.Collections.Generic.IReadOnlyList<TownPoint[]> links,string[] ids)
+        {
             // MOFUMACHI_NORTH_DELIVERY_QUALITY: actual viewport projections from
             // the same Lv1 native capture, never hand-positioned route arrows.
             if(directory==null)return;
-            var navigation=new TownAreaNavigation(town.World.Model.Area);var start=TownWorldMap.Place("district.north.entry");
-            var targets=new[]{("cottage",TownWorldMap.Place("quest")),("board",TownWorldMap.Place("bench-left")),("waiting",TownWorldMap.Place("home-front")),("left",new TownPoint(-.42f,2.60f)),("right",new TownPoint(.42f,2.60f))};
+            var navigation=new TownAreaNavigation(town.World.Model.Area);
             NorthRoutePoint Project(TownPoint point)
             {
                 var local=town.World.Local(point);var screen=captureCamera.WorldToScreenPoint(town.transform.TransformPoint(local));
                 return new NorthRoutePoint{x=screen.x,y=1280-screen.y};
             }
-            var evidence=new NorthRouteEvidence{routes=targets.Select(t=>
+            var evidence=new NorthRouteEvidence{image="04-town-lv1-"+district+".png",routes=links.Select((link,index)=>
             {
-                var route=navigation.FindRoute(start,t.Item2);Assert.That(route,Is.Not.Empty,"Every annotated path must exist on the real walkable area");
-                var previous=start;foreach(var point in route){Assert.That(town.World.Model.Area.CanTravel(previous,point),Is.True);previous=point;}
-                return new NorthRoute{id=t.Item1,points=new[]{start}.Concat(route).Select(Project).ToArray()};
+                var points=new System.Collections.Generic.List<TownPoint>{link[0]};
+                foreach(var destination in link.Skip(1))
+                {
+                    var route=navigation.FindRoute(points[points.Count-1],destination);Assert.That(route,Is.Not.Empty,"Every annotated pair must exist on the real walkable area");
+                    foreach(var point in route){Assert.That(town.World.Model.Area.CanTravel(points[points.Count-1],point),Is.True);points.Add(point);}
+                }
+                return new NorthRoute{id=ids[index],points=points.Select(Project).ToArray()};
             }).ToArray()};
             using(var sha=System.Security.Cryptography.SHA256.Create())
                 evidence.image_sha256=BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(Path.Combine(directory,evidence.image)))).Replace("-","").ToLowerInvariant();
-            File.WriteAllText(Path.Combine(directory,"north-route-projection.json"),JsonUtility.ToJson(evidence,true));
+            File.WriteAllText(Path.Combine(directory,district.ToLowerInvariant()+"-route-projection.json"),JsonUtility.ToJson(evidence,true));
         }
         [UnityTest] public IEnumerator PortraitScreensRenderFromIsolatedStateWithoutWritingProgress()
         {
             yield return EnterHome();string output=OutputDirectory();
-            bool northReview=Environment.GetCommandLineArgs().Contains("-mofumachiNorthReview");
+            bool southReview=Environment.GetCommandLineArgs().Contains("-mofumachiSouthReview");
+            bool northReview=southReview||Environment.GetCommandLineArgs().Contains("-mofumachiNorthReview");
             bool eastReview=northReview||Environment.GetCommandLineArgs().Contains("-mofumachiEastReview");
             bool westReview=eastReview||Environment.GetCommandLineArgs().Contains("-mofumachiWestReview");
             if(Environment.GetCommandLineArgs().Contains("-mofumachiCentralReview")||westReview)
@@ -232,6 +240,26 @@ namespace Mofumachi.Tests
                     Assert.That(north.transform.Find("Facility entrance quest/Facility sign quest").gameObject.activeInHierarchy,Is.True);
                     Capture(northOutput,"north-door-arrived");
                     Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home),"Walking to the cottage does not automatically enter");
+                }
+                if(southReview)
+                {
+                    string southOutput=output==null?null:Path.Combine(output,"south");
+                    foreach(int level in new[]{1,3,6})
+                    {
+                        Flow.Game.State.townGrowthLevel=level;Flow.ShowHome();EnsurePortraitCamera();var town=Flow.GetComponentInChildren<TownLifeView>();town.World.FastTravel(TownDistrictId.Central);town.World.LookAt(TownDistrictId.South);town.World.Refresh();yield return null;Canvas.ForceUpdateCanvases();
+                        foreach(var resident in town.Actors.Where(a=>a.RegionVisible&&a.transform.Find("Town actor name panel").gameObject.activeInHierarchy))EastMasterReviewTests.AssertNameClearOfBenches(town,resident);
+                        Capture(southOutput,"04-town-lv"+level+"-South",TownDistrictId.South);
+                        if(level==1)WriteRouteEvidence(southOutput,town,"South",TownSouthMasterLayout.Circulation,new[]{"gazebo-left","gazebo-right","left-rest","right-rest","rest-cross","garden-loop"});
+                    }
+                    Flow.Game.State.townGrowthLevel=1;Flow.ShowHome();EnsurePortraitCamera();var south=Flow.GetComponentInChildren<TownLifeView>();
+                    south.World.LookAt(TownDistrictId.South);south.World.Camera.Jump(new TownPoint(0,-1f));south.World.Refresh();Capture(southOutput,"south-connection");
+                    south.World.FastTravel(TownDistrictId.Central);Assert.That(south.World.GuidePoint(TownWorldMap.Place("front-promenade")),Is.True);
+                    for(int i=0;i<3000&&south.World.Model.Hero.Position.Y> -1.32f;i++)south.AdvanceFrame(1f/30);
+                    Assert.That(south.World.Model.Hero.Position.Y,Is.LessThanOrEqualTo(-1.32f));Assert.That(south.IsSpeaking,Is.False);Capture(southOutput,"south-walking");
+                    for(int i=0;i<3000&&south.World.Model.Hero.IsWalking;i++)south.AdvanceFrame(1f/30);
+                    Assert.That(south.World.Model.Hero.IsWalking,Is.False);Assert.That(TownWalkableArea.Distance(south.World.Model.Hero.Position,TownWorldMap.Place("front-promenade")),Is.LessThan(.002f));
+                    south.World.Model.Pause(south.World.Model.Hero.Id,2);south.RefreshWorldPresentation();Capture(southOutput,"south-rest-arrived");
+                    Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));
                 }
                 if(output!=null)File.WriteAllLines(Path.Combine(output,"texture-memory.txt"),new[]{TownCentralMasterLayout.Resource,TownFountainGraphic.Resource,TownWestMasterLayout.Resource}.Select(key=>key+": "+UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(Resources.Load<Texture2D>(key))+" bytes"));
                 LogAssert.NoUnexpectedReceived();yield break;

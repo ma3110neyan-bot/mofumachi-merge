@@ -1,4 +1,4 @@
-$ErrorActionPreference='Stop'
+﻿$ErrorActionPreference='Stop'
 . (Join-Path $PSScriptRoot '../visual-lock.ps1')
 . (Join-Path $PSScriptRoot '../west-review.ps1')
 . (Join-Path $PSScriptRoot '../east-review.ps1')
@@ -16,12 +16,12 @@ try {
     $Manifest=@{gitRevision=$Info.gitRevision;productFingerprint=$Info.productFingerprint;centralInputFingerprint=$Info.centralInputFingerprint;images=$Images}
     Assert-NorthCaptureIdentity $Info $Manifest $Root
     if(-not(Get-Command Assert-NorthRouteProjection -ErrorAction SilentlyContinue)){throw 'Missing source-bound North route projection validation.'}
-    $Route=@{image=$Names[0];image_sha256=$Images[0].sha256;kind='navigation-route-overlay-not-gameplay-trace';origin='top-left';width=720;height=1280;routes=@(foreach($Id in @('cottage','board','waiting','left','right')){@{id=$Id;points=@(@{x=360;y=1000},@{x=360;y=600})}})}
+    $Route=@{image=$Names[0];image_sha256=$Images[0].sha256;kind='navigation-route-overlay-not-gameplay-trace';origin='top-left';width=720;height=1280;routes=@(foreach($Id in @('cottage-left','cottage-right','left-waiting','right-waiting','mosaic-cross','mosaic-loop')){@{id=$Id;points=@(@{x=(80+([array]::IndexOf(@('cottage-left','cottage-right','left-waiting','right-waiting','mosaic-cross','mosaic-loop'),$Id))*80);y=1000},@{x=360;y=600})}})}
     $RoutePath=Join-Path $Root 'north-route-projection.json';$Route | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $RoutePath
     Assert-NorthRouteProjection $Root
     $Route.image_sha256=('f'*64);$Route | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $RoutePath;Reject {Assert-NorthRouteProjection $Root};$Route.image_sha256=$Images[0].sha256
-    $Route.routes[0].points[0].x=[double]::NaN;$Route | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $RoutePath;Reject {Assert-NorthRouteProjection $Root};$Route.routes[0].points[0].x=360
-    $Route.routes[4].id='left';$Route | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $RoutePath;Reject {Assert-NorthRouteProjection $Root}
+    $Route.routes[0].points[0].x=[double]::NaN;$Route | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $RoutePath;Reject {Assert-NorthRouteProjection $Root};$Route.routes[0].points[0].x=80
+    $Route.routes[4].id='left-waiting';$Route | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $RoutePath;Reject {Assert-NorthRouteProjection $Root}
     $Manifest.gitRevision=('d'*40);Reject {Assert-NorthCaptureIdentity $Info $Manifest $Root};$Manifest.gitRevision=$Info.gitRevision
     $Manifest.centralInputFingerprint=('d'*64);Reject {Assert-NorthCaptureIdentity $Info $Manifest $Root};$Manifest.centralInputFingerprint=$Info.centralInputFingerprint
     [IO.File]::AppendAllText((Join-Path $Root $Names[0]),'changed');Reject {Assert-NorthCaptureIdentity $Info $Manifest $Root};[IO.File]::WriteAllBytes((Join-Path $Root $Names[0]),$Header)
@@ -46,7 +46,7 @@ try {
     foreach($Level in @(1,3,6)){[IO.File]::WriteAllBytes((Join-Path $Screens "04-town-lv$Level-Central.png"),$Header);[IO.File]::WriteAllBytes((Join-Path $Before "04-town-lv$Level-North.png"),$Header)}
     foreach($Name in $Names){[IO.File]::WriteAllBytes((Join-Path $NorthScreens $Name),$Header)}
     Set-Content -LiteralPath (Join-Path $NorthScreens 'capture-world.txt') -Value 'MOFUMACHI_CAPTURE_WORLD north-coordinate-evidence'
-    $Route.image_sha256=(Get-FileHash -LiteralPath (Join-Path $NorthScreens $Names[0]) -Algorithm SHA256).Hash.ToLowerInvariant();$Route.routes[4].id='right'
+    $Route.image_sha256=(Get-FileHash -LiteralPath (Join-Path $NorthScreens $Names[0]) -Algorithm SHA256).Hash.ToLowerInvariant();$Route.routes[4].id='mosaic-cross'
     $Route | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $NorthScreens 'north-route-projection.json')
     $Held=Join-Path $Root 'held-north';New-Item -ItemType Directory -Path $Held -Force | Out-Null
     $HeldImages=@(foreach($Level in @(1,3,6)) {

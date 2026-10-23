@@ -85,6 +85,30 @@ namespace Mofumachi.Tests
                     Assert.That(TownWalkableArea.Distance(model.Residents[a].Position,model.Residents[b].Position),Is.GreaterThan(.066f));
             }
             Assert.That(model.Hero.IsWalking,Is.False);Assert.That(TownWalkableArea.Distance(model.Hero.Position,TownWorldMap.Place("quest")),Is.LessThan(.002f));
+            // The requested direct links must also work in the real Editor,
+            // without walking everyone through the same district entry.
+            foreach(var link in TownNorthMasterLayout.Circulation)
+            {
+                var nav=new TownAreaNavigation(model.Area);var from=link[0];
+                foreach(var to in link.Skip(1))
+                {var route=nav.FindRoute(from,to);Assert.That(route,Is.Not.Empty);foreach(var point in route){Assert.That(point.Y,Is.GreaterThan(1.72f));Assert.That(model.Area.CanTravel(from,point),Is.True);from=point;}}
+            }
+            var visitors=new[]{model.Hero.Id,friends[0].Id,friends[1].Id};var targets=new[]{"home-front","quest","bench-left"};var finished=new System.Collections.Generic.HashSet<string>();
+            model.Restore(visitors[0],TownWorldMap.Place("quest"));model.Restore(visitors[1],new TownPoint(-.42f,2.60f));model.Restore(visitors[2],new TownPoint(.42f,2.60f));
+            void Finish(string id,string place,bool crossed){int i=System.Array.IndexOf(visitors,id);if(i>=0&&targets[i]==place)finished.Add(id);}
+            model.Arrived+=Finish;
+            try
+            {
+                for(int i=0;i<3;i++)Assert.That(model.TryGuide(visitors[i],targets[i]),Is.True);
+                for(int frame=0;frame<3000&&finished.Count<3;frame++)
+                {
+                    life.AdvanceFrame(1f/30);
+                    foreach(var actor in model.Residents.Where(a=>visitors.Contains(a.Id)&&!finished.Contains(a.Id)))Assert.That(actor.Position.Y,Is.GreaterThan(1.72f));
+                    for(int a=0;a<model.Residents.Count;a++)for(int b=a+1;b<model.Residents.Count;b++)Assert.That(TownWalkableArea.Distance(model.Residents[a].Position,model.Residents[b].Position),Is.GreaterThan(.066f));
+                }
+                Assert.That(finished.Count,Is.EqualTo(3),"All three visitors must finish the independent North links");
+            }
+            finally{model.Arrived-=Finish;}
             LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator NorthGardensReplaceTheirStageAndLeaveTheBoardAndSeatClearWithoutSaving()
@@ -108,6 +132,8 @@ namespace Mofumachi.Tests
                 Assert.That(parcelArt,Is.SameAs(Resources.Load<Texture2D>("Mofumachi/TownDeliveryParcels")));Assert.That(parcelArt.width,Is.LessThanOrEqualTo(256));Assert.That(parcelArt.isReadable,Is.False);
                 Assert.That(scene.Pieces.Any(p=>p.Rect.gameObject.activeSelf&&p.Placement.Kind==TownSceneryKind.DeliveryBunting),Is.EqualTo(level>=3));
                 Assert.That(scene.Pieces.Any(p=>p.Rect.gameObject.activeSelf&&p.Placement.Kind==TownSceneryKind.FlowerArch),Is.EqualTo(level>=6));
+                var boardFlowers=scene.Pieces.Single(p=>p.Placement.District==TownDistrictId.North&&p.Placement.Kind==TownSceneryKind.FlowerBasket&&p.Placement.Feet.X<-.3f);
+                Assert.That(boardFlowers.Rect.gameObject.activeSelf,Is.EqualTo(level>=3));
                 var plaque=scene.Pieces.Single(p=>p.Placement.Kind==TownSceneryKind.QuestCottage).Rect.Find("Cottage request plaque").GetComponent<UnityEngine.UI.Text>();
                 Assert.That(plaque.font,Is.Not.Null);Assert.That(plaque.text,Is.EqualTo("おねがい"));Assert.That(plaque.raycastTarget,Is.False);
                 Assert.That(scene.Pieces.Any(p=>p.Rect.gameObject.activeSelf&&p.Placement.Kind==TownSceneryKind.FlowerBorder&&p.Placement.Feet.Equals(new TownPoint(-.45f,2.28f))),Is.False,"The board must not acquire an opaque flower overlay");

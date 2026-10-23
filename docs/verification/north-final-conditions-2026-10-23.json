@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-23",
+  "authority": "user:北エリア最終調整 → 南エリア着手指示",
+  "approved_base_revision": "ed3c5e435541e03eba33fba9e3f574099bb6f1f1",
+  "approved_base_native_record": "References/Review/north-quest-2026-10-23-mosaic-candidate/native-review.json",
+  "circulation_verified": true,
+  "level_three_decoration_verified": true,
+  "north_layout_normalized_sha256": "426033650247fe707d748d5eee8cd5f317254e5732f284aff03c442f18e732e5",
+  "local_presentation_tests": {
+    "passed": 15,
+    "total": 15,
+    "failed": 0,
+    "filter": "NorthMasterTests",
+    "includes_requested_pair_routes_bidirectionally": true,
+    "three_residents_all_arrive_at_levels": [
+      1,
+      3,
+      6
+    ]
+  },
+  "north_floor_or_navigation_changed": false,
+  "preserved": [
+    "cottage",
+    "board",
+    "mailbox",
+    "parcels",
+    "mosaic",
+    "flowers",
+    "Lv6arch",
+    "palette"
+  ],
+  "changes": [
+    "six pair/cross/circuit routes with independent origins, exported from actual navigation",
+    "board-attached Lv3 flower basket and lantern, no new floor blocker"
+  ],
+  "native_after_adjustments_verified": false,
+  "pixel_verified": false,
+  "south_start_authorized_by_user_after_these_conditions": true,
+  "scope": "CPU checks establish bounded adjustment implementation; final native visual/traffic still replayed with South candidate. Not whole-town completion."
+}

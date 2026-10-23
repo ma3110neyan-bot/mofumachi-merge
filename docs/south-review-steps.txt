@@ -1,0 +1,36 @@
+南の庭園候補：Unity実画面の確認手順（APKは作りません）
+
+1. GitHub Desktopで feat/daily-world-pass-20261016 を選び、Fetch origin → Pull origin。
+2. このプロジェクトを開いているUnity Editorを閉じる。
+3. Windows PowerShellへ次のまとまりを貼り付ける。
+
+& {
+    $ErrorActionPreference = "Stop"
+    Set-Location -LiteralPath "C:\Users\User\Desktop\Mofumachi\mofumachi-merge"
+    if (-not (Test-Path -LiteralPath ".\Assets\Mofumachi\Tests\PlayMode\SouthMasterReviewTests.cs")) {
+        throw "南の修正版が未反映です。GitHub DesktopでPullしてください。"
+    }
+    powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\build-android.ps1" -SouthReview
+    if ($LASTEXITCODE -ne 0) { throw "確認が停止しました。表示された出力先のcentral-playmode.logとcentral-playmode.xmlをお送りください。" }
+}
+
+この呼び出しは実行ポリシーを子PowerShellのみに指定します。親の設定変更や管理者起動、スクリプトのドット読み込みは不要です。
+
+正常時の予定：テスト15/15、実Unity PNG27枚、同じ出力フォルダに次の5ZIP。
+  central-master-review.zip
+  west-cafe-review.zip
+  east-florist-review.zip
+  north-quest-review.zip
+  south-garden-review.zip
+
+5ZIPを同じ実行分でお送りください。中央・西・東・北は品質維持の確認用です。
+南ZIP内の確認資料：
+  south-before-candidate.jpg（Lv1/3/6、固定Beforeと新Candidate）
+  south-walking-routes.jpg（同じLv1実画面に実ナビ経路を注釈。操作軌跡ではありません）
+  04-town-lv1-South.png / 04-town-lv3-South.png / 04-town-lv6-South.png
+  south-connection.png / south-walking.png / south-rest-arrived.png
+  approved-design.png（正式Visual Lock。南の実画面ではありません）
+
+現状：設計・実装済み。新版のUnity実画面は未確認、QA APK未生成、Pixel未確認。
+南の画像確認・承認が終わるまで、5エリア統合・QA APK・Pixel・main統合には進みません。
+Codexからチャット内への画像貼り付けは行いません。

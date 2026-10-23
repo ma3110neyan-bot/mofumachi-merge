@@ -11,11 +11,21 @@ namespace Mofumachi.Presentation
         public const float Left=-.60f,Right=.60f,Bottom=1f,Top=3.23f;
         public static TownPoint TexturePoint(TownPoint p)=>new TownPoint((p.X+.75f)/1.5f,(p.Y-1f)/2.25f);
         public static IReadOnlyList<TownSceneryPlacement> Dressing {get;}=Build();
+        // Actual area-navigation requests between destinations, not a graph
+        // restricting movement. None of these visits returns to the entry.
+        public static IReadOnlyList<TownPoint[]> Circulation {get;}=Array.AsReadOnly(new[]{
+            new[]{new TownPoint(0,2.08f),new TownPoint(-.42f,2.60f)},
+            new[]{new TownPoint(0,2.08f),new TownPoint(.42f,2.60f)},
+            new[]{new TownPoint(-.42f,2.60f),new TownPoint(.32f,2.05f)},
+            new[]{new TownPoint(.42f,2.60f),new TownPoint(.32f,2.05f)},
+            new[]{new TownPoint(-.24f,1.90f),new TownPoint(.24f,1.90f)},
+            new[]{new TownPoint(-.24f,1.80f),new TownPoint(.24f,1.80f),new TownPoint(.24f,2.04f),new TownPoint(-.24f,2.04f),new TownPoint(-.24f,1.80f)}});
         // Attached flowers use the cottage's existing solid base, but must be
         // drawn over its facade and behind the visitor standing at the door.
         public static float DepthY(TownSceneryPlacement p)
         {
             if(p.District!=TownDistrictId.North)return p.Feet.Y;
+            if(p.Level==3&&(p.Kind==TownSceneryKind.FlowerBasket&&p.Feet.X<-.3f||p.Kind==TownSceneryKind.StreetLamp&&p.Feet.Y>2.3f&&p.Feet.X<-.3f))return 2.275f;
             if(p.Kind==TownSceneryKind.FlowerArch)return 2.135f;
             if(p.Kind==TownSceneryKind.DeliveryParcels||p.Kind==TownSceneryKind.FlowerBasket||p.Kind==TownSceneryKind.StreetLamp&&Math.Abs(p.Feet.Y-2.22f)<.001f)return 2.13f;
             return p.Feet.Y;
@@ -69,6 +79,10 @@ namespace Mofumachi.Presentation
             // The side pennants announce a lively request/delivery hub at Lv3;
             // the broad floral doorway becomes its distinct Lv6 silhouette.
             Add(TownSceneryKind.DeliveryBunting,.40f,2.44f,.40f,3);
+            // A restrained intermediate upgrade on the existing board frame,
+            // not new freestanding objects or new invisible floor blockers.
+            Add(TownSceneryKind.FlowerBasket,-.47f,2.29f,.12f,3);
+            Add(TownSceneryKind.StreetLamp,-.35f,2.35f,.045f,3);
             Add(TownSceneryKind.FlowerArch,.01f,2.15f,.46f,6);
             return result.AsReadOnly();
         }

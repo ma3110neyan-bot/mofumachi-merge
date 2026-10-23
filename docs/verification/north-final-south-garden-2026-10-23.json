@@ -1,0 +1,137 @@
+{
+  "date": "2026-10-23",
+  "scope": "North conditional approval: bounded circulation/Lv3 finish, then South garden candidate only",
+  "authority": "user:北エリア最終調整 → 南エリア着手指示",
+  "base_revision": "78d3f83c0aa88c85c6aa354f7d993c50154f7f23",
+  "render_input_fingerprint": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
+  "north_conditions_record": "docs/verification/north-final-conditions-2026-10-23.json",
+  "stages": {
+    "designed": true,
+    "implemented": true,
+    "native_unity_verified": false,
+    "apk_generated": false,
+    "pixel_verified": false,
+    "adopted": false
+  },
+  "north": {
+    "quality_base": "ed3c5e435541e03eba33fba9e3f574099bb6f1f1",
+    "user_approval_kind": "conditional",
+    "existing_floor_already_allows_pair_routes": true,
+    "navigation_foundations_changed": false,
+    "pair_and_circuit_links": 6,
+    "three_concurrent_arrivals_at_levels": [
+      1,
+      3,
+      6
+    ],
+    "changes": [
+      "Replace misleading shared-origin route annotations with actual pair/cross/circuit projections",
+      "Add restrained board-side Lv3 flowers and lantern using original art"
+    ],
+    "native_after_adjustments_verified": false
+  },
+  "south": {
+    "role": "garden, walking, rest",
+    "original_gazebo_bench_trees_preserved": true,
+    "shared_existing_painting": true,
+    "new_texture_count": 0,
+    "garden_route_links": 6,
+    "native_fixture_cases": 3,
+    "stages": [
+      "Lv1 finished planting and rest seat",
+      "Lv3 replacement flowers, lantern and pot",
+      "Lv6 larger flower banks and gazebo floral arch"
+    ],
+    "name_occlusion_fix": "Keep flower density and widths; lower foreground bank fromY-2.88 to-2.98. Pure test reproduces failure before and passes after; native bounds fixture covers celebration rest stop at all3 stages.",
+    "user_approved": false
+  },
+  "frozen153": true,
+  "formal_visual_lock_intact": true,
+  "original_character_atlas_changed": false,
+  "core_save_delivery_reward_changed": false,
+  "local_verification": {
+    "presentation_cpu": {
+      "passed": 295,
+      "total": 295,
+      "failed": 0,
+      "command": "dotnet test Tests/Presentation/Mofumachi.Visual.Tests.csproj --no-restore",
+      "native_editor_execution": false
+    },
+    "actual_unity_dll_compile": {
+      "assemblies": 6,
+      "errors": 0,
+      "warnings": 0,
+      "native_editor_execution": false
+    },
+    "powershell_suites": {
+      "passed": 9,
+      "total": 9,
+      "names": [
+        "android-tools",
+        "approved-design",
+        "central-review",
+        "pixel-visual-check",
+        "visual-lock",
+        "west-review",
+        "east-review",
+        "north-review",
+        "south-review"
+      ],
+      "uses_mock_devices_and_synthetic_images": true,
+      "jpeg_drawing_stubbed_in_synthetic_tests": true
+    },
+    "actual_repository_gates": {
+      "frozen153": true,
+      "formal_lock": true,
+      "conditional_south_construction_allowed": true,
+      "qa_blocked": true
+    },
+    "south_before_pngs": {
+      "count": 3,
+      "dimensions": [
+        720,
+        1280
+      ],
+      "sha_matches_immutable_baseline": true,
+      "record": "References/Review/south-before-2026-10-21/source.json"
+    }
+  },
+  "independent_source_review": {
+    "agent": "north_final_south_source_review_oct23",
+    "critical": 0,
+    "important_found": 1,
+    "finding": "Foreground Lv3/Lv6 southern flower bank could overlap celebration name card",
+    "addressed": true,
+    "evidence": "Red/green pure bounds test plus expanded native fixture; actual rendered verification pending",
+    "native_visual_acceptance": false
+  },
+  "next_native_pass": {
+    "mode": "-SouthReview",
+    "expected_tests": 15,
+    "expected_raw_png": 27,
+    "same_run_zips": [
+      "central-master-review.zip",
+      "west-cafe-review.zip",
+      "east-florist-review.zip",
+      "north-quest-review.zip",
+      "south-garden-review.zip"
+    ],
+    "south_jpeg_files": [
+      "south-before-candidate.jpg",
+      "south-walking-routes.jpg"
+    ],
+    "route_jpeg_is_gameplay_trace": false,
+    "scope": "South candidate plus four regression companions; not five-area integration"
+  },
+  "remaining": [
+    "Run licensed Windows Unity SouthReview",
+    "Review actual South Lv1/3/6 and existing districts for regression",
+    "Obtain South user image approval before five-area integration or Pixel"
+  ],
+  "limits": [
+    "Cloud Editor cannot render without an Editor license; six-DLL compile and CPU tests do not establish visual quality",
+    "No current-source native screenshots, QA APK or Pixel observations are available",
+    "No five-area integration or main merge performed"
+  ],
+  "ai_next_improvements": "今回はなし。南の実画面確認を優先する。"
+}

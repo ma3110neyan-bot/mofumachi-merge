@@ -1,0 +1,22 @@
+{
+  "run": "20261021-113845-fbcafb0d",
+  "gitRevision": "bd3f357d9da5ac1aa6ab3debe2362131b643a6d7",
+  "scope": "Immutable actual native South Before, not current candidate or Pixel",
+  "images": [
+    {
+      "file": "04-town-lv1-South.png",
+      "bytes": 1585514,
+      "sha256": "0657c3e84fb8f9b2dd70f417ece7b90fb748078b1b7ca00ca3454fb35f61b8c4"
+    },
+    {
+      "file": "04-town-lv3-South.png",
+      "bytes": 1598703,
+      "sha256": "8cf66383963212ed81031ae4debf2387436ae0caa88d1bb5ae85e86615e5918d"
+    },
+    {
+      "file": "04-town-lv6-South.png",
+      "bytes": 1613779,
+      "sha256": "530d681608c9f77da56b2e95621491c359dd556c70256b0687af0fd5cd7a6b95"
+    }
+  ]
+}

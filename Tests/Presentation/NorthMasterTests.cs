@@ -109,9 +109,50 @@ namespace Mofumachi.Tests
             foreach(float side in new[]{-1f,1f})Assert.That(floor.Contains(new TownPoint(arch.Feet.X+side*arch.Width*.42f,arch.Feet.Y)),Is.False,"Arch feet must sit on the existing cottage foundation");
             var cottage=TownSceneryLayout.Landmarks.Single(p=>p.Kind==TownSceneryKind.QuestCottage);
             Assert.That((float)depth.Invoke(null,new object[]{arch}),Is.InRange(TownWorldMap.Place("quest").Y+.005f,cottage.Feet.Y-.005f),"The flowers frame the cottage but never paint over the arriving visitor");
-            foreach(var p in Pieces().Where(p=>p.Kind.ToString()=="DeliveryParcels"||p.Kind.ToString()=="FlowerBasket"))
+            foreach(var p in Pieces().Where(p=>Math.Abs(p.Feet.X)<.25f&&(p.Kind.ToString()=="DeliveryParcels"||p.Kind.ToString()=="FlowerBasket")))
                 Assert.That((float)depth.Invoke(null,new object[]{p}),Is.InRange(TownWorldMap.Place("quest").Y+.005f,cottage.Feet.Y-.005f),"Cottage-attached displays must not disappear behind the facade");
             foreach(var p in TownSceneryLayout.Landmarks.Where(p=>p.District!=TownDistrictId.North))Assert.That(depth.Invoke(null,new object[]{p}),Is.EqualTo(p.Feet.Y));
+        }
+        [Test] public void RequestedNorthLinksUseDifferentOriginsAndBypassTheDistrictEntry()
+        {
+            var property=Master().GetProperty("Circulation");Assert.That(property,Is.Not.Null,"Export actual pair-to-pair routes, not five arrows from one entry");
+            var links=(IReadOnlyList<TownPoint[]>)property.GetValue(null);Assert.That(links.Count,Is.GreaterThanOrEqualTo(5));
+            var floor=new TownWalkableArea(0);var nav=new TownAreaNavigation(floor);var starts=links.Select(p=>p[0]).Distinct().ToArray();
+            Assert.That(starts.Length,Is.GreaterThanOrEqualTo(3));
+            foreach(var link in links)for(int direction=0;direction<2;direction++)
+            {
+                var points=direction==0?link:link.Reverse().ToArray();var from=points[0];
+                foreach(var to in points.Skip(1))
+                {
+                    var route=nav.FindRoute(from,to);Assert.That(route,Is.Not.Empty);
+                    foreach(var p in route){Assert.That(p.Y,Is.GreaterThan(1.72f),"Side-to-side visits must not funnel back to the entry");Assert.That(floor.CanTravel(from,p),Is.True);from=p;}
+                }
+            }
+        }
+        [Test] public void LevelThreeAddsBoardDecorationWithoutChangingAnyInitialOrLevelSixLandmark()
+        {
+            var board=TownVillageDressing.All.Single(p=>p.Kind==TownSceneryKind.NoticeBoard&&p.District==TownDistrictId.North);
+            var additions=Pieces().Where(p=>p.Level==3&&Math.Abs(p.Feet.X-board.Feet.X)<.18f&&Math.Abs(p.Feet.Y-board.Feet.Y)<.20f).ToArray();
+            Assert.That(additions.Any(p=>p.Kind==TownSceneryKind.StreetLamp),Is.True,"A board-side lantern makes the intermediate stage visible");
+            Assert.That(additions.Any(p=>p.Kind==TownSceneryKind.FlowerBasket),Is.True);
+            Assert.That(additions.All(p=>p.Footprint==null),Is.True,"Attach decorations to the existing planted board foundation");
+            foreach(var p in additions){Assert.That(Visible(p,1),Is.False);Assert.That(Visible(p,3),Is.True);Assert.That(Visible(p,6),Is.True);}
+        }
+        [TestCase(1)] [TestCase(3)] [TestCase(6)]
+        public void ThreeDifferentNorthOriginsCompleteVisitsWithoutUsingTheEntry(int level)
+        {
+            var town=new TownWorldWalkModel(level,"momo");var arrived=new HashSet<string>();
+            var expected=new Dictionary<string,string>{{"momo","home-front"},{"lulu","quest"},{"pom","bench-left"}};
+            town.Restore("momo",TownWorldMap.Place("quest"));town.Restore("lulu",new TownPoint(-.42f,2.60f));town.Restore("pom",new TownPoint(.42f,2.60f));
+            town.Arrived+=(id,place,crossed)=>{if(expected.TryGetValue(id,out var target)&&place==target)arrived.Add(id);};
+            foreach(var visit in expected)Assert.That(town.TryGuide(visit.Key,visit.Value),Is.True);
+            for(int i=0;i<3000&&arrived.Count<3;i++)
+            {
+                town.Step(1f/30);
+                foreach(var actor in town.Residents.Where(a=>expected.ContainsKey(a.Id)&&!arrived.Contains(a.Id)))Assert.That(actor.Position.Y,Is.GreaterThan(1.72f));
+                for(int a=0;a<town.Residents.Count;a++)for(int b=a+1;b<town.Residents.Count;b++)Assert.That(TownWalkableArea.Distance(town.Residents[a].Position,town.Residents[b].Position),Is.GreaterThan(.066f));
+            }
+            Assert.That(arrived,Is.EquivalentTo(expected.Keys),"All three visits must finish, not only the controlled resident");
         }
     }
 }

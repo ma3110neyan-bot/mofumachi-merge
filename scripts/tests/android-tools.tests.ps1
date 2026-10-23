@@ -147,15 +147,15 @@ exit $Code
         if($Declared -eq 0){$Declared=$Total}
         $SuiteCases=0
         $Nodes=foreach($Name in $Suites) {
-            $Count=if($Name -eq 'CharacterSelectionTests'){4}elseif($Name -eq 'DailyWorldTests'){13}elseif($Name -eq 'MajorPolishTests'){6}elseif($Name -eq 'SeamlessFieldTests'){8}elseif($Name -eq 'EastWestHomeTests'){4}elseif($Name -eq 'ResidentPresenceTests'){5}elseif($Name -eq 'FivePlazaTests'){5}elseif($Name -eq 'BaseProductLoopTests'){5}elseif($Name -eq 'VisualLockPresentationTests'){2}elseif($Name -eq 'CentralMasterReviewTests'){2}elseif($Name -eq 'WestMasterReviewTests'){3}elseif($Name -eq 'EastMasterReviewTests'){3}elseif($Name -eq 'NorthMasterReviewTests'){3}else{1}
+            $Count=if($Name -eq 'CharacterSelectionTests'){4}elseif($Name -eq 'DailyWorldTests'){13}elseif($Name -eq 'MajorPolishTests'){6}elseif($Name -eq 'SeamlessFieldTests'){8}elseif($Name -eq 'EastWestHomeTests'){4}elseif($Name -eq 'ResidentPresenceTests'){5}elseif($Name -eq 'FivePlazaTests'){5}elseif($Name -eq 'BaseProductLoopTests'){5}elseif($Name -eq 'VisualLockPresentationTests'){2}elseif($Name -eq 'CentralMasterReviewTests'){2}elseif($Name -eq 'WestMasterReviewTests'){3}elseif($Name -eq 'EastMasterReviewTests'){3}elseif($Name -eq 'NorthMasterReviewTests'){3}elseif($Name -eq 'SouthMasterReviewTests'){3}else{1}
             $SuiteCases+=$Count;"<test-suite name='$Name' result='Passed'>"+('<test-case result="Passed"/>'*$Count)+"</test-suite>"
         }
         $Nodes=$Nodes -join ''
         $Extra=('<test-case result="Passed"/>'*($Total-$SuiteCases-1))+"<test-case result='$Case'/>"
         "<test-run result='Passed' total='$Declared' passed='$Declared' failed='0' skipped='0'>$Nodes$Extra</test-run>" | Set-Content $Xml
     }
-    $EditSuites=Read-GateSuites 'EditXml' 142;$PlaySuites=Read-GateSuites 'PlayXml' 218
-    foreach($Gate in @(@{Minimum=142;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests','TownPlaceCatalogTests','TownViewportTests','TownRegionCatalogTests','TownRegionJourneyTests','TownRegionContentTests')},@{Minimum=218;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests')})) {
+    $EditSuites=Read-GateSuites 'EditXml' 142;$PlaySuites=Read-GateSuites 'PlayXml' 221
+    foreach($Gate in @(@{Minimum=142;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests','TownPlaceCatalogTests','TownViewportTests','TownRegionCatalogTests','TownRegionJourneyTests','TownRegionContentTests')},@{Minimum=221;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests')})) {
         $Old=@($Gate.Suites | Where-Object {$_ -notin $Gate.New})
         Write-SuiteXml $Gate.Minimum $Old
         Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}
@@ -172,13 +172,13 @@ exit $Code
         foreach($BadCase in @('Skipped','Failed','Inconclusive')){Write-SuiteXml $Gate.Minimum $Gate.Suites $BadCase;Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}}
         Write-SuiteXml $Gate.Minimum $Gate.Suites -Declared ($Gate.Minimum+1);Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}
     }
-    foreach($Name in @('CharacterSelectionTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests')) {
-        Write-SuiteXml 218 $PlaySuites
+    foreach($Name in @('CharacterSelectionTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests')) {
+        Write-SuiteXml 221 $PlaySuites
         $Data=Get-Content -LiteralPath $Xml -Raw
         $SuiteStart="<test-suite name='$Name' result='Passed'>"
         $Data=$Data.Replace($SuiteStart+'<test-case result="Passed"/>','<test-case result="Passed"/>'+$SuiteStart)
         $Data | Set-Content -LiteralPath $Xml
-        Expect-Rejection {Assert-TestRun $Xml 218 $PlaySuites}
+        Expect-Rejection {Assert-TestRun $Xml 221 $PlaySuites}
     }
     Write-Host 'Chapter build gates passed (synthetic result XML, Unity tests not executed).'
     Expect-Rejection {Select-AuthorizedDevice 'List of devices attached' ''}

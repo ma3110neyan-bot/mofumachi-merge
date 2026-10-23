@@ -1,12 +1,12 @@
 {
   "central": {
-    "native_unity": true,
-    "visual": true,
-    "town_density": true,
-    "walking": true,
+    "native_unity": false,
+    "visual": false,
+    "town_density": false,
+    "walking": false,
     "reviewed_candidate": "ed3c5e435541e03eba33fba9e3f574099bb6f1f1",
-    "native_image_count": 3,
-    "status": "Actual source-bound native replay and visual nonregression confirmed; approved quality floor retained.",
+    "native_image_count": 0,
+    "status": "Frozen quality reference retained; new North final/South candidate awaits native replay.",
     "review_directory": "References/Review/north-quest-2026-10-23-mosaic-candidate/central",
     "central_input_fingerprint": "a57be9d4a85d420dc3ce5d32b50266289a04f290c05ddbf5efb1e8aaca29ae12",
     "last_review": {
@@ -15,12 +15,11 @@
       "native_unity": true,
       "visual": true,
       "record": "References/Review/north-quest-2026-10-23-mosaic-candidate/native-review.json",
-      "scope": "Current render-input digest verified by actual native receipt; no Pixel or user approval implied."
+      "scope": "Historical approved quality reference; new North/South shared render inputs require native replay."
     },
-    "unity_stage_accepted": true
+    "unity_stage_accepted": false
   },
   "remaining_sequence": [
-    "north_user_approval",
     "south_garden",
     "south_native_review",
     "south_user_approval",
@@ -33,7 +32,8 @@
   ],
   "completed_after_central": [
     "west_cafe",
-    "east_florist_shop"
+    "east_florist_shop",
+    "north_quest"
   ],
   "apk_generated": false,
   "pixel_verified": false,
@@ -61,16 +61,16 @@
   "west": {
     "design_direction_approved": true,
     "implemented": true,
-    "native_unity": true,
-    "visual": true,
-    "town_density": true,
-    "walking": true,
-    "status": "Actual source-bound native replay and visual nonregression confirmed; approved quality floor retained.",
+    "native_unity": false,
+    "visual": false,
+    "town_density": false,
+    "walking": false,
+    "status": "Frozen quality reference retained; new North final/South candidate awaits native replay.",
     "arrival_readability": true,
     "deliberate_second_tap": true,
-    "unity_stage_accepted": true,
+    "unity_stage_accepted": false,
     "reviewed_candidate": "ed3c5e435541e03eba33fba9e3f574099bb6f1f1",
-    "native_image_count": 6,
+    "native_image_count": 0,
     "review_directory": "References/Review/north-quest-2026-10-23-mosaic-candidate/west",
     "central_input_fingerprint": "a57be9d4a85d420dc3ce5d32b50266289a04f290c05ddbf5efb1e8aaca29ae12",
     "previous_review": {
@@ -91,7 +91,7 @@
       "native_unity": true,
       "visual": true,
       "record": "References/Review/north-quest-2026-10-23-mosaic-candidate/native-review.json",
-      "scope": "Current render-input digest verified by actual native receipt; no Pixel or user approval implied."
+      "scope": "Historical approved quality reference; new North/South shared render inputs require native replay."
     }
   },
   "historical_central_reviews": [
@@ -147,20 +147,20 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "north_quest",
+  "current_stage": "south_garden",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
     "implemented": true,
-    "native_unity": true,
-    "visual": true,
-    "town_density": true,
-    "walking": true,
+    "native_unity": false,
+    "visual": false,
+    "town_density": false,
+    "walking": false,
     "arrival_readability": true,
     "deliberate_second_tap": true,
-    "unity_stage_accepted": true,
-    "native_image_count": 6,
-    "status": "Actual source-bound native replay and visual nonregression confirmed; approved quality floor retained.",
+    "unity_stage_accepted": false,
+    "native_image_count": 0,
+    "status": "Frozen quality reference retained; new North final/South candidate awaits native replay.",
     "prerequisite_review": "References/Review/west-cafe-2026-10-22-accepted/native-review.json",
     "last_review": {
       "candidate": "ed3c5e435541e03eba33fba9e3f574099bb6f1f1",
@@ -168,7 +168,7 @@
       "native_unity": true,
       "visual": true,
       "record": "References/Review/north-quest-2026-10-23-mosaic-candidate/native-review.json",
-      "scope": "Current render-input digest verified by actual native receipt; no Pixel or user approval implied."
+      "scope": "Historical approved quality reference; new North/South shared render inputs require native replay."
     },
     "previous_review": {
       "candidate": "28487824da0be859bae2313f164bbc806a3bbee2",
@@ -189,17 +189,17 @@
   "north": {
     "design_direction_approved": true,
     "implemented": true,
-    "scope": "North delivery-courtyard quality pass inside the approved district; original atlas art, navigation foundations, quest/save/reward rules preserved",
-    "native_unity": true,
-    "visual": true,
-    "town_density": true,
-    "walking": true,
+    "scope": "Conditionally approved delivery courtyard preserved; requested pair/cross/circuit links verified on existing open floor, board-side Lv3 flowers/lantern added. New native replay pending.",
+    "native_unity": false,
+    "visual": false,
+    "town_density": false,
+    "walking": false,
     "arrival_readability": true,
     "deliberate_second_tap": true,
     "nameplate_readability": true,
-    "unity_stage_accepted": true,
-    "native_image_count": 6,
-    "status": "Actual North Lv1/3/6 and walking/door frames pass candidate visual review. Explicit user image approval pending before South.",
+    "unity_stage_accepted": false,
+    "native_image_count": 0,
+    "status": "Frozen quality reference retained; new North final/South candidate awaits native replay.",
     "prerequisite_review": "References/Review/east-florist-2026-10-22-accepted/native-review.json",
     "last_review": {
       "candidate": "ed3c5e435541e03eba33fba9e3f574099bb6f1f1",
@@ -207,7 +207,7 @@
       "native_unity": true,
       "visual": true,
       "record": "References/Review/north-quest-2026-10-23-mosaic-candidate/native-review.json",
-      "scope": "Current render-input digest verified by actual native receipt; no Pixel or user approval implied."
+      "scope": "Historical approved quality reference; new North/South shared render inputs require native replay."
     },
     "user_rejection": {
       "date": "2026-10-23",
@@ -265,9 +265,9 @@
   },
   "user_review_checkpoints": {
     "north_quest": {
-      "user_approved": false,
-      "approved_by": null,
-      "approval_reference": null,
+      "user_approved": true,
+      "approved_by": "user",
+      "approval_reference": "2026-10-23「北エリア最終調整 → 南エリア着手指示」:「北エリアは大幅に改善しており、条件付き承認とします」「上記2点が反映できたら…南エリア制作へ進んで構いません」",
       "native_unity": true,
       "reviewed_candidate": "ed3c5e435541e03eba33fba9e3f574099bb6f1f1",
       "input_fingerprint": "a57be9d4a85d420dc3ce5d32b50266289a04f290c05ddbf5efb1e8aaca29ae12",
@@ -301,7 +301,9 @@
         "world": true,
         "characters": true
       },
-      "status": "Codex/independent native visual review passed. Exact Lv1/3/6 JPEG candidate ready; explicit user image approval still required before South."
+      "status": "Actual ed3c5e4 visual candidate conditionally approved by user. Requested circulation/Lv3 adjustments implemented and CPU-verified; South construction authorized. New native replay still pending.",
+      "approval_kind": "conditional",
+      "conditions_record": "docs/verification/north-final-conditions-2026-10-23.json"
     },
     "south_garden": {
       "user_approved": false,
@@ -321,7 +323,7 @@
         "world": null,
         "characters": null
       },
-      "status": "Not started; requires previous checkpoint approval"
+      "status": "User authorized garden/rest/walking candidate construction; exact South images still require explicit user approval."
     },
     "five_area": {
       "user_approved": false,
@@ -349,5 +351,16 @@
     "merge_finish",
     "daily_enhancements",
     "release_preparation"
-  ]
+  ],
+  "south": {
+    "design_direction_approved": true,
+    "implemented": true,
+    "native_unity": false,
+    "visual": false,
+    "town_density": false,
+    "walking": false,
+    "unity_stage_accepted": false,
+    "native_image_count": 0,
+    "status": "Garden/rest/walking source implemented with original gazebo, finished Lv1 planting, staged Lv3/Lv6 upgrades, route and name-clearance checks. Native South15-case/27-image review pending; user approval, integration, APK and Pixel remain closed."
+  }
 }

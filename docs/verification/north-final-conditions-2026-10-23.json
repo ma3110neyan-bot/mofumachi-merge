@@ -33,8 +33,11 @@
     "six pair/cross/circuit routes with independent origins, exported from actual navigation",
     "board-attached Lv3 flower basket and lantern, no new floor blocker"
   ],
-  "native_after_adjustments_verified": false,
+  "native_after_adjustments_verified": true,
   "pixel_verified": false,
   "south_start_authorized_by_user_after_these_conditions": true,
-  "scope": "CPU checks establish bounded adjustment implementation; final native visual/traffic still replayed with South candidate. Not whole-town completion."
+  "scope": "CPU checks establish bounded adjustment implementation; final native visual/traffic still replayed with South candidate. Not whole-town completion.",
+  "native_verified_source": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
+  "native_verified_run": "20261023-195457-32c20c13",
+  "native_receipt_record": "References/Review/south-garden-2026-10-23-candidate/native-review.json"
 }

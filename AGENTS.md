@@ -1,5 +1,9 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-23最新受領：南Candidateは実Unity確認済み・品質HOLD。** 45f205d／20261023-195457-32c20c13の同run5ZIPを照合。描画digest e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda、実Unity15/15を1回計上（5XMLを75件と数えない）、実PNG27・原本101ファイル・固定Before15・旧北3・比較JPEG5・北南6経路注釈／SHAを確認。原本と判定は `References/Review/south-garden-2026-10-23-candidate/native-review.json`。中央／西／東15枚中14枚は前版と同一、中央Lv1のモモ表情だけ差。北6枚中4枚同一、Lv3／6は掲示板の控えめな花／灯りのみ追加。北の条件付き承認2点は実Unityでも検証でき、正式採用候補として固定する（新たな無条件ユーザー画像承認を推測しない）。
+
+**南は採用しない。** 景観はBeforeより大幅改善し、Lv1から東屋・花・席・木陰・広い石畳があるが、独立実画像レビューもHOLD：Important2＝①south-rest-arrivedのx約163の垂直切断／左の裸芝生、south-walkingのy約711の水平継ぎ目。②歩行中モモの足が密な植栽上に見え、上側回遊注釈も花／岩の床を横切る。Minor1＝Lv1→3の中間成長が弱い。これらは実際の南歩行／休憩で見えるため「統合工程で後回し」として南を合格にしない。**南は実装・Unity確認済み、見た目HOLD、ユーザー承認なし、Pixel未確認。** 南／統合のユーザー承認はfalse、5エリア統合・APK・Pixel・mainは未着手。コードや素材はこの受領レビューでは変更していない。次の修正対象は南の地面境界・描いた道と通行面の一致・中間成長だけ。中央／西／東／北を維持し、同じ未修正ソースの再撮影を依頼しない。画像はチャットへ貼らず、実JPEGの既存feature HTTPSリンクで案内する。
+
 **2026-10-23 SouthReviewのCount停止修正：** UTF8修正c1ac0a1の次に、北承認ゲートで対象1地区が配列から文字列へ展開され、productionの `Set-StrictMode -Version Latest` 下で `.Count` が停止した。`Assert-TownCheckpointApproved` の対象地区を `[string[]]` で固定し、地区／Lv／画像数／SHAの要件は維持する。従来のヘルパー単体検査は厳格モードを揃えていなかった。日本語再現検査は実build入口をドット読み込みして依存関数／厳格モードを合わせ、承認・South出力検査も厳格モードを明示。関連10スイートをすべてLatestで実行して成功。記録は `docs/verification/south-strict-count-2026-10-23.json`。承認データ・C#・原画・描画入力は不変。南の実Unity画像／Pixelは未確認であり、5エリア統合・APK・mainは閉じたまま。
 
 **2026-10-23 SouthReview起動前のJSON修正：** 39431b0でWindows PowerShellの既定CP932により、BOMなしUTF8の日本語承認記録を誤読してConvertFrom-Jsonが停止。実DotNet CP932＋実JSON解析で再現し、レビュー／ゲート6スクリプト39箇所のJSON読み込みを `-Encoding UTF8` で固定した。承認記録や画像原本は書き換えない。`scripts/tests/windows-json-encoding.tests.ps1` は誤読環境を再現して実South前提ゲートの通過と、未承認の南／統合を引き続き拒否することを検査する。関連10スイート成功。C#／描画入力は不変、Unity再撮影・APK・Pixelは未実行。Pull後は同じ `-SouthReview` を再実行する。正式状態は次段の北条件付き承認・南候補未実画面確認のまま。

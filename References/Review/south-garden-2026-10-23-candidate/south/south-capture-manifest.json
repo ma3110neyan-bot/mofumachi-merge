@@ -1,0 +1,39 @@
+﻿{
+    "gitRevision":  "45f205d7873067f5fec3a26df1b32ff9f21602a7",
+    "productFingerprint":  "1f304d2ff576efe5ca458c17d22d78f36a72edbb5c91d575d19c81f104ac4d90",
+    "centralInputFingerprint":  "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
+    "width":  720,
+    "height":  1280,
+    "images":  [
+                   {
+                       "file":  "04-town-lv1-South.png",
+                       "bytes":  1732960,
+                       "sha256":  "c9d42151ffc53fd79e370b6504408487a3ef066ab16bf74321245ae1a0a7976d"
+                   },
+                   {
+                       "file":  "04-town-lv3-South.png",
+                       "bytes":  1739025,
+                       "sha256":  "eeed0b5c9b5bec7ba4032f08d496eca379f0cdf95233c8bb063f06e48a510745"
+                   },
+                   {
+                       "file":  "04-town-lv6-South.png",
+                       "bytes":  1752910,
+                       "sha256":  "21cbf7add9c4087d59a7cade5b4b940f06f30240f32a17dbb25a495419151290"
+                   },
+                   {
+                       "file":  "south-connection.png",
+                       "bytes":  1798193,
+                       "sha256":  "8cf5d2c26c87a7990dff1a8ed5b408fdd430dc6e94952c5d40e160486333403d"
+                   },
+                   {
+                       "file":  "south-walking.png",
+                       "bytes":  1849646,
+                       "sha256":  "61f600b4e9ab6bb2d76b5c3f17a95d86bdb5f0a262ae4decfd432093e44d43fe"
+                   },
+                   {
+                       "file":  "south-rest-arrived.png",
+                       "bytes":  1664248,
+                       "sha256":  "4e132b2397e86e59306c3280eda4cd281867b5673cd63526185c31709cee100e"
+                   }
+               ]
+}

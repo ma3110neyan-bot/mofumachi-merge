@@ -1,0 +1,187 @@
+{
+  "date": "2026-10-23",
+  "reviewed_revision": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
+  "run": "20261023-195457-32c20c13",
+  "gitRevision": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
+  "productFingerprint": "1f304d2ff576efe5ca458c17d22d78f36a72edbb5c91d575d19c81f104ac4d90",
+  "centralInputFingerprint": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
+  "identity_verified": true,
+  "native_unity_verified": true,
+  "native_tests": {
+    "total": 15,
+    "passed": 15,
+    "failed": 0,
+    "skipped": 0,
+    "counted_once": true,
+    "suites": {
+      "ExperienceCaptureTests": 1,
+      "CentralMasterReviewTests": 2,
+      "WestMasterReviewTests": 3,
+      "EastMasterReviewTests": 3,
+      "NorthMasterReviewTests": 3,
+      "SouthMasterReviewTests": 3
+    }
+  },
+  "native_images": 27,
+  "raw_files_preserved": 101,
+  "integrity_record": "receipt-integrity.json",
+  "formal_visual_lock_intact": true,
+  "before_frames_verified": 15,
+  "held_north_frames_verified": 3,
+  "jpeg_comparisons_decoded_and_hash_verified": 5,
+  "route_projection_and_jpeg_verified": true,
+  "route_is_gameplay_trace": false,
+  "jpeg_exports": [
+    {
+      "district": "South",
+      "level": 1,
+      "file": "References/Review/south-garden-2026-10-23-candidate/south/south-lv1.jpg",
+      "sha256": "d105adb2801ece4b9147410ae9d6db0c68fa10057e8e65fd66f29ba6116656ac",
+      "source_png": "References/Review/south-garden-2026-10-23-candidate/south/screenshots/04-town-lv1-South.png",
+      "source_png_sha256": "c9d42151ffc53fd79e370b6504408487a3ef066ab16bf74321245ae1a0a7976d",
+      "operation": "JPEG encoding only;720x1280,no overlays or resizing",
+      "bytes": 872465
+    },
+    {
+      "district": "South",
+      "level": 3,
+      "file": "References/Review/south-garden-2026-10-23-candidate/south/south-lv3.jpg",
+      "sha256": "ea42621e909b4b3e1ccae19a747840a481127d80303ba033191a33efea488583",
+      "source_png": "References/Review/south-garden-2026-10-23-candidate/south/screenshots/04-town-lv3-South.png",
+      "source_png_sha256": "eeed0b5c9b5bec7ba4032f08d496eca379f0cdf95233c8bb063f06e48a510745",
+      "operation": "JPEG encoding only;720x1280,no overlays or resizing",
+      "bytes": 876975
+    },
+    {
+      "district": "South",
+      "level": 6,
+      "file": "References/Review/south-garden-2026-10-23-candidate/south/south-lv6.jpg",
+      "sha256": "b75da1d1ca3a5fffed410ca6b45d6ac67dc8f02233f0448f623cea7ecc00eb03",
+      "source_png": "References/Review/south-garden-2026-10-23-candidate/south/screenshots/04-town-lv6-South.png",
+      "source_png_sha256": "21cbf7add9c4087d59a7cade5b4b940f06f30240f32a17dbb25a495419151290",
+      "operation": "JPEG encoding only;720x1280,no overlays or resizing",
+      "bytes": 882523
+    }
+  ],
+  "cwe_review": {
+    "visual": true,
+    "town_density": true,
+    "native_functional": true,
+    "same_as_last_native_ed3c": 14,
+    "changed_since_last_native": 1,
+    "changed_frame": "central/screenshots/04-town-lv1-Central.png",
+    "finding": "Only Momo expression/pose changed in CentralLv1. Scenery, fountain, flowers, benches, lamps, HUD, art and name readability retained. All12 West/East frames identical to prior; CentralLv3/6 identical."
+  },
+  "north_review": {
+    "verdict": "BOUNDED_CONDITIONS_VERIFIED_CANDIDATE_FIXED",
+    "native_functional": true,
+    "visual": true,
+    "town_density": true,
+    "walking": true,
+    "nameplate_readability": true,
+    "unity_stage_accepted": true,
+    "prior_user_approval_kind": "conditional",
+    "new_unconditional_user_approval_inferred": false,
+    "new_six_link_projection_verified": true,
+    "same_frames_as_base": 4,
+    "changed_levels": [
+      3,
+      6
+    ],
+    "finding": "Only small board-side flowers and lantern changed. Cottage, mailbox, board, packages, envelope mosaic, flag/arch and palette retained. Six real pair/cross/circuit routes and three concurrent-arrival native checks pass."
+  },
+  "south_review": {
+    "verdict": "HOLD",
+    "native_functional": true,
+    "visual": false,
+    "town_density": false,
+    "walking": false,
+    "functional_walking": true,
+    "walking_visual_alignment": false,
+    "nameplate_readability": true,
+    "unity_stage_accepted": false,
+    "user_approved": false,
+    "critical": 0,
+    "important": 2,
+    "minor": 1,
+    "positive": [
+      "Lv1 now has a finished gazebo, flower banks, seats, lights and shade instead of the old bare-lawn test layout",
+      "Broad paving and multiple geometric routes are functional",
+      "Lv6 gazebo floral arch has a clear festive silhouette",
+      "Rest-arrival Momo and her name are readable"
+    ],
+    "issues": [
+      {
+        "id": "S1",
+        "severity": "Important",
+        "title": "Ground rectangle exposed during actual South movement/rest",
+        "images": [
+          "south/screenshots/south-walking.png",
+          "south/screenshots/south-rest-arrived.png"
+        ],
+        "evidence": "Walking shows a horizontal ground join around y711; rest-arrived exposes a straight vertical crop at x163 with a broad bare-lawn column to its left. This is inside required South views, not deferred as only later integration polish.",
+        "source": "TownSouthMasterLayout bounds x[-.60,.60],y[-3,-1]; TownSouthGroundGraphic draws that rectangle",
+        "resolved": false
+      },
+      {
+        "id": "S2",
+        "severity": "Important",
+        "title": "Real walkable routes cross visibly dense planting",
+        "images": [
+          "south/screenshots/south-walking.png",
+          "south/south-walking-routes.jpg"
+        ],
+        "evidence": "Momo feet about pixel(359,919) stand on dense green/flower ground. Upper annotated routes also cross painted flower/rock beds. Geometric navigation success does not establish natural-looking walking.",
+        "resolved": false
+      },
+      {
+        "id": "S3",
+        "severity": "Minor",
+        "title": "Lv1 toLv3 intermediate growth remains modest",
+        "images": [
+          "south/screenshots/04-town-lv1-South.png",
+          "south/screenshots/04-town-lv3-South.png"
+        ],
+        "evidence": "Most visible change is slightly larger gazebo flowers and the right rest fixture; foreground growth is partly near/under HUD. Lv6 is clearer.",
+        "resolved": false
+      }
+    ],
+    "limits": [
+      "Level captures happen to contain no visible residents; walking/rest captures show the actual controlled visitor. No staged relocation was used for candidate screenshots.",
+      "Stills and annotated navigation overlays do not prove sustained natural NPC avoidance or Pixel load.",
+      "Received run is selected15 native cases, not the full native suite."
+    ]
+  },
+  "independent_visual_review": {
+    "agent": "south_garden_native_review_oct23",
+    "verdict": "HOLD",
+    "critical": 0,
+    "important": 2,
+    "minor": 1,
+    "scope": "Actual South6,Before levels,formalLock,North6 and prior CWE frames; read-only, no user/Pixel acceptance inferred."
+  },
+  "adopted": false,
+  "south_user_approved": false,
+  "five_area_integration_started": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "main_merged": false,
+  "next_scope": "Keep CWE/North quality fixed. South requires bounded ground-edge and visible-path/walkable-area alignment corrections, with a clearer intermediate growth cue. Review revised actual South images before explicit user approval; do not advance to integration/APK/Pixel/main.",
+  "ai_next_improvements": "今回は追加なし。南の未解決3点を優先。",
+  "jpeg_evidence_exports": [
+    {
+      "file": "References/Review/south-garden-2026-10-23-candidate/south/south-walking.jpg",
+      "sha256": "7bae31a91226a77ffc77a1f9703229535bb5772c67ce44e54cf74a264c4d6770",
+      "source_png": "References/Review/south-garden-2026-10-23-candidate/south/screenshots/south-walking.png",
+      "source_png_sha256": "61f600b4e9ab6bb2d76b5c3f17a95d86bdb5f0a262ae4decfd432093e44d43fe",
+      "operation": "JPEG encoding only;720x1280,no overlays or resizing"
+    },
+    {
+      "file": "References/Review/south-garden-2026-10-23-candidate/south/south-rest-arrived.jpg",
+      "sha256": "ab8abd5efc2d9ada057f0f92e2b708b5f27471ebea2d02df8327c9172b409ffe",
+      "source_png": "References/Review/south-garden-2026-10-23-candidate/south/screenshots/south-rest-arrived.png",
+      "source_png_sha256": "4e132b2397e86e59306c3280eda4cd281867b5673cd63526185c31709cee100e",
+      "operation": "JPEG encoding only;720x1280,no overlays or resizing"
+    }
+  ]
+}

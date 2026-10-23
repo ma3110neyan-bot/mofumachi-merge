@@ -1,0 +1,22 @@
+{
+  "source_revision": "fabf00e7a3b8c810303e77bf16c2af180c718d5d",
+  "run": "20261023-094203-35c07a1f",
+  "status": "held_by_user_not_approved",
+  "images": [
+    {
+      "level": 1,
+      "path": "References/Review/north-quest-2026-10-23-candidate/north/screenshots/04-town-lv1-North.png",
+      "sha256": "2cd4a739c026cd4da413dd6f7f206e8e998b42f6b64d7daca758c5df731d614a"
+    },
+    {
+      "level": 3,
+      "path": "References/Review/north-quest-2026-10-23-candidate/north/screenshots/04-town-lv3-North.png",
+      "sha256": "d0dade85af51399c0219dc3233ec96148cf8b3d69f9842a6676e991cd41c6b82"
+    },
+    {
+      "level": 6,
+      "path": "References/Review/north-quest-2026-10-23-candidate/north/screenshots/04-town-lv6-North.png",
+      "sha256": "89e5ddc8d80a8b028219b7acd8ff5582f3686f807cdf09c3a8578f02f1dc33f2"
+    }
+  ]
+}

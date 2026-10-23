@@ -1,0 +1,16 @@
+﻿{
+    "candidate_revision":  "45f205d7873067f5fec3a26df1b32ff9f21602a7",
+    "centralInputFingerprint":  "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
+    "native_pairs_verified":  3,
+    "native_unity":  true,
+    "visual":  null,
+    "walking":  null,
+    "town_density":  null,
+    "pixel_verified":  false,
+    "adopted":  false,
+    "comparison_sha256":  "6c09bc7496134bcb914baca4ee9ef681235fe920d67c4f504db5b85e029e3afe",
+    "route_projection_sha256":  "f16fae87cf8f63b6ed8b00f3b6e02a0930160093260f97b5100fd3203eb331d5",
+    "route_jpeg_sha256":  "92b7964f5aad56d87acc5b0598be846cc73d66326a7eab7658305696a1789e54",
+    "approved_design_sha256":  "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf",
+    "reason":  "Review South actual images and unchanged four districts before South user approval; no integration/APK/Pixel."
+}

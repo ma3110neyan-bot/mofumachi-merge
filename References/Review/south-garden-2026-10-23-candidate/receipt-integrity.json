@@ -1,0 +1,972 @@
+{
+  "run": "20261023-195457-32c20c13",
+  "gitRevision": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
+  "productFingerprint": "1f304d2ff576efe5ca458c17d22d78f36a72edbb5c91d575d19c81f104ac4d90",
+  "centralInputFingerprint": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
+  "xml_sha256": "86e183784ea354923d27fb7897e699987651b1f8c432e4308eda9630ba21fa76",
+  "log_sha256": "03a190cf1b7cd7c01cce81f57dcc024451f8d559df2d308279018ae2257db71c",
+  "archives": {
+    "central": {
+      "sha256": "4a3ee5367bd5f912659d18aac19c1cc6380655d9d4baf5377562a76a4bfed459",
+      "bytes": 16614499,
+      "files": 15
+    },
+    "west": {
+      "sha256": "3e89fa33085e532aca932f100abd6ccbf6d1c381827db205b9ce4f56cf48739e",
+      "bytes": 18644675,
+      "files": 18
+    },
+    "south": {
+      "sha256": "4a3b35526b66f28e2994fa0b02214d24e2b6094989f5787f8ae944f60159b796",
+      "bytes": 20732929,
+      "files": 23
+    },
+    "north": {
+      "sha256": "0e65dd63a6da0666052f5e57172aacbddef492da6b347212d5a506818d0cabd2",
+      "bytes": 27025220,
+      "files": 26
+    },
+    "east": {
+      "sha256": "f14c75a239eb6cab6c2d9c6981dd05368bf30f9f38502cb6be6ce6b9526da69f",
+      "bytes": 20109026,
+      "files": 19
+    }
+  },
+  "native_tests": {
+    "total": 15,
+    "passed": 15,
+    "failed": 0,
+    "skipped": 0,
+    "counted_once": true,
+    "suites": {
+      "ExperienceCaptureTests": 1,
+      "CentralMasterReviewTests": 2,
+      "WestMasterReviewTests": 3,
+      "EastMasterReviewTests": 3,
+      "NorthMasterReviewTests": 3,
+      "SouthMasterReviewTests": 3
+    }
+  },
+  "images": [
+    {
+      "area": "central",
+      "file": "04-town-lv1-Central.png",
+      "bytes": 1813942,
+      "sha256": "f3e4b21d280d70242b759b9e9e19383087a915f739c1e2540f0c91030298ccc1"
+    },
+    {
+      "area": "central",
+      "file": "04-town-lv3-Central.png",
+      "bytes": 1828353,
+      "sha256": "319d74ca8367c3c989f6c0892a1ec40ab37a2624dddd6ded72f6c01a1dc7d6b3"
+    },
+    {
+      "area": "central",
+      "file": "04-town-lv6-Central.png",
+      "bytes": 1835254,
+      "sha256": "bf63b84ecea52be251582f1a65f016f312c42c8ce4ff9889b9c03f1e20b51148"
+    },
+    {
+      "area": "west",
+      "file": "04-town-lv1-West.png",
+      "bytes": 1754104,
+      "sha256": "280eb3bb35091c77569dd947e86484a62d81c6cecd56e2a6144a6805c81fcf0c"
+    },
+    {
+      "area": "west",
+      "file": "04-town-lv3-West.png",
+      "bytes": 1756078,
+      "sha256": "34ad13bff8e84c1208a6329306578c3f191038f1d7e78ca2b7976853915bd3ca"
+    },
+    {
+      "area": "west",
+      "file": "04-town-lv6-West.png",
+      "bytes": 1766708,
+      "sha256": "ce8a60f6493df7730b36b58980cc4e232d491ee4c527f24387f331e51748c74a"
+    },
+    {
+      "area": "west",
+      "file": "west-connection.png",
+      "bytes": 1791577,
+      "sha256": "946fe6b45f7b3ab5fce3482db044b49121ba71c0581144e7f5cb2953ae2a48d7"
+    },
+    {
+      "area": "west",
+      "file": "west-walking.png",
+      "bytes": 1863330,
+      "sha256": "28e1bd4b9581b20fa82cadc1e71e37167ff8c81f6a14f7293a797ebfe6b6b439"
+    },
+    {
+      "area": "west",
+      "file": "west-door-arrived.png",
+      "bytes": 1573157,
+      "sha256": "c4162913be5223d0ab77bdf712f4452356b00de68a43f13179e3beb7d3abf8ea"
+    },
+    {
+      "area": "south",
+      "file": "04-town-lv1-South.png",
+      "bytes": 1732960,
+      "sha256": "c9d42151ffc53fd79e370b6504408487a3ef066ab16bf74321245ae1a0a7976d"
+    },
+    {
+      "area": "south",
+      "file": "04-town-lv3-South.png",
+      "bytes": 1739025,
+      "sha256": "eeed0b5c9b5bec7ba4032f08d496eca379f0cdf95233c8bb063f06e48a510745"
+    },
+    {
+      "area": "south",
+      "file": "04-town-lv6-South.png",
+      "bytes": 1752910,
+      "sha256": "21cbf7add9c4087d59a7cade5b4b940f06f30240f32a17dbb25a495419151290"
+    },
+    {
+      "area": "south",
+      "file": "south-connection.png",
+      "bytes": 1798193,
+      "sha256": "8cf5d2c26c87a7990dff1a8ed5b408fdd430dc6e94952c5d40e160486333403d"
+    },
+    {
+      "area": "south",
+      "file": "south-walking.png",
+      "bytes": 1849646,
+      "sha256": "61f600b4e9ab6bb2d76b5c3f17a95d86bdb5f0a262ae4decfd432093e44d43fe"
+    },
+    {
+      "area": "south",
+      "file": "south-rest-arrived.png",
+      "bytes": 1664248,
+      "sha256": "4e132b2397e86e59306c3280eda4cd281867b5673cd63526185c31709cee100e"
+    },
+    {
+      "area": "north",
+      "file": "04-town-lv1-North.png",
+      "bytes": 1763315,
+      "sha256": "d9e38ffca62ccea52573ec19fdd8324541c573166daeaa76a25de48a16542513"
+    },
+    {
+      "area": "north",
+      "file": "04-town-lv3-North.png",
+      "bytes": 1782111,
+      "sha256": "5a8f4668dea21be53b37df72f255db28fc9dae487e5aa82341943889e7cc24f0"
+    },
+    {
+      "area": "north",
+      "file": "04-town-lv6-North.png",
+      "bytes": 1803758,
+      "sha256": "03506a2783ae97fc3f1639ae4cc1347f802e7a796a4c71d5d0fcf66de1c4aaad"
+    },
+    {
+      "area": "north",
+      "file": "north-connection.png",
+      "bytes": 1832126,
+      "sha256": "9943bff7be4050dffce3536915b1746c9d5e04956c5cad144dedf3b27f535d62"
+    },
+    {
+      "area": "north",
+      "file": "north-walking.png",
+      "bytes": 1846542,
+      "sha256": "b031e07c3f0813e737e4bfcb3cb92a7645cd4216e06371d9fe75da329015b29e"
+    },
+    {
+      "area": "north",
+      "file": "north-door-arrived.png",
+      "bytes": 1710401,
+      "sha256": "24d7625955a1912f871f0d2c448552377381aa925c0e394b547c659a41326599"
+    },
+    {
+      "area": "east",
+      "file": "04-town-lv1-East.png",
+      "bytes": 1754782,
+      "sha256": "c52df064f31a05e1feac3c453e8be6c79c1a81cebd87b76213a07859731537cf"
+    },
+    {
+      "area": "east",
+      "file": "04-town-lv3-East.png",
+      "bytes": 1758892,
+      "sha256": "3a4e220b7321ab9c4d1a0013094bc7f130202a8a8476f4bbbf637d785ce36211"
+    },
+    {
+      "area": "east",
+      "file": "04-town-lv6-East.png",
+      "bytes": 1772498,
+      "sha256": "b3229e6dbcdbd9726c00d97737ac633c6ec952d336f7de2be5bb662c736ae67f"
+    },
+    {
+      "area": "east",
+      "file": "east-connection.png",
+      "bytes": 1788183,
+      "sha256": "c865f2c1302e73282466d85b390b3a14bedac29d7c6e528796de1768a0ac4437"
+    },
+    {
+      "area": "east",
+      "file": "east-walking.png",
+      "bytes": 1867297,
+      "sha256": "01043bf2ea616c7e34e2d6bd3967e70fb70b62c9018271622bf431cc1964b01d"
+    },
+    {
+      "area": "east",
+      "file": "east-door-arrived.png",
+      "bytes": 1588679,
+      "sha256": "491390f59ea5bba0d20594093f221b816b51f1eca7835241b2a77e3f28e41e19"
+    }
+  ],
+  "raw_files": [
+    {
+      "area": "central",
+      "path": "central/screenshots/04-town-lv1-Central.png",
+      "sha256": "f3e4b21d280d70242b759b9e9e19383087a915f739c1e2540f0c91030298ccc1",
+      "bytes": 1813942
+    },
+    {
+      "area": "central",
+      "path": "central/screenshots/04-town-lv3-Central.png",
+      "sha256": "319d74ca8367c3c989f6c0892a1ec40ab37a2624dddd6ded72f6c01a1dc7d6b3",
+      "bytes": 1828353
+    },
+    {
+      "area": "central",
+      "path": "central/screenshots/04-town-lv6-Central.png",
+      "sha256": "bf63b84ecea52be251582f1a65f016f312c42c8ce4ff9889b9c03f1e20b51148",
+      "bytes": 1835254
+    },
+    {
+      "area": "central",
+      "path": "central/approved-design.png",
+      "sha256": "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf",
+      "bytes": 2779573
+    },
+    {
+      "area": "central",
+      "path": "central/before-04-town-lv1-Central.png",
+      "sha256": "b6d7c26495af76b3ca2c260a7bfadcc0ff5c6637c5e4200aeeaa9bd17ccf0cb0",
+      "bytes": 1566765
+    },
+    {
+      "area": "central",
+      "path": "central/before-04-town-lv3-Central.png",
+      "sha256": "ec819dddec98c4d613b5cab5c32ec00ab6936992245648fef22e83710ca62da3",
+      "bytes": 1588989
+    },
+    {
+      "area": "central",
+      "path": "central/before-04-town-lv6-Central.png",
+      "sha256": "b7e7c98b81dae4312ab4fe868f73c30c98da38f3ea81316e985ab6466f270ca6",
+      "bytes": 1612240
+    },
+    {
+      "area": "central",
+      "path": "central/capture-manifest.json",
+      "sha256": "87442beef9389738404f22d63726820a2a076073b63266e79481d79f553287ea",
+      "bytes": 1156
+    },
+    {
+      "area": "central",
+      "path": "central/capture-world.txt",
+      "sha256": "79d0aa9e548e88fca57780299b0b60da24a90071657a5e2b413d956d06a36418",
+      "bytes": 1341
+    },
+    {
+      "area": "central",
+      "path": "central/central-adoption.json",
+      "sha256": "0f3ec0fd38dffc3542cd5aa7bb6884fec64c91edb3e9ea24d4d3f5c90844ccf2",
+      "bytes": 791
+    },
+    {
+      "area": "central",
+      "path": "central/central-before-lock-candidate.jpg",
+      "sha256": "fe25db479b2da1a7ca84fd944358a9dd34353b2bbd5868367c889096b26c558f",
+      "bytes": 3645087
+    },
+    {
+      "area": "central",
+      "path": "central/central-playmode.log",
+      "sha256": "03a190cf1b7cd7c01cce81f57dcc024451f8d559df2d308279018ae2257db71c",
+      "bytes": 76773
+    },
+    {
+      "area": "central",
+      "path": "central/central-playmode.xml",
+      "sha256": "86e183784ea354923d27fb7897e699987651b1f8c432e4308eda9630ba21fa76",
+      "bytes": 16704
+    },
+    {
+      "area": "central",
+      "path": "central/central-review-info.json",
+      "sha256": "fde16c821fc5cd9a5c5113336ea51b43576d40562eea1d81a5d973077a96a5ad",
+      "bytes": 921
+    },
+    {
+      "area": "central",
+      "path": "central/texture-memory.txt",
+      "sha256": "4cf420b04debff08ffc7e8cb0b0670f9e28479a9fb9d69b8cc6351e1c2630158",
+      "bytes": 131
+    },
+    {
+      "area": "west",
+      "path": "west/screenshots/04-town-lv1-West.png",
+      "sha256": "280eb3bb35091c77569dd947e86484a62d81c6cecd56e2a6144a6805c81fcf0c",
+      "bytes": 1754104
+    },
+    {
+      "area": "west",
+      "path": "west/screenshots/04-town-lv3-West.png",
+      "sha256": "34ad13bff8e84c1208a6329306578c3f191038f1d7e78ca2b7976853915bd3ca",
+      "bytes": 1756078
+    },
+    {
+      "area": "west",
+      "path": "west/screenshots/04-town-lv6-West.png",
+      "sha256": "ce8a60f6493df7730b36b58980cc4e232d491ee4c527f24387f331e51748c74a",
+      "bytes": 1766708
+    },
+    {
+      "area": "west",
+      "path": "west/approved-west-design.jpg",
+      "sha256": "91b60d74f0f68e0993e88611aaf228adceadff5b5c4b1298ee38c374ef664c87",
+      "bytes": 1221163
+    },
+    {
+      "area": "west",
+      "path": "west/before-04-town-lv1-West.png",
+      "sha256": "fe35fcfda9a72761fc78848ec2c660fb57292f23d9106337f47659d4b677e04d",
+      "bytes": 1506733
+    },
+    {
+      "area": "west",
+      "path": "west/before-04-town-lv3-West.png",
+      "sha256": "fe14ec1e6e4eead3b4eada729c20df3167bc483966172767e907b330fdbc98b4",
+      "bytes": 1530253
+    },
+    {
+      "area": "west",
+      "path": "west/before-04-town-lv6-West.png",
+      "sha256": "734c8d84bbc0f9ff518c68099051107f16bf732b57b8175c807bb14ab5aa593f",
+      "bytes": 1578286
+    },
+    {
+      "area": "west",
+      "path": "west/capture-world.txt",
+      "sha256": "752c6d54fc623c39a42069cc35fac60109418ca0d8103304d2b0de2a594fd48c",
+      "bytes": 2660
+    },
+    {
+      "area": "west",
+      "path": "west/central-playmode.log",
+      "sha256": "03a190cf1b7cd7c01cce81f57dcc024451f8d559df2d308279018ae2257db71c",
+      "bytes": 76773
+    },
+    {
+      "area": "west",
+      "path": "west/central-playmode.xml",
+      "sha256": "86e183784ea354923d27fb7897e699987651b1f8c432e4308eda9630ba21fa76",
+      "bytes": 16704
+    },
+    {
+      "area": "west",
+      "path": "west/central-review-info.json",
+      "sha256": "fde16c821fc5cd9a5c5113336ea51b43576d40562eea1d81a5d973077a96a5ad",
+      "bytes": 921
+    },
+    {
+      "area": "west",
+      "path": "west/west-adoption.json",
+      "sha256": "ffd5a48b5af1fc1de5e4e9045ca925b4776f676758a99e02392cfb21e23619c3",
+      "bytes": 680
+    },
+    {
+      "area": "west",
+      "path": "west/west-before-candidate.jpg",
+      "sha256": "0c21c41c869a0c7f0b9f8231339e660c22ee39440b2c4dfc71980e33bc0e89d1",
+      "bytes": 2319429
+    },
+    {
+      "area": "west",
+      "path": "west/west-capture-manifest.json",
+      "sha256": "e5ea3b36b82a2dd09983c07da814ec495ecf8f2c115828529dc2f8ea6514741a",
+      "bytes": 1826
+    },
+    {
+      "area": "west",
+      "path": "west/screenshots/west-connection.png",
+      "sha256": "946fe6b45f7b3ab5fce3482db044b49121ba71c0581144e7f5cb2953ae2a48d7",
+      "bytes": 1791577
+    },
+    {
+      "area": "west",
+      "path": "west/screenshots/west-door-arrived.png",
+      "sha256": "c4162913be5223d0ab77bdf712f4452356b00de68a43f13179e3beb7d3abf8ea",
+      "bytes": 1573157
+    },
+    {
+      "area": "west",
+      "path": "west/west-review-info.json",
+      "sha256": "8d66e4b4c22c43b482ad85ac30936e20b6d821c1a820a81882e9e602455f8377",
+      "bytes": 461
+    },
+    {
+      "area": "west",
+      "path": "west/screenshots/west-walking.png",
+      "sha256": "28e1bd4b9581b20fa82cadc1e71e37167ff8c81f6a14f7293a797ebfe6b6b439",
+      "bytes": 1863330
+    },
+    {
+      "area": "south",
+      "path": "south/screenshots/04-town-lv1-South.png",
+      "sha256": "c9d42151ffc53fd79e370b6504408487a3ef066ab16bf74321245ae1a0a7976d",
+      "bytes": 1732960
+    },
+    {
+      "area": "south",
+      "path": "south/screenshots/04-town-lv3-South.png",
+      "sha256": "eeed0b5c9b5bec7ba4032f08d496eca379f0cdf95233c8bb063f06e48a510745",
+      "bytes": 1739025
+    },
+    {
+      "area": "south",
+      "path": "south/screenshots/04-town-lv6-South.png",
+      "sha256": "21cbf7add9c4087d59a7cade5b4b940f06f30240f32a17dbb25a495419151290",
+      "bytes": 1752910
+    },
+    {
+      "area": "south",
+      "path": "south/approved-design.png",
+      "sha256": "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf",
+      "bytes": 2779573
+    },
+    {
+      "area": "south",
+      "path": "south/before-04-town-lv1-South.png",
+      "sha256": "0657c3e84fb8f9b2dd70f417ece7b90fb748078b1b7ca00ca3454fb35f61b8c4",
+      "bytes": 1585514
+    },
+    {
+      "area": "south",
+      "path": "south/before-04-town-lv3-South.png",
+      "sha256": "8cf66383963212ed81031ae4debf2387436ae0caa88d1bb5ae85e86615e5918d",
+      "bytes": 1598703
+    },
+    {
+      "area": "south",
+      "path": "south/before-04-town-lv6-South.png",
+      "sha256": "530d681608c9f77da56b2e95621491c359dd556c70256b0687af0fd5cd7a6b95",
+      "bytes": 1613779
+    },
+    {
+      "area": "south",
+      "path": "south/capture-world.txt",
+      "sha256": "751ca868ba4097c80634b5d9e1ba3d72b1b6a7f757f24d16e223eb5443c3052e",
+      "bytes": 2649
+    },
+    {
+      "area": "south",
+      "path": "south/central-playmode.log",
+      "sha256": "03a190cf1b7cd7c01cce81f57dcc024451f8d559df2d308279018ae2257db71c",
+      "bytes": 76773
+    },
+    {
+      "area": "south",
+      "path": "south/central-playmode.xml",
+      "sha256": "86e183784ea354923d27fb7897e699987651b1f8c432e4308eda9630ba21fa76",
+      "bytes": 16704
+    },
+    {
+      "area": "south",
+      "path": "south/central-review-info.json",
+      "sha256": "fde16c821fc5cd9a5c5113336ea51b43576d40562eea1d81a5d973077a96a5ad",
+      "bytes": 921
+    },
+    {
+      "area": "south",
+      "path": "south/east-review-info.json",
+      "sha256": "474ed671f89adaba2a47e8f1231b3c5b0b516262a818c1037cb93b43220520d4",
+      "bytes": 471
+    },
+    {
+      "area": "south",
+      "path": "south/north-review-info.json",
+      "sha256": "5fcbc3a1a73fe607b0d35a5042db863f3ada0bc65018e6a8a378b1fd8b727a38",
+      "bytes": 480
+    },
+    {
+      "area": "south",
+      "path": "south/south-adoption.json",
+      "sha256": "71a1ac413c56be8d9d8d6f150d3f938238d9d8d46450ab58c52149acde9c950b",
+      "bytes": 891
+    },
+    {
+      "area": "south",
+      "path": "south/south-before-candidate.jpg",
+      "sha256": "6c09bc7496134bcb914baca4ee9ef681235fe920d67c4f504db5b85e029e3afe",
+      "bytes": 2246659
+    },
+    {
+      "area": "south",
+      "path": "south/south-capture-manifest.json",
+      "sha256": "c42a800d82e1a55205234c3df9f28f8e20f44f5fd6700d51c6a5ca41000596ae",
+      "bytes": 1832
+    },
+    {
+      "area": "south",
+      "path": "south/screenshots/south-connection.png",
+      "sha256": "8cf5d2c26c87a7990dff1a8ed5b408fdd430dc6e94952c5d40e160486333403d",
+      "bytes": 1798193
+    },
+    {
+      "area": "south",
+      "path": "south/screenshots/south-rest-arrived.png",
+      "sha256": "4e132b2397e86e59306c3280eda4cd281867b5673cd63526185c31709cee100e",
+      "bytes": 1664248
+    },
+    {
+      "area": "south",
+      "path": "south/south-review-info.json",
+      "sha256": "a970fffab46121618582cbb1a80f53418afde28eeff4887b10391c365e790d67",
+      "bytes": 486
+    },
+    {
+      "area": "south",
+      "path": "south/south-route-projection.json",
+      "sha256": "f16fae87cf8f63b6ed8b00f3b6e02a0930160093260f97b5100fd3203eb331d5",
+      "bytes": 3317
+    },
+    {
+      "area": "south",
+      "path": "south/south-walking-routes.jpg",
+      "sha256": "92b7964f5aad56d87acc5b0598be846cc73d66326a7eab7658305696a1789e54",
+      "bytes": 424164
+    },
+    {
+      "area": "south",
+      "path": "south/screenshots/south-walking.png",
+      "sha256": "61f600b4e9ab6bb2d76b5c3f17a95d86bdb5f0a262ae4decfd432093e44d43fe",
+      "bytes": 1849646
+    },
+    {
+      "area": "south",
+      "path": "south/west-review-info.json",
+      "sha256": "8d66e4b4c22c43b482ad85ac30936e20b6d821c1a820a81882e9e602455f8377",
+      "bytes": 461
+    },
+    {
+      "area": "north",
+      "path": "north/screenshots/04-town-lv1-North.png",
+      "sha256": "d9e38ffca62ccea52573ec19fdd8324541c573166daeaa76a25de48a16542513",
+      "bytes": 1763315
+    },
+    {
+      "area": "north",
+      "path": "north/screenshots/04-town-lv3-North.png",
+      "sha256": "5a8f4668dea21be53b37df72f255db28fc9dae487e5aa82341943889e7cc24f0",
+      "bytes": 1782111
+    },
+    {
+      "area": "north",
+      "path": "north/screenshots/04-town-lv6-North.png",
+      "sha256": "03506a2783ae97fc3f1639ae4cc1347f802e7a796a4c71d5d0fcf66de1c4aaad",
+      "bytes": 1803758
+    },
+    {
+      "area": "north",
+      "path": "north/approved-design.png",
+      "sha256": "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf",
+      "bytes": 2779573
+    },
+    {
+      "area": "north",
+      "path": "north/before-04-town-lv1-North.png",
+      "sha256": "34042528722a474577164bb72cf3cdb5830c72225e4ece437d8b1a7f51595909",
+      "bytes": 1475485
+    },
+    {
+      "area": "north",
+      "path": "north/before-04-town-lv3-North.png",
+      "sha256": "e62fd7413c6472495916c28ead8025bcaf1a2133b551fe80fa6a662cb198be20",
+      "bytes": 1487772
+    },
+    {
+      "area": "north",
+      "path": "north/before-04-town-lv6-North.png",
+      "sha256": "16c3acc6680887d99e6ba274458f0a72941b135054d687b498b782cf0bb78a7d",
+      "bytes": 1521585
+    },
+    {
+      "area": "north",
+      "path": "north/capture-world.txt",
+      "sha256": "6e7946c340a3dda06444c3b2932fa5ac02f1c19c15f288ed3cf1e7a989eff038",
+      "bytes": 2671
+    },
+    {
+      "area": "north",
+      "path": "north/central-playmode.log",
+      "sha256": "03a190cf1b7cd7c01cce81f57dcc024451f8d559df2d308279018ae2257db71c",
+      "bytes": 76773
+    },
+    {
+      "area": "north",
+      "path": "north/central-playmode.xml",
+      "sha256": "86e183784ea354923d27fb7897e699987651b1f8c432e4308eda9630ba21fa76",
+      "bytes": 16704
+    },
+    {
+      "area": "north",
+      "path": "north/central-review-info.json",
+      "sha256": "fde16c821fc5cd9a5c5113336ea51b43576d40562eea1d81a5d973077a96a5ad",
+      "bytes": 921
+    },
+    {
+      "area": "north",
+      "path": "north/east-review-info.json",
+      "sha256": "474ed671f89adaba2a47e8f1231b3c5b0b516262a818c1037cb93b43220520d4",
+      "bytes": 471
+    },
+    {
+      "area": "north",
+      "path": "north/north-adoption.json",
+      "sha256": "a6a0176b32b88a3da1cb6bd82c4b622aab2c1114e192a6bdd7ac0aa9e043ec42",
+      "bytes": 973
+    },
+    {
+      "area": "north",
+      "path": "north/north-before-candidate.jpg",
+      "sha256": "44e67ca4928cc2c40dce67c012d9b3db64f417fbf5354ef6c4d5bf0207da4962",
+      "bytes": 3566683
+    },
+    {
+      "area": "north",
+      "path": "north/north-capture-manifest.json",
+      "sha256": "172a0593bebf91467948d7d91fdf35d0ea2d4dded016cfae43c0cec5269a47c0",
+      "bytes": 1832
+    },
+    {
+      "area": "north",
+      "path": "north/screenshots/north-connection.png",
+      "sha256": "9943bff7be4050dffce3536915b1746c9d5e04956c5cad144dedf3b27f535d62",
+      "bytes": 1832126
+    },
+    {
+      "area": "north",
+      "path": "north/screenshots/north-door-arrived.png",
+      "sha256": "24d7625955a1912f871f0d2c448552377381aa925c0e394b547c659a41326599",
+      "bytes": 1710401
+    },
+    {
+      "area": "north",
+      "path": "north/north-review-info.json",
+      "sha256": "5fcbc3a1a73fe607b0d35a5042db863f3ada0bc65018e6a8a378b1fd8b727a38",
+      "bytes": 480
+    },
+    {
+      "area": "north",
+      "path": "north/north-route-projection.json",
+      "sha256": "3384bf688ea575338a1eb06a5b1f138b3f5474e9b5b51b0dfa5e6e8ff53f9e18",
+      "bytes": 3148
+    },
+    {
+      "area": "north",
+      "path": "north/north-walking-routes.jpg",
+      "sha256": "9bceb19106f4488cc2bda5e8931f79b2a459b7924971bc38f76216c81e55fa80",
+      "bytes": 436987
+    },
+    {
+      "area": "north",
+      "path": "north/screenshots/north-walking.png",
+      "sha256": "b031e07c3f0813e737e4bfcb3cb92a7645cd4216e06371d9fe75da329015b29e",
+      "bytes": 1846542
+    },
+    {
+      "area": "north",
+      "path": "north/previous-04-town-lv1-North.png",
+      "sha256": "2cd4a739c026cd4da413dd6f7f206e8e998b42f6b64d7daca758c5df731d614a",
+      "bytes": 1739507
+    },
+    {
+      "area": "north",
+      "path": "north/previous-04-town-lv3-North.png",
+      "sha256": "d0dade85af51399c0219dc3233ec96148cf8b3d69f9842a6676e991cd41c6b82",
+      "bytes": 1748705
+    },
+    {
+      "area": "north",
+      "path": "north/previous-04-town-lv6-North.png",
+      "sha256": "89e5ddc8d80a8b028219b7acd8ff5582f3686f807cdf09c3a8578f02f1dc33f2",
+      "bytes": 1769557
+    },
+    {
+      "area": "north",
+      "path": "north/previous-candidate-source.json",
+      "sha256": "7a854e08975904e879fbbf51c9e5071416a59446cb5852f399de5a2318ea6e4d",
+      "bytes": 852
+    },
+    {
+      "area": "north",
+      "path": "north/west-review-info.json",
+      "sha256": "8d66e4b4c22c43b482ad85ac30936e20b6d821c1a820a81882e9e602455f8377",
+      "bytes": 461
+    },
+    {
+      "area": "east",
+      "path": "east/screenshots/04-town-lv1-East.png",
+      "sha256": "c52df064f31a05e1feac3c453e8be6c79c1a81cebd87b76213a07859731537cf",
+      "bytes": 1754782
+    },
+    {
+      "area": "east",
+      "path": "east/screenshots/04-town-lv3-East.png",
+      "sha256": "3a4e220b7321ab9c4d1a0013094bc7f130202a8a8476f4bbbf637d785ce36211",
+      "bytes": 1758892
+    },
+    {
+      "area": "east",
+      "path": "east/screenshots/04-town-lv6-East.png",
+      "sha256": "b3229e6dbcdbd9726c00d97737ac633c6ec952d336f7de2be5bb662c736ae67f",
+      "bytes": 1772498
+    },
+    {
+      "area": "east",
+      "path": "east/approved-design.png",
+      "sha256": "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf",
+      "bytes": 2779573
+    },
+    {
+      "area": "east",
+      "path": "east/before-04-town-lv1-East.png",
+      "sha256": "1308420f2772921d4729d8beadc64051bbd9641df2c1e0f72c73eb475270938d",
+      "bytes": 1494864
+    },
+    {
+      "area": "east",
+      "path": "east/before-04-town-lv3-East.png",
+      "sha256": "006567964ca2a1885e6c66b442ed78126236a5c5702528c431ad6baf430b7d18",
+      "bytes": 1513790
+    },
+    {
+      "area": "east",
+      "path": "east/before-04-town-lv6-East.png",
+      "sha256": "fe464c32dab03a19ebedbc3e7dd45978def5b57ec6cfa2fd3f590db6d8eb83a1",
+      "bytes": 1565121
+    },
+    {
+      "area": "east",
+      "path": "east/capture-world.txt",
+      "sha256": "0c358c81ac2ea1d1a0e1d0747baad8cbefd950680bf099a9369c98b2f8036ede",
+      "bytes": 2685
+    },
+    {
+      "area": "east",
+      "path": "east/central-playmode.log",
+      "sha256": "03a190cf1b7cd7c01cce81f57dcc024451f8d559df2d308279018ae2257db71c",
+      "bytes": 76773
+    },
+    {
+      "area": "east",
+      "path": "east/central-playmode.xml",
+      "sha256": "86e183784ea354923d27fb7897e699987651b1f8c432e4308eda9630ba21fa76",
+      "bytes": 16704
+    },
+    {
+      "area": "east",
+      "path": "east/central-review-info.json",
+      "sha256": "fde16c821fc5cd9a5c5113336ea51b43576d40562eea1d81a5d973077a96a5ad",
+      "bytes": 921
+    },
+    {
+      "area": "east",
+      "path": "east/east-adoption.json",
+      "sha256": "04bc3a77ef4c7ff380dee0aadf60040f524754d81bbe9c8ff1914154cd1564c2",
+      "bytes": 690
+    },
+    {
+      "area": "east",
+      "path": "east/east-before-candidate.jpg",
+      "sha256": "837de60fb23239b0f2da500d14b95dc73da60a74f4d8fae609705a97e35c5a31",
+      "bytes": 2280205
+    },
+    {
+      "area": "east",
+      "path": "east/east-capture-manifest.json",
+      "sha256": "38c46cdee8f0e4739d4c8c98e865fb1094f49d56b4b9779f69049c5365c3bef0",
+      "bytes": 1826
+    },
+    {
+      "area": "east",
+      "path": "east/screenshots/east-connection.png",
+      "sha256": "c865f2c1302e73282466d85b390b3a14bedac29d7c6e528796de1768a0ac4437",
+      "bytes": 1788183
+    },
+    {
+      "area": "east",
+      "path": "east/screenshots/east-door-arrived.png",
+      "sha256": "491390f59ea5bba0d20594093f221b816b51f1eca7835241b2a77e3f28e41e19",
+      "bytes": 1588679
+    },
+    {
+      "area": "east",
+      "path": "east/east-review-info.json",
+      "sha256": "474ed671f89adaba2a47e8f1231b3c5b0b516262a818c1037cb93b43220520d4",
+      "bytes": 471
+    },
+    {
+      "area": "east",
+      "path": "east/screenshots/east-walking.png",
+      "sha256": "01043bf2ea616c7e34e2d6bd3967e70fb70b62c9018271622bf431cc1964b01d",
+      "bytes": 1867297
+    },
+    {
+      "area": "east",
+      "path": "east/west-review-info.json",
+      "sha256": "8d66e4b4c22c43b482ad85ac30936e20b6d821c1a820a81882e9e602455f8377",
+      "bytes": 461
+    }
+  ],
+  "previous_candidate_delta": [
+    {
+      "area": "central",
+      "file": "04-town-lv1-Central.png",
+      "same_bytes": false,
+      "prior_sha256": "6c1482d7eb8c249ebdb25a6ecf351e86028c5f7c8c00c26ee045b7260597742f",
+      "current_sha256": "f3e4b21d280d70242b759b9e9e19383087a915f739c1e2540f0c91030298ccc1"
+    },
+    {
+      "area": "central",
+      "file": "04-town-lv3-Central.png",
+      "same_bytes": true,
+      "prior_sha256": "319d74ca8367c3c989f6c0892a1ec40ab37a2624dddd6ded72f6c01a1dc7d6b3",
+      "current_sha256": "319d74ca8367c3c989f6c0892a1ec40ab37a2624dddd6ded72f6c01a1dc7d6b3"
+    },
+    {
+      "area": "central",
+      "file": "04-town-lv6-Central.png",
+      "same_bytes": true,
+      "prior_sha256": "bf63b84ecea52be251582f1a65f016f312c42c8ce4ff9889b9c03f1e20b51148",
+      "current_sha256": "bf63b84ecea52be251582f1a65f016f312c42c8ce4ff9889b9c03f1e20b51148"
+    },
+    {
+      "area": "west",
+      "file": "04-town-lv1-West.png",
+      "same_bytes": true,
+      "prior_sha256": "280eb3bb35091c77569dd947e86484a62d81c6cecd56e2a6144a6805c81fcf0c",
+      "current_sha256": "280eb3bb35091c77569dd947e86484a62d81c6cecd56e2a6144a6805c81fcf0c"
+    },
+    {
+      "area": "west",
+      "file": "04-town-lv3-West.png",
+      "same_bytes": true,
+      "prior_sha256": "34ad13bff8e84c1208a6329306578c3f191038f1d7e78ca2b7976853915bd3ca",
+      "current_sha256": "34ad13bff8e84c1208a6329306578c3f191038f1d7e78ca2b7976853915bd3ca"
+    },
+    {
+      "area": "west",
+      "file": "04-town-lv6-West.png",
+      "same_bytes": true,
+      "prior_sha256": "ce8a60f6493df7730b36b58980cc4e232d491ee4c527f24387f331e51748c74a",
+      "current_sha256": "ce8a60f6493df7730b36b58980cc4e232d491ee4c527f24387f331e51748c74a"
+    },
+    {
+      "area": "west",
+      "file": "west-connection.png",
+      "same_bytes": true,
+      "prior_sha256": "946fe6b45f7b3ab5fce3482db044b49121ba71c0581144e7f5cb2953ae2a48d7",
+      "current_sha256": "946fe6b45f7b3ab5fce3482db044b49121ba71c0581144e7f5cb2953ae2a48d7"
+    },
+    {
+      "area": "west",
+      "file": "west-walking.png",
+      "same_bytes": true,
+      "prior_sha256": "28e1bd4b9581b20fa82cadc1e71e37167ff8c81f6a14f7293a797ebfe6b6b439",
+      "current_sha256": "28e1bd4b9581b20fa82cadc1e71e37167ff8c81f6a14f7293a797ebfe6b6b439"
+    },
+    {
+      "area": "west",
+      "file": "west-door-arrived.png",
+      "same_bytes": true,
+      "prior_sha256": "c4162913be5223d0ab77bdf712f4452356b00de68a43f13179e3beb7d3abf8ea",
+      "current_sha256": "c4162913be5223d0ab77bdf712f4452356b00de68a43f13179e3beb7d3abf8ea"
+    },
+    {
+      "area": "north",
+      "file": "04-town-lv1-North.png",
+      "same_bytes": true,
+      "prior_sha256": "d9e38ffca62ccea52573ec19fdd8324541c573166daeaa76a25de48a16542513",
+      "current_sha256": "d9e38ffca62ccea52573ec19fdd8324541c573166daeaa76a25de48a16542513"
+    },
+    {
+      "area": "north",
+      "file": "04-town-lv3-North.png",
+      "same_bytes": false,
+      "prior_sha256": "c26e57e48c0d3ca8d1ed61d4ee7262ace68c4d3bd046a5d69c72498308ff3b6a",
+      "current_sha256": "5a8f4668dea21be53b37df72f255db28fc9dae487e5aa82341943889e7cc24f0"
+    },
+    {
+      "area": "north",
+      "file": "04-town-lv6-North.png",
+      "same_bytes": false,
+      "prior_sha256": "5523228454e65b785b2ccba55dcce8a80ee6d3a3d2c3d143fb5241db3736a6e1",
+      "current_sha256": "03506a2783ae97fc3f1639ae4cc1347f802e7a796a4c71d5d0fcf66de1c4aaad"
+    },
+    {
+      "area": "north",
+      "file": "north-connection.png",
+      "same_bytes": true,
+      "prior_sha256": "9943bff7be4050dffce3536915b1746c9d5e04956c5cad144dedf3b27f535d62",
+      "current_sha256": "9943bff7be4050dffce3536915b1746c9d5e04956c5cad144dedf3b27f535d62"
+    },
+    {
+      "area": "north",
+      "file": "north-walking.png",
+      "same_bytes": true,
+      "prior_sha256": "b031e07c3f0813e737e4bfcb3cb92a7645cd4216e06371d9fe75da329015b29e",
+      "current_sha256": "b031e07c3f0813e737e4bfcb3cb92a7645cd4216e06371d9fe75da329015b29e"
+    },
+    {
+      "area": "north",
+      "file": "north-door-arrived.png",
+      "same_bytes": true,
+      "prior_sha256": "24d7625955a1912f871f0d2c448552377381aa925c0e394b547c659a41326599",
+      "current_sha256": "24d7625955a1912f871f0d2c448552377381aa925c0e394b547c659a41326599"
+    },
+    {
+      "area": "east",
+      "file": "04-town-lv1-East.png",
+      "same_bytes": true,
+      "prior_sha256": "c52df064f31a05e1feac3c453e8be6c79c1a81cebd87b76213a07859731537cf",
+      "current_sha256": "c52df064f31a05e1feac3c453e8be6c79c1a81cebd87b76213a07859731537cf"
+    },
+    {
+      "area": "east",
+      "file": "04-town-lv3-East.png",
+      "same_bytes": true,
+      "prior_sha256": "3a4e220b7321ab9c4d1a0013094bc7f130202a8a8476f4bbbf637d785ce36211",
+      "current_sha256": "3a4e220b7321ab9c4d1a0013094bc7f130202a8a8476f4bbbf637d785ce36211"
+    },
+    {
+      "area": "east",
+      "file": "04-town-lv6-East.png",
+      "same_bytes": true,
+      "prior_sha256": "b3229e6dbcdbd9726c00d97737ac633c6ec952d336f7de2be5bb662c736ae67f",
+      "current_sha256": "b3229e6dbcdbd9726c00d97737ac633c6ec952d336f7de2be5bb662c736ae67f"
+    },
+    {
+      "area": "east",
+      "file": "east-connection.png",
+      "same_bytes": true,
+      "prior_sha256": "c865f2c1302e73282466d85b390b3a14bedac29d7c6e528796de1768a0ac4437",
+      "current_sha256": "c865f2c1302e73282466d85b390b3a14bedac29d7c6e528796de1768a0ac4437"
+    },
+    {
+      "area": "east",
+      "file": "east-walking.png",
+      "same_bytes": true,
+      "prior_sha256": "01043bf2ea616c7e34e2d6bd3967e70fb70b62c9018271622bf431cc1964b01d",
+      "current_sha256": "01043bf2ea616c7e34e2d6bd3967e70fb70b62c9018271622bf431cc1964b01d"
+    },
+    {
+      "area": "east",
+      "file": "east-door-arrived.png",
+      "same_bytes": true,
+      "prior_sha256": "491390f59ea5bba0d20594093f221b816b51f1eca7835241b2a77e3f28e41e19",
+      "current_sha256": "491390f59ea5bba0d20594093f221b816b51f1eca7835241b2a77e3f28e41e19"
+    }
+  ],
+  "visual_review_pending": false
+}

@@ -14,6 +14,9 @@ namespace Mofumachi.Presentation
         {
             if(kind==TownSceneryKind.ParkBench)return ("Mofumachi/TownStreetPropsAtlas",1254,1254);
             if(kind==TownSceneryKind.StreetLamp)return ("Mofumachi/TownGrowthPropsAtlas",1536,1024);
+            if(kind==TownSceneryKind.DeliveryBunting||kind==TownSceneryKind.FlowerArch)return ("Mofumachi/TownDecorationAtlas",2172,724);
+            if(kind==TownSceneryKind.DeliveryParcels)return ("Mofumachi/TownDeliveryParcels",1254,1254);
+            if(kind==TownSceneryKind.FlowerBasket)return ("Mofumachi/TownGrowthPropsAtlas",1536,1024);
             if(kind==TownSceneryKind.Fence)return (TownSceneryLayout.NatureResource,1536,1024);
             return (AtlasResource,1536,1024);
         }
@@ -27,6 +30,12 @@ namespace Mofumachi.Presentation
             {
                 case TownSceneryKind.ParkBench:return (52,92,617,492);
                 case TownSceneryKind.StreetLamp:return (1090,3,161,351);
+                // Parcel-only transparent art avoids clipping the neighbouring
+                // workbench. The small imported texture is shared by both stages.
+                case TownSceneryKind.DeliveryParcels:return (113,305,1044,664);
+                case TownSceneryKind.DeliveryBunting:return (1418,188,754,342);
+                case TownSceneryKind.FlowerArch:return (710,48,704,614);
+                case TownSceneryKind.FlowerBasket:return (116,17,620,327);
                 case TownSceneryKind.Fence:return (782,628,742,384);
                 case TownSceneryKind.CottagePair:return (7,75,451,396);
                 case TownSceneryKind.CafeTerrace:return (458,106,335,407);

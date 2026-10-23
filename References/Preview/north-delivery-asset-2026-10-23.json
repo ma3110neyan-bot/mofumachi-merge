@@ -1,0 +1,23 @@
+{
+  "purpose": "North-only independent postal parcel sprite; replaces a rejected hard-cut workbench crop",
+  "method": "image_gen transparent artwork edit using the unchanged original TownGrowthPropsAtlas as visual reference",
+  "source_reference": "Assets/Mofumachi/Resources/Mofumachi/TownGrowthPropsAtlas.png",
+  "source_reference_sha256": "3780d259e887a5f1dbea66910e4f5ddc251153cdd21c5467b15164281d68bba1",
+  "output": "Assets/Mofumachi/Resources/Mofumachi/TownDeliveryParcels.png",
+  "output_sha256": "200e19832dfbad493c97650d81abbe122396dab30af7e2e438de631d5f76afbf",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "sprite_bounds": [
+    113,
+    305,
+    1044,
+    664
+  ],
+  "import_max_size": 256,
+  "readable": false,
+  "runtime_texture_shared_between_growth_stages": true,
+  "native_verified": false,
+  "not_a_unity_or_pixel_capture": true
+}

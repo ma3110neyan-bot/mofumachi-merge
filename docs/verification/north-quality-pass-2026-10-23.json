@@ -1,0 +1,184 @@
+{
+  "date": "2026-10-23",
+  "scope": "North-only delivery-courtyard quality pass",
+  "base_revision": "8969ad1cd3dc1f111391649f051808375fbd9724",
+  "render_input_fingerprint": "e072664f756d2b1971d1f519207727e68cd11adc07c075c88dfc982dbfa465bc",
+  "user_rejection_reference": "北エリア最終調整・南着手前の品質固定指示",
+  "implemented": true,
+  "native_unity_verified": false,
+  "native_images_of_this_source": 0,
+  "user_approved": false,
+  "south_started": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "changes": [
+    "Cottage-attached parcel display, existing mailbox/noticeboard, facade lanterns and plaque",
+    "Lv3 parcel replacement and hanging garland without traversable planter-posts",
+    "Lv6 tall original floral doorway preserving plaque/door/visitor layer",
+    "Flush floral letter-seal inlay on the open forecourt, live and preview",
+    "Before/held/revised native comparison and source-image-bound route diagram exporter"
+  ],
+  "constraints": {
+    "central_west_east_layout_files_changed": false,
+    "original_atlases_or_formal_character_art_changed": false,
+    "save_delivery_reward_rules_changed": false,
+    "level_thresholds_or_pace_changed": false,
+    "navigation_floor_changed": false,
+    "new_navigation_holes": 0,
+    "frozen_153_and_formal_visual_lock_preserved": true,
+    "previous_native_68_raw_artifacts_preserved": true
+  },
+  "local_tests": {
+    "presentation": {
+      "total": "281",
+      "executed": "281",
+      "passed": "281",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "core": {
+      "total": "125",
+      "executed": "125",
+      "passed": "125",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    }
+  },
+  "unity_dll_compile": {
+    "assemblies": 6,
+    "errors": 0,
+    "warnings": 0,
+    "is_editor_execution": false
+  },
+  "powershell_suites": [
+    "android-tools",
+    "approved-design",
+    "central-review",
+    "pixel-visual-check",
+    "visual-lock",
+    "west-review",
+    "east-review",
+    "north-review"
+  ],
+  "powershell_windows_jpeg_drawing_executed": false,
+  "powershell_fixture_uses_synthetic_png_headers_and_stubs_jpeg_drawing": true,
+  "floor_identity": {
+    "baseline": "8969ad1",
+    "polygons": 5,
+    "excluded_polygons_and_ellipses_identical": true,
+    "serialized_geometry_sha256": "90053cd74105b6222efdefc02a44f882642856e822c607d06455e2aef2792065",
+    "excluded_polygons": 107,
+    "excluded_ellipses": 24
+  },
+  "art_checks": {
+    "TownDeliveryParcels": {
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "200e19832dfbad493c97650d81abbe122396dab30af7e2e438de631d5f76afbf"
+    },
+    "TownDecorationAtlas": {
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "sha256": "4801dafea5d3dfc6f7eb0bcecc43ae0b6e9a48e309d8d1a59c52eeea3e535627"
+    },
+    "arch_plaque": {
+      "samples": 2000,
+      "max_alpha": 1,
+      "passed": true,
+      "is_native_render": false
+    },
+    "parcel_edges": {
+      "opaque_edge_pixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true,
+      "is_native_render": false
+    }
+  },
+  "native_attempt": {
+    "exit_code": 198,
+    "tests_executed": 0,
+    "reason": "No valid Unity Editor license; startup rejected before tests. Final source native rendering remains unexecuted."
+  },
+  "independent_source_review": {
+    "reviewer": "north_quality_source_review_oct23",
+    "unresolved_critical": 0,
+    "unresolved_important": 0,
+    "is_visual_acceptance": false
+  },
+  "next_native_pass": {
+    "mode": "-NorthReview",
+    "expected_tests": 12,
+    "raw_png": 21,
+    "north_raw_png": 6,
+    "north_level_pairs": 3,
+    "comparison": "Before / rejected fabf00e Candidate / revised Candidate",
+    "route_jpeg": "Annotated navigation paths on native Lv1 capture, not gameplay traces",
+    "zips": [
+      "central-master-review.zip",
+      "west-cafe-review.zip",
+      "east-florist-review.zip",
+      "north-quest-review.zip"
+    ]
+  },
+  "remaining": [
+    "Native Unity Lv1/3/6 actual-image review, including door/plaque/name occlusion",
+    "C/W/E same-run visual nonregression",
+    "Actual Windows JPEG export and on-device image visibility",
+    "User approval of revised North before South",
+    "Pixel performance, heat, natural movement, saving at final five-area acceptance"
+  ],
+  "logs_sha256": {
+    "android-tools-final-tests.log": "2331adcc1183a484d1a2a18f463f1de71ad2b32e3b3897d2de8672196b4c0eec",
+    "approved-design-final-tests.log": "31a02baec52e8f3426ca1a673605cb4f119e9d9c0088ea1906829c1545e3c8bf",
+    "arch-red.log": "f3b7dac0744956e685e6b1d862adb2d8a2200ee727800c883b94ea4f0fa56a57",
+    "bunting-red.log": "8abab6e9836993d75809844206549ab4a0439d2cf71312f9c28c639bbedcc548",
+    "central-review-final-tests.log": "f7c476226c565c2ab5e0c4d07aab225daa185c0d2ea97dafe81874af4d188e96",
+    "core-full.log": "1087d8115b7717d56230b24fc61001775e3668116e2537ab5eda5713db369c60",
+    "east-review-final-tests.log": "eaf034e72f5717770cca29e7d72387e27a98f00e9392140d21214c791b81af32",
+    "final-gates.log": "41c3635b8efb2ebf44e32a9f236229e8440bdf36330f75fda4ce310215f55ac2",
+    "north-native-editor.log": "64302c42a95dfe3db297f9f262fa239910e239b03e04330c8089442e7f209040",
+    "north-native-stdout.log": "9ec5fc57151dbedd5f8f26ffe5fb142aa044fc9e32b2e223cdcdfabd74738d49",
+    "north-review-final-tests.log": "b0a1e085e9ca4c1e3a641cd130805ae2fdd5c7e65dd54fe020ca57e4d5bc345e",
+    "package-red.log": "f9d99c930d3be0fc918fe6d287c974f19ac98a32c85580b3b49a1124f93dbf25",
+    "parcel-footprint-red.log": "8428b42e6793813871150a2f220e15091546cbaffe3e9f1207bd569a01d21dc8",
+    "pixel-visual-check-final-tests.log": "1c280dd589e229d4cce103bab61bb0ee699ae04cba3a1fb24cfe9038c67b1de1",
+    "pure-final-full2.log": "91d321e5a2eee781f420973bd8cee2286e32c4ae851f376494e4905d71ea1044",
+    "red.log": "c3e2b03140e70ec5a043013156364d1c5360c2bdbf398e7bf6d653070d79f70e",
+    "unity-dll-final.log": "03ba53275ffbb6b7e2d4497b0aba4b9453f184cacb61b35618ed9d0c010deb34",
+    "visual-lock-final-tests.log": "f54b64f708cc18ce7a4f592acbf87133447f96b37253b6e29d3f0cfbb94df0f8",
+    "west-review-final-tests.log": "b791b786ff778816e3539489c4e3ad00a8e5967c4e0a06c5c232d4921a20307c"
+  }
+}

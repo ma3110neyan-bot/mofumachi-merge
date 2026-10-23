@@ -45,6 +45,7 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();var life=FrameTownPortrait(640);life.World.FastTravel(TownDistrictId.North);Canvas.ForceUpdateCanvases();
             var ground=Flow.GetComponentInChildren<TownNorthGroundGraphic>();Assert.That(ground,Is.Not.Null);Assert.That(ground.raycastTarget,Is.False);
+            var court=ground.GetComponentInChildren<TownNorthCourtGraphic>();Assert.That(court,Is.Not.Null);Assert.That(court.raycastTarget,Is.False);
             var texture=Resources.Load<Texture2D>(TownNorthMasterLayout.Resource);Assert.That(texture,Is.Not.Null);Assert.That(ground.mainTexture,Is.SameAs(texture));
             Assert.That(texture,Is.SameAs(Resources.Load<Texture2D>(TownWestMasterLayout.Resource)),"The shared ground must not allocate a second texture");Assert.That(texture.isReadable,Is.False);
             Assert.That(texture.width,Is.LessThanOrEqualTo(1024));Assert.That(texture.height,Is.LessThanOrEqualTo(2048));
@@ -52,6 +53,7 @@ namespace Mofumachi.Tests
             {
                 Canvas.ForceUpdateCanvases();var mesh=ground.canvasRenderer.GetMesh();Assert.That(mesh.vertexCount,Is.EqualTo(4));
                 Assert.That(Vector2.Distance(mesh.vertices[0],life.World.Local(new TownPoint(TownNorthMasterLayout.Left,TownNorthMasterLayout.Bottom),ground.rectTransform)),Is.LessThan(.01f));
+                Assert.That(court.canvasRenderer.GetMesh().vertexCount,Is.GreaterThan(200),"The open court has flush letter/floral stonework, not an empty blocker");
                 foreach(var actor in life.Actors)
                     Assert.That(Vector2.Distance(((RectTransform)actor.transform).anchoredPosition,life.World.Local(actor.WorldPosition)),Is.LessThan(.01f),"Camera/restore refresh must project every actor immediately, before another simulation frame: "+actor.CharacterId);
             }
@@ -67,6 +69,19 @@ namespace Mofumachi.Tests
                 for(int i=0;i<3000&&life.World.Model.Hero.IsWalking;i++){life.AdvanceFrame(1f/30);Assert.That(life.World.Model.Area.Contains(life.World.Model.Hero.Position),Is.True);}
                 Assert.That(life.World.Model.Hero.IsWalking,Is.False);Assert.That(TownWalkableArea.Distance(life.World.Model.Hero.Position,stop),Is.LessThan(.002f));
             }
+            // Exercise crossing traffic and a genuinely occupied arrival point,
+            // not just isolated routes or a staged photograph of separated NPCs.
+            var model=life.World.Model;model.Restore(model.Hero.Id,new TownPoint(0,1.80f));
+            var friends=model.Residents.Where(a=>!a.Controlled).Take(3).ToArray();
+            model.Restore(friends[0].Id,new TownPoint(-.22f,2.02f));model.Restore(friends[1].Id,new TownPoint(.22f,1.95f));model.Restore(friends[2].Id,TownWorldMap.Place("quest"));
+            Assert.That(model.TryGuide(friends[0].Id,"home-front"),Is.True);Assert.That(model.TryGuide(friends[1].Id,"bench-left"),Is.True);Assert.That(model.TryGuide(model.Hero.Id,"quest"),Is.True);
+            for(int i=0;i<3000&&model.Hero.IsWalking;i++)
+            {
+                life.AdvanceFrame(1f/30);
+                for(int a=0;a<model.Residents.Count;a++)for(int b=a+1;b<model.Residents.Count;b++)
+                    Assert.That(TownWalkableArea.Distance(model.Residents[a].Position,model.Residents[b].Position),Is.GreaterThan(.066f));
+            }
+            Assert.That(model.Hero.IsWalking,Is.False);Assert.That(TownWalkableArea.Distance(model.Hero.Position,TownWorldMap.Place("quest")),Is.LessThan(.002f));
             LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator NorthGardensReplaceTheirStageAndLeaveTheBoardAndSeatClearWithoutSaving()
@@ -84,6 +99,14 @@ namespace Mofumachi.Tests
                     Assert.That(stages.Single(p=>p.Rect.gameObject.activeSelf).Placement.Level,Is.EqualTo(level==1?0:level));
                 }
                 Assert.That(scene.Pieces.Any(p=>p.Rect.gameObject.activeSelf&&p.Placement.Kind==TownSceneryKind.NoticeBoard&&p.Placement.District==TownDistrictId.North),Is.True);
+                var parcels=scene.Pieces.Where(p=>p.Rect.gameObject.activeSelf&&p.Placement.Kind==TownSceneryKind.DeliveryParcels).ToArray();
+                Assert.That(parcels.Length,Is.EqualTo(1));Assert.That(parcels[0].Placement.Level,Is.EqualTo(level>=3?3:0));
+                var parcelArt=parcels[0].Rect.GetComponent<TownVillageDetailGraphic>().mainTexture as Texture2D;
+                Assert.That(parcelArt,Is.SameAs(Resources.Load<Texture2D>("Mofumachi/TownDeliveryParcels")));Assert.That(parcelArt.width,Is.LessThanOrEqualTo(256));Assert.That(parcelArt.isReadable,Is.False);
+                Assert.That(scene.Pieces.Any(p=>p.Rect.gameObject.activeSelf&&p.Placement.Kind==TownSceneryKind.DeliveryBunting),Is.EqualTo(level>=3));
+                Assert.That(scene.Pieces.Any(p=>p.Rect.gameObject.activeSelf&&p.Placement.Kind==TownSceneryKind.FlowerArch),Is.EqualTo(level>=6));
+                var plaque=scene.Pieces.Single(p=>p.Placement.Kind==TownSceneryKind.QuestCottage).Rect.Find("Cottage request plaque").GetComponent<UnityEngine.UI.Text>();
+                Assert.That(plaque.font,Is.Not.Null);Assert.That(plaque.text,Is.EqualTo("おねがい"));Assert.That(plaque.raycastTarget,Is.False);
                 Assert.That(scene.Pieces.Any(p=>p.Rect.gameObject.activeSelf&&p.Placement.Kind==TownSceneryKind.FlowerBorder&&p.Placement.Feet.Equals(new TownPoint(-.45f,2.28f))),Is.False,"The board must not acquire an opaque flower overlay");
                 var seat=scene.Pieces.Single(p=>TownNorthMasterLayout.Dressing.Contains(p.Placement)&&p.Placement.Kind==TownSceneryKind.ParkBench).Rect;
                 var bank=scene.Pieces.Single(p=>TownNorthMasterLayout.Dressing.Contains(p.Placement)&&p.Placement.Feet.Equals(new TownPoint(.48f,1.24f))).Rect;

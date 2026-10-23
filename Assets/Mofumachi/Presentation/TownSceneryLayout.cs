@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Mofumachi.Core;
 namespace Mofumachi.Presentation
 {
-    public enum TownSceneryKind {Cafe,Florist,QuestCottage,Gazebo,Fountain,Tree,Blossom,Flowerbed,Fence,CottagePair,CafeTerrace,FloristCart,NoticeBoard,GardenPergola,FlowerHedge,TreeGrove,FlowerBorder,ParkBench,StreetLamp}
+    public enum TownSceneryKind {Cafe,Florist,QuestCottage,Gazebo,Fountain,Tree,Blossom,Flowerbed,Fence,CottagePair,CafeTerrace,FloristCart,NoticeBoard,GardenPergola,FlowerHedge,TreeGrove,FlowerBorder,ParkBench,StreetLamp,DeliveryParcels,DeliveryBunting,FlowerArch,FlowerBasket}
     public sealed class TownSceneryPlacement
     {
         public TownSceneryKind Kind {get;} public TownDistrictId District {get;}

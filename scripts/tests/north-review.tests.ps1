@@ -15,6 +15,13 @@ try {
     $Info=@{gitRevision=('a'*40);productFingerprint=('b'*64);centralInputFingerprint=('c'*64)}
     $Manifest=@{gitRevision=$Info.gitRevision;productFingerprint=$Info.productFingerprint;centralInputFingerprint=$Info.centralInputFingerprint;images=$Images}
     Assert-NorthCaptureIdentity $Info $Manifest $Root
+    if(-not(Get-Command Assert-NorthRouteProjection -ErrorAction SilentlyContinue)){throw 'Missing source-bound North route projection validation.'}
+    $Route=@{image=$Names[0];image_sha256=$Images[0].sha256;kind='navigation-route-overlay-not-gameplay-trace';origin='top-left';width=720;height=1280;routes=@(foreach($Id in @('cottage','board','waiting','left','right')){@{id=$Id;points=@(@{x=360;y=1000},@{x=360;y=600})}})}
+    $RoutePath=Join-Path $Root 'north-route-projection.json';$Route | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $RoutePath
+    Assert-NorthRouteProjection $Root
+    $Route.image_sha256=('f'*64);$Route | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $RoutePath;Reject {Assert-NorthRouteProjection $Root};$Route.image_sha256=$Images[0].sha256
+    $Route.routes[0].points[0].x=[double]::NaN;$Route | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $RoutePath;Reject {Assert-NorthRouteProjection $Root};$Route.routes[0].points[0].x=360
+    $Route.routes[4].id='left';$Route | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $RoutePath;Reject {Assert-NorthRouteProjection $Root}
     $Manifest.gitRevision=('d'*40);Reject {Assert-NorthCaptureIdentity $Info $Manifest $Root};$Manifest.gitRevision=$Info.gitRevision
     $Manifest.centralInputFingerprint=('d'*64);Reject {Assert-NorthCaptureIdentity $Info $Manifest $Root};$Manifest.centralInputFingerprint=$Info.centralInputFingerprint
     [IO.File]::AppendAllText((Join-Path $Root $Names[0]),'changed');Reject {Assert-NorthCaptureIdentity $Info $Manifest $Root};[IO.File]::WriteAllBytes((Join-Path $Root $Names[0]),$Header)
@@ -38,6 +45,17 @@ try {
     foreach($Path in @($Screens,$NorthScreens,$Before)){New-Item -ItemType Directory -Path $Path -Force | Out-Null}
     foreach($Level in @(1,3,6)){[IO.File]::WriteAllBytes((Join-Path $Screens "04-town-lv$Level-Central.png"),$Header);[IO.File]::WriteAllBytes((Join-Path $Before "04-town-lv$Level-North.png"),$Header)}
     foreach($Name in $Names){[IO.File]::WriteAllBytes((Join-Path $NorthScreens $Name),$Header)}
+    $Route.image_sha256=(Get-FileHash -LiteralPath (Join-Path $NorthScreens $Names[0]) -Algorithm SHA256).Hash.ToLowerInvariant();$Route.routes[4].id='right'
+    $Route | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $NorthScreens 'north-route-projection.json')
+    $Held=Join-Path $Root 'held-north';New-Item -ItemType Directory -Path $Held -Force | Out-Null
+    $HeldImages=@(foreach($Level in @(1,3,6)) {
+        $Name="04-town-lv$Level-North.png";$Path=Join-Path $Held $Name;[IO.File]::WriteAllBytes($Path,$Header)
+        @{level=$Level;path="held-north/$Name";sha256=(Get-FileHash $Path -Algorithm SHA256).Hash.ToLowerInvariant()}
+    })
+    @{source_revision='fabf00e7a3b8c810303e77bf16c2af180c718d5d';status='held_by_user_not_approved';images=$HeldImages} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $Root 'References/VisualLock/north-revision-baseline-2026-10-23.json')
+    $PreviousExport=Join-Path $Root 'held-export';New-Item -ItemType Directory -Path $PreviousExport -Force | Out-Null
+    Copy-NorthPreviousCandidate $Root $PreviousExport
+    $HeldFile=Join-Path $Root $HeldImages[0].path;[IO.File]::AppendAllText($HeldFile,'changed');Reject {Copy-NorthPreviousCandidate $Root $PreviousExport};[IO.File]::WriteAllBytes($HeldFile,$Header)
     $Central=@(Get-CentralCaptureEntries $Screens);$NorthEntries=@(Get-NorthCaptureEntries $NorthScreens)
     @{run='baseline';capture=@{images=($Central+@($NorthEntries | Where-Object {$_.file -like '04-town*'}))}} | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $Root 'References/VisualLock/baseline-native-2026-10-21.json')
     foreach($Entry in $Central){Copy-Item -LiteralPath (Join-Path $Screens $Entry.file) -Destination (Join-Path $Run ('before-'+$Entry.file))}
@@ -59,6 +77,7 @@ try {
     $Info | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $East 'east-review-info.json')
     @{gitRevision=$Info.gitRevision;productFingerprint=$Info.productFingerprint;centralInputFingerprint=$Digest;images=@(Get-EastCaptureEntries $EastScreens)} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $East 'east-capture-manifest.json')
     function Write-NorthComparisonJpeg([string]$Directory){[IO.File]::WriteAllBytes((Join-Path $Directory 'north-before-candidate.jpg'),[byte[]]@(5,6,7))}
+    function Write-NorthRoutesJpeg([string]$Directory){Assert-NorthRouteProjection $Directory;[IO.File]::WriteAllBytes((Join-Path $Directory 'north-walking-routes.jpg'),[byte[]]@(5,6,7))}
     $WestInfoPath=Join-Path $West 'west-review-info.json'
     $WrongInfo=@{gitRevision=$Info.gitRevision;productFingerprint=('d'*64);centralInputFingerprint=$Digest}
     $WrongInfo | ConvertTo-Json | Set-Content -LiteralPath $WestInfoPath
@@ -73,9 +92,12 @@ try {
     if(Test-Path (Join-Path $Run 'north-quest-review.zip')){throw 'Incomplete Before produced a review archive.'}
     [IO.File]::WriteAllBytes($Missing,$Header)
     Move-Item -LiteralPath (Join-Path $Run 'north/screenshots') -Destination $NorthScreens
+    Move-Item -LiteralPath (Join-Path $Run 'north/north-route-projection.json') -Destination (Join-Path $NorthScreens 'north-route-projection.json')
     Write-NorthReview $Root $Run
     $Expanded=Join-Path $Root 'expanded';Expand-Archive -LiteralPath (Join-Path $Run 'north-quest-review.zip') -DestinationPath $Expanded
     foreach($Name in $Names){if(-not(Test-Path (Join-Path $Expanded $Name))){throw "Archive lost north frame: $Name"}}
+    foreach($Level in @(1,3,6)){if(-not(Test-Path (Join-Path $Expanded "previous-04-town-lv$Level-North.png"))){throw 'Archive lost the held Candidate.'}}
+    foreach($Name in @('north-walking-routes.jpg','north-route-projection.json','previous-candidate-source.json')){if(-not(Test-Path (Join-Path $Expanded $Name))){throw "Archive lost route/previous provenance: $Name"}}
     $Meta=Get-Content -LiteralPath (Join-Path $Expanded 'north-adoption.json') -Raw | ConvertFrom-Json
     if($Meta.adopted -ne $false -or $Meta.pixel_verified -ne $false -or $Meta.native_pairs_verified -ne 3){throw 'Archive wrongly adopted or lost Before pairs.'}
     if(@(Get-CentralCaptureEntries $Screens).Count -ne 3){throw 'North archive disturbed companion central evidence.'}

@@ -6,7 +6,7 @@
     "walking": false,
     "reviewed_candidate": "97aac99713859e721e103371f27f12fa541b778e",
     "native_image_count": 0,
-    "status": "Received fabf00e native/images PASS; projection-fix current source still unverified. Preserve accepted97 quality reference.",
+    "status": "Accepted97 quality reference retained. North-only delivery/court quality pass changes shared render inputs; current native replay pending.",
     "review_directory": "References/Review/east-florist-2026-10-22-accepted/central",
     "central_input_fingerprint": "5e419d0348d5897a3378d228a5afcea388aac02e654990c0770c9bb6dda4bbb8",
     "last_review": {
@@ -66,7 +66,7 @@
     "visual": false,
     "town_density": false,
     "walking": false,
-    "status": "Received fabf00e native/images PASS; projection-fix current source still unverified. Preserve accepted97 quality reference.",
+    "status": "Accepted97 quality reference retained. North-only delivery/court quality pass changes shared render inputs; current native replay pending.",
     "arrival_readability": false,
     "deliberate_second_tap": false,
     "unity_stage_accepted": false,
@@ -164,7 +164,7 @@
     "deliberate_second_tap": false,
     "unity_stage_accepted": false,
     "native_image_count": 0,
-    "status": "Received fabf00e native/images PASS; projection-fix current source still unverified. Preserve accepted97 quality reference.",
+    "status": "Accepted97 quality reference retained. North-only delivery/court quality pass changes shared render inputs; current native replay pending.",
     "prerequisite_review": "References/Review/west-cafe-2026-10-22-accepted/native-review.json",
     "last_review": {
       "candidate": "fabf00e7a3b8c810303e77bf16c2af180c718d5d",
@@ -196,7 +196,7 @@
   "north": {
     "design_direction_approved": true,
     "implemented": true,
-    "scope": "Bounded approved-quality expansion into existing quest cottage/door/board; no quest system or art change",
+    "scope": "North delivery-courtyard quality pass inside the approved district; original atlas art, navigation foundations, quest/save/reward rules preserved",
     "native_unity": false,
     "visual": false,
     "town_density": false,
@@ -206,7 +206,7 @@
     "nameplate_readability": false,
     "unity_stage_accepted": false,
     "native_image_count": 0,
-    "status": "Projection synchronization fix implemented; corrected Unity images and explicit North user approval pending; received fabf00e North HOLD",
+    "status": "User rejected held fabf00e Candidate for cottage prominence, North identity, density, growth contrast and circulation. Delivery courtyard quality pass implemented; revised native images and explicit approval pending.",
     "prerequisite_review": "References/Review/east-florist-2026-10-22-accepted/native-review.json",
     "last_review": {
       "candidate": "fabf00e7a3b8c810303e77bf16c2af180c718d5d",
@@ -217,9 +217,23 @@
       "visual": false,
       "unity_stage_accepted": false,
       "reason": "N1 unsettled actor presentation in connection frame; source fix implemented, new native proof required",
-      "record": "References/Review/north-quest-2026-10-23-candidate/native-review.json"
+      "record": "References/Review/north-quest-2026-10-23-candidate/native-review.json",
+      "historical_codex_scenery_assessment_only": true
     },
-    "current_fix_render_input_fingerprint": "21010c3e12bcb6a6c7ddb6bd90b7d347d25ddbc9c3a521f13f6a1670c98041a9"
+    "user_rejection": {
+      "date": "2026-10-23",
+      "reference": "北エリア最終調整・南着手前の品質固定指示",
+      "adopted": false,
+      "insufficient": [
+        "quest_cottage_prominence",
+        "north_delivery_identity",
+        "lv1_lv3_lv6_contrast",
+        "walking_and_waiting_capacity",
+        "visual_lock_density"
+      ],
+      "overrides_previous_scenery_pass_for_adoption": true
+    },
+    "quality_pass_render_input_fingerprint": "e072664f756d2b1971d1f519207727e68cd11adc07c075c88dfc982dbfa465bc"
   },
   "quality_reference": {
     "policy": "2026-10-22 user quality freeze and five-area completion directive",
@@ -263,7 +277,7 @@
         "world": null,
         "characters": null
       },
-      "status": "North native capture and explicit user approval pending"
+      "status": "Held candidate rejected by user. North-only revised Lv1/3/6, Before/held/revised and route JPEG pending; South remains blocked."
     },
     "south_garden": {
       "user_approved": false,

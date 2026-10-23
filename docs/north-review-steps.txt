@@ -1,5 +1,5 @@
 もふまちメルジュ：北の依頼小屋・Unity確認手順
-2026-10-23：接続画像の描画同期修正版
+2026-10-23：依頼・届け物の北広場／Lv差／歩行・表示同期をまとめた修正版
 
 状態：実装済み・Unity実画面未確認・APK未生成・Pixel 3a未確認。
 この手順ではAPKを作りません。
@@ -9,7 +9,7 @@
 3. PowerShellへ次の3行を貼り付けて実行してください。
 
 Set-Location -LiteralPath "C:\Users\User\Desktop\Mofumachi\mofumachi-merge"
-if (-not (Select-String -LiteralPath ".\Assets\Mofumachi\Tests\PlayMode\ExperienceCaptureTests.cs" -SimpleMatch "MOFUMACHI_CAPTURE_WORLD" -Quiet)) { throw "GitHub Desktopで描画同期修正版をPullしてください。" }
+if (-not (Select-String -LiteralPath ".\Assets\Mofumachi\Tests\PlayMode\ExperienceCaptureTests.cs" -SimpleMatch "MOFUMACHI_NORTH_DELIVERY_QUALITY" -Quiet)) { throw "GitHub Desktopで北広場の品質調整版をPullしてください。" }
 powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\build-android.ps1" -NorthReview
 
 4. 成功すると Builds\NorthReview\日時-ID のフォルダーが開きます。
@@ -21,8 +21,13 @@ east-florist-review.zip
 north-quest-review.zip
 
 表示用の比較画像は各ZIPに含む .jpg です。
-北はLv1／3／6をBefore／Candidate／Visual Lock参照の3列で提出します。
-Visual Lockは中央の承認デザイン参照で、北の実Unity画面とは区別します。
+提出対象は北です。中央・西・東は同じ版での後退確認用です。
+北の north-before-candidate.jpg はLv1／3／6の各段を
+Before／前Candidate（未採用のfabf00e）／修正版Candidate の3列で出します。
+approved-design.png は中央の正式Visual Lock参照で、北の実画面とは区別します。
+north-walking-routes.jpg は同じLv1実撮影にナビ経路を重ねた導線図です。
+注釈付きの図であり、実操作の移動軌跡ではありません。素のPNGも残します。
+入口／掲示板／待機場所／左右の経路を別色で示します。
 成功時の予定：Unityテスト12件、画像21枚、Before比較12組。
 4ZIPの同じテストXMLを重複して数えません。
 

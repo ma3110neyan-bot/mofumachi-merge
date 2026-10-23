@@ -28,7 +28,17 @@ namespace Mofumachi.Presentation
         {
             var rect=UIWidgets.Node("Town scenery "+p.Kind+" "+pieces.Count,field,new Rect(.5f,.5f,0,0));rect.pivot=new Vector2(.5f,0);
             if(p.Kind>=TownSceneryKind.CottagePair)rect.gameObject.AddComponent<TownVillageDetailGraphic>().Bind(p.Kind);
-            else rect.gameObject.AddComponent<TownLandmarkGraphic>().Bind(p.Kind);pieces.Add(new Piece{Rect=rect,Placement=p});
+            else rect.gameObject.AddComponent<TownLandmarkGraphic>().Bind(p.Kind);
+            if(p.Kind==TownSceneryKind.QuestCottage)
+            {
+                // Lettering belongs to the original blank wooden plaque. It
+                // travels with the cottage and never becomes another HUD card.
+                var label=UIWidgets.Node("Cottage request plaque",rect,new Rect(.51f,.41f,.16f,.045f)).gameObject.AddComponent<Text>();
+                label.font=Resources.Load<Font>("Mofumachi/UIFontStory");label.text="おねがい";label.color=new Color(.35f,.19f,.12f);
+                label.alignment=TextAnchor.MiddleCenter;label.resizeTextForBestFit=true;label.resizeTextMinSize=5;label.resizeTextMaxSize=11;
+                label.horizontalOverflow=HorizontalWrapMode.Overflow;label.verticalOverflow=VerticalWrapMode.Truncate;label.raycastTarget=false;
+            }
+            pieces.Add(new Piece{Rect=rect,Placement=p});
         }
         public void Refresh()
         {
@@ -40,7 +50,7 @@ namespace Mofumachi.Presentation
                 var b=field.rect;bool visible=local.x+p.Width*scale/2>b.xMin&&local.x-p.Width*scale/2<b.xMax&&local.y+p.Height*scale>b.yMin&&local.y<b.yMax;
                 entry.Rect.gameObject.SetActive(visible&&TownCentralMasterLayout.VisibleAtLevel(p,townLevel)&&TownWestMasterLayout.VisibleAtLevel(p,townLevel)&&TownEastMasterLayout.VisibleAtLevel(p,townLevel)&&TownNorthMasterLayout.VisibleAtLevel(p,townLevel));
             }
-            if(world==null){pieces.Sort((a,b)=>b.Placement.Feet.Y.CompareTo(a.Placement.Feet.Y));foreach(var p in pieces)p.Rect.SetAsLastSibling();}
+            if(world==null){pieces.Sort((a,b)=>TownNorthMasterLayout.DepthY(b.Placement).CompareTo(TownNorthMasterLayout.DepthY(a.Placement)));foreach(var p in pieces)p.Rect.SetAsLastSibling();}
         }
     }
     [RequireComponent(typeof(CanvasRenderer))]

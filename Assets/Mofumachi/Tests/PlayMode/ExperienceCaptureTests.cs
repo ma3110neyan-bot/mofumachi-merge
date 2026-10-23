@@ -85,6 +85,35 @@ namespace Mofumachi.Tests
             }
             finally{UnityEngine.Object.DestroyImmediate(image);}
         }
+        [Serializable] private sealed class NorthRoutePoint {public float x,y;}
+        [Serializable] private sealed class NorthRoute {public string id;public NorthRoutePoint[] points;}
+        [Serializable] private sealed class NorthRouteEvidence
+        {
+            public string image="04-town-lv1-North.png",image_sha256,kind="navigation-route-overlay-not-gameplay-trace",origin="top-left";
+            public int width=720,height=1280;public NorthRoute[] routes;
+        }
+        private void WriteNorthRouteEvidence(string directory,TownLifeView town)
+        {
+            // MOFUMACHI_NORTH_DELIVERY_QUALITY: actual viewport projections from
+            // the same Lv1 native capture, never hand-positioned route arrows.
+            if(directory==null)return;
+            var navigation=new TownAreaNavigation(town.World.Model.Area);var start=TownWorldMap.Place("district.north.entry");
+            var targets=new[]{("cottage",TownWorldMap.Place("quest")),("board",TownWorldMap.Place("bench-left")),("waiting",TownWorldMap.Place("home-front")),("left",new TownPoint(-.42f,2.60f)),("right",new TownPoint(.42f,2.60f))};
+            NorthRoutePoint Project(TownPoint point)
+            {
+                var local=town.World.Local(point);var screen=captureCamera.WorldToScreenPoint(town.transform.TransformPoint(local));
+                return new NorthRoutePoint{x=screen.x,y=1280-screen.y};
+            }
+            var evidence=new NorthRouteEvidence{routes=targets.Select(t=>
+            {
+                var route=navigation.FindRoute(start,t.Item2);Assert.That(route,Is.Not.Empty,"Every annotated path must exist on the real walkable area");
+                var previous=start;foreach(var point in route){Assert.That(town.World.Model.Area.CanTravel(previous,point),Is.True);previous=point;}
+                return new NorthRoute{id=t.Item1,points=new[]{start}.Concat(route).Select(Project).ToArray()};
+            }).ToArray()};
+            using(var sha=System.Security.Cryptography.SHA256.Create())
+                evidence.image_sha256=BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(Path.Combine(directory,evidence.image)))).Replace("-","").ToLowerInvariant();
+            File.WriteAllText(Path.Combine(directory,"north-route-projection.json"),JsonUtility.ToJson(evidence,true));
+        }
         [UnityTest] public IEnumerator PortraitScreensRenderFromIsolatedStateWithoutWritingProgress()
         {
             yield return EnterHome();string output=OutputDirectory();
@@ -186,6 +215,7 @@ namespace Mofumachi.Tests
                         foreach(var resident in town.Actors.Where(a=>a.RegionVisible&&a.transform.Find("Town actor name panel").gameObject.activeInHierarchy))
                             EastMasterReviewTests.AssertNameClearOfBenches(town,resident);
                         Capture(northOutput,"04-town-lv"+level+"-North",TownDistrictId.North);
+                        if(level==1)WriteNorthRouteEvidence(northOutput,town);
                     }
                     Flow.Game.State.townGrowthLevel=1;Flow.ShowHome();EnsurePortraitCamera();var north=Flow.GetComponentInChildren<TownLifeView>();
                     north.World.LookAt(TownDistrictId.North);north.World.Camera.Jump(new TownPoint(0,1f));north.World.Refresh();Capture(northOutput,"north-connection");

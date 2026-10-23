@@ -55,5 +55,63 @@ namespace Mofumachi.Tests
             var uv=(TownPoint)t.GetMethod("TexturePoint").Invoke(null,new object[]{TownWorldMap.Place("quest")});Assert.That(uv.X,Is.EqualTo(.5f).Within(.0001));
             Assert.That((float)t.GetField("Left").GetRawConstantValue(),Is.EqualTo(-.6f));Assert.That((float)t.GetField("Right").GetRawConstantValue(),Is.EqualTo(.6f));Assert.That((float)t.GetField("Bottom").GetRawConstantValue(),Is.EqualTo(1f));
         }
+        [Test] public void DeliveryDisplayGrowsBesideTheCottageWithoutOccupyingItsWaitingApron()
+        {
+            Assert.That(Enum.TryParse<TownSceneryKind>("DeliveryParcels",out var parcels),Is.True,"North needs a visible delivery destination, not only larger flowers");
+            Assert.That(Enum.TryParse<TownSceneryKind>("DeliveryBunting",out var bunting),Is.True);
+            Assert.That(Enum.TryParse<TownSceneryKind>("FlowerArch",out var arch),Is.True);
+            Assert.That(TownVillageDressing.SpriteSource(bunting).Resource,Is.EqualTo("Mofumachi/TownDecorationAtlas"),"Use hanging flags, not new traversable planter-posts in the side walk");
+            var pieces=Pieces();
+            foreach(int level in new[]{1,3,6})
+            {
+                var display=pieces.Where(p=>p.Kind==parcels&&Visible(p,level)).ToArray();
+                Assert.That(display.Length,Is.EqualTo(1),"Replace the parcel display rather than stacking duplicate sprites");
+                Assert.That(display[0].Feet.Y,Is.GreaterThan(TownWorldMap.Place("quest").Y));
+                Assert.That(Math.Abs(display[0].Feet.X),Is.LessThan(.3f),"Keep deliveries beside the cottage, not at the district edge");
+                Assert.That(display[0].Feet.X-display[0].Width/2,Is.GreaterThanOrEqualTo(.085f),"Leave the physical door opening clear");
+                Assert.That(display[0].Feet.X+display[0].Width/2,Is.LessThanOrEqualTo(.24001f),"Parcel boxes must remain on the existing cottage foundation");
+                Assert.That(pieces.Any(p=>p.Kind==bunting&&Visible(p,level)),Is.EqualTo(level>=3));
+                Assert.That(pieces.Any(p=>p.Kind==arch&&Visible(p,level)),Is.EqualTo(level>=6));
+            }
+            Assert.That(pieces.Single(p=>p.Kind==parcels&&Visible(p,3)).Width,Is.GreaterThan(pieces.Single(p=>p.Kind==parcels&&Visible(p,1)).Width*1.4f));
+            // The forecourt remains a surface, with two independent waiting bays.
+            var floor=new TownWalkableArea(1);
+            foreach(float y in new[]{1.80f,1.90f,2.00f,2.06f})foreach(float x in new[]{-.24f,-.12f,0,.12f,.24f})
+                Assert.That(floor.Contains(new TownPoint(x,y)),Is.True,"No new display may consume the usable apron");
+            Assert.That(floor.CanTravel(new TownPoint(-.24f,1.8f),new TownPoint(-.24f,2.06f)),Is.True);
+            Assert.That(floor.CanTravel(new TownPoint(.24f,1.8f),new TownPoint(.24f,2.06f)),Is.True);
+        }
+        [TestCase(1)] [TestCase(3)] [TestCase(6)]
+        public void SeveralResidentsCanUseTheNorthCourtWithoutBlockingTheDoor(int level)
+        {
+            var town=new TownWorldWalkModel(level,"momo");
+            town.Restore("momo",new TownPoint(0,1.80f));
+            town.Restore("lulu",new TownPoint(-.22f,2.02f));
+            town.Restore("pom",new TownPoint(.22f,1.95f));
+            town.Restore("fio",new TownPoint(0,2.08f));
+            Assert.That(town.TryGuide("lulu","home-front"),Is.True);
+            Assert.That(town.TryGuide("pom","bench-left"),Is.True);
+            Assert.That(town.TryGuide("momo","quest"),Is.True);
+            for(int frame=0;frame<3000&&town.Hero.IsWalking;frame++)
+            {
+                town.Step(1f/30);
+                foreach(var actor in town.Residents)Assert.That(town.Area.Contains(actor.Position),Is.True);
+                for(int a=0;a<town.Residents.Count;a++)for(int b=a+1;b<town.Residents.Count;b++)
+                    Assert.That(TownWalkableArea.Distance(town.Residents[a].Position,town.Residents[b].Position),Is.GreaterThan(.066f),"Residents must pass, yield or wait instead of overlapping feet");
+            }
+            Assert.That(town.Hero.IsWalking,Is.False,"The occupied doorway must be released for the visitor");
+            Assert.That(TownWalkableArea.Distance(town.Hero.Position,TownWorldMap.Place("quest")),Is.LessThan(.002f));
+        }
+        [Test] public void FloralDoorwayUsesTheExistingFoundationAndLeavesTheVisitorInFront()
+        {
+            var depth=Master().GetMethod("DepthY");Assert.That(depth,Is.Not.Null,"Attached doorway flowers need a foreground layer independent of their solid base");
+            var arch=Pieces().Single(p=>p.Kind.ToString()=="FlowerArch");var floor=new TownWalkableArea(1);
+            foreach(float side in new[]{-1f,1f})Assert.That(floor.Contains(new TownPoint(arch.Feet.X+side*arch.Width*.42f,arch.Feet.Y)),Is.False,"Arch feet must sit on the existing cottage foundation");
+            var cottage=TownSceneryLayout.Landmarks.Single(p=>p.Kind==TownSceneryKind.QuestCottage);
+            Assert.That((float)depth.Invoke(null,new object[]{arch}),Is.InRange(TownWorldMap.Place("quest").Y+.005f,cottage.Feet.Y-.005f),"The flowers frame the cottage but never paint over the arriving visitor");
+            foreach(var p in Pieces().Where(p=>p.Kind.ToString()=="DeliveryParcels"||p.Kind.ToString()=="FlowerBasket"))
+                Assert.That((float)depth.Invoke(null,new object[]{p}),Is.InRange(TownWorldMap.Place("quest").Y+.005f,cottage.Feet.Y-.005f),"Cottage-attached displays must not disappear behind the facade");
+            foreach(var p in TownSceneryLayout.Landmarks.Where(p=>p.District!=TownDistrictId.North))Assert.That(depth.Invoke(null,new object[]{p}),Is.EqualTo(p.Feet.Y));
+        }
     }
 }

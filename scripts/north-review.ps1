@@ -1,4 +1,4 @@
-# Source-bound north native review. Dot-sourcing never builds, renders or adopts.
+﻿# Source-bound north native review. Dot-sourcing never builds, renders or adopts.
 function Get-NorthCaptureEntries([string]$Directory) {
     $Expected=@('04-town-lv1-North.png','04-town-lv3-North.png','04-town-lv6-North.png','north-connection.png','north-walking.png','north-door-arrived.png')
     $Files=@(Get-ChildItem -LiteralPath $Directory -Filter '*.png' -File)
@@ -24,6 +24,67 @@ function Assert-NorthCaptureIdentity($Info,$Manifest,[string]$Directory) {
         if($Recorded.Count -ne 1 -or $Recorded[0].sha256 -ne $Image.sha256){throw "North image changed: $($Image.file)"}
     }
 }
+function Copy-NorthPreviousCandidate([string]$RepositoryPath,[string]$Directory) {
+    $Path=Join-Path $RepositoryPath 'References/VisualLock/north-revision-baseline-2026-10-23.json'
+    $Baseline=Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
+    if($Baseline.source_revision -ne 'fabf00e7a3b8c810303e77bf16c2af180c718d5d' -or $Baseline.status -ne 'held_by_user_not_approved' -or @($Baseline.images).Count -ne 3){throw 'North previous Candidate must identify the held native run.'}
+    foreach($Level in @(1,3,6)) {
+        $Entry=@($Baseline.images | Where-Object {$_.level -eq $Level})
+        if($Entry.Count -ne 1 -or $Entry[0].sha256 -notmatch '^[a-fA-F0-9]{64}$'){throw 'North previous Candidate level missing.'}
+        $Source=Join-Path $RepositoryPath $Entry[0].path
+        if(-not(Test-Path -LiteralPath $Source -PathType Leaf) -or (Get-FileHash -LiteralPath $Source -Algorithm SHA256).Hash -ne $Entry[0].sha256){throw 'North previous Candidate changed or missing.'}
+        Copy-Item -LiteralPath $Source -Destination (Join-Path $Directory "previous-04-town-lv$Level-North.png")
+    }
+    Copy-Item -LiteralPath $Path -Destination (Join-Path $Directory 'previous-candidate-source.json')
+}
+function Assert-NorthRouteProjection([string]$Directory) {
+    $Route=Get-Content -LiteralPath (Join-Path $Directory 'north-route-projection.json') -Raw | ConvertFrom-Json
+    if($Route.image -ne '04-town-lv1-North.png' -or $Route.width -ne 720 -or $Route.height -ne 1280 -or $Route.origin -ne 'top-left' -or $Route.kind -ne 'navigation-route-overlay-not-gameplay-trace'){throw 'North routes must identify the exact Lv1 native viewport and annotation type.'}
+    $Image=Join-Path (Join-Path $Directory 'screenshots') $Route.image
+    if(-not(Test-Path -LiteralPath $Image)){$Image=Join-Path $Directory $Route.image}
+    if($Route.image_sha256 -notmatch '^[a-fA-F0-9]{64}$' -or (Get-FileHash -LiteralPath $Image -Algorithm SHA256).Hash -ne $Route.image_sha256){throw 'North route projection does not match its native image.'}
+    $Ids=@('cottage','board','waiting','left','right')
+    if(@($Route.routes).Count -ne 5){throw 'North routes require the door, two waiting destinations and both side walks.'}
+    foreach($Id in $Ids) {
+        $Found=@($Route.routes | Where-Object {$_.id -eq $Id})
+        if($Found.Count -ne 1 -or @($Found[0].points).Count -lt 2){throw 'Missing or duplicated North route.'}
+        foreach($Point in $Found[0].points) {
+            foreach($Key in @('x','y')) {
+                $Value=$Point.$Key
+                if($null -eq $Value -or $Value -is [string] -or [double]::IsNaN([double]$Value) -or [double]::IsInfinity([double]$Value)){throw 'Nonfinite North route projection.'}
+            }
+            if($Point.x -lt 0 -or $Point.x -gt 720 -or $Point.y -lt 0 -or $Point.y -gt 1280){throw 'North route is outside the recorded viewport.'}
+        }
+    }
+}
+function Write-NorthRoutesJpeg([string]$Directory) {
+    Assert-NorthRouteProjection $Directory
+    Add-Type -AssemblyName System.Drawing
+    $Route=Get-Content -LiteralPath (Join-Path $Directory 'north-route-projection.json') -Raw | ConvertFrom-Json
+    $Bitmap=New-Object Drawing.Bitmap 720,1460
+    $Graphics=[Drawing.Graphics]::FromImage($Bitmap)
+    $Image=[Drawing.Image]::FromFile((Join-Path (Join-Path $Directory 'screenshots') $Route.image))
+    $Font=New-Object Drawing.Font 'Meiryo',13
+    $Brush=New-Object Drawing.SolidBrush ([Drawing.Color]::FromArgb(65,40,50))
+    try {
+        $Graphics.Clear([Drawing.Color]::FromArgb(255,247,239));$Graphics.DrawImage($Image,0,100,720,1280)
+        $Graphics.DrawString('北エリア／歩行導線（Lv.1 Unity実画面）',$Font,$Brush,12,10)
+        $Graphics.DrawString('実画面にナビ経路を重ねた図。実操作の軌跡ではありません。',$Font,$Brush,12,36)
+        $Colors=@([Drawing.Color]::DeepPink,[Drawing.Color]::RoyalBlue,[Drawing.Color]::DarkOrange,[Drawing.Color]::DarkViolet,[Drawing.Color]::Teal)
+        $Labels=@{cottage='依頼小屋';board='掲示板';waiting='待ち合わせ';left='左の小道';right='右の小道'}
+        for($i=0;$i -lt 5;$i++) {
+            $Pen=New-Object Drawing.Pen $Colors[$i],3
+            $Pen.EndCap=[Drawing.Drawing2D.LineCap]::ArrowAnchor
+            try {
+                $Points=[Drawing.PointF[]]@($Route.routes[$i].points | ForEach-Object {[Drawing.PointF]::new([single]$_.x,[single]($_.y+100))})
+                $Graphics.DrawLines($Pen,$Points)
+                $LegendBrush=New-Object Drawing.SolidBrush $Colors[$i]
+                try{$Graphics.DrawString($Labels[$Route.routes[$i].id],$Font,$LegendBrush,12+($i%3)*230,1390+[math]::Floor($i/3)*28)}finally{$LegendBrush.Dispose()}
+            } finally {$Pen.Dispose()}
+        }
+        $Bitmap.Save((Join-Path $Directory 'north-walking-routes.jpg'),[Drawing.Imaging.ImageFormat]::Jpeg)
+    } finally {$Brush.Dispose();$Font.Dispose();$Image.Dispose();$Graphics.Dispose();$Bitmap.Dispose()}
+}
 function Write-NorthComparisonJpeg([string]$Directory) {
     Add-Type -AssemblyName System.Drawing
     $Bitmap=New-Object Drawing.Bitmap 2160,4250
@@ -31,30 +92,26 @@ function Write-NorthComparisonJpeg([string]$Directory) {
     $Font=New-Object Drawing.Font 'Arial',26
     $Small=New-Object Drawing.Font 'Arial',20
     $Brush=New-Object Drawing.SolidBrush ([Drawing.Color]::FromArgb(80,47,57))
-    $Lock=[Drawing.Image]::FromFile((Join-Path $Directory 'approved-design.png'))
     try {
         $Graphics.Clear([Drawing.Color]::FromArgb(255,247,239))
-        $Graphics.DrawString('NORTH QUEST COTTAGE / NATIVE CANDIDATE / USER APPROVAL AND PIXEL PENDING',$Font,$Brush,16,12)
+        $Graphics.DrawString('NORTH ONLY / BEFORE - HELD CANDIDATE - REVISED CANDIDATE / APPROVAL PENDING',$Font,$Brush,16,12)
         for($Row=0;$Row -lt 3;$Row++) {
             $Level=@(1,3,6)[$Row];$Y=80+$Row*1380
             $Graphics.DrawString("Before / Unity Lv.$Level",$Font,$Brush,16,$Y)
-            $Graphics.DrawString("Candidate / Unity Lv.$Level",$Font,$Brush,736,$Y)
-            $Graphics.DrawString('Visual Lock / central design',$Font,$Brush,1456,$Y)
+            $Graphics.DrawString("Held Candidate / Unity Lv.$Level",$Font,$Brush,736,$Y)
+            $Graphics.DrawString("Revised Candidate / Unity Lv.$Level",$Font,$Brush,1456,$Y)
             $Name="04-town-lv$Level-North.png"
-            foreach($Column in @(0,1)) {
-                $Path=if($Column -eq 0){Join-Path $Directory ('before-'+$Name)}else{Join-Path (Join-Path $Directory 'screenshots') $Name}
-                $Image=[Drawing.Image]::FromFile($Path)
+            $Paths=@((Join-Path $Directory ('before-'+$Name)),(Join-Path $Directory ('previous-'+$Name)),(Join-Path (Join-Path $Directory 'screenshots') $Name))
+            for($Column=0;$Column -lt 3;$Column++) {
+                $Image=[Drawing.Image]::FromFile($Paths[$Column])
                 try{$Graphics.DrawImage($Image,[Drawing.Rectangle]::new($Column*720,$Y+48,720,1280))}finally{$Image.Dispose()}
             }
-            # This immutable central design is a quality reference for North,
-            # never represented as a native North screenshot.
-            $Graphics.DrawImage($Lock,[Drawing.Rectangle]::new(1440,$Y+48,720,1280),[Drawing.Rectangle]::new(27,146,572,1042),[Drawing.GraphicsUnit]::Pixel)
         }
-        $Graphics.DrawString('Visual Lock is CENTRAL DESIGN, not a North render. Original PNGs included. Walking frames have no Before pairing.',$Small,$Brush,16,4220)
+        $Graphics.DrawString('Original native PNGs and immutable approved-design.png included. The approved design is a reference, not a North capture.',$Small,$Brush,16,4220)
         $Encoder=[Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object {$_.MimeType -eq 'image/jpeg'}
         $Parameters=New-Object Drawing.Imaging.EncoderParameters 1
         try{$Parameters.Param[0]=[Drawing.Imaging.EncoderParameter]::new([Drawing.Imaging.Encoder]::Quality,[long]92);$Bitmap.Save((Join-Path $Directory 'north-before-candidate.jpg'),$Encoder,$Parameters)}finally{$Parameters.Dispose()}
-    } finally {$Lock.Dispose();$Brush.Dispose();$Small.Dispose();$Font.Dispose();$Graphics.Dispose();$Bitmap.Dispose()}
+    } finally {$Brush.Dispose();$Small.Dispose();$Font.Dispose();$Graphics.Dispose();$Bitmap.Dispose()}
 }
 function Write-NorthReview([string]$RepositoryPath,[string]$RunDirectory) {
     $CentralInfo=Assert-CentralReviewEvidence $RepositoryPath $RunDirectory
@@ -75,6 +132,9 @@ function Write-NorthReview([string]$RepositoryPath,[string]$RunDirectory) {
     $North=Join-Path $RunDirectory 'north';New-Item -ItemType Directory -Path $North -Force | Out-Null
     Move-Item -LiteralPath (Join-Path $RunDirectory 'screenshots/north') -Destination (Join-Path $North 'screenshots')
     $Entries=@(Get-NorthCaptureEntries (Join-Path $North 'screenshots'))
+    Move-Item -LiteralPath (Join-Path $North 'screenshots/north-route-projection.json') -Destination (Join-Path $North 'north-route-projection.json')
+    Assert-NorthRouteProjection $North
+    Copy-NorthPreviousCandidate $RepositoryPath $North
     Assert-ApprovedVisualLock $RepositoryPath
     $Baseline=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/baseline-native-2026-10-21.json') -Raw | ConvertFrom-Json
     $Before=Join-Path $RepositoryPath ('Builds/Android/'+$Baseline.run)
@@ -97,7 +157,8 @@ function Write-NorthReview([string]$RepositoryPath,[string]$RunDirectory) {
     $Info | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $North 'north-review-info.json') -Encoding UTF8
     $Manifest | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $North 'north-capture-manifest.json') -Encoding UTF8
     Write-NorthComparisonJpeg $North
-    [ordered]@{candidate_revision=$Info.gitRevision;centralInputFingerprint=$Info.centralInputFingerprint;native_pairs_verified=3;native_unity=$true;visual=$null;walking=$null;town_density=$null;pixel_verified=$false;adopted=$false;comparison_sha256=(Get-FileHash -LiteralPath (Join-Path $North 'north-before-candidate.jpg') -Algorithm SHA256).Hash.ToLowerInvariant();approved_design_sha256=(Get-FileHash -LiteralPath (Join-Path $North 'approved-design.png') -Algorithm SHA256).Hash.ToLowerInvariant();reason='Review central, west, east and north actual images before accepting all four checkpoints or advancing. No APK.'} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $North 'north-adoption.json') -Encoding UTF8
+    Write-NorthRoutesJpeg $North
+    [ordered]@{candidate_revision=$Info.gitRevision;centralInputFingerprint=$Info.centralInputFingerprint;native_pairs_verified=3;native_unity=$true;visual=$null;walking=$null;town_density=$null;pixel_verified=$false;adopted=$false;route_projection_sha256=(Get-FileHash -LiteralPath (Join-Path $North 'north-route-projection.json') -Algorithm SHA256).Hash.ToLowerInvariant();route_jpeg_sha256=(Get-FileHash -LiteralPath (Join-Path $North 'north-walking-routes.jpg') -Algorithm SHA256).Hash.ToLowerInvariant();previous_candidate_revision='fabf00e7a3b8c810303e77bf16c2af180c718d5d';comparison_sha256=(Get-FileHash -LiteralPath (Join-Path $North 'north-before-candidate.jpg') -Algorithm SHA256).Hash.ToLowerInvariant();approved_design_sha256=(Get-FileHash -LiteralPath (Join-Path $North 'approved-design.png') -Algorithm SHA256).Hash.ToLowerInvariant();reason='Review central, west, east and north actual images before accepting all four checkpoints or advancing. No APK.'} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $North 'north-adoption.json') -Encoding UTF8
     $Files=@(Get-ChildItem -LiteralPath $North -File)+@(Get-ChildItem -LiteralPath (Join-Path $North 'screenshots') -File)
     $Archive=Join-Path $RunDirectory 'north-quest-review.zip';Compress-Archive -LiteralPath $Files.FullName -DestinationPath $Archive
     if((Get-Item -LiteralPath $Archive).Length -gt 32MB){throw 'North review exceeds 32 MiB; split review evidence before upload.'}

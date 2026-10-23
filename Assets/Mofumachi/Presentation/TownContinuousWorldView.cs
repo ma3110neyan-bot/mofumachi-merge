@@ -144,7 +144,7 @@ namespace Mofumachi.Presentation
         internal void SortResidents(TownActor[] ordered)
         {
             depth.Clear();
-            if(props!=null)foreach(var piece in props.Pieces)if(piece.Rect.gameObject.activeSelf)depth.Add((piece.Rect,piece.Placement.Feet.Y));
+            if(props!=null)foreach(var piece in props.Pieces)if(piece.Rect.gameObject.activeSelf)depth.Add((piece.Rect,TownNorthMasterLayout.DepthY(piece.Placement)));
             if(fountain!=null)depth.Add((fountain.transform,fountain.Feet.Y));
             if(growth!=null)growth.AddDepthEntries(depth);
             life.GetComponent<TownFacilityView>()?.AddDepthEntries(depth);

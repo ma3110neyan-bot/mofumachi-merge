@@ -1,4 +1,5 @@
 ﻿$ErrorActionPreference='Stop'
+Set-StrictMode -Version Latest
 . (Join-Path $PSScriptRoot '../visual-lock.ps1')
 . (Join-Path $PSScriptRoot '../west-review.ps1')
 . (Join-Path $PSScriptRoot '../east-review.ps1')

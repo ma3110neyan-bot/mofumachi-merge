@@ -1,4 +1,5 @@
 $ErrorActionPreference='Stop'
+Set-StrictMode -Version Latest
 . (Join-Path $PSScriptRoot '../visual-lock.ps1')
 function Reject([scriptblock]$Action){$Rejected=$false;try{& $Action}catch{$Rejected=$true};if(-not $Rejected){throw 'Unreviewed or changed approved design was accepted.'}}
 $Root=Join-Path ([IO.Path]::GetTempPath()) ('mofu-approved-design-'+[guid]::NewGuid())

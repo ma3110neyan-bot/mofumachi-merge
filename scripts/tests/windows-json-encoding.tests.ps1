@@ -1,9 +1,7 @@
 $ErrorActionPreference='Stop'
-. (Join-Path $PSScriptRoot '../visual-lock.ps1')
-. (Join-Path $PSScriptRoot '../west-review.ps1')
-. (Join-Path $PSScriptRoot '../east-review.ps1')
-. (Join-Path $PSScriptRoot '../north-review.ps1')
-. (Join-Path $PSScriptRoot '../south-review.ps1')
+Set-StrictMode -Version Latest
+# Load the production entry's exact strict mode and helper dependencies.
+. (Join-Path $PSScriptRoot '../build-android.ps1')
 $Repo=(Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
 $StagePath=Join-Path $Repo 'References/VisualLock/stage-acceptance-2026-10-21.json'
 $Before=(Get-FileHash -LiteralPath $StagePath -Algorithm SHA256).Hash

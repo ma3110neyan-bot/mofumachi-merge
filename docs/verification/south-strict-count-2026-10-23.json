@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-23",
+  "scope": "SouthReview pre-Unity Count-property failure after UTF8 repair",
+  "reported_revision": "c1ac0a10c782253f61387402211565dc750fdb87",
+  "reproduction": {
+    "strict_mode": "Latest, matching build-android.ps1",
+    "exception": "PropertyNotFoundStrict: Count",
+    "stack": [
+      "Assert-TownCheckpointApproved: scripts/visual-lock.ps1:111",
+      "Assert-SouthReviewPrerequisites: scripts/south-review.ps1:36"
+    ],
+    "red_exit_code": 1,
+    "green_exit_code": 0,
+    "also_reproduced_in_powershell7": true,
+    "windows_powershell51_execution": false
+  },
+  "root_cause": "An if-branch containing a one-element array emits a scalar string. Districts became North instead of string[]. Count is unavailable under the production strict mode. Earlier helper tests did not enable that strict mode.",
+  "fix": "Declare Districts as string[] before counting and iterating. Keep the exact same district/level/image/hash requirements.",
+  "regression": {
+    "actual_entry_helpers_loaded_by": "scripts/tests/windows-json-encoding.tests.ps1",
+    "strict_mode_now_explicit_in": [
+      "approved-design.tests.ps1",
+      "south-review.tests.ps1",
+      "windows-json-encoding.tests.ps1"
+    ],
+    "coverage": [
+      "Actual North conditional/South construction gate under StrictMode Latest and legacy Japanese decoder",
+      "Single-district North/South and five-district approval image requirements",
+      "Unapproved South/five-area gates remain closed",
+      "Synthetic source-bound South archive export under strict mode"
+    ]
+  },
+  "verification": {
+    "powershell_suites_passed": 10,
+    "powershell_suites_total": 10,
+    "all_run_with_strict_mode": "Latest",
+    "names": [
+      "android-tools",
+      "approved-design",
+      "central-review",
+      "pixel-visual-check",
+      "visual-lock",
+      "west-review",
+      "east-review",
+      "north-review",
+      "south-review",
+      "windows-json-encoding"
+    ],
+    "approval_stage_json_byte_unchanged": true,
+    "csharp_art_save_or_rules_changed": false,
+    "package_tests_use_synthetic_images_and_mock_devices": true
+  },
+  "unity_render_executed": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "five_area_integration_started": false,
+  "main_merged": false,
+  "next": "After source commit, check the actual -SouthReview entry up to its Unity-process boundary without launching Unity. User then Pulls and reruns the same command for licensed native images.",
+  "ai_next_improvements": "今回はなし。南の実画面確認を優先。"
+}

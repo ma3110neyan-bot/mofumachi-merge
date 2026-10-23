@@ -107,7 +107,7 @@ function Assert-TownCheckpointApproved([string]$RepositoryPath,[string]$Checkpoi
         foreach($Axis in @('density','cuteness','walkability','ui_readability','level_difference','world','characters')) {
             if($Approval.quality.$Axis -isnot [bool] -or $Approval.quality.$Axis -ne $true){throw "Town quality regressed or unreviewed: $Name/$Axis"}
         }
-        $Districts=if($Name -eq 'north_quest'){@('North')}elseif($Name -eq 'south_garden'){@('South')}else{@('Central','West','East','North','South')}
+        [string[]]$Districts=if($Name -eq 'north_quest'){@('North')}elseif($Name -eq 'south_garden'){@('South')}else{@('Central','West','East','North','South')}
         if(@($Approval.images).Count -ne $Districts.Count*3){throw "Town checkpoint needs Lv1/3/6 images for every district: $Name"}
         foreach($District in $Districts){foreach($Level in @(1,3,6)) {
             $Images=@($Approval.images | Where-Object {$_.district -eq $District -and $_.level -eq $Level})

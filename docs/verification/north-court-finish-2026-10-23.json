@@ -11,8 +11,8 @@
   "qa_blocked": true,
   "design_direction_approved": true,
   "implemented": true,
-  "native_unity_verified": false,
-  "native_images_of_this_source": 0,
+  "native_unity_verified": true,
+  "native_images_of_this_source": 21,
   "user_approved": false,
   "south_started": false,
   "apk_generated": false,
@@ -57,7 +57,7 @@
     "navigation_changed": false,
     "expected_uncompressed_rgba_bytes": 524288,
     "formal_character_or_atlas_art_modified": false,
-    "unity_verified": false,
+    "unity_verified": true,
     "pixel_verified": false
   },
   "local_verification": {
@@ -91,7 +91,8 @@
     "navigation_and_layout_source_diff": false,
     "raw78_preserved_byte_identical": true,
     "actual_windows_jpeg_from_received5cbc_decoded": true,
-    "new_source_windows_jpeg_or_native_render": false
+    "new_source_windows_jpeg_or_native_render": true,
+    "native_evidence_origin": "Received licensed Windows run20261023-182917-c360cabd; not cloud Editor execution."
   },
   "independent_source_review": {
     "agent": "north_mosaic_source_review_oct23",
@@ -101,11 +102,9 @@
     "native_visual_acceptance": false
   },
   "remaining": [
-    "Actual new-source North Lv1/3/6 blend,readability and cottage prominence",
-    "CWE same-source native nonregression",
-    "Observe painted flower boundaries versus real resident walking; route annotation is not gameplay evidence",
-    "Explicit North image approval before South",
-    "QA APK and Pixel3a only after later five-area checkpoint acceptance"
+    "Explicit user approval of North JPEG candidate",
+    "South only after that approval",
+    "Later5-area integration/full suite/QA APK/Pixel sustained movement,load,heat,save acceptance"
   ],
   "next_native_pass": {
     "mode": "-NorthReview",
@@ -117,5 +116,17 @@
       "east-florist-review.zip",
       "north-quest-review.zip"
     ]
+  },
+  "native_receipt_record": "References/Review/north-quest-2026-10-23-mosaic-candidate/native-review.json",
+  "native_review_verdict": "PASS_FOR_USER_IMAGE_REVIEW",
+  "new_native_receipt": {
+    "source": "ed3c5e435541e03eba33fba9e3f574099bb6f1f1",
+    "run": "20261023-182917-c360cabd",
+    "tests_passed": 12,
+    "tests_total": 12,
+    "raw_png": 21,
+    "cwe_frames_identical_to_prior": 14,
+    "visual_pass_for_review": true,
+    "user_approved": false
   }
 }

@@ -21,6 +21,7 @@
   "navigation_changed": false,
   "expected_uncompressed_rgba_bytes": 524288,
   "formal_character_or_atlas_art_modified": false,
-  "unity_verified": false,
-  "pixel_verified": false
+  "unity_verified": true,
+  "pixel_verified": false,
+  "native_receipt_record": "References/Review/north-quest-2026-10-23-mosaic-candidate/native-review.json"
 }

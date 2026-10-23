@@ -1,0 +1,122 @@
+{
+  "date": "2026-10-23",
+  "reviewed_revision": "ed3c5e435541e03eba33fba9e3f574099bb6f1f1",
+  "run": "20261023-182917-c360cabd",
+  "gitRevision": "ed3c5e435541e03eba33fba9e3f574099bb6f1f1",
+  "productFingerprint": "cc9927b1144fd77932218ea5719eba85021a702ce312b132d4c3711e16e8703a",
+  "centralInputFingerprint": "a57be9d4a85d420dc3ce5d32b50266289a04f290c05ddbf5efb1e8aaca29ae12",
+  "identity_verified": true,
+  "native_unity_verified": true,
+  "native_tests": {
+    "total": 12,
+    "passed": 12,
+    "failed": 0,
+    "skipped": 0,
+    "scope": "One run duplicated in four ZIPs, not48; Central2,West3,East3,North3,Capture1. Not the full native suite."
+  },
+  "native_images": 21,
+  "raw_files_preserved": 78,
+  "integrity_record": "receipt-integrity.json",
+  "formal_visual_lock_intact": true,
+  "before_frames_verified": 12,
+  "held_north_frames_verified": 3,
+  "jpeg_comparisons_decoded_and_hash_verified": 4,
+  "route_projection_and_jpeg_verified": true,
+  "route_is_gameplay_trace": false,
+  "jpeg_exports": [
+    {
+      "district": "North",
+      "level": 1,
+      "file": "References/Review/north-quest-2026-10-23-mosaic-candidate/north/north-lv1.jpg",
+      "sha256": "6d1a2d7d041af66d382e8058e9bb997e1f388e42ea4b9c4fa73a41ec33ab46ea",
+      "source_png": "References/Review/north-quest-2026-10-23-mosaic-candidate/north/screenshots/04-town-lv1-North.png",
+      "source_png_sha256": "d9e38ffca62ccea52573ec19fdd8324541c573166daeaa76a25de48a16542513",
+      "operation": "JPEG encoding only;720x1280,no overlays or resizing",
+      "bytes": 804124
+    },
+    {
+      "district": "North",
+      "level": 3,
+      "file": "References/Review/north-quest-2026-10-23-mosaic-candidate/north/north-lv3.jpg",
+      "sha256": "87eafa93b84912f72923307f922e9e1bb91ec993de7a1cd2209a49c1b799f166",
+      "source_png": "References/Review/north-quest-2026-10-23-mosaic-candidate/north/screenshots/04-town-lv3-North.png",
+      "source_png_sha256": "c26e57e48c0d3ca8d1ed61d4ee7262ace68c4d3bd046a5d69c72498308ff3b6a",
+      "operation": "JPEG encoding only;720x1280,no overlays or resizing",
+      "bytes": 816510
+    },
+    {
+      "district": "North",
+      "level": 6,
+      "file": "References/Review/north-quest-2026-10-23-mosaic-candidate/north/north-lv6.jpg",
+      "sha256": "b69f2dfe18cf46e31d7bc8aa7937c79970a45123e09cd401badef66b2ce6b1c3",
+      "source_png": "References/Review/north-quest-2026-10-23-mosaic-candidate/north/screenshots/04-town-lv6-North.png",
+      "source_png_sha256": "5523228454e65b785b2ccba55dcce8a80ee6d3a3d2c3d143fb5241db3736a6e1",
+      "operation": "JPEG encoding only;720x1280,no overlays or resizing",
+      "bytes": 834631
+    }
+  ],
+  "cwe_review": {
+    "visual": true,
+    "town_density": true,
+    "same_as_last_native_5cbc": 14,
+    "changed_since_last_native": 1,
+    "changed_frame": "central/screenshots/04-town-lv1-Central.png",
+    "changed_region": [
+      298,
+      499,
+      638,
+      915
+    ],
+    "finding": "Only CentralLv1 resident animation poses differ. Landscape/HUD unchanged. Remaining14 raw CWE frames byte-identical to reviewed5cbc. Accepted97 quality floor retained via previous pair review."
+  },
+  "north_review": {
+    "verdict": "PASS_FOR_USER_IMAGE_REVIEW",
+    "native_functional": true,
+    "visual": true,
+    "town_density": true,
+    "walking": true,
+    "arrival_readability": true,
+    "deliberate_second_tap": true,
+    "nameplate_readability": true,
+    "unity_stage_accepted": true,
+    "user_approved": false,
+    "critical": 0,
+    "important": 0,
+    "blocking_minor": 0,
+    "prior_hold_resolved": {
+      "id": "N2",
+      "pixel_region": [
+        223,
+        676,
+        497,
+        807
+      ],
+      "finding": "Filled tesserae/grout/envelope/heart/floral motif now reads as finished flush pavement; previous guide-like treatment removed."
+    },
+    "observations": [
+      "Cottage remains the main attraction; board/mailbox/parcels/letter mosaic reinforce requests and deliveries.",
+      "Lv1 already planted and decorated; Lv3 stronger display/flags; Lv6 tall floral arch and rear bunting.",
+      "Momo and name are readable during walking/arrival. Miel and name clear at connection.",
+      "Existing broad passing area and both side routes retained. Functional native cases exercise side walks,multiple residents,arrival/second tap and no save mutations."
+    ],
+    "limitations": [
+      "Stills and annotated navigation routes do not prove sustained natural NPC avoidance or Pixel load.",
+      "Arrival bubble and Momo partly cover the door; native input/second-tap case passes, but real-device target comfort remains to be checked.",
+      "No Pixel screenshots,FPS,heat,real save/restart acceptance or QA APK in this run."
+    ]
+  },
+  "independent_visual_review": {
+    "agent": "north_mosaic_native_gate_oct23",
+    "verdict": "PASS_FOR_USER_IMAGE_REVIEW",
+    "critical": 0,
+    "important": 0,
+    "blocking_minor": 0,
+    "scope": "North6 raw frames,Before/held levels,prior hold,formalLock,accepted CWE quality references. No user approval inferred."
+  },
+  "adopted": false,
+  "user_approved": false,
+  "south_started": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "next": "Obtain explicit user approval of these exact North Lv1/3/6 JPEGs before South. No additional rerender requested for this unchanged candidate."
+}

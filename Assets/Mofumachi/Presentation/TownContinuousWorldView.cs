@@ -102,7 +102,14 @@ namespace Mofumachi.Presentation
             bool sceneChanged=!sceneReady||!renderedCenter.Equals(Camera.Center)||renderedSize!=bounds.size;
             if(sceneChanged){ground.Refresh();centralGround.Refresh();westGround.Refresh();eastGround.Refresh();northGround.Refresh();props.Refresh();fountain?.Refresh();renderedCenter=Camera.Center;renderedSize=bounds.size;sceneReady=true;}
             foreach(var actor in life.Actors)
-            {var p=Local(actor.WorldPosition);var r=((RectTransform)life.transform).rect;actor.SetRegionVisible(p.x>r.xMin-64&&p.x<r.xMax+64&&p.y>r.yMin-90&&p.y<r.yMax+90);}
+            {
+                var p=Local(actor.WorldPosition);var r=((RectTransform)life.transform).rect;
+                // Restore/pan can refresh the scenery before the next actor
+                // animation frame. Reuse the culling projection now, without
+                // moving the model or advancing the character pose.
+                var rect=(RectTransform)actor.transform;if(rect.anchoredPosition!=p)rect.anchoredPosition=p;
+                actor.SetRegionVisible(p.x>r.xMin-64&&p.x<r.xMax+64&&p.y>r.yMin-90&&p.y<r.yMax+90);
+            }
             var viewing=FollowingHero?Model.Hero.Region:lookRegion??TownWorldLayout.RegionAt(Camera.Center);life.Regions.NotifyWorldRegion(viewing);
             var actorBounds=((RectTransform)life.transform).rect;
             for(int sign=0;sign<roadLabels.Count;sign++)

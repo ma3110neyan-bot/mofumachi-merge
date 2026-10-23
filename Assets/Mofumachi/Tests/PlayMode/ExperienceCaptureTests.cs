@@ -45,6 +45,12 @@ namespace Mofumachi.Tests
                 // Manual simulation deliberately avoids yielding a frame. Run the
                 // existing location-only LateUpdate at the same simulated instant.
                 foreach(var region in Flow.GetComponentsInChildren<TownRegionControls>())region.SendMessage("LateUpdate",SendMessageOptions.RequireReceiver);
+                foreach(var town in Flow.GetComponentsInChildren<TownLifeView>())
+                {
+                    town.World.Refresh();town.RefreshWorldPresentation();
+                    foreach(var actor in town.Actors.Where(a=>a.RegionVisible))
+                        Assert.That(Vector2.Distance(((RectTransform)actor.transform).anchoredPosition,town.World.Local(actor.WorldPosition)),Is.LessThan(.01f),"Direct capture must not mix the current scenery with stale actor positions");
+                }
                 Canvas.ForceUpdateCanvases();
                 captureCamera.Render();RenderTexture.active=target;image=new Texture2D(720,1280,TextureFormat.RGB24,false);image.ReadPixels(new Rect(0,0,720,1280),0,0);image.Apply();return image;
             }
@@ -65,7 +71,16 @@ namespace Mofumachi.Tests
                 var colors=Enumerable.Range(0,12).SelectMany(x=>Enumerable.Range(0,20).Select(y=>(Color32)image.GetPixel(30+x*55,30+y*60))).Distinct().Count();
                 Assert.That(colors,Is.GreaterThan(12),"Portrait rendering must contain more than a clear background");
                 if(expectedDistrict.HasValue)Assert.That(Flow.GetComponentsInChildren<Text>().Single(label=>label.name=="Town region name").text,Is.EqualTo(TownDistrictLayout.Name(expectedDistrict.Value)),"Cardinal arrival capture must show the current district ribbon");
-                if(directory!=null){Directory.CreateDirectory(directory);File.WriteAllBytes(Path.Combine(directory,name+".png"),image.EncodeToPNG());}
+                if(directory!=null)
+                {
+                    Directory.CreateDirectory(directory);File.WriteAllBytes(Path.Combine(directory,name+".png"),image.EncodeToPNG());
+                    foreach(var town in Flow.GetComponentsInChildren<TownLifeView>())
+                    {
+                        var camera=town.World.Camera.Center;
+                        string actors=string.Join(";",town.Actors.Select(a=>FormattableString.Invariant($"{a.CharacterId}@world({a.WorldPosition.X:F4},{a.WorldPosition.Y:F4})/view({((RectTransform)a.transform).anchoredPosition.x:F2},{((RectTransform)a.transform).anchoredPosition.y:F2})/visible={a.RegionVisible}")));
+                        Debug.Log(FormattableString.Invariant($"MOFUMACHI_CAPTURE_WORLD {name} hero={town.World.Model.Hero.Id} camera=({camera.X:F4},{camera.Y:F4}) {actors}"));
+                    }
+                }
                 Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));
             }
             finally{UnityEngine.Object.DestroyImmediate(image);}

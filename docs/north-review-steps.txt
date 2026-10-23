@@ -1,14 +1,15 @@
 もふまちメルジュ：北の依頼小屋・Unity確認手順
-2026-10-22
+2026-10-23：接続画像の描画同期修正版
 
 状態：実装済み・Unity実画面未確認・APK未生成・Pixel 3a未確認。
 この手順ではAPKを作りません。
 
 1. GitHub Desktopで feat/daily-world-pass-20261016 を選び、Pullしてください。
 2. Unity Editorを閉じてください。
-3. PowerShellへ次の2行を貼り付けて実行してください。
+3. PowerShellへ次の3行を貼り付けて実行してください。
 
 Set-Location -LiteralPath "C:\Users\User\Desktop\Mofumachi\mofumachi-merge"
+if (-not (Select-String -LiteralPath ".\Assets\Mofumachi\Tests\PlayMode\ExperienceCaptureTests.cs" -SimpleMatch "MOFUMACHI_CAPTURE_WORLD" -Quiet)) { throw "GitHub Desktopで描画同期修正版をPullしてください。" }
 powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\build-android.ps1" -NorthReview
 
 4. 成功すると Builds\NorthReview\日時-ID のフォルダーが開きます。

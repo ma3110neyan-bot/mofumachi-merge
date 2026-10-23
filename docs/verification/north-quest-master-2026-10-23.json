@@ -1,0 +1,115 @@
+{
+  "date": "2026-10-23",
+  "received_source": "fabf00e7a3b8c810303e77bf16c2af180c718d5d",
+  "received_run": "20261023-094203-35c07a1f",
+  "received_render_input_fingerprint": "ff5a1aa43497e966b4515e5fb41fd0ed2343ab4a1ee3ff4406eecfb31884ba86",
+  "received_native": {
+    "tests_passed": 12,
+    "actual_png": 21,
+    "before_pairs": 12,
+    "same_xml_in_four_zips_not_48_tests": true,
+    "all_raw_artifacts_retained": 68
+  },
+  "native_visual_review": {
+    "record": "References/Review/north-quest-2026-10-23-candidate/native-review.json",
+    "reviewer": "north_actual_visual_review_oct23",
+    "central": "PASS",
+    "west": "PASS",
+    "east": "PASS",
+    "north_scenery": "PASS",
+    "north": "HOLD",
+    "critical": 0,
+    "important": 1,
+    "minor": 2,
+    "correction": "Static frame establishes Momo/Miel overlap; original guided/mostface wording overstated; no persistent NPC-collision claim"
+  },
+  "current_fix": {
+    "base_revision": "fabf00e7a3b8c810303e77bf16c2af180c718d5d",
+    "implemented": true,
+    "render_input_fingerprint": "21010c3e12bcb6a6c7ddb6bd90b7d347d25ddbc9c3a521f13f6a1670c98041a9",
+    "native_verified": false,
+    "native_expected_tests": 12,
+    "scope": "Immediate actor RectTransform projection on world refresh plus zero-time pose/depth/names before direct render. No model move or world simulation for a screenshot. Existing North case asserts pan/restore/current projection and unchanged model/save."
+  },
+  "local_pure_tests": {
+    "total": "276",
+    "executed": "276",
+    "passed": "276",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "unity_dll_compile": {
+    "assemblies": 6,
+    "warnings": 0,
+    "errors": 0,
+    "is_native_editor_execution": false
+  },
+  "powershell_suites_passed": [
+    "android-tools",
+    "approved-design",
+    "central-review",
+    "pixel-visual-check",
+    "visual-lock",
+    "west-review",
+    "east-review",
+    "north-review"
+  ],
+  "native_regression": {
+    "added_to_existing_case": true,
+    "new_case_count": false,
+    "strengthened_native_red_or_green_executed": false,
+    "attempt_exit_code": 198,
+    "reason": "No valid cloud Unity Editor license; test XML not generated",
+    "received_image_is_observed_defect_evidence": true,
+    "fixed_source_native_verified": false
+  },
+  "same_run_replay_required": {
+    "tests": 12,
+    "png": 21,
+    "zips": [
+      "central-master-review.zip",
+      "west-cafe-review.zip",
+      "east-florist-review.zip",
+      "north-quest-review.zip"
+    ]
+  },
+  "frozen_inputs_preserved": 153,
+  "original_art_scenery_navigation_save_rewards_rules_pace_changed": false,
+  "source_fix_review": "Author source trace/fix pass after one independent actual-image review; no second independent review claimed",
+  "north_user_approved": false,
+  "south_started": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "deferred": [
+    "Accepted-style arrival cue/player partly obscure door/facade while title/instruction/name remain readable",
+    "Repeated paving/open forecourt pattern, refine at joins/UI without reducing walking space or density"
+  ],
+  "logs_sha256": {
+    "android-tools-tests.log": "af0c0354930a9e61349d709059527adf7c58f3aa92a9a5cdb4e636b7c026c5cb",
+    "approved-design-tests.log": "31a02baec52e8f3426ca1a673605cb4f119e9d9c0088ea1906829c1545e3c8bf",
+    "central-review-tests.log": "f7c476226c565c2ab5e0c4d07aab225daa185c0d2ea97dafe81874af4d188e96",
+    "current-fix-gates.log": "0becb174480dc409201b4594953fee07d0cab6e761fb99f4d89ce0851681215a",
+    "east-review-tests.log": "2a9f33eed6eb0709a29327ce0ac9c14ed4467fdbd45177332102bb07d62d5b5f",
+    "native-gates.log": "abde3ae7e4a5c2612d8aa797929f73aa754d298adadef5f423f3b6a01ba33cd5",
+    "north-review-tests.log": "42fda90f701adc150e438e0dd11d45872c918d3d875290b52e08c789b273346f",
+    "pixel-visual-check-tests.log": "1c280dd589e229d4cce103bab61bb0ee699ae04cba3a1fb24cfe9038c67b1de1",
+    "projection-pure-full.log": "c1ce1198e0df7630fa54b59cdabb3b06dbe5b4ff0d04c314169e693ebe534144",
+    "projection-regression-editor.log": "d6c216563bec49f6f950eaaeac5e9a417c83147602db4c68708ad76cdc3ccb8b",
+    "projection-regression-stdout.log": "9ec5fc57151dbedd5f8f26ffe5fb142aa044fc9e32b2e223cdcdfabd74738d49",
+    "projection-unity-dll.log": "7dcc4706ac2e022ce74e7f05f833972e331730a815ad00b87f5fb6ed3dfee15d",
+    "visual-lock-tests.log": "a62cd2021e3701deb24665707fc3f56326132835aa84a41e9d7097a6cd114524",
+    "west-review-tests.log": "1269ef56639b230a0dccb403afc59a5bc385aa6e9c51c5bc8466bd3c1a76db86"
+  }
+}

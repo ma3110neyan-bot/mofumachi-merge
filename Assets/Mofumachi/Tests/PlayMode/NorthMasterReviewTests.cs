@@ -52,8 +52,15 @@ namespace Mofumachi.Tests
             {
                 Canvas.ForceUpdateCanvases();var mesh=ground.canvasRenderer.GetMesh();Assert.That(mesh.vertexCount,Is.EqualTo(4));
                 Assert.That(Vector2.Distance(mesh.vertices[0],life.World.Local(new TownPoint(TownNorthMasterLayout.Left,TownNorthMasterLayout.Bottom),ground.rectTransform)),Is.LessThan(.01f));
+                foreach(var actor in life.Actors)
+                    Assert.That(Vector2.Distance(((RectTransform)actor.transform).anchoredPosition,life.World.Local(actor.WorldPosition)),Is.LessThan(.01f),"Camera/restore refresh must project every actor immediately, before another simulation frame: "+actor.CharacterId);
             }
-            AssertProjection();life.World.Pan(new Vector2(36,-20));AssertProjection();
+            AssertProjection();var positions=life.World.Model.Residents.Select(r=>r.Position).ToArray();
+            string saved=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
+            life.World.Pan(new Vector2(36,-20));AssertProjection();life.RefreshWorldPresentation();
+            Assert.That(life.World.Model.Residents.Select(r=>r.Position),Is.EqualTo(positions),"Presentation refresh must not move residents to improve a screenshot");
+            Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(saved));
+            var snapshot=life.World.Capture();life.World.FastTravel(TownDistrictId.Central);life.World.Restore(snapshot);AssertProjection();
             foreach(var stop in new[]{new TownPoint(-.50f,1.78f),new TownPoint(.50f,1.78f),new TownPoint(-.42f,2.60f),new TownPoint(.42f,2.60f),TownWorldMap.Place("bench-left"),TownWorldMap.Place("home-front"),TownWorldMap.Place("quest"),TownWorldMap.Place("square")})
             {
                 Assert.That(life.World.GuidePoint(stop),Is.True);

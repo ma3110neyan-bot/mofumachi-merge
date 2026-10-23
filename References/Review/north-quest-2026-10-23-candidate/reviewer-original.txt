@@ -1,0 +1,31 @@
+Read-only actual-image review — 2026-10-23
+
+Candidate: fabf00e7a3b8c810303e77bf16c2af180c718d5d; native run 20261023-094203-35c07a1f; normalized render digest ff5a1aa43497e966b4515e5fb41fd0ed2343ab4a1ee3ff4406eecfb31884ba86.
+
+Scope: inspected locally at native 720x1280 all six North PNGs, all three North Before PNGs, approved-design.png, and north-before-candidate.jpg. The approved image is the formal CENTRAL DESIGN quality reference, not a North implementation image. Compared each of the five changed prior-area PNGs with its accepted97aac99 counterpart. Accepted West/East cottage views and arrival framing were consulted for quality/overlap comparison; the unchanged ten prior-area PNGs retain their previous accepted visual judgment. No game code, raw capture, adoption record, or user-approval record was changed.
+
+VISUAL CANDIDATE STATUS (not adoption or user approval)
+Central: PASS — no introduced visual regression in changed Lv1/Lv3/Lv6 frames. Dense flowers, fountain ring, benches, lights, buildings, paving, broad paths, UI and character sizes remain intact. The slight top-edge North scenery changes do not remove readable content; Lv1 resident pose/state variation does not cover either モモ or ルル name.
+West: PASS — changed west-walking.png retains the cafe, broad forecourt, furniture, landscape, character scale and readable モモ name. Top-right scenery change has no visible information loss. Other five images retain the accepted judgment.
+East: PASS — changed east-walking.png retains the flower shop, broad forecourt, landscape, furniture, character scale and readable モモ name. Top-left scenery change has no visible information loss. Other five images retain the accepted judgment, including previously verified フィオ name visibility.
+North: HOLD — the scenery reaches the accepted areas’ general art/density/finish floor, but the new connection frame has Important guided-character occlusion below.
+
+CRITICAL: 0.
+
+IMPORTANT: 1.
+N1 — north/north-connection.png, center path approximately x242–408, y535–740: ミエル stands in front of the guided pink モモ. Most of モモ’s face and torso are hidden; the visible pink hat/left outline must be used to infer her position. This loses the guided character’s facial/body information at the new North connection. It is visible in the actual frame, not inferred from test results. This is a defect in the new North evidence, not a regression claimed for any byte-identical accepted West/East frame. Resolve the connection overlap and obtain a same-condition native frame with the guided character readable before visual PASS. This screenshot alone cannot establish whether the cause is movement, NPC spacing, or capture timing.
+
+MINOR / CARRIED VISUAL WEAKNESSES:
+M1 — north/north-door-arrived.png, approximately x248–538,y360–600: the entry callout and モモ overlap much of the closed door/front facade. The facility title, instruction 「ドアをタップして入る」, モモ face and full モモ name remain readable, and a door edge/threshold remains visible. This is similar to the accepted facility-arrival overlay convention; it is not classified as lost required text. Target visibility could be improved during the connection/UI finishing step.
+M2 — North Lv1/Lv3/Lv6, open forecourt approximately x285–615,y550–930: the repeated stone texture and large plain paving interval are noticeable. This repeats the accepted West/East presentation style rather than introducing a new art direction or a material quality deficit. Preserve the broad-looking walking space and existing density when refining it.
+
+NORTH STRENGTHS / REQUIREMENT CHECK:
+- Before’s bare grass and narrow branching path have become a finished flower-bordered square at Lv1. Cottage, board/mailbox, curved planted ring, side bench and lights are legible destinations/landmarks; no bare growth-reservation grass dominates the scene.
+- Lv3 strengthens both side flower/light beds; Lv6 adds roof bunting and the flower arch. Differences are useful and visible, though Lv1-to-Lv3 is quieter than Lv3-to-Lv6.
+- The cottage door is clear in all three distant level views. The left board/mailbox remain visually identifiable at every level, including Lv6; added flowers do not erase them.
+- Both side lanes and the large forecourt look open; the south approach connects visually to Central through matching stone, flower borders and house vocabulary. Static frames support visual continuity only.
+- north-walking.png and north-door-arrived.png show モモ’s face and complete name. Lv6’s low foreground arch crosses the lower part of ミエル but leaves her face visible; no North level-view name text is visibly covered because no name label is presented in those three captures.
+- Art, warm color, character scale and HUD amount are consistent with accepted Central/West/East candidates. North is not being held for insufficient density/cuteness or because its layout differs from the CENTRAL design reference.
+
+LIMITS / NEXT GATE:
+This is static native-image judgment. The supplied identity results record 12 native cases (the same XML duplicated in four ZIPs does not become 48 cases), 21 decoded PNGs, Before/reference/JPEG checks; those facts do not clear N1 or constitute visual/user acceptance. Movement quality, collision/path freedom, NPC avoidance over time, animations, touch target usability, FPS, memory/thermal behavior, APK and Pixel 3a experience remain unjudged by this review. North user approval is still absent. South must remain blocked until North actual-image quality and explicit user approval both pass. Raw NOT ADOPTED metadata remains authoritative as raw capture state.

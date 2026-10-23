@@ -1,0 +1,25 @@
+﻿{
+    "gitRevision":  "fabf00e7a3b8c810303e77bf16c2af180c718d5d",
+    "productFingerprint":  "c589018f59f80f020bc985d8af97abc12ad2ad23ed116b4802cf39626460d413",
+    "centralInputFingerprint":  "ff5a1aa43497e966b4515e5fb41fd0ed2343ab4a1ee3ff4406eecfb31884ba86",
+    "scope":  "central native Unity fixture; not Pixel",
+    "width":  720,
+    "height":  1280,
+    "images":  [
+                   {
+                       "file":  "04-town-lv1-Central.png",
+                       "bytes":  1813971,
+                       "sha256":  "42158e761cc11de7b759eb1b2463d3aea53d65c3d6e4e434b5109827bbe9c33a"
+                   },
+                   {
+                       "file":  "04-town-lv3-Central.png",
+                       "bytes":  1828353,
+                       "sha256":  "319d74ca8367c3c989f6c0892a1ec40ab37a2624dddd6ded72f6c01a1dc7d6b3"
+                   },
+                   {
+                       "file":  "04-town-lv6-Central.png",
+                       "bytes":  1835254,
+                       "sha256":  "bf63b84ecea52be251582f1a65f016f312c42c8ce4ff9889b9c03f1e20b51148"
+                   }
+               ]
+}

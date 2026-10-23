@@ -6,18 +6,19 @@
     "walking": false,
     "reviewed_candidate": "97aac99713859e721e103371f27f12fa541b778e",
     "native_image_count": 0,
-    "status": "North shared-input candidate implemented; current-source four-area replay pending. Accepted97aac99 record is historical sequencing proof, not acceptance of changed inputs.",
+    "status": "Received fabf00e native/images PASS; projection-fix current source still unverified. Preserve accepted97 quality reference.",
     "review_directory": "References/Review/east-florist-2026-10-22-accepted/central",
     "central_input_fingerprint": "5e419d0348d5897a3378d228a5afcea388aac02e654990c0770c9bb6dda4bbb8",
     "last_review": {
-      "candidate": "97aac99713859e721e103371f27f12fa541b778e",
-      "run": "20261022-193224-39bef67c",
+      "candidate": "fabf00e7a3b8c810303e77bf16c2af180c718d5d",
+      "run": "20261023-094203-35c07a1f",
       "native_unity": true,
       "visual": true,
       "town_density": true,
       "walking": true,
       "unity_stage_accepted": true,
-      "record": "References/Review/east-florist-2026-10-22-accepted/native-review.json"
+      "record": "References/Review/north-quest-2026-10-23-candidate/native-review.json",
+      "scope": "Historical received fabf00e; later projection-fix inputs need new native replay"
     }
   },
   "remaining_sequence": [
@@ -38,15 +39,14 @@
   "pixel_verified": false,
   "adopted": false,
   "last_review": {
-    "candidate": "97aac99713859e721e103371f27f12fa541b778e",
-    "run": "20261022-193224-39bef67c",
+    "candidate": "fabf00e7a3b8c810303e77bf16c2af180c718d5d",
+    "run": "20261023-094203-35c07a1f",
     "native_unity": true,
-    "native_image_count": 3,
-    "visual": true,
-    "town_density": true,
-    "walking": true,
-    "central_unity_stage_accepted": true,
-    "record": "References/Review/east-florist-2026-10-22-accepted/native-review.json"
+    "native_image_count": 21,
+    "central_west_east_visual": true,
+    "north_visual": false,
+    "north_user_approved": false,
+    "record": "References/Review/north-quest-2026-10-23-candidate/native-review.json"
   },
   "previous_review": {
     "candidate": "2fcab4af03b6953bdd2a0108af954da68d1d67af",
@@ -66,7 +66,7 @@
     "visual": false,
     "town_density": false,
     "walking": false,
-    "status": "North shared-input candidate implemented; current-source four-area replay pending. Accepted97aac99 record is historical sequencing proof, not acceptance of changed inputs.",
+    "status": "Received fabf00e native/images PASS; projection-fix current source still unverified. Preserve accepted97 quality reference.",
     "arrival_readability": false,
     "deliberate_second_tap": false,
     "unity_stage_accepted": false,
@@ -87,14 +87,15 @@
       "record": "References/Review/west-cafe-2026-10-22/native-review.json"
     },
     "last_review": {
-      "candidate": "97aac99713859e721e103371f27f12fa541b778e",
-      "run": "20261022-193224-39bef67c",
+      "candidate": "fabf00e7a3b8c810303e77bf16c2af180c718d5d",
+      "run": "20261023-094203-35c07a1f",
       "native_unity": true,
       "visual": true,
       "town_density": true,
       "walking": true,
       "unity_stage_accepted": true,
-      "record": "References/Review/east-florist-2026-10-22-accepted/native-review.json"
+      "record": "References/Review/north-quest-2026-10-23-candidate/native-review.json",
+      "scope": "Historical received fabf00e; later projection-fix inputs need new native replay"
     }
   },
   "historical_central_reviews": [
@@ -163,17 +164,18 @@
     "deliberate_second_tap": false,
     "unity_stage_accepted": false,
     "native_image_count": 0,
-    "status": "North shared-input candidate implemented; current-source four-area replay pending. Accepted97aac99 record is historical sequencing proof, not acceptance of changed inputs.",
+    "status": "Received fabf00e native/images PASS; projection-fix current source still unverified. Preserve accepted97 quality reference.",
     "prerequisite_review": "References/Review/west-cafe-2026-10-22-accepted/native-review.json",
     "last_review": {
-      "candidate": "97aac99713859e721e103371f27f12fa541b778e",
-      "run": "20261022-193224-39bef67c",
+      "candidate": "fabf00e7a3b8c810303e77bf16c2af180c718d5d",
+      "run": "20261023-094203-35c07a1f",
       "native_unity": true,
-      "native_image_count": 6,
       "visual": true,
-      "nameplate_readability": true,
+      "town_density": true,
+      "walking": true,
       "unity_stage_accepted": true,
-      "record": "References/Review/east-florist-2026-10-22-accepted/native-review.json"
+      "record": "References/Review/north-quest-2026-10-23-candidate/native-review.json",
+      "scope": "Historical received fabf00e; later projection-fix inputs need new native replay"
     },
     "previous_review": {
       "candidate": "28487824da0be859bae2313f164bbc806a3bbee2",
@@ -204,8 +206,20 @@
     "nameplate_readability": false,
     "unity_stage_accepted": false,
     "native_image_count": 0,
-    "status": "Implemented; native comparison and Pixel unverified",
-    "prerequisite_review": "References/Review/east-florist-2026-10-22-accepted/native-review.json"
+    "status": "Projection synchronization fix implemented; corrected Unity images and explicit North user approval pending; received fabf00e North HOLD",
+    "prerequisite_review": "References/Review/east-florist-2026-10-22-accepted/native-review.json",
+    "last_review": {
+      "candidate": "fabf00e7a3b8c810303e77bf16c2af180c718d5d",
+      "run": "20261023-094203-35c07a1f",
+      "native_unity": true,
+      "native_image_count": 6,
+      "scenery_quality": true,
+      "visual": false,
+      "unity_stage_accepted": false,
+      "reason": "N1 unsettled actor presentation in connection frame; source fix implemented, new native proof required",
+      "record": "References/Review/north-quest-2026-10-23-candidate/native-review.json"
+    },
+    "current_fix_render_input_fingerprint": "21010c3e12bcb6a6c7ddb6bd90b7d347d25ddbc9c3a521f13f6a1670c98041a9"
   },
   "quality_reference": {
     "policy": "2026-10-22 user quality freeze and five-area completion directive",

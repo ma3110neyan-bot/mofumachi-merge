@@ -1,0 +1,14 @@
+﻿{
+    "candidate_revision":  "fabf00e7a3b8c810303e77bf16c2af180c718d5d",
+    "centralInputFingerprint":  "ff5a1aa43497e966b4515e5fb41fd0ed2343ab4a1ee3ff4406eecfb31884ba86",
+    "native_pairs_verified":  3,
+    "native_unity":  true,
+    "visual":  null,
+    "walking":  null,
+    "town_density":  null,
+    "pixel_verified":  false,
+    "adopted":  false,
+    "comparison_sha256":  "837de60fb23239b0f2da500d14b95dc73da60a74f4d8fae609705a97e35c5a31",
+    "approved_design_sha256":  "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf",
+    "reason":  "Review central, west and east actual images before accepting all three checkpoints or advancing. No APK."
+}

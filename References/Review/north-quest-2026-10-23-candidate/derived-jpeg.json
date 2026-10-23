@@ -1,0 +1,9 @@
+{
+  "source": "north/screenshots/north-connection.png",
+  "source_sha256": "0d9bebdb448798001e2241ee1d065d2b012c538998df953be6cc83e9dc8aac6c",
+  "derived": "north/north-connection-review.jpg",
+  "derived_sha256": "5d4106ce2f80e6bccd549b2737807b19883cdd29854e8211a13f98eb40fc2f82",
+  "method": "JPEG format conversion only; original native PNG retained unchanged",
+  "native_capture_count_unchanged": 21,
+  "adopted": false
+}

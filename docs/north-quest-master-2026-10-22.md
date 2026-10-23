@@ -2,6 +2,8 @@
 
 最上位手順は [5エリア品質固定と画像承認](town-quality-checkpoints-2026-10-22.md)。中央・西・東Candidateを維持し、北候補→南候補→5地区統合候補の各段階で画像に対するユーザー承認を得てから次へ進む。北の実Unity結果もまだ未取得。
 
+2026-10-23追記：受領fabf00e／20261023-094203-35c07a1fはUnity12/12成功・21実PNGを照合。中央／西／東の後退は確認されなかった。北の景観は基準に沿うが、接続画像のキャラ表示が揃っていないため採用保留。[受領原本と判定](../References/Review/north-quest-2026-10-23-candidate/native-review.json) を保持する。カメラ変更後の投影と、撮影前のゼロ時間描画更新を修正した。修正後の実Unity／Pixelは未確認。北が未承認のため南へ進めない。以下の「未取得」は修正後の結果を指す。
+
 中央・西・東の修正版97aac99／20261022-193224-39bef67cはUnity工程を通過し、フィオの名前もLv1／3／6すべてで読めることを確認した。原本と判定は `References/Review/east-florist-2026-10-22-accepted/native-review.json` に保存。今回の北はその後の共有描画／歩行入力を変更するため、前版の合格を新版へ引き継がない。
 
 ## 実装した範囲
@@ -28,6 +30,7 @@ GitHub Desktopで `feat/daily-world-pass-20261016` を選択してPullし、Unit
 
 ```powershell
 Set-Location -LiteralPath "C:\Users\User\Desktop\Mofumachi\mofumachi-merge"
+if (-not (Select-String -LiteralPath ".\Assets\Mofumachi\Tests\PlayMode\ExperienceCaptureTests.cs" -SimpleMatch "MOFUMACHI_CAPTURE_WORLD" -Quiet)) { throw "GitHub Desktopで描画同期修正版をPullしてください。" }
 powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\build-android.ps1" -NorthReview
 ```
 

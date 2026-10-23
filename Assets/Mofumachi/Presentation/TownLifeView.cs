@@ -119,6 +119,14 @@ namespace Mofumachi.Presentation
         }
         public bool DismissOutings(){if(outings==null)return false;HideOutings();return true;}
         private void Update()=>AdvanceFrame(Time.unscaledDeltaTime);
+        public void RefreshWorldPresentation()
+        {
+            if(actors==null||World?.IsReady!=true)return;
+            // A direct render after restoring/panning needs the same pose,
+            // depth and labels as the live frame, with no simulation elapsed.
+            foreach(var actor in actors)actor.Render(clock.Alpha,0);
+            World.SortResidents(actors);RefreshResidentNames();PositionBubble();
+        }
         public void AdvanceFrame(float seconds)
         {
             if(context==null||actors==null)return;if(!CanSimulate){CancelInteraction();return;}

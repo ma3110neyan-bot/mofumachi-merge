@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-23",
+  "scope": "North-only flush letter/floral stone mosaic. Generated original environmental asset; not an actual Unity screenshot or user-approved candidate.",
+  "source": "image_gen,exec-9ae771b0-8048-419e-a53e-89f91c40a18d.png",
+  "resource": "Assets/Mofumachi/Resources/Mofumachi/TownNorthCourtMosaic.png",
+  "sha256": "b7a7289a5a8446aca121ec7358c2a410383d4ca78d4ef7d3873785d5f5f12332",
+  "native_pixels": [
+    1774,
+    887
+  ],
+  "import_max": 512,
+  "readable": false,
+  "mipmaps": false,
+  "shared_static_texture": true,
+  "world_bounds": [
+    -0.21,
+    1.765,
+    0.21,
+    1.975
+  ],
+  "navigation_changed": false,
+  "expected_uncompressed_rgba_bytes": 524288,
+  "formal_character_or_atlas_art_modified": false,
+  "unity_verified": false,
+  "pixel_verified": false
+}

@@ -6,19 +6,20 @@
     "walking": false,
     "reviewed_candidate": "97aac99713859e721e103371f27f12fa541b778e",
     "native_image_count": 0,
-    "status": "Accepted97 quality reference retained. North-only delivery/court quality pass changes shared render inputs; current native replay pending.",
+    "status": "Accepted quality floor retained. Historical5cbc native visual reviewed; new North mosaic render digest awaits same-run native replay.",
     "review_directory": "References/Review/east-florist-2026-10-22-accepted/central",
     "central_input_fingerprint": "5e419d0348d5897a3378d228a5afcea388aac02e654990c0770c9bb6dda4bbb8",
     "last_review": {
-      "candidate": "fabf00e7a3b8c810303e77bf16c2af180c718d5d",
-      "run": "20261023-094203-35c07a1f",
+      "candidate": "5cbc8bd1b6c05b2ad71f8a0b1905e98e1fff8bd4",
+      "run": "20261023-110111-e9d5ab26",
       "native_unity": true,
+      "native_image_count": 3,
       "visual": true,
       "town_density": true,
       "walking": true,
       "unity_stage_accepted": true,
-      "record": "References/Review/north-quest-2026-10-23-candidate/native-review.json",
-      "scope": "Historical received fabf00e; later projection-fix inputs need new native replay"
+      "record": "References/Review/north-quest-2026-10-23-quality-held/native-review.json",
+      "scope": "Historical5cbc8bd receipt. Current North mosaic rendering inputs require new native proof."
     }
   },
   "remaining_sequence": [
@@ -39,14 +40,14 @@
   "pixel_verified": false,
   "adopted": false,
   "last_review": {
-    "candidate": "fabf00e7a3b8c810303e77bf16c2af180c718d5d",
-    "run": "20261023-094203-35c07a1f",
+    "candidate": "5cbc8bd1b6c05b2ad71f8a0b1905e98e1fff8bd4",
+    "run": "20261023-110111-e9d5ab26",
     "native_unity": true,
     "native_image_count": 21,
     "central_west_east_visual": true,
     "north_visual": false,
     "north_user_approved": false,
-    "record": "References/Review/north-quest-2026-10-23-candidate/native-review.json"
+    "record": "References/Review/north-quest-2026-10-23-quality-held/native-review.json"
   },
   "previous_review": {
     "candidate": "2fcab4af03b6953bdd2a0108af954da68d1d67af",
@@ -66,7 +67,7 @@
     "visual": false,
     "town_density": false,
     "walking": false,
-    "status": "Accepted97 quality reference retained. North-only delivery/court quality pass changes shared render inputs; current native replay pending.",
+    "status": "Accepted quality floor retained. Historical5cbc native visual reviewed; new North mosaic render digest awaits same-run native replay.",
     "arrival_readability": false,
     "deliberate_second_tap": false,
     "unity_stage_accepted": false,
@@ -87,15 +88,16 @@
       "record": "References/Review/west-cafe-2026-10-22/native-review.json"
     },
     "last_review": {
-      "candidate": "fabf00e7a3b8c810303e77bf16c2af180c718d5d",
-      "run": "20261023-094203-35c07a1f",
+      "candidate": "5cbc8bd1b6c05b2ad71f8a0b1905e98e1fff8bd4",
+      "run": "20261023-110111-e9d5ab26",
       "native_unity": true,
+      "native_image_count": 6,
       "visual": true,
       "town_density": true,
       "walking": true,
       "unity_stage_accepted": true,
-      "record": "References/Review/north-quest-2026-10-23-candidate/native-review.json",
-      "scope": "Historical received fabf00e; later projection-fix inputs need new native replay"
+      "record": "References/Review/north-quest-2026-10-23-quality-held/native-review.json",
+      "scope": "Historical5cbc8bd receipt. Current North mosaic rendering inputs require new native proof."
     }
   },
   "historical_central_reviews": [
@@ -164,18 +166,19 @@
     "deliberate_second_tap": false,
     "unity_stage_accepted": false,
     "native_image_count": 0,
-    "status": "Accepted97 quality reference retained. North-only delivery/court quality pass changes shared render inputs; current native replay pending.",
+    "status": "Accepted quality floor retained. Historical5cbc native visual reviewed; new North mosaic render digest awaits same-run native replay.",
     "prerequisite_review": "References/Review/west-cafe-2026-10-22-accepted/native-review.json",
     "last_review": {
-      "candidate": "fabf00e7a3b8c810303e77bf16c2af180c718d5d",
-      "run": "20261023-094203-35c07a1f",
+      "candidate": "5cbc8bd1b6c05b2ad71f8a0b1905e98e1fff8bd4",
+      "run": "20261023-110111-e9d5ab26",
       "native_unity": true,
+      "native_image_count": 6,
       "visual": true,
       "town_density": true,
       "walking": true,
       "unity_stage_accepted": true,
-      "record": "References/Review/north-quest-2026-10-23-candidate/native-review.json",
-      "scope": "Historical received fabf00e; later projection-fix inputs need new native replay"
+      "record": "References/Review/north-quest-2026-10-23-quality-held/native-review.json",
+      "scope": "Historical5cbc8bd receipt. Current North mosaic rendering inputs require new native proof."
     },
     "previous_review": {
       "candidate": "28487824da0be859bae2313f164bbc806a3bbee2",
@@ -206,19 +209,19 @@
     "nameplate_readability": false,
     "unity_stage_accepted": false,
     "native_image_count": 0,
-    "status": "North delivery quality pass retained. Capture diagnostic file-output fix implemented; new same-source native pass and actual images pending. No North approval or South.",
+    "status": "5cbc native12/12 succeeded, but North court finish HOLD. Thin guide-like lines replaced with painted mosaic; new source Unity image review and explicit user approval pending. No South/APK.",
     "prerequisite_review": "References/Review/east-florist-2026-10-22-accepted/native-review.json",
     "last_review": {
-      "candidate": "fabf00e7a3b8c810303e77bf16c2af180c718d5d",
-      "run": "20261023-094203-35c07a1f",
+      "candidate": "5cbc8bd1b6c05b2ad71f8a0b1905e98e1fff8bd4",
+      "run": "20261023-110111-e9d5ab26",
       "native_unity": true,
       "native_image_count": 6,
-      "scenery_quality": true,
       "visual": false,
+      "town_density": false,
+      "walking": true,
       "unity_stage_accepted": false,
-      "reason": "N1 unsettled actor presentation in connection frame; source fix implemented, new native proof required",
-      "record": "References/Review/north-quest-2026-10-23-candidate/native-review.json",
-      "historical_codex_scenery_assessment_only": true
+      "record": "References/Review/north-quest-2026-10-23-quality-held/native-review.json",
+      "scope": "Historical5cbc8bd receipt. Current North mosaic rendering inputs require new native proof."
     },
     "user_rejection": {
       "date": "2026-10-23",
@@ -233,17 +236,19 @@
       ],
       "overrides_previous_scenery_pass_for_adoption": true
     },
-    "quality_pass_render_input_fingerprint": "3ed8950c56f89e3df71b633821fdaaed14bf0becd7ae9ecdc620de161eab4244",
+    "quality_pass_render_input_fingerprint": "a57be9d4a85d420dc3ce5d32b50266289a04f290c05ddbf5efb1e8aaca29ae12",
     "capture_diagnostic_fix": {
       "implemented": true,
-      "native_verified": false,
+      "native_verified": true,
       "received_run": "20261023-104540-3a733aea",
       "received_total": 12,
       "received_passed": 11,
       "received_failed": 1,
       "received_source_identity_verified": false,
-      "record": "References/Review/north-quest-2026-10-23-capture-failure/failure-review.json",
-      "reason": "Intentional coordinate Debug.Log collided with NoUnexpectedReceived; coordinate traces now go to capture-world.txt."
+      "record": "References/Review/north-quest-2026-10-23-quality-held/native-review.json",
+      "reason": "Intentional coordinate Debug.Log collided with NoUnexpectedReceived; coordinate traces now go to capture-world.txt.",
+      "verified_run": "20261023-110111-e9d5ab26",
+      "verified_source": "5cbc8bd1b6c05b2ad71f8a0b1905e98e1fff8bd4"
     }
   },
   "quality_reference": {
@@ -288,7 +293,7 @@
         "world": null,
         "characters": null
       },
-      "status": "Held candidate rejected by user. North-only revised Lv1/3/6, Before/held/revised and route JPEG pending; South remains blocked."
+      "status": "5cbc native successful but court finish held by visual gate. New mosaic source needs actual Lv1/3/6 images and explicit user approval; South blocked."
     },
     "south_garden": {
       "user_approved": false,

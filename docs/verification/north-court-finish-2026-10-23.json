@@ -1,0 +1,121 @@
+{
+  "date": "2026-10-23",
+  "scope": "Bounded North court finish following actual-image visual HOLD",
+  "base_revision": "5cbc8bd1b6c05b2ad71f8a0b1905e98e1fff8bd4",
+  "render_input_fingerprint": "a57be9d4a85d420dc3ce5d32b50266289a04f290c05ddbf5efb1e8aaca29ae12",
+  "frozen153": true,
+  "formal_lock": true,
+  "prior_accepted15_intact": true,
+  "historical_capture_rejected_for_new_source": true,
+  "north_user_approval_required": true,
+  "qa_blocked": true,
+  "design_direction_approved": true,
+  "implemented": true,
+  "native_unity_verified": false,
+  "native_images_of_this_source": 0,
+  "user_approved": false,
+  "south_started": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "received_native_record": "References/Review/north-quest-2026-10-23-quality-held/native-review.json",
+  "received_native_tests": {
+    "source": "5cbc8bd1b6c05b2ad71f8a0b1905e98e1fff8bd4",
+    "run": "20261023-110111-e9d5ab26",
+    "passed": 12,
+    "total": 12,
+    "raw_png": 21,
+    "visual_verdict": "North HOLD, CWE no Important regression",
+    "is_current_source_proof": false
+  },
+  "changes": [
+    "Replace guide-like North court lines with flush letter/flower mosaic at existing open forecourt",
+    "Shared non-readable max512 texture with no mipmaps; original generated art retained without image editing",
+    "Preserve North cottage/stage dressing, Central/West/East, walkable foundations and save/gameplay rules",
+    "Bind new PNG/meta into source capture fingerprint; reject old receipt for changed inputs"
+  ],
+  "asset": {
+    "date": "2026-10-23",
+    "scope": "North-only flush letter/floral stone mosaic. Generated original environmental asset; not an actual Unity screenshot or user-approved candidate.",
+    "source": "image_gen,exec-9ae771b0-8048-419e-a53e-89f91c40a18d.png",
+    "resource": "Assets/Mofumachi/Resources/Mofumachi/TownNorthCourtMosaic.png",
+    "sha256": "b7a7289a5a8446aca121ec7358c2a410383d4ca78d4ef7d3873785d5f5f12332",
+    "native_pixels": [
+      1774,
+      887
+    ],
+    "import_max": 512,
+    "readable": false,
+    "mipmaps": false,
+    "shared_static_texture": true,
+    "world_bounds": [
+      -0.21,
+      1.765,
+      0.21,
+      1.975
+    ],
+    "navigation_changed": false,
+    "expected_uncompressed_rgba_bytes": 524288,
+    "formal_character_or_atlas_art_modified": false,
+    "unity_verified": false,
+    "pixel_verified": false
+  },
+  "local_verification": {
+    "cpu_presentation_tests": {
+      "passed": 283,
+      "total": 283,
+      "failed": 0,
+      "native_editor_execution": false
+    },
+    "actual_unity_dll_compilation": {
+      "assemblies": 6,
+      "errors": 0,
+      "warnings": 0,
+      "native_editor_execution": false
+    },
+    "powershell_suites": {
+      "passed": 8,
+      "names": [
+        "android-tools",
+        "approved-design",
+        "central-review",
+        "pixel-visual-check",
+        "visual-lock",
+        "west-review",
+        "east-review",
+        "north-review"
+      ],
+      "uses_mock_devices_and_synthetic_images": true,
+      "jpeg_draw_in_synthetic_suites_stubbed": true
+    },
+    "navigation_and_layout_source_diff": false,
+    "raw78_preserved_byte_identical": true,
+    "actual_windows_jpeg_from_received5cbc_decoded": true,
+    "new_source_windows_jpeg_or_native_render": false
+  },
+  "independent_source_review": {
+    "agent": "north_mosaic_source_review_oct23",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "native_visual_acceptance": false
+  },
+  "remaining": [
+    "Actual new-source North Lv1/3/6 blend,readability and cottage prominence",
+    "CWE same-source native nonregression",
+    "Observe painted flower boundaries versus real resident walking; route annotation is not gameplay evidence",
+    "Explicit North image approval before South",
+    "QA APK and Pixel3a only after later five-area checkpoint acceptance"
+  ],
+  "next_native_pass": {
+    "mode": "-NorthReview",
+    "expected_tests": 12,
+    "expected_raw_png": 21,
+    "same_run_zips": [
+      "central-master-review.zip",
+      "west-cafe-review.zip",
+      "east-florist-review.zip",
+      "north-quest-review.zip"
+    ]
+  }
+}

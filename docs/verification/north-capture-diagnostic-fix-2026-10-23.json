@@ -49,7 +49,7 @@
     "north-review"
   ],
   "zip_trace_preservation_checked": true,
-  "windows_jpeg_drawing_executed": false,
+  "windows_jpeg_drawing_executed": true,
   "independent_review": {
     "agent": "capture_log_fix_review_oct23",
     "critical": 0,
@@ -57,15 +57,15 @@
     "verified_focused_pure2_and_north_package": true,
     "is_native_or_visual_approval": false
   },
-  "native_verified_after_fix": false,
-  "native_note": "Current cloud Editor lacks a valid license (earlier same-day exit198). Supplied Windows run has11pass/1fail before this fix; no new native success claimed.",
+  "native_verified_after_fix": true,
+  "native_note": "Received5cbc8bd, run20261023-110111-e9d5ab26: actual12/12,21 native PNG; capture-world.txt present in all4 ZIPs. Native diagnostic fix verified. North visual HOLD; later mosaic inputs need their own native run.",
   "implementation_only_gameplay_art_changed": false,
   "frozen153_and_formal_lock_intact": true,
   "north_approved": false,
   "south_started": false,
   "apk_generated": false,
   "pixel_verified": false,
-  "next": "Pull fix, run -NorthReview from docs/north-review-steps.txt; receive same-run4ZIP; verify source/input identities and12/12, then review actual North comparisons and C/W/E nonregression.",
+  "next": "North-only court finish, then one same-source -NorthReview rerender; actual image approval before South.",
   "logs_sha256": {
     "unity-dll.log": "a68e98ab51503b543450cdcdd2d638d5f09f6c1096fe59cfa71c7f31c2982d75",
     "visual-lock-tests.log": "90e3be988edd95c5c2f2f62860f8ecdb61f9b6557e2097beebd24c5e0778411b",
@@ -80,5 +80,7 @@
     "west-review-tests.log": "4e008f61d9832b05ec3531af0e47f5dddaf5b1bb7f1249c7bfacd6302163c85e",
     "approved-design-tests.log": "31a02baec52e8f3426ca1a673605cb4f119e9d9c0088ea1906829c1545e3c8bf",
     "pixel-visual-check-tests.log": "1c280dd589e229d4cce103bab61bb0ee699ae04cba3a1fb24cfe9038c67b1de1"
-  }
+  },
+  "native_receipt_record": "References/Review/north-quest-2026-10-23-quality-held/native-review.json",
+  "latest_current_source_status": "docs/verification/north-court-finish-2026-10-23.json"
 }

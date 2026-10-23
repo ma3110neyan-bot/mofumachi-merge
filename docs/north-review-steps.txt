@@ -1,5 +1,5 @@
 もふまちメルジュ：北の依頼小屋・Unity確認手順
-2026-10-23：北広場の品質調整版＋撮影用診断記録の修正版
+2026-10-23：北広場の品質調整版＋モザイク舗装の仕上げ版
 
 状態：実装済み・Unity実画面未確認・APK未生成・Pixel 3a未確認。
 この手順ではAPKを作りません。
@@ -9,7 +9,7 @@
 3. PowerShellへ次の3行を貼り付けて実行してください。
 
 Set-Location -LiteralPath "C:\Users\User\Desktop\Mofumachi\mofumachi-merge"
-if (-not (Select-String -LiteralPath ".\Assets\Mofumachi\Tests\PlayMode\ExperienceCaptureTests.cs" -SimpleMatch "CaptureWorldTrace.Append" -Quiet)) { throw "GitHub Desktopで撮影用診断記録の修正版をPullしてください。" }
+if (-not (Test-Path -LiteralPath ".\Assets\Mofumachi\Resources\Mofumachi\TownNorthCourtMosaic.png")) { throw "GitHub Desktopで北の舗装仕上げ版をPullしてください。" }
 powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\build-android.ps1" -NorthReview
 
 4. 成功すると Builds\NorthReview\日時-ID のフォルダーが開きます。

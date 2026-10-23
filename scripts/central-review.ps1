@@ -6,7 +6,7 @@ function Get-CentralInputPaths {
         'Assets/Mofumachi/Presentation/'+$Name+'.cs'
     }
     foreach($Name in @('TownCentralGround.png','TownCentralGround.png.meta','TownCentralFountain.png','TownCentralFountain.png.meta','TownWestGround.png','TownWestGround.png.meta')) {'Assets/Mofumachi/Resources/Mofumachi/'+$Name}
-    foreach($Name in @('TownDeliveryParcels.png','TownDeliveryParcels.png.meta','TownDecorationAtlas.png','TownDecorationAtlas.png.meta')) {'Assets/Mofumachi/Resources/Mofumachi/'+$Name}
+    foreach($Name in @('TownDeliveryParcels.png','TownDeliveryParcels.png.meta','TownNorthCourtMosaic.png','TownNorthCourtMosaic.png.meta','TownDecorationAtlas.png','TownDecorationAtlas.png.meta')) {'Assets/Mofumachi/Resources/Mofumachi/'+$Name}
     'Assets/Mofumachi/Presentation/TownFacilityEntry.cs'
     'Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs'
     'Assets/Mofumachi/Tests/PlayMode/CaptureWorldTrace.cs'

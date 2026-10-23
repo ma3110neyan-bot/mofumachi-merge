@@ -46,6 +46,8 @@ namespace Mofumachi.Tests
             yield return EnterHome();var life=FrameTownPortrait(640);life.World.FastTravel(TownDistrictId.North);Canvas.ForceUpdateCanvases();
             var ground=Flow.GetComponentInChildren<TownNorthGroundGraphic>();Assert.That(ground,Is.Not.Null);Assert.That(ground.raycastTarget,Is.False);
             var court=ground.GetComponentInChildren<TownNorthCourtGraphic>();Assert.That(court,Is.Not.Null);Assert.That(court.raycastTarget,Is.False);
+            var mosaic=Resources.Load<Texture2D>(TownNorthCourtGraphic.Resource);Assert.That(mosaic,Is.Not.Null);Assert.That(court.mainTexture,Is.SameAs(mosaic));
+            Assert.That(mosaic.width,Is.LessThanOrEqualTo(512));Assert.That(mosaic.height,Is.LessThanOrEqualTo(256));Assert.That(mosaic.isReadable,Is.False);
             var texture=Resources.Load<Texture2D>(TownNorthMasterLayout.Resource);Assert.That(texture,Is.Not.Null);Assert.That(ground.mainTexture,Is.SameAs(texture));
             Assert.That(texture,Is.SameAs(Resources.Load<Texture2D>(TownWestMasterLayout.Resource)),"The shared ground must not allocate a second texture");Assert.That(texture.isReadable,Is.False);
             Assert.That(texture.width,Is.LessThanOrEqualTo(1024));Assert.That(texture.height,Is.LessThanOrEqualTo(2048));
@@ -53,7 +55,8 @@ namespace Mofumachi.Tests
             {
                 Canvas.ForceUpdateCanvases();var mesh=ground.canvasRenderer.GetMesh();Assert.That(mesh.vertexCount,Is.EqualTo(4));
                 Assert.That(Vector2.Distance(mesh.vertices[0],life.World.Local(new TownPoint(TownNorthMasterLayout.Left,TownNorthMasterLayout.Bottom),ground.rectTransform)),Is.LessThan(.01f));
-                Assert.That(court.canvasRenderer.GetMesh().vertexCount,Is.GreaterThan(200),"The open court has flush letter/floral stonework, not an empty blocker");
+                var courtMesh=court.canvasRenderer.GetMesh();Assert.That(courtMesh.vertexCount,Is.EqualTo(4));
+                Assert.That(Vector2.Distance(courtMesh.vertices[0],life.World.Local(new TownPoint(-.21f,1.765f),court.rectTransform)),Is.LessThan(.01f),"The mosaic must remain on its world paving after Pan/Restore, never float with the HUD");
                 foreach(var actor in life.Actors)
                     Assert.That(Vector2.Distance(((RectTransform)actor.transform).anchoredPosition,life.World.Local(actor.WorldPosition)),Is.LessThan(.01f),"Camera/restore refresh must project every actor immediately, before another simulation frame: "+actor.CharacterId);
             }

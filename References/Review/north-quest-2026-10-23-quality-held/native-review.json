@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-23",
+  "reviewed_revision": "5cbc8bd1b6c05b2ad71f8a0b1905e98e1fff8bd4",
+  "run": "20261023-110111-e9d5ab26",
+  "gitRevision": "5cbc8bd1b6c05b2ad71f8a0b1905e98e1fff8bd4",
+  "productFingerprint": "b57fbedc1e860bbb2139191890b43fc1b57230383fd1246c9aceb56efd352440",
+  "centralInputFingerprint": "3ed8950c56f89e3df71b633821fdaaed14bf0becd7ae9ecdc620de161eab4244",
+  "identity_verified": true,
+  "native_unity_verified": true,
+  "native_tests": {
+    "total": 12,
+    "passed": 12,
+    "failed": 0,
+    "skipped": 0,
+    "scope": "One run duplicated in four ZIPs, not48 and not full native suite"
+  },
+  "native_images": 21,
+  "raw_files_preserved": 78,
+  "integrity_record": "receipt-integrity.json",
+  "formal_visual_lock_intact": true,
+  "before_frames_verified": 12,
+  "held_north_frames_verified": 3,
+  "jpeg_comparisons_decoded_and_hash_verified": 4,
+  "route_projection_and_jpeg_verified": true,
+  "route_is_gameplay_trace": false,
+  "capture_diagnostic_fix_native_verified": true,
+  "projection_sync_native_verified": true,
+  "cwe_review": {
+    "visual": true,
+    "town_density": true,
+    "accepted97_identical_raw_images": 8,
+    "changed_raw_images_reviewed": 7,
+    "notes": [
+      "Central framing/art retained; top edge now shows North world ground and Lv1 resident pose differs.",
+      "West/East connection frames now project actual residents immediately; no stale actor left inside the flowerbed.",
+      "West/East walking differences limited to upper edge; core district scenery unchanged.",
+      "All static West/East stages and both door-arrival frames are byte-identical to accepted97."
+    ],
+    "independent_review_scope": "Independent reviewer checked North and accepted references; parent directly inspected all7 changed CWE pairs."
+  },
+  "north_review": {
+    "native_functional": true,
+    "visual": false,
+    "town_density": false,
+    "user_approved": false,
+    "unity_stage_accepted": false,
+    "verdict": "HOLD",
+    "important": [
+      {
+        "id": "N2",
+        "file": "north/screenshots/04-town-lv1-North.png",
+        "pixel_region": [
+          175,
+          630,
+          540,
+          810
+        ],
+        "finding": "Thin ellipse/envelope/bay lines read as layout guides rather than finished stonework. The open forecourt still feels insufficiently resolved.",
+        "action": "Replace only North court lines with a flush hand-painted letter/floral stone mosaic; no movement blockers, navigation or scenery deletion. New source requires new native images."
+      }
+    ],
+    "minor": [
+      {
+        "id": "N3",
+        "finding": "Parcels read as small decorative gifts; delivery identity still relies heavily on the board/mailbox/plaque. Reassess in native court-mosaic composition before considering further changes."
+      }
+    ],
+    "improvements_observed": [
+      "Lv3 parcel/flower replacement and hanging pennants visible.",
+      "Lv6 tall floral arch clearly changes cottage silhouette without hiding the plaque or door.",
+      "Connection no longer shows stale resident overlap.",
+      "Walking and arrival images show a broad approach and readable destination."
+    ],
+    "walking_limit": "12 native cases include multi-resident crossing, arrival and side routes. Still frames and computed route overlay do not prove natural long-term traffic or Pixel performance. Baked planting/route correspondence needs observation in actual play."
+  },
+  "independent_visual_review": {
+    "agent": "north_native_visual_gate_oct23r2",
+    "verdict": "HOLD",
+    "critical": 0,
+    "important": 1,
+    "minor": 1,
+    "scope": "Six raw North frames, Before/previous3 each,comparison/routes,formal Lock and accepted CWE references."
+  },
+  "adopted": false,
+  "south_started": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "current_source_native_verified": false,
+  "note": "This is historical evidence of5cbc8bd. Subsequent mosaic render inputs are implementation-only until a new same-source native run is received."
+}

@@ -1,0 +1,33 @@
+{
+  "reported_capture_revision": "d8e649b7802292ca552d564427bc4b720fa8dca4",
+  "evidence": "User screenshot:16/16 twice, then TypeNotFound IO.Compression.ZipArchiveMode. Raw run not yet uploaded.",
+  "root_cause": "Windows PS5.1 does not preload the core compression assembly. The code loaded only FileSystem; ZipArchiveMode belongs to System.IO.Compression. PowerShell7 test host already provided the core type, concealing the omission.",
+  "assembly_definition_check": {
+    "reference": ".NET4.7 API assemblies supplied with Unity, inspected with monodis --typedef; not an actual Windows PS5 execution",
+    "FileSystem": [
+      "ZipFile",
+      "ZipFileExtensions"
+    ],
+    "Compression": [
+      "ZipArchive",
+      "ZipArchiveEntry",
+      "ZipArchiveMode"
+    ]
+  },
+  "fix": "Load both assemblies explicitly before ZIP type use. Package the verified staged review separately so passed captures need not rerun.",
+  "preservation": "Original27PNG,15Before,comparisons/routes/XML/log/manifest SHA and captured Git/product identity unchanged. packagingRevision is separate metadata. Current render digest must match.",
+  "verification": {
+    "script_suites_passed": 12,
+    "script_suites_failed": 0,
+    "scope": "PowerShell7 StrictModeLatest fixture tests. Actual PS5.1 runtime unavailable; .NET4.7 assembly ownership checked. No Unity/device execution.",
+    "normal_and_repack": "Normal source-bound export, repack after a simulated script-only fingerprint change, changed render digest/source triplet/PNG or unrecorded files rejected; original manifest/data unchanged. JPEG drawing stubbed.",
+    "independent_review": "NoCritical/Important. Minor hidden-parent enumeration omission reproduced with a recorded hidden directory, fixed by packing the validated file set plus manifest; focused archive test passes.",
+    "recovery_entry": "Actual repack-five-area-review.ps1 entry exercised on a small synthetic staged run; Explorer stubbed, no Unity launched."
+  },
+  "render_inputs_changed": false,
+  "native_raw_received": false,
+  "visual_accepted": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "main_merged": false
+}

@@ -2,6 +2,7 @@ $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
 . (Join-Path $PSScriptRoot '../build-android.ps1')
 if(-not(Get-Command Write-FiveAreaReview -ErrorAction SilentlyContinue)){throw 'Five-area review must export source-bound images without an APK.'}
+if(-not(Get-Command Write-FiveAreaReviewArchives -ErrorAction SilentlyContinue)){throw 'A passed native run must resume ZIP packaging without rerendering or changing its capture identity.'}
 function Reject([scriptblock]$Action){$Rejected=$false;try{& $Action}catch{$Rejected=$true};if(-not $Rejected){throw 'Invalid five-area review was accepted.'}}
 $Repo=(Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
 Assert-FiveAreaReviewPrerequisites $Repo
@@ -66,5 +67,39 @@ try {
     if($Manifest.native_image_count -ne 27 -or $Manifest.before_image_count -ne 15 -or $Manifest.user_approved -ne $false -or $Manifest.pixel_verified -ne $false -or $Manifest.adopted -ne $false){throw 'Review lost its scope or falsely adopted the candidate.'}
     foreach($File in $Manifest.files){if((Get-FileHash -LiteralPath (Join-Path $Expanded $File.file) -Algorithm SHA256).Hash -ne $File.sha256){throw 'Part split lost or changed evidence.'}}
     if(@(Get-ChildItem -LiteralPath $Expanded -Filter 'central-playmode.xml' -File -Recurse).Count -ne 1){throw 'Native results must be counted once.'}
+    # Packaging-only recovery preserves a completed capture from before a
+    # script-only update; current render inputs must still be identical.
+    $Review=Join-Path $Run 'five-area-review';$ManifestPath=Join-Path $Review 'review-manifest.json'
+    # Simulate the older capture's different whole-product/script fingerprint.
+    # Only synthetic identity metadata is changed before the recovery fixture;
+    # all rendered PNGs/JPEGs and XML bytes remain untouched.
+    $OlderInfo=Get-Content -LiteralPath (Join-Path $Run 'central-review-info.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    $OlderInfo.productFingerprint='e'*64
+    $OlderInfo | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $Run 'central-review-info.json') -Encoding UTF8
+    Copy-Item -LiteralPath (Join-Path $Run 'central-review-info.json') -Destination (Join-Path $Review 'central-review-info.json')
+    $Manifest=Get-Content -LiteralPath $ManifestPath -Raw -Encoding UTF8 | ConvertFrom-Json;$Manifest.productFingerprint=$OlderInfo.productFingerprint
+    $InfoEntry=$Manifest.files | Where-Object {$_.file -eq 'central-review-info.json'}
+    $InfoEntry.bytes=(Get-Item -LiteralPath (Join-Path $Review $InfoEntry.file)).Length
+    $InfoEntry.sha256=(Get-FileHash -LiteralPath (Join-Path $Review $InfoEntry.file) -Algorithm SHA256).Hash.ToLowerInvariant()
+    $Manifest | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $ManifestPath -Encoding UTF8
+    $OriginalManifest=[IO.File]::ReadAllBytes($ManifestPath)
+    $BackupManifest=Join-Path $Root 'original-source-manifest.json';[IO.File]::WriteAllBytes($BackupManifest,$OriginalManifest)
+    $OriginalInfo=[IO.File]::ReadAllBytes((Join-Path $Run 'central-review-info.json'))
+    function Write-FiveAreaComparisonJpegs([string]$Directory){throw 'Recovery must not redraw or relabel existing comparisons.'}
+    function Write-TownRoutesJpeg([string]$Directory,[string]$District,[string]$Title,[hashtable]$Labels){throw 'Recovery must reuse the already drawn route JPEGs.'}
+    $Recovery=Join-Path $Run 'repacked/test'
+    $BadManifest=Get-Content -LiteralPath $ManifestPath -Raw -Encoding UTF8 | ConvertFrom-Json
+    $BadManifest.centralInputFingerprint='0'*64;$BadManifest | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $ManifestPath
+    Reject {Write-FiveAreaReviewArchives $Repo $Run $Recovery};[IO.File]::WriteAllBytes($ManifestPath,$OriginalManifest)
+    $BadInfo=Get-Content -LiteralPath (Join-Path $Run 'central-review-info.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    $BadInfo.gitRevision='a'*40;$BadInfo | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $Run 'central-review-info.json')
+    Reject {Write-FiveAreaReviewArchives $Repo $Run $Recovery};[IO.File]::WriteAllBytes((Join-Path $Run 'central-review-info.json'),$OriginalInfo)
+    $Changed=Join-Path $Review 'south/screenshots/south-walking.png';$Saved=[IO.File]::ReadAllBytes($Changed)
+    [IO.File]::AppendAllText($Changed,'changed');Reject {Write-FiveAreaReviewArchives $Repo $Run $Recovery};[IO.File]::WriteAllBytes($Changed,$Saved)
+    $Extra=Join-Path $Review 'unrecorded.txt';Set-Content -LiteralPath $Extra -Value 'unbound';Reject {Write-FiveAreaReviewArchives $Repo $Run $Recovery};Remove-Item -LiteralPath $Extra
+    $null=Write-FiveAreaReviewArchives $Repo $Run $Recovery
+    if(-not(Test-Path -LiteralPath (Join-Path $Recovery 'five-area-review-01.zip'))){throw 'Recovery did not pack the already verified run.'}
+    if((Get-FileHash -LiteralPath $ManifestPath -Algorithm SHA256).Hash -ne (Get-FileHash -LiteralPath $BackupManifest -Algorithm SHA256).Hash){throw 'Recovery rewrote the native source manifest.'}
+    foreach($File in $Manifest.files){if((Get-FileHash -LiteralPath (Join-Path $Review $File.file) -Algorithm SHA256).Hash -ne $File.sha256){throw 'Recovery changed a native/capture artifact.'}}
     Write-Host 'Five-area rejection/export/part SHA checks passed. Older PNG fixtures; synthetic XML and stubbed JPEG drawing, no native/device execution.'
 } finally {if(Test-Path -LiteralPath $Root){Remove-Item -LiteralPath $Root -Recurse -Force}}

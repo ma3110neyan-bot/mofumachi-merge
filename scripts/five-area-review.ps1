@@ -109,15 +109,51 @@ central-playmode.xmlは16件を1回計上します。複数ZIPに分けてもテ
     $Files=@(Get-ChildItem -LiteralPath $Review -File -Recurse | Sort-Object FullName)
     $Inventory=@(foreach($File in $Files){[ordered]@{file=$File.FullName.Substring($Review.Length+1).Replace('\','/');bytes=$File.Length;sha256=(Get-FileHash -LiteralPath $File.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}})
     [ordered]@{gitRevision=$Info.gitRevision;productFingerprint=$Info.productFingerprint;centralInputFingerprint=$Info.centralInputFingerprint;before_revision=$Receipt.gitRevision;native_image_count=27;before_image_count=15;native_test_count=16;scope='Five-area native fixture review, not Pixel';native_unity=$true;visual=$null;user_approved=$false;apk_generated=$false;pixel_verified=$false;adopted=$false;files=$Inventory} | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $Review 'review-manifest.json') -Encoding UTF8
+    $null=Write-FiveAreaReviewArchives $RepositoryPath $RunDirectory $RunDirectory
+}
+function Write-FiveAreaReviewArchives([string]$RepositoryPath,[string]$RunDirectory,[string]$ArchiveDirectory) {
+    # The existing native source identity remains unchanged after a script fix.
+    # Compare the render digest, not today's whole-product/script fingerprint.
+    Assert-FiveAreaReviewPrerequisites $RepositoryPath
+    $Review=Join-Path $RunDirectory 'five-area-review';$ManifestPath=Join-Path $Review 'review-manifest.json'
+    $Manifest=Get-Content -LiteralPath $ManifestPath -Raw -Encoding UTF8 | ConvertFrom-Json
+    $Info=Get-Content -LiteralPath (Join-Path $RunDirectory 'central-review-info.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    $CopiedInfo=Get-Content -LiteralPath (Join-Path $Review 'central-review-info.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach($Key in @('gitRevision','productFingerprint','centralInputFingerprint')) {
+        $Pattern=if($Key -eq 'gitRevision'){'^[a-fA-F0-9]{40}$'}else{'^[a-fA-F0-9]{64}$'}
+        if($Info.$Key -notmatch $Pattern -or $Info.$Key -ne $Manifest.$Key -or $Info.$Key -ne $CopiedInfo.$Key){throw 'Cannot repack mixed or unidentified native evidence.'}
+    }
+    if($Manifest.centralInputFingerprint -ne (Get-CentralInputFingerprint $RepositoryPath)){throw 'Render inputs changed; existing native images cannot be repacked as the current candidate.'}
+    if($Manifest.native_image_count -ne 27 -or $Manifest.before_image_count -ne 15 -or $Manifest.native_test_count -ne 16 -or $Manifest.native_unity -ne $true){throw 'Incomplete native review manifest.'}
+    foreach($Key in @('user_approved','apk_generated','pixel_verified','adopted')){if($Manifest.$Key -isnot [bool] -or $Manifest.$Key -ne $false){throw 'Packaging cannot adopt or promote native evidence.'}}
+    $Actual=@(Get-ChildItem -LiteralPath $Review -File -Recurse -Force | Where-Object {$_.FullName -ne $ManifestPath})
+    if($Actual.Count -ne @($Manifest.files).Count){throw 'Native review inventory is missing files or contains unrecorded files.'}
+    $Seen=New-Object 'System.Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
+    foreach($File in $Manifest.files) {
+        $Path=Resolve-FiveAreaEvidencePath $Review $File.file
+        if(-not $Seen.Add([string]$File.file) -or $File.sha256 -notmatch '^[a-fA-F0-9]{64}$' -or -not(Test-Path -LiteralPath $Path -PathType Leaf) -or (Get-Item -LiteralPath $Path).Length -ne $File.bytes -or (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash -ne $File.sha256){throw "Missing, duplicated or changed native evidence: $($File.file)"}
+    }
+    foreach($District in @('Central','West','East','North','South')) {
+        $Area=$District.ToLowerInvariant();$Frames=Join-Path $Review "$Area/screenshots"
+        $Entries=if($Area -eq 'central'){@(Get-CentralCaptureEntries $Frames)}elseif($Area -eq 'west'){@(Get-WestCaptureEntries $Frames)}elseif($Area -eq 'east'){@(Get-EastCaptureEntries $Frames)}elseif($Area -eq 'north'){@(Get-NorthCaptureEntries $Frames)}else{@(Get-SouthCaptureEntries $Frames)}
+        Assert-TownRouteProjection (Join-Path $Review $Area) $District (Get-FiveAreaRouteIds $District)
+        foreach($Level in @(1,3,6)){if(-not(Test-Path -LiteralPath (Join-Path $Review "before/04-town-lv$Level-$District.png") -PathType Leaf)){throw 'Native Before pairs missing.'}}
+    }
+    Assert-TestRun (Join-Path $Review 'central-playmode.xml') 16 @('ExperienceCaptureTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests','FiveAreaIntegrationReviewTests')
+    [xml]$Results=Get-Content -LiteralPath (Join-Path $Review 'central-playmode.xml') -Raw -Encoding UTF8
+    if([int]$Results.'test-run'.total -ne 16){throw 'Native review results must contain exactly16 cases.'}
+    if(-not $ArchiveDirectory){$ArchiveDirectory=$RunDirectory}
+    New-Item -ItemType Directory -Path $ArchiveDirectory -Force | Out-Null
+    Add-Type -AssemblyName System.IO.Compression
     Add-Type -AssemblyName System.IO.Compression.FileSystem
-    $Files=@(Get-ChildItem -LiteralPath $Review -File -Recurse | Sort-Object FullName)
+    $Files=@(@($Actual)+@(Get-Item -LiteralPath $ManifestPath -Force) | Sort-Object FullName)
     $Part=0;$Total=0L;$Archive=$null;$Parts=New-Object 'System.Collections.Generic.List[object]'
     try {
         foreach($File in $Files) {
             if($File.Length -gt 20MB){throw 'A review file exceeds the upload budget.'}
             if($null -eq $Archive -or $Total+$File.Length -gt 20MB) {
                 if($null -ne $Archive){$Archive.Dispose();$Archive=$null}
-                $Part++;$Total=0L;$Path=Join-Path $RunDirectory ('five-area-review-{0:D2}.zip' -f $Part)
+                $Part++;$Total=0L;$Path=Join-Path $ArchiveDirectory ('five-area-review-{0:D2}.zip' -f $Part)
                 if(Test-Path -LiteralPath $Path){throw 'Review parts already exist; do not mix runs or overwrite prior evidence.'}
                 $Parts.Add($Path);$Archive=[IO.Compression.ZipFile]::Open($Path,[IO.Compression.ZipArchiveMode]::Create)
             }
@@ -127,6 +163,7 @@ central-playmode.xmlは16件を1回計上します。複数ZIPに分けてもテ
         }
     } finally {if($null -ne $Archive){$Archive.Dispose()}}
     $PartRecords=@(foreach($Path in $Parts){if((Get-Item -LiteralPath $Path).Length -gt 21MB){throw 'Review part exceeds upload budget.'};[ordered]@{file=[IO.Path]::GetFileName($Path);sha256=(Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant();bytes=(Get-Item -LiteralPath $Path).Length}})
-    [ordered]@{gitRevision=$Info.gitRevision;productFingerprint=$Info.productFingerprint;parts=$PartRecords} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $RunDirectory 'five-area-parts.json') -Encoding UTF8
-    Write-Host "Five-area review: $RunDirectory\five-area-review-*.zip. Submit all parts; user approval pending. No APK or Pixel acceptance."
+    [ordered]@{gitRevision=$Info.gitRevision;productFingerprint=$Info.productFingerprint;packagingRevision=(Read-SourceRevision $RepositoryPath);review_manifest_sha256=(Get-FileHash -LiteralPath $ManifestPath -Algorithm SHA256).Hash.ToLowerInvariant();parts=$PartRecords} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $ArchiveDirectory 'five-area-parts.json') -Encoding UTF8
+    Write-Host "Five-area review: $ArchiveDirectory\five-area-review-*.zip. Submit all parts; user approval pending. No APK or Pixel acceptance."
+    return $ArchiveDirectory
 }

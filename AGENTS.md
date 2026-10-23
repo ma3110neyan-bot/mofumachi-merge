@@ -1,5 +1,9 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-23 FiveAreaReviewのZIP停止修正：** ユーザー画面ではUnity16/16を通過後、`[IO.Compression.ZipArchiveMode]` 未解決で分割ZIP作成が停止。Windows PowerShell5.1用に `System.IO.Compression` 本体と `System.IO.Compression.FileSystem` を明示ロードする（旧版は後者のみ）。.NET4.7参照DLLでもModeは本体、ZipFile／ExtensionsはFileSystemに定義されると確認。C#・原画・描画入力は変更しない。
+
+撮影を繰り返さず `scripts/repack-five-area-review.ps1` で直近runの完成済み `five-area-review/review-manifest.json` と全原本SHA、元の3つの版情報、現在の描画digest、5地区27PNG／Before15／5経路／16XMLを検査して、新しい `repacked/<日時>` にZIPだけ作る。元の撮影版d8e649bを現在の包装コード版へ付け替えない。スクリプトだけの修正では描画digestが同じなら元の撮影を使え、描画入力が変わった場合は拒否する。承認・APK・Pixel・mainは進めない。画面上の16/16は受領原本で未照合で、景観合格ではない。画像をチャットへ貼らない。
+
 **2026-10-23最新：南はユーザー条件付き承認、限定4点後の5エリア統合レビューを許可。** 最新ユーザー「南エリア最終調整 → 5エリア統合確認」を最優先とする。旧45f205dのHOLDは実画像の履歴として保持し、南を追加承認待ちで止めない。南の庭園／休憩、Lv3差、花壇／ベンチ／左右／東屋の回遊、空白感だけを調整する。東屋・Lv6花アーチと中央／西／東／北は維持。
 
 実装：南専用の原画テイスト地表（西の原画は無変更）と周縁の透過、南だけのカメラ範囲、既存予約地の鉢／灯り／Lv3花、花壇前を通る6回遊経路。歩行面・当たり判定・報酬・保存・正式キャラ・Mergeは変更しない。条件記録 `docs/verification/south-final-conditions-2026-10-23.json` は実装と固定ファイルのSHAを束縛する。新画像の品質合格を意味しない。

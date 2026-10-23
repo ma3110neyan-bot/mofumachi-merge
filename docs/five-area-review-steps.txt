@@ -1,3 +1,18 @@
+今回のZIP作成エラーからの再開（Unity再撮影なし）
+
+GitHub Desktopで feat/daily-world-pass-20261016 をPullした後、以下だけ実行します。
+
+Set-Location -LiteralPath "C:\Users\User\Desktop\Mofumachi\mofumachi-merge"
+powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\repack-five-area-review.ps1"
+
+直近のBuilds\FiveAreaReview\実行日時の撮影原本・比較資料を照合し、repacked\日時 にZIPだけを作成してフォルダーを開きます。
+開いたフォルダーのfive-area-review-*.zipを全番号まとめて提出してください。
+元の画像・比較JPEG・XML・撮影ソース版を変更しません。新しい撮影やAPK生成も行いません。
+描画入力が変わっていた場合、元の実画面を新しい版として扱わず停止します。
+特定runを指定する場合は -RunDirectory にそのrunフォルダーの絶対パスを指定できます。
+
+以下は新たに撮影する場合の通常手順です。今回の圧縮エラーでは上記の再開を使用してください。
+
 5エリア統合レビュー（APKを作らない確認）
 
 1. GitHub Desktopで feat/daily-world-pass-20261016 を選び、Pullしてください。

@@ -9,6 +9,8 @@ function Get-CentralInputPaths {
     foreach($Name in @('TownDeliveryParcels.png','TownDeliveryParcels.png.meta','TownDecorationAtlas.png','TownDecorationAtlas.png.meta')) {'Assets/Mofumachi/Resources/Mofumachi/'+$Name}
     'Assets/Mofumachi/Presentation/TownFacilityEntry.cs'
     'Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs'
+    'Assets/Mofumachi/Tests/PlayMode/CaptureWorldTrace.cs'
+    'Assets/Mofumachi/Tests/PlayMode/CaptureWorldTrace.cs.meta'
     'References/VisualLock/approved-design-2026-10-21.json'
 }
 function Get-CentralInputFingerprint([string]$RepositoryPath) {

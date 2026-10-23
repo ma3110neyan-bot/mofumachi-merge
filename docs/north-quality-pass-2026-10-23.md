@@ -2,6 +2,8 @@
 
 **設計済み・実装済み／修正版Unity実画面未確認／APK未生成／Pixel未確認**。北の本採用・南着手は保留。受領したfabf00eの12件成功を修正版の成功へ流用しない。
 
+追記：20261023-104540-3a733aeaの実Unity結果は11/12成功。北3件は成功、撮影1件が意図的な診断ログと `NoUnexpectedReceived` の衝突で失敗した。診断を専用 `capture-world.txt` へ保存する修正を実装。[受領原本と原因](../References/Review/north-quest-2026-10-23-capture-failure/failure-review.json)・[修正の検査記録](verification/north-capture-diagnostic-fix-2026-10-23.json)を保存。版のmetadataと実PNGは未受領で、修正後の全件成功・実画面合格とは扱わない。
+
 今回のユーザーFBは、北の目的地としての魅力・成長差・密度・歩きやすさが不足しているという差し戻し。以前のCodex判定より優先する。中央・西・東やMergeへ変更を広げない。
 
 ## 北だけでまとめた変更

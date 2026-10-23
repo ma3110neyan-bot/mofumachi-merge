@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="12" result="Failed(Child)" total="12" passed="11" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-23 01:46:06Z" end-time="2026-10-23 01:46:33Z" duration="26.9879611">
+  <test-suite type="TestSuite" id="1266" name="もふまちメルジュ" fullname="もふまちメルジュ" runstate="Runnable" testcasecount="218" result="Failed" site="Child" start-time="2026-10-23 01:46:06Z" end-time="2026-10-23 01:46:33Z" duration="26.987961" total="12" passed="11" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1526" name="Mofumachi.PlayModeTests.dll" fullname="C:/Users/User/Desktop/Mofumachi/mofumachi-merge/Library/ScriptAssemblies/Mofumachi.PlayModeTests.dll" runstate="Runnable" testcasecount="218" result="Failed" site="Child" start-time="2026-10-23 01:46:06Z" end-time="2026-10-23 01:46:33Z" duration="26.977085" total="12" passed="11" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="2848" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1527" name="Mofumachi" fullname="Mofumachi" runstate="Runnable" testcasecount="218" result="Failed" site="Child" start-time="2026-10-23 01:46:06Z" end-time="2026-10-23 01:46:33Z" duration="26.974557" total="12" passed="11" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1528" name="Tests" fullname="Mofumachi.Tests" runstate="Runnable" testcasecount="218" result="Failed" site="Child" start-time="2026-10-23 01:46:06Z" end-time="2026-10-23 01:46:33Z" duration="26.972312" total="12" passed="11" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1276" name="CentralMasterReviewTests" fullname="Mofumachi.Tests.CentralMasterReviewTests" classname="Mofumachi.Tests.CentralMasterReviewTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-23 01:46:07Z" end-time="2026-10-23 01:46:10Z" duration="3.433125" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1278" name="CentralGardensReplaceTheirVisibleStageWithoutChangingProgress" fullname="Mofumachi.Tests.CentralMasterReviewTests.CentralGardensReplaceTheirVisibleStageWithoutChangingProgress" methodname="CentralGardensReplaceTheirVisibleStageWithoutChangingProgress" classname="Mofumachi.Tests.CentralMasterReviewTests" runstate="Runnable" seed="1433438742" result="Passed" start-time="2026-10-23 01:46:07Z" end-time="2026-10-23 01:46:09Z" duration="2.126370" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1277" name="CentralGroundTracksWorldProjectionAndNeverCapturesPointerInput" fullname="Mofumachi.Tests.CentralMasterReviewTests.CentralGroundTracksWorldProjectionAndNeverCapturesPointerInput" methodname="CentralGroundTracksWorldProjectionAndNeverCapturesPointerInput" classname="Mofumachi.Tests.CentralMasterReviewTests" runstate="Runnable" seed="211299231" result="Passed" start-time="2026-10-23 01:46:09Z" end-time="2026-10-23 01:46:10Z" duration="1.291405" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1303" name="EastMasterReviewTests" fullname="Mofumachi.Tests.EastMasterReviewTests" classname="Mofumachi.Tests.EastMasterReviewTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-23 01:46:10Z" end-time="2026-10-23 01:46:14Z" duration="4.359027" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1305" name="EastGroundFollowsTheWorldAndBothFloristSideWalksRemainUsable" fullname="Mofumachi.Tests.EastMasterReviewTests.EastGroundFollowsTheWorldAndBothFloristSideWalksRemainUsable" methodname="EastGroundFollowsTheWorldAndBothFloristSideWalksRemainUsable" classname="Mofumachi.Tests.EastMasterReviewTests" runstate="Runnable" seed="770713778" result="Passed" start-time="2026-10-23 01:46:10Z" end-time="2026-10-23 01:46:12Z" duration="2.125147" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1304" name="FloristDoorStaysReadableDuringTravelAndWaitsForTheSecondTap" fullname="Mofumachi.Tests.EastMasterReviewTests.FloristDoorStaysReadableDuringTravelAndWaitsForTheSecondTap" methodname="FloristDoorStaysReadableDuringTravelAndWaitsForTheSecondTap" classname="Mofumachi.Tests.EastMasterReviewTests" runstate="Runnable" seed="685081910" result="Passed" start-time="2026-10-23 01:46:12Z" end-time="2026-10-23 01:46:14Z" duration="1.995010" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1306" name="FlowerCartReplacesWithEarnedDisplayWithoutChangingProgress" fullname="Mofumachi.Tests.EastMasterReviewTests.FlowerCartReplacesWithEarnedDisplayWithoutChangingProgress" methodname="FlowerCartReplacesWithEarnedDisplayWithoutChangingProgress" classname="Mofumachi.Tests.EastMasterReviewTests" runstate="Runnable" seed="88573745" result="Passed" start-time="2026-10-23 01:46:14Z" end-time="2026-10-23 01:46:14Z" duration="0.234910" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1312" name="ExperienceCaptureTests" fullname="Mofumachi.Tests.ExperienceCaptureTests" classname="Mofumachi.Tests.ExperienceCaptureTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-10-23 01:46:14Z" end-time="2026-10-23 01:46:22Z" duration="7.332621" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1313" name="PortraitScreensRenderFromIsolatedStateWithoutWritingProgress" fullname="Mofumachi.Tests.ExperienceCaptureTests.PortraitScreensRenderFromIsolatedStateWithoutWritingProgress" methodname="PortraitScreensRenderFromIsolatedStateWithoutWritingProgress" classname="Mofumachi.Tests.ExperienceCaptureTests" runstate="Runnable" seed="1059807484" result="Failed" start-time="2026-10-23 01:46:14Z" end-time="2026-10-23 01:46:22Z" duration="7.330534" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[Unhandled log message: '[Log] MOFUMACHI_CAPTURE_WORLD 04-town-lv1-Central hero=momo camera=(0.0000,0.1700) miel@world(-0.4000,2.2100)/view(-130.91,667.64)/visible=False;lulu@world(0.3400,-0.2200)/view(111.27,-127.64)/visible=True;fio@world(1.4800,-0.2400)/view(484.36,-134.18)/visible=False;momo@world(0.0000,-0.2500)/view(0.00,-137.45)/visible=True;pom@world(-0.9800,-0.4000)/view(-320.73,-186.55)/visible=False;noah@world(-0.3000,-2.3500)/view(-98.18,-824.73)/visible=False'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[Mofumachi.Tests.ExperienceCaptureTests:Capture (string,string,System.Nullable`1<Mofumachi.Presentation.TownDistrictId>) (at Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs:81)
+Mofumachi.Tests.ExperienceCaptureTests/<PortraitScreensRenderFromIsolatedStateWithoutWritingProgress>d__13:MoveNext () (at Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs:149)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[MOFUMACHI_CAPTURE_WORLD 04-town-lv1-Central hero=momo camera=(0.0000,0.1700) miel@world(-0.4000,2.2100)/view(-130.91,667.64)/visible=False;lulu@world(0.3400,-0.2200)/view(111.27,-127.64)/visible=True;fio@world(1.4800,-0.2400)/view(484.36,-134.18)/visible=False;momo@world(0.0000,-0.2500)/view(0.00,-137.45)/visible=True;pom@world(-0.9800,-0.4000)/view(-320.73,-186.55)/visible=False;noah@world(-0.3000,-2.3500)/view(-98.18,-824.73)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv1-Central hero=momo camera=(0.0000,0.1700) miel@world(-0.4000,2.2100)/view(-130.91,667.64)/visible=False;lulu@world(0.3400,-0.2200)/view(111.27,-127.64)/visible=True;fio@world(1.4800,-0.2400)/view(484.36,-134.18)/visible=False;momo@world(0.0000,-0.2500)/view(0.00,-137.45)/visible=True;pom@world(-0.9800,-0.4000)/view(-320.73,-186.55)/visible=False;noah@world(-0.3000,-2.3500)/view(-98.18,-824.73)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv3-Central hero=momo camera=(0.0000,0.1700) miel@world(-0.4000,2.2100)/view(-130.91,667.64)/visible=False;lulu@world(0.3400,-0.2200)/view(111.27,-127.64)/visible=True;fio@world(1.4800,-0.2400)/view(484.36,-134.18)/visible=False;momo@world(0.0000,-0.2500)/view(0.00,-137.45)/visible=True;pom@world(-0.9800,-0.4000)/view(-320.73,-186.55)/visible=False;noah@world(-0.3000,-2.3500)/view(-98.18,-824.73)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv3-Central hero=momo camera=(0.0000,0.1700) miel@world(-0.4000,2.2100)/view(-130.91,667.64)/visible=False;lulu@world(0.3400,-0.2200)/view(111.27,-127.64)/visible=True;fio@world(1.4800,-0.2400)/view(484.36,-134.18)/visible=False;momo@world(0.0000,-0.2500)/view(0.00,-137.45)/visible=True;pom@world(-0.9800,-0.4000)/view(-320.73,-186.55)/visible=False;noah@world(-0.3000,-2.3500)/view(-98.18,-824.73)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv6-Central hero=momo camera=(0.0000,0.1700) miel@world(-0.4000,2.2100)/view(-130.91,667.64)/visible=False;lulu@world(0.3400,-0.2200)/view(111.27,-127.64)/visible=True;fio@world(1.4800,-0.2400)/view(484.36,-134.18)/visible=False;momo@world(0.0000,-0.2500)/view(0.00,-137.45)/visible=True;pom@world(-0.9800,-0.4000)/view(-320.73,-186.55)/visible=False;noah@world(-0.3000,-2.3500)/view(-98.18,-824.73)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv6-Central hero=momo camera=(0.0000,0.1700) miel@world(-0.4000,2.2100)/view(-130.91,667.64)/visible=False;lulu@world(0.3400,-0.2200)/view(111.27,-127.64)/visible=True;fio@world(1.4800,-0.2400)/view(484.36,-134.18)/visible=False;momo@world(0.0000,-0.2500)/view(0.00,-137.45)/visible=True;pom@world(-0.9800,-0.4000)/view(-320.73,-186.55)/visible=False;noah@world(-0.3000,-2.3500)/view(-98.18,-824.73)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv1-West hero=momo camera=(-1.2000,0.1200) miel@world(-0.4000,2.2100)/view(261.82,684.00)/visible=False;lulu@world(0.3400,-0.2200)/view(504.00,-111.27)/visible=False;fio@world(1.4800,-0.2400)/view(877.09,-117.82)/visible=False;momo@world(0.0000,-0.2500)/view(392.73,-121.09)/visible=False;pom@world(-0.9800,-0.4000)/view(72.00,-170.18)/visible=True;noah@world(-0.3000,-2.3500)/view(294.55,-808.36)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv1-West hero=momo camera=(-1.2000,0.1200) miel@world(-0.4000,2.2100)/view(261.82,684.00)/visible=False;lulu@world(0.3400,-0.2200)/view(504.00,-111.27)/visible=False;fio@world(1.4800,-0.2400)/view(877.09,-117.82)/visible=False;momo@world(0.0000,-0.2500)/view(392.73,-121.09)/visible=False;pom@world(-0.9800,-0.4000)/view(72.00,-170.18)/visible=True;noah@world(-0.3000,-2.3500)/view(294.55,-808.36)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv3-West hero=momo camera=(-1.2000,0.1200) miel@world(-0.4000,2.2100)/view(261.82,684.00)/visible=False;lulu@world(0.3400,-0.2200)/view(504.00,-111.27)/visible=False;fio@world(1.4800,-0.2400)/view(877.09,-117.82)/visible=False;momo@world(0.0000,-0.2500)/view(392.73,-121.09)/visible=False;pom@world(-0.9800,-0.4000)/view(72.00,-170.18)/visible=True;noah@world(-0.3000,-2.3500)/view(294.55,-808.36)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv3-West hero=momo camera=(-1.2000,0.1200) miel@world(-0.4000,2.2100)/view(261.82,684.00)/visible=False;lulu@world(0.3400,-0.2200)/view(504.00,-111.27)/visible=False;fio@world(1.4800,-0.2400)/view(877.09,-117.82)/visible=False;momo@world(0.0000,-0.2500)/view(392.73,-121.09)/visible=False;pom@world(-0.9800,-0.4000)/view(72.00,-170.18)/visible=True;noah@world(-0.3000,-2.3500)/view(294.55,-808.36)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv6-West hero=momo camera=(-1.2000,0.1200) miel@world(-0.4000,2.2100)/view(261.82,684.00)/visible=False;lulu@world(0.3400,-0.2200)/view(504.00,-111.27)/visible=False;fio@world(1.4800,-0.2400)/view(877.09,-117.82)/visible=False;momo@world(0.0000,-0.2500)/view(392.73,-121.09)/visible=False;pom@world(-0.9800,-0.4000)/view(72.00,-170.18)/visible=True;noah@world(-0.3000,-2.3500)/view(294.55,-808.36)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv6-West hero=momo camera=(-1.2000,0.1200) miel@world(-0.4000,2.2100)/view(261.82,684.00)/visible=False;lulu@world(0.3400,-0.2200)/view(504.00,-111.27)/visible=False;fio@world(1.4800,-0.2400)/view(877.09,-117.82)/visible=False;momo@world(0.0000,-0.2500)/view(392.73,-121.09)/visible=False;pom@world(-0.9800,-0.4000)/view(72.00,-170.18)/visible=True;noah@world(-0.3000,-2.3500)/view(294.55,-808.36)/visible=False
+MOFUMACHI_CAPTURE_WORLD west-connection hero=momo camera=(-0.6000,0.0000) momo@world(0.0000,-0.2500)/view(196.36,-81.82)/visible=True;lulu@world(0.3400,-0.2200)/view(307.64,-72.00)/visible=False;pom@world(-0.9800,-0.4000)/view(-124.36,-130.91)/visible=True;fio@world(1.4800,-0.2400)/view(680.73,-78.55)/visible=False;miel@world(-0.4000,2.2100)/view(65.45,723.27)/visible=False;noah@world(-0.3000,-2.3500)/view(98.18,-769.09)/visible=False
+MOFUMACHI_CAPTURE_WORLD west-connection hero=momo camera=(-0.6000,0.0000) momo@world(0.0000,-0.2500)/view(196.36,-81.82)/visible=True;lulu@world(0.3400,-0.2200)/view(307.64,-72.00)/visible=False;pom@world(-0.9800,-0.4000)/view(-124.36,-130.91)/visible=True;fio@world(1.4800,-0.2400)/view(680.73,-78.55)/visible=False;miel@world(-0.4000,2.2100)/view(65.45,723.27)/visible=False;noah@world(-0.3000,-2.3500)/view(98.18,-769.09)/visible=False
+MOFUMACHI_CAPTURE_WORLD west-walking hero=momo camera=(-0.8404,0.1908) miel@world(-0.3585,1.9722)/view(157.71,582.99)/visible=False;pom@world(-1.0141,-0.1610)/view(-56.86,-115.16)/visible=True;lulu@world(0.0986,-0.2171)/view(307.31,-133.52)/visible=False;momo@world(-0.8521,-0.2234)/view(-3.84,-135.57)/visible=True;fio@world(1.4800,-0.4814)/view(759.40,-220.01)/visible=False;noah@world(-0.2900,-2.1088)/view(180.15,-752.62)/visible=False
+MOFUMACHI_CAPTURE_WORLD west-walking hero=momo camera=(-0.8404,0.1908) miel@world(-0.3585,1.9722)/view(157.71,582.99)/visible=False;pom@world(-1.0141,-0.1610)/view(-56.86,-115.16)/visible=True;lulu@world(0.0986,-0.2171)/view(307.31,-133.52)/visible=False;momo@world(-0.8521,-0.2234)/view(-3.84,-135.57)/visible=True;fio@world(1.4800,-0.4814)/view(759.40,-220.01)/visible=False;noah@world(-0.2900,-2.1088)/view(180.15,-752.62)/visible=False
+MOFUMACHI_CAPTURE_WORLD west-door-arrived hero=momo camera=(-1.2000,0.4544) miel@world(-0.3020,1.6481)/view(293.90,390.67)/visible=False;momo@world(-1.2000,0.0400)/view(0.00,-135.61)/visible=True;pom@world(-1.0067,-0.2133)/view(63.27,-218.52)/visible=True;lulu@world(-0.2304,-0.2139)/view(317.34,-218.70)/visible=False;fio@world(1.4800,-0.6000)/view(877.09,-345.07)/visible=False;noah@world(-0.2756,-1.7802)/view(302.51,-731.31)/visible=False
+MOFUMACHI_CAPTURE_WORLD west-door-arrived hero=momo camera=(-1.2000,0.4544) miel@world(-0.3020,1.6481)/view(293.90,390.67)/visible=False;momo@world(-1.2000,0.0400)/view(0.00,-135.61)/visible=True;pom@world(-1.0067,-0.2133)/view(63.27,-218.52)/visible=True;lulu@world(-0.2304,-0.2139)/view(317.34,-218.70)/visible=False;fio@world(1.4800,-0.6000)/view(877.09,-345.07)/visible=False;noah@world(-0.2756,-1.7802)/view(302.51,-731.31)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv1-East hero=momo camera=(1.2000,0.1200) miel@world(-0.3020,1.6481)/view(-491.56,500.10)/visible=False;pom@world(-1.0067,-0.2133)/view(-722.18,-109.08)/visible=False;lulu@world(-0.2304,-0.2139)/view(-468.12,-109.27)/visible=False;momo@world(0.0000,-0.2500)/view(-392.73,-121.09)/visible=False;fio@world(1.4800,-0.6000)/view(91.64,-235.64)/visible=True;noah@world(-0.2756,-1.7802)/view(-482.94,-621.88)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv1-East hero=momo camera=(1.2000,0.1200) miel@world(-0.3020,1.6481)/view(-491.56,500.10)/visible=False;pom@world(-1.0067,-0.2133)/view(-722.18,-109.08)/visible=False;lulu@world(-0.2304,-0.2139)/view(-468.12,-109.27)/visible=False;momo@world(0.0000,-0.2500)/view(-392.73,-121.09)/visible=False;fio@world(1.4800,-0.6000)/view(91.64,-235.64)/visible=True;noah@world(-0.2756,-1.7802)/view(-482.94,-621.88)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv3-East hero=momo camera=(1.2000,0.1200) miel@world(-0.3020,1.6481)/view(-491.56,500.10)/visible=False;pom@world(-1.0067,-0.2133)/view(-722.18,-109.08)/visible=False;lulu@world(-0.2304,-0.2139)/view(-468.12,-109.27)/visible=False;momo@world(0.0000,-0.2500)/view(-392.73,-121.09)/visible=False;fio@world(1.4800,-0.6000)/view(91.64,-235.64)/visible=True;noah@world(-0.2756,-1.7802)/view(-482.94,-621.88)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv3-East hero=momo camera=(1.2000,0.1200) miel@world(-0.3020,1.6481)/view(-491.56,500.10)/visible=False;pom@world(-1.0067,-0.2133)/view(-722.18,-109.08)/visible=False;lulu@world(-0.2304,-0.2139)/view(-468.12,-109.27)/visible=False;momo@world(0.0000,-0.2500)/view(-392.73,-121.09)/visible=False;fio@world(1.4800,-0.6000)/view(91.64,-235.64)/visible=True;noah@world(-0.2756,-1.7802)/view(-482.94,-621.88)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv6-East hero=momo camera=(1.2000,0.1200) miel@world(-0.3020,1.6481)/view(-491.56,500.10)/visible=False;pom@world(-1.0067,-0.2133)/view(-722.18,-109.08)/visible=False;lulu@world(-0.2304,-0.2139)/view(-468.12,-109.27)/visible=False;momo@world(0.0000,-0.2500)/view(-392.73,-121.09)/visible=False;fio@world(1.4800,-0.6000)/view(91.64,-235.64)/visible=True;noah@world(-0.2756,-1.7802)/view(-482.94,-621.88)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv6-East hero=momo camera=(1.2000,0.1200) miel@world(-0.3020,1.6481)/view(-491.56,500.10)/visible=False;pom@world(-1.0067,-0.2133)/view(-722.18,-109.08)/visible=False;lulu@world(-0.2304,-0.2139)/view(-468.12,-109.27)/visible=False;momo@world(0.0000,-0.2500)/view(-392.73,-121.09)/visible=False;fio@world(1.4800,-0.6000)/view(91.64,-235.64)/visible=True;noah@world(-0.2756,-1.7802)/view(-482.94,-621.88)/visible=False
+MOFUMACHI_CAPTURE_WORLD east-connection hero=momo camera=(0.6000,0.0000) momo@world(0.0000,-0.2500)/view(-196.36,-81.82)/visible=True;lulu@world(-0.2304,-0.2139)/view(-271.75,-69.99)/visible=False;pom@world(-1.0067,-0.2133)/view(-525.82,-69.81)/visible=False;fio@world(1.4800,-0.6000)/view(288.00,-196.36)/visible=False;miel@world(-0.3020,1.6481)/view(-295.19,539.37)/visible=False;noah@world(-0.2756,-1.7802)/view(-286.58,-582.60)/visible=False
+MOFUMACHI_CAPTURE_WORLD east-connection hero=momo camera=(0.6000,0.0000) momo@world(0.0000,-0.2500)/view(-196.36,-81.82)/visible=True;lulu@world(-0.2304,-0.2139)/view(-271.75,-69.99)/visible=False;pom@world(-1.0067,-0.2133)/view(-525.82,-69.81)/visible=False;fio@world(1.4800,-0.6000)/view(288.00,-196.36)/visible=False;miel@world(-0.3020,1.6481)/view(-295.19,539.37)/visible=False;noah@world(-0.2756,-1.7802)/view(-286.58,-582.60)/visible=False
+MOFUMACHI_CAPTURE_WORLD east-walking hero=momo camera=(0.8385,0.1351) miel@world(-0.1766,1.4455)/view(-332.23,428.86)/visible=False;pom@world(-1.0173,-0.1387)/view(-607.37,-89.61)/visible=False;lulu@world(-0.4685,-0.2208)/view(-427.76,-116.45)/visible=False;momo@world(0.8516,-0.2855)/view(4.28,-137.63)/visible=True;fio@world(1.4800,-0.3617)/view(209.94,-162.59)/visible=True;noah@world(-0.2295,-1.5466)/view(-349.52,-550.38)/visible=False
+MOFUMACHI_CAPTURE_WORLD east-walking hero=momo camera=(0.8385,0.1351) miel@world(-0.1766,1.4455)/view(-332.23,428.86)/visible=False;pom@world(-1.0173,-0.1387)/view(-607.37,-89.61)/visible=False;lulu@world(-0.4685,-0.2208)/view(-427.76,-116.45)/visible=False;momo@world(0.8516,-0.2855)/view(4.28,-137.63)/visible=True;fio@world(1.4800,-0.3617)/view(209.94,-162.59)/visible=True;noah@world(-0.2295,-1.5466)/view(-349.52,-550.38)/visible=False
+MOFUMACHI_CAPTURE_WORLD east-door-arrived hero=momo camera=(1.2000,0.4544) miel@world(-0.0225,1.1963)/view(-400.09,242.82)/visible=False;momo@world(1.2000,0.0400)/view(0.00,-135.61)/visible=True;lulu@world(-0.7614,-0.2292)/view(-641.90,-223.72)/visible=False;fio@world(1.4800,-0.2856)/view(91.64,-242.16)/visible=True;pom@world(-0.9800,-0.4000)/view(-713.45,-279.61)/visible=False;noah@world(-0.1533,-1.2638)/view(-442.90,-562.30)/visible=False
+MOFUMACHI_CAPTURE_WORLD east-door-arrived hero=momo camera=(1.2000,0.4544) miel@world(-0.0225,1.1963)/view(-400.09,242.82)/visible=False;momo@world(1.2000,0.0400)/view(0.00,-135.61)/visible=True;lulu@world(-0.7614,-0.2292)/view(-641.90,-223.72)/visible=False;fio@world(1.4800,-0.2856)/view(91.64,-242.16)/visible=True;pom@world(-0.9800,-0.4000)/view(-713.45,-279.61)/visible=False;noah@world(-0.1533,-1.2638)/view(-442.90,-562.30)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv1-North hero=momo camera=(0.0000,2.0222) miel@world(-0.0225,1.1963)/view(-7.36,-270.29)/visible=True;lulu@world(-0.7614,-0.2292)/view(-249.17,-736.84)/visible=False;momo@world(0.0000,-0.2500)/view(0.00,-743.64)/visible=False;fio@world(1.4800,-0.2856)/view(484.36,-755.28)/visible=False;pom@world(-0.9800,-0.4000)/view(-320.73,-792.73)/visible=False;noah@world(-0.1533,-1.2638)/view(-50.17,-1075.41)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv1-North hero=momo camera=(0.0000,2.0222) miel@world(-0.0225,1.1963)/view(-7.36,-270.29)/visible=True;lulu@world(-0.7614,-0.2292)/view(-249.17,-736.84)/visible=False;momo@world(0.0000,-0.2500)/view(0.00,-743.64)/visible=False;fio@world(1.4800,-0.2856)/view(484.36,-755.28)/visible=False;pom@world(-0.9800,-0.4000)/view(-320.73,-792.73)/visible=False;noah@world(-0.1533,-1.2638)/view(-50.17,-1075.41)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv3-North hero=momo camera=(0.0000,2.0222) miel@world(-0.0225,1.1963)/view(-7.36,-270.29)/visible=True;lulu@world(-0.7614,-0.2292)/view(-249.17,-736.84)/visible=False;momo@world(0.0000,-0.2500)/view(0.00,-743.64)/visible=False;fio@world(1.4800,-0.2856)/view(484.36,-755.28)/visible=False;pom@world(-0.9800,-0.4000)/view(-320.73,-792.73)/visible=False;noah@world(-0.1533,-1.2638)/view(-50.17,-1075.41)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv3-North hero=momo camera=(0.0000,2.0222) miel@world(-0.0225,1.1963)/view(-7.36,-270.29)/visible=True;lulu@world(-0.7614,-0.2292)/view(-249.17,-736.84)/visible=False;momo@world(0.0000,-0.2500)/view(0.00,-743.64)/visible=False;fio@world(1.4800,-0.2856)/view(484.36,-755.28)/visible=False;pom@world(-0.9800,-0.4000)/view(-320.73,-792.73)/visible=False;noah@world(-0.1533,-1.2638)/view(-50.17,-1075.41)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv6-North hero=momo camera=(0.0000,2.0222) miel@world(-0.0225,1.1963)/view(-7.36,-270.29)/visible=True;lulu@world(-0.7614,-0.2292)/view(-249.17,-736.84)/visible=False;momo@world(0.0000,-0.2500)/view(0.00,-743.64)/visible=False;fio@world(1.4800,-0.2856)/view(484.36,-755.28)/visible=False;pom@world(-0.9800,-0.4000)/view(-320.73,-792.73)/visible=False;noah@world(-0.1533,-1.2638)/view(-50.17,-1075.41)/visible=False
+MOFUMACHI_CAPTURE_WORLD 04-town-lv6-North hero=momo camera=(0.0000,2.0222) miel@world(-0.0225,1.1963)/view(-7.36,-270.29)/visible=True;lulu@world(-0.7614,-0.2292)/view(-249.17,-736.84)/visible=False;momo@world(0.0000,-0.2500)/view(0.00,-743.64)/visible=False;fio@world(1.4800,-0.2856)/view(484.36,-755.28)/visible=False;pom@world(-0.9800,-0.4000)/view(-320.73,-792.73)/visible=False;noah@world(-0.1533,-1.2638)/view(-50.17,-1075.41)/visible=False
+MOFUMACHI_CAPTURE_WORLD north-connection hero=momo camera=(0.0000,1.0000) momo@world(0.0000,-0.2500)/view(0.00,-409.09)/visible=True;lulu@world(-0.7614,-0.2292)/view(-249.17,-402.29)/visible=False;pom@world(-0.9800,-0.4000)/view(-320.73,-458.18)/visible=False;fio@world(1.4800,-0.2856)/view(484.36,-420.73)/visible=False;miel@world(-0.0225,1.1963)/view(-7.36,64.25)/visible=True;noah@world(-0.1533,-1.2638)/view(-50.17,-740.87)/visible=False
+MOFUMACHI_CAPTURE_WORLD north-connection hero=momo camera=(0.0000,1.0000) momo@world(0.0000,-0.2500)/view(0.00,-409.09)/visible=True;lulu@world(-0.7614,-0.2292)/view(-249.17,-402.29)/visible=False;pom@world(-0.9800,-0.4000)/view(-320.73,-458.18)/visible=False;fio@world(1.4800,-0.2856)/view(484.36,-420.73)/visible=False;miel@world(-0.0225,1.1963)/view(-7.36,64.25)/visible=True;noah@world(-0.1533,-1.2638)/view(-50.17,-740.87)/visible=False
+MOFUMACHI_CAPTURE_WORLD north-walking hero=momo camera=(0.0094,1.7277) momo@world(0.0091,1.3208)/view(-0.12,-133.17)/visible=True;miel@world(-0.1567,0.6403)/view(-54.39,-355.86)/visible=True;pom@world(-1.4800,-0.2500)/view(-487.46,-647.24)/visible=False;lulu@world(-0.9947,-0.2969)/view(-328.64,-662.60)/visible=False;fio@world(1.0875,-0.3708)/view(352.82,-686.78)/visible=False;noah@world(0.0154,-0.7041)/view(1.95,-795.86)/visible=False
+MOFUMACHI_CAPTURE_WORLD north-walking hero=momo camera=(0.0094,1.7277) momo@world(0.0091,1.3208)/view(-0.12,-133.17)/visible=True;miel@world(-0.1567,0.6403)/view(-54.39,-355.86)/visible=True;pom@world(-1.4800,-0.2500)/view(-487.46,-647.24)/visible=False;lulu@world(-0.9947,-0.2969)/view(-328.64,-662.60)/visible=False;fio@world(1.0875,-0.3708)/view(352.82,-686.78)/visible=False;noah@world(0.0154,-0.7041)/view(1.95,-795.86)/visible=False
+MOFUMACHI_CAPTURE_WORLD north-door-arrived hero=momo camera=(0.0000,2.0222) momo@world(0.0000,2.0800)/view(0.00,18.91)/visible=True;miel@world(-0.2460,0.3371)/view(-80.51,-551.49)/visible=False;pom@world(-1.2311,-0.1797)/view(-402.91,-720.62)/visible=False;noah@world(0.1081,-0.3966)/view(35.38,-791.62)/visible=False;lulu@world(-0.9803,-0.3999)/view(-320.83,-792.70)/visible=False;fio@world(1.0956,-0.4398)/view(358.55,-805.76)/visible=False
+MOFUMACHI_CAPTURE_WORLD north-door-arrived hero=momo camera=(0.0000,2.0222) momo@world(0.0000,2.0800)/view(0.00,18.91)/visible=True;miel@world(-0.2460,0.3371)/view(-80.51,-551.49)/visible=False;pom@world(-1.2311,-0.1797)/view(-402.91,-720.62)/visible=False;noah@world(0.1081,-0.3966)/view(35.38,-791.62)/visible=False;lulu@world(-0.9803,-0.3999)/view(-320.83,-792.70)/visible=False;fio@world(1.0956,-0.4398)/view(358.55,-805.76)/visible=False
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1405" name="NorthMasterReviewTests" fullname="Mofumachi.Tests.NorthMasterReviewTests" classname="Mofumachi.Tests.NorthMasterReviewTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-23 01:46:22Z" end-time="2026-10-23 01:46:29Z" duration="7.660647" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1408" name="NorthGardensReplaceTheirStageAndLeaveTheBoardAndSeatClearWithoutSaving" fullname="Mofumachi.Tests.NorthMasterReviewTests.NorthGardensReplaceTheirStageAndLeaveTheBoardAndSeatClearWithoutSaving" methodname="NorthGardensReplaceTheirStageAndLeaveTheBoardAndSeatClearWithoutSaving" classname="Mofumachi.Tests.NorthMasterReviewTests" runstate="Runnable" seed="507988755" result="Passed" start-time="2026-10-23 01:46:22Z" end-time="2026-10-23 01:46:22Z" duration="0.242069" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1407" name="NorthGroundFollowsTheWorldAndBothCottageSideWalksRemainUsable" fullname="Mofumachi.Tests.NorthMasterReviewTests.NorthGroundFollowsTheWorldAndBothCottageSideWalksRemainUsable" methodname="NorthGroundFollowsTheWorldAndBothCottageSideWalksRemainUsable" classname="Mofumachi.Tests.NorthMasterReviewTests" runstate="Runnable" seed="1478655438" result="Passed" start-time="2026-10-23 01:46:22Z" end-time="2026-10-23 01:46:26Z" duration="4.119043" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1406" name="QuestCottageDoorStaysReadableDuringTravelAndWaitsForTheSecondTap" fullname="Mofumachi.Tests.NorthMasterReviewTests.QuestCottageDoorStaysReadableDuringTravelAndWaitsForTheSecondTap" methodname="QuestCottageDoorStaysReadableDuringTravelAndWaitsForTheSecondTap" classname="Mofumachi.Tests.NorthMasterReviewTests" runstate="Runnable" seed="175460984" result="Passed" start-time="2026-10-23 01:46:26Z" end-time="2026-10-23 01:46:29Z" duration="3.293424" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1522" name="WestMasterReviewTests" fullname="Mofumachi.Tests.WestMasterReviewTests" classname="Mofumachi.Tests.WestMasterReviewTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-23 01:46:29Z" end-time="2026-10-23 01:46:33Z" duration="4.151287" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1523" name="CafeDoorStaysReadableDuringTravelAndWaitsForTheSecondTap" fullname="Mofumachi.Tests.WestMasterReviewTests.CafeDoorStaysReadableDuringTravelAndWaitsForTheSecondTap" methodname="CafeDoorStaysReadableDuringTravelAndWaitsForTheSecondTap" classname="Mofumachi.Tests.WestMasterReviewTests" runstate="Runnable" seed="1603263162" result="Passed" start-time="2026-10-23 01:46:29Z" end-time="2026-10-23 01:46:31Z" duration="1.949119" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1524" name="WestGroundFollowsTheWorldAndBothCafeSideWalksRemainUsable" fullname="Mofumachi.Tests.WestMasterReviewTests.WestGroundFollowsTheWorldAndBothCafeSideWalksRemainUsable" methodname="WestGroundFollowsTheWorldAndBothCafeSideWalksRemainUsable" classname="Mofumachi.Tests.WestMasterReviewTests" runstate="Runnable" seed="685292850" result="Passed" start-time="2026-10-23 01:46:31Z" end-time="2026-10-23 01:46:33Z" duration="1.956227" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1525" name="WestPatioReplacesItsInitialStageWithoutChangingProgress" fullname="Mofumachi.Tests.WestMasterReviewTests.WestPatioReplacesItsInitialStageWithoutChangingProgress" methodname="WestPatioReplacesItsInitialStageWithoutChangingProgress" classname="Mofumachi.Tests.WestMasterReviewTests" runstate="Runnable" seed="1827372042" result="Passed" start-time="2026-10-23 01:46:33Z" end-time="2026-10-23 01:46:33Z" duration="0.242686" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

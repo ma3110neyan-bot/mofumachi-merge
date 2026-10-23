@@ -1,0 +1,88 @@
+{
+  "received_date": "2026-10-23",
+  "run": "20261023-104540-3a733aea",
+  "expected_source_revision": "e288ee755e42761e1b91677704825fddcbc7fe04",
+  "source_identity_verified": false,
+  "source_identity_note": "Only Editor log/XML supplied; revision/product fingerprint metadata and raw images not supplied. Expected source from preceding handoff is not treated as proof.",
+  "native_test_results": {
+    "total": "12",
+    "passed": "11",
+    "failed": "1",
+    "skipped": "0",
+    "start-time": "2026-10-23 01:46:06Z",
+    "end-time": "2026-10-23 01:46:33Z"
+  },
+  "cases": [
+    {
+      "name": "Mofumachi.Tests.CentralMasterReviewTests.CentralGardensReplaceTheirVisibleStageWithoutChangingProgress",
+      "result": "Passed"
+    },
+    {
+      "name": "Mofumachi.Tests.CentralMasterReviewTests.CentralGroundTracksWorldProjectionAndNeverCapturesPointerInput",
+      "result": "Passed"
+    },
+    {
+      "name": "Mofumachi.Tests.EastMasterReviewTests.EastGroundFollowsTheWorldAndBothFloristSideWalksRemainUsable",
+      "result": "Passed"
+    },
+    {
+      "name": "Mofumachi.Tests.EastMasterReviewTests.FloristDoorStaysReadableDuringTravelAndWaitsForTheSecondTap",
+      "result": "Passed"
+    },
+    {
+      "name": "Mofumachi.Tests.EastMasterReviewTests.FlowerCartReplacesWithEarnedDisplayWithoutChangingProgress",
+      "result": "Passed"
+    },
+    {
+      "name": "Mofumachi.Tests.ExperienceCaptureTests.PortraitScreensRenderFromIsolatedStateWithoutWritingProgress",
+      "result": "Failed"
+    },
+    {
+      "name": "Mofumachi.Tests.NorthMasterReviewTests.NorthGardensReplaceTheirStageAndLeaveTheBoardAndSeatClearWithoutSaving",
+      "result": "Passed"
+    },
+    {
+      "name": "Mofumachi.Tests.NorthMasterReviewTests.NorthGroundFollowsTheWorldAndBothCottageSideWalksRemainUsable",
+      "result": "Passed"
+    },
+    {
+      "name": "Mofumachi.Tests.NorthMasterReviewTests.QuestCottageDoorStaysReadableDuringTravelAndWaitsForTheSecondTap",
+      "result": "Passed"
+    },
+    {
+      "name": "Mofumachi.Tests.WestMasterReviewTests.CafeDoorStaysReadableDuringTravelAndWaitsForTheSecondTap",
+      "result": "Passed"
+    },
+    {
+      "name": "Mofumachi.Tests.WestMasterReviewTests.WestGroundFollowsTheWorldAndBothCafeSideWalksRemainUsable",
+      "result": "Passed"
+    },
+    {
+      "name": "Mofumachi.Tests.WestMasterReviewTests.WestPatioReplacesItsInitialStageWithoutChangingProgress",
+      "result": "Passed"
+    }
+  ],
+  "reported_failures": [
+    {
+      "name": "Mofumachi.Tests.ExperienceCaptureTests.PortraitScreensRenderFromIsolatedStateWithoutWritingProgress",
+      "message": "Unhandled log message: '[Log] MOFUMACHI_CAPTURE_WORLD 04-town-lv1-Central hero=momo camera=(0.0000,0.1700) miel@world(-0.4000,2.2100)/view(-130.91,667.64)/visible=False;lulu@world(0.3400,-0.2200)/view(111.27,-127.64)/visible=True;fio@world(1.4800,-0.2400)/view(484.36,-134.18)/visible=False;momo@world(0.0000,-0.2500)/view(0.00,-137.45)/visible=True;pom@world(-0.9800,-0.4000)/view(-320.73,-186.55)/visible=False;noah@world(-0.3000,-2.3500)/view(-98.18,-824.73)/visible=False'. Use UnityEngine.TestTools.LogAssert.Expect",
+      "stack": "Mofumachi.Tests.ExperienceCaptureTests:Capture (string,string,System.Nullable`1<Mofumachi.Presentation.TownDistrictId>) (at Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs:81)\nMofumachi.Tests.ExperienceCaptureTests/<PortraitScreensRenderFromIsolatedStateWithoutWritingProgress>d__13:MoveNext () (at Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs:149)\nUnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)\n\n"
+    }
+  ],
+  "diagnostic_capture_records_in_log": 21,
+  "raw_native_images_received": 0,
+  "packaged_review_received": false,
+  "north_three_native_cases_passed": true,
+  "root_cause": "Deliberate Debug.Log(MOFUMACHI_CAPTURE_WORLD...) emitted by Capture conflicts with explicit LogAssert.NoUnexpectedReceived; regular Log messages are also checked there.",
+  "fix_scope": "Move deliberate coordinate diagnostics to per-review capture-world.txt; preserve strict engine-log checks and image/coordinate/save assertions. No gameplay or artwork changes.",
+  "new_source_native_verified": false,
+  "user_approved": false,
+  "south_started": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "files_sha256": {
+    "central-playmode.log": "17ebdb6390b14b227cdc9aa77e1cc51b7a6e333f0d0f036e0374a4e67996f8c8",
+    "central-playmode.xml": "3644d85aabb7d5efe1b6f43b8acb094d85679254055349454915a91117892226"
+  }
+}

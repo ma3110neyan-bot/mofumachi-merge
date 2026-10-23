@@ -206,7 +206,7 @@
     "nameplate_readability": false,
     "unity_stage_accepted": false,
     "native_image_count": 0,
-    "status": "User rejected held fabf00e Candidate for cottage prominence, North identity, density, growth contrast and circulation. Delivery courtyard quality pass implemented; revised native images and explicit approval pending.",
+    "status": "North delivery quality pass retained. Capture diagnostic file-output fix implemented; new same-source native pass and actual images pending. No North approval or South.",
     "prerequisite_review": "References/Review/east-florist-2026-10-22-accepted/native-review.json",
     "last_review": {
       "candidate": "fabf00e7a3b8c810303e77bf16c2af180c718d5d",
@@ -233,7 +233,18 @@
       ],
       "overrides_previous_scenery_pass_for_adoption": true
     },
-    "quality_pass_render_input_fingerprint": "e072664f756d2b1971d1f519207727e68cd11adc07c075c88dfc982dbfa465bc"
+    "quality_pass_render_input_fingerprint": "3ed8950c56f89e3df71b633821fdaaed14bf0becd7ae9ecdc620de161eab4244",
+    "capture_diagnostic_fix": {
+      "implemented": true,
+      "native_verified": false,
+      "received_run": "20261023-104540-3a733aea",
+      "received_total": 12,
+      "received_passed": 11,
+      "received_failed": 1,
+      "received_source_identity_verified": false,
+      "record": "References/Review/north-quest-2026-10-23-capture-failure/failure-review.json",
+      "reason": "Intentional coordinate Debug.Log collided with NoUnexpectedReceived; coordinate traces now go to capture-world.txt."
+    }
   },
   "quality_reference": {
     "policy": "2026-10-22 user quality freeze and five-area completion directive",

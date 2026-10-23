@@ -45,6 +45,7 @@ try {
     foreach($Path in @($Screens,$NorthScreens,$Before)){New-Item -ItemType Directory -Path $Path -Force | Out-Null}
     foreach($Level in @(1,3,6)){[IO.File]::WriteAllBytes((Join-Path $Screens "04-town-lv$Level-Central.png"),$Header);[IO.File]::WriteAllBytes((Join-Path $Before "04-town-lv$Level-North.png"),$Header)}
     foreach($Name in $Names){[IO.File]::WriteAllBytes((Join-Path $NorthScreens $Name),$Header)}
+    Set-Content -LiteralPath (Join-Path $NorthScreens 'capture-world.txt') -Value 'MOFUMACHI_CAPTURE_WORLD north-coordinate-evidence'
     $Route.image_sha256=(Get-FileHash -LiteralPath (Join-Path $NorthScreens $Names[0]) -Algorithm SHA256).Hash.ToLowerInvariant();$Route.routes[4].id='right'
     $Route | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $NorthScreens 'north-route-projection.json')
     $Held=Join-Path $Root 'held-north';New-Item -ItemType Directory -Path $Held -Force | Out-Null
@@ -96,6 +97,7 @@ try {
     Write-NorthReview $Root $Run
     $Expanded=Join-Path $Root 'expanded';Expand-Archive -LiteralPath (Join-Path $Run 'north-quest-review.zip') -DestinationPath $Expanded
     foreach($Name in $Names){if(-not(Test-Path (Join-Path $Expanded $Name))){throw "Archive lost north frame: $Name"}}
+    if((Get-Content -LiteralPath (Join-Path $Expanded 'capture-world.txt') -Raw).Trim() -ne 'MOFUMACHI_CAPTURE_WORLD north-coordinate-evidence'){throw 'Archive lost capture coordinate evidence.'}
     foreach($Level in @(1,3,6)){if(-not(Test-Path (Join-Path $Expanded "previous-04-town-lv$Level-North.png"))){throw 'Archive lost the held Candidate.'}}
     foreach($Name in @('north-walking-routes.jpg','north-route-projection.json','previous-candidate-source.json')){if(-not(Test-Path (Join-Path $Expanded $Name))){throw "Archive lost route/previous provenance: $Name"}}
     $Meta=Get-Content -LiteralPath (Join-Path $Expanded 'north-adoption.json') -Raw | ConvertFrom-Json

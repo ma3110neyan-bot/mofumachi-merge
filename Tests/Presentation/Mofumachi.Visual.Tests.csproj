@@ -22,6 +22,7 @@
     <Compile Include="../../Assets/Mofumachi/Presentation/TownNextGoal.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownNextGoal.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownWorldLayout.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownWorldLayout.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownWorldMap.cs" />
+    <Compile Include="../../Assets/Mofumachi/Tests/PlayMode/TownReviewRoutes.cs" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownMeetingApproach.cs" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownDistrictLayout.cs" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownSceneryLayout.cs" />

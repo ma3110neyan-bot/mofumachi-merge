@@ -1,0 +1,58 @@
+{
+  "scope": "South bounded final adjustments and nonAPK five-area review implementation",
+  "base_revision": "72533c7927cf67dbdd57ea0beb425484f7072690",
+  "reviewed_before": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
+  "implementation": {
+    "garden_rest": "Existing gazebo/bench foundations gain pots; gazebo lamps and bench pots grow atLv3; Lv6arch retained",
+    "circulation": "Six real navigation link groups include the flowerbed north approach and direct rest crossing; broad floor and reservations unchanged",
+    "ground": "South-only matching stone/flower ground, transparent outer edge and eased South camera envelope; original accepted texture unchanged",
+    "review": "16native cases planned;27nativePNG+15BeforePNG+3LvcomparisonJPEG+5routeJPEG, oneXML/log, SHA-manifest and upload parts"
+  },
+  "local_verification": {
+    "presentation_cpu": {
+      "passed": 299,
+      "total": 299,
+      "failed": 0
+    },
+    "unity_dll_assemblies": {
+      "built": 6,
+      "warnings": 0,
+      "errors": 0
+    },
+    "powershell": {
+      "suites": 11,
+      "passed": 11,
+      "failed": 0,
+      "strict_mode": "Latest",
+      "scope": "Fixtures, SHA/archive rejection and CP932 reader/parser; JPEG drawing stubbed, no native/device",
+      "initial_failure": "Old missing-approval expectation updated to retain quality HOLD after conditional user authorization"
+    },
+    "independent_review": {
+      "agent": "south_final_five_area_source_review_oct23",
+      "critical": 0,
+      "important_found": 1,
+      "important_fixed": "New Japanese helper now UTF8 BOM; legacy CP932 decoding/parser regression added.",
+      "minor_found": 1,
+      "minor_fixed": "Encoding test recognizes conditional authorization while preserving final quality HOLD.",
+      "model_only_itinerary": "Lv1/3/6 all7stops; minimum separation>.066. Not Unity/Pixel."
+    },
+    "post_move_focus": {
+      "passed": 11,
+      "total": 11,
+      "failed": 0,
+      "scope": "South and real5district navigation; annotations moved to test assembly"
+    },
+    "frozen_files_match_base": 16
+  },
+  "state": "Implemented, new native render and user integration review pending",
+  "unity_native_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "integration_user_approved": false,
+  "main_merged": false,
+  "unresolved": [
+    "Actual new Unity screenshots/BeforeCandidate density, terrain seam and painted path alignment require licensed Windows capture",
+    "Image quality and actual device performance cannot be concluded from CPU/DLL/script verification",
+    "Five-area review user approval remains required before finalQA/Pixel"
+  ]
+}

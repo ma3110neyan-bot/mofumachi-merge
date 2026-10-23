@@ -1,12 +1,12 @@
 {
   "central": {
-    "native_unity": true,
-    "visual": true,
-    "town_density": true,
-    "walking": true,
+    "native_unity": false,
+    "visual": false,
+    "town_density": false,
+    "walking": false,
     "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
     "native_image_count": 3,
-    "status": "Current native source15/15 verified and quality retained; not whole-town or Pixel acceptance.",
+    "status": "Revised South/camera inputs await same-source five-area native replay; previous actual receipt retained separately.",
     "review_directory": "References/Review/south-garden-2026-10-23-candidate/central",
     "central_input_fingerprint": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
     "last_review": {
@@ -20,7 +20,7 @@
       "south_user_approved": false,
       "record": "References/Review/south-garden-2026-10-23-candidate/native-review.json"
     },
-    "unity_stage_accepted": true,
+    "unity_stage_accepted": false,
     "previous_review": {
       "candidate": "ed3c5e435541e03eba33fba9e3f574099bb6f1f1",
       "run": "20261023-182917-c360cabd",
@@ -28,14 +28,17 @@
       "visual": true,
       "record": "References/Review/north-quest-2026-10-23-mosaic-candidate/native-review.json",
       "scope": "Historical approved quality reference; new North/South shared render inputs require native replay."
+    },
+    "previous_native_review": {
+      "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
+      "review_directory": "References/Review/south-garden-2026-10-23-candidate/central",
+      "central_input_fingerprint": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
+      "native_image_count": 3
     }
   },
   "remaining_sequence": [
-    "south_quality_corrections",
-    "south_native_review",
-    "south_user_approval",
-    "five_area_integration",
-    "connections",
+    "five_area_native_review",
+    "five_area_visual_review",
     "five_area_user_approval",
     "full_native_suite",
     "qa_apk",
@@ -73,14 +76,14 @@
   "west": {
     "design_direction_approved": true,
     "implemented": true,
-    "native_unity": true,
-    "visual": true,
-    "town_density": true,
-    "walking": true,
-    "status": "Current native source15/15 verified and quality retained; not whole-town or Pixel acceptance.",
+    "native_unity": false,
+    "visual": false,
+    "town_density": false,
+    "walking": false,
+    "status": "Revised South/camera inputs await same-source five-area native replay; previous actual receipt retained separately.",
     "arrival_readability": true,
     "deliberate_second_tap": true,
-    "unity_stage_accepted": true,
+    "unity_stage_accepted": false,
     "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
     "native_image_count": 6,
     "review_directory": "References/Review/south-garden-2026-10-23-candidate/west",
@@ -103,6 +106,12 @@
       "south_visual": false,
       "south_user_approved": false,
       "record": "References/Review/south-garden-2026-10-23-candidate/native-review.json"
+    },
+    "previous_native_review": {
+      "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
+      "review_directory": "References/Review/south-garden-2026-10-23-candidate/west",
+      "central_input_fingerprint": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
+      "native_image_count": 6
     }
   },
   "historical_central_reviews": [
@@ -158,20 +167,20 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "south_quality_corrections",
+  "current_stage": "five_area_native_review_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
     "implemented": true,
-    "native_unity": true,
-    "visual": true,
-    "town_density": true,
-    "walking": true,
+    "native_unity": false,
+    "visual": false,
+    "town_density": false,
+    "walking": false,
     "arrival_readability": true,
     "deliberate_second_tap": true,
-    "unity_stage_accepted": true,
+    "unity_stage_accepted": false,
     "native_image_count": 6,
-    "status": "Current native source15/15 verified and quality retained; not whole-town or Pixel acceptance.",
+    "status": "Revised South/camera inputs await same-source five-area native replay; previous actual receipt retained separately.",
     "prerequisite_review": "References/Review/west-cafe-2026-10-22-accepted/native-review.json",
     "last_review": {
       "candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
@@ -195,22 +204,28 @@
     "nameplate_readability": true,
     "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
     "review_directory": "References/Review/south-garden-2026-10-23-candidate/east",
-    "central_input_fingerprint": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda"
+    "central_input_fingerprint": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
+    "previous_native_review": {
+      "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
+      "review_directory": "References/Review/south-garden-2026-10-23-candidate/east",
+      "central_input_fingerprint": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
+      "native_image_count": 6
+    }
   },
   "north": {
     "design_direction_approved": true,
     "implemented": true,
     "scope": "Conditionally approved delivery courtyard preserved; requested pair/cross/circuit links verified on existing open floor, board-side Lv3 flowers/lantern added. New native replay pending.",
-    "native_unity": true,
-    "visual": true,
-    "town_density": true,
-    "walking": true,
+    "native_unity": false,
+    "visual": false,
+    "town_density": false,
+    "walking": false,
     "arrival_readability": true,
     "deliberate_second_tap": true,
     "nameplate_readability": true,
-    "unity_stage_accepted": true,
+    "unity_stage_accepted": false,
     "native_image_count": 6,
-    "status": "Current native source15/15 verified and quality retained; not whole-town or Pixel acceptance.",
+    "status": "Revised South/camera inputs await same-source five-area native replay; previous actual receipt retained separately.",
     "prerequisite_review": "References/Review/east-florist-2026-10-22-accepted/native-review.json",
     "last_review": {
       "candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
@@ -260,6 +275,12 @@
       "visual": true,
       "record": "References/Review/north-quest-2026-10-23-mosaic-candidate/native-review.json",
       "scope": "Historical approved quality reference; new North/South shared render inputs require native replay."
+    },
+    "previous_native_review": {
+      "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
+      "review_directory": "References/Review/south-garden-2026-10-23-candidate/north",
+      "central_input_fingerprint": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
+      "native_image_count": 6
     }
   },
   "quality_reference": {
@@ -329,9 +350,9 @@
       "condition_fulfillment_review": "References/Review/south-garden-2026-10-23-candidate/native-review.json"
     },
     "south_garden": {
-      "user_approved": false,
-      "approved_by": null,
-      "approval_reference": null,
+      "user_approved": true,
+      "approved_by": "user",
+      "approval_reference": "2026-10-23 user:「南エリアは条件付き承認です。大きく作り直さず、以下だけ修正してください。」庭園・休憩、Lv3、回遊導線、空白感の限定修正後「5エリア統合レビュー」を作成。統合レビュー承認前のmain・大規模追加・Pixel最終受入は禁止。",
       "native_unity": true,
       "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
       "input_fingerprint": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
@@ -365,7 +386,9 @@
         "world": false,
         "characters": true
       },
-      "status": "Native candidate reviewed: HOLD for exposed ground crop, path/paint mismatch and weak intermediate growth. JPEGs registered for review only; no South user approval."
+      "status": "Conditional user authorization on the actual45f205d images: bounded South corrections followed by five-area review. Historical HOLD quality axes remain; unseen new images are not approved.",
+      "conditional": true,
+      "conditions_record": "docs/verification/south-final-conditions-2026-10-23.json"
     },
     "five_area": {
       "user_approved": false,
@@ -397,13 +420,13 @@
   "south": {
     "design_direction_approved": true,
     "implemented": true,
-    "native_unity": true,
+    "native_unity": false,
     "visual": false,
     "town_density": false,
     "walking": false,
     "unity_stage_accepted": false,
     "native_image_count": 6,
-    "status": "Current native source15/15 verified; South visual HOLD for ground crop/path mismatch. Historical quality preserved.",
+    "status": "Revised South/camera inputs await same-source five-area native replay; previous actual receipt retained separately.",
     "previous_review": {},
     "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
     "review_directory": "References/Review/south-garden-2026-10-23-candidate/south",
@@ -426,6 +449,12 @@
       "S1",
       "S2",
       "S3"
-    ]
+    ],
+    "previous_native_review": {
+      "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
+      "review_directory": "References/Review/south-garden-2026-10-23-candidate/south",
+      "central_input_fingerprint": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
+      "native_image_count": 6
+    }
   }
 }

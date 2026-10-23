@@ -17,7 +17,32 @@ namespace Mofumachi.Tests
             Assert.That(TownSceneryLayout.Landmarks.Single(p=>p.District==TownDistrictId.South).Kind,Is.EqualTo(TownSceneryKind.Gazebo));
             foreach(var kind in new[]{TownSceneryKind.GardenPergola,TownSceneryKind.FlowerBorder,TownSceneryKind.StreetLamp,TownSceneryKind.FlowerBasket})Assert.That(pieces.Any(p=>p.Kind==kind&&Visible(p,1)),Is.True,"Lv1 is already a finished garden: "+kind);
             Assert.That(TownVillageDressing.All.Any(p=>p.Kind==TownSceneryKind.ParkBench&&p.District==TownDistrictId.South),Is.True);
-            Assert.That(Master().GetField("Resource").GetRawConstantValue(),Is.EqualTo(TownWestMasterLayout.Resource),"Share the accepted stone/flower palette without a new large texture");
+        }
+        [Test] public void FollowingSouthRestStopsKeepsTheGardenInsideThePaintedCoverage()
+        {
+            var camera=new TownWorldCamera();camera.Fit(1.10f,1.40f);
+            camera.Jump(new TownPoint(-.30f,-1.925f));
+            Assert.That(camera.Center.X-.55f,Is.GreaterThanOrEqualTo(-.80f),"Do not expose the unused diagonal lawn at the left bench");
+            camera.Jump(new TownPoint(.45f,-1.83f));
+            Assert.That(camera.Center.X+.55f,Is.LessThanOrEqualTo(.80f));
+            camera.Jump(new TownPoint(-1.2f,0));Assert.That(camera.Center.X,Is.EqualTo(-1.2f),"The accepted west camera must not be narrowed");
+        }
+        [Test] public void CircularFlowerbedConnectsToBothRestPlacesWithoutReturningToTheGazebo()
+        {
+            var links=(IReadOnlyList<TownPoint[]>)Master().GetProperty("Circulation").GetValue(null);
+            var bed=new TownPoint(-.20f,-2.40f);
+            Assert.That(links.Count(link=>link.Contains(bed)),Is.GreaterThanOrEqualTo(3));
+            Assert.That(links.Any(link=>link.Contains(bed)&&link.Contains(new TownPoint(-.30f,-2.35f))&&!link.Contains(new TownPoint(0,-2.04f))),Is.True);
+            Assert.That(links.Any(link=>link.Contains(bed)&&link.Contains(new TownPoint(.20f,-2.20f))&&!link.Contains(new TownPoint(0,-2.04f))),Is.True);
+        }
+        [Test] public void LevelThreeMakesTheBenchAndGazeboVisiblyLivelierWithoutAddingBlockers()
+        {
+            var pieces=Pieces();var benchPots=pieces.Where(p=>p.Kind==TownSceneryKind.FlowerBasket&&p.Feet.X<-.4f&&p.Feet.Y<-2).ToArray();
+            Assert.That(benchPots.Any(p=>Visible(p,1)),Is.True,"The bench is already a finished rest place at Lv1");
+            Assert.That(benchPots.Where(p=>Visible(p,3)).Sum(p=>p.Width),Is.GreaterThan(benchPots.Where(p=>Visible(p,1)).Sum(p=>p.Width)*1.5f));
+            var lamps=pieces.Where(p=>p.Kind==TownSceneryKind.StreetLamp&&p.Feet.Y>-2).ToArray();
+            Assert.That(lamps.Where(p=>Visible(p,3)).Sum(p=>p.Width),Is.GreaterThan(lamps.Where(p=>Visible(p,1)).Sum(p=>p.Width)*1.35f));
+            Assert.That(pieces.Where(p=>p.Level>=3).All(p=>p.Footprint==null),Is.True);
         }
         [Test] public void StagedGardenReplacesItsPlantingWithoutNewFloorBlockers()
         {
@@ -40,7 +65,7 @@ namespace Mofumachi.Tests
         }
         [Test] public void LowGardenBanksLeaveResidentAndRestingVisitorNamesClear()
         {
-            foreach(int level in new[]{1,3,6})foreach(var feet in new[]{TownWorldMap.Place("front-promenade"),TownWorldMap.Place("celebration"),new TownPoint(.20f,-2.20f),new TownPoint(0,-2.04f)})
+            foreach(int level in new[]{1,3,6})foreach(var feet in new[]{TownWorldMap.Place("front-promenade"),TownWorldMap.Place("celebration"),new TownPoint(.20f,-2.20f),new TownPoint(0,-2.04f),new TownPoint(-.20f,-2.40f)})
             {
                 var plate=new TownViewportRect(feet.X-.13f,feet.Y-.075f,.26f,.075f);
                 foreach(var p in Pieces().Where(p=>Visible(p,level)&&p.Feet.Y<feet.Y))

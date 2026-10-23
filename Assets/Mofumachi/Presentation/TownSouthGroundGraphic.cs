@@ -19,10 +19,16 @@ namespace Mofumachi.Presentation
         {
             vh.Clear();if(mainTexture==null)return;
             Vector2 Local(TownPoint p)=>world!=null?world.Local(p,rectTransform):rectTransform.rect.center+new Vector2((p.X-center.X)*rectTransform.rect.width/width,(p.Y-center.Y)*rectTransform.rect.width/width);
-            void Vertex(float x,float y){var p=new TownPoint(x,y);var uv=TownSouthMasterLayout.TexturePoint(p);vh.AddVert(Local(p),color,new Vector2(uv.X,uv.Y));}
-            Vertex(TownSouthMasterLayout.Left,TownSouthMasterLayout.Bottom);Vertex(TownSouthMasterLayout.Left,TownSouthMasterLayout.Top);
-            Vertex(TownSouthMasterLayout.Right,TownSouthMasterLayout.Top);Vertex(TownSouthMasterLayout.Right,TownSouthMasterLayout.Bottom);
-            vh.AddTriangle(0,1,2);vh.AddTriangle(0,2,3);
+            var xs=new[]{TownSouthMasterLayout.Left,-.80f,.80f,TownSouthMasterLayout.Right};
+            var ys=new[]{TownSouthMasterLayout.Bottom,-3.12f,-1.12f,TownSouthMasterLayout.Top};
+            for(int row=0;row<4;row++)for(int col=0;col<4;col++)
+            {
+                var p=new TownPoint(xs[col],ys[row]);var uv=TownSouthMasterLayout.TexturePoint(p);var tint=color;
+                if(row==0||row==3||col==0||col==3)tint.a=0;
+                vh.AddVert(Local(p),tint,new Vector2(uv.X,uv.Y));
+            }
+            for(int row=0;row<3;row++)for(int col=0;col<3;col++)
+            {int i=row*4+col;vh.AddTriangle(i,i+4,i+5);vh.AddTriangle(i,i+5,i+1);}
         }
     }
 }

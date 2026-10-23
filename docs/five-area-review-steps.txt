@@ -1,0 +1,22 @@
+5エリア統合レビュー（APKを作らない確認）
+
+1. GitHub Desktopで feat/daily-world-pass-20261016 を選び、Pullしてください。
+2. Unity Editorを閉じ、Windows PowerShellで以下を実行してください。
+
+Set-Location -LiteralPath "C:\Users\User\Desktop\Mofumachi\mofumachi-merge"
+powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\build-android.ps1" -FiveAreaReview
+
+3. 終了すると Builds\FiveAreaReview\実行日時 のフォルダーが開きます。
+   そのフォルダー内の five-area-review-01.zip から最後の番号まで、全ZIPをまとめて提出してください。
+   以前の central-master-review.zip 等と混ぜる必要はありません。
+
+内容：中央／西／東／北／南のLv1・3・6、接続／歩行／到着の実Unity PNG27枚。
+前回45f205dの同条件Before15枚、Lv別の比較JPEG3枚、5地区の歩行導線JPEG、役割と成長の説明。
+導線図は実画面に実ナビの経路を重ねた注釈で、操作記録ではありません。
+原本とSHA・ソース版は一式のreview-manifest.jsonに記録し、16テストのXMLは1回だけ計上します。
+
+現在の状態：実装済み・新版Unity実画面未確認・実機未確認。
+比較画像は、この実Unity撮影が終わってから作られます。旧画像を新版の画像として扱いません。
+今回のコマンドはAPK／Pixel最終受入／main統合を行いません。
+統合レビューの実画像確認とユーザー承認の後に、全Unityテスト・QA APK・Pixelへ進みます。
+エラー時はその画面と同じ実行フォルダーのcentral-playmode.xml／.logを提出してください。

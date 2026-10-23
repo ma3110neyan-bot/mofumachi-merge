@@ -1,5 +1,8 @@
 # Central-only review helpers. Loading this file never renders, builds or adopts.
 function Get-CentralInputPaths {
+    'Assets/Mofumachi/Tests/PlayMode/TownReviewRoutes.cs'
+    'Assets/Mofumachi/Resources/Mofumachi/TownSouthGround.png'
+    'Assets/Mofumachi/Resources/Mofumachi/TownSouthGround.png.meta'
     # Shared files are intentional: later district-only commits may retain the
     # review, but changing projection/scenery/navigation requires central review.
     foreach($Name in @('TownCentralMasterLayout','TownCentralGroundGraphic','TownWestMasterLayout','TownWestGroundGraphic','TownEastMasterLayout','TownEastGroundGraphic','TownNorthMasterLayout','TownNorthGroundGraphic','TownSouthMasterLayout','TownSouthGroundGraphic','TownFountainGraphic','TownContinuousWorldView','TownWalkableArea','TownSceneryView','TownSceneryLayout','TownVillageDressing','TownVillageDetailGraphic','TownWorldSurface','TownWorldLayout','TownWorldMap','TownWorldWalkModel','TownGroundGraphic','TownLifeView','TownActor','TownStreetHud','TownGrowthView','TownGrowthPresentation','TownGrowthComparisonView','TownFacilityView')) {

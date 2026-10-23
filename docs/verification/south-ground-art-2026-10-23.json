@@ -1,0 +1,15 @@
+{
+  "scope": "South-only matched environmental ground correction; generated source asset, never a Unity/Pixel screenshot",
+  "original_reference": "Assets/Mofumachi/Resources/Mofumachi/TownWestGround.png",
+  "original_reference_unchanged": true,
+  "asset": "Assets/Mofumachi/Resources/Mofumachi/TownSouthGround.png",
+  "sha256": "c7539fe1da40adf9f976695a9df86bdd91c94703ad3ed1b6adf362d3ecc6fa6e",
+  "source_dimensions": [
+    1024,
+    1536
+  ],
+  "intent": "Keep original stone/flower material and dense side gardens; interior reserved islands use existing original scenery sprites instead of arbitrary painted rocks/planting under walkable routes. Add inset flat floral stone medallions.",
+  "mesh": "16vertices,18triangles, transparent outer strip, one shared NonReadable texture; original accepted ground textures unchanged",
+  "device_performance": "Unmeasured; Editor asset residency recorded by capture, Pixel load remains pending",
+  "adopted": false
+}

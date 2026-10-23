@@ -30,18 +30,28 @@ try {
     # The current user-authorized South review must run through the actual
     # prerequisite without changing/escaping the approved Japanese record.
     Assert-SouthReviewPrerequisites $Repo
+    Assert-FiveAreaReviewPrerequisites $Repo
 
     # Correct decoding is not permission to bypass the South or APK gates.
     foreach($Checkpoint in @('south_garden','five_area')) {
         $Rejected=$false
         try {Assert-TownCheckpointApproved $Repo $Checkpoint} catch {
-            if($_.Exception.Message -notlike '*explicit user image approval missing for south_garden*'){throw}
+            if($_.Exception.Message -notlike '*Town quality regressed or unreviewed: south_garden/density*'){throw}
             $Rejected=$true
         }
         if(-not $Rejected){throw "Unapproved checkpoint opened: $Checkpoint"}
     }
     if((Get-FileHash -LiteralPath $StagePath -Algorithm SHA256).Hash -ne $Before){throw 'Encoding fix rewrote the user approval record.'}
-    Write-Host 'Japanese Windows CP932 failure reproduced; actual South prerequisites pass with UTF8 reads; South/integration approval stays closed. No Unity/Pixel execution.'
+    # PS5.1 also decodes dot-sourced scripts with the system ANSI code page.
+    # Test the actual reader/parser, not only the JSON readers: an UTF8 script
+    # without BOM previously corrupted quoted Japanese text and failed parsing.
+    $ScriptPath=Join-Path $Repo 'scripts/five-area-review.ps1'
+    $Reader=[IO.StreamReader]::new($ScriptPath,$LegacyEncoding,$true)
+    try{$Decoded=$Reader.ReadToEnd()}finally{$Reader.Dispose()}
+    if($Decoded -ne [IO.File]::ReadAllText($ScriptPath,[Text.Encoding]::UTF8)){throw 'Legacy host corrupted review script strings.'}
+    $Tokens=$null;$ParseErrors=$null;$null=[Management.Automation.Language.Parser]::ParseInput($Decoded,[ref]$Tokens,[ref]$ParseErrors)
+    if(@($ParseErrors).Count -gt 0){throw 'Legacy host cannot parse the actual review helper.'}
+    Write-Host 'Japanese Windows CP932 JSON failure reproduced; actual South/five-area review prerequisites and script decoding/parser pass; final quality/integration acceptance stays closed. No Unity/Pixel execution.'
 } finally {
     Remove-Item Function:Get-Content
 }

@@ -1,0 +1,103 @@
+{
+  "approved_base_revision": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
+  "garden_rest_implemented": true,
+  "level_three_implemented": true,
+  "circulation_verified": true,
+  "ground_alignment_implemented": true,
+  "integration_review_authorized_by_user": true,
+  "native_after_adjustments_verified": false,
+  "integration_user_approved": false,
+  "scope": "Implementation/local verification conditions only; geometry/paint appearance still requires new native review. Not image approval, APK or Pixel.",
+  "adjusted_files": [
+    {
+      "file": "Assets/Mofumachi/Presentation/TownSouthMasterLayout.cs",
+      "sha256": "2793ef0a143fda041e03e3948d3d3398c966b51f7912b2e3b41b71b77f412f6b"
+    },
+    {
+      "file": "Assets/Mofumachi/Presentation/TownSouthGroundGraphic.cs",
+      "sha256": "d785ceab1482e2d9f0edf8852910f55e5436ae5f1ca924c952a323adbe104b63"
+    },
+    {
+      "file": "Assets/Mofumachi/Presentation/TownWorldLayout.cs",
+      "sha256": "07b9b026a48e6e1ddae4131b092a92f197f30917c6ac91f2ea868c86d5c9d91d"
+    },
+    {
+      "file": "Assets/Mofumachi/Tests/PlayMode/TownReviewRoutes.cs",
+      "sha256": "f68dc2a279304e1c877b77698702062c987c3b5e37239a89cdcc69535215d1e2"
+    },
+    {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownSouthGround.png",
+      "sha256": "c7539fe1da40adf9f976695a9df86bdd91c94703ad3ed1b6adf362d3ecc6fa6e"
+    },
+    {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownSouthGround.png.meta",
+      "sha256": "7950faeb08a4c3bf4eecc936dfec95dd10846da6c42693c9053e1bf8e079d5b8"
+    }
+  ],
+  "frozen_files": [
+    {
+      "file": "Assets/Mofumachi/Presentation/TownCentralMasterLayout.cs",
+      "sha256": "c15ec21ce62a21184031092318a67f15c2a05b2b75a91259c76b43200c99ac39"
+    },
+    {
+      "file": "Assets/Mofumachi/Presentation/TownCentralGroundGraphic.cs",
+      "sha256": "3ef1b72cc90d425b0da4e2b1712d3f6184d6ae0e1bdd2046defdcb3ce4529361"
+    },
+    {
+      "file": "Assets/Mofumachi/Presentation/TownWestMasterLayout.cs",
+      "sha256": "a13bb6d20528649f68e340ae0cce29b4707ef31c86165c4858494f5818667c17"
+    },
+    {
+      "file": "Assets/Mofumachi/Presentation/TownWestGroundGraphic.cs",
+      "sha256": "50389a094ec3796be26ac42fd1839ef48bb440cb8a550809c9f560b1e362dae1"
+    },
+    {
+      "file": "Assets/Mofumachi/Presentation/TownEastMasterLayout.cs",
+      "sha256": "c6d9f04ad27d9ab72517209feda2728b51000a38ae381a72df31e7dd6529f952"
+    },
+    {
+      "file": "Assets/Mofumachi/Presentation/TownEastGroundGraphic.cs",
+      "sha256": "30ccadfb7609784036878c7e21b25eccd0a0a5b0ac9263e2db2bc69b94984736"
+    },
+    {
+      "file": "Assets/Mofumachi/Presentation/TownNorthMasterLayout.cs",
+      "sha256": "426033650247fe707d748d5eee8cd5f317254e5732f284aff03c442f18e732e5"
+    },
+    {
+      "file": "Assets/Mofumachi/Presentation/TownNorthGroundGraphic.cs",
+      "sha256": "f9cb41c881d86abbb4dc61a6fe8d246b0f8966581faf7f284c147022ef7d5b3a"
+    },
+    {
+      "file": "Assets/Mofumachi/Presentation/TownWalkableArea.cs",
+      "sha256": "d7eaa408694ac4271032889c6581d69de0ba9bd01a0e843d275e64504a66bd0e"
+    },
+    {
+      "file": "Assets/Mofumachi/Presentation/TownWorldWalkModel.cs",
+      "sha256": "cbb0e7d0deb41f322cb6c2e0f1ee9005677639a99da68f8a4de13c6a2a6f3452"
+    },
+    {
+      "file": "Assets/Mofumachi/Presentation/TownVillageDressing.cs",
+      "sha256": "9968121bf1d471d080c126e22ca6b96166606b08b051222e5bf58abfdff7f395"
+    },
+    {
+      "file": "Assets/Mofumachi/Presentation/TownSceneryLayout.cs",
+      "sha256": "4e9beb593ce9f50f134737ffca9c75729cf0b7d5a7b175cbadd756c332ba723e"
+    },
+    {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownCentralGround.png",
+      "sha256": "f4f318978432504a89d3b56eb0eebc20df6e0bc4de9a00f6a2ab32f94a22016a"
+    },
+    {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownCentralFountain.png",
+      "sha256": "54c71fdc1ea55a1e70ddf54d25480ca30c395e24fd84c3e8fbb13aafb8855c2f"
+    },
+    {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownWestGround.png",
+      "sha256": "4e48bdcfe4bbeb8bfca6c34aed65710469a8250a3b868f67d34bc5c93b115451"
+    },
+    {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownNorthCourtMosaic.png",
+      "sha256": "b7a7289a5a8446aca121ec7358c2a410383d4ca78d4ef7d3873785d5f5f12332"
+    }
+  ]
+}

@@ -92,6 +92,7 @@ namespace Mofumachi.Tests
             public string image="04-town-lv1-North.png",image_sha256,kind="navigation-route-overlay-not-gameplay-trace",origin="top-left";
             public int width=720,height=1280;public NorthRoute[] routes;
         }
+        private static readonly string[] ReviewRouteIds={"route-1","route-2","route-3","route-4","route-5","route-6"};
         private void WriteNorthRouteEvidence(string directory,TownLifeView town)
         {
             WriteRouteEvidence(directory,town,"North",TownNorthMasterLayout.Circulation,new[]{"cottage-left","cottage-right","left-waiting","right-waiting","mosaic-cross","mosaic-loop"});
@@ -124,7 +125,8 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator PortraitScreensRenderFromIsolatedStateWithoutWritingProgress()
         {
             yield return EnterHome();string output=OutputDirectory();
-            bool southReview=Environment.GetCommandLineArgs().Contains("-mofumachiSouthReview");
+            bool fiveAreaReview=Environment.GetCommandLineArgs().Contains("-mofumachiFiveAreaReview");
+            bool southReview=fiveAreaReview||Environment.GetCommandLineArgs().Contains("-mofumachiSouthReview");
             bool northReview=southReview||Environment.GetCommandLineArgs().Contains("-mofumachiNorthReview");
             bool eastReview=northReview||Environment.GetCommandLineArgs().Contains("-mofumachiEastReview");
             bool westReview=eastReview||Environment.GetCommandLineArgs().Contains("-mofumachiWestReview");
@@ -155,6 +157,7 @@ namespace Mofumachi.Tests
                         Assert.That(festive.max.y,Is.LessThan(caption.min.y),"The festival display must fit below the location ribbon");
                     }
                     Capture(output,"04-town-lv"+level+"-Central",TownDistrictId.Central);
+                    if(fiveAreaReview&&level==1)WriteRouteEvidence(output,life,"Central",TownReviewRoutes.For(TownDistrictId.Central),ReviewRouteIds);
                 }
                 if(westReview)
                 {
@@ -166,6 +169,7 @@ namespace Mofumachi.Tests
                         foreach(var piece in town.GetComponent<TownSceneryView>().Pieces.Where(p=>p.Rect.gameObject.activeSelf))
                             Assert.That(Vector2.Distance(piece.Rect.anchoredPosition,town.World.Local(piece.Placement.Feet,(RectTransform)town.transform)),Is.LessThan(.01f));
                         Capture(westOutput,"04-town-lv"+level+"-West",TownDistrictId.West);
+                        if(fiveAreaReview&&level==1)WriteRouteEvidence(westOutput,town,"West",TownReviewRoutes.For(TownDistrictId.West),ReviewRouteIds);
                     }
                     Flow.Game.State.townGrowthLevel=1;Flow.ShowHome();EnsurePortraitCamera();var west=Flow.GetComponentInChildren<TownLifeView>();
                     west.World.LookAt(TownDistrictId.West);west.World.Camera.Jump(new TownPoint(-.60f,0));west.World.Refresh();Capture(westOutput,"west-connection");
@@ -194,6 +198,7 @@ namespace Mofumachi.Tests
                             Assert.That(Vector2.Distance(piece.Rect.anchoredPosition,town.World.Local(piece.Placement.Feet,(RectTransform)town.transform)),Is.LessThan(.01f));
                         EastMasterReviewTests.AssertNameClearOfBenches(town,town.Actors.Single(a=>a.CharacterId=="fio"));
                         Capture(eastOutput,"04-town-lv"+level+"-East",TownDistrictId.East);
+                        if(fiveAreaReview&&level==1)WriteRouteEvidence(eastOutput,town,"East",TownReviewRoutes.For(TownDistrictId.East),ReviewRouteIds);
                     }
                     Flow.Game.State.townGrowthLevel=1;Flow.ShowHome();EnsurePortraitCamera();var east=Flow.GetComponentInChildren<TownLifeView>();
                     east.World.LookAt(TownDistrictId.East);east.World.Camera.Jump(new TownPoint(.60f,0));east.World.Refresh();Capture(eastOutput,"east-connection");
@@ -261,7 +266,7 @@ namespace Mofumachi.Tests
                     south.World.Model.Pause(south.World.Model.Hero.Id,2);south.RefreshWorldPresentation();Capture(southOutput,"south-rest-arrived");
                     Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));
                 }
-                if(output!=null)File.WriteAllLines(Path.Combine(output,"texture-memory.txt"),new[]{TownCentralMasterLayout.Resource,TownFountainGraphic.Resource,TownWestMasterLayout.Resource}.Select(key=>key+": "+UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(Resources.Load<Texture2D>(key))+" bytes"));
+                if(output!=null)File.WriteAllLines(Path.Combine(output,"texture-memory.txt"),new[]{TownCentralMasterLayout.Resource,TownFountainGraphic.Resource,TownWestMasterLayout.Resource,TownSouthMasterLayout.Resource}.Select(key=>key+": "+UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(Resources.Load<Texture2D>(key))+" bytes"));
                 LogAssert.NoUnexpectedReceived();yield break;
             }
             Flow.ShowMerge();yield return null;Capture(output,"01-merge-start");

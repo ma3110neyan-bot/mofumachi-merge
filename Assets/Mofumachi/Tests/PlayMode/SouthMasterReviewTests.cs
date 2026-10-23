@@ -13,8 +13,8 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();var life=FrameTownPortrait(640);life.World.LookAt(TownDistrictId.South);Canvas.ForceUpdateCanvases();
             var ground=Flow.GetComponentInChildren<TownSouthGroundGraphic>();Assert.That(ground,Is.Not.Null);Assert.That(ground.raycastTarget,Is.False);
-            var art=Resources.Load<Texture2D>(TownSouthMasterLayout.Resource);Assert.That(art,Is.Not.Null);Assert.That(ground.mainTexture,Is.SameAs(art));Assert.That(art,Is.SameAs(Resources.Load<Texture2D>(TownWestMasterLayout.Resource)));Assert.That(art.isReadable,Is.False);
-            void Check(){Canvas.ForceUpdateCanvases();var mesh=ground.canvasRenderer.GetMesh();Assert.That(mesh.vertexCount,Is.EqualTo(4));Assert.That(Vector2.Distance(mesh.vertices[0],life.World.Local(new TownPoint(TownSouthMasterLayout.Left,TownSouthMasterLayout.Bottom),ground.rectTransform)),Is.LessThan(.01f));}
+            var art=Resources.Load<Texture2D>(TownSouthMasterLayout.Resource);Assert.That(art,Is.Not.Null);Assert.That(ground.mainTexture,Is.SameAs(art));Assert.That(art.isReadable,Is.False);
+            void Check(){Canvas.ForceUpdateCanvases();var mesh=ground.canvasRenderer.GetMesh();Assert.That(mesh.vertexCount,Is.EqualTo(16));Assert.That(mesh.colors32[0].a,Is.Zero,"The old rectangular edge must blend into its surroundings");Assert.That(mesh.colors32[5].a,Is.EqualTo(255));Assert.That(Vector2.Distance(mesh.vertices[0],life.World.Local(new TownPoint(TownSouthMasterLayout.Left,TownSouthMasterLayout.Bottom),ground.rectTransform)),Is.LessThan(.01f));}
             string saved=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;var positions=life.World.Model.Residents.Select(a=>a.Position).ToArray();
             Check();life.World.Pan(new Vector2(30,-20));Check();var snapshot=life.World.Capture();life.World.LookAt(TownDistrictId.Central);life.World.Restore(snapshot);Check();
             Assert.That(life.World.Model.Residents.Select(a=>a.Position),Is.EqualTo(positions));Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(saved));LogAssert.NoUnexpectedReceived();
@@ -25,7 +25,7 @@ namespace Mofumachi.Tests
             foreach(int level in new[]{1,3,6})
             {
                 Flow.Game.State.townGrowthLevel=level;Flow.ShowHome();var life=FrameTownPortrait(640);life.World.FastTravel(TownDistrictId.Central);
-                foreach(var stop in new[]{new TownPoint(-.38f,-1.50f),new TownPoint(-.38f,-1.96f),new TownPoint(0,-2.04f),new TownPoint(.38f,-1.96f),new TownPoint(.38f,-1.50f),new TownPoint(.20f,-2.20f),TownWorldMap.Place("front-promenade"),TownWorldMap.Place("celebration")})
+                foreach(var stop in new[]{new TownPoint(-.38f,-1.50f),new TownPoint(-.38f,-1.96f),new TownPoint(0,-2.04f),new TownPoint(.38f,-1.96f),new TownPoint(.38f,-1.50f),new TownPoint(.20f,-2.20f),new TownPoint(-.20f,-2.40f),TownWorldMap.Place("front-promenade"),TownWorldMap.Place("celebration")})
                 {
                     Assert.That(life.World.GuidePoint(stop),Is.True);
                     for(int i=0;i<3000&&life.World.Model.Hero.IsWalking;i++){life.AdvanceFrame(1f/30);Assert.That(life.World.Model.Area.Contains(life.World.Model.Hero.Position),Is.True);}

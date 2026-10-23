@@ -67,8 +67,18 @@ namespace Mofumachi.Presentation
         {if(!float.IsFinite(width)||!float.IsFinite(height)||width<=0||height<=0)return;halfWidth=Math.Min(width,TownWorldMap.Width)/2;halfHeight=Math.Min(height,TownWorldMap.Height)/2;Center=Clamp(Center);}
         public void Jump(TownPoint p){if(TownWorldLayout.Finite(p))Center=Clamp(p);}
         public void Follow(TownPoint p,float dt)
-        {if(!TownWorldLayout.Finite(p)||!float.IsFinite(dt)||dt<=0)return;float t=1-(float)Math.Exp(-Math.Min(dt,.1f)*8);var target=Clamp(p);Center=new TownPoint(Center.X+(target.X-Center.X)*t,Center.Y+(target.Y-Center.Y)*t);}
+        {if(!TownWorldLayout.Finite(p)||!float.IsFinite(dt)||dt<=0)return;float t=1-(float)Math.Exp(-Math.Min(dt,.1f)*8);var target=Clamp(p);Center=Clamp(new TownPoint(Center.X+(target.X-Center.X)*t,Center.Y+(target.Y-Center.Y)*t));}
         public void Pan(float x,float y){if(float.IsFinite(x)&&float.IsFinite(y))Jump(new TownPoint(Center.X+x,Center.Y+y));}
-        private TownPoint Clamp(TownPoint p)=>new TownPoint(Math.Max(TownWorldMap.Left+halfWidth,Math.Min(TownWorldMap.Right-halfWidth,p.X)),Math.Max(TownWorldMap.Bottom+halfHeight,Math.Min(TownWorldMap.Top-halfHeight,p.Y)));
+        private TownPoint Clamp(TownPoint p)
+        {
+            float y=Math.Max(TownWorldMap.Bottom+halfHeight,Math.Min(TownWorldMap.Top-halfHeight,p.Y));
+            float left=TownWorldMap.Left+halfWidth,right=TownWorldMap.Right-halfWidth;
+            // The southern garden is one room wide. Ease its camera envelope in
+            // over the entry, leaving the full physical walking plane unchanged.
+            float blend=Math.Max(0,Math.Min(1,(-y-.70f)/.60f));
+            float gardenLimit=Math.Max(0,.80f-halfWidth);
+            left+=( -gardenLimit-left)*blend;right+=(gardenLimit-right)*blend;
+            return new TownPoint(Math.Max(left,Math.Min(right,p.X)),y);
+        }
     }
 }

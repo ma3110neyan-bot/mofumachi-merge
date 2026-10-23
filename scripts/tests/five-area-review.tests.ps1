@@ -1,0 +1,70 @@
+$ErrorActionPreference='Stop'
+Set-StrictMode -Version Latest
+. (Join-Path $PSScriptRoot '../build-android.ps1')
+if(-not(Get-Command Write-FiveAreaReview -ErrorAction SilentlyContinue)){throw 'Five-area review must export source-bound images without an APK.'}
+function Reject([scriptblock]$Action){$Rejected=$false;try{& $Action}catch{$Rejected=$true};if(-not $Rejected){throw 'Invalid five-area review was accepted.'}}
+$Repo=(Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
+Assert-FiveAreaReviewPrerequisites $Repo
+Reject {Assert-TownCheckpointApproved $Repo 'five_area'}
+$Root=Join-Path ([IO.Path]::GetTempPath()) ('mofu-five-area-'+[guid]::NewGuid())
+try {
+    New-Item -ItemType Directory -Path $Root -Force | Out-Null
+    $ConditionsRepo=Join-Path $Root 'conditions';$StageRelative='References/VisualLock/stage-acceptance-2026-10-21.json'
+    $Stage=Get-Content -LiteralPath (Join-Path $Repo $StageRelative) -Raw -Encoding UTF8 | ConvertFrom-Json
+    $Approval=$Stage.user_review_checkpoints.south_garden
+    $ConditionRelative=$Approval.conditions_record
+    $Conditions=Get-Content -LiteralPath (Join-Path $Repo $ConditionRelative) -Raw -Encoding UTF8 | ConvertFrom-Json
+    $DesignRelative='References/VisualLock/approved-design-2026-10-21.json'
+    $Design=Get-Content -LiteralPath (Join-Path $Repo $DesignRelative) -Raw -Encoding UTF8 | ConvertFrom-Json
+    $Paths=@($StageRelative,$ConditionRelative,$DesignRelative,$Design.reference)+@($Approval.images | ForEach-Object {$_.file})+@($Conditions.adjusted_files | ForEach-Object {$_.file})+@($Conditions.frozen_files | ForEach-Object {$_.file})
+    foreach($Relative in $Paths){$Target=Join-Path $ConditionsRepo $Relative;New-Item -ItemType Directory -Path (Split-Path -Parent $Target) -Force | Out-Null;Copy-Item -LiteralPath (Join-Path $Repo $Relative) -Destination $Target}
+    Assert-SouthFinalReviewConditions $ConditionsRepo
+    $ConditionPath=Join-Path $ConditionsRepo $ConditionRelative;$Saved=[IO.File]::ReadAllBytes($ConditionPath)
+    foreach($Key in @('garden_rest_implemented','level_three_implemented','circulation_verified','ground_alignment_implemented','integration_review_authorized_by_user')) {
+        $Conditions.$Key=$false;$Conditions | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $ConditionPath -Encoding UTF8
+        Reject {Assert-SouthFinalReviewConditions $ConditionsRepo};$Conditions.$Key=$true
+    }
+    $Conditions.adjusted_files=@();$Conditions | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $ConditionPath -Encoding UTF8
+    Reject {Assert-SouthFinalReviewConditions $ConditionsRepo};[IO.File]::WriteAllBytes($ConditionPath,$Saved)
+    $Changed=Join-Path $ConditionsRepo 'Assets/Mofumachi/Presentation/TownSouthMasterLayout.cs';[IO.File]::AppendAllText($Changed,'changed');Reject {Assert-SouthFinalReviewConditions $ConditionsRepo}
+    Copy-Item -LiteralPath (Join-Path $Repo 'Assets/Mofumachi/Presentation/TownSouthMasterLayout.cs') -Destination $Changed
+    $Stage.user_review_checkpoints.south_garden.user_approved=$false;$Stage | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath (Join-Path $ConditionsRepo $StageRelative) -Encoding UTF8
+    Reject {Assert-SouthFinalReviewConditions $ConditionsRepo}
+    $Run=Join-Path $Root 'run';$Screens=Join-Path $Run 'screenshots';New-Item -ItemType Directory -Path $Screens -Force | Out-Null
+    $Previous=Join-Path $Repo 'References/Review/south-garden-2026-10-23-candidate'
+    foreach($Area in @('central','west','east','north','south')) {
+        $Destination=if($Area -eq 'central'){$Screens}else{Join-Path $Screens $Area}
+        New-Item -ItemType Directory -Path $Destination -Force | Out-Null
+        Copy-Item -Path (Join-Path $Previous "$Area/screenshots/*.png") -Destination $Destination
+        Set-Content -LiteralPath (Join-Path $Destination 'capture-world.txt') -Value 'Pipeline fixture; older actual PNGs, synthetic current metadata; NOT a native run.'
+        $District=(Get-Culture).TextInfo.ToTitleCase($Area)
+        $Image="04-town-lv1-$District.png"
+        $Ids=Get-FiveAreaRouteIds $District
+        $Routes=@(for($i=0;$i -lt 6;$i++){@{id=$Ids[$i];points=@(@{x=80+$i*80;y=900},@{x=360;y=600})}})
+        @{image=$Image;image_sha256=(Get-FileHash (Join-Path $Destination $Image) -Algorithm SHA256).Hash.ToLowerInvariant();kind='navigation-route-overlay-not-gameplay-trace';origin='top-left';width=720;height=1280;routes=$Routes} | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $Destination "$Area-route-projection.json") -Encoding UTF8
+    }
+    $Info=@{gitRevision=Read-SourceRevision $Repo;productFingerprint=Get-ProductFingerprint $Repo;centralInputFingerprint=Get-CentralInputFingerprint $Repo}
+    $Info | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $Run 'central-review-info.json') -Encoding UTF8
+    # XML is intentionally a pipeline fixture. Never register this as native evidence.
+    $SuiteCounts=[ordered]@{ExperienceCaptureTests=1;CentralMasterReviewTests=2;WestMasterReviewTests=3;EastMasterReviewTests=3;NorthMasterReviewTests=3;SouthMasterReviewTests=3;FiveAreaIntegrationReviewTests=1}
+    $Suites=foreach($Key in $SuiteCounts.Keys){$Cases=for($i=0;$i -lt $SuiteCounts[$Key];$i++){"<test-case name='$Key-$i' result='Passed'/>"};"<test-suite name='$Key' result='Passed'>$($Cases -join '')</test-suite>"}
+    "<test-run total='16' passed='16' failed='0' skipped='0' result='Passed'>$($Suites -join '')</test-run>" | Set-Content -LiteralPath (Join-Path $Run 'central-playmode.xml')
+    Set-Content -LiteralPath (Join-Path $Run 'central-playmode.log') -Value 'Synthetic pipeline metadata, not Unity execution.'
+    function Write-FiveAreaComparisonJpegs([string]$Directory){foreach($Level in @(1,3,6)){[IO.File]::WriteAllBytes((Join-Path $Directory "five-area-lv$Level-before-candidate.jpg"),[byte[]]@(255,216,255,217))}}
+    function Write-TownRoutesJpeg([string]$Directory,[string]$District,[string]$Title,[hashtable]$Labels){Assert-TownRouteProjection $Directory $District @($Labels.Keys);[IO.File]::WriteAllBytes((Join-Path $Directory ($District.ToLowerInvariant()+'-walking-routes.jpg')),[byte[]]@(255,216,255,217))}
+    $Missing=Join-Path $Screens 'south/south-walking.png';$Bytes=[IO.File]::ReadAllBytes($Missing);Remove-Item -LiteralPath $Missing
+    Reject {Write-FiveAreaReview $Repo $Run};[IO.File]::WriteAllBytes($Missing,$Bytes)
+    $Bad=Join-Path $Screens 'west/west-route-projection.json';$Bytes=[IO.File]::ReadAllBytes($Bad)
+    $Route=Get-Content -LiteralPath $Bad -Raw -Encoding UTF8 | ConvertFrom-Json;$Route.image_sha256='0'*64;$Route | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $Bad
+    Reject {Write-FiveAreaReview $Repo $Run};[IO.File]::WriteAllBytes($Bad,$Bytes)
+    $Info.centralInputFingerprint='f'*64;$Info | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $Run 'central-review-info.json');Reject {Write-FiveAreaReview $Repo $Run}
+    $Info.centralInputFingerprint=Get-CentralInputFingerprint $Repo;$Info | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $Run 'central-review-info.json')
+    Write-FiveAreaReview $Repo $Run
+    $Parts=@(Get-ChildItem -LiteralPath $Run -Filter 'five-area-review-*.zip');if($Parts.Count -lt 2){throw 'Expected size-bounded review parts.'}
+    $Expanded=Join-Path $Root 'expanded';foreach($Part in $Parts){if($Part.Length -gt 21MB){throw 'Archive exceeds review upload budget.'};Expand-Archive -LiteralPath $Part.FullName -DestinationPath $Expanded}
+    $Manifest=Get-Content -LiteralPath (Join-Path $Expanded 'review-manifest.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    if($Manifest.native_image_count -ne 27 -or $Manifest.before_image_count -ne 15 -or $Manifest.user_approved -ne $false -or $Manifest.pixel_verified -ne $false -or $Manifest.adopted -ne $false){throw 'Review lost its scope or falsely adopted the candidate.'}
+    foreach($File in $Manifest.files){if((Get-FileHash -LiteralPath (Join-Path $Expanded $File.file) -Algorithm SHA256).Hash -ne $File.sha256){throw 'Part split lost or changed evidence.'}}
+    if(@(Get-ChildItem -LiteralPath $Expanded -Filter 'central-playmode.xml' -File -Recurse).Count -ne 1){throw 'Native results must be counted once.'}
+    Write-Host 'Five-area rejection/export/part SHA checks passed. Older PNG fixtures; synthetic XML and stubbed JPEG drawing, no native/device execution.'
+} finally {if(Test-Path -LiteralPath $Root){Remove-Item -LiteralPath $Root -Recurse -Force}}

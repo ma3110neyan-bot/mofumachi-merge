@@ -1,5 +1,5 @@
 ﻿[CmdletBinding()]
-param([string]$UnityEditor = "$env:ProgramFiles\Unity\Hub\Editor\6000.6.4f1\Editor\Unity.exe", [switch]$Qa,[switch]$TownQa,[switch]$CentralReview,[switch]$WestReview,[switch]$EastReview,[switch]$NorthReview,[switch]$SouthReview)
+param([string]$UnityEditor = "$env:ProgramFiles\Unity\Hub\Editor\6000.6.4f1\Editor\Unity.exe", [switch]$Qa,[switch]$TownQa,[switch]$CentralReview,[switch]$WestReview,[switch]$EastReview,[switch]$NorthReview,[switch]$SouthReview,[switch]$FiveAreaReview)
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 . (Join-Path $PSScriptRoot 'visual-lock.ps1')
@@ -7,6 +7,7 @@ Set-StrictMode -Version Latest
 . (Join-Path $PSScriptRoot 'east-review.ps1')
 . (Join-Path $PSScriptRoot 'north-review.ps1')
 . (Join-Path $PSScriptRoot 'south-review.ps1')
+. (Join-Path $PSScriptRoot 'five-area-review.ps1')
 function Assert-TestRun([string]$ResultPath,[int]$MinimumTests,[string[]]$RequiredSuites) {
     if (-not (Test-Path -LiteralPath $ResultPath)) { throw "Missing current test XML: $ResultPath" }
     [xml]$Results = Get-Content -LiteralPath $ResultPath -Raw
@@ -17,7 +18,7 @@ function Assert-TestRun([string]$ResultPath,[int]$MinimumTests,[string[]]$Requir
     foreach($Suite in $RequiredSuites) {
         if(@($Results.SelectNodes('//test-suite') | Where-Object { $_.GetAttribute('name') -eq $Suite -and $_.GetAttribute('result') -eq 'Passed' -and $_.SelectNodes('.//test-case').Count -gt 0 }).Count -eq 0) { throw "Missing passed suite: $Suite" }
     }
-    foreach($Gate in @(@{Name='CharacterSelectionTests';Count=4},@{Name='DailyWorldTests';Count=13},@{Name='MajorPolishTests';Count=6},@{Name='SeamlessFieldTests';Count=8},@{Name='EastWestHomeTests';Count=4},@{Name='ResidentPresenceTests';Count=5},@{Name='FivePlazaTests';Count=5},@{Name='BaseProductLoopTests';Count=5},@{Name='VisualLockPresentationTests';Count=2},@{Name='CentralMasterReviewTests';Count=2},@{Name='WestMasterReviewTests';Count=3},@{Name='EastMasterReviewTests';Count=3},@{Name='NorthMasterReviewTests';Count=3},@{Name='SouthMasterReviewTests';Count=3})) {
+    foreach($Gate in @(@{Name='CharacterSelectionTests';Count=4},@{Name='DailyWorldTests';Count=13},@{Name='MajorPolishTests';Count=6},@{Name='SeamlessFieldTests';Count=8},@{Name='EastWestHomeTests';Count=4},@{Name='ResidentPresenceTests';Count=5},@{Name='FivePlazaTests';Count=5},@{Name='BaseProductLoopTests';Count=5},@{Name='VisualLockPresentationTests';Count=2},@{Name='CentralMasterReviewTests';Count=2},@{Name='WestMasterReviewTests';Count=3},@{Name='EastMasterReviewTests';Count=3},@{Name='NorthMasterReviewTests';Count=3},@{Name='SouthMasterReviewTests';Count=3},@{Name='FiveAreaIntegrationReviewTests';Count=1})) {
         if($Gate.Name -in $RequiredSuites) {
             $Suite=$Results.SelectNodes('//test-suite') | Where-Object {$_.GetAttribute('name') -eq $Gate.Name} | Select-Object -First 1
             if($Suite.SelectNodes('.//test-case').Count -ne $Gate.Count){throw "Incomplete suite: $($Gate.Name), expected $($Gate.Count) cases."}
@@ -142,8 +143,8 @@ function Invoke-Unity([string[]]$UnityArguments) {
 # Dot sourcing exposes the same gates to script tests without starting Unity.
 if($MyInvocation.InvocationName -eq '.'){return}
 if($Qa -and $TownQa){throw 'Select -Qa or -TownQa, not both.'}
-if(($CentralReview -or $WestReview -or $EastReview -or $NorthReview -or $SouthReview) -and ($Qa -or $TownQa)){throw 'Central review is a native image checkpoint, separate from APK generation.'}
-if(@($CentralReview,$WestReview,$EastReview,$NorthReview,$SouthReview | Where-Object {$_}).Count -gt 1){throw 'Select one native review mode.'}
+if(($CentralReview -or $WestReview -or $EastReview -or $NorthReview -or $SouthReview -or $FiveAreaReview) -and ($Qa -or $TownQa)){throw 'Central review is a native image checkpoint, separate from APK generation.'}
+if(@($CentralReview,$WestReview,$EastReview,$NorthReview,$SouthReview,$FiveAreaReview | Where-Object {$_}).Count -gt 1){throw 'Select one native review mode.'}
 $ProjectPath=(Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 if($ProjectPath -match '[^\x00-\x7F]'){throw 'Move the entire repository to an ASCII path before Android builds.'}
 if(-not(Test-Path -LiteralPath $UnityEditor -PathType Leaf)){throw 'Pass -UnityEditor with Unity 6000.6.4f1 Unity.exe.'}
@@ -154,24 +155,25 @@ $SourceGit=Find-SourceGit
 Assert-CleanProductSource $ProjectPath $SourceGit
 Assert-BaseVisualLock $ProjectPath (Join-Path $ProjectPath 'References/VisualLock/base-2026-10-21.json')
 Assert-ApprovedVisualLock $ProjectPath
-if(-not ($CentralReview -or $WestReview -or $EastReview -or $NorthReview -or $SouthReview)){Assert-BaseStagesReadyForAcceptance $ProjectPath}
-if($SouthReview){Assert-SouthReviewPrerequisites $ProjectPath}elseif($NorthReview){Assert-NorthReviewPrerequisites $ProjectPath}elseif($EastReview){Assert-EastReviewPrerequisites $ProjectPath}
+if(-not ($CentralReview -or $WestReview -or $EastReview -or $NorthReview -or $SouthReview -or $FiveAreaReview)){Assert-BaseStagesReadyForAcceptance $ProjectPath}
+if($FiveAreaReview){Assert-FiveAreaReviewPrerequisites $ProjectPath}elseif($SouthReview){Assert-SouthReviewPrerequisites $ProjectPath}elseif($NorthReview){Assert-NorthReviewPrerequisites $ProjectPath}elseif($EastReview){Assert-EastReviewPrerequisites $ProjectPath}
 $ProductFingerprint=Get-ProductFingerprint $ProjectPath
 $ConfigurationChanges=@(& $SourceGit -C $ProjectPath diff --name-only HEAD -- Assets/Settings ProjectSettings)
 if($LASTEXITCODE -ne 0){throw 'Cannot record local Unity configuration deviations.'}
 $RunName=(Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::NewGuid().ToString('N').Substring(0,8)
-$OutputDir=if($SouthReview){Join-Path $ProjectPath "Builds\SouthReview\$RunName"}elseif($NorthReview){Join-Path $ProjectPath "Builds\NorthReview\$RunName"}elseif($EastReview){Join-Path $ProjectPath "Builds\EastReview\$RunName"}elseif($WestReview){Join-Path $ProjectPath "Builds\WestReview\$RunName"}elseif($CentralReview){Join-Path $ProjectPath "Builds\CentralReview\$RunName"}else{Join-Path $ProjectPath "Builds\Android\$RunName"}
+$OutputDir=if($FiveAreaReview){Join-Path $ProjectPath "Builds\FiveAreaReview\$RunName"}elseif($SouthReview){Join-Path $ProjectPath "Builds\SouthReview\$RunName"}elseif($NorthReview){Join-Path $ProjectPath "Builds\NorthReview\$RunName"}elseif($EastReview){Join-Path $ProjectPath "Builds\EastReview\$RunName"}elseif($WestReview){Join-Path $ProjectPath "Builds\WestReview\$RunName"}elseif($CentralReview){Join-Path $ProjectPath "Builds\CentralReview\$RunName"}else{Join-Path $ProjectPath "Builds\Android\$RunName"}
 New-Item -ItemType Directory -Path $OutputDir | Out-Null
-if($CentralReview -or $WestReview -or $EastReview -or $NorthReview -or $SouthReview) {
+if($CentralReview -or $WestReview -or $EastReview -or $NorthReview -or $SouthReview -or $FiveAreaReview) {
     $CentralInputFingerprint=Get-CentralInputFingerprint $ProjectPath
     $CentralXml=Join-Path $OutputDir 'central-playmode.xml'
-    $ReviewFlag=if($SouthReview){'-mofumachiSouthReview'}elseif($NorthReview){'-mofumachiNorthReview'}elseif($EastReview){'-mofumachiEastReview'}elseif($WestReview){'-mofumachiWestReview'}else{'-mofumachiCentralReview'}
+    $ReviewFlag=if($FiveAreaReview){'-mofumachiFiveAreaReview'}elseif($SouthReview){'-mofumachiSouthReview'}elseif($NorthReview){'-mofumachiNorthReview'}elseif($EastReview){'-mofumachiEastReview'}elseif($WestReview){'-mofumachiWestReview'}else{'-mofumachiCentralReview'}
     $Filter='Mofumachi.Tests.ExperienceCaptureTests;Mofumachi.Tests.CentralMasterReviewTests'
     $Suites=@('ExperienceCaptureTests','CentralMasterReviewTests');$ExpectedTests=3
-    if($WestReview -or $EastReview -or $NorthReview -or $SouthReview){$Filter+=';Mofumachi.Tests.WestMasterReviewTests';$Suites+='WestMasterReviewTests';$ExpectedTests=6}
-    if($EastReview -or $NorthReview -or $SouthReview){$Filter+=';Mofumachi.Tests.EastMasterReviewTests';$Suites+='EastMasterReviewTests';$ExpectedTests=9}
-    if($NorthReview -or $SouthReview){$Filter+=';Mofumachi.Tests.NorthMasterReviewTests';$Suites+='NorthMasterReviewTests';$ExpectedTests=12}
-    if($SouthReview){$Filter+=';Mofumachi.Tests.SouthMasterReviewTests';$Suites+='SouthMasterReviewTests';$ExpectedTests=15}
+    if($WestReview -or $EastReview -or $NorthReview -or $SouthReview -or $FiveAreaReview){$Filter+=';Mofumachi.Tests.WestMasterReviewTests';$Suites+='WestMasterReviewTests';$ExpectedTests=6}
+    if($EastReview -or $NorthReview -or $SouthReview -or $FiveAreaReview){$Filter+=';Mofumachi.Tests.EastMasterReviewTests';$Suites+='EastMasterReviewTests';$ExpectedTests=9}
+    if($NorthReview -or $SouthReview -or $FiveAreaReview){$Filter+=';Mofumachi.Tests.NorthMasterReviewTests';$Suites+='NorthMasterReviewTests';$ExpectedTests=12}
+    if($SouthReview -or $FiveAreaReview){$Filter+=';Mofumachi.Tests.SouthMasterReviewTests';$Suites+='SouthMasterReviewTests';$ExpectedTests=15}
+    if($FiveAreaReview){$Filter+=';Mofumachi.Tests.FiveAreaIntegrationReviewTests';$Suites+='FiveAreaIntegrationReviewTests';$ExpectedTests=16}
     Write-Host 'Rendering the central master (Lv1/3/6); district review modes also capture their levels, connection, walking and door. No APK will be generated.'
     Invoke-Unity @('-batchmode','-projectPath',$ProjectPath,'-buildTarget','Android','-runTests','-testPlatform','PlayMode','-testFilter',$Filter,'-testResults',$CentralXml,$ReviewFlag,'-mofumachiScreenshots',(Join-Path $OutputDir 'screenshots'),'-logFile',(Join-Path $OutputDir 'central-playmode.log'))
     Assert-TestRun $CentralXml $ExpectedTests $Suites
@@ -180,13 +182,17 @@ if($CentralReview -or $WestReview -or $EastReview -or $NorthReview -or $SouthRev
     Assert-ProductUnchanged $ProjectPath $GitRevision $ProductFingerprint
     $CaptureEntries=@(Get-CentralCaptureEntries (Join-Path $OutputDir 'screenshots'))
     [ordered]@{gitRevision=$GitRevision;productFingerprint=$ProductFingerprint;centralInputFingerprint=$CentralInputFingerprint;scope='central native Unity fixture; not Pixel';width=720;height=1280;images=$CaptureEntries} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $OutputDir 'capture-manifest.json') -Encoding UTF8
-    [ordered]@{gitRevision=$GitRevision;productFingerprint=$ProductFingerprint;centralInputFingerprint=$CentralInputFingerprint;unity='6000.6.4f1';scope='central review only';nativeCaptureCount=3;localUnityConfigurationChanges=$ConfigurationChanges;apk_generated=$false;pixel_verified=$false;adopted=$false} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $OutputDir 'central-review-info.json') -Encoding UTF8
+    $ReviewScope=if($FiveAreaReview){'five-area native fixture review; not Pixel'}else{'central review only'}
+    $ReviewImageCount=if($FiveAreaReview){27}else{3}
+    [ordered]@{gitRevision=$GitRevision;productFingerprint=$ProductFingerprint;centralInputFingerprint=$CentralInputFingerprint;unity='6000.6.4f1';scope=$ReviewScope;nativeCaptureCount=$ReviewImageCount;localUnityConfigurationChanges=$ConfigurationChanges;apk_generated=$false;pixel_verified=$false;adopted=$false} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $OutputDir 'central-review-info.json') -Encoding UTF8
+    if($FiveAreaReview){Write-FiveAreaReview $ProjectPath $OutputDir}else{
     Write-CentralReview $ProjectPath $OutputDir
-    if($WestReview -or $EastReview -or $NorthReview -or $SouthReview){Write-WestReview $ProjectPath $OutputDir}
-    if($EastReview -or $NorthReview -or $SouthReview){Write-EastReview $ProjectPath $OutputDir}
-    if($NorthReview -or $SouthReview){Write-NorthReview $ProjectPath $OutputDir}
+    if($WestReview -or $EastReview -or $NorthReview -or $SouthReview -or $FiveAreaReview){Write-WestReview $ProjectPath $OutputDir}
+    if($EastReview -or $NorthReview -or $SouthReview -or $FiveAreaReview){Write-EastReview $ProjectPath $OutputDir}
+    if($NorthReview -or $SouthReview -or $FiveAreaReview){Write-NorthReview $ProjectPath $OutputDir}
     if($SouthReview){Write-SouthReview $ProjectPath $OutputDir}
-    if(($WestReview -or $EastReview -or $NorthReview -or $SouthReview) -and $env:OS -eq "Windows_NT"){Start-Process explorer.exe -ArgumentList @($OutputDir)}
+    }
+    if(($WestReview -or $EastReview -or $NorthReview -or $SouthReview -or $FiveAreaReview) -and $env:OS -eq "Windows_NT"){Start-Process explorer.exe -ArgumentList @($OutputDir)}
     return
 }
 $EditXml=Join-Path $OutputDir 'editmode.xml'
@@ -197,7 +203,7 @@ Assert-ProductUnchanged $ProjectPath $GitRevision $ProductFingerprint
 $PlayXml=Join-Path $OutputDir 'playmode.xml'
 Write-Host '[2/4] Running all PlayMode tests and capturing native Unity images...'
 Invoke-Unity @('-batchmode','-projectPath',$ProjectPath,'-buildTarget','Android','-runTests','-testPlatform','PlayMode','-testResults',$PlayXml,'-mofumachiScreenshots',(Join-Path $OutputDir 'screenshots'),'-logFile',(Join-Path $OutputDir 'playmode.log'))
-Assert-TestRun $PlayXml 221 @('VerticalSliceFlowTests','LayoutNoticeTests','AudioManagerTests','MergeInteractionTests','RewardGrowthTests','SettingsScreenTests','PopPresentationTests','CharacterSelectionTests','MultiQuestPresentationTests','TownLifeTests','StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests')
+Assert-TestRun $PlayXml 222 @('VerticalSliceFlowTests','LayoutNoticeTests','AudioManagerTests','MergeInteractionTests','RewardGrowthTests','SettingsScreenTests','PopPresentationTests','CharacterSelectionTests','MultiQuestPresentationTests','TownLifeTests','StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests','FiveAreaIntegrationReviewTests')
 $CaptureDir=Join-Path $OutputDir 'screenshots'
 Assert-ProductUnchanged $ProjectPath $GitRevision $ProductFingerprint
 Assert-NativeCaptures $CaptureDir

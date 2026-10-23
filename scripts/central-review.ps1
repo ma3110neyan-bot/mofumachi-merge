@@ -23,18 +23,18 @@ function Get-CentralInputFingerprint([string]$RepositoryPath) {
     Get-VisualLockDigest ([Text.Encoding]::UTF8.GetBytes(($Lines -join "`n")))
 }
 function Assert-CentralReviewEvidence([string]$RepositoryPath,[string]$RunDirectory) {
-    $Info=Get-Content -LiteralPath (Join-Path $RunDirectory 'central-review-info.json') -Raw | ConvertFrom-Json
-    $Manifest=Get-Content -LiteralPath (Join-Path $RunDirectory 'capture-manifest.json') -Raw | ConvertFrom-Json
+    $Info=Get-Content -LiteralPath (Join-Path $RunDirectory 'central-review-info.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    $Manifest=Get-Content -LiteralPath (Join-Path $RunDirectory 'capture-manifest.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     Assert-CentralCaptureIdentity $Info $Manifest (Join-Path $RunDirectory 'screenshots')
     if($Info.centralInputFingerprint -notmatch '^[a-fA-F0-9]{64}$' -or $Manifest.centralInputFingerprint -ne $Info.centralInputFingerprint -or (Get-CentralInputFingerprint $RepositoryPath) -ne $Info.centralInputFingerprint){throw 'Central inputs changed since the reviewed native capture.'}
-    $Evidence=Get-Content -LiteralPath (Join-Path $RunDirectory 'central-adoption.json') -Raw | ConvertFrom-Json
+    $Evidence=Get-Content -LiteralPath (Join-Path $RunDirectory 'central-adoption.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     if($Evidence.candidate_revision -ne $Info.gitRevision -or $Evidence.productFingerprint -ne $Info.productFingerprint -or $Evidence.centralInputFingerprint -ne $Info.centralInputFingerprint -or $Evidence.native_unity -isnot [bool] -or $Evidence.native_unity -ne $true -or [int]$Evidence.native_pairs_verified -ne 3){throw 'Central comparison evidence is incomplete or has different source identity.'}
-    $Lock=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/approved-design-2026-10-21.json') -Raw | ConvertFrom-Json
+    $Lock=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/approved-design-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     $ReferenceHash=(Get-FileHash -LiteralPath (Join-Path $RepositoryPath $Lock.reference) -Algorithm SHA256).Hash.ToLowerInvariant()
     if($Evidence.approved_design_sha256 -ne $ReferenceHash -or (Get-FileHash -LiteralPath (Join-Path $RunDirectory 'approved-design.png') -Algorithm SHA256).Hash -ne $ReferenceHash){throw 'Central comparison uses a different approved design.'}
     $Comparison=Join-Path $RunDirectory 'central-before-lock-candidate.jpg'
     if($Evidence.comparison_sha256 -notmatch '^[a-fA-F0-9]{64}$' -or (Get-FileHash -LiteralPath $Comparison -Algorithm SHA256).Hash -ne $Evidence.comparison_sha256){throw 'Central comparison JPEG is missing or changed.'}
-    $Baseline=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/baseline-native-2026-10-21.json') -Raw | ConvertFrom-Json
+    $Baseline=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/baseline-native-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     foreach($Image in $Manifest.images) {
         $Expected=@($Baseline.capture.images | Where-Object {$_.file -eq $Image.file})
         if($Expected.Count -ne 1 -or (Get-FileHash -LiteralPath (Join-Path $RunDirectory ('before-'+$Image.file)) -Algorithm SHA256).Hash -ne $Expected[0].sha256){throw 'Central Before image is missing or differs from the actual baseline.'}
@@ -104,10 +104,10 @@ function Write-CentralComparisonJpeg([string]$Directory,[string]$Reference) {
 }
 function Write-CentralReview([string]$RepositoryPath,[string]$RunDirectory) {
     Assert-ApprovedVisualLock $RepositoryPath
-    $Info=Get-Content -LiteralPath (Join-Path $RunDirectory 'central-review-info.json') -Raw | ConvertFrom-Json
-    $Manifest=Get-Content -LiteralPath (Join-Path $RunDirectory 'capture-manifest.json') -Raw | ConvertFrom-Json
+    $Info=Get-Content -LiteralPath (Join-Path $RunDirectory 'central-review-info.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    $Manifest=Get-Content -LiteralPath (Join-Path $RunDirectory 'capture-manifest.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     Assert-CentralCaptureIdentity $Info $Manifest (Join-Path $RunDirectory 'screenshots')
-    $Baseline=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/baseline-native-2026-10-21.json') -Raw | ConvertFrom-Json
+    $Baseline=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/baseline-native-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     $Before=Join-Path $RepositoryPath ('Builds/Android/'+$Baseline.run)
     if(Test-Path -LiteralPath (Join-Path $Before 'screenshots')){$Before=Join-Path $Before 'screenshots'}
     $Pairs=0

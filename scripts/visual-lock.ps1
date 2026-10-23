@@ -8,7 +8,7 @@ function Get-VisualLockDigest([byte[]]$Bytes) {
 function Assert-BaseVisualLock([string]$RepositoryPath,[string]$ManifestPath) {
     if(-not(Test-Path -LiteralPath $ManifestPath -PathType Leaf)){throw 'Missing Visual Lock baseline.'}
     $Root=[IO.Path]::GetFullPath($RepositoryPath).TrimEnd('/','\')
-    $Lock=Get-Content -LiteralPath $ManifestPath -Raw | ConvertFrom-Json
+    $Lock=Get-Content -LiteralPath $ManifestPath -Raw -Encoding UTF8 | ConvertFrom-Json
     if(@($Lock.files).Count -eq 0){throw 'Empty Visual Lock baseline.'}
     foreach($Entry in $Lock.files) {
         $Relative=[string]$Entry.path
@@ -31,9 +31,9 @@ function Assert-BaseVisualLock([string]$RepositoryPath,[string]$ManifestPath) {
     }
 }
 function Write-VisualLockComparison([string]$RepositoryPath,[string]$RunDirectory,[string]$BeforeDirectory='',[string]$OutputDirectory='') {
-    $Baseline=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/baseline-native-2026-10-21.json') -Raw | ConvertFrom-Json
-    $AfterBuild=Get-Content -LiteralPath (Join-Path $RunDirectory 'build-info.json') -Raw | ConvertFrom-Json
-    $After=Get-Content -LiteralPath (Join-Path $RunDirectory 'capture-manifest.json') -Raw | ConvertFrom-Json
+    $Baseline=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/baseline-native-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    $AfterBuild=Get-Content -LiteralPath (Join-Path $RunDirectory 'build-info.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    $After=Get-Content -LiteralPath (Join-Path $RunDirectory 'capture-manifest.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     if($After.gitRevision -ne $AfterBuild.gitRevision -or $After.productFingerprint -ne $AfterBuild.productFingerprint){throw 'Visual comparison has mismatched capture/APK source.'}
     if(-not $OutputDirectory){$OutputDirectory=$RunDirectory}
     if(-not $BeforeDirectory){$BeforeDirectory=Join-Path $RepositoryPath ('Builds/Android/'+$Baseline.run)}
@@ -66,7 +66,7 @@ function Write-VisualLockComparison([string]$RepositoryPath,[string]$RunDirector
     Write-Host "Native comparison: $OutputDirectory\before-after.html. Pixel/visual adoption remains pending."
 }
 function Assert-BaseAdoption([string]$RecordPath) {
-    $Record=Get-Content -LiteralPath $RecordPath -Raw | ConvertFrom-Json
+    $Record=Get-Content -LiteralPath $RecordPath -Raw -Encoding UTF8 | ConvertFrom-Json
     foreach($Axis in @('visual','input','information','world','town_density','merge_fun','fps','pixel_load','pixel_verified')) {
         if($Record.$Axis -isnot [bool] -or $Record.$Axis -ne $true){throw "Base adoption blocked: $Axis has not passed."}
     }
@@ -79,7 +79,7 @@ function Assert-CentralStageApproved([string]$RepositoryPath) {
     Assert-ApprovedVisualLock $RepositoryPath
     $StagePath=Join-Path $RepositoryPath 'References/VisualLock/stage-acceptance-2026-10-21.json'
     if(-not(Test-Path -LiteralPath $StagePath -PathType Leaf)){throw 'Central master has no reviewed native checkpoint. Run -CentralReview before advancing.'}
-    $Stage=(Get-Content -LiteralPath $StagePath -Raw | ConvertFrom-Json).central
+    $Stage=(Get-Content -LiteralPath $StagePath -Raw -Encoding UTF8 | ConvertFrom-Json).central
     foreach($Axis in @('native_unity','visual','town_density','walking')) {
         if($Stage.$Axis -isnot [bool] -or $Stage.$Axis -ne $true){throw "Central master not accepted: $Axis. Review actual Unity images before the next district or QA APK."}
     }
@@ -93,10 +93,10 @@ function Assert-TownCheckpointApproved([string]$RepositoryPath,[string]$Checkpoi
     $Order=@('north_quest','south_garden','five_area')
     if($Checkpoint -notin $Order){throw 'Unknown town image approval checkpoint.'}
     Assert-ApprovedVisualLock $RepositoryPath
-    $Stages=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/stage-acceptance-2026-10-21.json') -Raw | ConvertFrom-Json
+    $Stages=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/stage-acceptance-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     $Checkpoints=$Stages.PSObject.Properties['user_review_checkpoints']
     if(-not $Checkpoints){throw 'Town progress blocked: north, south and integrated town require explicit user image approval.'}
-    $Lock=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/approved-design-2026-10-21.json') -Raw | ConvertFrom-Json
+    $Lock=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/approved-design-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     $ReferenceHash=(Get-FileHash -LiteralPath (Join-Path $RepositoryPath $Lock.reference) -Algorithm SHA256).Hash.ToLowerInvariant()
     foreach($Name in $Order) {
         $Property=$Checkpoints.Value.PSObject.Properties[$Name]
@@ -128,7 +128,7 @@ function Assert-TownCheckpointApproved([string]$RepositoryPath,[string]$Checkpoi
 }
 function Assert-BaseStagesReadyForAcceptance([string]$RepositoryPath) {
     Assert-CentralStageApproved $RepositoryPath
-    $Stages=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/stage-acceptance-2026-10-21.json') -Raw | ConvertFrom-Json
+    $Stages=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/stage-acceptance-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     $Required=@('west_cafe','east_florist_shop','north_quest','south_garden','connections')
     $Completed=@($Stages.completed_after_central)
     if($Completed.Count -lt $Required.Count){throw 'QA APK blocked: finish west/east/north/south/connections in order, with user image approvals.'}

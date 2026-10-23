@@ -34,11 +34,11 @@ function Write-SouthRoutesJpeg([string]$Directory) {
 function Assert-SouthReviewPrerequisites([string]$RepositoryPath) {
     Assert-NorthReviewPrerequisites $RepositoryPath
     Assert-TownCheckpointApproved $RepositoryPath 'north_quest'
-    $Stage=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/stage-acceptance-2026-10-21.json') -Raw | ConvertFrom-Json
+    $Stage=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/stage-acceptance-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     $Approval=$Stage.user_review_checkpoints.north_quest
     $Relative=[string]$Approval.conditions_record
     if(-not $Relative -or [IO.Path]::IsPathRooted($Relative) -or $Relative -match '(^|[/\\])\.\.([/\\]|$)' -or $Relative.Contains(':')){throw 'Conditional North approval needs its repository-relative adjustment record.'}
-    $Conditions=Get-Content -LiteralPath (Join-Path $RepositoryPath $Relative) -Raw | ConvertFrom-Json
+    $Conditions=Get-Content -LiteralPath (Join-Path $RepositoryPath $Relative) -Raw -Encoding UTF8 | ConvertFrom-Json
     foreach($Axis in @('circulation_verified','level_three_decoration_verified','south_start_authorized_by_user_after_these_conditions')) {
         if($Conditions.$Axis -isnot [bool] -or $Conditions.$Axis -ne $true){throw "North condition incomplete: $Axis"}
     }
@@ -70,8 +70,8 @@ function Write-SouthReview([string]$RepositoryPath,[string]$RunDirectory) {
     $CentralInfo=Assert-CentralReviewEvidence $RepositoryPath $RunDirectory
     foreach($Area in @('west','east','north')) {
         $Directory=Join-Path $RunDirectory $Area
-        $Info=Get-Content -LiteralPath (Join-Path $Directory "$Area-review-info.json") -Raw | ConvertFrom-Json
-        $Manifest=Get-Content -LiteralPath (Join-Path $Directory "$Area-capture-manifest.json") -Raw | ConvertFrom-Json
+        $Info=Get-Content -LiteralPath (Join-Path $Directory "$Area-review-info.json") -Raw -Encoding UTF8 | ConvertFrom-Json
+        $Manifest=Get-Content -LiteralPath (Join-Path $Directory "$Area-capture-manifest.json") -Raw -Encoding UTF8 | ConvertFrom-Json
         foreach($Key in @('gitRevision','productFingerprint','centralInputFingerprint')){if($Info.$Key -ne $CentralInfo.$Key){throw "South companion identity mismatch: $Area/$Key"}}
         if($Area -eq 'west'){Assert-WestCaptureIdentity $Info $Manifest (Join-Path $Directory 'screenshots')}
         elseif($Area -eq 'east'){Assert-EastCaptureIdentity $Info $Manifest (Join-Path $Directory 'screenshots')}
@@ -82,7 +82,7 @@ function Write-SouthReview([string]$RepositoryPath,[string]$RunDirectory) {
     $Entries=@(Get-SouthCaptureEntries (Join-Path $South 'screenshots'))
     Move-Item -LiteralPath (Join-Path $South 'screenshots/south-route-projection.json') -Destination (Join-Path $South 'south-route-projection.json')
     Assert-SouthRouteProjection $South
-    $Baseline=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/baseline-native-2026-10-21.json') -Raw | ConvertFrom-Json
+    $Baseline=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/baseline-native-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     foreach($Level in @(1,3,6)) {
         $Name="04-town-lv$Level-South.png"
         $Path=Join-Path $RepositoryPath ("Builds/Android/$($Baseline.run)/screenshots/$Name")
@@ -91,7 +91,7 @@ function Write-SouthReview([string]$RepositoryPath,[string]$RunDirectory) {
         if($Expected.Count -ne 1 -or -not(Test-Path -LiteralPath $Path -PathType Leaf) -or (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash -ne $Expected[0].sha256){throw "Missing or changed native South Before: $Name"}
         Copy-Item -LiteralPath $Path -Destination (Join-Path $South ('before-'+$Name))
     }
-    $Lock=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/approved-design-2026-10-21.json') -Raw | ConvertFrom-Json
+    $Lock=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/approved-design-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     Copy-Item -LiteralPath (Join-Path $RepositoryPath $Lock.reference) -Destination (Join-Path $South 'approved-design.png')
     foreach($Name in @('central-playmode.xml','central-playmode.log','central-review-info.json')){Copy-Item -LiteralPath (Join-Path $RunDirectory $Name) -Destination (Join-Path $South $Name)}
     foreach($Area in @('west','east','north')){Copy-Item -LiteralPath (Join-Path $RunDirectory "$Area/$Area-review-info.json") -Destination (Join-Path $South "$Area-review-info.json")}

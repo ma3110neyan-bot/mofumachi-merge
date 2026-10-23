@@ -26,7 +26,7 @@ function Assert-NorthCaptureIdentity($Info,$Manifest,[string]$Directory) {
 }
 function Copy-NorthPreviousCandidate([string]$RepositoryPath,[string]$Directory) {
     $Path=Join-Path $RepositoryPath 'References/VisualLock/north-revision-baseline-2026-10-23.json'
-    $Baseline=Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
+    $Baseline=Get-Content -LiteralPath $Path -Raw -Encoding UTF8 | ConvertFrom-Json
     if($Baseline.source_revision -ne 'fabf00e7a3b8c810303e77bf16c2af180c718d5d' -or $Baseline.status -ne 'held_by_user_not_approved' -or @($Baseline.images).Count -ne 3){throw 'North previous Candidate must identify the held native run.'}
     foreach($Level in @(1,3,6)) {
         $Entry=@($Baseline.images | Where-Object {$_.level -eq $Level})
@@ -38,7 +38,7 @@ function Copy-NorthPreviousCandidate([string]$RepositoryPath,[string]$Directory)
     Copy-Item -LiteralPath $Path -Destination (Join-Path $Directory 'previous-candidate-source.json')
 }
 function Assert-TownRouteProjection([string]$Directory,[string]$District,[string[]]$Ids) {
-    $Route=Get-Content -LiteralPath (Join-Path $Directory ($District.ToLowerInvariant()+'-route-projection.json')) -Raw | ConvertFrom-Json
+    $Route=Get-Content -LiteralPath (Join-Path $Directory ($District.ToLowerInvariant()+'-route-projection.json')) -Raw -Encoding UTF8 | ConvertFrom-Json
     if($Route.image -ne "04-town-lv1-$District.png" -or $Route.width -ne 720 -or $Route.height -ne 1280 -or $Route.origin -ne 'top-left' -or $Route.kind -ne 'navigation-route-overlay-not-gameplay-trace'){throw 'North routes must identify the exact Lv1 native viewport and annotation type.'}
     $Image=Join-Path (Join-Path $Directory 'screenshots') $Route.image
     if(-not(Test-Path -LiteralPath $Image)){$Image=Join-Path $Directory $Route.image}
@@ -61,7 +61,7 @@ function Assert-TownRouteProjection([string]$Directory,[string]$District,[string
 function Write-TownRoutesJpeg([string]$Directory,[string]$District,[string]$Title,[hashtable]$Labels) {
     Assert-TownRouteProjection $Directory $District @($Labels.Keys)
     Add-Type -AssemblyName System.Drawing
-    $Route=Get-Content -LiteralPath (Join-Path $Directory ($District.ToLowerInvariant()+'-route-projection.json')) -Raw | ConvertFrom-Json
+    $Route=Get-Content -LiteralPath (Join-Path $Directory ($District.ToLowerInvariant()+'-route-projection.json')) -Raw -Encoding UTF8 | ConvertFrom-Json
     $Bitmap=New-Object Drawing.Bitmap 720,1460
     $Graphics=[Drawing.Graphics]::FromImage($Bitmap)
     $Image=[Drawing.Image]::FromFile((Join-Path (Join-Path $Directory 'screenshots') $Route.image))
@@ -122,15 +122,15 @@ function Write-NorthComparisonJpeg([string]$Directory) {
 function Write-NorthReview([string]$RepositoryPath,[string]$RunDirectory) {
     $CentralInfo=Assert-CentralReviewEvidence $RepositoryPath $RunDirectory
     $West=Join-Path $RunDirectory 'west'
-    $WestInfo=Get-Content -LiteralPath (Join-Path $West 'west-review-info.json') -Raw | ConvertFrom-Json
-    $WestManifest=Get-Content -LiteralPath (Join-Path $West 'west-capture-manifest.json') -Raw | ConvertFrom-Json
+    $WestInfo=Get-Content -LiteralPath (Join-Path $West 'west-review-info.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    $WestManifest=Get-Content -LiteralPath (Join-Path $West 'west-capture-manifest.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     Assert-WestCaptureIdentity $WestInfo $WestManifest (Join-Path $West 'screenshots')
     foreach($Key in @('gitRevision','productFingerprint','centralInputFingerprint')) {
         if($WestInfo.$Key -ne $CentralInfo.$Key){throw 'Companion central and west source identities differ.'}
     }
     $East=Join-Path $RunDirectory 'east'
-    $EastInfo=Get-Content -LiteralPath (Join-Path $East 'east-review-info.json') -Raw | ConvertFrom-Json
-    $EastManifest=Get-Content -LiteralPath (Join-Path $East 'east-capture-manifest.json') -Raw | ConvertFrom-Json
+    $EastInfo=Get-Content -LiteralPath (Join-Path $East 'east-review-info.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    $EastManifest=Get-Content -LiteralPath (Join-Path $East 'east-capture-manifest.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     Assert-EastCaptureIdentity $EastInfo $EastManifest (Join-Path $East 'screenshots')
     foreach($Key in @('gitRevision','productFingerprint','centralInputFingerprint')) {
         if($EastInfo.$Key -ne $CentralInfo.$Key){throw 'Companion central and east source identities differ.'}
@@ -142,7 +142,7 @@ function Write-NorthReview([string]$RepositoryPath,[string]$RunDirectory) {
     Assert-NorthRouteProjection $North
     Copy-NorthPreviousCandidate $RepositoryPath $North
     Assert-ApprovedVisualLock $RepositoryPath
-    $Baseline=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/baseline-native-2026-10-21.json') -Raw | ConvertFrom-Json
+    $Baseline=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/baseline-native-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     $Before=Join-Path $RepositoryPath ('Builds/Android/'+$Baseline.run)
     if(Test-Path (Join-Path $Before 'screenshots')){$Before=Join-Path $Before 'screenshots'}
     foreach($Level in @(1,3,6)) {
@@ -151,7 +151,7 @@ function Write-NorthReview([string]$RepositoryPath,[string]$RunDirectory) {
         if($Expected.Count -ne 1 -or -not(Test-Path -LiteralPath $Path -PathType Leaf) -or (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash -ne $Expected[0].sha256){throw "Missing or changed native north Before: $Name"}
         Copy-Item -LiteralPath $Path -Destination (Join-Path $North ('before-'+$Name))
     }
-    $Lock=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/approved-design-2026-10-21.json') -Raw | ConvertFrom-Json
+    $Lock=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/approved-design-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     Copy-Item -LiteralPath (Join-Path $RepositoryPath $Lock.reference) -Destination (Join-Path $North 'approved-design.png')
     foreach($Name in @('central-playmode.xml','central-playmode.log','central-review-info.json')){Copy-Item -LiteralPath (Join-Path $RunDirectory $Name) -Destination (Join-Path $North $Name)}
     $Info=[ordered]@{gitRevision=$CentralInfo.gitRevision;productFingerprint=$CentralInfo.productFingerprint;centralInputFingerprint=$CentralInfo.centralInputFingerprint;nativeCaptureCount=6;scope='north native checkpoint; central, west and east rechecked in companion ZIPs';apk_generated=$false;pixel_verified=$false;adopted=$false}
@@ -175,7 +175,7 @@ function Assert-NorthReviewPrerequisites([string]$RepositoryPath) {
     # This is permission to proceed in the fixed sequence, not acceptance of
     # current rendering inputs. All four areas are rechecked in this new run.
     $Previous=Join-Path $RepositoryPath 'References/Review/east-florist-2026-10-22-accepted'
-    $Record=Get-Content -LiteralPath (Join-Path $Previous 'native-review.json') -Raw | ConvertFrom-Json
+    $Record=Get-Content -LiteralPath (Join-Path $Previous 'native-review.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     if($Record.reviewed_revision -notmatch '^[a-fA-F0-9]{40}$' -or $Record.identity_verified -ne $true -or $Record.central.unity_stage_accepted -ne $true -or $Record.west.unity_stage_accepted -ne $true -or $Record.east.unity_stage_accepted -ne $true -or $Record.east.nameplate_readability -ne $true){throw 'North requires the previous central, west and east native checkpoints.'}
     $Actual=@(foreach($Area in @('central','west','east')) {
         $Directory=Join-Path $Previous "$Area/screenshots"

@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-23",
+  "scope": "Fix SouthReview stopping before Unity on Japanese Windows PowerShell JSON decoding",
+  "reported_source_revision": "39431b0fc353871819183563fbf62ff208826193",
+  "reported_command": "powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File .\\scripts\\build-android.ps1 -SouthReview",
+  "reported_error": "ConvertFrom-Json invalid object / expected colon or closing brace, offset11062",
+  "root_cause": "BOM-less UTF8 stage JSON was read by Get-Content with Windows PowerShell ANSI/CP932 default. DotNet CP932 decoding swallowed the closing quote after Japanese approval_reference; JSON syntax itself was valid UTF8.",
+  "reproduction": {
+    "actual_dotnet_cp932_decoder": true,
+    "real_json_parser": true,
+    "actual_prerequisite_before_fix": "Fails in visual-lock.ps1 Assert-TownCheckpointApproved at approval_reference",
+    "regression_red_exit_code": 1,
+    "regression_green_exit_code": 0,
+    "legacy_default_simulated_in_powershell7": true,
+    "windows_powershell51_execution": false
+  },
+  "fix": "Explicit -Encoding UTF8 on all39 JSON reads in six source-bound review/gate helpers; preserve approval data and original image bytes.",
+  "production_scripts": [
+    "visual-lock.ps1",
+    "central-review.ps1",
+    "west-review.ps1",
+    "east-review.ps1",
+    "north-review.ps1",
+    "south-review.ps1"
+  ],
+  "regression": "scripts/tests/windows-json-encoding.tests.ps1",
+  "verification": {
+    "powershell_suites_passed": 10,
+    "powershell_suites_total": 10,
+    "includes_actual_prerequisite_under_cp932_default": true,
+    "actual_south_prerequisite_passed": true,
+    "frozen153_intact": true,
+    "formal_visual_lock_intact": true,
+    "stage_json_byte_unchanged": true,
+    "stage_json_sha256": "629613e6d3404c86cf1702fbfa11c74a7a800f4566139df41ac27e2629903e98",
+    "south_and_five_area_approval_still_closed": true,
+    "csharp_or_art_changed": false,
+    "render_input_unchanged": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
+    "test_environment": "PowerShell7 with actual DotNet CP932 decoder and real disk/JSON/approval gates; package suites use synthetic candidate images/mock devices."
+  },
+  "current_stage": "South candidate implemented, native Unity images pending",
+  "unity_render_executed": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "main_merged": false,
+  "next": "Pull the feature-branch repair, then rerun the same -SouthReview command. Keep the existing South-review approval boundary.",
+  "ai_next_improvements": "今回はなし。南の実画面確認を優先。"
+}

@@ -57,7 +57,7 @@ function Write-WestReview([string]$RepositoryPath,[string]$RunDirectory) {
     Move-Item -LiteralPath (Join-Path $RunDirectory 'screenshots/west') -Destination (Join-Path $West 'screenshots')
     $Entries=@(Get-WestCaptureEntries (Join-Path $West 'screenshots'))
     Assert-BaseVisualLock $RepositoryPath (Join-Path $RepositoryPath 'References/VisualLock/west-cafe-design-2026-10-22.json')
-    $Baseline=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/baseline-native-2026-10-21.json') -Raw | ConvertFrom-Json
+    $Baseline=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/baseline-native-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     $Before=Join-Path $RepositoryPath ('Builds/Android/'+$Baseline.run)
     if(Test-Path (Join-Path $Before 'screenshots')){$Before=Join-Path $Before 'screenshots'}
     foreach($Level in @(1,3,6)) {

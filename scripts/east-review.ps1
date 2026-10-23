@@ -54,8 +54,8 @@ function Write-EastComparisonJpeg([string]$Directory) {
 function Write-EastReview([string]$RepositoryPath,[string]$RunDirectory) {
     $CentralInfo=Assert-CentralReviewEvidence $RepositoryPath $RunDirectory
     $West=Join-Path $RunDirectory 'west'
-    $WestInfo=Get-Content -LiteralPath (Join-Path $West 'west-review-info.json') -Raw | ConvertFrom-Json
-    $WestManifest=Get-Content -LiteralPath (Join-Path $West 'west-capture-manifest.json') -Raw | ConvertFrom-Json
+    $WestInfo=Get-Content -LiteralPath (Join-Path $West 'west-review-info.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    $WestManifest=Get-Content -LiteralPath (Join-Path $West 'west-capture-manifest.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     Assert-WestCaptureIdentity $WestInfo $WestManifest (Join-Path $West 'screenshots')
     foreach($Key in @('gitRevision','productFingerprint','centralInputFingerprint')) {
         if($WestInfo.$Key -ne $CentralInfo.$Key){throw 'Companion central and west source identities differ.'}
@@ -64,7 +64,7 @@ function Write-EastReview([string]$RepositoryPath,[string]$RunDirectory) {
     Move-Item -LiteralPath (Join-Path $RunDirectory 'screenshots/east') -Destination (Join-Path $East 'screenshots')
     $Entries=@(Get-EastCaptureEntries (Join-Path $East 'screenshots'))
     Assert-ApprovedVisualLock $RepositoryPath
-    $Baseline=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/baseline-native-2026-10-21.json') -Raw | ConvertFrom-Json
+    $Baseline=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/baseline-native-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     $Before=Join-Path $RepositoryPath ('Builds/Android/'+$Baseline.run)
     if(Test-Path (Join-Path $Before 'screenshots')){$Before=Join-Path $Before 'screenshots'}
     foreach($Level in @(1,3,6)) {
@@ -73,7 +73,7 @@ function Write-EastReview([string]$RepositoryPath,[string]$RunDirectory) {
         if($Expected.Count -ne 1 -or -not(Test-Path -LiteralPath $Path -PathType Leaf) -or (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash -ne $Expected[0].sha256){throw "Missing or changed native east Before: $Name"}
         Copy-Item -LiteralPath $Path -Destination (Join-Path $East ('before-'+$Name))
     }
-    $Lock=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/approved-design-2026-10-21.json') -Raw | ConvertFrom-Json
+    $Lock=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/approved-design-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     Copy-Item -LiteralPath (Join-Path $RepositoryPath $Lock.reference) -Destination (Join-Path $East 'approved-design.png')
     foreach($Name in @('central-playmode.xml','central-playmode.log','central-review-info.json')){Copy-Item -LiteralPath (Join-Path $RunDirectory $Name) -Destination (Join-Path $East $Name)}
     $Info=[ordered]@{gitRevision=$CentralInfo.gitRevision;productFingerprint=$CentralInfo.productFingerprint;centralInputFingerprint=$CentralInfo.centralInputFingerprint;nativeCaptureCount=6;scope='east native checkpoint; central and west recheck in companion ZIPs';apk_generated=$false;pixel_verified=$false;adopted=$false}
@@ -95,7 +95,7 @@ function Assert-EastReviewPrerequisites([string]$RepositoryPath) {
     # This is permission to proceed in the fixed sequence, not acceptance of
     # current rendering inputs. All three areas are rechecked in this new run.
     $Previous=Join-Path $RepositoryPath 'References/Review/west-cafe-2026-10-22-accepted'
-    $Record=Get-Content -LiteralPath (Join-Path $Previous 'native-review.json') -Raw | ConvertFrom-Json
+    $Record=Get-Content -LiteralPath (Join-Path $Previous 'native-review.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     if($Record.reviewed_revision -notmatch '^[a-fA-F0-9]{40}$' -or $Record.identity_verified -ne $true -or $Record.central.unity_stage_accepted -ne $true -or $Record.west.unity_stage_accepted -ne $true){throw 'East requires the previous central and west native checkpoints.'}
     $Actual=@(foreach($Area in @('central','west')) {
         $Directory=Join-Path $Previous "$Area/screenshots"

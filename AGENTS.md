@@ -1,5 +1,7 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-24最新受信：Windows214249は承認ゲート通過・Edit143/143成功、PlayModeでUnity exit2。** run `20261024-214249-2904cc95` のユーザー画面。前の承認SHA誤停止とは別段階で、PS142はUnity非0終了通知のみ。実PlayMode失敗名／件数／skip／根因は画面にない。原XML/log未受領、APK未生成。次はこのrunの `playmode.xml` と `playmode.log` を受領して診断する。推測でカメラ・UI・fixture・判定を変えず、再実行もまだ案内しない。ログの場所は `C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Android\20261024-214249-2904cc95`。記録 `docs/verification/stage1-stability-2026-10-24.json`。今回の記録更新を理由にPullや再ビルドさせない。以下は履歴。
+
 **2026-10-24最新：Windows全件QA開始前の承認SHA誤停止を修正。** ユーザー画面の `Original base approval was changed.` は新しい照合のraw SHA判定。実Git core.autocrlf=true checkoutで承認JSONのLF→CRLF1897行、rawSHA e70eb3…→aab50c…、JSON内容同一・Git差分0のまま同停止を再現した。`base_lock_hash_mode=lf-text` を候補に明記し、既存入力lock同様にUTF8/LF正規化して元のe70eb3…と照合する。承認スナップショットや記録SHAを差替えず、実内容変更は拒否する。mode省略の古い記録はbinary厳密のまま。証拠は `docs/verification/stage1-windows-base-hash-2026-10-24.json`。
 
 今回追加の変更は検査スクリプト／候補のhash mode／関連テスト・記録だけ。b20d5e8の北カメラ・薄文字修正、原画・ゲーム・保存はそのまま。CRLF回帰RED→GREENと実Git checkoutの照合成功を確認、全13PS成功、403必要ファイルの実Git CRLF checkoutでも全承認ゲート通過。修正版の全件Unity／APK／Pixelは依然未確認。反映後はGitHub DesktopでPullし同じ -TownQa を再実行。ユーザーへ承認JSONの手修正・Git設定変更・照合無効化を案内しない。以下は履歴。

@@ -1,6 +1,6 @@
 {
   "stage": "1",
-  "status": "display_correction_implemented_native_pixel_retest_pending",
+  "status": "display_correction_full_playmode_stopped_raw_evidence_pending",
   "authorization": "2026-10-24 user release-priority phase1 and floating-text followup",
   "source_evidence": "References/Review/stage1-device-2026-10-24/receipt.json",
   "candidate_lock": "References/VisualLock/stage1-display-candidate-2026-10-24.json",
@@ -79,5 +79,20 @@
   ],
   "stage1_passed": false,
   "formal_base_adopted": false,
-  "main_merged": false
+  "main_merged": false,
+  "latest_windows_run": {
+    "run": "20261024-214249-2904cc95",
+    "evidence": "User PowerShell screenshot,2026-10-24",
+    "approval_preflight_passed": true,
+    "editmode_passed_reported": 143,
+    "editmode_total_reported": 143,
+    "raw_editmode_xml_verified": false,
+    "playmode_unity_exit_code": 2,
+    "playmode_total": null,
+    "playmode_failed": null,
+    "playmode_skipped": null,
+    "playmode_raw_files_received": false,
+    "qa_apk_generated": false,
+    "cause": "Pending same-run playmode.xml and playmode.log; PowerShell142 is only the nonzero Unity exit notification."
+  }
 }

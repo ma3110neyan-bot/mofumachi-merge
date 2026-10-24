@@ -1,0 +1,120 @@
+{
+  "received_on_jst": "2026-10-24",
+  "reviewed_revision": "d8e649b7802292ca552d564427bc4b720fa8dca4",
+  "run": "20261023-225834-ea7261fa",
+  "productFingerprint": "c978a7465fbe50c97295a1912acf254c891370278969b02998d71141edb857ab",
+  "centralInputFingerprint": "b975adbb3212a75bafe5948705a1b30c46c67921875168c455c418d21623cd0a",
+  "identity_verified": true,
+  "raw_files": 67,
+  "native_unity": true,
+  "native_tests": {
+    "total": 16,
+    "passed": 16,
+    "failed": 0,
+    "skipped": 0,
+    "counted_once": true,
+    "suites": {
+      "CentralMasterReviewTests": 2,
+      "EastMasterReviewTests": 3,
+      "ExperienceCaptureTests": 1,
+      "FiveAreaIntegrationReviewTests": 1,
+      "NorthMasterReviewTests": 3,
+      "SouthMasterReviewTests": 3,
+      "WestMasterReviewTests": 3
+    },
+    "duration_seconds": 69.0480076
+  },
+  "native_image_count": 27,
+  "before_pairs_verified": 15,
+  "formal_visual_lock_sha256": "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf",
+  "verdict": "HOLD",
+  "important_issues": [
+    {
+      "id": "F1",
+      "severity": "Important",
+      "axis": "south_garden_density",
+      "status": "open",
+      "files": [
+        "south/screenshots/04-town-lv1-South.png",
+        "south/screenshots/04-town-lv3-South.png",
+        "south/screenshots/04-town-lv6-South.png",
+        "south/south-walking-routes.jpg"
+      ],
+      "finding": "The planted curved interior and circular ring visible in45f205d have been replaced by broad repeating paving. Blank paving increased; South reads as an open plaza instead of a finished garden/rest destination.",
+      "location": "Previous circular composition approximately x430-650,y800-985 in Lv1; Candidate upper/lower court broadly paved.",
+      "requirement": "Keep the garden/rest role and reduce empty paving without reducing the walkable plane. Do not adopt the low-density ground as the new quality reference."
+    },
+    {
+      "id": "F2",
+      "severity": "Important",
+      "axis": "south_connection_continuity",
+      "status": "open",
+      "files": [
+        "south/screenshots/south-walking.png",
+        "south/screenshots/south-connection.png"
+      ],
+      "finding": "A hard horizontal ground transition remains, with flat green rectangular shoulders and a different stone scale on the center strip.",
+      "location": "south-walking y~710,x355-720 (stone strip x413-568); south-connection y~637.",
+      "requirement": "The entry must look like a continuous street, not the junction of rectangular ground pieces."
+    }
+  ],
+  "central": {
+    "unity_stage_accepted": true,
+    "visual": true,
+    "density": true,
+    "role": "fountain/gathering",
+    "comparison": "Lv3/6 raw identical; Lv1 fountain water and resident idle phase differ within same layout."
+  },
+  "west": {
+    "unity_stage_accepted": true,
+    "visual": true,
+    "density": true,
+    "role": "cafe",
+    "comparison": "All6 raw frames identical to45f205d."
+  },
+  "east": {
+    "unity_stage_accepted": true,
+    "visual": true,
+    "density": true,
+    "role": "florist/shop",
+    "comparison": "All6 raw frames identical to45f205d."
+  },
+  "north": {
+    "unity_stage_accepted": true,
+    "visual": true,
+    "density": true,
+    "role": "requests/delivery",
+    "comparison": "All6 raw frames identical to45f205d."
+  },
+  "south": {
+    "unity_stage_accepted": false,
+    "visual": false,
+    "density": false,
+    "role": "garden/rest",
+    "functional_walking": true,
+    "continuity": false,
+    "level_difference": true,
+    "nameplate_readability": true,
+    "left_bare_lawn_edge_resolved": true,
+    "requested_gazebo_and_lv6_arch_preserved": true,
+    "garden_rest_quality": false,
+    "unresolved_ids": [
+      "F1",
+      "F2"
+    ],
+    "strengths": [
+      "Lv3roof flowers and larger lamps/pots visibly strengthened.",
+      "Lv6flower arch retained.",
+      "Momo and name readable at rest stop; old left hard edge/bare diagonal lawn no longer visible there.",
+      "Actual16case run verifies5-area travel,6South links/rest points and separation assertions atLv1/3/6."
+    ]
+  },
+  "route_annotations": "All5 image SHA/view dimensions/6IDs/finite in-viewport points checked; actual navigation overlays, not player trails.",
+  "same_camera": "Each area Lv1/3/6 has the same capture trace camera; South rest camera clamp is an intentional changed condition, not an identical-camera Before claim.",
+  "user_approval": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "next_scope": "Only South garden composition/density and its entry continuity need correction; preserve accepted four areas, Lv3improvement, original gazebo and Lv6arch. No same-source recapture requested. No main/APK/Pixel or large system work.",
+  "raw_vs_derived": "Original67 files preserved byte-identically. Added same-size level JPEG conversions and Central compatibility review documents are derived, not new screenshots or test runs."
+}

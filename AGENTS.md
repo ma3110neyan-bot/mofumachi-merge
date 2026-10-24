@@ -1,5 +1,13 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-24最新受領：5エリア実Unityは16/16、統合候補は南2点でHOLD。** d8e649b／20261023-225834-ea7261fa、描画digest b975adbb3212a75bafe5948705a1b30c46c67921875168c455c418d21623cd0aの分割5ZIPを照合。原本67ファイル・実PNG27・前回45f205d Before15・Lv比較JPEG3・5地区導線のSHA／同条件カメラ／正式VisualLockを確認。16テストは1回計上し、全5地区歩行・分離・南各休憩地点も実Unityで成功。原本・手動判定は `References/Review/five-area-2026-10-24-candidate/`。包装処理の修正版へ撮影版を付け替えない。
+
+中央／西／東／北の景観・成長・役割は維持。西／東／北の全18枚、中央Lv3／6の2枚は前版と同一。中央Lv1は噴水水面／キャラの待機表情等の位相差で配置は同じ。南のLv3花／灯り強化、Lv6アーチ、休憩時のキャラと名前、左側の裸芝生／垂直境界の解消は実画像で確認。
+
+**ただし南の新地表は採用しない。** F1 Important＝植栽・曲線小道・円形の石と花の構成が減り、広い反復石床となって庭園／休憩の密度が後退。F2 Important＝south-walking y約710、south-connection y約637に直線の材質切断／平らな緑の肩／縮尺の違う中央石帯が残る。独立実画像レビューもHOLD。Lv3強化や機能成功を理由にこの後退を合格にしない。次の修正範囲は南の庭園密度／構成と接続部だけ。良い4地区・東屋・Lv3強化・Lv6アーチ・歩行面積を維持し、石床を増やして解決しない。
+
+**今回の作業は受領・実画像レビューであり、C#・原画は変更していない。** 状態は「実装済み・Unity実画面確認済み・南の見た目未合格・実機未確認」。15枚の実PNG由来同寸JPEGを登録したが統合user_approved=false。南の旧条件付き承認は保持し、新版の画像承認へ拡大しない。統合採用／全体完成／APK／Pixel最終受入／mainへ進めない。同じ未修正ソースの再撮影は依頼しない。画像はチャットへ貼らない。以下は過去版の履歴で本段を優先する。
+
 **2026-10-23 FiveAreaReviewのZIP停止修正：** ユーザー画面ではUnity16/16を通過後、`[IO.Compression.ZipArchiveMode]` 未解決で分割ZIP作成が停止。Windows PowerShell5.1用に `System.IO.Compression` 本体と `System.IO.Compression.FileSystem` を明示ロードする（旧版は後者のみ）。.NET4.7参照DLLでもModeは本体、ZipFile／ExtensionsはFileSystemに定義されると確認。C#・原画・描画入力は変更しない。
 
 撮影を繰り返さず `scripts/repack-five-area-review.ps1` で直近runの完成済み `five-area-review/review-manifest.json` と全原本SHA、元の3つの版情報、現在の描画digest、5地区27PNG／Before15／5経路／16XMLを検査して、新しい `repacked/<日時>` にZIPだけ作る。元の撮影版d8e649bを現在の包装コード版へ付け替えない。スクリプトだけの修正では描画digestが同じなら元の撮影を使え、描画入力が変わった場合は拒否する。承認・APK・Pixel・mainは進めない。画面上の16/16は受領原本で未照合で、景観合格ではない。画像をチャットへ貼らない。

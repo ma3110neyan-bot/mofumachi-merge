@@ -1,0 +1,15 @@
+{
+  "candidate_revision": "d8e649b7802292ca552d564427bc4b720fa8dca4",
+  "productFingerprint": "c978a7465fbe50c97295a1912acf254c891370278969b02998d71141edb857ab",
+  "centralInputFingerprint": "b975adbb3212a75bafe5948705a1b30c46c67921875168c455c418d21623cd0a",
+  "native_pairs_verified": 3,
+  "native_unity": true,
+  "visual": true,
+  "town_density": true,
+  "walking": true,
+  "pixel_verified": false,
+  "adopted": false,
+  "approved_design_sha256": "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf",
+  "comparison_sha256": "4c4a34c55457faa84637103fa2d8217210b650c4f01aaa1b3c0e0e36ac2285a4",
+  "scope": "Derived verification adapter for actual Central subset. Unified native XML counted once at root. Whole-town adoption HOLD due South."
+}

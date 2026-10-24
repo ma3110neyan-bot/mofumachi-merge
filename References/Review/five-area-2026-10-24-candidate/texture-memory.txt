@@ -1,0 +1,4 @@
+Mofumachi/TownCentralGround: 7144577 bytes
+Mofumachi/TownCentralFountain: 5231745 bytes
+Mofumachi/TownWestGround: 7144577 bytes
+Mofumachi/TownSouthGround: 7144577 bytes

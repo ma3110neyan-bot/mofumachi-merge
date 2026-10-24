@@ -1,15 +1,30 @@
 {
   "central": {
-    "native_unity": false,
-    "visual": false,
-    "town_density": false,
-    "walking": false,
-    "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
+    "native_unity": true,
+    "visual": true,
+    "town_density": true,
+    "walking": true,
+    "reviewed_candidate": "d8e649b7802292ca552d564427bc4b720fa8dca4",
     "native_image_count": 3,
-    "status": "Revised South/camera inputs await same-source five-area native replay; previous actual receipt retained separately.",
-    "review_directory": "References/Review/south-garden-2026-10-23-candidate/central",
-    "central_input_fingerprint": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
+    "status": "Actual native replay verified; density/role/growth preserved. Whole-town adoption still HOLD due South.",
+    "review_directory": "References/Review/five-area-2026-10-24-candidate/central",
+    "central_input_fingerprint": "b975adbb3212a75bafe5948705a1b30c46c67921875168c455c418d21623cd0a",
     "last_review": {
+      "candidate": "d8e649b7802292ca552d564427bc4b720fa8dca4",
+      "run": "20261023-225834-ea7261fa",
+      "native_unity": true,
+      "native_tests_total": 16,
+      "native_tests_passed": 16,
+      "native_image_count": 27,
+      "central_west_east_visual": true,
+      "north_visual": true,
+      "south_visual": false,
+      "integrated_visual": false,
+      "south_user_approval_kind": "Prior conditional45f205d authorization retained; current visual conditions failed",
+      "record": "References/Review/five-area-2026-10-24-candidate/native-review.json"
+    },
+    "unity_stage_accepted": true,
+    "previous_review": {
       "candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
       "run": "20261023-195457-32c20c13",
       "native_unity": true,
@@ -20,15 +35,6 @@
       "south_user_approved": false,
       "record": "References/Review/south-garden-2026-10-23-candidate/native-review.json"
     },
-    "unity_stage_accepted": false,
-    "previous_review": {
-      "candidate": "ed3c5e435541e03eba33fba9e3f574099bb6f1f1",
-      "run": "20261023-182917-c360cabd",
-      "native_unity": true,
-      "visual": true,
-      "record": "References/Review/north-quest-2026-10-23-mosaic-candidate/native-review.json",
-      "scope": "Historical approved quality reference; new North/South shared render inputs require native replay."
-    },
     "previous_native_review": {
       "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
       "review_directory": "References/Review/south-garden-2026-10-23-candidate/central",
@@ -37,8 +43,8 @@
     }
   },
   "remaining_sequence": [
+    "south_garden_quality_corrections",
     "five_area_native_review",
-    "five_area_visual_review",
     "five_area_user_approval",
     "full_native_suite",
     "qa_apk",
@@ -53,6 +59,20 @@
   "pixel_verified": false,
   "adopted": false,
   "last_review": {
+    "candidate": "d8e649b7802292ca552d564427bc4b720fa8dca4",
+    "run": "20261023-225834-ea7261fa",
+    "native_unity": true,
+    "native_tests_total": 16,
+    "native_tests_passed": 16,
+    "native_image_count": 27,
+    "central_west_east_visual": true,
+    "north_visual": true,
+    "south_visual": false,
+    "integrated_visual": false,
+    "south_user_approval_kind": "Prior conditional45f205d authorization retained; current visual conditions failed",
+    "record": "References/Review/five-area-2026-10-24-candidate/native-review.json"
+  },
+  "previous_review": {
     "candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
     "run": "20261023-195457-32c20c13",
     "native_unity": true,
@@ -63,40 +83,22 @@
     "south_user_approved": false,
     "record": "References/Review/south-garden-2026-10-23-candidate/native-review.json"
   },
-  "previous_review": {
-    "candidate": "ed3c5e435541e03eba33fba9e3f574099bb6f1f1",
-    "run": "20261023-182917-c360cabd",
-    "native_unity": true,
-    "native_image_count": 21,
-    "central_west_east_visual": true,
-    "north_visual": true,
-    "north_user_approved": false,
-    "record": "References/Review/north-quest-2026-10-23-mosaic-candidate/native-review.json"
-  },
   "west": {
     "design_direction_approved": true,
     "implemented": true,
-    "native_unity": false,
-    "visual": false,
-    "town_density": false,
-    "walking": false,
-    "status": "Revised South/camera inputs await same-source five-area native replay; previous actual receipt retained separately.",
+    "native_unity": true,
+    "visual": true,
+    "town_density": true,
+    "walking": true,
+    "status": "Actual native replay verified; density/role/growth preserved. Whole-town adoption still HOLD due South.",
     "arrival_readability": true,
     "deliberate_second_tap": true,
-    "unity_stage_accepted": false,
-    "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
+    "unity_stage_accepted": true,
+    "reviewed_candidate": "d8e649b7802292ca552d564427bc4b720fa8dca4",
     "native_image_count": 6,
-    "review_directory": "References/Review/south-garden-2026-10-23-candidate/west",
-    "central_input_fingerprint": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
+    "review_directory": "References/Review/five-area-2026-10-24-candidate/west",
+    "central_input_fingerprint": "b975adbb3212a75bafe5948705a1b30c46c67921875168c455c418d21623cd0a",
     "previous_review": {
-      "candidate": "ed3c5e435541e03eba33fba9e3f574099bb6f1f1",
-      "run": "20261023-182917-c360cabd",
-      "native_unity": true,
-      "visual": true,
-      "record": "References/Review/north-quest-2026-10-23-mosaic-candidate/native-review.json",
-      "scope": "Historical approved quality reference; new North/South shared render inputs require native replay."
-    },
-    "last_review": {
       "candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
       "run": "20261023-195457-32c20c13",
       "native_unity": true,
@@ -106,6 +108,20 @@
       "south_visual": false,
       "south_user_approved": false,
       "record": "References/Review/south-garden-2026-10-23-candidate/native-review.json"
+    },
+    "last_review": {
+      "candidate": "d8e649b7802292ca552d564427bc4b720fa8dca4",
+      "run": "20261023-225834-ea7261fa",
+      "native_unity": true,
+      "native_tests_total": 16,
+      "native_tests_passed": 16,
+      "native_image_count": 27,
+      "central_west_east_visual": true,
+      "north_visual": true,
+      "south_visual": false,
+      "integrated_visual": false,
+      "south_user_approval_kind": "Prior conditional45f205d authorization retained; current visual conditions failed",
+      "record": "References/Review/five-area-2026-10-24-candidate/native-review.json"
     },
     "previous_native_review": {
       "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
@@ -167,22 +183,36 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "five_area_native_review_pending",
+  "current_stage": "south_quality_corrections",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
     "implemented": true,
-    "native_unity": false,
-    "visual": false,
-    "town_density": false,
-    "walking": false,
+    "native_unity": true,
+    "visual": true,
+    "town_density": true,
+    "walking": true,
     "arrival_readability": true,
     "deliberate_second_tap": true,
-    "unity_stage_accepted": false,
+    "unity_stage_accepted": true,
     "native_image_count": 6,
-    "status": "Revised South/camera inputs await same-source five-area native replay; previous actual receipt retained separately.",
+    "status": "Actual native replay verified; density/role/growth preserved. Whole-town adoption still HOLD due South.",
     "prerequisite_review": "References/Review/west-cafe-2026-10-22-accepted/native-review.json",
     "last_review": {
+      "candidate": "d8e649b7802292ca552d564427bc4b720fa8dca4",
+      "run": "20261023-225834-ea7261fa",
+      "native_unity": true,
+      "native_tests_total": 16,
+      "native_tests_passed": 16,
+      "native_image_count": 27,
+      "central_west_east_visual": true,
+      "north_visual": true,
+      "south_visual": false,
+      "integrated_visual": false,
+      "south_user_approval_kind": "Prior conditional45f205d authorization retained; current visual conditions failed",
+      "record": "References/Review/five-area-2026-10-24-candidate/native-review.json"
+    },
+    "previous_review": {
       "candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
       "run": "20261023-195457-32c20c13",
       "native_unity": true,
@@ -193,18 +223,10 @@
       "south_user_approved": false,
       "record": "References/Review/south-garden-2026-10-23-candidate/native-review.json"
     },
-    "previous_review": {
-      "candidate": "ed3c5e435541e03eba33fba9e3f574099bb6f1f1",
-      "run": "20261023-182917-c360cabd",
-      "native_unity": true,
-      "visual": true,
-      "record": "References/Review/north-quest-2026-10-23-mosaic-candidate/native-review.json",
-      "scope": "Historical approved quality reference; new North/South shared render inputs require native replay."
-    },
     "nameplate_readability": true,
-    "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
-    "review_directory": "References/Review/south-garden-2026-10-23-candidate/east",
-    "central_input_fingerprint": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
+    "reviewed_candidate": "d8e649b7802292ca552d564427bc4b720fa8dca4",
+    "review_directory": "References/Review/five-area-2026-10-24-candidate/east",
+    "central_input_fingerprint": "b975adbb3212a75bafe5948705a1b30c46c67921875168c455c418d21623cd0a",
     "previous_native_review": {
       "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
       "review_directory": "References/Review/south-garden-2026-10-23-candidate/east",
@@ -215,28 +237,31 @@
   "north": {
     "design_direction_approved": true,
     "implemented": true,
-    "scope": "Conditionally approved delivery courtyard preserved; requested pair/cross/circuit links verified on existing open floor, board-side Lv3 flowers/lantern added. New native replay pending.",
-    "native_unity": false,
-    "visual": false,
-    "town_density": false,
-    "walking": false,
+    "scope": "Current native replay retains the conditionally approved request/delivery courtyard and growth; not a new unconditional user image approval.",
+    "native_unity": true,
+    "visual": true,
+    "town_density": true,
+    "walking": true,
     "arrival_readability": true,
     "deliberate_second_tap": true,
     "nameplate_readability": true,
-    "unity_stage_accepted": false,
+    "unity_stage_accepted": true,
     "native_image_count": 6,
-    "status": "Revised South/camera inputs await same-source five-area native replay; previous actual receipt retained separately.",
+    "status": "Actual native replay verified; density/role/growth preserved. Whole-town adoption still HOLD due South.",
     "prerequisite_review": "References/Review/east-florist-2026-10-22-accepted/native-review.json",
     "last_review": {
-      "candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
-      "run": "20261023-195457-32c20c13",
+      "candidate": "d8e649b7802292ca552d564427bc4b720fa8dca4",
+      "run": "20261023-225834-ea7261fa",
       "native_unity": true,
+      "native_tests_total": 16,
+      "native_tests_passed": 16,
       "native_image_count": 27,
       "central_west_east_visual": true,
       "north_visual": true,
       "south_visual": false,
-      "south_user_approved": false,
-      "record": "References/Review/south-garden-2026-10-23-candidate/native-review.json"
+      "integrated_visual": false,
+      "south_user_approval_kind": "Prior conditional45f205d authorization retained; current visual conditions failed",
+      "record": "References/Review/five-area-2026-10-24-candidate/native-review.json"
     },
     "user_rejection": {
       "date": "2026-10-23",
@@ -265,16 +290,19 @@
       "verified_run": "20261023-182917-c360cabd",
       "verified_source": "ed3c5e435541e03eba33fba9e3f574099bb6f1f1"
     },
-    "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
-    "review_directory": "References/Review/south-garden-2026-10-23-candidate/north",
-    "central_input_fingerprint": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
+    "reviewed_candidate": "d8e649b7802292ca552d564427bc4b720fa8dca4",
+    "review_directory": "References/Review/five-area-2026-10-24-candidate/north",
+    "central_input_fingerprint": "b975adbb3212a75bafe5948705a1b30c46c67921875168c455c418d21623cd0a",
     "previous_review": {
-      "candidate": "ed3c5e435541e03eba33fba9e3f574099bb6f1f1",
-      "run": "20261023-182917-c360cabd",
+      "candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
+      "run": "20261023-195457-32c20c13",
       "native_unity": true,
-      "visual": true,
-      "record": "References/Review/north-quest-2026-10-23-mosaic-candidate/native-review.json",
-      "scope": "Historical approved quality reference; new North/South shared render inputs require native replay."
+      "native_image_count": 27,
+      "central_west_east_visual": true,
+      "north_visual": true,
+      "south_visual": false,
+      "south_user_approved": false,
+      "record": "References/Review/south-garden-2026-10-23-candidate/native-review.json"
     },
     "previous_native_review": {
       "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
@@ -388,27 +416,128 @@
       },
       "status": "Conditional user authorization on the actual45f205d images: bounded South corrections followed by five-area review. Historical HOLD quality axes remain; unseen new images are not approved.",
       "conditional": true,
-      "conditions_record": "docs/verification/south-final-conditions-2026-10-23.json"
+      "conditions_record": "docs/verification/south-final-conditions-2026-10-23.json",
+      "latest_condition_review": {
+        "candidate": "d8e649b7802292ca552d564427bc4b720fa8dca4",
+        "run": "20261023-225834-ea7261fa",
+        "record": "References/Review/five-area-2026-10-24-candidate/native-review.json",
+        "all_visual_conditions_passed": false,
+        "unresolved_ids": [
+          "F1",
+          "F2"
+        ]
+      }
     },
     "five_area": {
       "user_approved": false,
       "approved_by": null,
       "approval_reference": null,
-      "native_unity": false,
-      "reviewed_candidate": null,
-      "input_fingerprint": null,
-      "approved_visual_lock_sha256": null,
-      "images": [],
+      "native_unity": true,
+      "reviewed_candidate": "d8e649b7802292ca552d564427bc4b720fa8dca4",
+      "input_fingerprint": "b975adbb3212a75bafe5948705a1b30c46c67921875168c455c418d21623cd0a",
+      "approved_visual_lock_sha256": "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf",
+      "images": [
+        {
+          "district": "Central",
+          "level": 1,
+          "file": "References/Review/five-area-2026-10-24-candidate/central/central-lv1.jpg",
+          "sha256": "5af64c9ced3e55892cdf59994349fd93d5f1796b5c4a8aec11897937a931612f"
+        },
+        {
+          "district": "Central",
+          "level": 3,
+          "file": "References/Review/five-area-2026-10-24-candidate/central/central-lv3.jpg",
+          "sha256": "d6704704f3d1aae8b2b64fc99bfa90164a3b187cc3394d64e2f0d0e54c19b3c5"
+        },
+        {
+          "district": "Central",
+          "level": 6,
+          "file": "References/Review/five-area-2026-10-24-candidate/central/central-lv6.jpg",
+          "sha256": "c3324db68d8c72976002dc6993847bd11fbc65e9386b75c6740cb4546cb7b54b"
+        },
+        {
+          "district": "West",
+          "level": 1,
+          "file": "References/Review/five-area-2026-10-24-candidate/west/west-lv1.jpg",
+          "sha256": "b6230a383b22019232429627ab8c9a55ce689c8196532cafb98005793d89a157"
+        },
+        {
+          "district": "West",
+          "level": 3,
+          "file": "References/Review/five-area-2026-10-24-candidate/west/west-lv3.jpg",
+          "sha256": "8da5ee31f76aaaf252bb1cbd1d0a980eba756e0b7e308ae65be9eed1ceecaab8"
+        },
+        {
+          "district": "West",
+          "level": 6,
+          "file": "References/Review/five-area-2026-10-24-candidate/west/west-lv6.jpg",
+          "sha256": "bb27cad944faf208ddd4bc9ad3595cfd72ad6d2bd91f884c1d2bec2e9ee07a20"
+        },
+        {
+          "district": "East",
+          "level": 1,
+          "file": "References/Review/five-area-2026-10-24-candidate/east/east-lv1.jpg",
+          "sha256": "f00eb93c4403a2d0ba9c3e46ef369259819531b545fbab7d14a51fd513aff749"
+        },
+        {
+          "district": "East",
+          "level": 3,
+          "file": "References/Review/five-area-2026-10-24-candidate/east/east-lv3.jpg",
+          "sha256": "72b53b27c85f7cf51adeff1f5acd9fc53e91cdd3e5c72ccf256223de6e9dc464"
+        },
+        {
+          "district": "East",
+          "level": 6,
+          "file": "References/Review/five-area-2026-10-24-candidate/east/east-lv6.jpg",
+          "sha256": "42cdc049750ec9cc6e3b9574e2beca950729f53fb5bc7097f045c500d9f593b1"
+        },
+        {
+          "district": "North",
+          "level": 1,
+          "file": "References/Review/five-area-2026-10-24-candidate/north/north-lv1.jpg",
+          "sha256": "64400f462cf91fc32e2741a00a2b43072b5f6bc3d38083d6e64214e27ae0291f"
+        },
+        {
+          "district": "North",
+          "level": 3,
+          "file": "References/Review/five-area-2026-10-24-candidate/north/north-lv3.jpg",
+          "sha256": "04b8e947b6386abd1ac81c3339d18e4fc3bc484b67ab0fec4332ac0231385546"
+        },
+        {
+          "district": "North",
+          "level": 6,
+          "file": "References/Review/five-area-2026-10-24-candidate/north/north-lv6.jpg",
+          "sha256": "f1c04edf6eb754ffc9ec4855933f2dca023c7e0fde5e2a00dfbb67f5b105a5d3"
+        },
+        {
+          "district": "South",
+          "level": 1,
+          "file": "References/Review/five-area-2026-10-24-candidate/south/south-lv1.jpg",
+          "sha256": "5de6db276e4d78940c4913d9c30b931a2ffe4b61071f773bf25518fe8efeba45"
+        },
+        {
+          "district": "South",
+          "level": 3,
+          "file": "References/Review/five-area-2026-10-24-candidate/south/south-lv3.jpg",
+          "sha256": "568a3baa83720a8ce5be9444e172664fc4b58f871d14d1af8080af0a56884a14"
+        },
+        {
+          "district": "South",
+          "level": 6,
+          "file": "References/Review/five-area-2026-10-24-candidate/south/south-lv6.jpg",
+          "sha256": "1532bd5ae39746aff5e4dcb279eade176ee6e28e57bc2523866a26e79a1cc23d"
+        }
+      ],
       "quality": {
-        "density": null,
-        "cuteness": null,
-        "walkability": null,
-        "ui_readability": null,
-        "level_difference": null,
-        "world": null,
-        "characters": null
+        "density": false,
+        "cuteness": true,
+        "walkability": false,
+        "ui_readability": true,
+        "level_difference": true,
+        "world": false,
+        "characters": true
       },
-      "status": "Not started; requires previous checkpoint approval"
+      "status": "Actual five-area images registered; manual and independent review HOLD due South F1/F2. ZIP submission and16tests are not user approval."
     }
   },
   "deferred_until_five_area_acceptance": [
@@ -420,18 +549,14 @@
   "south": {
     "design_direction_approved": true,
     "implemented": true,
-    "native_unity": false,
+    "native_unity": true,
     "visual": false,
     "town_density": false,
     "walking": false,
     "unity_stage_accepted": false,
     "native_image_count": 6,
-    "status": "Revised South/camera inputs await same-source five-area native replay; previous actual receipt retained separately.",
-    "previous_review": {},
-    "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
-    "review_directory": "References/Review/south-garden-2026-10-23-candidate/south",
-    "central_input_fingerprint": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
-    "last_review": {
+    "status": "Actual native replay verified; visual HOLD for increased empty paving/garden composition loss and persistent entry cut. Lv3/rest readability improved. Not adopted.",
+    "previous_review": {
       "candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
       "run": "20261023-195457-32c20c13",
       "native_unity": true,
@@ -442,19 +567,50 @@
       "south_user_approved": false,
       "record": "References/Review/south-garden-2026-10-23-candidate/native-review.json"
     },
+    "reviewed_candidate": "d8e649b7802292ca552d564427bc4b720fa8dca4",
+    "review_directory": "References/Review/five-area-2026-10-24-candidate/south",
+    "central_input_fingerprint": "b975adbb3212a75bafe5948705a1b30c46c67921875168c455c418d21623cd0a",
+    "last_review": {
+      "candidate": "d8e649b7802292ca552d564427bc4b720fa8dca4",
+      "run": "20261023-225834-ea7261fa",
+      "native_unity": true,
+      "native_tests_total": 16,
+      "native_tests_passed": 16,
+      "native_image_count": 27,
+      "central_west_east_visual": true,
+      "north_visual": true,
+      "south_visual": false,
+      "integrated_visual": false,
+      "south_user_approval_kind": "Prior conditional45f205d authorization retained; current visual conditions failed",
+      "record": "References/Review/five-area-2026-10-24-candidate/native-review.json"
+    },
     "functional_walking": true,
     "walking_visual_alignment": false,
     "nameplate_readability": true,
     "unresolved_ids": [
-      "S1",
-      "S2",
-      "S3"
+      "F1",
+      "F2"
     ],
     "previous_native_review": {
       "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
       "review_directory": "References/Review/south-garden-2026-10-23-candidate/south",
       "central_input_fingerprint": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
       "native_image_count": 6
-    }
+    },
+    "level_difference": true,
+    "left_bare_lawn_edge_resolved": true
+  },
+  "connections": {
+    "native_unity": true,
+    "functional_walking": true,
+    "visual": false,
+    "unity_stage_accepted": false,
+    "reviewed_candidate": "d8e649b7802292ca552d564427bc4b720fa8dca4",
+    "central_input_fingerprint": "b975adbb3212a75bafe5948705a1b30c46c67921875168c455c418d21623cd0a",
+    "review_directory": "References/Review/five-area-2026-10-24-candidate",
+    "unresolved_ids": [
+      "F2"
+    ],
+    "status": "Actual all-five travel/separation assertions pass atLv1/3/6; South join remains visibly cut."
   }
 }

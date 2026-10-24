@@ -25,9 +25,17 @@
     "recovery_entry": "Actual repack-five-area-review.ps1 entry exercised on a small synthetic staged run; Explorer stubbed, no Unity launched."
   },
   "render_inputs_changed": false,
-  "native_raw_received": false,
+  "native_raw_received": true,
   "visual_accepted": false,
   "apk_generated": false,
   "pixel_verified": false,
-  "main_merged": false
+  "main_merged": false,
+  "received_review": {
+    "date_jst": "2026-10-24",
+    "record": "References/Review/five-area-2026-10-24-candidate/native-review.json",
+    "parts": 5,
+    "raw_files": 67,
+    "missing_or_changed": 0,
+    "note": "Capture remainsd8e649b. Packaging revision sidecar was not uploaded; do not relabel capture source as packaging code."
+  }
 }

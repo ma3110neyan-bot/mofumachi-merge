@@ -99,5 +99,15 @@
       "file": "Assets/Mofumachi/Resources/Mofumachi/TownNorthCourtMosaic.png",
       "sha256": "b7a7289a5a8446aca121ec7358c2a410383d4ca78d4ef7d3873785d5f5f12332"
     }
-  ]
+  ],
+  "native_review_result": {
+    "candidate": "d8e649b7802292ca552d564427bc4b720fa8dca4",
+    "run": "20261023-225834-ea7261fa",
+    "received_on_jst": "2026-10-24",
+    "native_run_reviewed": true,
+    "native_tests_passed": 16,
+    "all_visual_conditions_passed": false,
+    "record": "References/Review/five-area-2026-10-24-candidate/native-review.json",
+    "note": "The false native_after_adjustments_verified flag is retained for overall condition fulfillment: actual native execution is now reviewed, but garden density and entry continuity fail. It no longer means no native run was received."
+  }
 }

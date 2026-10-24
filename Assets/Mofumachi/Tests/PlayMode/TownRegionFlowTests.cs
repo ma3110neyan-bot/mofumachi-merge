@@ -194,8 +194,7 @@ namespace Mofumachi.Tests
                     }
                     Flow.GoBack();Assert.That(Flow.IsModalOpen,Is.False);
                     life.World.Camera.Pan(.5f,0);life.World.Refresh();Canvas.ForceUpdateCanvases();
-                    foreach(var sign in life.GetComponentsInChildren<Text>().Where(t=>t.name.StartsWith("Painted road direction")))
-                    {var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(life.transform,sign.transform);var area=((RectTransform)life.transform).rect;Assert.That(bounds.min.x,Is.GreaterThanOrEqualTo(area.xMin));Assert.That(bounds.max.x,Is.LessThanOrEqualTo(area.xMax));Assert.That(sign.preferredHeight,Is.LessThanOrEqualTo(sign.rectTransform.rect.height+1));Assert.That(sign.raycastTarget,Is.False);}
+                    Assert.That(life.GetComponentsInChildren<Text>(true).Where(t=>t.name.StartsWith("Painted road direction")),Is.Empty,"Keep floating captions absent in all five districts and safe-area sizes");
                     foreach(var name in new[]{"Town region name","Town growth hint"})
                     {var text=Flow.GetComponentsInChildren<Text>().Single(t=>t.name==name);Assert.That(text.preferredHeight,Is.LessThanOrEqualTo(text.rectTransform.rect.height+1),name);}
                     var field=(RectTransform)life.transform;float scale=TownWorldLayout.ScaleForViewport(field.rect.width,field.rect.height);var camera=life.World.Camera.Center;

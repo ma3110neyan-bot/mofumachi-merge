@@ -1,5 +1,9 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-24最新原本：214249のPlayMode222中221成功／1失敗／skip0。旧案内文字テストだけ修正。** 原XML/logとSHAは `References/Review/full-playmode-2026-10-24-214249/`。唯一の失敗はSeamlessFieldTests.OneSharedGroundAndFiveLandmarksReplaceTheOpaquePainting:56の `.Single` が、ユーザー指示で除去済みの `Painted road direction 0` を必須取得していたため。こちらの検査更新漏れ。北カメラ／文字非表示の新CameraKeepsWaterActorsMarkersAndGrowthAlignedはこの実Unityで成功済み。
+
+ゲームは変更せず、SeamlessFieldTestsの旧取得・非表示確認とTownRegionFlowTestsの空になった旧ラベル位置ループを、inactive含む全案内Textの不在確認へ更新。5地区の原画／地表／投影／名前・HUD／操作／保存／納品・報酬の既存検査は維持。Native宣言222件維持、6asmdefコンパイル0警告エラー、描画digest7d1f305a…／354元承認＋許可済み2差分／15画像は不変。原本の221成功を修正版222成功と報告しない。修正版の全件Unity／APK／Pixelは未確認。次はPull後、承認済みの全件 -TownQa を再実行し、failed0/skip0後だけ同版APK/SHA／Pixelへ。画像をチャットに貼らない。以下は履歴。
+
 **2026-10-24最新受信：Windows214249は承認ゲート通過・Edit143/143成功、PlayModeでUnity exit2。** run `20261024-214249-2904cc95` のユーザー画面。前の承認SHA誤停止とは別段階で、PS142はUnity非0終了通知のみ。実PlayMode失敗名／件数／skip／根因は画面にない。原XML/log未受領、APK未生成。次はこのrunの `playmode.xml` と `playmode.log` を受領して診断する。推測でカメラ・UI・fixture・判定を変えず、再実行もまだ案内しない。ログの場所は `C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Android\20261024-214249-2904cc95`。記録 `docs/verification/stage1-stability-2026-10-24.json`。今回の記録更新を理由にPullや再ビルドさせない。以下は履歴。
 
 **2026-10-24最新：Windows全件QA開始前の承認SHA誤停止を修正。** ユーザー画面の `Original base approval was changed.` は新しい照合のraw SHA判定。実Git core.autocrlf=true checkoutで承認JSONのLF→CRLF1897行、rawSHA e70eb3…→aab50c…、JSON内容同一・Git差分0のまま同停止を再現した。`base_lock_hash_mode=lf-text` を候補に明記し、既存入力lock同様にUTF8/LF正規化して元のe70eb3…と照合する。承認スナップショットや記録SHAを差替えず、実内容変更は拒否する。mode省略の古い記録はbinary厳密のまま。証拠は `docs/verification/stage1-windows-base-hash-2026-10-24.json`。

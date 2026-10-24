@@ -1,6 +1,6 @@
 {
   "stage": "1",
-  "status": "display_correction_full_playmode_stopped_raw_evidence_pending",
+  "status": "caption_test_assumption_repaired_fresh_native_pending",
   "authorization": "2026-10-24 user release-priority phase1 and floating-text followup",
   "source_evidence": "References/Review/stage1-device-2026-10-24/receipt.json",
   "candidate_lock": "References/VisualLock/stage1-display-candidate-2026-10-24.json",
@@ -69,7 +69,14 @@
     "review_important_found": 1,
     "review_important_fixed": 1,
     "historical_as_fresh_regression": "Observed RED; default/current validation and explicit historical mode now pass.",
-    "windows_qa_preflight_repair": "docs/verification/stage1-windows-base-hash-2026-10-24.json"
+    "windows_qa_preflight_repair": "docs/verification/stage1-windows-base-hash-2026-10-24.json",
+    "caption_test_repair_compile": {
+      "assemblies": 6,
+      "warnings": 0,
+      "errors": 0,
+      "native_declarations": 222,
+      "fresh_native_verified": false
+    }
   },
   "major_issues": "No new major defect reported by user; crash absence and full progress are not yet proven.",
   "minor_carryovers": [
@@ -88,11 +95,13 @@
     "editmode_total_reported": 143,
     "raw_editmode_xml_verified": false,
     "playmode_unity_exit_code": 2,
-    "playmode_total": null,
-    "playmode_failed": null,
-    "playmode_skipped": null,
-    "playmode_raw_files_received": false,
+    "playmode_total": 222,
+    "playmode_failed": 1,
+    "playmode_skipped": 0,
+    "playmode_raw_files_received": true,
     "qa_apk_generated": false,
-    "cause": "Pending same-run playmode.xml and playmode.log; PowerShell142 is only the nonzero Unity exit notification."
+    "cause": "SeamlessFieldTests expected the deliberately removed floating-caption Text object and Single threw; update2old caption assertions to require absence.",
+    "playmode_passed": 221,
+    "evidence_record": "References/Review/full-playmode-2026-10-24-214249/receipt-and-diagnosis.json"
   }
 }

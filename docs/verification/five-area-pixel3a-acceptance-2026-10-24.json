@@ -171,6 +171,8 @@
     "native_verified": false,
     "qa_apk_generated": false,
     "pixel_verified": false,
-    "note": "Earlier143/222 console success and APK185942 are preserved as pre-polish evidence, not success for these two display corrections."
+    "note": "Earlier143/222 console success and APK185942 are preserved as pre-polish evidence, not success for these two display corrections.",
+    "latest_native_evidence": "References/Review/full-playmode-2026-10-24-214249/receipt-and-diagnosis.json",
+    "status": "221passed1old_caption_test_failure_repaired_native_rerun_pending"
   }
 }

@@ -53,8 +53,7 @@ namespace Mofumachi.Tests
             }
             var guideSpot=TownWorldMap.Place("west.meeting");life.World.Model.Restore(life.World.Model.Hero.Id,guideSpot);life.World.ReturnToHero();
             Assert.That(TownWorldLayout.Distance(life.World.Model.Hero.Position,guideSpot),Is.LessThan(.001f));
-            var guide=life.GetComponentsInChildren<Text>(true).Single(t=>t.name=="Painted road direction 0");
-            Assert.That(guide.gameObject.activeInHierarchy,Is.False,"A road label must yield while the character crosses it");
+            Assert.That(life.GetComponentsInChildren<Text>(true).Where(t=>t.name.StartsWith("Painted road direction")),Is.Empty,"The removed floating captions must not be recreated, even as inactive objects");
             LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator QuestDoorWaitsForATapAfterArrivalAndReturnsToTheSameTownPosition()

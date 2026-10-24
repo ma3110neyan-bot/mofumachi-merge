@@ -1,0 +1,117 @@
+{
+  "received_on_jst": "2026-10-24",
+  "reviewed_revision": "638aa2474a93d2cc21768e030a7100972c5c446e",
+  "run": "20261024-110359-39b38515",
+  "productFingerprint": "d4ef30b5c7d842588a67b038169cf7caca8bf5dafad0f20e2375f9b1c653b97e",
+  "centralInputFingerprint": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "source_manifest_sha256": "05b7cfc96030cb33473ffe64fa17aeae3304918592b9321a4f68564837c0fb11",
+  "identity_verified": true,
+  "same_capture_as_prior_south_review": true,
+  "raw_files": 67,
+  "native_unity": true,
+  "native_tests": {
+    "total": 16,
+    "passed": 16,
+    "failed": 0,
+    "skipped": 0,
+    "counted_once": true,
+    "already_counted_in_south_receipt": true,
+    "new_test_execution": false,
+    "duration_seconds": 70.0942019,
+    "suites": {
+      "CentralMasterReviewTests": 2,
+      "EastMasterReviewTests": 3,
+      "ExperienceCaptureTests": 1,
+      "FiveAreaIntegrationReviewTests": 1,
+      "NorthMasterReviewTests": 3,
+      "SouthMasterReviewTests": 3,
+      "WestMasterReviewTests": 3
+    }
+  },
+  "native_image_count": 27,
+  "before_pairs_verified": 15,
+  "formal_visual_lock_sha256": "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf",
+  "verdict": "PASS_AS_NATIVE_INTEGRATED_CANDIDATE_AWAITING_USER_APPROVAL",
+  "critical_issues": [],
+  "important_issues": [],
+  "minor_carryover": [
+    {
+      "id": "S1",
+      "axis": "south_entry_texture_softness",
+      "files": [
+        "south/screenshots/south-connection.png",
+        "south/screenshots/south-walking.png"
+      ],
+      "location": "connection x240-500/y650-780; walking x380-620/y735-855",
+      "finding": "Localized soft overlapping stone outlines remain; old hard horizontal material cut/green shoulders are resolved. Preserve South quality and evaluate on device; no further redesign in this receipt review."
+    },
+    {
+      "id": "J1",
+      "axis": "inherited_west_east_material_joins",
+      "files": [
+        "west/screenshots/west-connection.png",
+        "east/screenshots/east-connection.png"
+      ],
+      "finding": "The accepted West/East views retain material/stone-scale changes at their joins, byte-identical to the prior accepted frames. No regression; this verdict does not claim every texture join is invisible."
+    }
+  ],
+  "areas": {
+    "Central": {
+      "role": "fountain/gathering/event",
+      "visual": true,
+      "density": true,
+      "level_difference": true,
+      "comparison": "Lv3/6 exact held originals. Lv1 differs only2651 pixels in fountain water and Momo/Lulu rendering; no layout/scenery/HUD/name-position change."
+    },
+    "West": {
+      "role": "cafe/terrace/meeting",
+      "visual": true,
+      "density": true,
+      "level_difference": true,
+      "comparison": "All6 frames byte-identical; cafe/terrace/Pom/door prompt retained."
+    },
+    "East": {
+      "role": "florist/shop",
+      "visual": true,
+      "density": true,
+      "level_difference": true,
+      "comparison": "All6 frames byte-identical; florist/display/perimeter/Fio name retained."
+    },
+    "North": {
+      "role": "requests/delivery/story",
+      "visual": true,
+      "density": true,
+      "level_difference": true,
+      "comparison": "All6 frames byte-identical; cottage/board/mailbox/parcels/envelope mosaic/Lv3details/Lv6arch retained."
+    },
+    "South": {
+      "role": "garden/walk/rest",
+      "visual": true,
+      "density": true,
+      "level_difference": true,
+      "comparison": "All6 frames exact prior SouthFinal receipt. Restored curves/low walkable planting/circular gardens/gazebo/Lv3flowers/Lv6arch; F1/F2 remain resolved."
+    }
+  },
+  "central_lv1_difference": {
+    "different_pixels": 2651,
+    "fountain_highlights_pixels": 61,
+    "momo_pixels": 1352,
+    "lulu_pixels": 1238,
+    "outside_these_regions": 0,
+    "scenery_regression": false
+  },
+  "route_annotations": "All5 areas have6 named SHA-bound nativeLv1 navigation routes, finite in-frame projection points,720x1280 original captures. Annotated navigation routes, not recorded player input.",
+  "functional_native_scope": "The single16case actual run includes Lv1/3/6 walking across all5 roles without fast travel, resident separation/no-save-write assertions and facility travel/second-tap entry behavior. This is not a new run or the full Unity suite.",
+  "same_camera_as_held": true,
+  "editor_texture_memory_report_unchanged": true,
+  "performance_limit": "Editor texture memory equality is not Pixel FPS/heat/memory/input acceptance. No new APK or Pixel evidence exists.",
+  "independent_review": "All27 actual PNGs,5routeJPEGs,15Before frames reviewed independently: Critical0 Important0, retained MinorS1; inherited West/East joins explicitly noted.",
+  "integrated_visual_review_complete": true,
+  "user_approved": false,
+  "full_unity_suite_run": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "main_merged": false,
+  "next_scope": "Explicit user approval of current5-area638aa24 candidate before full Unity suite -> QA APK -> Pixel3a. Preserve game/art and do not repeat this16case capture or claim repeated test success."
+}

@@ -1,0 +1,953 @@
+{
+  "gitRevision": "638aa2474a93d2cc21768e030a7100972c5c446e",
+  "productFingerprint": "d4ef30b5c7d842588a67b038169cf7caca8bf5dafad0f20e2375f9b1c653b97e",
+  "centralInputFingerprint": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "run": "20261024-110359-39b38515",
+  "parts": [
+    {
+      "file": "five-area-review-01.zip",
+      "sha256": "f9508697e0f0bf79cd535f7e2d35bf520f37b98fd58c0dca5cad7ea0fcbdb58b",
+      "bytes": 20423834,
+      "files": 11
+    },
+    {
+      "file": "five-area-review-02.zip",
+      "sha256": "5746cfadc2eea368d621b415e75724a1d176ad66da3ea71573223b9b647fb7e6",
+      "bytes": 20601585,
+      "files": 20
+    },
+    {
+      "file": "five-area-review-03.zip",
+      "sha256": "ad9b4ab268e2140179f74133cd8fdf41b316eab3ca0836d06515654514a6b193",
+      "bytes": 19375036,
+      "files": 10
+    },
+    {
+      "file": "five-area-review-04.zip",
+      "sha256": "7dfe810c49023c912f162b56b23bcf755e8f592f894dd0273ae4ed51a56229f4",
+      "bytes": 20202899,
+      "files": 18
+    },
+    {
+      "file": "five-area-review-05.zip",
+      "sha256": "db95980b665e0a5a02fde82f8b0a965fd512487b62866a8b366f32130f8f85c7",
+      "bytes": 10940127,
+      "files": 8
+    }
+  ],
+  "raw_files": [
+    {
+      "file": "approved-design.png",
+      "bytes": 2779573,
+      "sha256": "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf",
+      "archive": "five-area-review-01.zip"
+    },
+    {
+      "file": "before/04-town-lv1-Central.png",
+      "bytes": 1813942,
+      "sha256": "f3e4b21d280d70242b759b9e9e19383087a915f739c1e2540f0c91030298ccc1",
+      "archive": "five-area-review-01.zip"
+    },
+    {
+      "file": "before/04-town-lv1-East.png",
+      "bytes": 1754782,
+      "sha256": "c52df064f31a05e1feac3c453e8be6c79c1a81cebd87b76213a07859731537cf",
+      "archive": "five-area-review-01.zip"
+    },
+    {
+      "file": "before/04-town-lv1-North.png",
+      "bytes": 1763315,
+      "sha256": "d9e38ffca62ccea52573ec19fdd8324541c573166daeaa76a25de48a16542513",
+      "archive": "five-area-review-01.zip"
+    },
+    {
+      "file": "before/04-town-lv1-South.png",
+      "bytes": 1732960,
+      "sha256": "c9d42151ffc53fd79e370b6504408487a3ef066ab16bf74321245ae1a0a7976d",
+      "archive": "five-area-review-01.zip"
+    },
+    {
+      "file": "before/04-town-lv1-West.png",
+      "bytes": 1754104,
+      "sha256": "280eb3bb35091c77569dd947e86484a62d81c6cecd56e2a6144a6805c81fcf0c",
+      "archive": "five-area-review-01.zip"
+    },
+    {
+      "file": "before/04-town-lv3-Central.png",
+      "bytes": 1828353,
+      "sha256": "319d74ca8367c3c989f6c0892a1ec40ab37a2624dddd6ded72f6c01a1dc7d6b3",
+      "archive": "five-area-review-01.zip"
+    },
+    {
+      "file": "before/04-town-lv3-East.png",
+      "bytes": 1758892,
+      "sha256": "3a4e220b7321ab9c4d1a0013094bc7f130202a8a8476f4bbbf637d785ce36211",
+      "archive": "five-area-review-01.zip"
+    },
+    {
+      "file": "before/04-town-lv3-North.png",
+      "bytes": 1782111,
+      "sha256": "5a8f4668dea21be53b37df72f255db28fc9dae487e5aa82341943889e7cc24f0",
+      "archive": "five-area-review-01.zip"
+    },
+    {
+      "file": "before/04-town-lv3-South.png",
+      "bytes": 1739025,
+      "sha256": "eeed0b5c9b5bec7ba4032f08d496eca379f0cdf95233c8bb063f06e48a510745",
+      "archive": "five-area-review-01.zip"
+    },
+    {
+      "file": "before/04-town-lv3-West.png",
+      "bytes": 1756078,
+      "sha256": "34ad13bff8e84c1208a6329306578c3f191038f1d7e78ca2b7976853915bd3ca",
+      "archive": "five-area-review-01.zip"
+    },
+    {
+      "file": "before/04-town-lv6-Central.png",
+      "bytes": 1835254,
+      "sha256": "bf63b84ecea52be251582f1a65f016f312c42c8ce4ff9889b9c03f1e20b51148",
+      "archive": "five-area-review-02.zip"
+    },
+    {
+      "file": "before/04-town-lv6-East.png",
+      "bytes": 1772498,
+      "sha256": "b3229e6dbcdbd9726c00d97737ac633c6ec952d336f7de2be5bb662c736ae67f",
+      "archive": "five-area-review-02.zip"
+    },
+    {
+      "file": "before/04-town-lv6-North.png",
+      "bytes": 1803758,
+      "sha256": "03506a2783ae97fc3f1639ae4cc1347f802e7a796a4c71d5d0fcf66de1c4aaad",
+      "archive": "five-area-review-02.zip"
+    },
+    {
+      "file": "before/04-town-lv6-South.png",
+      "bytes": 1752910,
+      "sha256": "21cbf7add9c4087d59a7cade5b4b940f06f30240f32a17dbb25a495419151290",
+      "archive": "five-area-review-02.zip"
+    },
+    {
+      "file": "before/04-town-lv6-West.png",
+      "bytes": 1766708,
+      "sha256": "ce8a60f6493df7730b36b58980cc4e232d491ee4c527f24387f331e51748c74a",
+      "archive": "five-area-review-02.zip"
+    },
+    {
+      "file": "central/capture-world.txt",
+      "bytes": 1341,
+      "sha256": "79d0aa9e548e88fca57780299b0b60da24a90071657a5e2b413d956d06a36418",
+      "archive": "five-area-review-02.zip"
+    },
+    {
+      "file": "central/central-route-projection.json",
+      "bytes": 2868,
+      "sha256": "abfbb335e068702c3c5e1adcd30b5552ca76c4c03bfc8442116e9873fc6c93c7",
+      "archive": "five-area-review-02.zip"
+    },
+    {
+      "file": "central/central-walking-routes.jpg",
+      "bytes": 452672,
+      "sha256": "e616e8d8fbce2084a64e48d236a7cf5aa6fa69a786775582dd5a5d84e64b079e",
+      "archive": "five-area-review-02.zip"
+    },
+    {
+      "file": "central/screenshots/04-town-lv1-Central.png",
+      "bytes": 1813974,
+      "sha256": "4da40271a95530367d3c1ea3964e3c8aa4f55dd8a65dd2c22777c003f8fb0046",
+      "archive": "five-area-review-02.zip"
+    },
+    {
+      "file": "central/screenshots/04-town-lv3-Central.png",
+      "bytes": 1828353,
+      "sha256": "319d74ca8367c3c989f6c0892a1ec40ab37a2624dddd6ded72f6c01a1dc7d6b3",
+      "archive": "five-area-review-02.zip"
+    },
+    {
+      "file": "central/screenshots/04-town-lv6-Central.png",
+      "bytes": 1835254,
+      "sha256": "bf63b84ecea52be251582f1a65f016f312c42c8ce4ff9889b9c03f1e20b51148",
+      "archive": "five-area-review-02.zip"
+    },
+    {
+      "file": "central-playmode.log",
+      "bytes": 78571,
+      "sha256": "08fef1ac0f3ec2ed4e34703c09e4ae75911c635b0c86b46d0712ff011d6f242f",
+      "archive": "five-area-review-02.zip"
+    },
+    {
+      "file": "central-playmode.xml",
+      "bytes": 18000,
+      "sha256": "2c457ac71c38315597392dc6f299455a8ac212bd3deab999bb6f9a560cdb83cb",
+      "archive": "five-area-review-02.zip"
+    },
+    {
+      "file": "central-review-info.json",
+      "bytes": 945,
+      "sha256": "bf87586b9a063163d7fc67a361dca53ebdc1e06b2b1305d10d7bb00cb1a3305d",
+      "archive": "five-area-review-02.zip"
+    },
+    {
+      "file": "east/capture-world.txt",
+      "bytes": 2685,
+      "sha256": "0c358c81ac2ea1d1a0e1d0747baad8cbefd950680bf099a9369c98b2f8036ede",
+      "archive": "five-area-review-02.zip"
+    },
+    {
+      "file": "east/east-route-projection.json",
+      "bytes": 3461,
+      "sha256": "5a8e10b8b94697ccf2cf757bde20813dcaeb20f915be08c64bcd9860c1e20ca2",
+      "archive": "five-area-review-02.zip"
+    },
+    {
+      "file": "east/east-walking-routes.jpg",
+      "bytes": 432914,
+      "sha256": "e25baf22ccf8ba47a9b76546b479ad707a323b63a59ab0e3274d333f2e2c02ff",
+      "archive": "five-area-review-02.zip"
+    },
+    {
+      "file": "east/screenshots/04-town-lv1-East.png",
+      "bytes": 1754782,
+      "sha256": "c52df064f31a05e1feac3c453e8be6c79c1a81cebd87b76213a07859731537cf",
+      "archive": "five-area-review-02.zip"
+    },
+    {
+      "file": "east/screenshots/04-town-lv3-East.png",
+      "bytes": 1758892,
+      "sha256": "3a4e220b7321ab9c4d1a0013094bc7f130202a8a8476f4bbbf637d785ce36211",
+      "archive": "five-area-review-02.zip"
+    },
+    {
+      "file": "east/screenshots/04-town-lv6-East.png",
+      "bytes": 1772498,
+      "sha256": "b3229e6dbcdbd9726c00d97737ac633c6ec952d336f7de2be5bb662c736ae67f",
+      "archive": "five-area-review-02.zip"
+    },
+    {
+      "file": "east/screenshots/east-connection.png",
+      "bytes": 1788183,
+      "sha256": "c865f2c1302e73282466d85b390b3a14bedac29d7c6e528796de1768a0ac4437",
+      "archive": "five-area-review-03.zip"
+    },
+    {
+      "file": "east/screenshots/east-door-arrived.png",
+      "bytes": 1588679,
+      "sha256": "491390f59ea5bba0d20594093f221b816b51f1eca7835241b2a77e3f28e41e19",
+      "archive": "five-area-review-03.zip"
+    },
+    {
+      "file": "east/screenshots/east-walking.png",
+      "bytes": 1867297,
+      "sha256": "01043bf2ea616c7e34e2d6bd3967e70fb70b62c9018271622bf431cc1964b01d",
+      "archive": "five-area-review-03.zip"
+    },
+    {
+      "file": "five-area-lv1-before-candidate.jpg",
+      "bytes": 4166348,
+      "sha256": "780280c810e98b4ac465547d7262683592ad5facd53c79d2d0b7affa9c9e707d",
+      "archive": "five-area-review-03.zip"
+    },
+    {
+      "file": "five-area-lv3-before-candidate.jpg",
+      "bytes": 4204901,
+      "sha256": "5f900999930a9eb7be6c078e08885dd6a25ec29cb4639fcf7f9ddfc8e11d6ef1",
+      "archive": "five-area-review-03.zip"
+    },
+    {
+      "file": "five-area-lv6-before-candidate.jpg",
+      "bytes": 4257005,
+      "sha256": "ad6dbaf88d9c2d940e92f7a2e8ef8b8fca92c867b708ed7c6b9350a2585f79a3",
+      "archive": "five-area-review-03.zip"
+    },
+    {
+      "file": "north/capture-world.txt",
+      "bytes": 2671,
+      "sha256": "6e7946c340a3dda06444c3b2932fa5ac02f1c19c15f288ed3cf1e7a989eff038",
+      "archive": "five-area-review-03.zip"
+    },
+    {
+      "file": "north/north-route-projection.json",
+      "bytes": 3148,
+      "sha256": "3384bf688ea575338a1eb06a5b1f138b3f5474e9b5b51b0dfa5e6e8ff53f9e18",
+      "archive": "five-area-review-03.zip"
+    },
+    {
+      "file": "north/north-walking-routes.jpg",
+      "bytes": 434354,
+      "sha256": "f5875b3b7881cd1197def4dc5456cb9db018749f4894a75d672dd2220270bdf7",
+      "archive": "five-area-review-03.zip"
+    },
+    {
+      "file": "north/screenshots/04-town-lv1-North.png",
+      "bytes": 1763315,
+      "sha256": "d9e38ffca62ccea52573ec19fdd8324541c573166daeaa76a25de48a16542513",
+      "archive": "five-area-review-03.zip"
+    },
+    {
+      "file": "north/screenshots/04-town-lv3-North.png",
+      "bytes": 1782111,
+      "sha256": "5a8f4668dea21be53b37df72f255db28fc9dae487e5aa82341943889e7cc24f0",
+      "archive": "five-area-review-04.zip"
+    },
+    {
+      "file": "north/screenshots/04-town-lv6-North.png",
+      "bytes": 1803758,
+      "sha256": "03506a2783ae97fc3f1639ae4cc1347f802e7a796a4c71d5d0fcf66de1c4aaad",
+      "archive": "five-area-review-04.zip"
+    },
+    {
+      "file": "north/screenshots/north-connection.png",
+      "bytes": 1832126,
+      "sha256": "9943bff7be4050dffce3536915b1746c9d5e04956c5cad144dedf3b27f535d62",
+      "archive": "five-area-review-04.zip"
+    },
+    {
+      "file": "north/screenshots/north-door-arrived.png",
+      "bytes": 1710401,
+      "sha256": "24d7625955a1912f871f0d2c448552377381aa925c0e394b547c659a41326599",
+      "archive": "five-area-review-04.zip"
+    },
+    {
+      "file": "north/screenshots/north-walking.png",
+      "bytes": 1846542,
+      "sha256": "b031e07c3f0813e737e4bfcb3cb92a7645cd4216e06371d9fe75da329015b29e",
+      "archive": "five-area-review-04.zip"
+    },
+    {
+      "file": "review-guide.txt",
+      "bytes": 1187,
+      "sha256": "1c163ad7a5e2ef570af1cbd9ea0a13ebfd531472c7c347a5e2839a282c6b0ab9",
+      "archive": "five-area-review-04.zip"
+    },
+    {
+      "file": "review-manifest.json",
+      "bytes": 17390,
+      "sha256": "05b7cfc96030cb33473ffe64fa17aeae3304918592b9321a4f68564837c0fb11",
+      "archive": "five-area-review-04.zip"
+    },
+    {
+      "file": "south/capture-world.txt",
+      "bytes": 2650,
+      "sha256": "462107c3d9b96ab72acec882f625cc155daf286b05696e42c666420ce85f1e57",
+      "archive": "five-area-review-04.zip"
+    },
+    {
+      "file": "south/screenshots/04-town-lv1-South.png",
+      "bytes": 1783233,
+      "sha256": "4a6afef12d668b0c11007fb3c947a0c1ac4f7aa3cc660378e521378e5e46dd84",
+      "archive": "five-area-review-04.zip"
+    },
+    {
+      "file": "south/screenshots/04-town-lv3-South.png",
+      "bytes": 1794842,
+      "sha256": "b34ad6da5504587b86637388f4f47de800d6d8641be16d012d7ccd730c35d202",
+      "archive": "five-area-review-04.zip"
+    },
+    {
+      "file": "south/screenshots/04-town-lv6-South.png",
+      "bytes": 1795526,
+      "sha256": "ef146d6abb045831b62737a970c8703e6c116c32da8a8946ec6fc8d6b96d7000",
+      "archive": "five-area-review-04.zip"
+    },
+    {
+      "file": "south/screenshots/south-connection.png",
+      "bytes": 1785843,
+      "sha256": "4e4c00627844560bfea60c5d6370a28d73bda0a6ae17b3f1f46adaa40ba913e2",
+      "archive": "five-area-review-04.zip"
+    },
+    {
+      "file": "south/screenshots/south-rest-arrived.png",
+      "bytes": 1769744,
+      "sha256": "95b387e728756381132ccf295ca771b65751ccadb72e8098c933bc9e43523368",
+      "archive": "five-area-review-04.zip"
+    },
+    {
+      "file": "south/screenshots/south-walking.png",
+      "bytes": 1850828,
+      "sha256": "541eb92559a6d40d081b418cdbdcb325e8ffecd951693d5408febbc6f368c421",
+      "archive": "five-area-review-04.zip"
+    },
+    {
+      "file": "south/south-route-projection.json",
+      "bytes": 3695,
+      "sha256": "1e0241c43c036eb7bffcabdd94c4d702ea2ef3b1c3e0b10a38e0721d0fdb821e",
+      "archive": "five-area-review-04.zip"
+    },
+    {
+      "file": "south/south-walking-routes.jpg",
+      "bytes": 437481,
+      "sha256": "fa7551d791ad6071f28d02056d3162defc3bd0c6e9c5c6c40280e8d01e604ae6",
+      "archive": "five-area-review-04.zip"
+    },
+    {
+      "file": "texture-memory.txt",
+      "bytes": 173,
+      "sha256": "5739fcf22480ade02cbae74c51022c1069d9ceb95d12c58729efb2db400e3d8a",
+      "archive": "five-area-review-04.zip"
+    },
+    {
+      "file": "west/capture-world.txt",
+      "bytes": 2660,
+      "sha256": "752c6d54fc623c39a42069cc35fac60109418ca0d8103304d2b0de2a594fd48c",
+      "archive": "five-area-review-04.zip"
+    },
+    {
+      "file": "west/screenshots/04-town-lv1-West.png",
+      "bytes": 1754104,
+      "sha256": "280eb3bb35091c77569dd947e86484a62d81c6cecd56e2a6144a6805c81fcf0c",
+      "archive": "five-area-review-05.zip"
+    },
+    {
+      "file": "west/screenshots/04-town-lv3-West.png",
+      "bytes": 1756078,
+      "sha256": "34ad13bff8e84c1208a6329306578c3f191038f1d7e78ca2b7976853915bd3ca",
+      "archive": "five-area-review-05.zip"
+    },
+    {
+      "file": "west/screenshots/04-town-lv6-West.png",
+      "bytes": 1766708,
+      "sha256": "ce8a60f6493df7730b36b58980cc4e232d491ee4c527f24387f331e51748c74a",
+      "archive": "five-area-review-05.zip"
+    },
+    {
+      "file": "west/screenshots/west-connection.png",
+      "bytes": 1791577,
+      "sha256": "946fe6b45f7b3ab5fce3482db044b49121ba71c0581144e7f5cb2953ae2a48d7",
+      "archive": "five-area-review-05.zip"
+    },
+    {
+      "file": "west/screenshots/west-door-arrived.png",
+      "bytes": 1573157,
+      "sha256": "c4162913be5223d0ab77bdf712f4452356b00de68a43f13179e3beb7d3abf8ea",
+      "archive": "five-area-review-05.zip"
+    },
+    {
+      "file": "west/screenshots/west-walking.png",
+      "bytes": 1863330,
+      "sha256": "28e1bd4b9581b20fa82cadc1e71e37167ff8c81f6a14f7293a797ebfe6b6b439",
+      "archive": "five-area-review-05.zip"
+    },
+    {
+      "file": "west/west-route-projection.json",
+      "bytes": 3464,
+      "sha256": "1d4300d67d93510452e41d2648846e8d5ba08092c11da233cf4b20fad5dda672",
+      "archive": "five-area-review-05.zip"
+    },
+    {
+      "file": "west/west-walking-routes.jpg",
+      "bytes": 434543,
+      "sha256": "558ac225b07bfba1f96c91c80df8068e1ca9638cf67d466ae75a3b77ff242047",
+      "archive": "five-area-review-05.zip"
+    }
+  ],
+  "raw_file_count": 67,
+  "source_manifest_sha256": "05b7cfc96030cb33473ffe64fa17aeae3304918592b9321a4f68564837c0fb11",
+  "matches_prior_south_manifest_anchor": true,
+  "matches_prior_south_six_pngs_and_xml_log_info": true,
+  "native_tests": {
+    "total": 16,
+    "passed": 16,
+    "failed": 0,
+    "skipped": 0,
+    "counted_once": true,
+    "already_counted_in_south_receipt": true,
+    "new_test_execution": false,
+    "duration_seconds": 70.0942019,
+    "suites": {
+      "CentralMasterReviewTests": 2,
+      "EastMasterReviewTests": 3,
+      "ExperienceCaptureTests": 1,
+      "FiveAreaIntegrationReviewTests": 1,
+      "NorthMasterReviewTests": 3,
+      "SouthMasterReviewTests": 3,
+      "WestMasterReviewTests": 3
+    }
+  },
+  "native_image_count": 27,
+  "before_pairs_verified": 15,
+  "same_camera_as_held": true,
+  "frame_comparisons": [
+    {
+      "area": "central",
+      "file": "04-town-lv1-Central.png",
+      "byte_identical": false,
+      "sha256": "4da40271a95530367d3c1ea3964e3c8aa4f55dd8a65dd2c22777c003f8fb0046",
+      "held_sha256": "ced538fa5429f044a5e93d3f0dd10617c10c81bd43df2803dbc084b6e7ac1ba7",
+      "difference_bbox": [
+        296,
+        500,
+        638,
+        915
+      ],
+      "different_pixels": 2651
+    },
+    {
+      "area": "central",
+      "file": "04-town-lv3-Central.png",
+      "byte_identical": true,
+      "sha256": "319d74ca8367c3c989f6c0892a1ec40ab37a2624dddd6ded72f6c01a1dc7d6b3",
+      "held_sha256": "319d74ca8367c3c989f6c0892a1ec40ab37a2624dddd6ded72f6c01a1dc7d6b3"
+    },
+    {
+      "area": "central",
+      "file": "04-town-lv6-Central.png",
+      "byte_identical": true,
+      "sha256": "bf63b84ecea52be251582f1a65f016f312c42c8ce4ff9889b9c03f1e20b51148",
+      "held_sha256": "bf63b84ecea52be251582f1a65f016f312c42c8ce4ff9889b9c03f1e20b51148"
+    },
+    {
+      "area": "west",
+      "file": "04-town-lv1-West.png",
+      "byte_identical": true,
+      "sha256": "280eb3bb35091c77569dd947e86484a62d81c6cecd56e2a6144a6805c81fcf0c",
+      "held_sha256": "280eb3bb35091c77569dd947e86484a62d81c6cecd56e2a6144a6805c81fcf0c"
+    },
+    {
+      "area": "west",
+      "file": "04-town-lv3-West.png",
+      "byte_identical": true,
+      "sha256": "34ad13bff8e84c1208a6329306578c3f191038f1d7e78ca2b7976853915bd3ca",
+      "held_sha256": "34ad13bff8e84c1208a6329306578c3f191038f1d7e78ca2b7976853915bd3ca"
+    },
+    {
+      "area": "west",
+      "file": "04-town-lv6-West.png",
+      "byte_identical": true,
+      "sha256": "ce8a60f6493df7730b36b58980cc4e232d491ee4c527f24387f331e51748c74a",
+      "held_sha256": "ce8a60f6493df7730b36b58980cc4e232d491ee4c527f24387f331e51748c74a"
+    },
+    {
+      "area": "west",
+      "file": "west-connection.png",
+      "byte_identical": true,
+      "sha256": "946fe6b45f7b3ab5fce3482db044b49121ba71c0581144e7f5cb2953ae2a48d7",
+      "held_sha256": "946fe6b45f7b3ab5fce3482db044b49121ba71c0581144e7f5cb2953ae2a48d7"
+    },
+    {
+      "area": "west",
+      "file": "west-door-arrived.png",
+      "byte_identical": true,
+      "sha256": "c4162913be5223d0ab77bdf712f4452356b00de68a43f13179e3beb7d3abf8ea",
+      "held_sha256": "c4162913be5223d0ab77bdf712f4452356b00de68a43f13179e3beb7d3abf8ea"
+    },
+    {
+      "area": "west",
+      "file": "west-walking.png",
+      "byte_identical": true,
+      "sha256": "28e1bd4b9581b20fa82cadc1e71e37167ff8c81f6a14f7293a797ebfe6b6b439",
+      "held_sha256": "28e1bd4b9581b20fa82cadc1e71e37167ff8c81f6a14f7293a797ebfe6b6b439"
+    },
+    {
+      "area": "east",
+      "file": "04-town-lv1-East.png",
+      "byte_identical": true,
+      "sha256": "c52df064f31a05e1feac3c453e8be6c79c1a81cebd87b76213a07859731537cf",
+      "held_sha256": "c52df064f31a05e1feac3c453e8be6c79c1a81cebd87b76213a07859731537cf"
+    },
+    {
+      "area": "east",
+      "file": "04-town-lv3-East.png",
+      "byte_identical": true,
+      "sha256": "3a4e220b7321ab9c4d1a0013094bc7f130202a8a8476f4bbbf637d785ce36211",
+      "held_sha256": "3a4e220b7321ab9c4d1a0013094bc7f130202a8a8476f4bbbf637d785ce36211"
+    },
+    {
+      "area": "east",
+      "file": "04-town-lv6-East.png",
+      "byte_identical": true,
+      "sha256": "b3229e6dbcdbd9726c00d97737ac633c6ec952d336f7de2be5bb662c736ae67f",
+      "held_sha256": "b3229e6dbcdbd9726c00d97737ac633c6ec952d336f7de2be5bb662c736ae67f"
+    },
+    {
+      "area": "east",
+      "file": "east-connection.png",
+      "byte_identical": true,
+      "sha256": "c865f2c1302e73282466d85b390b3a14bedac29d7c6e528796de1768a0ac4437",
+      "held_sha256": "c865f2c1302e73282466d85b390b3a14bedac29d7c6e528796de1768a0ac4437"
+    },
+    {
+      "area": "east",
+      "file": "east-door-arrived.png",
+      "byte_identical": true,
+      "sha256": "491390f59ea5bba0d20594093f221b816b51f1eca7835241b2a77e3f28e41e19",
+      "held_sha256": "491390f59ea5bba0d20594093f221b816b51f1eca7835241b2a77e3f28e41e19"
+    },
+    {
+      "area": "east",
+      "file": "east-walking.png",
+      "byte_identical": true,
+      "sha256": "01043bf2ea616c7e34e2d6bd3967e70fb70b62c9018271622bf431cc1964b01d",
+      "held_sha256": "01043bf2ea616c7e34e2d6bd3967e70fb70b62c9018271622bf431cc1964b01d"
+    },
+    {
+      "area": "north",
+      "file": "04-town-lv1-North.png",
+      "byte_identical": true,
+      "sha256": "d9e38ffca62ccea52573ec19fdd8324541c573166daeaa76a25de48a16542513",
+      "held_sha256": "d9e38ffca62ccea52573ec19fdd8324541c573166daeaa76a25de48a16542513"
+    },
+    {
+      "area": "north",
+      "file": "04-town-lv3-North.png",
+      "byte_identical": true,
+      "sha256": "5a8f4668dea21be53b37df72f255db28fc9dae487e5aa82341943889e7cc24f0",
+      "held_sha256": "5a8f4668dea21be53b37df72f255db28fc9dae487e5aa82341943889e7cc24f0"
+    },
+    {
+      "area": "north",
+      "file": "04-town-lv6-North.png",
+      "byte_identical": true,
+      "sha256": "03506a2783ae97fc3f1639ae4cc1347f802e7a796a4c71d5d0fcf66de1c4aaad",
+      "held_sha256": "03506a2783ae97fc3f1639ae4cc1347f802e7a796a4c71d5d0fcf66de1c4aaad"
+    },
+    {
+      "area": "north",
+      "file": "north-connection.png",
+      "byte_identical": true,
+      "sha256": "9943bff7be4050dffce3536915b1746c9d5e04956c5cad144dedf3b27f535d62",
+      "held_sha256": "9943bff7be4050dffce3536915b1746c9d5e04956c5cad144dedf3b27f535d62"
+    },
+    {
+      "area": "north",
+      "file": "north-door-arrived.png",
+      "byte_identical": true,
+      "sha256": "24d7625955a1912f871f0d2c448552377381aa925c0e394b547c659a41326599",
+      "held_sha256": "24d7625955a1912f871f0d2c448552377381aa925c0e394b547c659a41326599"
+    },
+    {
+      "area": "north",
+      "file": "north-walking.png",
+      "byte_identical": true,
+      "sha256": "b031e07c3f0813e737e4bfcb3cb92a7645cd4216e06371d9fe75da329015b29e",
+      "held_sha256": "b031e07c3f0813e737e4bfcb3cb92a7645cd4216e06371d9fe75da329015b29e"
+    },
+    {
+      "area": "south",
+      "file": "04-town-lv1-South.png",
+      "byte_identical": false,
+      "sha256": "4a6afef12d668b0c11007fb3c947a0c1ac4f7aa3cc660378e521378e5e46dd84",
+      "held_sha256": "da2a2026eb0712a86b6a17d73da2e41342bc7dad008c4323a78f280407d4d711",
+      "difference_bbox": [
+        0,
+        97,
+        720,
+        1280
+      ],
+      "different_pixels": 717213
+    },
+    {
+      "area": "south",
+      "file": "04-town-lv3-South.png",
+      "byte_identical": false,
+      "sha256": "b34ad6da5504587b86637388f4f47de800d6d8641be16d012d7ccd730c35d202",
+      "held_sha256": "bcc02989142fe95f94ae7ff1d88edcf9ea49cb1ade3ecf65c44362fa2421c1e0",
+      "difference_bbox": [
+        0,
+        97,
+        720,
+        1280
+      ],
+      "different_pixels": 704818
+    },
+    {
+      "area": "south",
+      "file": "04-town-lv6-South.png",
+      "byte_identical": false,
+      "sha256": "ef146d6abb045831b62737a970c8703e6c116c32da8a8946ec6fc8d6b96d7000",
+      "held_sha256": "f5b60abd9000548a1e64e237e580bca8cb10ab3885a8aa4fb98d8f55ed618e25",
+      "difference_bbox": [
+        0,
+        97,
+        720,
+        1280
+      ],
+      "different_pixels": 679439
+    },
+    {
+      "area": "south",
+      "file": "south-connection.png",
+      "byte_identical": false,
+      "sha256": "4e4c00627844560bfea60c5d6370a28d73bda0a6ae17b3f1f46adaa40ba913e2",
+      "held_sha256": "22418ed932e880776e3ee75770b0693b4089098cff1c46a6da9900476a9f5f94",
+      "difference_bbox": [
+        0,
+        640,
+        720,
+        1280
+      ],
+      "different_pixels": 371964
+    },
+    {
+      "area": "south",
+      "file": "south-rest-arrived.png",
+      "byte_identical": false,
+      "sha256": "95b387e728756381132ccf295ca771b65751ccadb72e8098c933bc9e43523368",
+      "held_sha256": "9578ef5055dc76aa20576040beaa89c02797e9426d49f8aee654e04058d819a6",
+      "difference_bbox": [
+        0,
+        35,
+        720,
+        1280
+      ],
+      "different_pixels": 694919
+    },
+    {
+      "area": "south",
+      "file": "south-walking.png",
+      "byte_identical": false,
+      "sha256": "541eb92559a6d40d081b418cdbdcb325e8ffecd951693d5408febbc6f368c421",
+      "held_sha256": "92cf8de66723ed2f7eb17f2c5ca599aa8b27149eefecfbff5655fe0a01b047bd",
+      "difference_bbox": [
+        0,
+        712,
+        720,
+        1280
+      ],
+      "different_pixels": 338402
+    }
+  ],
+  "derived_files": [
+    {
+      "file": "central/central-lv1.jpg",
+      "source": "central/screenshots/04-town-lv1-Central.png",
+      "source_sha256": "4da40271a95530367d3c1ea3964e3c8aa4f55dd8a65dd2c22777c003f8fb0046",
+      "sha256": "f5069ae538e26b542b35ec1def53f7ccd9cdb197408d00236c3d90bb76bfc0c0",
+      "kind": "Same-size JPEG conversion of actual native PNG; no new capture"
+    },
+    {
+      "file": "central/central-lv3.jpg",
+      "source": "central/screenshots/04-town-lv3-Central.png",
+      "source_sha256": "319d74ca8367c3c989f6c0892a1ec40ab37a2624dddd6ded72f6c01a1dc7d6b3",
+      "sha256": "ee6c8db85cbe6ab89a68d50c1280ea43820e5c84f71f9e2b059028c336119cc7",
+      "kind": "Same-size JPEG conversion of actual native PNG; no new capture"
+    },
+    {
+      "file": "central/central-lv6.jpg",
+      "source": "central/screenshots/04-town-lv6-Central.png",
+      "source_sha256": "bf63b84ecea52be251582f1a65f016f312c42c8ce4ff9889b9c03f1e20b51148",
+      "sha256": "aeedd9f173b5de386568751d48881f3970c97eceed843d8dda909c0d66a9615d",
+      "kind": "Same-size JPEG conversion of actual native PNG; no new capture"
+    },
+    {
+      "file": "west/west-lv1.jpg",
+      "source": "west/screenshots/04-town-lv1-West.png",
+      "source_sha256": "280eb3bb35091c77569dd947e86484a62d81c6cecd56e2a6144a6805c81fcf0c",
+      "sha256": "040cff5aee3ea6ed8d109cc0f6c9540a51bf3aa40b48b38467703ddd15987c3c",
+      "kind": "Same-size JPEG conversion of actual native PNG; no new capture"
+    },
+    {
+      "file": "west/west-lv3.jpg",
+      "source": "west/screenshots/04-town-lv3-West.png",
+      "source_sha256": "34ad13bff8e84c1208a6329306578c3f191038f1d7e78ca2b7976853915bd3ca",
+      "sha256": "ef4513c439fcf659e4ee1503d65fc258e34cce946e37e8e2f9ecf8a0c43cbabc",
+      "kind": "Same-size JPEG conversion of actual native PNG; no new capture"
+    },
+    {
+      "file": "west/west-lv6.jpg",
+      "source": "west/screenshots/04-town-lv6-West.png",
+      "source_sha256": "ce8a60f6493df7730b36b58980cc4e232d491ee4c527f24387f331e51748c74a",
+      "sha256": "d981ac35bf9d21b39eacc06ec605878268db1dbd404936b7883aa6ce207df6da",
+      "kind": "Same-size JPEG conversion of actual native PNG; no new capture"
+    },
+    {
+      "file": "east/east-lv1.jpg",
+      "source": "east/screenshots/04-town-lv1-East.png",
+      "source_sha256": "c52df064f31a05e1feac3c453e8be6c79c1a81cebd87b76213a07859731537cf",
+      "sha256": "f9b5ae95f3ba2f44112a042e7f579eb8dffd3ed94ed03a4147906479f9937e21",
+      "kind": "Same-size JPEG conversion of actual native PNG; no new capture"
+    },
+    {
+      "file": "east/east-lv3.jpg",
+      "source": "east/screenshots/04-town-lv3-East.png",
+      "source_sha256": "3a4e220b7321ab9c4d1a0013094bc7f130202a8a8476f4bbbf637d785ce36211",
+      "sha256": "09cd7ecda131cbe11ea9455726a3091c11f5e96c95ca8d17d92031ef681cc5a9",
+      "kind": "Same-size JPEG conversion of actual native PNG; no new capture"
+    },
+    {
+      "file": "east/east-lv6.jpg",
+      "source": "east/screenshots/04-town-lv6-East.png",
+      "source_sha256": "b3229e6dbcdbd9726c00d97737ac633c6ec952d336f7de2be5bb662c736ae67f",
+      "sha256": "fcf068c4895a2ead48697aa67ba14a4ec022dbecfc8f772a84cd87038e182a0c",
+      "kind": "Same-size JPEG conversion of actual native PNG; no new capture"
+    },
+    {
+      "file": "north/north-lv1.jpg",
+      "source": "north/screenshots/04-town-lv1-North.png",
+      "source_sha256": "d9e38ffca62ccea52573ec19fdd8324541c573166daeaa76a25de48a16542513",
+      "sha256": "6d1a2d7d041af66d382e8058e9bb997e1f388e42ea4b9c4fa73a41ec33ab46ea",
+      "kind": "Same-size JPEG conversion of actual native PNG; no new capture"
+    },
+    {
+      "file": "north/north-lv3.jpg",
+      "source": "north/screenshots/04-town-lv3-North.png",
+      "source_sha256": "5a8f4668dea21be53b37df72f255db28fc9dae487e5aa82341943889e7cc24f0",
+      "sha256": "95fb8322d5f352786036550700956d8d99a848150f39dec3b6c5f0b0c8aa491b",
+      "kind": "Same-size JPEG conversion of actual native PNG; no new capture"
+    },
+    {
+      "file": "north/north-lv6.jpg",
+      "source": "north/screenshots/04-town-lv6-North.png",
+      "source_sha256": "03506a2783ae97fc3f1639ae4cc1347f802e7a796a4c71d5d0fcf66de1c4aaad",
+      "sha256": "3e9b14a6d284cdd27455f29ab7a6cc663de32feb94ea974b99228ca064ea3106",
+      "kind": "Same-size JPEG conversion of actual native PNG; no new capture"
+    },
+    {
+      "file": "south/south-lv1.jpg",
+      "source": "south/screenshots/04-town-lv1-South.png",
+      "source_sha256": "4a6afef12d668b0c11007fb3c947a0c1ac4f7aa3cc660378e521378e5e46dd84",
+      "sha256": "06426a3a97cfb5bc5d6cfa575cee77e8fb167a4ae404338fd3a3b3f70503a00a",
+      "kind": "Same-size JPEG conversion of actual native PNG; no new capture"
+    },
+    {
+      "file": "south/south-lv3.jpg",
+      "source": "south/screenshots/04-town-lv3-South.png",
+      "source_sha256": "b34ad6da5504587b86637388f4f47de800d6d8641be16d012d7ccd730c35d202",
+      "sha256": "f112869660f04ddea50d6c35383081f3593961001fa8423b1ce226dd5232ce83",
+      "kind": "Same-size JPEG conversion of actual native PNG; no new capture"
+    },
+    {
+      "file": "south/south-lv6.jpg",
+      "source": "south/screenshots/04-town-lv6-South.png",
+      "source_sha256": "ef146d6abb045831b62737a970c8703e6c116c32da8a8946ec6fc8d6b96d7000",
+      "sha256": "6057da3373e90135446db45398ef6245c72d95fdc5cf6c5b4280ec370565a890",
+      "kind": "Same-size JPEG conversion of actual native PNG; no new capture"
+    },
+    {
+      "file": "central/before-04-town-lv1-Central.png",
+      "kind": "Byte-exact actualOct21 native Central baseline, separate from raw45f Before",
+      "sha256": "b6d7c26495af76b3ca2c260a7bfadcc0ff5c6637c5e4200aeeaa9bd17ccf0cb0",
+      "source": "References/Review/five-area-2026-10-24-candidate/central/before-04-town-lv1-Central.png"
+    },
+    {
+      "file": "central/before-04-town-lv3-Central.png",
+      "kind": "Byte-exact actualOct21 native Central baseline, separate from raw45f Before",
+      "sha256": "ec819dddec98c4d613b5cab5c32ec00ab6936992245648fef22e83710ca62da3",
+      "source": "References/Review/five-area-2026-10-24-candidate/central/before-04-town-lv3-Central.png"
+    },
+    {
+      "file": "central/before-04-town-lv6-Central.png",
+      "kind": "Byte-exact actualOct21 native Central baseline, separate from raw45f Before",
+      "sha256": "b7e7c98b81dae4312ab4fe868f73c30c98da38f3ea81316e985ab6466f270ca6",
+      "source": "References/Review/five-area-2026-10-24-candidate/central/before-04-town-lv6-Central.png"
+    },
+    {
+      "file": "central/central-review-info.json",
+      "source": "central-review-info.json",
+      "sha256": "bf87586b9a063163d7fc67a361dca53ebdc1e06b2b1305d10d7bb00cb1a3305d",
+      "kind": "Byte-exact subset companion copy"
+    },
+    {
+      "file": "central/approved-design.png",
+      "source": "approved-design.png",
+      "sha256": "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf",
+      "kind": "Byte-exact subset companion copy"
+    },
+    {
+      "file": "central/capture-manifest.json",
+      "sha256": "82c520a76ba31a36b32d5d7e91f9b5d7be2bab69485a75724c9b232dc793b8b5",
+      "kind": "Derived existing Central evidence-gate compatibility document; no extra native capture"
+    },
+    {
+      "file": "central/central-before-lock-candidate.jpg",
+      "sha256": "751e0abedfe6b93698303ab30976e786359b12c2fa1962dd4d26fbb83b5361c0",
+      "kind": "Derived existing Central evidence-gate compatibility document; no extra native capture"
+    },
+    {
+      "file": "central/central-adoption.json",
+      "sha256": "f99dac90b8de6796d1f9e1fa910f00bce65841dead05af7ce13a26bd5f15876b",
+      "kind": "Derived existing Central evidence-gate compatibility document; no extra native capture"
+    }
+  ],
+  "review_level_images": [
+    {
+      "district": "Central",
+      "level": 1,
+      "file": "References/Review/five-area-2026-10-24-revised-candidate/central/central-lv1.jpg",
+      "sha256": "f5069ae538e26b542b35ec1def53f7ccd9cdb197408d00236c3d90bb76bfc0c0"
+    },
+    {
+      "district": "Central",
+      "level": 3,
+      "file": "References/Review/five-area-2026-10-24-revised-candidate/central/central-lv3.jpg",
+      "sha256": "ee6c8db85cbe6ab89a68d50c1280ea43820e5c84f71f9e2b059028c336119cc7"
+    },
+    {
+      "district": "Central",
+      "level": 6,
+      "file": "References/Review/five-area-2026-10-24-revised-candidate/central/central-lv6.jpg",
+      "sha256": "aeedd9f173b5de386568751d48881f3970c97eceed843d8dda909c0d66a9615d"
+    },
+    {
+      "district": "West",
+      "level": 1,
+      "file": "References/Review/five-area-2026-10-24-revised-candidate/west/west-lv1.jpg",
+      "sha256": "040cff5aee3ea6ed8d109cc0f6c9540a51bf3aa40b48b38467703ddd15987c3c"
+    },
+    {
+      "district": "West",
+      "level": 3,
+      "file": "References/Review/five-area-2026-10-24-revised-candidate/west/west-lv3.jpg",
+      "sha256": "ef4513c439fcf659e4ee1503d65fc258e34cce946e37e8e2f9ecf8a0c43cbabc"
+    },
+    {
+      "district": "West",
+      "level": 6,
+      "file": "References/Review/five-area-2026-10-24-revised-candidate/west/west-lv6.jpg",
+      "sha256": "d981ac35bf9d21b39eacc06ec605878268db1dbd404936b7883aa6ce207df6da"
+    },
+    {
+      "district": "East",
+      "level": 1,
+      "file": "References/Review/five-area-2026-10-24-revised-candidate/east/east-lv1.jpg",
+      "sha256": "f9b5ae95f3ba2f44112a042e7f579eb8dffd3ed94ed03a4147906479f9937e21"
+    },
+    {
+      "district": "East",
+      "level": 3,
+      "file": "References/Review/five-area-2026-10-24-revised-candidate/east/east-lv3.jpg",
+      "sha256": "09cd7ecda131cbe11ea9455726a3091c11f5e96c95ca8d17d92031ef681cc5a9"
+    },
+    {
+      "district": "East",
+      "level": 6,
+      "file": "References/Review/five-area-2026-10-24-revised-candidate/east/east-lv6.jpg",
+      "sha256": "fcf068c4895a2ead48697aa67ba14a4ec022dbecfc8f772a84cd87038e182a0c"
+    },
+    {
+      "district": "North",
+      "level": 1,
+      "file": "References/Review/five-area-2026-10-24-revised-candidate/north/north-lv1.jpg",
+      "sha256": "6d1a2d7d041af66d382e8058e9bb997e1f388e42ea4b9c4fa73a41ec33ab46ea"
+    },
+    {
+      "district": "North",
+      "level": 3,
+      "file": "References/Review/five-area-2026-10-24-revised-candidate/north/north-lv3.jpg",
+      "sha256": "95fb8322d5f352786036550700956d8d99a848150f39dec3b6c5f0b0c8aa491b"
+    },
+    {
+      "district": "North",
+      "level": 6,
+      "file": "References/Review/five-area-2026-10-24-revised-candidate/north/north-lv6.jpg",
+      "sha256": "3e9b14a6d284cdd27455f29ab7a6cc663de32feb94ea974b99228ca064ea3106"
+    },
+    {
+      "district": "South",
+      "level": 1,
+      "file": "References/Review/five-area-2026-10-24-revised-candidate/south/south-lv1.jpg",
+      "sha256": "06426a3a97cfb5bc5d6cfa575cee77e8fb167a4ae404338fd3a3b3f70503a00a"
+    },
+    {
+      "district": "South",
+      "level": 3,
+      "file": "References/Review/five-area-2026-10-24-revised-candidate/south/south-lv3.jpg",
+      "sha256": "f112869660f04ddea50d6c35383081f3593961001fa8423b1ce226dd5232ce83"
+    },
+    {
+      "district": "South",
+      "level": 6,
+      "file": "References/Review/five-area-2026-10-24-revised-candidate/south/south-lv6.jpg",
+      "sha256": "6057da3373e90135446db45398ef6245c72d95fdc5cf6c5b4280ec370565a890"
+    }
+  ],
+  "note": "Original67 received files preserved byte-identically.15same-size JPEG conversions and Central compatibility documents are derived; no game image repainted and no additional native run inferred."
+}

@@ -1,0 +1,15 @@
+{
+  "candidate_revision": "638aa2474a93d2cc21768e030a7100972c5c446e",
+  "productFingerprint": "d4ef30b5c7d842588a67b038169cf7caca8bf5dafad0f20e2375f9b1c653b97e",
+  "centralInputFingerprint": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "native_pairs_verified": 3,
+  "native_unity": true,
+  "visual": true,
+  "town_density": true,
+  "walking": true,
+  "pixel_verified": false,
+  "adopted": false,
+  "approved_design_sha256": "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf",
+  "comparison_sha256": "751e0abedfe6b93698303ab30976e786359b12c2fa1962dd4d26fbb83b5361c0",
+  "scope": "Derived verification adapter for actual Central subset of this received67-file package; native16XML counted once at root. Candidate visual review, not user/integration/Pixel approval."
+}

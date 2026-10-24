@@ -1,0 +1,25 @@
+{
+  "gitRevision": "638aa2474a93d2cc21768e030a7100972c5c446e",
+  "productFingerprint": "d4ef30b5c7d842588a67b038169cf7caca8bf5dafad0f20e2375f9b1c653b97e",
+  "centralInputFingerprint": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "width": 720,
+  "height": 1280,
+  "scope": "Derived actual3-frame subset of original67 raw evidence; not an extra test/capture run",
+  "images": [
+    {
+      "file": "04-town-lv1-Central.png",
+      "bytes": 1813974,
+      "sha256": "4da40271a95530367d3c1ea3964e3c8aa4f55dd8a65dd2c22777c003f8fb0046"
+    },
+    {
+      "file": "04-town-lv3-Central.png",
+      "bytes": 1828353,
+      "sha256": "319d74ca8367c3c989f6c0892a1ec40ab37a2624dddd6ded72f6c01a1dc7d6b3"
+    },
+    {
+      "file": "04-town-lv6-Central.png",
+      "bytes": 1835254,
+      "sha256": "bf63b84ecea52be251582f1a65f016f312c42c8ce4ff9889b9c03f1e20b51148"
+    }
+  ]
+}

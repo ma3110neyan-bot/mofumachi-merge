@@ -1,0 +1,26 @@
+南エリア最終修正版の確認（統合ZIP・APKをまだ出さない）
+
+1. GitHub Desktopで feat/daily-world-pass-20261016 を選び、Pullします。
+2. Unity Editorを閉じて、Windows PowerShellで以下を実行します。
+
+Set-Location -LiteralPath "C:\Users\User\Desktop\Mofumachi\mofumachi-merge"
+powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\build-android.ps1" -SouthFinalReview
+
+3. 終了すると実行フォルダーが開きます。
+   south-final-review-01.zipから最後の番号まで、南用ZIPだけ全て提出してください。
+   five-area-reviewの古いZIPや別runは混ぜません。
+
+内容：南Lv1／3／6の実画像、Before45f／保留d8／修正版の3列比較。
+中央→南の接続・歩行の3列比較、実ナビ導線、休憩時の実画像。
+比較に使った旧原本10枚と修正版原本6枚、版情報・SHA・16検査のXML／ログを同梱します。
+テスト結果は1回だけ計上します。画像比較の合格とは別です。
+
+中央・西・東・北の原画／コード／歩行範囲は固定しています。
+同じrunで他4地区の原本も保存しますが、今回は南の提出だけです。
+南が実画面で合格した後、同じステージング済み撮影から5地区統合再審査へ進めます。
+その段階ではrepack-five-area-review.ps1で統合用ZIPを作れるため、描画入力が変わらなければUnity撮影を繰り返す必要はありません。
+
+現在：実装済み・新版Unity実画面／Pixel未確認。
+5エリア合格後にだけ、Unity全件→QA APK→Pixel3a受入へ進みます。
+今回のコマンドは対象16検査とレビュー撮影のみで、全件テスト／APK／Pixel／main統合を行いません。
+エラー時はその画面と同じrunのcentral-playmode.xml／logを提出してください。

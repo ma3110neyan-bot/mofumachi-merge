@@ -1,0 +1,23 @@
+using System;
+using System.Collections.Generic;
+using Mofumachi.Core;
+namespace Mofumachi.Presentation
+{
+    // South owns this narrow transition. Central's accepted painting and mesh
+    // remain untouched; its bottom texels continue into the garden at the join.
+    public static class TownSouthEntryBlendLayout
+    {
+        public const float Left=TownCentralMasterLayout.Left,Right=TownCentralMasterLayout.Right;
+        public const float Top=-1f,Bottom=-1.28f;
+        public static IReadOnlyList<float> Rows {get;}=Array.AsReadOnly(new[]{Bottom,-1.20f,-1.10f,Top});
+        public static TownPoint TexturePoint(TownPoint point)=>TownCentralMasterLayout.TexturePoint(new TownPoint(point.X,2*Top-point.Y));
+        public static float Opacity(float y)
+        {float t=Math.Max(0,Math.Min(1,(y-Bottom)/(Top-Bottom)));return t*t*(3-2*t);}
+        public static float VertexOpacity(TownPoint p)
+        {
+            float side=Math.Max(0,Math.Min(1,Math.Min(p.X-Left,Right-p.X)/.05f));
+            float depth=Math.Max(0,Math.Min(1,(Top-p.Y)/.10f));
+            return Opacity(p.Y)*(1-depth*(1-side));
+        }
+    }
+}

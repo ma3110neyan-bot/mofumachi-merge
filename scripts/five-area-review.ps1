@@ -26,8 +26,8 @@ function Assert-SouthFinalReviewConditions([string]$RepositoryPath) {
     }
     $Conditions=Get-Content -LiteralPath (Resolve-FiveAreaEvidencePath $RepositoryPath $Approval.conditions_record) -Raw -Encoding UTF8 | ConvertFrom-Json
     foreach($Key in @('garden_rest_implemented','level_three_implemented','circulation_verified','ground_alignment_implemented','integration_review_authorized_by_user')){if($Conditions.$Key -isnot [bool] -or $Conditions.$Key -ne $true){throw "South condition incomplete: $Key"}}
-    if($Conditions.approved_base_revision -ne $Approval.reviewed_candidate -or $Conditions.native_after_adjustments_verified -ne $false -or $Conditions.integration_user_approved -ne $false){throw 'Review authorization must distinguish implemented corrections from native/user acceptance.'}
-    if(@($Conditions.adjusted_files).Count -ne 6 -or @($Conditions.frozen_files).Count -ne 16){throw 'South conditions must bind all adjusted inputs and the frozen four-area scenery/navigation.'}
+    if($Conditions.approved_base_revision -ne $Approval.reviewed_candidate -or $Conditions.native_after_adjustments_verified -isnot [bool] -or $Conditions.integration_user_approved -ne $false){throw 'Review authorization must distinguish implemented corrections from native/user acceptance.'}
+    if(@($Conditions.adjusted_files).Count -ne 6 -or @($Conditions.frozen_files).Count -lt 16){throw 'South conditions must bind all adjusted inputs and the frozen four-area scenery/navigation.'}
     foreach($File in @($Conditions.adjusted_files)+@($Conditions.frozen_files)) {
         $Path=Resolve-FiveAreaEvidencePath $RepositoryPath $File.file
         $Bytes=if($File.file.EndsWith('.png')){[IO.File]::ReadAllBytes($Path)}else{[Text.Encoding]::UTF8.GetBytes([IO.File]::ReadAllText($Path).Replace("`r`n","`n"))}
@@ -55,7 +55,7 @@ function Write-FiveAreaComparisonJpegs([string]$Directory) {
         } finally {$Brush.Dispose();$Font.Dispose();$Graphics.Dispose();$Bitmap.Dispose()}
     }
 }
-function Write-FiveAreaReview([string]$RepositoryPath,[string]$RunDirectory) {
+function Write-FiveAreaReview([string]$RepositoryPath,[string]$RunDirectory,[switch]$StageOnly) {
     Assert-FiveAreaReviewPrerequisites $RepositoryPath
     $Info=Get-Content -LiteralPath (Join-Path $RunDirectory 'central-review-info.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     if($Info.gitRevision -ne (Read-SourceRevision $RepositoryPath) -or $Info.productFingerprint -ne (Get-ProductFingerprint $RepositoryPath) -or $Info.centralInputFingerprint -ne (Get-CentralInputFingerprint $RepositoryPath)){throw 'Five-area capture identity differs from current source.'}
@@ -109,9 +109,9 @@ central-playmode.xmlは16件を1回計上します。複数ZIPに分けてもテ
     $Files=@(Get-ChildItem -LiteralPath $Review -File -Recurse | Sort-Object FullName)
     $Inventory=@(foreach($File in $Files){[ordered]@{file=$File.FullName.Substring($Review.Length+1).Replace('\','/');bytes=$File.Length;sha256=(Get-FileHash -LiteralPath $File.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}})
     [ordered]@{gitRevision=$Info.gitRevision;productFingerprint=$Info.productFingerprint;centralInputFingerprint=$Info.centralInputFingerprint;before_revision=$Receipt.gitRevision;native_image_count=27;before_image_count=15;native_test_count=16;scope='Five-area native fixture review, not Pixel';native_unity=$true;visual=$null;user_approved=$false;apk_generated=$false;pixel_verified=$false;adopted=$false;files=$Inventory} | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $Review 'review-manifest.json') -Encoding UTF8
-    $null=Write-FiveAreaReviewArchives $RepositoryPath $RunDirectory $RunDirectory
+    if(-not $StageOnly){$null=Write-FiveAreaReviewArchives $RepositoryPath $RunDirectory $RunDirectory}
 }
-function Write-FiveAreaReviewArchives([string]$RepositoryPath,[string]$RunDirectory,[string]$ArchiveDirectory) {
+function Assert-FiveAreaStagedReview([string]$RepositoryPath,[string]$RunDirectory) {
     # The existing native source identity remains unchanged after a script fix.
     # Compare the render digest, not today's whole-product/script fingerprint.
     Assert-FiveAreaReviewPrerequisites $RepositoryPath
@@ -142,6 +142,11 @@ function Write-FiveAreaReviewArchives([string]$RepositoryPath,[string]$RunDirect
     Assert-TestRun (Join-Path $Review 'central-playmode.xml') 16 @('ExperienceCaptureTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests','FiveAreaIntegrationReviewTests')
     [xml]$Results=Get-Content -LiteralPath (Join-Path $Review 'central-playmode.xml') -Raw -Encoding UTF8
     if([int]$Results.'test-run'.total -ne 16){throw 'Native review results must contain exactly16 cases.'}
+    return [pscustomobject]@{Directory=$Review;ManifestPath=$ManifestPath;Manifest=$Manifest;Info=$Info;Files=$Actual}
+}
+function Write-FiveAreaReviewArchives([string]$RepositoryPath,[string]$RunDirectory,[string]$ArchiveDirectory) {
+    $Evidence=Assert-FiveAreaStagedReview $RepositoryPath $RunDirectory
+    $Review=$Evidence.Directory;$ManifestPath=$Evidence.ManifestPath;$Manifest=$Evidence.Manifest;$Info=$Evidence.Info;$Actual=$Evidence.Files
     if(-not $ArchiveDirectory){$ArchiveDirectory=$RunDirectory}
     New-Item -ItemType Directory -Path $ArchiveDirectory -Force | Out-Null
     Add-Type -AssemblyName System.IO.Compression

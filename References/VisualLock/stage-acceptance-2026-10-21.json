@@ -43,8 +43,9 @@
     }
   },
   "remaining_sequence": [
-    "south_garden_quality_corrections",
-    "five_area_native_review",
+    "south_final_native_review",
+    "south_visual_review",
+    "five_area_integration_review",
     "five_area_user_approval",
     "full_native_suite",
     "qa_apk",
@@ -183,7 +184,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "south_quality_corrections",
+  "current_stage": "south_final_native_review_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -426,6 +427,14 @@
           "F1",
           "F2"
         ]
+      },
+      "latest_repair_authorization": {
+        "date": "2026-10-24",
+        "approved_by": "user",
+        "scope": "South only: restore garden composition and remove entry cut; preserve four accepted areas and all walking space",
+        "reference": "「現状判定を承認します」「今回触るのは南エリアのみです」",
+        "approves_repair_work": true,
+        "approves_new_candidate_images": false
       }
     },
     "five_area": {
@@ -549,13 +558,13 @@
   "south": {
     "design_direction_approved": true,
     "implemented": true,
-    "native_unity": true,
+    "native_unity": false,
     "visual": false,
     "town_density": false,
     "walking": false,
     "unity_stage_accepted": false,
     "native_image_count": 6,
-    "status": "Actual native replay verified; visual HOLD for increased empty paving/garden composition loss and persistent entry cut. Lv3/rest readability improved. Not adopted.",
+    "status": "South-only garden/entry revision implemented after user acknowledgment of d8 HOLD; revised native appearance pending. Successful Lv3/gazebo/Lv6arch and full floor retained.",
     "previous_review": {
       "candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
       "run": "20261023-195457-32c20c13",
@@ -598,7 +607,13 @@
       "native_image_count": 6
     },
     "level_difference": true,
-    "left_bare_lawn_edge_resolved": true
+    "left_bare_lawn_edge_resolved": true,
+    "pending_revision": {
+      "implementation_record": "docs/verification/south-only-repair-2026-10-24.json",
+      "native_unity": false,
+      "scope": "Garden composition and South-owned Central-edge blend only; four accepted areas unchanged",
+      "adopted": false
+    }
   },
   "connections": {
     "native_unity": true,

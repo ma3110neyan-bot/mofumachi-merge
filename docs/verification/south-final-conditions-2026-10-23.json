@@ -15,19 +15,19 @@
     },
     {
       "file": "Assets/Mofumachi/Presentation/TownSouthGroundGraphic.cs",
-      "sha256": "d785ceab1482e2d9f0edf8852910f55e5436ae5f1ca924c952a323adbe104b63"
+      "sha256": "53c3cad7dd3015fa959a41ec1e2870651f5d6895a9548b9336cb60cbb80903f9"
     },
     {
-      "file": "Assets/Mofumachi/Presentation/TownWorldLayout.cs",
-      "sha256": "07b9b026a48e6e1ddae4131b092a92f197f30917c6ac91f2ea868c86d5c9d91d"
+      "file": "Assets/Mofumachi/Presentation/TownSouthEntryBlendLayout.cs",
+      "sha256": "7f56be2082652006de53aba85196ba0869dc82442e9ab2f9ddaf0f3aca641a5a"
     },
     {
-      "file": "Assets/Mofumachi/Tests/PlayMode/TownReviewRoutes.cs",
-      "sha256": "f68dc2a279304e1c877b77698702062c987c3b5e37239a89cdcc69535215d1e2"
+      "file": "Assets/Mofumachi/Presentation/TownSouthEntryBlendGraphic.cs",
+      "sha256": "2ef4b84fa9593231411815dc67a9296e7b49965c5dec2e65f50d33034f657b70"
     },
     {
       "file": "Assets/Mofumachi/Resources/Mofumachi/TownSouthGround.png",
-      "sha256": "c7539fe1da40adf9f976695a9df86bdd91c94703ad3ed1b6adf362d3ecc6fa6e"
+      "sha256": "1ef84aaf534dbe1bdc21d40372ea150ce07c5e22f13e553e2a59f3add0ad2cf6"
     },
     {
       "file": "Assets/Mofumachi/Resources/Mofumachi/TownSouthGround.png.meta",
@@ -98,6 +98,90 @@
     {
       "file": "Assets/Mofumachi/Resources/Mofumachi/TownNorthCourtMosaic.png",
       "sha256": "b7a7289a5a8446aca121ec7358c2a410383d4ca78d4ef7d3873785d5f5f12332"
+    },
+    {
+      "file": "Assets/Mofumachi/Presentation/TownWorldLayout.cs",
+      "sha256": "07b9b026a48e6e1ddae4131b092a92f197f30917c6ac91f2ea868c86d5c9d91d"
+    },
+    {
+      "file": "Assets/Mofumachi/Presentation/TownContinuousWorldView.cs",
+      "sha256": "d78dccf8e33f017fd1b8dfda71da3688b48a60de43d343a428ff78188e4fdc15"
+    },
+    {
+      "file": "Assets/Mofumachi/Presentation/TownSceneryView.cs",
+      "sha256": "754081f0ca3cc0ee2ced1d42478c1bd025817bd27aa11a03953c918c68b19fc1"
+    },
+    {
+      "file": "Assets/Mofumachi/Presentation/TownSouthMasterLayout.cs",
+      "sha256": "2793ef0a143fda041e03e3948d3d3398c966b51f7912b2e3b41b71b77f412f6b"
+    },
+    {
+      "file": "Assets/Mofumachi/Presentation/TownStreetHud.cs",
+      "sha256": "81e29e3eeedb249af0cf75174bfcc66c5f5c992ea906d5046e3b5816ddf593be"
+    },
+    {
+      "file": "Assets/Mofumachi/Presentation/TownActor.cs",
+      "sha256": "be3ecfae09a77ffbff6b0365c2584d67e0f446d689ab52137c40895196857be5"
+    },
+    {
+      "file": "Assets/Mofumachi/Tests/PlayMode/TownReviewRoutes.cs",
+      "sha256": "f68dc2a279304e1c877b77698702062c987c3b5e37239a89cdcc69535215d1e2"
+    },
+    {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownLandmarksAtlas.png",
+      "sha256": "8f6d31d8cde0a9610f534d838793c6ca39e8c159f56920c44ba073bfc9f9205b"
+    },
+    {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownLandmarksAtlas.png.meta",
+      "sha256": "c0617ea1bc49e156cf8e9457b3ff500b85579f99d73047c6d4ec9e79de4456b4"
+    },
+    {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownNatureAtlas.png",
+      "sha256": "5821e085e20fdf02494b78807e8aac406c7cf2a036b262a8f79cc2eeb01c8b33"
+    },
+    {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownNatureAtlas.png.meta",
+      "sha256": "c44c358bdd0c018e2ba76d1c4d08cfa4eba03fb520d54d9cebb40d6c6f56a7ac"
+    },
+    {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownVillageDetailsAtlas.png",
+      "sha256": "6bafb741c5113bea5cf37b9c84387eaf51b7421a84f031cd93d8e79eca7652f3"
+    },
+    {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownVillageDetailsAtlas.png.meta",
+      "sha256": "8429d1c7f4bdf65f87b23c08103d9810edc8c864187f4c3364716c26272a2787"
+    },
+    {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownStreetPropsAtlas.png",
+      "sha256": "7af43eea4502e7532431630213ab1d994605490918b06dbc98c937c5fd4ef661"
+    },
+    {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownStreetPropsAtlas.png.meta",
+      "sha256": "bf07cc470c9ad038f04d9b218fdae5b22d1cd9ea4a1804190b6168b15284467b"
+    },
+    {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownGrowthPropsAtlas.png",
+      "sha256": "3780d259e887a5f1dbea66910e4f5ddc251153cdd21c5467b15164281d68bba1"
+    },
+    {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownGrowthPropsAtlas.png.meta",
+      "sha256": "271c8bfef89154029aa6fb600846d05a978c09917e193e58e0b707cb3558533c"
+    },
+    {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownDecorationAtlas.png",
+      "sha256": "4801dafea5d3dfc6f7eb0bcecc43ae0b6e9a48e309d8d1a59c52eeea3e535627"
+    },
+    {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownDecorationAtlas.png.meta",
+      "sha256": "186956440667cefa60751dbe0e14fa71d447d6b586447c7c9d61e9239c800487"
+    },
+    {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownDeliveryParcels.png",
+      "sha256": "200e19832dfbad493c97650d81abbe122396dab30af7e2e438de631d5f76afbf"
+    },
+    {
+      "file": "Assets/Mofumachi/Resources/Mofumachi/TownDeliveryParcels.png.meta",
+      "sha256": "77201182db0392c4ae71a7d801036b7c85aa9774531d799324c3cb1e5426d5ba"
     }
   ],
   "native_review_result": {
@@ -108,6 +192,8 @@
     "native_tests_passed": 16,
     "all_visual_conditions_passed": false,
     "record": "References/Review/five-area-2026-10-24-candidate/native-review.json",
-    "note": "The false native_after_adjustments_verified flag is retained for overall condition fulfillment: actual native execution is now reviewed, but garden density and entry continuity fail. It no longer means no native run was received."
-  }
+    "note": "The false native_after_adjustments_verified flag is retained for overall condition fulfillment: actual native execution is now reviewed, but garden density and entry continuity fail. It no longer means no native run was received.",
+    "scope": "Historical d8 HOLD; the new South-only revision awaits a new native run."
+  },
+  "latest_user_authorization": "2026-10-24: 南エリア最終修正 → 5エリア統合再審査。庭園構成と接続だけを修正。中央・西・東・北変更禁止。"
 }

@@ -3,6 +3,7 @@ Set-StrictMode -Version Latest
 . (Join-Path $PSScriptRoot '../build-android.ps1')
 if(-not(Get-Command Write-FiveAreaReview -ErrorAction SilentlyContinue)){throw 'Five-area review must export source-bound images without an APK.'}
 if(-not(Get-Command Write-FiveAreaReviewArchives -ErrorAction SilentlyContinue)){throw 'A passed native run must resume ZIP packaging without rerendering or changing its capture identity.'}
+if(-not(Get-Command Write-SouthFinalReview -ErrorAction SilentlyContinue)){throw 'South needs its Before/held/revised native review before publishing the integrated candidate.'}
 function Reject([scriptblock]$Action){$Rejected=$false;try{& $Action}catch{$Rejected=$true};if(-not $Rejected){throw 'Invalid five-area review was accepted.'}}
 $Repo=(Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
 Assert-FiveAreaReviewPrerequisites $Repo
@@ -21,6 +22,11 @@ try {
     foreach($Relative in $Paths){$Target=Join-Path $ConditionsRepo $Relative;New-Item -ItemType Directory -Path (Split-Path -Parent $Target) -Force | Out-Null;Copy-Item -LiteralPath (Join-Path $Repo $Relative) -Destination $Target}
     Assert-SouthFinalReviewConditions $ConditionsRepo
     $ConditionPath=Join-Path $ConditionsRepo $ConditionRelative;$Saved=[IO.File]::ReadAllBytes($ConditionPath)
+    # A completed South native review must not block the subsequent integrated
+    # packaging-only review; this authorization still never adopts the town.
+    $Conditions.native_after_adjustments_verified=$true;$Conditions | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $ConditionPath -Encoding UTF8
+    Assert-SouthFinalReviewConditions $ConditionsRepo
+    $Conditions.native_after_adjustments_verified=$false;[IO.File]::WriteAllBytes($ConditionPath,$Saved)
     foreach($Key in @('garden_rest_implemented','level_three_implemented','circulation_verified','ground_alignment_implemented','integration_review_authorized_by_user')) {
         $Conditions.$Key=$false;$Conditions | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $ConditionPath -Encoding UTF8
         Reject {Assert-SouthFinalReviewConditions $ConditionsRepo};$Conditions.$Key=$true
@@ -67,6 +73,20 @@ try {
     if($Manifest.native_image_count -ne 27 -or $Manifest.before_image_count -ne 15 -or $Manifest.user_approved -ne $false -or $Manifest.pixel_verified -ne $false -or $Manifest.adopted -ne $false){throw 'Review lost its scope or falsely adopted the candidate.'}
     foreach($File in $Manifest.files){if((Get-FileHash -LiteralPath (Join-Path $Expanded $File.file) -Algorithm SHA256).Hash -ne $File.sha256){throw 'Part split lost or changed evidence.'}}
     if(@(Get-ChildItem -LiteralPath $Expanded -Filter 'central-playmode.xml' -File -Recurse).Count -ne 1){throw 'Native results must be counted once.'}
+    # Stage complete five-area evidence, but publish only the requested South
+    # revision package. Comparison drawing is stubbed, not native rendering.
+    $StageRun=Join-Path $Root 'south-first';New-Item -ItemType Directory -Path $StageRun -Force | Out-Null
+    Copy-Item -LiteralPath $Screens -Destination $StageRun -Recurse
+    foreach($Name in @('central-review-info.json','central-playmode.xml','central-playmode.log')){Copy-Item -LiteralPath (Join-Path $Run $Name) -Destination $StageRun}
+    Write-FiveAreaReview $Repo $StageRun -StageOnly
+    if(@(Get-ChildItem -LiteralPath $StageRun -Filter 'five-area-review-*.zip').Count -ne 0){throw 'South-first mode published the integrated review too early.'}
+    function Write-SouthRevisionComparisons([string]$RepositoryPath,[string]$Directory){foreach($Name in @('south-before-held-revised.jpg','south-entry-before-held-revised.jpg')){[IO.File]::WriteAllBytes((Join-Path $Directory $Name),[byte[]]@(255,216,255,217))}}
+    Write-SouthFinalReview $Repo $StageRun
+    $SouthParts=@(Get-ChildItem -LiteralPath $StageRun -Filter 'south-final-review-*.zip');if($SouthParts.Count -lt 1){throw 'South-first evidence package missing.'}
+    $SouthExpanded=Join-Path $Root 'south-expanded';foreach($Part in $SouthParts){Expand-Archive -LiteralPath $Part.FullName -DestinationPath $SouthExpanded}
+    $SouthMeta=Get-Content -LiteralPath (Join-Path $SouthExpanded 'south-final-manifest.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    if($SouthMeta.adopted -ne $false -or $SouthMeta.pixel_verified -ne $false -or $SouthMeta.native_test_count -ne 16 -or $SouthMeta.before_revision -ne '45f205d7873067f5fec3a26df1b32ff9f21602a7' -or $SouthMeta.held_revision -ne 'd8e649b7802292ca552d564427bc4b720fa8dca4'){throw 'South package mixed source identities or adoption state.'}
+    foreach($File in $SouthMeta.files){if((Get-FileHash -LiteralPath (Join-Path $SouthExpanded $File.file) -Algorithm SHA256).Hash -ne $File.sha256){throw 'South revision part lost source evidence.'}}
     # Packaging-only recovery preserves a completed capture from before a
     # script-only update; current render inputs must still be identical.
     $Review=Join-Path $Run 'five-area-review';$ManifestPath=Join-Path $Review 'review-manifest.json'

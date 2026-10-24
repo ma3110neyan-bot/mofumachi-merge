@@ -1,5 +1,7 @@
 # Central-only review helpers. Loading this file never renders, builds or adopts.
 function Get-CentralInputPaths {
+    'Assets/Mofumachi/Presentation/TownSouthEntryBlendLayout.cs'
+    'Assets/Mofumachi/Presentation/TownSouthEntryBlendGraphic.cs'
     'Assets/Mofumachi/Tests/PlayMode/TownReviewRoutes.cs'
     'Assets/Mofumachi/Resources/Mofumachi/TownSouthGround.png'
     'Assets/Mofumachi/Resources/Mofumachi/TownSouthGround.png.meta'

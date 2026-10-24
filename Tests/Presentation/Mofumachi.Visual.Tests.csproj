@@ -31,6 +31,7 @@
     <Compile Include="../../Assets/Mofumachi/Presentation/TownWestMasterLayout.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownWestMasterLayout.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownNorthMasterLayout.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownNorthMasterLayout.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownSouthMasterLayout.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownSouthMasterLayout.cs')" />
+    <Compile Include="../../Assets/Mofumachi/Presentation/TownSouthEntryBlendLayout.cs" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownEastMasterLayout.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownEastMasterLayout.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownFacilityEntry.cs" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownWorldSurface.cs" />

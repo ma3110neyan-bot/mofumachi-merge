@@ -1,0 +1,67 @@
+{
+  "before_revision": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
+  "held_revision": "d8e649b7802292ca552d564427bc4b720fa8dca4",
+  "scope": "Native45f Before, d8 held candidate; neither is the revised capture. Latest user approved the HOLD judgment, not the d8 visual candidate.",
+  "images": [
+    {
+      "stage": "before",
+      "scene": "lv1",
+      "file": "References/Review/south-garden-2026-10-23-candidate/south/screenshots/04-town-lv1-South.png",
+      "sha256": "c9d42151ffc53fd79e370b6504408487a3ef066ab16bf74321245ae1a0a7976d"
+    },
+    {
+      "stage": "before",
+      "scene": "lv3",
+      "file": "References/Review/south-garden-2026-10-23-candidate/south/screenshots/04-town-lv3-South.png",
+      "sha256": "eeed0b5c9b5bec7ba4032f08d496eca379f0cdf95233c8bb063f06e48a510745"
+    },
+    {
+      "stage": "before",
+      "scene": "lv6",
+      "file": "References/Review/south-garden-2026-10-23-candidate/south/screenshots/04-town-lv6-South.png",
+      "sha256": "21cbf7add9c4087d59a7cade5b4b940f06f30240f32a17dbb25a495419151290"
+    },
+    {
+      "stage": "before",
+      "scene": "connection",
+      "file": "References/Review/south-garden-2026-10-23-candidate/south/screenshots/south-connection.png",
+      "sha256": "8cf5d2c26c87a7990dff1a8ed5b408fdd430dc6e94952c5d40e160486333403d"
+    },
+    {
+      "stage": "before",
+      "scene": "walking",
+      "file": "References/Review/south-garden-2026-10-23-candidate/south/screenshots/south-walking.png",
+      "sha256": "61f600b4e9ab6bb2d76b5c3f17a95d86bdb5f0a262ae4decfd432093e44d43fe"
+    },
+    {
+      "stage": "held",
+      "scene": "lv1",
+      "file": "References/Review/five-area-2026-10-24-candidate/south/screenshots/04-town-lv1-South.png",
+      "sha256": "da2a2026eb0712a86b6a17d73da2e41342bc7dad008c4323a78f280407d4d711"
+    },
+    {
+      "stage": "held",
+      "scene": "lv3",
+      "file": "References/Review/five-area-2026-10-24-candidate/south/screenshots/04-town-lv3-South.png",
+      "sha256": "bcc02989142fe95f94ae7ff1d88edcf9ea49cb1ade3ecf65c44362fa2421c1e0"
+    },
+    {
+      "stage": "held",
+      "scene": "lv6",
+      "file": "References/Review/five-area-2026-10-24-candidate/south/screenshots/04-town-lv6-South.png",
+      "sha256": "f5b60abd9000548a1e64e237e580bca8cb10ab3885a8aa4fb98d8f55ed618e25"
+    },
+    {
+      "stage": "held",
+      "scene": "connection",
+      "file": "References/Review/five-area-2026-10-24-candidate/south/screenshots/south-connection.png",
+      "sha256": "22418ed932e880776e3ee75770b0693b4089098cff1c46a6da9900476a9f5f94"
+    },
+    {
+      "stage": "held",
+      "scene": "walking",
+      "file": "References/Review/five-area-2026-10-24-candidate/south/screenshots/south-walking.png",
+      "sha256": "92cf8de66723ed2f7eb17f2c5ca599aa8b27149eefecfbff5655fe0a01b047bd"
+    }
+  ]
+}

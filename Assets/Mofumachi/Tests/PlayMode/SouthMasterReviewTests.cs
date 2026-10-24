@@ -14,7 +14,20 @@ namespace Mofumachi.Tests
             yield return EnterHome();var life=FrameTownPortrait(640);life.World.LookAt(TownDistrictId.South);Canvas.ForceUpdateCanvases();
             var ground=Flow.GetComponentInChildren<TownSouthGroundGraphic>();Assert.That(ground,Is.Not.Null);Assert.That(ground.raycastTarget,Is.False);
             var art=Resources.Load<Texture2D>(TownSouthMasterLayout.Resource);Assert.That(art,Is.Not.Null);Assert.That(ground.mainTexture,Is.SameAs(art));Assert.That(art.isReadable,Is.False);
-            void Check(){Canvas.ForceUpdateCanvases();var mesh=ground.canvasRenderer.GetMesh();Assert.That(mesh.vertexCount,Is.EqualTo(16));Assert.That(mesh.colors32[0].a,Is.Zero,"The old rectangular edge must blend into its surroundings");Assert.That(mesh.colors32[5].a,Is.EqualTo(255));Assert.That(Vector2.Distance(mesh.vertices[0],life.World.Local(new TownPoint(TownSouthMasterLayout.Left,TownSouthMasterLayout.Bottom),ground.rectTransform)),Is.LessThan(.01f));}
+            var entry=ground.GetComponentInChildren<TownSouthEntryBlendGraphic>();Assert.That(entry,Is.Not.Null);Assert.That(entry.raycastTarget,Is.False);
+            Assert.That(entry.mainTexture,Is.SameAs(Resources.Load<Texture2D>(TownCentralMasterLayout.Resource)),"Reuse the accepted Central edge without a duplicate painting");
+            void Check()
+            {
+                Canvas.ForceUpdateCanvases();var mesh=ground.canvasRenderer.GetMesh();Assert.That(mesh.vertexCount,Is.EqualTo(16));Assert.That(mesh.colors32[0].a,Is.Zero);Assert.That(mesh.colors32[5].a,Is.EqualTo(255));Assert.That(Vector2.Distance(mesh.vertices[0],life.World.Local(new TownPoint(TownSouthMasterLayout.Left,TownSouthMasterLayout.Bottom),ground.rectTransform)),Is.LessThan(.01f));
+                var join=entry.canvasRenderer.GetMesh();Assert.That(join.vertexCount,Is.EqualTo(16));
+                for(int col=0;col<4;col++)
+                {
+                    Assert.That(join.colors32[col].a,Is.Zero);Assert.That(join.colors32[12+col].a,Is.EqualTo(255),"The cut itself must be fully textured, not expose the flat underlying lawn");
+                    float x=new[]{-.60f,-.55f,.55f,.60f}[col];var top=new TownPoint(x,-1);var uv=TownCentralMasterLayout.TexturePoint(top);
+                    Assert.That(Vector2.Distance(join.vertices[12+col],life.World.Local(top,entry.rectTransform)),Is.LessThan(.01f));
+                    Assert.That(Vector2.Distance(join.uv[12+col],new Vector2(uv.X,uv.Y)),Is.LessThan(.00001f));
+                }
+            }
             string saved=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;var positions=life.World.Model.Residents.Select(a=>a.Position).ToArray();
             Check();life.World.Pan(new Vector2(30,-20));Check();var snapshot=life.World.Capture();life.World.LookAt(TownDistrictId.Central);life.World.Restore(snapshot);Check();
             Assert.That(life.World.Model.Residents.Select(a=>a.Position),Is.EqualTo(positions));Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(saved));LogAssert.NoUnexpectedReceived();

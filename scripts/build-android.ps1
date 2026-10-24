@@ -1,5 +1,5 @@
 ﻿[CmdletBinding()]
-param([string]$UnityEditor = "$env:ProgramFiles\Unity\Hub\Editor\6000.6.4f1\Editor\Unity.exe", [switch]$Qa,[switch]$TownQa,[switch]$CentralReview,[switch]$WestReview,[switch]$EastReview,[switch]$NorthReview,[switch]$SouthReview,[switch]$FiveAreaReview)
+param([string]$UnityEditor = "$env:ProgramFiles\Unity\Hub\Editor\6000.6.4f1\Editor\Unity.exe", [switch]$Qa,[switch]$TownQa,[switch]$CentralReview,[switch]$WestReview,[switch]$EastReview,[switch]$NorthReview,[switch]$SouthReview,[switch]$FiveAreaReview,[switch]$SouthFinalReview)
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 . (Join-Path $PSScriptRoot 'visual-lock.ps1')
@@ -8,6 +8,7 @@ Set-StrictMode -Version Latest
 . (Join-Path $PSScriptRoot 'north-review.ps1')
 . (Join-Path $PSScriptRoot 'south-review.ps1')
 . (Join-Path $PSScriptRoot 'five-area-review.ps1')
+. (Join-Path $PSScriptRoot 'south-final-review.ps1')
 function Assert-TestRun([string]$ResultPath,[int]$MinimumTests,[string[]]$RequiredSuites) {
     if (-not (Test-Path -LiteralPath $ResultPath)) { throw "Missing current test XML: $ResultPath" }
     [xml]$Results = Get-Content -LiteralPath $ResultPath -Raw
@@ -142,6 +143,8 @@ function Invoke-Unity([string[]]$UnityArguments) {
 }
 # Dot sourcing exposes the same gates to script tests without starting Unity.
 if($MyInvocation.InvocationName -eq '.'){return}
+if($SouthFinalReview -and ($CentralReview -or $WestReview -or $EastReview -or $NorthReview -or $SouthReview -or $FiveAreaReview -or $Qa -or $TownQa)){throw 'Select SouthFinalReview on its own.'}
+if($SouthFinalReview){$FiveAreaReview=$true}
 if($Qa -and $TownQa){throw 'Select -Qa or -TownQa, not both.'}
 if(($CentralReview -or $WestReview -or $EastReview -or $NorthReview -or $SouthReview -or $FiveAreaReview) -and ($Qa -or $TownQa)){throw 'Central review is a native image checkpoint, separate from APK generation.'}
 if(@($CentralReview,$WestReview,$EastReview,$NorthReview,$SouthReview,$FiveAreaReview | Where-Object {$_}).Count -gt 1){throw 'Select one native review mode.'}
@@ -185,7 +188,7 @@ if($CentralReview -or $WestReview -or $EastReview -or $NorthReview -or $SouthRev
     $ReviewScope=if($FiveAreaReview){'five-area native fixture review; not Pixel'}else{'central review only'}
     $ReviewImageCount=if($FiveAreaReview){27}else{3}
     [ordered]@{gitRevision=$GitRevision;productFingerprint=$ProductFingerprint;centralInputFingerprint=$CentralInputFingerprint;unity='6000.6.4f1';scope=$ReviewScope;nativeCaptureCount=$ReviewImageCount;localUnityConfigurationChanges=$ConfigurationChanges;apk_generated=$false;pixel_verified=$false;adopted=$false} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $OutputDir 'central-review-info.json') -Encoding UTF8
-    if($FiveAreaReview){Write-FiveAreaReview $ProjectPath $OutputDir}else{
+    if($SouthFinalReview){Write-FiveAreaReview $ProjectPath $OutputDir -StageOnly;Write-SouthFinalReview $ProjectPath $OutputDir}elseif($FiveAreaReview){Write-FiveAreaReview $ProjectPath $OutputDir}else{
     Write-CentralReview $ProjectPath $OutputDir
     if($WestReview -or $EastReview -or $NorthReview -or $SouthReview -or $FiveAreaReview){Write-WestReview $ProjectPath $OutputDir}
     if($EastReview -or $NorthReview -or $SouthReview -or $FiveAreaReview){Write-EastReview $ProjectPath $OutputDir}

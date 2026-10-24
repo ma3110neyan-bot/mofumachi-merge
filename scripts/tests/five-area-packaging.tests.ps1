@@ -28,6 +28,10 @@ try {
     $Counts=[ordered]@{ExperienceCaptureTests=1;CentralMasterReviewTests=2;WestMasterReviewTests=3;EastMasterReviewTests=3;NorthMasterReviewTests=3;SouthMasterReviewTests=3;FiveAreaIntegrationReviewTests=1}
     $Suites=foreach($Name in $Counts.Keys){"<test-suite name='$Name' result='Passed'>"+('<test-case result="Passed"/>'*$Counts[$Name])+"</test-suite>"}
     "<test-run total='16' passed='16' failed='0' skipped='0' result='Passed'>$($Suites -join '')</test-run>" | Set-Content -LiteralPath (Join-Path $Review 'central-playmode.xml')
+    Set-Content -LiteralPath (Join-Path $Review 'central-playmode.log') -Value 'Synthetic pipeline fixture, not a Unity execution log.'
+    Set-Content -LiteralPath (Join-Path $Review 'south/capture-world.txt') -Value 'Synthetic coordinate fixture.'
+    [IO.File]::WriteAllBytes((Join-Path $Review 'south/south-walking-routes.jpg'),[byte[]]@(255,216,255,217))
+    Copy-Item -LiteralPath (Join-Path $Repo 'References/Preview/design-first-2026-10-21/design-proposal.png') -Destination (Join-Path $Review 'approved-design.png')
     $Files=@(Get-ChildItem -LiteralPath $Review -Recurse -File -Force)
     $Inventory=@(foreach($File in $Files){@{file=$File.FullName.Substring($Review.Length+1).Replace('\','/');bytes=$File.Length;sha256=(Get-FileHash -LiteralPath $File.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}})
     @{gitRevision=$Info.gitRevision;productFingerprint=$Info.productFingerprint;centralInputFingerprint=$Info.centralInputFingerprint;native_image_count=27;before_image_count=15;native_test_count=16;native_unity=$true;user_approved=$false;apk_generated=$false;pixel_verified=$false;adopted=$false;files=$Inventory} | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $Review 'review-manifest.json') -Encoding UTF8
@@ -42,5 +46,11 @@ try {
     & (Join-Path $PSScriptRoot '../repack-five-area-review.ps1') -RunDirectory $Root
     $Recovered=@(Get-ChildItem -LiteralPath (Join-Path $Root 'repacked') -File -Recurse -Filter 'five-area-review-01.zip')
     if($Recovered.Count -ne 1){throw 'Recovery CLI failed to create a fresh archive directory.'}
+    function Write-SouthRevisionComparisons([string]$RepositoryPath,[string]$Directory){foreach($Name in @('south-before-held-revised.jpg','south-entry-before-held-revised.jpg')){[IO.File]::WriteAllBytes((Join-Path $Directory $Name),[byte[]]@(255,216,255,217))}}
+    Write-SouthFinalReview $Repo $Root
+    $Expanded=Join-Path $Root 'south-expanded'
+    foreach($Part in Get-ChildItem -LiteralPath $Root -Filter 'south-final-review-*.zip'){Expand-Archive -LiteralPath $Part.FullName -DestinationPath $Expanded}
+    $References=Get-SouthRevisionReferences $Repo
+    foreach($Image in $References.images){$Name=$Image.stage+'-'+[IO.Path]::GetFileName($Image.file);if(-not(Test-Path -LiteralPath (Join-Path $Expanded $Name))){throw "Comparison original omitted from South package: $Name"}}
     Write-Host 'Packaging-only archive preserves recorded hidden-parent evidence and older script fingerprints. Synthetic headers/XML, no Unity/Pixel.'
 } finally {if(Test-Path -LiteralPath $Root){Remove-Item -LiteralPath $Root -Recurse -Force}}

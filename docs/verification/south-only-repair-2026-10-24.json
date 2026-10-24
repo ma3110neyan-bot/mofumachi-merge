@@ -1,0 +1,45 @@
+{
+  "base_revision": "6b1da82535a6d51ae2bbd02dd5139722090a6727",
+  "approved_scope": "User South-only garden and entry correction; keep four accepted areas unchanged",
+  "design": "Curved walks, low walkable lawn/small flowers/circular rest composition; existing independently sorted gazebo/pots/flowers/arch remain. Do not interpret flat lawn as a new blocker.",
+  "south_asset": {
+    "path": "Assets/Mofumachi/Resources/Mofumachi/TownSouthGround.png",
+    "sha256": "1ef84aaf534dbe1bdc21d40372ea150ce07c5e22f13e553e2a59f3add0ad2cf6",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "source_reference": "Unchanged TownWestGround original style; South-only generated matched environmental painting, not a Unity screenshot"
+  },
+  "entry": "South-owned16-vertex layer shares Central texture. Exact existing bottom-edge UV and alpha1 at y=-1, reflects into South then fades downward and at sides. All vertices y<=-1. Parent refreshes world/pan/preview geometry.",
+  "frozen_files": 37,
+  "frozen_reference": "docs/verification/south-final-conditions-2026-10-23.json",
+  "unchanged": [
+    "Central/West/East/North layout and source art",
+    "SouthMasterLayout dressing, gazebo, Lv3growth and Lv6arch",
+    "Shared camera, floor/navigation/reservations",
+    "TOP/logo/official6/save/quests/delivery/rewards/Merge/BGM"
+  ],
+  "review_pipeline": "SouthFinalReview runs the same16 targeted native cases, stages complete5-area evidence and publishes only source-bound South3-column comparisons/entry/routes/reference originals in bounded ZIP parts. The existing repack command can publish the later integration review without rerendering.",
+  "local_validation": {
+    "cpu_full_passed": 302,
+    "unity_dll_builds": 6,
+    "unity_dll_errors": 0,
+    "unity_dll_warnings": 0,
+    "powershell_suites_passed": 12,
+    "note": "Final full CPU302/302, all6 Unity DLL builds with zero warnings/errors, and all12 strict PowerShell suites passed on the final code. Script candidates/XML are synthetic and comparison drawing stubbed; not native/Pixel evidence.",
+    "review_after_native_state_regression": "Reproduced that a completed South native review blocked later integration packaging. Allow an actual boolean verification state while keeping integration user approval false, exact input hashes and all final adoption gates."
+  },
+  "independent_review": {
+    "critical": 0,
+    "important": 0,
+    "minor_fixed": "Comparison ZIP now includes all10 historical originals; a focused archive test first failed for omitted connection PNG then was fixed.",
+    "source_art_assessment": "Direction appropriate; actual rendered seam/garden quality still unverified."
+  },
+  "native_unity_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "user_approved_new_images": false,
+  "adopted": false,
+  "main_merged": false
+}

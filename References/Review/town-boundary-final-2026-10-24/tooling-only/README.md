@@ -1,0 +1,2 @@
+CPU layout tests, direct Unity API assembly compilation, script fixtures and CRLF emulation only. These logs do not prove native Unity rendering, APK generation or device testing. Mock installer/test XML messages inside PowerShell logs are explicitly synthetic. No new after images or Pixel measurements are present.
+The PowerShell suite copy omits the trailing empty log line only; full original remains in the execution workspace.

@@ -1,0 +1,111 @@
+{
+  "stage": "town_boundary_final",
+  "authorized_on_jst": "2026-10-24",
+  "start_revision": "466b34193aa407fc013f89daad1bae6e05b62074",
+  "design_spec": "docs/superpowers/specs/2026-10-24-town-boundary-final.md",
+  "candidate_lock": "References/VisualLock/town-boundary-final-candidate-2026-10-24.json",
+  "source_evidence": "References/Review/town-boundary-final-2026-10-24/receipt.json",
+  "status": {
+    "designed": true,
+    "implemented": true,
+    "unity_native_verified": false,
+    "new_qa_apk_generated": false,
+    "pixel_verified": false,
+    "formal_base_adopted": false,
+    "merge_quality_pass_started": false,
+    "main_merged": false
+  },
+  "changes": [
+    {
+      "issue": "Exposed green corners and rectangular ground ends",
+      "change": "Static outside-floor flower/tree/fence banks using the existing Nature atlas, one batched graphic. Existing core compositions/resources/rooms remain unchanged.",
+      "sprites": 200,
+      "maximum_vertices_before_culling": 800
+    },
+    {
+      "issue": "South overlapping stone softness",
+      "change": "Keep Central source UV; shorten the South stone feather to0.04world."
+    },
+    {
+      "issue": "East/West join material lines",
+      "change": "Two Central-texture reflected road bands extending0.06world into lateral joins."
+    },
+    {
+      "issue": "Faint four direction road labels",
+      "change": "Prior stage1 object removal retained without additional UI changes. These labels were not observed in the latest17 PDF pages; after-fix device confirmation remains pending."
+    }
+  ],
+  "preserved": {
+    "original_354_input_approval_byte_identical": true,
+    "approved_jpeg_hashes_retained": 15,
+    "original_inputs_unchanged_except_bounded5": 349,
+    "new_diff_from_start_runtime_files": 3,
+    "original_art_audio_resources_changed": false,
+    "core_walking_save_quest_rewards_changed": false,
+    "merge_changed": false
+  },
+  "tooling_verification": {
+    "cpu_layout_red_before_fix": {
+      "passed": 3,
+      "failed": 5
+    },
+    "cpu_layout_green": 8,
+    "cpu_complete": {
+      "passed": 311,
+      "failed": 0,
+      "skipped": 0
+    },
+    "unity_api_asmdef_compilation": {
+      "assemblies": 6,
+      "warnings": 0,
+      "errors": 0,
+      "native_execution": false
+    },
+    "native_test_inventory_only": {
+      "editmode": 143,
+      "playmode": 222
+    },
+    "strict_powershell_suites": {
+      "passed": 14,
+      "failed": 0,
+      "uses_mock_results_not_unity_or_pixel": true,
+      "final_hardening_followup": "All14 suites passed before the final artifact guard; affected android-tools suite passed again after the final guard. Runtime/capture inputs unchanged."
+    },
+    "new_scope_gate_red_before_fix": true,
+    "windows_crlf_full_preflight": {
+      "passed": true,
+      "files": 408,
+      "actual_windows_os_execution": false
+    },
+    "boundary_artifact_guard_red_before_fix": true,
+    "boundary_artifact_guard_green": true,
+    "final_metadata_normalization": "Removed standard trailing whitespace in the2new .meta files, retaining GUID/importer values. Candidate/fingerprints updated; current and CRLF preflights plus bounded scope tests repeated. No C# changes.",
+    "final_preflight_record": "References/Review/town-boundary-final-2026-10-24/tooling-only/final-preflight.txt"
+  },
+  "native_comparison": {
+    "new_capture_pairs": 11,
+    "added_pngs": 22,
+    "total_pngs_expected": 124,
+    "retained_district_level_after_views": 15,
+    "before_kind": "Explicit frozen466b341 renderer reconstruction within the isolated candidate, not a previous APK/Pixel capture",
+    "after_kind": "actual product renderer; images not yet generated here",
+    "comparison_html": "screenshots/street-boundary-before-after.html",
+    "townqa_requires_all_pairs_and_documents": true,
+    "pixel_verified": false,
+    "adopted": false
+  },
+  "review": {
+    "critical": 0,
+    "important": 0,
+    "minor_found": 1,
+    "minor_resolution": "Resolved and confirmed by the same fresh reviewer: TownQa requires22 named boundary frames,124+ total PNGs and comparison HTML/JSON. Focused RED/GREEN verified; final critical0/important0/minor0.",
+    "minor_remaining": 0
+  },
+  "limits": [
+    "Cloud Unity lacks an active headless license; Android support module and connected Pixel/ADB are unavailable. Previous licensing failure is unchanged; assembly compilation is not Unity image/test execution.",
+    "Before/After quality, all5area travel, touch/NPC congestion, coreloop/save/restart and600second Pixel play remain unverified for this candidate.",
+    "Prior220250APK success and older save-restart report are preserved as historical evidence, not transferred to the new candidate.",
+    "Original mildheat/quietaudio reports remain open; audio is unchanged in this scope."
+  ],
+  "next": "One clean same-source -TownQa on the existing Windows feature checkout, inspect the local street comparison, update-install that exact TownQA APK onPixel3a, receive actual results before formal town adoption or Merge work."
+}

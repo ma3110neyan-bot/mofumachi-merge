@@ -20,7 +20,13 @@ try {
     $Design=Get-Content -LiteralPath (Join-Path $Repo $DesignRelative) -Raw -Encoding UTF8 | ConvertFrom-Json
     $Paths=@($StageRelative,$ConditionRelative,$DesignRelative,$Design.reference)+@($Approval.images | ForEach-Object {$_.file})+@($Conditions.adjusted_files | ForEach-Object {$_.file})+@($Conditions.frozen_files | ForEach-Object {$_.file})
     $Polish=Get-BasePolishPatch $Repo
-    if($Polish){$Paths+=@($Stage.base_polish,$Polish.Record.base_lock)+@($Polish.Record.changes | ForEach-Object {$_.path})}
+    if($Polish){
+        $Paths+=@($Stage.base_polish,$Polish.Record.base_lock)+@($Polish.Record.changes | ForEach-Object {$_.path})
+        foreach($Key in @('new_files','capture_inputs')) {
+            $Property=$Polish.Record.PSObject.Properties[$Key]
+            if($Property){$Paths+=@($Property.Value | ForEach-Object {$_.path})}
+        }
+    }
     foreach($Relative in $Paths){$Target=Join-Path $ConditionsRepo $Relative;New-Item -ItemType Directory -Path (Split-Path -Parent $Target) -Force | Out-Null;Copy-Item -LiteralPath (Join-Path $Repo $Relative) -Destination $Target}
     Assert-SouthFinalReviewConditions $ConditionsRepo
     $ConditionPath=Join-Path $ConditionsRepo $ConditionRelative;$Saved=[IO.File]::ReadAllBytes($ConditionPath)

@@ -1,0 +1,83 @@
+RUN android-tools.tests.ps1
+Source SHA checks passed (loose, packed, detached, worktree, changed revision rejected).
+Hidden source inputs are readable and fingerprinted (explicit file, recursive file and directory).
+Clean product and same-run fingerprint gates passed (isolated real Git fixture).
+Native Unity images: 102, 720x1280 (visual review still required).
+Native stdout/stderr and exit-code checks passed (legacy stderr policy simulated).
+Tests passed: 2/2
+Tests passed: 143/143
+Tests passed: 222/222
+Chapter build gates passed (synthetic result XML, Unity tests not executed).
+Events injected: 1
+Installed com.mofumachi.merge on Pixel (API 31). Save data was retained.
+Restart check: & "/tmp/mofumachi-script-test-30b8fe5c-6eab-423b-bd6e-4676630ce8bf/adb.exe" -s Pixel shell am force-stop com.mofumachi.merge
+Then reopen the same app on Pixel. APK SHA256: E80B71CD14D3CBD65F4173ABCBFCF01A545DBCA32A72D575108B553A648CC96F
+Events injected: 1
+Installed com.mofumachi.merge.qa on Pixel (API 31). Save data was retained.
+Restart check: & "/tmp/mofumachi-script-test-30b8fe5c-6eab-423b-bd6e-4676630ce8bf/adb.exe" -s Pixel shell am force-stop com.mofumachi.merge.qa
+Then reopen the same app on Pixel. APK SHA256: E80B71CD14D3CBD65F4173ABCBFCF01A545DBCA32A72D575108B553A648CC96F
+Events injected: 1
+Installed com.mofumachi.merge.qa.townlife on Pixel (API 31). Save data was retained.
+Restart check: & "/tmp/mofumachi-script-test-30b8fe5c-6eab-423b-bd6e-4676630ce8bf/adb.exe" -s Pixel shell am force-stop com.mofumachi.merge.qa.townlife
+Then reopen the same app on Pixel. APK SHA256: E80B71CD14D3CBD65F4173ABCBFCF01A545DBCA32A72D575108B553A648CC96F
+Android script gates passed (mock commands, no device tested).
+RUN approved-design.tests.ps1
+Approved design, source/evidence hashes and mandatory stage order checked. Synthetic images only; no Unity or Pixel execution.
+RUN central-review.tests.ps1
+
+Name                           Value
+----                           -----
+file                           04-town-lv1-Central.png
+bytes                          25
+sha256                         a67ddf7d0e7f567a12e5d408d821fc6d555b8825250946e…
+Central capture gate: Lv1/3/6 dimensions, missing/extra/altered files and source mismatch checked. Synthetic PNG headers only; no native rendering or Pixel test.
+RUN east-review.tests.ps1
+East exact frame list, dimensions, source/input identity and changed evidence rejected. Synthetic PNGs only; no Unity or Pixel execution.
+East native review: /tmp/mofu-east-package-185609d8-168c-4dda-a9b4-8b1dbf1ba0bc/Builds/EastReview/synthetic/east-florist-review.zip. Upload this, central-master-review.zip and west-cafe-review.zip; no APK, Pixel pending.
+Real east export/archive pipeline checked, missing Before refused; JPEG drawing stubbed; no native renders or Pixel execution.
+East sequence prerequisite requires the accepted prior central/west checkpoint and unchanged nine images; no current-source adoption.
+RUN five-area-packaging.tests.ps1
+Tests passed: 16/16
+Five-area review: /workspace/mofumachi-merge/Builds/FiveAreaReview/19990101-000000-776fb861/packed\five-area-review-*.zip. Submit all parts; user approval pending. No APK or Pixel acceptance.
+Tests passed: 16/16
+Five-area review: /workspace/mofumachi-merge/Builds/FiveAreaReview/19990101-000000-776fb861/repacked/20261024-142838-52aa87b8\five-area-review-*.zip. Submit all parts; user approval pending. No APK or Pixel acceptance.
+Tests passed: 16/16
+South-first review: /workspace/mofumachi-merge/Builds/FiveAreaReview/19990101-000000-776fb861\south-final-review-*.zip. Full five-area evidence is staged for later review; no APK/Pixel.
+Packaging-only archive preserves recorded hidden-parent evidence and older script fingerprints. Synthetic headers/XML, no Unity/Pixel.
+RUN five-area-review.tests.ps1
+Tests passed: 16/16
+Tests passed: 16/16
+Tests passed: 16/16
+Tests passed: 16/16
+Five-area review: /tmp/mofu-five-area-49951a04-a772-4853-8246-fd9c1c34330b/run\five-area-review-*.zip. Submit all parts; user approval pending. No APK or Pixel acceptance.
+Tests passed: 16/16
+Tests passed: 16/16
+South-first review: /tmp/mofu-five-area-49951a04-a772-4853-8246-fd9c1c34330b/south-first\south-final-review-*.zip. Full five-area evidence is staged for later review; no APK/Pixel.
+Tests passed: 16/16
+Five-area review: /tmp/mofu-five-area-49951a04-a772-4853-8246-fd9c1c34330b/run/repacked/test\five-area-review-*.zip. Submit all parts; user approval pending. No APK or Pixel acceptance.
+Five-area rejection/export/part SHA checks passed. Older PNG fixtures; synthetic XML and stubbed JPEG drawing, no native/device execution.
+RUN north-review.tests.ps1
+North exact frame list, dimensions, source/input identity and changed evidence rejected. Synthetic PNGs only; no Unity or Pixel execution.
+North native review: /tmp/mofu-north-package-4eed0470-a261-42ba-9f8a-96984a04ba16/Builds/NorthReview/synthetic/north-quest-review.zip. Upload this, central-master-review.zip, west-cafe-review.zip and east-florist-review.zip; no APK, Pixel pending.
+Real north export/archive pipeline checked, missing Before refused; JPEG drawing stubbed; no native renders or Pixel execution.
+North sequence prerequisite requires the accepted prior central/west/east checkpoint and unchanged fifteen images; no current-source adoption.
+RUN pixel-visual-check.tests.ps1
+Pixel metrics: invalid/duplicate/missing/stalled samples checked; 30 FPS timing and PSS parsed. No device contacted.
+RUN south-review.tests.ps1
+South native6 identity/dimensions/changed/missing/extra frames and actual-image-bound routes checked; synthetic files, no Unity/Pixel.
+South candidate: /tmp/mofu-south-package-91e05892-354f-4218-a1bf-8ca15eded33e/Builds/SouthReview/synthetic/south-garden-review.zip. Upload same-run5ZIP; no five-area integration,APK or Pixel acceptance.
+South conditional approval/layout hash, real Before/hash checks, companion identities and archive preservation passed. JPEG drawing stubbed; synthetic candidates, no native/device execution.
+RUN stage1-camera-lock.tests.ps1
+Stage1 authorization: LF/CRLF approval identity preserved; changed approval content/title/camera/old-new hashes/missing approval/extra files rejected.
+RUN town-boundary-lock.tests.ps1
+Boundary gate: original bindings retained; missing/mutated/new unrelated files and unknown scope rejected.
+RUN visual-lock.tests.ps1
+Native comparison: /tmp/mofu-visual-lock-46e2388a-ae49-4cac-a888-92f39c84060e/reports\before-after.html. Pixel/visual adoption remains pending.
+Visual Lock: frozen title/bytes/missing/unsafe paths rejected; Home-only changes and CRLF accepted; real baseline intact.
+RUN west-review.tests.ps1
+West exact frame list, dimensions, source/input identity and changed evidence rejected. Synthetic PNGs only; no Unity or Pixel execution.
+West native review: /tmp/mofu-west-package-5523170f-39e3-4033-8395-8be57547852b/Builds/WestReview/synthetic/west-cafe-review.zip. Upload this and central-master-review.zip; no APK, Pixel pending.
+Real west export/archive pipeline checked, missing Before refused; JPEG drawing stubbed; no native renders or Pixel execution.
+RUN windows-json-encoding.tests.ps1
+Japanese Windows CP932 JSON failure reproduced; actual approved5-area QA prerequisites and script decoding/parser pass; device adoption remains unverified. No Unity/Pixel execution.
+ALL POWERSHELL SUITES PASSED

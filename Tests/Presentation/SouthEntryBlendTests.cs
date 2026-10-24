@@ -32,5 +32,25 @@ namespace Mofumachi.Tests
             Assert.That(Alpha(0,-1.1f),Is.GreaterThan(.5f));
             Assert.That(Alpha(-.55f,-1.1f),Is.GreaterThan(.5f));
         }
+        [Test] public void StoneTransitionDoesNotDoubleExposeTheWholeGardenEntry()
+        {
+            var method=Layout().GetMethod("Opacity");
+            float Alpha(float y)=>(float)method.Invoke(null,new object[]{y});
+            Assert.That(Alpha(-1.16f),Is.Zero,"Do not blur two different stone patterns across the former .28world band");
+            Assert.That(Alpha(-1.10f),Is.EqualTo(1));
+        }
+        [Test] public void EastWestRoadJoinsUseTheExactCentralEdgeWithAShortFeather()
+        {
+            var type=Layout();var sample=type.GetMethod("LateralTexturePoint");var opacity=type.GetMethod("LateralOpacity");
+            Assert.That(sample,Is.Not.Null);Assert.That(opacity,Is.Not.Null);
+            foreach(float side in new[]{-1f,1f})
+            {
+                var p=new TownPoint(side*.60f,-.20f);var uv=(TownPoint)sample.Invoke(null,new object[]{p});var edge=TownCentralMasterLayout.TexturePoint(p);
+                Assert.That(uv.X,Is.EqualTo(edge.X).Within(.00001f));Assert.That(uv.Y,Is.EqualTo(edge.Y).Within(.00001f));
+                Assert.That((float)opacity.Invoke(null,new object[]{p}),Is.EqualTo(1));
+                Assert.That((float)opacity.Invoke(null,new object[]{new TownPoint(side*.66f,-.20f)}),Is.Zero.Within(.00001f));
+                Assert.That((float)opacity.Invoke(null,new object[]{new TownPoint(side*.60f,.04f)}),Is.Zero.Within(.00001f));
+            }
+        }
     }
 }

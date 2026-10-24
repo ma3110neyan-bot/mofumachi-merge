@@ -54,7 +54,12 @@ function Get-BasePolishPatch([string]$RepositoryPath) {
     $Base=Get-Content -LiteralPath $BasePath -Raw -Encoding UTF8 | ConvertFrom-Json
     $Changes=@($Record.changes)
     $Allowed=@('Assets/Mofumachi/Presentation/TownWorldLayout.cs','Assets/Mofumachi/Presentation/TownContinuousWorldView.cs')
-    if($Changes.Count -lt 1 -or $Changes.Count -gt 2){throw 'Stage1 permits only the north camera and floating direction caption corrections.'}
+    $ScopeProperty=$Record.PSObject.Properties['scope_id']
+    $Scope=if($ScopeProperty){[string]$ScopeProperty.Value}else{''}
+    if($Scope -and $Scope -ne 'town_boundary_final_2026_10_24'){throw 'Unknown bounded display correction scope.'}
+    $Boundary=$Scope -eq 'town_boundary_final_2026_10_24'
+    if($Boundary){$Allowed+=@('Assets/Mofumachi/Presentation/TownSouthGroundGraphic.cs','Assets/Mofumachi/Presentation/TownSouthEntryBlendLayout.cs','Assets/Mofumachi/Presentation/TownSouthEntryBlendGraphic.cs')}
+    if($Changes.Count -lt 1 -or $Changes.Count -gt $Allowed.Count){throw 'Display changes exceed the explicitly authorized correction scope.'}
     $Before=@{};$After=@{}
     foreach($Change in $Changes) {
         $Path=[string]$Change.path
@@ -64,6 +69,29 @@ function Get-BasePolishPatch([string]$RepositoryPath) {
         $Bytes=[Text.Encoding]::UTF8.GetBytes([IO.File]::ReadAllText((Join-Path $RepositoryPath $Path)).Replace("`r`n","`n"))
         if((Get-VisualLockDigest $Bytes) -ne $Change.after_sha256){throw 'Display differs from the authorized correction candidate.'}
         $Before[$Path]=$Change.before_sha256;$After[$Path]=$Change.after_sha256
+    }
+    $AddedProperty=$Record.PSObject.Properties['new_files'];$CaptureProperty=$Record.PSObject.Properties['capture_inputs']
+    if(-not $Boundary) {
+        if($AddedProperty -or $CaptureProperty){throw 'Stage1 cannot add rendering or capture inputs.'}
+    } else {
+        if(-not $AddedProperty -or -not $CaptureProperty){throw 'Boundary correction must bind its added and capture inputs.'}
+        $Added=@($AddedProperty.Value);$Captures=@($CaptureProperty.Value)
+        $AllowedAdded=@('Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs','Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs.meta','Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs','Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs.meta')
+        if($Added.Count -ne $AllowedAdded.Count -or $Captures.Count -ne 1){throw 'Boundary rendering/capture input list is incomplete.'}
+        foreach($InputFile in $Added) {
+            $Path=[string]$InputFile.path
+            if($Path -notin $AllowedAdded -or $Before.ContainsKey($Path) -or $InputFile.after_sha256 -notmatch '^[a-fA-F0-9]{64}$'){throw 'Unrelated or duplicate added rendering input.'}
+            $Bytes=[Text.Encoding]::UTF8.GetBytes([IO.File]::ReadAllText((Join-Path $RepositoryPath $Path)).Replace("`r`n","`n"))
+            if((Get-VisualLockDigest $Bytes) -ne $InputFile.after_sha256){throw 'Added rendering input differs from the authorized candidate.'}
+            # A null historical hash omits a newly added path from the old
+            # approval digest only. Fresh capture identity always uses the file.
+            $Before[$Path]=$null;$After[$Path]=$InputFile.after_sha256
+        }
+        $Capture=$Captures[0];$Path=[string]$Capture.path
+        if($Path -ne 'Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs' -or $Capture.before_sha256 -notmatch '^[a-fA-F0-9]{64}$' -or $Capture.after_sha256 -notmatch '^[a-fA-F0-9]{64}$'){throw 'Unrelated or incomplete boundary capture input.'}
+        $Bytes=[Text.Encoding]::UTF8.GetBytes([IO.File]::ReadAllText((Join-Path $RepositoryPath $Path)).Replace("`r`n","`n"))
+        if((Get-VisualLockDigest $Bytes) -ne $Capture.after_sha256){throw 'Boundary capture differs from the authorized candidate.'}
+        $Before[$Path]=$Capture.before_sha256;$After[$Path]=$Capture.after_sha256
     }
     return @{Record=$Record;Before=$Before;After=$After}
 }

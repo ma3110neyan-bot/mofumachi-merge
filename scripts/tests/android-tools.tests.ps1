@@ -91,6 +91,22 @@ try {
         Expect-Rejection {Assert-NativeCaptures $CaptureDir}
         [IO.File]::WriteAllBytes($CaptureFile,$Header)
     }
+    Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireBoundary}
+    $BoundaryFiles=@(foreach($View in @('west-upper','east-upper','west-lower','east-lower','north-left','north-right','south-left','south-right','south-entry','west-join','east-join')) {
+        foreach($Phase in @('before-reconstructed','after')){"30-boundary-$View-$Phase.png"}
+    })
+    foreach($Name in $BoundaryFiles){[IO.File]::WriteAllBytes((Join-Path $CaptureDir $Name),$Header)}
+    Set-Content -LiteralPath (Join-Path $CaptureDir 'street-boundary-before-after.html') -Value '<!doctype html><title>Test fixture, not a native render</title>'
+    $BoundaryMeta=Join-Path $CaptureDir 'street-boundary-comparison.json'
+    $Boundary=@{kind='same-state-native-renderer-comparison';pairs=11;after='product code';pixel_verified=$false;adopted=$false}
+    $Boundary | ConvertTo-Json | Set-Content -LiteralPath $BoundaryMeta
+    Assert-NativeCaptures $CaptureDir -RequireBoundary
+    foreach($Name in $BoundaryFiles){$Path=Join-Path $CaptureDir $Name;Remove-Item -LiteralPath $Path;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireBoundary};[IO.File]::WriteAllBytes($Path,$Header)}
+    $Boundary.pairs=10;$Boundary | ConvertTo-Json | Set-Content -LiteralPath $BoundaryMeta;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireBoundary}
+    $Boundary.pairs=11;$Boundary.pixel_verified=$true;$Boundary | ConvertTo-Json | Set-Content -LiteralPath $BoundaryMeta;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireBoundary}
+    $Boundary.pixel_verified=$false;$Boundary | ConvertTo-Json | Set-Content -LiteralPath $BoundaryMeta
+    foreach($Name in @('street-boundary-before-after.html','street-boundary-comparison.json')){$Path=Join-Path $CaptureDir $Name;$Saved=[IO.File]::ReadAllBytes($Path);Remove-Item -LiteralPath $Path;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireBoundary};[IO.File]::WriteAllBytes($Path,$Saved)}
+    Write-Host 'Boundary acceptance requires all22 comparison frames/documents; incomplete or falsely adopted fixture refused. No native/device execution.'
     [IO.File]::WriteAllBytes((Join-Path $CaptureDir '17-finger-released.png'),[byte[]](0,1,2));Expect-Rejection {Assert-NativeCaptures $CaptureDir}
     [IO.File]::WriteAllBytes((Join-Path $CaptureDir '17-finger-released.png'),$Header)
     $WrongHeader=$Header.Clone();$WrongHeader[19]=0;[IO.File]::WriteAllBytes((Join-Path $CaptureDir '17-finger-released.png'),$WrongHeader);Expect-Rejection {Assert-NativeCaptures $CaptureDir}

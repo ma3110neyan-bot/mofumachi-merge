@@ -1,0 +1,10 @@
+Source SHA checks passed (loose, packed, detached, worktree, changed revision rejected).
+Hidden source inputs are readable and fingerprinted (explicit file, recursive file and directory).
+Clean product and same-run fingerprint gates passed (isolated real Git fixture).
+Native Unity images: 102, 720x1280 (visual review still required).
+Native Unity images: 102, 720x1280 (visual review still required).
+Exception: /workspace/mofumachi-merge/scripts/tests/android-tools.tests.ps1:4
+Line |
+   4 |  … $true};if(-not $Rejected){throw 'Expected rejection did not occur.'}}
+     |                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Expected rejection did not occur.

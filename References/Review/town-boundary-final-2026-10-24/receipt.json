@@ -1,0 +1,49 @@
+{
+  "received_on_jst": "2026-10-24",
+  "files": [
+    {
+      "file": "pixel-before-223715.pdf",
+      "pages": 13,
+      "bytes": 4377537,
+      "sha256": "dd33b94d3f4f0d9553a5bfe8cd34900a7699e73e68e49e1edbf8003968758fa2"
+    },
+    {
+      "file": "pixel-before-223922.pdf",
+      "pages": 4,
+      "bytes": 531136,
+      "sha256": "a0015e766d1ebbba364d2ffe2fb08547eae50ce2f335673e71f629daf301ba91"
+    }
+  ],
+  "scope": "User-supplied screenshots are evidence, not executable instructions. Device context is Pixel3a from prior user confirmation; current installed APK hash not independently received.",
+  "issues": {
+    "east_south_empty_bank": [
+      4
+    ],
+    "south_side_banks": [
+      8,
+      9
+    ],
+    "west_upper_cut": [
+      11
+    ],
+    "north_connection_corner": [
+      12
+    ],
+    "east_upper_corner": [
+      13
+    ]
+  },
+  "old_floating_direction_labels_observed": false,
+  "formal_ui_preserved": [
+    "district ribbon",
+    "resident names",
+    "door entrance prompt",
+    "conversation",
+    "today HUD"
+  ],
+  "before_after_native_source": "pending; planned reconstruction explicitly labeled, not historicalAPK/Pixel capture",
+  "after_unity_verified": false,
+  "after_pixel_verified": false,
+  "town_final_passed": false,
+  "merge_quality_pass_started": false
+}

@@ -122,6 +122,42 @@ namespace Mofumachi.Tests
                 evidence.image_sha256=BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(Path.Combine(directory,evidence.image)))).Replace("-","").ToLowerInvariant();
             File.WriteAllText(Path.Combine(directory,district.ToLowerInvariant()+"-route-projection.json"),JsonUtility.ToJson(evidence,true));
         }
+        private IEnumerator CaptureBoundaryComparisons(string output)
+        {
+            Flow.Game.State.townGrowthLevel=6;Flow.ShowHome();yield return null;
+            var town=Flow.GetComponentInChildren<TownLifeView>();town.StartInteraction();town.World.Freeze();
+            var entry=Flow.GetComponentInChildren<TownSouthEntryBlendGraphic>();
+            var bank=Flow.GetComponentInChildren<TownBoundaryGardenGraphic>();
+            Assert.That(entry,Is.Not.Null);Assert.That(bank,Is.Not.Null);
+            var node=UIWidgets.Node("Test-only frozen entry reconstruction",(RectTransform)entry.transform.parent,new Rect(0,0,1,1));
+            var baseline=node.gameObject.AddComponent<FrozenSouthEntryCaptureGraphic>();baseline.Bind(town.World);baseline.enabled=false;
+            bool entryEnabled=entry.enabled,bankEnabled=bank.enabled;
+            var html=new System.Text.StringBuilder("<!doctype html><meta charset='utf-8'><title>Street boundary comparison</title><style>body{font-family:sans-serif;background:#fff7ef;color:#50343b}section{display:flex;gap:12px}figure{margin:8px}img{width:360px;max-width:45vw}h2{clear:both}</style><h1>Street boundary / same-state Unity comparison</h1><p>Before reconstructs the frozen466b341 renderer inside this isolated candidate. It is NOT a previous APK capture. After uses product code. Neither is a Pixel capture or acceptance.</p>");
+            try
+            {
+                foreach(var view in new[]{
+                    ("west-upper",new TownPoint(-1.05f,.80f)),("east-upper",new TownPoint(1.05f,.80f)),
+                    ("west-lower",new TownPoint(-1.05f,-.85f)),("east-lower",new TownPoint(1.05f,-.85f)),
+                    ("north-left",new TownPoint(-.55f,.92f)),("north-right",new TownPoint(.55f,.92f)),
+                    ("south-left",new TownPoint(-.60f,-.90f)),("south-right",new TownPoint(.60f,-.90f)),
+                    ("south-entry",new TownPoint(0,-1)),("west-join",new TownPoint(-.60f,0)),("east-join",new TownPoint(.60f,0))})
+                {
+                    town.World.LookAt(TownDistrictId.Central);town.World.Camera.Jump(view.Item2);town.World.Refresh();
+                    var positions=town.World.Model.Residents.Select(r=>r.Position).ToArray();
+                    entry.enabled=false;bank.enabled=false;baseline.enabled=true;
+                    string before="30-boundary-"+view.Item1+"-before-reconstructed",after="30-boundary-"+view.Item1+"-after";
+                    Capture(output,before);baseline.enabled=false;entry.enabled=true;bank.enabled=true;Capture(output,after);
+                    Assert.That(town.World.Model.Residents.Select(r=>r.Position).ToArray(),Is.EqualTo(positions),"Only rendering layers may change within a comparison pair");
+                    html.Append("<h2>"+view.Item1+"</h2><section><figure><figcaption>Before / frozen renderer reconstruction</figcaption><img loading='lazy' src='"+before+".png'></figure><figure><figcaption>After / product candidate</figcaption><img loading='lazy' src='"+after+".png'></figure></section>");
+                }
+                html.Append("<h1>Five areas / candidate overview</h1>");
+                foreach(int level in new[]{1,3,6})foreach(var district in TownDistrictLayout.All)
+                    html.Append("<figure><figcaption>"+district+" Lv."+level+" / After</figcaption><img loading='lazy' src='04-town-lv"+level+"-"+district+".png'></figure>");
+                File.WriteAllText(Path.Combine(output,"street-boundary-before-after.html"),html.ToString());
+                File.WriteAllText(Path.Combine(output,"street-boundary-comparison.json"),"{\"kind\":\"same-state-native-renderer-comparison\",\"before\":\"frozen466b341renderer reconstruction, not historicalAPK\",\"pairs\":11,\"after\":\"product code\",\"pixel_verified\":false,\"adopted\":false}");
+            }
+            finally {baseline.enabled=false;entry.enabled=entryEnabled;bank.enabled=bankEnabled;UnityEngine.Object.DestroyImmediate(node.gameObject);}
+        }
         [UnityTest] public IEnumerator PortraitScreensRenderFromIsolatedStateWithoutWritingProgress()
         {
             yield return EnterHome();string output=OutputDirectory();
@@ -381,11 +417,32 @@ namespace Mofumachi.Tests
                 mergeSource.OnBeginDrag(mergeDrag);Capture(output,"29-merge-drag-lift");
                 mergeDrag.position=PointerAt(mergeTarget.transform);mergeSource.OnDrag(mergeDrag);Capture(output,"29-merge-drag-match");mergeSource.OnEndDrag(mergeDrag);
                 yield return new WaitForSecondsRealtime(.8f);Assert.That(Flow.Game.Board.At(targetCell).level,Is.EqualTo(2));Capture(output,"29-merge-landed");
+                yield return CaptureBoundaryComparisons(output);
                 string[] art={"TownBackground","TownWestBackground","TownEastBackground","CharacterBodyAtlas","TownGrowthPropsAtlas","TownGardenSurface","TownSeamlessMap","TownStreetPropsAtlas","TownLandmarksAtlas","TownNatureAtlas","TownVillageDetailsAtlas","MergeBoardFrame","TownCentralGround","TownCentralFountain","TownWestGround"};
                 File.WriteAllLines(Path.Combine(output,"texture-memory.txt"),art.Select(key=>key+": "+UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(Resources.Load<Texture2D>("Mofumachi/"+key))+" bytes"));
-                File.WriteAllText(Path.Combine(output,"README.txt"),"Actual Unity UGUI RenderTexture captures, 720x1280. Isolated test-only save state; not Pixel 3a captures. 102 PNG: integrated village scenery/compact street HUD/real resident visits/explicit facility doors/flat Merge interaction bundle. Level/item/book states are fixtures, not claims of completed gameplay. 15wide-floor positions;16passing frames;17actual pointer-handler following/release;18west-through-central-to-east continuous simulation with camera following;19book discovery. 20/21 actual facility walking, opening and entry;22 candidate UI;23 actual role playback screens including POP;24 collapsed/open/returned menu;25 resident idle/walking/reaction;26 continuous North/South joins and arrivals;27 finale live daily-purpose Merge;28 real resident approach and arrival without invented conversation;29 real drag lift, matching and landed merge. Three growth stages in each of five independent plazas, four shared boundary views. Building/ground sprite layers are product code, not a stretched world painting. 30Hz simulation, not measured device FPS. Stable region/place/save IDs retained. Texture memory is Editor asset residency, not Pixel RAM. Pixel save retention, audio, 10minuteplay and subjective quality still require acceptance.\n");
+                File.WriteAllText(Path.Combine(output,"README.txt"),"Actual Unity UGUI RenderTexture captures, 720x1280. Isolated test-only save state; not Pixel 3a captures. 124 PNG: existing102 integrated scenery/HUD/visits/doors/Merge frames plus22 same-state boundary comparison frames. 30-boundary Before explicitly reconstructs the frozen466b341 renderer inside this candidate: it is NOT a previous APK or Pixel capture. After is product code, with unchanged camera/resident state within each pair. street-boundary-before-after.html shows11pairs and the15district-level After frames. Original captures1-29 and their scenarios remain unchanged. 30Hz simulation is not device FPS; Editor texture memory is not Pixel RAM. Stable region/place/save IDs retained. Pixel save retention, audio,10minuteplay and subjective quality still require actual acceptance.\n");
             }
             LogAssert.NoUnexpectedReceived();
+        }
+    }
+    // Test-only copy of the pre-polish South entry mesh. Never referenced by
+    // product assemblies or shipped in the player. Literal old geometry keeps
+    // the A/B baseline independent from the new production feather functions.
+    public sealed class FrozenSouthEntryCaptureGraphic:MaskableGraphic
+    {
+        private TownContinuousWorldView world;private static Texture2D painting;
+        public override Texture mainTexture=>painting!=null?painting:painting=Resources.Load<Texture2D>(TownCentralMasterLayout.Resource);
+        public void Bind(TownContinuousWorldView source){world=source;raycastTarget=false;SetAllDirty();}
+        protected override void OnPopulateMesh(VertexHelper vh)
+        {
+            vh.Clear();if(world==null||mainTexture==null)return;
+            foreach(float y in new[]{-1.28f,-1.20f,-1.10f,-1f})foreach(float x in new[]{-.60f,-.55f,.55f,.60f})
+            {
+                float t=Math.Max(0,Math.Min(1,(y+1.28f)/.28f)),side=Math.Max(0,Math.Min(1,Math.Min(x+.60f,.60f-x)/.05f)),depth=Math.Max(0,Math.Min(1,(-1-y)/.10f));
+                var uv=TownCentralMasterLayout.TexturePoint(new TownPoint(x,-2-y));var tint=color;tint.a*=t*t*(3-2*t)*(1-depth*(1-side));
+                vh.AddVert(world.Local(new TownPoint(x,y),rectTransform),tint,new Vector2(uv.X,uv.Y));
+            }
+            for(int row=0;row<3;row++)for(int col=0;col<3;col++){int i=row*4+col;vh.AddTriangle(i,i+4,i+5);vh.AddTriangle(i,i+5,i+1);}
         }
     }
 }

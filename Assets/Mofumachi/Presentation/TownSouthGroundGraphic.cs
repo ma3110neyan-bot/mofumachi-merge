@@ -11,12 +11,19 @@ namespace Mofumachi.Presentation
         private TownContinuousWorldView world;private TownPoint center;private float width=1.10f;
         private static Texture2D painting;
         private TownSouthEntryBlendGraphic entry;
+        private TownBoundaryGardenGraphic boundary;
         public override Texture mainTexture=>painting!=null?painting:painting=Resources.Load<Texture2D>(TownSouthMasterLayout.Resource);
-        private void EnsureEntry(){if(entry==null)entry=UIWidgets.Node("South garden entry blend",rectTransform,new Rect(0,0,1,1)).gameObject.AddComponent<TownSouthEntryBlendGraphic>();}
-        public void Bind(TownContinuousWorldView source){world=source;raycastTarget=false;EnsureEntry();entry.Bind(source);SetAllDirty();}
-        public void BindPreview(TownPoint source,float sourceWidth){world=null;center=source;width=sourceWidth;raycastTarget=false;EnsureEntry();entry.BindPreview(source,sourceWidth);SetAllDirty();}
-        public void SetPreview(TownPoint source,float sourceWidth){center=source;width=sourceWidth;entry?.SetPreview(source,sourceWidth);SetVerticesDirty();}
-        public void Refresh(){entry?.Refresh();SetVerticesDirty();}
+        private void EnsureEntry()
+        {
+            if(entry==null)entry=UIWidgets.Node("South garden entry blend",rectTransform,new Rect(0,0,1,1)).gameObject.AddComponent<TownSouthEntryBlendGraphic>();
+            // The last master layer hosts the same outside-floor perimeter in
+            // live town and growth previews, below the original sorted props.
+            if(boundary==null)boundary=UIWidgets.Node("Planted town perimeter",rectTransform,new Rect(0,0,1,1)).gameObject.AddComponent<TownBoundaryGardenGraphic>();
+        }
+        public void Bind(TownContinuousWorldView source){world=source;raycastTarget=false;EnsureEntry();entry.Bind(source);boundary.Bind(source);SetAllDirty();}
+        public void BindPreview(TownPoint source,float sourceWidth){world=null;center=source;width=sourceWidth;raycastTarget=false;EnsureEntry();entry.BindPreview(source,sourceWidth);boundary.BindPreview(source,sourceWidth);SetAllDirty();}
+        public void SetPreview(TownPoint source,float sourceWidth){center=source;width=sourceWidth;entry?.SetPreview(source,sourceWidth);boundary?.SetPreview(source,sourceWidth);SetVerticesDirty();}
+        public void Refresh(){entry?.Refresh();boundary?.Refresh();SetVerticesDirty();}
         protected override void OnPopulateMesh(VertexHelper vh)
         {
             vh.Clear();if(mainTexture==null)return;

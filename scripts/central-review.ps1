@@ -17,9 +17,11 @@ function Get-CentralInputPaths {
     'Assets/Mofumachi/Tests/PlayMode/CaptureWorldTrace.cs'
     'Assets/Mofumachi/Tests/PlayMode/CaptureWorldTrace.cs.meta'
     'References/VisualLock/approved-design-2026-10-21.json'
+    foreach($Name in @('TownBoundaryGardenLayout.cs','TownBoundaryGardenLayout.cs.meta','TownBoundaryGardenGraphic.cs','TownBoundaryGardenGraphic.cs.meta')) {'Assets/Mofumachi/Presentation/'+$Name}
 }
 function Get-CentralInputFingerprint([string]$RepositoryPath,[hashtable]$ReviewedHashes=@{}) {
     $Lines=foreach($Relative in Get-CentralInputPaths) {
+        if($ReviewedHashes.ContainsKey($Relative) -and $null -eq $ReviewedHashes[$Relative]){continue}
         $Path=Join-Path $RepositoryPath $Relative
         if(-not(Test-Path -LiteralPath $Path -PathType Leaf)){throw "Missing central dependency: $Relative"}
         $Bytes=if($Relative.EndsWith('.png')){[IO.File]::ReadAllBytes($Path)}else{[Text.Encoding]::UTF8.GetBytes([IO.File]::ReadAllText($Path).Replace("`r`n","`n"))}

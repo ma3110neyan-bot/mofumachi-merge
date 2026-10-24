@@ -1,0 +1,6 @@
+Exception: /workspace/mofumachi-merge/scripts/visual-lock.ps1:57
+Line |
+  57 |  … ount -gt 2){throw 'Stage1 permits only the north camera and floating  …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Stage1 permits only the north camera and floating direction caption
+     | corrections.

@@ -1,0 +1,69 @@
+{
+  "scope_id": "town_boundary_final_2026_10_24",
+  "authorized_by": "user",
+  "authorization_reference": "2026-10-24 user「街表示最終修正 → 次工程移行指示」: 緑の空白・直線境界・未完成の端・石畳／植栽／芝生の接続を既存の花・植栽・木・柵等で仕上げる。5地区の基本構成・密度・歩行面・図鑑・BGM・正式6名・保存・納品報酬は維持。街合格後のみMerge。",
+  "base_lock": "References/VisualLock/five-area-approved-2026-10-24.json",
+  "base_lock_hash_mode": "lf-text",
+  "base_lock_sha256": "e70eb3532ff987a1def4e2a101426b8098452308f21544f5ab83e4ac7a5ea9a4",
+  "before_runtime_source": "466b34193aa407fc013f89daad1bae6e05b62074",
+  "before_render_digest": "7d1f305a0227a220959ba3b1e93dfb38f0cddb95229899e71ead423f4a63e8d4",
+  "reviewed_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "candidate_render_digest": "a8d5f7372d804161d7d063c524e05abef3685e8e88d44d672b8d5cc306ecf394",
+  "changes": [
+    {
+      "path": "Assets/Mofumachi/Presentation/TownContinuousWorldView.cs",
+      "before_sha256": "d78dccf8e33f017fd1b8dfda71da3688b48a60de43d343a428ff78188e4fdc15",
+      "after_sha256": "30280f26b7ff050a37f316886699e77af348477052f09f1c689aef7306f98f0e"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthEntryBlendGraphic.cs",
+      "before_sha256": "2ef4b84fa9593231411815dc67a9296e7b49965c5dec2e65f50d33034f657b70",
+      "after_sha256": "89c65a8e7500f3d5ee4e9f6168689e90472023c442ff59d2fff620836ef5ba54"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthEntryBlendLayout.cs",
+      "before_sha256": "7f56be2082652006de53aba85196ba0869dc82442e9ab2f9ddaf0f3aca641a5a",
+      "after_sha256": "06c58c1b696014e4363e7239df6f355be50493c886bd0dd1ea341d98b41a4c2c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthGroundGraphic.cs",
+      "before_sha256": "53c3cad7dd3015fa959a41ec1e2870651f5d6895a9548b9336cb60cbb80903f9",
+      "after_sha256": "9acb1c55527e49f9a98c0fea3ce1b1770370975f975c9448643927b69c60bbb1"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWorldLayout.cs",
+      "before_sha256": "07b9b026a48e6e1ddae4131b092a92f197f30917c6ac91f2ea868c86d5c9d91d",
+      "after_sha256": "2fb29c732bdc5cb980de5209451823e408d468c55af1bebec599dbf5dddb7e12"
+    }
+  ],
+  "new_files": [
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs",
+      "after_sha256": "ded66733904a1a9b06f79fb871a43761c7f058a085e5b550fb15d362e6df6645"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs.meta",
+      "after_sha256": "c21ffc13c1321c97db54d5af9191852ca0241d85c487002f0d27790c4fc6d06a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs",
+      "after_sha256": "d6e0e3efe25ade9d7c53eb5eadf6e60203cd58e9c1d4dce4e462c62d1936c741"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs.meta",
+      "after_sha256": "32db8df645367731266026ea9f7e47a5e659d255fa18864f7b0b6975341b159a"
+    }
+  ],
+  "capture_inputs": [
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs",
+      "before_sha256": "3bdc727de2275daa8bd1fe45de9f9f8002380ceeb9c9cbda7944a964996bc6b7",
+      "after_sha256": "5c5aa70f42148af268ba493881518a18c5204e1491cf80cc59b6991296d70064"
+    }
+  ],
+  "native_unity_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "merge_quality_pass_started": false
+}

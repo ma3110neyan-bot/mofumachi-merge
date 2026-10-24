@@ -43,9 +43,11 @@
     }
   },
   "remaining_sequence": [
-    "verify_new_success_xml_and_apk_identity",
-    "pixel_update_install",
-    "stage1_five_area_loop_save_600s_acceptance"
+    "town_boundary_native_comparison",
+    "town_boundary_same_source_qa_apk",
+    "town_boundary_pixel_acceptance",
+    "town_formal_base_lock",
+    "merge_quality_pass"
   ],
   "completed_after_central": [
     "west_cafe",
@@ -54,7 +56,7 @@
     "south_garden",
     "connections"
   ],
-  "apk_generated": true,
+  "apk_generated": false,
   "pixel_verified": false,
   "adopted": false,
   "last_review": {
@@ -186,7 +188,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "stage1_qa_apk_reported_pixel_update_install_pending",
+  "current_stage": "town_boundary_final_implemented_native_pixel_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -702,7 +704,7 @@
     "record": "docs/verification/stage1-qa-build-screen-report-2026-10-24.json",
     "scope": "Current stage1 QA APK generated as reported; corrected Pixel appearance/input/save/600sec acceptance still pending."
   },
-  "base_polish": "References/VisualLock/stage1-display-candidate-2026-10-24.json",
+  "base_polish": "References/VisualLock/town-boundary-final-candidate-2026-10-24.json",
   "previous_qa_build_report": {
     "run": "20261024-185942-acab69f4",
     "status": "console_success_reported",

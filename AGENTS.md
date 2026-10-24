@@ -1,5 +1,9 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-24最新：全件222中221成功・残1失敗を受領、会話fixtureの同期1フレームを修正。** run20261024-180636-dc09e121の原XML/logは `References/Review/full-playmode-2026-10-24-180636/`。前回5件中ほか4件の成功を実結果で確認、skip0・新規失敗なし。残件TownRegionLifeTestsのfixtureはModel.Restore後にRender更新だけでActor.RegionIdを先に調べ、Luluの所属キャッシュが旧CentralのままWest抽出から外れていた。RegionIdは通常のWorld.Step→ApplyWorldStepで反映される。前回検査準備の見落としを認め、通常1フレームを加えてから既存の2名・挨拶・停止・再開の検査を行う。判定や人数を緩めない。
+
+**変更はテスト1行＋説明のみ。ゲーム354入力・承認画像・描画digestは不変。** PlayModeDLLコンパイル0警告／0エラー、宣言222件とQA承認ゲートを確認。修正版の実Unity全件成功は未確認なので、次はPull後に全件 -TownQa を再実行。XML failed0/skip0後だけAPKへ。前回302CPUや221成功を222成功と報告しない。5エリアは承認済み、Pixel受入許可継続、正式ベース／APK／Pixel／main未完了。画像をチャットへ貼らない。以下は履歴で本段を優先。
+
 **2026-10-24最新：全件PlayModeの実失敗5件を受領し、検査4ファイルだけ修正。** run20261024-171445-86b77f6eは222件中217成功・5失敗・skip0、Edit143/143は画面報告（原XML未受領）。原本／原因は `References/Review/full-playmode-2026-10-24-171445/`。Windowsの終了code2はこの5テスト失敗で、PS142行は通知。クラウドlicense198と混同しない。
 
 失敗前提：①Westを映して実際にはCentralにいるLuluをタップ、②成長プレビューのbest-fit世界看板まで画面本文の高さ検査、③全小物が単一VillageAtlasという旧前提、④旧3地区人口2/3/1（現5地区は中央2＋四方各1、legacy1/4/1）、⑤WestにNPCが初期2名という旧会話fixture（現1名）。実在Luluを映す／画面本文と縮小世界看板を分ける／全Pieceの素材別atlas紐付け／5地区6名とlegacy対応／会話のみを狙う2NPC明示fixtureへ更新。納品・再会・報酬一度・保存・挨拶・停止復帰などの確認は保持。試験fixtureの配置を歩行到着証拠としない。

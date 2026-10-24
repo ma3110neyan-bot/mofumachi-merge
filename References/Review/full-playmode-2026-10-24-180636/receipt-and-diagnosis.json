@@ -1,0 +1,55 @@
+{
+  "run": "20261024-180636-dc09e121",
+  "received_on_jst": "2026-10-24",
+  "source_sha_recorded_in_files": null,
+  "inspected_repository_revision": "7154338e4303d845ea1155d4eacdf3c1189ccfe3",
+  "full_playmode": {
+    "total": 222,
+    "passed": 221,
+    "failed": 1,
+    "skipped": 0,
+    "duration_seconds": 239.6418287
+  },
+  "previous_failures_now_passed": [
+    "Mofumachi.Tests.QualityPassStoryGrowthTests.DeliveryShowsPersonalThanksAndReunionSurvivesReloadWithoutRewardReplay",
+    "Mofumachi.Tests.QualityPassStoryGrowthTests.EveryDeliveryAndGrowthStoryFitsShortSafePortraits",
+    "Mofumachi.Tests.SeamlessFieldTests.OneSharedGroundAndFiveLandmarksReplaceTheOpaquePainting",
+    "Mofumachi.Tests.TownRegionFlowTests.SixOfficialCharactersHaveOneControllerAcrossFiveDistricts"
+  ],
+  "remaining_failures": [
+    {
+      "name": "Mofumachi.Tests.TownRegionLifeTests.TwoResidentsMeetAndResumeInVisibleRegion",
+      "message": "  Expected: equivalent to < \"lulu\", \"pom\" >\n  But was:  < \"pom\" >\n",
+      "stack": "at Mofumachi.Tests.TownRegionLifeTests+<TwoResidentsMeetAndResumeInVisibleRegion>d__4.MoveNext () [0x002f6] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\TownRegionLifeTests.cs:60\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    }
+  ],
+  "new_failures": [],
+  "raw_files": [
+    {
+      "file": "playmode.xml",
+      "bytes": 187146,
+      "sha256": "d2c9a69a3f17a60ad8cb6552e90470b845ae1689f75db0f5acc539d8d5e407f3"
+    },
+    {
+      "file": "playmode.log",
+      "bytes": 323177,
+      "sha256": "145999bf28ae13f8fa31be6ad04d0bf6af9915d60af627a742ff4cfda1d80fc0"
+    }
+  ],
+  "root_cause": "Test fixture restores resident MODEL coordinates directly; TownActor.RegionId is cached and only updated by ApplyWorldStep. RefreshWorldPresentation renders/sorts but does not apply the model. The pre-step actors filtered asWest therefore exclude Lulu despite the model beingWest.",
+  "repair": "Advance one normal life frame after fixture placement, before checking actors. Keep expectedLulu/Pom pair and actual greeting/pause/resume assertions unchanged.",
+  "runtime_changes": false,
+  "native_cases_removed": 0,
+  "native_after_repair_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "local_validation": {
+    "playmode_dll_compilation": "passed",
+    "warnings": 0,
+    "errors": 0,
+    "native_case_inventory": 222,
+    "approved_runtime_files_unchanged": 354,
+    "approved_render_digest_unchanged": true,
+    "native_after_repair_verified": false
+  }
+}

@@ -56,7 +56,10 @@ namespace Mofumachi.Tests
                 var resident=life.World.Model.Residents.Single(a=>a.Id==ids[i]);
                 Assert.That(TownWorldLayout.Distance(resident.Position,positions[i]),Is.LessThan(.0001f));Assert.That(resident.PauseRemaining,Is.Zero);
             }
-            life.World.LookAt(TownDistrictId.West);life.RefreshWorldPresentation();Canvas.ForceUpdateCanvases();
+            // Direct model fixture setup leaves TownActor.RegionId cached
+            // until the normal world step applies it. A render-only refresh
+            // updates projection, not that logical actor state.
+            life.World.LookAt(TownDistrictId.West);life.AdvanceFrame(1f/30);life.RefreshWorldPresentation();Canvas.ForceUpdateCanvases();
             var actors=life.Actors.Where(a=>!a.Controlled&&a.RegionId==TownRegionId.West).ToArray();Assert.That(actors.Select(a=>a.CharacterId),Is.EquivalentTo(ids));Assert.That(actors.All(a=>a.RegionVisible),Is.True);bool greeted=false;
             for(int i=0;i<3600&&!greeted;i++){life.AdvanceFrame(1f/30);greeted=Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"&&t.text.Contains("こんにちは"));}
             Assert.That(greeted,Is.True);actors=life.Actors.Where(a=>life.World.Model.Residents.Single(r=>r.Id==a.CharacterId).PauseRemaining>0).ToArray();Assert.That(actors.Length,Is.EqualTo(2),"Inspect the two actors of the actual encounter");var paused=actors.Select(a=>a.WorldPosition).ToArray();Advance(life,.5f);

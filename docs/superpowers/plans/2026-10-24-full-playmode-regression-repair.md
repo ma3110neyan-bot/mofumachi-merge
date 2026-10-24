@@ -18,3 +18,9 @@ Initial base48413ea. Approved runtime source638aa24/renderdfb2cbc80e81c0d3967341
 Diagnosis validated: pure current model spawns LuluCentral/PomWest/FioEast/MielNorth/NoahSouth plus heroCentral; legacy1/4/1 and both explicit conversation floor points valid. Runtime React rejects hidden residents; shared atlas catalog deliberately switches per-kind resource. Story test previously included world-miniature best-fit signage, whose font-size preference is not story copy height.
 
 Local final: CPU302/302,0failed/skip;6actualUnityAPIassembly builds0warnings/errors;222native declarations retained; production QApreflight and354game hash checks pass; accepted renderdigest unchanged. Fresh independent review Critical0 Important0, no edits. NativeGREEN remains Windows pending. No game/source-art/persistence edits, new features or adoption.
+
+## Follow-up actual run180636
+
+Received222total/221pass/1fail/skip0. Prior other4failures actually resolved. Remaining conversation fixture fails before the greeting loop: modelRestore changes Lulu toWest but TownActor.RegionId remainsCentral until ApplyWorldStep. The previous render-only refresh does not call ApplyWorldStep. This was the fixture-author synchronization omission, not a game change.
+
+Repair: one normal life.AdvanceFrame(1f/30) before existing actor/pair assertions, followed by the same rendering refresh. Actual TownFrameClock uses30Hz with epsilon and normal World.Step applies all actor states, preserving the real greeting/pause/resume assertions. No count weakening or game edits. PlayModeDLL builds0warnings/errors;222cases retained;354runtime hashes/renderdigest unchanged; nativeGREEN requires Windows rerun. No new CPU/PS suite reruns for a single test-only frame insertion.

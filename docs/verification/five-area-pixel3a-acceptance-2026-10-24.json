@@ -7,17 +7,17 @@
   "visual_quality_frozen": true,
   "new_game_features_added": false,
   "full_unity_tests": {
-    "status": "actual_windows_failure_received_test_fixture_repair_awaits_rerun",
+    "status": "221_pass1_fixture_sync_failure_repaired_native_rerun_pending",
     "declared_editmode_cases": 143,
     "declared_playmode_cases": 222,
     "editmode_passed": 143,
-    "playmode_passed": 217,
-    "failed": 5,
+    "playmode_passed": 221,
+    "failed": 1,
     "skipped": 0,
     "previous16_cases_not_reused": true,
     "editmode_evidence": "143/143 console screenshot; rawEditModeXML not yet received",
-    "playmode_evidence": "References/Review/full-playmode-2026-10-24-171445/playmode.xml",
-    "latest_received_run": "20261024-171445-86b77f6e"
+    "playmode_evidence": "References/Review/full-playmode-2026-10-24-180636/playmode.xml",
+    "latest_received_run": "20261024-180636-dc09e121"
   },
   "qa_apk": {
     "status": "not_generated",
@@ -146,11 +146,11 @@
     "adb_or_pixel_usb_available": false,
     "game_input_changes": false
   },
-  "next_action": "Pull current feature and rerun full -TownQa; keep approval/354game freeze. Inspect new143/222 actualXML, APK/SHA, then continue already-authorized Pixel acceptance.",
+  "next_action": "Pull feature and rerun full -TownQa. Prior4failures are actually confirmedpassed; current fixture synchronization fix needs new full XML with failed0/skip0 before APK/SHA/Pixel.",
   "test_fixture_repair": {
-    "record": "References/Review/full-playmode-2026-10-24-171445/diagnosis-and-repair.json",
+    "record": "References/Review/full-playmode-2026-10-24-180636/receipt-and-diagnosis.json",
     "game_visuals_changed": false,
     "native_green_unverified": true,
-    "scope": "four test files;222native cases retained"
+    "scope": "One normal simulation frame inserted after isolated NPC model setup; expected pair/greeting/pause/resume assertions unchanged."
   }
 }

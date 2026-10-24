@@ -1,0 +1,153 @@
+﻿{
+    "gitRevision":  "638aa2474a93d2cc21768e030a7100972c5c446e",
+    "productFingerprint":  "d4ef30b5c7d842588a67b038169cf7caca8bf5dafad0f20e2375f9b1c653b97e",
+    "centralInputFingerprint":  "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+    "source_manifest_sha256":  "05b7cfc96030cb33473ffe64fa17aeae3304918592b9321a4f68564837c0fb11",
+    "before_revision":  "45f205d7873067f5fec3a26df1b32ff9f21602a7",
+    "held_revision":  "d8e649b7802292ca552d564427bc4b720fa8dca4",
+    "scope":  "South-first revised native images; whole-town approval pending",
+    "native_test_count":  16,
+    "native_south_image_count":  6,
+    "native_unity":  true,
+    "user_approved":  false,
+    "apk_generated":  false,
+    "pixel_verified":  false,
+    "adopted":  false,
+    "files":  [
+                  {
+                      "file":  "04-town-lv1-South.png",
+                      "bytes":  1783233,
+                      "sha256":  "4a6afef12d668b0c11007fb3c947a0c1ac4f7aa3cc660378e521378e5e46dd84"
+                  },
+                  {
+                      "file":  "04-town-lv3-South.png",
+                      "bytes":  1794842,
+                      "sha256":  "b34ad6da5504587b86637388f4f47de800d6d8641be16d012d7ccd730c35d202"
+                  },
+                  {
+                      "file":  "04-town-lv6-South.png",
+                      "bytes":  1795526,
+                      "sha256":  "ef146d6abb045831b62737a970c8703e6c116c32da8a8946ec6fc8d6b96d7000"
+                  },
+                  {
+                      "file":  "approved-design.png",
+                      "bytes":  2779573,
+                      "sha256":  "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf"
+                  },
+                  {
+                      "file":  "before-04-town-lv1-South.png",
+                      "bytes":  1732960,
+                      "sha256":  "c9d42151ffc53fd79e370b6504408487a3ef066ab16bf74321245ae1a0a7976d"
+                  },
+                  {
+                      "file":  "before-04-town-lv3-South.png",
+                      "bytes":  1739025,
+                      "sha256":  "eeed0b5c9b5bec7ba4032f08d496eca379f0cdf95233c8bb063f06e48a510745"
+                  },
+                  {
+                      "file":  "before-04-town-lv6-South.png",
+                      "bytes":  1752910,
+                      "sha256":  "21cbf7add9c4087d59a7cade5b4b940f06f30240f32a17dbb25a495419151290"
+                  },
+                  {
+                      "file":  "before-south-connection.png",
+                      "bytes":  1798193,
+                      "sha256":  "8cf5d2c26c87a7990dff1a8ed5b408fdd430dc6e94952c5d40e160486333403d"
+                  },
+                  {
+                      "file":  "before-south-walking.png",
+                      "bytes":  1849646,
+                      "sha256":  "61f600b4e9ab6bb2d76b5c3f17a95d86bdb5f0a262ae4decfd432093e44d43fe"
+                  },
+                  {
+                      "file":  "capture-world.txt",
+                      "bytes":  2650,
+                      "sha256":  "462107c3d9b96ab72acec882f625cc155daf286b05696e42c666420ce85f1e57"
+                  },
+                  {
+                      "file":  "central-playmode.log",
+                      "bytes":  78571,
+                      "sha256":  "08fef1ac0f3ec2ed4e34703c09e4ae75911c635b0c86b46d0712ff011d6f242f"
+                  },
+                  {
+                      "file":  "central-playmode.xml",
+                      "bytes":  18000,
+                      "sha256":  "2c457ac71c38315597392dc6f299455a8ac212bd3deab999bb6f9a560cdb83cb"
+                  },
+                  {
+                      "file":  "central-review-info.json",
+                      "bytes":  945,
+                      "sha256":  "bf87586b9a063163d7fc67a361dca53ebdc1e06b2b1305d10d7bb00cb1a3305d"
+                  },
+                  {
+                      "file":  "frozen-four-frame-checks.json",
+                      "bytes":  8759,
+                      "sha256":  "4017955d8a07e72c1915056394c16c2015198a1b7affb7bc5700795eab10e506"
+                  },
+                  {
+                      "file":  "held-04-town-lv1-South.png",
+                      "bytes":  1595121,
+                      "sha256":  "da2a2026eb0712a86b6a17d73da2e41342bc7dad008c4323a78f280407d4d711"
+                  },
+                  {
+                      "file":  "held-04-town-lv3-South.png",
+                      "bytes":  1610023,
+                      "sha256":  "bcc02989142fe95f94ae7ff1d88edcf9ea49cb1ade3ecf65c44362fa2421c1e0"
+                  },
+                  {
+                      "file":  "held-04-town-lv6-South.png",
+                      "bytes":  1622676,
+                      "sha256":  "f5b60abd9000548a1e64e237e580bca8cb10ab3885a8aa4fb98d8f55ed618e25"
+                  },
+                  {
+                      "file":  "held-south-connection.png",
+                      "bytes":  1708183,
+                      "sha256":  "22418ed932e880776e3ee75770b0693b4089098cff1c46a6da9900476a9f5f94"
+                  },
+                  {
+                      "file":  "held-south-walking.png",
+                      "bytes":  1797043,
+                      "sha256":  "92cf8de66723ed2f7eb17f2c5ca599aa8b27149eefecfbff5655fe0a01b047bd"
+                  },
+                  {
+                      "file":  "south-before-held-revised.jpg",
+                      "bytes":  3530176,
+                      "sha256":  "258ba6afb7e6e88c0df49ba4122e6d1008ac3defbea8707d00806e0e8993f2bc"
+                  },
+                  {
+                      "file":  "south-connection.png",
+                      "bytes":  1785843,
+                      "sha256":  "4e4c00627844560bfea60c5d6370a28d73bda0a6ae17b3f1f46adaa40ba913e2"
+                  },
+                  {
+                      "file":  "south-entry-before-held-revised.jpg",
+                      "bytes":  2500832,
+                      "sha256":  "25f52de29bc4ee516963b6d1abb79372ae79c9f141e9b1cb097abf08be7672d9"
+                  },
+                  {
+                      "file":  "south-native-references.json",
+                      "bytes":  4633,
+                      "sha256":  "a9fd2bb968b23f94fe00a48f487402892d79265edfb4d1d6ce56f8337db99ebd"
+                  },
+                  {
+                      "file":  "south-rest-arrived.png",
+                      "bytes":  1769744,
+                      "sha256":  "95b387e728756381132ccf295ca771b65751ccadb72e8098c933bc9e43523368"
+                  },
+                  {
+                      "file":  "south-route-projection.json",
+                      "bytes":  3695,
+                      "sha256":  "1e0241c43c036eb7bffcabdd94c4d702ea2ef3b1c3e0b10a38e0721d0fdb821e"
+                  },
+                  {
+                      "file":  "south-walking.png",
+                      "bytes":  1850828,
+                      "sha256":  "541eb92559a6d40d081b418cdbdcb325e8ffecd951693d5408febbc6f368c421"
+                  },
+                  {
+                      "file":  "south-walking-routes.jpg",
+                      "bytes":  437481,
+                      "sha256":  "fa7551d791ad6071f28d02056d3162defc3bd0c6e9c5c6c40280e8d01e604ae6"
+                  }
+              ]
+}

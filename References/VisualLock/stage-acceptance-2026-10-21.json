@@ -43,8 +43,6 @@
     }
   },
   "remaining_sequence": [
-    "south_final_native_review",
-    "south_visual_review",
     "five_area_integration_review",
     "five_area_user_approval",
     "full_native_suite",
@@ -184,7 +182,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "south_final_native_review_pending",
+  "current_stage": "five_area_integration_review_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -558,13 +556,13 @@
   "south": {
     "design_direction_approved": true,
     "implemented": true,
-    "native_unity": false,
-    "visual": false,
-    "town_density": false,
-    "walking": false,
-    "unity_stage_accepted": false,
+    "native_unity": true,
+    "visual": true,
+    "town_density": true,
+    "walking": true,
+    "unity_stage_accepted": true,
     "native_image_count": 6,
-    "status": "South-only garden/entry revision implemented after user acknowledgment of d8 HOLD; revised native appearance pending. Successful Lv3/gazebo/Lv6arch and full floor retained.",
+    "status": "Actual638aa24 South review passes for integration review; F1/F2 resolved, minorS1texture softness noted. User integrated approval/Pixel/adoption pending.",
     "previous_review": {
       "candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
       "run": "20261023-195457-32c20c13",
@@ -576,10 +574,41 @@
       "south_user_approved": false,
       "record": "References/Review/south-garden-2026-10-23-candidate/native-review.json"
     },
-    "reviewed_candidate": "d8e649b7802292ca552d564427bc4b720fa8dca4",
-    "review_directory": "References/Review/five-area-2026-10-24-candidate/south",
-    "central_input_fingerprint": "b975adbb3212a75bafe5948705a1b30c46c67921875168c455c418d21623cd0a",
+    "reviewed_candidate": "638aa2474a93d2cc21768e030a7100972c5c446e",
+    "review_directory": "References/Review/south-final-2026-10-24-candidate",
+    "central_input_fingerprint": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
     "last_review": {
+      "candidate": "638aa2474a93d2cc21768e030a7100972c5c446e",
+      "run": "20261024-110359-39b38515",
+      "native_unity": true,
+      "native_tests_total": 16,
+      "native_tests_passed": 16,
+      "native_image_count": 6,
+      "south_visual": true,
+      "integrated_visual": false,
+      "user_approved_new_images": false,
+      "record": "References/Review/south-final-2026-10-24-candidate/native-review.json"
+    },
+    "functional_walking": true,
+    "walking_visual_alignment": true,
+    "nameplate_readability": true,
+    "unresolved_ids": [],
+    "previous_native_review": {
+      "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
+      "review_directory": "References/Review/south-garden-2026-10-23-candidate/south",
+      "central_input_fingerprint": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
+      "native_image_count": 6
+    },
+    "level_difference": true,
+    "left_bare_lawn_edge_resolved": true,
+    "pending_revision": {
+      "implementation_record": "docs/verification/south-only-repair-2026-10-24.json",
+      "native_unity": true,
+      "scope": "Garden composition and South-owned Central-edge blend only; four accepted areas unchanged",
+      "adopted": false,
+      "status": "Received and South visually reviewed; integration package pending"
+    },
+    "held_native_review": {
       "candidate": "d8e649b7802292ca552d564427bc4b720fa8dca4",
       "run": "20261023-225834-ea7261fa",
       "native_unity": true,
@@ -593,27 +622,9 @@
       "south_user_approval_kind": "Prior conditional45f205d authorization retained; current visual conditions failed",
       "record": "References/Review/five-area-2026-10-24-candidate/native-review.json"
     },
-    "functional_walking": true,
-    "walking_visual_alignment": false,
-    "nameplate_readability": true,
-    "unresolved_ids": [
-      "F1",
-      "F2"
-    ],
-    "previous_native_review": {
-      "reviewed_candidate": "45f205d7873067f5fec3a26df1b32ff9f21602a7",
-      "review_directory": "References/Review/south-garden-2026-10-23-candidate/south",
-      "central_input_fingerprint": "e4cb869ca5d32b4d0ecc3014a86468aa9e39774deb3ef64f57f1c753f0dc4dda",
-      "native_image_count": 6
-    },
-    "level_difference": true,
-    "left_bare_lawn_edge_resolved": true,
-    "pending_revision": {
-      "implementation_record": "docs/verification/south-only-repair-2026-10-24.json",
-      "native_unity": false,
-      "scope": "Garden composition and South-owned Central-edge blend only; four accepted areas unchanged",
-      "adopted": false
-    }
+    "minor_carryover_ids": [
+      "S1"
+    ]
   },
   "connections": {
     "native_unity": true,
@@ -626,6 +637,16 @@
     "unresolved_ids": [
       "F2"
     ],
-    "status": "Actual all-five travel/separation assertions pass atLv1/3/6; South join remains visibly cut."
+    "status": "Actual all-five travel/separation assertions pass atLv1/3/6; South join remains visibly cut.",
+    "south_entry_review": {
+      "candidate": "638aa2474a93d2cc21768e030a7100972c5c446e",
+      "native_unity": true,
+      "visual": true,
+      "record": "References/Review/south-final-2026-10-24-candidate/native-review.json",
+      "scope": "South entry only; complete five-area visual review still pending",
+      "minor_carryover": [
+        "S1"
+      ]
+    }
   }
 }

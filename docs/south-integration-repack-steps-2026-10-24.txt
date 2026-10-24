@@ -1,0 +1,20 @@
+南638aa24の実Unity確認後：5エリア統合レビュー用ZIPの作成
+
+南の庭園構成・接続の修正は実画面で確認済み。今回はUnityを再実行しません。
+GitHub Desktopで feat/daily-world-pass-20261016 をPullし、PowerShellで以下を実行してください。
+
+Set-Location -LiteralPath "C:\Users\User\Desktop\Mofumachi\mofumachi-merge"
+powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\repack-five-area-review.ps1" -RunDirectory ".\Builds\FiveAreaReview\20261024-110359-39b38515"
+
+開いたrepackedフォルダーの five-area-review-01.zip から最後まで全て提出してください。
+今回のSouthFinal2ZIPや、前回runの統合ZIPを混ぜないでください。
+
+このコマンドは既存撮影の全原本SHAと描画入力を照合し、ZIPだけ作成します。
+撮影版は638aa24のままです。現在の記録・包装コード版へ付け替えません。
+中央・西・東・北21枚の新版原本と、南6枚、Lv1/3/6比較・全地区導線を確認します。
+対象16テストは元の同じ1回です。再包装によって成功件数を加算しません。
+
+南：実装済み・Unity実画面確認済み・Pixel未確認。
+残る軽微点：接続部に石目の柔らかい重なり。統合時に継続確認。
+5エリア統合承認・全件Unity・QA APK・Pixel最終受入・main統合にはまだ進みません。
+エラー時はそのPowerShell画面を送ってください。別runで再撮影しないでください。

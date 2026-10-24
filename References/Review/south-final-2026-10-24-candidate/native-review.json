@@ -1,0 +1,91 @@
+{
+  "received_on_jst": "2026-10-24",
+  "reviewed_revision": "638aa2474a93d2cc21768e030a7100972c5c446e",
+  "run": "20261024-110359-39b38515",
+  "productFingerprint": "d4ef30b5c7d842588a67b038169cf7caca8bf5dafad0f20e2375f9b1c653b97e",
+  "centralInputFingerprint": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "identity_verified": true,
+  "raw_files": 28,
+  "native_unity": true,
+  "native_tests": {
+    "total": 16,
+    "passed": 16,
+    "failed": 0,
+    "skipped": 0,
+    "counted_once": true,
+    "duration_seconds": 70.0942019
+  },
+  "native_image_count": 6,
+  "historical_reference_images_verified": 10,
+  "formal_visual_lock_sha256": "d1a34a58c592a953245725ef89f52bf08470b40062ecffa4702084de1e65ffbf",
+  "verdict": "PASS_FOR_FIVE_AREA_REVIEW",
+  "critical_issues": [],
+  "important_issues": [],
+  "resolved_held_issues": [
+    {
+      "id": "F1",
+      "axis": "garden_composition",
+      "evidence": [
+        "04-town-lv1-South.png",
+        "04-town-lv3-South.png",
+        "04-town-lv6-South.png"
+      ],
+      "finding": "Curved stone paths, low walkable flowered lawns and circular planted/rest details replace the held broad repeated paving. South reads as a finished garden/rest destination fromLv1; gazebo and earnedLv3/Lv6 dressings preserved."
+    },
+    {
+      "id": "F2",
+      "axis": "entry_continuity",
+      "evidence": [
+        "south-connection.png",
+        "south-walking.png"
+      ],
+      "finding": "The held hard horizontal cut, rectangular green shoulders and differently scaled central stone strip are no longer visible. Continuous stone/planting transition is materially improved."
+    }
+  ],
+  "minor_issues": [
+    {
+      "id": "S1",
+      "axis": "entry_texture_softness",
+      "severity": "Minor",
+      "evidence": [
+        "south-connection.png",
+        "south-walking.png"
+      ],
+      "location": "connection x240-500/y650-780; walking x380-620/y735-855",
+      "finding": "Some softened overlapping stone outlines remain within the short blend. This is localized softness rather than a hard regional cut; carry into integration review, without another South redesign."
+    }
+  ],
+  "south": {
+    "visual": true,
+    "density": true,
+    "garden_rest_quality": true,
+    "level_difference": true,
+    "functional_walking": true,
+    "walking_visual_alignment": true,
+    "nameplate_readability": true,
+    "gazebo_and_lv6_arch_preserved": true,
+    "lv3_growth_preserved": true,
+    "walkable_low_lawn": "Flat low lawn/small daisies are intended to be walked on; not raised shrub/rock blockers.",
+    "unity_stage_accepted_for_integration_review": true
+  },
+  "same_camera_as_held": true,
+  "route_annotations": "All6 IDs, actualLv1SHA,720x1280 projection, bounds and finite points validated by production helper. Navigation overlay, not an input/play trace. Actual walking/separation/state checks are the single16case native run.",
+  "frozen_four_area_scope": {
+    "frames": 21,
+    "byte_identical": 20,
+    "different": [
+      "central/04-town-lv1-Central.png"
+    ],
+    "actual_current_pngs_received": false,
+    "requires_integration_package": true
+  },
+  "independent_review": "Critical0 Important0 Minor1; agrees proceed to integration review. Actual images reviewed independently.",
+  "user_approved_new_images": false,
+  "integrated_visual_review_complete": false,
+  "full_unity_suite_run": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "main_merged": false,
+  "next_scope": "Export existing run20261024-110359-39b38515 with repack-five-area-review.ps1; inspect current27PNG and5-area side-by-side. No rerender, game edits, full suite/APK/Pixel/main yet."
+}

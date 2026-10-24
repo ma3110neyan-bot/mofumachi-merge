@@ -5,9 +5,9 @@
   "circulation_verified": true,
   "ground_alignment_implemented": true,
   "integration_review_authorized_by_user": true,
-  "native_after_adjustments_verified": false,
+  "native_after_adjustments_verified": true,
   "integration_user_approved": false,
-  "scope": "Implementation/local verification conditions only; geometry/paint appearance still requires new native review. Not image approval, APK or Pixel.",
+  "scope": "South-only final corrections confirmed in actual638aa24 native images and16case run. Review can advance to integration; user integrated approval/APK/Pixel remain pending.",
   "adjusted_files": [
     {
       "file": "Assets/Mofumachi/Presentation/TownSouthMasterLayout.cs",
@@ -185,6 +185,21 @@
     }
   ],
   "native_review_result": {
+    "candidate": "638aa2474a93d2cc21768e030a7100972c5c446e",
+    "run": "20261024-110359-39b38515",
+    "received_on_jst": "2026-10-24",
+    "native_run_reviewed": true,
+    "native_tests_passed": 16,
+    "south_visual_conditions_passed": true,
+    "integration_visual_review_complete": false,
+    "record": "References/Review/south-final-2026-10-24-candidate/native-review.json",
+    "minor_carryover": [
+      "S1: localized soft stone overlap at entry"
+    ],
+    "scope": "South review only. The21current four-area raw frames and complete source manifest remain in the staged Windows run; next export without rerendering."
+  },
+  "latest_user_authorization": "2026-10-24: 南エリア最終修正 → 5エリア統合再審査。庭園構成と接続だけを修正。中央・西・東・北変更禁止。",
+  "previous_native_review_result": {
     "candidate": "d8e649b7802292ca552d564427bc4b720fa8dca4",
     "run": "20261023-225834-ea7261fa",
     "received_on_jst": "2026-10-24",
@@ -194,6 +209,5 @@
     "record": "References/Review/five-area-2026-10-24-candidate/native-review.json",
     "note": "The false native_after_adjustments_verified flag is retained for overall condition fulfillment: actual native execution is now reviewed, but garden density and entry continuity fail. It no longer means no native run was received.",
     "scope": "Historical d8 HOLD; the new South-only revision awaits a new native run."
-  },
-  "latest_user_authorization": "2026-10-24: 南エリア最終修正 → 5エリア統合再審査。庭園構成と接続だけを修正。中央・西・東・北変更禁止。"
+  }
 }

@@ -7,7 +7,7 @@
   "visual_quality_frozen": true,
   "new_game_features_added": false,
   "full_unity_tests": {
-    "status": "pending_actual_execution",
+    "status": "blocked_in_cloud_before_test_execution",
     "declared_editmode_cases": 143,
     "declared_playmode_cases": 222,
     "editmode_passed": null,
@@ -124,5 +124,24 @@
     "android_gate_after_edit_minimum143": "passed",
     "new_behavior_regressions": "Frozen scenery and legitimate post-review approval state were RED then GREEN.",
     "scope": "QA tooling verification only. Native commands/device and comparison drawing mocked where required; no full Unity/APK/Pixel success inferred."
-  }
+  },
+  "cloud_attempt": {
+    "source_revision": "870518a",
+    "run": "20261024-151246-89bf47bc",
+    "time_zone": "Asia/Tokyo",
+    "entry": "build-android.ps1 -TownQa",
+    "preflight": "passed_including354frozen_game_inputs",
+    "attempted_first_phase": "full_EditMode",
+    "native_unity_exit_code": 198,
+    "wrapper_exit_code": 1,
+    "reason": "No valid Unity Editor license found; com.unity.editor.headless entitlement unavailable",
+    "xml_generated": false,
+    "apk_generated": false,
+    "unity_log_sha256": "6a46b3068f7077c5606e8b41d75dbee6d4a6b83da4e272cf765353ba7f9fcfe9",
+    "unity_log_bytes": 6648,
+    "android_build_module_installed": false,
+    "adb_or_pixel_usb_available": false,
+    "game_input_changes": false
+  },
+  "next_action": "Run the authorized existing -TownQa workflow on licensed Windows Unity6000.6.4f1/Android host, then use the same runAPK/hash for Pixel update/loop/save/600sec acceptance. No further approval needed."
 }

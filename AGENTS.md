@@ -4,7 +4,7 @@
 
 次の順序は全件UnityEditMode/PlayMode→failed0/skip0→同版TownQAAPK→SHA256→Pixel3a更新install-r→全5地区の徒歩往復／表示／カメラ／NPC→TOP・依頼・Merge・納品・報酬・街成長・図鑑→終了再起動保存復帰→600秒以上の連続実試遊。現在宣言数143EditMode/222PlayModeは棚卸しで、実成功件数ではない。南の旧条件付き45f識別子／JPEGは履歴と順序の証拠として保持し、最新638aa24品質の明示承認を別に関連付けた。古い実画像・16対象ケースを全件／端末成功に流用しない。
 
-**現在：5地区Unity画像承認済み・全件／QAAPK／Pixel受入は未確認。** クラウドにはAndroidPlayerモジュール・ADB・PixelUSBがない。Windowsの既存 `build-android.ps1 -TownQa`／`install-pixel3a.ps1`／`capture-pixel-visual-check.ps1` を再利用し、新しいゲーム機能・試遊自動化装置を増やさない。手順 `docs/five-area-pixel3a-acceptance-2026-10-24.md`、結果 `docs/verification/five-area-pixel3a-acceptance-2026-10-24.json`。必要なハード実行以外は進め、同じ承認を再要求しない。保存消去・アンインストール・署名不一致回避は禁止。全合格後にのみ正式ベース候補、Pixel未確認を完成としない。main統合は別途承認のまま。画像をチャットへ貼らない。以下は履歴で本段を優先。
+**現在：5地区Unity画像承認済み・全件／QAAPK／Pixel受入は未確認。** 実際の -TownQa 起動（870518a／20261024-151246-89bf47bc、Asia/Tokyo）は承認／354入力／sourceゲート通過後、最初の全件EditModeを開始する前にUnityライセンス不足でexit198。XML・APKは生成されなかった。ゲームテストのfailed0/skip0成功結果ではなく、実行前の環境停止として記録する。 クラウドにはAndroidPlayerモジュール・ADB・PixelUSBがない。Windowsの既存 `build-android.ps1 -TownQa`／`install-pixel3a.ps1`／`capture-pixel-visual-check.ps1` を再利用し、新しいゲーム機能・試遊自動化装置を増やさない。手順 `docs/five-area-pixel3a-acceptance-2026-10-24.md`、結果 `docs/verification/five-area-pixel3a-acceptance-2026-10-24.json`。必要なハード実行以外は進め、同じ承認を再要求しない。保存消去・アンインストール・署名不一致回避は禁止。全合格後にのみ正式ベース候補、Pixel未確認を完成としない。main統合は別途承認のまま。画像をチャットへ貼らない。以下は履歴で本段を優先。
 
 **2026-10-24最新受領：5エリア638aa24は実Unityの統合承認候補。ユーザー承認待ち。** repackされた5ZIPの全67原本SHA、manifest05b7cfc96030cb33473ffe64fa17aeae3304918592b9321a4f68564837c0fb11、27新版PNG・Before15・5地区6経路・実XMLを照合。撮影638aa24／run20261024-110359-39b38515は南Finalと同一。対象16/16は同じ既存1回で、再包装で成功件数を加算しない。原本・判定は `References/Review/five-area-2026-10-24-revised-candidate/`。15同寸JPEG／中央互換記録は原本からの派生で、新撮影ではない。
 

@@ -38,9 +38,9 @@ Files: References/VisualLock/stage-acceptance-2026-10-21.json; new five-area-app
 Files: new docs/five-area-pixel3a-acceptance-2026-10-24.md and docs/verification/five-area-pixel3a-acceptance-2026-10-24.json.
 
 - [x] Save explicit report/checklist matching every user requirement and existing safe build/install/capture commands.
-- [ ] Commit clean candidate, probe actual -TownQa entry, attempt licensed cloud execution once if feasible; record exact runtime limit and preserve game hashes.
+- [x] Commit clean candidate, probe actual -TownQa entry, attempt licensed cloud execution once if feasible; record exact runtime limit and preserve game hashes.
 - [x] One final read-only approval/tooling review; fix only material findings, then commit/push feature. No main.
-- [ ] Give Windows build command and upload instructions; keep actual fullNative/APK/Pixel statuses pending until evidence arrives.
+- [x] Give Windows build command and upload instructions; keep actual fullNative/APK/Pixel statuses pending until evidence arrives.
 
 ## Ledger
 
@@ -53,3 +53,5 @@ Task1 verification: approval gate initially rejected historicalSouth density; ap
 Task1 final: tightened EditMode143 gate Android regression passed, including fail/skip/inconclusive/partial suite/native exit/device/update mocks. All354production files and all15approved JPEGs remain unchanged.
 
 Final independent review: Critical0 Important0, no actionable minor findings.354production hashes and15JPEGs independently verified; runtime directories remain exact638aa24. Existing S1/J1 visual minors remain deferred to device acceptance as explicitly instructed.
+
+Task2 boundary: actual -TownQa passed approval/base354/source gates and started fullEditMode, then Unity exited198 with no valid Editor/headless license. Run20261024-151246-89bf47bc (Asia/Tokyo), no XML/APK. Android module/ADB/Pixel absent. No actual full/device success inferred. Authorized Windows workflow/runbook and pending report are prepared. This is a hardware/licensing handoff, not completed acceptance.

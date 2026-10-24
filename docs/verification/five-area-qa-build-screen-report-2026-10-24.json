@@ -1,0 +1,31 @@
+{
+  "evidence": "user in-chat PowerShell screenshot,2026-10-24",
+  "run": "20261024-185942-acab69f4",
+  "editmode": {
+    "passed": 143,
+    "total": 143,
+    "raw_xml_verified": false
+  },
+  "playmode": {
+    "passed": 222,
+    "total": 222,
+    "raw_xml_verified": false
+  },
+  "failed_skipped_status": "Success is reported by the existing zero-failed/zero-skipped script gate; raw XML not yet received.",
+  "native_capture_count_reported": 102,
+  "capture_dimensions_reported": [
+    720,
+    1280
+  ],
+  "qa_apk_generated_reported": true,
+  "apk_path_reported": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261024-185942-acab69f4\\town-life-qa.apk",
+  "apk_sha256_reported": "c82c1f8148daad424ebfb7e988f22a08eb48aa57cfd37f80ad4fe2e80902fc67",
+  "apk_bytes_received": false,
+  "build_info_received": false,
+  "sha_independently_verified": false,
+  "source_revision_recorded_in_screenshot": null,
+  "pixel_install_verified": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "next": "Update-install the exact generatedTownQAAPK on authorized Pixel, independently compare localAPK to build-infoSHA and installer hash, then verify four walkingroundtrips/coreloop/save/600s soak."
+}

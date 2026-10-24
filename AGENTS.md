@@ -1,5 +1,11 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-24最新画面報告：全件143/143・222/222とQA APK生成完了。次はPixel更新。** run20261024-185942-acab69f4のユーザーPowerShell画面で成功を確認。102Unity画像720x1280、town-life-qa.apk、報告SHA c82c1f8148daad424ebfb7e988f22a08eb48aa57cfd37f80ad4fe2e80902fc67。記録は `docs/verification/five-area-qa-build-screen-report-2026-10-24.json`。**成功XML2件・build-info／APK原本は未受領、SHA独立照合は未完了**と区別。画面報告を原XML／Pixel合格へ昇格しない。以前の221/1、217/5原XMLは履歴として保持。
+
+5エリアの品質固定と実機受入許可は継続。生成済み185942APKをそのまま使い、記録だけの更新で再ビルドさせない。次はbuild-infoと実APKのSHA／街QA IDを照合し、既知のPixel99RAY1BELHへ `install-pixel3a.ps1 -PackageName com.mofumachi.merge.qa.townlife -Serial 99RAY1BELH`（install-r）で更新。削除／pmclear／署名失敗回避をしない。実機の既存保存維持は実測するまで未確認。インストール成功後は5エリア徒歩往復・表示・コアループ・終了再起動保存・600秒以上の実試遊／熱／入力／カメラ／NPCを確認。
+
+現在は「Unity全件／APK成功の画面報告確認済み・原本照合待ち・Pixelインストール／実機未確認」。正式ベース採用・mainは未了。ゲーム354入力・承認画像・描画digestは変えない。画像をチャットへ貼らない。以下は履歴で本段を優先。
+
 **2026-10-24最新：全件222中221成功・残1失敗を受領、会話fixtureの同期1フレームを修正。** run20261024-180636-dc09e121の原XML/logは `References/Review/full-playmode-2026-10-24-180636/`。前回5件中ほか4件の成功を実結果で確認、skip0・新規失敗なし。残件TownRegionLifeTestsのfixtureはModel.Restore後にRender更新だけでActor.RegionIdを先に調べ、Luluの所属キャッシュが旧CentralのままWest抽出から外れていた。RegionIdは通常のWorld.Step→ApplyWorldStepで反映される。前回検査準備の見落としを認め、通常1フレームを加えてから既存の2名・挨拶・停止・再開の検査を行う。判定や人数を緩めない。
 
 **変更はテスト1行＋説明のみ。ゲーム354入力・承認画像・描画digestは不変。** PlayModeDLLコンパイル0警告／0エラー、宣言222件とQA承認ゲートを確認。修正版の実Unity全件成功は未確認なので、次はPull後に全件 -TownQa を再実行。XML failed0/skip0後だけAPKへ。前回302CPUや221成功を222成功と報告しない。5エリアは承認済み、Pixel受入許可継続、正式ベース／APK／Pixel／main未完了。画像をチャットへ貼らない。以下は履歴で本段を優先。

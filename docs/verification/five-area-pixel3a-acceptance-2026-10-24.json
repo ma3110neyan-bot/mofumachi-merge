@@ -7,24 +7,35 @@
   "visual_quality_frozen": true,
   "new_game_features_added": false,
   "full_unity_tests": {
-    "status": "221_pass1_fixture_sync_failure_repaired_native_rerun_pending",
+    "status": "all_passed_reported_in_console_raw_xml_pending",
     "declared_editmode_cases": 143,
     "declared_playmode_cases": 222,
     "editmode_passed": 143,
-    "playmode_passed": 221,
-    "failed": 1,
+    "playmode_passed": 222,
+    "failed": 0,
     "skipped": 0,
     "previous16_cases_not_reused": true,
-    "editmode_evidence": "143/143 console screenshot; rawEditModeXML not yet received",
-    "playmode_evidence": "References/Review/full-playmode-2026-10-24-180636/playmode.xml",
-    "latest_received_run": "20261024-180636-dc09e121"
+    "editmode_evidence": "143/143 console screenshot of185942run; rawXML pending",
+    "playmode_evidence": null,
+    "latest_received_run": "20261024-185942-acab69f4",
+    "previous_raw_failure": {
+      "run": "20261024-180636-dc09e121",
+      "playmode_passed": 221,
+      "failed": 1,
+      "skipped": 0,
+      "file": "References/Review/full-playmode-2026-10-24-180636/playmode.xml"
+    },
+    "current_evidence": "docs/verification/five-area-qa-build-screen-report-2026-10-24.json",
+    "raw_success_xml_verified": false
   },
   "qa_apk": {
-    "status": "not_generated",
+    "status": "generated_reported_in_console_metadata_and_bytes_pending",
     "app_id": "com.mofumachi.merge.qa.townlife",
-    "file": null,
-    "sha256": null,
-    "source_revision": null
+    "file": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261024-185942-acab69f4\\town-life-qa.apk",
+    "sha256": "c82c1f8148daad424ebfb7e988f22a08eb48aa57cfd37f80ad4fe2e80902fc67",
+    "source_revision": null,
+    "evidence": "docs/verification/five-area-qa-build-screen-report-2026-10-24.json",
+    "sha256_independently_verified": false
   },
   "pixel_install": {
     "status": "pending",
@@ -146,11 +157,12 @@
     "adb_or_pixel_usb_available": false,
     "game_input_changes": false
   },
-  "next_action": "Pull feature and rerun full -TownQa. Prior4failures are actually confirmedpassed; current fixture synchronization fix needs new full XML with failed0/skip0 before APK/SHA/Pixel.",
+  "next_action": "Use generated185942APK; do not rebuild for record updates. Verify localAPK versus build-infoSHA, update-install townQA to Pixel99RAY1BELH, then already-authorized five-area/coreloop/save/600sec acceptance. Obtain successXML2/build-info and install result.",
   "test_fixture_repair": {
     "record": "References/Review/full-playmode-2026-10-24-180636/receipt-and-diagnosis.json",
     "game_visuals_changed": false,
     "native_green_unverified": true,
-    "scope": "One normal simulation frame inserted after isolated NPC model setup; expected pair/greeting/pause/resume assertions unchanged."
+    "scope": "One normal simulation frame inserted after isolated NPC model setup; expected pair/greeting/pause/resume assertions unchanged.",
+    "status": "All222 reported passed after the one-frame fixture correction; raw successfulXML pending."
   }
 }

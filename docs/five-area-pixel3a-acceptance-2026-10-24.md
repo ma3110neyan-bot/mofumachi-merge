@@ -2,6 +2,10 @@
 
 承認対象は638aa24の5エリア実Unity画面（20261024-110359-39b38515）。承認済みの見た目・歩行面・保存・報酬・BGM・Mergeは変更しません。今回はmain統合を行いません。
 
+現在はrun `20261024-185942-acab69f4` の全件143/143・222/222成功とQA APK生成をPowerShell画面で確認済みです。成功XML・build-info原本の照合、Pixel受入は未完了です。生成済みAPKを使い、次の「更新インストール」へ進みます。記録更新のPullや再ビルドは不要です。
+
+## 実行済み：全件テストとAPK生成
+
 1. GitHub Desktopで `feat/daily-world-pass-20261016` をPullし、Unityを閉じます。
 2. Windows PowerShellで実行します。
 
@@ -16,10 +20,10 @@ EditMode／PlayModeはフィルターなしの全件です。現在の宣言数�
 
 ## 更新インストール
 
-今回表示されたBuilds\Android以下のフォルダーを `$MofuRun` に入れます。下記はAPK本体とbuild-infoのSHAが一致した時だけ街QAへ更新します。署名不一致等が出たら停止し、アンインストール／アプリデータ消去で回避しません。既存保存のない端末は「更新保存の保持」を実証できないため、その点を記録します。
+現在の生成済みrunは `20261024-185942-acab69f4` です。以下はこのAPKを使用し、記録更新だけのために再ビルドしません。下記はAPK本体とbuild-infoのSHAが一致した時だけ街QAへ更新します。署名不一致等が出たら停止し、アンインストール／アプリデータ消去で回避しません。既存保存のない端末は「更新保存の保持」を実証できないため、その点を記録します。
 
 ```powershell
-$MofuRun = "C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Android\今回のフォルダー"
+$MofuRun = "C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Android\20261024-185942-acab69f4"
 $MofuInfo = Get-Content -LiteralPath (Join-Path $MofuRun "build-info.json") -Raw -Encoding UTF8 | ConvertFrom-Json
 $MofuApk = Join-Path $MofuRun "town-life-qa.apk"
 if (-not $MofuInfo.townQa -or $MofuInfo.appId -ne "com.mofumachi.merge.qa.townlife" -or (Get-FileHash -LiteralPath $MofuApk -Algorithm SHA256).Hash -ne $MofuInfo.sha256) { throw "今回の街QA APKとSHA256を確認できません。" }

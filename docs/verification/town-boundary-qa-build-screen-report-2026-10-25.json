@@ -1,0 +1,42 @@
+{
+  "received_on_jst": "2026-10-25",
+  "evidence": "User PowerShell success screenshot; raw success XML/build-info/images/APK bytes not received yet.",
+  "run": "20261025-073237-f8fd542b",
+  "editmode": {
+    "passed_reported": 143,
+    "total_reported": 143,
+    "raw_xml_verified": false
+  },
+  "playmode": {
+    "passed_reported": 222,
+    "total_reported": 222,
+    "raw_xml_verified": false
+  },
+  "zero_fail_skip_gate_reported_passed": true,
+  "native_capture_count_reported": 124,
+  "capture_dimensions_reported": [
+    720,
+    1280
+  ],
+  "boundary_artifact_gate_reported_passed": true,
+  "boundary_comparison_reported": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261025-073237-f8fd542b\\screenshots\\street-boundary-before-after.html",
+  "boundary_before_kind": "Frozen renderer reconstruction, not historical APK or Pixel capture.",
+  "qa_apk_generated_reported": true,
+  "apk_path_reported": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261025-073237-f8fd542b\\town-life-qa.apk",
+  "apk_sha256_reported": "2b5193896965f805e086a51e5c19fbc1ae6a6ef6583aa8fd9755f0dfe8c6378a",
+  "app_id_expected": "com.mofumachi.merge.qa.townlife",
+  "source_revision": null,
+  "build_info_received": false,
+  "raw_success_xml_received": false,
+  "native_images_received": false,
+  "apk_bytes_received": false,
+  "sha256_independently_verified": false,
+  "native_visual_adopted": false,
+  "pixel_update_install_verified": false,
+  "pixel_new_correction_verified": false,
+  "continuous_600s_verified": false,
+  "town_formal_base_adopted": false,
+  "merge_started": false,
+  "main_merged": false,
+  "next": "Use this existing run and APK. Receive all five-plaza-review ZIP parts, inspect all124 native images including11 boundary pairs and15 area/Lv overviews, verify native XML/build-info/capture identity, then exact-APK Pixel update/acceptance. No Pull or rebuild for receipt-only updates."
+}

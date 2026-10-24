@@ -56,7 +56,7 @@
     "south_garden",
     "connections"
   ],
-  "apk_generated": false,
+  "apk_generated": true,
   "pixel_verified": false,
   "adopted": false,
   "last_review": {
@@ -188,7 +188,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "town_boundary_test_mesh_repaired_full_native_rerun_pending",
+  "current_stage": "town_boundary_qa_success_reported_native_visual_and_pixel_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -693,6 +693,20 @@
   },
   "approved_base_lock": "References/VisualLock/five-area-approved-2026-10-24.json",
   "qa_build_report": {
+    "run": "20261025-073237-f8fd542b",
+    "status": "console_success_reported",
+    "editmode_passed": 143,
+    "playmode_passed": 222,
+    "native_capture_count_reported": 124,
+    "raw_xml_verified": false,
+    "source_revision": null,
+    "sha256_reported": "2b5193896965f805e086a51e5c19fbc1ae6a6ef6583aa8fd9755f0dfe8c6378a",
+    "sha256_independently_verified": false,
+    "record": "docs/verification/town-boundary-qa-build-screen-report-2026-10-25.json",
+    "scope": "Boundary QA full native/APK success reported. Native visual/source identity/Pixel acceptance pending; use this exact existing APK."
+  },
+  "base_polish": "References/VisualLock/town-boundary-final-candidate-2026-10-24.json",
+  "previous_qa_build_report": {
     "run": "20261024-220250-ba90ed62",
     "status": "console_success_reported",
     "editmode_passed": 143,
@@ -704,19 +718,6 @@
     "record": "docs/verification/stage1-qa-build-screen-report-2026-10-24.json",
     "scope": "Current stage1 QA APK generated as reported; corrected Pixel appearance/input/save/600sec acceptance still pending."
   },
-  "base_polish": "References/VisualLock/town-boundary-final-candidate-2026-10-24.json",
-  "previous_qa_build_report": {
-    "run": "20261024-185942-acab69f4",
-    "status": "console_success_reported",
-    "editmode_passed": 143,
-    "playmode_passed": 222,
-    "raw_xml_verified": false,
-    "source_revision": null,
-    "sha256_reported": "c82c1f8148daad424ebfb7e988f22a08eb48aa57cfd37f80ad4fe2e80902fc67",
-    "sha256_independently_verified": false,
-    "record": "docs/verification/five-area-qa-build-screen-report-2026-10-24.json",
-    "scope": "Historical pre-polish Windows APK reported successful; current display correction requires a new same-source test/APK run."
-  },
   "latest_town_boundary_native_run": {
     "run": "20261025-071609-9974cf36",
     "playmode_total": 222,
@@ -727,5 +728,32 @@
     "evidence": "References/Review/full-playmode-2026-10-25-071609/receipt-and-diagnosis.json",
     "repair": "docs/verification/south-entry-mesh-test-repair-2026-10-25.json",
     "repaired_native_pass_verified": false
-  }
+  },
+  "qa_build_history": [
+    {
+      "run": "20261024-185942-acab69f4",
+      "status": "console_success_reported",
+      "editmode_passed": 143,
+      "playmode_passed": 222,
+      "raw_xml_verified": false,
+      "source_revision": null,
+      "sha256_reported": "c82c1f8148daad424ebfb7e988f22a08eb48aa57cfd37f80ad4fe2e80902fc67",
+      "sha256_independently_verified": false,
+      "record": "docs/verification/five-area-qa-build-screen-report-2026-10-24.json",
+      "scope": "Historical pre-polish Windows APK reported successful; current display correction requires a new same-source test/APK run."
+    },
+    {
+      "run": "20261024-220250-ba90ed62",
+      "status": "console_success_reported",
+      "editmode_passed": 143,
+      "playmode_passed": 222,
+      "raw_xml_verified": false,
+      "source_revision": null,
+      "sha256_reported": "297a7db4b2ab8848d9b4e97cf806563b08c53b62d6d4653d2a91266f1bbe96e8",
+      "sha256_independently_verified": false,
+      "record": "docs/verification/stage1-qa-build-screen-report-2026-10-24.json",
+      "scope": "Current stage1 QA APK generated as reported; corrected Pixel appearance/input/save/600sec acceptance still pending."
+    }
+  ],
+  "latest_town_boundary_success_report": "docs/verification/town-boundary-qa-build-screen-report-2026-10-25.json"
 }

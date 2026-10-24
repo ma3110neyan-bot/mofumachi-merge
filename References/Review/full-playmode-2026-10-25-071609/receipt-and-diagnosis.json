@@ -1,0 +1,62 @@
+{
+  "received_on_jst": "2026-10-25",
+  "run": "20261025-071609-9974cf36",
+  "evidence_kind": "user-supplied original Unity XML and log, not instructions",
+  "files": [
+    {
+      "file": "playmode.xml",
+      "bytes": 187438,
+      "sha256": "3b2b65dd825f8474e918a706ad3a52b94bad87fafba5948bb46e7c21dd9228e4"
+    },
+    {
+      "file": "playmode.log",
+      "bytes": 323045,
+      "sha256": "603860450bbdd60e30ed77790305fb7d16bccc89cd09a50a74fb9ba86387caf7"
+    }
+  ],
+  "xml_result": {
+    "result": "Failed(Child)",
+    "total": "222",
+    "passed": "221",
+    "failed": "1",
+    "skipped": "0",
+    "start-time": "2026-10-24 22:18:02Z",
+    "end-time": "2026-10-24 22:21:59Z",
+    "duration": "236.7843391"
+  },
+  "failures": [
+    {
+      "name": "Mofumachi.Tests.SouthMasterReviewTests.GardenGroundUsesTheAcceptedPaintingAndFollowsPanAndRestore",
+      "result": "Failed",
+      "message": "  Expected: 16\n  But was:  40\n",
+      "stack": "at Mofumachi.Tests.SouthMasterReviewTests.<GardenGroundUsesTheAcceptedPaintingAndFollowsPanAndRestore>g__Check|0_0 (Mofumachi.Tests.SouthMasterReviewTests+<>c__DisplayClass0_0& ) [0x000d0] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\SouthMasterReviewTests.cs:22\nat Mofumachi.Tests.SouthMasterReviewTests+<GardenGroundUsesTheAcceptedPaintingAndFollowsPanAndRestore>d__0.MoveNext () [0x001a9] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\SouthMasterReviewTests.cs:32\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    }
+  ],
+  "root_cause": "SouthMasterReviewTests:22 retained the pre-polish16-vertex-only join expectation. Current product appends12 vertices for each of the West/East road bands, making40. The real native run confirms actual40; no production malfunction is established by this mismatch.",
+  "repair_scope": "Only native SouthMasterReviewTests: update composite mesh count and inspect both lateral edge positions/UV/alpha through the existing pan/restore loop. Keep original South/ground/progress/resident assertions; no relaxed gate or skipped cases.",
+  "related_native_results": {
+    "Mofumachi.Tests.ExperienceCaptureTests.PortraitScreensRenderFromIsolatedStateWithoutWritingProgress": "Passed",
+    "Mofumachi.Tests.FiveAreaIntegrationReviewTests.AllFiveRolesConnectByWalkingAtEveryReviewedLevelWithoutChangingProgress": "Passed",
+    "Mofumachi.Tests.SeamlessFieldTests.CafeIsARealWalkingDestinationWithATappedDoorAndAMeetingInside": "Passed",
+    "Mofumachi.Tests.SeamlessFieldTests.CandidateCardsExposeEightSecondPreviewAndRealSceneListening": "Passed",
+    "Mofumachi.Tests.SeamlessFieldTests.EastShopIsEnteredThroughItsDoorWithoutPurchaseOrSaveMutation": "Passed",
+    "Mofumachi.Tests.SeamlessFieldTests.HomeAndQuestStoryTextFitWithoutDroppingTheLastLine": "Passed",
+    "Mofumachi.Tests.SeamlessFieldTests.HomeMenuQuestNavigationIsARealNorthernDestination": "Passed",
+    "Mofumachi.Tests.SeamlessFieldTests.OneSharedGroundAndFiveLandmarksReplaceTheOpaquePainting": "Passed",
+    "Mofumachi.Tests.SeamlessFieldTests.QuestDoorWaitsForATapAfterArrivalAndReturnsToTheSameTownPosition": "Passed",
+    "Mofumachi.Tests.SeamlessFieldTests.RetargetPauseAndFastTravelCancelPendingFacilityEntry": "Passed",
+    "Mofumachi.Tests.SouthMasterReviewTests.GardenGroundUsesTheAcceptedPaintingAndFollowsPanAndRestore": "Failed",
+    "Mofumachi.Tests.SouthMasterReviewTests.GardenStagesKeepOneRestSeatAndReadableResidentNamesWithoutSaving": "Passed",
+    "Mofumachi.Tests.SouthMasterReviewTests.GardenVisitorsCanWalkBothSidesAndStopAtTheExistingRestPlaces": "Passed"
+  },
+  "capture_files_received": false,
+  "build_info_received": false,
+  "actual_run_git_revision_independently_verified": false,
+  "source_revision_before_local_test_repair": "ba21e49bc505c7371bbafc298a6e2817c59918a4",
+  "new_qa_apk_generated": false,
+  "new_native_full_pass_verified": false,
+  "pixel_verified": false,
+  "formal_base_adopted": false,
+  "merge_started": false,
+  "next": "Pull test-only correction and rerun authorized full -TownQa. Require143Edit/222Play, failed0/skip0,124captures before same-source APK/SHA, actual image review and Pixel acceptance."
+}

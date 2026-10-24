@@ -1,5 +1,11 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-25最新原本：街外周版の全件PlayMode222中221成功／1失敗／skip0。南の旧頂点数検査だけ修正。** run `20261025-071609-9974cf36` の原XML/log・SHA・診断を `References/Review/full-playmode-2026-10-25-071609/` に保存。唯一の失敗はSouthMasterReviewTests.GardenGroundUsesTheAcceptedPaintingAndFollowsPanAndRestore:22で旧16頂点を期待、実際40。今回の外周表示修正で南16＋西12＋東12になったことに対する、こちらの検査更新漏れ。ExperienceCapture・5地区歩行統合・南の歩行／Lv表示・Seamlessは実Unityで成功したが、撮影PNG／build-infoは未受領で、景観合格やsource同一性を断定しない。APK未生成。
+
+**変更するC#はテスト1ファイルのみ。** 合計40へ更新し、東西両接続の内外位置・中央UV一致・内端不透明（byte丸め1以内）／外端透明も既存Pan／Restoreで確認する。元の南16部分・地表原画・UV／投影・保存／住人不変の検査は維持。ゲーム本体・原画・歩行・Core／保存／報酬・Merge・撮影コード・QAツールは変更しない。描画digest `a8d5f7372d804161d7d063c524e05abef3685e8e88d44d672b8d5cc306ecf394`、元354承認／JPEG15枚は不変。6asmdefコンパイル0警告エラー・native宣言222・QA前提ゲート確認済み。独立修正レビューCritical0／Important0／Minor0。
+
+**修正版は実装済み・Unity全件再確認待ち・新APK未生成・Pixel未確認。** 受領221成功を修正版222成功へ流用しない。次はGitHub DesktopでfeatureをPullし、既存の全件 `build-android.ps1 -TownQa` を再実行。failed0／skip0・124同版画像を確認した後だけQAAPK／SHAとPixel受入へ。部分テストや検査緩和で通さず、街の品質確認前にMerge／mainへ進まない。記録は `docs/verification/south-entry-mesh-test-repair-2026-10-25.json`。画像をチャットに貼らない。以下は履歴。
+
 **2026-10-24最新：第1段階修正版の全件143/143・222/222とQA APK生成を画面で確認。** run `20261024-220250-ba90ed62`、Unity102画像720x1280、報告SHA `297a7db4b2ab8848d9b4e97cf806563b08c53b62d6d4653d2a91266f1bbe96e8`。記録 `docs/verification/stage1-qa-build-screen-report-2026-10-24.json`。成功XML2件・build-info・APK原本は未受領で、SHA独立照合／新しいPixel実測は未確認。前回221/1原本は履歴として維持。原本未確認を隠さず、現在の画面成功と区別する。
 
 次は生成済み220250APKをそのまま使い、実APKとbuild-info／SHAを照合して `install-pixel3a.ps1 -PackageName com.mofumachi.merge.qa.townlife -Serial 99RAY1BELH` で更新（install-r）。記録更新だけでPullや再ビルドを要求しない。続いて北左右の余白・薄い文字消去・中央四方徒歩往復／タップ／NPC／カメラ／基本ループ／更新保存・再起動／600秒以上の実操作を確認。前版での保存復帰報告を新版の復帰確認へ流用しない。音が小さい／少し熱いという前版FB、S1南石目／J1西東境界は実機で確認。第1段階はまだ合格にしない。新機能・mainはしない。画像をチャットへ貼らない。以下は履歴。

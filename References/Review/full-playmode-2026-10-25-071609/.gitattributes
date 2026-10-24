@@ -1,0 +1,3 @@
+# Preserve uploaded diagnostic originals byte-for-byte on Windows checkouts.
+playmode.xml -text -diff
+playmode.log -text -diff

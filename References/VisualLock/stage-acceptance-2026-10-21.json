@@ -188,7 +188,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "town_boundary_final_implemented_native_pixel_pending",
+  "current_stage": "town_boundary_test_mesh_repaired_full_native_rerun_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -716,5 +716,16 @@
     "sha256_independently_verified": false,
     "record": "docs/verification/five-area-qa-build-screen-report-2026-10-24.json",
     "scope": "Historical pre-polish Windows APK reported successful; current display correction requires a new same-source test/APK run."
+  },
+  "latest_town_boundary_native_run": {
+    "run": "20261025-071609-9974cf36",
+    "playmode_total": 222,
+    "playmode_passed": 221,
+    "playmode_failed": 1,
+    "playmode_skipped": 0,
+    "raw_result_verified": true,
+    "evidence": "References/Review/full-playmode-2026-10-25-071609/receipt-and-diagnosis.json",
+    "repair": "docs/verification/south-entry-mesh-test-repair-2026-10-25.json",
+    "repaired_native_pass_verified": false
   }
 }

@@ -1,0 +1,64 @@
+{
+  "reported_on_jst": "2026-10-25",
+  "run": "20261025-071609-9974cf36",
+  "status": "one_stale_mesh_assertion_repaired_full_native_rerun_pending",
+  "evidence": "References/Review/full-playmode-2026-10-25-071609/receipt-and-diagnosis.json",
+  "native_received": {
+    "editmode": {
+      "passed_reported_in_console": 143,
+      "raw_xml_received": false
+    },
+    "playmode": {
+      "total": 222,
+      "passed": 221,
+      "failed": 1,
+      "skipped": 0,
+      "raw_xml_and_log_received": true
+    },
+    "failed_case": "Mofumachi.Tests.SouthMasterReviewTests.GardenGroundUsesTheAcceptedPaintingAndFollowsPanAndRestore",
+    "failed_line": 22,
+    "expected_vertices": 16,
+    "actual_vertices": 40,
+    "capture_case_passed": true,
+    "capture_images_received": false,
+    "qa_apk_generated": false
+  },
+  "cause": "The approved-scope border polish appended two12-vertex lateral bands to the16-vertex South mesh. The original South review still asserted16 for the whole mesh. This was an omitted test update, not evidence of a town/game failure.",
+  "change": {
+    "code_files": [
+      "Assets/Mofumachi/Tests/PlayMode/SouthMasterReviewTests.cs"
+    ],
+    "test_count_unchanged": 222,
+    "new_expectation": "40 composite vertices, retain South16 checks, inspect both side bands source UV/projection and inner opaque/outer transparent edges at initial view, pan and restore.",
+    "original_save_resident_painting_checks_retained": true,
+    "skip_or_filter_added": false,
+    "runtime_resources_core_tooling_changed": false
+  },
+  "verification": {
+    "direct_unity_api_assemblies": 6,
+    "warnings": 0,
+    "errors": 0,
+    "editmode_declarations_only": 143,
+    "playmode_declarations_only": 222,
+    "approved_base_and_same_source_townqa_preflight_passed": true,
+    "render_digest_unchanged": "a8d5f7372d804161d7d063c524e05abef3685e8e88d44d672b8d5cc306ecf394",
+    "original354_approval_unchanged": true,
+    "approved15_jpegs_unchanged": true,
+    "review": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    }
+  },
+  "after_repair": {
+    "implemented": true,
+    "native_unity_full_pass_verified": false,
+    "new_qa_apk_generated": false,
+    "pixel_verified": false,
+    "town_formal_base_adopted": false,
+    "merge_started": false,
+    "main_merged": false
+  },
+  "limits": "Cloud Editor has no active headless license, AndroidPlayer module or Pixel/USB path. Compilation, preflight and source review do not execute the repaired Unity test or establish visual acceptance. Prior221 results are preserved, not promoted to222 success.",
+  "next": "Pull feature and run the existing full -TownQa once. Require failed0/skip0 across143Edit and222Play,124same-source images, then QA APK/SHA and Pixel acceptance."
+}

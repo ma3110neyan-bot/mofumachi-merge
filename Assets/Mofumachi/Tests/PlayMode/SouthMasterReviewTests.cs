@@ -19,13 +19,26 @@ namespace Mofumachi.Tests
             void Check()
             {
                 Canvas.ForceUpdateCanvases();var mesh=ground.canvasRenderer.GetMesh();Assert.That(mesh.vertexCount,Is.EqualTo(16));Assert.That(mesh.colors32[0].a,Is.Zero);Assert.That(mesh.colors32[5].a,Is.EqualTo(255));Assert.That(Vector2.Distance(mesh.vertices[0],life.World.Local(new TownPoint(TownSouthMasterLayout.Left,TownSouthMasterLayout.Bottom),ground.rectTransform)),Is.LessThan(.01f));
-                var join=entry.canvasRenderer.GetMesh();Assert.That(join.vertexCount,Is.EqualTo(16));
+                // South retains its16 vertices; the two lateral road bands add
+                //12 each. Check their visible joins as well as the garden cut.
+                var join=entry.canvasRenderer.GetMesh();Assert.That(join.vertexCount,Is.EqualTo(40));
                 for(int col=0;col<4;col++)
                 {
                     Assert.That(join.colors32[col].a,Is.Zero);Assert.That(join.colors32[12+col].a,Is.EqualTo(255),"The cut itself must be fully textured, not expose the flat underlying lawn");
                     float x=new[]{-.60f,-.55f,.55f,.60f}[col];var top=new TownPoint(x,-1);var uv=TownCentralMasterLayout.TexturePoint(top);
                     Assert.That(Vector2.Distance(join.vertices[12+col],life.World.Local(top,entry.rectTransform)),Is.LessThan(.01f));
                     Assert.That(Vector2.Distance(join.uv[12+col],new Vector2(uv.X,uv.Y)),Is.LessThan(.00001f));
+                }
+                foreach(int side in new[]{-1,1})foreach(int row in new[]{1,2})
+                {
+                    int start=side<0?16:28,inner=start+row*3+(side<0?2:0),outer=start+row*3+(side<0?0:2);
+                    float y=row==1?-.38f:-.02f;var edge=new TownPoint(side*.60f,y);var outside=new TownPoint(side*.66f,y);
+                    Assert.That(Vector2.Distance(join.vertices[inner],life.World.Local(edge,entry.rectTransform)),Is.LessThan(.01f));
+                    Assert.That(Vector2.Distance(join.vertices[outer],life.World.Local(outside,entry.rectTransform)),Is.LessThan(.01f));
+                    var uv=TownCentralMasterLayout.TexturePoint(edge);
+                    Assert.That(Vector2.Distance(join.uv[inner],new Vector2(uv.X,uv.Y)),Is.LessThan(.00001f),"Both side roads continue the actual Central edge texels");
+                    Assert.That(join.colors32[inner].a,Is.EqualTo(255).Within(1),"Cover the side cut even after pan/restore");
+                    Assert.That(join.colors32[outer].a,Is.Zero,"The narrow outer edge must fade instead of drawing another hard line");
                 }
             }
             string saved=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;var positions=life.World.Model.Residents.Select(a=>a.Position).ToArray();

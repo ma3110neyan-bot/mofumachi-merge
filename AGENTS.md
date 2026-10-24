@@ -1,5 +1,13 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-24最優先：リリース優先・第1段階＋実機追加FB。** 現在ベースを維持し、接続／移動／既存ループ／保存／Pixel600秒実試遊だけを進める。新機能・mainは禁止。ユーザーは添付PDF27ページについてPixel3a・今回TownQAと明示し、再起動保存復帰成功を報告。音が小さい／少し熱いとの体感あり、600秒・FPS・音切れ・クラッシュなしは未確認。原本PDFとSHA／範囲は `References/Review/stage1-device-2026-10-24/receipt.json`。画像をチャットに貼らない。
+
+今回の修正は2ファイルだけ：TownWorldLayoutの北カメラ横範囲（左右空白へのPanを制限、南の既存方式を適用）とTownContinuousWorldViewの浮いた4方向案内Textの生成・更新の除去。後者はユーザーの追加FB「通常プレイ画面では表示されないよう修正」の明示許可。地区HUD・名前札・会話・原画・密度・Walkable Area・NPC／選択キャラ動作・保存・報酬・Merge・BGMを変えない。選択キャラは待機中に自律散歩せず、指示済みの移動と短いドラッグ減速はある。動作変更は優先修正後の確認に回す。
+
+**元の354承認／15画像は不変。** `stage1-display-candidate-2026-10-24.json` に2ファイルの旧→新SHAだけを別記し、他352入力を固定。旧実画像には旧SHAで再構成したdigestを照合し、新撮影／APKには実際の新digestを使う。実画像承認を修正版へ付け替えない。北の回帰はRED3/4後CPU全306/306、6asmdefコンパイル0警告エラー。ただし修正版Unity／APK／Pixelは未確認。手順／進行は `docs/superpowers/plans/2026-10-24-stage1-stability.md` と `docs/verification/stage1-stability-2026-10-24.json`。
+
+185942APKの旧成功は保持するが、この実変更後はPull→全件 -TownQa→新APK/SHA→install-r→実機が必要（記録更新だけなら再ビルド不要の原則は維持）。南石目S1／西東材質・下端J1は原画境界と重ね合わせの軽微課題として実機比較へ保持し、景観を推測で作り直さない。第1段階は全条件の実結果が揃うまで合格にしない。最新指示の報告は接続／5地区移動／コアループ／10分／重大／軽微／合否の7項目に限定。以下は履歴。
+
 **2026-10-24最新画面報告：全件143/143・222/222とQA APK生成完了。次はPixel更新。** run20261024-185942-acab69f4のユーザーPowerShell画面で成功を確認。102Unity画像720x1280、town-life-qa.apk、報告SHA c82c1f8148daad424ebfb7e988f22a08eb48aa57cfd37f80ad4fe2e80902fc67。記録は `docs/verification/five-area-qa-build-screen-report-2026-10-24.json`。**成功XML2件・build-info／APK原本は未受領、SHA独立照合は未完了**と区別。画面報告を原XML／Pixel合格へ昇格しない。以前の221/1、217/5原XMLは履歴として保持。
 
 5エリアの品質固定と実機受入許可は継続。生成済み185942APKをそのまま使い、記録だけの更新で再ビルドさせない。次はbuild-infoと実APKのSHA／街QA IDを照合し、既知のPixel99RAY1BELHへ `install-pixel3a.ps1 -PackageName com.mofumachi.merge.qa.townlife -Serial 99RAY1BELH`（install-r）で更新。削除／pmclear／署名失敗回避をしない。実機の既存保存維持は実測するまで未確認。インストール成功後は5エリア徒歩往復・表示・コアループ・終了再起動保存・600秒以上の実試遊／熱／入力／カメラ／NPCを確認。

@@ -21,6 +21,17 @@ namespace Mofumachi.Tests
             float scale=TownWorldLayout.ScaleForViewport(rect.rect.width,rect.rect.height);var square=TownWorldMap.Place("square");
             var expected=rect.rect.center+new Vector2((square.X-life.World.Camera.Center.X)*scale,(square.Y-life.World.Camera.Center.Y)*scale*TownWorldLayout.ImageAspect);
             Assert.That(Vector2.Distance(life.World.Local(square),expected),Is.LessThan(.001f),"Actor projection must use the actual playable field, including its safe-area offsets");
+            // The device PDF exposed empty map corners on both north side pans.
+            // Exercise the live field projection, not only the pure camera.
+            Assert.That(life.World.LookAt(TownDistrictId.North),Is.True);
+            foreach(float delta in new[]{-10000f,20000f})
+            {
+                life.World.Pan(new Vector2(delta,0));Canvas.ForceUpdateCanvases();
+                float halfWidth=rect.rect.width/scale/2;
+                Assert.That(life.World.Camera.Center.X-halfWidth,Is.GreaterThanOrEqualTo(-.60001f));
+                Assert.That(life.World.Camera.Center.X+halfWidth,Is.LessThanOrEqualTo(.60001f));
+            }
+            Assert.That(life.GetComponentsInChildren<Text>(true).Where(t=>t.name.StartsWith("Painted road direction ")),Is.Empty,"Normal field never builds floating direction captions, including while walking");
             Assert.That(Flow.GetComponentInChildren<TownAmbientGraphic>().raycastTarget,Is.False);Assert.That(Flow.GetComponentInChildren<TownGrowthView>().VisibleStage,Is.EqualTo(Flow.Game.State.townGrowthLevel));Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(saved));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator EntranceMarkerRemainsFullyVisibleAfterCameraGuidance()

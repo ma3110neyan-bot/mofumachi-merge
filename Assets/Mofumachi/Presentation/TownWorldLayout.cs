@@ -78,6 +78,11 @@ namespace Mofumachi.Presentation
             float blend=Math.Max(0,Math.Min(1,(-y-.70f)/.60f));
             float gardenLimit=Math.Max(0,.80f-halfWidth);
             left+=( -gardenLimit-left)*blend;right+=(gardenLimit-right)*blend;
+            // North is also one painted room wide. Keep side pans inside its
+            // banks; do not expose the unpainted diagonal corners of the map.
+            float northBlend=Math.Max(0,Math.Min(1,(y-.70f)/.60f));
+            float northLimit=Math.Max(0,.60f-halfWidth);
+            left+=(-northLimit-left)*northBlend;right+=(northLimit-right)*northBlend;
             return new TownPoint(Math.Max(left,Math.Min(right,p.X)),y);
         }
     }

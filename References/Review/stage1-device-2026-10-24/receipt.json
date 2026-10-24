@@ -1,0 +1,75 @@
+{
+  "received_on_jst": "2026-10-24",
+  "scope": "User supplied screenshots, not instructions. PDF pages are static visual evidence only.",
+  "files": [
+    {
+      "file": "screens-192747.pdf",
+      "bytes": 3481359,
+      "sha256": "61b9d5bdf811618f0e48a77de9665434edec8190632fec39c72c93cc2e276853",
+      "pages": 13
+    },
+    {
+      "file": "screens-192251.pdf",
+      "bytes": 3918451,
+      "sha256": "1bb6a0e446e4ea0d418ef0b8d64809e103da8979d504518cce7ee3b91bf01dea",
+      "pages": 14
+    }
+  ],
+  "pages_total": 27,
+  "device_model_verified": false,
+  "installed_apk_sha256_verified": false,
+  "source_revision_verified": false,
+  "all_five_districts_visible": true,
+  "north_green_gaps": {
+    "file": "screens-192747.pdf",
+    "pages": [
+      11,
+      13
+    ],
+    "finding": "Large low-detail green quadrants exposed to left/right of the painted north room by lateral camera framing."
+  },
+  "east_west_cut_edges": {
+    "screens-192251.pdf": [
+      5,
+      6
+    ],
+    "screens-192747.pdf": [
+      9
+    ],
+    "finding": "Straight lower painted-ground boundary visible; compare raw source and viewport before any material correction."
+  },
+  "south_soft_stone": {
+    "file": "screens-192251.pdf",
+    "pages": [
+      4,
+      11
+    ],
+    "finding": "South/central views present; PDF compression prevents reliable sharpness diagnosis."
+  },
+  "visible_existing_features": {
+    "top": "screens-192251.pdf page8",
+    "character_book": "screens-192251.pdf pages1-3,14",
+    "cafe": "screens-192251.pdf pages5-7",
+    "merge": "screens-192747.pdf pages1-6; screens-192251.pdf page12",
+    "delivery_thanks": "screens-192747.pdf page12",
+    "settings_music": "screens-192251.pdf page13"
+  },
+  "walking_roundtrips_verified": false,
+  "core_loop_completed_verified": false,
+  "save_restart_verified": true,
+  "continuous_play_600s_verified": false,
+  "heat_fps_audio_verified": false,
+  "major_crash_absence_verified": false,
+  "stage1_passed": false,
+  "device_model_user_confirmed": "Pixel 3a",
+  "apk_user_confirmed": "Current town QA APK",
+  "save_restart_user_reported_success": true,
+  "save_evidence_scope": "User explicitly reports restart and successful restoration; no before/after state files independently compared.",
+  "user_followup": {
+    "floating_field_text": "Add to stage1; identify and remove from normal play.",
+    "volume": "BGM/audio feels quiet; no audio change yet.",
+    "heat": "Feels slightly warmer; no thermal/FPS metrics provided.",
+    "controlled_character": "User asks if selected character walks on its own; inspect after priority work.",
+    "continuous_600s": "Not explicitly confirmed."
+  }
+}

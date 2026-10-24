@@ -38,7 +38,7 @@
     "sha256_independently_verified": false
   },
   "pixel_install": {
-    "status": "pending",
+    "status": "user_reports_current_townQA_running_on_Pixel3a_sha_pending",
     "mode": "update_-r",
     "model": null,
     "installed_apk_sha256": null,
@@ -157,12 +157,20 @@
     "adb_or_pixel_usb_available": false,
     "game_input_changes": false
   },
-  "next_action": "Use generated185942APK; do not rebuild for record updates. Verify localAPK versus build-infoSHA, update-install townQA to Pixel99RAY1BELH, then already-authorized five-area/coreloop/save/600sec acceptance. Obtain successXML2/build-info and install result.",
+  "next_action": "Pull the bounded stage1 display correction, run full -TownQa once, retain new XML/APK/build-info, then safely update Pixel and verify the already-authorized loop/save/600s. Existing185942 APK is the before version.",
   "test_fixture_repair": {
     "record": "References/Review/full-playmode-2026-10-24-180636/receipt-and-diagnosis.json",
     "game_visuals_changed": false,
     "native_green_unverified": true,
     "scope": "One normal simulation frame inserted after isolated NPC model setup; expected pair/greeting/pause/resume assertions unchanged.",
     "status": "All222 reported passed after the one-frame fixture correction; raw successfulXML pending."
+  },
+  "stage1_candidate": {
+    "record": "docs/verification/stage1-stability-2026-10-24.json",
+    "implemented": true,
+    "native_verified": false,
+    "qa_apk_generated": false,
+    "pixel_verified": false,
+    "note": "Earlier143/222 console success and APK185942 are preserved as pre-polish evidence, not success for these two display corrections."
   }
 }

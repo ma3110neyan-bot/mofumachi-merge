@@ -5,7 +5,7 @@ function Get-VisualLockDigest([byte[]]$Bytes) {
     $Hasher=[Security.Cryptography.SHA256]::Create()
     try {return ([BitConverter]::ToString($Hasher.ComputeHash($Bytes))).Replace('-','').ToLowerInvariant()} finally {$Hasher.Dispose()}
 }
-function Assert-BaseVisualLock([string]$RepositoryPath,[string]$ManifestPath) {
+function Assert-BaseVisualLock([string]$RepositoryPath,[string]$ManifestPath,[hashtable]$ReplacementHashes=@{}) {
     if(-not(Test-Path -LiteralPath $ManifestPath -PathType Leaf)){throw 'Missing Visual Lock baseline.'}
     $Root=[IO.Path]::GetFullPath($RepositoryPath).TrimEnd('/','\')
     $Lock=Get-Content -LiteralPath $ManifestPath -Raw -Encoding UTF8 | ConvertFrom-Json
@@ -27,8 +27,46 @@ function Assert-BaseVisualLock([string]$RepositoryPath,[string]$ManifestPath) {
             } elseif($Entry.mode -ne 'lf-text'){throw "Unknown Visual Lock mode: $($Entry.mode)"}
             $Bytes=[Text.Encoding]::UTF8.GetBytes($Value)
         }
-        if((Get-VisualLockDigest $Bytes) -ne $Entry.sha256){throw "Visual Lock changed: $Relative. Restore the frozen input; do not replace the baseline to bypass this gate."}
+        $Expected=if($ReplacementHashes.ContainsKey($Relative)){$ReplacementHashes[$Relative]}else{$Entry.sha256}
+        if((Get-VisualLockDigest $Bytes) -ne $Expected){throw "Visual Lock changed: $Relative. Restore the frozen input; do not replace the baseline to bypass this gate."}
     }
+}
+function Get-BasePolishPatch([string]$RepositoryPath) {
+    $StageFile=Join-Path $RepositoryPath 'References/VisualLock/stage-acceptance-2026-10-21.json'
+    if(-not(Test-Path -LiteralPath $StageFile -PathType Leaf)){return $null}
+    $Stages=Get-Content -LiteralPath $StageFile -Raw -Encoding UTF8 | ConvertFrom-Json
+    $Property=$Stages.PSObject.Properties['base_polish'];if(-not $Property){return $null}
+    $Relative=[string]$Property.Value
+    if(-not $Relative -or [IO.Path]::IsPathRooted($Relative) -or $Relative -match '(^|[/\\])\.\.([/\\]|$)' -or $Relative.Contains(':')){throw 'Unsafe base polish record path.'}
+    $Record=Get-Content -LiteralPath (Join-Path $RepositoryPath $Relative) -Raw -Encoding UTF8 | ConvertFrom-Json
+    if($Record.authorized_by -ne 'user' -or [string]::IsNullOrWhiteSpace([string]$Record.authorization_reference)){throw 'Base polish requires the user bounded correction instruction.'}
+    $BaseRelative=[string]$Record.base_lock
+    if(-not $BaseRelative -or [IO.Path]::IsPathRooted($BaseRelative) -or $BaseRelative -match '(^|[/\\])\.\.([/\\]|$)' -or $BaseRelative.Contains(':')){throw 'Unsafe base polish baseline path.'}
+    $BasePath=Join-Path $RepositoryPath $BaseRelative
+    if($Record.base_lock_sha256 -notmatch '^[a-fA-F0-9]{64}$' -or (Get-FileHash -LiteralPath $BasePath -Algorithm SHA256).Hash -ne $Record.base_lock_sha256){throw 'Original base approval was changed.'}
+    $Base=Get-Content -LiteralPath $BasePath -Raw -Encoding UTF8 | ConvertFrom-Json
+    $Changes=@($Record.changes)
+    $Allowed=@('Assets/Mofumachi/Presentation/TownWorldLayout.cs','Assets/Mofumachi/Presentation/TownContinuousWorldView.cs')
+    if($Changes.Count -lt 1 -or $Changes.Count -gt 2){throw 'Stage1 permits only the north camera and floating direction caption corrections.'}
+    $Before=@{};$After=@{}
+    foreach($Change in $Changes) {
+        $Path=[string]$Change.path
+        if($Path -notin $Allowed -or $Before.ContainsKey($Path)){throw 'Unrelated or duplicate base polish input.'}
+        $Entry=@($Base.files | Where-Object {$_.path -eq $Path})
+        if($Entry.Count -ne 1 -or $Entry[0].mode -ne 'lf-text' -or $Change.before_sha256 -ne $Entry[0].sha256 -or $Change.after_sha256 -notmatch '^[a-fA-F0-9]{64}$'){throw 'Display correction does not match its original base input.'}
+        $Bytes=[Text.Encoding]::UTF8.GetBytes([IO.File]::ReadAllText((Join-Path $RepositoryPath $Path)).Replace("`r`n","`n"))
+        if((Get-VisualLockDigest $Bytes) -ne $Change.after_sha256){throw 'Display differs from the authorized correction candidate.'}
+        $Before[$Path]=$Change.before_sha256;$After[$Path]=$Change.after_sha256
+    }
+    return @{Record=$Record;Before=$Before;After=$After}
+}
+function Get-ReviewedCentralInputFingerprint([string]$RepositoryPath) {
+    $Current=Get-CentralInputFingerprint $RepositoryPath;$Patch=Get-BasePolishPatch $RepositoryPath
+    if(-not $Patch){return $Current}
+    if($Patch.Record.candidate_render_digest -ne $Current){throw 'Base polish candidate rendering inputs changed.'}
+    $Reviewed=Get-CentralInputFingerprint $RepositoryPath $Patch.Before
+    if($Patch.Record.reviewed_render_digest -ne $Reviewed){throw 'Base polish is not bound to the original reviewed rendering inputs.'}
+    return $Reviewed
 }
 function Write-VisualLockComparison([string]$RepositoryPath,[string]$RunDirectory,[string]$BeforeDirectory='',[string]$OutputDirectory='') {
     $Baseline=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/baseline-native-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json
@@ -86,7 +124,7 @@ function Assert-CentralStageApproved([string]$RepositoryPath) {
     if($Stage.reviewed_candidate -notmatch '^[a-fA-F0-9]{40}$' -or [int]$Stage.native_image_count -ne 3){throw 'Central checkpoint has no identified Lv1/3/6 native image review.'}
     $Relative=[string]$Stage.review_directory
     if(-not $Relative -or [IO.Path]::IsPathRooted($Relative) -or $Relative -match '(^|[/\\])\.\.([/\\]|$)' -or $Relative.Contains(':')){throw 'Central review must identify an existing repository-relative evidence directory.'}
-    $Info=Assert-CentralReviewEvidence $RepositoryPath (Join-Path $RepositoryPath $Relative)
+    $Info=Assert-CentralReviewEvidence $RepositoryPath (Join-Path $RepositoryPath $Relative) -HistoricalApproval
     if($Stage.reviewed_candidate -ne $Info.gitRevision -or $Stage.central_input_fingerprint -ne $Info.centralInputFingerprint){throw 'Central acceptance is for a different candidate or input digest.'}
 }
 function Assert-TownCheckpointApproved([string]$RepositoryPath,[string]$Checkpoint) {
@@ -122,7 +160,7 @@ function Assert-TownCheckpointApproved([string]$RepositoryPath,[string]$Checkpoi
         # Earlier approvals prove sequence, while the integrated approval must
         # match current inputs. Neither metadata nor JPEG signatures replaces
         # actual native image review and the user's explicit approval.
-        if($Name -eq 'five_area' -and $Approval.input_fingerprint -ne (Get-CentralInputFingerprint $RepositoryPath)){throw 'Integrated town approval is for stale rendering inputs.'}
+        if($Name -eq 'five_area' -and $Approval.input_fingerprint -ne (Get-ReviewedCentralInputFingerprint $RepositoryPath)){throw 'Integrated town approval is for stale rendering inputs.'}
         if($Name -eq $Checkpoint){return}
     }
 }
@@ -130,10 +168,15 @@ function Assert-BaseStagesReadyForAcceptance([string]$RepositoryPath) {
     Assert-CentralStageApproved $RepositoryPath
     $Stages=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/stage-acceptance-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     $BaseLock=$Stages.PSObject.Properties['approved_base_lock']
+    $Patch=Get-BasePolishPatch $RepositoryPath
+    if($Patch -and -not $BaseLock){throw 'Base polish requires its original approved base lock.'}
     if($BaseLock) {
         $Relative=[string]$BaseLock.Value
         if(-not $Relative -or [IO.Path]::IsPathRooted($Relative) -or $Relative -match '(^|[/\\])\.\.([/\\]|$)' -or $Relative.Contains(':')){throw 'Approved base lock must use a repository-relative path.'}
-        Assert-BaseVisualLock $RepositoryPath (Join-Path $RepositoryPath $Relative)
+        if($Patch) {
+            if($Patch.Record.base_lock -ne $Relative){throw 'Base polish references a different approval snapshot.'}
+            Assert-BaseVisualLock $RepositoryPath (Join-Path $RepositoryPath $Relative) $Patch.After
+        } else {Assert-BaseVisualLock $RepositoryPath (Join-Path $RepositoryPath $Relative)}
     }
     $Required=@('west_cafe','east_florist_shop','north_quest','south_garden','connections')
     $Completed=@($Stages.completed_after_central)

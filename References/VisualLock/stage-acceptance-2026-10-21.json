@@ -43,9 +43,10 @@
     }
   },
   "remaining_sequence": [
-    "verify_current_full_native_XML_and_APK_identity",
+    "stage1_full_native_suite",
+    "stage1_qa_apk_identity",
     "pixel_update_install",
-    "pixel_five_area_loop_save_soak_acceptance"
+    "stage1_five_area_coreloop_save_600s_acceptance"
   ],
   "completed_after_central": [
     "west_cafe",
@@ -54,7 +55,7 @@
     "south_garden",
     "connections"
   ],
-  "apk_generated": true,
+  "apk_generated": false,
   "pixel_verified": false,
   "adopted": false,
   "last_review": {
@@ -186,7 +187,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "qa_apk_reported_pixel_update_install_pending",
+  "current_stage": "stage1_display_correction_implemented_native_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -700,6 +701,7 @@
     "sha256_reported": "c82c1f8148daad424ebfb7e988f22a08eb48aa57cfd37f80ad4fe2e80902fc67",
     "sha256_independently_verified": false,
     "record": "docs/verification/five-area-qa-build-screen-report-2026-10-24.json",
-    "scope": "User-generated WindowsAPK reported; not Pixel input/performance/save acceptance"
-  }
+    "scope": "Historical pre-polish Windows APK reported successful; current display correction requires a new same-source test/APK run."
+  },
+  "base_polish": "References/VisualLock/stage1-display-candidate-2026-10-24.json"
 }

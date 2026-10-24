@@ -1,0 +1,82 @@
+{
+  "stage": "1",
+  "status": "display_correction_implemented_native_pixel_retest_pending",
+  "authorization": "2026-10-24 user release-priority phase1 and floating-text followup",
+  "source_evidence": "References/Review/stage1-device-2026-10-24/receipt.json",
+  "candidate_lock": "References/VisualLock/stage1-display-candidate-2026-10-24.json",
+  "corrections": [
+    {
+      "issue": "North large green diagonal corners",
+      "cause": "Rectangular global camera envelope allowed x beyond the narrow painted north room.",
+      "change": "North-only continuous camera envelope. No landscape or walking changes.",
+      "implemented": true,
+      "unity_verified": false,
+      "pixel_verified": false
+    },
+    {
+      "issue": "Faint text floating over the field",
+      "cause": "Four NarrativeLabel road captions shown while the controlled resident walked. Screenshot wording matches literal captions.",
+      "change": "Remove those objects and their per-frame placement/visibility; preserve region HUD/names/dialogue.",
+      "implemented": true,
+      "unity_verified": false,
+      "pixel_verified": false
+    }
+  ],
+  "five_area_movement": {
+    "pdf_views_all_five": true,
+    "outward_return_walks_verified": false,
+    "note": "Do not infer routes, responsiveness or congestion from still frames."
+  },
+  "core_loop": {
+    "visible": [
+      "TOP",
+      "town",
+      "conversation",
+      "Merge states",
+      "delivery thank-you",
+      "character book"
+    ],
+    "complete_cycle_verified": false,
+    "save_restart_user_reported_success": true,
+    "saved_values_independently_compared": false
+  },
+  "pixel_10_minutes": {
+    "device_user_confirmed": "Pixel 3a / current townQA",
+    "continuous_600s_confirmed": false,
+    "volume_user_report": "BGM/audio feels quiet",
+    "heat_user_report": "Slightly warmer",
+    "thermal_fps_measurements_received": false,
+    "freeze_crash_audio_cut_results": null
+  },
+  "verification": {
+    "cpu_passed": 306,
+    "cpu_failed": 0,
+    "cpu_skipped": 0,
+    "camera_red_before_fix_failed": 3,
+    "asmdef_compile_count": 6,
+    "asmdef_warnings": 0,
+    "asmdef_errors": 0,
+    "native_case_inventory": 222,
+    "new_full_native_verified": false,
+    "new_qa_apk_generated": false,
+    "new_pixel_verified": false,
+    "strict_powershell_suites_passed": 13,
+    "strict_powershell_suites_failed": 0,
+    "immutable_base_approval_unchanged": true,
+    "approved_jpegs_unchanged": 15,
+    "other_runtime_inputs_unchanged": 352,
+    "review_critical": 0,
+    "review_important_found": 1,
+    "review_important_fixed": 1,
+    "historical_as_fresh_regression": "Observed RED; default/current validation and explicit historical mode now pass."
+  },
+  "major_issues": "No new major defect reported by user; crash absence and full progress are not yet proven.",
+  "minor_carryovers": [
+    "S1 south entry overlapping stone softness",
+    "J1 inherited east/west material and lower painted-ground boundaries",
+    "Quiet audio and mild heat: measurement pending; audio unchanged."
+  ],
+  "stage1_passed": false,
+  "formal_base_adopted": false,
+  "main_merged": false
+}

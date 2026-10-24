@@ -31,7 +31,12 @@ function Assert-SouthFinalReviewConditions([string]$RepositoryPath) {
     foreach($File in @($Conditions.adjusted_files)+@($Conditions.frozen_files)) {
         $Path=Resolve-FiveAreaEvidencePath $RepositoryPath $File.file
         $Bytes=if($File.file.EndsWith('.png')){[IO.File]::ReadAllBytes($Path)}else{[Text.Encoding]::UTF8.GetBytes([IO.File]::ReadAllText($Path).Replace("`r`n","`n"))}
-        if($File.sha256 -notmatch '^[a-f0-9]{64}$' -or (Get-VisualLockDigest $Bytes) -ne $File.sha256){throw "South conditions or frozen quality changed: $($File.file)"}
+        $Actual=Get-VisualLockDigest $Bytes
+        if($File.sha256 -notmatch '^[a-f0-9]{64}$'){throw 'South conditions contain an invalid input hash.'}
+        if($Actual -ne $File.sha256) {
+            $Patch=Get-BasePolishPatch $RepositoryPath
+            if(-not $Patch -or -not $Patch.Before.ContainsKey([string]$File.file) -or $Patch.Before[[string]$File.file] -ne $File.sha256 -or $Patch.After[[string]$File.file] -ne $Actual){throw "South conditions or frozen quality changed: $($File.file)"}
+        }
     }
 }
 function Write-FiveAreaComparisonJpegs([string]$Directory) {

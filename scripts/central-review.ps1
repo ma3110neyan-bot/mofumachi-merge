@@ -18,20 +18,22 @@ function Get-CentralInputPaths {
     'Assets/Mofumachi/Tests/PlayMode/CaptureWorldTrace.cs.meta'
     'References/VisualLock/approved-design-2026-10-21.json'
 }
-function Get-CentralInputFingerprint([string]$RepositoryPath) {
+function Get-CentralInputFingerprint([string]$RepositoryPath,[hashtable]$ReviewedHashes=@{}) {
     $Lines=foreach($Relative in Get-CentralInputPaths) {
         $Path=Join-Path $RepositoryPath $Relative
         if(-not(Test-Path -LiteralPath $Path -PathType Leaf)){throw "Missing central dependency: $Relative"}
         $Bytes=if($Relative.EndsWith('.png')){[IO.File]::ReadAllBytes($Path)}else{[Text.Encoding]::UTF8.GetBytes([IO.File]::ReadAllText($Path).Replace("`r`n","`n"))}
-        $Relative+':'+(Get-VisualLockDigest $Bytes)
+        $Hash=if($ReviewedHashes.ContainsKey($Relative)){$ReviewedHashes[$Relative]}else{Get-VisualLockDigest $Bytes}
+        $Relative+':'+$Hash
     }
     Get-VisualLockDigest ([Text.Encoding]::UTF8.GetBytes(($Lines -join "`n")))
 }
-function Assert-CentralReviewEvidence([string]$RepositoryPath,[string]$RunDirectory) {
+function Assert-CentralReviewEvidence([string]$RepositoryPath,[string]$RunDirectory,[switch]$HistoricalApproval) {
     $Info=Get-Content -LiteralPath (Join-Path $RunDirectory 'central-review-info.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     $Manifest=Get-Content -LiteralPath (Join-Path $RunDirectory 'capture-manifest.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     Assert-CentralCaptureIdentity $Info $Manifest (Join-Path $RunDirectory 'screenshots')
-    if($Info.centralInputFingerprint -notmatch '^[a-fA-F0-9]{64}$' -or $Manifest.centralInputFingerprint -ne $Info.centralInputFingerprint -or (Get-CentralInputFingerprint $RepositoryPath) -ne $Info.centralInputFingerprint){throw 'Central inputs changed since the reviewed native capture.'}
+    $Expected=if($HistoricalApproval){Get-ReviewedCentralInputFingerprint $RepositoryPath}else{Get-CentralInputFingerprint $RepositoryPath}
+    if($Info.centralInputFingerprint -notmatch '^[a-fA-F0-9]{64}$' -or $Manifest.centralInputFingerprint -ne $Info.centralInputFingerprint -or $Expected -ne $Info.centralInputFingerprint){throw 'Central inputs changed since the reviewed native capture.'}
     $Evidence=Get-Content -LiteralPath (Join-Path $RunDirectory 'central-adoption.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     if($Evidence.candidate_revision -ne $Info.gitRevision -or $Evidence.productFingerprint -ne $Info.productFingerprint -or $Evidence.centralInputFingerprint -ne $Info.centralInputFingerprint -or $Evidence.native_unity -isnot [bool] -or $Evidence.native_unity -ne $true -or [int]$Evidence.native_pairs_verified -ne 3){throw 'Central comparison evidence is incomplete or has different source identity.'}
     $Lock=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/approved-design-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json

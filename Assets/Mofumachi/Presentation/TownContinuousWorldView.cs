@@ -19,8 +19,6 @@ namespace Mofumachi.Presentation
         private readonly List<(Transform Transform,float Feet)> depth=new List<(Transform,float)>();
         private RectTransform Field=>(RectTransform)life.transform;
         private RectTransform dailyFlower;private int displayedFlowers;
-        private readonly List<Text> roadLabels=new List<Text>();
-        private static readonly TownPoint[] SignPoints={new TownPoint(-.55f,0),new TownPoint(.55f,0),new TownPoint(0,.94f),new TownPoint(0,-.94f)};
         private ScreenContext context;private TownFountainGraphic fountain;
         private TownGrowthView growth;private TownAmbientGraphic ambient;
         private TownPoint renderedCenter;private Vector2 renderedSize;private bool sceneReady;
@@ -43,8 +41,6 @@ namespace Mofumachi.Presentation
             southGround=UIWidgets.Node("South garden master ground",scenery,new Rect(0,0,1,1)).gameObject.AddComponent<TownSouthGroundGraphic>();southGround.Bind(this);
             props=life.gameObject.AddComponent<TownSceneryView>();props.Bind(this);props.SetTownLevel(town.TownLevel);
             foreach(var actor in life.Actors)actor.BindWorld(Model.Residents.Single(r=>r.Id==actor.CharacterId));
-            foreach(var text in new[]{"← 西のカフェ広場","東の花屋広場 →","北のおねがい広場 ↑","南の庭園広場 ↓"})
-            {var label=c.Widgets.NarrativeLabel("Painted road direction "+roadLabels.Count,text,(RectTransform)life.transform,new Rect(.5f,.5f,0,0),13);label.rectTransform.sizeDelta=new Vector2(142,30);label.color=new Color(.34f,.22f,.24f);roadLabels.Add(label);}
             fountain=UIWidgets.Node("Town fountain foreground",(RectTransform)life.transform,new Rect(0,0,1,1)).gameObject.AddComponent<TownFountainGraphic>();fountain.Bind(this);
             life.gameObject.AddComponent<TownFacilityView>().Bind(c,life);
             Model.Arrived+=OnArrival;Camera.Jump(new TownPoint(Model.Hero.Position.X,Model.Hero.Position.Y+TownSceneryLayout.CameraLift));Refresh();
@@ -112,20 +108,6 @@ namespace Mofumachi.Presentation
                 actor.SetRegionVisible(p.x>r.xMin-64&&p.x<r.xMax+64&&p.y>r.yMin-90&&p.y<r.yMax+90);
             }
             var viewing=FollowingHero?Model.Hero.Region:lookRegion??TownWorldLayout.RegionAt(Camera.Center);life.Regions.NotifyWorldRegion(viewing);
-            var actorBounds=((RectTransform)life.transform).rect;
-            for(int sign=0;sign<roadLabels.Count;sign++)
-            {
-                var label=roadLabels[sign];var at=Local(SignPoints[sign]);var size=label.rectTransform.rect.size;
-                var center=new Vector2(TownWorldLayout.LabelCenter(at.x,actorBounds.xMin,actorBounds.xMax,size.x),at.y+24);label.rectTransform.anchoredPosition=center;
-                var area=new TownViewportRect(center.x-size.x/2,center.y-size.y/2,size.x,size.y);
-                bool covered=false;
-                foreach(var actor in life.Actors)
-                {
-                    if(!actor.RegionVisible)continue;var feet=Local(actor.WorldPosition);var body=((RectTransform)actor.transform).rect;
-                    if(TownWorldLayout.LabelOverlapsResident(area,new TownPoint(feet.x,feet.y-24),body.width*1.26f+8,body.height+40)){covered=true;break;}
-                }
-                label.gameObject.SetActive(Model.Hero.IsWalking&&!covered&&at.y>actorBounds.yMin+18&&at.y<actorBounds.yMax-44);
-            }
             int count=Math.Min(6,context.Flow.Daily.Data.DecorationDays.Count);
             if(count>0)
             {

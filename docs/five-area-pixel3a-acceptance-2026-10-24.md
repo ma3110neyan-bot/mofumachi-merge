@@ -1,10 +1,10 @@
 # 承認済み5エリア：全件テスト・QA APK・Pixel3a受入
 
-承認対象は638aa24の5エリア実Unity画面（20261024-110359-39b38515）。承認済みの見た目・歩行面・保存・報酬・BGM・Mergeは変更しません。今回はmain統合を行いません。
+承認対象は638aa24の5エリア実Unity画面（20261024-110359-39b38515）。今回許可された北カメラと薄い道案内文字の表示だけを調整し、原画・配置・歩行面・保存・報酬・BGM・Mergeは維持します。今回はmain統合を行いません。
 
-現在はrun `20261024-185942-acab69f4` の全件143/143・222/222成功とQA APK生成をPowerShell画面で確認済みです。成功XML・build-info原本の照合、Pixel受入は未完了です。生成済みAPKを使い、次の「更新インストール」へ進みます。記録更新のPullや再ビルドは不要です。
+run `20261024-185942-acab69f4` の143/143・222/222とAPK生成は修正前の成功画面です。ユーザーはPixel3aでの起動と再起動保存復帰を報告しています。今回の第1段階候補は北カメラ／薄い道案内ラベルを修正したため、Pull後に全件 -TownQa を1回実行し、新しい同版APKで更新・実機受入します。旧版成功を修正版へ流用しません。成功XML原本照合と600秒連続試遊は未完了です。
 
-## 実行済み：全件テストとAPK生成
+## 修正版：全件テストとAPK生成
 
 1. GitHub Desktopで `feat/daily-world-pass-20261016` をPullし、Unityを閉じます。
 2. Windows PowerShellで実行します。
@@ -20,10 +20,10 @@ EditMode／PlayModeはフィルターなしの全件です。現在の宣言数�
 
 ## 更新インストール
 
-現在の生成済みrunは `20261024-185942-acab69f4` です。以下はこのAPKを使用し、記録更新だけのために再ビルドしません。下記はAPK本体とbuild-infoのSHAが一致した時だけ街QAへ更新します。署名不一致等が出たら停止し、アンインストール／アプリデータ消去で回避しません。既存保存のない端末は「更新保存の保持」を実証できないため、その点を記録します。
+以下の `$MofuRun` には、上の修正版 -TownQa が最後まで成功した時に表示された新しい出力フォルダーを指定します。旧185942は修正前として保持し、修正版の受入には使いません。下記はAPK本体とbuild-infoのSHAが一致した時だけ街QAへ更新します。署名不一致等が出たら停止し、アンインストール／アプリデータ消去で回避しません。既存保存のない端末は「更新保存の保持」を実証できないため、その点を記録します。
 
 ```powershell
-$MofuRun = "C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Android\20261024-185942-acab69f4"
+$MofuRun = "C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Android\今回の修正版成功フォルダー"
 $MofuInfo = Get-Content -LiteralPath (Join-Path $MofuRun "build-info.json") -Raw -Encoding UTF8 | ConvertFrom-Json
 $MofuApk = Join-Path $MofuRun "town-life-qa.apk"
 if (-not $MofuInfo.townQa -or $MofuInfo.appId -ne "com.mofumachi.merge.qa.townlife" -or (Get-FileHash -LiteralPath $MofuApk -Algorithm SHA256).Hash -ne $MofuInfo.sha256) { throw "今回の街QA APKとSHA256を確認できません。" }

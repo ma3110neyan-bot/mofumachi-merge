@@ -1,0 +1,2 @@
+# Uploaded native evidence is immutable; retain original hashes on Windows.
+native/** -text -diff

@@ -1,5 +1,13 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-25最新原本：街外周5a49e31の10ZIPを照合し、実Unity画像はPixel確認へ進行可。** run `20261025-073237-f8fd542b`、原136ファイル／PNG124枚を `References/Review/town-boundary-2026-10-25-candidate/` に保存。124画像全SHA・寸法720x1280・デコード、原XML143/143／222/222の全ケースPassed・failed0/skip0を確認。build-info/captureはgit5a49e31、productFingerprint ec37506a…が一致。APK118233994bytes／街QA ID／SHA2b519389…は先の画面とbuild-infoで一致するが、APK bytes未受領なので独立SHA再計算は未了。
+
+全124画像を確認。大きな緑の外周余白、南の長方形残像／石目ぼけ、東西の接続は改善。5地区Lv1/3/6の構成・密度・成長差・道・正式UI／図鑑を維持。旧浮いた4方向案内は見当たらない。独立実画像レビューCritical0／Important0／Minor2、Pixelへ進行可。**全ての継ぎ目が消えたとは報告しない。** J1＝西東下端y737-740／北左x326-329の既存直線／材質境界、NP1＝新しい外周の楕円花壇・明るい木の反復。採用可の実機判定はまだで、継ぎ目の見え方と反復をPixelで確認する。判定は `native-review.json`、独立報告も同フォルダ。
+
+**次は生成済み073237APKのPixel更新。Pull／再ビルド不要。** 今回はゲーム／原画／テスト／QAツールを変更していない。手順は `docs/town-boundary-pixel3a-acceptance-2026-10-25.md`。ローカルSHAを正確に照合し、既存installerで `-PackageName com.mofumachi.merge.qa.townlife -Serial 99RAY1BELH` の更新install-r。追加承認不要。削除／pmclear／署名回避はしない。徒歩4方向往復・表示／薄文字／SafeArea・コアループ可能範囲・更新保存と再起動・600秒以上の実操作／音／熱／詰まりを確認。物語完了済みセーブを初期化して試験を作らない。
+
+**状態：実装済み・Unity実画面確認済み・同版QAAPK生成済み・Pixel未確認。** source/build5a49と後続の受領記録コミットを混同しない。元354承認／15JPEG／描画digesta8d5f737…は不変。旧221/222原本と今回の成功は別run。正式ベース固定・Merge Quality Pass・mainは未了。画像をチャットに貼らない。以下は履歴。
+
 **2026-10-25最新：街外周修正版の全件143/143・222/222、124画像、QA APK生成を画面で確認。** run `20261025-073237-f8fd542b`、報告SHA `2b5193896965f805e086a51e5c19fbc1ae6a6ef6583aa8fd9755f0dfe8c6378a`。記録 `docs/verification/town-boundary-qa-build-screen-report-2026-10-25.json`。旧南16頂点の検査更新後、今回の全件成功は画面報告として確認。ただし成功XML・build-info・124画像・APK原本は未受領。SHA独立照合／撮影ソース／境界改善・Pixel合格は未確認と分ける。
 
 **今回の記録更新だけではPull／再ビルドを依頼しない。** 次は同runの `five-plaza-review-*.zip` 一式を受領し、原XML・build-info・capture-manifest、11地点の旧描画再現Before／製品After、5地区Lv1/3/6を照合する。チャットへ画像は貼らない。見た目確認後は今回生成済みの `town-life-qa.apk` をそのまま使い、SHA／街QA IDを照合して既存 `install-pixel3a.ps1 -PackageName com.mofumachi.merge.qa.townlife -Serial 99RAY1BELH`（install-r）で更新し、5地区移動・表示・保存／再起動・600秒以上の試遊を確認する。インストールのための追加承認は不要、削除／pmclear／署名回避はしない。以前の保存復帰報告や221/222原本を今回の原本成功／実機結果へ流用しない。

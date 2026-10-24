@@ -1,0 +1,161 @@
+{
+  "reviewed_on_jst": "2026-10-25",
+  "run": "20261025-073237-f8fd542b",
+  "reviewed_native_revision": "5a49e3194260c05a8e96909b95bbd08bca1a6d76",
+  "product_fingerprint": "ec37506ae16793a29929d4be1b1b071193d26d89ed52740cf8c9ef20f16bb31e",
+  "render_input_digest": "a8d5f7372d804161d7d063c524e05abef3685e8e88d44d672b8d5cc306ecf394",
+  "verdict": "eligible_for_pixel_qa_with_explicit_minors",
+  "user_adopted": false,
+  "formal_town_base_adopted": false,
+  "pixel_verified": false,
+  "merge_started": false,
+  "main_merged": false,
+  "native": {
+    "xml": {
+      "editmode.xml": {
+        "result": "Passed",
+        "total": "143",
+        "passed": "143",
+        "failed": "0",
+        "skipped": "0",
+        "duration": "2.4032536"
+      },
+      "playmode.xml": {
+        "result": "Passed",
+        "total": "222",
+        "passed": "222",
+        "failed": "0",
+        "skipped": "0",
+        "duration": "238.5438256"
+      }
+    },
+    "all_cases_individually_passed": true,
+    "archive_parts": 10,
+    "original_files": 136,
+    "png_images": 124,
+    "all_image_sha_bytes_decode_dimensions_verified": true,
+    "dimensions": [
+      720,
+      1280
+    ],
+    "source_and_fingerprint_consistent_between_capture_build": true,
+    "apk_build_info_received": true,
+    "apk_generated": true,
+    "apk_bytes_received": false,
+    "apk_bytes": 118233994,
+    "apk_sha256_in_build_info": "2b5193896965f805e086a51e5c19fbc1ae6a6ef6583aa8fd9755f0dfe8c6378a",
+    "apk_sha_matches_console_report": true,
+    "apk_sha_independently_recomputed": false,
+    "app_id": "com.mofumachi.merge.qa.townlife",
+    "old_and_new_native_results_not_summed": true
+  },
+  "comparison": {
+    "boundary_pairs": 11,
+    "area_level_overviews": 15,
+    "other_frames": 87,
+    "before": "Explicit frozen466b341 renderer reconstruction inside the isolated5a49candidate; not a previous APK/Pixel capture.",
+    "after": "Actual candidate product renderer, same camera/resident state within each boundary pair; not Pixel.",
+    "all124_images_inspected_via_private_sheets_and_raw_spotchecks": true,
+    "private_sheets_not_substituted_for_raw_evidence": true
+  },
+  "findings": [
+    {
+      "scope": "Outside green voids",
+      "verdict": "improved",
+      "evidence": [
+        "30-boundary-west-upper-after.png",
+        "30-boundary-east-upper-after.png",
+        "30-boundary-west-lower-after.png",
+        "30-boundary-east-lower-after.png",
+        "30-boundary-north-left-after.png",
+        "30-boundary-north-right-after.png",
+        "30-boundary-south-left-after.png",
+        "30-boundary-south-right-after.png"
+      ],
+      "note": "Large exposed lawns replaced by existing-atlas planted banks. Accepted district centers and walking-room appearance retained."
+    },
+    {
+      "scope": "South entry stone softness",
+      "verdict": "improved",
+      "evidence": [
+        "30-boundary-south-entry-before-reconstructed.png",
+        "30-boundary-south-entry-after.png"
+      ],
+      "note": "Former green rectangular haze near x435-685/y633-740 is removed and the central road looks sharper. Do not claim every material change is invisible."
+    },
+    {
+      "scope": "East/West joins",
+      "verdict": "improved_with_minor_carryover",
+      "evidence": [
+        "30-boundary-west-join-after.png",
+        "30-boundary-east-join-after.png"
+      ],
+      "note": "Central edge transitions blend better; lower exterior road endpoints and some material lines remain."
+    },
+    {
+      "scope": "All5 districts Lv1/3/6",
+      "verdict": "retained",
+      "note": "Landmarks, density, flowers, growth props, open-looking paths and readable formal labels remain consistent with accepted candidates."
+    },
+    {
+      "scope": "Faint field labels",
+      "verdict": "not_observed",
+      "note": "Old floating road captions absent from reviewed frames; formal district ribbon, nameplates, entrance prompts and speech preserved. Native absence assertions passed."
+    },
+    {
+      "scope": "Unchanged UI/book/title/BGM/Merge",
+      "verdict": "no_new_major_visible_regression",
+      "note": "Reviewed all other87 frames. No product changes made in this receipt review. Audio behavior cannot be judged from screenshots; Merge Quality Pass has not started."
+    }
+  ],
+  "minors": [
+    {
+      "id": "J1",
+      "severity": "minor",
+      "new": false,
+      "issue": "Inherited straight lower ground endpoints/material seams remain visible. Not all boundary cuts eliminated.",
+      "locations": [
+        {
+          "file": "30-boundary-west-lower-after.png",
+          "pixels": "x0-350,y737-740"
+        },
+        {
+          "file": "30-boundary-east-lower-after.png",
+          "pixels": "x360-719,y737-740"
+        },
+        {
+          "file": "30-boundary-north-left-after.png",
+          "pixels": "x326-329,y163-420"
+        }
+      ],
+      "action": "Check visibility during normal Pixel walking and camera movement; retain as a polish item, not a reason to remake accepted centers."
+    },
+    {
+      "id": "NP1",
+      "severity": "minor",
+      "new": true,
+      "issue": "Repeated oval beds/bright foliage in the new exterior banks can look stamped. Localized to the non-walking perimeter; density/open plazas not reduced.",
+      "locations": [
+        {
+          "file": "30-boundary-west-lower-after.png",
+          "pixels": "x0-460,y900-1160"
+        }
+      ],
+      "action": "Assess on Pixel at actual scale while moving. No new large system or core redesign."
+    }
+  ],
+  "independent_review": {
+    "critical": 0,
+    "important": 0,
+    "minor": 2,
+    "verdict": "eligible_for_pixel_qa",
+    "report": "independent-review.md"
+  },
+  "limits": [
+    "These are isolated Unity fixture captures, not Pixel screenshots or user-save screenshots.",
+    "Stills and passing automated tests cannot establish real touch response, sustained NPC congestion, SafeArea on Pixel, audio volume/dropouts, save retention, heat/FPS, crash absence or600seconds of continuous play.",
+    "The APK itself is not included; its hash agrees across console/build metadata, but actual APK bytes must be hash-checked locally before installation.",
+    "No user approval/adoption is inferred from uploading artifacts. Pixel acceptance and Merge transition remain pending."
+  ],
+  "next": "Use the existing073237APK. Verify exact local SHA, update-install with install-r and explicit TownQA package/device, then actual five-area walking/display/coreloop/save/restart/600s acceptance. No Pull/rebuild for these evidence-only changes."
+}

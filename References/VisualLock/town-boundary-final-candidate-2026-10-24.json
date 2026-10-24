@@ -61,9 +61,11 @@
       "after_sha256": "5c5aa70f42148af268ba493881518a18c5204e1491cf80cc59b6991296d70064"
     }
   ],
-  "native_unity_verified": false,
-  "qa_apk_generated": false,
+  "native_unity_verified": true,
+  "qa_apk_generated": true,
   "pixel_verified": false,
   "adopted": false,
-  "merge_quality_pass_started": false
+  "merge_quality_pass_started": false,
+  "native_review": "References/Review/town-boundary-2026-10-25-candidate/native-review.json",
+  "native_review_scope": "Raw full native suite and AI image review of source5a49, ready for Pixel with J1/NP1. Not user adoption or actual Pixel acceptance."
 }

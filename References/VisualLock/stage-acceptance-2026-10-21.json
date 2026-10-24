@@ -188,7 +188,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "town_boundary_qa_success_reported_native_visual_and_pixel_pending",
+  "current_stage": "town_boundary_unity_reviewed_existing_apk_pixel_acceptance_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -698,12 +698,15 @@
     "editmode_passed": 143,
     "playmode_passed": 222,
     "native_capture_count_reported": 124,
-    "raw_xml_verified": false,
-    "source_revision": null,
+    "raw_xml_verified": true,
+    "source_revision": "5a49e3194260c05a8e96909b95bbd08bca1a6d76",
     "sha256_reported": "2b5193896965f805e086a51e5c19fbc1ae6a6ef6583aa8fd9755f0dfe8c6378a",
     "sha256_independently_verified": false,
     "record": "docs/verification/town-boundary-qa-build-screen-report-2026-10-25.json",
-    "scope": "Boundary QA full native/APK success reported. Native visual/source identity/Pixel acceptance pending; use this exact existing APK."
+    "scope": "Raw full native/build/capture identities verified; APK bytes SHA and Pixel acceptance remain pending.",
+    "build_info_received": true,
+    "native_images_verified": 124,
+    "native_review": "References/Review/town-boundary-2026-10-25-candidate/native-review.json"
   },
   "base_polish": "References/VisualLock/town-boundary-final-candidate-2026-10-24.json",
   "previous_qa_build_report": {
@@ -719,15 +722,19 @@
     "scope": "Current stage1 QA APK generated as reported; corrected Pixel appearance/input/save/600sec acceptance still pending."
   },
   "latest_town_boundary_native_run": {
-    "run": "20261025-071609-9974cf36",
+    "run": "20261025-073237-f8fd542b",
+    "source_revision": "5a49e3194260c05a8e96909b95bbd08bca1a6d76",
+    "editmode_total": 143,
+    "editmode_passed": 143,
     "playmode_total": 222,
-    "playmode_passed": 221,
-    "playmode_failed": 1,
-    "playmode_skipped": 0,
+    "playmode_passed": 222,
+    "failed": 0,
+    "skipped": 0,
     "raw_result_verified": true,
-    "evidence": "References/Review/full-playmode-2026-10-25-071609/receipt-and-diagnosis.json",
-    "repair": "docs/verification/south-entry-mesh-test-repair-2026-10-25.json",
-    "repaired_native_pass_verified": false
+    "native_images_verified": 124,
+    "native_review": "References/Review/town-boundary-2026-10-25-candidate/native-review.json",
+    "native_visual_status": "eligible_for_pixel_with_J1_NP1",
+    "pixel_verified": false
   },
   "qa_build_history": [
     {
@@ -755,5 +762,16 @@
       "scope": "Current stage1 QA APK generated as reported; corrected Pixel appearance/input/save/600sec acceptance still pending."
     }
   ],
-  "latest_town_boundary_success_report": "docs/verification/town-boundary-qa-build-screen-report-2026-10-25.json"
+  "latest_town_boundary_success_report": "docs/verification/town-boundary-qa-build-screen-report-2026-10-25.json",
+  "previous_town_boundary_native_run": {
+    "run": "20261025-071609-9974cf36",
+    "playmode_total": 222,
+    "playmode_passed": 221,
+    "playmode_failed": 1,
+    "playmode_skipped": 0,
+    "raw_result_verified": true,
+    "evidence": "References/Review/full-playmode-2026-10-25-071609/receipt-and-diagnosis.json",
+    "repair": "docs/verification/south-entry-mesh-test-repair-2026-10-25.json",
+    "repaired_native_pass_verified": false
+  }
 }

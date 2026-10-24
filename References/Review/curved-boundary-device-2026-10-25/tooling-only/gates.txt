@@ -1,0 +1,4 @@
+Boundary gate: original bindings retained; missing/mutated/new unrelated files and unknown scope rejected.
+Stage1 authorization: LF/CRLF approval identity preserved; changed approval content/title/camera/old-new hashes/missing approval/extra files rejected.
+Japanese Windows CP932 JSON failure reproduced; actual approved5-area QA prerequisites and script decoding/parser pass; device adoption remains unverified. No Unity/Pixel execution.
+CURRENT BOUNDARY/CAMERA/WINDOWS GATES PASSED

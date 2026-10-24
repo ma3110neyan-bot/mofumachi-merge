@@ -36,4 +36,28 @@ namespace Mofumachi.Presentation
             }
         }
     }
+    [RequireComponent(typeof(CanvasRenderer))]
+    public sealed class TownBoundaryCurveGraphic:MaskableGraphic
+    {
+        private static Texture2D painting;
+        private TownContinuousWorldView world;private TownPoint center;private float width=1.10f;
+        public override Texture mainTexture=>painting!=null?painting:painting=Resources.Load<Texture2D>(TownBoundaryCurveLayout.Resource);
+        public void Bind(TownContinuousWorldView source){world=source;raycastTarget=false;SetAllDirty();}
+        public void BindPreview(TownPoint source,float sourceWidth){world=null;center=source;width=sourceWidth;raycastTarget=false;SetAllDirty();}
+        public void SetPreview(TownPoint source,float sourceWidth){center=source;width=sourceWidth;SetVerticesDirty();}
+        public void Refresh()=>SetVerticesDirty();
+        protected override void OnPopulateMesh(VertexHelper vh)
+        {
+            vh.Clear();if(mainTexture==null)return;var rect=rectTransform.rect;
+            float scale=world!=null?world.RenderScale:rect.width/width;if(scale<=0)return;
+            foreach(var v in TownBoundaryCurveLayout.Vertices)
+            {
+                var local=world!=null?world.Local(v.World,rectTransform):rect.center+new Vector2((v.World.X-center.X)*scale,(v.World.Y-center.Y)*scale);
+                var tint=color;tint.a*=v.Alpha;vh.AddVert(local,tint,new Vector2(v.UV.X,v.UV.Y));
+            }
+            const int cols=TownBoundaryCurveLayout.Columns,rows=TownBoundaryCurveLayout.Rows;
+            for(int patch=0;patch<TownBoundaryCurveLayout.Patches;patch++)for(int row=0;row<rows-1;row++)for(int col=0;col<cols-1;col++)
+            {int i=patch*cols*rows+row*cols+col;vh.AddTriangle(i,i+cols,i+cols+1);vh.AddTriangle(i,i+cols+1,i+1);}
+        }
+    }
 }

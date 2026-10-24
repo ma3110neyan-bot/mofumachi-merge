@@ -17,6 +17,9 @@ namespace Mofumachi.Tests
             Assert.That(ground.mainTexture,Is.SameAs(Resources.Load<Texture2D>(TownWorldSurface.AtlasResource)));Assert.That(ground.color.a,Is.EqualTo(1));Assert.That(ground.raycastTarget,Is.False);
             var boundary=Flow.GetComponentsInChildren<TownBoundaryGardenGraphic>().Single();
             Assert.That(boundary.mainTexture,Is.SameAs(Resources.Load<Texture2D>(TownSceneryLayout.NatureResource)));Assert.That(boundary.raycastTarget,Is.False);
+            var curve=Flow.GetComponentsInChildren<TownBoundaryCurveGraphic>().Single();
+            Assert.That(curve.mainTexture,Is.SameAs(Resources.Load<Texture2D>(TownWestMasterLayout.Resource)));Assert.That(curve.raycastTarget,Is.False);
+            Canvas.ForceUpdateCanvases();Assert.That(curve.canvasRenderer.GetMesh().vertexCount,Is.EqualTo(272),"One bounded shared-texture curve batch, without per-flower objects");
             var scenery=life.GetComponent<TownSceneryView>();var landmarks=scenery.Pieces.Where(p=>p.Placement.Kind<=TownSceneryKind.Gazebo).ToArray();
             var villageAtlas=Resources.Load<Texture2D>(TownVillageDressing.AtlasResource);
             Assert.That(villageAtlas,Is.Not.Null,"The composed village artwork must be imported as a runtime resource");

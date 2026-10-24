@@ -1,5 +1,13 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-25最新：第1段階の境界を曲線で仕上げる限定実装。次工程順は噴水→代表1名2.5D→Mergeへ変更。** ユーザー「リリース品質改善・第1段階」を最優先。噴水／2.5D／Mergeを同時着手せず、境界の実機合格後に順番に進める。新PDF9+14ページを `References/Review/curved-boundary-device-2026-10-25/` に原本SHA付きで保持。Pixel継続文脈の実機画面で新外周・Coins330/Lv6を確認するが、APK照合・10分・保存復帰成功までは推定しない。
+
+実装はTownBoundaryGardenLayout/Graphicに4本の曲線地表帯を追加し、SouthGroundからライブ／成長プレビューへ共有。原画全体・5地区MasterLayout.Dressing・既存200外周Sprite・歩行／衝突・Core／保存／報酬・正式6名・図鑑／BGM／Mergeは不変。西東下端はSouth原画外(absx>=.92)、北側端はy>=1.23。原画端と同じUVで接続、内側重なり最大.006world・外側曲線幅.065〜.132world。既存WestTexture1共有・272頂点キャッシュ・raycast false。密度や歩行範囲を削らない。
+
+**新候補は実装済み・Unity再確認／新APK／Pixel未確認。** Beforeは直前5a49描画（新曲線のみOFF、外周植栽／入口帯は維持）の再現で、旧466再現を今回のBeforeとしない。歴史的APK／Pixelと偽らず、同条件11対／全5地区Lv1/3/6／124PNGを既存の全件TownQaで撮る。native宣言143/222維持。CPU曲線RED4→GREEN4・全315成功・API6DLL0警告エラー・関連3PSゲート／409fileCRLF入口通過、独立コードレビュー重要指摘なし。ただし自然に見えることは実Unity／Pixelで確認するまで未合格。
+
+現在lockは `References/VisualLock/curved-boundary-candidate-2026-10-25.json`。元354／15画像と歴史的digestは不変、現在digesta613c1a7…へ新SHAだけ束縛。旧5a49の143/222実成功・APK2b519…を新版へ流用しない。次はfeatureをPull→全件 -TownQa→failed0/skip0と124画像・同版APK/SHA→境界Before/After／全5地区確認→Pixel。今回の実コード変更後は再ビルドが必要で、先の「受領記録だけなら再ビルド不要」と区別する。手順／検証は `docs/superpowers/plans/2026-10-25-curved-boundary.md` と `docs/verification/curved-boundary-2026-10-25.json`。main禁止、画像をチャットへ貼らない。以下は履歴。
+
 **2026-10-25最新原本：街外周5a49e31の10ZIPを照合し、実Unity画像はPixel確認へ進行可。** run `20261025-073237-f8fd542b`、原136ファイル／PNG124枚を `References/Review/town-boundary-2026-10-25-candidate/` に保存。124画像全SHA・寸法720x1280・デコード、原XML143/143／222/222の全ケースPassed・failed0/skip0を確認。build-info/captureはgit5a49e31、productFingerprint ec37506a…が一致。APK118233994bytes／街QA ID／SHA2b519389…は先の画面とbuild-infoで一致するが、APK bytes未受領なので独立SHA再計算は未了。
 
 全124画像を確認。大きな緑の外周余白、南の長方形残像／石目ぼけ、東西の接続は改善。5地区Lv1/3/6の構成・密度・成長差・道・正式UI／図鑑を維持。旧浮いた4方向案内は見当たらない。独立実画像レビューCritical0／Important0／Minor2、Pixelへ進行可。**全ての継ぎ目が消えたとは報告しない。** J1＝西東下端y737-740／北左x326-329の既存直線／材質境界、NP1＝新しい外周の楕円花壇・明るい木の反復。採用可の実機判定はまだで、継ぎ目の見え方と反復をPixelで確認する。判定は `native-review.json`、独立報告も同フォルダ。

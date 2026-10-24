@@ -43,10 +43,14 @@
     }
   },
   "remaining_sequence": [
-    "town_boundary_native_comparison",
-    "town_boundary_same_source_qa_apk",
-    "town_boundary_pixel_acceptance",
-    "town_formal_base_lock",
+    "curved_boundary_native_comparison",
+    "curved_boundary_same_source_qa_apk",
+    "curved_boundary_pixel_acceptance",
+    "stage1_acceptance",
+    "fountain_effect_pass",
+    "fountain_pixel_acceptance",
+    "representative_character_2p5d_trial",
+    "representative_pixel_acceptance",
     "merge_quality_pass"
   ],
   "completed_after_central": [
@@ -56,7 +60,7 @@
     "south_garden",
     "connections"
   ],
-  "apk_generated": true,
+  "apk_generated": false,
   "pixel_verified": false,
   "adopted": false,
   "last_review": {
@@ -188,7 +192,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "town_boundary_unity_reviewed_existing_apk_pixel_acceptance_pending",
+  "current_stage": "curved_boundary_implemented_native_pixel_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -708,7 +712,7 @@
     "native_images_verified": 124,
     "native_review": "References/Review/town-boundary-2026-10-25-candidate/native-review.json"
   },
-  "base_polish": "References/VisualLock/town-boundary-final-candidate-2026-10-24.json",
+  "base_polish": "References/VisualLock/curved-boundary-candidate-2026-10-25.json",
   "previous_qa_build_report": {
     "run": "20261024-220250-ba90ed62",
     "status": "console_success_reported",
@@ -773,5 +777,6 @@
     "evidence": "References/Review/full-playmode-2026-10-25-071609/receipt-and-diagnosis.json",
     "repair": "docs/verification/south-entry-mesh-test-repair-2026-10-25.json",
     "repaired_native_pass_verified": false
-  }
+  },
+  "latest_user_stage_order": "2026-10-25 boundary stage1 -> fountain -> representative character2.5D -> Merge. Each stage passes before the next starts."
 }

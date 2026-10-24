@@ -1,0 +1,65 @@
+{
+  "stage": "release_quality_stage1_curved_boundary",
+  "date_jst": "2026-10-25",
+  "start_revision": "ac46d3c9352f291056b5d810939fdfeea99bbd68",
+  "before_renderer_revision": "5a49e3194260c05a8e96909b95bbd08bca1a6d76",
+  "authorization": "User release quality stage1, boundary-only, current good areas/graphics/walking preserved.",
+  "design": "docs/superpowers/specs/2026-10-25-curved-boundary-design.md",
+  "plan": "docs/superpowers/plans/2026-10-25-curved-boundary.md",
+  "device_before_receipt": "References/Review/curved-boundary-device-2026-10-25/receipt.json",
+  "candidate_lock": "References/VisualLock/curved-boundary-candidate-2026-10-25.json",
+  "source_status": {
+    "designed": true,
+    "implemented": true,
+    "new_native_unity_verified": false,
+    "new_qa_apk_generated": false,
+    "new_pixel_verified": false,
+    "stage1_passed": false,
+    "fountain_started": false,
+    "character_2p5d_started": false,
+    "merge_started": false,
+    "main_merged": false
+  },
+  "implemented": "Four narrow curved ground strips at exposed West/East lower ends and North sides, one cached272vertex batch sharing originalWest painting. ExactUV at cut, .006world same-texel overlap, curved outer transparent contour. Existing200plants/groundpaintings/roomlayouts/nav/save/rewards and later systems untouched.",
+  "verification": {
+    "red_curved_layout": {
+      "failed": 4,
+      "passed": 0
+    },
+    "focused_green": 4,
+    "complete_cpu": {
+      "passed": 315,
+      "failed": 0,
+      "skipped": 0
+    },
+    "unity_api_compile": {
+      "assemblies": 6,
+      "warnings": 0,
+      "errors": 0,
+      "not_native_execution": true
+    },
+    "native_declarations_only": {
+      "editmode": 143,
+      "playmode": 222
+    },
+    "selected_boundary_camera_windows_gates_passed": true,
+    "full_crlf_preflight": {
+      "passed": true,
+      "files": 409,
+      "actual_windows_execution": false
+    },
+    "current_render_digest": "a613c1a7bf348ae868812fef4ef6b27f3464101c07ad8d392d0fa96451519147",
+    "historical_original_digest_unchanged": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+    "original354_approval_and15_jpegs_unchanged": true,
+    "original200placement_code_unchanged": true,
+    "core_art_unchanged": true,
+    "fresh_review": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    }
+  },
+  "native_comparison": "11pairs/124PNGs retained; Before5a49 reconstructs by disabling only newcurve (previous planting and entry active), not historicalAPK/Pixel; Afterproductrenderer. Same camera/state, finally restores flag.",
+  "limits": "Cloud nativeEditor headlesslicense/Androidmodule/USB unavailable. Pure geometry, compilation and static review do not prove visual improvement or Pixel performance. Current-source native tests/APK/images and Pixel After remain pending. Prior5a49success is historical.",
+  "next": "Pull source change, one existing full -TownQa, inspect current Before/After and all5area Lv1/3/6 native images, new same-sourceAPK/SHA then Pixel. Stage1pass only after actual quality evidence; later order fountain→representative2.5D→Merge."
+}

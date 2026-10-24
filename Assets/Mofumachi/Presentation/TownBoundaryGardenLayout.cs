@@ -51,4 +51,39 @@ namespace Mofumachi.Presentation
             return Array.AsReadOnly(result.OrderByDescending(p=>p.Feet.Y).ToArray());
         }
     }
+    // Only the exposed outside edges, using the same painting as the original
+    // floor. Geometry is cached once; walking and existing dressing are untouched.
+    public static class TownBoundaryCurveLayout
+    {
+        public const string Resource=TownWestMasterLayout.Resource;
+        public const int Patches=4,Columns=17,Rows=4;
+        public static IReadOnlyList<(TownPoint World,TownPoint UV,float Alpha)> Vertices {get;}=BuildVertices();
+        public static (TownPoint World,TownPoint UV,float Alpha) GetVertex(int patch,float along,int row)
+        {
+            if(patch<0||patch>=Patches||row<0||row>=Rows||!float.IsFinite(along)||along<0||along>1)throw new ArgumentOutOfRangeException();
+            float wave=(float)Math.Sin(Math.PI*along),detail=(float)Math.Sin(3*Math.PI*along+patch*.7);
+            float depth=.065f+.055f*wave*wave+.012f*detail*detail;
+            float d=row==0?-.006f:row==1?0:depth*(row==2?.7f:1);
+            TownPoint world,sample;
+            if(patch<2)
+            {
+                float x=patch==0?-1.8f+.88f*along:.92f+.88f*along;
+                world=new TownPoint(x,-1-d);sample=new TownPoint(x,-1+Math.Abs(d));
+            }
+            else
+            {
+                float side=patch==2?-1:1,y=1.23f+2*along;
+                world=new TownPoint(side*(.6f+d),y);sample=new TownPoint(side*(.6f-Math.Abs(d)),y);
+            }
+            var uv=patch==0?TownWestMasterLayout.TexturePoint(sample):patch==1?TownEastMasterLayout.TexturePoint(sample):TownNorthMasterLayout.TexturePoint(sample);
+            float ends=Math.Min(1,along/.06f)*Math.Min(1,(1-along)/.06f);
+            return (world,uv,row==3?0:ends);
+        }
+        private static IReadOnlyList<(TownPoint World,TownPoint UV,float Alpha)> BuildVertices()
+        {
+            var result=new List<(TownPoint,TownPoint,float)>();
+            for(int p=0;p<Patches;p++)for(int row=0;row<Rows;row++)for(int col=0;col<Columns;col++)result.Add(GetVertex(p,col/(float)(Columns-1),row));
+            return result.AsReadOnly();
+        }
+    }
 }

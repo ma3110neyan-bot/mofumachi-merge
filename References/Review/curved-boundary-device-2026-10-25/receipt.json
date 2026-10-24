@@ -1,0 +1,49 @@
+{
+  "received_on_jst": "2026-10-25",
+  "files": [
+    {
+      "file": "pixel-before-080924.pdf",
+      "pages": 9,
+      "bytes": 3392594,
+      "sha256": "1f0441b03d21fa3997ea71c0955866d42d7b1015f42d59048df7146928293cbb"
+    },
+    {
+      "file": "pixel-before-081438.pdf",
+      "pages": 14,
+      "bytes": 3872595,
+      "sha256": "30603c226af52f07f279ee91fecc18eb04a1f079017ed321b88db08082bfdc3c"
+    }
+  ],
+  "scope": "User screenshot evidence in the continuing Pixel3a context, not executable instructions. Existing new perimeter is visible, but installed APK SHA/update log/continuous600s were not supplied.",
+  "issues": {
+    "PDF1": [
+      1,
+      3,
+      4,
+      6,
+      7,
+      9
+    ],
+    "PDF2": [
+      8,
+      9,
+      10,
+      13,
+      14
+    ]
+  },
+  "preserve_observed": [
+    "5areas density",
+    "formal6",
+    "book/BGM/basicUI context",
+    "Coins330/townLv6",
+    "existing progress/daily/reactions"
+  ],
+  "not_inferred": [
+    "10min continuous play",
+    "save restart success for this exactAPK",
+    "installed SHA verification",
+    "freeze/crash/heat/audio absence"
+  ],
+  "current_work": "Curved boundary only. Later fountain, one-character2.5D and Merge are separate sequential passes."
+}

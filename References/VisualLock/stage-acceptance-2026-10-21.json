@@ -43,10 +43,9 @@
     }
   },
   "remaining_sequence": [
-    "stage1_full_native_suite",
-    "stage1_qa_apk_identity",
+    "verify_new_success_xml_and_apk_identity",
     "pixel_update_install",
-    "stage1_five_area_coreloop_save_600s_acceptance"
+    "stage1_five_area_loop_save_600s_acceptance"
   ],
   "completed_after_central": [
     "west_cafe",
@@ -55,7 +54,7 @@
     "south_garden",
     "connections"
   ],
-  "apk_generated": false,
+  "apk_generated": true,
   "pixel_verified": false,
   "adopted": false,
   "last_review": {
@@ -187,7 +186,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "stage1_display_correction_implemented_native_pending",
+  "current_stage": "stage1_qa_apk_reported_pixel_update_install_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -692,6 +691,19 @@
   },
   "approved_base_lock": "References/VisualLock/five-area-approved-2026-10-24.json",
   "qa_build_report": {
+    "run": "20261024-220250-ba90ed62",
+    "status": "console_success_reported",
+    "editmode_passed": 143,
+    "playmode_passed": 222,
+    "raw_xml_verified": false,
+    "source_revision": null,
+    "sha256_reported": "297a7db4b2ab8848d9b4e97cf806563b08c53b62d6d4653d2a91266f1bbe96e8",
+    "sha256_independently_verified": false,
+    "record": "docs/verification/stage1-qa-build-screen-report-2026-10-24.json",
+    "scope": "Current stage1 QA APK generated as reported; corrected Pixel appearance/input/save/600sec acceptance still pending."
+  },
+  "base_polish": "References/VisualLock/stage1-display-candidate-2026-10-24.json",
+  "previous_qa_build_report": {
     "run": "20261024-185942-acab69f4",
     "status": "console_success_reported",
     "editmode_passed": 143,
@@ -702,6 +714,5 @@
     "sha256_independently_verified": false,
     "record": "docs/verification/five-area-qa-build-screen-report-2026-10-24.json",
     "scope": "Historical pre-polish Windows APK reported successful; current display correction requires a new same-source test/APK run."
-  },
-  "base_polish": "References/VisualLock/stage1-display-candidate-2026-10-24.json"
+  }
 }

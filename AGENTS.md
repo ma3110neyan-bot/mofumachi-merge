@@ -1,5 +1,9 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-24最新：第1段階修正版の全件143/143・222/222とQA APK生成を画面で確認。** run `20261024-220250-ba90ed62`、Unity102画像720x1280、報告SHA `297a7db4b2ab8848d9b4e97cf806563b08c53b62d6d4653d2a91266f1bbe96e8`。記録 `docs/verification/stage1-qa-build-screen-report-2026-10-24.json`。成功XML2件・build-info・APK原本は未受領で、SHA独立照合／新しいPixel実測は未確認。前回221/1原本は履歴として維持。原本未確認を隠さず、現在の画面成功と区別する。
+
+次は生成済み220250APKをそのまま使い、実APKとbuild-info／SHAを照合して `install-pixel3a.ps1 -PackageName com.mofumachi.merge.qa.townlife -Serial 99RAY1BELH` で更新（install-r）。記録更新だけでPullや再ビルドを要求しない。続いて北左右の余白・薄い文字消去・中央四方徒歩往復／タップ／NPC／カメラ／基本ループ／更新保存・再起動／600秒以上の実操作を確認。前版での保存復帰報告を新版の復帰確認へ流用しない。音が小さい／少し熱いという前版FB、S1南石目／J1西東境界は実機で確認。第1段階はまだ合格にしない。新機能・mainはしない。画像をチャットへ貼らない。以下は履歴。
+
 **2026-10-24最新原本：214249のPlayMode222中221成功／1失敗／skip0。旧案内文字テストだけ修正。** 原XML/logとSHAは `References/Review/full-playmode-2026-10-24-214249/`。唯一の失敗はSeamlessFieldTests.OneSharedGroundAndFiveLandmarksReplaceTheOpaquePainting:56の `.Single` が、ユーザー指示で除去済みの `Painted road direction 0` を必須取得していたため。こちらの検査更新漏れ。北カメラ／文字非表示の新CameraKeepsWaterActorsMarkersAndGrowthAlignedはこの実Unityで成功済み。
 
 ゲームは変更せず、SeamlessFieldTestsの旧取得・非表示確認とTownRegionFlowTestsの空になった旧ラベル位置ループを、inactive含む全案内Textの不在確認へ更新。5地区の原画／地表／投影／名前・HUD／操作／保存／納品・報酬の既存検査は維持。Native宣言222件維持、6asmdefコンパイル0警告エラー、描画digest7d1f305a…／354元承認＋許可済み2差分／15画像は不変。原本の221成功を修正版222成功と報告しない。修正版の全件Unity／APK／Pixelは未確認。次はPull後、承認済みの全件 -TownQa を再実行し、failed0/skip0後だけ同版APK/SHA／Pixelへ。画像をチャットに貼らない。以下は履歴。

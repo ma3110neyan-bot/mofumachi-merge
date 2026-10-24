@@ -29,13 +29,13 @@
     "raw_success_xml_verified": false
   },
   "qa_apk": {
-    "status": "generated_reported_in_console_metadata_and_bytes_pending",
+    "status": "current_stage1_generated_reported_raw_identity_pending",
     "app_id": "com.mofumachi.merge.qa.townlife",
-    "file": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261024-185942-acab69f4\\town-life-qa.apk",
-    "sha256": "c82c1f8148daad424ebfb7e988f22a08eb48aa57cfd37f80ad4fe2e80902fc67",
+    "file": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261024-220250-ba90ed62\\town-life-qa.apk",
+    "sha256": "297a7db4b2ab8848d9b4e97cf806563b08c53b62d6d4653d2a91266f1bbe96e8",
     "source_revision": null,
-    "evidence": "docs/verification/five-area-qa-build-screen-report-2026-10-24.json",
-    "sha256_independently_verified": false
+    "sha256_independently_verified": false,
+    "evidence": "docs/verification/stage1-qa-build-screen-report-2026-10-24.json"
   },
   "pixel_install": {
     "status": "user_reports_current_townQA_running_on_Pixel3a_sha_pending",
@@ -157,7 +157,7 @@
     "adb_or_pixel_usb_available": false,
     "game_input_changes": false
   },
-  "next_action": "Pull the bounded stage1 display correction, run full -TownQa once, retain new XML/APK/build-info, then safely update Pixel and verify the already-authorized loop/save/600s. Existing185942 APK is the before version.",
+  "next_action": "Use existing220250APK; no rebuild or Pull for record-only update. Verify local SHA/build-info, update-install townQA to Pixel99RAY1BELH, then stage1 four walking roundtrips/coreloop/save/600sec and display/audio/heat checks. Obtain current success XML2/build-info and install result.",
   "test_fixture_repair": {
     "record": "References/Review/full-playmode-2026-10-24-180636/receipt-and-diagnosis.json",
     "game_visuals_changed": false,
@@ -169,10 +169,20 @@
     "record": "docs/verification/stage1-stability-2026-10-24.json",
     "implemented": true,
     "native_verified": false,
-    "qa_apk_generated": false,
+    "qa_apk_generated": true,
     "pixel_verified": false,
     "note": "Earlier143/222 console success and APK185942 are preserved as pre-polish evidence, not success for these two display corrections.",
     "latest_native_evidence": "References/Review/full-playmode-2026-10-24-214249/receipt-and-diagnosis.json",
-    "status": "221passed1old_caption_test_failure_repaired_native_rerun_pending"
+    "status": "222of222_and_new_APK_reported_pixel_pending",
+    "latest_success_report": "docs/verification/stage1-qa-build-screen-report-2026-10-24.json"
+  },
+  "previous_qa_apk": {
+    "status": "generated_reported_in_console_metadata_and_bytes_pending",
+    "app_id": "com.mofumachi.merge.qa.townlife",
+    "file": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261024-185942-acab69f4\\town-life-qa.apk",
+    "sha256": "c82c1f8148daad424ebfb7e988f22a08eb48aa57cfd37f80ad4fe2e80902fc67",
+    "source_revision": null,
+    "evidence": "docs/verification/five-area-qa-build-screen-report-2026-10-24.json",
+    "sha256_independently_verified": false
   }
 }

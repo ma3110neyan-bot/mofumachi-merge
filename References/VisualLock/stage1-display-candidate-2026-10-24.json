@@ -20,7 +20,10 @@
     }
   ],
   "native_unity_verified": false,
-  "qa_apk_generated": false,
+  "qa_apk_generated": true,
   "pixel_verified": false,
-  "adopted": false
+  "adopted": false,
+  "qa_build_report": "docs/verification/stage1-qa-build-screen-report-2026-10-24.json",
+  "native_unity_success_reported": true,
+  "raw_success_xml_verified": false
 }

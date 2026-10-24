@@ -1,6 +1,6 @@
 {
   "stage": "1",
-  "status": "caption_test_assumption_repaired_fresh_native_pending",
+  "status": "all_native_and_apk_success_reported_pixel_update_pending",
   "authorization": "2026-10-24 user release-priority phase1 and floating-text followup",
   "source_evidence": "References/Review/stage1-device-2026-10-24/receipt.json",
   "candidate_lock": "References/VisualLock/stage1-display-candidate-2026-10-24.json",
@@ -58,7 +58,7 @@
     "asmdef_errors": 0,
     "native_case_inventory": 222,
     "new_full_native_verified": false,
-    "new_qa_apk_generated": false,
+    "new_qa_apk_generated": true,
     "new_pixel_verified": false,
     "strict_powershell_suites_passed": 13,
     "strict_powershell_suites_failed": 0,
@@ -76,7 +76,10 @@
       "errors": 0,
       "native_declarations": 222,
       "fresh_native_verified": false
-    }
+    },
+    "new_full_native_success_reported": true,
+    "new_qa_apk_generated_reported": true,
+    "apk_generation_evidence": "user_console_screenshot"
   },
   "major_issues": "No new major defect reported by user; crash absence and full progress are not yet proven.",
   "minor_carryovers": [
@@ -88,6 +91,14 @@
   "formal_base_adopted": false,
   "main_merged": false,
   "latest_windows_run": {
+    "run": "20261024-220250-ba90ed62",
+    "evidence": "docs/verification/stage1-qa-build-screen-report-2026-10-24.json",
+    "editmode_passed_reported": 143,
+    "playmode_passed_reported": 222,
+    "raw_success_xml_verified": false,
+    "qa_apk_generated_reported": true
+  },
+  "previous_raw_windows_run": {
     "run": "20261024-214249-2904cc95",
     "evidence": "User PowerShell screenshot,2026-10-24",
     "approval_preflight_passed": true,
@@ -103,5 +114,16 @@
     "cause": "SeamlessFieldTests expected the deliberately removed floating-caption Text object and Single threw; update2old caption assertions to require absence.",
     "playmode_passed": 221,
     "evidence_record": "References/Review/full-playmode-2026-10-24-214249/receipt-and-diagnosis.json"
+  },
+  "qa_apk": {
+    "run": "20261024-220250-ba90ed62",
+    "generation_status": "reported_success_in_user_console",
+    "path": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261024-220250-ba90ed62\\town-life-qa.apk",
+    "sha256_reported": "297a7db4b2ab8848d9b4e97cf806563b08c53b62d6d4653d2a91266f1bbe96e8",
+    "build_info_received": false,
+    "apk_bytes_received": false,
+    "sha256_independently_verified": false,
+    "source_revision": null,
+    "evidence": "docs/verification/stage1-qa-build-screen-report-2026-10-24.json"
   }
 }

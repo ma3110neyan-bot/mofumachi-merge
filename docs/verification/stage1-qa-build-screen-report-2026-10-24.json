@@ -1,0 +1,34 @@
+{
+  "received_on_jst": "2026-10-24",
+  "evidence": "User PowerShell screenshot; no success XML/build-info/APK bytes received yet.",
+  "run": "20261024-220250-ba90ed62",
+  "editmode": {
+    "passed_reported": 143,
+    "total_reported": 143,
+    "raw_xml_verified": false
+  },
+  "playmode": {
+    "passed_reported": 222,
+    "total_reported": 222,
+    "raw_xml_verified": false
+  },
+  "zero_fail_skip_gate_reported_passed": true,
+  "native_capture_count_reported": 102,
+  "capture_dimensions_reported": [
+    720,
+    1280
+  ],
+  "qa_apk_generated_reported": true,
+  "apk_path_reported": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261024-220250-ba90ed62\\town-life-qa.apk",
+  "apk_sha256_reported": "297a7db4b2ab8848d9b4e97cf806563b08c53b62d6d4653d2a91266f1bbe96e8",
+  "app_id_expected": "com.mofumachi.merge.qa.townlife",
+  "source_revision": null,
+  "build_info_received": false,
+  "apk_bytes_received": false,
+  "sha256_independently_verified": false,
+  "pixel_update_install_verified": false,
+  "pixel_new_correction_verified": false,
+  "continuous_600s_verified": false,
+  "stage1_passed": false,
+  "next": "Use this exact existing APK, verify its local hash/build-info, update-install with the existing Pixel tool and explicit townQA package; retain current saves. No rebuild for receipt-only changes."
+}

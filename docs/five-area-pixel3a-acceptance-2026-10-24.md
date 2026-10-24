@@ -2,9 +2,9 @@
 
 承認対象は638aa24の5エリア実Unity画面（20261024-110359-39b38515）。今回許可された北カメラと薄い道案内文字の表示だけを調整し、原画・配置・歩行面・保存・報酬・BGM・Mergeは維持します。今回はmain統合を行いません。
 
-run `20261024-185942-acab69f4` の143/143・222/222とAPK生成は修正前の成功画面です。ユーザーはPixel3aでの起動と再起動保存復帰を報告しています。今回の第1段階候補は北カメラ／薄い道案内ラベルを修正したため、Pull後に全件 -TownQa を1回実行し、新しい同版APKで更新・実機受入します。旧版成功を修正版へ流用しません。成功XML原本照合と600秒連続試遊は未完了です。
+現在はrun `20261024-220250-ba90ed62` の143/143・222/222、Unity102画像と修正版APK生成をPowerShell画面で確認済みです。生成済みAPKをそのまま使用し、下の「更新インストール」へ進みます。記録更新のPull・再ビルドは不要です。成功XML・build-info原本照合と、修正版のPixel実機・600秒連続試遊は未完了です。旧185942で報告された起動・保存復帰を修正版の実機結果へ流用しません。
 
-## 修正版：全件テストとAPK生成
+## 実行済み：修正版の全件テストとAPK生成
 
 1. GitHub Desktopで `feat/daily-world-pass-20261016` をPullし、Unityを閉じます。
 2. Windows PowerShellで実行します。
@@ -14,16 +14,16 @@ Set-Location -LiteralPath "C:\Users\User\Desktop\Mofumachi\mofumachi-merge"
 powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\build-android.ps1" -TownQa
 ```
 
-EditMode／PlayModeはフィルターなしの全件です。現在の宣言数はEditMode143（通常125＋BuildTime18）、PlayMode222。これは棚卸しであり成功結果ではありません。両XMLでfailed0／skipped0／passed=totalを確認してから、同じ版のAPKを生成しSHA256を記録します。停止時に古いAPKを使って先へ進めません。
+EditMode／PlayModeはフィルターなしの全件です。143（通常125＋BuildTime18）／222が実行され、最新のコンソールは全件成功・APK生成完了と報告しています。成功XML原本のfailed0／skipped0／passed=totalは別途照合します。
 
 今回のrunにある `editmode.xml`、`playmode.xml`、`build-info.json`、`capture-manifest.json` を保存してください。失敗時は同じrunのxml／logとPowerShell画面を共有します。画像一式は同runの `five-plaza-review-*.zip`。従来の非APK五地区レビューZIPと混ぜません。
 
 ## 更新インストール
 
-以下の `$MofuRun` には、上の修正版 -TownQa が最後まで成功した時に表示された新しい出力フォルダーを指定します。旧185942は修正前として保持し、修正版の受入には使いません。下記はAPK本体とbuild-infoのSHAが一致した時だけ街QAへ更新します。署名不一致等が出たら停止し、アンインストール／アプリデータ消去で回避しません。既存保存のない端末は「更新保存の保持」を実証できないため、その点を記録します。
+以下は生成済み220250版のAPK本体とbuild-infoのSHAが一致した時だけ街QAへ更新します。旧185942は修正前として保持します。署名不一致等が出たら停止し、アンインストール／アプリデータ消去で回避しません。既存保存のない端末は「更新保存の保持」を実証できないため、その点を記録します。
 
 ```powershell
-$MofuRun = "C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Android\今回の修正版成功フォルダー"
+$MofuRun = "C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Android\20261024-220250-ba90ed62"
 $MofuInfo = Get-Content -LiteralPath (Join-Path $MofuRun "build-info.json") -Raw -Encoding UTF8 | ConvertFrom-Json
 $MofuApk = Join-Path $MofuRun "town-life-qa.apk"
 if (-not $MofuInfo.townQa -or $MofuInfo.appId -ne "com.mofumachi.merge.qa.townlife" -or (Get-FileHash -LiteralPath $MofuApk -Algorithm SHA256).Hash -ne $MofuInfo.sha256) { throw "今回の街QA APKとSHA256を確認できません。" }

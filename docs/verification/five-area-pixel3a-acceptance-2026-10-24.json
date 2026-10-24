@@ -1,0 +1,128 @@
+{
+  "approved_visual_source": "638aa2474a93d2cc21768e030a7100972c5c446e",
+  "approved_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "approved_by": "user",
+  "approved_on_jst": "2026-10-24",
+  "approval_reference": "5エリア統合候補 承認 → 全件テスト・QA APK・Pixel3a確認",
+  "visual_quality_frozen": true,
+  "new_game_features_added": false,
+  "full_unity_tests": {
+    "status": "pending_actual_execution",
+    "declared_editmode_cases": 143,
+    "declared_playmode_cases": 222,
+    "editmode_passed": null,
+    "playmode_passed": null,
+    "failed": null,
+    "skipped": null,
+    "previous16_cases_not_reused": true
+  },
+  "qa_apk": {
+    "status": "not_generated",
+    "app_id": "com.mofumachi.merge.qa.townlife",
+    "file": null,
+    "sha256": null,
+    "source_revision": null
+  },
+  "pixel_install": {
+    "status": "pending",
+    "mode": "update_-r",
+    "model": null,
+    "installed_apk_sha256": null,
+    "existing_save_retained": null
+  },
+  "five_areas": {
+    "West": {
+      "outward_walk": null,
+      "return_to_central": null,
+      "display_quality": null,
+      "levels_checked": []
+    },
+    "East": {
+      "outward_walk": null,
+      "return_to_central": null,
+      "display_quality": null,
+      "levels_checked": []
+    },
+    "North": {
+      "outward_walk": null,
+      "return_to_central": null,
+      "display_quality": null,
+      "levels_checked": []
+    },
+    "South": {
+      "outward_walk": null,
+      "return_to_central": null,
+      "display_quality": null,
+      "levels_checked": []
+    }
+  },
+  "central_display_quality": null,
+  "display": {
+    "text_clipping": null,
+    "safe_area": null,
+    "nameplates": null,
+    "bubbles": null,
+    "hud_visibility": null,
+    "south_paving_softness": null,
+    "west_east_material_joins": null
+  },
+  "core_loop": {
+    "status": "pending",
+    "steps": [
+      "TOP",
+      "town",
+      "walk",
+      "request",
+      "Merge",
+      "delivery",
+      "reward",
+      "town_growth",
+      "character_book",
+      "exit",
+      "restart",
+      "save_restore"
+    ],
+    "results": null
+  },
+  "save_restore": {
+    "status": "pending",
+    "pre_exit_state": null,
+    "post_restart_state": null,
+    "duplicate_reward_prevented": null
+  },
+  "continuous_play": {
+    "status": "pending",
+    "minimum_seconds": 600,
+    "start_utc": null,
+    "end_utc": null,
+    "actual_play_seconds": null,
+    "actions": null,
+    "progress_blocker": null
+  },
+  "device_behavior": {
+    "slowness": null,
+    "heat": null,
+    "freeze": null,
+    "crash": null,
+    "tap_response": null,
+    "camera": null,
+    "npc_movement": null
+  },
+  "carried_minors": [
+    "S1 South entry soft stone outlines",
+    "J1 inherited West/East material boundaries"
+  ],
+  "major_device_issues": "not_assessed",
+  "formal_base_candidate_eligible": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "main_merged": false,
+  "local_preflight": {
+    "quality_lock_files": 354,
+    "approval_and_QA_gate": "passed",
+    "strict_powershell_suites_passed": 12,
+    "android_gate_after_edit_minimum143": "passed",
+    "new_behavior_regressions": "Frozen scenery and legitimate post-review approval state were RED then GREEN.",
+    "scope": "QA tooling verification only. Native commands/device and comparison drawing mocked where required; no full Unity/APK/Pixel success inferred."
+  }
+}

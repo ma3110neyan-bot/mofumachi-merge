@@ -32,15 +32,12 @@ try {
     Assert-SouthReviewPrerequisites $Repo
     Assert-FiveAreaReviewPrerequisites $Repo
 
-    # Correct decoding is not permission to bypass the South or APK gates.
-    foreach($Checkpoint in @('south_garden','five_area')) {
-        $Rejected=$false
-        try {Assert-TownCheckpointApproved $Repo $Checkpoint} catch {
-            if($_.Exception.Message -notlike '*Town quality regressed or unreviewed: south_garden/density*'){throw}
-            $Rejected=$true
-        }
-        if(-not $Rejected){throw "Unapproved checkpoint opened: $Checkpoint"}
-    }
+    # The latest real user approval now permits testing and QA building.
+    foreach($Checkpoint in @('south_garden','five_area')) {Assert-TownCheckpointApproved $Repo $Checkpoint}
+    Assert-BaseStagesReadyForAcceptance $Repo
+    # Native image approval never grants device/release adoption.
+    $Stages=Microsoft.PowerShell.Management\Get-Content -LiteralPath $StagePath -Raw -Encoding UTF8 | ConvertFrom-Json
+    if($Stages.pixel_verified -or $Stages.adopted){throw 'Image approval was confused with device adoption.'}
     if((Get-FileHash -LiteralPath $StagePath -Algorithm SHA256).Hash -ne $Before){throw 'Encoding fix rewrote the user approval record.'}
     # PS5.1 also decodes dot-sourced scripts with the system ANSI code page.
     # Test the actual reader/parser, not only the JSON readers: an UTF8 script
@@ -51,7 +48,7 @@ try {
     if($Decoded -ne [IO.File]::ReadAllText($ScriptPath,[Text.Encoding]::UTF8)){throw 'Legacy host corrupted review script strings.'}
     $Tokens=$null;$ParseErrors=$null;$null=[Management.Automation.Language.Parser]::ParseInput($Decoded,[ref]$Tokens,[ref]$ParseErrors)
     if(@($ParseErrors).Count -gt 0){throw 'Legacy host cannot parse the actual review helper.'}
-    Write-Host 'Japanese Windows CP932 JSON failure reproduced; actual South/five-area review prerequisites and script decoding/parser pass; final quality/integration acceptance stays closed. No Unity/Pixel execution.'
+    Write-Host 'Japanese Windows CP932 JSON failure reproduced; actual approved5-area QA prerequisites and script decoding/parser pass; device adoption remains unverified. No Unity/Pixel execution.'
 } finally {
     Remove-Item Function:Get-Content
 }

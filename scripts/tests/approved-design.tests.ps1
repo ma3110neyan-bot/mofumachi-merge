@@ -121,6 +121,14 @@ try {
     $Approved.user_review_checkpoints.south_garden.user_approved=$true
     $Approved | ConvertTo-Json -Depth 12 | Set-Content -LiteralPath $Stage
     Assert-BaseStagesReadyForAcceptance $Root
+    # Approved scenery outside the route digest must remain frozen as well.
+    $Scenery=Join-Path $Root 'approved-scenery.png';[IO.File]::WriteAllBytes($Scenery,[byte[]]@(1,2,3,4))
+    $Approved.approved_base_lock='References/VisualLock/five-area-approved.json'
+    @{files=@(@{path='approved-scenery.png';mode='binary';sha256=(Get-FileHash -LiteralPath $Scenery -Algorithm SHA256).Hash.ToLowerInvariant()})} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $Root $Approved.approved_base_lock)
+    $Approved | ConvertTo-Json -Depth 12 | Set-Content -LiteralPath $Stage
+    Assert-BaseStagesReadyForAcceptance $Root
+    [IO.File]::WriteAllBytes($Scenery,[byte[]]@(1,2,3,5));Reject {Assert-BaseStagesReadyForAcceptance $Root}
+    [IO.File]::WriteAllBytes($Scenery,[byte[]]@(1,2,3,4))
     $OldSource=[IO.File]::ReadAllText((Join-Path $Root (Get-CentralInputPaths)[0]))
     [IO.File]::AppendAllText((Join-Path $Root (Get-CentralInputPaths)[0]),'changed')
     Reject {Assert-CentralStageApproved $Root}
@@ -143,8 +151,8 @@ try {
     $Complete.town_density=$true;$Complete.merge_fun=$true;$Complete | ConvertTo-Json | Set-Content -LiteralPath $Adoption
     Assert-BaseAdoption $Adoption
     Assert-ApprovedVisualLock (Join-Path $PSScriptRoot '../..')
-    # The real central checkpoint can now pass after a native image review.
-    # A central-only checkpoint must still refuse the full QA APK pipeline.
-    Reject {Assert-BaseStagesReadyForAcceptance (Join-Path $PSScriptRoot '../..')}
+    # The real user has now approved the complete5-area638aa24 candidate.
+    # This opens testing/building, not device/release adoption.
+    Assert-BaseStagesReadyForAcceptance (Join-Path $PSScriptRoot '../..')
     Write-Host 'Approved design, source/evidence hashes and mandatory stage order checked. Synthetic images only; no Unity or Pixel execution.'
 } finally {Remove-Item -LiteralPath $Root -Recurse -Force}

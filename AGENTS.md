@@ -1,5 +1,11 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-24最優先：ユーザーが638aa24の5エリア統合候補をUnity実画面ベースで明示承認。追加確認不要で受入へ。** 中央・西・東・北・南の役割／色調／密度／Lv1/3/6／南庭園・中央接続を固定。`References/VisualLock/five-area-approved-2026-10-24.json` は実承認・JPEG15枚・承認済みruntime/Core/Resources/Scenesの354ファイルSHAを束縛し、既存全件QA入口で検査する。ゲームコード・原画・保存・報酬・Merge・BGM・キャラ・新機能は変更しない。悪化時ロールバック。軽微S1南石目のぼけ／J1西東材質境界は実機確認へ持越し、これだけで停止・再制作しない。
+
+次の順序は全件UnityEditMode/PlayMode→failed0/skip0→同版TownQAAPK→SHA256→Pixel3a更新install-r→全5地区の徒歩往復／表示／カメラ／NPC→TOP・依頼・Merge・納品・報酬・街成長・図鑑→終了再起動保存復帰→600秒以上の連続実試遊。現在宣言数143EditMode/222PlayModeは棚卸しで、実成功件数ではない。南の旧条件付き45f識別子／JPEGは履歴と順序の証拠として保持し、最新638aa24品質の明示承認を別に関連付けた。古い実画像・16対象ケースを全件／端末成功に流用しない。
+
+**現在：5地区Unity画像承認済み・全件／QAAPK／Pixel受入は未確認。** クラウドにはAndroidPlayerモジュール・ADB・PixelUSBがない。Windowsの既存 `build-android.ps1 -TownQa`／`install-pixel3a.ps1`／`capture-pixel-visual-check.ps1` を再利用し、新しいゲーム機能・試遊自動化装置を増やさない。手順 `docs/five-area-pixel3a-acceptance-2026-10-24.md`、結果 `docs/verification/five-area-pixel3a-acceptance-2026-10-24.json`。必要なハード実行以外は進め、同じ承認を再要求しない。保存消去・アンインストール・署名不一致回避は禁止。全合格後にのみ正式ベース候補、Pixel未確認を完成としない。main統合は別途承認のまま。画像をチャットへ貼らない。以下は履歴で本段を優先。
+
 **2026-10-24最新受領：5エリア638aa24は実Unityの統合承認候補。ユーザー承認待ち。** repackされた5ZIPの全67原本SHA、manifest05b7cfc96030cb33473ffe64fa17aeae3304918592b9321a4f68564837c0fb11、27新版PNG・Before15・5地区6経路・実XMLを照合。撮影638aa24／run20261024-110359-39b38515は南Finalと同一。対象16/16は同じ既存1回で、再包装で成功件数を加算しない。原本・判定は `References/Review/five-area-2026-10-24-revised-candidate/`。15同寸JPEG／中央互換記録は原本からの派生で、新撮影ではない。
 
 中央・西・東・北21枚中20枚は前版と同一。中央Lv1の差2651pixelは噴水水面61／モモ1352／ルル1238のみ、景観・配置・HUD・名前位置は不変。南6枚は先の南Finalと同一。役割・色調・密度・Lv1/3/6・接続・導線を実画像で確認し、独立レビューもCritical0 Important0。軽微S1南入口の石目の柔らかい重なり、J1西・東の既存材質／石目切替は持越し。全てのテクスチャ継ぎ目が消えたとは報告しない。ゲームC#・原画・歩行面・正式キャラ・保存・報酬・Merge・BGMは今回無変更。

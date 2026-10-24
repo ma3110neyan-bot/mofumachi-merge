@@ -7,7 +7,7 @@ if(-not(Get-Command Write-SouthFinalReview -ErrorAction SilentlyContinue)){throw
 function Reject([scriptblock]$Action){$Rejected=$false;try{& $Action}catch{$Rejected=$true};if(-not $Rejected){throw 'Invalid five-area review was accepted.'}}
 $Repo=(Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
 Assert-FiveAreaReviewPrerequisites $Repo
-Reject {Assert-TownCheckpointApproved $Repo 'five_area'}
+Assert-TownCheckpointApproved $Repo 'five_area'
 $Root=Join-Path ([IO.Path]::GetTempPath()) ('mofu-five-area-'+[guid]::NewGuid())
 try {
     New-Item -ItemType Directory -Path $Root -Force | Out-Null
@@ -27,6 +27,18 @@ try {
     $Conditions.native_after_adjustments_verified=$true;$Conditions | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $ConditionPath -Encoding UTF8
     Assert-SouthFinalReviewConditions $ConditionsRepo
     $Conditions.native_after_adjustments_verified=$false;[IO.File]::WriteAllBytes($ConditionPath,$Saved)
+    # A later explicit integrated approval is a legitimate recorded state.
+    # Keep source-bound review packaging usable without granting adoption.
+    $StageFixture=Join-Path $ConditionsRepo $StageRelative;$SavedStage=[IO.File]::ReadAllBytes($StageFixture)
+    $Stage.user_review_checkpoints.five_area.user_approved=$true
+    $Stage | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath $StageFixture -Encoding UTF8
+    $Conditions.integration_user_approved=$true;$Conditions | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $ConditionPath -Encoding UTF8
+    Assert-SouthFinalReviewConditions $ConditionsRepo
+    $Conditions.integration_user_approved=$false;$Conditions | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $ConditionPath -Encoding UTF8
+    Reject {Assert-SouthFinalReviewConditions $ConditionsRepo}
+    [IO.File]::WriteAllBytes($StageFixture,$SavedStage);[IO.File]::WriteAllBytes($ConditionPath,$Saved)
+    $Stage=Get-Content -LiteralPath $StageFixture -Raw -Encoding UTF8 | ConvertFrom-Json
+    $Conditions=Get-Content -LiteralPath $ConditionPath -Raw -Encoding UTF8 | ConvertFrom-Json
     foreach($Key in @('garden_rest_implemented','level_three_implemented','circulation_verified','ground_alignment_implemented','integration_review_authorized_by_user')) {
         $Conditions.$Key=$false;$Conditions | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $ConditionPath -Encoding UTF8
         Reject {Assert-SouthFinalReviewConditions $ConditionsRepo};$Conditions.$Key=$true

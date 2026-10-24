@@ -26,7 +26,7 @@ function Assert-SouthFinalReviewConditions([string]$RepositoryPath) {
     }
     $Conditions=Get-Content -LiteralPath (Resolve-FiveAreaEvidencePath $RepositoryPath $Approval.conditions_record) -Raw -Encoding UTF8 | ConvertFrom-Json
     foreach($Key in @('garden_rest_implemented','level_three_implemented','circulation_verified','ground_alignment_implemented','integration_review_authorized_by_user')){if($Conditions.$Key -isnot [bool] -or $Conditions.$Key -ne $true){throw "South condition incomplete: $Key"}}
-    if($Conditions.approved_base_revision -ne $Approval.reviewed_candidate -or $Conditions.native_after_adjustments_verified -isnot [bool] -or $Conditions.integration_user_approved -ne $false){throw 'Review authorization must distinguish implemented corrections from native/user acceptance.'}
+    if($Conditions.approved_base_revision -ne $Approval.reviewed_candidate -or $Conditions.native_after_adjustments_verified -isnot [bool] -or $Conditions.integration_user_approved -isnot [bool] -or $Conditions.integration_user_approved -ne $Stage.user_review_checkpoints.five_area.user_approved){throw 'Review authorization must distinguish implemented corrections from native/user acceptance.'}
     if(@($Conditions.adjusted_files).Count -ne 6 -or @($Conditions.frozen_files).Count -lt 16){throw 'South conditions must bind all adjusted inputs and the frozen four-area scenery/navigation.'}
     foreach($File in @($Conditions.adjusted_files)+@($Conditions.frozen_files)) {
         $Path=Resolve-FiveAreaEvidencePath $RepositoryPath $File.file

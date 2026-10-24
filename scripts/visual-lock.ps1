@@ -129,6 +129,12 @@ function Assert-TownCheckpointApproved([string]$RepositoryPath,[string]$Checkpoi
 function Assert-BaseStagesReadyForAcceptance([string]$RepositoryPath) {
     Assert-CentralStageApproved $RepositoryPath
     $Stages=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/stage-acceptance-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    $BaseLock=$Stages.PSObject.Properties['approved_base_lock']
+    if($BaseLock) {
+        $Relative=[string]$BaseLock.Value
+        if(-not $Relative -or [IO.Path]::IsPathRooted($Relative) -or $Relative -match '(^|[/\\])\.\.([/\\]|$)' -or $Relative.Contains(':')){throw 'Approved base lock must use a repository-relative path.'}
+        Assert-BaseVisualLock $RepositoryPath (Join-Path $RepositoryPath $Relative)
+    }
     $Required=@('west_cafe','east_florist_shop','north_quest','south_garden','connections')
     $Completed=@($Stages.completed_after_central)
     if($Completed.Count -lt $Required.Count){throw 'QA APK blocked: finish west/east/north/south/connections in order, with user image approvals.'}

@@ -6,8 +6,8 @@
   "ground_alignment_implemented": true,
   "integration_review_authorized_by_user": true,
   "native_after_adjustments_verified": true,
-  "integration_user_approved": false,
-  "scope": "Actual638aa24 South repairs and full5-area native visuals reviewed; user integrated approval, full native suite, QA APK and Pixel remain pending.",
+  "integration_user_approved": true,
+  "scope": "Historical45f conditional-source identity retained; actual638aa24 repairs and integrated visuals are now explicitly user-approved. Full native suite/APK/device outcomes remain unverified.",
   "adjusted_files": [
     {
       "file": "Assets/Mofumachi/Presentation/TownSouthMasterLayout.cs",
@@ -210,5 +210,6 @@
     "record": "References/Review/five-area-2026-10-24-candidate/native-review.json",
     "note": "The false native_after_adjustments_verified flag is retained for overall condition fulfillment: actual native execution is now reviewed, but garden density and entry continuity fail. It no longer means no native run was received.",
     "scope": "Historical d8 HOLD; the new South-only revision awaits a new native run."
-  }
+  },
+  "integration_approval_record": "References/VisualLock/five-area-approved-2026-10-24.json"
 }

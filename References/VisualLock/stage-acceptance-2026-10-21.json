@@ -43,10 +43,10 @@
     }
   },
   "remaining_sequence": [
-    "five_area_user_approval",
     "full_native_suite",
     "qa_apk",
-    "pixel_acceptance"
+    "pixel_update_install",
+    "pixel_five_area_loop_save_soak_acceptance"
   ],
   "completed_after_central": [
     "west_cafe",
@@ -69,8 +69,9 @@
     "north_visual": true,
     "south_visual": true,
     "integrated_visual": true,
-    "user_approved": false,
-    "record": "References/Review/five-area-2026-10-24-revised-candidate/native-review.json"
+    "user_approved": true,
+    "record": "References/Review/five-area-2026-10-24-revised-candidate/native-review.json",
+    "approval_record": "References/VisualLock/five-area-approved-2026-10-24.json"
   },
   "previous_review": {
     "candidate": "d8e649b7802292ca552d564427bc4b720fa8dca4",
@@ -186,7 +187,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "five_area_user_approval_pending",
+  "current_stage": "full_native_suite_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -409,15 +410,15 @@
         }
       ],
       "quality": {
-        "density": false,
+        "density": true,
         "cuteness": true,
-        "walkability": false,
+        "walkability": true,
         "ui_readability": true,
-        "level_difference": false,
-        "world": false,
+        "level_difference": true,
+        "world": true,
         "characters": true
       },
-      "status": "Conditional user authorization on the actual45f205d images: bounded South corrections followed by five-area review. Historical HOLD quality axes remain; unseen new images are not approved.",
+      "status": "Historical45f conditional-source/images retained for sequence. Its authorized repairs are fulfilled by638aa24 native review and explicit2026-10-24 approval of all5areas; current visual quality linkage below is not a retag of the old images.",
       "conditional": true,
       "conditions_record": "docs/verification/south-final-conditions-2026-10-23.json",
       "latest_condition_review": {
@@ -435,12 +436,38 @@
         "reference": "「現状判定を承認します」「今回触るのは南エリアのみです」",
         "approves_repair_work": true,
         "approves_new_candidate_images": false
+      },
+      "current_quality_approval": {
+        "candidate": "638aa2474a93d2cc21768e030a7100972c5c446e",
+        "input_fingerprint": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+        "approved_by": "user",
+        "approval_record": "References/VisualLock/five-area-approved-2026-10-24.json",
+        "images": [
+          {
+            "district": "South",
+            "level": 1,
+            "file": "References/Review/five-area-2026-10-24-revised-candidate/south/south-lv1.jpg",
+            "sha256": "06426a3a97cfb5bc5d6cfa575cee77e8fb167a4ae404338fd3a3b3f70503a00a"
+          },
+          {
+            "district": "South",
+            "level": 3,
+            "file": "References/Review/five-area-2026-10-24-revised-candidate/south/south-lv3.jpg",
+            "sha256": "f112869660f04ddea50d6c35383081f3593961001fa8423b1ce226dd5232ce83"
+          },
+          {
+            "district": "South",
+            "level": 6,
+            "file": "References/Review/five-area-2026-10-24-revised-candidate/south/south-lv6.jpg",
+            "sha256": "6057da3373e90135446db45398ef6245c72d95fdc5cf6c5b4280ec370565a890"
+          }
+        ]
       }
     },
     "five_area": {
-      "user_approved": false,
-      "approved_by": null,
-      "approval_reference": null,
+      "user_approved": true,
+      "approved_by": "user",
+      "approval_reference": "2026-10-24 user:「5エリア統合候補をUnity実画面ベースで承認します。」「中央・西・東・北・南の現在品質を基準として固定してください。」全件テスト→failed0/skip0→QA APK/SHA→Pixel3a更新インストール→5エリア・コアループ・保存復帰・10分以上連続試遊を明示承認。main統合は含まない。",
       "native_unity": true,
       "reviewed_candidate": "638aa2474a93d2cc21768e030a7100972c5c446e",
       "input_fingerprint": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
@@ -546,7 +573,8 @@
         "world": true,
         "characters": true
       },
-      "status": "Manual and independent actual5-area native review pass as candidate. Existing16-case run counted once. Await explicit user image approval before full suite/APK/Pixel; ZIP upload is not approval."
+      "status": "Explicitly approved by user on2026-10-24. Current5-area visuals frozen; full native/QAAPK/Pixel acceptance authorized, not yet verified.",
+      "approval_record": "References/VisualLock/five-area-approved-2026-10-24.json"
     }
   },
   "deferred_until_five_area_acceptance": [
@@ -661,5 +689,6 @@
       "S1",
       "J1"
     ]
-  }
+  },
+  "approved_base_lock": "References/VisualLock/five-area-approved-2026-10-24.json"
 }

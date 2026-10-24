@@ -30,9 +30,12 @@ namespace Mofumachi.Tests
             yield return EnterHome();var session=Session();var actors=Flow.GetComponentsInChildren<TownActor>();
             Assert.That(actors.Length,Is.EqualTo(6));Assert.That(actors.Count(a=>a.Controlled),Is.EqualTo(1));
             Assert.That(actors.Select(a=>a.CharacterId),Is.EquivalentTo(CharacterCatalog.All.Select(c=>c.Id)));
-            Assert.That(actors.Count(a=>Region(a)==TownRegionId.West),Is.EqualTo(2));
-            Assert.That(actors.Count(a=>Region(a)==TownRegionId.Central),Is.EqualTo(3));
-            Assert.That(actors.Count(a=>Region(a)==TownRegionId.East),Is.EqualTo(1));
+            // Two gather in Central and one inhabits each compass area.
+            // North/South keep the legacy Central save category, not a third
+            // resident in a former three-region distribution.
+            foreach(var district in TownDistrictLayout.All)
+                Assert.That(actors.Count(a=>TownDistrictLayout.At(a.WorldPosition)==district),Is.EqualTo(district==TownDistrictId.Central?2:1),district.ToString());
+            foreach(var actor in actors)Assert.That(Region(actor),Is.EqualTo(TownDistrictLayout.LegacyRegion(TownDistrictLayout.At(actor.WorldPosition))));
             Assert.That(actors.Select(a=>TownDistrictLayout.At(a.WorldPosition)).Distinct(),Is.EquivalentTo(TownDistrictLayout.All));
             Assert.That(actors.Where(a=>!a.Controlled).All(a=>a.Movement==null),Is.True);
             Assert.That(Read<TownRegionId>(session,"HeroRegion"),Is.EqualTo(TownRegionId.Central));LogAssert.NoUnexpectedReceived();

@@ -43,7 +43,21 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;((RectTransform)canvas.transform).sizeDelta=new Vector2(360,740);
             Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,740),new Rect(0,24,360,684));Canvas.ForceUpdateCanvases();
-            var life=Flow.GetComponentInChildren<TownLifeView>();life.Regions.LookAtRegion(TownRegionId.West);var actors=life.Actors.Where(a=>!a.Controlled&&a.RegionId==TownRegionId.West).ToArray();Assert.That(actors.Length,Is.EqualTo(2));bool greeted=false;
+            var life=Flow.GetComponentInChildren<TownLifeView>();life.Regions.LookAtRegion(TownRegionId.West);
+            // The approved initial town has one western NPC. Arrange two real
+            // NPCs only in this isolated conversation fixture; this is not a
+            // capture or evidence that they walked to the meeting point.
+            Advance(life,3.1f);life.StartInteraction();
+            var positions=new[]{new TownPoint(-1.2f,-.3f),new TownPoint(-1.2f,-.45f)};var ids=new[]{"lulu","pom"};
+            for(int i=0;i<ids.Length;i++)
+            {
+                Assert.That(life.World.Model.Area.Contains(positions[i]),Is.True);
+                life.World.Model.Restore(ids[i],positions[i]);
+                var resident=life.World.Model.Residents.Single(a=>a.Id==ids[i]);
+                Assert.That(TownWorldLayout.Distance(resident.Position,positions[i]),Is.LessThan(.0001f));Assert.That(resident.PauseRemaining,Is.Zero);
+            }
+            life.World.LookAt(TownDistrictId.West);life.RefreshWorldPresentation();Canvas.ForceUpdateCanvases();
+            var actors=life.Actors.Where(a=>!a.Controlled&&a.RegionId==TownRegionId.West).ToArray();Assert.That(actors.Select(a=>a.CharacterId),Is.EquivalentTo(ids));Assert.That(actors.All(a=>a.RegionVisible),Is.True);bool greeted=false;
             for(int i=0;i<3600&&!greeted;i++){life.AdvanceFrame(1f/30);greeted=Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"&&t.text.Contains("こんにちは"));}
             Assert.That(greeted,Is.True);actors=life.Actors.Where(a=>life.World.Model.Residents.Single(r=>r.Id==a.CharacterId).PauseRemaining>0).ToArray();Assert.That(actors.Length,Is.EqualTo(2),"Inspect the two actors of the actual encounter");var paused=actors.Select(a=>a.WorldPosition).ToArray();Advance(life,.5f);
             foreach(var actor in actors)Assert.That(life.World.Model.Residents.Single(r=>r.Id==actor.CharacterId).PauseRemaining,Is.GreaterThan(0));

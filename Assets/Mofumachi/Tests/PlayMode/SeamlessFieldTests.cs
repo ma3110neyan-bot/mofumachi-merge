@@ -19,7 +19,17 @@ namespace Mofumachi.Tests
             var villageAtlas=Resources.Load<Texture2D>(TownVillageDressing.AtlasResource);
             Assert.That(villageAtlas,Is.Not.Null,"The composed village artwork must be imported as a runtime resource");
             var details=life.GetComponentsInChildren<TownVillageDetailGraphic>(true);Assert.That(details.Length,Is.GreaterThan(0));
-            foreach(var detail in details){Assert.That(detail.mainTexture,Is.SameAs(villageAtlas));Assert.That(detail.raycastTarget,Is.False);}
+            int checkedDetails=0;
+            foreach(var piece in scenery.Pieces)
+            {
+                var detail=piece.Rect.GetComponent<TownVillageDetailGraphic>();if(detail==null)continue;
+                // Approved benches, lamps, flowers and parcels share their
+                // respective original atlases, rather than one village sheet.
+                var source=TownVillageDressing.SpriteSource(piece.Placement.Kind);
+                var atlas=Resources.Load<Texture2D>(source.Resource);Assert.That(atlas,Is.Not.Null,source.Resource);
+                Assert.That(detail.mainTexture,Is.SameAs(atlas),piece.Placement.Kind.ToString());Assert.That(detail.raycastTarget,Is.False);checkedDetails++;
+            }
+            Assert.That(checkedDetails,Is.EqualTo(details.Length),"Every composed detail must retain its source-bound shared atlas");
             Assert.That(landmarks.Select(p=>p.Placement.Kind),Is.EquivalentTo(new[]{TownSceneryKind.Cafe,TownSceneryKind.Florist,TownSceneryKind.QuestCottage,TownSceneryKind.Gazebo}));
             foreach(var landmark in landmarks)
             {var graphic=landmark.Rect.GetComponent<TownLandmarkGraphic>();Assert.That(graphic.mainTexture,Is.SameAs(Resources.Load<Texture2D>(TownSceneryLayout.LandmarkResource)));Assert.That(graphic.raycastTarget,Is.False);}

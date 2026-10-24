@@ -1,0 +1,63 @@
+{
+  "actual_run": "20261024-171445-86b77f6e",
+  "received_native_result": {
+    "total": 222,
+    "passed": 217,
+    "failed": 5,
+    "skipped": 0,
+    "duration_seconds": 237.1635724,
+    "start_utc": "2026-10-24 08:16:22Z",
+    "end_utc": "2026-10-24 08:20:19Z"
+  },
+  "diagnosis": [
+    {
+      "case": "QualityPassStoryGrowthTests.DeliveryShowsPersonalThanksAndReunionSurvivesReloadWithoutRewardReplay",
+      "cause": "The test frames West then taps Lulu, who now inhabits Central. Offscreen React is intentionally ignored, leaving no bubble.",
+      "correction": "Frame actual Lulu position with phone viewport before tap; retain thanks/reunion/reward/save assertions."
+    },
+    {
+      "case": "QualityPassStoryGrowthTests.EveryDeliveryAndGrowthStoryFitsShortSafePortraits",
+      "cause": "Story-copy height enumeration includes best-fit architectural signage inside scaled world previews. Its unshrunk preferredHeight is not a screen-story paragraph measurement.",
+      "correction": "Scope height checks to player-facing screen copy outside TownSceneryView; title/description/buttons/comparison labels remain checked. Does not establish world plaque readability."
+    },
+    {
+      "case": "SeamlessFieldTests.OneSharedGroundAndFiveLandmarksReplaceTheOpaquePainting",
+      "cause": "The singleVillageAtlas assumption predates approved per-kind street/growth/decoration/parcel atlas composition.",
+      "correction": "Check every scenePiece detail against its placement catalog resource and ensure all detail components covered, retain no-input/landmark/ground checks."
+    },
+    {
+      "case": "TownRegionFlowTests.SixOfficialCharactersHaveOneControllerAcrossFiveDistricts",
+      "cause": "Old legacy population2West3Central1East differs from actual1West4Central1East. North/South retain legacyCentral save category.",
+      "correction": "Check exact2Central plus1percompass district, all6official IDs/onehero and legacy region mapping."
+    },
+    {
+      "case": "TownRegionLifeTests.TwoResidentsMeetAndResumeInVisibleRegion",
+      "cause": "Approved initialWest has one NPC; the old fixture requires2before it exercises conversation.",
+      "correction": "Explicitly arrange2real NPCs in an isolated validFloor proximity fixture after social-clock warmup, then retain actual greeting/pause/resume checks. This setup is not arrival/walking evidence."
+    }
+  ],
+  "changed_scope": "Four PlayMode test files only; all354frozen runtime files and approved renderdigest remain unchanged.",
+  "tests_removed": 0,
+  "tests_ignored": 0,
+  "native_cases_after_repair": 222,
+  "local_validation": {
+    "cpu_passed": 302,
+    "cpu_failed": 0,
+    "cpu_skipped": 0,
+    "unity_dll_builds": 6,
+    "dll_warnings": 0,
+    "dll_errors": 0,
+    "actual_QA_preflight": "passed",
+    "approved_game_hashes": 354
+  },
+  "independent_test_review": {
+    "critical": 0,
+    "important": 0,
+    "scope": "Test-only fix review; no actual Unity/Pixel execution."
+  },
+  "native_after_repair_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "next": "Pull feature then run full -TownQa again; only fresh failed0/skip0 full XML can enable QA APK generation."
+}

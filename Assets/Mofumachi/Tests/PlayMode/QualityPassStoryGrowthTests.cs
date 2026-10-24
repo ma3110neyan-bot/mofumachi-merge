@@ -59,7 +59,13 @@ namespace Mofumachi.Tests
             Assert.That(Flow.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Growth region ")),Is.EqualTo(3));
             Assert.That(Flow.GetComponentsInChildren<TownGrowthView>().Length,Is.EqualTo(2),"Compare the same region before and after the delivery");
             Flow.ContinueAfterGrowth();Flow.Initialize(Store);Flow.ShowHome();var life=Flow.GetComponentInChildren<TownLifeView>();
-            life.Regions.LookAtRegion(TownRegionId.West);int writes=Store.Writes;life.Actors.Single(a=>a.CharacterId=="lulu").React();
+            life=FrameTownPortrait();var requester=life.Actors.Single(a=>a.CharacterId=="lulu");
+            // Lulu now gathers in Central. Frame her actual position before
+            // tapping; offscreen residents intentionally cannot be tapped.
+            life.World.LookAt(TownDistrictLayout.At(requester.WorldPosition));
+            life.World.Camera.Jump(new TownPoint(requester.WorldPosition.X,requester.WorldPosition.Y+.18f));
+            life.World.Refresh();life.AdvanceFrame(1f/30);Canvas.ForceUpdateCanvases();
+            Assert.That(requester.RegionVisible,Is.True);int writes=Store.Writes;requester.React();
             Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town bubble").text,Does.Contain(QuestStoryPresentation.For("tea-01").Reunion));
             Assert.That(Flow.Game.State.coins,Is.EqualTo(30));Assert.That(Flow.Game.State.claimedRewardIds.Count,Is.EqualTo(1));Assert.That(Store.Writes,Is.EqualTo(writes));LogAssert.NoUnexpectedReceived();
         }
@@ -76,7 +82,11 @@ namespace Mofumachi.Tests
                 {
                     root.sizeDelta=new Vector2(360,height);var page=UIWidgets.Node("Story layout sample",root,new Rect(0,0,1,1));var delivery=new DeliveryPresentation(quest,quest.Coins,QuestCatalog.All.ToList().IndexOf(quest),QuestCatalog.All.ToList().IndexOf(quest)+1);
                     if(grown)RewardGrowthScreens.BuildGrowth(page,context,delivery);else RewardGrowthScreens.BuildResult(page,context,delivery);Canvas.ForceUpdateCanvases();
-                    foreach(var t in page.GetComponentsInChildren<Text>().Where(t=>t.text.Length>0))Assert.That(t.preferredHeight,Is.LessThanOrEqualTo(t.rectTransform.rect.height+1),quest.Id+" "+t.name);
+                    // Measure screen copy, not the best-fit architectural
+                    // lettering inside the scaled before/after town previews.
+                    // preferredHeight measures that tiny sign at its unshrunk
+                    // font size; its world geometry is not story paragraph UI.
+                    foreach(var t in page.GetComponentsInChildren<Text>().Where(t=>t.text.Length>0&&t.GetComponentInParent<TownSceneryView>()==null))Assert.That(t.preferredHeight,Is.LessThanOrEqualTo(t.rectTransform.rect.height+1),quest.Id+" "+t.name);
                     var description=page.GetComponentsInChildren<Text>().Single(t=>t.name==(grown?"Growth description":"Reward description"));
                     if(!grown){var next=page.GetComponentsInChildren<Button>().Single(b=>b.name=="Show growth");Assert.That(Bounds(page,next.transform as RectTransform).Overlaps(Bounds(page,description.rectTransform)),Is.False);}
                     Object.DestroyImmediate(page.gameObject);

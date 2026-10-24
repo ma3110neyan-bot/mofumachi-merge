@@ -1,0 +1,63 @@
+{
+  "received_on_jst": "2026-10-24",
+  "run": "20261024-171445-86b77f6e",
+  "source_revision_provided_in_files": null,
+  "inspected_repository_revision": "48413ea2f03ed15da679aad40f9228c1e142bcd4",
+  "full_playmode": {
+    "total": 222,
+    "passed": 217,
+    "failed": 5,
+    "skipped": 0,
+    "duration_seconds": 237.1635724,
+    "start_utc": "2026-10-24 08:16:22Z",
+    "end_utc": "2026-10-24 08:20:19Z"
+  },
+  "editmode": {
+    "passed": 143,
+    "total": 143,
+    "evidence": "user PowerShell screenshot; raw EditMode XML not received"
+  },
+  "failures": [
+    {
+      "name": "Mofumachi.Tests.QualityPassStoryGrowthTests.DeliveryShowsPersonalThanksAndReunionSurvivesReloadWithoutRewardReplay",
+      "message": "System.InvalidOperationException : Sequence contains no matching element",
+      "stack": "  at System.Linq.Enumerable.Single[TSource] (System.Collections.Generic.IEnumerable`1[T] source, System.Func`2[T,TResult] predicate) [0x00070] in <f1b392d8fe224ca2b1f9fab1000b77eb>:0 \n  at Mofumachi.Tests.QualityPassStoryGrowthTests+<DeliveryShowsPersonalThanksAndReunionSurvivesReloadWithoutRewardReplay>d__2.MoveNext () [0x00207] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\QualityPassStoryGrowthTests.cs:63 \n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52 "
+    },
+    {
+      "name": "Mofumachi.Tests.QualityPassStoryGrowthTests.EveryDeliveryAndGrowthStoryFitsShortSafePortraits",
+      "message": "  flower-01 Cottage request plaque\n  Expected: less than or equal to 6.09674835f\n  But was:  20.0f\n",
+      "stack": "at Mofumachi.Tests.QualityPassStoryGrowthTests.<EveryDeliveryAndGrowthStoryFitsShortSafePortraits>g__Check|4_0 (System.Boolean grown, Mofumachi.Tests.QualityPassStoryGrowthTests+<>c__DisplayClass4_0& ) [0x00129] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\QualityPassStoryGrowthTests.cs:79\nat Mofumachi.Tests.QualityPassStoryGrowthTests+<EveryDeliveryAndGrowthStoryFitsShortSafePortraits>d__4.MoveNext () [0x0018c] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\QualityPassStoryGrowthTests.cs:85\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    },
+    {
+      "name": "Mofumachi.Tests.SeamlessFieldTests.OneSharedGroundAndFiveLandmarksReplaceTheOpaquePainting",
+      "message": "  Expected: same as <TownVillageDetailsAtlas (UnityEngine.Texture2D)>\n  But was:  <TownStreetPropsAtlas (UnityEngine.Texture2D)>\n",
+      "stack": "at Mofumachi.Tests.SeamlessFieldTests+<OneSharedGroundAndFiveLandmarksReplaceTheOpaquePainting>d__0.MoveNext () [0x0016d] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\SeamlessFieldTests.cs:22\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    },
+    {
+      "name": "Mofumachi.Tests.TownRegionFlowTests.SixOfficialCharactersHaveOneControllerAcrossFiveDistricts",
+      "message": "  Expected: 2\n  But was:  1\n",
+      "stack": "at Mofumachi.Tests.TownRegionFlowTests+<SixOfficialCharactersHaveOneControllerAcrossFiveDistricts>d__5.MoveNext () [0x000eb] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\TownRegionFlowTests.cs:33\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    },
+    {
+      "name": "Mofumachi.Tests.TownRegionLifeTests.TwoResidentsMeetAndResumeInVisibleRegion",
+      "message": "  Expected: 2\n  But was:  1\n",
+      "stack": "at Mofumachi.Tests.TownRegionLifeTests+<TwoResidentsMeetAndResumeInVisibleRegion>d__4.MoveNext () [0x00125] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\TownRegionLifeTests.cs:46\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    }
+  ],
+  "files": [
+    {
+      "file": "playmode.xml",
+      "bytes": 190839,
+      "sha256": "e5e201b71f5b3dbbb3af75ab0d7c69160d6c8f6c66f3a05ec9b261dc0c58fb45"
+    },
+    {
+      "file": "playmode.log",
+      "bytes": 323175,
+      "sha256": "07e6dca428ee4ee7bc051d3520e6f813b0f534e5c9de4f463e9f2774a9a8789b"
+    }
+  ],
+  "apk_generated_this_run": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "note": "Actual full Windows failure before APK generation. Five stale test setup/measurement assumptions under investigation. Raw logs/XML preserved."
+}

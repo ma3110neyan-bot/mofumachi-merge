@@ -23,13 +23,28 @@ try {
     $Base='References/VisualLock/base.json';$BaseFile=Join-Path $Root $Base
     @{files=@(@{path=$Camera;mode='lf-text';sha256=$Old},@{path=$View;mode='lf-text';sha256=$OldView},@{path='title.cs';mode='lf-text';sha256=(Get-VisualLockDigest ([IO.File]::ReadAllBytes($Title)))})} | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $BaseFile -Encoding UTF8
     $PatchFile=Join-Path $Root 'References/VisualLock/camera-candidate.json'
-    $Patch=@{authorized_by='user';authorization_reference='User requested stage1 minimal camera/caption correction';base_lock=$Base;base_lock_sha256=(Get-FileHash -LiteralPath $BaseFile -Algorithm SHA256).Hash;changes=@(@{path=$Camera;before_sha256=$Old;after_sha256=$New},@{path=$View;before_sha256=$OldView;after_sha256=$NewView})}
+    $BaseText=[IO.File]::ReadAllText($BaseFile).Replace("`r`n","`n")
+    $Patch=@{authorized_by='user';authorization_reference='User requested stage1 minimal camera/caption correction';base_lock=$Base;base_lock_hash_mode='lf-text';base_lock_sha256=(Get-VisualLockDigest ([Text.Encoding]::UTF8.GetBytes($BaseText)));changes=@(@{path=$Camera;before_sha256=$Old;after_sha256=$New},@{path=$View;before_sha256=$OldView;after_sha256=$NewView})}
     $ApprovedChanges=@($Patch.changes)
     @{base_polish='References/VisualLock/camera-candidate.json'} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $Root 'References/VisualLock/stage-acceptance-2026-10-21.json') -Encoding UTF8
     function SavePatch {$Patch | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $PatchFile -Encoding UTF8}
     SavePatch
     $Valid=Get-BasePolishPatch $Root
     Assert-BaseVisualLock $Root $BaseFile $Valid.After
+    # Windows Git checks the same JSON out as CRLF. Approval identity must
+    # survive that conversion, while changed text must still be rejected.
+    [IO.File]::WriteAllText($BaseFile,$BaseText.Replace("`n","`r`n"))
+    $Valid=Get-BasePolishPatch $Root
+    Assert-BaseVisualLock $Root $BaseFile $Valid.After
+    [IO.File]::WriteAllText($BaseFile,$BaseText.Replace($Old,('0'*64)))
+    Reject {Get-BasePolishPatch $Root}
+    [IO.File]::WriteAllText($BaseFile,$BaseText)
+    $Patch.base_lock_hash_mode='unknown';SavePatch;Reject {Get-BasePolishPatch $Root}
+    $Patch.base_lock_hash_mode='lf-text';SavePatch
+    # Records without an explicit mode keep their original binary contract.
+    $Patch.Remove('base_lock_hash_mode');SavePatch;$null=Get-BasePolishPatch $Root
+    [IO.File]::WriteAllText($BaseFile,$BaseText.Replace("`n","`r`n"));Reject {Get-BasePolishPatch $Root}
+    [IO.File]::WriteAllText($BaseFile,$BaseText);$Patch.base_lock_hash_mode='lf-text';SavePatch
     [IO.File]::WriteAllText($Title,'regressed title');Reject {Assert-BaseVisualLock $Root $BaseFile $Valid.After}
     [IO.File]::WriteAllText($Title,"frozen title`n")
     $Patch.authorized_by='agent';SavePatch;Reject {Get-BasePolishPatch $Root};$Patch.authorized_by='user'
@@ -42,5 +57,5 @@ try {
     [IO.File]::WriteAllText($ViewFile,'another caption implementation');Reject {Get-BasePolishPatch $Root}
     [IO.File]::WriteAllText($ViewFile,"captions removed`n")
     Remove-Item -LiteralPath $PatchFile;Reject {Get-BasePolishPatch $Root}
-    Write-Host 'Stage1 camera authorization: exact delta allowed; changed title/camera/old-new hashes/missing approval/extra files rejected.'
+    Write-Host 'Stage1 authorization: LF/CRLF approval identity preserved; changed approval content/title/camera/old-new hashes/missing approval/extra files rejected.'
 } finally {Remove-Item -LiteralPath $Root -Recurse -Force}

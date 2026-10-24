@@ -1,0 +1,36 @@
+{
+  "reported_on_jst": "2026-10-24",
+  "error_received": "Original base approval was changed. at scripts/visual-lock.ps1:46",
+  "failure_stage": "QA preflight before any Unity test or APK generation",
+  "user_base_file_bytes_received": false,
+  "root_cause_reproduced": {
+    "cause": "The added patch gate hashed raw approval JSON bytes, whereas Windows Git autocrlf may turn LF into CRLF without changing approved content.",
+    "published_lf_sha256": "e70eb3532ff987a1def4e2a101426b8098452308f21544f5ab83e4ac7a5ea9a4",
+    "git_autocrlf_checkout_raw_sha256": "aab50c379f1f75daba07708e86212708d19a914e072fb3e7092b3a32c48fe2f9",
+    "crlf_line_count": 1897,
+    "json_values_identical": true,
+    "git_diff_clean": true,
+    "lf_normalized_sha256_identical": true,
+    "regression_failed_before_fix": true
+  },
+  "fix": {
+    "base_lock_hash_mode": "lf-text",
+    "rule": "Normalize CRLF to LF and hash UTF8 text; preserve original snapshot and its published hash. Other content differences still fail. Existing records without a mode retain strict binary hashing.",
+    "actual_git_checkout_accepted_after_fix": true,
+    "content_mutation_rejected": true,
+    "unknown_mode_rejected": true
+  },
+  "verification": {
+    "game_and_test_assets_unchanged_since": "b20d5e86c488ffc38ebc9379d7e97030e73543dc",
+    "approval_snapshot_unchanged": true,
+    "new_native_unity_verified": false,
+    "new_qa_apk_generated": false,
+    "new_pixel_verified": false,
+    "strict_powershell_suites_passed": 13,
+    "strict_powershell_suites_failed": 0,
+    "actual_git_crlf_full_approval_preflight_passed": true,
+    "full_preflight_required_files": 403,
+    "windows_os_execution_performed": false
+  },
+  "next": "Pull feature after tooling fix, rerun the already-authorized full -TownQa; do not edit approval JSON, change Git line-ending settings or disable integrity gates."
+}

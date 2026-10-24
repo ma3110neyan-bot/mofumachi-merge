@@ -3,6 +3,7 @@
   "authorization_reference": "2026-10-24 user: リリース優先・段階改善指示の第1段階。接続・カメラの最小修正と、追加FB「薄く文字が浮かび上がる箇所を通常プレイ画面では表示されないよう修正」を明示許可。",
   "scope": "Only north camera envelope and removal of floating road-direction Text objects; no assets/walking/gameplay/save/audio changes.",
   "base_lock": "References/VisualLock/five-area-approved-2026-10-24.json",
+  "base_lock_hash_mode": "lf-text",
   "base_lock_sha256": "e70eb3532ff987a1def4e2a101426b8098452308f21544f5ab83e4ac7a5ea9a4",
   "reviewed_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
   "candidate_render_digest": "7d1f305a0227a220959ba3b1e93dfb38f0cddb95229899e71ead423f4a63e8d4",

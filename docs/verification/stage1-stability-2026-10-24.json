@@ -68,7 +68,8 @@
     "review_critical": 0,
     "review_important_found": 1,
     "review_important_fixed": 1,
-    "historical_as_fresh_regression": "Observed RED; default/current validation and explicit historical mode now pass."
+    "historical_as_fresh_regression": "Observed RED; default/current validation and explicit historical mode now pass.",
+    "windows_qa_preflight_repair": "docs/verification/stage1-windows-base-hash-2026-10-24.json"
   },
   "major_issues": "No new major defect reported by user; crash absence and full progress are not yet proven.",
   "minor_carryovers": [

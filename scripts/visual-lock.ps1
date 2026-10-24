@@ -43,7 +43,14 @@ function Get-BasePolishPatch([string]$RepositoryPath) {
     $BaseRelative=[string]$Record.base_lock
     if(-not $BaseRelative -or [IO.Path]::IsPathRooted($BaseRelative) -or $BaseRelative -match '(^|[/\\])\.\.([/\\]|$)' -or $BaseRelative.Contains(':')){throw 'Unsafe base polish baseline path.'}
     $BasePath=Join-Path $RepositoryPath $BaseRelative
-    if($Record.base_lock_sha256 -notmatch '^[a-fA-F0-9]{64}$' -or (Get-FileHash -LiteralPath $BasePath -Algorithm SHA256).Hash -ne $Record.base_lock_sha256){throw 'Original base approval was changed.'}
+    $ModeProperty=$Record.PSObject.Properties['base_lock_hash_mode']
+    $BaseMode=if($ModeProperty){[string]$ModeProperty.Value}else{'binary'}
+    # Match the existing lf-text input locks across Git's Windows CRLF checkout.
+    # The original approval file and its recorded content hash stay unchanged.
+    if($BaseMode -eq 'lf-text'){$BaseBytes=[Text.Encoding]::UTF8.GetBytes([IO.File]::ReadAllText($BasePath).Replace("`r`n","`n"))}
+    elseif($BaseMode -eq 'binary'){$BaseBytes=[IO.File]::ReadAllBytes($BasePath)}
+    else {throw 'Unknown base approval hash mode.'}
+    if($Record.base_lock_sha256 -notmatch '^[a-fA-F0-9]{64}$' -or (Get-VisualLockDigest $BaseBytes) -ne $Record.base_lock_sha256){throw 'Original base approval content was changed.'}
     $Base=Get-Content -LiteralPath $BasePath -Raw -Encoding UTF8 | ConvertFrom-Json
     $Changes=@($Record.changes)
     $Allowed=@('Assets/Mofumachi/Presentation/TownWorldLayout.cs','Assets/Mofumachi/Presentation/TownContinuousWorldView.cs')

@@ -1,5 +1,9 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-24最新：Windows全件QA開始前の承認SHA誤停止を修正。** ユーザー画面の `Original base approval was changed.` は新しい照合のraw SHA判定。実Git core.autocrlf=true checkoutで承認JSONのLF→CRLF1897行、rawSHA e70eb3…→aab50c…、JSON内容同一・Git差分0のまま同停止を再現した。`base_lock_hash_mode=lf-text` を候補に明記し、既存入力lock同様にUTF8/LF正規化して元のe70eb3…と照合する。承認スナップショットや記録SHAを差替えず、実内容変更は拒否する。mode省略の古い記録はbinary厳密のまま。証拠は `docs/verification/stage1-windows-base-hash-2026-10-24.json`。
+
+今回追加の変更は検査スクリプト／候補のhash mode／関連テスト・記録だけ。b20d5e8の北カメラ・薄文字修正、原画・ゲーム・保存はそのまま。CRLF回帰RED→GREENと実Git checkoutの照合成功を確認、全13PS成功、403必要ファイルの実Git CRLF checkoutでも全承認ゲート通過。修正版の全件Unity／APK／Pixelは依然未確認。反映後はGitHub DesktopでPullし同じ -TownQa を再実行。ユーザーへ承認JSONの手修正・Git設定変更・照合無効化を案内しない。以下は履歴。
+
 **2026-10-24最優先：リリース優先・第1段階＋実機追加FB。** 現在ベースを維持し、接続／移動／既存ループ／保存／Pixel600秒実試遊だけを進める。新機能・mainは禁止。ユーザーは添付PDF27ページについてPixel3a・今回TownQAと明示し、再起動保存復帰成功を報告。音が小さい／少し熱いとの体感あり、600秒・FPS・音切れ・クラッシュなしは未確認。原本PDFとSHA／範囲は `References/Review/stage1-device-2026-10-24/receipt.json`。画像をチャットに貼らない。
 
 今回の修正は2ファイルだけ：TownWorldLayoutの北カメラ横範囲（左右空白へのPanを制限、南の既存方式を適用）とTownContinuousWorldViewの浮いた4方向案内Textの生成・更新の除去。後者はユーザーの追加FB「通常プレイ画面では表示されないよう修正」の明示許可。地区HUD・名前札・会話・原画・密度・Walkable Area・NPC／選択キャラ動作・保存・報酬・Merge・BGMを変えない。選択キャラは待機中に自律散歩せず、指示済みの移動と短いドラッグ減速はある。動作変更は優先修正後の確認に回す。

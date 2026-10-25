@@ -16,15 +16,16 @@ namespace Mofumachi.Presentation
         private readonly TownSceneryView[] scenery=new TownSceneryView[2];
         private readonly TownFountainGraphic[] fountain=new TownFountainGraphic[2];
         private readonly TownGrowthView[] growth=new TownGrowthView[2];
-        private readonly Button[] buttons=new Button[3];private DeliveryPresentation delivery;
+        private readonly Button[] buttons=new Button[5];private DeliveryPresentation delivery;private Text afterLabel;
         public void Bind(ScreenContext c,DeliveryPresentation result)
         {
             delivery=result;var root=(RectTransform)transform;
-            for(int i=0;i<3;i++)
+            string[] labels={"西\nカフェ","中央\n噴水","東\n花屋","北\n依頼","南\n庭園"};
+            for(int i=0;i<5;i++)
             {
-                var region=(TownRegionId)i;var column=UIWidgets.Node("Growth region column",root,new Rect(i/3f,0,1/3f,1));
-                buttons[i]=c.Widgets.Button("Growth region "+region,i==0?"西のカフェ":i==1?"中央広場":"東の花屋",column,new Rect(0,0,1,1),()=>Show(region),true);
-                UIWidgets.Top((RectTransform)buttons[i].transform,4,54,4,48);buttons[i].GetComponentInChildren<Text>().fontSize=14;
+                var district=(TownDistrictId)i;var column=UIWidgets.Node("Growth region column",root,new Rect(i/5f,0,1/5f,1));
+                buttons[i]=c.Widgets.Button("Growth region "+district,labels[i],column,new Rect(0,0,1,1),()=>Show(district),true);
+                UIWidgets.Top((RectTransform)buttons[i].transform,2,54,2,48);buttons[i].GetComponentInChildren<Text>().fontSize=12;
             }
             for(int i=0;i<2;i++)
             {
@@ -39,14 +40,14 @@ namespace Mofumachi.Presentation
                 scenery[i]=preview.gameObject.AddComponent<TownSceneryView>();scenery[i].BindPreview(new TownPoint(0,0),.70f);
                 fountain[i]=UIWidgets.Node("Growth fountain",preview,new Rect(0,0,1,1)).gameObject.AddComponent<TownFountainGraphic>();fountain[i].BindPreview(new TownPoint(0,0),.70f);
                 growth[i]=UIWidgets.Node("Growth preview decorations",preview,new Rect(0,0,1,1)).gameObject.AddComponent<TownGrowthView>();growth[i].BindPreview(c,new TownPoint(0,0),.70f);
-                var text=c.Widgets.Label(i==0?"Growth before label":"Growth after label",i==0?"お届けの前":"お届けのあと",column,new Rect(0,0,1,1),14);UIWidgets.Top(text.rectTransform,4,206,4,24);
+                var text=c.Widgets.Label(i==0?"Growth before label":"Growth after label",i==0?"お届けの前":"お届けのあと",column,new Rect(0,0,1,1),12);UIWidgets.Top(text.rectTransform,4,206,4,24);if(i==1)afterLabel=text;
             }
-            Show(TownRegionId.Central);
+            Show(TownDistrictId.Central);
         }
-        private void Show(TownRegionId region)
+        private void Show(TownDistrictId district)
         {
-            var addition=TownGrowthPresentation.FocusFor(region,delivery.CurrentTownLevel);
-            var anchor=addition?.Position??TownWorldMap.Place(region==TownRegionId.West?"west.entry":region==TownRegionId.East?"east.entry":"square");
+            var region=TownDistrictLayout.LegacyRegion(district);
+            var anchor=TownGrowthPresentation.FocusForDistrict(district,delivery.CurrentTownLevel);
             var center=new TownPoint(anchor.X,anchor.Y+.07f);
             for(int i=0;i<2;i++)
             {
@@ -54,7 +55,8 @@ namespace Mofumachi.Presentation
                 growth[i].SetPreview(center,.70f);growth[i].SetRegion(region);growth[i].Apply(i==0?delivery.PreviousTownLevel:delivery.CurrentTownLevel);growth[i].transform.SetAsLastSibling();
             }
             growth[1].HighlightNewStage(delivery.PreviousTownLevel,delivery.CurrentTownLevel);
-            for(int i=0;i<buttons.Length;i++)buttons[i].GetComponent<RoundedPanelGraphic>().color=(int)region==i?UIWidgets.BlushPaper:UIWidgets.Cream;
+            afterLabel.text=TownGrowthPresentation.ChangeSummary(district,delivery.PreviousTownLevel,delivery.CurrentTownLevel);
+            for(int i=0;i<buttons.Length;i++)buttons[i].GetComponent<RoundedPanelGraphic>().color=(int)district==i?UIWidgets.BlushPaper:UIWidgets.Cream;
         }
     }
 }

@@ -1,0 +1,3 @@
+Lv1 front-left-far rim-right-front passed with live NPCs; actual pixels remain unverified.
+Lv3 front-left-far rim-right-front passed with live NPCs; actual pixels remain unverified.
+Lv6 front-left-far rim-right-front passed with live NPCs; actual pixels remain unverified.

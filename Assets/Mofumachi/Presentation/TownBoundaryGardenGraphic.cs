@@ -19,12 +19,11 @@ namespace Mofumachi.Presentation
         {
             vh.Clear();if(mainTexture==null)return;var rect=rectTransform.rect;
             float scale=world!=null?world.RenderScale:rect.width/width;if(scale<=0)return;
-            int ordinal=0;
             foreach(var p in TownBoundaryGardenLayout.Dressing)
             {
                 var feet=world!=null?world.Local(p.Feet,rectTransform):rect.center+new Vector2((p.Feet.X-center.X)*scale,(p.Feet.Y-center.Y)*scale);
                 float l=feet.x-p.Width*scale/2,r=l+p.Width*scale,b=feet.y,t=b+p.Height*scale;
-                bool mirror=(ordinal++&1)!=0;
+                bool mirror=TownBoundaryGardenLayout.IsMirrored(p);
                 if(r<rect.xMin||l>rect.xMax||t<rect.yMin||b>rect.yMax)continue;
                 var source=TownBoundaryGardenLayout.SpriteBounds(p.Kind);
                 float u0=source.X/1536f,u1=(source.X+source.Width)/1536f,v0=1-(source.Y+source.Height)/1024f,v1=1-source.Y/1024f;

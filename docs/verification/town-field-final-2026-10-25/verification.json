@@ -1,0 +1,122 @@
+{
+  "date_jst": "2026-10-25",
+  "base_revision": "9b24fc7",
+  "scope": "town_field_completion_2026_10_25",
+  "runtime_changed": [
+    "Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs",
+    "Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs",
+    "Assets/Mofumachi/Presentation/TownGrowthComparisonView.cs",
+    "Assets/Mofumachi/Presentation/TownGrowthPresentation.cs"
+  ],
+  "core_save_reward_and_resources_unchanged": true,
+  "current_render_digest": "73b1027987ca543d38df99459571cc0ae441512511a8c8c7f1b3fc58bc567b5b",
+  "historical_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "original354_and_approved15jpeg_unchanged": true,
+  "local_verification": {
+    "cpu_full": {
+      "passed": 335,
+      "failed": 0,
+      "skipped": 0,
+      "after_final_review_fix": true
+    },
+    "unchanged_core_suite": {
+      "passed": 125,
+      "failed": 0,
+      "skipped": 0
+    },
+    "api_assemblies": 6,
+    "api_warnings": 0,
+    "api_errors": 0,
+    "powershell_fixtures_passed": 14,
+    "post_review_related_gates_passed": 2,
+    "windows_crlf_fixture_files": 411,
+    "current_and_historical_source_gates_passed": true
+  },
+  "movement": {
+    "all5_perimeters_and_obstacle_aprons": "CPU journeys passed atLv1/3/6",
+    "overlap": "three NPCs plus hero can separate and return, all5districts",
+    "nav_floor_or_collision_changed": false,
+    "pixel_verified": false
+  },
+  "fountain": {
+    "runtime_y_order_preserved": true,
+    "always_front_characters": false,
+    "far_rim_world_y": 0.441,
+    "actual_model_front_left_far_right_front_probes_at_levels": [
+      1,
+      3,
+      6
+    ],
+    "native_projected_mesh_overlap_assertion_added": true,
+    "new_native_pixels_verified": false,
+    "pixel_verified": false
+  },
+  "boundaries": {
+    "north_cap_and_east_west_outside_strips_added": true,
+    "total_static_sprites": 243,
+    "curve_vertices": 476,
+    "all_complete_sprite_rectangles_outside_floor": true,
+    "original200_sprite_uv_orientations_preserved": true,
+    "new_native_visual_reviewed": false
+  },
+  "growth": {
+    "core_growth_schedule_changed": false,
+    "new_comparison_districts": 5,
+    "north_south_first_intermediate_additions": 3,
+    "north_south_flower_arches": 6,
+    "no_new_prop_at_lv2_label": "次はLv.3",
+    "cpu_real_generation_merge_delivery_to_level6_and330coins_passed": true,
+    "cpu_real_disk_reload_passed": true,
+    "new_native_real_progression_fixture_implemented": true,
+    "transitions_required": [
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        5,
+        6
+      ]
+    ],
+    "all5_live_districts_before_after_and_reload_required": true,
+    "direct_fixture_growth_level_assignment_in_new_case": false,
+    "player_save_reset": false
+  },
+  "native_inventory_only": {
+    "editmode": 144,
+    "playmode": 224,
+    "required_png": 144,
+    "not_execution": true
+  },
+  "qa_build_implemented": {
+    "town_app_id": "com.mofumachi.merge.qa.townlife",
+    "growth_app_id": "com.mofumachi.merge.qa.growthcheck",
+    "same_source_two_apks": true,
+    "separate_save_normal_initial_game": true,
+    "level_or_inventory_injection": false,
+    "installer_uses_update_r": true
+  },
+  "review": {
+    "critical": 0,
+    "important": 1,
+    "minor": 1,
+    "mirror_issue": "original200 UV orientation regression fixed; preservation test RED→GREEN; full335green",
+    "weak_duplicate_reward_assertion": "raised as acceptance-evidence gap; actual Quest-screen retry plus coins/rewardIDs checks added; native execution pending",
+    "independent_review": "independent-review.md"
+  },
+  "native_unity_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "formal_base_frozen": false,
+  "fountain_effects_started": false,
+  "character_trial_started": false,
+  "merge_started": false,
+  "main_merged": false,
+  "old_native_evidence_is_historical": "References/Review/field-stability-2026-10-25-candidate/native-review.json",
+  "next": "Pull feature; one full build-android.ps1 -TownQa; inspect raw144/224 and144images/progression/twoAPKmetadata, then exact-SHA Pixel install-r and actual movement/fountain/boundary/growth/restart/600s acceptance. No later stages before pass."
+}

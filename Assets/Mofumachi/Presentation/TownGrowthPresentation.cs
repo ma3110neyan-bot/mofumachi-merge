@@ -46,6 +46,35 @@ namespace Mofumachi.Presentation
             int Priority(TownGrowthProp p)=>p==TownGrowthProp.Arch?6:p==TownGrowthProp.StreetBunting?5:p==TownGrowthProp.Workshop?4:p==TownGrowthProp.CafeTable?3:p==TownGrowthProp.FlowerDisplay?2:p==TownGrowthProp.Bench?1:0;
             return For(region,stage).Where(p=>p.Level==stage).OrderByDescending(p=>Priority(p.Prop)).FirstOrDefault();
         }
+        public static IReadOnlyList<TownGrowthPlacement> ForDistrict(TownDistrictId district,int level)
+        {
+            if(!Enum.IsDefined(typeof(TownDistrictId),district))return Array.Empty<TownGrowthPlacement>();
+            return Array.AsReadOnly(For(TownDistrictLayout.LegacyRegion(district),level).Where(p=>TownDistrictLayout.At(p.Position)==district).ToArray());
+        }
+        private static IEnumerable<TownSceneryPlacement> DistrictDressing(TownDistrictId district)
+            =>district==TownDistrictId.North?TownNorthMasterLayout.Dressing:district==TownDistrictId.South?TownSouthMasterLayout.Dressing:Array.Empty<TownSceneryPlacement>();
+        public static TownPoint FocusForDistrict(TownDistrictId district,int level)
+        {
+            int stage=Math.Max(0,Math.Min(6,level));
+            var dressed=DistrictDressing(district).Where(p=>p.Level==stage&&p.Level>0)
+                .OrderByDescending(p=>p.Kind==TownSceneryKind.FlowerArch?3:p.Kind==TownSceneryKind.DeliveryBunting?2:p.Kind==TownSceneryKind.FlowerBasket?1:0).FirstOrDefault();
+            if(dressed!=null)return new TownPoint(dressed.Feet.X,dressed.Feet.Y+dressed.Height*.4f);
+            var addition=ForDistrict(district,stage).Where(p=>p.Level==stage)
+                .OrderByDescending(p=>p.Prop==TownGrowthProp.StreetBunting?5:p.Prop==TownGrowthProp.Arch?4:p.Prop==TownGrowthProp.CafeTable?3:p.Prop==TownGrowthProp.FlowerDisplay?2:p.Prop==TownGrowthProp.Bench?1:0).FirstOrDefault();
+            return addition?.Position??TownDistrictLayout.Center(district);
+        }
+        public static string ChangeSummary(TownDistrictId district,int previous,int current)
+        {
+            string PropName(TownGrowthProp prop)=>prop==TownGrowthProp.Flowers?"花":prop==TownGrowthProp.Lamp?"街灯":prop==TownGrowthProp.CafeTable?"カフェ席":prop==TownGrowthProp.Workshop?"お店飾り":prop==TownGrowthProp.Arch?"アーチ":prop==TownGrowthProp.Garland?"花飾り":prop==TownGrowthProp.Bench?"ベンチ":prop==TownGrowthProp.CafeSign?"看板":prop==TownGrowthProp.FlowerDisplay?"花台":"ガーランド";
+            string[] Changes(int from,int to)
+                =>DistrictDressing(district).Where(p=>p.Level>from&&p.Level<=to)
+                    .OrderByDescending(p=>p.Kind==TownSceneryKind.FlowerArch?1:0)
+                    .Select(p=>p.Kind==TownSceneryKind.FlowerArch?"花アーチ":p.Kind==TownSceneryKind.StreetLamp?"街灯":p.Kind==TownSceneryKind.DeliveryParcels?"届け物":p.Kind==TownSceneryKind.DeliveryBunting?"ガーランド":"花飾り")
+                    .Concat(ForDistrict(district,to).Where(p=>p.Level>from).Select(p=>PropName(p.Prop))).Distinct().ToArray();
+            var changes=Changes(previous,current);if(changes.Length>0)return string.Join("・",changes.Take(2));
+            for(int next=current+1;next<=6;next++)if(Changes(current,next).Length>0)return "次はLv."+next;
+            return "今の景色を維持";
+        }
         public static IReadOnlyList<TownGrowthPlacement> For(TownRegionId region,int level)
         {
             if(!Enum.IsDefined(typeof(TownRegionId),region))return Array.Empty<TownGrowthPlacement>();

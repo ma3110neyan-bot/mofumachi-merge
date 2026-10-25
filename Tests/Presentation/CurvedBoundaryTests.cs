@@ -7,6 +7,19 @@ namespace Mofumachi.Tests
 {
     public sealed class CurvedBoundaryTests
     {
+        [Test] public void FinalOutsideStripsAndNorthCapUseExactContactTexelsWithoutNarrowingFloor()
+        {
+            foreach(int patch in new[]{4,5,6})foreach(float t in new[]{.15f,.5f,.85f})
+            {
+                var contact=Vertex(patch,t,1);var outer=Vertex(patch,t,3);
+                var edge=patch==6?new TownPoint(-.6f+1.2f*t,3.23f):new TownPoint(patch==4?-1.8f:1.8f,-1+2.23f*t);
+                var uv=patch==4?TownWestMasterLayout.TexturePoint(edge):patch==5?TownEastMasterLayout.TexturePoint(edge):TownNorthMasterLayout.TexturePoint(edge);
+                Assert.That(TownWalkableArea.Distance(contact.World,edge),Is.LessThan(.00001f));
+                Assert.That(TownWalkableArea.Distance(contact.UV,uv),Is.LessThan(.00001f));Assert.That(contact.Alpha,Is.EqualTo(1));
+                Assert.That(outer.Alpha,Is.Zero);Assert.That(TownWalkableArea.Distance(contact.World,outer.World),Is.InRange(.06f,.16f));
+                Assert.That(outer.UV.X,Is.InRange(0,1));Assert.That(outer.UV.Y,Is.InRange(0,1));
+            }
+        }
         private static (TownPoint World,TownPoint UV,float Alpha) Vertex(int patch,float along,int row)
         {
             var type=typeof(TownWorldMap).Assembly.GetType("Mofumachi.Presentation.TownBoundaryCurveLayout");

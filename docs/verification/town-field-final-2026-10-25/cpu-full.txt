@@ -1,0 +1,9 @@
+Test run for /workspace/mofumachi-merge/Tests/Presentation/bin/Debug/net8.0/Mofumachi.Visual.Tests.dll (.NETCoreApp,Version=v8.0)
+Microsoft (R) Test Execution Command Line Tool Version 17.10.0 (x64)
+Copyright (c) Microsoft Corporation.  All rights reserved.
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+Results File: /workspace/mofumachi-merge/Tests/Presentation/TestResults/town-field-final-post-review.trx
+
+Passed!  - Failed:     0, Passed:   335, Skipped:     0, Total:   335, Duration: 8 m 52 s - Mofumachi.Visual.Tests.dll (net8.0)

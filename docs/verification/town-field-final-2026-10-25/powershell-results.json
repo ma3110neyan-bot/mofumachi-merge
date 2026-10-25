@@ -1,0 +1,16 @@
+{
+  "five-area-packaging.tests.log": true,
+  "north-review.tests.log": true,
+  "android-tools.tests.log": true,
+  "five-area-review.tests.log": true,
+  "town-boundary-lock.tests.log": true,
+  "west-review.tests.log": true,
+  "visual-lock.tests.log": true,
+  "central-review.tests.log": true,
+  "east-review.tests.log": true,
+  "stage1-camera-lock.tests.log": true,
+  "pixel-visual-check.tests.log": true,
+  "south-review.tests.log": true,
+  "approved-design.tests.log": true,
+  "windows-json-encoding.tests.log": true
+}

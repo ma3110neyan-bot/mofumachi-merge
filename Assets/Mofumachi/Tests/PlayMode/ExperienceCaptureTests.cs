@@ -14,6 +14,84 @@ namespace Mofumachi.Tests
     // from an isolated fixture, never the developer's/Pixel player's saved town.
     public sealed class ExperienceCaptureTests : SliceUiTestFixture
     {
+        // Real production/delivery progression in this fixture's temporary disk
+        // save. Never assigns a growth level or completion/reward collection.
+        [UnityTest] public IEnumerator DeliveriesGrowFiveDistrictsAndPersistAfterSceneReload()
+        {
+            string output=OutputDirectory();yield return EnterHome();int totalCoins=0;
+            var proof=new System.Text.StringBuilder("{\"kind\":\"isolated-real-delivery-growth-and-reload\",\"pixel_verified\":false,\"adopted\":false,\"transitions\":[");bool first=true;
+            string[] VisibleDecor(TownDistrictId district)
+            {
+                // Layout-only inspection uses a world-space canvas. Release the
+                // optional portrait camera so the next capture configures its
+                // own render/event projection again after a scene/layout change.
+                ReleasePortraitCamera();
+                var town=FrameTownPortrait();town.StartInteraction();town.World.Freeze();town.World.LookAt(district);
+                var center=TownDistrictLayout.Center(district);town.World.Camera.Jump(new TownPoint(center.X,center.Y+.20f));town.World.Refresh();Canvas.ForceUpdateCanvases();
+                var scenery=town.GetComponent<TownSceneryView>();
+                return scenery.Pieces.Where(p=>p.Rect.gameObject.activeInHierarchy).Select(p=>FormattableString.Invariant($"scenery:{p.Placement.Kind}:{p.Placement.Feet.X:F4}:{p.Placement.Feet.Y:F4}:{p.Placement.Level}:{p.Placement.Width:F4}"))
+                    .Concat(town.GetComponentsInChildren<TownGrowthPropGraphic>().Select(p=>FormattableString.Invariant($"growth:{p.Prop}:{p.Region}:{((RectTransform)p.transform).anchoredPosition.x:F3}:{((RectTransform)p.transform).anchoredPosition.y:F3}")))
+                    .OrderBy(s=>s,StringComparer.Ordinal).ToArray();
+            }
+            foreach(var quest in QuestCatalog.All)
+            {
+                int previous=Flow.Game.State.townGrowthLevel;bool check=previous==1||previous==2||previous==5;
+                Flow.ShowHome();var before=check?TownDistrictLayout.All.Select(VisibleDecor).ToArray():null;
+                Flow.ShowQuest();Assert.That(Flow.AcceptQuest(),Is.True);Assert.That(Flow.Game.Quests.ActiveQuest.Id,Is.EqualTo(quest.Id));
+                foreach(var requirement in quest.Requirements)
+                {
+                    int guard=0;
+                    while(Flow.Game.State.mergeBoard.Count(i=>i.itemId==requirement.ItemId&&i.level==requirement.Level)<requirement.Count)
+                    {
+                        Assert.That(++guard,Is.LessThan(40),"Generate/merge must progress without synthetic inventory");
+                        var pair=Flow.Game.State.mergeBoard.Where(i=>i.itemId==requirement.ItemId&&i.level<requirement.Level).GroupBy(i=>i.level).FirstOrDefault(g=>g.Count()>=2);
+                        if(pair==null){int count=Flow.Game.State.mergeBoard.Count;Flow.GenerateFromFrame(requirement.ItemId);Assert.That(Flow.Game.State.mergeBoard.Count,Is.EqualTo(count+1));}
+                        else{var items=pair.Take(2).ToArray();Assert.That(Flow.DropItem(items[0].cellIndex,items[1].cellIndex),Is.True);yield return new WaitForSecondsRealtime(.30f);}
+                    }
+                }
+                Assert.That(Flow.Deliver().Success,Is.True);totalCoins+=quest.Coins;
+                Assert.That(Flow.LastDelivery.PreviousTownLevel,Is.EqualTo(previous));Assert.That(Flow.LastDelivery.CurrentTownLevel,Is.EqualTo(previous+1));
+                Assert.That(Store.Load().State.townGrowthLevel,Is.EqualTo(previous+1),"Delivery committed the level before any growth presentation");
+                yield return new WaitForSecondsRealtime(1.3f);Flow.ShowGrowth();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Growth));
+                if(check)
+                {
+                    foreach(var district in TownDistrictLayout.All)
+                    {
+                        var button=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Growth region "+district);button.onClick.Invoke();Canvas.ForceUpdateCanvases();
+                        var previews=Flow.GetComponentsInChildren<TownGrowthView>();Assert.That(previews.Length,Is.EqualTo(2));
+                        Assert.That(previews[0].VisibleStage,Is.EqualTo(previous));Assert.That(previews[1].VisibleStage,Is.EqualTo(previous+1));
+                        Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Growth after label").text,Is.EqualTo(TownGrowthPresentation.ChangeSummary(district,previous,previous+1)));
+                        Assert.That(previews[1].IsHighlighting,Is.True,"Keep the short existing new-decoration highlight");
+                    }
+                    Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Growth region "+(previous==5?TownDistrictId.South:previous==2?TownDistrictId.North:TownDistrictId.Central)).onClick.Invoke();
+                    Capture(output,"32-growth-"+previous+"-to-"+(previous+1));
+                }
+                Flow.ShowHome();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));
+                if(!check)continue;
+                var after=TownDistrictLayout.All.Select(VisibleDecor).ToArray();
+                for(int i=0;i<TownDistrictLayout.All.Count;i++)
+                {
+                    var district=TownDistrictLayout.All[i];bool nextAtThree=previous==1&&(district==TownDistrictId.North||district==TownDistrictId.South);
+                    Assert.That(after[i].SequenceEqual(before[i]),Is.EqualTo(nextAtThree),district+" must reflect authored additions, not an artificial level sample");
+                }
+                Assert.That(Flow.Game.State.coins,Is.EqualTo(totalCoins));int completed=Flow.Game.State.completedQuestIds.Count;
+                Flow.SendMessage("OnApplicationPause",true);ReleasePortraitCamera();
+                yield return UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("TitleScene");yield return null;Flow.Initialize(Store);Flow.BeginGame();yield return null;yield return null;
+                Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(Flow.Game.State.townGrowthLevel,Is.EqualTo(previous+1));
+                Assert.That(Flow.Game.State.coins,Is.EqualTo(totalCoins));Assert.That(Flow.Game.State.completedQuestIds.Count,Is.EqualTo(completed));Assert.That(Flow.Game.State.claimedRewardIds.Count,Is.EqualTo(completed));
+                var reloaded=TownDistrictLayout.All.Select(VisibleDecor).ToArray();
+                for(int i=0;i<after.Length;i++)Assert.That(reloaded[i],Is.EqualTo(after[i]),TownDistrictLayout.All[i]+" decorations persisted without applying a test level");
+                Flow.ShowQuest();int replayCoins=Flow.Game.State.coins;var replayRewards=Flow.Game.State.claimedRewardIds.ToArray();
+                Assert.That(Flow.Deliver().Success,Is.False,"A real delivery-enabled screen must reject the completed reward after restart");
+                Assert.That(Flow.Game.State.coins,Is.EqualTo(replayCoins));Assert.That(Flow.Game.State.claimedRewardIds,Is.EqualTo(replayRewards));
+                Flow.ShowHome();VisibleDecor(TownDistrictId.South);
+                Capture(output,"32-growth-"+(previous+1)+"-reloaded");
+                if(!first)proof.Append(',');first=false;proof.Append("{\"from\":"+previous+",\"to\":"+(previous+1)+",\"coins\":"+totalCoins+",\"districts_checked\":5,\"reload_matched\":true}");
+            }
+            Assert.That(Flow.Game.State.townGrowthLevel,Is.EqualTo(6));Assert.That(Flow.Game.State.coins,Is.EqualTo(330));
+            proof.Append("]}");if(output!=null){Directory.CreateDirectory(output);File.WriteAllText(Path.Combine(output,"town-growth-progression.json"),proof.ToString());}
+            LogAssert.NoUnexpectedReceived();
+        }
         private static string OutputDirectory()
         {
             var args=Environment.GetCommandLineArgs();int i=Array.IndexOf(args,"-mofumachiScreenshots");
@@ -167,10 +245,20 @@ namespace Mofumachi.Tests
                 Assert.That(town.World.Model.Hero.IsWalking,Is.False,$"Stalled at {hero.WorldPosition.X},{hero.WorldPosition.Y}");
                 Assert.That(TownWalkableArea.Distance(hero.WorldPosition,target),Is.LessThan(.002f),"Walking arrival, never Restore/FastTravel rescue");
             }
-            foreach(var view in new[]{("front",new TownPoint(0,.12f)),("behind",new TownPoint(0,.53f))})
+            foreach(var view in new[]{("front",new TownPoint(0,.12f)),("behind",new TownPoint(0,.441f))})
             {
-                yield return Walk(view.Item2);town.RefreshWorldPresentation();var fountain=town.GetComponentInChildren<TownFountainGraphic>();
+                yield return Walk(view.Item2);for(int settle=0;settle<45;settle++)town.AdvanceFrame(1f/30);
+                town.RefreshWorldPresentation();var fountain=town.GetComponentInChildren<TownFountainGraphic>();
                 Assert.That(hero.transform.GetSiblingIndex()>fountain.transform.GetSiblingIndex(),Is.EqualTo(view.Item1=="front"));
+                if(view.Item1=="behind")
+                {
+                    Assert.That(town.World.Model.Area.Contains(hero.WorldPosition),Is.True,"Far-side proof must stand outside the real fountain obstacle");
+                    var body=RectTransformUtility.CalculateRelativeRectTransformBounds((RectTransform)town.transform,hero.VisualRoot);
+                    // The fountain Graphic's RectTransform is the whole field;
+                    // use its actual mesh projection, not that oversized rect.
+                    float waterTop=town.World.Local(new TownPoint(0,fountain.Feet.Y+TownSceneryLayout.FountainHeight)).y;
+                    Assert.That(body.min.y,Is.LessThan(waterTop),"Far-side evidence must overlap the fountain mesh bounds, not stand well above it");
+                }
                 Capture(output,"31-field-fountain-"+view.Item1);
             }
             var entry=TownWorldMap.Place("east.entry");yield return Walk(entry);yield return Walk(new TownPoint(1.5999999f,.45000005f));Capture(output,"31-field-east-corner-out");
@@ -445,7 +533,7 @@ namespace Mofumachi.Tests
                 yield return CaptureFieldStability(output);
                 string[] art={"TownBackground","TownWestBackground","TownEastBackground","CharacterBodyAtlas","TownGrowthPropsAtlas","TownGardenSurface","TownSeamlessMap","TownStreetPropsAtlas","TownLandmarksAtlas","TownNatureAtlas","TownVillageDetailsAtlas","MergeBoardFrame","TownCentralGround","TownCentralFountain","TownWestGround"};
                 File.WriteAllLines(Path.Combine(output,"texture-memory.txt"),art.Select(key=>key+": "+UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(Resources.Load<Texture2D>("Mofumachi/"+key))+" bytes"));
-                File.WriteAllText(Path.Combine(output,"README.txt"),"Actual Unity UGUI RenderTexture captures, 720x1280. Isolated test-only save state; not Pixel 3a captures. 138 PNG: existing102 integrated frames,22 boundary comparison frames,14 field-stability frames. 30-boundary Before disables only the curved band in the CURRENT runtime, retaining the new field-stability depth/camera/navigation fixes; it is a boundary-only comparison, NOT a complete frozen5a49 renderer or previous APK/Pixel capture. 31-field shows actual walking arrival/return in all5areas and the East building corner, plus front/behind fountain depth; no teleport rescue. 30Hz simulation is not device FPS; Editor texture memory is not Pixel RAM. Stable region/place/save IDs retained. Pixel save retention, audio,10minuteplay and subjective quality still require actual acceptance.\n");
+                File.WriteAllText(Path.Combine(output,"README.txt"),"Actual Unity UGUI RenderTexture captures, 720x1280. Isolated test-only save state; not Pixel 3a captures. Full suite144 PNG: existing102 integrated frames,22 boundary comparison frames,14 field-stability frames,6 actual delivery-growth/reload frames. 30-boundary Before disables only the curved band in the CURRENT runtime, retaining the new field-stability depth/camera/navigation fixes; it is a boundary-only comparison, NOT a complete frozen5a49 renderer or previous APK/Pixel capture. 31-field shows actual walking arrival/return in all5areas and the East building corner, plus front/behind fountain depth; no teleport rescue. 30Hz simulation is not device FPS; Editor texture memory is not Pixel RAM. Stable region/place/save IDs retained. Pixel save retention, audio,10minuteplay and subjective quality still require actual acceptance.\n");
             }
             LogAssert.NoUnexpectedReceived();
         }

@@ -8,6 +8,21 @@ namespace Mofumachi.Tests
 {
     public sealed class TownBoundaryGardenTests
     {
+        [Test] public void OriginalTwoHundredSpritesKeepTheirMirrorOrientationWhenOuterPlantingIsAdded()
+        {
+            var method=typeof(TownBoundaryGardenLayout).GetMethod("IsMirrored");
+            Assert.That(method,Is.Not.Null,"Sorted ordinal must not flip existing art when new cap sprites are inserted ahead of it");
+            var originals=Plants().Where(p=>!(p.Feet.Y>=3.15f&&Math.Abs(p.Feet.X)<.84f)&&Math.Abs(Math.Abs(p.Feet.X)-2.035f)>.00001f).ToArray();
+            Assert.That(originals.Length,Is.EqualTo(200),"All original boundary placements must remain");
+            for(int i=0;i<originals.Length;i++)
+                Assert.That((bool)method.Invoke(null,new object[]{originals[i]}),Is.EqualTo((i&1)!=0),"Original UV orientation at "+originals[i].Feet.X+","+originals[i].Feet.Y);
+        }
+        [Test] public void TrackedEdgeCameraDoesNotRevealAnUnplantedNorthCapOrOuterSideStrip()
+        {
+            var plants=Plants();
+            foreach(var point in new[]{new TownPoint(0,3.30f),new TownPoint(.40f,3.60f),new TownPoint(-.40f,3.80f),new TownPoint(-1.88f,-.12f),new TownPoint(1.88f,-.12f)})
+                Assert.That(plants.Any(p=>point.X>=p.Feet.X-p.Width/2&&point.X<=p.Feet.X+p.Width/2&&point.Y>=p.Feet.Y&&point.Y<=p.Feet.Y+p.Height),Is.True,"The actual tracked-edge camera exposes bare ground here: "+point.X+","+point.Y);
+        }
         private static IReadOnlyList<TownSceneryPlacement> Plants()
         {
             var type=typeof(TownWorldMap).Assembly.GetType("Mofumachi.Presentation.TownBoundaryGardenLayout");

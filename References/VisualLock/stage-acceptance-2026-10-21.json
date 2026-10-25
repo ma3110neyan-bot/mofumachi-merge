@@ -60,7 +60,7 @@
     "south_garden",
     "connections"
   ],
-  "apk_generated": true,
+  "apk_generated": false,
   "pixel_verified": false,
   "adopted": false,
   "last_review": {
@@ -192,7 +192,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "field_stability_native_verified_conditional_diagnostic_pixel_pending",
+  "current_stage": "town_field_final_implemented_native_and_pixel_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -712,7 +712,7 @@
     "native_images_verified": 124,
     "native_review": "References/Review/curved-boundary-2026-10-25-candidate/native-review.json"
   },
-  "base_polish": "References/VisualLock/field-stability-candidate-2026-10-25.json",
+  "base_polish": "References/VisualLock/town-field-final-candidate-2026-10-25.json",
   "previous_qa_build_report": {
     "run": "20261025-073237-f8fd542b",
     "status": "console_success_reported",
@@ -851,5 +851,15 @@
     "apk_generated": false,
     "pixel_verified": false
   },
-  "latest_field_stability_native_review": "References/Review/field-stability-2026-10-25-candidate/native-review.json"
+  "latest_field_stability_native_review": "References/Review/field-stability-2026-10-25-candidate/native-review.json",
+  "town_field_final": {
+    "implemented": true,
+    "native_unity_verified": false,
+    "qa_apk_generated": false,
+    "pixel_verified": false,
+    "adopted": false,
+    "previous_run_is_historical": "20261025-153810-fa9b2be9",
+    "growth_validation": "real sequential delivery/merge/temporary-disk reload; current player save not reset",
+    "pixel_growth_app_id": "com.mofumachi.merge.qa.growthcheck"
+  }
 }

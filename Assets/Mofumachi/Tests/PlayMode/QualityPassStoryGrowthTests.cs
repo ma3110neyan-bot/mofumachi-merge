@@ -56,7 +56,7 @@ namespace Mofumachi.Tests
             Assert.That(Flow.Deliver().Success,Is.True);
             Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Delivery thanks").text,Is.EqualTo(QuestStoryPresentation.For("tea-01").Thanks));
             yield return new WaitForSecondsRealtime(1.3f);Flow.ShowGrowth();
-            Assert.That(Flow.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Growth region ")),Is.EqualTo(3));
+            Assert.That(Flow.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Growth region ")),Is.EqualTo(5));
             Assert.That(Flow.GetComponentsInChildren<TownGrowthView>().Length,Is.EqualTo(2),"Compare the same region before and after the delivery");
             Flow.ContinueAfterGrowth();Flow.Initialize(Store);Flow.ShowHome();var life=Flow.GetComponentInChildren<TownLifeView>();
             life=FrameTownPortrait();var requester=life.Actors.Single(a=>a.CharacterId=="lulu");

@@ -118,11 +118,24 @@ try {
     $Field.teleport_rescue=$true;$Field | ConvertTo-Json | Set-Content -LiteralPath $FieldMeta;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireField}
     $Field.teleport_rescue=$false;$Field.pixel_verified=$true;$Field | ConvertTo-Json | Set-Content -LiteralPath $FieldMeta;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireField}
     $Field.pixel_verified=$false;$Field | ConvertTo-Json | Set-Content -LiteralPath $FieldMeta
+    Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth}
+    $GrowthFiles=@(foreach($Pair in @(@(1,2),@(2,3),@(5,6))){"32-growth-$($Pair[0])-to-$($Pair[1]).png";"32-growth-$($Pair[1])-reloaded.png"})
+    foreach($Name in $GrowthFiles){[IO.File]::WriteAllBytes((Join-Path $CaptureDir $Name),$Header)}
+    $GrowthMeta=Join-Path $CaptureDir 'town-growth-progression.json'
+    $Growth=@{kind='isolated-real-delivery-growth-and-reload';pixel_verified=$false;adopted=$false;transitions=@(@{from=1;to=2;coins=70;districts_checked=5;reload_matched=$true},@{from=2;to=3;coins=110;districts_checked=5;reload_matched=$true},@{from=5;to=6;coins=330;districts_checked=5;reload_matched=$true})}
+    $Growth | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $GrowthMeta
+    Assert-NativeCaptures $CaptureDir -RequireBoundary -RequireField -RequireGrowth
+    foreach($Name in $GrowthFiles){$Path=Join-Path $CaptureDir $Name;Remove-Item -LiteralPath $Path;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth};[IO.File]::WriteAllBytes($Path,$Header)}
+    $Growth.transitions[0].coins=999;$Growth | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $GrowthMeta;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth}
+    $Growth.transitions[0].coins=70;$Growth.transitions[1].reload_matched=$false;$Growth | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $GrowthMeta;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth}
+    $Growth.transitions[1].reload_matched=$true;$Growth.pixel_verified=$true;$Growth | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $GrowthMeta;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth}
+    $Growth.pixel_verified=$false;$Growth | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $GrowthMeta
     Write-NativeReviewArchives $Temporary
     $ZipContents=@(Get-ChildItem -LiteralPath $Temporary -Filter 'five-plaza-review-*.zip' | ForEach-Object {
         $Zip=[IO.Compression.ZipFile]::OpenRead($_.FullName);try {$Zip.Entries | ForEach-Object {$_.FullName}}finally {$Zip.Dispose()}
     })
     if('field-stability.json' -notin $ZipContents){throw 'Review ZIPs lost the required field-stability fixture metadata.'}
+    if('town-growth-progression.json' -notin $ZipContents){throw 'Review ZIPs lost real delivery/growth/reload evidence.'}
     Remove-Item -LiteralPath $FieldMeta;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireField}
     [IO.File]::WriteAllBytes((Join-Path $CaptureDir '17-finger-released.png'),[byte[]](0,1,2));Expect-Rejection {Assert-NativeCaptures $CaptureDir}
     [IO.File]::WriteAllBytes((Join-Path $CaptureDir '17-finger-released.png'),$Header)
@@ -187,8 +200,8 @@ exit $Code
         $Extra=('<test-case result="Passed"/>'*($Total-$SuiteCases-1))+"<test-case result='$Case'/>"
         "<test-run result='Passed' total='$Declared' passed='$Declared' failed='0' skipped='0'>$Nodes$Extra</test-run>" | Set-Content $Xml
     }
-    $EditSuites=Read-GateSuites 'EditXml' 143;$PlaySuites=Read-GateSuites 'PlayXml' 223
-    foreach($Gate in @(@{Minimum=143;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests','TownPlaceCatalogTests','TownViewportTests','TownRegionCatalogTests','TownRegionJourneyTests','TownRegionContentTests')},@{Minimum=223;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests','FiveAreaIntegrationReviewTests')})) {
+    $EditSuites=Read-GateSuites 'EditXml' 144;$PlaySuites=Read-GateSuites 'PlayXml' 224
+    foreach($Gate in @(@{Minimum=144;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests','TownPlaceCatalogTests','TownViewportTests','TownRegionCatalogTests','TownRegionJourneyTests','TownRegionContentTests')},@{Minimum=224;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests','FiveAreaIntegrationReviewTests')})) {
         $Old=@($Gate.Suites | Where-Object {$_ -notin $Gate.New})
         Write-SuiteXml $Gate.Minimum $Old
         Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}
@@ -232,14 +245,14 @@ exit $Code
         return 'Events injected: 1'
     }
     Invoke-PixelInstall $Apk $Adb '' 'com.mofumachi.merge' $Aapt
-    foreach($Id in @('com.mofumachi.merge.qa','com.mofumachi.merge.qa.townlife')){
+    foreach($Id in @('com.mofumachi.merge.qa','com.mofumachi.merge.qa.townlife','com.mofumachi.merge.qa.growthcheck')){
         $script:FixtureId=$Id;Invoke-PixelInstall $Apk $Adb 'Pixel' $Id $Aapt
     }
     $script:FixtureId='com.mofumachi.merge.qa.townlife'
     Expect-Rejection {Invoke-PixelInstall $Apk $Adb 'Pixel' 'com.mofumachi.merge.qa' $Aapt}
     Expect-Rejection {Invoke-PixelInstall $Apk $Adb 'Pixel' 'com.mofumachi.merge.qa.unknown' $Aapt}
     $Validation=(Get-Command (Join-Path $PSScriptRoot '../install-pixel3a.ps1')).Parameters['PackageName'].Attributes | Where-Object {$_ -is [System.Management.Automation.ValidateSetAttribute]}
-    if($Validation.ValidValues.Count -ne 3 -or $Validation.ValidValues -notcontains 'com.mofumachi.merge.qa.townlife'){throw 'Installer must allow exactly 3 package IDs.'}
+    if($Validation.ValidValues.Count -ne 4 -or $Validation.ValidValues -notcontains 'com.mofumachi.merge.qa.townlife' -or $Validation.ValidValues -notcontains 'com.mofumachi.merge.qa.growthcheck'){throw 'Installer must allow exactly4 explicit package IDs, including the separate-save growth check.'}
     $script:FixtureId='com.mofumachi.merge'
     if(@($script:Calls | Where-Object {$_ -contains 'install' -and $_ -notcontains '-r'}).Count -gt 0){throw 'Update must retain save using install -r'}
     $script:Wrong=$true;Expect-Rejection {Invoke-PixelInstall $Apk $Adb '' 'com.mofumachi.merge' $Aapt};$script:Wrong=$false

@@ -1,0 +1,97 @@
+{
+  "scope_id": "town_field_completion_2026_10_25",
+  "authorized_by": "user",
+  "authorization_reference": "2026-10-25 user「街フィールド最終完成指示」: 既存品質を守る5端部/噴水/境界/実納品成長・保存確認。成長比較の5地区化、外周の植栽と曲線帯、関連検査のみ。保存・報酬計算・原画・歩行面は変更しない。",
+  "base_lock": "References/VisualLock/five-area-approved-2026-10-24.json",
+  "base_lock_hash_mode": "lf-text",
+  "base_lock_sha256": "e70eb3532ff987a1def4e2a101426b8098452308f21544f5ab83e4ac7a5ea9a4",
+  "before_runtime_source": "871808c3971e18aad8ffbbd30a1ce7de40455ab4",
+  "before_render_digest": "ebe436e8f9d14233aef6f129547dfce5d7bb63d70760421033c08d5e4de1f5d2",
+  "reviewed_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "candidate_render_digest": "73b1027987ca543d38df99459571cc0ae441512511a8c8c7f1b3fc58bc567b5b",
+  "changes": [
+    {
+      "path": "Assets/Mofumachi/Presentation/TownContinuousWorldView.cs",
+      "before_sha256": "d78dccf8e33f017fd1b8dfda71da3688b48a60de43d343a428ff78188e4fdc15",
+      "after_sha256": "1929ee9907990a856764643137f31ed19241e99c43bfa6f224c2c5e4b70e161a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthEntryBlendGraphic.cs",
+      "before_sha256": "2ef4b84fa9593231411815dc67a9296e7b49965c5dec2e65f50d33034f657b70",
+      "after_sha256": "89c65a8e7500f3d5ee4e9f6168689e90472023c442ff59d2fff620836ef5ba54"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthEntryBlendLayout.cs",
+      "before_sha256": "7f56be2082652006de53aba85196ba0869dc82442e9ab2f9ddaf0f3aca641a5a",
+      "after_sha256": "06c58c1b696014e4363e7239df6f355be50493c886bd0dd1ea341d98b41a4c2c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthGroundGraphic.cs",
+      "before_sha256": "53c3cad7dd3015fa959a41ec1e2870651f5d6895a9548b9336cb60cbb80903f9",
+      "after_sha256": "7106d1278c3549ae04095a25992380fc17e2498d908ebb83086b0b9eaaf1b56c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWorldLayout.cs",
+      "before_sha256": "07b9b026a48e6e1ddae4131b092a92f197f30917c6ac91f2ea868c86d5c9d91d",
+      "after_sha256": "2c18d61cc4c6fd2989064a97b4b425628757d9535f6948ab0abd0917ccdb7fd3"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownAreaNavigation.cs",
+      "before_sha256": "07bd7a1176953d57608bfc0086c2fc26fc27e30d7eb0c167aa18eb57b327a10c",
+      "after_sha256": "d82de20fcb020db9cdd917b4fbce2ee67a2bad1fc6c63e05340edb10b0801505"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGrowthPresentation.cs",
+      "before_sha256": "890b2100572e8eb7435d9ddbccd2977a1825e7913c0bddddb5cc4a18fd13a460",
+      "after_sha256": "4d451154157fb82dd58f91a6bb22c5a66b0020a65c43cfc27a5775f2d01278f0"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGrowthComparisonView.cs",
+      "before_sha256": "a59ab51572fc798aeefdcda20a0e18a3e52d4cf8a14ebe8e7dcefc633f99ade3",
+      "after_sha256": "7c7b4f8f8a8bb2a8f7fbe68903d2f738620022f07186b9a29a5cc3cbb829aab0"
+    }
+  ],
+  "new_files": [
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs",
+      "after_sha256": "7c0075539bb31fbaf88b1e5b568df440eadee64cd75c7209f45a8f7f5cedee96"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs.meta",
+      "after_sha256": "c21ffc13c1321c97db54d5af9191852ca0241d85c487002f0d27790c4fc6d06a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs",
+      "after_sha256": "106c523b4701f9a7e8dbab44f1948f670eeb848560feaa1d676518d9fc1cf1cf"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs.meta",
+      "after_sha256": "32db8df645367731266026ea9f7e47a5e659d255fa18864f7b0b6975341b159a"
+    }
+  ],
+  "capture_inputs": [
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs",
+      "before_sha256": "3bdc727de2275daa8bd1fe45de9f9f8002380ceeb9c9cbda7944a964996bc6b7",
+      "after_sha256": "a1f9f47a282f313b2a049e2dec04f845e272e34b8f0744767bcff868f216af17"
+    }
+  ],
+  "native_unity_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "merge_quality_pass_started": false,
+  "pass_id": "field_stability_2026_10_25",
+  "fountain_pass_started": false,
+  "character_trial_started": false,
+  "native_image_inspection_complete": false,
+  "native_visual_cleared": false,
+  "field_stability_passed": false,
+  "native_test_inventory_expected": {
+    "editmode": 144,
+    "playmode": 224
+  },
+  "native_capture_count_expected": 144,
+  "pixel_growth_app_id": "com.mofumachi.merge.qa.growthcheck",
+  "previous_native_evidence": "References/Review/field-stability-2026-10-25-candidate/native-review.json"
+}

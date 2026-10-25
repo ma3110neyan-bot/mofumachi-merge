@@ -1,5 +1,15 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-25最新：ユーザー「街フィールド最終完成指示」へ限定実装。実装済み・新版Unity／APK／Pixel未確認。** 現featureを維持し、正式固定・噴水エフェクト／2.5D／Merge／mainへ進めない。手順 `docs/town-field-final-pixel3a-2026-10-25.md`、仕様／計画はtown-field-final。画像をチャットに貼らない。
+
+今回のruntime変更は外周GardenLayout/GraphicとGrowthPresentation/ComparisonViewの4ファイルのみ。北天端・東西外側端に元素材の植栽／曲線を足し、全矩形は歩行面の外、既存200外周Spriteの位置・向きは保持。243Sprite／476曲線頂点、共有素材・追加Colliderなし。成長比較を5地区へし、新装飾または次Lvを短く表示。北南の既存Lv3/6条件を守りLv2では「次はLv.3」。MasterLayout／原画・全歩行面／Nav／Core保存・納品・報酬・正式6名・図鑑/BGM/Mergeは無変更。
+
+実納品の検査を追加：一時保存で通常の生成→Merge→受注→納品6件を進め、1→2／2→3／5→6で5地区の実表示と再読込を比較。直接townGrowthLevelや完了依頼を書かない新UnityTestは既存CaptureFixtureを利用し、6枚追加とtown-growth-progression.jsonを必須にした。元の見本撮影は別ケース。噴水奥の撮影点は実歩行可能な.441まで寄せ、Graphic全画面Rectではなく実メッシュ上端との重なりを検査する。これは実機前後関係の合格ではない。
+
+**ソース確認：CPU335/335・Core125/125、API6DLL0警告エラー。Native宣言144Edit／224Playで実行成功ではない。** 全5地区の周縁・障害物脇の往復と重なり脱出は追加検査で停止せず、Nav変更なし。鏡像保持RED→GREEN、独立レビューのImportant（200既存Sprite反転）を修正。Homeからの空振り納品検査もQuest画面からの実試行／Coins・RewardIDs非変化へ修正。全PS14本成功、修正後関連2本再成功、411fileCRLFの現在／歴史的承認ゲート成功。原354／JPEG15／歴史的dfb2cbc8…は不変。新scope town_field_completion_2026_10_25、digest73b10279…、元承認を上書きしない。
+
+**次はPull後に既存全件 build-android.ps1 -TownQa を一度実行。** 今回はruntimeが変わったため再ビルドが必要。新版144/224・failed0/skip0／144PNG／実成長メタデータ・同版APK/SHAを受領し、自然な境界と成長画面を確認。旧153810の成功は履歴で、新版へ流用しない。TownQaは同じテスト済みソースからtown-life-qa.apkとtown-growth-check.apkを生成する。後者はcom.mofumachi.merge.qa.growthcheck／「もふまちメルジュ 成長確認」の通常初期ゲームで、既存街QAのLv6保存を消さず実機1→2→3／5→6を検証する別保存。新しいゲーム機能／初期化／レベル注入はない。両APKのhash/appId/sourceを照合し、Pixel99RAY1BELHへ各IDを明示してinstall-r。削除／保存消去なし。Pixelで端部・東の木による隠れ・噴水横断・境界・実納品成長・再起動保存・600秒を合格させるまで正式固定しない。次回報告はユーザー指定の8項目に絞る。以下は履歴。
+
 **2026-10-25最新原本：153810の11ZIPを照合、原Edit143/143・Play223/223、failed0／skip0、138PNGのSHA・寸法・デコード正常。** build/captureは871808c／fingerprint a7b8df5b…で一致。元APKは118242007bytes／街QA ID／SHA `6f1d163c6b8a14cf7025399e350e7f88e526f53856dd382f20d08b498beed124`。バイナリ未受領なので独立SHA再計算は未了。原本・判定は `References/Review/field-stability-2026-10-25-candidate/native-review.json`。
 
 **判定：同じ153810APKで条件付きの実機検証へ進行可。街ベース合格／native visual cleared／正式採用は保留。** 全15全景は前回e7実原本とbyte同一、97同名画像同一／27変更／14新規。端部の実往復と通知を含む最前面入力、噴水前後の描画順検査は成功。ただし東端・東建物角では保持した木にミエルの顔／体／名前が隠れる。自然なY順と整合し新退行とは未確定だが、raycast false原画の遮蔽は入力テストから判定できない。Pixelで見つけてタップ／ドラッグ帰還できるか未解決。北上端／西左端に外周地面も見える。噴水奥の静止画はシルエットが重ならず、横断時の奥側遮蔽はPixel確認が必要。独立画像レビューCritical0／Important1は受入証拠の不足で、確定した新runtimeバグという意味ではない。景観を削る／歩行を狭める／常時キャラ最前面の推測修正はしない。

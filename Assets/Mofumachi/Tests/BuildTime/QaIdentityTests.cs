@@ -7,6 +7,16 @@ namespace Mofumachi.Tests
 {
     public sealed class QaIdentityTests
     {
+        [Test] public void GrowthCheckUsesASeparateSaveIdentityAndRestoresBuildSettings()
+        {
+            string id=PlayerSettings.GetApplicationIdentifier(NamedBuildTarget.Android),name=PlayerSettings.productName;
+            AndroidBuild.WithGrowthQaIdentity(()=>{
+                Assert.That(PlayerSettings.GetApplicationIdentifier(NamedBuildTarget.Android),Is.EqualTo("com.mofumachi.merge.qa.growthcheck"));
+                Assert.That(PlayerSettings.productName,Is.EqualTo("もふまちメルジュ 成長確認"));
+            });
+            Assert.Throws<InvalidOperationException>(()=>AndroidBuild.WithGrowthQaIdentity(()=>{throw new InvalidOperationException("Growth build failure");}));
+            Assert.That(PlayerSettings.GetApplicationIdentifier(NamedBuildTarget.Android),Is.EqualTo(id));Assert.That(PlayerSettings.productName,Is.EqualTo(name));
+        }
         [Test] public void TownQaIdentityRestoredOnSuccessAndFailure()
         {
             string id=PlayerSettings.GetApplicationIdentifier(NamedBuildTarget.Android),name=PlayerSettings.productName;

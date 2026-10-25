@@ -56,11 +56,13 @@ function Get-BasePolishPatch([string]$RepositoryPath) {
     $Allowed=@('Assets/Mofumachi/Presentation/TownWorldLayout.cs','Assets/Mofumachi/Presentation/TownContinuousWorldView.cs')
     $ScopeProperty=$Record.PSObject.Properties['scope_id']
     $Scope=if($ScopeProperty){[string]$ScopeProperty.Value}else{''}
-    if($Scope -and $Scope -notin @('town_boundary_final_2026_10_24','town_field_stability_2026_10_25')){throw 'Unknown bounded display correction scope.'}
-    $FieldStability=$Scope -eq 'town_field_stability_2026_10_25'
+    if($Scope -and $Scope -notin @('town_boundary_final_2026_10_24','town_field_stability_2026_10_25','town_field_completion_2026_10_25')){throw 'Unknown bounded display correction scope.'}
+    $FieldFinal=$Scope -eq 'town_field_completion_2026_10_25'
+    $FieldStability=$Scope -eq 'town_field_stability_2026_10_25' -or $FieldFinal
     $Boundary=$Scope -eq 'town_boundary_final_2026_10_24' -or $FieldStability
     if($Boundary){$Allowed+=@('Assets/Mofumachi/Presentation/TownSouthGroundGraphic.cs','Assets/Mofumachi/Presentation/TownSouthEntryBlendLayout.cs','Assets/Mofumachi/Presentation/TownSouthEntryBlendGraphic.cs')}
     if($FieldStability){$Allowed+='Assets/Mofumachi/Presentation/TownAreaNavigation.cs'}
+    if($FieldFinal){$Allowed+=@('Assets/Mofumachi/Presentation/TownGrowthPresentation.cs','Assets/Mofumachi/Presentation/TownGrowthComparisonView.cs')}
     if($Changes.Count -lt 1 -or $Changes.Count -gt $Allowed.Count){throw 'Display changes exceed the explicitly authorized correction scope.'}
     $Before=@{};$After=@{}
     foreach($Change in $Changes) {

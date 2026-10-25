@@ -13,6 +13,7 @@ namespace Mofumachi.Editor
     public static class AndroidBuild
     {
         public const string TownQaApplicationId = "com.mofumachi.merge.qa.townlife";
+        public const string GrowthQaApplicationId = "com.mofumachi.merge.qa.growthcheck";
         public const string QaApplicationId = "com.mofumachi.merge.qa";
         public const string ApplicationId = "com.mofumachi.merge";
         public static readonly string[] Scenes = { "Assets/Scenes/TitleScene.unity", "Assets/Scenes/GameScene.unity" };
@@ -111,6 +112,7 @@ namespace Mofumachi.Editor
 
         public static void WithQaIdentity(Action action)=>WithIdentity(QaApplicationId,"もふまちメルジュ QA",action);
         public static void WithTownQaIdentity(Action action)=>WithIdentity(TownQaApplicationId,"もふまちメルジュ 街QA",action);
+        public static void WithGrowthQaIdentity(Action action)=>WithIdentity(GrowthQaApplicationId,"もふまちメルジュ 成長確認",action);
         private static void WithIdentity(string applicationId,string productName,Action action)
         {
             string id=PlayerSettings.GetApplicationIdentifier(NamedBuildTarget.Android),name=PlayerSettings.productName;
@@ -119,6 +121,7 @@ namespace Mofumachi.Editor
         }
         [MenuItem("Mofumachi/Android/Build Town QA APK (separate save)")]
         public static void BuildTownQaApk()=>WithTownQaIdentity(()=>{ConfigureDeviceSettings();BuildConfiguredApk(true,"town-life-qa.apk");});
+        public static void BuildGrowthQaApk()=>WithGrowthQaIdentity(()=>{ConfigureDeviceSettings();BuildConfiguredApk(true,"town-growth-check.apk");});
         [MenuItem("Mofumachi/Android/Build QA APK (separate save)")]
         public static void BuildQaApk() => WithQaIdentity(()=>{ConfigureDeviceSettings();BuildConfiguredApk(true);});
         [MenuItem("Mofumachi/Android/Build Development APK")]

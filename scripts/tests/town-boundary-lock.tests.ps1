@@ -19,10 +19,17 @@ try {
     $NewFile=Join-Path $Root $Record.new_files[0].path;$Saved=[IO.File]::ReadAllBytes($NewFile)
     [IO.File]::AppendAllText($NewFile,'unbound change');Reject {Get-BasePolishPatch $Root};[IO.File]::WriteAllBytes($NewFile,$Saved)
     $OriginalScope=$Record.scope_id;$Record.scope_id='unknown';SaveRecord;Reject {Get-BasePolishPatch $Root};$Record.scope_id=$OriginalScope
-    if($OriginalScope -eq 'town_field_stability_2026_10_25') {
+    if($OriginalScope -in @('town_field_stability_2026_10_25','town_field_completion_2026_10_25')) {
         $Record.scope_id='town_boundary_final_2026_10_24';SaveRecord;Reject {Get-BasePolishPatch $Root};$Record.scope_id=$OriginalScope;SaveRecord
         $Nav=Join-Path $Root 'Assets/Mofumachi/Presentation/TownAreaNavigation.cs';$NavBytes=[IO.File]::ReadAllBytes($Nav)
         [IO.File]::AppendAllText($Nav,'unbound navigation');Reject {Get-BasePolishPatch $Root};[IO.File]::WriteAllBytes($Nav,$NavBytes)
+    }
+    if($OriginalScope -eq 'town_field_completion_2026_10_25') {
+        $Record.scope_id='town_field_stability_2026_10_25';SaveRecord;Reject {Get-BasePolishPatch $Root};$Record.scope_id=$OriginalScope;SaveRecord
+        foreach($Name in @('TownGrowthPresentation.cs','TownGrowthComparisonView.cs')) {
+            $Path=Join-Path $Root ('Assets/Mofumachi/Presentation/'+$Name);$Bytes=[IO.File]::ReadAllBytes($Path)
+            [IO.File]::AppendAllText($Path,'unbound growth display');Reject {Get-BasePolishPatch $Root};[IO.File]::WriteAllBytes($Path,$Bytes)
+        }
     }
     $OriginalPath=$Record.new_files[0].path;$Record.new_files[0].path='Assets/Mofumachi/Core/SaveService.cs';SaveRecord;Reject {Get-BasePolishPatch $Root};$Record.new_files[0].path=$OriginalPath
     $CapturePath=$Record.capture_inputs[0].path;$Record.capture_inputs[0].path='Assets/Mofumachi/Presentation/MergeGridLayout.cs';SaveRecord;Reject {Get-BasePolishPatch $Root};$Record.capture_inputs[0].path=$CapturePath

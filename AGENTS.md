@@ -1,5 +1,11 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-25最新原本：210356の11ZIP・160原本を照合し、Edit144/144・Play224/224の全368ケースPassed／failed0／skip0／inconclusive0、144PNGのSHA・bytes・720×1280・デコード正常。** build／growth-build／captureは同じ43a2764／fingerprint21a04dc3…、両APKの成功log・bytes一致。街118247418bytes／SHA0d3426dd…、成長79006293bytes／SHA2b5302be…、全文は `References/Review/town-field-final-2026-10-25-candidate/native-review.json`。APKbinary未受領で独立SHA再計算は未了。実納品1→2／2→3／5→6の5地区実装飾・再読込成功。全15全景＋既存22境界は旧153810とbyte同一。122同名不変／16変更／6新規。北上端・西外側の広い空白は植栽で改善、新景観後退は見当たらない。
+
+**判定は同じ210356の2APKで条件付きPixel確認へ進行可、街正式固定は保留。** 単独の独立実画像レビューCritical0／Important2／Minor1。I1は既存東の木陰で顔・体・名前が隠れ、識別／タップ・ドラッグ帰還が実機未確認。I2は奥の噴水画像が名前札だけ重なり、キャラ本体の遮蔽・ライブ切替は未証明。M1は北上端のわずかな地面・花壇反復。修正を推測せず、Pixelで両重要項目を確認するための進行であり、後工程承認ではない。成長の短い強調・全地区切替／Lv2北南「次はLv.3」も実機で確認する。
+
+今回ゲーム・テスト・QAツール・VisualLock原本は無変更、**Pull／再ビルド不要**。`docs/town-field-final-pixel3a-2026-10-25.md` の正確なSHA照合→Pixel99RAY1BELHへ成長確認com.mofumachi.merge.qa.growthcheck／街QAcom.mofumachi.merge.qa.townlifeの明示ID・install-r（街QAを最後に開く）。既存保存消去／アンインストールなし。5地区連続移動、東木陰から自力帰還、噴水前後、境界、実納品成長と再起動保存、600秒・熱・重さ・音を同版で合格させるまで正式固定・噴水エフェクト／2.5D／Merge／mainは停止。報告は指定8項目、画像をチャットへ貼らない。以下は履歴。
+
 **2026-10-25最新終了画面：210356はEdit144/144・Play224/224、144画像720×1280、街QA／別保存の成長確認APKの2本・各SHA・レビューZIP出力まで正常終了。** run `20261025-210356-e7e1ca30`、期待ソース43a2764。両APKの出力後にPSプロンプトへ戻った。画面SHAprefixは街0d3426dd…／成長2b5302be…、全文は原build-infoから確定する。原XML／failed0・skip0／両build-info／画像原本／APKbinary／Pixelは未受領・未確認。画面記録 `docs/verification/town-field-final-qa-build-screen-report-2026-10-25.json`。次は同runのfive-plaza-review-*.zip全パートを受領し、実画像／原結果／両APKのsource・SHAを確認してからPixelへ進む。記録だけでPull／再ビルドを依頼しない。街の正式固定・次工程・mainは保留継続。チャットに画像を貼らない。以下は履歴。
 
 **2026-10-25最新原本：204913のPlayModeは224中223成功／1失敗／skip0。** 唯一の失敗はSeamlessFieldTests.OneSharedGroundAndFiveLandmarksReplaceTheOpaquePainting:22。境界を4帯→7帯へ追加した際、実メッシュ476頂点に対してテストの旧期待272が残った更新漏れ。原XML/log・SHA・診断は `References/Review/full-playmode-2026-10-25-204913/`。新しい実納品→5地区成長→Scene再読込のケース、元の全撮影、噴水前後、全5端部の実入力／自力帰還はいずれもこの実UnityでPassed。ただし画像原本未受領、表示レビュー／実機合格ではない。

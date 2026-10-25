@@ -1,0 +1,127 @@
+{
+  "run": "20261025-210356-e7e1ca30",
+  "build": {
+    "gitRevision": "43a27646fcf65174afb938fb78c0b93d7e0628ad",
+    "revisionSource": "git-metadata + clean product inputs",
+    "productFingerprint": "21a04dc3e2403eda1aecc529bbb60c5490a0086f1db2f6af54cb30d22eb16dd9",
+    "localUnityConfigurationChanges": [
+      "\"Assets/Settings/Build Profiles/Android\\342\\204\\242.asset\"",
+      "Assets/Settings/UniversalRP.asset",
+      "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+      "ProjectSettings/ProjectSettings.asset"
+    ],
+    "nativeCaptureCount": 144,
+    "unity": "6000.6.4f1",
+    "appId": "com.mofumachi.merge.qa.townlife",
+    "versionCode": 1,
+    "apk": "town-life-qa.apk",
+    "sha256": "0d3426ddfc046c0d8d0709ee49ec2cbeeef3de71ef3f3e242580dc055fd44dbd",
+    "bytes": 118247418,
+    "builtAtUtc": "2026-10-25T12:12:11.0733983Z",
+    "qa": true,
+    "townQa": true
+  },
+  "growth_build": {
+    "gitRevision": "43a27646fcf65174afb938fb78c0b93d7e0628ad",
+    "productFingerprint": "21a04dc3e2403eda1aecc529bbb60c5490a0086f1db2f6af54cb30d22eb16dd9",
+    "appId": "com.mofumachi.merge.qa.growthcheck",
+    "apk": "town-growth-check.apk",
+    "sha256": "2b5302be61a855557535d11bed1622b4a6a01880f6aa2f169e1242e385fcf01d",
+    "bytes": 79006293,
+    "initial_state": "normal initial game, separate Android app save",
+    "pixel_verified": false,
+    "adopted": false
+  },
+  "capture": {
+    "gitRevision": "43a27646fcf65174afb938fb78c0b93d7e0628ad",
+    "productFingerprint": "21a04dc3e2403eda1aecc529bbb60c5490a0086f1db2f6af54cb30d22eb16dd9",
+    "width": 720,
+    "height": 1280,
+    "count": 144,
+    "scope": "Unity fixture renders; not Pixel captures"
+  },
+  "xml": {
+    "editmode.xml": {
+      "id": "2",
+      "testcasecount": "144",
+      "result": "Passed",
+      "total": "144",
+      "passed": "144",
+      "failed": "0",
+      "inconclusive": "0",
+      "skipped": "0",
+      "asserts": "0",
+      "engine-version": "3.5.0.0",
+      "clr-version": "4.0.30319.42000",
+      "start-time": "2026-10-25 12:04:17Z",
+      "end-time": "2026-10-25 12:04:20Z",
+      "duration": "2.4836933"
+    },
+    "playmode.xml": {
+      "id": "2",
+      "testcasecount": "224",
+      "result": "Passed",
+      "total": "224",
+      "passed": "224",
+      "failed": "0",
+      "inconclusive": "0",
+      "skipped": "0",
+      "asserts": "0",
+      "engine-version": "3.5.0.0",
+      "clr-version": "4.0.30319.42000",
+      "start-time": "2026-10-25 12:04:50Z",
+      "end-time": "2026-10-25 12:09:36Z",
+      "duration": "285.9510114"
+    }
+  },
+  "actual_individual_cases_passed": 368,
+  "all_manifest_png_verified": true,
+  "build_and_capture_revision_and_fingerprint_match": true,
+  "reported_revision_matches_current_product_and_test_files": true,
+  "actual_windows_fingerprint_independently_recomputed": false,
+  "success_markers": {
+    "android-build.log": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261025-210356-e7e1ca30\\town-life-qa.apk (118247418 bytes)",
+    "growth-android-build.log": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261025-210356-e7e1ca30\\town-growth-check.apk (79006293 bytes)"
+  },
+  "real_growth_metadata": {
+    "kind": "isolated-real-delivery-growth-and-reload",
+    "pixel_verified": false,
+    "adopted": false,
+    "transitions": [
+      {
+        "from": 1,
+        "to": 2,
+        "coins": 70,
+        "districts_checked": 5,
+        "reload_matched": true
+      },
+      {
+        "from": 2,
+        "to": 3,
+        "coins": 110,
+        "districts_checked": 5,
+        "reload_matched": true
+      },
+      {
+        "from": 5,
+        "to": 6,
+        "coins": 330,
+        "districts_checked": 5,
+        "reload_matched": true
+      }
+    ]
+  },
+  "field_fixture_metadata": {
+    "kind": "native-walking-and-depth-fixture",
+    "edge_return_pairs": 5,
+    "east_corner_return": true,
+    "fountain_front_and_behind": true,
+    "teleport_rescue": false,
+    "pixel_verified": false,
+    "adopted": false
+  },
+  "apk_binaries_received": false,
+  "apk_sha_independently_recomputed": false,
+  "pixel_verified": false,
+  "adopted": false
+}

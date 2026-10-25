@@ -1,0 +1,167 @@
+{
+  "reviewed_on_jst": "2026-10-25",
+  "run": "20261025-210356-e7e1ca30",
+  "native_source_revision": "43a27646fcf65174afb938fb78c0b93d7e0628ad",
+  "product_fingerprint": "21a04dc3e2403eda1aecc529bbb60c5490a0086f1db2f6af54cb30d22eb16dd9",
+  "render_input_digest": "73b1027987ca543d38df99459571cc0ae441512511a8c8c7f1b3fc58bc567b5b",
+  "verdict": "eligible_for_conditional_same_apk_pixel_verification",
+  "native_tests_verified": true,
+  "native_image_inspection_complete": true,
+  "baseline_art_retained": true,
+  "native_visual_cleared": false,
+  "pixel_verified": false,
+  "field_stability_passed": false,
+  "user_adopted": false,
+  "formal_base_frozen": false,
+  "native_evidence": {
+    "archive_parts": 11,
+    "original_files": 160,
+    "png_images": 144,
+    "width": 720,
+    "height": 1280,
+    "all_archive_crc_and_manifest_sha_bytes_dimensions_decode_verified": true,
+    "editmode": {
+      "total": 144,
+      "passed": 144,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    "playmode": {
+      "total": 224,
+      "passed": 224,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    "all_individual_cases_passed": 368,
+    "build_capture_and_companion_revision_and_fingerprint_match": true,
+    "current_product_and_test_tree_matches_reported_revision": true,
+    "actual_windows_fingerprint_independently_recomputed": false,
+    "both_apk_success_markers_and_bytes_match_metadata": true,
+    "town_apk": {
+      "apk": "town-life-qa.apk",
+      "appId": "com.mofumachi.merge.qa.townlife",
+      "sha256": "0d3426ddfc046c0d8d0709ee49ec2cbeeef3de71ef3f3e242580dc055fd44dbd",
+      "bytes": 118247418,
+      "versionCode": 1
+    },
+    "growth_apk": {
+      "apk": "town-growth-check.apk",
+      "appId": "com.mofumachi.merge.qa.growthcheck",
+      "sha256": "2b5302be61a855557535d11bed1622b4a6a01880f6aa2f169e1242e385fcf01d",
+      "bytes": 79006293,
+      "initial_state": "normal initial game, separate Android app save"
+    },
+    "apk_binaries_received": false,
+    "apk_sha_independently_recomputed": false,
+    "existing_production_artifact_gates_passed": true
+  },
+  "comparison": {
+    "previous_native_source": "871808c3971e18aad8ffbbd30a1ce7de40455ab4",
+    "same_name_png_identical": 122,
+    "same_name_png_changed": 16,
+    "new_growth_frames": 6,
+    "all15_five_district_lv1_lv3_lv6_overviews_byte_identical": true,
+    "all22_existing_boundary_comparison_frames_byte_identical": true,
+    "changed_existing_frames": "14 field-stability frames plus generator text clarity in01 and landing instant in29; no new Merge/book/HUD regression observed",
+    "inspection": "All144 on private sheets; all6growth,field edges,fountain and selected originals at native size; single independent read-only review. No chat image embedding.",
+    "boundary_before_scope": "Current runtime with curved band off only; not a historical APK. New exterior changes also compared with previous actual31-field originals."
+  },
+  "user_requested_results": {
+    "five_area_movement": "Native edge/return journeys and topmost touch/drag checks passed all5; actual Pixel free movement pending.",
+    "snagging": "East building-corner and all5edge return fixtures passed without teleport rescue. Retained East canopy hides hero pixels; actual usability pending.",
+    "fountain_front_back": "Native ordering checks pass and front PNG visibly layers hero in front. Far-side PNG overlaps only nameplate; live body occlusion remains pending.",
+    "boundaries": "North cap and West exposed side visibly planted; approved15overviews retained. Minor peripheral North ground/repeated rims remain for device review.",
+    "actual_growth": "Real generation/merge/acceptance/delivery1to2,2to3,5to6 passed with all5 live district checks. Reload coins70/110/330. North/South unchanged atLv2 by authored schedule; nextLv3 label retained.",
+    "save_restore": "Isolated real disk/scene reload passed without level injection; actual player update retention/device restart pending.",
+    "pixel": "No new Pixel install/session received. Exact metadata-SHA checked install-r instructions prepared for both explicit app IDs/serial99RAY1BELH.",
+    "formal_freeze": "Held until actual device visibility/input/growth/save/600second acceptance. No later stage started."
+  },
+  "review": {
+    "critical": 0,
+    "important_acceptance_items": 2,
+    "minor": 1,
+    "new_runtime_or_graphic_regression_established": false,
+    "independent_report": "independent-review.md",
+    "ready_for_conditional_pixel_verification": true
+  },
+  "open_acceptance_items": [
+    {
+      "id": "I1",
+      "severity": "important_inherited_usability_acceptance",
+      "files": [
+        "31-field-East-edge.png",
+        "31-field-east-corner-out.png"
+      ],
+      "location": "East edge x603-710/y755-817; corner x600-719/y763-954",
+      "issue": "Hero face/body/name hidden by retained canopy; topmost raycast success does not establish visibility.",
+      "action": "Same-APK Pixel identification and tap/drag return. If unusable, acceptance held and bounded evidence-based correction; no scenery deletion/floor reduction/always-front shortcut."
+    },
+    {
+      "id": "I2",
+      "severity": "important_acceptance_evidence_gap",
+      "files": [
+        "31-field-fountain-front.png",
+        "31-field-fountain-behind.png"
+      ],
+      "location": "Far-side hero feet end~y912; fountain droplet starts~y920; overlapping nameplatey916-958.",
+      "issue": "Native rectangular overlap/sibling order checks do not demonstrate visible body silhouette crossing.",
+      "action": "Observe actual hero and NPC front-side-far-side-front crossing on Pixel. No production depth change solely to manufacture a still."
+    },
+    {
+      "id": "M1",
+      "severity": "minor_device_visual_review",
+      "files": [
+        "31-field-North-edge.png"
+      ],
+      "location": "x0-119/y115-168 andx600-719/y123-168; repeated rims near y264-310",
+      "issue": "Residual peripheral plain ground and regular flowerbed repetition; broad old empty cap substantially improved.",
+      "action": "Judge prominence during normal Pixel movement; do not claim all seams/exposed ground eliminated."
+    }
+  ],
+  "declined_to_judge_rulings": [
+    {
+      "item": "Pixel touch/East return usability",
+      "ruling": "Mandatory device gate retained; native inputs do not substitute."
+    },
+    {
+      "item": "Live fountain/NPC crossing and overlap recovery",
+      "ruling": "Mandatory device gate retained; I2 unresolved until observed."
+    },
+    {
+      "item": "Short growth pulse on focal North/South master scenery",
+      "ruling": "Verify visible change and brief growth emphasis on device; fixture IsHighlighting alone not visual clearance."
+    },
+    {
+      "item": "Every district label/transition in PNGs",
+      "ruling": "Native case loops all5; device must cycle5districts at target transitions, including truthful nextLv3 labels."
+    },
+    {
+      "item": "Performance/heat/audio/crashes/600seconds",
+      "ruling": "Mandatory device gate retained; source sprite counts and Editor RAM are not device metrics."
+    },
+    {
+      "item": "APK binary hashes/installed identity",
+      "ruling": "Both logs/metadata consistent; user-side exact hash and existing package/serial/update installer required, binary recomputation not claimed."
+    },
+    {
+      "item": "Real player update retention/device progression/restart",
+      "ruling": "Mandatory device gate retained; separate-save growth app avoids resetting existing town save."
+    },
+    {
+      "item": "Full unchanged reward/Core audit",
+      "ruling": "Outside bounded native visual review; full native suite passed, no Core/reward/save changes. No new exhaustive audit implied."
+    },
+    {
+      "item": "Formal adoption/field freeze/later features/main",
+      "ruling": "Not authorized by native review. Await required Pixel/user acceptance; no progression beyond current stage."
+    }
+  ],
+  "product_runtime_test_or_tools_changed_for_this_receipt": false,
+  "fountain_effects_started": false,
+  "character_trial_started": false,
+  "merge_started": false,
+  "main_merged": false,
+  "next": "Use existing210356 APKs; compare local SHA against raw build-info and updateinstall-r on99RAY1BELH with explicit package IDs. Confirm5areas and I1/I2, actual growth5districts/restart and600seconds. No Pull/rebuild for review-only receipt."
+}

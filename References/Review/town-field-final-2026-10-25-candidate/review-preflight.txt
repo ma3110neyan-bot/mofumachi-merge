@@ -1,0 +1,5 @@
+Tests passed: 144/144
+Tests passed: 224/224
+Native Unity images: 144, 720x1280 (visual review still required).
+Street boundary comparison: /workspace/runtime/town-field-final-native-2026-10-25/extracted/street-boundary-before-after.html (Boundary-only renderer comparison; Pixel acceptance pending).
+Received native artifacts passed production XML/capture/boundary/field/real-growth gates. No Unity/APK/device execution performed by this review.

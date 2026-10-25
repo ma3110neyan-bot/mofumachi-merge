@@ -50,7 +50,8 @@ Interfaces: Same full-TownQa pipeline, failed0/skip0, matching build/capture ide
 - [x] Bind exact display deltas with original/historical approval unchanged; invalidate current native/APK/Pixel/adoption flags for the new runtime.
 - [x] Run relevant PS tests, historical/current digest and Windows CRLF preflight; fresh whole-change review and one verified fix pass if needed.
 - [x] Commit/push feature only. Provide one full -TownQa command for actual Windows native/QA APK evidence; do not claim cloud execution.
-- [ ] Inspect new native evidence then same-APK Pixel acceptance including real growth/save/restart and600seconds. Formal freeze only after actual user/device pass.
+- [x] Inspect new native evidence:210356の11ZIP／160原本、Edit144／Play224全ケースPassed、144PNG照合、同版2APK識別と実画面比較を確認。
+- [ ] Same-APK Pixel acceptance including real growth/save/restart and600seconds. Formal freeze only after actual user/device pass.
 
 ## Ledger
 
@@ -67,3 +68,9 @@ Final review Critical0/Important1/Minor1: newly inserted cap entries changed sor
 All14 PS fixtures passed before the final mirror/capture hash refresh. Original354/JPEG15 remain immutable. Current candidate bindings must be refreshed and relevant gates rerun after that fix. Pixel/visual quality/real APK content are declined-to-judge without actual execution/images and remain mandatory acceptance gates.
 
 Final verification: post-review fullCPU335/335 (8m52s), Core125/125 unchanged-source baseline, six API DLLs0warnings/errors, native declarations144/224 (not execution), relevant2PS gates rerun successfully, current/historical exact gates pass in411-file Windows CRLF fixture. Fountain front→left→.441far rim→right→front actual-model probes passed atLv1/3/6 with live NPCs. No graphics/Pixel verdict inferred. New native144PNG/twoAPK/SHA and actual Pixel acceptance remain outstanding; old153810 evidence is historical.
+
+Native receipt210356-e7e1ca30:43a2764の実Edit144／Play224全368ケースPassed、failed0／skip0／inconclusive0。先行204913の1失敗は旧曲線272頂点期待の更新漏れで、test-only476一致へ修正済み。144PNG全SHA／bytes／寸法／デコード、両APKとcaptureのsource／fingerprint、各成功log／bytesを確認。実納品1→2／2→3／5→6の5地区実装飾・Scene再読込成功。原本はReferences/Review/town-field-final-2026-10-25-candidate。APKbinary自体の独立SHA照合は未了。
+
+新原本は122同名不変／16変更／6成長新規。全15地区全景と既存22境界は前回153810とbyte同一、北天端と西外側の空白は新端部画像で植栽改善。単独独立実画像レビューCritical0／Important2／Minor1、新景観後退なし。Importantは既存東の木陰での実操作と、噴水奥の写真が本体でなく名前札だけ重なる証拠限界。実機確認へ条件付き進行可、正式固定と後工程は不可。成長強調・5地区切替・実保存・熱／音／600秒もdevice gatesへ残した。
+
+今回のレビューは製品／テスト／QAツール／VisualLockを変えず、原本と記録だけ。Pull／再ビルド不要。生成済み210356の両APKを正確なSHAで確認し、指定Pixelへ既存installerの明示package・install-rで更新する手順を作成／構文確認した。実インストール・Pixel試遊は未実施。

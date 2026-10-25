@@ -1,0 +1,77 @@
+{
+  "run": "20261025-204913-be3b3a03",
+  "date_jst": "2026-10-25",
+  "raw_results_verified": true,
+  "total": 224,
+  "passed": 223,
+  "failed": 1,
+  "skipped": 0,
+  "expected_source_revision": "a20ae99ec540917c71f5fba70a3deb57262eee6e",
+  "exact_windows_source_identity_verified": false,
+  "log_confirms_run_directory": true,
+  "files": [
+    {
+      "file": "playmode.xml",
+      "bytes": 188712,
+      "sha256": "544861bc8c3b1a98dd0f4db30c4043f4af0cf92ab6c5e2f2ac0c1cfc969846e1"
+    },
+    {
+      "file": "playmode.log",
+      "bytes": 328860,
+      "sha256": "f68aa1400bd906b6b117d626b20ff3e7c0076fa466b57ec787696051a711727e"
+    }
+  ],
+  "failure": "Mofumachi.Tests.SeamlessFieldTests.OneSharedGroundAndFiveLandmarksReplaceTheOpaquePainting",
+  "message": "  One bounded shared-texture curve batch, without per-flower objects\n  Expected: 272\n  But was:  476\n",
+  "stack": "at Mofumachi.Tests.SeamlessFieldTests+<OneSharedGroundAndFiveLandmarksReplaceTheOpaquePainting>d__0.MoveNext () [0x00151] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\SeamlessFieldTests.cs:22\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n",
+  "root_cause": "Native shared-curve mesh assertion retained the old four-strip272 vertex expectation after the bounded candidate added the North cap and East/West outside strips. Current seven strips x17columns x4rows produce476 vertices, exactly as observed by Unity. Other223 cases passed.",
+  "repair": {
+    "file": "Assets/Mofumachi/Tests/PlayMode/SeamlessFieldTests.cs",
+    "old_expected_vertices": 272,
+    "new_expected_vertices": 476,
+    "independent_derivation": "7 outside-edge strips x17 columns x4 rows",
+    "exact_mesh_count_and_single_shared_batch_kept": true,
+    "runtime_changes": [],
+    "test_cases_removed": 0,
+    "assertions_removed": 0,
+    "native_gate_weakened": false
+  },
+  "selected_actual_native_passes": [
+    "Mofumachi.Tests.EastWestHomeTests.ResidentsPassBehindAndInFrontOfTheSameFountainPixels",
+    "Mofumachi.Tests.ExperienceCaptureTests.DeliveriesGrowFiveDistrictsAndPersistAfterSceneReload",
+    "Mofumachi.Tests.ExperienceCaptureTests.PortraitScreensRenderFromIsolatedStateWithoutWritingProgress",
+    "Mofumachi.Tests.QualityPassStoryGrowthTests.BodyUsesKleeWhileButtonsCountsAndLevelsKeepUiFonts",
+    "Mofumachi.Tests.QualityPassStoryGrowthTests.DeliveryShowsPersonalThanksAndReunionSurvivesReloadWithoutRewardReplay",
+    "Mofumachi.Tests.QualityPassStoryGrowthTests.EachRegionVisiblyGrowsAndDecorationNeverSavesOrIntercepts",
+    "Mofumachi.Tests.QualityPassStoryGrowthTests.EveryDeliveryAndGrowthStoryFitsShortSafePortraits",
+    "Mofumachi.Tests.QualityPassStoryGrowthTests.GrowthSaveErrorKeepsAnUnobscuredUsableReturnButton",
+    "Mofumachi.Tests.TownViewportPresentationTests.AllFiveEdgesKeepReturnInputAndWalkBackWithoutTeleporting"
+  ],
+  "raw_native_images_received": false,
+  "new_native_visual_reviewed": false,
+  "repair_api_compiled": true,
+  "repaired_native_pass_verified": false,
+  "qa_apk_generated": false,
+  "growth_qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "next": "Pull test-only repair and run full TownQa once; require failed0/skip0 and same-source twoAPK metadata/144PNG/real growth metadata. Do not reuse this failed run as complete acceptance.",
+  "repair_source_verification": {
+    "api_assemblies": 6,
+    "api_warnings": 0,
+    "api_errors": 0,
+    "related_cpu_passed": 5,
+    "related_cpu_failed": 0,
+    "related_cpu_skipped": 0,
+    "native_declarations_only": {
+      "editmode": 144,
+      "playmode": 224
+    },
+    "full_native_reexecution_pending": true,
+    "native_or_pixel_success_inferred": false,
+    "boundary_rejection_gate_passed": true,
+    "original_and_current_approval_gates_passed": true,
+    "lf_crlf_preflight_passed": true,
+    "powershell_host_setup": "Startup initially stopped before executing tests because default cache/data directories were read-only. Configured supported XDG cache/config/data paths under /workspace/runtime/powershell; both verification scripts then exited0."
+  }
+}

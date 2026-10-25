@@ -1,0 +1,32 @@
+{
+  "kind": "user-screenshot-report",
+  "run": "20261025-125258-acabc327",
+  "evidence": "PowerShell screenshot supplied by user",
+  "expected_source_revision": "23c21ef",
+  "windows_source_identity_verified": false,
+  "editmode": {
+    "reported_passed": 143,
+    "reported_total": 143,
+    "raw_xml_received": false
+  },
+  "playmode": {
+    "phase_started": true,
+    "unity_exit_code": 2,
+    "total": null,
+    "failed": null,
+    "skipped": null,
+    "raw_xml_received": false,
+    "raw_log_received": false
+  },
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "script_line": 163,
+  "script_line_role": "Throws after nonzero Unity process exit; it is not the underlying failure location.",
+  "required_next_evidence": [
+    "playmode.xml",
+    "playmode.log"
+  ],
+  "run_directory": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261025-125258-acabc327",
+  "disposition": "Hold runtime and gate changes, no speculative fix or rerun before same-run raw XML/log diagnosis. Metadata receipt alone requires no Pull/rebuild."
+}

@@ -1,0 +1,38 @@
+{
+  "kind": "user-screenshot-report",
+  "date_jst": "2026-10-25",
+  "run": "20261025-204913-be3b3a03",
+  "evidence": "PowerShell screenshot supplied by user",
+  "expected_source_revision": "a20ae99ec540917c71f5fba70a3deb57262eee6e",
+  "windows_source_identity_verified": false,
+  "run_suffix_is_random_not_source_revision": true,
+  "editmode": {
+    "reported_passed": 144,
+    "reported_total": 144,
+    "raw_xml_received": false
+  },
+  "playmode": {
+    "phase_started": true,
+    "unity_exit_code": 2,
+    "total": null,
+    "failed": null,
+    "skipped": null,
+    "failed_case": null,
+    "raw_xml_received": false,
+    "raw_log_received": false
+  },
+  "script_line": 178,
+  "script_line_role": "Invoke-Unity throws on nonzero process exit; this is not the underlying failure location.",
+  "qa_apk_generated": false,
+  "growth_qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "formal_base_frozen": false,
+  "required_next_evidence": [
+    "playmode.xml",
+    "playmode.log"
+  ],
+  "run_directory": "C:/Users/User/Desktop/Mofumachi/mofumachi-merge/Builds/Android/20261025-204913-be3b3a03",
+  "product_source_changed_for_this_receipt": false,
+  "disposition": "Receive same-run raw XML/log and diagnose before proposing fixes or rerun. Metadata receipt alone requires no Pull or rebuild. Later stages remain on hold."
+}

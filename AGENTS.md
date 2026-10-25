@@ -1,5 +1,7 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-25最新画面：最終フィールド版の全件QAはEdit144/144成功、PlayModeでUnity exit2。** run `20261025-204913-be3b3a03`。PS178行はUnity非0終了の通知で根因ではない。Playの実件数／失敗名／skip／ソース同一性は原XML/log未受領で未確認、今回のAPK2本は未生成。記録 `docs/verification/town-field-final-qa-stop-screen-report-2026-10-25.json`。次は同runのplaymode.xml／playmode.logを受領し原因を特定する。推測の修正・同版の再実行依頼はしない。この記録だけではPull／再ビルド不要。街正式固定・噴水エフェクト／2.5D／Merge／mainは停止継続。画像をチャットへ貼らない。以下は履歴。
+
 **2026-10-25最新：ユーザー「街フィールド最終完成指示」へ限定実装。実装済み・新版Unity／APK／Pixel未確認。** 現featureを維持し、正式固定・噴水エフェクト／2.5D／Merge／mainへ進めない。手順 `docs/town-field-final-pixel3a-2026-10-25.md`、仕様／計画はtown-field-final。画像をチャットに貼らない。
 
 今回のruntime変更は外周GardenLayout/GraphicとGrowthPresentation/ComparisonViewの4ファイルのみ。北天端・東西外側端に元素材の植栽／曲線を足し、全矩形は歩行面の外、既存200外周Spriteの位置・向きは保持。243Sprite／476曲線頂点、共有素材・追加Colliderなし。成長比較を5地区へし、新装飾または次Lvを短く表示。北南の既存Lv3/6条件を守りLv2では「次はLv.3」。MasterLayout／原画・全歩行面／Nav／Core保存・納品・報酬・正式6名・図鑑/BGM/Mergeは無変更。

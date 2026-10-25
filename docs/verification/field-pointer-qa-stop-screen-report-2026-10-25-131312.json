@@ -1,0 +1,23 @@
+{
+  "kind": "user-screenshot-report",
+  "run": "20261025-131312-6c6e5bcb",
+  "expected_source": "51063d1",
+  "actual_windows_source_verified": false,
+  "editmode_reported_passed": 143,
+  "editmode_reported_total": 143,
+  "playmode_unity_exit_code": 2,
+  "playmode_total": null,
+  "playmode_failed": null,
+  "playmode_skipped": null,
+  "raw_xml_received": false,
+  "raw_log_received": false,
+  "same_failure_as_previous_run": null,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "next_evidence": [
+    "playmode.xml",
+    "playmode.log"
+  ],
+  "disposition": "Hold changes and reruns. New diagnostic payload may identify exact hit/edge/depth/cull if the same assertion failed; do not assume the cause from exit2."
+}

@@ -1,5 +1,7 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-25最新画面：131312-6c6e5bcbはEdit143/143成功、PlayModeで再びUnity exit2。** 前回125258の原XML223/222/1とは別run。今回の失敗名・件数・skip・実際のsourceは原XML/log未受領で未確認、同じ原因と断定しない。APK未生成。次は `Builds/Android/20261025-131312-6c6e5bcb` のplaymode.xmlとplaymode.logを受領。51063d1の検査には対象名／地区／depth／cull／カメラの詳細を追加済みなので、適用と失敗箇所をまず原本で確認する。推測修正・再実行依頼をしない。今回の記録のみの更新ではPull／ビルド不要。以下は履歴。
+
 **2026-10-25最新原本：125258のPlayMode223中222成功／1失敗／skip0。端部の最前面タッチ検査だけ停止。** 原XML/log・SHAは `References/Review/full-playmode-2026-10-25-125258/`。唯一の失敗はTownViewportPresentationTests.AllFiveEdgesKeepReturnInputAndWalkBackWithoutTeleporting:36、最前面hitが非キャラ（対象名／地区は旧メッセージにない）。噴水前後・全景／5地区往復撮影・既存30マス実raycast検査は実UnityでPassed。PNG原本は未受領なので実画像レビュー済みとは言わない。APK未生成。
 
 追加検査はFrameTownPortraitでWorldSpaceに変更しながらイベントカメラを設定せずnullで投影していた。成功済みの既存FixedViewportをそのまま再利用（internal化だけ）し、描画／投影／Raycastを同じカメラに一致。実描画後も先頭hit必須・5端部／実ドラッグ／帰還を維持、失敗時の対象名／地区／depth／cullを記録する。**修正はテスト2ファイルのみ。ゲーム・原画・歩行・撮影・QAゲートは不変。元の非キャラhitの根因や修正版native成功はまだ未確認。**

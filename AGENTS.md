@@ -1,6 +1,6 @@
 # もふまちメルジュ：今後の開発方針
 
-**2026-10-25最新画面：210356はEdit144/144・Play224/224、144画像720×1280、街QA APK／SHA出力まで成功。** run `20261025-210356-e7e1ca30`、期待ソース43a2764。画面末尾は別保存の成長確認APKのビルド開始で、2本目／ZIP作成／処理全体の終了はまだ確認できない。原XML／failed0・skip0／build-info／画像原本／APKbinary／Pixelは未受領・未確認。画面記録 `docs/verification/town-field-final-qa-build-screen-report-2026-10-25.json`。次は同じ処理の終了画面と同runのfive-plaza-review-*.zip全パートを受領する。稼働中の処理を再実行させず、この記録更新だけでPull／再ビルドを依頼しない。街の正式固定・次工程・mainは保留継続。チャットに画像を貼らない。以下は履歴。
+**2026-10-25最新終了画面：210356はEdit144/144・Play224/224、144画像720×1280、街QA／別保存の成長確認APKの2本・各SHA・レビューZIP出力まで正常終了。** run `20261025-210356-e7e1ca30`、期待ソース43a2764。両APKの出力後にPSプロンプトへ戻った。画面SHAprefixは街0d3426dd…／成長2b5302be…、全文は原build-infoから確定する。原XML／failed0・skip0／両build-info／画像原本／APKbinary／Pixelは未受領・未確認。画面記録 `docs/verification/town-field-final-qa-build-screen-report-2026-10-25.json`。次は同runのfive-plaza-review-*.zip全パートを受領し、実画像／原結果／両APKのsource・SHAを確認してからPixelへ進む。記録だけでPull／再ビルドを依頼しない。街の正式固定・次工程・mainは保留継続。チャットに画像を貼らない。以下は履歴。
 
 **2026-10-25最新原本：204913のPlayModeは224中223成功／1失敗／skip0。** 唯一の失敗はSeamlessFieldTests.OneSharedGroundAndFiveLandmarksReplaceTheOpaquePainting:22。境界を4帯→7帯へ追加した際、実メッシュ476頂点に対してテストの旧期待272が残った更新漏れ。原XML/log・SHA・診断は `References/Review/full-playmode-2026-10-25-204913/`。新しい実納品→5地区成長→Scene再読込のケース、元の全撮影、噴水前後、全5端部の実入力／自力帰還はいずれもこの実UnityでPassed。ただし画像原本未受領、表示レビュー／実機合格ではない。
 

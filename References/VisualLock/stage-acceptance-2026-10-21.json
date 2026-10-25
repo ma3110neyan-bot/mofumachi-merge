@@ -192,7 +192,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "curved_boundary_qa_success_reported_native_visual_pixel_pending",
+  "current_stage": "curved_boundary_unity_reviewed_existing_apk_pixel_acceptance_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -702,12 +702,15 @@
     "editmode_passed": 143,
     "playmode_passed": 222,
     "native_capture_count_reported": 124,
-    "raw_xml_verified": false,
-    "source_revision": null,
+    "raw_xml_verified": true,
+    "source_revision": "e7a80062202312d10b07f65d95708852c9abd87c",
     "sha256_reported": "aae8f682cce320d55b22910fe4fd38404b1a7c2b225d60c220892c529a3f269a",
     "sha256_independently_verified": false,
     "record": "docs/verification/curved-boundary-qa-build-screen-report-2026-10-25.json",
-    "scope": "Current requested curve QA reports full native/APK success; actual source identity/current images/Pixel remain unverified."
+    "scope": "Raw current curved native/build/capture identity and visual review verified. APKbinary SHA and Pixel acceptance pending.",
+    "build_info_received": true,
+    "native_images_verified": 124,
+    "native_review": "References/Review/curved-boundary-2026-10-25-candidate/native-review.json"
   },
   "base_polish": "References/VisualLock/curved-boundary-candidate-2026-10-25.json",
   "previous_qa_build_report": {
@@ -796,5 +799,17 @@
     "repaired_native_pass_verified": false
   },
   "latest_user_stage_order": "2026-10-25 boundary stage1 -> fountain -> representative character2.5D -> Merge. Each stage passes before the next starts.",
-  "latest_curved_boundary_success_report": "docs/verification/curved-boundary-qa-build-screen-report-2026-10-25.json"
+  "latest_curved_boundary_success_report": "docs/verification/curved-boundary-qa-build-screen-report-2026-10-25.json",
+  "latest_curved_boundary_native_run": {
+    "run": "20261025-084947-eecbc994",
+    "source_revision": "e7a80062202312d10b07f65d95708852c9abd87c",
+    "editmode_passed": 143,
+    "playmode_passed": 222,
+    "failed": 0,
+    "skipped": 0,
+    "raw_result_verified": true,
+    "native_images_verified": 124,
+    "native_review": "References/Review/curved-boundary-2026-10-25-candidate/native-review.json",
+    "pixel_verified": false
+  }
 }

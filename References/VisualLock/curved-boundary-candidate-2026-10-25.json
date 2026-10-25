@@ -61,12 +61,14 @@
       "after_sha256": "800699ed48fb4800bf2a097d2181d86ef5f7e5cafbaab2b2595c804183fdc76b"
     }
   ],
-  "native_unity_verified": false,
-  "qa_apk_generated": false,
+  "native_unity_verified": true,
+  "qa_apk_generated": true,
   "pixel_verified": false,
   "adopted": false,
   "merge_quality_pass_started": false,
   "pass_id": "curved_boundary_2026_10_25",
   "fountain_pass_started": false,
-  "character_trial_started": false
+  "character_trial_started": false,
+  "native_review": "References/Review/curved-boundary-2026-10-25-candidate/native-review.json",
+  "native_review_scope": "Raw native XML and AI image review of e7a8006: eligible for Pixel with J1/NP1; not formalbase or Pixel acceptance."
 }

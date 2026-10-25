@@ -11,8 +11,8 @@
   "source_status": {
     "designed": true,
     "implemented": true,
-    "new_native_unity_verified": false,
-    "new_qa_apk_generated": false,
+    "new_native_unity_verified": true,
+    "new_qa_apk_generated": true,
     "new_pixel_verified": false,
     "stage1_passed": false,
     "fountain_started": false,
@@ -60,6 +60,8 @@
     }
   },
   "native_comparison": "11pairs/124PNGs retained; Before5a49 reconstructs by disabling only newcurve (previous planting and entry active), not historicalAPK/Pixel; Afterproductrenderer. Same camera/state, finally restores flag.",
-  "limits": "Cloud nativeEditor headlesslicense/Androidmodule/USB unavailable. Pure geometry, compilation and static review do not prove visual improvement or Pixel performance. Current-source native tests/APK/images and Pixel After remain pending. Prior5a49success is historical.",
-  "next": "Pull source change, one existing full -TownQa, inspect current Before/After and all5area Lv1/3/6 native images, new same-sourceAPK/SHA then Pixel. Stage1pass only after actual quality evidence; later order fountain→representative2.5D→Merge."
+  "limits": "Actual raw143/143 and222/222 allPassed,124images/build identities now verified, and Unity image review is eligible for Pixel. APKbinary SHA must still be locally checked; actual Pixel display/input/load/save/600second acceptance remains unverified. No Stage1or later-stage success is inferred.",
+  "next": "Use existing20261025-084947-eecbc994APK after localSHA verification and update-install with existing installer. No Pull/rebuild for receipt-only changes. Receive actualPixel boundary/5area/core/save/600s outcomes beforeStage1pass, then fountain→representative2.5D→Merge.",
+  "native_source_revision_verified": "e7a80062202312d10b07f65d95708852c9abd87c",
+  "native_review": "References/Review/curved-boundary-2026-10-25-candidate/native-review.json"
 }

@@ -1,0 +1,119 @@
+{
+  "reviewed_on_jst": "2026-10-25",
+  "run": "20261025-084947-eecbc994",
+  "native_source_revision": "e7a80062202312d10b07f65d95708852c9abd87c",
+  "product_fingerprint": "008c82ef22301dc71e4672948a86f7af061b5bc493586fc2570094f9f8aec338",
+  "render_input_digest": "a613c1a7bf348ae868812fef4ef6b27f3464101c07ad8d392d0fa96451519147",
+  "verdict": "eligible_for_pixel_qa_with_minor_carryovers",
+  "stage1_passed": false,
+  "user_adopted": false,
+  "formal_base_adopted": false,
+  "pixel_verified": false,
+  "fountain_started": false,
+  "character_trial_started": false,
+  "merge_started": false,
+  "main_merged": false,
+  "native_evidence": {
+    "original_files": 136,
+    "png_images": 124,
+    "archive_parts": 10,
+    "all_png_sha_size_decode_dimensions_verified": true,
+    "width": 720,
+    "height": 1280,
+    "xml": {
+      "editmode.xml": {
+        "result": "Passed",
+        "total": "143",
+        "passed": "143",
+        "failed": "0",
+        "skipped": "0",
+        "duration": "2.3791732"
+      },
+      "playmode.xml": {
+        "result": "Passed",
+        "total": "222",
+        "passed": "222",
+        "failed": "0",
+        "skipped": "0",
+        "duration": "242.2079812"
+      }
+    },
+    "all143_and222_actual_cases_passed": true,
+    "capture_and_build_source_and_fingerprint_match": true,
+    "app_id": "com.mofumachi.merge.qa.townlife",
+    "apk_generated": true,
+    "apk_bytes": 118244517,
+    "apk_sha_in_build_info": "aae8f682cce320d55b22910fe4fd38404b1a7c2b225d60c220892c529a3f269a",
+    "matches_console_sha": true,
+    "apk_bytes_received": false,
+    "apk_sha_independently_recomputed": false
+  },
+  "comparison": {
+    "kind": "same-state native renderer reconstruction vs product renderer",
+    "before_revision": "5a49e3194260c05a8e96909b95bbd08bca1a6d76",
+    "before_is_historical_apk_capture": false,
+    "before_is_pixel": false,
+    "after_is_pixel": false,
+    "pairs": 11,
+    "all11_reconstructed_before_pixel_identical_to_previous_actual_native_after": true,
+    "same_name_png_unchanged": 97,
+    "changed": 27,
+    "all15_area_level_overviews_byte_identical_to_previous": true,
+    "inspection": "All11 pair sheets and5 area/Lv sheets,8 changed otherframes and key raw originals inspected. Unchanged97 hash-bound to prior reviewed native originals."
+  },
+  "quality": {
+    "east_west_lower_cuts": "Improved: paving now curves into planting, previous horizontal cut substantially disguised.",
+    "north_and_upper_perimeter": "Improved/softened; some inherited material contrast remains.",
+    "five_area_centers_density_growth": "Retained; all15Lv1/3/6 overview PNGs identical to previous actual source.",
+    "walking_space_appearance": "No new narrowing or planting consumption observed. Actual device touch/collision remains pending.",
+    "formal_ui_nameplates": "No new structural regression; legacy edge-camera crop not claimed fixed.",
+    "faint_field_road_labels": "Not observed; native absence assertions passed.",
+    "other_changed_frames": "Perimeter-local changes in cafe/shop/meeting frames. Merge-landed teapot/sparkle phase x566-680/y423-511, no board/item/label layout regression. Merge code was not changed."
+  },
+  "minors": [
+    {
+      "id": "J1",
+      "inherited": true,
+      "issue": "Remaining material transitions; complete seam removal is not claimed. Old lower cuts have improved, not simply carried unchanged.",
+      "locations": [
+        {
+          "file": "30-boundary-north-left-after.png",
+          "pixels": "x290-331/y250-437",
+          "note": "Pale lawn/detailed planting band, softened contour."
+        },
+        {
+          "file": "30-boundary-north-right-after.png",
+          "pixels": "x60-194/y587-596",
+          "note": "Existing horizontal edge beside building, unchanged from Before."
+        }
+      ],
+      "action": "Evaluate prominence during normal Pixel movement."
+    },
+    {
+      "id": "NP1",
+      "inherited_from_5a49": true,
+      "issue": "Repeated oval flowerbed/bright foliage motifs outside accepted plazas; not introduced by the curved band.",
+      "locations": [
+        {
+          "file": "30-boundary-west-lower-after.png",
+          "pixels": "x0-455/y900-1160"
+        }
+      ],
+      "action": "Evaluate at actual device scale."
+    }
+  ],
+  "independent_review": {
+    "critical": 0,
+    "important": 0,
+    "minor": 2,
+    "verdict": "eligible_for_pixel_handoff",
+    "report": "independent-review.md"
+  },
+  "limits": [
+    "All images are isolated Unity captures, not Pixel or player-save images.",
+    "Stills do not establish physical input, NPC congestion/performance, save/reward retention, sound/heat, crash absence or600seconds of continuous play.",
+    "APK binary not received. Local SHA check before exact TownQA update remains required.",
+    "No user/Pixel adoption is inferred from uploaded artifacts. Stage1must pass before fountain, then representativecharacter2.5D, then Merge."
+  ],
+  "next": "Use existing084947APK; no rebuild or Pull for receipt-only changes. Hash-check locally, update-install TownQA on serial99RAY1BELH with install-r, inspect boundaries/all5area travel and core/save/restart/600s actual use. Stage1Pixel/user quality verdict pending."
+}

@@ -26,9 +26,9 @@
   "apk_sha256_reported": "aae8f682cce320d55b22910fe4fd38404b1a7c2b225d60c220892c529a3f269a",
   "app_id_expected": "com.mofumachi.merge.qa.townlife",
   "expected_source_before_record_only_update": "e7a80062202312d10b07f65d95708852c9abd87c",
-  "source_revision": null,
-  "build_info_received": false,
-  "native_images_received": false,
+  "source_revision": "e7a80062202312d10b07f65d95708852c9abd87c",
+  "build_info_received": true,
+  "native_images_received": true,
   "apk_bytes_received": false,
   "sha256_independently_verified": false,
   "native_visual_accepted": false,
@@ -38,5 +38,10 @@
   "character_trial_started": false,
   "merge_started": false,
   "main_merged": false,
-  "next": "Receive all current five-plaza-review ZIP parts, verify native XML/build/capture identity and same-state curve Before/After/all5area images. Then use this existing exactAPK for Pixel; no Pull or rebuild for receipt-only changes."
+  "next": "Receive all current five-plaza-review ZIP parts, verify native XML/build/capture identity and same-state curve Before/After/all5area images. Then use this existing exactAPK for Pixel; no Pull or rebuild for receipt-only changes.",
+  "raw_success_xml_received": true,
+  "native_images_sha_verified": 124,
+  "native_visual_review": "References/Review/curved-boundary-2026-10-25-candidate/native-review.json",
+  "native_visual_status": "eligible_for_pixel_with_minor_carryovers",
+  "native_raw_followup": "143/143 and222/222 individuallyPassed,failed0/skip0; all124PNG verified. All15overviews unchanged;11reconstructedBefore pixel-identical to previousnativeAfter. APKbytes/Pixel pending."
 }

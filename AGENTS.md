@@ -1,5 +1,13 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-25最新原本：曲線境界e7a8006の10ZIPを照合、Unity実画像はPixel確認へ進行可。** run `20261025-084947-eecbc994`、原136ファイル／PNG124枚全SHA・寸法・デコード、実XML143/143・222/222の全ケースPassed／failed0・skip0を確認。build-info/captureはgit e7a8006、productFingerprint008c82ef…で一致。APK118244517bytes／街QA ID／SHAaae8f682…は先の画面とbuild-infoで一致するが、APKbinary未受領なので独立SHA再計算は未了。原本・判定 `References/Review/curved-boundary-2026-10-25-candidate/`。
+
+97同名PNGは前版と同一、27変更。**5地区Lv1/3/6の15全景は前版5a49とbyte同一。今回11対の再現Beforeは前回実Afterとpixel同一。** 東西下端は直線切断から曲線で植栽へなじむ見た目に改善し、北・上端も軟化。新しい目立つ反射模様・ぼけ・密度低下・歩行幅縮小・名前／HUDの後退は見当たらない。独立実画像レビューCritical0／Important0／Minor2、Pixel進行可。J1は北左x290-331/y250-437の材質帯／北右建物脇x60-194/y587-596の既存線、NP1は既存外周の花壇反復。旧東西下端y737-740が「未改善のまま」とは報告しない。全継ぎ目解消も断定しない。
+
+**次は生成済み084947APKでPixel受入。今回の原本受領・記録だけではPull／再ビルド不要。** `docs/town-boundary-pixel3a-acceptance-2026-10-25.md` は最新084947／SHAaae8…へ更新済み。ローカルSHA確認後、既存installer `-PackageName com.mofumachi.merge.qa.townlife -Serial 99RAY1BELH` のinstall-r。削除／データ消去／署名回避なし。境界曲線・5地区徒歩往復・薄文字／SafeArea／NPC・現在セーブで可能なコアループ・更新保存／再起動・600秒以上の実操作と熱／重さ／音を確認する。物語完了済みセーブを初期化して試験しない。
+
+状態：実装済み・Unity実画面確認済み・同版QAAPK生成済み、Pixel／第1段階合格は未確認。噴水→代表1名2.5D→Mergeは第1段階合格後に順次。main別承認。ゲーム／原画／テスト／QAツールは今回無変更。画像をチャットに貼らない。以下は履歴。
+
 **2026-10-25最新：曲線境界の一括QAは143/143・222/222、124画像、APK生成まで画面上で正常終了。** run `20261025-084947-eecbc994`、報告SHA `aae8f682cce320d55b22910fe4fd38404b1a7c2b225d60c220892c529a3f269a`。記録 `docs/verification/curved-boundary-qa-build-screen-report-2026-10-25.json`。成功XML／build-info／現124画像は未受領で、実ビルドsourceや自然な曲線になったことを画面の件数から推定しない。想定修正版e7a8006と原本のgitRevisionはZIP受領後に照合する。Pixel／第1段階合格は未確認。
 
 **次は同runのfive-plaza-review-*.zip一式を受領して画像確認。記録更新だけではPull／再ビルドを依頼しない。** 直前5a49の描画（曲線のみOFF、既存植栽・入口帯はON）との同条件11対／5地区Lv1/3/6、元の密度・歩行面・名前札・石目を確認。旧073237版の実画像成功は新版へ流用しない。見た目確認後は生成済み084947のtown-life-qa.apkをSHA照合し、そのままPixel3aへ更新install-r（街QA ID／serial99RAY1BELHを明示）。削除／保存消去はしない。

@@ -1,0 +1,97 @@
+[
+  {
+    "before": "30-boundary-east-join-before-reconstructed.png",
+    "after": "30-boundary-east-join-after.png",
+    "changed_bounds": null
+  },
+  {
+    "before": "30-boundary-east-lower-before-reconstructed.png",
+    "after": "30-boundary-east-lower-after.png",
+    "changed_bounds": [
+      308,
+      734,
+      720,
+      820
+    ]
+  },
+  {
+    "before": "30-boundary-east-upper-before-reconstructed.png",
+    "after": "30-boundary-east-upper-after.png",
+    "changed_bounds": [
+      65,
+      0,
+      135,
+      358
+    ]
+  },
+  {
+    "before": "30-boundary-north-left-before-reconstructed.png",
+    "after": "30-boundary-north-left-after.png",
+    "changed_bounds": [
+      263,
+      0,
+      331,
+      437
+    ]
+  },
+  {
+    "before": "30-boundary-north-right-before-reconstructed.png",
+    "after": "30-boundary-north-right-after.png",
+    "changed_bounds": [
+      393,
+      0,
+      467,
+      437
+    ]
+  },
+  {
+    "before": "30-boundary-south-entry-before-reconstructed.png",
+    "after": "30-boundary-south-entry-after.png",
+    "changed_bounds": null
+  },
+  {
+    "before": "30-boundary-south-left-before-reconstructed.png",
+    "after": "30-boundary-south-left-after.png",
+    "changed_bounds": [
+      0,
+      702,
+      150,
+      770
+    ]
+  },
+  {
+    "before": "30-boundary-south-right-before-reconstructed.png",
+    "after": "30-boundary-south-right-after.png",
+    "changed_bounds": [
+      571,
+      702,
+      720,
+      767
+    ]
+  },
+  {
+    "before": "30-boundary-west-join-before-reconstructed.png",
+    "after": "30-boundary-west-join-after.png",
+    "changed_bounds": null
+  },
+  {
+    "before": "30-boundary-west-lower-before-reconstructed.png",
+    "after": "30-boundary-west-lower-after.png",
+    "changed_bounds": [
+      0,
+      734,
+      412,
+      820
+    ]
+  },
+  {
+    "before": "30-boundary-west-upper-before-reconstructed.png",
+    "after": "30-boundary-west-upper-after.png",
+    "changed_bounds": [
+      591,
+      0,
+      658,
+      358
+    ]
+  }
+]

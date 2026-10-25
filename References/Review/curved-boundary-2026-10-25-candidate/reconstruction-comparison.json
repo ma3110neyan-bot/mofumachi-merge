@@ -1,0 +1,79 @@
+[
+  {
+    "current_before": "30-boundary-east-join-before-reconstructed.png",
+    "previous_actual_after": "30-boundary-east-join-after.png",
+    "identical_pixels": true,
+    "changed_pixels": 0,
+    "bbox": null
+  },
+  {
+    "current_before": "30-boundary-east-lower-before-reconstructed.png",
+    "previous_actual_after": "30-boundary-east-lower-after.png",
+    "identical_pixels": true,
+    "changed_pixels": 0,
+    "bbox": null
+  },
+  {
+    "current_before": "30-boundary-east-upper-before-reconstructed.png",
+    "previous_actual_after": "30-boundary-east-upper-after.png",
+    "identical_pixels": true,
+    "changed_pixels": 0,
+    "bbox": null
+  },
+  {
+    "current_before": "30-boundary-north-left-before-reconstructed.png",
+    "previous_actual_after": "30-boundary-north-left-after.png",
+    "identical_pixels": true,
+    "changed_pixels": 0,
+    "bbox": null
+  },
+  {
+    "current_before": "30-boundary-north-right-before-reconstructed.png",
+    "previous_actual_after": "30-boundary-north-right-after.png",
+    "identical_pixels": true,
+    "changed_pixels": 0,
+    "bbox": null
+  },
+  {
+    "current_before": "30-boundary-south-entry-before-reconstructed.png",
+    "previous_actual_after": "30-boundary-south-entry-after.png",
+    "identical_pixels": true,
+    "changed_pixels": 0,
+    "bbox": null
+  },
+  {
+    "current_before": "30-boundary-south-left-before-reconstructed.png",
+    "previous_actual_after": "30-boundary-south-left-after.png",
+    "identical_pixels": true,
+    "changed_pixels": 0,
+    "bbox": null
+  },
+  {
+    "current_before": "30-boundary-south-right-before-reconstructed.png",
+    "previous_actual_after": "30-boundary-south-right-after.png",
+    "identical_pixels": true,
+    "changed_pixels": 0,
+    "bbox": null
+  },
+  {
+    "current_before": "30-boundary-west-join-before-reconstructed.png",
+    "previous_actual_after": "30-boundary-west-join-after.png",
+    "identical_pixels": true,
+    "changed_pixels": 0,
+    "bbox": null
+  },
+  {
+    "current_before": "30-boundary-west-lower-before-reconstructed.png",
+    "previous_actual_after": "30-boundary-west-lower-after.png",
+    "identical_pixels": true,
+    "changed_pixels": 0,
+    "bbox": null
+  },
+  {
+    "current_before": "30-boundary-west-upper-before-reconstructed.png",
+    "previous_actual_after": "30-boundary-west-upper-after.png",
+    "identical_pixels": true,
+    "changed_pixels": 0,
+    "bbox": null
+  }
+]

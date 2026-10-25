@@ -1,0 +1,72 @@
+[
+  {
+    "part": "01",
+    "archive": "five-plaza-review-01.zip",
+    "upload_file_id": "file_000000001f348209a85421221ef34bdd",
+    "bytes": 18202624,
+    "sha256": "385e56d12ea5008ffcc679dca437f4510c8d1d99eef489bd74058b3c855b3394"
+  },
+  {
+    "part": "02",
+    "archive": "five-plaza-review-02.zip",
+    "upload_file_id": "file_000000006a2c8209b0eac7e3c0371707",
+    "bytes": 20123341,
+    "sha256": "792f7d4ab71d19be14e37754baf3b5576043288b8c2937489d010bfceac2b7fb"
+  },
+  {
+    "part": "03",
+    "archive": "five-plaza-review-03.zip",
+    "upload_file_id": "file_00000000d990820983c921379f60d3a9",
+    "bytes": 20863952,
+    "sha256": "db3a725f210f297f961db7c9034bc27240e600e535f99ee765817ef641f93019"
+  },
+  {
+    "part": "04",
+    "archive": "five-plaza-review-04.zip",
+    "upload_file_id": "file_000000009d648209aa2e86424563bbac",
+    "bytes": 19791901,
+    "sha256": "7c202f0d0fd3ad8c4a84995b3315b2b7bb185235f52ea8ac5ddf96636cd57f72"
+  },
+  {
+    "part": "05",
+    "archive": "five-plaza-review-05.zip",
+    "upload_file_id": "file_00000000d5548209b09f6e43bbb2fe47",
+    "bytes": 20560491,
+    "sha256": "617f7997d27ca9cd8ef8d06811efd2c62ced965072cb253d6d19989b722f0fdf"
+  },
+  {
+    "part": "06",
+    "archive": "five-plaza-review-06.zip",
+    "upload_file_id": "file_00000000828482099b59e35911bf1d86",
+    "bytes": 20088171,
+    "sha256": "a4630d32799a71985bfc978592e82976b1a3de67c65cd0f6e8f95b8ad678f32b"
+  },
+  {
+    "part": "07",
+    "archive": "five-plaza-review-07.zip",
+    "upload_file_id": "file_0000000072148209ac8f6d006564f8c8",
+    "bytes": 20647743,
+    "sha256": "c9758eefc6f3a40c209c15e538eaf9310befb409d2528ea3b74ed0ff53d1a949"
+  },
+  {
+    "part": "08",
+    "archive": "five-plaza-review-08.zip",
+    "upload_file_id": "file_000000000d10820991721fc832ac856c",
+    "bytes": 19231524,
+    "sha256": "bc5821f078b1e5e35c13a7ec4f8faba101a424f26fe8bd2eea973a423397b1f4"
+  },
+  {
+    "part": "09",
+    "archive": "five-plaza-review-09.zip",
+    "upload_file_id": "file_00000000dcf88209b9ddd8cff77bc7d1",
+    "bytes": 20116397,
+    "sha256": "e065eb4a5b417a0d3528b96a826f277e0e57928e1e8c2d93a30354495429c136"
+  },
+  {
+    "part": "10",
+    "archive": "five-plaza-review-10.zip",
+    "upload_file_id": "file_00000000526c82099507dc1589482d78",
+    "bytes": 10966746,
+    "sha256": "761714d4b8e376f030c8d33565a40ccfec760efd030cd339da811ccc888c0ac2"
+  }
+]

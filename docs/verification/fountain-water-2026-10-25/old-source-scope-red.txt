@@ -1,0 +1,5 @@
+Exception: /workspace/runtime/fountain-pass-2026-10-25/old-gate-reference/visual-lock.ps1:59
+Line |
+  59 |  … tion_2026_10_25')){throw 'Unknown bounded display correction scope.'}
+     |                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Unknown bounded display correction scope.

@@ -130,12 +130,29 @@ try {
     $Growth.transitions[0].coins=70;$Growth.transitions[1].reload_matched=$false;$Growth | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $GrowthMeta;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth}
     $Growth.transitions[1].reload_matched=$true;$Growth.pixel_verified=$true;$Growth | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $GrowthMeta;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth}
     $Growth.pixel_verified=$false;$Growth | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $GrowthMeta
+    Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain}
+    $FountainFiles=@(foreach($View in @('overview','front','behind')){foreach($Phase in @('before','after')){"33-fountain-$View-$Phase.png"}})+@(0..3 | ForEach-Object {'33-fountain-phase-'+$_.ToString('00')+'.png'})
+    foreach($Name in $FountainFiles){[IO.File]::WriteAllBytes((Join-Path $CaptureDir $Name),$Header)}
+    $FountainMeta=Join-Path $CaptureDir 'fountain-water-comparison.json';$FountainHtml=Join-Path $CaptureDir 'fountain-water-before-after.html'
+    $Fountain=@{kind='same-state-native-additive-water-comparison';before='new layer OFF; original fountain and original water retained';after='product code';pairs=@(foreach($View in @('overview','front','behind')){@{view=$View;changed_pixels=5;outside_fountain_pixels=0;state_unchanged=$true}});phases=@(.1,.4,.7,1.0);added_vertices=320;max_update_hz=30;pixel_verified=$false;adopted=$false}
+    function SaveFountain {$Fountain | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $FountainMeta}
+    SaveFountain;Set-Content -LiteralPath $FountainHtml -Value '<!doctype html><title>Metadata fixture, not native pixels</title>'
+    Assert-NativeCaptures $CaptureDir -RequireBoundary -RequireField -RequireGrowth -RequireFountain
+    foreach($Name in $FountainFiles){$Path=Join-Path $CaptureDir $Name;Remove-Item -LiteralPath $Path;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain};[IO.File]::WriteAllBytes($Path,$Header)}
+    $Fountain.pairs[0].outside_fountain_pixels=1;SaveFountain;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain};$Fountain.pairs[0].outside_fountain_pixels=0
+    $Fountain.pairs[1].changed_pixels=0;SaveFountain;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain};$Fountain.pairs[1].changed_pixels=5
+    $Fountain.pairs[2].state_unchanged=$false;SaveFountain;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain};$Fountain.pairs[2].state_unchanged=$true
+    $Fountain.added_vertices=321;SaveFountain;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain};$Fountain.added_vertices=320
+    $Fountain.phases=@(.1,.1,.1,.1);SaveFountain;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain};$Fountain.phases=@(.1,.4,.7,1.0)
+    $Fountain.pixel_verified=$true;SaveFountain;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain};$Fountain.pixel_verified=$false;SaveFountain
+    Remove-Item -LiteralPath $FountainHtml;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain};Set-Content -LiteralPath $FountainHtml -Value '<!doctype html><title>Metadata fixture, not native pixels</title>'
     Write-NativeReviewArchives $Temporary
     $ZipContents=@(Get-ChildItem -LiteralPath $Temporary -Filter 'five-plaza-review-*.zip' | ForEach-Object {
         $Zip=[IO.Compression.ZipFile]::OpenRead($_.FullName);try {$Zip.Entries | ForEach-Object {$_.FullName}}finally {$Zip.Dispose()}
     })
     if('field-stability.json' -notin $ZipContents){throw 'Review ZIPs lost the required field-stability fixture metadata.'}
     if('town-growth-progression.json' -notin $ZipContents){throw 'Review ZIPs lost real delivery/growth/reload evidence.'}
+    if('fountain-water-comparison.json' -notin $ZipContents -or 'fountain-water-before-after.html' -notin $ZipContents){throw 'Review ZIPs lost fountain comparison evidence.'}
     Remove-Item -LiteralPath $FieldMeta;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireField}
     [IO.File]::WriteAllBytes((Join-Path $CaptureDir '17-finger-released.png'),[byte[]](0,1,2));Expect-Rejection {Assert-NativeCaptures $CaptureDir}
     [IO.File]::WriteAllBytes((Join-Path $CaptureDir '17-finger-released.png'),$Header)
@@ -200,8 +217,8 @@ exit $Code
         $Extra=('<test-case result="Passed"/>'*($Total-$SuiteCases-1))+"<test-case result='$Case'/>"
         "<test-run result='Passed' total='$Declared' passed='$Declared' failed='0' skipped='0'>$Nodes$Extra</test-run>" | Set-Content $Xml
     }
-    $EditSuites=Read-GateSuites 'EditXml' 144;$PlaySuites=Read-GateSuites 'PlayXml' 224
-    foreach($Gate in @(@{Minimum=144;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests','TownPlaceCatalogTests','TownViewportTests','TownRegionCatalogTests','TownRegionJourneyTests','TownRegionContentTests')},@{Minimum=224;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests','FiveAreaIntegrationReviewTests')})) {
+    $EditSuites=Read-GateSuites 'EditXml' 144;$PlaySuites=Read-GateSuites 'PlayXml' 225
+    foreach($Gate in @(@{Minimum=144;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests','TownPlaceCatalogTests','TownViewportTests','TownRegionCatalogTests','TownRegionJourneyTests','TownRegionContentTests')},@{Minimum=225;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests','FiveAreaIntegrationReviewTests')})) {
         $Old=@($Gate.Suites | Where-Object {$_ -notin $Gate.New})
         Write-SuiteXml $Gate.Minimum $Old
         Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}

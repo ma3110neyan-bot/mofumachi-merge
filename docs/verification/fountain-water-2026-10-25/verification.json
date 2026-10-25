@@ -1,0 +1,60 @@
+{
+  "date_jst": "2026-10-25",
+  "base_revision": "2834cb77b7b94bce0c260a37f8088c42c276a451",
+  "scope": "town_fountain_water_2026_10_25",
+  "field_user_graphics_freeze": true,
+  "field_frozen_source": "43a27646fcf65174afb938fb78c0b93d7e0628ad",
+  "fountain_implemented": true,
+  "runtime_added": [
+    "TownFountainWaterLayout.cs",
+    "TownFountainWaterGraphic.cs"
+  ],
+  "runtime_existing_modified": [
+    "TownContinuousWorldView.cs"
+  ],
+  "resources_core_save_reward_navigation_layout_formal_characters_bgm_book_merge_unchanged": true,
+  "existing_water_unchanged": true,
+  "parent_depth_y": 0.285,
+  "new_graphics": 1,
+  "added_quads": 80,
+  "added_vertices": 320,
+  "max_animation_step_hz": 30,
+  "camera_projection_follows_viewport_changes": true,
+  "offscreen_disabled_paused_animation_stops": true,
+  "resume_dt_cap_seconds": 0.1,
+  "new_textures_shaders_particles_colliders_canvases": 0,
+  "pure_sampler_steady_allocations_bytes": 0,
+  "verification": {
+    "focused_red": 5,
+    "focused_green": 5,
+    "full_cpu_passed": 340,
+    "full_cpu_failed": 0,
+    "full_cpu_skipped": 0,
+    "full_cpu_duration": "9m48s",
+    "api_assemblies": 6,
+    "api_warnings": 0,
+    "api_errors": 0,
+    "ps_fixtures_passed": 14,
+    "windows_crlf_files": 417,
+    "original354_and_approved15jpeg_preserved": true,
+    "historical_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+    "current_render_digest": "5fb43abb089d9879cc301abeba057328936e81dc9a727ac4358874fe365b36cc",
+    "review_critical": 0,
+    "review_important": 0,
+    "review_minor": 0
+  },
+  "native_declarations_only": {
+    "editmode": 144,
+    "playmode": 225,
+    "expected_png": 154
+  },
+  "before_after": "Only new water layer OFF/ON at one simulation instant; old art/water/actors/camera/save retained. Native pixel comparison requires change inside projected fountain and0outside.3pairs4time samples. Not historicalAPK reconstruction.",
+  "native_unity_verified": false,
+  "new_qa_apks_generated": false,
+  "pixel_verified": false,
+  "fountain_user_approved": false,
+  "character_trial_started": false,
+  "merge_started": false,
+  "main_merged": false,
+  "next": "Pull feature and run fullWindowsTownQa once. Inspect native154images/pairs4phases/tests/source/sameAPK metadata, then actualPixel appearance/depth/input/heat/performance/restart acceptance. No nextstage before fountain approval."
+}

@@ -56,8 +56,9 @@ function Get-BasePolishPatch([string]$RepositoryPath) {
     $Allowed=@('Assets/Mofumachi/Presentation/TownWorldLayout.cs','Assets/Mofumachi/Presentation/TownContinuousWorldView.cs')
     $ScopeProperty=$Record.PSObject.Properties['scope_id']
     $Scope=if($ScopeProperty){[string]$ScopeProperty.Value}else{''}
-    if($Scope -and $Scope -notin @('town_boundary_final_2026_10_24','town_field_stability_2026_10_25','town_field_completion_2026_10_25')){throw 'Unknown bounded display correction scope.'}
-    $FieldFinal=$Scope -eq 'town_field_completion_2026_10_25'
+    if($Scope -and $Scope -notin @('town_boundary_final_2026_10_24','town_field_stability_2026_10_25','town_field_completion_2026_10_25','town_fountain_water_2026_10_25')){throw 'Unknown bounded display correction scope.'}
+    $Fountain=$Scope -eq 'town_fountain_water_2026_10_25'
+    $FieldFinal=$Scope -eq 'town_field_completion_2026_10_25' -or $Fountain
     $FieldStability=$Scope -eq 'town_field_stability_2026_10_25' -or $FieldFinal
     $Boundary=$Scope -eq 'town_boundary_final_2026_10_24' -or $FieldStability
     if($Boundary){$Allowed+=@('Assets/Mofumachi/Presentation/TownSouthGroundGraphic.cs','Assets/Mofumachi/Presentation/TownSouthEntryBlendLayout.cs','Assets/Mofumachi/Presentation/TownSouthEntryBlendGraphic.cs')}
@@ -81,6 +82,7 @@ function Get-BasePolishPatch([string]$RepositoryPath) {
         if(-not $AddedProperty -or -not $CaptureProperty){throw 'Boundary correction must bind its added and capture inputs.'}
         $Added=@($AddedProperty.Value);$Captures=@($CaptureProperty.Value)
         $AllowedAdded=@('Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs','Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs.meta','Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs','Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs.meta')
+        if($Fountain){$AllowedAdded+=@('Assets/Mofumachi/Presentation/TownFountainWaterLayout.cs','Assets/Mofumachi/Presentation/TownFountainWaterLayout.cs.meta','Assets/Mofumachi/Presentation/TownFountainWaterGraphic.cs','Assets/Mofumachi/Presentation/TownFountainWaterGraphic.cs.meta')}
         if($Added.Count -ne $AllowedAdded.Count -or $Captures.Count -ne 1){throw 'Boundary rendering/capture input list is incomplete.'}
         foreach($InputFile in $Added) {
             $Path=[string]$InputFile.path
@@ -96,6 +98,24 @@ function Get-BasePolishPatch([string]$RepositoryPath) {
         $Bytes=[Text.Encoding]::UTF8.GetBytes([IO.File]::ReadAllText((Join-Path $RepositoryPath $Path)).Replace("`r`n","`n"))
         if((Get-VisualLockDigest $Bytes) -ne $Capture.after_sha256){throw 'Boundary capture differs from the authorized candidate.'}
         $Before[$Path]=$Capture.before_sha256;$After[$Path]=$Capture.after_sha256
+    }
+    if($Fountain) {
+        $FreezePath='References/VisualLock/town-field-frozen-2026-10-25.json'
+        if($Record.field_freeze -ne $FreezePath -or $Record.field_freeze_hash_mode -ne 'lf-text'){throw 'Fountain water requires the exact user-frozen field reference.'}
+        $FreezeText=[IO.File]::ReadAllText((Join-Path $RepositoryPath $FreezePath)).Replace("`r`n","`n")
+        if($Record.field_freeze_sha256 -notmatch '^[a-fA-F0-9]{64}$' -or (Get-VisualLockDigest ([Text.Encoding]::UTF8.GetBytes($FreezeText))) -ne $Record.field_freeze_sha256){throw 'User field-freeze record changed.'}
+        $Freeze=$FreezeText | ConvertFrom-Json
+        if($Freeze.authorized_by -ne 'user' -or $Freeze.five_area_graphics_frozen -isnot [bool] -or -not $Freeze.five_area_graphics_frozen -or $Freeze.next_authorized_stage -ne 'fountain_water_only' -or $Record.before_runtime_source -ne $Freeze.approved_source_revision -or $Record.before_render_digest -ne $Freeze.approved_render_digest){throw 'Fountain candidate is not tied to the user-approved field.'}
+        $Accepted='References/VisualLock/town-field-final-candidate-2026-10-25.json'
+        $AcceptedText=[IO.File]::ReadAllText((Join-Path $RepositoryPath $Accepted)).Replace("`r`n","`n")
+        if($Freeze.accepted_candidate_record -ne $Accepted -or (Get-VisualLockDigest ([Text.Encoding]::UTF8.GetBytes($AcceptedText))) -ne $Freeze.accepted_candidate_record_lf_sha256){throw 'Original accepted field candidate changed.'}
+        $AcceptedRecord=$AcceptedText | ConvertFrom-Json
+        if($AcceptedRecord.candidate_render_digest -ne $Freeze.approved_render_digest -or @($Freeze.fixed_render_inputs).Count -ne 12){throw 'Frozen field render bindings are incomplete.'}
+        $FrozenPaths=@{}
+        foreach($Frozen in $Freeze.fixed_render_inputs) {
+            if($FrozenPaths.ContainsKey($Frozen.path) -or -not $After.ContainsKey($Frozen.path)){throw 'Duplicate or missing frozen field input.'};$FrozenPaths[$Frozen.path]=$true
+            if($Frozen.path -ne 'Assets/Mofumachi/Presentation/TownContinuousWorldView.cs' -and $After[$Frozen.path] -ne $Frozen.sha256){throw 'Fountain pass cannot alter the frozen field scenery/navigation/growth.'}
+        }
     }
     return @{Record=$Record;Before=$Before;After=$After}
 }

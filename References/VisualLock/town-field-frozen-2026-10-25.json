@@ -1,0 +1,162 @@
+{
+  "authorized_by": "user",
+  "authorization_reference": "User「街フィールド正式固定 → 次工程開始」: 現在の5エリアを正式ベース候補として固定。次工程1の噴水水流・しぶき・波紋・反射だけを実装し、合格後に代表1名2.5D、承認後にMerge。",
+  "status": "formal_field_base_candidate_graphics_frozen",
+  "five_area_graphics_frozen": true,
+  "approved_source_revision": "43a27646fcf65174afb938fb78c0b93d7e0628ad",
+  "approved_render_digest": "73b1027987ca543d38df99459571cc0ae441512511a8c8c7f1b3fc58bc567b5b",
+  "approved_native_run": "20261025-210356-e7e1ca30",
+  "native_review": "References/Review/town-field-final-2026-10-25-candidate/native-review.json",
+  "accepted_candidate_record": "References/VisualLock/town-field-final-candidate-2026-10-25.json",
+  "accepted_candidate_record_lf_sha256": "3efca3d8e9a4e369ab58d9df1a2a60000906078687d750848a2bb56abb6d75b5",
+  "fixed_render_inputs": [
+    {
+      "path": "Assets/Mofumachi/Presentation/TownContinuousWorldView.cs",
+      "sha256": "1929ee9907990a856764643137f31ed19241e99c43bfa6f224c2c5e4b70e161a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthEntryBlendGraphic.cs",
+      "sha256": "89c65a8e7500f3d5ee4e9f6168689e90472023c442ff59d2fff620836ef5ba54"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthEntryBlendLayout.cs",
+      "sha256": "06c58c1b696014e4363e7239df6f355be50493c886bd0dd1ea341d98b41a4c2c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthGroundGraphic.cs",
+      "sha256": "7106d1278c3549ae04095a25992380fc17e2498d908ebb83086b0b9eaaf1b56c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWorldLayout.cs",
+      "sha256": "2c18d61cc4c6fd2989064a97b4b425628757d9535f6948ab0abd0917ccdb7fd3"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownAreaNavigation.cs",
+      "sha256": "d82de20fcb020db9cdd917b4fbce2ee67a2bad1fc6c63e05340edb10b0801505"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGrowthPresentation.cs",
+      "sha256": "4d451154157fb82dd58f91a6bb22c5a66b0020a65c43cfc27a5775f2d01278f0"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGrowthComparisonView.cs",
+      "sha256": "7c7b4f8f8a8bb2a8f7fbe68903d2f738620022f07186b9a29a5cc3cbb829aab0"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs",
+      "sha256": "7c0075539bb31fbaf88b1e5b568df440eadee64cd75c7209f45a8f7f5cedee96"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs.meta",
+      "sha256": "c21ffc13c1321c97db54d5af9191852ca0241d85c487002f0d27790c4fc6d06a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs",
+      "sha256": "106c523b4701f9a7e8dbab44f1948f670eeb848560feaa1d676518d9fc1cf1cf"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs.meta",
+      "sha256": "32db8df645367731266026ea9f7e47a5e659d255fa18864f7b0b6975341b159a"
+    }
+  ],
+  "approved_area_images": [
+    {
+      "file": "04-town-lv1-Central.png",
+      "bytes": 1814337,
+      "sha256": "2b42d9a6dce441fda8ec22694146a377a347630879635ed060b6cd6b23cfec8f"
+    },
+    {
+      "file": "04-town-lv1-East.png",
+      "bytes": 1759987,
+      "sha256": "706468c4ca640e2e38706c9b1088af691e12710bd70788c53fe3db4c23a15bd1"
+    },
+    {
+      "file": "04-town-lv1-North.png",
+      "bytes": 1747194,
+      "sha256": "7a2b287c03b17f66e2bf69c0d0fb8f3591151936feabda1581d2b01b6dbd7a73"
+    },
+    {
+      "file": "04-town-lv1-South.png",
+      "bytes": 1772949,
+      "sha256": "e84fd945b6c511910e90f50a0546f775e592aa2aadeb61b5b41b54b09296f12a"
+    },
+    {
+      "file": "04-town-lv1-West.png",
+      "bytes": 1753774,
+      "sha256": "8bdb1c50c31c92a3171002c03a0558101ab8ee2b0a64d5c64f623ed736fc1796"
+    },
+    {
+      "file": "04-town-lv3-Central.png",
+      "bytes": 1828353,
+      "sha256": "319d74ca8367c3c989f6c0892a1ec40ab37a2624dddd6ded72f6c01a1dc7d6b3"
+    },
+    {
+      "file": "04-town-lv3-East.png",
+      "bytes": 1764614,
+      "sha256": "ea0b70ee3209cc8bc7d7aa1c9f0653f8f6450d9cbea08d13d1bb66c59be0d878"
+    },
+    {
+      "file": "04-town-lv3-North.png",
+      "bytes": 1764402,
+      "sha256": "b0b45398d3bc7a2b809c1e73e2fb4e7a948a9b2de3be3c5c032f0879ed5b7ea7"
+    },
+    {
+      "file": "04-town-lv3-South.png",
+      "bytes": 1784425,
+      "sha256": "5c6a41f50e4e9dc4e509c3403d465268360afbef6d72b8f8543d6f8132aac1ac"
+    },
+    {
+      "file": "04-town-lv3-West.png",
+      "bytes": 1755801,
+      "sha256": "96b82e3b632349528a7c5fa3c4bf9487fd88b2b30a973dbe5eba55cda8965ae1"
+    },
+    {
+      "file": "04-town-lv6-Central.png",
+      "bytes": 1835254,
+      "sha256": "bf63b84ecea52be251582f1a65f016f312c42c8ce4ff9889b9c03f1e20b51148"
+    },
+    {
+      "file": "04-town-lv6-East.png",
+      "bytes": 1777874,
+      "sha256": "5ee01d27dc4f2cad77c0d36c0aacb5a9bde716c576cebc1d2adfb0a949c78818"
+    },
+    {
+      "file": "04-town-lv6-North.png",
+      "bytes": 1787305,
+      "sha256": "9353cf08c8c5b42868b2bac1983b1eb1e7783b1f3b020e17cb647157912900ec"
+    },
+    {
+      "file": "04-town-lv6-South.png",
+      "bytes": 1785441,
+      "sha256": "19bca63c639dbe3804d08b5703b50a00296fd6628a99a4f466f392d0eb761943"
+    },
+    {
+      "file": "04-town-lv6-West.png",
+      "bytes": 1766566,
+      "sha256": "80a823284f999dd4b6d3551a962bd94af3c20f5840bd62c6ca71066693328ea0"
+    }
+  ],
+  "pixel_submission": {
+    "path": "References/Review/town-field-user-approval-2026-10-25/pixel-submission.pdf",
+    "bytes": 4469069,
+    "sha256": "d778c1db2460b710f9e566e03ff83688d269c19451cd8de750d882708c75036e",
+    "pages": 14,
+    "observed": "Android system volume overlay; five districts, conversations, TOP, settings and6/6 completed/Lv6/330Coins. Model/app/source identity cannot be independently established from stills."
+  },
+  "device_performance_verified": false,
+  "device_600seconds_verified": false,
+  "device_initial_growth_and_restart_verified": false,
+  "live_fountain_body_occlusion_verified": false,
+  "remaining_local_polish": [
+    "character_overlap",
+    "conversation_position",
+    "fountain_front_back",
+    "edge_return_snags",
+    "minor_boundary_joins"
+  ],
+  "next_authorized_stage": "fountain_water_only",
+  "fountain_effects_approved": false,
+  "character_trial_authorized_now": false,
+  "merge_pass_authorized_now": false,
+  "main_integration_authorized": false
+}

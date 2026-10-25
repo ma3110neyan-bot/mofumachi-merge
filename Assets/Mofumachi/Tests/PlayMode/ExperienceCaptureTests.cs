@@ -92,6 +92,69 @@ namespace Mofumachi.Tests
             proof.Append("]}");if(output!=null){Directory.CreateDirectory(output);File.WriteAllText(Path.Combine(output,"town-growth-progression.json"),proof.ToString());}
             LogAssert.NoUnexpectedReceived();
         }
+        [UnityTest] public IEnumerator FountainWaterBeforeAfterPreservesFieldAndCharacterDepth()
+        {
+            string output=OutputDirectory();yield return EnterHome();Flow.Game.State.townGrowthLevel=6;Flow.ShowHome();yield return null;
+            var town=Flow.GetComponentInChildren<TownLifeView>();town.StartInteraction();
+            var water=Flow.GetComponentInChildren<TownFountainWaterGraphic>();var originalWater=Flow.GetComponentInChildren<TownAmbientGraphic>();var fountain=Flow.GetComponentInChildren<TownFountainGraphic>();
+            Assert.That(water.transform.parent,Is.SameAs(fountain.transform));Assert.That(water.raycastTarget,Is.False);
+            var pairs=new System.Text.StringBuilder();bool first=true;
+            foreach(var view in new[]{("overview",new TownPoint(0,.12f),new TownPoint(0,.64f)),("front",new TownPoint(0,.12f),new TownPoint(0,.32f)),("behind",new TownPoint(0,.441f),new TownPoint(0,.55f))})
+            {
+                Assert.That(town.World.GuidePoint(view.Item2),Is.True);int steps=0;
+                while(town.World.Model.Hero.IsWalking&&steps++<6000){town.AdvanceFrame(1f/30);if(steps%240==0)yield return null;}
+                Assert.That(town.World.Model.Hero.IsWalking,Is.False);Assert.That(TownWalkableArea.Distance(town.World.Model.Hero.Position,view.Item2),Is.LessThan(.002f));
+                town.World.Freeze();town.World.Camera.Jump(view.Item3);town.World.Refresh();
+                // Warm font/canvas resources before the paired pixel comparison.
+                var warm=Portrait();UnityEngine.Object.DestroyImmediate(warm);
+                string state=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;var positions=town.World.Model.Residents.Select(r=>r.Position).ToArray();var camera=town.World.Camera.Center;
+                float originalPhase=originalWater.Phase,newPhase=water.Phase;Texture2D before=null,after=null;
+                int changed=0,outside=0;
+                try
+                {
+                    water.enabled=false;before=Portrait();Capture(output,"33-fountain-"+view.Item1+"-before");
+                    water.enabled=true;after=Portrait();Capture(output,"33-fountain-"+view.Item1+"-after");
+                    Vector2 Project(TownPoint point)=>captureCamera.WorldToScreenPoint(town.transform.TransformPoint(town.World.Local(point)));
+                    var low=Project(new TownPoint(-TownCentralMasterLayout.FountainWidth/2,TownCentralMasterLayout.FountainFeetY));
+                    var high=Project(new TownPoint(TownCentralMasterLayout.FountainWidth/2,TownCentralMasterLayout.FountainFeetY+TownSceneryLayout.FountainHeight));
+                    var allowed=Rect.MinMaxRect(low.x-3,low.y-3,high.x+3,high.y+3);var a=before.GetPixels32();var b=after.GetPixels32();
+                    for(int i=0;i<a.Length;i++)
+                    {
+                        if(a[i].r==b[i].r&&a[i].g==b[i].g&&a[i].b==b[i].b&&a[i].a==b[i].a)continue;
+                        changed++;if(!allowed.Contains(new Vector2(i%720,i/720)))outside++;
+                    }
+                    Assert.That(changed,Is.GreaterThan(0),"The new water must be visible in actual native pixels");
+                    Assert.That(outside,Is.Zero,"Adding water must not alter the field/UI/characters outside the fountain projection");
+                    Assert.That(water.canvasRenderer.GetMesh().vertexCount,Is.EqualTo(320));
+                    Assert.That(originalWater.Phase,Is.EqualTo(originalPhase));Assert.That(water.Phase,Is.EqualTo(newPhase));
+                    Assert.That(town.World.Model.Residents.Select(r=>r.Position).ToArray(),Is.EqualTo(positions));Assert.That(town.World.Camera.Center,Is.EqualTo(camera));
+                    Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));Assert.That(Store.Writes,Is.EqualTo(writes));
+                    var hero=town.Actors.Single(a=>a.Controlled);
+                    Assert.That(hero.transform.GetSiblingIndex()>fountain.transform.GetSiblingIndex(),Is.EqualTo(view.Item2.Y<TownCentralMasterLayout.FountainCenterY),"The entire new water layer must inherit the original fountain depth");
+                }
+                finally {water.enabled=true;if(before!=null)UnityEngine.Object.DestroyImmediate(before);if(after!=null)UnityEngine.Object.DestroyImmediate(after);}
+                if(!first)pairs.Append(',');first=false;
+                pairs.Append("{\"view\":\""+view.Item1+"\",\"changed_pixels\":"+changed+",\"outside_fountain_pixels\":"+outside+",\"state_unchanged\":true}");
+            }
+            var phases=new System.Text.StringBuilder();Vector3[] previous=null;
+            for(int frame=0;frame<4;frame++)
+            {
+                if(frame>0)for(int tick=0;tick<3;tick++){water.AdvanceWater(.1f);originalWater.AdvanceWater(.1f);}
+                Capture(output,"33-fountain-phase-"+frame.ToString("00"));
+                var mesh=water.canvasRenderer.GetMesh().vertices;
+                if(previous!=null)Assert.That(mesh.SequenceEqual(previous),Is.False,"Time samples must animate actual water geometry");previous=mesh;
+                if(frame>0)phases.Append(',');phases.Append(water.Phase.ToString("R",System.Globalization.CultureInfo.InvariantCulture));
+            }
+            if(output!=null)
+            {
+                File.WriteAllText(Path.Combine(output,"fountain-water-comparison.json"),"{\"kind\":\"same-state-native-additive-water-comparison\",\"before\":\"new layer OFF; original fountain and original water retained\",\"after\":\"product code\",\"pairs\":["+pairs+"],\"phases\":["+phases+"],\"added_vertices\":320,\"max_update_hz\":30,\"pixel_verified\":false,\"adopted\":false}");
+                var html=new System.Text.StringBuilder("<!doctype html><meta charset='utf-8'><title>Fountain water Before After</title><style>body{background:#fff7ef;color:#50343b;font-family:sans-serif}section{display:flex;gap:12px}img{width:360px;max-width:46vw}figure{margin:8px}</style><h1>Fountain water / same-state Unity comparison</h1><p>Before: only the new water layer OFF. Original fountain, original ripples, field, characters and camera retained. After: product code. Not a previous APK reconstruction or Pixel capture.</p>");
+                foreach(string view in new[]{"overview","front","behind"})html.Append("<h2>"+view+"</h2><section><figure>Before<br><img src='33-fountain-"+view+"-before.png'></figure><figure>After<br><img src='33-fountain-"+view+"-after.png'></figure></section>");
+                html.Append("<h2>Four real animation samples</h2><section>");for(int frame=0;frame<4;frame++)html.Append("<figure>"+frame+"<br><img src='33-fountain-phase-"+frame.ToString("00")+".png'></figure>");
+                html.Append("</section><p>Pixel visibility, live depth transitions, temperature and performance acceptance pending.</p>");File.WriteAllText(Path.Combine(output,"fountain-water-before-after.html"),html.ToString());
+            }
+            LogAssert.NoUnexpectedReceived();
+        }
         private static string OutputDirectory()
         {
             var args=Environment.GetCommandLineArgs();int i=Array.IndexOf(args,"-mofumachiScreenshots");
@@ -533,7 +596,7 @@ namespace Mofumachi.Tests
                 yield return CaptureFieldStability(output);
                 string[] art={"TownBackground","TownWestBackground","TownEastBackground","CharacterBodyAtlas","TownGrowthPropsAtlas","TownGardenSurface","TownSeamlessMap","TownStreetPropsAtlas","TownLandmarksAtlas","TownNatureAtlas","TownVillageDetailsAtlas","MergeBoardFrame","TownCentralGround","TownCentralFountain","TownWestGround"};
                 File.WriteAllLines(Path.Combine(output,"texture-memory.txt"),art.Select(key=>key+": "+UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(Resources.Load<Texture2D>("Mofumachi/"+key))+" bytes"));
-                File.WriteAllText(Path.Combine(output,"README.txt"),"Actual Unity UGUI RenderTexture captures, 720x1280. Isolated test-only save state; not Pixel 3a captures. Full suite144 PNG: existing102 integrated frames,22 boundary comparison frames,14 field-stability frames,6 actual delivery-growth/reload frames. 30-boundary Before disables only the curved band in the CURRENT runtime, retaining the new field-stability depth/camera/navigation fixes; it is a boundary-only comparison, NOT a complete frozen5a49 renderer or previous APK/Pixel capture. 31-field shows actual walking arrival/return in all5areas and the East building corner, plus front/behind fountain depth; no teleport rescue. 30Hz simulation is not device FPS; Editor texture memory is not Pixel RAM. Stable region/place/save IDs retained. Pixel save retention, audio,10minuteplay and subjective quality still require actual acceptance.\n");
+                File.WriteAllText(Path.Combine(output,"README.txt"),"Actual Unity UGUI RenderTexture captures, 720x1280. Isolated test-only save state; not Pixel 3a captures. Full suite154 PNG: existing102 integrated frames,22 boundary comparison frames,14 field-stability frames,6 actual delivery-growth/reload frames,10 fountain OFF/ON and animation frames. Fountain Before disables only the new water layer and retains the original fountain/ripples; not a previous APK reconstruction. 30-boundary Before disables only the curved band in the CURRENT runtime, retaining the new field-stability depth/camera/navigation fixes; it is a boundary-only comparison, NOT a complete frozen5a49 renderer or previous APK/Pixel capture. 31-field shows actual walking arrival/return in all5areas and the East building corner, plus front/behind fountain depth; no teleport rescue. 30Hz simulation is not device FPS; Editor texture memory is not Pixel RAM. Stable region/place/save IDs retained. Pixel save retention, audio,10minuteplay and subjective quality still require actual acceptance.\n");
             }
             LogAssert.NoUnexpectedReceived();
         }

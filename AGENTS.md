@@ -1,5 +1,13 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-25最新ユーザー：街5地区を正式ベース候補として固定し、第1工程「噴水エフェクト」だけ開始する指示。** 旧「全Pixel条件確認まで噴水も停止」は、この明示の工程移行承認で上書きする。全Pixel負荷／600秒／初期成長確認済みと推論しない。残すPolishはキャラ重なり／会話位置／噴水前後／端詰まり／小境界のみ。街構造・景観の大改造なし。噴水合格まで代表1名2.5D／Merge／図鑑前面化／Tutorial／ReleasePolish／mainへ進めない。
+
+噴水の計画 `docs/superpowers/plans/2026-10-25-fountain-water.md`、仕様対応spec。2834cb7から同featureでinline実装済み。原画・既存波紋を残し、Fountain子の新TownFountainWaterGraphic1個＋純UVQuad samplerを追加。6本水流／小しぶき／3波紋／4反射、80quad320頂点、時相30Hz、画面外・無効・Pause時停止。WorldViewは子bind／camera変更時refresh／既存CanSimulateの読み取りだけで、Depth.285／Nav／地形・原画・保存・報酬・キャラ・BGM・図鑑・Mergeは無変更。添付PDF14頁・ユーザー固定承認は `References/Review/town-field-user-approval-2026-10-25/` と `References/VisualLock/town-field-frozen-2026-10-25.json`。性能・ライブ噴水切替や全初期成長の証明にはしない。
+
+**噴水候補のソース検証済み、実Unity／新APK／Pixel未確認。** 追加CPUはmissingmodel RED5→GREEN5、全CPU340/340 failed0skip0（9m48s）、API6DLL0警告エラー、PS14本成功。PS5area fixtureの新freeze参照2件コピー漏れだけ修正してRED→GREEN。独立全変更レビュー0Critical/Important/Minor。原354／JPEG15／歴史的dfb2cbc8…は不変。新scope town_fountain_water_2026_10_25の17入力と凍結済み景観を厳密に結び、他の既存Nav／成長を再hashしても拒否。currentdigest5fb43abb…、417fileCRLF preflight成功。証拠 `docs/verification/fountain-water-2026-10-25/`。
+
+**次はPull→既存全件 -TownQa を一度実行。** runtime変更なので今回は新ビルドが必要。宣言144Edit／225Play（実成功ではない）、全154PNG＝旧144＋噴水10枚を要求する。33-fountainの全景／手前／奥3対と4時相、metadata／HTMLを同runZIPへ含める。Beforeは新レイヤーのみOFFで旧水・NPC・camera・保存は同じ、旧APK全体再現ではない。噴水投影外差分0／可視変化ありをNativeで検査する。全件failed0skip0・原本・両APK識別／SHAを受領してから新街QAをPixel99RAY1BELHへ既存IDcom.mofumachi.merge.qa.townlifeで保存維持install-r、視認性・ライブ前後・負荷／熱／音・再起動・10分を確認する。旧210356では新効果を検証できない。手順 `docs/fountain-water-review-2026-10-25.md`。噴水合格まで2.5D／Merge／次工程／main停止。画像をチャットへ貼らない。以下は履歴。
+
 **2026-10-25最新原本：210356の11ZIP・160原本を照合し、Edit144/144・Play224/224の全368ケースPassed／failed0／skip0／inconclusive0、144PNGのSHA・bytes・720×1280・デコード正常。** build／growth-build／captureは同じ43a2764／fingerprint21a04dc3…、両APKの成功log・bytes一致。街118247418bytes／SHA0d3426dd…、成長79006293bytes／SHA2b5302be…、全文は `References/Review/town-field-final-2026-10-25-candidate/native-review.json`。APKbinary未受領で独立SHA再計算は未了。実納品1→2／2→3／5→6の5地区実装飾・再読込成功。全15全景＋既存22境界は旧153810とbyte同一。122同名不変／16変更／6新規。北上端・西外側の広い空白は植栽で改善、新景観後退は見当たらない。
 
 **判定は同じ210356の2APKで条件付きPixel確認へ進行可、街正式固定は保留。** 単独の独立実画像レビューCritical0／Important2／Minor1。I1は既存東の木陰で顔・体・名前が隠れ、識別／タップ・ドラッグ帰還が実機未確認。I2は奥の噴水画像が名前札だけ重なり、キャラ本体の遮蔽・ライブ切替は未証明。M1は北上端のわずかな地面・花壇反復。修正を推測せず、Pixelで両重要項目を確認するための進行であり、後工程承認ではない。成長の短い強調・全地区切替／Lv2北南「次はLv.3」も実機で確認する。

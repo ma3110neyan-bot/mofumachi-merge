@@ -1,0 +1,74 @@
+[
+  {
+    "name": "central-review",
+    "exit_code": 0,
+    "proof": "ps-fixtures/central-review.log"
+  },
+  {
+    "name": "visual-lock",
+    "exit_code": 0,
+    "proof": "ps-fixtures/visual-lock.log"
+  },
+  {
+    "name": "west-review",
+    "exit_code": 0,
+    "proof": "ps-fixtures/west-review.log"
+  },
+  {
+    "name": "east-review",
+    "exit_code": 0,
+    "proof": "ps-fixtures/east-review.log"
+  },
+  {
+    "name": "north-review",
+    "exit_code": 0,
+    "proof": "ps-fixtures/north-review.log"
+  },
+  {
+    "name": "south-review",
+    "exit_code": 0,
+    "proof": "ps-fixtures/south-review.log"
+  },
+  {
+    "name": "approved-design",
+    "exit_code": 0,
+    "proof": "ps-fixtures/approved-design.log"
+  },
+  {
+    "name": "pixel-visual-check",
+    "exit_code": 0,
+    "proof": "ps-fixtures/pixel-visual-check.log"
+  },
+  {
+    "name": "five-area-review",
+    "exit_code": 0,
+    "initial_exit_code": 1,
+    "repair": "Fixture lacked new field-freeze and accepted-candidate references; copied only those inputs, rerun passed.",
+    "proof": "ps-fixtures/five-area-review.log"
+  },
+  {
+    "name": "stage1-camera-lock",
+    "exit_code": 0,
+    "proof": "ps-fixtures/stage1-camera-lock.log"
+  },
+  {
+    "name": "five-area-packaging",
+    "exit_code": 0,
+    "proof": "ps-fixtures/five-area-packaging.log"
+  },
+  {
+    "name": "windows-json-encoding",
+    "exit_code": 0,
+    "proof": "ps-fixtures/windows-json-encoding.log"
+  },
+  {
+    "name": "android-tools",
+    "exit_code": 0,
+    "proof": "ps-fixtures/android-tools.log"
+  },
+  {
+    "name": "town-boundary-lock",
+    "exit_code": 0,
+    "proof": "ps-fixtures/town-boundary-lock.log"
+  }
+]

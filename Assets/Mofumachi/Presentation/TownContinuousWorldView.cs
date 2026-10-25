@@ -12,6 +12,7 @@ namespace Mofumachi.Presentation
         public TownWorldWalkModel Model {get;private set;}
         public TownWorldCamera Camera {get;}=new TownWorldCamera();
         public bool IsReady=>Model!=null;
+        internal bool CanAnimateWater=>life!=null&&life.CanSimulate;
         public bool FollowingHero {get;private set;}=true;
         public int VisibleBackgroundCount=>ground!=null&&ground.isActiveAndEnabled?1:0;
         private TownLifeView life;private RawImage original;private RectTransform scenery;
@@ -20,7 +21,7 @@ namespace Mofumachi.Presentation
         private readonly List<TownDiscoveryNotice> discoveryNotices=new List<TownDiscoveryNotice>(2);
         private RectTransform Field=>(RectTransform)life.transform;
         private RectTransform dailyFlower;private int displayedFlowers;
-        private ScreenContext context;private TownFountainGraphic fountain;
+        private ScreenContext context;private TownFountainGraphic fountain;private TownFountainWaterGraphic fountainWater;
         private TownGrowthView growth;private TownAmbientGraphic ambient;
         private TownPoint renderedCenter;private Vector2 renderedSize;private bool sceneReady;
         private RectTransform topHud,locationRibbon,navigationBar;
@@ -44,6 +45,7 @@ namespace Mofumachi.Presentation
             props=life.gameObject.AddComponent<TownSceneryView>();props.Bind(this);props.SetTownLevel(town.TownLevel);
             foreach(var actor in life.Actors)actor.BindWorld(Model.Residents.Single(r=>r.Id==actor.CharacterId));
             fountain=UIWidgets.Node("Town fountain foreground",(RectTransform)life.transform,new Rect(0,0,1,1)).gameObject.AddComponent<TownFountainGraphic>();fountain.Bind(this);
+            fountainWater=UIWidgets.Node("Fountain flowing water",fountain.rectTransform,new Rect(0,0,1,1)).gameObject.AddComponent<TownFountainWaterGraphic>();fountainWater.Bind(this);
             life.gameObject.AddComponent<TownFacilityView>().Bind(c,life);
             Model.Arrived+=OnArrival;Camera.Jump(new TownPoint(Model.Hero.Position.X,Model.Hero.Position.Y+TownSceneryLayout.CameraLift),Model.Hero.Position);Refresh();
         }
@@ -113,7 +115,7 @@ namespace Mofumachi.Presentation
             foreach(var notice in discoveryNotices)topInset=Mathf.Max(topInset,TopInset((RectTransform)notice.transform));
             Camera.Fit(bounds.width/scale,bounds.height/(scale*TownWorldLayout.ImageAspect),topInset,bottomInset);
             bool sceneChanged=!sceneReady||!renderedCenter.Equals(Camera.Center)||renderedSize!=bounds.size;
-            if(sceneChanged){ground.Refresh();centralGround.Refresh();westGround.Refresh();eastGround.Refresh();northGround.Refresh();southGround.Refresh();props.Refresh();fountain?.Refresh();renderedCenter=Camera.Center;renderedSize=bounds.size;sceneReady=true;}
+            if(sceneChanged){ground.Refresh();centralGround.Refresh();westGround.Refresh();eastGround.Refresh();northGround.Refresh();southGround.Refresh();props.Refresh();fountain?.Refresh();fountainWater?.NotifyViewportChanged();renderedCenter=Camera.Center;renderedSize=bounds.size;sceneReady=true;}
             foreach(var actor in life.Actors)
             {
                 var p=Local(actor.WorldPosition);var r=((RectTransform)life.transform).rect;

@@ -60,7 +60,7 @@ function Read-SourceRevision([string]$RepositoryPath) {
     }
     throw 'Source SHA not found; do not build an unidentified APK.'
 }
-function Assert-NativeCaptures([string]$Directory,[switch]$RequireBoundary,[switch]$RequireField,[switch]$RequireGrowth) {
+function Assert-NativeCaptures([string]$Directory,[switch]$RequireBoundary,[switch]$RequireField,[switch]$RequireGrowth,[switch]$RequireFountain) {
     $Images=@(Get-ChildItem -LiteralPath $Directory -Filter '*.png' -File -ErrorAction SilentlyContinue)
     if($Images.Count -lt 102){throw "Native captures incomplete: $($Images.Count)/102. Inspect the same-run PlayMode log."}
     foreach($Name in @('15-wide-park-left','15-wide-park-right','16-residents-passing-00','17-finger-follow-00','17-finger-released','18-continuous-walk-west','18-continuous-walk-central','18-continuous-walk-east','19-book-new-in-town','19-book-discovery-first-page','20-quest-cabin','20-quest-door-opening','20-quest-inside','21-shop-cabin','21-shop-door-opening','21-shop-inside','22-title-candidates','22-merge-candidates','23-title-letter','23-title-garden','23-merge-picnic','23-merge-ribbon','23-merge-pop-promenade','24-home-unobstructed','24-menu-open','24-menu-return','25-character-idle','25-character-step-a','25-character-step-b','25-character-greeting','25-character-behind-fountain','25-character-in-front-fountain','04-town-lv1-North','04-town-lv1-South','04-town-lv6-North','04-town-lv6-South','09-connected-path-north','09-connected-path-south','26-cardinal-North-join','26-cardinal-North-arrival','26-cardinal-South-join','26-cardinal-South-arrival','27-merge-finale-live-purpose','20-quest-arrived-door-prompt','21-shop-arrived-door-prompt','21b-cafe-cabin','21b-cafe-walking','21b-cafe-arrived-door-prompt','21b-cafe-door-opening','21b-cafe-inside','28-meet-friend-walking','28-meet-friend-arrived','29-merge-drag-lift','29-merge-drag-match','29-merge-landed')) {
@@ -110,6 +110,21 @@ function Assert-NativeCaptures([string]$Directory,[switch]$RequireBoundary,[swit
         }
         foreach($Name in @('pixel_verified','adopted')){if($Growth.$Name -isnot [bool] -or $Growth.$Name -ne $false){throw 'Isolated native growth cannot claim Pixel or final adoption.'}}
     }
+    if($RequireFountain) {
+        if($Images.Count -lt 154){throw 'Fountain water requires the existing144 and10 paired/time-sample captures.'}
+        foreach($View in @('overview','front','behind')){foreach($Phase in @('before','after')){if(-not(Test-Path -LiteralPath (Join-Path $Directory "33-fountain-$View-$Phase.png") -PathType Leaf)){throw "Missing fountain pair: $View/$Phase"}}}
+        foreach($Frame in 0..3){if(-not(Test-Path -LiteralPath (Join-Path $Directory ('33-fountain-phase-'+$Frame.ToString('00')+'.png')) -PathType Leaf)){throw 'Missing fountain animation time sample.'}}
+        if(-not(Test-Path -LiteralPath (Join-Path $Directory 'fountain-water-before-after.html') -PathType Leaf)){throw 'Missing fountain comparison document.'}
+        $Water=Get-Content -LiteralPath (Join-Path $Directory 'fountain-water-comparison.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+        if($Water.kind -ne 'same-state-native-additive-water-comparison' -or $Water.before -ne 'new layer OFF; original fountain and original water retained' -or $Water.after -ne 'product code' -or @($Water.pairs).Count -ne 3 -or @($Water.phases).Count -ne 4 -or $Water.added_vertices -ne 320 -or $Water.max_update_hz -ne 30){throw 'Incomplete fountain comparison or mesh/update budget.'}
+        foreach($View in @('overview','front','behind')) {
+            $Rows=@($Water.pairs | Where-Object {$_.view -eq $View})
+            if($Rows.Count -ne 1 -or $Rows[0].changed_pixels -le 0 -or $Rows[0].outside_fountain_pixels -ne 0 -or $Rows[0].state_unchanged -isnot [bool] -or -not $Rows[0].state_unchanged){throw 'Fountain pair must visibly change only the fountain, preserving the same state.'}
+        }
+        if(@($Water.phases | Select-Object -Unique).Count -ne 4){throw 'Fountain animation samples must use four different phases.'}
+        foreach($Phase in $Water.phases){$Value=[double]$Phase;if([double]::IsNaN($Value) -or [double]::IsInfinity($Value) -or $Value -lt 0 -or $Value -ge 10){throw 'Invalid fountain animation phase.'}}
+        foreach($Name in @('pixel_verified','adopted')){if($Water.$Name -isnot [bool] -or $Water.$Name -ne $false){throw 'Native fountain comparison cannot claim Pixel or adoption.'}}
+    }
     if(Test-Path -LiteralPath $BoundaryComparison){Write-Host "Street boundary comparison: $BoundaryComparison (Boundary-only renderer comparison; Pixel acceptance pending)."}
 }
 function Assert-SourceUnchanged([string]$RepositoryPath,[string]$ExpectedRevision) {
@@ -118,7 +133,7 @@ function Assert-SourceUnchanged([string]$RepositoryPath,[string]$ExpectedRevisio
 function Write-NativeReviewArchives([string]$Directory) {
     # Keep review uploads under 32 MiB without asking the player to copy a long
     # packing command. APK bytes stay in the run directory, outside review ZIPs.
-    $Files=@(foreach($Name in @('editmode.xml','playmode.xml','build-info.json','growth-build-info.json','capture-manifest.json','android-build.log','growth-android-build.log','playmode.log','before-after.html','visual-adoption.json','screenshots/texture-memory.txt','screenshots/README.txt','screenshots/street-boundary-before-after.html','screenshots/street-boundary-comparison.json','screenshots/field-stability.json','screenshots/town-growth-progression.json')) {
+    $Files=@(foreach($Name in @('editmode.xml','playmode.xml','build-info.json','growth-build-info.json','capture-manifest.json','android-build.log','growth-android-build.log','playmode.log','before-after.html','visual-adoption.json','screenshots/texture-memory.txt','screenshots/README.txt','screenshots/street-boundary-before-after.html','screenshots/street-boundary-comparison.json','screenshots/field-stability.json','screenshots/town-growth-progression.json','screenshots/fountain-water-before-after.html','screenshots/fountain-water-comparison.json')) {
         $Path=Join-Path $Directory $Name
         if(Test-Path -LiteralPath $Path -PathType Leaf){Get-Item -LiteralPath $Path}
     })+@(Get-ChildItem -LiteralPath (Join-Path $Directory 'screenshots') -Filter '*.png' -File | Sort-Object Name)
@@ -242,10 +257,10 @@ Assert-ProductUnchanged $ProjectPath $GitRevision $ProductFingerprint
 $PlayXml=Join-Path $OutputDir 'playmode.xml'
 Write-Host '[2/4] Running all PlayMode tests and capturing native Unity images...'
 Invoke-Unity @('-batchmode','-projectPath',$ProjectPath,'-buildTarget','Android','-runTests','-testPlatform','PlayMode','-testResults',$PlayXml,'-mofumachiScreenshots',(Join-Path $OutputDir 'screenshots'),'-logFile',(Join-Path $OutputDir 'playmode.log'))
-Assert-TestRun $PlayXml 224 @('VerticalSliceFlowTests','LayoutNoticeTests','AudioManagerTests','MergeInteractionTests','RewardGrowthTests','SettingsScreenTests','PopPresentationTests','CharacterSelectionTests','MultiQuestPresentationTests','TownLifeTests','StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests','FiveAreaIntegrationReviewTests')
+Assert-TestRun $PlayXml 225 @('VerticalSliceFlowTests','LayoutNoticeTests','AudioManagerTests','MergeInteractionTests','RewardGrowthTests','SettingsScreenTests','PopPresentationTests','CharacterSelectionTests','MultiQuestPresentationTests','TownLifeTests','StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests','FiveAreaIntegrationReviewTests')
 $CaptureDir=Join-Path $OutputDir 'screenshots'
 Assert-ProductUnchanged $ProjectPath $GitRevision $ProductFingerprint
-Assert-NativeCaptures $CaptureDir -RequireBoundary:$TownQa -RequireField:$TownQa -RequireGrowth:$TownQa
+Assert-NativeCaptures $CaptureDir -RequireBoundary:$TownQa -RequireField:$TownQa -RequireGrowth:$TownQa -RequireFountain:$TownQa
 $CaptureEntries=@(Get-ChildItem -LiteralPath $CaptureDir -Filter '*.png' -File | Sort-Object Name | ForEach-Object {[ordered]@{file=$_.Name;bytes=$_.Length;sha256=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}})
 [ordered]@{gitRevision=$GitRevision;productFingerprint=$ProductFingerprint;width=720;height=1280;count=$CaptureEntries.Count;scope='Unity fixture renders; not Pixel captures';images=$CaptureEntries} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $OutputDir 'capture-manifest.json') -Encoding UTF8
 $ApkName='vertical-slice.apk';$BuildMethod='Mofumachi.Editor.AndroidBuild.BuildDevelopmentApk';$PackageId='com.mofumachi.merge'

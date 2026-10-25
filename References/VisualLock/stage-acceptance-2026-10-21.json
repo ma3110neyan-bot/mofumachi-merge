@@ -192,7 +192,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "town_field_final_implemented_native_and_pixel_pending",
+  "current_stage": "fountain_water_implemented_native_and_pixel_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -712,7 +712,7 @@
     "native_images_verified": 124,
     "native_review": "References/Review/curved-boundary-2026-10-25-candidate/native-review.json"
   },
-  "base_polish": "References/VisualLock/town-field-final-candidate-2026-10-25.json",
+  "base_polish": "References/VisualLock/fountain-water-candidate-2026-10-25.json",
   "previous_qa_build_report": {
     "run": "20261025-073237-f8fd542b",
     "status": "console_success_reported",
@@ -798,7 +798,7 @@
     "repair": "docs/verification/south-entry-mesh-test-repair-2026-10-25.json",
     "repaired_native_pass_verified": false
   },
-  "latest_user_stage_order": "2026-10-25 field-stability acceptance on Pixel3a -> fountain effects -> representative1 character2.5D -> Merge. No later stage before actual acceptance.",
+  "latest_user_stage_order": "2026-10-25 user freezes current5district graphical base candidate; fountain approval -> representative1character2.5D approval -> Merge -> book foreground -> tutorial -> releasePolish. No later stage before prior stage approval; no main.",
   "latest_curved_boundary_success_report": "docs/verification/curved-boundary-qa-build-screen-report-2026-10-25.json",
   "latest_curved_boundary_native_run": {
     "run": "20261025-084947-eecbc994",
@@ -854,12 +854,29 @@
   "latest_field_stability_native_review": "References/Review/field-stability-2026-10-25-candidate/native-review.json",
   "town_field_final": {
     "implemented": true,
+    "native_unity_verified": true,
+    "qa_apk_generated": true,
+    "pixel_verified": false,
+    "adopted": true,
+    "previous_run_is_historical": "20261025-153810-fa9b2be9",
+    "growth_validation": "real sequential delivery/merge/temporary-disk reload; current player save not reset",
+    "pixel_growth_app_id": "com.mofumachi.merge.qa.growthcheck",
+    "adoption_scope": "user froze formal field base candidate graphics; missing device measurements are not inferred",
+    "native_review": "References/Review/town-field-final-2026-10-25-candidate/native-review.json"
+  },
+  "field_base_user_approved": true,
+  "field_freeze": "References/VisualLock/town-field-frozen-2026-10-25.json",
+  "fountain_water": {
+    "implemented": true,
     "native_unity_verified": false,
     "qa_apk_generated": false,
     "pixel_verified": false,
-    "adopted": false,
-    "previous_run_is_historical": "20261025-153810-fa9b2be9",
-    "growth_validation": "real sequential delivery/merge/temporary-disk reload; current player save not reset",
-    "pixel_growth_app_id": "com.mofumachi.merge.qa.growthcheck"
+    "user_approved": false,
+    "next_blocked": [
+      "representative_character_2_5d",
+      "merge_quality_pass",
+      "main"
+    ],
+    "render_input_fingerprint": "5fb43abb089d9879cc301abeba057328936e81dc9a727ac4358874fe365b36cc"
   }
 }

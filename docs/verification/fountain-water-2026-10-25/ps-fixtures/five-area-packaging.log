@@ -1,0 +1,7 @@
+Tests passed: 16/16
+Five-area review: /workspace/mofumachi-merge/Builds/FiveAreaReview/19990101-000000-8dfc00a2/packed\five-area-review-*.zip. Submit all parts; user approval pending. No APK or Pixel acceptance.
+Tests passed: 16/16
+Five-area review: /workspace/mofumachi-merge/Builds/FiveAreaReview/19990101-000000-8dfc00a2/repacked/20261025-132256-525695c6\five-area-review-*.zip. Submit all parts; user approval pending. No APK or Pixel acceptance.
+Tests passed: 16/16
+South-first review: /workspace/mofumachi-merge/Builds/FiveAreaReview/19990101-000000-8dfc00a2\south-final-review-*.zip. Full five-area evidence is staged for later review; no APK/Pixel.
+Packaging-only archive preserves recorded hidden-parent evidence and older script fingerprints. Synthetic headers/XML, no Unity/Pixel.

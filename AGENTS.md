@@ -1,5 +1,7 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-25最新画面：210356はEdit144/144・Play224/224、144画像720×1280、街QA APK／SHA出力まで成功。** run `20261025-210356-e7e1ca30`、期待ソース43a2764。画面末尾は別保存の成長確認APKのビルド開始で、2本目／ZIP作成／処理全体の終了はまだ確認できない。原XML／failed0・skip0／build-info／画像原本／APKbinary／Pixelは未受領・未確認。画面記録 `docs/verification/town-field-final-qa-build-screen-report-2026-10-25.json`。次は同じ処理の終了画面と同runのfive-plaza-review-*.zip全パートを受領する。稼働中の処理を再実行させず、この記録更新だけでPull／再ビルドを依頼しない。街の正式固定・次工程・mainは保留継続。チャットに画像を貼らない。以下は履歴。
+
 **2026-10-25最新原本：204913のPlayModeは224中223成功／1失敗／skip0。** 唯一の失敗はSeamlessFieldTests.OneSharedGroundAndFiveLandmarksReplaceTheOpaquePainting:22。境界を4帯→7帯へ追加した際、実メッシュ476頂点に対してテストの旧期待272が残った更新漏れ。原XML/log・SHA・診断は `References/Review/full-playmode-2026-10-25-204913/`。新しい実納品→5地区成長→Scene再読込のケース、元の全撮影、噴水前後、全5端部の実入力／自力帰還はいずれもこの実UnityでPassed。ただし画像原本未受領、表示レビュー／実機合格ではない。
 
 修正はSeamlessFieldTestsの期待値272→476（7帯×17列×4行）と説明だけ。実メッシュの厳密一致／単一共有atlas／非raycastの検査は残し、ケース削除・skip・範囲緩和なし。runtime・原画・装飾・Nav／歩行面・保存／納品／報酬は無変更。API6DLL0警告エラー、関連CPU曲線5/5成功。**修正後の実Unity全件成功・APK2本・Pixelは未確認。** 新版をPull後、既存全件 `build-android.ps1 -TownQa` を一度実行して144/224・failed0/skip0／同版144画像・成長メタデータ／2APK・SHAを受領する。元承認／描画入力digest73b10279…は変更せず、今回のテスト修正を理由に承認値を上書きしない。街正式固定・噴水エフェクト／2.5D／Merge／mainは停止継続。画像をチャットへ貼らない。以下は履歴。

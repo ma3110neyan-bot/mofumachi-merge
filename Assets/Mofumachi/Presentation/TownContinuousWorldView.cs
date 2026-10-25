@@ -17,6 +17,7 @@ namespace Mofumachi.Presentation
         private TownLifeView life;private RawImage original;private RectTransform scenery;
         private TownGroundGraphic ground;private TownCentralGroundGraphic centralGround;private TownWestGroundGraphic westGround;private TownEastGroundGraphic eastGround;private TownNorthGroundGraphic northGround;private TownSouthGroundGraphic southGround;private TownSceneryView props;
         private readonly List<(Transform Transform,float Feet)> depth=new List<(Transform,float)>();
+        private readonly List<TownDiscoveryNotice> discoveryNotices=new List<TownDiscoveryNotice>(2);
         private RectTransform Field=>(RectTransform)life.transform;
         private RectTransform dailyFlower;private int displayedFlowers;
         private ScreenContext context;private TownFountainGraphic fountain;
@@ -103,7 +104,14 @@ namespace Mofumachi.Presentation
             float bottomInset=navigationBar==null?0:Mathf.Max(0,Field.InverseTransformPoint(navigationBar.TransformPoint(new Vector2(0,navigationBar.rect.yMax))).y-bounds.yMin+4)/scale;
             // Existing HUD/ribbon/actions float over this full-field rectangle.
             // Visible alone is insufficient if a Menu/Merge button takes the grab.
-            Camera.Fit(bounds.width/scale,bounds.height/(scale*TownWorldLayout.ImageAspect),Mathf.Max(TopInset(topHud),TopInset(locationRibbon)),bottomInset);
+            float topInset=Mathf.Max(TopInset(topHud),TopInset(locationRibbon));
+            // Discovery cards are real buttons below the location ribbon. Keep
+            // them working without letting a new discovery capture the hero's
+            // return drag at the North edge. Ignore inactive/replaced notices.
+            // Reuse storage: no per-frame array or object allocation.
+            Field.parent.GetComponentsInChildren(false,discoveryNotices);
+            foreach(var notice in discoveryNotices)topInset=Mathf.Max(topInset,TopInset((RectTransform)notice.transform));
+            Camera.Fit(bounds.width/scale,bounds.height/(scale*TownWorldLayout.ImageAspect),topInset,bottomInset);
             bool sceneChanged=!sceneReady||!renderedCenter.Equals(Camera.Center)||renderedSize!=bounds.size;
             if(sceneChanged){ground.Refresh();centralGround.Refresh();westGround.Refresh();eastGround.Refresh();northGround.Refresh();southGround.Refresh();props.Refresh();fountain?.Refresh();renderedCenter=Camera.Center;renderedSize=bounds.size;sceneReady=true;}
             foreach(var actor in life.Actors)

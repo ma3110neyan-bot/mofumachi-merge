@@ -52,6 +52,23 @@ namespace Mofumachi.Tests
             yield return EnterHome();string favorite=Flow.Game.State.favoriteCharacterId;Assert.That(Flow.TalkToCharacter("noah"),Is.True);
             var notice=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="New book discovery");Assert.That(notice.GetComponentInChildren<Text>().text,Does.Contain("ノア"));
             Flow.TalkToCharacter("noah");Assert.That(Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="New book discovery"),Is.SameAs(notice),"The same tier must not repeatedly create a popup");
+            using(var viewport=new FixedViewport(Flow))
+            {
+                viewport.Apply(740);var life=Flow.GetComponentInChildren<TownLifeView>();var hero=life.Actors.Single(a=>a.Controlled);
+                // Isolated placement tests the popup lifecycle. The separate
+                // five-edge test must still walk here and leave without rescue.
+                life.World.Model.Restore(hero.CharacterId,new TownPoint(.43f,2.98f));
+                notice.gameObject.SetActive(false);life.World.ReturnToHero();float withoutNotice=life.World.Camera.Center.Y;
+                notice.gameObject.SetActive(true);life.World.Refresh();life.RefreshWorldPresentation();Canvas.ForceUpdateCanvases();viewport.Camera.Render();
+                Assert.That(life.World.Camera.Center.Y,Is.GreaterThan(withoutNotice),"An active discovery card needs its own clearance; a hidden one must not reserve space");
+                var field=(RectTransform)life.transform;var body=hero.GetComponentInChildren<CharacterBodyGraphic>();
+                var bodyBounds=RectTransformUtility.CalculateRelativeRectTransformBounds(field,hero.VisualRoot);var noticeBounds=RectTransformUtility.CalculateRelativeRectTransformBounds(field,notice.transform);
+                Assert.That(bodyBounds.max.y,Is.LessThan(noticeBounds.min.y),"Keep the drawing and touch target below the active notice");
+                var pointer=new PointerEventData(EventSystem.current){position=RectTransformUtility.WorldToScreenPoint(viewport.Camera,body.transform.TransformPoint(body.rectTransform.rect.center))};
+                var hits=new List<RaycastResult>();EventSystem.current.RaycastAll(pointer,hits);Assert.That(hits,Is.Not.Empty);Assert.That(hits[0].gameObject.GetComponentInParent<TownActor>(),Is.SameAs(hero));
+                pointer.position=RectTransformUtility.WorldToScreenPoint(viewport.Camera,notice.transform.TransformPoint(((RectTransform)notice.transform).rect.center));
+                hits.Clear();EventSystem.current.RaycastAll(pointer,hits);Assert.That(hits,Is.Not.Empty);Assert.That(hits[0].gameObject,Is.SameAs(notice.gameObject),"The discovery card must remain tappable and keep opening its character's book");
+            }
             notice.onClick.Invoke();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.CharacterSelection));Assert.That(Flow.PreviewFavoriteId,Is.EqualTo("noah"));Assert.That(Flow.Game.State.favoriteCharacterId,Is.EqualTo(favorite));
             Assert.That(TownCharacterBook.For("noah",Flow.Game.State,Flow.Daily.Data).IsNew,Is.False);LogAssert.NoUnexpectedReceived();
         }

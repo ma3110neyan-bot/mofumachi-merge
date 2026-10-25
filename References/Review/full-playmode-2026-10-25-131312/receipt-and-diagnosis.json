@@ -1,0 +1,29 @@
+{
+  "run": "20261025-131312-6c6e5bcb",
+  "total": 223,
+  "passed": 222,
+  "failed": 1,
+  "skipped": 0,
+  "raw_results_verified": true,
+  "files": [
+    {
+      "file": "playmode.xml",
+      "bytes": 188368,
+      "sha256": "8fdb5e0d878672c0cc068c30c1d5cd31fc1a351af3771866540446b5d957e755"
+    },
+    {
+      "file": "playmode.log",
+      "bytes": 324269,
+      "sha256": "136ae8277437fe98e23dd8a925bd982defe1b30b8eeacbb1b943294b76ca376d"
+    }
+  ],
+  "failure": "Mofumachi.Tests.TownViewportPresentationTests.AllFiveEdgesKeepReturnInputAndWalkBackWithoutTeleporting",
+  "message": "  The topmost real hit must be the hero, not Menu, Merge or the next-goal card. edge=(0.43,2.98), grab=(304.11, 583.99), camera=Actual Polish viewport camera, bodyDepth=26, bodyCull=False; hits=New book discovery[depth=92,camera=Actual Polish viewport camera] > Town actor visual[depth=26,camera=Actual Polish viewport camera] > Town characters[depth=12,camera=Actual Polish viewport camera]\n  Expected: same as <Town actor momo (Mofumachi.Presentation.TownActor)>\n  But was:  null\n",
+  "stack": "at Mofumachi.Tests.TownViewportPresentationTests+<AllFiveEdgesKeepReturnInputAndWalkBackWithoutTeleporting>d__0.MoveNext () [0x00653] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\TownViewportPresentationTests.cs:48\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n",
+  "root_cause": "Actual New book discovery button intercepts the hero body center at North(.43,2.98). Hero mesh is drawn(depth26,cullFalse); event/render cameras agree. The discovery notification is below the HUD/ribbon but current camera margin measures only HUD/ribbon/navigation.",
+  "repair": "Include all currently active TownDiscoveryNotice bounds in existing top camera inset. Keep popup drawing, timer, click-to-book and discovery state unchanged; do not dismiss notice or weaken topmost test.",
+  "repaired_native_pass_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false
+}

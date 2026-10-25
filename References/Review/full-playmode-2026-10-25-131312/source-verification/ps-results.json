@@ -1,0 +1,18 @@
+[
+  {
+    "test": "town-boundary-lock",
+    "exit_code": 0
+  },
+  {
+    "test": "stage1-camera-lock",
+    "exit_code": 0
+  },
+  {
+    "test": "windows-json-encoding",
+    "exit_code": 0
+  },
+  {
+    "test": "visual-lock",
+    "exit_code": 0
+  }
+]

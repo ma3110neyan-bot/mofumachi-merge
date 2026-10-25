@@ -71,3 +71,13 @@ Actual raw PlayMode223/222passed/1failed/skip0: only the new edge topmost-hit ca
 - [ ] Full unfiltered -TownQa after feature update. Native GREEN/APK/Pixel remain pending, not inferred from compilation or original222pass.
 
 Only2 native test files change; game/resources/floor/capture/suite gates remain identical to23c21ef. This repairs a concrete mismatch in fixture configuration; it is not proof of the unnamed topmost-hit root cause or actual Pixel input success. Do not weaken topmost-hit assertion or skip the edge case.
+
+## Native131312 follow-up: actual discovery-card interception
+
+Raw PlayMode223/222passed/1failed/skip0 identifies `New book discovery` depth92 in front of the drawn hero depth26/cullFalse, at North(.43,2.98). Cameras now agree. Previous viewport repair was not sufficient; no further fixture-only guess.
+
+- [x] Preserve raw XML/log/SHA and exact target/edge evidence. Actual native RED is the unchanged strict edge test.
+- [x] Add active TownDiscoveryNotice rectangles to existing top camera inset in ContinuousWorldView. Reuse a List to avoid per-frame result arrays; inactive/replaced notices do not reserve space. Do not edit notice timing/click, book data, art, world geometry or camera model.
+- [x] Extend existing discovery notice native test: active-vs-inactive framing, body/notice separation, actual first body hit and actual first notice hit, original open-Noah-book/favorite/discovery assertions retained. Existing five-edge test remains unchanged.
+- [x] API6 compile0warnings/errors, inventory143/223, exact current/historical approval+410fileCRLF preflight,4relatedPS tests passed; focused fresh review0Critical/0Important/0Minor.
+- [ ] Actual unfiltered native suite/138frames/APK/Pixel. Source compilation is not native GREEN. No later stages/main.

@@ -1,5 +1,11 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-25最新原本：131312の残1失敗は「図鑑の新発見」通知による実際のタッチ遮断。** PlayMode223/222成功/1失敗/skip0。北(.43,2.98)、grab(304.11,583.99)、キャラdepth26/cullFalseの前にNew book discovery(depth92)がいる。描画・イベントcameraは一致。原XML/log/SHA・診断 `References/Review/full-playmode-2026-10-25-131312/`。前回の検査camera補正だけで解消せず、今回の詳細ログで製品側の通知余白不足を特定。
+
+**runtimeはTownContinuousWorldView1ファイルのみ追加修正。** 表示中のTownDiscoveryNoticeの実矩形も既存の上余白へ加える。GetComponentsInChildren(false,reusedList)で非表示・差替え中の旧通知を除外、フレームごとの結果配列を作らない。通知の絵／6秒タイマー／タップ図鑑遷移、図鑑・保存・原画・配置・歩行面・Nav・正式6名・BGM/Mergeは不変。通知を消す／タッチ判定を弱める処理はしない。既存の図鑑通知テストに有効／無効時の余白・キャラと通知の両方の実先頭hit・重なり不在を追加。全5端部の実歩行／ドラッグ／先頭hit検査はそのまま。
+
+実装済み・API6compile0警告エラー・関連PS4本／410fileCRLFゲート成功・独立レビュー0Critical/Important/Minor。原354／15JPEGと歴史的dfb2cbc8…は不変、新候補digest ebe436e8…。**修正版の実Unity全件成功・新APK・Pixelは未確認。** 手順は引き続きfeaturePull→既存全件 -TownQa、failed0/skip0・同版138画像→新APK/SHA→Pixel99RAY1BELHへ保存維持install-r。通知を含む北端と全5地区を確認して初めてベース固定。噴水エフェクト／2.5D／Merge／main停止。証拠 `docs/verification/discovery-edge-clearance-2026-10-25.json`。画像をチャットへ貼らない。以下は履歴。
+
 **2026-10-25最新画面：131312-6c6e5bcbはEdit143/143成功、PlayModeで再びUnity exit2。** 前回125258の原XML223/222/1とは別run。今回の失敗名・件数・skip・実際のsourceは原XML/log未受領で未確認、同じ原因と断定しない。APK未生成。次は `Builds/Android/20261025-131312-6c6e5bcb` のplaymode.xmlとplaymode.logを受領。51063d1の検査には対象名／地区／depth／cull／カメラの詳細を追加済みなので、適用と失敗箇所をまず原本で確認する。推測修正・再実行依頼をしない。今回の記録のみの更新ではPull／ビルド不要。以下は履歴。
 
 **2026-10-25最新原本：125258のPlayMode223中222成功／1失敗／skip0。端部の最前面タッチ検査だけ停止。** 原XML/log・SHAは `References/Review/full-playmode-2026-10-25-125258/`。唯一の失敗はTownViewportPresentationTests.AllFiveEdgesKeepReturnInputAndWalkBackWithoutTeleporting:36、最前面hitが非キャラ（対象名／地区は旧メッセージにない）。噴水前後・全景／5地区往復撮影・既存30マス実raycast検査は実UnityでPassed。PNG原本は未受領なので実画像レビュー済みとは言わない。APK未生成。

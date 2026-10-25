@@ -8,12 +8,12 @@
   "before_runtime_source": "e7a80062202312d10b07f65d95708852c9abd87c",
   "before_render_digest": "a613c1a7bf348ae868812fef4ef6b27f3464101c07ad8d392d0fa96451519147",
   "reviewed_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
-  "candidate_render_digest": "984be108698a90054eb8a9b1b97ef37500f33ff77a2d50e4ed2df0174951fca5",
+  "candidate_render_digest": "ebe436e8f9d14233aef6f129547dfce5d7bb63d70760421033c08d5e4de1f5d2",
   "changes": [
     {
       "path": "Assets/Mofumachi/Presentation/TownContinuousWorldView.cs",
       "before_sha256": "d78dccf8e33f017fd1b8dfda71da3688b48a60de43d343a428ff78188e4fdc15",
-      "after_sha256": "6286c9856ac69d423c7c15b725f4ea59a01a7b7f54d908552bac281da7f6c486"
+      "after_sha256": "1929ee9907990a856764643137f31ed19241e99c43bfa6f224c2c5e4b70e161a"
     },
     {
       "path": "Assets/Mofumachi/Presentation/TownSouthEntryBlendGraphic.cs",
@@ -73,5 +73,11 @@
   "merge_quality_pass_started": false,
   "pass_id": "field_stability_2026_10_25",
   "fountain_pass_started": false,
-  "character_trial_started": false
+  "character_trial_started": false,
+  "latest_correction": {
+    "issue": "Active discovery card intercepts North-edge hero touch",
+    "evidence": "References/Review/full-playmode-2026-10-25-131312/receipt-and-diagnosis.json",
+    "previous_render_digest": "984be108698a90054eb8a9b1b97ef37500f33ff77a2d50e4ed2df0174951fca5",
+    "scope": "Only active discovery-card bounds added to existing tracked-camera top inset; notice/book behavior unchanged."
+  }
 }

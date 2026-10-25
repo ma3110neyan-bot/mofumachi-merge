@@ -1,0 +1,20 @@
+{
+  "critical": 0,
+  "important": 0,
+  "minor": 0,
+  "reviewer": "discovery_edge_clearance_review_oct25",
+  "scope": "One runtime camera-inset file and existing discovery native test",
+  "independent_verification": [
+    "Raw XML/log sizes/SHA and223/222/1/skip0",
+    "All354 original entries with authorized overrides",
+    "All15 approved JPEG hashes",
+    "Current/historical digest reproduced",
+    "diff check clean"
+  ],
+  "not_verified": [
+    "Repaired native GREEN",
+    "Actual visual clearance",
+    "Pixel input/performance",
+    "Exact raw-run source identity"
+  ]
+}

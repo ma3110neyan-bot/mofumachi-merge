@@ -1,0 +1,40 @@
+{
+  "status": "Implemented; native and Pixel rerun pending",
+  "root_evidence": "References/Review/full-playmode-2026-10-25-131312/receipt-and-diagnosis.json",
+  "root": "New book discovery button intercepted drawn North-edge hero body, depth92 vs26; not a culled/missing actor",
+  "runtime_changed": [
+    "Assets/Mofumachi/Presentation/TownContinuousWorldView.cs"
+  ],
+  "test_changed": [
+    "Assets/Mofumachi/Tests/PlayMode/MajorPolishTests.cs"
+  ],
+  "preserved": [
+    "TownDiscoveryNotice code/timer/visual/click",
+    "Character book/data",
+    "art/resources",
+    "floor/obstacles/navigation",
+    "Core/save/delivery/rewards",
+    "BGM/Merge/formal6",
+    "strict five-edge foremost-hit/real drag/walk/return assertions",
+    "full-suite zero fail/skip and138-frame gates"
+  ],
+  "implementation": "Existing top inset includes active notice bounds with reusable List; inactive/replaced notices excluded",
+  "source_checks": {
+    "unity_api_assemblies": 6,
+    "warnings": 0,
+    "errors": 0,
+    "affected_ps_tests_passed": 4,
+    "windows_crlf_files": 410,
+    "native_declared_edit_and_build": 143,
+    "native_declared_play": 223,
+    "native_execution": false
+  },
+  "current_render_digest": "ebe436e8f9d14233aef6f129547dfce5d7bb63d70760421033c08d5e4de1f5d2",
+  "historical_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "review": "References/Review/full-playmode-2026-10-25-131312/source-verification/fresh-review.json",
+  "repaired_native_pass_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "next": "Feature Pull, full TownQa, same-source images/APK/SHA, then Pixel acceptance; no next stages/main"
+}

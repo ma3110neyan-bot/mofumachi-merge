@@ -192,7 +192,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "field_stability_full_playmode_stopped_raw_logs_pending",
+  "current_stage": "field_stability_pointer_fixture_repaired_full_native_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -812,5 +812,17 @@
     "native_review": "References/Review/curved-boundary-2026-10-25-candidate/native-review.json",
     "pixel_verified": false
   },
-  "latest_field_stability_qa_screen_report": "docs/verification/field-stability-qa-stop-screen-report-2026-10-25.json"
+  "latest_field_stability_qa_screen_report": "docs/verification/field-stability-qa-stop-screen-report-2026-10-25.json",
+  "latest_field_stability_native_run": {
+    "run": "20261025-125258-acabc327",
+    "playmode_total": 223,
+    "playmode_passed": 222,
+    "playmode_failed": 1,
+    "playmode_skipped": 0,
+    "raw_result_verified": true,
+    "record": "References/Review/full-playmode-2026-10-25-125258/receipt-and-diagnosis.json",
+    "repaired_native_pass_verified": false,
+    "apk_generated": false,
+    "pixel_verified": false
+  }
 }

@@ -59,3 +59,15 @@ Final review: Critical0 / Important1 (top/bottom HUD intercepts an edge grab) / 
 East interior after scan: all584 journeys out/return passed with live NPC simulation. Source verification does not establish device timing, natural rendered occlusion or final base acceptance.
 
 Final source gate: CPU325/325; final6 API DLL builds0warnings/errors; native declaration143/223 (not execution); final14 PS fixture tests passed;410-file CRLF approval/current+historical digest checks passed. Review Important HUD/metadata findings fixed in one RED→GREEN pass. No deferred minors. Native/QAAPK/Pixel acceptance stays pending; preserve workspace ledger until user’s native/device result.
+
+## Native125258 follow-up: strict pointer fixture
+
+Actual raw PlayMode223/222passed/1failed/skip0: only the new edge topmost-hit case failed. The existing camera-based thirty-cell real-raycast case and fountain/fullcapture passed. Failure names no top object/edge, so product interception is not ruled out.
+
+- [x] Retain original XML/log/SHA and precise failure; distinguish failed assertion from unverified cause.
+- [x] Use unchanged `MajorPolishTests.FixedViewport` (internal accessibility only) for the new edge case, matching its render/event camera for all projections and pointer press. Native draw before strict hit assertion, retain actual topmost/body/drag/walk/return checks and add exact hit/depth/cull/edge diagnostics.
+- [x] Six API assembly builds0warning/error; inventory143/223; current original/art lock and fingerprint unchanged.
+- [x] Fresh focused review0Critical/0Important/0Minor; source compile/gate proof recorded in docs/verification/field-pointer-fixture-2026-10-25.json.
+- [ ] Full unfiltered -TownQa after feature update. Native GREEN/APK/Pixel remain pending, not inferred from compilation or original222pass.
+
+Only2 native test files change; game/resources/floor/capture/suite gates remain identical to23c21ef. This repairs a concrete mismatch in fixture configuration; it is not proof of the unnamed topmost-hit root cause or actual Pixel input success. Do not weaken topmost-hit assertion or skip the edge case.

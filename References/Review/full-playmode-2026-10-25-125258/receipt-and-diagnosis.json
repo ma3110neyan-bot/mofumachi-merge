@@ -1,0 +1,42 @@
+{
+  "run": "20261025-125258-acabc327",
+  "files": [
+    {
+      "file": "playmode.xml",
+      "sha256": "ea5220f6b4d718c5996b720e976b2d8f624abe13c3b793a2efaf915ac9ff3338",
+      "bytes": 188066
+    },
+    {
+      "file": "playmode.log",
+      "sha256": "827e6cbf5595aebd5ff0e3f6d074139117c2c2a030b066c1448807a908443556",
+      "bytes": 324166
+    }
+  ],
+  "total": 223,
+  "passed": 222,
+  "failed": 1,
+  "skipped": 0,
+  "failures": [
+    {
+      "fullname": "Mofumachi.Tests.TownViewportPresentationTests.AllFiveEdgesKeepReturnInputAndWalkBackWithoutTeleporting",
+      "message": "  The topmost real hit must be the hero, not Menu, Merge or the next-goal card\n  Expected: same as <Town actor momo (Mofumachi.Presentation.TownActor)>\n  But was:  null\n",
+      "stack": "at Mofumachi.Tests.TownViewportPresentationTests+<AllFiveEdgesKeepReturnInputAndWalkBackWithoutTeleporting>d__0.MoveNext () [0x004b3] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\TownViewportPresentationTests.cs:36\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    }
+  ],
+  "raw_results_verified": true,
+  "windows_source_revision_verified": false,
+  "expected_source": "23c21ef",
+  "passed_relevant": [
+    "CentralGroundTracksWorldProjectionAndNeverCapturesPointerInput",
+    "PortraitScreensRenderFromIsolatedStateWithoutWritingProgress",
+    "FlatBoardKeepsAlignedEdgesAndAllThirtyCellsActuallyReceiveRaycasts"
+  ],
+  "known": "The new topmost-hit assertion received a non-actor top object. The raw failure does not name that object or the current edge.",
+  "fixture_defect": "FrameTownPortrait changes to WorldSpace without configuring its event/render camera, then this new test projects with null. Existing real-raycast FixedViewport explicitly supplies a render-target camera and uses it for projection.",
+  "hypothesis": "A consistent fixed viewport/render/event camera removes the fixture mismatch. A real product interceptor is not ruled out until the strict native topmost assertion passes.",
+  "repair_scope": "Two native test files only: reuse the existing unchanged FixedViewport and add exact hit/depth/cull/camera diagnostics. No runtime/resources/capture/suite gate change.",
+  "new_native_pass_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false
+}

@@ -99,7 +99,7 @@ namespace Mofumachi.Tests
         }
         // A real resized canvas and camera viewport, not only different safe-area
         // anchors on an unchanged runtime canvas. Every case includes OS insets.
-        private sealed class FixedViewport:System.IDisposable
+        internal sealed class FixedViewport:System.IDisposable
         {
             private readonly Canvas canvas;private readonly ResponsiveUILayout layout;private readonly RectTransform rect;private readonly GameObject cameraObject;
             private RenderTexture target;public Camera Camera {get;}

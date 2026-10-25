@@ -13,9 +13,17 @@ namespace Mofumachi.Tests
     {
         [UnityTest] public IEnumerator AllFiveEdgesKeepReturnInputAndWalkBackWithoutTeleporting()
         {
-            yield return EnterHome();var life=FrameTownPortrait();var hero=life.Actors.Single(a=>a.Controlled);
+            yield return EnterHome();
+            // FrameTownPortrait is a geometry fixture, with no event camera.
+            // Use the same real render/event viewport as the existing strict
+            // thirty-cell raycast test. Native Game-view dimensions may differ.
+            using(var viewport=new MajorPolishTests.FixedViewport(Flow))
+            {
+            viewport.Apply(740);var life=Flow.GetComponentInChildren<TownLifeView>();life.World.Refresh();life.AdvanceFrame(1f/30);var hero=life.Actors.Single(a=>a.Controlled);
             var field=(RectTransform)life.transform;var home=TownWorldMap.Place("square");
-            Vector2 Screen(TownPoint p)=>RectTransformUtility.WorldToScreenPoint(null,field.TransformPoint(life.World.Local(p)));
+            var raycaster=Flow.GetComponentInChildren<GraphicRaycaster>();
+            Assert.That(raycaster.eventCamera,Is.SameAs(viewport.Camera),"Drawing, projection and real raycasts must share one camera");
+            Vector2 Screen(TownPoint p)=>RectTransformUtility.WorldToScreenPoint(viewport.Camera,field.TransformPoint(life.World.Local(p)));
             foreach(var edge in new[]{new TownPoint(1.8f,.68f),new TownPoint(-1.8f,.68f),new TownPoint(.43f,2.98f),new TownPoint(.43f,-2.98f),new TownPoint(0,.97f)})
             {
                 Assert.That(life.World.GuidePoint(edge),Is.True);
@@ -26,14 +34,18 @@ namespace Mofumachi.Tests
                 Assert.That(bounds.min.x,Is.GreaterThanOrEqualTo(field.rect.xMin-.5f));Assert.That(bounds.max.x,Is.LessThanOrEqualTo(field.rect.xMax+.5f));
                 Assert.That(bounds.min.y,Is.GreaterThanOrEqualTo(field.rect.yMin-.5f));Assert.That(bounds.max.y,Is.LessThanOrEqualTo(field.rect.yMax+.5f),"A top-edge body must remain on-screen for the player to grab");
                 var body=hero.GetComponentInChildren<CharacterBodyGraphic>();
-                var grab=RectTransformUtility.WorldToScreenPoint(null,body.transform.TransformPoint(body.rectTransform.rect.center));
-                Assert.That(body.raycastTarget&&body.Raycast(grab,null),Is.True,"Clipping must not remove the hero's return hit target");
+                // Force a real native draw after the last world/pose update;
+                // bounds alone do not establish CanvasRenderer depth/culling.
+                viewport.Camera.Render();
+                var grab=RectTransformUtility.WorldToScreenPoint(viewport.Camera,body.transform.TransformPoint(body.rectTransform.rect.center));
+                Assert.That(body.raycastTarget&&body.Raycast(grab,viewport.Camera),Is.True,"Clipping must not remove the hero's return hit target");
                 var entry=TownWorldMap.Place(TownDistrictLayout.EntranceId(TownDistrictLayout.At(edge)));float distance=TownWalkableArea.Distance(edge,entry);
                 var request=new TownPoint(edge.X+(entry.X-edge.X)*.22f/distance,edge.Y+(entry.Y-edge.Y)*.22f/distance);
                 Assert.That(life.World.Model.Area.TryClamp(request,out var inward,.09f),Is.True);
                 var drag=new PointerEventData(EventSystem.current){pointerId=551,position=grab};
                 var hits=new System.Collections.Generic.List<RaycastResult>();EventSystem.current.RaycastAll(drag,hits);
-                Assert.That(hits,Is.Not.Empty);Assert.That(hits[0].gameObject.GetComponentInParent<TownActor>(),Is.SameAs(hero),"The topmost real hit must be the hero, not Menu, Merge or the next-goal card");
+                var diagnostic=$"edge=({edge.X},{edge.Y}), grab={grab}, camera={raycaster.eventCamera?.name}, bodyDepth={body.depth}, bodyCull={body.canvasRenderer.cull}; hits="+string.Join(" > ",hits.Select(h=>$"{h.gameObject.name}[depth={h.depth},camera={h.module.eventCamera?.name}]"));
+                Assert.That(hits,Is.Not.Empty,diagnostic);Assert.That(hits[0].gameObject.GetComponentInParent<TownActor>(),Is.SameAs(hero),"The topmost real hit must be the hero, not Menu, Merge or the next-goal card. "+diagnostic);
                 drag.pointerPressRaycast=hits[0];ExecuteEvents.Execute(hero.gameObject,drag,ExecuteEvents.pointerDownHandler);ExecuteEvents.Execute(hero.gameObject,drag,ExecuteEvents.beginDragHandler);
                 Assert.That(life.IsManuallyDragging,Is.True);
                 for(int i=0;i<240&&TownWalkableArea.Distance(hero.WorldPosition,inward)>.012f;i++)
@@ -43,6 +55,7 @@ namespace Mofumachi.Tests
                 Assert.That(life.World.GuidePoint(home),Is.True);
                 for(int i=0;i<6000&&life.World.Model.Hero.IsWalking;i++)life.AdvanceFrame(1f/30);
                 Assert.That(life.World.Model.Hero.IsWalking,Is.False);Assert.That(TownWalkableArea.Distance(hero.WorldPosition,home),Is.LessThan(.002f));
+            }
             }
             LogAssert.NoUnexpectedReceived();
         }

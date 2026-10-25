@@ -1,0 +1,9 @@
+{
+  "critical": 0,
+  "important": 0,
+  "minor": 0,
+  "reviewer": "field_pointer_fixture_review_oct25",
+  "scope": "Two native test files vs51a6fc7",
+  "result": "Same render/projection/event camera; strict topmost/body/drag/return assertions retained; helper behavior unchanged except accessibility; resources disposed.",
+  "limitation": "The missing render/event viewport is proven in source, but the unnamed non-actor hit root cause and repaired native result remain unverified."
+}

@@ -1,0 +1,46 @@
+{
+  "status": "Test viewport repaired; full native rerun pending",
+  "actual_failed_run": "20261025-125258-acabc327",
+  "actual_results": {
+    "total": 223,
+    "passed": 222,
+    "failed": 1,
+    "skipped": 0
+  },
+  "evidence": "References/Review/full-playmode-2026-10-25-125258/receipt-and-diagnosis.json",
+  "changes": [
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/MajorPolishTests.cs",
+      "after_lf_sha256": "f26be6a0281a1fd2484c4efaf6204ae1fecb7f54d25b60cbf43b0a20d14f0827"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/TownViewportPresentationTests.cs",
+      "after_lf_sha256": "3addfeb3433914dc1c36afe2bf2ce294b6cd4dcfec1c966573f2623da58d2aae"
+    }
+  ],
+  "runtime_changed": false,
+  "art_changed": false,
+  "walkable_geometry_changed": false,
+  "capture_changed": false,
+  "suite_gate_changed": false,
+  "tests_filtered_or_skipped": false,
+  "unity_api_compile": {
+    "assemblies": 6,
+    "warnings": 0,
+    "errors": 0,
+    "native_execution": false
+  },
+  "native_declaration": {
+    "editmode_and_build": 143,
+    "playmode": 223
+  },
+  "current_render_digest": "984be108698a90054eb8a9b1b97ef37500f33ff77a2d50e4ed2df0174951fca5",
+  "historical_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "original_approval_gate_passed": true,
+  "review": "References/Review/full-playmode-2026-10-25-125258/source-verification/fresh-review.json",
+  "repaired_native_pass_verified": false,
+  "new_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "next": "Pull feature, full unfiltered TownQa, zero failed/skip, same-source138images/APK/SHA, actual Pixel acceptance. No next stages/main."
+}

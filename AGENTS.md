@@ -1,5 +1,11 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-25最新原本：125258のPlayMode223中222成功／1失敗／skip0。端部の最前面タッチ検査だけ停止。** 原XML/log・SHAは `References/Review/full-playmode-2026-10-25-125258/`。唯一の失敗はTownViewportPresentationTests.AllFiveEdgesKeepReturnInputAndWalkBackWithoutTeleporting:36、最前面hitが非キャラ（対象名／地区は旧メッセージにない）。噴水前後・全景／5地区往復撮影・既存30マス実raycast検査は実UnityでPassed。PNG原本は未受領なので実画像レビュー済みとは言わない。APK未生成。
+
+追加検査はFrameTownPortraitでWorldSpaceに変更しながらイベントカメラを設定せずnullで投影していた。成功済みの既存FixedViewportをそのまま再利用（internal化だけ）し、描画／投影／Raycastを同じカメラに一致。実描画後も先頭hit必須・5端部／実ドラッグ／帰還を維持、失敗時の対象名／地区／depth／cullを記録する。**修正はテスト2ファイルのみ。ゲーム・原画・歩行・撮影・QAゲートは不変。元の非キャラhitの根因や修正版native成功はまだ未確認。**
+
+API6compile0警告エラー、宣言143/223は棚卸しで実成功ではない。次は修正をPull後、既存の全件 `build-android.ps1 -TownQa` を再実行。failed0/skip0・同版138画像後にのみAPK/SHA→Pixel。984be108…／歴史的dfb2cbc8…と元354／15JPEGは不変。実機合格まで噴水エフェクト／2.5D／Merge／main停止、チャット画像なし。以下は履歴。
+
 **2026-10-25最新画面：安定化版の全件QAはEdit143/143成功、PlayModeでUnity exit2。** run `20261025-125258-acabc327`、PS163行はUnity非0終了の通知で根因ではない。実PlayMode件数／失敗名／skip／source同一性は原XML/log未受領で未確認。APK未生成。画面記録 `docs/verification/field-stability-qa-stop-screen-report-2026-10-25.json`。
 
 次は同runフォルダの `playmode.xml` と `playmode.log` を受領して診断する。推測でカメラ／描画／歩行／fixture／検査を変えず、原因特定前に再実行を依頼しない。今回の記録更新はゲーム・撮影・テスト無変更なのでPull／再ビルド不要。街ベース固定・噴水エフェクト／2.5D／Merge／mainは引き続き停止。以下は履歴。

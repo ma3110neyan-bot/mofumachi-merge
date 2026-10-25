@@ -14,10 +14,16 @@ try {
     $RecordPath=Join-Path $Root $Stage.base_polish
     function SaveRecord {$Record | ConvertTo-Json -Depth 12 | Set-Content -LiteralPath $RecordPath -Encoding UTF8}
     $Valid=Get-BasePolishPatch $Root
-    if($Valid.Before.Count -ne 10 -or $Valid.After.Count -ne 10){throw 'Original5 + added4 + capture1 bindings were lost.'}
+    $ExpectedBindings=@($Record.changes).Count+5
+    if($Valid.Before.Count -ne $ExpectedBindings -or $Valid.After.Count -ne $ExpectedBindings){throw 'Original replacements + added4 + capture1 bindings were lost.'}
     $NewFile=Join-Path $Root $Record.new_files[0].path;$Saved=[IO.File]::ReadAllBytes($NewFile)
     [IO.File]::AppendAllText($NewFile,'unbound change');Reject {Get-BasePolishPatch $Root};[IO.File]::WriteAllBytes($NewFile,$Saved)
-    $Record.scope_id='unknown';SaveRecord;Reject {Get-BasePolishPatch $Root};$Record.scope_id='town_boundary_final_2026_10_24'
+    $OriginalScope=$Record.scope_id;$Record.scope_id='unknown';SaveRecord;Reject {Get-BasePolishPatch $Root};$Record.scope_id=$OriginalScope
+    if($OriginalScope -eq 'town_field_stability_2026_10_25') {
+        $Record.scope_id='town_boundary_final_2026_10_24';SaveRecord;Reject {Get-BasePolishPatch $Root};$Record.scope_id=$OriginalScope;SaveRecord
+        $Nav=Join-Path $Root 'Assets/Mofumachi/Presentation/TownAreaNavigation.cs';$NavBytes=[IO.File]::ReadAllBytes($Nav)
+        [IO.File]::AppendAllText($Nav,'unbound navigation');Reject {Get-BasePolishPatch $Root};[IO.File]::WriteAllBytes($Nav,$NavBytes)
+    }
     $OriginalPath=$Record.new_files[0].path;$Record.new_files[0].path='Assets/Mofumachi/Core/SaveService.cs';SaveRecord;Reject {Get-BasePolishPatch $Root};$Record.new_files[0].path=$OriginalPath
     $CapturePath=$Record.capture_inputs[0].path;$Record.capture_inputs[0].path='Assets/Mofumachi/Presentation/MergeGridLayout.cs';SaveRecord;Reject {Get-BasePolishPatch $Root};$Record.capture_inputs[0].path=$CapturePath
     $Record.new_files=@($Record.new_files[0]);SaveRecord;Reject {Get-BasePolishPatch $Root}

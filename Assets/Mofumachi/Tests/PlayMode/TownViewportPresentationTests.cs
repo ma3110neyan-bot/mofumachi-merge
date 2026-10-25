@@ -11,6 +11,41 @@ namespace Mofumachi.Tests
 {
     public sealed class TownViewportPresentationTests : SliceUiTestFixture
     {
+        [UnityTest] public IEnumerator AllFiveEdgesKeepReturnInputAndWalkBackWithoutTeleporting()
+        {
+            yield return EnterHome();var life=FrameTownPortrait();var hero=life.Actors.Single(a=>a.Controlled);
+            var field=(RectTransform)life.transform;var home=TownWorldMap.Place("square");
+            Vector2 Screen(TownPoint p)=>RectTransformUtility.WorldToScreenPoint(null,field.TransformPoint(life.World.Local(p)));
+            foreach(var edge in new[]{new TownPoint(1.8f,.68f),new TownPoint(-1.8f,.68f),new TownPoint(.43f,2.98f),new TownPoint(.43f,-2.98f),new TownPoint(0,.97f)})
+            {
+                Assert.That(life.World.GuidePoint(edge),Is.True);
+                for(int i=0;i<6000&&life.World.Model.Hero.IsWalking;i++)life.AdvanceFrame(1f/30);
+                Assert.That(life.World.Model.Hero.IsWalking,Is.False);Assert.That(TownWalkableArea.Distance(hero.WorldPosition,edge),Is.LessThan(.002f));
+                yield return null;Flow.GetComponentInChildren<TownStreetHud>().Refresh();Canvas.ForceUpdateCanvases();
+                var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(field,hero.VisualRoot);
+                Assert.That(bounds.min.x,Is.GreaterThanOrEqualTo(field.rect.xMin-.5f));Assert.That(bounds.max.x,Is.LessThanOrEqualTo(field.rect.xMax+.5f));
+                Assert.That(bounds.min.y,Is.GreaterThanOrEqualTo(field.rect.yMin-.5f));Assert.That(bounds.max.y,Is.LessThanOrEqualTo(field.rect.yMax+.5f),"A top-edge body must remain on-screen for the player to grab");
+                var body=hero.GetComponentInChildren<CharacterBodyGraphic>();
+                var grab=RectTransformUtility.WorldToScreenPoint(null,body.transform.TransformPoint(body.rectTransform.rect.center));
+                Assert.That(body.raycastTarget&&body.Raycast(grab,null),Is.True,"Clipping must not remove the hero's return hit target");
+                var entry=TownWorldMap.Place(TownDistrictLayout.EntranceId(TownDistrictLayout.At(edge)));float distance=TownWalkableArea.Distance(edge,entry);
+                var request=new TownPoint(edge.X+(entry.X-edge.X)*.22f/distance,edge.Y+(entry.Y-edge.Y)*.22f/distance);
+                Assert.That(life.World.Model.Area.TryClamp(request,out var inward,.09f),Is.True);
+                var drag=new PointerEventData(EventSystem.current){pointerId=551,position=grab};
+                var hits=new System.Collections.Generic.List<RaycastResult>();EventSystem.current.RaycastAll(drag,hits);
+                Assert.That(hits,Is.Not.Empty);Assert.That(hits[0].gameObject.GetComponentInParent<TownActor>(),Is.SameAs(hero),"The topmost real hit must be the hero, not Menu, Merge or the next-goal card");
+                drag.pointerPressRaycast=hits[0];ExecuteEvents.Execute(hero.gameObject,drag,ExecuteEvents.pointerDownHandler);ExecuteEvents.Execute(hero.gameObject,drag,ExecuteEvents.beginDragHandler);
+                Assert.That(life.IsManuallyDragging,Is.True);
+                for(int i=0;i<240&&TownWalkableArea.Distance(hero.WorldPosition,inward)>.012f;i++)
+                {drag.position=Screen(inward);hero.OnDrag(drag);life.AdvanceFrame(1f/30);}
+                hero.OnPointerUp(drag);for(int i=0;i<60&&life.World.Model.Hero.IsWalking;i++)life.AdvanceFrame(1f/30);
+                Assert.That(life.IsManuallyDragging,Is.False);Assert.That(TownWalkableArea.Distance(hero.WorldPosition,edge),Is.GreaterThan(.13f),"Leave the edge through real drag/release handlers");
+                Assert.That(life.World.GuidePoint(home),Is.True);
+                for(int i=0;i<6000&&life.World.Model.Hero.IsWalking;i++)life.AdvanceFrame(1f/30);
+                Assert.That(life.World.Model.Hero.IsWalking,Is.False);Assert.That(TownWalkableArea.Distance(hero.WorldPosition,home),Is.LessThan(.002f));
+            }
+            LogAssert.NoUnexpectedReceived();
+        }
         [UnityTest] public IEnumerator CameraKeepsWaterActorsMarkersAndGrowthAligned()
         {
             yield return EnterHome();var life=Flow.GetComponentInChildren<TownLifeView>();var camera=life.GetComponent<TownViewportView>();

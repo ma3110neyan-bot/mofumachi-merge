@@ -29,13 +29,24 @@ namespace Mofumachi.Tests
             Assert.That(fountain.raycastTarget,Is.False);
             // Exercise the live controller and actor simulation around the new
             // larger landmark; successful static captures alone do not prove it.
-            foreach(var stop in new[]{new TownPoint(-.30f,.30f),new TownPoint(0,.60f),new TownPoint(.30f,.30f),TownWorldMap.Place("fountain"),TownWorldMap.Place("square")})
+            foreach(var stop in new[]{new TownPoint(0,.12f),new TownPoint(-.30f,.30f),new TownPoint(0,.60f),new TownPoint(.30f,.30f),new TownPoint(.24f,.12f),TownWorldMap.Place("fountain"),TownWorldMap.Place("square")})
             {
                 Assert.That(life.World.GuidePoint(stop),Is.True);
                 for(int step=0;step<1800&&life.World.Model.Hero.IsWalking;step++)
                 {life.AdvanceFrame(1f/30);Assert.That(life.World.Model.Area.Contains(life.World.Model.Hero.Position),Is.True);}
                 Assert.That(life.World.Model.Hero.IsWalking,Is.False,"The fountain-side journey must finish");
                 Assert.That(TownWalkableArea.Distance(life.World.Model.Hero.Position,stop),Is.LessThan(.002f));
+                life.RefreshWorldPresentation();
+                var hero=life.Actors.Single(a=>a.Controlled);
+                Assert.That(hero.transform.parent,Is.SameAs(fountain.transform.parent));
+                Assert.That(hero.transform.GetSiblingIndex()>fountain.transform.GetSiblingIndex(),Is.EqualTo(stop.Y<TownCentralMasterLayout.FountainCenterY),"A front-rim visitor must be in front; the far-side visitor must remain behind, rather than forcing all residents on top");
+            }
+            var friend=life.Actors.First(a=>!a.Controlled);
+            foreach(var feet in new[]{new TownPoint(-.18f,.15f),new TownPoint(0,.53f)})
+            {
+                life.World.Model.Restore(friend.CharacterId,feet);life.World.Refresh();life.RefreshWorldPresentation();
+                Assert.That(friend.WorldPosition,Is.EqualTo(feet));
+                Assert.That(friend.transform.GetSiblingIndex()>fountain.transform.GetSiblingIndex(),Is.EqualTo(feet.Y<TownCentralMasterLayout.FountainCenterY),"NPCs use the same physical depth as the selected character");
             }
             LogAssert.NoUnexpectedReceived();
         }

@@ -63,11 +63,12 @@ namespace Mofumachi.Presentation
             const float radius=.078f;float x=b.X-a.X,y=(b.Y-a.Y)*TownWorldLayout.ImageAspect,length=x*x+y*y;
             foreach(var c in occupied)
             {
-                // An initially overlapping resident may be left without moving
-                // that resident. All other bodies are temporary route obstacles.
-                if(TownWalkableArea.Distance(origin,c)<radius)continue;
+                // Start inside a neighbour's soft radius by moving outwards,
+                // never by routing through that neighbour. Ignoring its body
+                // for the entire route strands both residents at building corners.
+                float clearance=Math.Min(radius,TownWalkableArea.Distance(origin,c));
                 float cx=c.X-a.X,cy=(c.Y-a.Y)*TownWorldLayout.ImageAspect,t=length==0?0:Math.Max(0,Math.Min(1,(cx*x+cy*y)/length));
-                float dx=cx-x*t,dy=cy-y*t;if(dx*dx+dy*dy<radius*radius)return false;
+                float dx=cx-x*t,dy=cy-y*t;if(dx*dx+dy*dy<clearance*clearance-.00000001f)return false;
             }
             return true;
         }

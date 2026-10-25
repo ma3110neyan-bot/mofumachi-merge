@@ -56,9 +56,11 @@ function Get-BasePolishPatch([string]$RepositoryPath) {
     $Allowed=@('Assets/Mofumachi/Presentation/TownWorldLayout.cs','Assets/Mofumachi/Presentation/TownContinuousWorldView.cs')
     $ScopeProperty=$Record.PSObject.Properties['scope_id']
     $Scope=if($ScopeProperty){[string]$ScopeProperty.Value}else{''}
-    if($Scope -and $Scope -ne 'town_boundary_final_2026_10_24'){throw 'Unknown bounded display correction scope.'}
-    $Boundary=$Scope -eq 'town_boundary_final_2026_10_24'
+    if($Scope -and $Scope -notin @('town_boundary_final_2026_10_24','town_field_stability_2026_10_25')){throw 'Unknown bounded display correction scope.'}
+    $FieldStability=$Scope -eq 'town_field_stability_2026_10_25'
+    $Boundary=$Scope -eq 'town_boundary_final_2026_10_24' -or $FieldStability
     if($Boundary){$Allowed+=@('Assets/Mofumachi/Presentation/TownSouthGroundGraphic.cs','Assets/Mofumachi/Presentation/TownSouthEntryBlendLayout.cs','Assets/Mofumachi/Presentation/TownSouthEntryBlendGraphic.cs')}
+    if($FieldStability){$Allowed+='Assets/Mofumachi/Presentation/TownAreaNavigation.cs'}
     if($Changes.Count -lt 1 -or $Changes.Count -gt $Allowed.Count){throw 'Display changes exceed the explicitly authorized correction scope.'}
     $Before=@{};$After=@{}
     foreach($Change in $Changes) {
@@ -99,7 +101,12 @@ function Get-ReviewedCentralInputFingerprint([string]$RepositoryPath) {
     $Current=Get-CentralInputFingerprint $RepositoryPath;$Patch=Get-BasePolishPatch $RepositoryPath
     if(-not $Patch){return $Current}
     if($Patch.Record.candidate_render_digest -ne $Current){throw 'Base polish candidate rendering inputs changed.'}
-    $Reviewed=Get-CentralInputFingerprint $RepositoryPath $Patch.Before
+    $Historical=$Patch.Before.Clone()
+    # The original approved central digest predated this explicit navigation
+    # dependency. Omit it only when reconstructing that historical identity;
+    # its original file remains locked and fresh captures bind its current hash.
+    $Historical['Assets/Mofumachi/Presentation/TownAreaNavigation.cs']=$null
+    $Reviewed=Get-CentralInputFingerprint $RepositoryPath $Historical
     if($Patch.Record.reviewed_render_digest -ne $Reviewed){throw 'Base polish is not bound to the original reviewed rendering inputs.'}
     return $Reviewed
 }

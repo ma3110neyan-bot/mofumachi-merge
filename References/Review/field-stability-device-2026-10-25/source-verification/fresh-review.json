@@ -1,0 +1,28 @@
+{
+  "baseline": "f9bc6a8bf6b4a350b9eafa419ee4411b06e6805a",
+  "fresh_reviewer": "field_stability_final_review_oct25",
+  "critical": 0,
+  "important": 1,
+  "minor": 1,
+  "findings": [
+    {
+      "issue": "HUD can intercept edge grab",
+      "grade": "Important",
+      "fixed": "Measured overlay insets + actual topmost EventSystem hit regression; CPU HUD RED1\u2192GREEN, finalCPU325/325; native pending."
+    },
+    {
+      "issue": "field-stability.json omitted from review ZIP",
+      "reviewer_grade": "Minor",
+      "final_grade": "Important",
+      "reason": "Required verification metadata must reach the reviewer with the14 focused images.",
+      "fixed": "Archive whitelist and real ZIP entry regression, RED before inclusion; final PS test result recorded separately."
+    }
+  ],
+  "declined_to_judge": [
+    "Native execution",
+    "Actual Pixel behavior",
+    "Rendered fountain quality",
+    "Extreme-edge camera/empty-corner appearance"
+  ],
+  "disposition": "No native/Pixel acceptance inferred; one fix pass, no second reviewer."
+}

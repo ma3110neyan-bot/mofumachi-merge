@@ -1,0 +1,24 @@
+{
+  "kind": "user-device-bug-report",
+  "files": [
+    {
+      "file": "device-093249.pdf",
+      "sha256": "c16fbc571fc42828f8e1afb48eb5cac09a1b98154a892a9881b9592d8fbc3346",
+      "bytes": 1908441,
+      "pages": 5
+    },
+    {
+      "file": "device-093010.pdf",
+      "sha256": "cf290ceb498630d57c8793632a62c55f70947c7cab8e33201019f5a82f55ec49",
+      "bytes": 2927305,
+      "pages": 10
+    }
+  ],
+  "pages_inspected": 15,
+  "observations": [
+    "Central front-side resident obscured near fountain/flower base",
+    "User reports East edge cannot return; static PDF cannot prove movement root cause"
+  ],
+  "pixel_acceptance": false,
+  "scope": "Fountain depth and five-area edge recovery only; preserve artwork and no later stages."
+}

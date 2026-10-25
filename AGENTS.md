@@ -1,5 +1,13 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-25最優先：街フィールド最終安定化。次工程停止。** 最新ユーザーは噴水の自然な前後描画／東端から帰還不能／他4地区端部回帰だけを指示。旧e7a8006のUnity143/222・124画像／084947APK成功は履歴。新修正版のUnity実画面・新APK・Pixel成功には流用しない。画像をチャットへ貼らない。
+
+今回runtimeは3ファイルだけ。ContinuousWorldViewで噴水の深度を画像下端.10→物理足元中心.285へ（原画座標は不変）。WorldLayoutでFollow/Return/Restore/Fitに追従キャラの位置を渡し、端で姿・操作対象が消えない範囲を確保。自由Panの北南制限は従来通り。AreaNavigationで初期.078以内のNPCを経路全体で無視せず、現在の距離からさらに接近しない脱出経路へ。東(1.5999999,.45000005)/(1.65,.45000005)から戻る途中の建物角(1.476,.1006)停止を修正。全原画・配置・装飾・歩行面／障害物・Core/Save/報酬・正式6名・図鑑/BGM/Mergeは不変。
+
+**実装済み、CPU325/325・API6DLL成功。実Unity／新APK／Pixelは未確認。** Native宣言143/223（実行結果ではない）。全件TownQaは既存124＋14焦点画像＝138枚と端部の実操作検査を必須とする。新lockは `References/VisualLock/field-stability-candidate-2026-10-25.json`。原354／承認JPEG15は不変。新中央digestは984be108…、歴史的承認dfb2cbc8…を保持。ナビゲータを現在入力に追加し、歴史的digest再現からのみ除外。
+
+次はこのfeatureの修正をPull→既存全件 `scripts/build-android.ps1 -TownQa` →failed0/skip0／同版138画像→新QA APK/SHA→既存Pixel99RAY1BELHへ街QA ID com.mofumachi.merge.qa.townlifeで更新install-r。保存消去／アンインストールなし。噴水手前・奥／全5地区の端部タップ・ドラッグ帰還／東建物角と近接NPC／連続5地区／保存・600秒を確認して初めて街ベース固定。旧084947APKでは今回修正を確認できない。手順 `docs/field-stability-pixel3a-2026-10-25.md`、証拠 `docs/verification/field-stability-2026-10-25.json`。噴水エフェクト→代表1名2.5D→Mergeは今回のPixel合格後、mainは別承認。以下は履歴。
+
 **2026-10-25最新原本：曲線境界e7a8006の10ZIPを照合、Unity実画像はPixel確認へ進行可。** run `20261025-084947-eecbc994`、原136ファイル／PNG124枚全SHA・寸法・デコード、実XML143/143・222/222の全ケースPassed／failed0・skip0を確認。build-info/captureはgit e7a8006、productFingerprint008c82ef…で一致。APK118244517bytes／街QA ID／SHAaae8f682…は先の画面とbuild-infoで一致するが、APKbinary未受領なので独立SHA再計算は未了。原本・判定 `References/Review/curved-boundary-2026-10-25-candidate/`。
 
 97同名PNGは前版と同一、27変更。**5地区Lv1/3/6の15全景は前版5a49とbyte同一。今回11対の再現Beforeは前回実Afterとpixel同一。** 東西下端は直線切断から曲線で植栽へなじむ見た目に改善し、北・上端も軟化。新しい目立つ反射模様・ぼけ・密度低下・歩行幅縮小・名前／HUDの後退は見当たらない。独立実画像レビューCritical0／Important0／Minor2、Pixel進行可。J1は北左x290-331/y250-437の材質帯／北右建物脇x60-194/y587-596の既存線、NP1は既存外周の花壇反復。旧東西下端y737-740が「未改善のまま」とは報告しない。全継ぎ目解消も断定しない。

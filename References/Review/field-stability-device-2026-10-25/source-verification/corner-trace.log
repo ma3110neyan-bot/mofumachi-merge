@@ -1,0 +1,28 @@
+out 1.5999999,0.45000005 walking=False
+step0 at=1.5999786,0.44916698 WP=0 wait=0 noProgress=0.033333335 avoid=False
+ route 1.595,0.2550001
+ route 1.2,-0.3
+step500 at=1.4760816,0.10064238 WP=0 wait=1.2000002 noProgress=1.2000002 avoid=True
+ route 1.2,-0.3
+step1000 at=1.4760816,0.10064238 WP=0 wait=1.5999998 noProgress=1.5999998 avoid=True
+ route 1.2,-0.3
+step1500 at=1.4760816,0.10064238 WP=0 wait=1.9999994 noProgress=1.9999994 avoid=True
+ route 1.2,-0.3
+step2000 at=1.4760816,0.10064238 WP=0 wait=0.36666667 noProgress=0.36666667 avoid=True
+ route 1.2,-0.3
+step2500 at=1.4760816,0.10064238 WP=0 wait=0.7666669 noProgress=0.7666669 avoid=True
+ route 1.2,-0.3
+step3000 at=1.4760816,0.10064238 WP=0 wait=5.23333 noProgress=1.1666669 avoid=True
+ route 1.2,-0.3
+step3500 at=1.4760816,0.10064238 WP=0 wait=1.5666665 noProgress=1.5666665 avoid=True
+ route 1.2,-0.3
+step4000 at=1.4760816,0.10064238 WP=0 wait=1.9666661 noProgress=1.9666661 avoid=True
+ route 1.2,-0.3
+step4500 at=1.4760816,0.10064238 WP=0 wait=0.33333334 noProgress=0.33333334 avoid=True
+ route 1.2,-0.3
+resident momo 1.0257255,-0.1758538 walking=True
+resident lulu -1.0026342,-0.39320996 walking=True
+resident pom 1.4606013,0.03511773 walking=True
+resident fio 0.26843047,-0.29159358 walking=True
+resident miel 1.4760816,0.10064238 walking=True
+resident noah 1.48,-0.45573685 walking=True

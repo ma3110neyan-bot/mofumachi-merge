@@ -1,0 +1,58 @@
+[
+  {
+    "test": "android-tools.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "test": "approved-design.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "test": "central-review.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "test": "east-review.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "test": "five-area-packaging.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "test": "five-area-review.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "test": "north-review.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "test": "pixel-visual-check.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "test": "south-review.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "test": "stage1-camera-lock.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "test": "town-boundary-lock.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "test": "visual-lock.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "test": "west-review.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "test": "windows-json-encoding.tests.ps1",
+    "exit_code": 0
+  }
+]

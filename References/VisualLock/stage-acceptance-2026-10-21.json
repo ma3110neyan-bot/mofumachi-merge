@@ -192,7 +192,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "curved_boundary_unity_reviewed_existing_apk_pixel_acceptance_pending",
+  "current_stage": "field_stability_implemented_native_and_pixel_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -712,7 +712,7 @@
     "native_images_verified": 124,
     "native_review": "References/Review/curved-boundary-2026-10-25-candidate/native-review.json"
   },
-  "base_polish": "References/VisualLock/curved-boundary-candidate-2026-10-25.json",
+  "base_polish": "References/VisualLock/field-stability-candidate-2026-10-25.json",
   "previous_qa_build_report": {
     "run": "20261025-073237-f8fd542b",
     "status": "console_success_reported",
@@ -798,7 +798,7 @@
     "repair": "docs/verification/south-entry-mesh-test-repair-2026-10-25.json",
     "repaired_native_pass_verified": false
   },
-  "latest_user_stage_order": "2026-10-25 boundary stage1 -> fountain -> representative character2.5D -> Merge. Each stage passes before the next starts.",
+  "latest_user_stage_order": "2026-10-25 field-stability acceptance on Pixel3a -> fountain effects -> representative1 character2.5D -> Merge. No later stage before actual acceptance.",
   "latest_curved_boundary_success_report": "docs/verification/curved-boundary-qa-build-screen-report-2026-10-25.json",
   "latest_curved_boundary_native_run": {
     "run": "20261025-084947-eecbc994",

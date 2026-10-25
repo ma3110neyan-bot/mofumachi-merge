@@ -18,6 +18,7 @@ function Get-CentralInputPaths {
     'Assets/Mofumachi/Tests/PlayMode/CaptureWorldTrace.cs.meta'
     'References/VisualLock/approved-design-2026-10-21.json'
     foreach($Name in @('TownBoundaryGardenLayout.cs','TownBoundaryGardenLayout.cs.meta','TownBoundaryGardenGraphic.cs','TownBoundaryGardenGraphic.cs.meta')) {'Assets/Mofumachi/Presentation/'+$Name}
+    'Assets/Mofumachi/Presentation/TownAreaNavigation.cs'
 }
 function Get-CentralInputFingerprint([string]$RepositoryPath,[hashtable]$ReviewedHashes=@{}) {
     $Lines=foreach($Relative in Get-CentralInputPaths) {

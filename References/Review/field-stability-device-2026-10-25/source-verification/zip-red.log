@@ -1,0 +1,59 @@
+Source SHA checks passed (loose, packed, detached, worktree, changed revision rejected).
+Hidden source inputs are readable and fingerprinted (explicit file, recursive file and directory).
+Clean product and same-run fingerprint gates passed (isolated real Git fixture).
+Native Unity images: 102, 720x1280 (visual review still required).
+Native Unity images: 102, 720x1280 (visual review still required).
+Native Unity images: 124, 720x1280 (visual review still required).
+Street boundary comparison: /tmp/mofumachi-script-test-9be2d5f3-2999-4884-9ce6-ffeee424a3cf/screenshots/street-boundary-before-after.html (Boundary-only renderer comparison; Pixel acceptance pending).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 124, 720x1280 (visual review still required).
+Native Unity images: 124, 720x1280 (visual review still required).
+Native Unity images: 124, 720x1280 (visual review still required).
+Native Unity images: 124, 720x1280 (visual review still required).
+Boundary acceptance requires all22 comparison frames/documents; incomplete or falsely adopted fixture refused. No native/device execution.
+Native Unity images: 124, 720x1280 (visual review still required).
+Native Unity images: 138, 720x1280 (visual review still required).
+Street boundary comparison: /tmp/mofumachi-script-test-9be2d5f3-2999-4884-9ce6-ffeee424a3cf/screenshots/street-boundary-before-after.html (Boundary-only renderer comparison; Pixel acceptance pending).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 138, 720x1280 (visual review still required).
+Native Unity images: 138, 720x1280 (visual review still required).
+Review ZIPs: /tmp/mofumachi-script-test-9be2d5f3-2999-4884-9ce6-ffeee424a3cf\five-plaza-review-*.zip (Unity fixture images; Pixel acceptance pending).
+Exception: /workspace/mofumachi-merge/scripts/tests/android-tools.tests.ps1:125
+Line |
+ 125 |  … ipContents){throw 'Review ZIPs lost the required field-stability fixt …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Review ZIPs lost the required field-stability fixture metadata.

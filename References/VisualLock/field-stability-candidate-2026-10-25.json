@@ -1,0 +1,77 @@
+{
+  "scope_id": "town_field_stability_2026_10_25",
+  "authorized_by": "user",
+  "authorization_reference": "2026-10-25 user「街フィールド最終安定化指示」: 噴水の自然な前後描画／東端から自力帰還／他4地区回帰のみ。原画・配置・歩行面・保存・既存品質は維持。実機合格まで次工程禁止。",
+  "base_lock": "References/VisualLock/five-area-approved-2026-10-24.json",
+  "base_lock_hash_mode": "lf-text",
+  "base_lock_sha256": "e70eb3532ff987a1def4e2a101426b8098452308f21544f5ab83e4ac7a5ea9a4",
+  "before_runtime_source": "e7a80062202312d10b07f65d95708852c9abd87c",
+  "before_render_digest": "a613c1a7bf348ae868812fef4ef6b27f3464101c07ad8d392d0fa96451519147",
+  "reviewed_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "candidate_render_digest": "984be108698a90054eb8a9b1b97ef37500f33ff77a2d50e4ed2df0174951fca5",
+  "changes": [
+    {
+      "path": "Assets/Mofumachi/Presentation/TownContinuousWorldView.cs",
+      "before_sha256": "d78dccf8e33f017fd1b8dfda71da3688b48a60de43d343a428ff78188e4fdc15",
+      "after_sha256": "6286c9856ac69d423c7c15b725f4ea59a01a7b7f54d908552bac281da7f6c486"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthEntryBlendGraphic.cs",
+      "before_sha256": "2ef4b84fa9593231411815dc67a9296e7b49965c5dec2e65f50d33034f657b70",
+      "after_sha256": "89c65a8e7500f3d5ee4e9f6168689e90472023c442ff59d2fff620836ef5ba54"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthEntryBlendLayout.cs",
+      "before_sha256": "7f56be2082652006de53aba85196ba0869dc82442e9ab2f9ddaf0f3aca641a5a",
+      "after_sha256": "06c58c1b696014e4363e7239df6f355be50493c886bd0dd1ea341d98b41a4c2c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthGroundGraphic.cs",
+      "before_sha256": "53c3cad7dd3015fa959a41ec1e2870651f5d6895a9548b9336cb60cbb80903f9",
+      "after_sha256": "7106d1278c3549ae04095a25992380fc17e2498d908ebb83086b0b9eaaf1b56c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWorldLayout.cs",
+      "before_sha256": "07b9b026a48e6e1ddae4131b092a92f197f30917c6ac91f2ea868c86d5c9d91d",
+      "after_sha256": "2c18d61cc4c6fd2989064a97b4b425628757d9535f6948ab0abd0917ccdb7fd3"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownAreaNavigation.cs",
+      "before_sha256": "07bd7a1176953d57608bfc0086c2fc26fc27e30d7eb0c167aa18eb57b327a10c",
+      "after_sha256": "d82de20fcb020db9cdd917b4fbce2ee67a2bad1fc6c63e05340edb10b0801505"
+    }
+  ],
+  "new_files": [
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs",
+      "after_sha256": "e58e0c2de904f078087c87f997d00e24ea1090bbc068d769d0ea83ae143ec947"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs.meta",
+      "after_sha256": "c21ffc13c1321c97db54d5af9191852ca0241d85c487002f0d27790c4fc6d06a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs",
+      "after_sha256": "059a201f87ada40d08634be1c5c253e42241a68437ba257c465aa4e21b299de8"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs.meta",
+      "after_sha256": "32db8df645367731266026ea9f7e47a5e659d255fa18864f7b0b6975341b159a"
+    }
+  ],
+  "capture_inputs": [
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs",
+      "before_sha256": "3bdc727de2275daa8bd1fe45de9f9f8002380ceeb9c9cbda7944a964996bc6b7",
+      "after_sha256": "dd9a166aa7fd3407b3ebcafd5541feb8c1e7826d1b018f9fffe40403ffd6b2bb"
+    }
+  ],
+  "native_unity_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "merge_quality_pass_started": false,
+  "pass_id": "field_stability_2026_10_25",
+  "fountain_pass_started": false,
+  "character_trial_started": false
+}

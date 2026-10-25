@@ -130,7 +130,7 @@ namespace Mofumachi.Tests
             Assert.That(curve,Is.Not.Null);bool curveEnabled=curve.enabled;
             Assert.That(Flow.GetComponentInChildren<TownSouthEntryBlendGraphic>().enabled,Is.True);
             Assert.That(Flow.GetComponentInChildren<TownBoundaryGardenGraphic>().enabled,Is.True);
-            var html=new System.Text.StringBuilder("<!doctype html><meta charset='utf-8'><title>Street boundary comparison</title><style>body{font-family:sans-serif;background:#fff7ef;color:#50343b}section{display:flex;gap:12px}figure{margin:8px}img{width:360px;max-width:45vw}h2{clear:both}</style><h1>Street boundary / same-state Unity comparison</h1><p>Before reconstructs the frozen5a49e31 renderer by disabling only the new curved band. Existing perimeter planting and all prior entry bands stay active. It is NOT a previous APK capture. After uses product code. Neither is a Pixel capture or acceptance.</p>");
+            var html=new System.Text.StringBuilder("<!doctype html><meta charset='utf-8'><title>Street boundary comparison</title><style>body{font-family:sans-serif;background:#fff7ef;color:#50343b}section{display:flex;gap:12px}figure{margin:8px}img{width:360px;max-width:45vw}h2{clear:both}</style><h1>Street boundary / same-state Unity comparison</h1><p>Before disables only the curved band in the current field-stability runtime. Existing planting, entry bands and the depth/camera/navigation fixes stay active. This is a boundary-only comparison, NOT a complete old renderer or previous APK capture. After uses product code. Neither is a Pixel capture or acceptance.</p>");
             try
             {
                 foreach(var view in new[]{
@@ -152,9 +152,35 @@ namespace Mofumachi.Tests
                 foreach(int level in new[]{1,3,6})foreach(var district in TownDistrictLayout.All)
                     html.Append("<figure><figcaption>"+district+" Lv."+level+" / After</figcaption><img loading='lazy' src='04-town-lv"+level+"-"+district+".png'></figure>");
                 File.WriteAllText(Path.Combine(output,"street-boundary-before-after.html"),html.ToString());
-                File.WriteAllText(Path.Combine(output,"street-boundary-comparison.json"),"{\"kind\":\"same-state-native-renderer-comparison\",\"before\":\"frozen5a49e31renderer reconstruction, not historicalAPK\",\"pairs\":11,\"after\":\"product code\",\"pixel_verified\":false,\"adopted\":false}");
+                File.WriteAllText(Path.Combine(output,"street-boundary-comparison.json"),"{\"kind\":\"same-state-native-renderer-comparison\",\"before\":\"current field-stability runtime with curved band off; not historicalAPK\",\"pairs\":11,\"after\":\"product code\",\"pixel_verified\":false,\"adopted\":false}");
             }
             finally {curve.enabled=curveEnabled;}
+        }
+        private IEnumerator CaptureFieldStability(string output)
+        {
+            Flow.Game.State.townGrowthLevel=6;Flow.Game.State.favoriteCharacterId="miel";Flow.ShowHome();yield return null;EnsurePortraitCamera();
+            var town=Flow.GetComponentInChildren<TownLifeView>();var hero=town.Actors.Single(a=>a.Controlled);
+            IEnumerator Walk(TownPoint target)
+            {
+                Assert.That(town.World.GuidePoint(target),Is.True);int steps=0;
+                while(town.World.Model.Hero.IsWalking&&steps<6000){town.AdvanceFrame(1f/30);steps++;if(steps%240==0)yield return null;}
+                Assert.That(town.World.Model.Hero.IsWalking,Is.False,$"Stalled at {hero.WorldPosition.X},{hero.WorldPosition.Y}");
+                Assert.That(TownWalkableArea.Distance(hero.WorldPosition,target),Is.LessThan(.002f),"Walking arrival, never Restore/FastTravel rescue");
+            }
+            foreach(var view in new[]{("front",new TownPoint(0,.12f)),("behind",new TownPoint(0,.53f))})
+            {
+                yield return Walk(view.Item2);town.RefreshWorldPresentation();var fountain=town.GetComponentInChildren<TownFountainGraphic>();
+                Assert.That(hero.transform.GetSiblingIndex()>fountain.transform.GetSiblingIndex(),Is.EqualTo(view.Item1=="front"));
+                Capture(output,"31-field-fountain-"+view.Item1);
+            }
+            var entry=TownWorldMap.Place("east.entry");yield return Walk(entry);yield return Walk(new TownPoint(1.5999999f,.45000005f));Capture(output,"31-field-east-corner-out");
+            yield return Walk(entry);Capture(output,"31-field-east-corner-return");
+            foreach(var edge in new[]{("East",new TownPoint(1.8f,.68f)),("West",new TownPoint(-1.8f,.68f)),("North",new TownPoint(.43f,2.98f)),("South",new TownPoint(.43f,-2.98f)),("Central",new TownPoint(0,.97f))})
+            {
+                yield return Walk(edge.Item2);Capture(output,"31-field-"+edge.Item1+"-edge");
+                yield return Walk(TownWorldMap.Place("square"));Capture(output,"31-field-"+edge.Item1+"-return");
+            }
+            File.WriteAllText(Path.Combine(output,"field-stability.json"),"{\"kind\":\"native-walking-and-depth-fixture\",\"edge_return_pairs\":5,\"east_corner_return\":true,\"fountain_front_and_behind\":true,\"teleport_rescue\":false,\"pixel_verified\":false,\"adopted\":false}");
         }
         [UnityTest] public IEnumerator PortraitScreensRenderFromIsolatedStateWithoutWritingProgress()
         {
@@ -416,9 +442,10 @@ namespace Mofumachi.Tests
                 mergeDrag.position=PointerAt(mergeTarget.transform);mergeSource.OnDrag(mergeDrag);Capture(output,"29-merge-drag-match");mergeSource.OnEndDrag(mergeDrag);
                 yield return new WaitForSecondsRealtime(.8f);Assert.That(Flow.Game.Board.At(targetCell).level,Is.EqualTo(2));Capture(output,"29-merge-landed");
                 yield return CaptureBoundaryComparisons(output);
+                yield return CaptureFieldStability(output);
                 string[] art={"TownBackground","TownWestBackground","TownEastBackground","CharacterBodyAtlas","TownGrowthPropsAtlas","TownGardenSurface","TownSeamlessMap","TownStreetPropsAtlas","TownLandmarksAtlas","TownNatureAtlas","TownVillageDetailsAtlas","MergeBoardFrame","TownCentralGround","TownCentralFountain","TownWestGround"};
                 File.WriteAllLines(Path.Combine(output,"texture-memory.txt"),art.Select(key=>key+": "+UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(Resources.Load<Texture2D>("Mofumachi/"+key))+" bytes"));
-                File.WriteAllText(Path.Combine(output,"README.txt"),"Actual Unity UGUI RenderTexture captures, 720x1280. Isolated test-only save state; not Pixel 3a captures. 124 PNG: existing102 integrated scenery/HUD/visits/doors/Merge frames plus22 same-state boundary comparison frames. 30-boundary Before explicitly reconstructs the frozen5a49e31 renderer (only the new curved band off; current planting/entry retained): it is NOT a previous APK or Pixel capture. After is product code, with unchanged camera/resident state within each pair. street-boundary-before-after.html shows11pairs and the15district-level After frames. Original captures1-29 and their scenarios remain unchanged. 30Hz simulation is not device FPS; Editor texture memory is not Pixel RAM. Stable region/place/save IDs retained. Pixel save retention, audio,10minuteplay and subjective quality still require actual acceptance.\n");
+                File.WriteAllText(Path.Combine(output,"README.txt"),"Actual Unity UGUI RenderTexture captures, 720x1280. Isolated test-only save state; not Pixel 3a captures. 138 PNG: existing102 integrated frames,22 boundary comparison frames,14 field-stability frames. 30-boundary Before disables only the curved band in the CURRENT runtime, retaining the new field-stability depth/camera/navigation fixes; it is a boundary-only comparison, NOT a complete frozen5a49 renderer or previous APK/Pixel capture. 31-field shows actual walking arrival/return in all5areas and the East building corner, plus front/behind fountain depth; no teleport rescue. 30Hz simulation is not device FPS; Editor texture memory is not Pixel RAM. Stable region/place/save IDs retained. Pixel save retention, audio,10minuteplay and subjective quality still require actual acceptance.\n");
             }
             LogAssert.NoUnexpectedReceived();
         }

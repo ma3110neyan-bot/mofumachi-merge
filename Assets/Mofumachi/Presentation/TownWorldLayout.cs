@@ -62,13 +62,25 @@ namespace Mofumachi.Presentation
     public sealed class TownWorldCamera
     {
         private float halfWidth=TownWorldLayout.ViewWidth/2,halfHeight=.70f;
+        private TownPoint? residentFeet;private float topOverlay,bottomOverlay;
         public TownPoint Center {get;private set;}=new TownPoint(0,-.25f);
-        public void Fit(float width,float height)
-        {if(!float.IsFinite(width)||!float.IsFinite(height)||width<=0||height<=0)return;halfWidth=Math.Min(width,TownWorldMap.Width)/2;halfHeight=Math.Min(height,TownWorldMap.Height)/2;Center=Clamp(Center);}
-        public void Jump(TownPoint p){if(TownWorldLayout.Finite(p))Center=Clamp(p);}
-        public void Follow(TownPoint p,float dt)
-        {if(!TownWorldLayout.Finite(p)||!float.IsFinite(dt)||dt<=0)return;float t=1-(float)Math.Exp(-Math.Min(dt,.1f)*8);var target=Clamp(p);Center=Clamp(new TownPoint(Center.X+(target.X-Center.X)*t,Center.Y+(target.Y-Center.Y)*t));}
+        public void Fit(float width,float height,float overlayTop=0,float overlayBottom=0)
+        {if(!float.IsFinite(width)||!float.IsFinite(height)||width<=0||height<=0)return;halfWidth=Math.Min(width,TownWorldMap.Width)/2;halfHeight=Math.Min(height,TownWorldMap.Height)/2;topOverlay=float.IsFinite(overlayTop)?Math.Max(0,overlayTop):0;bottomOverlay=float.IsFinite(overlayBottom)?Math.Max(0,overlayBottom):0;Center=Constrain(Center);}
+        public void Jump(TownPoint p,TownPoint? trackedFeet=null)
+        {if(!TownWorldLayout.Finite(p))return;residentFeet=trackedFeet.HasValue&&TownWorldLayout.Finite(trackedFeet.Value)?trackedFeet:null;Center=Constrain(p);}
+        public void Follow(TownPoint p,float dt,TownPoint? trackedFeet=null)
+        {if(!TownWorldLayout.Finite(p)||!float.IsFinite(dt)||dt<=0)return;residentFeet=trackedFeet.HasValue&&TownWorldLayout.Finite(trackedFeet.Value)?trackedFeet:null;float t=1-(float)Math.Exp(-Math.Min(dt,.1f)*8);var target=Constrain(p);Center=Constrain(new TownPoint(Center.X+(target.X-Center.X)*t,Center.Y+(target.Y-Center.Y)*t));}
         public void Pan(float x,float y){if(float.IsFinite(x)&&float.IsFinite(y))Jump(new TownPoint(Center.X+x,Center.Y+y));}
+        private TownPoint Constrain(TownPoint p)
+        {
+            var result=Clamp(p);if(!residentFeet.HasValue)return result;
+            // A lifted camera at East/West's upper edge can enter the North
+            // envelope while its resident still stands in a horizontal room.
+            // Keep that body draggable, including after Fit/restore. Free pans
+            // retain their original painted-room limits and clear this focus.
+            var feet=residentFeet.Value;float side=Math.Min(.10f,halfWidth/2),head=Math.Min(.24f+topOverlay,halfHeight),foot=Math.Min(.04f+bottomOverlay,halfHeight);
+            return new TownPoint(Math.Max(feet.X-halfWidth+side,Math.Min(feet.X+halfWidth-side,result.X)),Math.Max(feet.Y-halfHeight+head,Math.Min(feet.Y+halfHeight-foot,result.Y)));
+        }
         private TownPoint Clamp(TownPoint p)
         {
             float y=Math.Max(TownWorldMap.Bottom+halfHeight,Math.Min(TownWorldMap.Top-halfHeight,p.Y));

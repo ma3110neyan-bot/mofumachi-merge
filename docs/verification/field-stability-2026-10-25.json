@@ -1,0 +1,72 @@
+{
+  "status": "implemented; final source checks passed; actual Unity, newQAAPK and Pixel pending",
+  "scope": "Fountain depth, East corner near-resident return, tracked-hero edge camera visibility",
+  "baseline_source": "f9bc6a8bf6b4a350b9eafa419ee4411b06e6805a",
+  "prior_native_source": "e7a80062202312d10b07f65d95708852c9abd87c",
+  "native_unity_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "next_stages_started": false,
+  "runtime_paths": [
+    "Assets/Mofumachi/Presentation/TownContinuousWorldView.cs",
+    "Assets/Mofumachi/Presentation/TownWorldLayout.cs",
+    "Assets/Mofumachi/Presentation/TownAreaNavigation.cs"
+  ],
+  "unchanged": [
+    "allResources/art",
+    "allMasterLayout.Dressing",
+    "TownWalkableArea/floor/obstacles",
+    "Core/save/delivery/rewards",
+    "formal6designs",
+    "book/music/Merge"
+  ],
+  "cpu": {
+    "camera_red": 4,
+    "east_return_red": 2,
+    "focused_green": 6,
+    "full_passed": 325,
+    "failed": 0,
+    "skipped": 0,
+    "hud_red": 1
+  },
+  "unity_api": {
+    "assemblies": 6,
+    "compile": true,
+    "warnings": 0,
+    "errors": 0,
+    "native_execution": false
+  },
+  "native_declared": {
+    "editmode": 143,
+    "playmode": 223,
+    "execution": false,
+    "expected_images": 138
+  },
+  "windows_crlf_fixture_files": 410,
+  "current_central_fingerprint": "984be108698a90054eb8a9b1b97ef37500f33ff77a2d50e4ed2df0174951fca5",
+  "historical_approval_fingerprint": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "source_verification": "References/Review/field-stability-device-2026-10-25/source-verification",
+  "known_limits": [
+    "Cloud Unity has no headless license/AndroidPlayer/device access; no current native render/APK/Pixel claim.",
+    "Camera appearance at newly visible extreme edges still needs actual Unity/Pixel review.",
+    "User touch-mode clarification optional and not yet received."
+  ],
+  "east_interior_scan": {
+    "before_checked": 584,
+    "before_return_stalls": 2,
+    "after_checked": 584,
+    "after_failed": 0,
+    "model_only": true
+  },
+  "fresh_review": "References/Review/field-stability-device-2026-10-25/source-verification/fresh-review.json",
+  "source_checks_scope": "Final runtime after measured-overlay framing fix; not a native/device result.",
+  "powershell": {
+    "tests": 14,
+    "failed": 0,
+    "fixture_only": true,
+    "actual_device_tested": false
+  },
+  "final_review_findings_fixed": 2,
+  "deferred_minors": []
+}

@@ -107,6 +107,23 @@ try {
     $Boundary.pixel_verified=$false;$Boundary | ConvertTo-Json | Set-Content -LiteralPath $BoundaryMeta
     foreach($Name in @('street-boundary-before-after.html','street-boundary-comparison.json')){$Path=Join-Path $CaptureDir $Name;$Saved=[IO.File]::ReadAllBytes($Path);Remove-Item -LiteralPath $Path;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireBoundary};[IO.File]::WriteAllBytes($Path,$Saved)}
     Write-Host 'Boundary acceptance requires all22 comparison frames/documents; incomplete or falsely adopted fixture refused. No native/device execution.'
+    $FieldFiles=@('31-field-fountain-front.png','31-field-fountain-behind.png','31-field-east-corner-out.png','31-field-east-corner-return.png')+@(foreach($Area in @('East','West','North','South','Central')){foreach($Phase in @('edge','return')){"31-field-$Area-$Phase.png"}})
+    Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireField}
+    foreach($Name in $FieldFiles){[IO.File]::WriteAllBytes((Join-Path $CaptureDir $Name),$Header)}
+    $FieldMeta=Join-Path $CaptureDir 'field-stability.json'
+    $Field=@{kind='native-walking-and-depth-fixture';edge_return_pairs=5;east_corner_return=$true;fountain_front_and_behind=$true;teleport_rescue=$false;pixel_verified=$false;adopted=$false}
+    $Field | ConvertTo-Json | Set-Content -LiteralPath $FieldMeta
+    Assert-NativeCaptures $CaptureDir -RequireBoundary -RequireField
+    foreach($Name in $FieldFiles){$Path=Join-Path $CaptureDir $Name;Remove-Item -LiteralPath $Path;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireField};[IO.File]::WriteAllBytes($Path,$Header)}
+    $Field.teleport_rescue=$true;$Field | ConvertTo-Json | Set-Content -LiteralPath $FieldMeta;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireField}
+    $Field.teleport_rescue=$false;$Field.pixel_verified=$true;$Field | ConvertTo-Json | Set-Content -LiteralPath $FieldMeta;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireField}
+    $Field.pixel_verified=$false;$Field | ConvertTo-Json | Set-Content -LiteralPath $FieldMeta
+    Write-NativeReviewArchives $Temporary
+    $ZipContents=@(Get-ChildItem -LiteralPath $Temporary -Filter 'five-plaza-review-*.zip' | ForEach-Object {
+        $Zip=[IO.Compression.ZipFile]::OpenRead($_.FullName);try {$Zip.Entries | ForEach-Object {$_.FullName}}finally {$Zip.Dispose()}
+    })
+    if('field-stability.json' -notin $ZipContents){throw 'Review ZIPs lost the required field-stability fixture metadata.'}
+    Remove-Item -LiteralPath $FieldMeta;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireField}
     [IO.File]::WriteAllBytes((Join-Path $CaptureDir '17-finger-released.png'),[byte[]](0,1,2));Expect-Rejection {Assert-NativeCaptures $CaptureDir}
     [IO.File]::WriteAllBytes((Join-Path $CaptureDir '17-finger-released.png'),$Header)
     $WrongHeader=$Header.Clone();$WrongHeader[19]=0;[IO.File]::WriteAllBytes((Join-Path $CaptureDir '17-finger-released.png'),$WrongHeader);Expect-Rejection {Assert-NativeCaptures $CaptureDir}
@@ -170,8 +187,8 @@ exit $Code
         $Extra=('<test-case result="Passed"/>'*($Total-$SuiteCases-1))+"<test-case result='$Case'/>"
         "<test-run result='Passed' total='$Declared' passed='$Declared' failed='0' skipped='0'>$Nodes$Extra</test-run>" | Set-Content $Xml
     }
-    $EditSuites=Read-GateSuites 'EditXml' 143;$PlaySuites=Read-GateSuites 'PlayXml' 222
-    foreach($Gate in @(@{Minimum=143;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests','TownPlaceCatalogTests','TownViewportTests','TownRegionCatalogTests','TownRegionJourneyTests','TownRegionContentTests')},@{Minimum=222;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests','FiveAreaIntegrationReviewTests')})) {
+    $EditSuites=Read-GateSuites 'EditXml' 143;$PlaySuites=Read-GateSuites 'PlayXml' 223
+    foreach($Gate in @(@{Minimum=143;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests','TownPlaceCatalogTests','TownViewportTests','TownRegionCatalogTests','TownRegionJourneyTests','TownRegionContentTests')},@{Minimum=223;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests','FiveAreaIntegrationReviewTests')})) {
         $Old=@($Gate.Suites | Where-Object {$_ -notin $Gate.New})
         Write-SuiteXml $Gate.Minimum $Old
         Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}
@@ -189,12 +206,12 @@ exit $Code
         Write-SuiteXml $Gate.Minimum $Gate.Suites -Declared ($Gate.Minimum+1);Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}
     }
     foreach($Name in @('CharacterSelectionTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests','FiveAreaIntegrationReviewTests')) {
-        Write-SuiteXml 222 $PlaySuites
+        Write-SuiteXml 223 $PlaySuites
         $Data=Get-Content -LiteralPath $Xml -Raw
         $SuiteStart="<test-suite name='$Name' result='Passed'>"
         $Data=$Data.Replace($SuiteStart+'<test-case result="Passed"/>','<test-case result="Passed"/>'+$SuiteStart)
         $Data | Set-Content -LiteralPath $Xml
-        Expect-Rejection {Assert-TestRun $Xml 222 $PlaySuites}
+        Expect-Rejection {Assert-TestRun $Xml 223 $PlaySuites}
     }
     Write-Host 'Chapter build gates passed (synthetic result XML, Unity tests not executed).'
     Expect-Rejection {Select-AuthorizedDevice 'List of devices attached' ''}

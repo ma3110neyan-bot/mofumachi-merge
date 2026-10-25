@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="172f168a-92bf-450b-98ad-f88ab92eb4a7" name="@bc001853ca9f 2026-10-25 03:28:38" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-25T03:28:38.9649814+00:00" queuing="2026-10-25T03:28:38.9649815+00:00" start="2026-10-25T03:28:35.0357349+00:00" finish="2026-10-25T03:28:40.3887294+00:00" />
+  <TestSettings name="default" id="ffae7ef4-5dce-4dee-b8c1-f03202193c15">
+    <Deployment runDeploymentRoot="_bc001853ca9f_2026-10-25_03_28_38" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="85a6ebbd-f0d9-4445-b72e-0bca379429cf" testId="6d57f713-2bc1-f32a-aa57-1bf86801c1d4" testName="FollowingAnEdgeResidentKeepsTheBodyAvailableForReturnInput(1.8f,0.68f)" computerName="bc001853ca9f" duration="00:00:00.0023420" startTime="2026-10-25T03:28:40.3309204+00:00" endTime="2026-10-25T03:28:40.3332620+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="85a6ebbd-f0d9-4445-b72e-0bca379429cf" />
+    <UnitTestResult executionId="b6807019-7cba-4727-8daf-97d525e45fc4" testId="9dca9c46-9114-0d96-6728-074aacb7a517" testName="FollowingAnEdgeResidentKeepsTheBodyAvailableForReturnInput(0.43f,-2.98f)" computerName="bc001853ca9f" duration="00:00:00.0000690" startTime="2026-10-25T03:28:40.3337510+00:00" endTime="2026-10-25T03:28:40.3338200+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b6807019-7cba-4727-8daf-97d525e45fc4" />
+    <UnitTestResult executionId="572927f2-e288-49d0-9ec0-f49bcb8ec1ef" testId="f5cbf2a2-76c6-0851-e27b-2d61a1880542" testName="FollowingAnEdgeResidentKeepsTheBodyAvailableForReturnInput(-1.8f,0.68f)" computerName="bc001853ca9f" duration="00:00:00.0003880" startTime="2026-10-25T03:28:40.3332951+00:00" endTime="2026-10-25T03:28:40.3336828+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="572927f2-e288-49d0-9ec0-f49bcb8ec1ef" />
+    <UnitTestResult executionId="cd6cbcde-7a03-4fda-b1e0-376554a5a503" testId="3486cd47-dbb9-f717-b604-4fd4045a339f" testName="EastBuildingCornerCanBeWalkedOutAndBackWithoutReset(1.65f,0.45000005f)" computerName="bc001853ca9f" duration="00:00:01.4013760" startTime="2026-10-25T03:28:38.9273229+00:00" endTime="2026-10-25T03:28:40.3286977+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cd6cbcde-7a03-4fda-b1e0-376554a5a503" />
+    <UnitTestResult executionId="f2a71702-5f46-47d8-a3ec-691dbeef4c51" testId="4efd1ad1-dc71-b343-b3bd-f16a1bc8b3de" testName="EastBuildingCornerCanBeWalkedOutAndBackWithoutReset(1.5999999f,0.45000005f)" computerName="bc001853ca9f" duration="00:00:03.4176980" startTime="2026-10-25T03:28:35.5079154+00:00" endTime="2026-10-25T03:28:38.9254765+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f2a71702-5f46-47d8-a3ec-691dbeef4c51" />
+    <UnitTestResult executionId="7f69ef17-f9bd-4a2b-b0ac-0f1fd6d2b9e7" testId="211b76ea-6a39-a421-1a1e-eb58cfe3cc0b" testName="FollowingAnEdgeResidentKeepsTheBodyAvailableForReturnInput(0.43f,2.98f)" computerName="bc001853ca9f" duration="00:00:00.0000480" startTime="2026-10-25T03:28:40.3336973+00:00" endTime="2026-10-25T03:28:40.3337448+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7f69ef17-f9bd-4a2b-b0ac-0f1fd6d2b9e7" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="FollowingAnEdgeResidentKeepsTheBodyAvailableForReturnInput(0.43f,-2.98f)" storage="/workspace/mofumachi-merge/tests/presentation/bin/debug/net8.0/mofumachi.visual.tests.dll" id="9dca9c46-9114-0d96-6728-074aacb7a517">
+      <Execution id="b6807019-7cba-4727-8daf-97d525e45fc4" />
+      <TestMethod codeBase="/workspace/mofumachi-merge/Tests/Presentation/bin/Debug/net8.0/Mofumachi.Visual.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Mofumachi.Tests.FieldEdgeRecoveryTests" name="FollowingAnEdgeResidentKeepsTheBodyAvailableForReturnInput(0.43f,-2.98f)" />
+    </UnitTest>
+    <UnitTest name="EastBuildingCornerCanBeWalkedOutAndBackWithoutReset(1.65f,0.45000005f)" storage="/workspace/mofumachi-merge/tests/presentation/bin/debug/net8.0/mofumachi.visual.tests.dll" id="3486cd47-dbb9-f717-b604-4fd4045a339f">
+      <Execution id="cd6cbcde-7a03-4fda-b1e0-376554a5a503" />
+      <TestMethod codeBase="/workspace/mofumachi-merge/Tests/Presentation/bin/Debug/net8.0/Mofumachi.Visual.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Mofumachi.Tests.FieldEdgeRecoveryTests" name="EastBuildingCornerCanBeWalkedOutAndBackWithoutReset(1.65f,0.45000005f)" />
+    </UnitTest>
+    <UnitTest name="FollowingAnEdgeResidentKeepsTheBodyAvailableForReturnInput(-1.8f,0.68f)" storage="/workspace/mofumachi-merge/tests/presentation/bin/debug/net8.0/mofumachi.visual.tests.dll" id="f5cbf2a2-76c6-0851-e27b-2d61a1880542">
+      <Execution id="572927f2-e288-49d0-9ec0-f49bcb8ec1ef" />
+      <TestMethod codeBase="/workspace/mofumachi-merge/Tests/Presentation/bin/Debug/net8.0/Mofumachi.Visual.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Mofumachi.Tests.FieldEdgeRecoveryTests" name="FollowingAnEdgeResidentKeepsTheBodyAvailableForReturnInput(-1.8f,0.68f)" />
+    </UnitTest>
+    <UnitTest name="EastBuildingCornerCanBeWalkedOutAndBackWithoutReset(1.5999999f,0.45000005f)" storage="/workspace/mofumachi-merge/tests/presentation/bin/debug/net8.0/mofumachi.visual.tests.dll" id="4efd1ad1-dc71-b343-b3bd-f16a1bc8b3de">
+      <Execution id="f2a71702-5f46-47d8-a3ec-691dbeef4c51" />
+      <TestMethod codeBase="/workspace/mofumachi-merge/Tests/Presentation/bin/Debug/net8.0/Mofumachi.Visual.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Mofumachi.Tests.FieldEdgeRecoveryTests" name="EastBuildingCornerCanBeWalkedOutAndBackWithoutReset(1.5999999f,0.45000005f)" />
+    </UnitTest>
+    <UnitTest name="FollowingAnEdgeResidentKeepsTheBodyAvailableForReturnInput(0.43f,2.98f)" storage="/workspace/mofumachi-merge/tests/presentation/bin/debug/net8.0/mofumachi.visual.tests.dll" id="211b76ea-6a39-a421-1a1e-eb58cfe3cc0b">
+      <Execution id="7f69ef17-f9bd-4a2b-b0ac-0f1fd6d2b9e7" />
+      <TestMethod codeBase="/workspace/mofumachi-merge/Tests/Presentation/bin/Debug/net8.0/Mofumachi.Visual.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Mofumachi.Tests.FieldEdgeRecoveryTests" name="FollowingAnEdgeResidentKeepsTheBodyAvailableForReturnInput(0.43f,2.98f)" />
+    </UnitTest>
+    <UnitTest name="FollowingAnEdgeResidentKeepsTheBodyAvailableForReturnInput(1.8f,0.68f)" storage="/workspace/mofumachi-merge/tests/presentation/bin/debug/net8.0/mofumachi.visual.tests.dll" id="6d57f713-2bc1-f32a-aa57-1bf86801c1d4">
+      <Execution id="85a6ebbd-f0d9-4445-b72e-0bca379429cf" />
+      <TestMethod codeBase="/workspace/mofumachi-merge/Tests/Presentation/bin/Debug/net8.0/Mofumachi.Visual.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Mofumachi.Tests.FieldEdgeRecoveryTests" name="FollowingAnEdgeResidentKeepsTheBodyAvailableForReturnInput(1.8f,0.68f)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="6d57f713-2bc1-f32a-aa57-1bf86801c1d4" executionId="85a6ebbd-f0d9-4445-b72e-0bca379429cf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9dca9c46-9114-0d96-6728-074aacb7a517" executionId="b6807019-7cba-4727-8daf-97d525e45fc4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f5cbf2a2-76c6-0851-e27b-2d61a1880542" executionId="572927f2-e288-49d0-9ec0-f49bcb8ec1ef" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3486cd47-dbb9-f717-b604-4fd4045a339f" executionId="cd6cbcde-7a03-4fda-b1e0-376554a5a503" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4efd1ad1-dc71-b343-b3bd-f16a1bc8b3de" executionId="f2a71702-5f46-47d8-a3ec-691dbeef4c51" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="211b76ea-6a39-a421-1a1e-eb58cfe3cc0b" executionId="7f69ef17-f9bd-4a2b-b0ac-0f1fd6d2b9e7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="6" executed="6" passed="6" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started
+Running selected tests in /workspace/mofumachi-merge/Tests/Presentation/bin/Debug/net8.0/Mofumachi.Visual.Tests.dll
+   NUnit3TestExecutor discovered 6 of 6 NUnit test cases using Current Discovery mode, Non-Explicit run
+NUnit Adapter 4.6.0.0: Test execution complete
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -192,7 +192,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "discovery_notice_edge_clearance_implemented_native_pending",
+  "current_stage": "field_stability_qa_build_screen_success_raw_images_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -824,5 +824,6 @@
     "repaired_native_pass_verified": false,
     "apk_generated": false,
     "pixel_verified": false
-  }
+  },
+  "latest_field_stability_success_report": "docs/verification/discovery-clearance-qa-build-screen-report-2026-10-25.json"
 }

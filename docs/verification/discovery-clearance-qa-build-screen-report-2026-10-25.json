@@ -1,0 +1,33 @@
+{
+  "kind": "user-screenshot-report",
+  "run": "20261025-153810-fa9b2be9",
+  "expected_source_revision": "871808c",
+  "actual_source_identity_verified": false,
+  "pipeline_reported_complete": true,
+  "editmode_reported": {
+    "passed": 143,
+    "total": 143
+  },
+  "playmode_reported": {
+    "passed": 223,
+    "total": 223
+  },
+  "raw_xml_received": false,
+  "raw_failed_skip_counts_verified": false,
+  "native_images_reported": 138,
+  "image_size_reported": [
+    720,
+    1280
+  ],
+  "native_images_received": false,
+  "native_image_review_complete": false,
+  "qa_apk_reported_generated": true,
+  "apk_name": "town-life-qa.apk",
+  "apk_binary_received": false,
+  "full_apk_sha256_from_raw_metadata_received": false,
+  "reported_sha256_prefix": "6f1d163c",
+  "raw_build_info_received": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "next": "Receive all same-run five-plaza-review-*.zip parts; inspect raw XML/build-info/capture identity/images, then update Pixel with this already generated APK. No rebuild for this metadata receipt."
+}

@@ -1,5 +1,9 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-25最新画面：通知余白修正版の一括QAは143/143・223/223、138画像、QAAPK生成まで正常終了。** run `20261025-153810-fa9b2be9`、画像720x1280、town-life-qa.apk。画面SHAprefix6f1d163c…、全文はbuild-info原本で確定する（誤転記しない）。記録 `docs/verification/discovery-clearance-qa-build-screen-report-2026-10-25.json`。原XML／build-info／capture-manifest／138PNG／APKbinary未受領、Windowsソース同一性と原failed0/skip0・SHA独立照合は未確認。想定871808cの実装成功と画面成功を原本検証へつなぐ。Pixel／正式ベース固定は未了。
+
+**次は同runのfive-plaza-review-*.zip全パート受領・原本／実画面確認。記録更新だけではPull／再ビルドを依頼しない。** 新しい31-fieldの噴水手前／奥、東建物角往復、5端部往復、通知でキャラが隠れないこと、既存5地区Lv1/3/6の品質を確認。画像をチャットに貼らない。見た目・source照合後は今回生成済み153810APKをSHA照合しPixel99RAY1BELHへ街QA IDcom.mofumachi.merge.qa.townlifeでinstall-r。保存消去なし。通知を含む入力／保存・10分・品質を同版で確認するまで噴水エフェクト／2.5D／Merge／main停止。今回ゲーム・テスト・QAツール変更なし。以下は履歴。
+
 **2026-10-25最新原本：131312の残1失敗は「図鑑の新発見」通知による実際のタッチ遮断。** PlayMode223/222成功/1失敗/skip0。北(.43,2.98)、grab(304.11,583.99)、キャラdepth26/cullFalseの前にNew book discovery(depth92)がいる。描画・イベントcameraは一致。原XML/log/SHA・診断 `References/Review/full-playmode-2026-10-25-131312/`。前回の検査camera補正だけで解消せず、今回の詳細ログで製品側の通知余白不足を特定。
 
 **runtimeはTownContinuousWorldView1ファイルのみ追加修正。** 表示中のTownDiscoveryNoticeの実矩形も既存の上余白へ加える。GetComponentsInChildren(false,reusedList)で非表示・差替え中の旧通知を除外、フレームごとの結果配列を作らない。通知の絵／6秒タイマー／タップ図鑑遷移、図鑑・保存・原画・配置・歩行面・Nav・正式6名・BGM/Mergeは不変。通知を消す／タッチ判定を弱める処理はしない。既存の図鑑通知テストに有効／無効時の余白・キャラと通知の両方の実先頭hit・重なり不在を追加。全5端部の実歩行／ドラッグ／先頭hit検査はそのまま。

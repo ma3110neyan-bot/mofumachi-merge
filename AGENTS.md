@@ -1,5 +1,11 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-25最新：曲線境界の一括QAは143/143・222/222、124画像、APK生成まで画面上で正常終了。** run `20261025-084947-eecbc994`、報告SHA `aae8f682cce320d55b22910fe4fd38404b1a7c2b225d60c220892c529a3f269a`。記録 `docs/verification/curved-boundary-qa-build-screen-report-2026-10-25.json`。成功XML／build-info／現124画像は未受領で、実ビルドsourceや自然な曲線になったことを画面の件数から推定しない。想定修正版e7a8006と原本のgitRevisionはZIP受領後に照合する。Pixel／第1段階合格は未確認。
+
+**次は同runのfive-plaza-review-*.zip一式を受領して画像確認。記録更新だけではPull／再ビルドを依頼しない。** 直前5a49の描画（曲線のみOFF、既存植栽・入口帯はON）との同条件11対／5地区Lv1/3/6、元の密度・歩行面・名前札・石目を確認。旧073237版の実画像成功は新版へ流用しない。見た目確認後は生成済み084947のtown-life-qa.apkをSHA照合し、そのままPixel3aへ更新install-r（街QA ID／serial99RAY1BELHを明示）。削除／保存消去はしない。
+
+今回は受領記録のみでゲーム／原画／テスト／QAツール無変更。第1段階の境界が実機で合格してから噴水→代表1名2.5D→Merge、mainは別承認のまま。チャットへ画像を貼らない。以下は履歴。
+
 **2026-10-25最新：第1段階の境界を曲線で仕上げる限定実装。次工程順は噴水→代表1名2.5D→Mergeへ変更。** ユーザー「リリース品質改善・第1段階」を最優先。噴水／2.5D／Mergeを同時着手せず、境界の実機合格後に順番に進める。新PDF9+14ページを `References/Review/curved-boundary-device-2026-10-25/` に原本SHA付きで保持。Pixel継続文脈の実機画面で新外周・Coins330/Lv6を確認するが、APK照合・10分・保存復帰成功までは推定しない。
 
 実装はTownBoundaryGardenLayout/Graphicに4本の曲線地表帯を追加し、SouthGroundからライブ／成長プレビューへ共有。原画全体・5地区MasterLayout.Dressing・既存200外周Sprite・歩行／衝突・Core／保存／報酬・正式6名・図鑑／BGM／Mergeは不変。西東下端はSouth原画外(absx>=.92)、北側端はy>=1.23。原画端と同じUVで接続、内側重なり最大.006world・外側曲線幅.065〜.132world。既存WestTexture1共有・272頂点キャッシュ・raycast false。密度や歩行範囲を削らない。

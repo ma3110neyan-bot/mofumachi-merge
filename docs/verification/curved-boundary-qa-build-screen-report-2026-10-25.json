@@ -1,0 +1,42 @@
+{
+  "received_on_jst": "2026-10-25",
+  "run": "20261025-084947-eecbc994",
+  "evidence": "User PowerShell success screenshot. Raw success XML, build-info, current124images and APK bytes not received yet.",
+  "editmode": {
+    "passed_reported": 143,
+    "total_reported": 143,
+    "raw_xml_verified": false
+  },
+  "playmode": {
+    "passed_reported": 222,
+    "total_reported": 222,
+    "raw_xml_verified": false
+  },
+  "zero_fail_skip_gate_reported_passed": true,
+  "native_capture_count_reported": 124,
+  "capture_dimensions_reported": [
+    720,
+    1280
+  ],
+  "boundary_artifact_gate_reported_passed": true,
+  "comparison_path_reported": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261025-084947-eecbc994\\screenshots\\street-boundary-before-after.html",
+  "expected_before": "Frozen5a49 renderer reconstruction with only the new curve disabled; not historicalAPK/Pixel. Verify supplied metadata before attributing current images.",
+  "qa_apk_generated_reported": true,
+  "apk_path_reported": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261025-084947-eecbc994\\town-life-qa.apk",
+  "apk_sha256_reported": "aae8f682cce320d55b22910fe4fd38404b1a7c2b225d60c220892c529a3f269a",
+  "app_id_expected": "com.mofumachi.merge.qa.townlife",
+  "expected_source_before_record_only_update": "e7a80062202312d10b07f65d95708852c9abd87c",
+  "source_revision": null,
+  "build_info_received": false,
+  "native_images_received": false,
+  "apk_bytes_received": false,
+  "sha256_independently_verified": false,
+  "native_visual_accepted": false,
+  "pixel_verified": false,
+  "stage1_passed": false,
+  "fountain_started": false,
+  "character_trial_started": false,
+  "merge_started": false,
+  "main_merged": false,
+  "next": "Receive all current five-plaza-review ZIP parts, verify native XML/build/capture identity and same-state curve Before/After/all5area images. Then use this existing exactAPK for Pixel; no Pull or rebuild for receipt-only changes."
+}

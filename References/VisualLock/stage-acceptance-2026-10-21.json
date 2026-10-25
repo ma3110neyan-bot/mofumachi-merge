@@ -60,7 +60,7 @@
     "south_garden",
     "connections"
   ],
-  "apk_generated": false,
+  "apk_generated": true,
   "pixel_verified": false,
   "adopted": false,
   "last_review": {
@@ -192,7 +192,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "curved_boundary_implemented_native_pixel_pending",
+  "current_stage": "curved_boundary_qa_success_reported_native_visual_pixel_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -697,6 +697,20 @@
   },
   "approved_base_lock": "References/VisualLock/five-area-approved-2026-10-24.json",
   "qa_build_report": {
+    "run": "20261025-084947-eecbc994",
+    "status": "console_success_reported",
+    "editmode_passed": 143,
+    "playmode_passed": 222,
+    "native_capture_count_reported": 124,
+    "raw_xml_verified": false,
+    "source_revision": null,
+    "sha256_reported": "aae8f682cce320d55b22910fe4fd38404b1a7c2b225d60c220892c529a3f269a",
+    "sha256_independently_verified": false,
+    "record": "docs/verification/curved-boundary-qa-build-screen-report-2026-10-25.json",
+    "scope": "Current requested curve QA reports full native/APK success; actual source identity/current images/Pixel remain unverified."
+  },
+  "base_polish": "References/VisualLock/curved-boundary-candidate-2026-10-25.json",
+  "previous_qa_build_report": {
     "run": "20261025-073237-f8fd542b",
     "status": "console_success_reported",
     "editmode_passed": 143,
@@ -711,19 +725,6 @@
     "build_info_received": true,
     "native_images_verified": 124,
     "native_review": "References/Review/town-boundary-2026-10-25-candidate/native-review.json"
-  },
-  "base_polish": "References/VisualLock/curved-boundary-candidate-2026-10-25.json",
-  "previous_qa_build_report": {
-    "run": "20261024-220250-ba90ed62",
-    "status": "console_success_reported",
-    "editmode_passed": 143,
-    "playmode_passed": 222,
-    "raw_xml_verified": false,
-    "source_revision": null,
-    "sha256_reported": "297a7db4b2ab8848d9b4e97cf806563b08c53b62d6d4653d2a91266f1bbe96e8",
-    "sha256_independently_verified": false,
-    "record": "docs/verification/stage1-qa-build-screen-report-2026-10-24.json",
-    "scope": "Current stage1 QA APK generated as reported; corrected Pixel appearance/input/save/600sec acceptance still pending."
   },
   "latest_town_boundary_native_run": {
     "run": "20261025-073237-f8fd542b",
@@ -764,6 +765,22 @@
       "sha256_independently_verified": false,
       "record": "docs/verification/stage1-qa-build-screen-report-2026-10-24.json",
       "scope": "Current stage1 QA APK generated as reported; corrected Pixel appearance/input/save/600sec acceptance still pending."
+    },
+    {
+      "run": "20261025-073237-f8fd542b",
+      "status": "console_success_reported",
+      "editmode_passed": 143,
+      "playmode_passed": 222,
+      "native_capture_count_reported": 124,
+      "raw_xml_verified": true,
+      "source_revision": "5a49e3194260c05a8e96909b95bbd08bca1a6d76",
+      "sha256_reported": "2b5193896965f805e086a51e5c19fbc1ae6a6ef6583aa8fd9755f0dfe8c6378a",
+      "sha256_independently_verified": false,
+      "record": "docs/verification/town-boundary-qa-build-screen-report-2026-10-25.json",
+      "scope": "Raw full native/build/capture identities verified; APK bytes SHA and Pixel acceptance remain pending.",
+      "build_info_received": true,
+      "native_images_verified": 124,
+      "native_review": "References/Review/town-boundary-2026-10-25-candidate/native-review.json"
     }
   ],
   "latest_town_boundary_success_report": "docs/verification/town-boundary-qa-build-screen-report-2026-10-25.json",
@@ -778,5 +795,6 @@
     "repair": "docs/verification/south-entry-mesh-test-repair-2026-10-25.json",
     "repaired_native_pass_verified": false
   },
-  "latest_user_stage_order": "2026-10-25 boundary stage1 -> fountain -> representative character2.5D -> Merge. Each stage passes before the next starts."
+  "latest_user_stage_order": "2026-10-25 boundary stage1 -> fountain -> representative character2.5D -> Merge. Each stage passes before the next starts.",
+  "latest_curved_boundary_success_report": "docs/verification/curved-boundary-qa-build-screen-report-2026-10-25.json"
 }

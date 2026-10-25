@@ -66,8 +66,8 @@
       "after_sha256": "dd9a166aa7fd3407b3ebcafd5541feb8c1e7826d1b018f9fffe40403ffd6b2bb"
     }
   ],
-  "native_unity_verified": false,
-  "qa_apk_generated": false,
+  "native_unity_verified": true,
+  "qa_apk_generated": true,
   "pixel_verified": false,
   "adopted": false,
   "merge_quality_pass_started": false,
@@ -79,5 +79,9 @@
     "evidence": "References/Review/full-playmode-2026-10-25-131312/receipt-and-diagnosis.json",
     "previous_render_digest": "984be108698a90054eb8a9b1b97ef37500f33ff77a2d50e4ed2df0174951fca5",
     "scope": "Only active discovery-card bounds added to existing tracked-camera top inset; notice/book behavior unchanged."
-  }
+  },
+  "native_image_inspection_complete": true,
+  "native_visual_cleared": false,
+  "field_stability_passed": false,
+  "latest_native_review": "References/Review/field-stability-2026-10-25-candidate/native-review.json"
 }

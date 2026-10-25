@@ -192,7 +192,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "field_stability_qa_build_screen_success_raw_images_pending",
+  "current_stage": "field_stability_native_verified_conditional_diagnostic_pixel_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -814,6 +814,32 @@
   },
   "latest_field_stability_qa_screen_report": "docs/verification/field-pointer-qa-stop-screen-report-2026-10-25-131312.json",
   "latest_field_stability_native_run": {
+    "run": "20261025-153810-fa9b2be9",
+    "source_revision": "871808c3971e18aad8ffbbd30a1ce7de40455ab4",
+    "editmode_total": 143,
+    "editmode_passed": 143,
+    "editmode_failed": 0,
+    "editmode_skipped": 0,
+    "playmode_total": 223,
+    "playmode_passed": 223,
+    "playmode_failed": 0,
+    "playmode_skipped": 0,
+    "raw_result_verified": true,
+    "repaired_native_pass_verified": true,
+    "native_images_verified": 138,
+    "native_image_inspection_complete": true,
+    "native_visual_cleared": false,
+    "field_stability_passed": false,
+    "record": "References/Review/field-stability-2026-10-25-candidate/native-review.json",
+    "apk_generated": true,
+    "apk_sha256_from_raw_build_info": "6f1d163c6b8a14cf7025399e350e7f88e526f53856dd382f20d08b498beed124",
+    "apk_binary_received": false,
+    "apk_sha_independently_recomputed": false,
+    "pixel_verified": false,
+    "adopted": false
+  },
+  "latest_field_stability_success_report": "docs/verification/discovery-clearance-qa-build-screen-report-2026-10-25.json",
+  "previous_field_stability_native_failure": {
     "run": "20261025-131312-6c6e5bcb",
     "playmode_total": 223,
     "playmode_passed": 222,
@@ -825,5 +851,5 @@
     "apk_generated": false,
     "pixel_verified": false
   },
-  "latest_field_stability_success_report": "docs/verification/discovery-clearance-qa-build-screen-report-2026-10-25.json"
+  "latest_field_stability_native_review": "References/Review/field-stability-2026-10-25-candidate/native-review.json"
 }

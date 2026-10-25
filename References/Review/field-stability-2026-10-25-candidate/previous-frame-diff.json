@@ -1,0 +1,951 @@
+[
+  {
+    "file": "01-merge-start.png",
+    "sha256": "98fb24d50ead29747ddcf8fafa85e6e98c03ba7da2cff32b568e20db2def1699",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "02-merge-all-items.png",
+    "sha256": "177cf235169ec41dd7f3bf3cf5b55f9dacd9d366f0f5ff09225bb6976d5318e4",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "03-merge-selection.png",
+    "sha256": "1f54752797e2be29e6b83ae172f67a25a90219c3b48f1993df8c7b8de4f9ee57",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "04-town-lv1-Central.png",
+    "sha256": "2b42d9a6dce441fda8ec22694146a377a347630879635ed060b6cd6b23cfec8f",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "04-town-lv1-East.png",
+    "sha256": "706468c4ca640e2e38706c9b1088af691e12710bd70788c53fe3db4c23a15bd1",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "04-town-lv1-North.png",
+    "sha256": "7a2b287c03b17f66e2bf69c0d0fb8f3591151936feabda1581d2b01b6dbd7a73",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "04-town-lv1-South.png",
+    "sha256": "e84fd945b6c511910e90f50a0546f775e592aa2aadeb61b5b41b54b09296f12a",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "04-town-lv1-West.png",
+    "sha256": "8bdb1c50c31c92a3171002c03a0558101ab8ee2b0a64d5c64f623ed736fc1796",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "04-town-lv3-Central.png",
+    "sha256": "319d74ca8367c3c989f6c0892a1ec40ab37a2624dddd6ded72f6c01a1dc7d6b3",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "04-town-lv3-East.png",
+    "sha256": "ea0b70ee3209cc8bc7d7aa1c9f0653f8f6450d9cbea08d13d1bb66c59be0d878",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "04-town-lv3-North.png",
+    "sha256": "b0b45398d3bc7a2b809c1e73e2fb4e7a948a9b2de3be3c5c032f0879ed5b7ea7",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "04-town-lv3-South.png",
+    "sha256": "5c6a41f50e4e9dc4e509c3403d465268360afbef6d72b8f8543d6f8132aac1ac",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "04-town-lv3-West.png",
+    "sha256": "96b82e3b632349528a7c5fa3c4bf9487fd88b2b30a973dbe5eba55cda8965ae1",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "04-town-lv6-Central.png",
+    "sha256": "bf63b84ecea52be251582f1a65f016f312c42c8ce4ff9889b9c03f1e20b51148",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "04-town-lv6-East.png",
+    "sha256": "5ee01d27dc4f2cad77c0d36c0aacb5a9bde716c576cebc1d2adfb0a949c78818",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "04-town-lv6-North.png",
+    "sha256": "9353cf08c8c5b42868b2bac1983b1eb1e7783b1f3b020e17cb647157912900ec",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "04-town-lv6-South.png",
+    "sha256": "19bca63c639dbe3804d08b5703b50a00296fd6628a99a4f466f392d0eb761943",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "04-town-lv6-West.png",
+    "sha256": "80a823284f999dd4b6d3551a962bd94af3c20f5840bd62c6ca71066693328ea0",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "05-street-selected.png",
+    "sha256": "44635a56206bb1fe4a8086be9a02caa43515013764297d4dcf94e67a7cdb6d47",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "06-walking-00.png",
+    "sha256": "1a76c0b8eed8e9f17d098499b72066a830c8f0463c024c1af42e54d49ab01325",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "06-walking-01.png",
+    "sha256": "428e80eddbb6a38047d6b275bf00b9035b53b752ad73f4e25371d18ad7955f5f",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "06-walking-02.png",
+    "sha256": "6bab5baf7846fa71f01c5d9072fabb2c895d9b0b2f8ee64e026fad83ba2c8474",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "06-walking-03.png",
+    "sha256": "358aef726d13f7437669c47a40bbd002ed47f7343d781bebbab75dd57e099e97",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "06-walking-04.png",
+    "sha256": "9c9d989faf1e292661cbaa4100f68087969e150cad8636d055079cd1784aaf69",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "06-walking-05.png",
+    "sha256": "1062eec426af118abb2899f6a41cf1ae8d2d9826e6c2007ec5dd3c1bdafc4d42",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "06-walking-06.png",
+    "sha256": "c15cc8514f1d24262c29317ac1b50078e0a210f86a4e481382a56a8e174efc44",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "06-walking-07.png",
+    "sha256": "0216b6f3359284847931997e043322419c85a00861378cc4bfc6ad6265156bc4",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "07-quest-story-goal.png",
+    "sha256": "57ea491a94f8388789ee6e00eef3dc5641b6d605c0b36817f33dcee97822df2b",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "08-music-selection.png",
+    "sha256": "1c0d4254c56819386a7f81770c7f89fd60c5901d9ab9ad0839f818cedc875897",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "09-connected-path-east.png",
+    "sha256": "fed33d27fa33606d763247c94d883aeac1c31438d5db1ebabf3c66e9639dde3b",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "09-connected-path-north.png",
+    "sha256": "6070776e7e4cc10b6644551c12a41db9cc1b955a7882b4d54fc60c86a52f3e8c",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "09-connected-path-south.png",
+    "sha256": "cb452475758939e2406fc230bda1fd80e74c6c4b03398c8fcfc390fb106d8fd7",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "09-connected-path-west.png",
+    "sha256": "1924534f8aefbaf19e49125505e217319f2ff75bcb3c74b84aa4c592ceef1c04",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "10-book-discovery-details.png",
+    "sha256": "4ff9b3403155cb63579a0e3cc2d68b5e327ea8c9af32497b27f02b401af83db1",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "10-book-fio.png",
+    "sha256": "33fdfef255be08571d1857c3149d1735be3d4b954b55cfa823e076185589f4a2",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "10-book-lulu.png",
+    "sha256": "3669a9486fedc18162309c1239d29cc5e6d108b3ab7488564823442a34fee061",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "10-book-miel.png",
+    "sha256": "e4da1672e6c6eefc27695d84ff25905d8496440e1592ec14344b5a3e9ac2fce3",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "10-book-momo.png",
+    "sha256": "27b3ccc53f751be1eaf556d7244e1f4be51f3177b48c184df0a9057d23d3e725",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "10-book-noah.png",
+    "sha256": "c86e04a8231119b43f4ce341bfdc8dcfb2ef1d24c8d55dba742243c2ef95d9bb",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "10-book-pom.png",
+    "sha256": "2794480f7118de797db678490bc18fe7da9c11b7380ec799a30e303cbb810320",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "11-today-start.png",
+    "sha256": "ca0217d8f7359486d051ee428db8993b4b7f8900b00099b52893dde0b9045047",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      0,
+      0,
+      720,
+      1280
+    ]
+  },
+  {
+    "file": "12-today-ready.png",
+    "sha256": "1b49fc071c019287c5970858d586fde542043ab9c863cdb44e1ea02fb3634b15",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      0,
+      0,
+      720,
+      1280
+    ]
+  },
+  {
+    "file": "13-today-flower-collected.png",
+    "sha256": "f6a57e8ca191da88ae63be52f3594a91f57c4a4af98bc6905f93eaeb9f1a6294",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      0,
+      0,
+      720,
+      1280
+    ]
+  },
+  {
+    "file": "14-finale-still-has-daily-goals.png",
+    "sha256": "65ad8c7097762d62bdd15c74ecb27f9f910bb1d2553c38e8b7d37b5065a8b262",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "15-wide-park-left.png",
+    "sha256": "dfd6faf604c289fda0ccadfce763e3cd06391e95ca2fd428bd101f63b4d689fb",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "15-wide-park-right.png",
+    "sha256": "e0fb98ba3e2285b1a641f67bc1d59244c915e920c51bba5548c595b653857cad",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "16-residents-passing-00.png",
+    "sha256": "f9009ce2cc2a98e271f7d36cb2f31edb1fb7d82ffa7b03d94995479079056f9d",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "16-residents-passing-01.png",
+    "sha256": "232bc6647fc0444c51b7ebe0b41d6fb03a81e65956e2ed2767edf177ee31c1d5",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "16-residents-passing-02.png",
+    "sha256": "06a476382d73c7afe0bfc2d6d6fcb063633effb5eee641e3014d11e6b9515e46",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "16-residents-passing-03.png",
+    "sha256": "c495d4aada57044c41de73c78c10303d4e53a621ed26d81d98bd9d9c7d1f76ab",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "17-finger-follow-00.png",
+    "sha256": "a6d919c46c4c6273c49e69d288fba0774421528ce55dbb65fec83f01ecd47a7c",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "17-finger-follow-01.png",
+    "sha256": "d53abc7d5718e4f5860c0900fa823ec553d1890f7edcc59eb0142c09970c7387",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "17-finger-follow-02.png",
+    "sha256": "683cb512b7888ea1454330954831767cc969b80fd03c948d58ac4d8ce97019d0",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "17-finger-released.png",
+    "sha256": "e4569acf73579bdc22d710ef0e4f966f916b8bcd7b3947c9c755f63533ff4699",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "18-continuous-walk-central.png",
+    "sha256": "073ca14fd4f8b0f87525487e041337d64567fd3c8e4e309cc8d5e57acb422ad1",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "18-continuous-walk-east.png",
+    "sha256": "f2a7a3cc66433008c0ca03f7884eb8e4b019dfc0ac4bd59913e2c650aceb759a",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "18-continuous-walk-east-join.png",
+    "sha256": "c13bedfa9c1e0c061ebc7ef6229f36b895965d42a89f3a0d8c6796915fdecf5a",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "18-continuous-walk-west.png",
+    "sha256": "b02bbb4dac35f46e4afa9c0d15e412560434af7457635db713b9da87b368d053",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "18-continuous-walk-west-join.png",
+    "sha256": "c95cfd38237c84a871833beb85d51d0712036078aa712261ee50d8ade209c055",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "19-book-discovery-first-page.png",
+    "sha256": "72bc21da2ea73a9eab8ef13d0952f6251e3a74069b4d2c0a961bea53195ec20b",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "19-book-new-in-town.png",
+    "sha256": "2de8a16d3ee7afed119774d3a3b40c20c49a7211829162504a5a9a04c3a499ac",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "20-quest-arrived-door-prompt.png",
+    "sha256": "a7948b8ccc78c071a86de3aef2ebbe2d210126d53d96d3b309f6229705480b6c",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "20-quest-cabin.png",
+    "sha256": "1c58f196d68d00e13190bf49b5ca7468fd5942d9b5bb6cc8be959b39c661c711",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "20-quest-door-opening.png",
+    "sha256": "8918d87d263fbe867a65a1739794653389d25dc799bccad27a604c4bb1506707",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "20-quest-inside.png",
+    "sha256": "c810f5ee15a16a9731190ff5ca0e4bbc76edb1b04732cbb624d0bdb0ca14098d",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "20-quest-walking.png",
+    "sha256": "44e8397a443d6b709a2cd023d601c411b6f17e1ac66f9b4c5eca1524264c864e",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "21b-cafe-arrived-door-prompt.png",
+    "sha256": "aee047edcdb6af4b2105050b96a328fa41b58c373c66e4bfc5104ac5ae5b386b",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "21b-cafe-cabin.png",
+    "sha256": "00b1d8f19a6d3a5520a0a08d942524287ea1ea857d40c191cfd3a32a244fde88",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "21b-cafe-door-opening.png",
+    "sha256": "a80e547977419c5bd0506ce6480b8b1e6f711d89a728111e98e0409f2655f2a0",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "21b-cafe-inside.png",
+    "sha256": "300e1db7b6e38aa600d737231c2a1b9c7a8423b2f290eb3df5aab1785fa203ca",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "21b-cafe-walking.png",
+    "sha256": "ee794c1fc08ca1fdeba121ec3cce78e49b509fbf9cfcab6273a592cba98c60d0",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "21-shop-arrived-door-prompt.png",
+    "sha256": "1f5049103be05bf5a07ad6648bd6429d21081479fd5917942269ac60605a72e8",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "21-shop-cabin.png",
+    "sha256": "4fdb0d3b8043c4743f898edd137eff4b07f125a1f07bbb765115db9b04bd7d97",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "21-shop-door-opening.png",
+    "sha256": "af13ca85e7ca6831c390a192564105de7f21147b44004d8d343831de5e1553ee",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "21-shop-inside.png",
+    "sha256": "ef7ace750617e03e366cec1b7c6cab53355bce46e964afbba4188d664fbfa54b",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "21-shop-walking.png",
+    "sha256": "ca6c478bf70d69afe45f15461c8f0e9f390002e97590a4c5665ea8ffbcc15b8b",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "22-merge-candidates.png",
+    "sha256": "a306cac1d08497fd5cbd201cbd524d4f032df2405290aade0b60c4b8586acf15",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "22-title-candidates.png",
+    "sha256": "45751c74775e82f5ad93d0578fffaebb9ea74e29b9d774c5c9aa570ee97182c5",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "23-merge-picnic.png",
+    "sha256": "009d1e7176db67243f7cc696b2cd439ae4fbb46f429ddd836e9566a99215fad7",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "23-merge-pop-promenade.png",
+    "sha256": "009d1e7176db67243f7cc696b2cd439ae4fbb46f429ddd836e9566a99215fad7",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "23-merge-ribbon.png",
+    "sha256": "009d1e7176db67243f7cc696b2cd439ae4fbb46f429ddd836e9566a99215fad7",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "23-title-garden.png",
+    "sha256": "9874ab529e0684ebb003c22f5d3b1a8ca6cc9be15ab63f70764c58bbe8c09c51",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "23-title-letter.png",
+    "sha256": "9874ab529e0684ebb003c22f5d3b1a8ca6cc9be15ab63f70764c58bbe8c09c51",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "24-home-unobstructed.png",
+    "sha256": "56b0987037d2ff38b7fc0c6de7c12f480680f0da72c4369e50ee1dbde42150ec",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "24-menu-open.png",
+    "sha256": "95a02e880b90d657c526a4c82a271c89a98999846cad6758181add53e6187ae4",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "24-menu-return.png",
+    "sha256": "d43823dd3e07c10748807106d4e9a90983e480c501e31415505d50cc990c7cbd",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "25-character-behind-fountain.png",
+    "sha256": "9249f132a0faf49df17557e03c13709ebe96675de1eeb02284b50339f6c91b4e",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "25-character-greeting.png",
+    "sha256": "d4a03d0578e1fe6df6da5827e0e8c95478797a7d54448861fcf201a8aa82b8b1",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "25-character-idle.png",
+    "sha256": "b9dfdd8d074734bdc7aa79965fd46dd40d86bc49fa914d41ec3584bd68e380db",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "25-character-in-front-fountain.png",
+    "sha256": "a2f376b42583e4a05b3ebac041ef7fa6483a0902dc27b0cea857d32d7c906b0c",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "25-character-step-a.png",
+    "sha256": "86c7ceeeb85244a19fc03b15670d8eff5c01eb55f0b179cf247d254e9c2d64b0",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "25-character-step-b.png",
+    "sha256": "3536bb1c95963b9630d8201c45d261fd1b1f2e79aaf316da4040e2da9edb310d",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "26-cardinal-North-arrival.png",
+    "sha256": "93609436df70cf8c0e8217cd5502fd1a07ae6932c6efc15cb763b7d334e15e3d",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "26-cardinal-North-join.png",
+    "sha256": "9246351b9bcdc8392feffdc484db76c19faf7c47bd4c20bdb037770d97f588f3",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "26-cardinal-South-arrival.png",
+    "sha256": "a9234817549c71abdb6e73cf96eca14c2c333b198f14a53eac5fff3e5923820f",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "26-cardinal-South-join.png",
+    "sha256": "9bb75d37c67d80f2fea1b59cce6d71753d44ac4032a58199b71269a720043c3d",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      157,
+      155,
+      298,
+      370
+    ]
+  },
+  {
+    "file": "27-merge-finale-live-purpose.png",
+    "sha256": "4b11f4931f13b4e73cc934660c2d417f600707363abc7ce272402c475bd495a2",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "28-meet-friend-arrived.png",
+    "sha256": "0b3be493d57ee787509b3889cfe07eb03aceee63d8e2b61a24546c6cc3888eab",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      0,
+      0,
+      720,
+      1280
+    ]
+  },
+  {
+    "file": "28-meet-friend-walking.png",
+    "sha256": "95a1e3b86ea347b5c5c6388cc442f71425db137d2bd2e71dcbaffdc41666176f",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      0,
+      0,
+      720,
+      1280
+    ]
+  },
+  {
+    "file": "29-merge-drag-lift.png",
+    "sha256": "0c1cb45941a9fe8edc263330859bcf88532a8dd66d3de4d3106940807a328dc4",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "29-merge-drag-match.png",
+    "sha256": "45e72fc3f04043982c2d2562d94bcaa8d5b8ee4671d981fbbb7c1e7ee0397fb4",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "29-merge-landed.png",
+    "sha256": "33299bf3cbbc7efad596eea96d6c3347218f63035a3de5b3c2d5a7b6374030c7",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      566,
+      422,
+      681,
+      513
+    ]
+  },
+  {
+    "file": "30-boundary-east-join-after.png",
+    "sha256": "0d49e013665ad1b64fc5562b092923abf2262542551f5b197a747ce7c9cb087e",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      619,
+      635,
+      720,
+      904
+    ]
+  },
+  {
+    "file": "30-boundary-east-join-before-reconstructed.png",
+    "sha256": "0d49e013665ad1b64fc5562b092923abf2262542551f5b197a747ce7c9cb087e",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      619,
+      635,
+      720,
+      904
+    ]
+  },
+  {
+    "file": "30-boundary-east-lower-after.png",
+    "sha256": "dd3faef613b8bf17614d50d4ea7ab2deb59c7bcd9bb98f2bd4ca37d182c3f4a2",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      358,
+      0,
+      658,
+      348
+    ]
+  },
+  {
+    "file": "30-boundary-east-lower-before-reconstructed.png",
+    "sha256": "c6ce985c35f4e5bdb17cbae47ca7469d698f17dae6ce97a59b67dffbb889c8ac",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      358,
+      0,
+      658,
+      348
+    ]
+  },
+  {
+    "file": "30-boundary-east-upper-after.png",
+    "sha256": "f42273768adc0d2ef002a6eaf1a19e50ac60e68d24353265b8b224c482d4ddea",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      345,
+      1033,
+      626,
+      1280
+    ]
+  },
+  {
+    "file": "30-boundary-east-upper-before-reconstructed.png",
+    "sha256": "b0ad1414cccb3b18b7532284b921ff9ffc6c54983964207f800ae85f889a8d27",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      345,
+      1033,
+      626,
+      1280
+    ]
+  },
+  {
+    "file": "30-boundary-north-left-after.png",
+    "sha256": "e1f50f5cbe4081d4a93f513163f839e9f5ad2955acd1a6af7464c876df9f4306",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      0,
+      989,
+      664,
+      1280
+    ]
+  },
+  {
+    "file": "30-boundary-north-left-before-reconstructed.png",
+    "sha256": "4f26ac21203a8ff9e7e225256add6c74edb503292d53b4b61d51e4429a2185b1",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      0,
+      989,
+      664,
+      1280
+    ]
+  },
+  {
+    "file": "30-boundary-north-right-after.png",
+    "sha256": "10603aa32cb99e3d4a6afd0f18146fcc949bcc7a1a0212e8e0fe178fa17eafaf",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "30-boundary-north-right-before-reconstructed.png",
+    "sha256": "89dac4d0de9b76e461ff9b094bf508471c381d2ac691c9c2332046f99f162c57",
+    "byte_identical_before": true,
+    "difference_bbox": null
+  },
+  {
+    "file": "30-boundary-south-entry-after.png",
+    "sha256": "60934b770f23d35d621102400650516597968291e30d8f3ea08eb890abb77bba",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      80,
+      0,
+      348,
+      649
+    ]
+  },
+  {
+    "file": "30-boundary-south-entry-before-reconstructed.png",
+    "sha256": "60934b770f23d35d621102400650516597968291e30d8f3ea08eb890abb77bba",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      80,
+      0,
+      348,
+      649
+    ]
+  },
+  {
+    "file": "30-boundary-south-left-after.png",
+    "sha256": "7074f5022d6262173af485fcd00ee36bac7873ea95ee1acb2bc3d57bed280c71",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      0,
+      0,
+      720,
+      679
+    ]
+  },
+  {
+    "file": "30-boundary-south-left-before-reconstructed.png",
+    "sha256": "1f6ed458f7b4b6fb71ae273a17d34a676e6d79bd0ce4f57030b433deb77ddca4",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      0,
+      0,
+      720,
+      679
+    ]
+  },
+  {
+    "file": "30-boundary-south-right-after.png",
+    "sha256": "03944866a6278581ff5f755f20525ba2a3728b6b684e27ea4b0b38396e647d5a",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      619,
+      48,
+      720,
+      315
+    ]
+  },
+  {
+    "file": "30-boundary-south-right-before-reconstructed.png",
+    "sha256": "11b2b22c05646874912d754acf83a1d2af789b897d7646b4fbd9a7b2d7243a89",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      619,
+      48,
+      720,
+      315
+    ]
+  },
+  {
+    "file": "30-boundary-west-join-after.png",
+    "sha256": "a6dcf77703a99f067d087cac1233d4c6934ba83e0656f8989ead44674c4d9469",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      0,
+      387,
+      720,
+      1269
+    ]
+  },
+  {
+    "file": "30-boundary-west-join-before-reconstructed.png",
+    "sha256": "a6dcf77703a99f067d087cac1233d4c6934ba83e0656f8989ead44674c4d9469",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      0,
+      387,
+      720,
+      1269
+    ]
+  },
+  {
+    "file": "30-boundary-west-lower-after.png",
+    "sha256": "c1b9e9ba88abdac1231cc045cbe2a9f4805c379a27f34381b64482a2e27a5c15",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      43,
+      0,
+      430,
+      314
+    ]
+  },
+  {
+    "file": "30-boundary-west-lower-before-reconstructed.png",
+    "sha256": "e804bacbb3a6c05eb7d8f48a829caa0940645b302cef76943b896fbe7ac5829f",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      43,
+      0,
+      430,
+      314
+    ]
+  },
+  {
+    "file": "30-boundary-west-upper-after.png",
+    "sha256": "0649927e1d2c04d16f63780005c58bd9932e186078a41ba8ae0472bea248b340",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      108,
+      1035,
+      439,
+      1280
+    ]
+  },
+  {
+    "file": "30-boundary-west-upper-before-reconstructed.png",
+    "sha256": "bf9fb21d19f60a4de69ca1790895f77981c4e71c60fd91943c1779aaa95ab271",
+    "byte_identical_before": false,
+    "difference_bbox": [
+      108,
+      1035,
+      439,
+      1280
+    ]
+  },
+  {
+    "file": "31-field-Central-edge.png",
+    "sha256": "718d0ae7f7df2f25507be672dc8a16e39601de9f9aacc06d08d44ddffa0d89ee",
+    "new": true
+  },
+  {
+    "file": "31-field-Central-return.png",
+    "sha256": "4edbf35429ce8ebee5a09e858ab6549547a6f75a1fb6d8ff0421b6064b38c603",
+    "new": true
+  },
+  {
+    "file": "31-field-east-corner-out.png",
+    "sha256": "694d2111177ca37a2701ade6ff9242b133e7a796e8a66194c175836e365ab554",
+    "new": true
+  },
+  {
+    "file": "31-field-east-corner-return.png",
+    "sha256": "8f82f5de221b27f7a7a28f8df12bdeb88c411ca5baf0300146befae213daf540",
+    "new": true
+  },
+  {
+    "file": "31-field-East-edge.png",
+    "sha256": "ff9722e4a6cbf60e37501bde3d2f40f01d89fe351ef304cd1ebf6592b41d1841",
+    "new": true
+  },
+  {
+    "file": "31-field-East-return.png",
+    "sha256": "37a1506c2326e56083fa017565933fefd1eea5963bf718055fbf39fda9c3375e",
+    "new": true
+  },
+  {
+    "file": "31-field-fountain-behind.png",
+    "sha256": "dabcb8e01e155f763a7f521a125f6cf9d9d5d055a835d260ac751a113809d63c",
+    "new": true
+  },
+  {
+    "file": "31-field-fountain-front.png",
+    "sha256": "cdb8f883f9d93a332f3f43a320d1f3d922f373d20c62868f5d23e7ca27b29840",
+    "new": true
+  },
+  {
+    "file": "31-field-North-edge.png",
+    "sha256": "16ba0b53ba5649c7c49bd201aabb00ad25e454c7c6b7d62962bb94601b9181db",
+    "new": true
+  },
+  {
+    "file": "31-field-North-return.png",
+    "sha256": "2ddf722f1da935512468ccbb046375412948ef10a052c75615cce1fa061222c6",
+    "new": true
+  },
+  {
+    "file": "31-field-South-edge.png",
+    "sha256": "b6557011b7ffa7e3512f431540c23be45424e99f1089b8ae76a3c8c1ac6205be",
+    "new": true
+  },
+  {
+    "file": "31-field-South-return.png",
+    "sha256": "bbb51bf0c0e3b356ca82c6012f6c6b53882e17e3b41701c27867636a72ecf69d",
+    "new": true
+  },
+  {
+    "file": "31-field-West-edge.png",
+    "sha256": "fa46c75a5817b93cff748ca793a2470a2c227001385f7a993fe561980240c703",
+    "new": true
+  },
+  {
+    "file": "31-field-West-return.png",
+    "sha256": "37088238b4f99e844afc204bf353c281283cb29e56a51b56c104b8c6e92bfbb5",
+    "new": true
+  }
+]

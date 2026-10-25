@@ -1,0 +1,18 @@
+﻿{
+    "before_run":  "20261021-113845-fbcafb0d",
+    "before_revision":  "bd3f357d9da5ac1aa6ab3debe2362131b643a6d7",
+    "candidate_revision":  "871808c3971e18aad8ffbbd30a1ce7de40455ab4",
+    "candidate_apk_sha256":  "6f1d163c6b8a14cf7025399e350e7f88e526f53856dd382f20d08b498beed124",
+    "native_pairs_verified":  102,
+    "visual":  null,
+    "input":  null,
+    "information":  null,
+    "world":  null,
+    "town_density":  null,
+    "merge_fun":  null,
+    "fps":  null,
+    "pixel_load":  null,
+    "pixel_verified":  false,
+    "adopted":  false,
+    "reason":  "Native images require review; Pixel input/performance/save verification pending."
+}

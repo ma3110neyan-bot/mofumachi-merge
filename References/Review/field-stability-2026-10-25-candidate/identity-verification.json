@@ -1,0 +1,73 @@
+{
+  "run": "20261025-153810-fa9b2be9",
+  "build": {
+    "gitRevision": "871808c3971e18aad8ffbbd30a1ce7de40455ab4",
+    "revisionSource": "git-metadata + clean product inputs",
+    "productFingerprint": "a7b8df5b33604230c1be524382bdbaa8e6f6a10d8a600f4e69f54209cd6afda3",
+    "localUnityConfigurationChanges": [
+      "\"Assets/Settings/Build Profiles/Android\\342\\204\\242.asset\"",
+      "Assets/Settings/UniversalRP.asset",
+      "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+      "ProjectSettings/ProjectSettings.asset"
+    ],
+    "nativeCaptureCount": 138,
+    "unity": "6000.6.4f1",
+    "appId": "com.mofumachi.merge.qa.townlife",
+    "versionCode": 1,
+    "apk": "town-life-qa.apk",
+    "sha256": "6f1d163c6b8a14cf7025399e350e7f88e526f53856dd382f20d08b498beed124",
+    "bytes": 118242007,
+    "builtAtUtc": "2026-10-25T06:46:35.6686699Z",
+    "qa": true,
+    "townQa": true
+  },
+  "capture": {
+    "gitRevision": "871808c3971e18aad8ffbbd30a1ce7de40455ab4",
+    "productFingerprint": "a7b8df5b33604230c1be524382bdbaa8e6f6a10d8a600f4e69f54209cd6afda3",
+    "width": 720,
+    "height": 1280,
+    "count": 138,
+    "scope": "Unity fixture renders; not Pixel captures"
+  },
+  "xml": {
+    "editmode.xml": {
+      "id": "2",
+      "testcasecount": "143",
+      "result": "Passed",
+      "total": "143",
+      "passed": "143",
+      "failed": "0",
+      "inconclusive": "0",
+      "skipped": "0",
+      "asserts": "0",
+      "engine-version": "3.5.0.0",
+      "clr-version": "4.0.30319.42000",
+      "start-time": "2026-10-25 06:38:38Z",
+      "end-time": "2026-10-25 06:38:41Z",
+      "duration": "2.5902281"
+    },
+    "playmode.xml": {
+      "id": "2",
+      "testcasecount": "223",
+      "result": "Passed",
+      "total": "223",
+      "passed": "223",
+      "failed": "0",
+      "inconclusive": "0",
+      "skipped": "0",
+      "asserts": "0",
+      "engine-version": "3.5.0.0",
+      "clr-version": "4.0.30319.42000",
+      "start-time": "2026-10-25 06:39:10Z",
+      "end-time": "2026-10-25 06:43:38Z",
+      "duration": "267.6422337"
+    }
+  },
+  "images_verified": 138,
+  "all_manifest_image_sha_bytes_dimensions_decode_verified": true,
+  "all_actual_test_cases_passed": true,
+  "source_matches_current_product_and_test_files": true,
+  "android_build_success_marker_and_apk_size_verified": true,
+  "apk_binary_received": false,
+  "apk_sha_independently_recomputed": false
+}

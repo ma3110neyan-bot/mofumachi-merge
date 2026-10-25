@@ -1,0 +1,23 @@
+Receipt-only verification, 2026-10-25
+
+Actual Windows run: 20261025-153810-fa9b2be9
+Raw143/143 EditMode and223/223 PlayMode cases Passed; failed0/skip0.
+All11 archive receipts/151 original file SHA and bytes verified.
+All138 manifest PNG SHA/bytes/720x1280/decode verified.
+All15 area/Lv overview bytes equal previous actual native run.
+build-info/capture git871808c and product fingerprint agree.
+git diff871808c -- Assets/Mofumachi scripts: empty.
+Original354-file approval manifest LF SHA e70eb353... unchanged.
+Current authorized and historical source bindings: validated by existing gates.
+
+Relevant PowerShell fixture tests, all exit0:
+- stage1-camera-lock.tests.ps1
+- town-boundary-lock.tests.ps1
+- visual-lock.tests.ps1
+- windows-json-encoding.tests.ps1
+
+These local gate checks are not another Unity run or Pixel execution.
+Actual APK bytes not uploaded; raw build-info SHA requires local APK check.
+Native image review complete, visual clearance held due unresolved East canopy usability.
+Pixel, actual save/restart, heat/audio/600seconds and final adoption remain unverified.
+No runtime, art, test source or QA-tool changes. No rebuild required for this receipt.

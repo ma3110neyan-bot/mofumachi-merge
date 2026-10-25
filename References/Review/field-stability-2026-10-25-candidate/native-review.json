@@ -1,0 +1,127 @@
+{
+  "reviewed_on_jst": "2026-10-25",
+  "run": "20261025-153810-fa9b2be9",
+  "native_source_revision": "871808c3971e18aad8ffbbd30a1ce7de40455ab4",
+  "product_fingerprint": "a7b8df5b33604230c1be524382bdbaa8e6f6a10d8a600f4e69f54209cd6afda3",
+  "render_input_digest": "ebe436e8f9d14233aef6f129547dfce5d7bb63d70760421033c08d5e4de1f5d2",
+  "verdict": "eligible_for_conditional_diagnostic_pixel_validation",
+  "native_tests_verified": true,
+  "native_image_inspection_complete": true,
+  "native_visual_cleared": false,
+  "field_stability_passed": false,
+  "user_adopted": false,
+  "formal_base_adopted": false,
+  "pixel_verified": false,
+  "fountain_effects_started": false,
+  "character_trial_started": false,
+  "merge_started": false,
+  "main_merged": false,
+  "native_evidence": {
+    "archive_parts": 11,
+    "original_files": 151,
+    "png_images": 138,
+    "width": 720,
+    "height": 1280,
+    "all_archive_crc_and_manifest_image_sha_bytes_dimensions_decode_verified": true,
+    "editmode": {
+      "total": 143,
+      "passed": 143,
+      "failed": 0,
+      "skipped": 0
+    },
+    "playmode": {
+      "total": 223,
+      "passed": 223,
+      "failed": 0,
+      "skipped": 0
+    },
+    "capture_build_git_revision_and_product_fingerprint_match": true,
+    "five_edges_and_east_corner_return_arrived_without_teleport": true,
+    "native_topmost_ui_hit_and_notice_clearance_passed": true,
+    "fountain_front_and_far_side_sibling_order_assertions_passed": true,
+    "apk_generated": true,
+    "apk_bytes": 118242007,
+    "app_id": "com.mofumachi.merge.qa.townlife",
+    "apk_sha256_from_raw_build_info": "6f1d163c6b8a14cf7025399e350e7f88e526f53856dd382f20d08b498beed124",
+    "apk_binary_received": false,
+    "apk_sha_independently_recomputed": false
+  },
+  "comparison": {
+    "previous_native_source": "e7a80062202312d10b07f65d95708852c9abd87c",
+    "same_name_png_unchanged": 97,
+    "same_name_png_changed": 27,
+    "new_field_frames": 14,
+    "all15_area_lv1_lv3_lv6_overviews_byte_identical": true,
+    "inspection": "All138 frames inspected on private contact sheets; all14 new field frames independently inspected full size. Focused originals checked by primary reviewer. No chat images embedded.",
+    "current_boundary_before_scope": "Current field runtime with curved band disabled only; not a complete historical APK/runtime reconstruction, and not Pixel."
+  },
+  "quality": {
+    "approved_plaza_art_density_growth": "Retained; all15 overview PNGs byte-identical to previous verified native source.",
+    "walking_width_and_geometry": "Runtime source unchanged; no new visual narrowing observed. Actual Pixel input remains pending.",
+    "fountain_front": "Hero visibly in front at front rim; source uses footprint-center depth, not always-front characters.",
+    "fountain_far_side": "Native order assertion passed. Behind still has no hero/fountain silhouette overlap; actual crossing occlusion remains unverified.",
+    "edge_return": "Native walking and input checks passed; this does not establish visible character pixels through raycast-false foreground art.",
+    "floating_field_debug_labels": "No new residual field labels observed in reviewed images; formal UI retained."
+  },
+  "open_acceptance_items": [
+    {
+      "id": "EV1",
+      "severity": "important_acceptance_evidence_limitation",
+      "issue": "East selected-character visibility through retained foreground canopy remains unresolved.",
+      "locations": [
+        {
+          "file": "31-field-East-edge.png",
+          "pixels": "x603-690/y755-812 visible tuft only; face/body/name concealed"
+        },
+        {
+          "file": "31-field-east-corner-out.png",
+          "pixels": "x600-700/y780-955 partly concealed"
+        }
+      ],
+      "new_regression_established": false,
+      "analysis": "Tree at East(1.86,.27), width.72, and scenery depth are retained. Hero behind canopy is consistent with natural Y ordering. Raycast-false scenery can conceal rendered pixels while strict EventSystem topmost hit succeeds. No evidence yet justifies deleting/repositioning art, reducing walkable space or always-front characters.",
+      "action": "With this exact APK, verify East character identification and both tap/drag returns on Pixel. If concealment prevents normal operation, acceptance remains held and a bounded correction is required."
+    },
+    {
+      "id": "EC1",
+      "severity": "minor_device_review_pending",
+      "issue": "Extreme-edge camera exposes exterior ground.",
+      "locations": [
+        {
+          "file": "31-field-West-edge.png",
+          "pixels": "x0-32/y954-1087"
+        },
+        {
+          "file": "31-field-North-edge.png",
+          "pixels": "top exterior ground behind overlays; horizontal boundary around y264"
+        }
+      ],
+      "new_return_failure_established": false,
+      "action": "Evaluate prominence in normal Pixel movement; do not claim all empty ground/material seams resolved."
+    },
+    {
+      "id": "FO1",
+      "severity": "device_acceptance_required",
+      "issue": "Far-side still demonstrates location/order assertion but not overlapping silhouette during natural crossing.",
+      "action": "Walk front -> left/right -> far side -> front on Pixel; confirm natural front/back changes for hero and NPCs."
+    }
+  ],
+  "inherited_carryovers": [
+    "Material contrast at existing North/West/East joins",
+    "Repeated planted perimeter motifs; no blanket seam-clearance claim"
+  ],
+  "independent_review": {
+    "critical": 0,
+    "important": 1,
+    "important_is_confirmed_new_runtime_bug": false,
+    "verdict": "conditional_diagnostic_pixel_validation_existing_apk_only",
+    "report": "independent-review.md"
+  },
+  "limits": [
+    "Isolated Unity fixture captures are not Pixel images or current user-save gameplay.",
+    "No device FPS, heat, audio, ten-minute continuity, real-device touch, save retention or crash-free claim from native evidence.",
+    "APK binary not uploaded; exact local SHA comparison required before install-r.",
+    "Natural retained-tree occlusion is an unresolved usability check, not proof of the original East return deadlock recurring."
+  ],
+  "next": "No Pull/rebuild for this receipt-only update. Locally hash-check existing153810 APK, install-r TownQA on Pixel99RAY1BELH; test fountain crossings, all five edges/continuous travel, East canopy usability, save/restart and600s. Keep all later stages/main stopped."
+}

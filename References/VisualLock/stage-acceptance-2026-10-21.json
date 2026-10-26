@@ -43,7 +43,7 @@
     }
   },
   "remaining_sequence": [
-    "fountain_same_apk_pixel_verification",
+    "fountain_show_same_apk_pixel_verification",
     "fountain_user_approval",
     "representative_character_2p5d_trial",
     "representative_pixel_and_user_approval",
@@ -191,7 +191,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "fountain_show_implementation_native_and_pixel_pending",
+  "current_stage": "fountain_show_native_verified_same_apk_pixel_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -867,8 +867,8 @@
   "field_freeze": "References/VisualLock/town-field-frozen-2026-10-25.json",
   "fountain_water": {
     "implemented": true,
-    "native_unity_verified": false,
-    "qa_apk_generated": false,
+    "native_unity_verified": true,
+    "qa_apk_generated": true,
     "pixel_verified": false,
     "user_approved": false,
     "next_blocked": [
@@ -877,8 +877,12 @@
       "main"
     ],
     "render_input_fingerprint": "f4ddc00d9a104ac275ec2f3baffaa2a9f73d0ec3705a21bb133d600c489a470c",
-    "native_image_inspection_complete": false,
+    "native_image_inspection_complete": true,
     "native_visual_cleared": false,
-    "previous_native_review": "References/Review/fountain-water-2026-10-26-candidate/native-review.json"
+    "previous_native_review": "References/Review/fountain-water-2026-10-26-candidate/native-review.json",
+    "native_run": "20261026-111414-78cde31d",
+    "native_source_revision": "5edfa5db37f1386b811713b43c4833b4cea451ab",
+    "native_review": "References/Review/fountain-show-2026-10-26-candidate/native-review.json",
+    "pixel_instructions": "docs/fountain-show-pixel3a-2026-10-26.md"
   }
 }

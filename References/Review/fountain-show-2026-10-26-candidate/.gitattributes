@@ -1,0 +1,2 @@
+# Preserve uploaded originals exactly; their SHA256 values are recorded.
+native/** -text -diff

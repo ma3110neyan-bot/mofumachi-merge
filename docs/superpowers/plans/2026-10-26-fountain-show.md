@@ -49,7 +49,8 @@ Files:boundedread-onlyPixelmeasurementtool/parser tests ifneeded, docs/verificat
 - [x] Prepare sameAPKPixelmeasurement procedure/tool; neverclaim deviceFPS fromEditor mesh/phase. Unavailabledata staysnull.
 - [x] FullCPU/APIs/PS andonefreshwholechange review; oneImportantfixpass ifnecessary, no secondreview.
 - [x] Preparefeaturehandoff andoneWindowsTownQacommand.
-- [ ] Receive actualnative162/oldBefore3/APKs andPixelFPS/thermal/10minuteacceptance beforeadoption.
+- [x] Receive actualnative162＋oldBefore3,369Passed0failed0skip/source/same-runAPKmetadata and actualcausalshow proof from111414/5edfa5db. One independent image review eligibleforsameAPKPixel, notadoption.
+- [ ] Verify actualAPKbinary/installedidentity andPixelFPS/thermal/10minute/depth/save/useracceptance beforefountainadoption.
 
 ## Ledger
 
@@ -67,3 +68,6 @@ Final: Ruling: inheritedEastconcealment/Northrim/depth concerns declined — pre
 Final: Ruling: existing field capture used scaledFeet＋unscaledHeight, yielding.426worldtopbelowfarfeet.441 although actualenlargedtop.475. Changed only its projectionconsumer to sharedProject(uvY1), retaining strictbodyoverlap andwalkable assertions. Pureheightcheck added; no runtime/nav/assertionrelaxation. AllCPUproductruntime remains identical to full345green; targetedtests/gates/API rerun for test-onlyfix.
 
 Source completion: full345CPU and afterreviewfocused10,API6zero warnings/errors,all14PSfixtures,419filefinalCRLF/f4ddc00d…/historicaldfb2cbc8…passed. Immutable original/frozen/weakcandidate and3BeforeSHA preserved. Commit/push samefeature for clientWindowsQA; no physical/native/adoption claim.
+
+Native receipt2026-10-26:13ZIP185raw,162new＋3actual8aaBefore,144Edit/225Playall369Passedfailed0skip0inconclusive0. CRC/SHA/bytes/dimensions/decode/18sourcebindings pass. BothAPKsource/fingerprint/log/bytesmatch; binarySHAindependentrecompute pending.12noncentraloverviews＋6growthbyteidentical. Ordinarywater923/963/1741pixels;showOFF/ON5061/5056/6387,above-normaljets2344/2361/2345,outside0. NewshowI1isolation defect proved resolved by actualnativepair. Temporalnormal/show aggregate includesotherpose/name/edgechanges; no causal overclaim.
+Native image review:Critical0,newImportantstaticregressions0,inheritedImportant2(Eastcanopy/livefountainsolidbodydepth),Minor2(rigidnewshowstreams/Northrim). Ruling: liveperception/timing/readability andFPS/heat/600s/save/binaryidentity declined — keep same-runPixelgate and do no speculative codechange/rebuild for receipt — costifwrong fountainadoption remainsheld. Userfieldfreeze retained,2.5D/Merge/later/main stopped. Exactinstall/measurement doc:docs/fountain-show-pixel3a-2026-10-26.md.

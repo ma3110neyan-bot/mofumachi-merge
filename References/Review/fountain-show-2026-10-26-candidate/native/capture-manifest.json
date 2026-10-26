@@ -1,0 +1,820 @@
+﻿{
+    "gitRevision":  "5edfa5db37f1386b811713b43c4833b4cea451ab",
+    "productFingerprint":  "1fa608c9c6242e8e8be28efcfa55bdc5b67d014ba380a5ebfd8e191dd4a1219e",
+    "width":  720,
+    "height":  1280,
+    "count":  162,
+    "scope":  "Unity fixture renders; not Pixel captures",
+    "images":  [
+                   {
+                       "file":  "01-merge-start.png",
+                       "bytes":  601711,
+                       "sha256":  "4dffa1c8634a8ad45da2f56b45c4b0ed4dffeb8c1bff5cb5fdb8c97db39c2ada"
+                   },
+                   {
+                       "file":  "02-merge-all-items.png",
+                       "bytes":  730928,
+                       "sha256":  "177cf235169ec41dd7f3bf3cf5b55f9dacd9d366f0f5ff09225bb6976d5318e4"
+                   },
+                   {
+                       "file":  "03-merge-selection.png",
+                       "bytes":  728915,
+                       "sha256":  "1f54752797e2be29e6b83ae172f67a25a90219c3b48f1993df8c7b8de4f9ee57"
+                   },
+                   {
+                       "file":  "04-town-lv1-Central.png",
+                       "bytes":  1817509,
+                       "sha256":  "053f70c0a48e70d17e6bf9bab381d905247d1af5be15b73a68625f6649c26e3d"
+                   },
+                   {
+                       "file":  "04-town-lv1-East.png",
+                       "bytes":  1759987,
+                       "sha256":  "706468c4ca640e2e38706c9b1088af691e12710bd70788c53fe3db4c23a15bd1"
+                   },
+                   {
+                       "file":  "04-town-lv1-North.png",
+                       "bytes":  1747194,
+                       "sha256":  "7a2b287c03b17f66e2bf69c0d0fb8f3591151936feabda1581d2b01b6dbd7a73"
+                   },
+                   {
+                       "file":  "04-town-lv1-South.png",
+                       "bytes":  1772949,
+                       "sha256":  "e84fd945b6c511910e90f50a0546f775e592aa2aadeb61b5b41b54b09296f12a"
+                   },
+                   {
+                       "file":  "04-town-lv1-West.png",
+                       "bytes":  1753774,
+                       "sha256":  "8bdb1c50c31c92a3171002c03a0558101ab8ee2b0a64d5c64f623ed736fc1796"
+                   },
+                   {
+                       "file":  "04-town-lv3-Central.png",
+                       "bytes":  1831481,
+                       "sha256":  "32151cf08c835fbcd12e87c0c2afbe8a25aa2b312be0c066908820360191a673"
+                   },
+                   {
+                       "file":  "04-town-lv3-East.png",
+                       "bytes":  1764614,
+                       "sha256":  "ea0b70ee3209cc8bc7d7aa1c9f0653f8f6450d9cbea08d13d1bb66c59be0d878"
+                   },
+                   {
+                       "file":  "04-town-lv3-North.png",
+                       "bytes":  1764402,
+                       "sha256":  "b0b45398d3bc7a2b809c1e73e2fb4e7a948a9b2de3be3c5c032f0879ed5b7ea7"
+                   },
+                   {
+                       "file":  "04-town-lv3-South.png",
+                       "bytes":  1784425,
+                       "sha256":  "5c6a41f50e4e9dc4e509c3403d465268360afbef6d72b8f8543d6f8132aac1ac"
+                   },
+                   {
+                       "file":  "04-town-lv3-West.png",
+                       "bytes":  1755801,
+                       "sha256":  "96b82e3b632349528a7c5fa3c4bf9487fd88b2b30a973dbe5eba55cda8965ae1"
+                   },
+                   {
+                       "file":  "04-town-lv6-Central.png",
+                       "bytes":  1838774,
+                       "sha256":  "ce89a13743f5af5388e4cdef917dd690a97bc80dc0684d16b45d4e348e6f4965"
+                   },
+                   {
+                       "file":  "04-town-lv6-East.png",
+                       "bytes":  1777874,
+                       "sha256":  "5ee01d27dc4f2cad77c0d36c0aacb5a9bde716c576cebc1d2adfb0a949c78818"
+                   },
+                   {
+                       "file":  "04-town-lv6-North.png",
+                       "bytes":  1787305,
+                       "sha256":  "9353cf08c8c5b42868b2bac1983b1eb1e7783b1f3b020e17cb647157912900ec"
+                   },
+                   {
+                       "file":  "04-town-lv6-South.png",
+                       "bytes":  1785441,
+                       "sha256":  "19bca63c639dbe3804d08b5703b50a00296fd6628a99a4f466f392d0eb761943"
+                   },
+                   {
+                       "file":  "04-town-lv6-West.png",
+                       "bytes":  1766566,
+                       "sha256":  "80a823284f999dd4b6d3551a962bd94af3c20f5840bd62c6ca71066693328ea0"
+                   },
+                   {
+                       "file":  "05-street-selected.png",
+                       "bytes":  1729724,
+                       "sha256":  "e530c0a8f202ca77097e1692bfe0dfd90f9ae8afe35167e0755158d0cc5daede"
+                   },
+                   {
+                       "file":  "06-walking-00.png",
+                       "bytes":  1924840,
+                       "sha256":  "384457f5060a9f98129b4ebd71dbf1675df41cc38414220fa90ed42c2d81f9e4"
+                   },
+                   {
+                       "file":  "06-walking-01.png",
+                       "bytes":  1924230,
+                       "sha256":  "40f2c23202df4fe0ffad40c470cc80cf0c5fa596eb3f99d18d0e88769c00c2e5"
+                   },
+                   {
+                       "file":  "06-walking-02.png",
+                       "bytes":  1923090,
+                       "sha256":  "68344cbec08afd6c3db49425e669e56b63f591efdd4e3904a88107b2811a41c0"
+                   },
+                   {
+                       "file":  "06-walking-03.png",
+                       "bytes":  1922239,
+                       "sha256":  "04b206ae7b2a7f6e69dacc0c2a18ee024d4317d0c31776dba3ce8c9cfa6aa546"
+                   },
+                   {
+                       "file":  "06-walking-04.png",
+                       "bytes":  1920419,
+                       "sha256":  "bf560befcb60c809b5e0fd54efe146824818afdd032585170a9758f66fa6aac4"
+                   },
+                   {
+                       "file":  "06-walking-05.png",
+                       "bytes":  1922774,
+                       "sha256":  "bc664473a9227b5a3fda38bd92591c253fb4b433d76446befac8a2ced16c12cc"
+                   },
+                   {
+                       "file":  "06-walking-06.png",
+                       "bytes":  1922837,
+                       "sha256":  "12fceae8577656166bad1a1073402703d4ad379d741bb26498b00e76ef394313"
+                   },
+                   {
+                       "file":  "06-walking-07.png",
+                       "bytes":  1923860,
+                       "sha256":  "fcd54b2d7e6839228075f8d0f2d8242b6950239a7c6f54c1f413f3d7336c79b4"
+                   },
+                   {
+                       "file":  "07-quest-story-goal.png",
+                       "bytes":  557001,
+                       "sha256":  "57ea491a94f8388789ee6e00eef3dc5641b6d605c0b36817f33dcee97822df2b"
+                   },
+                   {
+                       "file":  "08-music-selection.png",
+                       "bytes":  587579,
+                       "sha256":  "1c0d4254c56819386a7f81770c7f89fd60c5901d9ab9ad0839f818cedc875897"
+                   },
+                   {
+                       "file":  "09-connected-path-east.png",
+                       "bytes":  1796596,
+                       "sha256":  "17c8dcb6f5c817709a7f590734c50861eea9fadd41f2be853320a0ec45bc7ff7"
+                   },
+                   {
+                       "file":  "09-connected-path-north.png",
+                       "bytes":  1870981,
+                       "sha256":  "6e740dca1631882c74c1ccb25cfa813ec95e273007fffd69655fa7f0dd3b4274"
+                   },
+                   {
+                       "file":  "09-connected-path-south.png",
+                       "bytes":  1805898,
+                       "sha256":  "cb452475758939e2406fc230bda1fd80e74c6c4b03398c8fcfc390fb106d8fd7"
+                   },
+                   {
+                       "file":  "09-connected-path-west.png",
+                       "bytes":  1814711,
+                       "sha256":  "7eef8b73d3ffb9ee58b8ad0e5a1462aba256c5f32e0c1f7daacdd46487cc3e0c"
+                   },
+                   {
+                       "file":  "10-book-discovery-details.png",
+                       "bytes":  569808,
+                       "sha256":  "4ff9b3403155cb63579a0e3cc2d68b5e327ea8c9af32497b27f02b401af83db1"
+                   },
+                   {
+                       "file":  "10-book-fio.png",
+                       "bytes":  628843,
+                       "sha256":  "33fdfef255be08571d1857c3149d1735be3d4b954b55cfa823e076185589f4a2"
+                   },
+                   {
+                       "file":  "10-book-lulu.png",
+                       "bytes":  626283,
+                       "sha256":  "3669a9486fedc18162309c1239d29cc5e6d108b3ab7488564823442a34fee061"
+                   },
+                   {
+                       "file":  "10-book-miel.png",
+                       "bytes":  632987,
+                       "sha256":  "e4da1672e6c6eefc27695d84ff25905d8496440e1592ec14344b5a3e9ac2fce3"
+                   },
+                   {
+                       "file":  "10-book-momo.png",
+                       "bytes":  642058,
+                       "sha256":  "27b3ccc53f751be1eaf556d7244e1f4be51f3177b48c184df0a9057d23d3e725"
+                   },
+                   {
+                       "file":  "10-book-noah.png",
+                       "bytes":  634855,
+                       "sha256":  "c86e04a8231119b43f4ce341bfdc8dcfb2ef1d24c8d55dba742243c2ef95d9bb"
+                   },
+                   {
+                       "file":  "10-book-pom.png",
+                       "bytes":  622743,
+                       "sha256":  "2794480f7118de797db678490bc18fe7da9c11b7380ec799a30e303cbb810320"
+                   },
+                   {
+                       "file":  "11-today-start.png",
+                       "bytes":  422337,
+                       "sha256":  "3d8b66cb7a8ce5acc5ebbc713df186e9cea054166682e0e533dc3dc1197ddbee"
+                   },
+                   {
+                       "file":  "12-today-ready.png",
+                       "bytes":  424796,
+                       "sha256":  "ae0122d6fe5c9392fe27bc01c80f3876157db511a1610ce91e8bb445b1aecda1"
+                   },
+                   {
+                       "file":  "13-today-flower-collected.png",
+                       "bytes":  427629,
+                       "sha256":  "78d6e5f2433fb726e656adf0b2ab2976aba0d087b26bbabc1b26e3b7a42b7bab"
+                   },
+                   {
+                       "file":  "14-finale-still-has-daily-goals.png",
+                       "bytes":  1839986,
+                       "sha256":  "c928ebeed2ff266134c4150870b2df7f3c14b9aecaaeda28866d5231d1906412"
+                   },
+                   {
+                       "file":  "15-wide-park-left.png",
+                       "bytes":  1847430,
+                       "sha256":  "e6232b1fb4081ce4545195d381568a09e477ee7b4929fa40a2ae3aa52a9dc9df"
+                   },
+                   {
+                       "file":  "15-wide-park-right.png",
+                       "bytes":  1840159,
+                       "sha256":  "40225561d61f509eabb64c940509998244a8a2b5e871ff48cd30de71d1c1f31d"
+                   },
+                   {
+                       "file":  "16-residents-passing-00.png",
+                       "bytes":  1912003,
+                       "sha256":  "535604759999ba27d732813f2468c6eabf44d86f84287fed4db9d51e504679c9"
+                   },
+                   {
+                       "file":  "16-residents-passing-01.png",
+                       "bytes":  1924015,
+                       "sha256":  "ee539c820bdfed9386ae8a27c216faa6dca29b76fd73efe7e3b81560f49b979c"
+                   },
+                   {
+                       "file":  "16-residents-passing-02.png",
+                       "bytes":  1932149,
+                       "sha256":  "0fe4d7b80b87fff836f8a7154c02864e45218dbcfc15b5279d6e3af16434c67a"
+                   },
+                   {
+                       "file":  "16-residents-passing-03.png",
+                       "bytes":  1922414,
+                       "sha256":  "8732ed0e9d205278a0e2598420a709f0faf0618129547d0cb189e2382ec97fce"
+                   },
+                   {
+                       "file":  "17-finger-follow-00.png",
+                       "bytes":  1936702,
+                       "sha256":  "743aea643d53b55389e0a7174cff67afc45c7520a60af16575a716b884675ee3"
+                   },
+                   {
+                       "file":  "17-finger-follow-01.png",
+                       "bytes":  1922602,
+                       "sha256":  "c283d93a369d9c69ce2875bf19ed11344f9b930bafdc0798ba1f770b33ff8f9b"
+                   },
+                   {
+                       "file":  "17-finger-follow-02.png",
+                       "bytes":  1911765,
+                       "sha256":  "9bd93ddaaf7f0ceed979f7a9e05f8098b1a1fddbc2c8496cce5ce6c6c31012c5"
+                   },
+                   {
+                       "file":  "17-finger-released.png",
+                       "bytes":  1708057,
+                       "sha256":  "0545852e6704bf30410b75700cbb4f69b2c4197dac2ecb04fe381ecf8954422d"
+                   },
+                   {
+                       "file":  "18-continuous-walk-central.png",
+                       "bytes":  1807379,
+                       "sha256":  "c6b777620d97d7d3ae66ca05df3b68999c6a007ce0501bc87541625c9fb4e334"
+                   },
+                   {
+                       "file":  "18-continuous-walk-east.png",
+                       "bytes":  1749584,
+                       "sha256":  "f2a7a3cc66433008c0ca03f7884eb8e4b019dfc0ac4bd59913e2c650aceb759a"
+                   },
+                   {
+                       "file":  "18-continuous-walk-east-join.png",
+                       "bytes":  1771749,
+                       "sha256":  "5296d05048110834b314fc7456b4c07a38a5cefe2163f75739c2443c6fbe721f"
+                   },
+                   {
+                       "file":  "18-continuous-walk-west.png",
+                       "bytes":  1737821,
+                       "sha256":  "b02bbb4dac35f46e4afa9c0d15e412560434af7457635db713b9da87b368d053"
+                   },
+                   {
+                       "file":  "18-continuous-walk-west-join.png",
+                       "bytes":  1788125,
+                       "sha256":  "11eab6bd01366d02f1fc5c8b1845354c4f6756d48de495cd09a728d8d2e8b72b"
+                   },
+                   {
+                       "file":  "19-book-discovery-first-page.png",
+                       "bytes":  717079,
+                       "sha256":  "72bc21da2ea73a9eab8ef13d0952f6251e3a74069b4d2c0a961bea53195ec20b"
+                   },
+                   {
+                       "file":  "19-book-new-in-town.png",
+                       "bytes":  1660333,
+                       "sha256":  "2de8a16d3ee7afed119774d3a3b40c20c49a7211829162504a5a9a04c3a499ac"
+                   },
+                   {
+                       "file":  "20-quest-arrived-door-prompt.png",
+                       "bytes":  1752959,
+                       "sha256":  "a7948b8ccc78c071a86de3aef2ebbe2d210126d53d96d3b309f6229705480b6c"
+                   },
+                   {
+                       "file":  "20-quest-cabin.png",
+                       "bytes":  1796305,
+                       "sha256":  "1c58f196d68d00e13190bf49b5ca7468fd5942d9b5bb6cc8be959b39c661c711"
+                   },
+                   {
+                       "file":  "20-quest-door-opening.png",
+                       "bytes":  1745736,
+                       "sha256":  "8918d87d263fbe867a65a1739794653389d25dc799bccad27a604c4bb1506707"
+                   },
+                   {
+                       "file":  "20-quest-inside.png",
+                       "bytes":  503472,
+                       "sha256":  "c810f5ee15a16a9731190ff5ca0e4bbc76edb1b04732cbb624d0bdb0ca14098d"
+                   },
+                   {
+                       "file":  "20-quest-walking.png",
+                       "bytes":  1829258,
+                       "sha256":  "44e8397a443d6b709a2cd023d601c411b6f17e1ac66f9b4c5eca1524264c864e"
+                   },
+                   {
+                       "file":  "21b-cafe-arrived-door-prompt.png",
+                       "bytes":  1732872,
+                       "sha256":  "aee047edcdb6af4b2105050b96a328fa41b58c373c66e4bfc5104ac5ae5b386b"
+                   },
+                   {
+                       "file":  "21b-cafe-cabin.png",
+                       "bytes":  1774936,
+                       "sha256":  "00b1d8f19a6d3a5520a0a08d942524287ea1ea857d40c191cfd3a32a244fde88"
+                   },
+                   {
+                       "file":  "21b-cafe-door-opening.png",
+                       "bytes":  1727538,
+                       "sha256":  "a80e547977419c5bd0506ce6480b8b1e6f711d89a728111e98e0409f2655f2a0"
+                   },
+                   {
+                       "file":  "21b-cafe-inside.png",
+                       "bytes":  581444,
+                       "sha256":  "300e1db7b6e38aa600d737231c2a1b9c7a8423b2f290eb3df5aab1785fa203ca"
+                   },
+                   {
+                       "file":  "21b-cafe-walking.png",
+                       "bytes":  1821749,
+                       "sha256":  "ee794c1fc08ca1fdeba121ec3cce78e49b509fbf9cfcab6273a592cba98c60d0"
+                   },
+                   {
+                       "file":  "21-shop-arrived-door-prompt.png",
+                       "bytes":  1627747,
+                       "sha256":  "1f5049103be05bf5a07ad6648bd6429d21081479fd5917942269ac60605a72e8"
+                   },
+                   {
+                       "file":  "21-shop-cabin.png",
+                       "bytes":  1789547,
+                       "sha256":  "4fdb0d3b8043c4743f898edd137eff4b07f125a1f07bbb765115db9b04bd7d97"
+                   },
+                   {
+                       "file":  "21-shop-door-opening.png",
+                       "bytes":  1620141,
+                       "sha256":  "af13ca85e7ca6831c390a192564105de7f21147b44004d8d343831de5e1553ee"
+                   },
+                   {
+                       "file":  "21-shop-inside.png",
+                       "bytes":  633399,
+                       "sha256":  "ef7ace750617e03e366cec1b7c6cab53355bce46e964afbba4188d664fbfa54b"
+                   },
+                   {
+                       "file":  "21-shop-walking.png",
+                       "bytes":  1843309,
+                       "sha256":  "ca6c478bf70d69afe45f15461c8f0e9f390002e97590a4c5665ea8ffbcc15b8b"
+                   },
+                   {
+                       "file":  "22-merge-candidates.png",
+                       "bytes":  593448,
+                       "sha256":  "a306cac1d08497fd5cbd201cbd524d4f032df2405290aade0b60c4b8586acf15"
+                   },
+                   {
+                       "file":  "22-title-candidates.png",
+                       "bytes":  581407,
+                       "sha256":  "45751c74775e82f5ad93d0578fffaebb9ea74e29b9d774c5c9aa570ee97182c5"
+                   },
+                   {
+                       "file":  "23-merge-picnic.png",
+                       "bytes":  730659,
+                       "sha256":  "009d1e7176db67243f7cc696b2cd439ae4fbb46f429ddd836e9566a99215fad7"
+                   },
+                   {
+                       "file":  "23-merge-pop-promenade.png",
+                       "bytes":  730659,
+                       "sha256":  "009d1e7176db67243f7cc696b2cd439ae4fbb46f429ddd836e9566a99215fad7"
+                   },
+                   {
+                       "file":  "23-merge-ribbon.png",
+                       "bytes":  730659,
+                       "sha256":  "009d1e7176db67243f7cc696b2cd439ae4fbb46f429ddd836e9566a99215fad7"
+                   },
+                   {
+                       "file":  "23-title-garden.png",
+                       "bytes":  1568042,
+                       "sha256":  "9874ab529e0684ebb003c22f5d3b1a8ca6cc9be15ab63f70764c58bbe8c09c51"
+                   },
+                   {
+                       "file":  "23-title-letter.png",
+                       "bytes":  1568042,
+                       "sha256":  "9874ab529e0684ebb003c22f5d3b1a8ca6cc9be15ab63f70764c58bbe8c09c51"
+                   },
+                   {
+                       "file":  "24-home-unobstructed.png",
+                       "bytes":  1845902,
+                       "sha256":  "4c1b15702e9a53885c47d630ca61a79c5f05d37f00031335bb6712d04b35f471"
+                   },
+                   {
+                       "file":  "24-menu-open.png",
+                       "bytes":  385632,
+                       "sha256":  "95a02e880b90d657c526a4c82a271c89a98999846cad6758181add53e6187ae4"
+                   },
+                   {
+                       "file":  "24-menu-return.png",
+                       "bytes":  1845575,
+                       "sha256":  "92eefa329b5ac78723d9862b4bd82aff31d0828867382e3627ef8696e4f95158"
+                   },
+                   {
+                       "file":  "25-character-behind-fountain.png",
+                       "bytes":  1872346,
+                       "sha256":  "fc9a9d4cb6808e30c4d44f6dd3a7f7fffa9fd6c05d7ea6c0c344adcf393ce2e5"
+                   },
+                   {
+                       "file":  "25-character-greeting.png",
+                       "bytes":  1916633,
+                       "sha256":  "3de4e0313d8335ec80e63dc640dfc39d3105c02ede75e72726bc3dca155aa9b9"
+                   },
+                   {
+                       "file":  "25-character-idle.png",
+                       "bytes":  1845668,
+                       "sha256":  "23967b621d9dcfed54e51c2f24f26901c42b84382f09bd38e933f830ca69f3a4"
+                   },
+                   {
+                       "file":  "25-character-in-front-fountain.png",
+                       "bytes":  1840700,
+                       "sha256":  "19391497d21c36011711f1ae8038bd272561760e623438505f6db3ed10d08beb"
+                   },
+                   {
+                       "file":  "25-character-step-a.png",
+                       "bytes":  1929989,
+                       "sha256":  "7589230fcbda6bdf893d935d3f800d6c496ceea00fb90d1eb608095388a6c3ab"
+                   },
+                   {
+                       "file":  "25-character-step-b.png",
+                       "bytes":  1917627,
+                       "sha256":  "767aa45df4be9defb7d584e0682d49ecd2b6e026740545650922527e51eb7e3d"
+                   },
+                   {
+                       "file":  "26-cardinal-North-arrival.png",
+                       "bytes":  1797188,
+                       "sha256":  "93609436df70cf8c0e8217cd5502fd1a07ae6932c6efc15cb763b7d334e15e3d"
+                   },
+                   {
+                       "file":  "26-cardinal-North-join.png",
+                       "bytes":  1902060,
+                       "sha256":  "ebda2ca41d2f6a06a435f5dad17d23245dcd399547637b4b74757d596db3d480"
+                   },
+                   {
+                       "file":  "26-cardinal-South-arrival.png",
+                       "bytes":  1791433,
+                       "sha256":  "a9234817549c71abdb6e73cf96eca14c2c333b198f14a53eac5fff3e5923820f"
+                   },
+                   {
+                       "file":  "26-cardinal-South-join.png",
+                       "bytes":  1887902,
+                       "sha256":  "06762c2b99923db74e36ac306681e54cce4bad901bbbc4b54d6c5591a91ac2d9"
+                   },
+                   {
+                       "file":  "27-merge-finale-live-purpose.png",
+                       "bytes":  733019,
+                       "sha256":  "4b11f4931f13b4e73cc934660c2d417f600707363abc7ce272402c475bd495a2"
+                   },
+                   {
+                       "file":  "28-meet-friend-arrived.png",
+                       "bytes":  1675281,
+                       "sha256":  "0b3be493d57ee787509b3889cfe07eb03aceee63d8e2b61a24546c6cc3888eab"
+                   },
+                   {
+                       "file":  "28-meet-friend-walking.png",
+                       "bytes":  1869858,
+                       "sha256":  "95a1e3b86ea347b5c5c6388cc442f71425db137d2bd2e71dcbaffdc41666176f"
+                   },
+                   {
+                       "file":  "29-merge-drag-lift.png",
+                       "bytes":  749319,
+                       "sha256":  "0c1cb45941a9fe8edc263330859bcf88532a8dd66d3de4d3106940807a328dc4"
+                   },
+                   {
+                       "file":  "29-merge-drag-match.png",
+                       "bytes":  738630,
+                       "sha256":  "45e72fc3f04043982c2d2562d94bcaa8d5b8ee4671d981fbbb7c1e7ee0397fb4"
+                   },
+                   {
+                       "file":  "29-merge-landed.png",
+                       "bytes":  727780,
+                       "sha256":  "f35f0f578bfa3d7c91f06d48916e3306471eb4a93a044e6adb46e2646fd64c25"
+                   },
+                   {
+                       "file":  "30-boundary-east-join-after.png",
+                       "bytes":  1807797,
+                       "sha256":  "7f983a48bee6efc8d9ffc09667463bf32b029807d9236921444554456342447b"
+                   },
+                   {
+                       "file":  "30-boundary-east-join-before-reconstructed.png",
+                       "bytes":  1807797,
+                       "sha256":  "7f983a48bee6efc8d9ffc09667463bf32b029807d9236921444554456342447b"
+                   },
+                   {
+                       "file":  "30-boundary-east-lower-after.png",
+                       "bytes":  1793478,
+                       "sha256":  "dd3faef613b8bf17614d50d4ea7ab2deb59c7bcd9bb98f2bd4ca37d182c3f4a2"
+                   },
+                   {
+                       "file":  "30-boundary-east-lower-before-reconstructed.png",
+                       "bytes":  1790080,
+                       "sha256":  "c6ce985c35f4e5bdb17cbae47ca7469d698f17dae6ce97a59b67dffbb889c8ac"
+                   },
+                   {
+                       "file":  "30-boundary-east-upper-after.png",
+                       "bytes":  1848184,
+                       "sha256":  "f42273768adc0d2ef002a6eaf1a19e50ac60e68d24353265b8b224c482d4ddea"
+                   },
+                   {
+                       "file":  "30-boundary-east-upper-before-reconstructed.png",
+                       "bytes":  1848066,
+                       "sha256":  "b0ad1414cccb3b18b7532284b921ff9ffc6c54983964207f800ae85f889a8d27"
+                   },
+                   {
+                       "file":  "30-boundary-north-left-after.png",
+                       "bytes":  1859054,
+                       "sha256":  "421ed754857e5937c820e2d3982f180dd8e9b1c3febe7166b769ec7d70eaffdc"
+                   },
+                   {
+                       "file":  "30-boundary-north-left-before-reconstructed.png",
+                       "bytes":  1853641,
+                       "sha256":  "e0fa35f49c01e416b2cd61f57fe6da57d1ad7641d548af9cc221ad30d711d195"
+                   },
+                   {
+                       "file":  "30-boundary-north-right-after.png",
+                       "bytes":  1861499,
+                       "sha256":  "595fed2e062e87b6bdb451292b21ca08d517fd4934239a55fc4accfeb9e2a0ec"
+                   },
+                   {
+                       "file":  "30-boundary-north-right-before-reconstructed.png",
+                       "bytes":  1861339,
+                       "sha256":  "fbf20f29e242a6bfb1e5f2082ffd5beb16ea1ab8824dce59d8e98917cc259cf5"
+                   },
+                   {
+                       "file":  "30-boundary-south-entry-after.png",
+                       "bytes":  1807133,
+                       "sha256":  "60934b770f23d35d621102400650516597968291e30d8f3ea08eb890abb77bba"
+                   },
+                   {
+                       "file":  "30-boundary-south-entry-before-reconstructed.png",
+                       "bytes":  1807133,
+                       "sha256":  "60934b770f23d35d621102400650516597968291e30d8f3ea08eb890abb77bba"
+                   },
+                   {
+                       "file":  "30-boundary-south-left-after.png",
+                       "bytes":  1825827,
+                       "sha256":  "7074f5022d6262173af485fcd00ee36bac7873ea95ee1acb2bc3d57bed280c71"
+                   },
+                   {
+                       "file":  "30-boundary-south-left-before-reconstructed.png",
+                       "bytes":  1824427,
+                       "sha256":  "1f6ed458f7b4b6fb71ae273a17d34a676e6d79bd0ce4f57030b433deb77ddca4"
+                   },
+                   {
+                       "file":  "30-boundary-south-right-after.png",
+                       "bytes":  1791766,
+                       "sha256":  "03944866a6278581ff5f755f20525ba2a3728b6b684e27ea4b0b38396e647d5a"
+                   },
+                   {
+                       "file":  "30-boundary-south-right-before-reconstructed.png",
+                       "bytes":  1790284,
+                       "sha256":  "11b2b22c05646874912d754acf83a1d2af789b897d7646b4fbd9a7b2d7243a89"
+                   },
+                   {
+                       "file":  "30-boundary-west-join-after.png",
+                       "bytes":  1817298,
+                       "sha256":  "7e3f89af0d907cc5f792ffe8c662a375e96335fcfc6c4ef03abfeaa7c5fdfb7a"
+                   },
+                   {
+                       "file":  "30-boundary-west-join-before-reconstructed.png",
+                       "bytes":  1817298,
+                       "sha256":  "7e3f89af0d907cc5f792ffe8c662a375e96335fcfc6c4ef03abfeaa7c5fdfb7a"
+                   },
+                   {
+                       "file":  "30-boundary-west-lower-after.png",
+                       "bytes":  1817114,
+                       "sha256":  "c1b9e9ba88abdac1231cc045cbe2a9f4805c379a27f34381b64482a2e27a5c15"
+                   },
+                   {
+                       "file":  "30-boundary-west-lower-before-reconstructed.png",
+                       "bytes":  1813437,
+                       "sha256":  "e804bacbb3a6c05eb7d8f48a829caa0940645b302cef76943b896fbe7ac5829f"
+                   },
+                   {
+                       "file":  "30-boundary-west-upper-after.png",
+                       "bytes":  1842543,
+                       "sha256":  "0649927e1d2c04d16f63780005c58bd9932e186078a41ba8ae0472bea248b340"
+                   },
+                   {
+                       "file":  "30-boundary-west-upper-before-reconstructed.png",
+                       "bytes":  1838379,
+                       "sha256":  "bf9fb21d19f60a4de69ca1790895f77981c4e71c60fd91943c1779aaa95ab271"
+                   },
+                   {
+                       "file":  "31-field-Central-edge.png",
+                       "bytes":  1729162,
+                       "sha256":  "7c89651764a9f766231ac26c5419c963f83cb13b5bdb2fa87da60e5f84a1c2a8"
+                   },
+                   {
+                       "file":  "31-field-Central-return.png",
+                       "bytes":  1599150,
+                       "sha256":  "742168e4fdf3639aa93ea90623fa7d0a400ff864f394bd73b469fa1e034f0cb3"
+                   },
+                   {
+                       "file":  "31-field-east-corner-out.png",
+                       "bytes":  1733938,
+                       "sha256":  "1c2cc203ba6c55c3cbb31b48fd608f0b337f81967f50e4972b1ce94f4b65c597"
+                   },
+                   {
+                       "file":  "31-field-east-corner-return.png",
+                       "bytes":  1556284,
+                       "sha256":  "f8aabec2761d6df0817f32198cea9db748ffb06c4ad491687b30adb06dd57aab"
+                   },
+                   {
+                       "file":  "31-field-East-edge.png",
+                       "bytes":  1749870,
+                       "sha256":  "6d25ad013cb2404aa0e3eb3080364b856c8f5f6edaf03f198b710fb3ffaf2cc7"
+                   },
+                   {
+                       "file":  "31-field-East-return.png",
+                       "bytes":  1615715,
+                       "sha256":  "72ad8592d3fd1959d1f2c50f4b17ab08f516837dd0edf0a02322ef05fa4ebde7"
+                   },
+                   {
+                       "file":  "31-field-fountain-behind.png",
+                       "bytes":  1767003,
+                       "sha256":  "a51de367b3cca035efe926be46a70bf3a85bb7a71eaa151908d57fd50a8af64e"
+                   },
+                   {
+                       "file":  "31-field-fountain-front.png",
+                       "bytes":  1729928,
+                       "sha256":  "07d9f491a917737227d56f58c9e7eb31faff81425d6164ee47adabbe837052a2"
+                   },
+                   {
+                       "file":  "31-field-North-edge.png",
+                       "bytes":  1672626,
+                       "sha256":  "7ae6c7e3668d78deca43038c436aa37c83924910fac10ffbe3886711b486750d"
+                   },
+                   {
+                       "file":  "31-field-North-return.png",
+                       "bytes":  1604078,
+                       "sha256":  "e216185c3ddf4bfa7acb1ecd6c6412fbf68ac82dc0e633f5db81bea4bae1a9e4"
+                   },
+                   {
+                       "file":  "31-field-South-edge.png",
+                       "bytes":  1651714,
+                       "sha256":  "e9a5fd3f731dd97e75864148c301d43c7306da0c01ba7866e52f395b44599e2d"
+                   },
+                   {
+                       "file":  "31-field-South-return.png",
+                       "bytes":  1607757,
+                       "sha256":  "62779450ff748fadd33a8f2a317ef439250447e4cc6a379c27b2509feb7db6b3"
+                   },
+                   {
+                       "file":  "31-field-West-edge.png",
+                       "bytes":  1738879,
+                       "sha256":  "80ba591f9efe68f68040d7e5b5e3b675e112e4663c6697c39ff5ffc6e9386eb2"
+                   },
+                   {
+                       "file":  "31-field-West-return.png",
+                       "bytes":  1604545,
+                       "sha256":  "363438232ef0f7f05c04f36c204d6389c36bdc129a12f75d34f93df754d5efb1"
+                   },
+                   {
+                       "file":  "32-growth-1-to-2.png",
+                       "bytes":  668659,
+                       "sha256":  "29ddb129f029c96ccfa45a005a41b8dead684166e144803cda1e302d4fff2eb2"
+                   },
+                   {
+                       "file":  "32-growth-2-reloaded.png",
+                       "bytes":  1774643,
+                       "sha256":  "1f26c0451a1abb4cbc7994a9a67dab0b3a1378e46f974b073340a23b75c8cfc6"
+                   },
+                   {
+                       "file":  "32-growth-2-to-3.png",
+                       "bytes":  672567,
+                       "sha256":  "30886cbef38007ad0a642e2a768fc0387de1a13af337723c4ac2fed06ed13fee"
+                   },
+                   {
+                       "file":  "32-growth-3-reloaded.png",
+                       "bytes":  1784914,
+                       "sha256":  "86690442e1cbd5a356d7b061bed8f5dd7926c44c7f26c2682108d782096d39f5"
+                   },
+                   {
+                       "file":  "32-growth-5-to-6.png",
+                       "bytes":  716822,
+                       "sha256":  "84ff2cce60e23d59e0d4354b2eb9253a3aff4537a7e609b49303a61dd85f7db0"
+                   },
+                   {
+                       "file":  "32-growth-6-reloaded.png",
+                       "bytes":  1785864,
+                       "sha256":  "9ed9a62686633b8e288ac0073b3daf18ea05c269369860cce117d48613b3fc07"
+                   },
+                   {
+                       "file":  "33-fountain-behind-after.png",
+                       "bytes":  1738334,
+                       "sha256":  "04994e038bb45943c7a6a62a0b0ae608e78b5bad21aea837648a04872c0d7629"
+                   },
+                   {
+                       "file":  "33-fountain-behind-before.png",
+                       "bytes":  1738480,
+                       "sha256":  "c55b63f5e848b7325a3940e4f532079c7b1e47f8af365d9d28c2dcb8be08c6bc"
+                   },
+                   {
+                       "file":  "33-fountain-front-after.png",
+                       "bytes":  1729207,
+                       "sha256":  "8a28d84dbb425ae152dcf95fbc86d72cb5dc04607171b95137860790c1cf7b4c"
+                   },
+                   {
+                       "file":  "33-fountain-front-before.png",
+                       "bytes":  1729272,
+                       "sha256":  "9caf61df12ecda9287a36c16ec96a34900a11f54b8816e7b80ffa5898d0967a5"
+                   },
+                   {
+                       "file":  "33-fountain-overview-after.png",
+                       "bytes":  1732638,
+                       "sha256":  "7cb3f140649e594c0c20a4ba3b586201ba2ac0b60fa6b18fa2014f8aa44641db"
+                   },
+                   {
+                       "file":  "33-fountain-overview-before.png",
+                       "bytes":  1732691,
+                       "sha256":  "8bd5235d7851efac6e9f0db7079a10b53ce83600fc13b101df867ab035343977"
+                   },
+                   {
+                       "file":  "33-fountain-phase-00.png",
+                       "bytes":  1738334,
+                       "sha256":  "04994e038bb45943c7a6a62a0b0ae608e78b5bad21aea837648a04872c0d7629"
+                   },
+                   {
+                       "file":  "33-fountain-phase-01.png",
+                       "bytes":  1738324,
+                       "sha256":  "dc0380e1b33ec7446e2bbb7b75cba944053b2f0f3d260b342b4c296913f9a36f"
+                   },
+                   {
+                       "file":  "33-fountain-phase-02.png",
+                       "bytes":  1738317,
+                       "sha256":  "88d246d84ba05d39cb8f4e5b83ac6cd0bc88a9338f3896b0c19c994b014ca89b"
+                   },
+                   {
+                       "file":  "33-fountain-phase-03.png",
+                       "bytes":  1738280,
+                       "sha256":  "328759e2e8b11d1c51a6d7a36e8b49ca364231d631f89da14175bbdc301ea885"
+                   },
+                   {
+                       "file":  "34-fountain-behind-show.png",
+                       "bytes":  1729767,
+                       "sha256":  "5440df49b4c6cfd8782f0eb349d8977def11c038120fb7ddd8c4943e2bd46215"
+                   },
+                   {
+                       "file":  "34-fountain-behind-show-off.png",
+                       "bytes":  1729761,
+                       "sha256":  "8424fd8162f5ff34a891ba90feff5b8a83f279e025f92a880645275b13b18511"
+                   },
+                   {
+                       "file":  "34-fountain-front-show.png",
+                       "bytes":  1721046,
+                       "sha256":  "a3da2e91fa7270898d8c452f9c9aa19e8c240c4f8224c9acdf004b7679ce3cab"
+                   },
+                   {
+                       "file":  "34-fountain-front-show-off.png",
+                       "bytes":  1721012,
+                       "sha256":  "6a3b75e7f1e72b04797b72fd5112b37c5309a5dd3d713f329723a22f7371736e"
+                   },
+                   {
+                       "file":  "34-fountain-overview-prelude.png",
+                       "bytes":  1731725,
+                       "sha256":  "da11a975a947e3a20bce7b6940bbfbd499e6381b80eaa5f663eda26573537239"
+                   },
+                   {
+                       "file":  "34-fountain-overview-recovered.png",
+                       "bytes":  1731707,
+                       "sha256":  "cfead82144202e08e8096c2b429255c8ec4a23c5435ffe73d7f58b91df194e25"
+                   },
+                   {
+                       "file":  "34-fountain-overview-show.png",
+                       "bytes":  1731949,
+                       "sha256":  "430461cf6e26f8da35901b8604f8a2af82da80fedc8afbda50097901738d7d14"
+                   },
+                   {
+                       "file":  "34-fountain-overview-show-off.png",
+                       "bytes":  1731735,
+                       "sha256":  "e1924eddd69f655540c9f164b478613b83253ec3c13ef2ffce7e3e458f011e39"
+                   }
+               ]
+}

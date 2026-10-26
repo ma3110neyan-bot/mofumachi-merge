@@ -1,0 +1,190 @@
+{
+  "reviewed_on_jst": "2026-10-26",
+  "run": "20261026-111414-78cde31d",
+  "native_source_revision": "5edfa5db37f1386b811713b43c4833b4cea451ab",
+  "product_fingerprint": "1fa608c9c6242e8e8be28efcfa55bdc5b67d014ba380a5ebfd8e191dd4a1219e",
+  "render_input_digest": "f4ddc00d9a104ac275ec2f3baffaa2a9f73d0ec3705a21bb133d600c489a470c",
+  "verdict": "eligible_for_conditional_same_run_town_qa_pixel_verification",
+  "field_base_user_approved": true,
+  "native_tests_verified": true,
+  "native_image_inspection_complete": true,
+  "new_critical_or_important_visual_regression_established": false,
+  "native_visual_cleared": false,
+  "pixel_verified": false,
+  "fountain_user_approved": false,
+  "adopted": false,
+  "native_evidence": {
+    "archive_parts": 13,
+    "raw_files": 185,
+    "new_png": 162,
+    "prior_before_png": 3,
+    "all_png": 165,
+    "width": 720,
+    "height": 1280,
+    "all_archive_crc_manifest_sha_bytes_dimensions_decode_verified": true,
+    "tests": [
+      {
+        "file": "editmode.xml",
+        "total": 144,
+        "passed": 144,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      {
+        "file": "playmode.xml",
+        "total": 225,
+        "passed": 225,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0
+      }
+    ],
+    "all369_individual_cases_passed": true,
+    "source_and_fingerprint_records_match": true,
+    "runtime_assets_tests_tools_match_tested_revision": true,
+    "windows_fingerprint_independently_recomputed": false,
+    "both_success_log_bytes_match_metadata": true,
+    "existing_production_capture_and_immutable_source_gates_passed": true,
+    "town_apk": {
+      "gitRevision": "5edfa5db37f1386b811713b43c4833b4cea451ab",
+      "revisionSource": "git-metadata + clean product inputs",
+      "productFingerprint": "1fa608c9c6242e8e8be28efcfa55bdc5b67d014ba380a5ebfd8e191dd4a1219e",
+      "localUnityConfigurationChanges": [
+        "\"Assets/Settings/Build Profiles/Android\\342\\204\\242.asset\"",
+        "Assets/Settings/UniversalRP.asset",
+        "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+        "ProjectSettings/ProjectSettings.asset"
+      ],
+      "nativeCaptureCount": 162,
+      "unity": "6000.6.4f1",
+      "appId": "com.mofumachi.merge.qa.townlife",
+      "versionCode": 1,
+      "apk": "town-life-qa.apk",
+      "sha256": "14594390f993d40512e108e4d1487c6e107c94e9fe57c392e6b285ccb11b899a",
+      "bytes": 79027285,
+      "builtAtUtc": "2026-10-26T02:22:26.0262500Z",
+      "qa": true,
+      "townQa": true
+    },
+    "growth_apk": {
+      "gitRevision": "5edfa5db37f1386b811713b43c4833b4cea451ab",
+      "productFingerprint": "1fa608c9c6242e8e8be28efcfa55bdc5b67d014ba380a5ebfd8e191dd4a1219e",
+      "appId": "com.mofumachi.merge.qa.growthcheck",
+      "apk": "town-growth-check.apk",
+      "sha256": "3934fdabe1af63742b36122e2bad6d013d5da62dbe2a40e74fa33ffdaf87368c",
+      "bytes": 79027325,
+      "initial_state": "normal initial game, separate Android app save",
+      "pixel_verified": false,
+      "adopted": false
+    },
+    "apk_binaries_received": false,
+    "apk_sha_independently_recomputed": false
+  },
+  "comparison": {
+    "previous_native_source": "8aa7a14264c3bda3050a9e794c576f6af11535c9",
+    "same_name_png_identical": 85,
+    "same_name_png_changed": 69,
+    "new_show_frames": 8,
+    "all12_noncentral_lv1_lv3_lv6_overviews_byte_identical": true,
+    "all6_actual_growth_frames_byte_identical": true,
+    "actual_old_before3_sha_preserved": true,
+    "normal_added_layer_rgb_changed": [
+      923,
+      963,
+      1741
+    ],
+    "normal_outside_fountain_pixels": [
+      0,
+      0,
+      0
+    ],
+    "show_added_layer_off_on_rgb_changed": [
+      5061,
+      5056,
+      6387
+    ],
+    "native_above_normal_uv084_show_jet_pixels": [
+      2344,
+      2361,
+      2345
+    ],
+    "show_outside_fountain_pixels": [
+      0,
+      0,
+      0
+    ],
+    "show_clock_old_water_phase_npc_camera_game_state_unchanged_in_causal_pairs": true,
+    "normal_to_show_aggregate_diffs_are_not_causal": [
+      33132,
+      40507,
+      14278
+    ],
+    "aggregate_qualification": "Normal and show snapshots differ in other temporal expression/name/text/edge pixels. Causal effect proof is same-instant OFF/ON; old8aa Before is separately sourced.",
+    "inspection": "All162 new on private sheets plus3oldBefore; native3viewcomparisons,causalcontrols,prelude/recovered and selecteddepth/edges opened; single independent read-only image review. No chat images."
+  },
+  "observed_quality": {
+    "landmark_size": "14percent render enlargement visibly improves presence; side paths and approved scenery remain legible in stills.",
+    "normal_water": "Falls and highlights visibly stronger than former39/36/169pixel contribution.",
+    "show": "Three high streams distinguishable at native size; previous source-review isolation defect now supported by actual native causal pixels.",
+    "prelude_and_recovery": "Static frames contain no stranded tall jet; exact timing and smooth return require live verification.",
+    "characters": "Front face/eyes/dress/name perceptually readable. Farshow water crosses mouth/torso while eyes remain readable; no claim of byte-identical character pixels or proved live solid-art occlusion."
+  },
+  "independent_review": {
+    "report": "independent-review.md",
+    "critical": 0,
+    "new_important_static_visual_regressions": 0,
+    "inherited_important_device_acceptance_items": 2,
+    "minor": 2,
+    "ready_for_same_apk_pixel_verification": true
+  },
+  "open_acceptance_items": [
+    {
+      "id": "I1",
+      "kind": "inherited_device_usability",
+      "item": "East canopy concealment/tap-drag self return",
+      "action": "Check sameAPKPixel; no new fountain-caused deadlock established and no scenery/nav change by inference."
+    },
+    {
+      "id": "I2",
+      "kind": "inherited_live_depth_gap",
+      "item": "Normal solid fountain/body crossing and live normal/show transitions",
+      "action": "Front/side/far/front walk with hero/NPC onPixel. Farshow overlay is new static evidence, not live solid-body proof."
+    },
+    {
+      "id": "M1",
+      "kind": "new_show_appearance",
+      "item": "Rigid thin streams cross far mouth/torso",
+      "action": "Native eyes remain readable; judge naturalness and expression onPixel. Bounded fountain tuning only if observed bad; no speculative redesign now."
+    },
+    {
+      "id": "M2",
+      "kind": "inherited_local_polish",
+      "item": "North rim/bed repetition",
+      "action": "Unchanged prior candidate; retain bounded polish only."
+    }
+  ],
+  "declined_to_judge_rulings": [
+    {
+      "item": "Live cycle/prelude/show/recovery/interpolation/menu-pause-offscreen",
+      "ruling": "Productionclock fixtures passed, but static renders cannot establish3minute/2+6+1second real-time experience. Require sameAPKPixel."
+    },
+    {
+      "item": "Normal/show character/NPC visibility, live ordering and path/input usability",
+      "ruling": "Require I1/I2/M1 device checks; keep field unchanged pending observed evidence."
+    },
+    {
+      "item": "FPS/frame pacing/temperature/10minutes/audio/crash/freeze/restart/save",
+      "ruling": "Unobserved onPixel. Collect actualSurfaceView/battery/thermal/save results; unavailable staysnull; no oldbaseline comparison inferred."
+    },
+    {
+      "item": "Independent APK binarySHA/installed identity",
+      "ruling": "Logs/metadata match; user-side exactSHA and explicitID/serial install-r required before measuring. No uninstall/saveclear."
+    },
+    {
+      "item": "Fountain adoption/2.5D/Merge/later/main",
+      "ruling": "All blocked until fountain device/user acceptance. Existing field base remains user-frozen."
+    }
+  ],
+  "next": "Use generated run111414 town-life-qa.apk only; exacthash, save-preserving install-r toPixel99RAY1BELH, 600second measured verification. No rebuild solely for receipt; docs/fountain-show-pixel3a-2026-10-26.md."
+}

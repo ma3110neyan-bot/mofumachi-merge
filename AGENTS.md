@@ -1,5 +1,13 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-26最新受領：強化噴水の13ZIP・185原本を照合、実Unity369件Passed。** run `20261026-111414-78cde31d`、source5edfa5db、fingerprint1fa608c9…。Edit144/144・Play225/225、failed0／skip0／inconclusive0。新162PNG＋旧Before3のSHA・bytes・720×1280・デコード、通常水／show因果検査を含む既存ゲートと原354／固定景観18binding成功。両APK/source/fingerprint/成功log/bytes一致。街79,027,285bytes・SHA14594390…、成長79,027,325bytes・SHA3934fdab…。原本と判定は `References/Review/fountain-show-2026-10-26-candidate/`。APKbinary未受領、独立binarySHAはWindows側で照合する。
+
+**判定：同run街QAによる条件付きPixel確認へ進行可、噴水採用は保留。** 私的に全162＋旧Before3を点検し、独立実画像レビューはCritical0／新たなImportant景観後退0。拡大・強い通常水・高い3本の噴き上げは実画面で明確。西東北南Lv1/3/6の12全景と実成長6枚は前版とbyte同一。85同一／69変更／show8追加。通常OFF/ON923／963／1741画素、show同一瞬間OFF/ON5061／5056／6387画素、専用Native検査の高いjet2344／2361／2345画素・投影外0。通常→show33132等の全差分には表情／名前／文字等が混ざるので全て新水へ帰属させない。前兆／復帰は静止画で長いjet残留なし。実時間の動き・滑らかさは未確認。
+
+持越しImportant2は東の木陰からの視認／自力帰還と通常固体噴水／キャラ本体のライブ前後切替。新showは奥の体に水が重なる静的証拠があるがライブの代用でない。Minor2は新showの直線的な細い水流（奥の口／胴に重なるが両目は読める）と既存北外周。今は推測で再改修せずPixelで自然さ／読みやすさを確認。旧showコードレビューI1の「通常波紋と混じる証拠」は、今回実Native因果対で検証できた。
+
+**次は既に生成した111414街QAだけをPixelへ更新し600秒確認。** `docs/fountain-show-pixel3a-2026-10-26.md` の新SHA照合→Pixel99RAY1BELH・既存IDcom.mofumachi.merge.qa.townlifeへ保存維持install-r。今回ゲーム／テスト／QAツールは無変更、記録更新だけでPull／再ビルドを依頼しない。中央の累積約3分・2秒前兆/6秒show/1秒復帰、前後・顔/名前、menu/Pause/画面外、10分／FPS・バッテリー温度・thermal／音・停止・再起動保存を同版で確認。計測不能はnull、Before比較がなければFPS低下／熱増加なしと断定しない。街の正式ベース候補固定は維持し、実機／噴水ユーザー承認・2.5D／Merge／以降／mainは未了。画像をチャットへ貼らない。以下は履歴。
+
 **2026-10-26最新ユーザー：弱い噴水候補は不十分。噴水だけを主役へ強化する指示に限定実装。** 街5地区の正式ベース候補固定は維持。現在の原画を同じY.285から描画だけ14％拡大し、通常の太い6水流／しぶき／波紋／反射、中央が見えて操作可能な累積180秒周期の2秒前兆→6秒ショー→1秒復帰を追加。3本の高い噴き上げも同じ親深度。3runtimeファイルのみ（FountainGraphic／WaterLayout／WaterGraphic）、Nav／Collider／地形・道・花壇・街灯・ベンチ／Core・Save／報酬／正式6名／図鑑／BGM／Mergeは無変更。CWTで同UIFlowのHome再構築を跨ぐ一時時計、Pause／modal／画面外停止、.1dtcap、30Hz時相、追加196quad784＋旧672＝1456頂点。性能の実測値とはしない。
 
 **ソース確認済み・新版Unity／APK／Pixel未確認。** 旧model RED5／10→GREEN10、全CPU345/345 failed0skip0（9m16s）、最終噴水10/10、API6DLL0警告エラー、PS14本成功。単独の独立コードレビューCritical0／Important1／Minor0。I1の通常波紋を混ぜたshow差分を修正し、同一瞬間OFF/ONの通常UV.84より上のjet>40画素／投影外0／時計・旧波紋位相・NPC・camera・Save非変化へ厳密化、artifact gateは実RED→GREEN。新OFF3枚を保存するため新162撮影＋旧Before3。既存field検査の「拡大Feet＋旧高さ」も共有Project(uvY1)へ合わせ、重なり・歩行検査は緩めない。仕様／inline計画は `docs/superpowers/{specs,plans}/2026-10-26-fountain-show*`、証拠は `docs/verification/fountain-show-2026-10-26/`。

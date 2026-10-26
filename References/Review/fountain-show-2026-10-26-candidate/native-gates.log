@@ -1,0 +1,5 @@
+Tests passed: 144/144
+Tests passed: 225/225
+Native Unity images: 162, 720x1280 (visual review still required).
+Street boundary comparison: /workspace/runtime/fountain-show-native-2026-10-26/run-layout/screenshots/street-boundary-before-after.html (Boundary-only renderer comparison; Pixel acceptance pending).
+Received162new plus3actualBefore originals pass the unchanged production/source gates; Pixel/adoption remain pending.

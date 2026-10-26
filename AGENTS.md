@@ -1,5 +1,13 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-26最新ユーザー：噴水は未達。良い方向への改善作業を続行。** 前版Pixelで通常の動き／3分以上後のshowが確認できず、静止画・369成功だけで採用へ進めない。今回runtimeはWaterLayout／WaterGraphicの2ファイルだけ。固定帯の明滅を落下する白い流水へ変え、青縁／しぶき／波紋／反射／曲線showを強化。既存196quad784＋旧672＝1456頂点内、Particle／ライト／製品RT追加なし。原画・14％拡大・親のY深度・5地区・歩行・保存・図鑑・BGM・キャラ・Mergeは不変。
+
+**街QA／Editorは45秒周期、開始38秒・最大約39秒、show6秒・復帰1秒。** 非Developmentは180秒を維持。Home内は画面外でも時計だけ進み、非表示メッシュ更新なし。メニュー／別画面／休止停止・Home再構築で時計保持・低FPSの実時間を切り捨てない。ユーザーの旧端末で未発生だった個別原因は旧実行ログなしに断定しない。
+
+**ソース修正済み・新版Unity／APK／Pixel未確認。** CPU新RED7→GREEN16、Presentation351/351＋Core125/125成功。新Unity226棚卸しは成功結果ではない。Native新165全景に加え、実Update60秒／約4fpsの実描画crop・SHA／時刻／位相／stage・HTMLを必須化。手動Advanceの既存33/34対とは分離。切出しは実レイアウト確定後、各frameで実頂点包含を検査。連続証拠不発生／停止位相／時刻不一致／欠落をQAが拒否し、静止画だけでAPKへ進めない。
+
+新scope `fountain-motion-candidate-2026-10-26.json` は原354／固定街と旧Beforeを保持。Beforeは5edfa5db／111414の実原本3枚。旧candidate/native成功は履歴のまま改変せず、新候補のnative/APK/Pixel採用フラグはfalse。手順 `docs/fountain-motion-review-2026-10-26.md`。今回はコード変更があるので最新Pull後にTownQaを一度実行し、新連続原本を受領してから新SHAの街QAへ保存維持更新。ユーザーが新版を実際に確認するまで噴水合格にしない。負荷不成立なら軽量代案を先に承認取得。2.5D／Merge／以降／main停止、チャット画像なし。以下は履歴。
+
 **2026-10-26最新受領：強化噴水の13ZIP・185原本を照合、実Unity369件Passed。** run `20261026-111414-78cde31d`、source5edfa5db、fingerprint1fa608c9…。Edit144/144・Play225/225、failed0／skip0／inconclusive0。新162PNG＋旧Before3のSHA・bytes・720×1280・デコード、通常水／show因果検査を含む既存ゲートと原354／固定景観18binding成功。両APK/source/fingerprint/成功log/bytes一致。街79,027,285bytes・SHA14594390…、成長79,027,325bytes・SHA3934fdab…。原本と判定は `References/Review/fountain-show-2026-10-26-candidate/`。APKbinary未受領、独立binarySHAはWindows側で照合する。
 
 **判定：同run街QAによる条件付きPixel確認へ進行可、噴水採用は保留。** 私的に全162＋旧Before3を点検し、独立実画像レビューはCritical0／新たなImportant景観後退0。拡大・強い通常水・高い3本の噴き上げは実画面で明確。西東北南Lv1/3/6の12全景と実成長6枚は前版とbyte同一。85同一／69変更／show8追加。通常OFF/ON923／963／1741画素、show同一瞬間OFF/ON5061／5056／6387画素、専用Native検査の高いjet2344／2361／2345画素・投影外0。通常→show33132等の全差分には表情／名前／文字等が混ざるので全て新水へ帰属させない。前兆／復帰は静止画で長いjet残留なし。実時間の動き・滑らかさは未確認。

@@ -9,6 +9,7 @@ Set-StrictMode -Version Latest
 . (Join-Path $PSScriptRoot 'south-review.ps1')
 . (Join-Path $PSScriptRoot 'five-area-review.ps1')
 . (Join-Path $PSScriptRoot 'south-final-review.ps1')
+. (Join-Path $PSScriptRoot 'fountain-review.ps1')
 function Assert-TestRun([string]$ResultPath,[int]$MinimumTests,[string[]]$RequiredSuites) {
     if (-not (Test-Path -LiteralPath $ResultPath)) { throw "Missing current test XML: $ResultPath" }
     [xml]$Results = Get-Content -LiteralPath $ResultPath -Raw
@@ -126,17 +127,17 @@ function Assert-NativeCaptures([string]$Directory,[switch]$RequireBoundary,[swit
         foreach($Name in @('pixel_verified','adopted')){if($Water.$Name -isnot [bool] -or $Water.$Name -ne $false){throw 'Native fountain comparison cannot claim Pixel or adoption.'}}
     }
     if($RequireFountainShow) {
-        if($Images.Count -lt 162){throw 'Timed fountain show requires162 new native captures plus separately identified old Before originals.'}
+        if($Images.Count -lt 165){throw 'Timed fountain show requires165 full native captures plus real-time crops and actual prior Before originals.'}
         foreach($Name in @('34-fountain-overview-prelude.png','34-fountain-overview-show.png','34-fountain-front-show.png','34-fountain-behind-show.png','34-fountain-overview-show-off.png','34-fountain-front-show-off.png','34-fountain-behind-show-off.png','34-fountain-overview-recovered.png','fountain-show-before-after.html')){if(-not(Test-Path -LiteralPath (Join-Path $Directory $Name) -PathType Leaf)){throw "Missing timed fountain evidence: $Name"}}
         $Show=Get-Content -LiteralPath (Join-Path $Directory 'fountain-show-comparison.json') -Raw -Encoding UTF8 | ConvertFrom-Json
-        if($Show.kind -ne 'prior-native-before-normal-and-timed-show' -or $Show.display_scale -ne 1.14 -or $Show.cycle_seconds -ne 180 -or $Show.prelude_seconds -ne 2 -or $Show.show_seconds -ne 6 -or $Show.recovery_seconds -ne 1 -or $Show.show_elapsed -ne 176 -or $Show.jet_evidence -ne 'same-instant-added-layer-off-on-above-normal-uv084' -or @($Show.show_pairs).Count -ne 3){throw 'Timed show duration/scale or native comparison is incomplete.'}
+        if($Show.kind -ne 'prior-native-before-normal-and-timed-show' -or $Show.display_scale -ne 1.14 -or $Show.cycle_seconds -ne 45 -or $Show.release_cycle_seconds -ne 180 -or $Show.prelude_seconds -ne 2 -or $Show.show_seconds -ne 6 -or $Show.recovery_seconds -ne 1 -or $Show.show_elapsed -ne 41 -or $Show.jet_evidence -ne 'same-instant-added-layer-off-on-above-normal-uv084' -or @($Show.show_pairs).Count -ne 3){throw 'Timed show duration/scale or native comparison is incomplete.'}
         foreach($View in @('overview','front','behind')) {
             $Rows=@($Show.show_pairs | Where-Object {$_.view -eq $View})
             if($Rows.Count -ne 1 -or $Rows[0].changed_pixels -le 300 -or $Rows[0].state_unchanged -isnot [bool] -or -not $Rows[0].state_unchanged){throw 'Show must visibly differ from normal while preserving the same gameplay state.'}
             if($Rows[0].show_jet_pixels -le 40 -or $Rows[0].outside_fountain_pixels -ne 0 -or $Rows[0].clock_unchanged -isnot [bool] -or -not $Rows[0].clock_unchanged -or $Rows[0].original_water_phase_unchanged -isnot [bool] -or -not $Rows[0].original_water_phase_unchanged){throw 'Show jets require isolated above-normal pixels with unchanged clocks and zero outside the fountain.'}
         }
-        $Before=Get-Content -LiteralPath (Join-Path $PSScriptRoot '../References/VisualLock/fountain-show-current-before-2026-10-26.json') -Raw -Encoding UTF8 | ConvertFrom-Json
-        if($Show.before.source_revision -ne $Before.source_revision -or $Show.before.run -ne $Before.run -or @($Show.before.images).Count -ne 3){throw 'Current Before must identify the actual8aa native run.'}
+        $Before=Get-Content -LiteralPath (Join-Path $PSScriptRoot '../References/VisualLock/fountain-motion-current-before-2026-10-26.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+        if($Show.before.source_revision -ne $Before.source_revision -or $Show.before.run -ne $Before.run -or @($Show.before.images).Count -ne 3){throw 'Current Before must identify the actual5edfa native run.'}
         foreach($Image in $Before.images) {
             $Rows=@($Show.before.images | Where-Object {$_.view -eq $Image.view})
             if($Rows.Count -ne 1 -or $Rows[0].file -ne $Image.file -or $Rows[0].sha256 -ne $Image.sha256 -or $Rows[0].bytes -ne $Image.bytes){throw 'Prior Before image identity was changed.'}
@@ -144,6 +145,8 @@ function Assert-NativeCaptures([string]$Directory,[switch]$RequireBoundary,[swit
             if(-not(Test-Path -LiteralPath $Path -PathType Leaf) -or (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash -ne $Image.sha256){throw 'Prior Before PNG is missing or changed.'}
         }
         foreach($Name in @('pixel_verified','adopted')){if($Show.$Name -isnot [bool] -or $Show.$Name -ne $false){throw 'Native show cannot claim Pixel or adoption.'}}
+        foreach($Name in @('35-fountain-live-normal.png','35-fountain-live-show.png','35-fountain-live-recovered.png')){if(-not(Test-Path -LiteralPath (Join-Path $Directory $Name) -PathType Leaf)){throw "Missing actual live full frame: $Name"}}
+        Assert-FountainLiveSequence $Directory
     }
     if(Test-Path -LiteralPath $BoundaryComparison){Write-Host "Street boundary comparison: $BoundaryComparison (Boundary-only renderer comparison; Pixel acceptance pending)."}
 }
@@ -159,6 +162,8 @@ function Write-NativeReviewArchives([string]$Directory) {
     })+@(Get-ChildItem -LiteralPath (Join-Path $Directory 'screenshots') -Filter '*.png' -File | Sort-Object Name)
     $BeforeDir=Join-Path $Directory 'screenshots/fountain-before'
     if(Test-Path -LiteralPath $BeforeDir){$Files+=@(Get-ChildItem -LiteralPath $BeforeDir -Filter '*.png' -File | Sort-Object Name)}
+    $LiveDir=Join-Path $Directory 'screenshots/fountain-live'
+    if(Test-Path -LiteralPath $LiveDir){$Files+=@(Get-ChildItem -LiteralPath $LiveDir -File | Sort-Object Name)}
     $Batch=New-Object 'System.Collections.Generic.List[string]';$Bytes=0L;$Part=1
     foreach($File in $Files) {
         if($File.Length -gt 20MB){throw "Review file exceeds upload budget: $($File.FullName)"}
@@ -279,7 +284,7 @@ Assert-ProductUnchanged $ProjectPath $GitRevision $ProductFingerprint
 $PlayXml=Join-Path $OutputDir 'playmode.xml'
 Write-Host '[2/4] Running all PlayMode tests and capturing native Unity images...'
 Invoke-Unity @('-batchmode','-projectPath',$ProjectPath,'-buildTarget','Android','-runTests','-testPlatform','PlayMode','-testResults',$PlayXml,'-mofumachiScreenshots',(Join-Path $OutputDir 'screenshots'),'-logFile',(Join-Path $OutputDir 'playmode.log'))
-Assert-TestRun $PlayXml 225 @('VerticalSliceFlowTests','LayoutNoticeTests','AudioManagerTests','MergeInteractionTests','RewardGrowthTests','SettingsScreenTests','PopPresentationTests','CharacterSelectionTests','MultiQuestPresentationTests','TownLifeTests','StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests','FiveAreaIntegrationReviewTests')
+Assert-TestRun $PlayXml 226 @('VerticalSliceFlowTests','LayoutNoticeTests','AudioManagerTests','MergeInteractionTests','RewardGrowthTests','SettingsScreenTests','PopPresentationTests','CharacterSelectionTests','MultiQuestPresentationTests','TownLifeTests','StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests','FiveAreaIntegrationReviewTests')
 $CaptureDir=Join-Path $OutputDir 'screenshots'
 Assert-ProductUnchanged $ProjectPath $GitRevision $ProductFingerprint
 Assert-NativeCaptures $CaptureDir -RequireBoundary:$TownQa -RequireField:$TownQa -RequireGrowth:$TownQa -RequireFountain:$TownQa -RequireFountainShow:$TownQa

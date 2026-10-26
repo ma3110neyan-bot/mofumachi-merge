@@ -168,8 +168,9 @@ namespace Mofumachi.Tests
                 int guard=0;while(water.ShowElapsed<elapsed&&guard++<2000){float dt=Math.Min(.1f,elapsed-water.ShowElapsed);water.AdvanceWater(dt);originalWater.AdvanceWater(dt);}
                 Assert.That(water.ShowElapsed,Is.GreaterThanOrEqualTo(elapsed));Assert.That(guard,Is.LessThan(2000));
             }
-            town.World.Restore(snapshots["overview"]);AdvanceTo(172);Assert.That(water.ShowStage,Is.EqualTo(1));Capture(output,"34-fountain-overview-prelude");
-            AdvanceTo(176);Assert.That(water.ShowStage,Is.EqualTo(2));var showRows=new System.Text.StringBuilder();
+            Assert.That(water.ShowCycleSeconds,Is.EqualTo(45));
+            town.World.Restore(snapshots["overview"]);AdvanceTo(37);Assert.That(water.ShowStage,Is.EqualTo(1));Capture(output,"34-fountain-overview-prelude");
+            AdvanceTo(41);Assert.That(water.ShowStage,Is.EqualTo(2));var showRows=new System.Text.StringBuilder();
             foreach(string view in new[]{"overview","front","behind"})
             {
                 town.World.Restore(snapshots[view]);string state=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
@@ -197,21 +198,96 @@ namespace Mofumachi.Tests
                 Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));Assert.That(Store.Writes,Is.EqualTo(writes));
                 if(showRows.Length>0)showRows.Append(',');showRows.Append("{\"view\":\""+view+"\",\"changed_pixels\":"+changed+",\"show_jet_pixels\":"+jets+",\"outside_fountain_pixels\":"+outside+",\"clock_unchanged\":true,\"original_water_phase_unchanged\":true,\"state_unchanged\":true}");
             }
-            town.World.Restore(snapshots["overview"]);AdvanceTo(180-1f/30);water.AdvanceWater(.1f);Assert.That(water.ShowStage,Is.Zero);Capture(output,"34-fountain-overview-recovered");
+            town.World.Restore(snapshots["overview"]);AdvanceTo(45-1f/30);water.AdvanceWater(.1f);Assert.That(water.ShowStage,Is.Zero);Capture(output,"34-fountain-overview-recovered");
             if(output==null)return;
             string repo=Directory.GetParent(Application.dataPath).FullName;
-            string baselineText=File.ReadAllText(Path.Combine(repo,"References/VisualLock/fountain-show-current-before-2026-10-26.json"));
-            var baseline=JsonUtility.FromJson<FountainBeforeManifest>(baselineText);Assert.That(baseline.source_revision,Is.EqualTo("8aa7a14264c3bda3050a9e794c576f6af11535c9"));Assert.That(baseline.images.Length,Is.EqualTo(3));
+            string baselineText=File.ReadAllText(Path.Combine(repo,"References/VisualLock/fountain-motion-current-before-2026-10-26.json"));
+            var baseline=JsonUtility.FromJson<FountainBeforeManifest>(baselineText);Assert.That(baseline.source_revision,Is.EqualTo("5edfa5db37f1386b811713b43c4833b4cea451ab"));Assert.That(baseline.images.Length,Is.EqualTo(3));
             string beforeDir=Path.Combine(output,"fountain-before");Directory.CreateDirectory(beforeDir);
             foreach(var image in baseline.images)
             {
                 byte[] bytes=File.ReadAllBytes(Path.Combine(repo,image.path));using(var hash=System.Security.Cryptography.SHA256.Create())Assert.That(BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-","").ToLowerInvariant(),Is.EqualTo(image.sha256));
                 File.WriteAllBytes(Path.Combine(beforeDir,image.file),bytes);
             }
-            File.WriteAllText(Path.Combine(output,"fountain-show-comparison.json"),"{\"kind\":\"prior-native-before-normal-and-timed-show\",\"display_scale\":1.14,\"cycle_seconds\":180,\"prelude_seconds\":2,\"show_seconds\":6,\"recovery_seconds\":1,\"show_elapsed\":176,\"jet_evidence\":\"same-instant-added-layer-off-on-above-normal-uv084\",\"show_pairs\":["+showRows+"],\"before\":"+baselineText+",\"pixel_verified\":false,\"adopted\":false}");
-            var html=new System.Text.StringBuilder("<!doctype html><meta charset='utf-8'><title>Fountain normal and show</title><style>body{background:#fff7ef;color:#50343b;font-family:sans-serif}section{display:flex;gap:8px}img{width:240px;max-width:30vw}figure{margin:4px}</style><h1>Actual prior Before / normal candidate / short show candidate</h1><p>Before:8aa7a14 native run20261026-093151. Normal/Show:new native fixture. Old files are SHA-preserved; not repainted, not all from the new run. Show phases are reached by advancing the actual production presentation clock. Pixel load and acceptance pending.</p>");
+            File.WriteAllText(Path.Combine(output,"fountain-show-comparison.json"),"{\"kind\":\"prior-native-before-normal-and-timed-show\",\"display_scale\":1.14,\"cycle_seconds\":45,\"release_cycle_seconds\":180,\"prelude_seconds\":2,\"show_seconds\":6,\"recovery_seconds\":1,\"show_elapsed\":41,\"jet_evidence\":\"same-instant-added-layer-off-on-above-normal-uv084\",\"show_pairs\":["+showRows+"],\"before\":"+baselineText+",\"pixel_verified\":false,\"adopted\":false}");
+            var html=new System.Text.StringBuilder("<!doctype html><meta charset='utf-8'><title>Fountain normal and show</title><style>body{background:#fff7ef;color:#50343b;font-family:sans-serif}section{display:flex;gap:8px}img{width:240px;max-width:30vw}figure{margin:4px}</style><h1>Actual prior Before / normal candidate / short show candidate</h1><p>Before:5edfa5db native run20261026-111414. Normal/Show:new native fixture. Old files are SHA-preserved; not repainted. These causal stills manually advance the production clock; the separate fountain-live sequence tests actual Update for60real seconds. Pixel load and acceptance pending.</p>");
             foreach(string view in new[]{"overview","front","behind"})html.Append("<h2>"+view+"</h2><section><figure>Current Before<br><img src='fountain-before/34-fountain-"+view+"-current-before.png' onerror=\"this.onerror=null;this.src='34-fountain-"+view+"-current-before.png'\"></figure><figure>Normal After<br><img src='33-fountain-"+view+"-after.png'></figure><figure>Show After<br><img src='34-fountain-"+view+"-show.png'></figure></section>");
             html.Append("<h2>Prelude / returned to normal</h2><section><img src='34-fountain-overview-prelude.png'><img src='34-fountain-overview-recovered.png'></section>");File.WriteAllText(Path.Combine(output,"fountain-show-before-after.html"),html.ToString());
+        }
+        [Serializable] private sealed class FountainLiveFrame
+        {
+            public string file,sha256;public float realtime_seconds,clock_seconds,phase;public int stage,bytes,width,height;
+        }
+        [Serializable] private sealed class FountainLiveSequence
+        {
+            public string kind="native-realtime-update-sequence";
+            public float seconds,first_show_seconds=-1,cycle_seconds,sample_period_seconds=.25f;
+            public bool manual_advance=false,pixel_verified=false,adopted=false,state_unchanged;
+            public int source_width=720,source_height=1280,crop_x,crop_y,crop_width,crop_height,normal_mesh_changes,show_mesh_changes;
+            public List<FountainLiveFrame> frames=new List<FountainLiveFrame>();
+        }
+        // This is deliberately separate from the manually advanced causal pairs.
+        // No AdvanceWater, forced stage/clock, synthetic dt or fast-forward here.
+        [UnityTest,Timeout(120000)] public IEnumerator FountainShowRunsFromRealUpdatesWithinSixtySeconds()
+        {
+            string output=OutputDirectory();yield return EnterHome();Flow.Game.State.townGrowthLevel=6;Flow.ShowHome();yield return null;
+            var town=Flow.GetComponentInChildren<TownLifeView>();town.StartInteraction();town.World.LookAt(TownDistrictId.Central);
+            // Exercise the deferred layout path that batch-mode Game views use.
+            Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(1280,720),new Rect(0,0,1280,720));
+            Canvas.ForceUpdateCanvases();town.World.Refresh();EnsurePortraitCamera();
+            // Portrait performs the actual canvas layout and world-camera fit.
+            // Derive the crop only after that first settled render.
+            Capture(output,"35-fountain-live-normal");
+            var water=town.GetComponentInChildren<TownFountainWaterGraphic>();Assert.That(water.ShowCycleSeconds,Is.EqualTo(45));Assert.That(water.ShowElapsed,Is.LessThan(2));
+            string state=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
+            var sequence=new FountainLiveSequence{cycle_seconds=water.ShowCycleSeconds};
+            Vector2 Project(TownPoint uv)=>captureCamera.WorldToScreenPoint(town.transform.TransformPoint(town.World.Local(TownFountainWaterLayout.Project(uv,TownFountainWaterLayout.DisplayScale))));
+            var low=Project(new TownPoint(.2f,.22f));var high=Project(new TownPoint(.8f,1.3f));
+            int x=Mathf.Clamp(Mathf.FloorToInt(low.x)-4,0,719),y=Mathf.Clamp(Mathf.FloorToInt(low.y)-4,0,1279);
+            int width=Mathf.Clamp(Mathf.CeilToInt(high.x)+4,x+1,720)-x,height=Mathf.Clamp(Mathf.CeilToInt(high.y)+4,y+1,1280)-y;
+            sequence.crop_x=x;sequence.crop_y=y;sequence.crop_width=width;sequence.crop_height=height;
+            string directory=output==null?null:Path.Combine(output,"fountain-live");if(directory!=null)Directory.CreateDirectory(directory);
+            double start=Time.realtimeSinceStartupAsDouble,next=start;Vector3[] previous=null;bool showed=false,recovered=false;int previousStage=0;
+            do
+            {
+                yield return null;double now=Time.realtimeSinceStartupAsDouble;
+                if(now<next)continue;next=now+.25;float elapsed=(float)(now-start);
+                Texture2D portrait=null,crop=null;
+                try
+                {
+                    portrait=Portrait();var mesh=water.canvasRenderer.GetMesh().vertices;int stage=water.ShowStage;
+                    Assert.That(mesh.Length,Is.EqualTo(784));
+                    Assert.That(width,Is.GreaterThanOrEqualTo(64));Assert.That(height,Is.GreaterThanOrEqualTo(64));
+                    foreach(var vertex in mesh)
+                    {
+                        var screen=captureCamera.WorldToScreenPoint(water.rectTransform.TransformPoint(vertex));
+                        Assert.That(screen.x,Is.InRange((float)x,x+width));Assert.That(screen.y,Is.InRange((float)y,y+height),"Live crop must contain actual settled water geometry, including tall jets");
+                    }
+                    if(previous!=null&&!mesh.SequenceEqual(previous))
+                    {if(stage==0&&previousStage==0)sequence.normal_mesh_changes++;if(stage==2&&previousStage==2)sequence.show_mesh_changes++;}
+                    previous=mesh;previousStage=stage;
+                    if(stage==2&&!showed&&TownFountainWaterLayout.ShowAt(water.ShowElapsed,45).Strength>.99f)
+                    {showed=true;sequence.first_show_seconds=elapsed;Capture(output,"35-fountain-live-show");}
+                    if(showed&&stage==0&&!recovered){recovered=true;Capture(output,"35-fountain-live-recovered");}
+                    crop=new Texture2D(width,height,TextureFormat.RGB24,false);crop.SetPixels(portrait.GetPixels(x,y,width,height));crop.Apply();byte[] png=crop.EncodeToPNG();
+                    string name="35-fountain-live-crop-"+sequence.frames.Count.ToString("000")+".png";
+                    string sha;using(var hash=System.Security.Cryptography.SHA256.Create())sha=BitConverter.ToString(hash.ComputeHash(png)).Replace("-","").ToLowerInvariant();
+                    if(directory!=null)File.WriteAllBytes(Path.Combine(directory,name),png);
+                    sequence.frames.Add(new FountainLiveFrame{file=name,sha256=sha,bytes=png.Length,width=width,height=height,realtime_seconds=elapsed,clock_seconds=water.ShowElapsed,phase=water.Phase,stage=stage});
+                    sequence.seconds=elapsed;
+                }
+                finally {if(portrait!=null)UnityEngine.Object.DestroyImmediate(portrait);if(crop!=null)UnityEngine.Object.DestroyImmediate(crop);}
+            }while(sequence.seconds<60);
+            sequence.state_unchanged=state==StateCodec.Encode(Flow.Game.State)&&writes==Store.Writes;
+            if(directory!=null)
+            {
+                File.WriteAllText(Path.Combine(directory,"fountain-live.json"),JsonUtility.ToJson(sequence,true));
+                File.WriteAllText(Path.Combine(directory,"fountain-live.html"),"<!doctype html><meta charset='utf-8'><title>Actual Unity Update / fountain60s</title><style>body{background:#fff7ef;font-family:sans-serif;color:#50343b}img{max-width:100%;image-rendering:auto}</style><h1>Actual Unity Update: normal → show → normal</h1><p>Native rendered crops at actual sample times. No manual clock advance. Not Pixel video or FPS evidence.</p><button id='play'>再生 / 一時停止</button><p id='time'></p><img id='frame'><script>const data="+JsonUtility.ToJson(sequence)+";let i=0,playing=true;document.querySelector('#play').onclick=()=>playing=!playing;function step(){const f=data.frames[i];document.querySelector('#frame').src=f.file;document.querySelector('#time').textContent=f.realtime_seconds.toFixed(2)+'s / stage '+f.stage;let dt=i+1<data.frames.length?1000*(data.frames[i+1].realtime_seconds-f.realtime_seconds):500;setTimeout(()=>{if(playing)i=(i+1)%data.frames.length;step()},dt)}step()</script>");
+            }
+            Assert.That(sequence.first_show_seconds,Is.InRange(30,60),"A real Update-driven visible show must occur inside the promised QA minute");
+            Assert.That(recovered,Is.True);Assert.That(sequence.frames.Select(f=>f.stage).Distinct().OrderBy(s=>s),Is.EqualTo(new[]{0,1,2,3}));
+            Assert.That(sequence.normal_mesh_changes,Is.GreaterThan(8));Assert.That(sequence.show_mesh_changes,Is.GreaterThan(3));Assert.That(sequence.state_unchanged,Is.True);
+            Assert.That(sequence.frames.Count,Is.GreaterThan(60));LogAssert.NoUnexpectedReceived();
         }
         private static string OutputDirectory()
         {
@@ -654,7 +730,7 @@ namespace Mofumachi.Tests
                 yield return CaptureFieldStability(output);
                 string[] art={"TownBackground","TownWestBackground","TownEastBackground","CharacterBodyAtlas","TownGrowthPropsAtlas","TownGardenSurface","TownSeamlessMap","TownStreetPropsAtlas","TownLandmarksAtlas","TownNatureAtlas","TownVillageDetailsAtlas","MergeBoardFrame","TownCentralGround","TownCentralFountain","TownWestGround"};
                 File.WriteAllLines(Path.Combine(output,"texture-memory.txt"),art.Select(key=>key+": "+UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(Resources.Load<Texture2D>("Mofumachi/"+key))+" bytes"));
-                File.WriteAllText(Path.Combine(output,"README.txt"),"Actual Unity UGUI RenderTexture captures, 720x1280. Isolated test-only save state; not Pixel 3a captures. Full suite162 NEW PNG: existing102 integrated frames,22 boundary comparison frames,14 field-stability frames,6 actual delivery-growth/reload frames,10 normal fountain OFF/ON and animation frames,8 timed-show frames including3same-instant show OFF controls. Three separately identified actual prior8aa Before PNGs are copied under fountain-before with their original hashes, not relabeled as new captures. Fountain Before disables only the new water layer and retains the original fountain/ripples; not a previous APK reconstruction. 30-boundary Before disables only the curved band in the CURRENT runtime, retaining the new field-stability depth/camera/navigation fixes; it is a boundary-only comparison, NOT a complete frozen5a49 renderer or previous APK/Pixel capture. 31-field shows actual walking arrival/return in all5areas and the East building corner, plus front/behind fountain depth; no teleport rescue. 30Hz simulation is not device FPS; Editor texture memory is not Pixel RAM. Stable region/place/save IDs retained. Pixel save retention, audio,10minuteplay and subjective quality still require actual acceptance.\n");
+                File.WriteAllText(Path.Combine(output,"README.txt"),"Actual Unity UGUI RenderTexture captures, 720x1280. Isolated test-only save state; not Pixel 3a captures. Full suite165 NEW full PNG plus real-Update fountain-live crops/timestamps/player: existing102 integrated frames,22 boundary comparison frames,14 field-stability frames,6 actual delivery-growth/reload frames,10 normal fountain OFF/ON and animation frames,8 timed-show frames including3same-instant show OFF controls. Three separately identified actual prior5edfa Before PNGs are copied under fountain-before with their original hashes, not relabeled as new captures. Fountain Before disables only the new water layer and retains the original fountain/ripples; not a previous APK reconstruction. 30-boundary Before disables only the curved band in the CURRENT runtime, retaining the new field-stability depth/camera/navigation fixes; it is a boundary-only comparison, NOT a complete frozen5a49 renderer or previous APK/Pixel capture. 31-field shows actual walking arrival/return in all5areas and the East building corner, plus front/behind fountain depth; no teleport rescue. 30Hz simulation is not device FPS; Editor texture memory is not Pixel RAM. Stable region/place/save IDs retained. Pixel save retention, audio,10minuteplay and subjective quality still require actual acceptance.\n");
             }
             LogAssert.NoUnexpectedReceived();
         }

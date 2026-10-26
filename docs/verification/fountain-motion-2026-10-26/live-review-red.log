@@ -1,0 +1,7 @@
+Real Update sequence: 121 crops / 60 seconds; first show 39 seconds. Pixel/user acceptance pending.
+Real Update sequence: 121 crops / 60 seconds; first show 39 seconds. Pixel/user acceptance pending.
+Exception: /workspace/mofumachi-merge/scripts/tests/fountain-live.tests.ps1:3
+Line |
+   3 |  … (-not $Rejected){throw 'Expected fountain live evidence rejection.'}}
+     |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Expected fountain live evidence rejection.

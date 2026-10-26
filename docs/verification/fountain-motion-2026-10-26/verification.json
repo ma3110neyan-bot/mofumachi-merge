@@ -1,0 +1,124 @@
+{
+  "date_jst": "2026-10-26",
+  "parent_revision": "6bc570e241f6083375ce70c01669dcaa10539785",
+  "scope": "fountain visible motion only",
+  "runtime_changes": [
+    "Assets/Mofumachi/Presentation/TownFountainWaterGraphic.cs",
+    "Assets/Mofumachi/Presentation/TownFountainWaterLayout.cs"
+  ],
+  "cpu": {
+    "fountain_red_failed": 7,
+    "fountain_green_passed": 16,
+    "presentation_passed": 351,
+    "core_passed": 125,
+    "failed": 0,
+    "skipped": 0
+  },
+  "api_asmdefs": {
+    "passed": 6,
+    "warnings": 0,
+    "errors": 0
+  },
+  "powershell_fixtures": [
+    {
+      "name": "fountain-live",
+      "exit_code": 0
+    },
+    {
+      "name": "visual-lock",
+      "exit_code": 0
+    },
+    {
+      "name": "android-tools",
+      "exit_code": 0
+    },
+    {
+      "name": "central-review",
+      "exit_code": 0
+    },
+    {
+      "name": "west-review",
+      "exit_code": 0
+    },
+    {
+      "name": "east-review",
+      "exit_code": 0
+    },
+    {
+      "name": "north-review",
+      "exit_code": 0
+    },
+    {
+      "name": "town-boundary-lock",
+      "exit_code": 0
+    },
+    {
+      "name": "south-review",
+      "exit_code": 0
+    },
+    {
+      "name": "approved-design",
+      "exit_code": 0
+    },
+    {
+      "name": "pixel-visual-check",
+      "exit_code": 0
+    },
+    {
+      "name": "stage1-camera-lock",
+      "exit_code": 0
+    },
+    {
+      "name": "five-area-packaging",
+      "exit_code": 0
+    },
+    {
+      "name": "windows-json-encoding",
+      "exit_code": 0
+    },
+    {
+      "name": "five-area-review",
+      "exit_code": 0
+    }
+  ],
+  "native_inventory_only": {
+    "editmode": 144,
+    "playmode": 226
+  },
+  "render_digest": "2cb49fb4c6ebc87045a10db7a24983f574a42d1365d0ee25d69530b71b6a129a",
+  "historical_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "exact_field_capture_bindings": 18,
+  "windows_crlf_fixture_files": 422,
+  "original_base_and_field_freeze_unchanged": true,
+  "qa_seconds": {
+    "cycle": 45,
+    "normal": 36,
+    "prelude": 2,
+    "show": 6,
+    "recovery": 1,
+    "first_show_start": 38
+  },
+  "release_cycle_seconds": 180,
+  "water_quad_count": 196,
+  "water_vertices": 784,
+  "combined_vertices": 1456,
+  "independent_review": {
+    "critical": 0,
+    "important": 1,
+    "minor": 1,
+    "I1": "Settled portrait render now precedes crop calculation, with forced landscape setup and per-sample mesh containment assertions. Native execution pending.",
+    "M1": "Regraded as important evidence consistency for rejected animation; frozen phase and inconsistent first peak metadata RED→GREEN."
+  },
+  "native_unity_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "user_approved": false,
+  "adopted": false,
+  "limits": [
+    "Current cloud Unity license and Android/USB access do not support native/device execution.",
+    "Earlier missing-show individual incident cannot be diagnosed from still PDF.",
+    "Geometry/CPU/API/gate success does not prove perceived motion, actual timing, Pixel FPS/thermal or save retention.",
+    "Old369 success/images are historical only; new source requires new370-case native QA and live sequence."
+  ],
+  "final_unity_api_lookup": "Application.isEditor/Debug.isDebugBuild are read in Bind on the Unity thread, not field initialization; before Bind uses the pure default clock."
+}

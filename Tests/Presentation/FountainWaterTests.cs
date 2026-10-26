@@ -63,7 +63,7 @@ namespace Mofumachi.Tests
         private static Type Layout=>typeof(TownWorldMap).Assembly.GetType("Mofumachi.Presentation.TownFountainWaterLayout");
         private static Func<float,(int Stage,float Strength,float Glow)> Show()
         {
-            var method=Layout.GetMethod("ShowAt");Assert.That(method,Is.Not.Null,"A short timed fountain show needs explicit quiet, prelude, show and recovery states");
+            var method=Layout.GetMethod("ShowAt",new[]{typeof(float)});Assert.That(method,Is.Not.Null,"A short timed fountain show needs explicit quiet, prelude, show and recovery states");
             return (Func<float,(int,float,float)>)Delegate.CreateDelegate(typeof(Func<float,(int,float,float)>),method);
         }
         [Test] public void DisplayGrowsFourteenPercentAroundTheSamePhysicalDepthWithoutChangingWalkableGeometry()
@@ -107,15 +107,44 @@ namespace Mofumachi.Tests
             }
             Assert.That(peak,Is.GreaterThan(1.05f));Assert.That(196*4+672,Is.LessThanOrEqualTo(1500));
         }
-        [Test] public void ShowClockPausesAndClampsResumedTimeInsteadOfCatchingUp()
+        [Test] public void NormalStreamHighlightsTravelDownTheWaterRatherThanOnlyChangingBrightness()
+        {
+            var water=Water();
+            for(int stream=0;stream<6;stream++)
+            {
+                var a=water.Sample(stream*8+1,.10f);var b=water.Sample(stream*8+1,.20f);
+                float yA=(a.A.Y+a.B.Y+a.C.Y+a.D.Y)/4,yB=(b.A.Y+b.B.Y+b.C.Y+b.D.Y)/4;
+                Assert.That(yA-yB,Is.GreaterThan(.004f),"A bright packet must visibly descend even when the painting is static");
+                Assert.That(Math.Min(a.Alpha,b.Alpha),Is.GreaterThanOrEqualTo(.70f));
+            }
+        }
+        [TestCase(4)] [TestCase(8)] [TestCase(15)] [TestCase(30)] [TestCase(60)]
+        public void QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(int fps)
+        {
+            var type=typeof(TownWorldMap).Assembly.GetType("Mofumachi.Presentation.TownFountainWaterClock");
+            var ctor=type.GetConstructor(new[]{typeof(float)});Assert.That(ctor,Is.Not.Null,"QA needs an explicit short cycle");
+            var clock=ctor.Invoke(new object[]{45f});var tick=(Func<float,bool,bool>)Delegate.CreateDelegate(typeof(Func<float,bool,bool>),clock,type.GetMethod("Advance"));
+            var elapsed=(Func<float>)Delegate.CreateDelegate(typeof(Func<float>),clock,type.GetProperty("Elapsed").GetMethod);
+            var method=Layout.GetMethod("ShowAt",new[]{typeof(float),typeof(float)});Assert.That(method,Is.Not.Null);
+            var show=(Func<float,float,(int Stage,float Strength,float Glow)>)Delegate.CreateDelegate(typeof(Func<float,float,(int,float,float)>),method);
+            float first=-1;bool recovered=false;
+            for(int frame=0;frame<60*fps;frame++)
+            {
+                tick(1f/fps,true);int stage=show(elapsed(),45).Stage;
+                if(stage==2&&first<0)first=(frame+1f)/fps;
+                if(first>0&&stage==0)recovered=true;
+            }
+            Assert.That(first,Is.InRange(30,60));Assert.That(first,Is.EqualTo(38).Within(1f/fps+.04f));Assert.That(recovered,Is.True);
+        }
+        [Test] public void ShowClockCountsSlowActiveFramesButNeverCountsPausedTime()
         {
             var type=typeof(TownWorldMap).Assembly.GetType("Mofumachi.Presentation.TownFountainWaterClock");Assert.That(type,Is.Not.Null);
             var clock=Activator.CreateInstance(type);var tick=(Func<float,bool,bool>)Delegate.CreateDelegate(typeof(Func<float,bool,bool>),clock,type.GetMethod("Advance"));
             var elapsed=(Func<float>)Delegate.CreateDelegate(typeof(Func<float>),clock,type.GetProperty("Elapsed").GetMethod);
-            tick(600,false);Assert.That(elapsed(),Is.Zero);tick(600,true);Assert.That(elapsed(),Is.EqualTo(.1f).Within(.00001f));
+            tick(600,false);Assert.That(elapsed(),Is.Zero);tick(.25f,true);Assert.That(elapsed(),Is.EqualTo(7f/30).Within(.00001f));
             foreach(float invalid in new[]{float.NaN,float.PositiveInfinity,-1f,0f})tick(invalid,true);
-            Assert.That(elapsed(),Is.EqualTo(.1f).Within(.00001f));
-            for(int i=0;i<1799;i++)tick(.1f,true);Assert.That(elapsed(),Is.EqualTo(0).Within(.00001f),"Exactly180active seconds completes one cycle");
+            Assert.That(elapsed(),Is.EqualTo(7f/30).Within(.00001f));tick(600,false);Assert.That(elapsed(),Is.EqualTo(7f/30).Within(.00001f));
+            for(int i=0;i<719;i++)tick(.25f,true);Assert.That(elapsed(),Is.EqualTo(0).Within(.00001f),"Exactly180 active real seconds completes one cycle at4FPS");
         }
     }
 }

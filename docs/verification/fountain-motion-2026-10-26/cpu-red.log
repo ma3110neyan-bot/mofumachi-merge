@@ -1,0 +1,102 @@
+  Mofumachi.Visual.Tests -> /workspace/mofumachi-merge/Tests/Presentation/bin/Debug/net8.0/Mofumachi.Visual.Tests.dll
+Test run for /workspace/mofumachi-merge/Tests/Presentation/bin/Debug/net8.0/Mofumachi.Visual.Tests.dll (.NETCoreApp,Version=v8.0)
+Microsoft (R) Test Execution Command Line Tool Version 17.10.0 (x64)
+Copyright (c) Microsoft Corporation.  All rights reserved.
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+  Failed NormalStreamHighlightsTravelDownTheWaterRatherThanOnlyChangingBrightness [20 ms]
+  Error Message:
+     A bright packet must visibly descend even when the painting is static
+  Expected: greater than 0.00400000019f
+  But was:  0.0f
+
+  Stack Trace:
+     at Mofumachi.Tests.FountainWaterTests.NormalStreamHighlightsTravelDownTheWaterRatherThanOnlyChangingBrightness() in /workspace/mofumachi-merge/Tests/Presentation/FountainWaterTests.cs:line 117
+
+1)    at Mofumachi.Tests.FountainWaterTests.NormalStreamHighlightsTravelDownTheWaterRatherThanOnlyChangingBrightness() in /workspace/mofumachi-merge/Tests/Presentation/FountainWaterTests.cs:line 117
+
+
+  Failed QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(4) [1 ms]
+  Error Message:
+     QA needs an explicit short cycle
+  Expected: not null
+  But was:  null
+
+  Stack Trace:
+     at Mofumachi.Tests.FountainWaterTests.QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(Int32 fps) in /workspace/mofumachi-merge/Tests/Presentation/FountainWaterTests.cs:line 125
+
+1)    at Mofumachi.Tests.FountainWaterTests.QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(Int32 fps) in /workspace/mofumachi-merge/Tests/Presentation/FountainWaterTests.cs:line 125
+
+
+  Failed QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(8) [< 1 ms]
+  Error Message:
+     QA needs an explicit short cycle
+  Expected: not null
+  But was:  null
+
+  Stack Trace:
+     at Mofumachi.Tests.FountainWaterTests.QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(Int32 fps) in /workspace/mofumachi-merge/Tests/Presentation/FountainWaterTests.cs:line 125
+   at InvokeStub_FountainWaterTests.QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(Object, Span`1)
+
+1)    at Mofumachi.Tests.FountainWaterTests.QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(Int32 fps) in /workspace/mofumachi-merge/Tests/Presentation/FountainWaterTests.cs:line 125
+   at InvokeStub_FountainWaterTests.QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(Object, Span`1)
+
+
+  Failed QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(15) [< 1 ms]
+  Error Message:
+     QA needs an explicit short cycle
+  Expected: not null
+  But was:  null
+
+  Stack Trace:
+     at Mofumachi.Tests.FountainWaterTests.QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(Int32 fps) in /workspace/mofumachi-merge/Tests/Presentation/FountainWaterTests.cs:line 125
+   at InvokeStub_FountainWaterTests.QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(Object, Span`1)
+
+1)    at Mofumachi.Tests.FountainWaterTests.QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(Int32 fps) in /workspace/mofumachi-merge/Tests/Presentation/FountainWaterTests.cs:line 125
+   at InvokeStub_FountainWaterTests.QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(Object, Span`1)
+
+
+  Failed QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(30) [< 1 ms]
+  Error Message:
+     QA needs an explicit short cycle
+  Expected: not null
+  But was:  null
+
+  Stack Trace:
+     at Mofumachi.Tests.FountainWaterTests.QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(Int32 fps) in /workspace/mofumachi-merge/Tests/Presentation/FountainWaterTests.cs:line 125
+   at InvokeStub_FountainWaterTests.QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(Object, Span`1)
+
+1)    at Mofumachi.Tests.FountainWaterTests.QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(Int32 fps) in /workspace/mofumachi-merge/Tests/Presentation/FountainWaterTests.cs:line 125
+   at InvokeStub_FountainWaterTests.QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(Object, Span`1)
+
+
+  Failed QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(60) [< 1 ms]
+  Error Message:
+     QA needs an explicit short cycle
+  Expected: not null
+  But was:  null
+
+  Stack Trace:
+     at Mofumachi.Tests.FountainWaterTests.QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(Int32 fps) in /workspace/mofumachi-merge/Tests/Presentation/FountainWaterTests.cs:line 125
+   at InvokeStub_FountainWaterTests.QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(Object, Span`1)
+
+1)    at Mofumachi.Tests.FountainWaterTests.QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(Int32 fps) in /workspace/mofumachi-merge/Tests/Presentation/FountainWaterTests.cs:line 125
+   at InvokeStub_FountainWaterTests.QaShowStartsWithinSixtyRealSecondsEvenAtLowFrameRates(Object, Span`1)
+
+
+  Failed ShowClockCountsSlowActiveFramesButNeverCountsPausedTime [2 ms]
+  Error Message:
+     Expected: 0.233333334f +/- 9.99999975E-06f
+  But was:  0.100000001f
+  Off by:   0.13333333283662796d
+
+  Stack Trace:
+     at Mofumachi.Tests.FountainWaterTests.ShowClockCountsSlowActiveFramesButNeverCountsPausedTime() in /workspace/mofumachi-merge/Tests/Presentation/FountainWaterTests.cs:line 144
+
+1)    at Mofumachi.Tests.FountainWaterTests.ShowClockCountsSlowActiveFramesButNeverCountsPausedTime() in /workspace/mofumachi-merge/Tests/Presentation/FountainWaterTests.cs:line 144
+
+
+Results File: /workspace/runtime/fountain-show-recovery-2026-10-26/motion-red.trx
+
+Failed!  - Failed:     7, Passed:     9, Skipped:     0, Total:    16, Duration: 254 ms - Mofumachi.Visual.Tests.dll (net8.0)

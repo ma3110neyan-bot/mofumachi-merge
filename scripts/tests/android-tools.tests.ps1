@@ -149,20 +149,29 @@ try {
     Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain -RequireFountainShow}
     $ShowFiles=@('34-fountain-overview-prelude.png','34-fountain-overview-show.png','34-fountain-front-show.png','34-fountain-behind-show.png','34-fountain-overview-recovered.png','34-fountain-overview-show-off.png','34-fountain-front-show-off.png','34-fountain-behind-show-off.png')
     foreach($Name in $ShowFiles){[IO.File]::WriteAllBytes((Join-Path $CaptureDir $Name),$Header)}
-    $Baseline=Get-Content -LiteralPath (Join-Path $PSScriptRoot '../../References/VisualLock/fountain-show-current-before-2026-10-26.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    $Baseline=Get-Content -LiteralPath (Join-Path $PSScriptRoot '../../References/VisualLock/fountain-motion-current-before-2026-10-26.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     $BeforeDir=Join-Path $CaptureDir 'fountain-before';New-Item -ItemType Directory -Path $BeforeDir | Out-Null
     foreach($Image in $Baseline.images){Copy-Item -LiteralPath (Join-Path $PSScriptRoot ('../../'+$Image.path)) -Destination (Join-Path $BeforeDir $Image.file)}
-    $Show=@{kind='prior-native-before-normal-and-timed-show';display_scale=1.14;cycle_seconds=180;prelude_seconds=2;show_seconds=6;recovery_seconds=1;show_elapsed=176;jet_evidence='same-instant-added-layer-off-on-above-normal-uv084';show_pairs=@(foreach($View in @('overview','front','behind')){@{view=$View;changed_pixels=400;show_jet_pixels=80;outside_fountain_pixels=0;clock_unchanged=$true;original_water_phase_unchanged=$true;state_unchanged=$true}});before=$Baseline;pixel_verified=$false;adopted=$false}
+    $Show=@{kind='prior-native-before-normal-and-timed-show';display_scale=1.14;cycle_seconds=45;release_cycle_seconds=180;prelude_seconds=2;show_seconds=6;recovery_seconds=1;show_elapsed=41;jet_evidence='same-instant-added-layer-off-on-above-normal-uv084';show_pairs=@(foreach($View in @('overview','front','behind')){@{view=$View;changed_pixels=400;show_jet_pixels=80;outside_fountain_pixels=0;clock_unchanged=$true;original_water_phase_unchanged=$true;state_unchanged=$true}});before=$Baseline;pixel_verified=$false;adopted=$false}
     $ShowMeta=Join-Path $CaptureDir 'fountain-show-comparison.json';$ShowHtml=Join-Path $CaptureDir 'fountain-show-before-after.html'
     function SaveShow {$Show | ConvertTo-Json -Depth 9 | Set-Content -LiteralPath $ShowMeta}
     SaveShow;Set-Content -LiteralPath $ShowHtml -Value '<!doctype html><title>Synthetic metadata fixture, not native</title>'
+    foreach($Name in @('35-fountain-live-normal.png','35-fountain-live-show.png','35-fountain-live-recovered.png')){[IO.File]::WriteAllBytes((Join-Path $CaptureDir $Name),$Header)}
+    $LiveDir=Join-Path $CaptureDir 'fountain-live';New-Item -ItemType Directory -Path $LiveDir | Out-Null
+    $LiveFrames=@(for($n=0;$n -le 120;$n++){
+        $At=$n*.5;$Clock=$At%45;$LiveStage=if($Clock -lt 36){0}elseif($Clock -lt 38){1}elseif($Clock -lt 44){2}else{3}
+        $File=('35-fountain-live-crop-{0:D3}.png' -f $n);$Path=Join-Path $LiveDir $File;$Bytes=$Header+[byte]$n;[IO.File]::WriteAllBytes($Path,$Bytes)
+        @{file=$File;bytes=$Bytes.Length;width=720;height=1280;sha256=(Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant();realtime_seconds=$At;clock_seconds=$Clock;phase=$At%10;stage=$LiveStage}
+    })
+    @{kind='native-realtime-update-sequence';seconds=60;first_show_seconds=39;cycle_seconds=45;sample_period_seconds=.25;manual_advance=$false;pixel_verified=$false;adopted=$false;state_unchanged=$true;source_width=720;source_height=1280;crop_x=0;crop_y=0;crop_width=720;crop_height=1280;normal_mesh_changes=90;show_mesh_changes=10;frames=$LiveFrames} | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $LiveDir 'fountain-live.json') -Encoding UTF8
+    Set-Content -LiteralPath (Join-Path $LiveDir 'fountain-live.html') '<!doctype html><title>Metadata fixture</title>'
     Assert-NativeCaptures $CaptureDir -RequireFountain -RequireFountainShow
     foreach($Name in $ShowFiles){$Path=Join-Path $CaptureDir $Name;Remove-Item -LiteralPath $Path;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};[IO.File]::WriteAllBytes($Path,$Header)}
     $Show.show_pairs[0].show_jet_pixels=0;SaveShow;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};$Show.show_pairs[0].show_jet_pixels=80
     $Show.show_pairs[0].outside_fountain_pixels=1;SaveShow;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};$Show.show_pairs[0].outside_fountain_pixels=0
     $Show.show_seconds=60;SaveShow;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};$Show.show_seconds=6
     $Show.show_pairs[1].changed_pixels=1;SaveShow;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};$Show.show_pairs[1].changed_pixels=400
-    $Show.before.source_revision='0'*40;SaveShow;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};$Show.before.source_revision='8aa7a14264c3bda3050a9e794c576f6af11535c9'
+    $Show.before.source_revision='0'*40;SaveShow;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};$Show.before.source_revision='5edfa5db37f1386b811713b43c4833b4cea451ab'
     $Show.adopted=$true;SaveShow;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};$Show.adopted=$false;SaveShow
     $BeforeFile=Join-Path $BeforeDir $Baseline.images[0].file;$BeforeBytes=[IO.File]::ReadAllBytes($BeforeFile)
     [IO.File]::WriteAllBytes($BeforeFile,$Header);Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};[IO.File]::WriteAllBytes($BeforeFile,$BeforeBytes)
@@ -170,7 +179,7 @@ try {
     $ZipContents=@(Get-ChildItem -LiteralPath $Temporary -Filter 'five-plaza-review-*.zip' | ForEach-Object {
         $Zip=[IO.Compression.ZipFile]::OpenRead($_.FullName);try {$Zip.Entries | ForEach-Object {$_.FullName}}finally {$Zip.Dispose()}
     })
-    if('fountain-show-comparison.json' -notin $ZipContents -or $Baseline.images[0].file -notin $ZipContents){throw 'ZIP lost timed show or actual prior Before.'}
+    if('fountain-live.json' -notin $ZipContents -or '35-fountain-live-crop-120.png' -notin $ZipContents -or 'fountain-show-comparison.json' -notin $ZipContents -or $Baseline.images[0].file -notin $ZipContents){throw 'ZIP lost timed show or actual prior Before.'}
     if('field-stability.json' -notin $ZipContents){throw 'Review ZIPs lost the required field-stability fixture metadata.'}
     if('town-growth-progression.json' -notin $ZipContents){throw 'Review ZIPs lost real delivery/growth/reload evidence.'}
     if('fountain-water-comparison.json' -notin $ZipContents -or 'fountain-water-before-after.html' -notin $ZipContents){throw 'Review ZIPs lost fountain comparison evidence.'}
@@ -238,8 +247,8 @@ exit $Code
         $Extra=('<test-case result="Passed"/>'*($Total-$SuiteCases-1))+"<test-case result='$Case'/>"
         "<test-run result='Passed' total='$Declared' passed='$Declared' failed='0' skipped='0'>$Nodes$Extra</test-run>" | Set-Content $Xml
     }
-    $EditSuites=Read-GateSuites 'EditXml' 144;$PlaySuites=Read-GateSuites 'PlayXml' 225
-    foreach($Gate in @(@{Minimum=144;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests','TownPlaceCatalogTests','TownViewportTests','TownRegionCatalogTests','TownRegionJourneyTests','TownRegionContentTests')},@{Minimum=225;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests','FiveAreaIntegrationReviewTests')})) {
+    $EditSuites=Read-GateSuites 'EditXml' 144;$PlaySuites=Read-GateSuites 'PlayXml' 226
+    foreach($Gate in @(@{Minimum=144;Suites=$EditSuites;New=@('ChapterProgressTests','TownFrameClockTests','TownPlaceCatalogTests','TownViewportTests','TownRegionCatalogTests','TownRegionJourneyTests','TownRegionContentTests')},@{Minimum=226;Suites=$PlaySuites;New=@('StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests','FiveAreaIntegrationReviewTests')})) {
         $Old=@($Gate.Suites | Where-Object {$_ -notin $Gate.New})
         Write-SuiteXml $Gate.Minimum $Old
         Expect-Rejection {Assert-TestRun $Xml $Gate.Minimum $Gate.Suites}

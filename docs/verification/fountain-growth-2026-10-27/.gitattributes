@@ -1,0 +1,3 @@
+# Preserve the exact audit result and scratch-save evidence on Windows.
+current-growth-result.json -text -diff
+scratch-saves/*.json -text -diff

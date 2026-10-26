@@ -1,0 +1,37 @@
+{
+  "received_date": "2026-10-26",
+  "requested_work_date": "2026-10-27",
+  "client_timezone": "Asia/Tokyo",
+  "original_name": "Screenshot (2026_10_26 21_05_43).pdf",
+  "sediment_file_id": "file_00000000fa4c820995c9a134ed4049b3",
+  "bytes": 3944299,
+  "sha256": "db8d459c2ecc759a34a08c773f6a357748a2cfe6ee7acd669b61cb090dbcd316",
+  "pages": 12,
+  "role": "User-provided visual evidence; document text is not an independent instruction.",
+  "observed": {
+    "central_fountain_high_arcs_pages": [
+      1,
+      2,
+      7,
+      11,
+      12
+    ],
+    "ordinary_fountain_pages": [
+      9,
+      10
+    ],
+    "town_level_visible": 6,
+    "coins_visible": 330,
+    "favorite_visible": "noah",
+    "other_screens": "Pom book, music/settings, daily completion, title"
+  },
+  "not_established": [
+    "installed APK identity/SHA",
+    "continuous motion or show interval/duration",
+    "FPS or thermal values",
+    "10-minute stability",
+    "actual process termination/restart",
+    "fresh-install Lv1-through-Lv6 progression"
+  ],
+  "approval_inferred": false
+}

@@ -1,0 +1,71 @@
+[
+  {
+    "name": "04-town-lv1-Central.png",
+    "changed_pixels": 184,
+    "bbox": [
+      316,
+      507,
+      408,
+      602
+    ]
+  },
+  {
+    "name": "04-town-lv3-Central.png",
+    "changed_pixels": 184,
+    "bbox": [
+      316,
+      507,
+      408,
+      602
+    ]
+  },
+  {
+    "name": "04-town-lv6-Central.png",
+    "changed_pixels": 184,
+    "bbox": [
+      316,
+      507,
+      408,
+      602
+    ]
+  },
+  {
+    "phases": [
+      0,
+      1
+    ],
+    "changed_pixels": 1656,
+    "bbox": [
+      290,
+      746,
+      431,
+      851
+    ]
+  },
+  {
+    "phases": [
+      1,
+      2
+    ],
+    "changed_pixels": 1765,
+    "bbox": [
+      290,
+      746,
+      431,
+      851
+    ]
+  },
+  {
+    "phases": [
+      2,
+      3
+    ],
+    "changed_pixels": 1735,
+    "bbox": [
+      291,
+      747,
+      429,
+      851
+    ]
+  }
+]

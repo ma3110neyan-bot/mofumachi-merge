@@ -1,0 +1,7 @@
+Received artifacts verified with existing production gates, exit0.
+Tests passed:144/144;225/225.
+154PNG720x1280;boundary/field/actual-growth/fountain metadata required.
+Original354, approveddesign, frozenfield,17exactbindings passed.
+Current render:5fb43abb089d9879cc301abeba057328936e81dc9a727ac4358874fe365b36cc
+Historical reference:dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa
+Initial local PowerShell launch could not create default cache in read-only /home/agent; authorized retry ran the unchanged gates successfully. No gate or product change.

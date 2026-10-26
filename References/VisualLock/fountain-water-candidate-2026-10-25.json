@@ -92,15 +92,15 @@
       "after_sha256": "9b6288c07801a7b869d93ccc09a5bde050f46757533cc35973f142ba6c8c17d3"
     }
   ],
-  "native_unity_verified": false,
-  "qa_apk_generated": false,
+  "native_unity_verified": true,
+  "qa_apk_generated": true,
   "pixel_verified": false,
   "adopted": false,
   "merge_quality_pass_started": false,
   "pass_id": "fountain_water_2026_10_25",
   "fountain_pass_started": true,
   "character_trial_started": false,
-  "native_image_inspection_complete": false,
+  "native_image_inspection_complete": true,
   "native_visual_cleared": false,
   "field_stability_passed": false,
   "native_test_inventory_expected": {
@@ -114,5 +114,9 @@
   "field_freeze_hash_mode": "lf-text",
   "field_freeze_sha256": "6a44d14c4127305e698ce9ecccec6acdfbc089934da8397d111b61984a9c3821",
   "field_base_user_approved": true,
-  "fountain_user_approved": false
+  "fountain_user_approved": false,
+  "native_review": "References/Review/fountain-water-2026-10-26-candidate/native-review.json",
+  "native_run": "20261026-093151-b7d557b1",
+  "native_source_revision": "8aa7a14264c3bda3050a9e794c576f6af11535c9",
+  "eligible_for_same_apk_pixel_verification": true
 }

@@ -1,0 +1,208 @@
+{
+  "reviewed_on_jst": "2026-10-26",
+  "run": "20261026-093151-b7d557b1",
+  "native_source_revision": "8aa7a14264c3bda3050a9e794c576f6af11535c9",
+  "product_fingerprint": "97e700b2d5bc5e8298b0dd062fa49fd994ec138acb5e0895a931420c2d4e0d8f",
+  "render_input_digest": "5fb43abb089d9879cc301abeba057328936e81dc9a727ac4358874fe365b36cc",
+  "verdict": "eligible_for_conditional_same_run_town_qa_pixel_verification",
+  "native_tests_verified": true,
+  "native_image_inspection_complete": true,
+  "new_visual_regression_established": false,
+  "field_base_user_approved": true,
+  "field_freeze": "References/VisualLock/town-field-frozen-2026-10-25.json",
+  "native_visual_cleared": false,
+  "pixel_verified": false,
+  "fountain_user_approved": false,
+  "adopted": false,
+  "native_evidence": {
+    "archive_parts": 12,
+    "archive_total_bytes": 238734832,
+    "raw_files": 172,
+    "png_images": 154,
+    "width": 720,
+    "height": 1280,
+    "all_archive_crc_manifest_sha_bytes_dimensions_decode_verified": true,
+    "tests": [
+      {
+        "file": "editmode.xml",
+        "total": 144,
+        "passed": 144,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      {
+        "file": "playmode.xml",
+        "total": 225,
+        "passed": 225,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0
+      }
+    ],
+    "total_passed": 369,
+    "all_individual_cases_passed": true,
+    "existing_production_native_and_visual_lock_gates_passed": true,
+    "source_revision_and_fingerprint_records_match": true,
+    "windows_product_fingerprint_independently_recomputed": false,
+    "both_apk_success_markers_and_bytes_match_metadata": true,
+    "town_apk": {
+      "gitRevision": "8aa7a14264c3bda3050a9e794c576f6af11535c9",
+      "revisionSource": "git-metadata + clean product inputs",
+      "productFingerprint": "97e700b2d5bc5e8298b0dd062fa49fd994ec138acb5e0895a931420c2d4e0d8f",
+      "localUnityConfigurationChanges": [
+        "\"Assets/Settings/Build Profiles/Android\\342\\204\\242.asset\"",
+        "Assets/Settings/UniversalRP.asset",
+        "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+        "ProjectSettings/ProjectSettings.asset"
+      ],
+      "nativeCaptureCount": 154,
+      "unity": "6000.6.4f1",
+      "appId": "com.mofumachi.merge.qa.townlife",
+      "versionCode": 1,
+      "apk": "town-life-qa.apk",
+      "sha256": "2971b220edc77a7605ded12295bf2b7cbf06b83cbdcca9a86d03175694498cf0",
+      "bytes": 79021005,
+      "builtAtUtc": "2026-10-26T00:41:52.4208244Z",
+      "qa": true,
+      "townQa": true
+    },
+    "growth_apk": {
+      "gitRevision": "8aa7a14264c3bda3050a9e794c576f6af11535c9",
+      "productFingerprint": "97e700b2d5bc5e8298b0dd062fa49fd994ec138acb5e0895a931420c2d4e0d8f",
+      "appId": "com.mofumachi.merge.qa.growthcheck",
+      "apk": "town-growth-check.apk",
+      "sha256": "5dd9a110642a567101bf2d83f278172108537629121535738a593216981cfceb",
+      "bytes": 79021029,
+      "initial_state": "normal initial game, separate Android app save",
+      "pixel_verified": false,
+      "adopted": false
+    },
+    "apk_binaries_received": false,
+    "apk_sha_independently_recomputed": false,
+    "runtime_and_test_files_match_tested_revision": true,
+    "current_receipt_checkpoint_and_documentation_edits_only": true
+  },
+  "comparison": {
+    "previous_native_source": "43a27646fcf65174afb938fb78c0b93d7e0628ad",
+    "same_name_png_identical": 87,
+    "same_name_png_changed": 57,
+    "new_fountain_png": 10,
+    "all12_east_west_north_south_lv1_lv3_lv6_overviews_byte_identical": true,
+    "central3overview_changes": "184 RGB pixels each, confined to fountain bbox[316,507,408,602)",
+    "other_changed_snapshots": "Today11/12/13 daily companion changes;29Merge landing instant;26South join47pixel maxdelta4 upper-label difference. Do not attribute all57 to new water.",
+    "same_state_new_layer_off_on": [
+      {
+        "view": "overview",
+        "changed_pixels": 39,
+        "bbox": [
+          319,
+          814,
+          401,
+          909
+        ],
+        "max_channel_difference": 55,
+        "mean_changed_channel_difference": 4.051282051282051,
+        "pixels_max_difference_gt8": 13
+      },
+      {
+        "view": "front",
+        "changed_pixels": 36,
+        "bbox": [
+          317,
+          605,
+          401,
+          696
+        ],
+        "max_channel_difference": 63,
+        "mean_changed_channel_difference": 5.75,
+        "pixels_max_difference_gt8": 17
+      },
+      {
+        "view": "behind",
+        "changed_pixels": 169,
+        "bbox": [
+          314,
+          755,
+          408,
+          850
+        ],
+        "max_channel_difference": 161,
+        "mean_changed_channel_difference": 11.694280078895464,
+        "pixels_max_difference_gt8": 108
+      }
+    ],
+    "new_layer_pairs_preserve_original_fountain_and_water": true,
+    "outside_fountain_pixels": [
+      0,
+      0,
+      0
+    ],
+    "four_time_samples_include_original_and_new_water": true,
+    "phase_samples_do_not_isolate_new_water": true,
+    "new_effect_perceptibility": "Very subtle in native stills; ordinary-size live Pixel check required.",
+    "character_visibility": "No perceptible new obstruction in supplied stills; minor alpha-edge pixels differ, so no pixel-identity claim.",
+    "inspection": "All154 private sheets plus originals/pair crops; single independent read-only native visual review. No chat image embedding."
+  },
+  "independent_review": {
+    "report": "independent-review.md",
+    "critical": 0,
+    "new_important_visual_regressions": 0,
+    "inherited_important_device_acceptance_items": 2,
+    "minor": 2,
+    "ready_for_conditional_same_apk_pixel_verification": true
+  },
+  "open_acceptance_items": [
+    {
+      "id": "I1",
+      "kind": "inherited_device_usability",
+      "item": "East canopy concealment and tap/drag return",
+      "ruling": "Retain user-approved field, verify on sameAPK; no inferred deadlock or speculative scenery/navigation change."
+    },
+    {
+      "id": "I2",
+      "kind": "inherited_live_depth_evidence_gap",
+      "item": "Fountain far-side opaque body occlusion and hero/NPC crossing",
+      "ruling": "Behind still overlaps nameplate only; sibling-order checks are not live-body proof. Require actual front/side/far/front movement."
+    },
+    {
+      "id": "M1",
+      "kind": "new_effect_readability",
+      "item": "Only39/36/169isolated changedpixels; water may be too subtle",
+      "ruling": "Judge ordinary-size motion on Pixel; no automatic strength change or adoption based on amplified differences."
+    },
+    {
+      "id": "M2",
+      "kind": "inherited_local_polish",
+      "item": "North peripheral ground/repeated planted rims",
+      "ruling": "No new regression; keep bounded polish only."
+    }
+  ],
+  "declined_to_judge_rulings": [
+    {
+      "item": "Live continuity/cadence/flicker/perceptibility",
+      "ruling": "Require sameAPKPixel. Fourstills include old water; pixel-diff positivity alone is not perceptual acceptance."
+    },
+    {
+      "item": "Character/NPC live depth and East usability",
+      "ruling": "CarryI1/I2; no source fix guessed from stills."
+    },
+    {
+      "item": "PixelFPS/GC/heat/audio/600seconds/crashes/pause/restart",
+      "ruling": "Unobserved. Added320vertices/30Hz cap is not device measurement."
+    },
+    {
+      "item": "LocalAPKbinary SHA/installed identity",
+      "ruling": "Rawlogs/metadata consistent; Windows exacthash and explicitappID/serial install-r required. No uninstall/saveclear."
+    },
+    {
+      "item": "Real player save preservation/device progression",
+      "ruling": "Native real-delivery fixtures pass, but actual update/restart and unobserved device growth remain open; no save reset."
+    },
+    {
+      "item": "Fountain adoption/2.5D/Merge/laterstages/main",
+      "ruling": "Fountainapprovalfalse and laterstagesblocked. Userfieldfreeze retained separately."
+    }
+  ],
+  "next": "Use already built same-run town-life-qa.apk, verify localSHA, save-preserving explicitID install-r toPixel99RAY1BELH; follow docs/fountain-water-pixel3a-2026-10-26.md. No newbuild solely for this record."
+}

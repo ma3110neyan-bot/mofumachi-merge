@@ -1,5 +1,11 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-26最新受領：噴水版の12ZIP・172原本を照合済み。** run `20261026-093151-b7d557b1`、ソース8aa7a142、fingerprint97e700b2…。原Edit144/144・Play225/225の全369ケースPassed、failed0／skip0／inconclusive0。全154PNGのSHA・bytes・720×1280・デコード、既存全件／境界／歩行／実成長／噴水ゲート、原354・固定景観と17入力bindingが成功。両APKのsource／fingerprint／成功log／bytesが一致。原本と判定は `References/Review/fountain-water-2026-10-26-candidate/`。街QA79,021,005bytes／SHA2971b220…、成長79,021,029bytes／SHA5dd9a110…。APKbinary未受領、独立binarySHAはWindows側で照合する。
+
+**判定は同run街QAによる条件付きPixel確認へ進行可、噴水採用は保留。** 全154枚を私的に点検・単独の独立実画像レビュー。新たなImportant景観後退0、持越しImportant2は東の木陰での視認／タップ・ドラッグ帰還と、奥の噴水がキャラ本体を自然に隠すライブ切替。Minor2は控えめすぎる可能性のある新水と既存北外周。西東北南のLv1/3/6全景12枚は固定前とbyte同一、中央3枚の184画素差は噴水内だけ。87同一／57変更／10追加。日替わり11/12/13・Merge着地29・Southjoin26微差を全て新噴水に帰属させない。新レイヤーOFF/ONの全景39／手前36／奥169画素差、投影外0。顔の知覚できる新隠れなしだがalpha縁の微差があり「キャラ画素完全一致」とはしない。4時相は旧水も進むため全差分を新効果の証明にしない。
+
+**次は既に生成した街QAだけを更新し、通常サイズで水が動いて見えるか／前後／負荷を確認。** 手順 `docs/fountain-water-pixel3a-2026-10-26.md`、Pixel99RAY1BELH・街QA IDcom.mofumachi.merge.qa.townlifeへSHA照合→保存維持install-r。今回ゲーム・テスト・QAツール無変更で記録更新のみ、Pull／再ビルドを依頼しない。既存保存維持／噴水手前→左右→奥→手前／NPC／5地区往復・東帰還／600秒・熱・音・重さ／再起動保存を同版で確認する。街のユーザー正式ベース候補固定は維持。実機・噴水承認は未了で2.5D／Merge／次工程／main停止。画像をチャットへ貼らない。以下は過去段階の記録。
+
 **2026-10-25最新ユーザー：街5地区を正式ベース候補として固定し、第1工程「噴水エフェクト」だけ開始する指示。** 旧「全Pixel条件確認まで噴水も停止」は、この明示の工程移行承認で上書きする。全Pixel負荷／600秒／初期成長確認済みと推論しない。残すPolishはキャラ重なり／会話位置／噴水前後／端詰まり／小境界のみ。街構造・景観の大改造なし。噴水合格まで代表1名2.5D／Merge／図鑑前面化／Tutorial／ReleasePolish／mainへ進めない。
 
 噴水の計画 `docs/superpowers/plans/2026-10-25-fountain-water.md`、仕様対応spec。2834cb7から同featureでinline実装済み。原画・既存波紋を残し、Fountain子の新TownFountainWaterGraphic1個＋純UVQuad samplerを追加。6本水流／小しぶき／3波紋／4反射、80quad320頂点、時相30Hz、画面外・無効・Pause時停止。WorldViewは子bind／camera変更時refresh／既存CanSimulateの読み取りだけで、Depth.285／Nav／地形・原画・保存・報酬・キャラ・BGM・図鑑・Mergeは無変更。添付PDF14頁・ユーザー固定承認は `References/Review/town-field-user-approval-2026-10-25/` と `References/VisualLock/town-field-frozen-2026-10-25.json`。性能・ライブ噴水切替や全初期成長の証明にはしない。

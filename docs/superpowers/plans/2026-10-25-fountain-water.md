@@ -49,7 +49,8 @@ Interfaces: FountainWaterBeforeAfterPreservesFieldAndCharacterDepth() UnityTest;
 - [x] Run full CPU340/340, six API assemblies0warnings/errors and relevant14PS checks. Read results; no new native/device claim.
 - [x] One fresh-context whole-change review: Critical0／Important0／Minor0. Preserve all declared device-only limitations.
 - [x] Commit/push feature only. Give one Windows fullTownQa command for actual native BeforeAfter/newAPK/SHA. No further stage before fountain approval.
-- [ ] Receive actual native artifacts, then matching-APK Pixel visual/depth/load acceptance. Fountain adoption only after user/device result.
+- [x] Receive actual native artifacts:20261026-093151-b7d557b1／8aa7a142,12ZIP／172raw／154PNG,144Edit＋225PlayallPassedfailed0skip0; source/fingerprint and bothAPKlog/bytes agree. Existing production artifact and immutable reference gates pass. Private inspection＋one independent native image review find no new Important visual regression. SameAPK Pixel verification eligible, not fountain adoption.
+- [ ] Matching-APK Pixel visual/depth/load/600second/save acceptance. Fountain adoption only after user/device result; 2.5D／Merge／laterstages／main blocked.
 
 ## Ledger
 
@@ -70,3 +71,11 @@ Final: Ruling: live front/far body occlusion/NPC readability declined — preser
 Final: Ruling: actual native144/225／154images declined — API compatibility and CPU tests are not substitutes; hand off one fullWindows run without retrying known unavailable cloudlicense — cost if wrong is diagnosis from same-run XML/log.
 Final: Ruling: newAPK identity/deviceGC/framepacing/heat/600seconds/growth/restart declined — require same-source build/SHA and actualPixel; Core/save/rewards untouched and existing fullnative checks remain — cost if wrong is fountain not accepted, no later stage.
 Final: Ruling: user adoption/nextstage declined — latest instruction freezes only currentfieldcandidate and permits fountain, not2.5D/Merge/main — cost if wrong is premature scope expansion, prevented by recorded false approval flags.
+
+## Native receipt ledger — 2026-10-26
+
+Received all12parts and preserved172originals byte-for-byte.144Edit／225PlayallPassed,failed0skip0inconclusive0,154PNG720x1280manifestSHA/bytes/decodepass. Both build/capture records identify8aa7a142／97e700b2… and both successlogbytecounts agree. APKbinaries not supplied, so client-side exactSHA is required before explicitID/serial install-r. Source/reference gate remains5fb43abb…／historicaldfb2cbc8…,original354 and frozenfieldpreserved. Initial localPS launch could not create the default cache under read-onlyhome; authorized retry ran unchanged gates successfully, no gate changes.
+
+Private154image inspection and single fresh native-visual review:Critical0,newImportantregressions0; inheritedImportant2(Eastcanopyusability/livefountainfarbodycrossing),Minor2(newwaterverysubtle/Northrim).12noncentraloverviewsbyteidentical,Central3change184RGBpixelsonlyatfountain.87same57changed10new;daily11/12/13,landing29,Southjoin26changesarequalifiedseparately. Synchronous39/36/169pixelnewlayerdeltasinsidefountain;no visible new faceobscuring,notcharacterbyteidentity.4phasesadvancebothwaterlayersanddonotisolate newmotion.
+
+Ruling: reviewer declined liveperceptibility/cadence/bodydepth/NPCinput/FPS/heat/audio/600s/restart/binaryidentity/fountainadoption. Keep all as sameAPKPixelgates, do not guess strongerwater or modifyfrozenart from stills. Existingfielduserfreeze remains; nextstageblocked. `docs/fountain-water-pixel3a-2026-10-26.md` uses the generated townQAonly, hash2971b220… andserial99RAY1BELH, no saveclear. Record-onlyreceipt requires no rebuild. Raw original falsePixel/adoption flags retained.

@@ -1,0 +1,31 @@
+{
+  "date_jst": "2026-10-26",
+  "run": "20261026-093151-b7d557b1",
+  "checks": {
+    "archive_parts_crc": 12,
+    "raw_hashes": 172,
+    "png_manifest_bytes_dimensions_decode": 154,
+    "editmode_passed": 144,
+    "playmode_passed": 225,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0,
+    "existing_production_capture_test_and_source_gates": "pass",
+    "original354_and_frozen_field": "unchanged",
+    "current_render_digest": "5fb43abb089d9879cc301abeba057328936e81dc9a727ac4358874fe365b36cc",
+    "historical_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+    "both_apk_metadata_and_success_logs": "match",
+    "new_important_visual_regressions": 0,
+    "record_json_and_installer_identity": "pass",
+    "runtime_assets_tests_and_tools_diff": "empty",
+    "fountain_user_approved": false,
+    "pixel_verified": false,
+    "later_stages_blocked": true
+  },
+  "limitations": [
+    "APKbinaries not received; independentSHA and install on userWindowspending",
+    "Native stills do not establish livewaterperceptibility/depth/deviceperformance/heat/600s/restart",
+    "One independent nativevisual review; inheritedImportant2 andMinor2 retained"
+  ],
+  "initial_tool_environment_issue": "DefaultPowerShellcache under read-onlyhome; authorizedretry succeeded, then workspaceXDGcache run also passed. No product or gate alteration."
+}

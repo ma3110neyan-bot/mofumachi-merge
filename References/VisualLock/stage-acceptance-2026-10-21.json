@@ -43,15 +43,14 @@
     }
   },
   "remaining_sequence": [
-    "curved_boundary_native_comparison",
-    "curved_boundary_same_source_qa_apk",
-    "curved_boundary_pixel_acceptance",
-    "stage1_acceptance",
-    "fountain_effect_pass",
-    "fountain_pixel_acceptance",
+    "fountain_same_apk_pixel_verification",
+    "fountain_user_approval",
     "representative_character_2p5d_trial",
-    "representative_pixel_acceptance",
-    "merge_quality_pass"
+    "representative_pixel_and_user_approval",
+    "merge_quality_pass",
+    "book_foreground",
+    "tutorial",
+    "release_polish"
   ],
   "completed_after_central": [
     "west_cafe",
@@ -192,7 +191,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "fountain_water_implemented_native_and_pixel_pending",
+  "current_stage": "fountain_water_native_verified_same_apk_pixel_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -868,8 +867,8 @@
   "field_freeze": "References/VisualLock/town-field-frozen-2026-10-25.json",
   "fountain_water": {
     "implemented": true,
-    "native_unity_verified": false,
-    "qa_apk_generated": false,
+    "native_unity_verified": true,
+    "qa_apk_generated": true,
     "pixel_verified": false,
     "user_approved": false,
     "next_blocked": [
@@ -877,6 +876,12 @@
       "merge_quality_pass",
       "main"
     ],
-    "render_input_fingerprint": "5fb43abb089d9879cc301abeba057328936e81dc9a727ac4358874fe365b36cc"
+    "render_input_fingerprint": "5fb43abb089d9879cc301abeba057328936e81dc9a727ac4358874fe365b36cc",
+    "native_image_inspection_complete": true,
+    "native_visual_cleared": false,
+    "native_run": "20261026-093151-b7d557b1",
+    "native_source_revision": "8aa7a14264c3bda3050a9e794c576f6af11535c9",
+    "native_review": "References/Review/fountain-water-2026-10-26-candidate/native-review.json",
+    "pixel_instructions": "docs/fountain-water-pixel3a-2026-10-26.md"
   }
 }

@@ -1,0 +1,2 @@
+# Uploaded originals stay byte-exact; raw-sha256.json verifies their contents.
+native/** -text -diff

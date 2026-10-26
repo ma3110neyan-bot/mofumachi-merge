@@ -1,0 +1,34 @@
+# Independent whole-change review — fountain show, 2026-10-26
+
+Reviewed the uncommitted change against `1fcc8886e6b2ade71b08d2fa18323b02719605de`, including the new specification, plan, candidate and actual-Before manifest. Read-only review; no product edits or additional reviewers. Latest authorization is the fountain-only enlargement, stronger ordinary water and short periodic show. Historical instructions about the previous weak candidate do not block this authorized revision.
+
+**Verdict: one Important verification defect should be corrected before the Windows full-QA handoff. After that targeted correction and its checks, this change is eligible for Windows full QA only. No native visual, APK, Pixel, adoption or next-stage approval is given.**
+
+## Findings
+
+Critical: 0. Important: 1. Minor: 0. No confirmed new runtime defect found.
+
+### I1 — The show pixel gate does not isolate the special show
+
+`Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs:168` advances both the new water clock and original ambient water. Lines 176–181 compare the resulting show image against earlier normal pixels and count differences across the entire image. The ordinary animation phase has also changed, and the original ambient phase has advanced by roughly 175 seconds. The `>300` assertion therefore counts ordinary water/ripple changes along with any special jets; it does not demonstrate that the show itself contributed visible pixels. There is also no outside-projection assertion for this show comparison. `scripts/build-android.ps1:135` consumes this same aggregate count as the native show gate.
+
+This is a new evidence defect, not a claim that the implemented jets fail to render. CPU sampler tests demonstrate mathematical show geometry, while the native stage assertion demonstrates the clock state. Neither establishes that the rendered special effect caused the required pixel change. A Graphic accidentally ignoring `show.Strength` could retain the stage/mesh/CPU assertions and still contribute ordinary-animation differences to this gate. Actual false-positive pixel totals cannot be measured here without native Unity.
+
+Before the first new Windows run, add a causal native check: for example, compare the show layer ON/OFF at the same instant and require meaningful changed pixels above the maximum normal-water height, plus zero differences outside the bounded fountain/show projection. A properly phase-matched normal/show control is another option. Keep the actual prior-Before images and normal/show presentation images; label aggregate normal-versus-show differences honestly. Bind the new show-specific count and confinement result in metadata/build gates and rejection fixtures. This can be fixed in capture/QA code without changing the runtime design or expanding scope.
+
+## Checked behavior and evidence
+
+- Runtime diff is confined to `TownFountainGraphic.cs`, `TownFountainWaterLayout.cs` and `TownFountainWaterGraphic.cs`. Projection scales around the unchanged physical center; `TownContinuousWorldView.cs:152` still sorts the entire fountain parent at `FountainCenterY`. The water remains a non-raycast child. No new navigation, save, reward, character, Merge or scenery edits were found.
+- Ordinary streams are continuous, layered and materially wider/stronger in the sampler. Native normal OFF/ON checks now require more than 200 changed pixels in each view and zero outside the projection (`ExperienceCaptureTests.cs:129`). This is meaningful test intent, not evidence that the new images have passed or that the player will prefer them.
+- `TownFountainWaterGraphic.cs:11–17` keys the transient clock by the persistent `UIFlowController`. The world is under that controller's Canvas hierarchy. `UIFlowController.cs:396` deactivates the old page before building its replacement, avoiding double advancement from overlapping Home instances. The weak-table value does not retain its key. A new UIFlow receives a separate clock; the same UIFlow retains time across Home/pause rebuilds.
+- Active/visible gating uses the existing `CanSimulate` modal/pause/screen checks. `TownFountainWaterLayout.cs:83–91` uses bounded ticks, rejects nonfinite/nonpositive input and caps each advance at 0.1 seconds. No wall-clock catch-up or SaveData field is introduced. A separate float32 model of the exact capture helper and clock reached 172, 176 and 179.96667 then wrapped to quiet successfully for 540 initial offsets. The recovery helper intentionally stops one tick before wrap and then advances, so it does not target the unreachable value 180 in a modulo clock.
+- Independently read all three manifest source PNGs: SHA-256 and bytes match, and PNG headers are 720×1280. Their source is the actual `8aa7a142…` / `20261026-093151-b7d557b1` run. Native code copies raw bytes with SHA verification; the separate subdirectory and archive fallback preserve provenance and avoid counting the three old files as newly captured images. The archive fixture checks inclusion. No repainting or relabeling as a new run was found.
+- New exact scope permits the fountain artwork projection while the existing accepted-field bindings and historical digest remain enforced. New candidate/adoption flags remain false. The stage record distinguishes prior native evidence from this unverified revision.
+- Device script adds a 600-second option and battery sensor start/end values. Missing/invalid parsed temperatures remain null; battery temperature is explicitly distinguished from CPU temperature. Existing SurfaceFlinger parsing rejects zero/max placeholders, and all acceptance flags remain false. No device measurement is claimed by this review.
+- Inspected existing run artifacts: `cpu-full.log` reports 345 passed / 0 failed / 0 skipped; `api-final.log` reports all six assemblies built with zero warnings/errors; `ps-all.log` records all 14 fixtures exit 0; `crlf-count.json` records 419 files and `crlf-preflight.log` reports current/historical/frozen gates passed. `git diff --check` passed. These are CPU/API/script evidence, not native Unity results. I did not rerun the full suite or retry the known unavailable Unity license.
+
+## Inherited concerns and declined judgments
+
+The prior east-tree visibility/input concern, live far-side character occlusion question and existing north-edge polish are inherited acceptance items, not new defects established by this diff. Existing `TownAmbientGraphic` behavior is unchanged.
+
+Declined to judge without new evidence: actual 159-image rendering success; perceived normal-water improvement; show appearance and character visibility during live front/far transitions; whether enlargement feels crowded on the retained paths; generated APK identity; Pixel FPS, heat, ten-minute stability, audio and save/restart behavior; user adoption. The four-page user PDF is current-state feedback, not performance or endurance evidence. No chat images were produced.

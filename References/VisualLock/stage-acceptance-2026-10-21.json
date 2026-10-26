@@ -191,7 +191,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "fountain_water_native_verified_same_apk_pixel_pending",
+  "current_stage": "fountain_show_implementation_native_and_pixel_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -711,7 +711,7 @@
     "native_images_verified": 124,
     "native_review": "References/Review/curved-boundary-2026-10-25-candidate/native-review.json"
   },
-  "base_polish": "References/VisualLock/fountain-water-candidate-2026-10-25.json",
+  "base_polish": "References/VisualLock/fountain-show-candidate-2026-10-26.json",
   "previous_qa_build_report": {
     "run": "20261025-073237-f8fd542b",
     "status": "console_success_reported",
@@ -867,8 +867,8 @@
   "field_freeze": "References/VisualLock/town-field-frozen-2026-10-25.json",
   "fountain_water": {
     "implemented": true,
-    "native_unity_verified": true,
-    "qa_apk_generated": true,
+    "native_unity_verified": false,
+    "qa_apk_generated": false,
     "pixel_verified": false,
     "user_approved": false,
     "next_blocked": [
@@ -876,12 +876,9 @@
       "merge_quality_pass",
       "main"
     ],
-    "render_input_fingerprint": "5fb43abb089d9879cc301abeba057328936e81dc9a727ac4358874fe365b36cc",
-    "native_image_inspection_complete": true,
+    "render_input_fingerprint": "f4ddc00d9a104ac275ec2f3baffaa2a9f73d0ec3705a21bb133d600c489a470c",
+    "native_image_inspection_complete": false,
     "native_visual_cleared": false,
-    "native_run": "20261026-093151-b7d557b1",
-    "native_source_revision": "8aa7a14264c3bda3050a9e794c576f6af11535c9",
-    "native_review": "References/Review/fountain-water-2026-10-26-candidate/native-review.json",
-    "pixel_instructions": "docs/fountain-water-pixel3a-2026-10-26.md"
+    "previous_native_review": "References/Review/fountain-water-2026-10-26-candidate/native-review.json"
   }
 }

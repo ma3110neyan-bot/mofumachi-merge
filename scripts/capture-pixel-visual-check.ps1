@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [ValidateSet('Before','After')][string]$Label='After',
-    [ValidateRange(5,60)][int]$Seconds=30,
+    [ValidateRange(5,600)][int]$Seconds=30,
     [string]$OutputDirectory,
     [string]$Serial='99RAY1BELH',
     [string]$Layer,
@@ -28,6 +28,12 @@ function Read-TotalPss([string]$Raw) {
     if($Raw -match 'TOTAL PSS:\s*(\d+)'){return [long]$Matches[1]}
     return $null
 }
+function Read-BatteryTemperature([string]$Raw) {
+    if($Raw -match '(?m)^\s*temperature:\s*(-?\d+)\s*$') {
+        $Value=[double]$Matches[1];if($Value -ge 0 -and $Value -le 800){return $Value/10}
+    }
+    return $null
+}
 if($MyInvocation.InvocationName -eq '.'){return}
 . (Join-Path $PSScriptRoot 'install-pixel3a.ps1') -Adb $Adb -Serial $Serial
 if(-not(Test-Path -LiteralPath $Adb -PathType Leaf)){throw 'ADB missing. Pass -Adb with the Unity Android SDK adb.exe.'}
@@ -52,6 +58,10 @@ if($InstalledPath -notmatch '^/data/app/[A-Za-z0-9_./=~+!-]+\.apk$'){throw 'Unex
 $HashOutput=Invoke-CheckedNative $Adb @('-s',$Serial,'shell','sha256sum',('"'+$InstalledPath+'"'))
 if($HashOutput -notmatch '^([a-fA-F0-9]{64})\s'){throw 'Installed APK hash could not be read; evidence has no reliable identity.'}
 $ApkHash=$Matches[1].ToLowerInvariant()
+$BatteryStart=Invoke-CheckedNative $Adb @('-s',$Serial,'shell','dumpsys','battery')
+[IO.File]::WriteAllText((Join-Path $OutputDirectory 'battery-start.txt'),$BatteryStart)
+$ThermalStart=Invoke-CheckedNative $Adb @('-s',$Serial,'shell','dumpsys','thermalservice')
+[IO.File]::WriteAllText((Join-Path $OutputDirectory 'thermal-start.txt'),$ThermalStart)
 $Initial=Invoke-CheckedNative $Adb @('-s',$Serial,'shell','dumpsys','SurfaceFlinger','--latency',$QuotedLayer)
 $Seen=New-Object 'System.Collections.Generic.HashSet[long]'
 foreach($Time in @(Read-PresentTimes $Initial)){$null=$Seen.Add($Time)}
@@ -63,12 +73,15 @@ while($Clock.Elapsed.TotalSeconds -lt $Seconds) {
     $Raw=Invoke-CheckedNative $Adb @('-s',$Serial,'shell','dumpsys','SurfaceFlinger','--latency',$QuotedLayer)
     [IO.File]::WriteAllText((Join-Path $OutputDirectory ('surface-{0:D2}.txt' -f $Index++)),$Raw)
     foreach($Time in @(Read-PresentTimes $Raw)){if($Seen.Add($Time)){$Frames.Add($Time)}}
+    if($Index%15 -eq 0){Write-Host ("Recording {0}: {1:N0}/{2}s; keep town QA in foreground." -f $Label,$Clock.Elapsed.TotalSeconds,$Seconds)}
 }
 $Clock.Stop()
 $Memory=Invoke-CheckedNative $Adb @('-s',$Serial,'shell','dumpsys','meminfo',$Package)
 [IO.File]::WriteAllText((Join-Path $OutputDirectory 'meminfo.txt'),$Memory)
 $Thermal=Invoke-CheckedNative $Adb @('-s',$Serial,'shell','dumpsys','thermalservice')
 [IO.File]::WriteAllText((Join-Path $OutputDirectory 'thermal.txt'),$Thermal)
+$BatteryEnd=Invoke-CheckedNative $Adb @('-s',$Serial,'shell','dumpsys','battery')
+[IO.File]::WriteAllText((Join-Path $OutputDirectory 'battery-end.txt'),$BatteryEnd)
 $DeviceImage='/sdcard/mofu-qa-'+[guid]::NewGuid().ToString('N')+'.png'
 try {
     Invoke-CheckedNative $Adb @('-s',$Serial,'shell','screencap','-p',$DeviceImage) | Out-Null
@@ -76,7 +89,9 @@ try {
 } finally {Invoke-CheckedNative $Adb @('-s',$Serial,'shell','rm',$DeviceImage) | Out-Null}
 $Metrics=Measure-PresentFrames $Frames.ToArray() $Clock.Elapsed.TotalSeconds
 $Pss=Read-TotalPss $Memory
-$Report=[ordered]@{label=$Label;serial=$Serial;package=$Package;installed_apk_sha256=$ApkHash;surface=$Layer;sample_seconds=$Clock.Elapsed.TotalSeconds;source='Unity SurfaceView actual presentation timestamps; not Android window gfxinfo';frames=$Metrics;total_pss_kb=$Pss;measurements_complete=([bool]$Metrics.complete -and $null -ne $Pss);pixel_png_sha256=(Get-FileHash -LiteralPath (Join-Path $OutputDirectory 'pixel.png') -Algorithm SHA256).Hash.ToLowerInvariant();visual_accepted=$false;input_accepted=$false;release_accepted=$false}
+$TemperatureStart=Read-BatteryTemperature $BatteryStart;$TemperatureEnd=Read-BatteryTemperature $BatteryEnd
+$TemperatureDelta=if($null -ne $TemperatureStart -and $null -ne $TemperatureEnd){$TemperatureEnd-$TemperatureStart}else{$null}
+$Report=[ordered]@{label=$Label;serial=$Serial;package=$Package;installed_apk_sha256=$ApkHash;surface=$Layer;sample_seconds=$Clock.Elapsed.TotalSeconds;source='Unity SurfaceView actual presentation timestamps; not Android window gfxinfo';frames=$Metrics;total_pss_kb=$Pss;battery_temperature_start_c=$TemperatureStart;battery_temperature_end_c=$TemperatureEnd;battery_temperature_delta_c=$TemperatureDelta;temperature_source='Android battery sensor, not CPU temperature; raw thermalservice records retained';measurements_complete=([bool]$Metrics.complete -and $null -ne $Pss -and $null -ne $TemperatureDelta);pixel_png_sha256=(Get-FileHash -LiteralPath (Join-Path $OutputDirectory 'pixel.png') -Algorithm SHA256).Hash.ToLowerInvariant();visual_accepted=$false;input_accepted=$false;release_accepted=$false}
 $Report | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $OutputDirectory 'pixel-evidence.json') -Encoding UTF8
 Write-Host "Pixel evidence: $OutputDirectory. Captured measurement is not an acceptance decision. Saves/app data were not cleared or replaced."
 if(-not $Report.measurements_complete){throw 'Performance evidence incomplete. Keep adoption pending; inspect raw SurfaceFlinger data instead of substituting window FPS.'}

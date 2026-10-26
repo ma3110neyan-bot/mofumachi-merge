@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Mofumachi.Core;
@@ -99,12 +100,14 @@ namespace Mofumachi.Tests
             var water=Flow.GetComponentInChildren<TownFountainWaterGraphic>();var originalWater=Flow.GetComponentInChildren<TownAmbientGraphic>();var fountain=Flow.GetComponentInChildren<TownFountainGraphic>();
             Assert.That(water.transform.parent,Is.SameAs(fountain.transform));Assert.That(water.raycastTarget,Is.False);
             var pairs=new System.Text.StringBuilder();bool first=true;
+            var snapshots=new Dictionary<string,TownWorldSnapshot>();var normalPixels=new Dictionary<string,Color32[]>();
             foreach(var view in new[]{("overview",new TownPoint(0,.12f),new TownPoint(0,.64f)),("front",new TownPoint(0,.12f),new TownPoint(0,.32f)),("behind",new TownPoint(0,.441f),new TownPoint(0,.55f))})
             {
                 Assert.That(town.World.GuidePoint(view.Item2),Is.True);int steps=0;
                 while(town.World.Model.Hero.IsWalking&&steps++<6000){town.AdvanceFrame(1f/30);if(steps%240==0)yield return null;}
                 Assert.That(town.World.Model.Hero.IsWalking,Is.False);Assert.That(TownWalkableArea.Distance(town.World.Model.Hero.Position,view.Item2),Is.LessThan(.002f));
                 town.World.Freeze();town.World.Camera.Jump(view.Item3);town.World.Refresh();
+                snapshots.Add(view.Item1,town.World.Capture());
                 // Warm font/canvas resources before the paired pixel comparison.
                 var warm=Portrait();UnityEngine.Object.DestroyImmediate(warm);
                 string state=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;var positions=town.World.Model.Residents.Select(r=>r.Position).ToArray();var camera=town.World.Camera.Center;
@@ -115,17 +118,17 @@ namespace Mofumachi.Tests
                     water.enabled=false;before=Portrait();Capture(output,"33-fountain-"+view.Item1+"-before");
                     water.enabled=true;after=Portrait();Capture(output,"33-fountain-"+view.Item1+"-after");
                     Vector2 Project(TownPoint point)=>captureCamera.WorldToScreenPoint(town.transform.TransformPoint(town.World.Local(point)));
-                    var low=Project(new TownPoint(-TownCentralMasterLayout.FountainWidth/2,TownCentralMasterLayout.FountainFeetY));
-                    var high=Project(new TownPoint(TownCentralMasterLayout.FountainWidth/2,TownCentralMasterLayout.FountainFeetY+TownSceneryLayout.FountainHeight));
+                    var low=Project(TownFountainWaterLayout.Project(new TownPoint(0,0),TownFountainWaterLayout.DisplayScale));
+                    var high=Project(TownFountainWaterLayout.Project(new TownPoint(1,1.3f),TownFountainWaterLayout.DisplayScale));
                     var allowed=Rect.MinMaxRect(low.x-3,low.y-3,high.x+3,high.y+3);var a=before.GetPixels32();var b=after.GetPixels32();
                     for(int i=0;i<a.Length;i++)
                     {
                         if(a[i].r==b[i].r&&a[i].g==b[i].g&&a[i].b==b[i].b&&a[i].a==b[i].a)continue;
                         changed++;if(!allowed.Contains(new Vector2(i%720,i/720)))outside++;
                     }
-                    Assert.That(changed,Is.GreaterThan(0),"The new water must be visible in actual native pixels");
+                    Assert.That(changed,Is.GreaterThan(200),"Normal water needs a substantial visible contribution, not the former few dozen pixels");
                     Assert.That(outside,Is.Zero,"Adding water must not alter the field/UI/characters outside the fountain projection");
-                    Assert.That(water.canvasRenderer.GetMesh().vertexCount,Is.EqualTo(320));
+                    Assert.That(water.canvasRenderer.GetMesh().vertexCount,Is.EqualTo(784));normalPixels.Add(view.Item1,after.GetPixels32());
                     Assert.That(originalWater.Phase,Is.EqualTo(originalPhase));Assert.That(water.Phase,Is.EqualTo(newPhase));
                     Assert.That(town.World.Model.Residents.Select(r=>r.Position).ToArray(),Is.EqualTo(positions));Assert.That(town.World.Camera.Center,Is.EqualTo(camera));
                     Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));Assert.That(Store.Writes,Is.EqualTo(writes));
@@ -147,13 +150,68 @@ namespace Mofumachi.Tests
             }
             if(output!=null)
             {
-                File.WriteAllText(Path.Combine(output,"fountain-water-comparison.json"),"{\"kind\":\"same-state-native-additive-water-comparison\",\"before\":\"new layer OFF; original fountain and original water retained\",\"after\":\"product code\",\"pairs\":["+pairs+"],\"phases\":["+phases+"],\"added_vertices\":320,\"max_update_hz\":30,\"pixel_verified\":false,\"adopted\":false}");
+                File.WriteAllText(Path.Combine(output,"fountain-water-comparison.json"),"{\"kind\":\"same-state-native-additive-water-comparison\",\"before\":\"new layer OFF; original fountain and original water retained\",\"after\":\"product code\",\"pairs\":["+pairs+"],\"phases\":["+phases+"],\"added_vertices\":784,\"max_update_hz\":30,\"pixel_verified\":false,\"adopted\":false}");
                 var html=new System.Text.StringBuilder("<!doctype html><meta charset='utf-8'><title>Fountain water Before After</title><style>body{background:#fff7ef;color:#50343b;font-family:sans-serif}section{display:flex;gap:12px}img{width:360px;max-width:46vw}figure{margin:8px}</style><h1>Fountain water / same-state Unity comparison</h1><p>Before: only the new water layer OFF. Original fountain, original ripples, field, characters and camera retained. After: product code. Not a previous APK reconstruction or Pixel capture.</p>");
                 foreach(string view in new[]{"overview","front","behind"})html.Append("<h2>"+view+"</h2><section><figure>Before<br><img src='33-fountain-"+view+"-before.png'></figure><figure>After<br><img src='33-fountain-"+view+"-after.png'></figure></section>");
                 html.Append("<h2>Four real animation samples</h2><section>");for(int frame=0;frame<4;frame++)html.Append("<figure>"+frame+"<br><img src='33-fountain-phase-"+frame.ToString("00")+".png'></figure>");
                 html.Append("</section><p>Pixel visibility, live depth transitions, temperature and performance acceptance pending.</p>");File.WriteAllText(Path.Combine(output,"fountain-water-before-after.html"),html.ToString());
             }
+            CaptureFountainShow(output,town,water,originalWater,snapshots,normalPixels);
             LogAssert.NoUnexpectedReceived();
+        }
+        [Serializable] private sealed class FountainBeforeManifest {public string source_revision="";public FountainBeforeImage[] images=Array.Empty<FountainBeforeImage>();}
+        [Serializable] private sealed class FountainBeforeImage {public string path="",file="",sha256="";}
+        private void CaptureFountainShow(string output,TownLifeView town,TownFountainWaterGraphic water,TownAmbientGraphic originalWater,Dictionary<string,TownWorldSnapshot> snapshots,Dictionary<string,Color32[]> normalPixels)
+        {
+            void AdvanceTo(float elapsed)
+            {
+                int guard=0;while(water.ShowElapsed<elapsed&&guard++<2000){float dt=Math.Min(.1f,elapsed-water.ShowElapsed);water.AdvanceWater(dt);originalWater.AdvanceWater(dt);}
+                Assert.That(water.ShowElapsed,Is.GreaterThanOrEqualTo(elapsed));Assert.That(guard,Is.LessThan(2000));
+            }
+            town.World.Restore(snapshots["overview"]);AdvanceTo(172);Assert.That(water.ShowStage,Is.EqualTo(1));Capture(output,"34-fountain-overview-prelude");
+            AdvanceTo(176);Assert.That(water.ShowStage,Is.EqualTo(2));var showRows=new System.Text.StringBuilder();
+            foreach(string view in new[]{"overview","front","behind"})
+            {
+                town.World.Restore(snapshots[view]);string state=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
+                float showClock=water.ShowElapsed,originalPhase=originalWater.Phase;var residents=town.World.Model.Residents.Select(r=>r.Position).ToArray();var center=town.World.Camera.Center;
+                Texture2D without=null,pixels=null;int changed=0,jets=0,outside=0;
+                try
+                {
+                    water.enabled=false;without=Portrait();Capture(output,"34-fountain-"+view+"-show-off");
+                    water.enabled=true;Capture(output,"34-fountain-"+view+"-show");pixels=Portrait();
+                    var sampled=pixels.GetPixels32();var disabled=without.GetPixels32();var normal=normalPixels[view];
+                    Vector2 Project(TownPoint uv)=>captureCamera.WorldToScreenPoint(town.transform.TransformPoint(town.World.Local(TownFountainWaterLayout.Project(uv,TownFountainWaterLayout.DisplayScale))));
+                    var low=Project(new TownPoint(0,0));var high=Project(new TownPoint(1,1.3f));var allowed=Rect.MinMaxRect(low.x-3,low.y-3,high.x+3,high.y+3);
+                    float normalTop=Project(new TownPoint(.5f,.84f)).y;
+                    for(int i=0;i<sampled.Length;i++)
+                    {
+                        if(!sampled[i].Equals(normal[i]))changed++;
+                        if(sampled[i].Equals(disabled[i]))continue;
+                        var at=new Vector2(i%720,i/720);if(at.y>normalTop)jets++;if(!allowed.Contains(at))outside++;
+                    }
+                }
+                finally {water.enabled=true;if(without!=null)UnityEngine.Object.DestroyImmediate(without);if(pixels!=null)UnityEngine.Object.DestroyImmediate(pixels);}
+                Assert.That(changed,Is.GreaterThan(300),"Show must visibly differ from normal water, not just change internal stage flags");
+                Assert.That(jets,Is.GreaterThan(40),"Same-instant OFF/ON pixels above the normal water ceiling must demonstrate actual show jets");Assert.That(outside,Is.Zero);
+                Assert.That(water.ShowElapsed,Is.EqualTo(showClock));Assert.That(originalWater.Phase,Is.EqualTo(originalPhase));Assert.That(town.World.Model.Residents.Select(r=>r.Position).ToArray(),Is.EqualTo(residents));Assert.That(town.World.Camera.Center,Is.EqualTo(center));
+                Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));Assert.That(Store.Writes,Is.EqualTo(writes));
+                if(showRows.Length>0)showRows.Append(',');showRows.Append("{\"view\":\""+view+"\",\"changed_pixels\":"+changed+",\"show_jet_pixels\":"+jets+",\"outside_fountain_pixels\":"+outside+",\"clock_unchanged\":true,\"original_water_phase_unchanged\":true,\"state_unchanged\":true}");
+            }
+            town.World.Restore(snapshots["overview"]);AdvanceTo(180-1f/30);water.AdvanceWater(.1f);Assert.That(water.ShowStage,Is.Zero);Capture(output,"34-fountain-overview-recovered");
+            if(output==null)return;
+            string repo=Directory.GetParent(Application.dataPath).FullName;
+            string baselineText=File.ReadAllText(Path.Combine(repo,"References/VisualLock/fountain-show-current-before-2026-10-26.json"));
+            var baseline=JsonUtility.FromJson<FountainBeforeManifest>(baselineText);Assert.That(baseline.source_revision,Is.EqualTo("8aa7a14264c3bda3050a9e794c576f6af11535c9"));Assert.That(baseline.images.Length,Is.EqualTo(3));
+            string beforeDir=Path.Combine(output,"fountain-before");Directory.CreateDirectory(beforeDir);
+            foreach(var image in baseline.images)
+            {
+                byte[] bytes=File.ReadAllBytes(Path.Combine(repo,image.path));using(var hash=System.Security.Cryptography.SHA256.Create())Assert.That(BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-","").ToLowerInvariant(),Is.EqualTo(image.sha256));
+                File.WriteAllBytes(Path.Combine(beforeDir,image.file),bytes);
+            }
+            File.WriteAllText(Path.Combine(output,"fountain-show-comparison.json"),"{\"kind\":\"prior-native-before-normal-and-timed-show\",\"display_scale\":1.14,\"cycle_seconds\":180,\"prelude_seconds\":2,\"show_seconds\":6,\"recovery_seconds\":1,\"show_elapsed\":176,\"jet_evidence\":\"same-instant-added-layer-off-on-above-normal-uv084\",\"show_pairs\":["+showRows+"],\"before\":"+baselineText+",\"pixel_verified\":false,\"adopted\":false}");
+            var html=new System.Text.StringBuilder("<!doctype html><meta charset='utf-8'><title>Fountain normal and show</title><style>body{background:#fff7ef;color:#50343b;font-family:sans-serif}section{display:flex;gap:8px}img{width:240px;max-width:30vw}figure{margin:4px}</style><h1>Actual prior Before / normal candidate / short show candidate</h1><p>Before:8aa7a14 native run20261026-093151. Normal/Show:new native fixture. Old files are SHA-preserved; not repainted, not all from the new run. Show phases are reached by advancing the actual production presentation clock. Pixel load and acceptance pending.</p>");
+            foreach(string view in new[]{"overview","front","behind"})html.Append("<h2>"+view+"</h2><section><figure>Current Before<br><img src='fountain-before/34-fountain-"+view+"-current-before.png' onerror=\"this.onerror=null;this.src='34-fountain-"+view+"-current-before.png'\"></figure><figure>Normal After<br><img src='33-fountain-"+view+"-after.png'></figure><figure>Show After<br><img src='34-fountain-"+view+"-show.png'></figure></section>");
+            html.Append("<h2>Prelude / returned to normal</h2><section><img src='34-fountain-overview-prelude.png'><img src='34-fountain-overview-recovered.png'></section>");File.WriteAllText(Path.Combine(output,"fountain-show-before-after.html"),html.ToString());
         }
         private static string OutputDirectory()
         {
@@ -319,7 +377,7 @@ namespace Mofumachi.Tests
                     var body=RectTransformUtility.CalculateRelativeRectTransformBounds((RectTransform)town.transform,hero.VisualRoot);
                     // The fountain Graphic's RectTransform is the whole field;
                     // use its actual mesh projection, not that oversized rect.
-                    float waterTop=town.World.Local(new TownPoint(0,fountain.Feet.Y+TownSceneryLayout.FountainHeight)).y;
+                    float waterTop=town.World.Local(TownFountainWaterLayout.Project(new TownPoint(.5f,1),TownFountainWaterLayout.DisplayScale)).y;
                     Assert.That(body.min.y,Is.LessThan(waterTop),"Far-side evidence must overlap the fountain mesh bounds, not stand well above it");
                 }
                 Capture(output,"31-field-fountain-"+view.Item1);
@@ -596,7 +654,7 @@ namespace Mofumachi.Tests
                 yield return CaptureFieldStability(output);
                 string[] art={"TownBackground","TownWestBackground","TownEastBackground","CharacterBodyAtlas","TownGrowthPropsAtlas","TownGardenSurface","TownSeamlessMap","TownStreetPropsAtlas","TownLandmarksAtlas","TownNatureAtlas","TownVillageDetailsAtlas","MergeBoardFrame","TownCentralGround","TownCentralFountain","TownWestGround"};
                 File.WriteAllLines(Path.Combine(output,"texture-memory.txt"),art.Select(key=>key+": "+UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(Resources.Load<Texture2D>("Mofumachi/"+key))+" bytes"));
-                File.WriteAllText(Path.Combine(output,"README.txt"),"Actual Unity UGUI RenderTexture captures, 720x1280. Isolated test-only save state; not Pixel 3a captures. Full suite154 PNG: existing102 integrated frames,22 boundary comparison frames,14 field-stability frames,6 actual delivery-growth/reload frames,10 fountain OFF/ON and animation frames. Fountain Before disables only the new water layer and retains the original fountain/ripples; not a previous APK reconstruction. 30-boundary Before disables only the curved band in the CURRENT runtime, retaining the new field-stability depth/camera/navigation fixes; it is a boundary-only comparison, NOT a complete frozen5a49 renderer or previous APK/Pixel capture. 31-field shows actual walking arrival/return in all5areas and the East building corner, plus front/behind fountain depth; no teleport rescue. 30Hz simulation is not device FPS; Editor texture memory is not Pixel RAM. Stable region/place/save IDs retained. Pixel save retention, audio,10minuteplay and subjective quality still require actual acceptance.\n");
+                File.WriteAllText(Path.Combine(output,"README.txt"),"Actual Unity UGUI RenderTexture captures, 720x1280. Isolated test-only save state; not Pixel 3a captures. Full suite162 NEW PNG: existing102 integrated frames,22 boundary comparison frames,14 field-stability frames,6 actual delivery-growth/reload frames,10 normal fountain OFF/ON and animation frames,8 timed-show frames including3same-instant show OFF controls. Three separately identified actual prior8aa Before PNGs are copied under fountain-before with their original hashes, not relabeled as new captures. Fountain Before disables only the new water layer and retains the original fountain/ripples; not a previous APK reconstruction. 30-boundary Before disables only the curved band in the CURRENT runtime, retaining the new field-stability depth/camera/navigation fixes; it is a boundary-only comparison, NOT a complete frozen5a49 renderer or previous APK/Pixel capture. 31-field shows actual walking arrival/return in all5areas and the East building corner, plus front/behind fountain depth; no teleport rescue. 30Hz simulation is not device FPS; Editor texture memory is not Pixel RAM. Stable region/place/save IDs retained. Pixel save retention, audio,10minuteplay and subjective quality still require actual acceptance.\n");
             }
             LogAssert.NoUnexpectedReceived();
         }

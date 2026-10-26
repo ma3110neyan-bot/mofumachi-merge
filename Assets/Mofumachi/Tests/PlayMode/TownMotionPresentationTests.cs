@@ -52,12 +52,16 @@ namespace Mofumachi.Tests
             Assert.That(addition.transform.parent,Is.SameAs(Flow.GetComponentInChildren<TownFountainGraphic>().transform));Assert.That(addition.raycastTarget,Is.False);
             float phase=addition.Phase;addition.AdvanceWater(.2f);Canvas.ForceUpdateCanvases();
             Assert.That(addition.Phase,Is.EqualTo(Mathf.Repeat(phase+.1f,10)).Within(.00001f),"Resume dt is bounded");
-            Assert.That(addition.canvasRenderer.GetMesh().vertexCount,Is.EqualTo(320));
+            Assert.That(addition.canvasRenderer.GetMesh().vertexCount,Is.EqualTo(784));
             Assert.That(addition.canvasRenderer.GetMesh().vertexCount+after.vertexCount,Is.LessThanOrEqualTo(1500),"Keep the old and added water within the existing total mesh budget");
             phase=addition.Phase;addition.enabled=false;addition.AdvanceWater(.1f);Assert.That(addition.Phase,Is.EqualTo(phase));addition.enabled=true;
             life.World.LookAt(TownDistrictId.North);life.World.Camera.Jump(new TownPoint(0,2.9f));life.World.Refresh();Canvas.ForceUpdateCanvases();
             phase=addition.Phase;addition.AdvanceWater(.1f);Assert.That(addition.Phase,Is.EqualTo(phase));Assert.That(addition.canvasRenderer.GetMesh().vertexCount,Is.Zero,"Offscreen water must not keep emitting geometry");
-            life.World.ReturnToHero();Canvas.ForceUpdateCanvases();Assert.That(addition.canvasRenderer.GetMesh().vertexCount,Is.EqualTo(320));
+            life.World.ReturnToHero();Canvas.ForceUpdateCanvases();Assert.That(addition.canvasRenderer.GetMesh().vertexCount,Is.EqualTo(784));
+            float sessionElapsed=addition.ShowElapsed;Flow.ShowHome();addition=Flow.GetComponentInChildren<TownFountainWaterGraphic>();
+            Assert.That(addition.ShowElapsed,Is.EqualTo(sessionElapsed),"Home rebuilds must not restart the three-minute show countdown");
+            for(int tick=0;tick<1760;tick++)addition.AdvanceWater(.1f);Canvas.ForceUpdateCanvases();
+            Assert.That(addition.ShowStage,Is.EqualTo(2),"Normal active-visible time must reach the short fountain show");
             Flow.SendMessage("OnApplicationPause",true);var pausedWater=Flow.GetComponentInChildren<TownFountainWaterGraphic>();
             phase=pausedWater.Phase;pausedWater.AdvanceWater(.1f);Assert.That(pausedWater.Phase,Is.EqualTo(phase),"The rebuilt paused Home must not animate the new water");
             Flow.SendMessage("OnApplicationPause",false);

@@ -56,8 +56,10 @@ function Get-BasePolishPatch([string]$RepositoryPath) {
     $Allowed=@('Assets/Mofumachi/Presentation/TownWorldLayout.cs','Assets/Mofumachi/Presentation/TownContinuousWorldView.cs')
     $ScopeProperty=$Record.PSObject.Properties['scope_id']
     $Scope=if($ScopeProperty){[string]$ScopeProperty.Value}else{''}
-    if($Scope -and $Scope -notin @('town_boundary_final_2026_10_24','town_field_stability_2026_10_25','town_field_completion_2026_10_25','town_fountain_water_2026_10_25')){throw 'Unknown bounded display correction scope.'}
-    $Fountain=$Scope -eq 'town_fountain_water_2026_10_25'
+    if($Scope -and $Scope -notin @('town_boundary_final_2026_10_24','town_field_stability_2026_10_25','town_field_completion_2026_10_25','town_fountain_water_2026_10_25','town_fountain_show_2026_10_26')){throw 'Unknown bounded display correction scope.'}
+    $FountainShow=$Scope -eq 'town_fountain_show_2026_10_26'
+    $Fountain=$Scope -in @('town_fountain_water_2026_10_25','town_fountain_show_2026_10_26')
+    if($FountainShow){$Allowed+='Assets/Mofumachi/Presentation/TownFountainGraphic.cs'}
     $FieldFinal=$Scope -eq 'town_field_completion_2026_10_25' -or $Fountain
     $FieldStability=$Scope -eq 'town_field_stability_2026_10_25' -or $FieldFinal
     $Boundary=$Scope -eq 'town_boundary_final_2026_10_24' -or $FieldStability
@@ -115,6 +117,14 @@ function Get-BasePolishPatch([string]$RepositoryPath) {
         foreach($Frozen in $Freeze.fixed_render_inputs) {
             if($FrozenPaths.ContainsKey($Frozen.path) -or -not $After.ContainsKey($Frozen.path)){throw 'Duplicate or missing frozen field input.'};$FrozenPaths[$Frozen.path]=$true
             if($Frozen.path -ne 'Assets/Mofumachi/Presentation/TownContinuousWorldView.cs' -and $After[$Frozen.path] -ne $Frozen.sha256){throw 'Fountain pass cannot alter the frozen field scenery/navigation/growth.'}
+        }
+        if($FountainShow) {
+            $BeforePath='References/VisualLock/fountain-show-current-before-2026-10-26.json'
+            if($Record.current_before_record -ne $BeforePath){throw 'Show must bind the exact current native Before record.'}
+            $BeforeText=[IO.File]::ReadAllText((Join-Path $RepositoryPath $BeforePath)).Replace("`r`n","`n")
+            if((Get-VisualLockDigest ([Text.Encoding]::UTF8.GetBytes($BeforeText))) -ne $Record.current_before_record_lf_sha256){throw 'Current native Before record changed.'}
+            $Prior=$BeforeText | ConvertFrom-Json
+            if($Prior.source_revision -ne '8aa7a14264c3bda3050a9e794c576f6af11535c9' -or $Prior.run -ne '20261026-093151-b7d557b1' -or @($Prior.images).Count -ne 3){throw 'Show Before is not the actual reviewed current fountain.'}
         }
     }
     return @{Record=$Record;Before=$Before;After=$After}

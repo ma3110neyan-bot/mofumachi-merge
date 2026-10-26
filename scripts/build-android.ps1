@@ -60,7 +60,7 @@ function Read-SourceRevision([string]$RepositoryPath) {
     }
     throw 'Source SHA not found; do not build an unidentified APK.'
 }
-function Assert-NativeCaptures([string]$Directory,[switch]$RequireBoundary,[switch]$RequireField,[switch]$RequireGrowth,[switch]$RequireFountain) {
+function Assert-NativeCaptures([string]$Directory,[switch]$RequireBoundary,[switch]$RequireField,[switch]$RequireGrowth,[switch]$RequireFountain,[switch]$RequireFountainShow) {
     $Images=@(Get-ChildItem -LiteralPath $Directory -Filter '*.png' -File -ErrorAction SilentlyContinue)
     if($Images.Count -lt 102){throw "Native captures incomplete: $($Images.Count)/102. Inspect the same-run PlayMode log."}
     foreach($Name in @('15-wide-park-left','15-wide-park-right','16-residents-passing-00','17-finger-follow-00','17-finger-released','18-continuous-walk-west','18-continuous-walk-central','18-continuous-walk-east','19-book-new-in-town','19-book-discovery-first-page','20-quest-cabin','20-quest-door-opening','20-quest-inside','21-shop-cabin','21-shop-door-opening','21-shop-inside','22-title-candidates','22-merge-candidates','23-title-letter','23-title-garden','23-merge-picnic','23-merge-ribbon','23-merge-pop-promenade','24-home-unobstructed','24-menu-open','24-menu-return','25-character-idle','25-character-step-a','25-character-step-b','25-character-greeting','25-character-behind-fountain','25-character-in-front-fountain','04-town-lv1-North','04-town-lv1-South','04-town-lv6-North','04-town-lv6-South','09-connected-path-north','09-connected-path-south','26-cardinal-North-join','26-cardinal-North-arrival','26-cardinal-South-join','26-cardinal-South-arrival','27-merge-finale-live-purpose','20-quest-arrived-door-prompt','21-shop-arrived-door-prompt','21b-cafe-cabin','21b-cafe-walking','21b-cafe-arrived-door-prompt','21b-cafe-door-opening','21b-cafe-inside','28-meet-friend-walking','28-meet-friend-arrived','29-merge-drag-lift','29-merge-drag-match','29-merge-landed')) {
@@ -116,14 +116,34 @@ function Assert-NativeCaptures([string]$Directory,[switch]$RequireBoundary,[swit
         foreach($Frame in 0..3){if(-not(Test-Path -LiteralPath (Join-Path $Directory ('33-fountain-phase-'+$Frame.ToString('00')+'.png')) -PathType Leaf)){throw 'Missing fountain animation time sample.'}}
         if(-not(Test-Path -LiteralPath (Join-Path $Directory 'fountain-water-before-after.html') -PathType Leaf)){throw 'Missing fountain comparison document.'}
         $Water=Get-Content -LiteralPath (Join-Path $Directory 'fountain-water-comparison.json') -Raw -Encoding UTF8 | ConvertFrom-Json
-        if($Water.kind -ne 'same-state-native-additive-water-comparison' -or $Water.before -ne 'new layer OFF; original fountain and original water retained' -or $Water.after -ne 'product code' -or @($Water.pairs).Count -ne 3 -or @($Water.phases).Count -ne 4 -or $Water.added_vertices -ne 320 -or $Water.max_update_hz -ne 30){throw 'Incomplete fountain comparison or mesh/update budget.'}
+        if($Water.kind -ne 'same-state-native-additive-water-comparison' -or $Water.before -ne 'new layer OFF; original fountain and original water retained' -or $Water.after -ne 'product code' -or @($Water.pairs).Count -ne 3 -or @($Water.phases).Count -ne 4 -or $Water.added_vertices -ne 784 -or $Water.max_update_hz -ne 30){throw 'Incomplete fountain comparison or mesh/update budget.'}
         foreach($View in @('overview','front','behind')) {
             $Rows=@($Water.pairs | Where-Object {$_.view -eq $View})
-            if($Rows.Count -ne 1 -or $Rows[0].changed_pixels -le 0 -or $Rows[0].outside_fountain_pixels -ne 0 -or $Rows[0].state_unchanged -isnot [bool] -or -not $Rows[0].state_unchanged){throw 'Fountain pair must visibly change only the fountain, preserving the same state.'}
+            if($Rows.Count -ne 1 -or $Rows[0].changed_pixels -le 200 -or $Rows[0].outside_fountain_pixels -ne 0 -or $Rows[0].state_unchanged -isnot [bool] -or -not $Rows[0].state_unchanged){throw 'Fountain pair must substantially change only the fountain, preserving the same state.'}
         }
         if(@($Water.phases | Select-Object -Unique).Count -ne 4){throw 'Fountain animation samples must use four different phases.'}
         foreach($Phase in $Water.phases){$Value=[double]$Phase;if([double]::IsNaN($Value) -or [double]::IsInfinity($Value) -or $Value -lt 0 -or $Value -ge 10){throw 'Invalid fountain animation phase.'}}
         foreach($Name in @('pixel_verified','adopted')){if($Water.$Name -isnot [bool] -or $Water.$Name -ne $false){throw 'Native fountain comparison cannot claim Pixel or adoption.'}}
+    }
+    if($RequireFountainShow) {
+        if($Images.Count -lt 162){throw 'Timed fountain show requires162 new native captures plus separately identified old Before originals.'}
+        foreach($Name in @('34-fountain-overview-prelude.png','34-fountain-overview-show.png','34-fountain-front-show.png','34-fountain-behind-show.png','34-fountain-overview-show-off.png','34-fountain-front-show-off.png','34-fountain-behind-show-off.png','34-fountain-overview-recovered.png','fountain-show-before-after.html')){if(-not(Test-Path -LiteralPath (Join-Path $Directory $Name) -PathType Leaf)){throw "Missing timed fountain evidence: $Name"}}
+        $Show=Get-Content -LiteralPath (Join-Path $Directory 'fountain-show-comparison.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+        if($Show.kind -ne 'prior-native-before-normal-and-timed-show' -or $Show.display_scale -ne 1.14 -or $Show.cycle_seconds -ne 180 -or $Show.prelude_seconds -ne 2 -or $Show.show_seconds -ne 6 -or $Show.recovery_seconds -ne 1 -or $Show.show_elapsed -ne 176 -or $Show.jet_evidence -ne 'same-instant-added-layer-off-on-above-normal-uv084' -or @($Show.show_pairs).Count -ne 3){throw 'Timed show duration/scale or native comparison is incomplete.'}
+        foreach($View in @('overview','front','behind')) {
+            $Rows=@($Show.show_pairs | Where-Object {$_.view -eq $View})
+            if($Rows.Count -ne 1 -or $Rows[0].changed_pixels -le 300 -or $Rows[0].state_unchanged -isnot [bool] -or -not $Rows[0].state_unchanged){throw 'Show must visibly differ from normal while preserving the same gameplay state.'}
+            if($Rows[0].show_jet_pixels -le 40 -or $Rows[0].outside_fountain_pixels -ne 0 -or $Rows[0].clock_unchanged -isnot [bool] -or -not $Rows[0].clock_unchanged -or $Rows[0].original_water_phase_unchanged -isnot [bool] -or -not $Rows[0].original_water_phase_unchanged){throw 'Show jets require isolated above-normal pixels with unchanged clocks and zero outside the fountain.'}
+        }
+        $Before=Get-Content -LiteralPath (Join-Path $PSScriptRoot '../References/VisualLock/fountain-show-current-before-2026-10-26.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+        if($Show.before.source_revision -ne $Before.source_revision -or $Show.before.run -ne $Before.run -or @($Show.before.images).Count -ne 3){throw 'Current Before must identify the actual8aa native run.'}
+        foreach($Image in $Before.images) {
+            $Rows=@($Show.before.images | Where-Object {$_.view -eq $Image.view})
+            if($Rows.Count -ne 1 -or $Rows[0].file -ne $Image.file -or $Rows[0].sha256 -ne $Image.sha256 -or $Rows[0].bytes -ne $Image.bytes){throw 'Prior Before image identity was changed.'}
+            $Path=Join-Path $Directory ('fountain-before/'+$Image.file)
+            if(-not(Test-Path -LiteralPath $Path -PathType Leaf) -or (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash -ne $Image.sha256){throw 'Prior Before PNG is missing or changed.'}
+        }
+        foreach($Name in @('pixel_verified','adopted')){if($Show.$Name -isnot [bool] -or $Show.$Name -ne $false){throw 'Native show cannot claim Pixel or adoption.'}}
     }
     if(Test-Path -LiteralPath $BoundaryComparison){Write-Host "Street boundary comparison: $BoundaryComparison (Boundary-only renderer comparison; Pixel acceptance pending)."}
 }
@@ -133,10 +153,12 @@ function Assert-SourceUnchanged([string]$RepositoryPath,[string]$ExpectedRevisio
 function Write-NativeReviewArchives([string]$Directory) {
     # Keep review uploads under 32 MiB without asking the player to copy a long
     # packing command. APK bytes stay in the run directory, outside review ZIPs.
-    $Files=@(foreach($Name in @('editmode.xml','playmode.xml','build-info.json','growth-build-info.json','capture-manifest.json','android-build.log','growth-android-build.log','playmode.log','before-after.html','visual-adoption.json','screenshots/texture-memory.txt','screenshots/README.txt','screenshots/street-boundary-before-after.html','screenshots/street-boundary-comparison.json','screenshots/field-stability.json','screenshots/town-growth-progression.json','screenshots/fountain-water-before-after.html','screenshots/fountain-water-comparison.json')) {
+    $Files=@(foreach($Name in @('editmode.xml','playmode.xml','build-info.json','growth-build-info.json','capture-manifest.json','android-build.log','growth-android-build.log','playmode.log','before-after.html','visual-adoption.json','screenshots/texture-memory.txt','screenshots/README.txt','screenshots/street-boundary-before-after.html','screenshots/street-boundary-comparison.json','screenshots/field-stability.json','screenshots/town-growth-progression.json','screenshots/fountain-water-before-after.html','screenshots/fountain-water-comparison.json','screenshots/fountain-show-comparison.json','screenshots/fountain-show-before-after.html')) {
         $Path=Join-Path $Directory $Name
         if(Test-Path -LiteralPath $Path -PathType Leaf){Get-Item -LiteralPath $Path}
     })+@(Get-ChildItem -LiteralPath (Join-Path $Directory 'screenshots') -Filter '*.png' -File | Sort-Object Name)
+    $BeforeDir=Join-Path $Directory 'screenshots/fountain-before'
+    if(Test-Path -LiteralPath $BeforeDir){$Files+=@(Get-ChildItem -LiteralPath $BeforeDir -Filter '*.png' -File | Sort-Object Name)}
     $Batch=New-Object 'System.Collections.Generic.List[string]';$Bytes=0L;$Part=1
     foreach($File in $Files) {
         if($File.Length -gt 20MB){throw "Review file exceeds upload budget: $($File.FullName)"}
@@ -260,7 +282,7 @@ Invoke-Unity @('-batchmode','-projectPath',$ProjectPath,'-buildTarget','Android'
 Assert-TestRun $PlayXml 225 @('VerticalSliceFlowTests','LayoutNoticeTests','AudioManagerTests','MergeInteractionTests','RewardGrowthTests','SettingsScreenTests','PopPresentationTests','CharacterSelectionTests','MultiQuestPresentationTests','TownLifeTests','StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests','FiveAreaIntegrationReviewTests')
 $CaptureDir=Join-Path $OutputDir 'screenshots'
 Assert-ProductUnchanged $ProjectPath $GitRevision $ProductFingerprint
-Assert-NativeCaptures $CaptureDir -RequireBoundary:$TownQa -RequireField:$TownQa -RequireGrowth:$TownQa -RequireFountain:$TownQa
+Assert-NativeCaptures $CaptureDir -RequireBoundary:$TownQa -RequireField:$TownQa -RequireGrowth:$TownQa -RequireFountain:$TownQa -RequireFountainShow:$TownQa
 $CaptureEntries=@(Get-ChildItem -LiteralPath $CaptureDir -Filter '*.png' -File | Sort-Object Name | ForEach-Object {[ordered]@{file=$_.Name;bytes=$_.Length;sha256=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}})
 [ordered]@{gitRevision=$GitRevision;productFingerprint=$ProductFingerprint;width=720;height=1280;count=$CaptureEntries.Count;scope='Unity fixture renders; not Pixel captures';images=$CaptureEntries} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $OutputDir 'capture-manifest.json') -Encoding UTF8
 $ApkName='vertical-slice.apk';$BuildMethod='Mofumachi.Editor.AndroidBuild.BuildDevelopmentApk';$PackageId='com.mofumachi.merge'

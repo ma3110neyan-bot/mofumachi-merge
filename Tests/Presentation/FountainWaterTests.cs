@@ -11,18 +11,18 @@ namespace Mofumachi.Tests
         {
             var type=typeof(TownWorldMap).Assembly.GetType("Mofumachi.Presentation.TownFountainWaterLayout");
             Assert.That(type,Is.Not.Null,"Fountain water needs bounded flowing streams, splashes, ripples and glints rather than static artwork alone");
-            var sample=(Func<int,float,(int,TownPoint,TownPoint,TownPoint,TownPoint,float)>)Delegate.CreateDelegate(typeof(Func<int,float,(int,TownPoint,TownPoint,TownPoint,TownPoint,float)>),type.GetMethod("Quad"));
+            var sample=(Func<int,float,(int,TownPoint,TownPoint,TownPoint,TownPoint,float)>)Delegate.CreateDelegate(typeof(Func<int,float,(int,TownPoint,TownPoint,TownPoint,TownPoint,float)>),type.GetMethod("Quad",new[]{typeof(int),typeof(float)}));
             return ((int)type.GetField("QuadCount").GetValue(null),sample);
         }
         [Test] public void FourWaterCategoriesStayWithinTheFountainAndLowOpacityVertexBudget()
         {
-            var water=Water();Assert.That(water.Count*4,Is.InRange(4,320));var kinds=new bool[4];
+            var water=Water();Assert.That(water.Count*4,Is.InRange(4,784));var kinds=new bool[4];
             for(int frame=0;frame<100;frame++)for(int i=0;i<water.Count;i++)
             {
                 var q=water.Sample(i,frame*.1f);Assert.That(q.Kind,Is.InRange(0,3));kinds[q.Kind]=true;
-                Assert.That(q.Alpha,Is.InRange(0,.42f));
+                Assert.That(q.Alpha,Is.InRange(0,.86f));
                 foreach(var p in new[]{q.A,q.B,q.C,q.D})
-                {Assert.That(float.IsFinite(p.X)&&float.IsFinite(p.Y),Is.True);Assert.That(p.X,Is.InRange(.34f,.66f));Assert.That(p.Y,Is.InRange(.31f,.83f));}
+                {Assert.That(float.IsFinite(p.X)&&float.IsFinite(p.Y),Is.True);Assert.That(p.X,Is.InRange(.28f,.72f));Assert.That(p.Y,Is.InRange(.22f,1.30f));if(q.Alpha>.001f)Assert.That(p.Y,Is.LessThanOrEqualTo(.84f),"Normal visible water stays below the causal show-only pixel mask");}
             }
             Assert.That(kinds.All(k=>k),Is.True,"All four requested effects must actually emit geometry");
         }
@@ -59,6 +59,63 @@ namespace Mofumachi.Tests
             for(int frame=0;frame<500;frame++)for(int i=0;i<water.Count;i++)sum+=water.Sample(i,frame*.01f).Alpha;
             long allocated=GC.GetAllocatedBytesForCurrentThread()-before;
             Assert.That(sum,Is.GreaterThan(0));Assert.That(allocated,Is.Zero,"Water geometry must not create per-frame arrays/objects on Pixel");
+        }
+        private static Type Layout=>typeof(TownWorldMap).Assembly.GetType("Mofumachi.Presentation.TownFountainWaterLayout");
+        private static Func<float,(int Stage,float Strength,float Glow)> Show()
+        {
+            var method=Layout.GetMethod("ShowAt");Assert.That(method,Is.Not.Null,"A short timed fountain show needs explicit quiet, prelude, show and recovery states");
+            return (Func<float,(int,float,float)>)Delegate.CreateDelegate(typeof(Func<float,(int,float,float)>),method);
+        }
+        [Test] public void DisplayGrowsFourteenPercentAroundTheSamePhysicalDepthWithoutChangingWalkableGeometry()
+        {
+            var method=Layout.GetMethod("Project");Assert.That(method,Is.Not.Null,"Fountain art and water must share a render-only enlargement");
+            var project=(Func<TownPoint,float,TownPoint>)Delegate.CreateDelegate(typeof(Func<TownPoint,float,TownPoint>),method);
+            var left=project(new TownPoint(0,0),1.14f);var right=project(new TownPoint(1,1),1.14f);
+            Assert.That(right.X-left.X,Is.EqualTo(TownCentralMasterLayout.FountainWidth*1.14f).Within(.000001f));
+            Assert.That(right.Y-left.Y,Is.EqualTo(TownCentralMasterLayout.FountainHeight*1.14f).Within(.000001f));
+            Assert.That(left.Y,Is.EqualTo(.285f+(.10f-.285f)*1.14f).Within(.000001f));
+            Assert.That(TownCentralMasterLayout.FountainRadiusX,Is.EqualTo(.255f));Assert.That(TownCentralMasterLayout.FountainRadiusY,Is.EqualTo(.155f));
+        }
+        [Test] public void NormalWaterHasContinuousWideLayeredStreamsRatherThanSparseSubpixelDots()
+        {
+            var water=Water();Assert.That(water.Count,Is.EqualTo(196));
+            for(int stream=0;stream<6;stream++)for(int part=0;part<4;part++)
+            {
+                var outer=water.Sample(stream*8+part*2,.31f);var core=water.Sample(stream*8+part*2+1,.31f);
+                Assert.That(outer.Kind,Is.Zero);Assert.That(core.Kind,Is.Zero);
+                Assert.That(Math.Abs(outer.A.X-outer.D.X)+Math.Abs(outer.A.Y-outer.D.Y),Is.GreaterThanOrEqualTo(.010f));
+                Assert.That(core.Alpha,Is.GreaterThanOrEqualTo(.50f));
+            }
+        }
+        [Test] public void ThreeMinuteCycleHasTwoSecondPreludeSixSecondShowAndOneSecondRecovery()
+        {
+            var show=Show();Assert.That(show(170.9f).Stage,Is.Zero);Assert.That(show(171).Stage,Is.EqualTo(1));
+            Assert.That(show(172).Glow,Is.GreaterThan(.3f));Assert.That(show(173).Stage,Is.EqualTo(2));Assert.That(show(174).Strength,Is.EqualTo(1));
+            Assert.That(show(178.9f).Strength,Is.EqualTo(1));Assert.That(show(179).Stage,Is.EqualTo(3));
+            Assert.That(show(179.9f).Strength,Is.LessThan(.04f));Assert.That(show(180).Stage,Is.Zero);Assert.That(show(354).Strength,Is.EqualTo(1));
+            foreach(float at in new[]{171f,173f,179f,180f})Assert.That(Math.Abs(show(at-.0001f).Strength-show(at+.0001f).Strength),Is.LessThan(.002f),"No abrupt water pop at show boundaries");
+        }
+        [Test] public void ShowRaisesVisibleJetsButKeepsTheTotalWaterBelowTheExisting1500VertexBudget()
+        {
+            var method=Layout.GetMethod("Quad",new[]{typeof(int),typeof(float),typeof(float),typeof(float)});Assert.That(method,Is.Not.Null);
+            var sample=(Func<int,float,float,float,(int Kind,TownPoint A,TownPoint B,TownPoint C,TownPoint D,float Alpha)>)Delegate.CreateDelegate(typeof(Func<int,float,float,float,(int,TownPoint,TownPoint,TownPoint,TownPoint,float)>),method);
+            float peak=0;
+            for(int frame=0;frame<30;frame++)for(int i=0;i<196;i++)
+            {
+                var q=sample(i,frame/30f,1,1);Assert.That(q.Alpha,Is.InRange(0,.86f));
+                foreach(var at in new[]{q.A,q.B,q.C,q.D}){Assert.That(at.X,Is.InRange(.28f,.72f));Assert.That(at.Y,Is.InRange(.22f,1.30f));if(q.Alpha>.4f)peak=Math.Max(peak,at.Y);}
+            }
+            Assert.That(peak,Is.GreaterThan(1.05f));Assert.That(196*4+672,Is.LessThanOrEqualTo(1500));
+        }
+        [Test] public void ShowClockPausesAndClampsResumedTimeInsteadOfCatchingUp()
+        {
+            var type=typeof(TownWorldMap).Assembly.GetType("Mofumachi.Presentation.TownFountainWaterClock");Assert.That(type,Is.Not.Null);
+            var clock=Activator.CreateInstance(type);var tick=(Func<float,bool,bool>)Delegate.CreateDelegate(typeof(Func<float,bool,bool>),clock,type.GetMethod("Advance"));
+            var elapsed=(Func<float>)Delegate.CreateDelegate(typeof(Func<float>),clock,type.GetProperty("Elapsed").GetMethod);
+            tick(600,false);Assert.That(elapsed(),Is.Zero);tick(600,true);Assert.That(elapsed(),Is.EqualTo(.1f).Within(.00001f));
+            foreach(float invalid in new[]{float.NaN,float.PositiveInfinity,-1f,0f})tick(invalid,true);
+            Assert.That(elapsed(),Is.EqualTo(.1f).Within(.00001f));
+            for(int i=0;i<1799;i++)tick(.1f,true);Assert.That(elapsed(),Is.EqualTo(0).Within(.00001f),"Exactly180active seconds completes one cycle");
         }
     }
 }

@@ -12,6 +12,8 @@ if((Measure-PresentFrames @() 30).complete){throw 'Missing measurements accepted
 if((Measure-PresentFrames $Frames 60).complete){throw 'A stalled/incomplete session was accepted.'}
 if((Read-TotalPss "App Summary`n TOTAL PSS: 234567 TOTAL RSS: 456789") -ne 234567){throw 'PSS parse failed.'}
 if($null -ne (Read-TotalPss 'No process found')){throw 'Missing PSS measurement became zero.'}
+if((Read-BatteryTemperature "Current Battery Service state:`ntemperature: 352") -ne 35.2){throw 'Android tenths-of-degree battery temperature parsed incorrectly.'}
+foreach($RawBattery in @('','No temperature sensor','temperature: -1','temperature: 9000')){if($null -ne (Read-BatteryTemperature $RawBattery)){throw 'Unavailable or invalid temperature must remain unknown, never zero.'}}
 $Fixture=Join-Path ([IO.Path]::GetTempPath()) ('mofu-pixel-args-'+[guid]::NewGuid())
 New-Item -ItemType Directory -Path $Fixture | Out-Null
 try {

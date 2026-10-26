@@ -134,22 +134,43 @@ try {
     $FountainFiles=@(foreach($View in @('overview','front','behind')){foreach($Phase in @('before','after')){"33-fountain-$View-$Phase.png"}})+@(0..3 | ForEach-Object {'33-fountain-phase-'+$_.ToString('00')+'.png'})
     foreach($Name in $FountainFiles){[IO.File]::WriteAllBytes((Join-Path $CaptureDir $Name),$Header)}
     $FountainMeta=Join-Path $CaptureDir 'fountain-water-comparison.json';$FountainHtml=Join-Path $CaptureDir 'fountain-water-before-after.html'
-    $Fountain=@{kind='same-state-native-additive-water-comparison';before='new layer OFF; original fountain and original water retained';after='product code';pairs=@(foreach($View in @('overview','front','behind')){@{view=$View;changed_pixels=5;outside_fountain_pixels=0;state_unchanged=$true}});phases=@(.1,.4,.7,1.0);added_vertices=320;max_update_hz=30;pixel_verified=$false;adopted=$false}
+    $Fountain=@{kind='same-state-native-additive-water-comparison';before='new layer OFF; original fountain and original water retained';after='product code';pairs=@(foreach($View in @('overview','front','behind')){@{view=$View;changed_pixels=250;outside_fountain_pixels=0;state_unchanged=$true}});phases=@(.1,.4,.7,1.0);added_vertices=784;max_update_hz=30;pixel_verified=$false;adopted=$false}
     function SaveFountain {$Fountain | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $FountainMeta}
     SaveFountain;Set-Content -LiteralPath $FountainHtml -Value '<!doctype html><title>Metadata fixture, not native pixels</title>'
     Assert-NativeCaptures $CaptureDir -RequireBoundary -RequireField -RequireGrowth -RequireFountain
     foreach($Name in $FountainFiles){$Path=Join-Path $CaptureDir $Name;Remove-Item -LiteralPath $Path;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain};[IO.File]::WriteAllBytes($Path,$Header)}
     $Fountain.pairs[0].outside_fountain_pixels=1;SaveFountain;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain};$Fountain.pairs[0].outside_fountain_pixels=0
-    $Fountain.pairs[1].changed_pixels=0;SaveFountain;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain};$Fountain.pairs[1].changed_pixels=5
+    $Fountain.pairs[1].changed_pixels=0;SaveFountain;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain};$Fountain.pairs[1].changed_pixels=250
     $Fountain.pairs[2].state_unchanged=$false;SaveFountain;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain};$Fountain.pairs[2].state_unchanged=$true
-    $Fountain.added_vertices=321;SaveFountain;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain};$Fountain.added_vertices=320
+    $Fountain.added_vertices=785;SaveFountain;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain};$Fountain.added_vertices=784
     $Fountain.phases=@(.1,.1,.1,.1);SaveFountain;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain};$Fountain.phases=@(.1,.4,.7,1.0)
     $Fountain.pixel_verified=$true;SaveFountain;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain};$Fountain.pixel_verified=$false;SaveFountain
     Remove-Item -LiteralPath $FountainHtml;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain};Set-Content -LiteralPath $FountainHtml -Value '<!doctype html><title>Metadata fixture, not native pixels</title>'
+    Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain -RequireFountainShow}
+    $ShowFiles=@('34-fountain-overview-prelude.png','34-fountain-overview-show.png','34-fountain-front-show.png','34-fountain-behind-show.png','34-fountain-overview-recovered.png','34-fountain-overview-show-off.png','34-fountain-front-show-off.png','34-fountain-behind-show-off.png')
+    foreach($Name in $ShowFiles){[IO.File]::WriteAllBytes((Join-Path $CaptureDir $Name),$Header)}
+    $Baseline=Get-Content -LiteralPath (Join-Path $PSScriptRoot '../../References/VisualLock/fountain-show-current-before-2026-10-26.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    $BeforeDir=Join-Path $CaptureDir 'fountain-before';New-Item -ItemType Directory -Path $BeforeDir | Out-Null
+    foreach($Image in $Baseline.images){Copy-Item -LiteralPath (Join-Path $PSScriptRoot ('../../'+$Image.path)) -Destination (Join-Path $BeforeDir $Image.file)}
+    $Show=@{kind='prior-native-before-normal-and-timed-show';display_scale=1.14;cycle_seconds=180;prelude_seconds=2;show_seconds=6;recovery_seconds=1;show_elapsed=176;jet_evidence='same-instant-added-layer-off-on-above-normal-uv084';show_pairs=@(foreach($View in @('overview','front','behind')){@{view=$View;changed_pixels=400;show_jet_pixels=80;outside_fountain_pixels=0;clock_unchanged=$true;original_water_phase_unchanged=$true;state_unchanged=$true}});before=$Baseline;pixel_verified=$false;adopted=$false}
+    $ShowMeta=Join-Path $CaptureDir 'fountain-show-comparison.json';$ShowHtml=Join-Path $CaptureDir 'fountain-show-before-after.html'
+    function SaveShow {$Show | ConvertTo-Json -Depth 9 | Set-Content -LiteralPath $ShowMeta}
+    SaveShow;Set-Content -LiteralPath $ShowHtml -Value '<!doctype html><title>Synthetic metadata fixture, not native</title>'
+    Assert-NativeCaptures $CaptureDir -RequireFountain -RequireFountainShow
+    foreach($Name in $ShowFiles){$Path=Join-Path $CaptureDir $Name;Remove-Item -LiteralPath $Path;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};[IO.File]::WriteAllBytes($Path,$Header)}
+    $Show.show_pairs[0].show_jet_pixels=0;SaveShow;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};$Show.show_pairs[0].show_jet_pixels=80
+    $Show.show_pairs[0].outside_fountain_pixels=1;SaveShow;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};$Show.show_pairs[0].outside_fountain_pixels=0
+    $Show.show_seconds=60;SaveShow;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};$Show.show_seconds=6
+    $Show.show_pairs[1].changed_pixels=1;SaveShow;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};$Show.show_pairs[1].changed_pixels=400
+    $Show.before.source_revision='0'*40;SaveShow;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};$Show.before.source_revision='8aa7a14264c3bda3050a9e794c576f6af11535c9'
+    $Show.adopted=$true;SaveShow;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};$Show.adopted=$false;SaveShow
+    $BeforeFile=Join-Path $BeforeDir $Baseline.images[0].file;$BeforeBytes=[IO.File]::ReadAllBytes($BeforeFile)
+    [IO.File]::WriteAllBytes($BeforeFile,$Header);Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};[IO.File]::WriteAllBytes($BeforeFile,$BeforeBytes)
     Write-NativeReviewArchives $Temporary
     $ZipContents=@(Get-ChildItem -LiteralPath $Temporary -Filter 'five-plaza-review-*.zip' | ForEach-Object {
         $Zip=[IO.Compression.ZipFile]::OpenRead($_.FullName);try {$Zip.Entries | ForEach-Object {$_.FullName}}finally {$Zip.Dispose()}
     })
+    if('fountain-show-comparison.json' -notin $ZipContents -or $Baseline.images[0].file -notin $ZipContents){throw 'ZIP lost timed show or actual prior Before.'}
     if('field-stability.json' -notin $ZipContents){throw 'Review ZIPs lost the required field-stability fixture metadata.'}
     if('town-growth-progression.json' -notin $ZipContents){throw 'Review ZIPs lost real delivery/growth/reload evidence.'}
     if('fountain-water-comparison.json' -notin $ZipContents -or 'fountain-water-before-after.html' -notin $ZipContents){throw 'Review ZIPs lost fountain comparison evidence.'}

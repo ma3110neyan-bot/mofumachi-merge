@@ -1,0 +1,9 @@
+Test run for /workspace/mofumachi-merge/Tests/Presentation/bin/Debug/net8.0/Mofumachi.Visual.Tests.dll (.NETCoreApp,Version=v8.0)
+Microsoft (R) Test Execution Command Line Tool Version 17.10.0 (x64)
+Copyright (c) Microsoft Corporation.  All rights reserved.
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+Results File: /workspace/runtime/fountain-show-2026-10-26/show-red.trx
+
+Failed!  - Failed:     5, Passed:     5, Skipped:     0, Total:    10, Duration: 130 ms - Mofumachi.Visual.Tests.dll (net8.0)

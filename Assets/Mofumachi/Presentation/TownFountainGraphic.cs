@@ -10,8 +10,8 @@ namespace Mofumachi.Presentation
     {
         private TownContinuousWorldView world;private Texture2D painting;private TownPoint previewCenter;private float previewWidth;
         public const string Resource="Mofumachi/TownCentralFountain";
-        public TownPoint Feet=>new TownPoint(0,TownCentralMasterLayout.FountainFeetY);
-        private TownPoint Location(Vector2 uv)=>new TownPoint((uv.x-.5f)*TownCentralMasterLayout.FountainWidth,Feet.Y+uv.y*TownSceneryLayout.FountainHeight);
+        public TownPoint Feet=>TownFountainWaterLayout.Project(new TownPoint(.5f,0),TownFountainWaterLayout.DisplayScale);
+        private TownPoint Location(Vector2 uv)=>TownFountainWaterLayout.Project(new TownPoint(uv.x,uv.y),TownFountainWaterLayout.DisplayScale);
         public override Texture mainTexture=>painting;
         public void Bind(TownContinuousWorldView source){world=source;painting=Resources.Load<Texture2D>(Resource);raycastTarget=false;SetAllDirty();}
         public void BindPreview(TownPoint center,float width){previewCenter=center;previewWidth=width;painting=Resources.Load<Texture2D>(Resource);raycastTarget=false;SetAllDirty();}

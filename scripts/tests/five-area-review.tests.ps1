@@ -22,7 +22,8 @@ try {
     $Polish=Get-BasePolishPatch $Repo
     if($Polish){
         $Paths+=@($Stage.base_polish,$Polish.Record.base_lock)+@($Polish.Record.changes | ForEach-Object {$_.path})
-        if($Polish.Record.scope_id -eq 'town_fountain_water_2026_10_25'){$Paths+=@('References/VisualLock/town-field-frozen-2026-10-25.json','References/VisualLock/town-field-final-candidate-2026-10-25.json')}
+        if($Polish.Record.scope_id -in @('town_fountain_water_2026_10_25','town_fountain_show_2026_10_26')){$Paths+=@('References/VisualLock/town-field-frozen-2026-10-25.json','References/VisualLock/town-field-final-candidate-2026-10-25.json')}
+    if($Polish.Record.scope_id -eq 'town_fountain_show_2026_10_26'){$Paths+='References/VisualLock/fountain-show-current-before-2026-10-26.json'}
         foreach($Key in @('new_files','capture_inputs')) {
             $Property=$Polish.Record.PSObject.Properties[$Key]
             if($Property){$Paths+=@($Property.Value | ForEach-Object {$_.path})}

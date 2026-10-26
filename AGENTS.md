@@ -1,5 +1,13 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-26最新ユーザー：弱い噴水候補は不十分。噴水だけを主役へ強化する指示に限定実装。** 街5地区の正式ベース候補固定は維持。現在の原画を同じY.285から描画だけ14％拡大し、通常の太い6水流／しぶき／波紋／反射、中央が見えて操作可能な累積180秒周期の2秒前兆→6秒ショー→1秒復帰を追加。3本の高い噴き上げも同じ親深度。3runtimeファイルのみ（FountainGraphic／WaterLayout／WaterGraphic）、Nav／Collider／地形・道・花壇・街灯・ベンチ／Core・Save／報酬／正式6名／図鑑／BGM／Mergeは無変更。CWTで同UIFlowのHome再構築を跨ぐ一時時計、Pause／modal／画面外停止、.1dtcap、30Hz時相、追加196quad784＋旧672＝1456頂点。性能の実測値とはしない。
+
+**ソース確認済み・新版Unity／APK／Pixel未確認。** 旧model RED5／10→GREEN10、全CPU345/345 failed0skip0（9m16s）、最終噴水10/10、API6DLL0警告エラー、PS14本成功。単独の独立コードレビューCritical0／Important1／Minor0。I1の通常波紋を混ぜたshow差分を修正し、同一瞬間OFF/ONの通常UV.84より上のjet>40画素／投影外0／時計・旧波紋位相・NPC・camera・Save非変化へ厳密化、artifact gateは実RED→GREEN。新OFF3枚を保存するため新162撮影＋旧Before3。既存field検査の「拡大Feet＋旧高さ」も共有Project(uvY1)へ合わせ、重なり・歩行検査は緩めない。仕様／inline計画は `docs/superpowers/{specs,plans}/2026-10-26-fountain-show*`、証拠は `docs/verification/fountain-show-2026-10-26/`。
+
+**次はPull後の全件TownQaを一度実行。** 手順 `docs/fountain-show-review-2026-10-26.md`。宣言144Edit／225Playは実成功ではない。新162PNGと、8aa7a14／093151の旧現在版Before3原本を別provenanceでZIP化し、通常／前兆／show3視点／復帰と3同一瞬間OFFcontrolsを確認する。新scope town_fountain_show_2026_10_26は18厳密入力・旧BeforeSHAに結び、原354／JPEG15／fieldfreezeを維持。currentdigest f4ddc00d…／歴史dfb2cbc8…、419fileCRLF対応。旧093151は新版の合格証拠へ流用しない。新原XML・両APK/source/SHA・画像を受領するまで新Unity／APK成功と呼ばない。
+
+Pixel99RAY1BELH・街QA IDcom.mofumachi.merge.qa.townlifeへ新SHA照合→保存維持install-r。噴水が通常サイズで明確に流れ、約3分で短いshow、自然な前後と通常復帰、10分／保存を確認する。既存capture-pixel-visual-check.ps1は600秒とバッテリー開始／終了温度・thermal原文を記録でき、SurfaceView有効時刻から実FPSを測る。値が取れなければnull／未計測、バッテリー温度をCPU温度と呼ばない。今回PDF4頁は現状FBだけでFPS／熱／600秒の証明でない。噴水合格まで2.5D／Merge／以降／main停止。画像をチャットへ貼らない。以下は履歴。
+
 **2026-10-26最新受領：噴水版の12ZIP・172原本を照合済み。** run `20261026-093151-b7d557b1`、ソース8aa7a142、fingerprint97e700b2…。原Edit144/144・Play225/225の全369ケースPassed、failed0／skip0／inconclusive0。全154PNGのSHA・bytes・720×1280・デコード、既存全件／境界／歩行／実成長／噴水ゲート、原354・固定景観と17入力bindingが成功。両APKのsource／fingerprint／成功log／bytesが一致。原本と判定は `References/Review/fountain-water-2026-10-26-candidate/`。街QA79,021,005bytes／SHA2971b220…、成長79,021,029bytes／SHA5dd9a110…。APKbinary未受領、独立binarySHAはWindows側で照合する。
 
 **判定は同run街QAによる条件付きPixel確認へ進行可、噴水採用は保留。** 全154枚を私的に点検・単独の独立実画像レビュー。新たなImportant景観後退0、持越しImportant2は東の木陰での視認／タップ・ドラッグ帰還と、奥の噴水がキャラ本体を自然に隠すライブ切替。Minor2は控えめすぎる可能性のある新水と既存北外周。西東北南のLv1/3/6全景12枚は固定前とbyte同一、中央3枚の184画素差は噴水内だけ。87同一／57変更／10追加。日替わり11/12/13・Merge着地29・Southjoin26微差を全て新噴水に帰属させない。新レイヤーOFF/ONの全景39／手前36／奥169画素差、投影外0。顔の知覚できる新隠れなしだがalpha縁の微差があり「キャラ画素完全一致」とはしない。4時相は旧水も進むため全差分を新効果の証明にしない。

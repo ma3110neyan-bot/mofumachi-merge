@@ -1,0 +1,5 @@
+Exception: /workspace/mofumachi-merge/scripts/visual-lock.ps1:59
+Line |
+  59 |  … ater_2026_10_25')){throw 'Unknown bounded display correction scope.'}
+     |                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Unknown bounded display correction scope.

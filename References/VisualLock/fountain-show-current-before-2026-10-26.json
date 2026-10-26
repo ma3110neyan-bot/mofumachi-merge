@@ -1,0 +1,30 @@
+{
+  "scope": "actual_prior_native_before_not_new_run",
+  "source_revision": "8aa7a14264c3bda3050a9e794c576f6af11535c9",
+  "run": "20261026-093151-b7d557b1",
+  "width": 720,
+  "height": 1280,
+  "images": [
+    {
+      "view": "overview",
+      "path": "References/Review/fountain-water-2026-10-26-candidate/native/33-fountain-overview-after.png",
+      "file": "34-fountain-overview-current-before.png",
+      "sha256": "3e67cdecfb6f429d5bad1abb69ac414a01da3aa278b1f186d5e578cc5dca7a44",
+      "bytes": 1728509
+    },
+    {
+      "view": "front",
+      "path": "References/Review/fountain-water-2026-10-26-candidate/native/33-fountain-front-after.png",
+      "file": "34-fountain-front-current-before.png",
+      "sha256": "749d64b3968596fa0a6bcf70176367f17ccb7dcc611283308fbdd718469fabf3",
+      "bytes": 1725571
+    },
+    {
+      "view": "behind",
+      "path": "References/Review/fountain-water-2026-10-26-candidate/native/33-fountain-behind-after.png",
+      "file": "34-fountain-behind-current-before.png",
+      "sha256": "3bfa25f394404ad2a38ba10a1f56fdafe148bdedf8dedefca8ee73428d89c9b9",
+      "bytes": 1733968
+    }
+  ]
+}

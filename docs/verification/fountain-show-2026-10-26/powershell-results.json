@@ -1,0 +1,58 @@
+[
+  {
+    "name": "visual-lock",
+    "exit_code": 0
+  },
+  {
+    "name": "android-tools",
+    "exit_code": 0
+  },
+  {
+    "name": "central-review",
+    "exit_code": 0
+  },
+  {
+    "name": "west-review",
+    "exit_code": 0
+  },
+  {
+    "name": "east-review",
+    "exit_code": 0
+  },
+  {
+    "name": "north-review",
+    "exit_code": 0
+  },
+  {
+    "name": "town-boundary-lock",
+    "exit_code": 0
+  },
+  {
+    "name": "south-review",
+    "exit_code": 0
+  },
+  {
+    "name": "approved-design",
+    "exit_code": 0
+  },
+  {
+    "name": "pixel-visual-check",
+    "exit_code": 0
+  },
+  {
+    "name": "stage1-camera-lock",
+    "exit_code": 0
+  },
+  {
+    "name": "five-area-packaging",
+    "exit_code": 0
+  },
+  {
+    "name": "windows-json-encoding",
+    "exit_code": 0
+  },
+  {
+    "name": "five-area-review",
+    "exit_code": 0
+  }
+]

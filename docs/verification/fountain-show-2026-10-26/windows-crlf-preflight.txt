@@ -1,0 +1,1 @@
+Windows CRLF original/frozen-field/current-show gates passed. Actual native/Pixel show remains pending.

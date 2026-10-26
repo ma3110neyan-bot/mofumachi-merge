@@ -1,0 +1,127 @@
+{
+  "scope_id": "town_fountain_show_2026_10_26",
+  "authorized_by": "user",
+  "authorization_reference": "User2026-10-26中央噴水・演出強化指示:大きく・通常水量・数分ごとの短いshow。噴水以外の景観/移動/保存は維持。",
+  "base_lock": "References/VisualLock/five-area-approved-2026-10-24.json",
+  "base_lock_hash_mode": "lf-text",
+  "base_lock_sha256": "e70eb3532ff987a1def4e2a101426b8098452308f21544f5ab83e4ac7a5ea9a4",
+  "before_runtime_source": "43a27646fcf65174afb938fb78c0b93d7e0628ad",
+  "before_render_digest": "73b1027987ca543d38df99459571cc0ae441512511a8c8c7f1b3fc58bc567b5b",
+  "reviewed_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "candidate_render_digest": "f4ddc00d9a104ac275ec2f3baffaa2a9f73d0ec3705a21bb133d600c489a470c",
+  "changes": [
+    {
+      "path": "Assets/Mofumachi/Presentation/TownContinuousWorldView.cs",
+      "before_sha256": "d78dccf8e33f017fd1b8dfda71da3688b48a60de43d343a428ff78188e4fdc15",
+      "after_sha256": "936233ba84e95b224fbe23e2367c61fac6017e32797dd7a34fe5f00e87929364"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthEntryBlendGraphic.cs",
+      "before_sha256": "2ef4b84fa9593231411815dc67a9296e7b49965c5dec2e65f50d33034f657b70",
+      "after_sha256": "89c65a8e7500f3d5ee4e9f6168689e90472023c442ff59d2fff620836ef5ba54"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthEntryBlendLayout.cs",
+      "before_sha256": "7f56be2082652006de53aba85196ba0869dc82442e9ab2f9ddaf0f3aca641a5a",
+      "after_sha256": "06c58c1b696014e4363e7239df6f355be50493c886bd0dd1ea341d98b41a4c2c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthGroundGraphic.cs",
+      "before_sha256": "53c3cad7dd3015fa959a41ec1e2870651f5d6895a9548b9336cb60cbb80903f9",
+      "after_sha256": "7106d1278c3549ae04095a25992380fc17e2498d908ebb83086b0b9eaaf1b56c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWorldLayout.cs",
+      "before_sha256": "07b9b026a48e6e1ddae4131b092a92f197f30917c6ac91f2ea868c86d5c9d91d",
+      "after_sha256": "2c18d61cc4c6fd2989064a97b4b425628757d9535f6948ab0abd0917ccdb7fd3"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownAreaNavigation.cs",
+      "before_sha256": "07bd7a1176953d57608bfc0086c2fc26fc27e30d7eb0c167aa18eb57b327a10c",
+      "after_sha256": "d82de20fcb020db9cdd917b4fbce2ee67a2bad1fc6c63e05340edb10b0801505"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGrowthPresentation.cs",
+      "before_sha256": "890b2100572e8eb7435d9ddbccd2977a1825e7913c0bddddb5cc4a18fd13a460",
+      "after_sha256": "4d451154157fb82dd58f91a6bb22c5a66b0020a65c43cfc27a5775f2d01278f0"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGrowthComparisonView.cs",
+      "before_sha256": "a59ab51572fc798aeefdcda20a0e18a3e52d4cf8a14ebe8e7dcefc633f99ade3",
+      "after_sha256": "7c7b4f8f8a8bb2a8f7fbe68903d2f738620022f07186b9a29a5cc3cbb829aab0"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainGraphic.cs",
+      "before_sha256": "fc6955a6b4d47e5c8552b7bff8b211c56a165ff95f6a5cdd369a3cad21a1ab90",
+      "after_sha256": "aa35f423ce60ed91efb0b92ace18a3b8e32d5948ddd863805b1c4da9c3c623dd"
+    }
+  ],
+  "new_files": [
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs",
+      "after_sha256": "7c0075539bb31fbaf88b1e5b568df440eadee64cd75c7209f45a8f7f5cedee96"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs.meta",
+      "after_sha256": "c21ffc13c1321c97db54d5af9191852ca0241d85c487002f0d27790c4fc6d06a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs",
+      "after_sha256": "106c523b4701f9a7e8dbab44f1948f670eeb848560feaa1d676518d9fc1cf1cf"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs.meta",
+      "after_sha256": "32db8df645367731266026ea9f7e47a5e659d255fa18864f7b0b6975341b159a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainWaterLayout.cs",
+      "after_sha256": "b227859e2aadc33c83b63a861342be67cb1b4b22b75a6bee2217c624beb94c36"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainWaterLayout.cs.meta",
+      "after_sha256": "dffce2f1781cc31981a33024aad7e9e87d2d9525084f5c81181975271d825c9b"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainWaterGraphic.cs",
+      "after_sha256": "d98ac8317dfbd29e4bcb6dfad9cafb2e3cfeedc6b870a5ef315fcb1090d446b4"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainWaterGraphic.cs.meta",
+      "after_sha256": "97dc71e0fe61a3428ef68a669af23c9573bdfebbe47f0af7789510bde740bef4"
+    }
+  ],
+  "capture_inputs": [
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs",
+      "before_sha256": "3bdc727de2275daa8bd1fe45de9f9f8002380ceeb9c9cbda7944a964996bc6b7",
+      "after_sha256": "7ef8ce9441eb4e5ffc60ced4d8db9fc78d0a4490f707970626b491673fb67f9d"
+    }
+  ],
+  "native_unity_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "merge_quality_pass_started": false,
+  "pass_id": "fountain_water_2026_10_25",
+  "fountain_pass_started": true,
+  "character_trial_started": false,
+  "native_image_inspection_complete": false,
+  "native_visual_cleared": false,
+  "field_stability_passed": false,
+  "native_test_inventory_expected": {
+    "editmode": 144,
+    "playmode": 225
+  },
+  "native_capture_count_expected": 162,
+  "pixel_growth_app_id": "com.mofumachi.merge.qa.growthcheck",
+  "previous_native_evidence": "References/Review/town-field-final-2026-10-25-candidate/native-review.json",
+  "field_freeze": "References/VisualLock/town-field-frozen-2026-10-25.json",
+  "field_freeze_hash_mode": "lf-text",
+  "field_freeze_sha256": "6a44d14c4127305e698ce9ecccec6acdfbc089934da8397d111b61984a9c3821",
+  "field_base_user_approved": true,
+  "fountain_user_approved": false,
+  "eligible_for_same_apk_pixel_verification": false,
+  "before_effect_source": "8aa7a14264c3bda3050a9e794c576f6af11535c9",
+  "current_before_record": "References/VisualLock/fountain-show-current-before-2026-10-26.json",
+  "current_before_record_lf_sha256": "3847e22b534dc559c49ad7b1f921a55ea0aa1f44756f7ec1124b8fe4646bac73"
+}

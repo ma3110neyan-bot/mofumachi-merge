@@ -1,0 +1,31 @@
+{"kind":"prior-native-before-normal-and-timed-show","display_scale":1.14,"cycle_seconds":45,"release_cycle_seconds":180,"prelude_seconds":2,"show_seconds":6,"recovery_seconds":1,"show_elapsed":41,"jet_evidence":"same-instant-added-layer-off-on-above-normal-uv084","show_pairs":[{"view":"overview","changed_pixels":35522,"show_jet_pixels":3676,"outside_fountain_pixels":0,"clock_unchanged":true,"original_water_phase_unchanged":true,"state_unchanged":true},{"view":"front","changed_pixels":42900,"show_jet_pixels":3710,"outside_fountain_pixels":0,"clock_unchanged":true,"original_water_phase_unchanged":true,"state_unchanged":true},{"view":"behind","changed_pixels":18006,"show_jet_pixels":3682,"outside_fountain_pixels":0,"clock_unchanged":true,"original_water_phase_unchanged":true,"state_unchanged":true}],"before":{
+  "scope": "actual_prior_native_before_not_new_run",
+  "source_revision": "5edfa5db37f1386b811713b43c4833b4cea451ab",
+  "run": "20261026-111414-78cde31d",
+  "width": 720,
+  "height": 1280,
+  "images": [
+    {
+      "view": "overview",
+      "path": "References/Review/fountain-show-2026-10-26-candidate/native/33-fountain-overview-after.png",
+      "file": "34-fountain-overview-current-before.png",
+      "sha256": "7cb3f140649e594c0c20a4ba3b586201ba2ac0b60fa6b18fa2014f8aa44641db",
+      "bytes": 1732638
+    },
+    {
+      "view": "front",
+      "path": "References/Review/fountain-show-2026-10-26-candidate/native/33-fountain-front-after.png",
+      "file": "34-fountain-front-current-before.png",
+      "sha256": "8a28d84dbb425ae152dcf95fbc86d72cb5dc04607171b95137860790c1cf7b4c",
+      "bytes": 1729207
+    },
+    {
+      "view": "behind",
+      "path": "References/Review/fountain-show-2026-10-26-candidate/native/33-fountain-behind-after.png",
+      "file": "34-fountain-behind-current-before.png",
+      "sha256": "04994e038bb45943c7a6a62a0b0ae608e78b5bad21aea837648a04872c0d7629",
+      "bytes": 1738334
+    }
+  ]
+}
+,"pixel_verified":false,"adopted":false}

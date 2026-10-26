@@ -1,0 +1,6 @@
+Tests passed: 144/144
+Tests passed: 226/226
+Native Unity images: 165, 720x1280 (visual review still required).
+Real Update sequence: 240 crops / 60.114429473877 seconds; first show 38.722713470459 seconds. Pixel/user acceptance pending.
+Street boundary comparison: /workspace/runtime/fountain-motion-native-2026-10-26/run-layout/screenshots/street-boundary-before-after.html (Boundary-only renderer comparison; Pixel acceptance pending).
+Received165new full +240live crops +3actual Before originals pass the unchanged production/source gates; Pixel/user adoption remain pending.

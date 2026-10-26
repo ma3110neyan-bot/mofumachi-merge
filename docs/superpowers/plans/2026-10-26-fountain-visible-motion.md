@@ -63,3 +63,11 @@ Final: Ruling: OSfocus-only overlay declined — 既存Home/modal/appPause条件
 Final: Ruling: final adoption declined — 新版でユーザーが確認できた時だけ合格 — 2.5D／Merge／mainを開始しない。
 
 Final source audit: Application/DebugによるQA判定はBind内だけで行い、MonoBehaviourのfield initializerでは純粋なdefault clockだけを作る。ownerなしでもBind時はQA45秒を選ぶ。CPU対象のLayout/Coreは351＋125成功後に無変更、Graphic/Nativeの最終API6を再確認。Core初回はsandboxのローカルsocket拒否で中断し、承認された再実行で125成功。
+
+Native receipt2026-10-26:15ZIP430raw、source98596daf、run192546-249dc5ea。原Edit144/Play226全370Passedfailed0skip0inconclusive0。17log failures fixed by actual newnative run.165full＋240live＋3actual5edfaBeforeのSHA/bytes/dimensions/decode、全既存Native/source/frozen gates成功。ActualUpdate60.114s、stage2sample37.971、高jets38.472、peak38.723、normal45.003、maxgap.272s。Normal/Showgeometrychanges202/23、4fpsはactualFPSではない。
+Independent actual-image review1回：Critical0／新Important景観後退0／持越し又は未確認Important3／新Minor1。全165と240を私的点検。原本・判定はReferences/Review/fountain-motion-2026-10-26-candidate/。No source/test/tool edits on this receipt.
+Ruling: inherited speech-panel occlusion48/240 and far solid-body crossing stay asPixel visibility/depth checks — not new observed regressions and user's fountain-only scope prohibits speculative UI/field redesign — costifwrong fountain remains unapproved and bounded correction needed after actualdevice feedback.
+Ruling: inheritedEastcanopy isbyteidentical and falls under user's frozen-town localPolish — retain formalbase approval and quickdevice self-return check, do not reconstructtown — costifwrong inheritedinteractionissue remainsforlocalPolish.
+Final: minor(deferred): show arcs remain regular/ribbonlike — ask user's livePixel naturalness judgment before any visualchange.
+Ruling: actualFPS/smoothness/heat600s/audio/update-save/binaryidentity/release180/oldmissingincident/finaladoption declined — same-run Pixel/hash/measurement/useracceptance needed; 4fpsnative/meshbudget/source cannot substitute — costifwrong no fountainadoption or laterstage.
+Next docs/fountain-motion-pixel3a-2026-10-26.md: usealreadygenerated192546townAPK SHA90c225ca… andsavepreservinginstall-r, noPull/rebuildforrecords. 2.5D/Merge/main remainunstarted.

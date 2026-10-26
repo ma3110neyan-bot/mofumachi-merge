@@ -1,0 +1,33 @@
+{
+  "date_jst": "2026-10-26",
+  "native_run": "20261026-192546-249dc5ea",
+  "native_source": "98596daf798bcea54d39f6a41b58a565070e1370",
+  "original_files_sha_bytes_verified": 430,
+  "zip_parts_crc_passed": 15,
+  "new_full_pngs": 165,
+  "live_crop_pngs": 240,
+  "prior_before_pngs": 3,
+  "all_png_decode_verified": 408,
+  "native_tests": {
+    "passed": 370,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "native_real_update_seconds": 60.11442947387695,
+  "new_critical_important_static_regressions": 0,
+  "inherited_or_unverified_acceptance_items": 3,
+  "new_minor_reservations": 1,
+  "production_native_and_source_gates": "passed",
+  "exact_input_bindings": 18,
+  "game_test_tool_changes": "none",
+  "render_digest": "840cb76482eede4757e12429b10413e76205f57a5ca30eefcfb36613710a783f",
+  "historical_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "apk_binary_received": false,
+  "apk_sha_independent_recompute": false,
+  "pixel_verified": false,
+  "user_approved": false,
+  "adopted": false,
+  "next_stages_started": false,
+  "next": "Already-built same-run townQA Pixel/save-preserving install,60s show visibility and600s performance/save verification; no rebuild for records."
+}

@@ -1,0 +1,214 @@
+{
+  "date_jst": "2026-10-26",
+  "run": "20261026-192546-249dc5ea",
+  "native_source_revision": "98596daf798bcea54d39f6a41b58a565070e1370",
+  "product_fingerprint": "ca87897bd86b67c7a02bfc5d14c90f2c4c8d77ee30dbef68766d9b5fedc3b0ab",
+  "scope": "Actual native Update sequence and full field review; not Pixel or final adoption",
+  "verdict": "Eligible for the already-generated same-run town QA Pixel check; no rebuild for this record-only receipt.",
+  "zip_parts": 15,
+  "zip_bytes_total": 301628342,
+  "raw_original_files": 430,
+  "new_full_pngs": 165,
+  "live_crop_pngs": 240,
+  "actual_prior_before_pngs": 3,
+  "all_png_sha_bytes_dimensions_decode": "passed",
+  "tests": {
+    "editmode_passed": 144,
+    "playmode_passed": 226,
+    "total_passed": 370,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0,
+    "previous17_log_failures_now_passed": true
+  },
+  "live": {
+    "duration_seconds": 60.11442947387695,
+    "frames": 240,
+    "crop_width": 268,
+    "crop_height": 292,
+    "crop_top_left_full_image": [
+      226,
+      357
+    ],
+    "crop_bottom_left_full_image": [
+      226,
+      631
+    ],
+    "manual_advance": false,
+    "first_sampled_stage2_seconds": 37.97114562988281,
+    "first_visibly_high_jets_seconds": 38.472,
+    "first_peak_seconds": 38.722713470458984,
+    "recovery_sample_seconds": 43.997344970703125,
+    "normal_return_sample_seconds": 45.00288772583008,
+    "normal_mesh_changes": 202,
+    "show_mesh_changes": 23,
+    "max_sample_gap_seconds": 0.27184295654296875,
+    "state_unchanged": true,
+    "not_actual_device_fps": true
+  },
+  "appearance": {
+    "normal": "Moving highlights, landing splashes, ripples and glints visible in unobstructed consecutive native crops. Still modest beside the painted scenery.",
+    "show": "Three high curved cyan/white streams visible at native full-screen scale; normal again by45s, no stranded jets through60.114s.",
+    "characters": "Foreground face/clothes/name readable. Far still shows transparent water over lower face/neck/clothes with eyes legible. Live opaque-stone depth crossing remains unverified.",
+    "no_new_critical_or_important_static_scenery_regression": true
+  },
+  "comparison": {
+    "same_name_byte_identical": 90,
+    "same_name_changed": 72,
+    "new_full_frames": 3,
+    "noncentral_12_overviews_byte_identical": true,
+    "real_growth_6_frames_byte_identical": true,
+    "all_72_changes_are_water_only": false,
+    "before": "Actual5edfa/111414 normal originals with preserved SHA, not8aa or recaptured."
+  },
+  "controlled_pixels": {
+    "overview": {
+      "normal": {
+        "rgb_changed_pixels": 1578,
+        "bbox_top_left_exclusive": [
+          297,
+          804,
+          422,
+          917
+        ],
+        "max_channel_delta": 185
+      },
+      "show": {
+        "rgb_changed_pixels": 8130,
+        "bbox_top_left_exclusive": [
+          297,
+          695,
+          428,
+          926
+        ],
+        "max_channel_delta": 225
+      }
+    },
+    "front": {
+      "normal": {
+        "rgb_changed_pixels": 1612,
+        "bbox_top_left_exclusive": [
+          297,
+          590,
+          422,
+          705
+        ],
+        "max_channel_delta": 170
+      },
+      "show": {
+        "rgb_changed_pixels": 8133,
+        "bbox_top_left_exclusive": [
+          297,
+          485,
+          429,
+          718
+        ],
+        "max_channel_delta": 232
+      }
+    },
+    "behind": {
+      "normal": {
+        "rgb_changed_pixels": 2698,
+        "bbox_top_left_exclusive": [
+          297,
+          745,
+          422,
+          859
+        ],
+        "max_channel_delta": 225
+      },
+      "show": {
+        "rgb_changed_pixels": 10158,
+        "bbox_top_left_exclusive": [
+          297,
+          636,
+          428,
+          869
+        ],
+        "max_channel_delta": 224
+      }
+    }
+  },
+  "independent_review": {
+    "critical": 0,
+    "new_important_regressions": 0,
+    "inherited_or_unresolved_acceptance_items": 3,
+    "minor_new_reservations": 1,
+    "report": "References/Review/fountain-motion-2026-10-26-candidate/independent-review.md"
+  },
+  "open_items": [
+    {
+      "id": "I1",
+      "type": "inherited UI visibility",
+      "detail": "Speech panels obscure normal fountain in48/240samples:3.280–7.049,11.324–15.096,53.808–57.599s. No panel over show/prelude/recovery in this run. No matched old live frequency. Keep Pixel visibility item; no UI redesign now."
+    },
+    {
+      "id": "I2",
+      "type": "inherited field Polish",
+      "detail": "East canopy concealment is byte-identical to prior. Keep local self-return/touch check; retain user-approved town base and do not expand fountain pass."
+    },
+    {
+      "id": "I3",
+      "type": "unresolved device acceptance",
+      "detail": "Live opaque fountain far-body depth transition must be observed on Pixel; static water overlap alone is not proof."
+    },
+    {
+      "id": "M1",
+      "type": "new minor appearance reservation",
+      "detail": "Tall show arcs retain regular ribbon/wire outlines; assess naturalness at actual Pixel frame rate before adoption."
+    }
+  ],
+  "town_qa_metadata": {
+    "gitRevision": "98596daf798bcea54d39f6a41b58a565070e1370",
+    "revisionSource": "git-metadata + clean product inputs",
+    "productFingerprint": "ca87897bd86b67c7a02bfc5d14c90f2c4c8d77ee30dbef68766d9b5fedc3b0ab",
+    "localUnityConfigurationChanges": [
+      "\"Assets/Settings/Build Profiles/Android\\342\\204\\242.asset\"",
+      "Assets/Settings/UniversalRP.asset",
+      "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+      "ProjectSettings/ProjectSettings.asset"
+    ],
+    "nativeCaptureCount": 165,
+    "unity": "6000.6.4f1",
+    "appId": "com.mofumachi.merge.qa.townlife",
+    "versionCode": 1,
+    "apk": "town-life-qa.apk",
+    "sha256": "90c225caceeab25e44764cabd146ea0dbc2e82b557c1dabe5cd093a2151d5586",
+    "bytes": 79030001,
+    "builtAtUtc": "2026-10-26T10:35:29.4294165Z",
+    "qa": true,
+    "townQa": true
+  },
+  "growth_qa_metadata": {
+    "gitRevision": "98596daf798bcea54d39f6a41b58a565070e1370",
+    "productFingerprint": "ca87897bd86b67c7a02bfc5d14c90f2c4c8d77ee30dbef68766d9b5fedc3b0ab",
+    "appId": "com.mofumachi.merge.qa.growthcheck",
+    "apk": "town-growth-check.apk",
+    "sha256": "0b6c747ca3f72ccb0d5069c0c303dc5b02ae073b92920bda67b3b0ae61a017fb",
+    "bytes": 79030049,
+    "initial_state": "normal initial game, separate Android app save",
+    "pixel_verified": false,
+    "adopted": false
+  },
+  "both_build_success_logs_and_metadata_bytes_match": true,
+  "apk_binaries_received": false,
+  "apk_sha_independently_recomputed": false,
+  "independent_windows_full_input_fingerprint_recomputed": false,
+  "current_render_digest": "840cb76482eede4757e12429b10413e76205f57a5ca30eefcfb36613710a783f",
+  "historical_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "native_unity_verified": true,
+  "native_image_inspection_complete": true,
+  "qa_apk_generated": true,
+  "eligible_for_same_apk_pixel_verification": true,
+  "native_visual_cleared": false,
+  "pixel_verified": false,
+  "user_approved": false,
+  "adopted": false,
+  "next_stages_started": false,
+  "limits": [
+    "4fps actual samples do not prove30fps smoothness, actualFPS or frame pacing.",
+    "Native tests/images are not Pixel thermal/load/audio/600s/save/update/restart acceptance.",
+    "Release180s cycle and cause of old missing-show device incident were not observed by this45sQA sequence.",
+    "Same-run APK binary SHA/installation/identity need local device verification."
+  ]
+}

@@ -1,0 +1,984 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="144" result="Passed" total="144" passed="144" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-26 10:26:10Z" end-time="2026-10-26 10:26:13Z" duration="2.4891412">
+  <test-suite type="TestSuite" id="1000" name="もふまちメルジュ" fullname="もふまちメルジュ" runstate="Runnable" testcasecount="144" result="Passed" start-time="2026-10-26 10:26:10Z" end-time="2026-10-26 10:26:13Z" duration="2.489141" total="144" passed="144" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1024" name="Mofumachi.BuildTests.dll" fullname="C:/Users/User/Desktop/Mofumachi/mofumachi-merge/Library/ScriptAssemblies/Mofumachi.BuildTests.dll" runstate="Runnable" testcasecount="19" result="Passed" start-time="2026-10-26 10:26:10Z" end-time="2026-10-26 10:26:11Z" duration="0.914217" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="16988" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1025" name="Mofumachi" fullname="Mofumachi" runstate="Runnable" testcasecount="19" result="Passed" start-time="2026-10-26 10:26:10Z" end-time="2026-10-26 10:26:11Z" duration="0.913689" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1026" name="Tests" fullname="Mofumachi.Tests" runstate="Runnable" testcasecount="19" result="Passed" start-time="2026-10-26 10:26:10Z" end-time="2026-10-26 10:26:11Z" duration="0.913322" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="AndroidBuildTests" fullname="Mofumachi.Tests.AndroidBuildTests" classname="Mofumachi.Tests.AndroidBuildTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 10:26:10Z" end-time="2026-10-26 10:26:10Z" duration="0.273849" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1003" name="PixelBuildConfigurationIsPortraitArm64AndApk" fullname="Mofumachi.Tests.AndroidBuildTests.PixelBuildConfigurationIsPortraitArm64AndApk" methodname="PixelBuildConfigurationIsPortraitArm64AndApk" classname="Mofumachi.Tests.AndroidBuildTests" runstate="Runnable" seed="1750173348" result="Passed" start-time="2026-10-26 10:26:10Z" end-time="2026-10-26 10:26:10Z" duration="0.248687" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1002" name="QaBuildStampRejectsAMissingOrMalformedSourceRevision" fullname="Mofumachi.Tests.AndroidBuildTests.QaBuildStampRejectsAMissingOrMalformedSourceRevision" methodname="QaBuildStampRejectsAMissingOrMalformedSourceRevision" classname="Mofumachi.Tests.AndroidBuildTests" runstate="Runnable" seed="7115033" result="Passed" start-time="2026-10-26 10:26:10Z" end-time="2026-10-26 10:26:10Z" duration="0.005494" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1004" name="PresentationContentTests" fullname="Mofumachi.Tests.PresentationContentTests" classname="Mofumachi.Tests.PresentationContentTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-26 10:26:10Z" end-time="2026-10-26 10:26:11Z" duration="0.193066" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1014" name="ContentGateRejectsMissingAssetsAndUnsupportedGlyphs" fullname="Mofumachi.Tests.PresentationContentTests.ContentGateRejectsMissingAssetsAndUnsupportedGlyphs" methodname="ContentGateRejectsMissingAssetsAndUnsupportedGlyphs" classname="Mofumachi.Tests.PresentationContentTests" runstate="Runnable" seed="1539689532" result="Passed" start-time="2026-10-26 10:26:10Z" end-time="2026-10-26 10:26:10Z" duration="0.005720" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1006" name="CustomGraphicsCanBeClippedDisabledAndDestroyedWithoutRendererErrors" fullname="Mofumachi.Tests.PresentationContentTests.CustomGraphicsCanBeClippedDisabledAndDestroyedWithoutRendererErrors" methodname="CustomGraphicsCanBeClippedDisabledAndDestroyedWithoutRendererErrors" classname="Mofumachi.Tests.PresentationContentTests" runstate="Runnable" seed="660651155" result="Passed" start-time="2026-10-26 10:26:10Z" end-time="2026-10-26 10:26:11Z" duration="0.155667" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1005" name="CustomGraphicsRequireCanvasRendererBeforeTheyEnterAMaskedCanvas" fullname="Mofumachi.Tests.PresentationContentTests.CustomGraphicsRequireCanvasRendererBeforeTheyEnterAMaskedCanvas" methodname="CustomGraphicsRequireCanvasRendererBeforeTheyEnterAMaskedCanvas" classname="Mofumachi.Tests.PresentationContentTests" runstate="Runnable" seed="934330632" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.007464" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1010" name="EveryGrowthPropRendersBundledFiniteGeometryWithoutTakingInput" fullname="Mofumachi.Tests.PresentationContentTests.EveryGrowthPropRendersBundledFiniteGeometryWithoutTakingInput" methodname="EveryGrowthPropRendersBundledFiniteGeometryWithoutTakingInput" classname="Mofumachi.Tests.PresentationContentTests" runstate="Runnable" seed="807515757" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.002097" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1011" name="FullBodyAtlasHasSixNamedCharactersAndExpressions" fullname="Mofumachi.Tests.PresentationContentTests.FullBodyAtlasHasSixNamedCharactersAndExpressions" methodname="FullBodyAtlasHasSixNamedCharactersAndExpressions" classname="Mofumachi.Tests.PresentationContentTests" runstate="Runnable" seed="768678879" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.001777" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1009" name="GrowthPropsAndNarrativeFontAreBundledAndCommercialLicenseIsIncluded" fullname="Mofumachi.Tests.PresentationContentTests.GrowthPropsAndNarrativeFontAreBundledAndCommercialLicenseIsIncluded" methodname="GrowthPropsAndNarrativeFontAreBundledAndCommercialLicenseIsIncluded" classname="Mofumachi.Tests.PresentationContentTests" runstate="Runnable" seed="1531356719" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.004019" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1015" name="RecordedAudioAssetsExistAndHaveExpectedImportSettings" fullname="Mofumachi.Tests.PresentationContentTests.RecordedAudioAssetsExistAndHaveExpectedImportSettings" methodname="RecordedAudioAssetsExistAndHaveExpectedImportSettings" classname="Mofumachi.Tests.PresentationContentTests" runstate="Runnable" seed="1456325538" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.002551" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1012" name="RequiredItemArtAndNewJapaneseGlyphsArePresent" fullname="Mofumachi.Tests.PresentationContentTests.RequiredItemArtAndNewJapaneseGlyphsArePresent" methodname="RequiredItemArtAndNewJapaneseGlyphsArePresent" classname="Mofumachi.Tests.PresentationContentTests" runstate="Runnable" seed="1315289641" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.001834" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1016" name="RequiredJapaneseTextHasGlyphs" fullname="Mofumachi.Tests.PresentationContentTests.RequiredJapaneseTextHasGlyphs" methodname="RequiredJapaneseTextHasGlyphs" classname="Mofumachi.Tests.PresentationContentTests" runstate="Runnable" seed="310873858" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.001423" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1013" name="SelectionCopyHasGlyphsInBothFonts" fullname="Mofumachi.Tests.PresentationContentTests.SelectionCopyHasGlyphsInBothFonts" methodname="SelectionCopyHasGlyphsInBothFonts" classname="Mofumachi.Tests.PresentationContentTests" runstate="Runnable" seed="989707505" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.000548" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1008" name="StoryFontHasRequiredGlyphs" fullname="Mofumachi.Tests.PresentationContentTests.StoryFontHasRequiredGlyphs" methodname="StoryFontHasRequiredGlyphs" classname="Mofumachi.Tests.PresentationContentTests" runstate="Runnable" seed="1699558611" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.005652" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1007" name="TownDecorationsUseEffective1024Limit" fullname="Mofumachi.Tests.PresentationContentTests.TownDecorationsUseEffective1024Limit" methodname="TownDecorationsUseEffective1024Limit" classname="Mofumachi.Tests.PresentationContentTests" runstate="Runnable" seed="2067416863" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.001039" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1017" name="QaIdentityTests" fullname="Mofumachi.Tests.QaIdentityTests" classname="Mofumachi.Tests.QaIdentityTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.295064" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1018" name="GrowthCheckUsesASeparateSaveIdentityAndRestoresBuildSettings" fullname="Mofumachi.Tests.QaIdentityTests.GrowthCheckUsesASeparateSaveIdentityAndRestoresBuildSettings" methodname="GrowthCheckUsesASeparateSaveIdentityAndRestoresBuildSettings" classname="Mofumachi.Tests.QaIdentityTests" runstate="Runnable" seed="1117654094" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.146563" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1020" name="QaIdentityIsRestoredEvenWhenBuildThrows" fullname="Mofumachi.Tests.QaIdentityTests.QaIdentityIsRestoredEvenWhenBuildThrows" methodname="QaIdentityIsRestoredEvenWhenBuildThrows" classname="Mofumachi.Tests.QaIdentityTests" runstate="Runnable" seed="1806997599" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.046849" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1019" name="TownQaIdentityRestoredOnSuccessAndFailure" fullname="Mofumachi.Tests.QaIdentityTests.TownQaIdentityRestoredOnSuccessAndFailure" methodname="TownQaIdentityRestoredOnSuccessAndFailure" classname="Mofumachi.Tests.QaIdentityTests" runstate="Runnable" seed="209219317" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.099785" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1021" name="TownRegionContentTests" fullname="Mofumachi.Tests.TownRegionContentTests" classname="Mofumachi.Tests.TownRegionContentTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.149658" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1022" name="RegionAssetsKeepApprovedSourceAndImportSettings" fullname="Mofumachi.Tests.TownRegionContentTests.RegionAssetsKeepApprovedSourceAndImportSettings" methodname="RegionAssetsKeepApprovedSourceAndImportSettings" classname="Mofumachi.Tests.TownRegionContentTests" runstate="Runnable" seed="1891679533" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.146628" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1023" name="RegionUiHasSourceGlyphs" fullname="Mofumachi.Tests.TownRegionContentTests.RegionUiHasSourceGlyphs" methodname="RegionUiHasSourceGlyphs" classname="Mofumachi.Tests.TownRegionContentTests" runstate="Runnable" seed="1040968486" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.001128" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1175" name="Mofumachi.EditModeTests.dll" fullname="C:/Users/User/Desktop/Mofumachi/mofumachi-merge/Library/ScriptAssemblies/Mofumachi.EditModeTests.dll" runstate="Runnable" testcasecount="125" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:13Z" duration="1.566127" total="125" passed="125" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="16988" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1176" name="Mofumachi" fullname="Mofumachi" runstate="Runnable" testcasecount="125" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:13Z" duration="1.564486" total="125" passed="125" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1177" name="Tests" fullname="Mofumachi.Tests" runstate="Runnable" testcasecount="125" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:13Z" duration="1.563046" total="125" passed="125" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1027" name="ChapterProgressTests" fullname="Mofumachi.Tests.ChapterProgressTests" classname="Mofumachi.Tests.ChapterProgressTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.135633" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1029" name="LegacyAndOutOfOrderProgressRemainReadOnly" fullname="Mofumachi.Tests.ChapterProgressTests.LegacyAndOutOfOrderProgressRemainReadOnly" methodname="LegacyAndOutOfOrderProgressRemainReadOnly" classname="Mofumachi.Tests.ChapterProgressTests" runstate="Runnable" seed="1959299729" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.076120" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1028" name="SixDeliveriesProduceThreeChaptersAnd330Coins" fullname="Mofumachi.Tests.ChapterProgressTests.SixDeliveriesProduceThreeChaptersAnd330Coins" methodname="SixDeliveriesProduceThreeChaptersAnd330Coins" classname="Mofumachi.Tests.ChapterProgressTests" runstate="Runnable" seed="1187451541" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.058451" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1030" name="CharacterPreferenceTests" fullname="Mofumachi.Tests.CharacterPreferenceTests" classname="Mofumachi.Tests.CharacterPreferenceTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.140968" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1034" name="SelectFavoriteCommitsOnlyKnownIdAndRollsBackOnFailure" fullname="Mofumachi.Tests.CharacterPreferenceTests.SelectFavoriteCommitsOnlyKnownIdAndRollsBackOnFailure" methodname="SelectFavoriteCommitsOnlyKnownIdAndRollsBackOnFailure" classname="Mofumachi.Tests.CharacterPreferenceTests" runstate="Runnable" seed="1033883108" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.024141" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1033" name="V1AndV2MigrationKeepOldProgress" fullname="Mofumachi.Tests.CharacterPreferenceTests.V1AndV2MigrationKeepOldProgress" classname="Mofumachi.Tests.CharacterPreferenceTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.002612" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1031" name="V1AndV2MigrationKeepOldProgress(1)" fullname="Mofumachi.Tests.CharacterPreferenceTests.V1AndV2MigrationKeepOldProgress(1)" methodname="V1AndV2MigrationKeepOldProgress" classname="Mofumachi.Tests.CharacterPreferenceTests" runstate="Runnable" seed="1441219591" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.001525" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1032" name="V1AndV2MigrationKeepOldProgress(2)" fullname="Mofumachi.Tests.CharacterPreferenceTests.V1AndV2MigrationKeepOldProgress(2)" methodname="V1AndV2MigrationKeepOldProgress" classname="Mofumachi.Tests.CharacterPreferenceTests" runstate="Runnable" seed="63955507" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.000296" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1039" name="V2MissingVolumeRemainsInvalidAfterMigration" fullname="Mofumachi.Tests.CharacterPreferenceTests.V2MissingVolumeRemainsInvalidAfterMigration" methodname="V2MissingVolumeRemainsInvalidAfterMigration" classname="Mofumachi.Tests.CharacterPreferenceTests" runstate="Runnable" seed="692794566" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.000438" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1038" name="V3RejectsMissingOrUnknownFavoriteAndKeepsBackup" fullname="Mofumachi.Tests.CharacterPreferenceTests.V3RejectsMissingOrUnknownFavoriteAndKeepsBackup" classname="Mofumachi.Tests.CharacterPreferenceTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.112365" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1035" name="V3RejectsMissingOrUnknownFavoriteAndKeepsBackup(null)" fullname="Mofumachi.Tests.CharacterPreferenceTests.V3RejectsMissingOrUnknownFavoriteAndKeepsBackup(null)" methodname="V3RejectsMissingOrUnknownFavoriteAndKeepsBackup" classname="Mofumachi.Tests.CharacterPreferenceTests" runstate="Runnable" seed="696869785" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.048308" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1036" name="V3RejectsMissingOrUnknownFavoriteAndKeepsBackup(&quot;unknown&quot;)" fullname="Mofumachi.Tests.CharacterPreferenceTests.V3RejectsMissingOrUnknownFavoriteAndKeepsBackup(&quot;unknown&quot;)" methodname="V3RejectsMissingOrUnknownFavoriteAndKeepsBackup" classname="Mofumachi.Tests.CharacterPreferenceTests" runstate="Runnable" seed="567183431" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.031913" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1037" name="V3RejectsMissingOrUnknownFavoriteAndKeepsBackup(&quot;missing&quot;)" fullname="Mofumachi.Tests.CharacterPreferenceTests.V3RejectsMissingOrUnknownFavoriteAndKeepsBackup(&quot;missing&quot;)" methodname="V3RejectsMissingOrUnknownFavoriteAndKeepsBackup" classname="Mofumachi.Tests.CharacterPreferenceTests" runstate="Runnable" seed="815885454" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.031381" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+          <test-suite type="TestFixture" id="1040" name="DeliveryTests" fullname="Mofumachi.Tests.DeliveryTests" classname="Mofumachi.Tests.DeliveryTests" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:12Z" duration="0.509243" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1047" name="AcceptSaveFailureRestoresUnacceptedState" fullname="Mofumachi.Tests.DeliveryTests.AcceptSaveFailureRestoresUnacceptedState" methodname="AcceptSaveFailureRestoresUnacceptedState" classname="Mofumachi.Tests.DeliveryTests" runstate="Runnable" seed="130284553" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.003580" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1045" name="ClaimedRewardCannotBePaidAgain" fullname="Mofumachi.Tests.DeliveryTests.ClaimedRewardCannotBePaidAgain" methodname="ClaimedRewardCannotBePaidAgain" classname="Mofumachi.Tests.DeliveryTests" runstate="Runnable" seed="1577991651" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.012972" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1052" name="ConcurrentDeliveryAfterLoadAwardsExactlyOnce" fullname="Mofumachi.Tests.DeliveryTests.ConcurrentDeliveryAfterLoadAwardsExactlyOnce" methodname="ConcurrentDeliveryAfterLoadAwardsExactlyOnce" classname="Mofumachi.Tests.DeliveryTests" runstate="Runnable" seed="220943145" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.033622" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1051" name="CurrencyOverflowRejectsDeliveryWithoutMutation" fullname="Mofumachi.Tests.DeliveryTests.CurrencyOverflowRejectsDeliveryWithoutMutation" methodname="CurrencyOverflowRejectsDeliveryWithoutMutation" classname="Mofumachi.Tests.DeliveryTests" runstate="Runnable" seed="1633348615" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.012723" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1049" name="CustomCatalogQuestResumesAfterLoad" fullname="Mofumachi.Tests.DeliveryTests.CustomCatalogQuestResumesAfterLoad" methodname="CustomCatalogQuestResumesAfterLoad" classname="Mofumachi.Tests.DeliveryTests" runstate="Runnable" seed="688571424" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:11Z" duration="0.023772" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1044" name="DeliveryConsumesExactItemsPaysOnceGrowsTownAndSurvivesReload" fullname="Mofumachi.Tests.DeliveryTests.DeliveryConsumesExactItemsPaysOnceGrowsTownAndSurvivesReload" methodname="DeliveryConsumesExactItemsPaysOnceGrowsTownAndSurvivesReload" classname="Mofumachi.Tests.DeliveryTests" runstate="Runnable" seed="996586642" result="Passed" start-time="2026-10-26 10:26:11Z" end-time="2026-10-26 10:26:12Z" duration="0.026736" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1046" name="DeliverySaveFailureRollsBackConsumptionAndReward" fullname="Mofumachi.Tests.DeliveryTests.DeliverySaveFailureRollsBackConsumptionAndReward" methodname="DeliverySaveFailureRollsBackConsumptionAndReward" classname="Mofumachi.Tests.DeliveryTests" runstate="Runnable" seed="1155153991" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.030939" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1043" name="DuplicateRequirementRowsAreAggregated" fullname="Mofumachi.Tests.DeliveryTests.DuplicateRequirementRowsAreAggregated" methodname="DuplicateRequirementRowsAreAggregated" classname="Mofumachi.Tests.DeliveryTests" runstate="Runnable" seed="2033987364" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.012023" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1056" name="FailedMutationPreservesEarlierAnimationLocks" fullname="Mofumachi.Tests.DeliveryTests.FailedMutationPreservesEarlierAnimationLocks" methodname="FailedMutationPreservesEarlierAnimationLocks" classname="Mofumachi.Tests.DeliveryTests" runstate="Runnable" seed="1864747111" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.014808" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1054" name="LockedMergeResultCannotBeDeliveredUntilAnimationFinishes" fullname="Mofumachi.Tests.DeliveryTests.LockedMergeResultCannotBeDeliveredUntilAnimationFinishes" methodname="LockedMergeResultCannotBeDeliveredUntilAnimationFinishes" classname="Mofumachi.Tests.DeliveryTests" runstate="Runnable" seed="2087768282" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.032997" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1042" name="MissingOneRequirementConsumesNothing" fullname="Mofumachi.Tests.DeliveryTests.MissingOneRequirementConsumesNothing" methodname="MissingOneRequirementConsumesNothing" classname="Mofumachi.Tests.DeliveryTests" runstate="Runnable" seed="264938485" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.012178" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1048" name="RepeatedAcceptDoesNotResetProgress" fullname="Mofumachi.Tests.DeliveryTests.RepeatedAcceptDoesNotResetProgress" methodname="RepeatedAcceptDoesNotResetProgress" classname="Mofumachi.Tests.DeliveryTests" runstate="Runnable" seed="1784678578" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.013279" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1057" name="StandaloneSaveWaitsForFailedDeliveryToRollback" fullname="Mofumachi.Tests.DeliveryTests.StandaloneSaveWaitsForFailedDeliveryToRollback" methodname="StandaloneSaveWaitsForFailedDeliveryToRollback" classname="Mofumachi.Tests.DeliveryTests" runstate="Runnable" seed="299937955" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.239129" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1053" name="StateManagerMergeSaveFailureRestoresBoardAndReleasesLocks" fullname="Mofumachi.Tests.DeliveryTests.StateManagerMergeSaveFailureRestoresBoardAndReleasesLocks" methodname="StateManagerMergeSaveFailureRestoresBoardAndReleasesLocks" classname="Mofumachi.Tests.DeliveryTests" runstate="Runnable" seed="367030246" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.001067" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1041" name="UnacceptedQuestCannotConsumeOrReward" fullname="Mofumachi.Tests.DeliveryTests.UnacceptedQuestCannotConsumeOrReward" methodname="UnacceptedQuestCannotConsumeOrReward" classname="Mofumachi.Tests.DeliveryTests" runstate="Runnable" seed="1941252119" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000642" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1055" name="UnlockedInventoryCanDeliverWithoutConsumingLockedBoardItem" fullname="Mofumachi.Tests.DeliveryTests.UnlockedInventoryCanDeliverWithoutConsumingLockedBoardItem" methodname="UnlockedInventoryCanDeliverWithoutConsumingLockedBoardItem" classname="Mofumachi.Tests.DeliveryTests" runstate="Runnable" seed="1403935982" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.033261" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1050" name="UnregisteredQuestIsRejectedBeforeSaving" fullname="Mofumachi.Tests.DeliveryTests.UnregisteredQuestIsRejectedBeforeSaving" methodname="UnregisteredQuestIsRejectedBeforeSaving" classname="Mofumachi.Tests.DeliveryTests" runstate="Runnable" seed="774256868" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000814" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1058" name="ItemRemovalTests" fullname="Mofumachi.Tests.ItemRemovalTests" classname="Mofumachi.Tests.ItemRemovalTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.178497" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1066" name="AllPackedFramesCanBePlacedAgainWithoutChangingTheQuest" fullname="Mofumachi.Tests.ItemRemovalTests.AllPackedFramesCanBePlacedAgainWithoutChangingTheQuest" methodname="AllPackedFramesCanBePlacedAgainWithoutChangingTheQuest" classname="Mofumachi.Tests.ItemRemovalTests" runstate="Runnable" seed="1457360392" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.002735" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1064" name="BatchPackingFailureRestoresEveryFrameAndMergeLock" fullname="Mofumachi.Tests.ItemRemovalTests.BatchPackingFailureRestoresEveryFrameAndMergeLock" methodname="BatchPackingFailureRestoresEveryFrameAndMergeLock" classname="Mofumachi.Tests.ItemRemovalTests" runstate="Runnable" seed="470643421" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.001212" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1063" name="BatchPackingWritesOnceAndDoesNotConsumeItemsRewardsOrFavorite" fullname="Mofumachi.Tests.ItemRemovalTests.BatchPackingWritesOnceAndDoesNotConsumeItemsRewardsOrFavorite" methodname="BatchPackingWritesOnceAndDoesNotConsumeItemsRewardsOrFavorite" classname="Mofumachi.Tests.ItemRemovalTests" runstate="Runnable" seed="714251980" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.001215" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1061" name="DifferentKindsNeverMerge" fullname="Mofumachi.Tests.ItemRemovalTests.DifferentKindsNeverMerge" methodname="DifferentKindsNeverMerge" classname="Mofumachi.Tests.ItemRemovalTests" runstate="Runnable" seed="899380616" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000694" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1065" name="InvalidAndStaleFrameSelectionsNeverPartiallyPackOrWrite" fullname="Mofumachi.Tests.ItemRemovalTests.InvalidAndStaleFrameSelectionsNeverPartiallyPackOrWrite" methodname="InvalidAndStaleFrameSelectionsNeverPartiallyPackOrWrite" classname="Mofumachi.Tests.ItemRemovalTests" runstate="Runnable" seed="366149594" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.002152" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1062" name="LegacySaveGetsAllFramesAndExplicitEmptyPlacementSurvivesReload" fullname="Mofumachi.Tests.ItemRemovalTests.LegacySaveGetsAllFramesAndExplicitEmptyPlacementSurvivesReload" methodname="LegacySaveGetsAllFramesAndExplicitEmptyPlacementSurvivesReload" classname="Mofumachi.Tests.ItemRemovalTests" runstate="Runnable" seed="215568959" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.002193" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1060" name="LockedAndUnknownItemsSurviveRefusedOrFailedOperations" fullname="Mofumachi.Tests.ItemRemovalTests.LockedAndUnknownItemsSurviveRefusedOrFailedOperations" methodname="LockedAndUnknownItemsSurviveRefusedOrFailedOperations" classname="Mofumachi.Tests.ItemRemovalTests" runstate="Runnable" seed="441554289" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.001994" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1067" name="PackedFramesPersistThroughDiskReloadAndMalformedPlacementIsRejected" fullname="Mofumachi.Tests.ItemRemovalTests.PackedFramesPersistThroughDiskReloadAndMalformedPlacementIsRejected" methodname="PackedFramesPersistThroughDiskReloadAndMalformedPlacementIsRejected" classname="Mofumachi.Tests.ItemRemovalTests" runstate="Runnable" seed="549381810" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.011158" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1059" name="RemoveOnlyConfirmedUnlockedItemAndRollback" fullname="Mofumachi.Tests.ItemRemovalTests.RemoveOnlyConfirmedUnlockedItemAndRollback" methodname="RemoveOnlyConfirmedUnlockedItemAndRollback" classname="Mofumachi.Tests.ItemRemovalTests" runstate="Runnable" seed="2144294008" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.006636" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1068" name="ReplacedFramesStillAllowBreadDeliveryOnceAndDiskResume" fullname="Mofumachi.Tests.ItemRemovalTests.ReplacedFramesStillAllowBreadDeliveryOnceAndDiskResume" methodname="ReplacedFramesStillAllowBreadDeliveryOnceAndDiskResume" classname="Mofumachi.Tests.ItemRemovalTests" runstate="Runnable" seed="713129815" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.146520" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1069" name="MergeBoardTests" fullname="Mofumachi.Tests.MergeBoardTests" classname="Mofumachi.Tests.MergeBoardTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.011154" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="ParameterizedMethod" id="1074" name="DifferentItemsOrLevelsLeaveBoardUnchanged" fullname="Mofumachi.Tests.MergeBoardTests.DifferentItemsOrLevelsLeaveBoardUnchanged" classname="Mofumachi.Tests.MergeBoardTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.006064" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1071" name="DifferentItemsOrLevelsLeaveBoardUnchanged(&quot;bread&quot;,1)" fullname="Mofumachi.Tests.MergeBoardTests.DifferentItemsOrLevelsLeaveBoardUnchanged(&quot;bread&quot;,1)" methodname="DifferentItemsOrLevelsLeaveBoardUnchanged" classname="Mofumachi.Tests.MergeBoardTests" runstate="Runnable" seed="627644881" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000960" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1072" name="DifferentItemsOrLevelsLeaveBoardUnchanged(&quot;tea&quot;,2)" fullname="Mofumachi.Tests.MergeBoardTests.DifferentItemsOrLevelsLeaveBoardUnchanged(&quot;tea&quot;,2)" methodname="DifferentItemsOrLevelsLeaveBoardUnchanged" classname="Mofumachi.Tests.MergeBoardTests" runstate="Runnable" seed="1205776057" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.003896" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1073" name="DifferentItemsOrLevelsLeaveBoardUnchanged(&quot;tea&quot;,3)" fullname="Mofumachi.Tests.MergeBoardTests.DifferentItemsOrLevelsLeaveBoardUnchanged(&quot;tea&quot;,3)" methodname="DifferentItemsOrLevelsLeaveBoardUnchanged" classname="Mofumachi.Tests.MergeBoardTests" runstate="Runnable" seed="1403780387" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000350" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1070" name="EqualItemsBecomeOneHigherLevelAndRemainLockedDuringAnimation" fullname="Mofumachi.Tests.MergeBoardTests.EqualItemsBecomeOneHigherLevelAndRemainLockedDuringAnimation" methodname="EqualItemsBecomeOneHigherLevelAndRemainLockedDuringAnimation" classname="Mofumachi.Tests.MergeBoardTests" runstate="Runnable" seed="2115239362" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000538" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1082" name="FullBoardAndInvalidItemsRejectGeneration" fullname="Mofumachi.Tests.MergeBoardTests.FullBoardAndInvalidItemsRejectGeneration" methodname="FullBoardAndInvalidItemsRejectGeneration" classname="Mofumachi.Tests.MergeBoardTests" runstate="Runnable" seed="440921619" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000742" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1080" name="InvalidMergeDoesNotConsumeItems" fullname="Mofumachi.Tests.MergeBoardTests.InvalidMergeDoesNotConsumeItems" classname="Mofumachi.Tests.MergeBoardTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.001076" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1076" name="InvalidMergeDoesNotConsumeItems(0,0)" fullname="Mofumachi.Tests.MergeBoardTests.InvalidMergeDoesNotConsumeItems(0,0)" methodname="InvalidMergeDoesNotConsumeItems" classname="Mofumachi.Tests.MergeBoardTests" runstate="Runnable" seed="1850316070" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000268" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1077" name="InvalidMergeDoesNotConsumeItems(-1,1)" fullname="Mofumachi.Tests.MergeBoardTests.InvalidMergeDoesNotConsumeItems(-1,1)" methodname="InvalidMergeDoesNotConsumeItems" classname="Mofumachi.Tests.MergeBoardTests" runstate="Runnable" seed="447354225" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000050" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1078" name="InvalidMergeDoesNotConsumeItems(0,30)" fullname="Mofumachi.Tests.MergeBoardTests.InvalidMergeDoesNotConsumeItems(0,30)" methodname="InvalidMergeDoesNotConsumeItems" classname="Mofumachi.Tests.MergeBoardTests" runstate="Runnable" seed="219776679" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000043" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1079" name="InvalidMergeDoesNotConsumeItems(0,3)" fullname="Mofumachi.Tests.MergeBoardTests.InvalidMergeDoesNotConsumeItems(0,3)" methodname="InvalidMergeDoesNotConsumeItems" classname="Mofumachi.Tests.MergeBoardTests" runstate="Runnable" seed="1320519191" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000049" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1075" name="MaximumLevelItemsCannotMerge" fullname="Mofumachi.Tests.MergeBoardTests.MaximumLevelItemsCannotMerge" methodname="MaximumLevelItemsCannotMerge" classname="Mofumachi.Tests.MergeBoardTests" runstate="Runnable" seed="747317969" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000425" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1081" name="MoveToEmptyCellPreservesItemAndOccupiedCellRejectsMove" fullname="Mofumachi.Tests.MergeBoardTests.MoveToEmptyCellPreservesItemAndOccupiedCellRejectsMove" methodname="MoveToEmptyCellPreservesItemAndOccupiedCellRejectsMove" classname="Mofumachi.Tests.MergeBoardTests" runstate="Runnable" seed="1437370034" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000219" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1083" name="PreferencesTests" fullname="Mofumachi.Tests.PreferencesTests" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" testcasecount="23" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.323298" total="23" passed="23" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="ParameterizedMethod" id="1094" name="InvalidPreferenceVolumesAreRejectedBeforeWrite" fullname="Mofumachi.Tests.PreferencesTests.InvalidPreferenceVolumesAreRejectedBeforeWrite" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.003469" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1089" name="InvalidPreferenceVolumesAreRejectedBeforeWrite(-0.01f)" fullname="Mofumachi.Tests.PreferencesTests.InvalidPreferenceVolumesAreRejectedBeforeWrite(-0.01f)" methodname="InvalidPreferenceVolumesAreRejectedBeforeWrite" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="547712115" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.001167" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1090" name="InvalidPreferenceVolumesAreRejectedBeforeWrite(1.01f)" fullname="Mofumachi.Tests.PreferencesTests.InvalidPreferenceVolumesAreRejectedBeforeWrite(1.01f)" methodname="InvalidPreferenceVolumesAreRejectedBeforeWrite" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="1374240584" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000446" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1091" name="InvalidPreferenceVolumesAreRejectedBeforeWrite(float.NaN)" fullname="Mofumachi.Tests.PreferencesTests.InvalidPreferenceVolumesAreRejectedBeforeWrite(float.NaN)" methodname="InvalidPreferenceVolumesAreRejectedBeforeWrite" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="1661623131" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000405" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1092" name="InvalidPreferenceVolumesAreRejectedBeforeWrite(float.PositiveInfinity)" fullname="Mofumachi.Tests.PreferencesTests.InvalidPreferenceVolumesAreRejectedBeforeWrite(float.PositiveInfinity)" methodname="InvalidPreferenceVolumesAreRejectedBeforeWrite" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="434945736" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000407" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1093" name="InvalidPreferenceVolumesAreRejectedBeforeWrite(float.NegativeInfinity)" fullname="Mofumachi.Tests.PreferencesTests.InvalidPreferenceVolumesAreRejectedBeforeWrite(float.NegativeInfinity)" methodname="InvalidPreferenceVolumesAreRejectedBeforeWrite" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="1014258629" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000391" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1100" name="InvalidV2VolumeUsesHealthyBackup" fullname="Mofumachi.Tests.PreferencesTests.InvalidV2VolumeUsesHealthyBackup" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.098046" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1095" name="InvalidV2VolumeUsesHealthyBackup(&quot;-0.01&quot;)" fullname="Mofumachi.Tests.PreferencesTests.InvalidV2VolumeUsesHealthyBackup(&quot;-0.01&quot;)" methodname="InvalidV2VolumeUsesHealthyBackup" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="835355327" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.020009" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1096" name="InvalidV2VolumeUsesHealthyBackup(&quot;1.01&quot;)" fullname="Mofumachi.Tests.PreferencesTests.InvalidV2VolumeUsesHealthyBackup(&quot;1.01&quot;)" methodname="InvalidV2VolumeUsesHealthyBackup" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="1969592539" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.020136" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1097" name="InvalidV2VolumeUsesHealthyBackup(&quot;\&quot;NaN\&quot;&quot;)" fullname="Mofumachi.Tests.PreferencesTests.InvalidV2VolumeUsesHealthyBackup(&quot;\&quot;NaN\&quot;&quot;)" methodname="InvalidV2VolumeUsesHealthyBackup" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="1251792789" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.019448" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1098" name="InvalidV2VolumeUsesHealthyBackup(&quot;\&quot;INF\&quot;&quot;)" fullname="Mofumachi.Tests.PreferencesTests.InvalidV2VolumeUsesHealthyBackup(&quot;\&quot;INF\&quot;&quot;)" methodname="InvalidV2VolumeUsesHealthyBackup" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="173278223" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.018765" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1099" name="InvalidV2VolumeUsesHealthyBackup(&quot;\&quot;-INF\&quot;&quot;)" fullname="Mofumachi.Tests.PreferencesTests.InvalidV2VolumeUsesHealthyBackup(&quot;\&quot;-INF\&quot;&quot;)" methodname="InvalidV2VolumeUsesHealthyBackup" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="1086429642" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.018551" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1108" name="MissingProgressMemberCannotSilentlyResetPlayerData" fullname="Mofumachi.Tests.PreferencesTests.MissingProgressMemberCannotSilentlyResetPlayerData" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.078849" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1104" name="MissingProgressMemberCannotSilentlyResetPlayerData(&quot;coins&quot;,&quot;0&quot;)" fullname="Mofumachi.Tests.PreferencesTests.MissingProgressMemberCannotSilentlyResetPlayerData(&quot;coins&quot;,&quot;0&quot;)" methodname="MissingProgressMemberCannotSilentlyResetPlayerData" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="288492350" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.020144" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1105" name="MissingProgressMemberCannotSilentlyResetPlayerData(&quot;gems&quot;,&quot;0&quot;)" fullname="Mofumachi.Tests.PreferencesTests.MissingProgressMemberCannotSilentlyResetPlayerData(&quot;gems&quot;,&quot;0&quot;)" methodname="MissingProgressMemberCannotSilentlyResetPlayerData" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="283338297" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.019781" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1106" name="MissingProgressMemberCannotSilentlyResetPlayerData(&quot;stamina&quot;,&quot;30&quot;)" fullname="Mofumachi.Tests.PreferencesTests.MissingProgressMemberCannotSilentlyResetPlayerData(&quot;stamina&quot;,&quot;30&quot;)" methodname="MissingProgressMemberCannotSilentlyResetPlayerData" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="98620374" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.018619" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1107" name="MissingProgressMemberCannotSilentlyResetPlayerData(&quot;questProgress&quot;,&quot;0&quot;)" fullname="Mofumachi.Tests.PreferencesTests.MissingProgressMemberCannotSilentlyResetPlayerData(&quot;questProgress&quot;,&quot;0&quot;)" methodname="MissingProgressMemberCannotSilentlyResetPlayerData" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="534773902" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.019181" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1103" name="MissingV2VolumeUsesHealthyV1Backup" fullname="Mofumachi.Tests.PreferencesTests.MissingV2VolumeUsesHealthyV1Backup" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.037484" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1101" name="MissingV2VolumeUsesHealthyV1Backup(&quot;bgmVolume&quot;,&quot;0.75&quot;)" fullname="Mofumachi.Tests.PreferencesTests.MissingV2VolumeUsesHealthyV1Backup(&quot;bgmVolume&quot;,&quot;0.75&quot;)" methodname="MissingV2VolumeUsesHealthyV1Backup" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="1080336679" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.018243" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1102" name="MissingV2VolumeUsesHealthyV1Backup(&quot;seVolume&quot;,&quot;0.65&quot;)" fullname="Mofumachi.Tests.PreferencesTests.MissingV2VolumeUsesHealthyV1Backup(&quot;seVolume&quot;,&quot;0.65&quot;)" methodname="MissingV2VolumeUsesHealthyV1Backup" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="777889609" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.018367" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1088" name="NoticeAcknowledgmentIsSavedOnlyOnce" fullname="Mofumachi.Tests.PreferencesTests.NoticeAcknowledgmentIsSavedOnlyOnce" methodname="NoticeAcknowledgmentIsSavedOnlyOnce" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="67066223" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.012738" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1087" name="NoticeSaveFailureLeavesPlayerUnacknowledged" fullname="Mofumachi.Tests.PreferencesTests.NoticeSaveFailureLeavesPlayerUnacknowledged" methodname="NoticeSaveFailureLeavesPlayerUnacknowledged" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="1580731521" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.012598" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1085" name="PreferencesRoundTripPreservesZeroAndOff" fullname="Mofumachi.Tests.PreferencesTests.PreferencesRoundTripPreservesZeroAndOff" methodname="PreferencesRoundTripPreservesZeroAndOff" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="1772139613" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.035133" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1086" name="PreferencesSaveFailureRollsBackWithMergeLocks" fullname="Mofumachi.Tests.PreferencesTests.PreferencesSaveFailureRollsBackWithMergeLocks" methodname="PreferencesSaveFailureRollsBackWithMergeLocks" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="2099166666" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.013290" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1110" name="RefusedMoveDoesNotReusePreviousSaveFailure" fullname="Mofumachi.Tests.PreferencesTests.RefusedMoveDoesNotReusePreviousSaveFailure" methodname="RefusedMoveDoesNotReusePreviousSaveFailure" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="535179989" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.001582" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1084" name="V1MigrationPreservesCompletedProgressAndMutedAudio" fullname="Mofumachi.Tests.PreferencesTests.V1MigrationPreservesCompletedProgressAndMutedAudio" methodname="V1MigrationPreservesCompletedProgressAndMutedAudio" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="2108311124" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.001118" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1109" name="V1MigrationRetainsActiveQuestAndCanWriteValidV2" fullname="Mofumachi.Tests.PreferencesTests.V1MigrationRetainsActiveQuestAndCanWriteValidV2" methodname="V1MigrationRetainsActiveQuestAndCanWriteValidV2" classname="Mofumachi.Tests.PreferencesTests" runstate="Runnable" seed="763942840" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.026554" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1111" name="QuestCatalogTests" fullname="Mofumachi.Tests.QuestCatalogTests" classname="Mofumachi.Tests.QuestCatalogTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.028086" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1112" name="CompletedTeaSaveCanAcceptNextWithoutPayingAgain" fullname="Mofumachi.Tests.QuestCatalogTests.CompletedTeaSaveCanAcceptNextWithoutPayingAgain" methodname="CompletedTeaSaveCanAcceptNextWithoutPayingAgain" classname="Mofumachi.Tests.QuestCatalogTests" runstate="Runnable" seed="956292242" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.001279" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1114" name="FailedNextAcceptRestoresCompletedActiveAndUnfinishedCannotBeReplaced" fullname="Mofumachi.Tests.QuestCatalogTests.FailedNextAcceptRestoresCompletedActiveAndUnfinishedCannotBeReplaced" methodname="FailedNextAcceptRestoresCompletedActiveAndUnfinishedCannotBeReplaced" classname="Mofumachi.Tests.QuestCatalogTests" runstate="Runnable" seed="227368021" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.001920" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1115" name="MultiRequirementCountsRespectInventoryAndLocks" fullname="Mofumachi.Tests.QuestCatalogTests.MultiRequirementCountsRespectInventoryAndLocks" methodname="MultiRequirementCountsRespectInventoryAndLocks" classname="Mofumachi.Tests.QuestCatalogTests" runstate="Runnable" seed="536577630" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.005349" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1113" name="SixAuthoredQuestsPayOnceEach" fullname="Mofumachi.Tests.QuestCatalogTests.SixAuthoredQuestsPayOnceEach" methodname="SixAuthoredQuestsPayOnceEach" classname="Mofumachi.Tests.QuestCatalogTests" runstate="Runnable" seed="1908099672" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.018106" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1116" name="SaveServiceTests" fullname="Mofumachi.Tests.SaveServiceTests" classname="Mofumachi.Tests.SaveServiceTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:13Z" duration="0.151215" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1118" name="CorruptPrimaryRestoresPreviousValidSnapshot" fullname="Mofumachi.Tests.SaveServiceTests.CorruptPrimaryRestoresPreviousValidSnapshot" methodname="CorruptPrimaryRestoresPreviousValidSnapshot" classname="Mofumachi.Tests.SaveServiceTests" runstate="Runnable" seed="1317259654" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.027316" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1125" name="DuplicateCellIsRejected" fullname="Mofumachi.Tests.SaveServiceTests.DuplicateCellIsRejected" methodname="DuplicateCellIsRejected" classname="Mofumachi.Tests.SaveServiceTests" runstate="Runnable" seed="744722466" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000488" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1124" name="InvalidCellIsRejectedBeforeSave" fullname="Mofumachi.Tests.SaveServiceTests.InvalidCellIsRejectedBeforeSave" classname="Mofumachi.Tests.SaveServiceTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.001288" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1122" name="InvalidCellIsRejectedBeforeSave(-1)" fullname="Mofumachi.Tests.SaveServiceTests.InvalidCellIsRejectedBeforeSave(-1)" methodname="InvalidCellIsRejectedBeforeSave" classname="Mofumachi.Tests.SaveServiceTests" runstate="Runnable" seed="1716224831" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000458" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1123" name="InvalidCellIsRejectedBeforeSave(30)" fullname="Mofumachi.Tests.SaveServiceTests.InvalidCellIsRejectedBeforeSave(30)" methodname="InvalidCellIsRejectedBeforeSave" classname="Mofumachi.Tests.SaveServiceTests" runstate="Runnable" seed="1923313042" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000217" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1126" name="NegativeCurrencyIsRejected" fullname="Mofumachi.Tests.SaveServiceTests.NegativeCurrencyIsRejected" methodname="NegativeCurrencyIsRejected" classname="Mofumachi.Tests.SaveServiceTests" runstate="Runnable" seed="185730044" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:12Z" duration="0.000280" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1128" name="ResetRemovesPrimaryBackupAndTemporarySave" fullname="Mofumachi.Tests.SaveServiceTests.ResetRemovesPrimaryBackupAndTemporarySave" methodname="ResetRemovesPrimaryBackupAndTemporarySave" classname="Mofumachi.Tests.SaveServiceTests" runstate="Runnable" seed="541503596" result="Passed" start-time="2026-10-26 10:26:12Z" end-time="2026-10-26 10:26:13Z" duration="0.025820" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1117" name="RoundTripPreservesAllRequiredFields" fullname="Mofumachi.Tests.SaveServiceTests.RoundTripPreservesAllRequiredFields" methodname="RoundTripPreservesAllRequiredFields" classname="Mofumachi.Tests.SaveServiceTests" runstate="Runnable" seed="115708080" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.012250" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1119" name="SavingAfterRecoveryKeepsHealthyBackup" fullname="Mofumachi.Tests.SaveServiceTests.SavingAfterRecoveryKeepsHealthyBackup" methodname="SavingAfterRecoveryKeepsHealthyBackup" classname="Mofumachi.Tests.SaveServiceTests" runstate="Runnable" seed="155143016" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.037716" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1120" name="TwoCorruptFilesReturnSafeInitialState" fullname="Mofumachi.Tests.SaveServiceTests.TwoCorruptFilesReturnSafeInitialState" methodname="TwoCorruptFilesReturnSafeInitialState" classname="Mofumachi.Tests.SaveServiceTests" runstate="Runnable" seed="1623091180" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.023441" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1121" name="UnknownVersionIsNotLoaded" fullname="Mofumachi.Tests.SaveServiceTests.UnknownVersionIsNotLoaded" methodname="UnknownVersionIsNotLoaded" classname="Mofumachi.Tests.SaveServiceTests" runstate="Runnable" seed="868006105" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.017458" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1127" name="WriteFailureDoesNotChangeSaveTimestamp" fullname="Mofumachi.Tests.SaveServiceTests.WriteFailureDoesNotChangeSaveTimestamp" methodname="WriteFailureDoesNotChangeSaveTimestamp" classname="Mofumachi.Tests.SaveServiceTests" runstate="Runnable" seed="986350625" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.002801" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1129" name="TownFrameClockTests" fullname="Mofumachi.Tests.TownFrameClockTests" classname="Mofumachi.Tests.TownFrameClockTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.005019" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1131" name="ClockDropsStallDebtAndResetClearsIt" fullname="Mofumachi.Tests.TownFrameClockTests.ClockDropsStallDebtAndResetClearsIt" methodname="ClockDropsStallDebtAndResetClearsIt" classname="Mofumachi.Tests.TownFrameClockTests" runstate="Runnable" seed="884101835" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000575" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1133" name="DisconnectedInterpolationDoesNotTeleport" fullname="Mofumachi.Tests.TownFrameClockTests.DisconnectedInterpolationDoesNotTeleport" methodname="DisconnectedInterpolationDoesNotTeleport" classname="Mofumachi.Tests.TownFrameClockTests" runstate="Runnable" seed="714110825" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.001969" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1130" name="FramePartitionsKeepTheSameTravelBudget" fullname="Mofumachi.Tests.TownFrameClockTests.FramePartitionsKeepTheSameTravelBudget" methodname="FramePartitionsKeepTheSameTravelBudget" classname="Mofumachi.Tests.TownFrameClockTests" runstate="Runnable" seed="524815509" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.001046" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1132" name="InterpolationFollowsTheCorner" fullname="Mofumachi.Tests.TownFrameClockTests.InterpolationFollowsTheCorner" methodname="InterpolationFollowsTheCorner" classname="Mofumachi.Tests.TownFrameClockTests" runstate="Runnable" seed="930152485" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000409" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1134" name="TownMovementTests" fullname="Mofumachi.Tests.TownMovementTests" classname="Mofumachi.Tests.TownMovementTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.004977" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1135" name="FarPointerFollowsConnectedPathWithoutTeleport" fullname="Mofumachi.Tests.TownMovementTests.FarPointerFollowsConnectedPathWithoutTeleport" methodname="FarPointerFollowsConnectedPathWithoutTeleport" classname="Mofumachi.Tests.TownMovementTests" runstate="Runnable" seed="1899474231" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.001104" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1136" name="FountainAndBuildingsCannotBeCrossed" fullname="Mofumachi.Tests.TownMovementTests.FountainAndBuildingsCannotBeCrossed" methodname="FountainAndBuildingsCannotBeCrossed" classname="Mofumachi.Tests.TownMovementTests" runstate="Runnable" seed="1384512790" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000511" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1139" name="InvalidTimeAndUnreachableTargetDoNotBreakPosition" fullname="Mofumachi.Tests.TownMovementTests.InvalidTimeAndUnreachableTargetDoNotBreakPosition" methodname="InvalidTimeAndUnreachableTargetDoNotBreakPosition" classname="Mofumachi.Tests.TownMovementTests" runstate="Runnable" seed="1525585766" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.001559" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1138" name="ReleaseAndPauseStopAtCurrentPosition" fullname="Mofumachi.Tests.TownMovementTests.ReleaseAndPauseStopAtCurrentPosition" methodname="ReleaseAndPauseStopAtCurrentPosition" classname="Mofumachi.Tests.TownMovementTests" runstate="Runnable" seed="1650346572" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000532" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1137" name="SecondFingerCannotRetargetOrEndOwnerDrag" fullname="Mofumachi.Tests.TownMovementTests.SecondFingerCannotRetargetOrEndOwnerDrag" methodname="SecondFingerCannotRetargetOrEndOwnerDrag" classname="Mofumachi.Tests.TownMovementTests" runstate="Runnable" seed="1938835917" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000368" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1140" name="TownPlaceCatalogTests" fullname="Mofumachi.Tests.TownPlaceCatalogTests" classname="Mofumachi.Tests.TownPlaceCatalogTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.010327" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1148" name="CatalogCannotMutateGameState" fullname="Mofumachi.Tests.TownPlaceCatalogTests.CatalogCannotMutateGameState" methodname="CatalogCannotMutateGameState" classname="Mofumachi.Tests.TownPlaceCatalogTests" runstate="Runnable" seed="839580355" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.002219" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1142" name="EveryStageHasConnectedRoutes" fullname="Mofumachi.Tests.TownPlaceCatalogTests.EveryStageHasConnectedRoutes" methodname="EveryStageHasConnectedRoutes" classname="Mofumachi.Tests.TownPlaceCatalogTests" runstate="Runnable" seed="271509776" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000931" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1141" name="ExistingEntrancesRemainAvailableAtLevelZero" fullname="Mofumachi.Tests.TownPlaceCatalogTests.ExistingEntrancesRemainAvailableAtLevelZero" methodname="ExistingEntrancesRemainAvailableAtLevelZero" classname="Mofumachi.Tests.TownPlaceCatalogTests" runstate="Runnable" seed="1080133641" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.001602" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1143" name="HigherLevelsRetainEarlierStopsAndEdges" fullname="Mofumachi.Tests.TownPlaceCatalogTests.HigherLevelsRetainEarlierStopsAndEdges" methodname="HigherLevelsRetainEarlierStopsAndEdges" classname="Mofumachi.Tests.TownPlaceCatalogTests" runstate="Runnable" seed="533673733" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.001027" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1146" name="InvalidLevelsUseSafeDisplayStages" fullname="Mofumachi.Tests.TownPlaceCatalogTests.InvalidLevelsUseSafeDisplayStages" methodname="InvalidLevelsUseSafeDisplayStages" classname="Mofumachi.Tests.TownPlaceCatalogTests" runstate="Runnable" seed="1809008490" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000214" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1145" name="NewStopsHaveExpectedUnlockLevels" fullname="Mofumachi.Tests.TownPlaceCatalogTests.NewStopsHaveExpectedUnlockLevels" methodname="NewStopsHaveExpectedUnlockLevels" classname="Mofumachi.Tests.TownPlaceCatalogTests" runstate="Runnable" seed="1431930614" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000560" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1144" name="StreetSegmentsAvoidSurveyedObstacles" fullname="Mofumachi.Tests.TownPlaceCatalogTests.StreetSegmentsAvoidSurveyedObstacles" methodname="StreetSegmentsAvoidSurveyedObstacles" classname="Mofumachi.Tests.TownPlaceCatalogTests" runstate="Runnable" seed="1487563946" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.002044" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1147" name="UnknownPlacesAreRejected" fullname="Mofumachi.Tests.TownPlaceCatalogTests.UnknownPlacesAreRejected" methodname="UnknownPlacesAreRejected" classname="Mofumachi.Tests.TownPlaceCatalogTests" runstate="Runnable" seed="118425071" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000429" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1149" name="TownRegionCatalogTests" fullname="Mofumachi.Tests.TownRegionCatalogTests" classname="Mofumachi.Tests.TownRegionCatalogTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.048371" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1156" name="CatalogCannotChangeProgressOrSave" fullname="Mofumachi.Tests.TownRegionCatalogTests.CatalogCannotChangeProgressOrSave" methodname="CatalogCannotChangeProgressOrSave" classname="Mofumachi.Tests.TownRegionCatalogTests" runstate="Runnable" seed="1167415153" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.001232" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1154" name="LevelsRetainEarlierSideStops" fullname="Mofumachi.Tests.TownRegionCatalogTests.LevelsRetainEarlierSideStops" methodname="LevelsRetainEarlierSideStops" classname="Mofumachi.Tests.TownRegionCatalogTests" runstate="Runnable" seed="994258031" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.001533" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1152" name="OriginalFacilitiesKeepTheirIdsAndCoordinates" fullname="Mofumachi.Tests.TownRegionCatalogTests.OriginalFacilitiesKeepTheirIdsAndCoordinates" methodname="OriginalFacilitiesKeepTheirIdsAndCoordinates" classname="Mofumachi.Tests.TownRegionCatalogTests" runstate="Runnable" seed="1239380560" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000779" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1151" name="PortalsAreAdjacentAndNeverStreetEdges" fullname="Mofumachi.Tests.TownRegionCatalogTests.PortalsAreAdjacentAndNeverStreetEdges" methodname="PortalsAreAdjacentAndNeverStreetEdges" classname="Mofumachi.Tests.TownRegionCatalogTests" runstate="Runnable" seed="45462239" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.001548" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1157" name="RegionSnapshotCopiesItsSixActorsAndCameraCenters" fullname="Mofumachi.Tests.TownRegionCatalogTests.RegionSnapshotCopiesItsSixActorsAndCameraCenters" methodname="RegionSnapshotCopiesItsSixActorsAndCameraCenters" classname="Mofumachi.Tests.TownRegionCatalogTests" runstate="Runnable" seed="241943624" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.002228" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1158" name="RegionSnapshotRejectsMissingResidentsAndNeverEntersSaveSchema" fullname="Mofumachi.Tests.TownRegionCatalogTests.RegionSnapshotRejectsMissingResidentsAndNeverEntersSaveSchema" methodname="RegionSnapshotRejectsMissingResidentsAndNeverEntersSaveSchema" classname="Mofumachi.Tests.TownRegionCatalogTests" runstate="Runnable" seed="1135938763" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.001189" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1153" name="SideStopsStayOnConnectedSurveyedPaths" fullname="Mofumachi.Tests.TownRegionCatalogTests.SideStopsStayOnConnectedSurveyedPaths" methodname="SideStopsStayOnConnectedSurveyedPaths" classname="Mofumachi.Tests.TownRegionCatalogTests" runstate="Runnable" seed="1218531333" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.035687" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1150" name="ThreeRegionsKeepOriginalSizeAndSeparateWorldOrigins" fullname="Mofumachi.Tests.TownRegionCatalogTests.ThreeRegionsKeepOriginalSizeAndSeparateWorldOrigins" methodname="ThreeRegionsKeepOriginalSizeAndSeparateWorldOrigins" classname="Mofumachi.Tests.TownRegionCatalogTests" runstate="Runnable" seed="423290777" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.001760" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1155" name="UnknownRegionsAndPlacesAreRejected" fullname="Mofumachi.Tests.TownRegionCatalogTests.UnknownRegionsAndPlacesAreRejected" methodname="UnknownRegionsAndPlacesAreRejected" classname="Mofumachi.Tests.TownRegionCatalogTests" runstate="Runnable" seed="1815721859" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000545" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1159" name="TownRegionJourneyTests" fullname="Mofumachi.Tests.TownRegionJourneyTests" classname="Mofumachi.Tests.TownRegionJourneyTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.007714" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1165" name="ARepeatedRequestCannotReplayArrival" fullname="Mofumachi.Tests.TownRegionJourneyTests.ARepeatedRequestCannotReplayArrival" methodname="ARepeatedRequestCannotReplayArrival" classname="Mofumachi.Tests.TownRegionJourneyTests" runstate="Runnable" seed="225446391" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.002495" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1163" name="CancelledBeforeAndAfterMidpointSettlesOneRegion" fullname="Mofumachi.Tests.TownRegionJourneyTests.CancelledBeforeAndAfterMidpointSettlesOneRegion" methodname="CancelledBeforeAndAfterMidpointSettlesOneRegion" classname="Mofumachi.Tests.TownRegionJourneyTests" runstate="Runnable" seed="937306257" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.001371" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1160" name="EntryMustBeReachedBeforeFade" fullname="Mofumachi.Tests.TownRegionJourneyTests.EntryMustBeReachedBeforeFade" methodname="EntryMustBeReachedBeforeFade" classname="Mofumachi.Tests.TownRegionJourneyTests" runstate="Runnable" seed="1809327227" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000402" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1161" name="FadeTransfersExactlyOnceAtMidpoint" fullname="Mofumachi.Tests.TownRegionJourneyTests.FadeTransfersExactlyOnceAtMidpoint" methodname="FadeTransfersExactlyOnceAtMidpoint" classname="Mofumachi.Tests.TownRegionJourneyTests" runstate="Runnable" seed="1300447696" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000990" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1164" name="InvalidDeltaDoesNotAdvanceOrUnlock" fullname="Mofumachi.Tests.TownRegionJourneyTests.InvalidDeltaDoesNotAdvanceOrUnlock" methodname="InvalidDeltaDoesNotAdvanceOrUnlock" classname="Mofumachi.Tests.TownRegionJourneyTests" runstate="Runnable" seed="1047983664" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000412" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1162" name="WestToEastVisitsCentralBeforeEast" fullname="Mofumachi.Tests.TownRegionJourneyTests.WestToEastVisitsCentralBeforeEast" methodname="WestToEastVisitsCentralBeforeEast" classname="Mofumachi.Tests.TownRegionJourneyTests" runstate="Runnable" seed="1112159979" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000748" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1166" name="TownViewportTests" fullname="Mofumachi.Tests.TownViewportTests" classname="Mofumachi.Tests.TownViewportTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.005712" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1167" name="CoverPreservesSourceAspect" fullname="Mofumachi.Tests.TownViewportTests.CoverPreservesSourceAspect" methodname="CoverPreservesSourceAspect" classname="Mofumachi.Tests.TownViewportTests" runstate="Runnable" seed="450068660" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.001712" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1170" name="FrameKeepsHeroInVisibleWorld" fullname="Mofumachi.Tests.TownViewportTests.FrameKeepsHeroInVisibleWorld" methodname="FrameKeepsHeroInVisibleWorld" classname="Mofumachi.Tests.TownViewportTests" runstate="Runnable" seed="7056986" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000887" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1171" name="ImpossibleFrameClampsWithoutTeleport" fullname="Mofumachi.Tests.TownViewportTests.ImpossibleFrameClampsWithoutTeleport" methodname="ImpossibleFrameClampsWithoutTeleport" classname="Mofumachi.Tests.TownViewportTests" runstate="Runnable" seed="1802758482" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000270" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1173" name="InvalidInputsLeaveViewUnchanged" fullname="Mofumachi.Tests.TownViewportTests.InvalidInputsLeaveViewUnchanged" methodname="InvalidInputsLeaveViewUnchanged" classname="Mofumachi.Tests.TownViewportTests" runstate="Runnable" seed="1335710879" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000499" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1169" name="PanAndProjectionRoundTrip" fullname="Mofumachi.Tests.TownViewportTests.PanAndProjectionRoundTrip" methodname="PanAndProjectionRoundTrip" classname="Mofumachi.Tests.TownViewportTests" runstate="Runnable" seed="1347121083" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000280" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1168" name="PanNeverLeavesOriginalImage" fullname="Mofumachi.Tests.TownViewportTests.PanNeverLeavesOriginalImage" methodname="PanNeverLeavesOriginalImage" classname="Mofumachi.Tests.TownViewportTests" runstate="Runnable" seed="2127388891" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000197" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1172" name="ResizePreservesAndClampsCenter" fullname="Mofumachi.Tests.TownViewportTests.ResizePreservesAndClampsCenter" methodname="ResizePreservesAndClampsCenter" classname="Mofumachi.Tests.TownViewportTests" runstate="Runnable" seed="1968363335" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000217" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1174" name="ZoomCannotExceedApprovedLimit" fullname="Mofumachi.Tests.TownViewportTests.ZoomCannotExceedApprovedLimit" methodname="ZoomCannotExceedApprovedLimit" classname="Mofumachi.Tests.TownViewportTests" runstate="Runnable" seed="1644415090" result="Passed" start-time="2026-10-26 10:26:13Z" end-time="2026-10-26 10:26:13Z" duration="0.000183" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

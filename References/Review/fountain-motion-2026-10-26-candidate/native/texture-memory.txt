@@ -1,0 +1,15 @@
+TownBackground: 9503873 bytes
+TownWestBackground: 9503922 bytes
+TownEastBackground: 9503922 bytes
+CharacterBodyAtlas: 5747841 bytes
+TownGrowthPropsAtlas: 5747841 bytes
+TownGardenSurface: 4785282 bytes
+TownSeamlessMap: 7144626 bytes
+TownStreetPropsAtlas: 5309569 bytes
+TownLandmarksAtlas: 5309569 bytes
+TownNatureAtlas: 5747841 bytes
+TownVillageDetailsAtlas: 5747841 bytes
+MergeBoardFrame: 6009985 bytes
+TownCentralGround: 7144577 bytes
+TownCentralFountain: 5231746 bytes
+TownWestGround: 7144577 bytes

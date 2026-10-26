@@ -1,0 +1,41 @@
+{
+  "transitions": [
+    {
+      "file": "35-fountain-live-crop-000.png",
+      "realtime_seconds": 0.009051700122654438,
+      "clock_seconds": 0.13333334028720856,
+      "phase": 0.13333334028720856,
+      "stage": 0
+    },
+    {
+      "file": "35-fountain-live-crop-143.png",
+      "realtime_seconds": 35.95829772949219,
+      "clock_seconds": 36.06666564941406,
+      "phase": 6.066666603088379,
+      "stage": 1
+    },
+    {
+      "file": "35-fountain-live-crop-151.png",
+      "realtime_seconds": 37.97114562988281,
+      "clock_seconds": 38.099998474121094,
+      "phase": 8.100000381469727,
+      "stage": 2
+    },
+    {
+      "file": "35-fountain-live-crop-175.png",
+      "realtime_seconds": 43.997344970703125,
+      "clock_seconds": 44.13333511352539,
+      "phase": 4.133333206176758,
+      "stage": 3
+    },
+    {
+      "file": "35-fountain-live-crop-179.png",
+      "realtime_seconds": 45.00288772583008,
+      "clock_seconds": 0.13333334028720856,
+      "phase": 5.133333206176758,
+      "stage": 0
+    }
+  ],
+  "first_peak_seconds": 38.722713470458984,
+  "max_gap_seconds": 0.27184295654296875
+}

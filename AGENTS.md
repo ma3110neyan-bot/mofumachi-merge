@@ -1,5 +1,13 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-26最新受領：run192546-249dc5eaの15ZIP・430原本を確認、原Unity370件全Passed。** source98596daf／fingerprintca87897b…。Edit144/144・Play226/226、failed0skip0inconclusive0。前回17件の不要ログ失敗が原XMLで解消。新165全景＋240実Update切出し＋旧Before3の全SHA・bytes・寸法・デコード、既存Native／成長／境界／歩行／水／短show／連続証拠ゲート、原354／固定景観18bindingと歴史digestが成功。街APK79,030,001bytes／SHA90c225ca…、成長79,030,049／SHA0b6c747c…、両source／fingerprint／成功log／bytes一致。binary未受領で独立SHAは端末側で照合。原本と判定 `References/Review/fountain-motion-2026-10-26-candidate/`。
+
+**判定：既に生成した同run街QAでPixel確認へ進行可、噴水採用は未承認。** 実Update60.114秒・240枚、前兆35.958／show状態37.971／高い噴き上げ38.472／最大38.723／復帰43.997／通常45.003秒。44.500秒で高いjetは消え60秒まで残留なし。4fps記録を実機FPS／30fpsの滑らかさの証拠にしない。通常の筋・しぶき・波紋・反射の変化、全景で高い3噴流を確認。独立実画像レビューはCritical0／新たなImportant景観後退0。前景の顔・服・名前は読め、奥の水は首／服に重なるが目は読める。
+
+90同一／72変更／3新規全景で、西東北南Lv1/3/6の12全景と実成長6は前版byte同一。72変更の全差分を水へ帰属しない。因果対は通常1578/1612/2698px、show同一瞬間8130/8133/10158px、専用Nativeの高jet3676/3710/3682、投影外0。Beforeは実5edfa/111414原本3枚。持越しは既存会話パネル（48/240標本、通常時のみ。show中は覆わず、旧頻度は未比較）、東木陰の帰還／視認、ライブ固体噴水の前後。新showのリボン状の線はMinorで、実機の自然さを判断してから局所調整。街やUIを推測で改造しない。
+
+**次は192546街QAだけをPixelへ保存維持更新し600秒確認。Pull／再ビルド不要。** 今回は原本受領と記録だけで、ゲーム・テスト・QAツール無変更。`docs/fountain-motion-pixel3a-2026-10-26.md` の新SHA照合→99RAY1BELH／com.mofumachi.merge.qa.townlifeへinstall-r。中央を開いてから計測し、通常／60秒以内show／前後／会話表示／既存東帰還・重さ／温度／音／10分／再起動保存を同版で確認。ユーザーの街固定承認は維持、Pixel／噴水採用・2.5D／Merge／以降／mainは未了。チャット画像なし。以下は履歴。
+
 **2026-10-26最新原本：run185535-c31c8bfbはPlayMode209/226、failed17／skip0。原因は全17件とも新規MOFUMACHI_FOUNTAIN診断Debug.Logを既存NoUnexpectedReceivedが拒否したこと。** 原XML／log／全失敗名とSHAは `References/Review/fountain-motion-qa-failure-2026-10-26/`。source842d8ff想定だが、この2原本だけではproductFingerprintの同一性は未照合。Edit144/144は画面報告。60.56秒の実Updateケースも結果はFailed（同ログ）で、36秒前兆・38秒show・44秒復帰・45秒通常の状態記録を確認するが、Unity全件成功／画像採用／Pixel成功へ読み替えない。
 
 **修正はWaterGraphicの自動ログ出力と不要フィールド／usingの削除だけ。** 水流・色・頂点数・時計・QA45秒・前後描画・街・Save・全テスト／NoUnexpectedReceivedは変更しない。連続原本とJSONのstage／phase証拠はそのまま残す。新SHA／描画digestを同候補へ再bindし、原354／固定景観／歴史digestは維持。最新をPull後に既存TownQaを一度再実行し、全370ケース／failed0skip0と165全景＋連続原本を受領するまで新Unity／APK／Pixelは未合格。今回のログ除去を見た目の再改修と呼ばない。以下は履歴。

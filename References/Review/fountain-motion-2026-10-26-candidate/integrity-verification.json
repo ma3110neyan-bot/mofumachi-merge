@@ -1,0 +1,71 @@
+{
+  "original_files": 430,
+  "new_full_pngs": 165,
+  "prior_before_pngs": 3,
+  "live_crop_pngs": 240,
+  "dimensions_decode_sha_bytes": "passed",
+  "native_tests": [
+    {
+      "file": "editmode.xml",
+      "cases": 144,
+      "attributes": {
+        "id": "2",
+        "testcasecount": "144",
+        "result": "Passed",
+        "total": "144",
+        "passed": "144",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-26 10:26:10Z",
+        "end-time": "2026-10-26 10:26:13Z",
+        "duration": "2.4891412"
+      }
+    },
+    {
+      "file": "playmode.xml",
+      "cases": 226,
+      "attributes": {
+        "id": "2",
+        "testcasecount": "226",
+        "result": "Passed",
+        "total": "226",
+        "passed": "226",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-26 10:26:42Z",
+        "end-time": "2026-10-26 10:32:27Z",
+        "duration": "345.448177"
+      }
+    }
+  ],
+  "source": "98596daf798bcea54d39f6a41b58a565070e1370",
+  "product_fingerprint": "ca87897bd86b67c7a02bfc5d14c90f2c4c8d77ee30dbef68766d9b5fedc3b0ab",
+  "apk_binary_received": false,
+  "live": {
+    "kind": "native-realtime-update-sequence",
+    "seconds": 60.11442947387695,
+    "first_show_seconds": 38.722713470458984,
+    "cycle_seconds": 45.0,
+    "sample_period_seconds": 0.25,
+    "manual_advance": false,
+    "pixel_verified": false,
+    "adopted": false,
+    "state_unchanged": true,
+    "source_width": 720,
+    "source_height": 1280,
+    "crop_x": 226,
+    "crop_y": 631,
+    "crop_width": 268,
+    "crop_height": 292,
+    "normal_mesh_changes": 202,
+    "show_mesh_changes": 23
+  }
+}

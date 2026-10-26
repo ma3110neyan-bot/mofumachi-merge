@@ -1,0 +1,68 @@
+{
+  "overview": {
+    "normal": {
+      "rgb_changed_pixels": 1578,
+      "bbox_top_left_exclusive": [
+        297,
+        804,
+        422,
+        917
+      ],
+      "max_channel_delta": 185
+    },
+    "show": {
+      "rgb_changed_pixels": 8130,
+      "bbox_top_left_exclusive": [
+        297,
+        695,
+        428,
+        926
+      ],
+      "max_channel_delta": 225
+    }
+  },
+  "front": {
+    "normal": {
+      "rgb_changed_pixels": 1612,
+      "bbox_top_left_exclusive": [
+        297,
+        590,
+        422,
+        705
+      ],
+      "max_channel_delta": 170
+    },
+    "show": {
+      "rgb_changed_pixels": 8133,
+      "bbox_top_left_exclusive": [
+        297,
+        485,
+        429,
+        718
+      ],
+      "max_channel_delta": 232
+    }
+  },
+  "behind": {
+    "normal": {
+      "rgb_changed_pixels": 2698,
+      "bbox_top_left_exclusive": [
+        297,
+        745,
+        422,
+        859
+      ],
+      "max_channel_delta": 225
+    },
+    "show": {
+      "rgb_changed_pixels": 10158,
+      "bbox_top_left_exclusive": [
+        297,
+        636,
+        428,
+        869
+      ],
+      "max_channel_delta": 224
+    }
+  }
+}

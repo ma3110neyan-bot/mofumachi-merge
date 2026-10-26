@@ -1,0 +1,11 @@
+﻿{
+    "gitRevision":  "98596daf798bcea54d39f6a41b58a565070e1370",
+    "productFingerprint":  "ca87897bd86b67c7a02bfc5d14c90f2c4c8d77ee30dbef68766d9b5fedc3b0ab",
+    "appId":  "com.mofumachi.merge.qa.growthcheck",
+    "apk":  "town-growth-check.apk",
+    "sha256":  "0b6c747ca3f72ccb0d5069c0c303dc5b02ae073b92920bda67b3b0ae61a017fb",
+    "bytes":  79030049,
+    "initial_state":  "normal initial game, separate Android app save",
+    "pixel_verified":  false,
+    "adopted":  false
+}

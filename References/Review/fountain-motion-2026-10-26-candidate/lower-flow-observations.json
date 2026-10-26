@@ -1,0 +1,141 @@
+{
+  "roi_pixel_boxes_top_left_in_crop": [
+    [
+      74,
+      195,
+      96,
+      231
+    ],
+    [
+      104,
+      200,
+      121,
+      235
+    ],
+    [
+      149,
+      200,
+      166,
+      235
+    ],
+    [
+      177,
+      195,
+      195,
+      231
+    ]
+  ],
+  "intervals": [
+    {
+      "from": 0.009051700122654438,
+      "to": 0.25972050428390503,
+      "changed_lower_stream_roi_pixels": [
+        208,
+        182,
+        180,
+        180
+      ]
+    },
+    {
+      "from": 0.25972050428390503,
+      "to": 0.51079922914505,
+      "changed_lower_stream_roi_pixels": [
+        213,
+        175,
+        172,
+        181
+      ]
+    },
+    {
+      "from": 0.51079922914505,
+      "to": 0.7617918252944946,
+      "changed_lower_stream_roi_pixels": [
+        189,
+        179,
+        167,
+        178
+      ]
+    },
+    {
+      "from": 0.7617918252944946,
+      "to": 1.0121784210205078,
+      "changed_lower_stream_roi_pixels": [
+        222,
+        181,
+        171,
+        184
+      ]
+    },
+    {
+      "from": 1.0121784210205078,
+      "to": 1.2627290487289429,
+      "changed_lower_stream_roi_pixels": [
+        215,
+        191,
+        150,
+        154
+      ]
+    },
+    {
+      "from": 1.2627290487289429,
+      "to": 1.5135042667388916,
+      "changed_lower_stream_roi_pixels": [
+        229,
+        203,
+        165,
+        181
+      ]
+    },
+    {
+      "from": 1.5135042667388916,
+      "to": 1.7653199434280396,
+      "changed_lower_stream_roi_pixels": [
+        183,
+        187,
+        153,
+        181
+      ]
+    },
+    {
+      "from": 1.7653199434280396,
+      "to": 2.0181353092193604,
+      "changed_lower_stream_roi_pixels": [
+        210,
+        181,
+        170,
+        179
+      ]
+    },
+    {
+      "from": 2.0181353092193604,
+      "to": 2.2706940174102783,
+      "changed_lower_stream_roi_pixels": [
+        200,
+        172,
+        166,
+        164
+      ]
+    },
+    {
+      "from": 2.2706940174102783,
+      "to": 2.5232956409454346,
+      "changed_lower_stream_roi_pixels": [
+        235,
+        172,
+        172,
+        182
+      ]
+    },
+    {
+      "from": 2.5232956409454346,
+      "to": 2.7751708030700684,
+      "changed_lower_stream_roi_pixels": [
+        204,
+        192,
+        163,
+        168
+      ]
+    }
+  ],
+  "limits": "Raw consecutive actual images before first bubble; not a new-layer-only pixel causal comparison and not a device FPS measurement."
+}

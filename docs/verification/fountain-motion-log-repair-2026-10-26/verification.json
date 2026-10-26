@@ -1,0 +1,52 @@
+{
+  "date_jst": "2026-10-26",
+  "fix_parent_revision": "842d8ff447cb8e4440bb83f510da4886d2ca88a5",
+  "failure_record": "References/Review/fountain-motion-qa-failure-2026-10-26/diagnosis.json",
+  "root_cause": "New unsolicited ordinary fountain Debug.Log is rejected by strict existing NoUnexpectedReceived. All17 original failed cases have this failure.",
+  "runtime_changed_files": [
+    "Assets/Mofumachi/Presentation/TownFountainWaterGraphic.cs"
+  ],
+  "runtime_change": "Remove automatic diagnostic logging only.",
+  "tests_or_assertions_changed": false,
+  "clock_layout_geometry_or_save_changed": false,
+  "api_assemblies_passed": 6,
+  "api_errors": 0,
+  "api_warnings": 0,
+  "powershell": [
+    {
+      "name": "fountain-live",
+      "exit_code": 0
+    },
+    {
+      "name": "android-tools",
+      "exit_code": 0
+    },
+    {
+      "name": "town-boundary-lock",
+      "exit_code": 0
+    },
+    {
+      "name": "approved-design",
+      "exit_code": 0
+    },
+    {
+      "name": "windows-json-encoding",
+      "exit_code": 0
+    }
+  ],
+  "render_digest": "840cb76482eede4757e12429b10413e76205f57a5ca30eefcfb36613710a783f",
+  "historical_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "original_base_and_frozen_field_gate": "passed",
+  "native_red_evidence": {
+    "total": 226,
+    "passed": 209,
+    "failed": 17,
+    "skipped": 0
+  },
+  "native_green_after_fix": "pending Windows rerun; not run in cloud due known Unity licensing/Android limitations",
+  "native_images_reviewed": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "cpu_note": "Layout/Core/CPU tests unchanged, previous351+125 success retained only as historical coverage; no redundant CPU rerun or substitute native success claim."
+}

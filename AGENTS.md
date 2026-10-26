@@ -1,5 +1,9 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-26最新原本：run185535-c31c8bfbはPlayMode209/226、failed17／skip0。原因は全17件とも新規MOFUMACHI_FOUNTAIN診断Debug.Logを既存NoUnexpectedReceivedが拒否したこと。** 原XML／log／全失敗名とSHAは `References/Review/fountain-motion-qa-failure-2026-10-26/`。source842d8ff想定だが、この2原本だけではproductFingerprintの同一性は未照合。Edit144/144は画面報告。60.56秒の実Updateケースも結果はFailed（同ログ）で、36秒前兆・38秒show・44秒復帰・45秒通常の状態記録を確認するが、Unity全件成功／画像採用／Pixel成功へ読み替えない。
+
+**修正はWaterGraphicの自動ログ出力と不要フィールド／usingの削除だけ。** 水流・色・頂点数・時計・QA45秒・前後描画・街・Save・全テスト／NoUnexpectedReceivedは変更しない。連続原本とJSONのstage／phase証拠はそのまま残す。新SHA／描画digestを同候補へ再bindし、原354／固定景観／歴史digestは維持。最新をPull後に既存TownQaを一度再実行し、全370ケース／failed0skip0と165全景＋連続原本を受領するまで新Unity／APK／Pixelは未合格。今回のログ除去を見た目の再改修と呼ばない。以下は履歴。
+
 **2026-10-26最新ユーザー：噴水は未達。良い方向への改善作業を続行。** 前版Pixelで通常の動き／3分以上後のshowが確認できず、静止画・369成功だけで採用へ進めない。今回runtimeはWaterLayout／WaterGraphicの2ファイルだけ。固定帯の明滅を落下する白い流水へ変え、青縁／しぶき／波紋／反射／曲線showを強化。既存196quad784＋旧672＝1456頂点内、Particle／ライト／製品RT追加なし。原画・14％拡大・親のY深度・5地区・歩行・保存・図鑑・BGM・キャラ・Mergeは不変。
 
 **街QA／Editorは45秒周期、開始38秒・最大約39秒、show6秒・復帰1秒。** 非Developmentは180秒を維持。Home内は画面外でも時計だけ進み、非表示メッシュ更新なし。メニュー／別画面／休止停止・Home再構築で時計保持・低FPSの実時間を切り捨てない。ユーザーの旧端末で未発生だった個別原因は旧実行ログなしに断定しない。

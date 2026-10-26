@@ -191,7 +191,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "fountain_motion_rework_native_continuous_and_pixel_pending",
+  "current_stage": "fountain_motion_native_log_failure_fixed_rerun_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -876,7 +876,7 @@
       "merge_quality_pass",
       "main"
     ],
-    "render_input_fingerprint": "2cb49fb4c6ebc87045a10db7a24983f574a42d1365d0ee25d69530b71b6a129a",
+    "render_input_fingerprint": "840cb76482eede4757e12429b10413e76205f57a5ca30eefcfb36613710a783f",
     "native_image_inspection_complete": false,
     "native_visual_cleared": false,
     "previous_native_review": "References/Review/fountain-show-2026-10-26-candidate/native-review.json",

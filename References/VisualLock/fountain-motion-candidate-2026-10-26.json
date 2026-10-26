@@ -8,7 +8,7 @@
   "before_runtime_source": "43a27646fcf65174afb938fb78c0b93d7e0628ad",
   "before_render_digest": "73b1027987ca543d38df99459571cc0ae441512511a8c8c7f1b3fc58bc567b5b",
   "reviewed_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
-  "candidate_render_digest": "2cb49fb4c6ebc87045a10db7a24983f574a42d1365d0ee25d69530b71b6a129a",
+  "candidate_render_digest": "840cb76482eede4757e12429b10413e76205f57a5ca30eefcfb36613710a783f",
   "changes": [
     {
       "path": "Assets/Mofumachi/Presentation/TownContinuousWorldView.cs",
@@ -83,7 +83,7 @@
     },
     {
       "path": "Assets/Mofumachi/Presentation/TownFountainWaterGraphic.cs",
-      "after_sha256": "308535dc8762613e285a336c1f462556b974dce0441eee14194b52327dec2265"
+      "after_sha256": "1eec844ab4bd924f4048e11b79512ad7df5306a15ca58198b9bd66c86397dc77"
     },
     {
       "path": "Assets/Mofumachi/Presentation/TownFountainWaterGraphic.cs.meta",
@@ -126,5 +126,6 @@
   "current_before_record_lf_sha256": "9a97b5d4570f3a9fb0c3d0f08be35c41b1473538f9820caae665ff25a22b4984",
   "continuous_native_sequence_required": true,
   "qa_cycle_seconds": 45,
-  "release_cycle_seconds": 180
+  "release_cycle_seconds": 180,
+  "failed_native_attempt": "References/Review/fountain-motion-qa-failure-2026-10-26/diagnosis.json"
 }

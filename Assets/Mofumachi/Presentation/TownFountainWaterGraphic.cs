@@ -1,4 +1,3 @@
-using System;
 using Mofumachi.Core;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -12,7 +11,7 @@ namespace Mofumachi.Presentation
         private static readonly ConditionalWeakTable<UIFlowController,TownFountainWaterClock> sessions=new ConditionalWeakTable<UIFlowController,TownFountainWaterClock>();
         private static float Cycle=>Application.isEditor||Debug.isDebugBuild?TownFountainWaterLayout.QaShowInterval:TownFountainWaterLayout.ShowInterval;
         private TownContinuousWorldView world;private TownFountainWaterClock clock=new TownFountainWaterClock();
-        private double lastUpdateTime;private int loggedStage=-1;
+        private double lastUpdateTime;
         public float Phase=>clock.Phase;
         public float ShowElapsed=>clock.Elapsed;
         public float ShowCycleSeconds=>clock.CycleSeconds;
@@ -41,8 +40,6 @@ namespace Mofumachi.Presentation
             // Camera movement must not silently stop the wait. Off-screen water
             // advances its tiny clock but does not rebuild its mesh.
             if(clock.Advance(elapsedSeconds,true)&&Visible())SetVerticesDirty();
-            if((Application.isEditor||Debug.isDebugBuild)&&loggedStage!=ShowStage)
-            {loggedStage=ShowStage;Debug.Log(FormattableString.Invariant($"MOFUMACHI_FOUNTAIN stage={loggedStage} elapsed={clock.Elapsed:F3} cycle={clock.CycleSeconds:F0} visible={Visible()}"));}
         }
         protected override void OnPopulateMesh(VertexHelper vertices)
         {

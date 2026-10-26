@@ -1,0 +1,62 @@
+{
+  "date_jst": "2026-10-26",
+  "run": "20261026-185535-c31c8bfb",
+  "expected_source_revision": "842d8ff447cb8e4440bb83f510da4886d2ca88a5",
+  "source_identity_from_screen_only": false,
+  "source_identity_verified": false,
+  "editmode_from_screen": {
+    "passed": 144,
+    "total": 144
+  },
+  "playmode_original_xml": {
+    "passed": 209,
+    "failed": 17,
+    "skipped": 0,
+    "inconclusive": 0,
+    "total": 226
+  },
+  "failure_cause": "All17 fail on the newly emitted ordinary Debug.Log MOFUMACHI_FOUNTAIN being rejected by existing LogAssert.NoUnexpectedReceived checks. No assertions/strict-log guards are changed.",
+  "failed_tests": [
+    "Mofumachi.Tests.ChapterFlowTests.ChapterReentryAndSaveFailureNeverPayOrAdvance",
+    "Mofumachi.Tests.CharacterSelectionTests.FirstStartSelectsAndSecondStartResumesFavorite",
+    "Mofumachi.Tests.ExperienceCaptureTests.DeliveriesGrowFiveDistrictsAndPersistAfterSceneReload",
+    "Mofumachi.Tests.ExperienceCaptureTests.FountainShowRunsFromRealUpdatesWithinSixtySeconds",
+    "Mofumachi.Tests.ExperienceCaptureTests.FountainWaterBeforeAfterPreservesFieldAndCharacterDepth",
+    "Mofumachi.Tests.ExperienceCaptureTests.PortraitScreensRenderFromIsolatedStateWithoutWritingProgress",
+    "Mofumachi.Tests.LayoutNoticeTests.NoticeBlocksUntilSaveSucceedsAndCannotBeBypassed",
+    "Mofumachi.Tests.MergePolishTests.ConsecutiveMergesReuseOneSmallEffectLayerAndRestartKeepsProgress",
+    "Mofumachi.Tests.MergeProgressionUiTests.FullBoardCanBeOrganizedIntoBreadDeliveryUsingVisibleButtons",
+    "Mofumachi.Tests.MergeProgressionUiTests.UnacceptedRequestRoutesToAcceptanceAndResumeSuggestsBread",
+    "Mofumachi.Tests.PopPresentationTests.CharacterReactionDoesNotWriteOrChangeGameProgress",
+    "Mofumachi.Tests.QualityPassMergeTests.CompletedStoryKeepsSparseSavedItemsAndShowsLiveDailyPurpose",
+    "Mofumachi.Tests.StoryTypographyTests.StoryRolesAndNoticeFitPortraitSizes",
+    "Mofumachi.Tests.TownLifeTests.FavoriteDragAndNpcWanderStayOnVisiblePaths",
+    "Mofumachi.Tests.TownMotionPresentationTests.WaterFallsAndRipplesAnimateWithoutRaycast",
+    "Mofumachi.Tests.TownViewportPresentationTests.AllFiveEdgesKeepReturnInputAndWalkBackWithoutTeleporting",
+    "Mofumachi.Tests.VerticalSliceFlowTests.HomeBackReturnsToTitleAndStartResumesSavedProgress"
+  ],
+  "live_test": {
+    "duration_seconds": 60.563424,
+    "result": "Failed",
+    "failure_message": "Unhandled log message: '[Log] MOFUMACHI_FOUNTAIN stage=0 elapsed=0.000 cycle=45 visible=True'. Use UnityEngine.TestTools.LogAssert.Expect",
+    "stage_output": "MOFUMACHI_FOUNTAIN stage=0 elapsed=0.000 cycle=45 visible=True\nMOFUMACHI_FOUNTAIN stage=0 elapsed=0.000 cycle=45 visible=True\nMOFUMACHI_FOUNTAIN stage=1 elapsed=36.000 cycle=45 visible=True\nMOFUMACHI_FOUNTAIN stage=1 elapsed=36.000 cycle=45 visible=True\nMOFUMACHI_FOUNTAIN stage=2 elapsed=38.000 cycle=45 visible=True\nMOFUMACHI_FOUNTAIN stage=2 elapsed=38.000 cycle=45 visible=True\nMOFUMACHI_FOUNTAIN stage=3 elapsed=44.000 cycle=45 visible=True\nMOFUMACHI_FOUNTAIN stage=3 elapsed=44.000 cycle=45 visible=True\nMOFUMACHI_FOUNTAIN stage=0 elapsed=0.000 cycle=45 visible=True\nMOFUMACHI_FOUNTAIN stage=0 elapsed=0.000 cycle=45 visible=True\n",
+    "meaning": "Actual Update test ran60.56s and recorded36/38/44/45-cycle transitions. This failed case and logs are not a passed native run, an image review or Pixel acceptance."
+  },
+  "runtime_fix": "Remove unsolicited runtime logging only; preserve clock, water geometry, QA45s, live sequence and all tests.",
+  "new_native_passed": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "files": [
+    {
+      "file": "playmode.xml",
+      "bytes": 209046,
+      "sha256": "88cac7ef6f286a6e089664f57eaf1194327df1ac3272570adaa73fa9033c9f85"
+    },
+    {
+      "file": "playmode.log",
+      "bytes": 400083,
+      "sha256": "f1fee0a8975ced159387f07750e6e6ddbf54143d0050e2258ab5de3c87d92d5c"
+    }
+  ]
+}

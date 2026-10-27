@@ -143,7 +143,9 @@ namespace Mofumachi.Tests
                 // real progression/reload remains covered by the existing gate.
                 Flow.Game.State.townGrowthLevel=level;Flow.ShowHome();yield return null;EnsurePortraitCamera();
                 var town=Flow.GetComponentInChildren<TownLifeView>();town.StartInteraction();town.World.Freeze();Assert.That(town.World.LookAt(TownDistrictId.North),Is.True);
-                var blend=town.GetComponentInChildren<TownNorthEntryBlendGraphic>(true);Assert.That(blend,Is.Not.Null);Assert.That(blend.name,Is.EqualTo("North central road join"));
+                // Ground scenery is a sibling of the actor layer (TownLifeView),
+                // so resolve this existing layer from the owning screen root.
+                var blend=Flow.GetComponentInChildren<TownNorthEntryBlendGraphic>(true);Assert.That(blend,Is.Not.Null);Assert.That(blend.name,Is.EqualTo("North central road join"));
                 for(int view=0;view<3;view++)
                 {
                     town.World.Camera.Jump(new TownPoint(0,new[]{.85f,1f,1.15f}[view]));town.World.Refresh();var warm=Portrait();UnityEngine.Object.DestroyImmediate(warm);

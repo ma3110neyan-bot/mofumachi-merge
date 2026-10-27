@@ -1,0 +1,47 @@
+{
+  "run": "20261027-214011-240b9a49",
+  "source_revision_from_unity_arguments": "31bccbbc98b5dd422b362c682f268b23338e18e5",
+  "product_fingerprint_from_unity_arguments": "43576330bf4e2c613e4ff0ab2d438bd23cedd0bb76a918a469a1ebf34ce3884d",
+  "unity": "6000.6.4f1",
+  "playmode": {
+    "total": 234,
+    "passed": 233,
+    "failed": 1,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "failure": {
+    "test": "Mofumachi.Tests.ExperienceCaptureTests.NorthNoahBeforeAfterAndFixedStepEvidencePreserveSavedState",
+    "message": "  Expected: not null\n  But was:  null\n",
+    "stack_trace": "at Mofumachi.Tests.ExperienceCaptureTests+<NorthNoahBeforeAfterAndFixedStepEvidencePreserveSavedState>d__19.MoveNext () [0x001cc] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\ExperienceCaptureTests.cs:146\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n",
+    "source_line": 146
+  },
+  "native_subsuites": {
+    "NorthEntryBlendReviewTests": {
+      "passed": 3,
+      "failed": 0
+    },
+    "Noah25DTrialPresentationTests": {
+      "passed": 4,
+      "failed": 0
+    }
+  },
+  "root_cause": "The capture searches the TownLifeView (actor-layer) descendants, but North scenery is a sibling created under original.background.parent. North and Noah dedicated suites use the Flow root and passed. The blend exists; the capture lookup root is wrong.",
+  "correction": "Resolve the existing TownNorthEntryBlendGraphic from Flow, retaining the non-null/name assertion, same-state pairs, walking and save gates. No runtime changes.",
+  "apk_generated": false,
+  "fixed_native_pass_verified": false,
+  "native_visual_verified": false,
+  "pixel_verified": false,
+  "files": [
+    {
+      "file": "playmode.xml",
+      "bytes": 197542,
+      "sha256": "f9258d783e8c754214b33e446103993f421d94f56662676e4f4aa305e84d1b31"
+    },
+    {
+      "file": "playmode.log",
+      "bytes": 343950,
+      "sha256": "4749cdcb029fa49be898a0673ba950a1375d2d4135a58c9e70afc9e07b5aad3f"
+    }
+  ]
+}

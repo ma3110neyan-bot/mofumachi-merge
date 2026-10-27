@@ -1,0 +1,60 @@
+Direct asmdef compile: Mofumachi.Core
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  Mofumachi.Core -> /workspace/setup/mofumachi/asmdef-compat/Mofumachi.Core/bin/Debug/netstandard2.1/Mofumachi.Core.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.81
+Direct asmdef compile: Mofumachi.Presentation
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  Mofumachi.Presentation -> /workspace/setup/mofumachi/asmdef-compat/Mofumachi.Presentation/bin/Debug/netstandard2.1/Mofumachi.Presentation.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:02.75
+Direct asmdef compile: Mofumachi.Editor
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  Mofumachi.Editor -> /workspace/setup/mofumachi/asmdef-compat/Mofumachi.Editor/bin/Debug/netstandard2.1/Mofumachi.Editor.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.93
+Direct asmdef compile: Mofumachi.EditModeTests
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  Mofumachi.EditModeTests -> /workspace/setup/mofumachi/asmdef-compat/Mofumachi.EditModeTests/bin/Debug/netstandard2.1/Mofumachi.EditModeTests.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.88
+Direct asmdef compile: Mofumachi.PlayModeTests
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  Mofumachi.PlayModeTests -> /workspace/setup/mofumachi/asmdef-compat/Mofumachi.PlayModeTests/bin/Debug/netstandard2.1/Mofumachi.PlayModeTests.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:02.78
+Direct asmdef compile: Mofumachi.BuildTests
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  Mofumachi.BuildTests -> /workspace/setup/mofumachi/asmdef-compat/Mofumachi.BuildTests/bin/Debug/netstandard2.1/Mofumachi.BuildTests.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.98

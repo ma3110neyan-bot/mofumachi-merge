@@ -1,0 +1,26 @@
+{
+  "scope": "capture-test-hierarchy-repair-only",
+  "base_revision": "31bccbbc98b5dd422b362c682f268b23338e18e5",
+  "capture_render_digest": "96b160e75e7c33994f0cc254ce8d1b02e0613edf745dd61f1d7c7b2fd0cf6deb",
+  "historical_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "runtime_changed": false,
+  "original_art_changed": false,
+  "api_assemblies_passed": 6,
+  "api_errors": 0,
+  "api_warnings": 0,
+  "powershell_scripts_passed": 17,
+  "powershell_scripts_failed": 0,
+  "received_native_playmode": {
+    "source_revision": "31bccbbc98b5dd422b362c682f268b23338e18e5",
+    "total": 234,
+    "passed": 233,
+    "failed": 1,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "same_existing_regression_test_retained": true,
+  "fixed_native_pass_verified": false,
+  "new_apk_generated": false,
+  "pixel_verified": false,
+  "note": "Actual received failure is the RED evidence. The existing non-null/name, pixel, state, walking and save assertions remain. API/script checks do not run Unity or prove the fixed capture passed. Runtime/pure test sources match31bccbb and were not unnecessarily rerun."
+}

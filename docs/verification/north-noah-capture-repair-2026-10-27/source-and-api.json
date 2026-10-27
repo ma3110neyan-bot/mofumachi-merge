@@ -1,0 +1,20 @@
+{
+  "base_revision": "31bccbbc98b5dd422b362c682f268b23338e18e5",
+  "runtime_files_changed": [],
+  "capture_test_only": true,
+  "api_compile": {
+    "assemblies": 6,
+    "warnings": 0,
+    "errors": 0
+  },
+  "actual_received_playmode": {
+    "total": 234,
+    "passed": 233,
+    "failed": 1,
+    "skipped": 0
+  },
+  "actual_fixed_native_pass_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "scope": "Only capture hierarchy lookup and candidate/evidence metadata changed."
+}

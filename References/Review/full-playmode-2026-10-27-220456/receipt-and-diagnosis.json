@@ -1,0 +1,36 @@
+{
+  "run": "20261027-220456-e7e5ea0b",
+  "source_revision_from_unity_arguments": "feb330d6a5bb3e0558afb2f249ab21552d15c06f",
+  "product_fingerprint_from_unity_arguments": "d58959fbc9e41f3768afee675969ba1107b8aded52dfea4652cbc117242372f7",
+  "playmode": {
+    "total": 234,
+    "passed": 233,
+    "failed": 1,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "failure": {
+    "test": "Mofumachi.Tests.ExperienceCaptureTests.NorthNoahBeforeAfterAndFixedStepEvidencePreserveSavedState",
+    "message": "  Expected: less than or equal to 1280\n  But was:  1467.53516f\n",
+    "stack_trace": "at Mofumachi.Tests.ExperienceCaptureTests+<NorthNoahBeforeAfterAndFixedStepEvidencePreserveSavedState>d__19.MoveNext () [0x00ecd] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\ExperienceCaptureTests.cs:237\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n",
+    "source_line": 237
+  },
+  "prior_hierarchy_failure_resolved": true,
+  "root_cause": "ShowHome captures/restores HomeWorldSnapshot. After the completed side-route return the hero remains at(.30,.95), not square(0,-.25). The fixture rebuilds Home but forces the camera to(0,-.05) and assumes fresh original residents, so actor yMax1467.535 exceeds the1280 portrait. NPC positions are also carried, risking an offscreen greeting.",
+  "correction": "Complete and assert real routes first, then release the portrait camera and load a separate isolated Home scene via the existing EnterHome fixture. Verify new controller, null transient snapshot, hero square and original Momo anchor. Derive crop after full projection, retain every-frame crop containment and all movement/save checks. Do not alter production snapshot persistence or reposition the routed hero as a rescue.",
+  "fixed_native_pass_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "files": [
+    {
+      "file": "playmode.xml",
+      "bytes": 197565,
+      "sha256": "5633c25dc12ff0136ebff9f8eb5821f48bbe20c10a440c57d8ac98c379820de5"
+    },
+    {
+      "file": "playmode.log",
+      "bytes": 344229,
+      "sha256": "770a3ec7513f1ee90b65c4f08c4f953c12d18c16616df68d5b8f1d5a8e9f5da9"
+    }
+  ]
+}

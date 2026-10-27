@@ -8,7 +8,7 @@
   "before_runtime_source": "43a27646fcf65174afb938fb78c0b93d7e0628ad",
   "before_render_digest": "73b1027987ca543d38df99459571cc0ae441512511a8c8c7f1b3fc58bc567b5b",
   "reviewed_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
-  "candidate_render_digest": "96b160e75e7c33994f0cc254ce8d1b02e0613edf745dd61f1d7c7b2fd0cf6deb",
+  "candidate_render_digest": "1cc54e06e095cf20a237b6ebd08272ef19d4e1fbd0a3d7eb4f9b4c1748e561b8",
   "changes": [
     {
       "path": "Assets/Mofumachi/Presentation/TownContinuousWorldView.cs",
@@ -122,7 +122,7 @@
     {
       "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs",
       "before_sha256": "3bdc727de2275daa8bd1fe45de9f9f8002380ceeb9c9cbda7944a964996bc6b7",
-      "after_sha256": "5868a28199ab7cd63b0aae7494377abfd39246cfd25b192823ca07c8a133783d"
+      "after_sha256": "8f84199831019a469de1a6a1dc981e9bcff2ba0faad89e3e18519608273a55a5"
     }
   ],
   "native_unity_verified": false,
@@ -163,7 +163,11 @@
   "current_before_native_source": "bb3fb82b5b941dd29fb58d4d0dd1631af516a723",
   "current_before_native_run": "20261027-102109-3bbbf9fe",
   "comparison_scope": "Same-state OFF/ON is a reconstructed causal baseline; historical native Before remains separately identified.",
-  "latest_native_failure": "References/Review/full-playmode-2026-10-27-214011/receipt-and-diagnosis.json",
+  "latest_native_failure": "References/Review/full-playmode-2026-10-27-220456/receipt-and-diagnosis.json",
   "fixed_native_pass_verified": false,
-  "internal_verification": "docs/verification/north-noah-capture-repair-2026-10-27/results.json"
+  "internal_verification": "docs/verification/north-noah-capture-scene-repair-2026-10-27/results.json",
+  "previous_native_failures": [
+    "References/Review/full-playmode-2026-10-27-214011/receipt-and-diagnosis.json"
+  ],
+  "previous_internal_verification": "docs/verification/north-noah-capture-repair-2026-10-27/results.json"
 }

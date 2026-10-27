@@ -1,0 +1,21 @@
+# Scoped capture-scene repair review — 2026-10-27
+
+Verdict: **No Critical or Important findings in the reviewed patch. Native validation remains pending.**
+
+Reviewed the exact three-file `review.patch` against `feb330d6a5bb3e0558afb2f249ab21552d15c06f`, with the repository's current AGENTS.md instructions and the relevant unchanged fixture/runtime lifecycle. The patch matches the current three-file `git diff -U8` byte for byte (SHA-256 `d76efa0638d1ebcc794e72e7418496bf7a49d64b90e13fb7ff8a52a98f2cf6fc`). No source edits, suite reruns, commits, or additional agents were used for this review.
+
+## Lifecycle and evidence assessment
+
+- **Fresh controller and transient snapshot:** `SliceUiTestFixture.EnterHome()` loads TitleScene, calls BeginGame to load GameScene, and waits two frames. UIFlowController is scene owned; only its game/session and daily service are static. HomeWorldSnapshot is an instance property. A newly constructed flow therefore does not receive the old flow's resident snapshot. The new identity/null assertions and actual Noah/Momo anchor assertions detect failure of this intended separation (`ExperienceCaptureTests.cs:179–186`). The unchanged constructor gives Momo an initial two-second rest; normal setup updates advance at most three fixed steps per frame, so the EnterHome waits do not make the fresh anchor assertion inherently race with ordinary NPC walking.
+- **Save isolation and baselines:** Isolate installs the disposable TestStore and static GameStateManager before scene construction. Reloading the scenes does not replace that static session with the player's persistent save. The completed route assertions still compare state and writes before reset (`:175`). Scene destruction/BeginGame can legitimately persist the isolated fixture session; the sequence explicitly takes its own state/write baseline after that setup (`:191`) and retains its final invariant checks. The JSON/HTML now identify a separate presentation episode, so this does not claim one uninterrupted, zero-write route-to-sequence episode.
+- **Portrait camera and layout:** Calling ReleasePortraitCamera before reload detaches the old canvas, destroys the capture camera, releases its render texture, and clears all three cached references. The next EnsurePortraitCamera runs its complete creation/configuration path against the new canvas, including the 720×1280 viewport. The warm Portrait forces layout and refreshes world/actor projection before crop derivation. Existing teardown remains safe after this earlier release.
+- **No route rescue or production changes:** All six recorded routes and their actual arrival/walkability/save checks finish before the scene reset. The reset neither relocates the routed model nor changes navigation. The patch changes only the capture fixture, its evidence validator, and its metadata fixtures; production Save, runtime snapshot behavior, fountain, scenery, art, and Noah poses are untouched.
+- **Crop and greeting checks remain strict:** The fixed camera, initial bounded crop, every-frame four-edge containment checks, real walking samples, renewed NPC pauses, mutual Noah/Momo greeting/reaction/facing checks, same-instant causal pairs, and final state/store invariants remain present. Added framing diagnostics make a future crop failure actionable without weakening containment. `isolated_start_verified` is set only after the actual fresh-anchor assertions; the PowerShell gate rejects a missing/false flag and wrong setup label.
+
+## Evidence limits
+
+Independently parsed the retained native XML: **234 total, 233 passed, 1 failed, 0 skipped, 0 inconclusive**. The sole failure is this capture test at the previous line 237: actor yMax `1467.53516` exceeds `1280`. This is the pre-repair RED result and must stay RED.
+
+Read the existing focused PowerShell RED/GREEN logs, six-assembly Unity API compile log (each 0 warnings/0 errors), and actual production model CPU probe (routed hero `(0.3,0.95)`, fresh hero `(0,-0.25)`, fresh Momo `(0.34,-0.22)`). These support the parser, API compatibility, and position diagnosis. They do **not** demonstrate native Unity scene lifecycle, crop/greeting rendering, a repaired 234/234 result, APK generation, Pixel performance, or adoption. Those remain unexecuted/pending for this repair.
+
+Codex／AI側から見た次の改善候補: 今回はなし。

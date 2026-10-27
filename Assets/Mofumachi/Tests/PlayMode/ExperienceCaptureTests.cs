@@ -35,6 +35,8 @@ namespace Mofumachi.Tests
         {public int index;public string mode;public float elapsed_seconds,world_x,world_y;public bool walking;public NativeImage image;}
         [Serializable] private sealed class NoahSequence
         {
+            public string setup="fresh-isolated-Home-scene-after-completed-route-proof";
+            public bool isolated_start_verified;
             public string kind="native-fixed-step-town-AdvanceFrame",greet_trigger="public TryBeginConversation or normal AdvanceFrame auto; verified Noah/Momo greeting",conversation_mode="mutual-noah-momo-greeting";
             public string conversation_speaker_id,conversation_partner_id,conversation_text;
             public bool manual_advance=true,state_unchanged,store_writes_unchanged,actual_conversation_verified;
@@ -171,10 +173,17 @@ namespace Mofumachi.Tests
             foreach(var lane in new[]{("left",-.30f),("right",.30f)})
             {Walk("setup-"+lane.Item1,new TownPoint(lane.Item2,.95f));proof.routes.Add(Walk(lane.Item1+"-out",new TownPoint(lane.Item2,1.05f)));proof.routes.Add(Walk(lane.Item1+"-return",new TownPoint(lane.Item2,.95f)));}
             Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(saved));Assert.That(Store.Writes,Is.EqualTo(savedWrites));
-            // Rebuild the isolated scene for a short readable actor sequence.
-            Flow.ShowHome();yield return null;EnsurePortraitCamera();field=Flow.GetComponentInChildren<TownLifeView>();field.StartInteraction();field.World.LookAt(TownDistrictId.Central);field.World.Camera.Jump(new TownPoint(0,-.05f));field.World.Refresh();
+            // Home deliberately preserves its resident snapshot. The route proof
+            // above ends in North; a separate presentation episode must load a
+            // fresh fixture scene, not mistake ShowHome for a position reset.
+            var routedFlow=Flow;ReleasePortraitCamera();yield return EnterHome();
+            Assert.That(Flow,Is.Not.SameAs(routedFlow));Assert.That(Flow.HomeWorldSnapshot,Is.Null);
+            EnsurePortraitCamera();field=Flow.GetComponentInChildren<TownLifeView>();field.StartInteraction();field.World.LookAt(TownDistrictId.Central);field.World.Camera.Jump(new TownPoint(0,-.05f));field.World.Refresh();
             var noah=field.Actors.Single(a=>a.CharacterId=="noah");Assert.That(noah.Controlled&&noah.NoahTrialEnabled,Is.True);
             var friend=field.Actors.Single(a=>a.CharacterId=="momo");
+            Assert.That(TownWalkableArea.Distance(noah.WorldPosition,TownWorldMap.Place("square")),Is.LessThan(.002f),"The independent presentation episode starts at the real initial square");
+            Assert.That(TownWalkableArea.Distance(friend.WorldPosition,TownCentralMasterLayout.ArrivalFriend),Is.LessThan(.002f),"The greeting uses the original central resident, not the earlier route snapshot");
+            proof.sequence.isolated_start_verified=true;
             foreach(var actor in field.World.Model.Residents.Where(r=>!r.Controlled))field.World.Model.Pause(actor.Id,4);
             var npcPositions=field.World.Model.Residents.Where(r=>!r.Controlled).Select(r=>r.Position).ToArray();
             var initial=Portrait();UnityEngine.Object.DestroyImmediate(initial);var cropBounds=ActorEvidenceRect(noah);var projected=ProjectEvidence(field,new TownPoint(-.45f,-.3f),new TownPoint(.45f,-.15f));cropBounds=Rect.MinMaxRect(Mathf.Min(cropBounds.xMin,projected.xMin),cropBounds.yMin-24,Mathf.Max(cropBounds.xMax,projected.xMax),cropBounds.yMax+80);var crop=EvidenceRect(cropBounds);
@@ -234,7 +243,9 @@ namespace Mofumachi.Tests
                 var portrait=Portrait();Texture2D cropped=null;
                 try
                 {
-                    var actual=ActorEvidenceRect(noah);Assert.That(actual.xMin,Is.GreaterThanOrEqualTo(crop.x));Assert.That(actual.xMax,Is.LessThanOrEqualTo(crop.xMax));Assert.That(actual.yMin,Is.GreaterThanOrEqualTo(crop.y));Assert.That(actual.yMax,Is.LessThanOrEqualTo(crop.yMax));
+                    var actual=ActorEvidenceRect(noah);var center=field.World.Camera.Center;
+                    string framing=FormattableString.Invariant($"Noah frame {index}/{mode}; world=({noah.WorldPosition.X:R},{noah.WorldPosition.Y:R}), camera=({center.X:R},{center.Y:R}), crop={crop}, actor={actual}");
+                    Assert.That(actual.xMin,Is.GreaterThanOrEqualTo(crop.x),framing);Assert.That(actual.xMax,Is.LessThanOrEqualTo(crop.xMax),framing);Assert.That(actual.yMin,Is.GreaterThanOrEqualTo(crop.y),framing);Assert.That(actual.yMax,Is.LessThanOrEqualTo(crop.yMax),framing);
                     cropped=new Texture2D(crop.width,crop.height,TextureFormat.RGB24,false);cropped.SetPixels(portrait.GetPixels(crop.x,crop.y,crop.width,crop.height));cropped.Apply();
                     sequence.frames.Add(new NoahSequenceFrame{index=index,mode=mode,elapsed_seconds=elapsed,world_x=noah.WorldPosition.X,world_y=noah.WorldPosition.Y,walking=field.World.Model.Hero.IsWalking,image=SaveNativeImage(output,"noah-sequence/37-noah-frame-"+index.ToString("00")+".png",cropped)});
                 }
@@ -257,7 +268,7 @@ namespace Mofumachi.Tests
             foreach(var pair in proof.north_pairs.Concat(proof.noah_pairs))html.Append("<section><h2>").Append(pair.id).Append("</h2><p>Before (reconstructed) left / After right; changed pixels ").Append(pair.changed_pixels).Append("; outside scoped projection ").Append(pair.outside_allowed_pixels).Append("</p><a href='").Append(pair.comparison.file).Append("'>Open actual native comparison .jpg (Before left / After right)</a><p><img style='max-width:100%' src='").Append(pair.comparison.file).Append("'></p><a href='").Append(pair.before.file).Append("'>Before original PNG</a> / <a href='").Append(pair.after.file).Append("'>After original PNG</a></section>");
             html.Append("<h2>Historical actual native Before: bb3fb82 / run102109</h2><p>09-connected-path-north.png: different historical runtime conditions; never the same-state causal baseline above.</p><img src='").Append(proof.historical_native_before.file).Append("'>");
             html.Append("<h2>Actual model walking, no navigation changes or teleport rescue</h2>");foreach(var route in proof.routes)html.Append("<p>").Append(route.id).Append(": ").Append(route.steps).Append(" fixed steps; sampled actual positions in JSON.</p><img src='").Append(route.image.file).Append("'>");
-            html.Append("<h2>Noah: idle → start walk → walk → stop → greet</h2><p>48 actual native PNG crops; manual TownLifeView.AdvanceFrame at 1/30s, sampled each 3 steps. This is a fixed-step render sequence, not a real-time/FPS or Pixel measurement. The walk-to-friend gap is retained in timestamps.</p><button id='play'>Play / pause</button><p id='time'></p><img id='frame'><script>const data=").Append(JsonUtility.ToJson(proof.sequence)).Append(";let i=0,playing=true;document.querySelector('#play').onclick=()=>playing=!playing;function tick(){const f=data.frames[i];const image=document.querySelector('#frame');image.onerror=()=>{image.onerror=null;image.src=f.image.file.split('/').pop()};image.src=f.image.file;document.querySelector('#time').textContent=f.index+' / '+f.mode+' / '+f.elapsed_seconds.toFixed(3)+' simulated seconds';setTimeout(()=>{if(playing)i=(i+1)%data.frames.length;tick()},100)}tick()</script>");
+            html.Append("<h2>Noah: idle → start walk → walk → stop → greet</h2><p>48 actual native PNG crops; manual TownLifeView.AdvanceFrame at 1/30s, sampled each 3 steps. This presentation episode starts in a separate fresh fixture Home scene after the completed route proof, with verified original Noah/Momo anchors. This is a fixed-step render sequence, not a real-time/FPS or Pixel measurement. The walk-to-friend gap is retained in timestamps.</p><button id='play'>Play / pause</button><p id='time'></p><img id='frame'><script>const data=").Append(JsonUtility.ToJson(proof.sequence)).Append(";let i=0,playing=true;document.querySelector('#play').onclick=()=>playing=!playing;function tick(){const f=data.frames[i];const image=document.querySelector('#frame');image.onerror=()=>{image.onerror=null;image.src=f.image.file.split('/').pop()};image.src=f.image.file;document.querySelector('#time').textContent=f.index+' / '+f.mode+' / '+f.elapsed_seconds.toFixed(3)+' simulated seconds';setTimeout(()=>{if(playing)i=(i+1)%data.frames.length;tick()},100)}tick()</script>");
             File.WriteAllText(Path.Combine(output,"north-noah-before-after.html"),html.ToString());
         }
         [Serializable] private sealed class GrowthDistrictProof

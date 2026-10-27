@@ -1,0 +1,39 @@
+{
+  "scope": "isolated-capture-scene-setup-only",
+  "base_revision": "feb330d6a5bb3e0558afb2f249ab21552d15c06f",
+  "render_digest": "1cc54e06e095cf20a237b6ebd08272ef19d4e1fbd0a3d7eb4f9b4c1748e561b8",
+  "historical_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "actual_received_playmode": {
+    "source": "feb330d6a5bb3e0558afb2f249ab21552d15c06f",
+    "total": 234,
+    "passed": 233,
+    "failed": 1,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "runtime_changed": false,
+  "frozen_files_verified": 502,
+  "api_compilation": {
+    "assemblies": 6,
+    "warnings": 0,
+    "errors": 0
+  },
+  "focused_evidence_parser_tdd": {
+    "red_observed": true,
+    "green_observed": true,
+    "synthetic_metadata_only": true
+  },
+  "review": {
+    "critical": 0,
+    "important": 0
+  },
+  "native_fixed_pass_verified": false,
+  "new_apk_generated": false,
+  "pixel_verified": false,
+  "powershell": {
+    "scripts": 17,
+    "passed": 17,
+    "failed": 0
+  },
+  "full_native_rerun_required": true
+}

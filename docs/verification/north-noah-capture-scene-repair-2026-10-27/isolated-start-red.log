@@ -1,0 +1,7 @@
+North/Noah native evidence metadata validated; visual/Pixel review and adoption pending.
+North/Noah native evidence metadata validated; visual/Pixel review and adoption pending.
+Exception: /workspace/mofumachi-merge/scripts/tests/north-noah-evidence.tests.ps1:4
+Line |
+   4 |  … ;if(-not $Rejected){throw 'Expected north/Noah evidence rejection.'}}
+     |                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Expected north/Noah evidence rejection.

@@ -64,6 +64,8 @@ function Assert-NorthNoahEvidence([string]$Directory,[string]$ExpectedRevision='
     }
     $Sequence=$Record.sequence
     if($Sequence.kind -ne 'native-fixed-step-town-AdvanceFrame' -or [Math]::Abs((Number $Sequence.step_seconds)-(1.0/30)) -gt .000001 -or $Sequence.sample_step_count -ne 3 -or $Sequence.source_width -ne 720 -or $Sequence.source_height -ne 1280){throw 'Sequence must label its actual fixed-step mode.'}
+    if($Sequence.setup -ne 'fresh-isolated-Home-scene-after-completed-route-proof'){throw 'Actor evidence must start in a separate fresh fixture episode after the completed route proof.'}
+    Flags $Sequence @('isolated_start_verified') $true
     Flags $Sequence @('manual_advance','state_unchanged','store_writes_unchanged') $true
     Flags $Sequence @('actual_conversation_verified') $true
     if($Sequence.conversation_mode -ne 'mutual-noah-momo-greeting' -or $Sequence.greet_trigger -ne 'public TryBeginConversation or normal AdvanceFrame auto; verified Noah/Momo greeting'){throw 'Ambient speech is not Noah/Momo mutual-greeting evidence.'}

@@ -1,0 +1,127 @@
+{
+  "scripts": 17,
+  "passed": 17,
+  "failed": 0,
+  "results": [
+    {
+      "script": "scripts/tests/android-tools.tests.ps1",
+      "sha256": "fb498a8c4d30884e658d0b7d7e7cfdd1e65bd9322c000ed6bf60742720adbf25",
+      "exit_code": 0,
+      "seconds": 11.56,
+      "log": "android-tools.tests.log"
+    },
+    {
+      "script": "scripts/tests/approved-design.tests.ps1",
+      "sha256": "107d438492aa8b73bbaef568ad2917493a7a97edadedf25352d49cc709273663",
+      "exit_code": 0,
+      "seconds": 21.863,
+      "log": "approved-design.tests.log"
+    },
+    {
+      "script": "scripts/tests/central-review.tests.ps1",
+      "sha256": "5561baf177578d9f67939ea82016d45893bea5145ed6accdd976c3c87fc32041",
+      "exit_code": 0,
+      "seconds": 0.652,
+      "log": "central-review.tests.log"
+    },
+    {
+      "script": "scripts/tests/east-review.tests.ps1",
+      "sha256": "620417529541f1bf517ec9e50de94def64f4d3b6e3228cb30873f3a70453ac36",
+      "exit_code": 0,
+      "seconds": 1.852,
+      "log": "east-review.tests.log"
+    },
+    {
+      "script": "scripts/tests/five-area-packaging.tests.ps1",
+      "sha256": "2f3ba6f049a19c4bb0320bfa4188b6d348f96c495b4ac3a33524c9048b00c942",
+      "exit_code": 0,
+      "seconds": 42.22,
+      "log": "five-area-packaging.tests.log"
+    },
+    {
+      "script": "scripts/tests/five-area-review.tests.ps1",
+      "sha256": "6110e5ecd3591f69e73bada07c3441095e89cfd14b10e607e498383886f86a2c",
+      "exit_code": 0,
+      "seconds": 180.344,
+      "log": "five-area-review.tests.log"
+    },
+    {
+      "script": "scripts/tests/fountain-live.tests.ps1",
+      "sha256": "00d3b8c12f1dd1b1134870205e027bd42890e2de0b8235e678b7c9b73c3e70d1",
+      "exit_code": 0,
+      "seconds": 1.436,
+      "log": "fountain-live.tests.log"
+    },
+    {
+      "script": "scripts/tests/north-noah-evidence.tests.ps1",
+      "sha256": "4b9035c4776081ea08924372bd59f359b562ad901ab26b043bf1fe59b84d9b50",
+      "exit_code": 0,
+      "seconds": 3.905,
+      "log": "north-noah-evidence.tests.log"
+    },
+    {
+      "script": "scripts/tests/north-noah-lock.tests.ps1",
+      "sha256": "60026a9fa462c8d218e93bf4a71d45ab3142c6571a18ac637506ca077086848f",
+      "exit_code": 0,
+      "seconds": 78.386,
+      "log": "north-noah-lock.tests.log"
+    },
+    {
+      "script": "scripts/tests/north-review.tests.ps1",
+      "sha256": "1596c320d86b77a23ed54b9db2a3f945d18f9b029d96211b8dc86c87c969bb41",
+      "exit_code": 0,
+      "seconds": 2.028,
+      "log": "north-review.tests.log"
+    },
+    {
+      "script": "scripts/tests/pixel-visual-check.tests.ps1",
+      "sha256": "3a389ac5df90497828577919167fa2cd62386e52e81e0ebbb9fd2f6aa493131d",
+      "exit_code": 0,
+      "seconds": 0.616,
+      "log": "pixel-visual-check.tests.log"
+    },
+    {
+      "script": "scripts/tests/south-review.tests.ps1",
+      "sha256": "75a063b4f31ba3797a3c11b233766966e6bc497582a455670898200cdf1a7298",
+      "exit_code": 0,
+      "seconds": 25.795,
+      "log": "south-review.tests.log"
+    },
+    {
+      "script": "scripts/tests/stage1-camera-lock.tests.ps1",
+      "sha256": "dc70db47c17857551270ea6e30994c972cf3fe4db531edde7e3489bddf671992",
+      "exit_code": 0,
+      "seconds": 20.736,
+      "log": "stage1-camera-lock.tests.log"
+    },
+    {
+      "script": "scripts/tests/town-boundary-lock.tests.ps1",
+      "sha256": "23cf8f08245e3d2718cf2455a7c28953bc80f212a58f2d2480305b3886d7e7e5",
+      "exit_code": 0,
+      "seconds": 18.391,
+      "log": "town-boundary-lock.tests.log"
+    },
+    {
+      "script": "scripts/tests/visual-lock.tests.ps1",
+      "sha256": "c8109b1d2fd6f54d82a4b4d1da9e25a7afcff252c4692f6f163a289f57ece7e7",
+      "exit_code": 0,
+      "seconds": 1.375,
+      "log": "visual-lock.tests.log"
+    },
+    {
+      "script": "scripts/tests/west-review.tests.ps1",
+      "sha256": "a4ab946629eeff9a49d65c1ce1c75f83bbc9f5cdfa5bf98d0fe75234b94b6dfd",
+      "exit_code": 0,
+      "seconds": 1.381,
+      "log": "west-review.tests.log"
+    },
+    {
+      "script": "scripts/tests/windows-json-encoding.tests.ps1",
+      "sha256": "903747fb0f608aa59a67cb0b9dfee53518f988e40f1b6fff160fe9f6eaa3f8c8",
+      "exit_code": 0,
+      "seconds": 32.149,
+      "log": "windows-json-encoding.tests.log"
+    }
+  ],
+  "kind": "PowerShell parser/mock/lock fixtures; no Unity or Pixel execution"
+}

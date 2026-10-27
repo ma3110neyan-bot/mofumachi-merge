@@ -1,6 +1,8 @@
 # 中央→北の接続／ノア1名2.5D試作 — 2026-10-27
 
-最新のrun214011は実PlayMode233/234、比較撮影1件の階層探索エラー。撮影テストだけを修正した再確認手順は [撮影修正記録](north-noah-capture-repair-2026-10-27.md)。修正後の実Unity／APK／Pixelは未確認。
+最新run220456は前回の階層修正を通過し、ノア撮影の初期位置引継ぎで停止。撮影用シーンの修正記録は [こちら](north-noah-capture-scene-repair-2026-10-27.md)。修正版の実Unity全件／APK／Pixelは未確認。
+
+前回run214011は実PlayMode233/234、比較撮影1件の階層探索エラー。撮影テストだけを修正した再確認手順は [撮影修正記録](north-noah-capture-repair-2026-10-27.md)。修正後の実Unity／APK／Pixelは未確認。
 
 ## 今回の範囲と状態
 

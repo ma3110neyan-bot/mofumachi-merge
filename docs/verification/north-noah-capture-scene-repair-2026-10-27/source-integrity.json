@@ -1,0 +1,12 @@
+{
+  "base_revision": "feb330d6a5bb3e0558afb2f249ab21552d15c06f",
+  "runtime_changes": [],
+  "frozen_product_files": 502,
+  "frozen_product_matches": true,
+  "api_assemblies": 6,
+  "api_warnings": 0,
+  "api_errors": 0,
+  "native_repair_pass_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false
+}

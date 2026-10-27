@@ -32,11 +32,15 @@ try {
     }
     $Record=@{historical_native_before=$Historical;kind='same-state-native-north-noah-comparison';source_revision=('a'*40);product_fingerprint=('b'*64);before='reconstructed causal baseline: north join disabled / Noah legacy at the same instant';after='current product code';native_unity=$true;pixel_verified=$false;adopted=$false;north_world_bounds=@{x_min=-.6;x_max=.6;y_min=1;y_max=1.32};north_pairs=$North;noah_pairs=$Noah;routes=$Routes;navigation_changed=$false;teleport_rescue=$false;sequence=@{kind='native-fixed-step-town-AdvanceFrame';manual_advance=$true;step_seconds=(1.0/30);sample_step_count=3;source_width=720;source_height=1280;crop_x=100;crop_y=400;crop_width=320;crop_height=240;state_unchanged=$true;store_writes_unchanged=$true;frames=$Frames}}
     function Save {$Record | ConvertTo-Json -Depth 12 | Set-Content -LiteralPath (Join-Path $Temporary 'north-noah-comparison.json') -Encoding UTF8}
+    $Record.sequence.setup='fresh-isolated-Home-scene-after-completed-route-proof';$Record.sequence.isolated_start_verified=$true
     $Record.sequence.actual_conversation_verified=$true;$Record.sequence.conversation_mode='mutual-noah-momo-greeting';$Record.sequence.greet_trigger='public TryBeginConversation or normal AdvanceFrame auto; verified Noah/Momo greeting'
     $Record.sequence.conversation_speaker_id='noah';$Record.sequence.conversation_partner_id='momo';$Record.sequence.conversation_text=[regex]::Unescape('\u3053\u3093\u306b\u3061\u306f\u3001\u30e2\u30e2\u266a')
     $Record.sequence.noah_reaction_seconds=.65;$Record.sequence.momo_reaction_seconds=.65;$Record.sequence.noah_facing=1;$Record.sequence.momo_facing=-1
     Set-Content -LiteralPath (Join-Path $Temporary 'north-noah-before-after.html') '<!doctype html><title>Synthetic metadata fixture</title>'
     Save;Assert-NorthNoahEvidence $Temporary ('a'*40) ('b'*64)
+    $Record.sequence.isolated_start_verified=$false;Save;Reject {Assert-NorthNoahEvidence $Temporary};$Record.sequence.isolated_start_verified=$true
+    $Record.sequence.Remove('isolated_start_verified');Save;Reject {Assert-NorthNoahEvidence $Temporary};$Record.sequence.isolated_start_verified=$true
+    $Record.sequence.setup='reused-route-snapshot';Save;Reject {Assert-NorthNoahEvidence $Temporary};$Record.sequence.setup='fresh-isolated-Home-scene-after-completed-route-proof'
     Reject {Assert-NorthNoahEvidence $Temporary ('c'*40) ('b'*64)}
     Reject {Assert-NorthNoahEvidence $Temporary ('a'*40) ('d'*64)}
     $Record.sequence.actual_conversation_verified=$false;Save;Reject {Assert-NorthNoahEvidence $Temporary};$Record.sequence.actual_conversation_verified=$true

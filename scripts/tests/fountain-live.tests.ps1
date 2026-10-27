@@ -12,10 +12,11 @@ try {
         $File=('35-fountain-live-crop-{0:D3}.png' -f $n);$Path=Join-Path $Live $File;[IO.File]::WriteAllBytes($Path,$Bytes)
         @{file=$File;bytes=$Bytes.Length;width=128;height=200;sha256=(Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant();realtime_seconds=$At;clock_seconds=$Clock;phase=$At%10;stage=$Stage}
     })
-    $Record=@{kind='native-realtime-update-sequence';seconds=60;first_show_seconds=39;cycle_seconds=45;sample_period_seconds=.25;manual_advance=$false;pixel_verified=$false;adopted=$false;state_unchanged=$true;source_width=720;source_height=1280;crop_x=260;crop_y=620;crop_width=128;crop_height=200;normal_mesh_changes=90;show_mesh_changes=10;frames=$Frames}
+    $Record=@{kind='native-realtime-update-sequence';town_level=0;seconds=60;first_show_seconds=39;cycle_seconds=45;sample_period_seconds=.25;manual_advance=$false;pixel_verified=$false;adopted=$false;state_unchanged=$true;source_width=720;source_height=1280;crop_x=260;crop_y=620;crop_width=128;crop_height=200;normal_mesh_changes=90;show_mesh_changes=10;frames=$Frames}
     $Meta=Join-Path $Live 'fountain-live.json';function Save {$Record | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $Meta -Encoding UTF8}
     Save;Set-Content -LiteralPath (Join-Path $Live 'fountain-live.html') '<!doctype html><title>Metadata fixture</title>'
     Assert-FountainLiveSequence $Temporary
+    $Record.town_level=6;Save;Reject {Assert-FountainLiveSequence $Temporary};$Record.town_level=0;Save
     foreach($Key in @('manual_advance','pixel_verified','adopted')){$Record[$Key]=$true;Save;Reject {Assert-FountainLiveSequence $Temporary};$Record[$Key]=$false}
     $Record.first_show_seconds=61;Save;Reject {Assert-FountainLiveSequence $Temporary};$Record.first_show_seconds=39
     $Record.seconds=59;Save;Reject {Assert-FountainLiveSequence $Temporary};$Record.seconds=60

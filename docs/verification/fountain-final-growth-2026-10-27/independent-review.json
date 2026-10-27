@@ -1,0 +1,18 @@
+{
+  "kind": "read-only independent final code review",
+  "reviewer": "fountain_final_growth_review_oct27",
+  "critical": 0,
+  "important": 0,
+  "minor": 1,
+  "ready_for_windows_all_tests_qa": true,
+  "merge_or_adoption_approved": false,
+  "minor_deferred": "Native reward_replay_rejected attempts delivery with cleared active quest, not acceptance/replay of original completed quest. Original completed-quest replay is separately covered by the Core audit; Native/Pixel check not established.",
+  "declined": [
+    "actual Unity coroutine/render/projection and219captures",
+    "Windows PowerShell5.1 execution",
+    "Android installation/backup restoration",
+    "Pixel visibility/performance/temperature",
+    "visual/user acceptance",
+    "OFF/ON controls isolate the whole added layer, not same-instant old-vs-final water improvement"
+  ]
+}

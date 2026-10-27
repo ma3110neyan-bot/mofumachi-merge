@@ -1,0 +1,62 @@
+[
+  {
+    "file": "scripts/tests/android-tools.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "file": "scripts/tests/approved-design.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "file": "scripts/tests/central-review.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "file": "scripts/tests/east-review.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "file": "scripts/tests/five-area-packaging.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "file": "scripts/tests/five-area-review.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "file": "scripts/tests/fountain-live.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "file": "scripts/tests/north-review.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "file": "scripts/tests/pixel-visual-check.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "file": "scripts/tests/south-review.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "file": "scripts/tests/stage1-camera-lock.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "file": "scripts/tests/town-boundary-lock.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "file": "scripts/tests/visual-lock.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "file": "scripts/tests/west-review.tests.ps1",
+    "exit_code": 0
+  },
+  {
+    "file": "scripts/tests/windows-json-encoding.tests.ps1",
+    "exit_code": 0
+  }
+]

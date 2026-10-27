@@ -1,5 +1,15 @@
 # もふまちメルジュ：今後の開発方針
 
+**2026-10-27：噴水最終Pass＋全Lvの実進行検証を実装、Windows全件QAへ引渡し準備。** 製品変更はTownFountainWaterLayout1ファイルのみ。通常水の白い落下する芯を長く／太く、青い水の通り道・しぶき・波紋・反射を明確化。showは連続する青い弧を残し白い水が弧に沿って移動する。196quad／784追加頂点・QA45秒／show6秒／release180秒、親のY深度・1.14倍・街全5地区・歩行・BGM／図鑑／Merge／Core・依頼／報酬／Saveは無変更。実機性能・見た目を合格扱いしない。
+
+**新Nativeは全6遷移×5地区の成長比較＋再読込の60枚、全景計219枚を要求。** 導入0→1→2→3→4→5→6を本物の生成／合成／受注／納品／報酬で確認し、全GameState（保存時刻以外）と各地区の実オブジェクトを再読込照合。画面に隣地区が入っても自地区の変更／不変を判別する。中央Lv4/5・北南Lv1/2は不変。Lv4/5欠落・材料／Coins違い・画像欠落はgateで拒否。実Update60秒の噴水も直接Lv6を設定せず初期Lv0で実行する。元の354／固定景観／旧candidateは変えず、新scope fountain-final-candidate-2026-10-27と実98596daf/192546のBefore3枚へbind。
+
+**Source検証：CPU353/353＋Core125/125、噴水RED2→GREEN18、API6組0警告エラー。** VSTestのloopback通信制限／再許可待ちを避け、通信を一切使わない同じNUnit3 frameworkのin-process runnerで実行した。Unity実描画には数えない。PS全15/15成功（PowerShell7、Windows5.1実行は次のQAで確認）。独立最終レビューCritical0／Important0／Minor1（Nativeのreward_replay_rejectedは再読込後の空activeでDeliver拒否を確認し、元依頼の再受注は試していない。Core監査では別途確認済み、Pixelで元依頼の再受注／報酬も別確認）。新Unity／APK／Pixelは未実行。原本と状態はdocs/verification/fountain-final-growth-2026-10-27/。
+
+**Pixel初回化は既存install-pixel3a.ps1の明示-FreshTownQaのみ。** townlifeの正確なID／serial99RAY1BELH／Pixel3a／新APK SHA確認前に削除しない。対象街QAだけuninstall→install（-rなし）→復元されたQAデータのみpm clear→起動。defaultは従来install-rで削除なし、製品・成長QA・他端末Freshは拒否。これはmockで確認しただけで、実機削除は未実行。新しいWindows全件のXML／219画像／同sourceのAPK・SHAを確認後にのみ初回インストールへ。
+
+手順docs/fountain-final-growth-review-2026-10-27.md。現在のfeatureを維持し、main／PR／2.5D／Merge／新機能／進行バランス変更へ進まない。まずWindowsの最新をPull→既存-TownQaを一度→新runのfive-plaza-review全ZIP。成功前にQAを先に削除しない。旧192546成功・既存APKは新版へ流用不可。チャット画像なし。以下は履歴。
+
 **2026-10-26最新ユーザー：10月27日は「噴水最終Pass＋初回からの街Lv実進行」だけ。** 2.5D／Merge／新機能／mainは停止。噴水は通常の明確な流水・しぶき・波紋・きらめき、QA30〜60秒内show5〜8秒・自然復帰・顔と前後・Pixel負荷を最終確認。旧噴水成功を新しい最終Passへ流用しない。12頁PDFは `References/Review/fountain-growth-device-2026-10-26/`、街Lv6／330Coins／ノアと通常・高い噴流を観察したが、動画／FPS／熱／10分／初回進行／プロセス再起動の証明ではない。
 
 **今回に限り、現在の街QAをアンインストールして新規インストールする明示指示が、以前の保存維持install-r方針を上書きする。** 対象はPixel99RAY1BELHの `com.mofumachi.merge.qa.townlife` だけ。最終APKのSHA／packageを照合してから実行。製品／成長確認ID／他アプリは削除しない。自動復元で旧Lv6が戻れば初回成功としない。同じ許可を再質問しない。今はUSB接続なしで削除・インストール未実行。

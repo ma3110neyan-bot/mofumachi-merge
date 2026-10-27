@@ -119,17 +119,28 @@ try {
     $Field.teleport_rescue=$false;$Field.pixel_verified=$true;$Field | ConvertTo-Json | Set-Content -LiteralPath $FieldMeta;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireField}
     $Field.pixel_verified=$false;$Field | ConvertTo-Json | Set-Content -LiteralPath $FieldMeta
     Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth}
-    $GrowthFiles=@(foreach($Pair in @(@(1,2),@(2,3),@(5,6))){"32-growth-$($Pair[0])-to-$($Pair[1]).png";"32-growth-$($Pair[1])-reloaded.png"})
+    $GrowthFiles=@(foreach($Level in 0..5){foreach($District in @('Central','West','East','North','South')){"32-growth-$Level-to-$($Level+1)-$District.png";"32-growth-$($Level+1)-$District-reloaded.png"}})
     foreach($Name in $GrowthFiles){[IO.File]::WriteAllBytes((Join-Path $CaptureDir $Name),$Header)}
     $GrowthMeta=Join-Path $CaptureDir 'town-growth-progression.json'
-    $Growth=@{kind='isolated-real-delivery-growth-and-reload';pixel_verified=$false;adopted=$false;transitions=@(@{from=1;to=2;coins=70;districts_checked=5;reload_matched=$true},@{from=2;to=3;coins=110;districts_checked=5;reload_matched=$true},@{from=5;to=6;coins=330;districts_checked=5;reload_matched=$true})}
-    $Growth | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $GrowthMeta
+    $GrowthCoins=@(30,70,110,180,250,330)
+    $GrowthQuests=@('tea-01','bread-01','flower-01','tea-02','flower-02','bread-02')
+    $GrowthNeeds=@(@('tea:2:1'),@('bread:2:1'),@('flower:2:1'),@('tea:3:1','bread:2:1'),@('flower:3:1','tea:2:1'),@('bread:3:1','flower:2:1'))
+    $Growth=@{kind='isolated-real-delivery-growth-and-reload';initial_level=0;initial_coins=0;direct_level_assignment=$false;pixel_verified=$false;adopted=$false;transitions=@(foreach($Level in 0..5){@{from=$Level;to=($Level+1);coins=$GrowthCoins[$Level];quest_id=$GrowthQuests[$Level];requirements=$GrowthNeeds[$Level];completed_quests=($Level+1);districts_checked=5;reload_matched=$true;reward_replay_rejected=$true;districts=@(foreach($District in @('Central','West','East','North','South')){@{id=$District;changed=(-not(($Level -le 1 -and $District -in @('North','South')) -or ($Level -in @(3,4) -and $District -eq 'Central')));reload_matched=$true}})}})}
+    function SaveGrowth {$Growth | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $GrowthMeta -Encoding UTF8}
+    SaveGrowth
     Assert-NativeCaptures $CaptureDir -RequireBoundary -RequireField -RequireGrowth
     foreach($Name in $GrowthFiles){$Path=Join-Path $CaptureDir $Name;Remove-Item -LiteralPath $Path;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth};[IO.File]::WriteAllBytes($Path,$Header)}
-    $Growth.transitions[0].coins=999;$Growth | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $GrowthMeta;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth}
-    $Growth.transitions[0].coins=70;$Growth.transitions[1].reload_matched=$false;$Growth | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $GrowthMeta;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth}
-    $Growth.transitions[1].reload_matched=$true;$Growth.pixel_verified=$true;$Growth | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $GrowthMeta;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth}
-    $Growth.pixel_verified=$false;$Growth | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $GrowthMeta
+    $AllTransitions=$Growth.transitions
+    foreach($Level in 0..5){$Growth.transitions=@($AllTransitions | Where-Object {$_.from -ne $Level});SaveGrowth;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth}}
+    $Growth.transitions=$AllTransitions
+    $Growth.transitions[3].coins=999;SaveGrowth;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth};$Growth.transitions[3].coins=180
+    $Growth.transitions[4].reload_matched=$false;SaveGrowth;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth};$Growth.transitions[4].reload_matched=$true
+    $Growth.transitions[3].districts[0].changed=$true;SaveGrowth;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth};$Growth.transitions[3].districts[0].changed=$false
+    $Growth.transitions[4].districts[3].reload_matched=$false;SaveGrowth;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth};$Growth.transitions[4].districts[3].reload_matched=$true
+    $Growth.transitions[3].requirements=@('tea:1:1');SaveGrowth;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth};$Growth.transitions[3].requirements=$GrowthNeeds[3]
+    $Growth.transitions[4].reward_replay_rejected=$false;SaveGrowth;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth};$Growth.transitions[4].reward_replay_rejected=$true
+    $Growth.direct_level_assignment=$true;SaveGrowth;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth};$Growth.direct_level_assignment=$false
+    $Growth.pixel_verified=$true;SaveGrowth;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireGrowth};$Growth.pixel_verified=$false;SaveGrowth
     Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain}
     $FountainFiles=@(foreach($View in @('overview','front','behind')){foreach($Phase in @('before','after')){"33-fountain-$View-$Phase.png"}})+@(0..3 | ForEach-Object {'33-fountain-phase-'+$_.ToString('00')+'.png'})
     foreach($Name in $FountainFiles){[IO.File]::WriteAllBytes((Join-Path $CaptureDir $Name),$Header)}
@@ -149,7 +160,7 @@ try {
     Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountain -RequireFountainShow}
     $ShowFiles=@('34-fountain-overview-prelude.png','34-fountain-overview-show.png','34-fountain-front-show.png','34-fountain-behind-show.png','34-fountain-overview-recovered.png','34-fountain-overview-show-off.png','34-fountain-front-show-off.png','34-fountain-behind-show-off.png')
     foreach($Name in $ShowFiles){[IO.File]::WriteAllBytes((Join-Path $CaptureDir $Name),$Header)}
-    $Baseline=Get-Content -LiteralPath (Join-Path $PSScriptRoot '../../References/VisualLock/fountain-motion-current-before-2026-10-26.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    $Baseline=Get-Content -LiteralPath (Join-Path $PSScriptRoot '../../References/VisualLock/fountain-final-current-before-2026-10-27.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     $BeforeDir=Join-Path $CaptureDir 'fountain-before';New-Item -ItemType Directory -Path $BeforeDir | Out-Null
     foreach($Image in $Baseline.images){Copy-Item -LiteralPath (Join-Path $PSScriptRoot ('../../'+$Image.path)) -Destination (Join-Path $BeforeDir $Image.file)}
     $Show=@{kind='prior-native-before-normal-and-timed-show';display_scale=1.14;cycle_seconds=45;release_cycle_seconds=180;prelude_seconds=2;show_seconds=6;recovery_seconds=1;show_elapsed=41;jet_evidence='same-instant-added-layer-off-on-above-normal-uv084';show_pairs=@(foreach($View in @('overview','front','behind')){@{view=$View;changed_pixels=400;show_jet_pixels=80;outside_fountain_pixels=0;clock_unchanged=$true;original_water_phase_unchanged=$true;state_unchanged=$true}});before=$Baseline;pixel_verified=$false;adopted=$false}
@@ -163,15 +174,19 @@ try {
         $File=('35-fountain-live-crop-{0:D3}.png' -f $n);$Path=Join-Path $LiveDir $File;$Bytes=$Header+[byte]$n;[IO.File]::WriteAllBytes($Path,$Bytes)
         @{file=$File;bytes=$Bytes.Length;width=720;height=1280;sha256=(Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant();realtime_seconds=$At;clock_seconds=$Clock;phase=$At%10;stage=$LiveStage}
     })
-    @{kind='native-realtime-update-sequence';seconds=60;first_show_seconds=39;cycle_seconds=45;sample_period_seconds=.25;manual_advance=$false;pixel_verified=$false;adopted=$false;state_unchanged=$true;source_width=720;source_height=1280;crop_x=0;crop_y=0;crop_width=720;crop_height=1280;normal_mesh_changes=90;show_mesh_changes=10;frames=$LiveFrames} | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $LiveDir 'fountain-live.json') -Encoding UTF8
+    @{kind='native-realtime-update-sequence';town_level=0;seconds=60;first_show_seconds=39;cycle_seconds=45;sample_period_seconds=.25;manual_advance=$false;pixel_verified=$false;adopted=$false;state_unchanged=$true;source_width=720;source_height=1280;crop_x=0;crop_y=0;crop_width=720;crop_height=1280;normal_mesh_changes=90;show_mesh_changes=10;frames=$LiveFrames} | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $LiveDir 'fountain-live.json') -Encoding UTF8
     Set-Content -LiteralPath (Join-Path $LiveDir 'fountain-live.html') '<!doctype html><title>Metadata fixture</title>'
     Assert-NativeCaptures $CaptureDir -RequireFountain -RequireFountainShow
+    $LiveMetadata=Join-Path $LiveDir 'fountain-live.json';$LiveData=Get-Content -LiteralPath $LiveMetadata -Raw -Encoding UTF8 | ConvertFrom-Json
+    $LiveData.town_level=6;$LiveData | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $LiveMetadata -Encoding UTF8
+    Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow}
+    $LiveData.town_level=0;$LiveData | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $LiveMetadata -Encoding UTF8
     foreach($Name in $ShowFiles){$Path=Join-Path $CaptureDir $Name;Remove-Item -LiteralPath $Path;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};[IO.File]::WriteAllBytes($Path,$Header)}
     $Show.show_pairs[0].show_jet_pixels=0;SaveShow;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};$Show.show_pairs[0].show_jet_pixels=80
     $Show.show_pairs[0].outside_fountain_pixels=1;SaveShow;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};$Show.show_pairs[0].outside_fountain_pixels=0
     $Show.show_seconds=60;SaveShow;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};$Show.show_seconds=6
     $Show.show_pairs[1].changed_pixels=1;SaveShow;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};$Show.show_pairs[1].changed_pixels=400
-    $Show.before.source_revision='0'*40;SaveShow;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};$Show.before.source_revision='5edfa5db37f1386b811713b43c4833b4cea451ab'
+    $Show.before.source_revision='0'*40;SaveShow;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};$Show.before.source_revision='98596daf798bcea54d39f6a41b58a565070e1370'
     $Show.adopted=$true;SaveShow;Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};$Show.adopted=$false;SaveShow
     $BeforeFile=Join-Path $BeforeDir $Baseline.images[0].file;$BeforeBytes=[IO.File]::ReadAllBytes($BeforeFile)
     [IO.File]::WriteAllBytes($BeforeFile,$Header);Expect-Rejection {Assert-NativeCaptures $CaptureDir -RequireFountainShow};[IO.File]::WriteAllBytes($BeforeFile,$BeforeBytes)
@@ -280,14 +295,18 @@ exit $Code
     if((Select-AuthorizedDevice "Pixel`tdevice`nOther`tdevice" 'Pixel') -ne 'Pixel'){throw 'Wrong serial'}
     $Apk=Join-Path $Temporary 'test app.apk';$Adb=Join-Path $Temporary 'adb.exe';$Aapt=Join-Path $Temporary 'aapt2.exe'
     foreach($Path in @($Apk,$Adb,$Aapt)){Set-Content -LiteralPath $Path 'fixture'}
-    $script:Calls=@();$script:Wrong=$false;$script:FailInstall=$false;$script:FixtureId='com.mofumachi.merge'
+    $script:Calls=@();$script:Wrong=$false;$script:FailInstall=$false;$script:FixtureId='com.mofumachi.merge';$script:FixtureSerial='Pixel';$script:BadModel=$false;$script:FailUninstall=$false
     function Invoke-CheckedNative([string]$Executable,[string[]]$NativeArguments){
         $script:Calls+=,@($NativeArguments)
         if($Executable -eq $Aapt){$Id=$script:FixtureId;if($script:Wrong){$Id='wrong.app'};return "package: name='$Id' versionCode='1'`nnative-code: 'arm64-v8a'"}
-        if($NativeArguments[0] -eq 'devices'){return "List of devices attached`nPixel`tdevice"}
-        if($NativeArguments[0] -ne '-s' -or $NativeArguments[1] -ne 'Pixel'){throw 'ADB device command must specify exact serial.'}
+        if($NativeArguments[0] -eq 'devices'){return "List of devices attached`n$($script:FixtureSerial)`tdevice"}
+        if($NativeArguments[0] -ne '-s' -or $NativeArguments[1] -ne $script:FixtureSerial){throw 'ADB device command must specify exact serial.'}
         if($NativeArguments -contains 'ro.build.version.sdk'){return '31'}
         if($NativeArguments -contains 'ro.product.cpu.abilist'){return 'arm64-v8a,armeabi-v7a'}
+        if($NativeArguments -contains 'ro.product.model'){if($script:BadModel){return 'Other phone'};return 'Pixel 3a'}
+        if($NativeArguments -contains 'packages'){return "package:$($script:FixtureId)"}
+        if($NativeArguments -contains 'uninstall'){if($script:FailUninstall){return 'Failure [DELETE_FAILED_INTERNAL_ERROR]'};return 'Success'}
+        if($NativeArguments -contains 'clear'){return 'Success'}
         if($NativeArguments -contains 'install'){if($script:FailInstall){return 'Failure [INSTALL_FAILED_UPDATE_INCOMPATIBLE]'};if($NativeArguments[-1] -ne $Apk){throw 'Space in APK path lost'};return 'Success'}
         return 'Events injected: 1'
     }
@@ -305,5 +324,23 @@ exit $Code
     $script:Wrong=$true;Expect-Rejection {Invoke-PixelInstall $Apk $Adb '' 'com.mofumachi.merge' $Aapt};$script:Wrong=$false
     $script:FailInstall=$true;Expect-Rejection {Invoke-PixelInstall $Apk $Adb '' 'com.mofumachi.merge' $Aapt}
     if(@($script:Calls | Where-Object {$_ -contains 'uninstall' -or $_ -contains 'clear'}).Count -gt 0){throw 'Destructive data command'}
+    # Explicit fresh testing is authorized only for this exact QA app/device.
+    $script:FailInstall=$false;$script:FixtureId='com.mofumachi.merge.qa.townlife';$script:FixtureSerial='99RAY1BELH';$script:Calls=@()
+    $ApkHash=(Get-FileHash -LiteralPath $Apk -Algorithm SHA256).Hash
+    Invoke-PixelInstall $Apk $Adb $script:FixtureSerial $script:FixtureId $Aapt -FreshTownQa -ExpectedSha256 $ApkHash
+    if(@($script:Calls | Where-Object {$_ -contains 'uninstall'}).Count -ne 1 -or @($script:Calls | Where-Object {$_ -contains 'install' -and $_ -notcontains '-r'}).Count -ne 1 -or @($script:Calls | Where-Object {$_ -contains 'clear' -and $_ -contains 'com.mofumachi.merge.qa.townlife'}).Count -ne 1){throw 'Fresh QA must uninstall/install without -r/clear restored QA data, in that order.'}
+    $Mutations=@($script:Calls | Where-Object {$_ -contains 'uninstall' -or $_ -contains 'install' -or $_ -contains 'clear'})
+    if($Mutations[0] -notcontains 'uninstall' -or $Mutations[1] -notcontains 'install' -or $Mutations[2] -notcontains 'clear'){throw 'Fresh reset command order is unsafe.'}
+    foreach($Id in @('com.mofumachi.merge','com.mofumachi.merge.qa','com.mofumachi.merge.qa.growthcheck')){
+        $script:FixtureId=$Id;$script:Calls=@();Expect-Rejection {Invoke-PixelInstall $Apk $Adb $script:FixtureSerial $Id $Aapt -FreshTownQa -ExpectedSha256 $ApkHash}
+        if(@($script:Calls | Where-Object {$_ -contains 'uninstall' -or $_ -contains 'clear' -or $_ -contains 'install'}).Count){throw 'Fresh mode touched a different package.'}
+    }
+    $script:FixtureId='com.mofumachi.merge.qa.townlife';$script:Calls=@()
+    Expect-Rejection {Invoke-PixelInstall $Apk $Adb $script:FixtureSerial $script:FixtureId $Aapt -FreshTownQa -ExpectedSha256 ('0'*64)}
+    Expect-Rejection {Invoke-PixelInstall $Apk $Adb '' $script:FixtureId $Aapt -FreshTownQa -ExpectedSha256 $ApkHash}
+    $script:BadModel=$true;Expect-Rejection {Invoke-PixelInstall $Apk $Adb $script:FixtureSerial $script:FixtureId $Aapt -FreshTownQa -ExpectedSha256 $ApkHash};$script:BadModel=$false
+    if(@($script:Calls | Where-Object {$_ -contains 'uninstall' -or $_ -contains 'clear' -or $_ -contains 'install'}).Count){throw 'Fresh mode mutated before identity/hash/device validation.'}
+    $script:FailUninstall=$true;$script:Calls=@();Expect-Rejection {Invoke-PixelInstall $Apk $Adb $script:FixtureSerial $script:FixtureId $Aapt -FreshTownQa -ExpectedSha256 $ApkHash}
+    if(@($script:Calls | Where-Object {$_ -contains 'install' -or $_ -contains 'clear'}).Count){throw 'Failed uninstall must stop before install/reset.'}
     Write-Host 'Android script gates passed (mock commands, no device tested).'
 } finally {Remove-Item -LiteralPath $Temporary -Recurse -Force}

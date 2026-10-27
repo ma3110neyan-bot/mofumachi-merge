@@ -97,22 +97,31 @@ function Assert-NativeCaptures([string]$Directory,[switch]$RequireBoundary,[swit
         foreach($Name in @('teleport_rescue','pixel_verified','adopted')){if($Field.$Name -isnot [bool] -or $Field.$Name -ne $false){throw 'Field fixture must not use teleport rescue or claim Pixel/adoption.'}}
     }
     if($RequireGrowth) {
-        if($Images.Count -lt 144){throw 'Real delivery growth requires the existing138 and6 progression/reload captures.'}
-        foreach($Pair in @(@(1,2),@(2,3),@(5,6))) {
-            foreach($Name in @("32-growth-$($Pair[0])-to-$($Pair[1]).png","32-growth-$($Pair[1])-reloaded.png")) {
+        if($Images.Count -lt 198){throw 'All-level growth requires138 field captures plus60 actual delivery/five-district/reload captures.'}
+        foreach($Level in 0..5){foreach($District in @('Central','West','East','North','South')) {
+            foreach($Name in @("32-growth-$Level-to-$($Level+1)-$District.png","32-growth-$($Level+1)-$District-reloaded.png")) {
                 if(-not(Test-Path -LiteralPath (Join-Path $Directory $Name) -PathType Leaf)){throw "Missing actual progression capture: $Name"}
             }
-        }
+        }}
         $Growth=Get-Content -LiteralPath (Join-Path $Directory 'town-growth-progression.json') -Raw -Encoding UTF8 | ConvertFrom-Json
-        if($Growth.kind -ne 'isolated-real-delivery-growth-and-reload' -or @($Growth.transitions).Count -ne 3){throw 'Incomplete actual-delivery progression evidence.'}
-        foreach($Expected in @(@(1,2,70),@(2,3,110),@(5,6,330))) {
-            $Rows=@($Growth.transitions | Where-Object {$_.from -eq $Expected[0] -and $_.to -eq $Expected[1]})
-            if($Rows.Count -ne 1 -or $Rows[0].coins -ne $Expected[2] -or $Rows[0].districts_checked -ne 5 -or $Rows[0].reload_matched -isnot [bool] -or -not $Rows[0].reload_matched){throw 'Delivery growth/reward/five-district reload proof is incomplete.'}
+        if($Growth.kind -ne 'isolated-real-delivery-growth-and-reload' -or @($Growth.transitions).Count -ne 6 -or $Growth.initial_level -ne 0 -or $Growth.initial_coins -ne 0 -or $Growth.direct_level_assignment -isnot [bool] -or $Growth.direct_level_assignment){throw 'All six actual-delivery transitions must start from the initial town without direct level assignment.'}
+        $ExpectedCoins=@(30,70,110,180,250,330);$ExpectedQuests=@('tea-01','bread-01','flower-01','tea-02','flower-02','bread-02')
+        $ExpectedNeeds=@('tea:2:1','bread:2:1','flower:2:1','bread:2:1|tea:3:1','flower:3:1|tea:2:1','bread:3:1|flower:2:1')
+        foreach($Level in 0..5) {
+            $Rows=@($Growth.transitions | Where-Object {$_.from -eq $Level -and $_.to -eq ($Level+1)})
+            if($Rows.Count -ne 1){throw 'Missing or duplicate town level transition.'}
+            $Row=$Rows[0]
+            if($Row.coins -ne $ExpectedCoins[$Level] -or $Row.quest_id -ne $ExpectedQuests[$Level] -or $Row.completed_quests -ne ($Level+1) -or (@($Row.requirements | Sort-Object) -join '|') -ne $ExpectedNeeds[$Level] -or $Row.districts_checked -ne 5 -or $Row.reload_matched -isnot [bool] -or -not $Row.reload_matched -or $Row.reward_replay_rejected -isnot [bool] -or -not $Row.reward_replay_rejected -or @($Row.districts).Count -ne 5){throw 'Delivery requirements/reward/five-district reload proof is incomplete.'}
+            foreach($District in @('Central','West','East','North','South')) {
+                $Areas=@($Row.districts | Where-Object {$_.id -eq $District})
+                $Changed=-not(($Level -le 1 -and $District -in @('North','South')) -or ($Level -in @(3,4) -and $District -eq 'Central'))
+                if($Areas.Count -ne 1 -or $Areas[0].changed -isnot [bool] -or $Areas[0].changed -ne $Changed -or $Areas[0].reload_matched -isnot [bool] -or -not $Areas[0].reload_matched){throw 'Each district must prove its actual authored change/unchanged stage and persisted reload.'}
+            }
         }
         foreach($Name in @('pixel_verified','adopted')){if($Growth.$Name -isnot [bool] -or $Growth.$Name -ne $false){throw 'Isolated native growth cannot claim Pixel or final adoption.'}}
     }
     if($RequireFountain) {
-        if($Images.Count -lt 154){throw 'Fountain water requires the existing144 and10 paired/time-sample captures.'}
+        if($Images.Count -lt 208){throw 'Fountain water requires198 field/growth and10 paired/time-sample captures.'}
         foreach($View in @('overview','front','behind')){foreach($Phase in @('before','after')){if(-not(Test-Path -LiteralPath (Join-Path $Directory "33-fountain-$View-$Phase.png") -PathType Leaf)){throw "Missing fountain pair: $View/$Phase"}}}
         foreach($Frame in 0..3){if(-not(Test-Path -LiteralPath (Join-Path $Directory ('33-fountain-phase-'+$Frame.ToString('00')+'.png')) -PathType Leaf)){throw 'Missing fountain animation time sample.'}}
         if(-not(Test-Path -LiteralPath (Join-Path $Directory 'fountain-water-before-after.html') -PathType Leaf)){throw 'Missing fountain comparison document.'}
@@ -127,7 +136,7 @@ function Assert-NativeCaptures([string]$Directory,[switch]$RequireBoundary,[swit
         foreach($Name in @('pixel_verified','adopted')){if($Water.$Name -isnot [bool] -or $Water.$Name -ne $false){throw 'Native fountain comparison cannot claim Pixel or adoption.'}}
     }
     if($RequireFountainShow) {
-        if($Images.Count -lt 165){throw 'Timed fountain show requires165 full native captures plus real-time crops and actual prior Before originals.'}
+        if($Images.Count -lt 219){throw 'Timed fountain show requires219 full native captures plus real-time crops and actual prior Before originals.'}
         foreach($Name in @('34-fountain-overview-prelude.png','34-fountain-overview-show.png','34-fountain-front-show.png','34-fountain-behind-show.png','34-fountain-overview-show-off.png','34-fountain-front-show-off.png','34-fountain-behind-show-off.png','34-fountain-overview-recovered.png','fountain-show-before-after.html')){if(-not(Test-Path -LiteralPath (Join-Path $Directory $Name) -PathType Leaf)){throw "Missing timed fountain evidence: $Name"}}
         $Show=Get-Content -LiteralPath (Join-Path $Directory 'fountain-show-comparison.json') -Raw -Encoding UTF8 | ConvertFrom-Json
         if($Show.kind -ne 'prior-native-before-normal-and-timed-show' -or $Show.display_scale -ne 1.14 -or $Show.cycle_seconds -ne 45 -or $Show.release_cycle_seconds -ne 180 -or $Show.prelude_seconds -ne 2 -or $Show.show_seconds -ne 6 -or $Show.recovery_seconds -ne 1 -or $Show.show_elapsed -ne 41 -or $Show.jet_evidence -ne 'same-instant-added-layer-off-on-above-normal-uv084' -or @($Show.show_pairs).Count -ne 3){throw 'Timed show duration/scale or native comparison is incomplete.'}
@@ -136,8 +145,8 @@ function Assert-NativeCaptures([string]$Directory,[switch]$RequireBoundary,[swit
             if($Rows.Count -ne 1 -or $Rows[0].changed_pixels -le 300 -or $Rows[0].state_unchanged -isnot [bool] -or -not $Rows[0].state_unchanged){throw 'Show must visibly differ from normal while preserving the same gameplay state.'}
             if($Rows[0].show_jet_pixels -le 40 -or $Rows[0].outside_fountain_pixels -ne 0 -or $Rows[0].clock_unchanged -isnot [bool] -or -not $Rows[0].clock_unchanged -or $Rows[0].original_water_phase_unchanged -isnot [bool] -or -not $Rows[0].original_water_phase_unchanged){throw 'Show jets require isolated above-normal pixels with unchanged clocks and zero outside the fountain.'}
         }
-        $Before=Get-Content -LiteralPath (Join-Path $PSScriptRoot '../References/VisualLock/fountain-motion-current-before-2026-10-26.json') -Raw -Encoding UTF8 | ConvertFrom-Json
-        if($Show.before.source_revision -ne $Before.source_revision -or $Show.before.run -ne $Before.run -or @($Show.before.images).Count -ne 3){throw 'Current Before must identify the actual5edfa native run.'}
+        $Before=Get-Content -LiteralPath (Join-Path $PSScriptRoot '../References/VisualLock/fountain-final-current-before-2026-10-27.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+        if($Show.before.source_revision -ne $Before.source_revision -or $Show.before.run -ne $Before.run -or @($Show.before.images).Count -ne 3){throw 'Current Before must identify the actual98596daf native run.'}
         foreach($Image in $Before.images) {
             $Rows=@($Show.before.images | Where-Object {$_.view -eq $Image.view})
             if($Rows.Count -ne 1 -or $Rows[0].file -ne $Image.file -or $Rows[0].sha256 -ne $Image.sha256 -or $Rows[0].bytes -ne $Image.bytes){throw 'Prior Before image identity was changed.'}

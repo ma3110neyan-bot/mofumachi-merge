@@ -15,29 +15,56 @@ namespace Mofumachi.Tests
     // from an isolated fixture, never the developer's/Pixel player's saved town.
     public sealed class ExperienceCaptureTests : SliceUiTestFixture
     {
+        [Serializable] private sealed class GrowthDistrictProof
+        {public string id="";public bool changed=false,reload_matched=false;}
+        [Serializable] private sealed class GrowthTransitionProof
+        {
+            public int from,to,coins,completed_quests,generated_level_one,merges,districts_checked=5;
+            public string quest_id="";public string[] requirements=Array.Empty<string>();
+            public bool reload_matched=false,reward_replay_rejected=false;
+            public GrowthDistrictProof[] districts=Array.Empty<GrowthDistrictProof>();
+        }
+        [Serializable] private sealed class GrowthProgressionProof
+        {
+            public string kind="isolated-real-delivery-growth-and-reload";
+            public int initial_level=0,initial_coins=0;
+            public bool direct_level_assignment=false,pixel_verified=false,adopted=false;
+            public List<GrowthTransitionProof> transitions=new List<GrowthTransitionProof>();
+        }
         // Real production/delivery progression in this fixture's temporary disk
         // save. Never assigns a growth level or completion/reward collection.
         [UnityTest] public IEnumerator DeliveriesGrowFiveDistrictsAndPersistAfterSceneReload()
         {
             string output=OutputDirectory();yield return EnterHome();int totalCoins=0;
-            var proof=new System.Text.StringBuilder("{\"kind\":\"isolated-real-delivery-growth-and-reload\",\"pixel_verified\":false,\"adopted\":false,\"transitions\":[");bool first=true;
+            Assert.That(Flow.Game.State.townGrowthLevel,Is.Zero);Assert.That(Flow.Game.State.coins,Is.Zero);
+            Assert.That(Flow.Game.State.completedQuestIds,Is.Empty);
+            var proof=new GrowthProgressionProof();
             string[] VisibleDecor(TownDistrictId district)
             {
-                // Layout-only inspection uses a world-space canvas. Release the
-                // optional portrait camera so the next capture configures its
-                // own render/event projection again after a scene/layout change.
                 ReleasePortraitCamera();
                 var town=FrameTownPortrait();town.StartInteraction();town.World.Freeze();town.World.LookAt(district);
                 var center=TownDistrictLayout.Center(district);town.World.Camera.Jump(new TownPoint(center.X,center.Y+.20f));town.World.Refresh();Canvas.ForceUpdateCanvases();
+                TownPoint Foot(TownGrowthPropGraphic prop)
+                {
+                    var canvas=town.GetComponentInParent<Canvas>();
+                    var camera=canvas.renderMode==RenderMode.ScreenSpaceOverlay?null:canvas.worldCamera;
+                    return town.World.Source(RectTransformUtility.WorldToScreenPoint(camera,prop.transform.position),camera);
+                }
                 var scenery=town.GetComponent<TownSceneryView>();
-                return scenery.Pieces.Where(p=>p.Rect.gameObject.activeInHierarchy).Select(p=>FormattableString.Invariant($"scenery:{p.Placement.Kind}:{p.Placement.Feet.X:F4}:{p.Placement.Feet.Y:F4}:{p.Placement.Level}:{p.Placement.Width:F4}"))
-                    .Concat(town.GetComponentsInChildren<TownGrowthPropGraphic>().Select(p=>FormattableString.Invariant($"growth:{p.Prop}:{p.Region}:{((RectTransform)p.transform).anchoredPosition.x:F3}:{((RectTransform)p.transform).anchoredPosition.y:F3}")))
-                    .OrderBy(s=>s,StringComparer.Ordinal).ToArray();
+                // A viewport may contain a neighbor's flowers. Compare this
+                // district's actual active objects, not the neighbor's stage.
+                return scenery.Pieces.Where(p=>p.Rect.gameObject.activeInHierarchy&&p.Placement.District==district)
+                    .Select(p=>FormattableString.Invariant($"scenery:{p.Placement.Kind}:{p.Placement.Feet.X:F4}:{p.Placement.Feet.Y:F4}:{p.Placement.Level}:{p.Placement.Width:F4}"))
+                    .Concat(town.GetComponentsInChildren<TownGrowthPropGraphic>().Where(p=>TownDistrictLayout.At(Foot(p))==district)
+                        .Select(p=>FormattableString.Invariant($"growth:{p.Prop}:{p.Region}:{Foot(p).X:F4}:{Foot(p).Y:F4}")))
+                    .OrderBy(value=>value,StringComparer.Ordinal).ToArray();
             }
             foreach(var quest in QuestCatalog.All)
             {
-                int previous=Flow.Game.State.townGrowthLevel;bool check=previous==1||previous==2||previous==5;
-                Flow.ShowHome();var before=check?TownDistrictLayout.All.Select(VisibleDecor).ToArray():null;
+                int previous=Flow.Game.State.townGrowthLevel;
+                var row=new GrowthTransitionProof{from=previous,to=previous+1,quest_id=quest.Id,
+                    requirements=quest.Requirements.Select(r=>r.ItemId+":"+r.Level+":"+r.Count).ToArray()};
+                Flow.ShowHome();var before=TownDistrictLayout.All.Select(VisibleDecor).ToArray();
                 Flow.ShowQuest();Assert.That(Flow.AcceptQuest(),Is.True);Assert.That(Flow.Game.Quests.ActiveQuest.Id,Is.EqualTo(quest.Id));
                 foreach(var requirement in quest.Requirements)
                 {
@@ -46,51 +73,57 @@ namespace Mofumachi.Tests
                     {
                         Assert.That(++guard,Is.LessThan(40),"Generate/merge must progress without synthetic inventory");
                         var pair=Flow.Game.State.mergeBoard.Where(i=>i.itemId==requirement.ItemId&&i.level<requirement.Level).GroupBy(i=>i.level).FirstOrDefault(g=>g.Count()>=2);
-                        if(pair==null){int count=Flow.Game.State.mergeBoard.Count;Flow.GenerateFromFrame(requirement.ItemId);Assert.That(Flow.Game.State.mergeBoard.Count,Is.EqualTo(count+1));}
-                        else{var items=pair.Take(2).ToArray();Assert.That(Flow.DropItem(items[0].cellIndex,items[1].cellIndex),Is.True);yield return new WaitForSecondsRealtime(.30f);}
+                        if(pair==null){int count=Flow.Game.State.mergeBoard.Count;Flow.GenerateFromFrame(requirement.ItemId);Assert.That(Flow.Game.State.mergeBoard.Count,Is.EqualTo(count+1));row.generated_level_one++;}
+                        else{var items=pair.Take(2).ToArray();Assert.That(Flow.DropItem(items[0].cellIndex,items[1].cellIndex),Is.True);row.merges++;yield return new WaitForSecondsRealtime(.30f);}
                     }
                 }
                 Assert.That(Flow.Deliver().Success,Is.True);totalCoins+=quest.Coins;
                 Assert.That(Flow.LastDelivery.PreviousTownLevel,Is.EqualTo(previous));Assert.That(Flow.LastDelivery.CurrentTownLevel,Is.EqualTo(previous+1));
-                Assert.That(Store.Load().State.townGrowthLevel,Is.EqualTo(previous+1),"Delivery committed the level before any growth presentation");
+                Assert.That(Store.Load().State.townGrowthLevel,Is.EqualTo(previous+1),"Delivery commits before growth presentation");
                 yield return new WaitForSecondsRealtime(1.3f);Flow.ShowGrowth();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Growth));
-                if(check)
+                foreach(var district in TownDistrictLayout.All)
                 {
-                    foreach(var district in TownDistrictLayout.All)
-                    {
-                        var button=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Growth region "+district);button.onClick.Invoke();Canvas.ForceUpdateCanvases();
-                        var previews=Flow.GetComponentsInChildren<TownGrowthView>();Assert.That(previews.Length,Is.EqualTo(2));
-                        Assert.That(previews[0].VisibleStage,Is.EqualTo(previous));Assert.That(previews[1].VisibleStage,Is.EqualTo(previous+1));
-                        Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Growth after label").text,Is.EqualTo(TownGrowthPresentation.ChangeSummary(district,previous,previous+1)));
-                        Assert.That(previews[1].IsHighlighting,Is.True,"Keep the short existing new-decoration highlight");
-                    }
-                    Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Growth region "+(previous==5?TownDistrictId.South:previous==2?TownDistrictId.North:TownDistrictId.Central)).onClick.Invoke();
-                    Capture(output,"32-growth-"+previous+"-to-"+(previous+1));
+                    var button=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Growth region "+district);button.onClick.Invoke();Canvas.ForceUpdateCanvases();
+                    var previews=Flow.GetComponentsInChildren<TownGrowthView>();Assert.That(previews.Length,Is.EqualTo(2));
+                    Assert.That(previews[0].VisibleStage,Is.EqualTo(previous));Assert.That(previews[1].VisibleStage,Is.EqualTo(previous+1));
+                    Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Growth after label").text,Is.EqualTo(TownGrowthPresentation.ChangeSummary(district,previous,previous+1)));
+                    Assert.That(previews[1].IsHighlighting,Is.True,"Keep the short existing new-decoration highlight");
+                    Capture(output,"32-growth-"+previous+"-to-"+(previous+1)+"-"+district);
                 }
-                Flow.ShowHome();Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));
-                if(!check)continue;
-                var after=TownDistrictLayout.All.Select(VisibleDecor).ToArray();
+                Flow.ShowHome();var after=TownDistrictLayout.All.Select(VisibleDecor).ToArray();
+                var districts=new List<GrowthDistrictProof>();
                 for(int i=0;i<TownDistrictLayout.All.Count;i++)
                 {
-                    var district=TownDistrictLayout.All[i];bool nextAtThree=previous==1&&(district==TownDistrictId.North||district==TownDistrictId.South);
-                    Assert.That(after[i].SequenceEqual(before[i]),Is.EqualTo(nextAtThree),district+" must reflect authored additions, not an artificial level sample");
+                    var district=TownDistrictLayout.All[i];
+                    bool unchanged=(previous<=1&&(district==TownDistrictId.North||district==TownDistrictId.South))||
+                        ((previous==3||previous==4)&&district==TownDistrictId.Central);
+                    bool changed=!after[i].SequenceEqual(before[i]);Assert.That(changed,Is.EqualTo(!unchanged),district+" must match authored additions/replacements or intentional unchanged scenery");
+                    districts.Add(new GrowthDistrictProof{id=district.ToString(),changed=changed});
                 }
                 Assert.That(Flow.Game.State.coins,Is.EqualTo(totalCoins));int completed=Flow.Game.State.completedQuestIds.Count;
+                var saved=Flow.Game.State.Clone();
                 Flow.SendMessage("OnApplicationPause",true);ReleasePortraitCamera();
                 yield return UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("TitleScene");yield return null;Flow.Initialize(Store);Flow.BeginGame();yield return null;yield return null;
                 Assert.That(Flow.CurrentScreen,Is.EqualTo(ScreenId.Home));Assert.That(Flow.Game.State.townGrowthLevel,Is.EqualTo(previous+1));
                 Assert.That(Flow.Game.State.coins,Is.EqualTo(totalCoins));Assert.That(Flow.Game.State.completedQuestIds.Count,Is.EqualTo(completed));Assert.That(Flow.Game.State.claimedRewardIds.Count,Is.EqualTo(completed));
-                var reloaded=TownDistrictLayout.All.Select(VisibleDecor).ToArray();
-                for(int i=0;i<after.Length;i++)Assert.That(reloaded[i],Is.EqualTo(after[i]),TownDistrictLayout.All[i]+" decorations persisted without applying a test level");
+                var restored=Flow.Game.State.Clone();restored.lastSaveTime=saved.lastSaveTime;
+                Assert.That(StateCodec.Encode(restored),Is.EqualTo(StateCodec.Encode(saved)),"All saved game data except the pause timestamp survives scene reload");
+                var reloaded=new List<string[]>();
+                foreach(var district in TownDistrictLayout.All)
+                {
+                    reloaded.Add(VisibleDecor(district));
+                    Capture(output,"32-growth-"+(previous+1)+"-"+district+"-reloaded");
+                }
+                for(int i=0;i<after.Length;i++)
+                {Assert.That(reloaded[i],Is.EqualTo(after[i]),TownDistrictLayout.All[i]+" persisted without a test level");districts[i].reload_matched=true;}
                 Flow.ShowQuest();int replayCoins=Flow.Game.State.coins;var replayRewards=Flow.Game.State.claimedRewardIds.ToArray();
-                Assert.That(Flow.Deliver().Success,Is.False,"A real delivery-enabled screen must reject the completed reward after restart");
+                Assert.That(Flow.Deliver().Success,Is.False,"Completed reward must remain rejected after reload");
                 Assert.That(Flow.Game.State.coins,Is.EqualTo(replayCoins));Assert.That(Flow.Game.State.claimedRewardIds,Is.EqualTo(replayRewards));
-                Flow.ShowHome();VisibleDecor(TownDistrictId.South);
-                Capture(output,"32-growth-"+(previous+1)+"-reloaded");
-                if(!first)proof.Append(',');first=false;proof.Append("{\"from\":"+previous+",\"to\":"+(previous+1)+",\"coins\":"+totalCoins+",\"districts_checked\":5,\"reload_matched\":true}");
+                row.coins=totalCoins;row.completed_quests=completed;row.reload_matched=true;row.reward_replay_rejected=true;row.districts=districts.ToArray();proof.transitions.Add(row);
+                Flow.ShowHome();
             }
             Assert.That(Flow.Game.State.townGrowthLevel,Is.EqualTo(6));Assert.That(Flow.Game.State.coins,Is.EqualTo(330));
-            proof.Append("]}");if(output!=null){Directory.CreateDirectory(output);File.WriteAllText(Path.Combine(output,"town-growth-progression.json"),proof.ToString());}
+            if(output!=null){Directory.CreateDirectory(output);File.WriteAllText(Path.Combine(output,"town-growth-progression.json"),JsonUtility.ToJson(proof,true));}
             LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator FountainWaterBeforeAfterPreservesFieldAndCharacterDepth()
@@ -201,8 +234,8 @@ namespace Mofumachi.Tests
             town.World.Restore(snapshots["overview"]);AdvanceTo(45-1f/30);water.AdvanceWater(.1f);Assert.That(water.ShowStage,Is.Zero);Capture(output,"34-fountain-overview-recovered");
             if(output==null)return;
             string repo=Directory.GetParent(Application.dataPath).FullName;
-            string baselineText=File.ReadAllText(Path.Combine(repo,"References/VisualLock/fountain-motion-current-before-2026-10-26.json"));
-            var baseline=JsonUtility.FromJson<FountainBeforeManifest>(baselineText);Assert.That(baseline.source_revision,Is.EqualTo("5edfa5db37f1386b811713b43c4833b4cea451ab"));Assert.That(baseline.images.Length,Is.EqualTo(3));
+            string baselineText=File.ReadAllText(Path.Combine(repo,"References/VisualLock/fountain-final-current-before-2026-10-27.json"));
+            var baseline=JsonUtility.FromJson<FountainBeforeManifest>(baselineText);Assert.That(baseline.source_revision,Is.EqualTo("98596daf798bcea54d39f6a41b58a565070e1370"));Assert.That(baseline.images.Length,Is.EqualTo(3));
             string beforeDir=Path.Combine(output,"fountain-before");Directory.CreateDirectory(beforeDir);
             foreach(var image in baseline.images)
             {
@@ -210,7 +243,7 @@ namespace Mofumachi.Tests
                 File.WriteAllBytes(Path.Combine(beforeDir,image.file),bytes);
             }
             File.WriteAllText(Path.Combine(output,"fountain-show-comparison.json"),"{\"kind\":\"prior-native-before-normal-and-timed-show\",\"display_scale\":1.14,\"cycle_seconds\":45,\"release_cycle_seconds\":180,\"prelude_seconds\":2,\"show_seconds\":6,\"recovery_seconds\":1,\"show_elapsed\":41,\"jet_evidence\":\"same-instant-added-layer-off-on-above-normal-uv084\",\"show_pairs\":["+showRows+"],\"before\":"+baselineText+",\"pixel_verified\":false,\"adopted\":false}");
-            var html=new System.Text.StringBuilder("<!doctype html><meta charset='utf-8'><title>Fountain normal and show</title><style>body{background:#fff7ef;color:#50343b;font-family:sans-serif}section{display:flex;gap:8px}img{width:240px;max-width:30vw}figure{margin:4px}</style><h1>Actual prior Before / normal candidate / short show candidate</h1><p>Before:5edfa5db native run20261026-111414. Normal/Show:new native fixture. Old files are SHA-preserved; not repainted. These causal stills manually advance the production clock; the separate fountain-live sequence tests actual Update for60real seconds. Pixel load and acceptance pending.</p>");
+            var html=new System.Text.StringBuilder("<!doctype html><meta charset='utf-8'><title>Fountain normal and show</title><style>body{background:#fff7ef;color:#50343b;font-family:sans-serif}section{display:flex;gap:8px}img{width:240px;max-width:30vw}figure{margin:4px}</style><h1>Actual prior Before / normal candidate / short show candidate</h1><p>Before:98596daf native run20261026-192546. Normal/Show:new native fixture. Old files are SHA-preserved; not repainted. These causal stills manually advance the production clock; the separate fountain-live sequence tests actual Update for60real seconds. Pixel load and acceptance pending.</p>");
             foreach(string view in new[]{"overview","front","behind"})html.Append("<h2>"+view+"</h2><section><figure>Current Before<br><img src='fountain-before/34-fountain-"+view+"-current-before.png' onerror=\"this.onerror=null;this.src='34-fountain-"+view+"-current-before.png'\"></figure><figure>Normal After<br><img src='33-fountain-"+view+"-after.png'></figure><figure>Show After<br><img src='34-fountain-"+view+"-show.png'></figure></section>");
             html.Append("<h2>Prelude / returned to normal</h2><section><img src='34-fountain-overview-prelude.png'><img src='34-fountain-overview-recovered.png'></section>");File.WriteAllText(Path.Combine(output,"fountain-show-before-after.html"),html.ToString());
         }
@@ -223,14 +256,14 @@ namespace Mofumachi.Tests
             public string kind="native-realtime-update-sequence";
             public float seconds,first_show_seconds=-1,cycle_seconds,sample_period_seconds=.25f;
             public bool manual_advance=false,pixel_verified=false,adopted=false,state_unchanged;
-            public int source_width=720,source_height=1280,crop_x,crop_y,crop_width,crop_height,normal_mesh_changes,show_mesh_changes;
+            public int town_level=0,source_width=720,source_height=1280,crop_x,crop_y,crop_width,crop_height,normal_mesh_changes,show_mesh_changes;
             public List<FountainLiveFrame> frames=new List<FountainLiveFrame>();
         }
         // This is deliberately separate from the manually advanced causal pairs.
         // No AdvanceWater, forced stage/clock, synthetic dt or fast-forward here.
         [UnityTest,Timeout(120000)] public IEnumerator FountainShowRunsFromRealUpdatesWithinSixtySeconds()
         {
-            string output=OutputDirectory();yield return EnterHome();Flow.Game.State.townGrowthLevel=6;Flow.ShowHome();yield return null;
+            string output=OutputDirectory();yield return EnterHome();Assert.That(Flow.Game.State.townGrowthLevel,Is.Zero);Flow.ShowHome();yield return null;
             var town=Flow.GetComponentInChildren<TownLifeView>();town.StartInteraction();town.World.LookAt(TownDistrictId.Central);
             // Exercise the deferred layout path that batch-mode Game views use.
             Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(1280,720),new Rect(0,0,1280,720));
@@ -240,7 +273,7 @@ namespace Mofumachi.Tests
             Capture(output,"35-fountain-live-normal");
             var water=town.GetComponentInChildren<TownFountainWaterGraphic>();Assert.That(water.ShowCycleSeconds,Is.EqualTo(45));Assert.That(water.ShowElapsed,Is.LessThan(2));
             string state=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
-            var sequence=new FountainLiveSequence{cycle_seconds=water.ShowCycleSeconds};
+            var sequence=new FountainLiveSequence{cycle_seconds=water.ShowCycleSeconds,town_level=Flow.Game.State.townGrowthLevel};
             Vector2 Project(TownPoint uv)=>captureCamera.WorldToScreenPoint(town.transform.TransformPoint(town.World.Local(TownFountainWaterLayout.Project(uv,TownFountainWaterLayout.DisplayScale))));
             var low=Project(new TownPoint(.2f,.22f));var high=Project(new TownPoint(.8f,1.3f));
             int x=Mathf.Clamp(Mathf.FloorToInt(low.x)-4,0,719),y=Mathf.Clamp(Mathf.FloorToInt(low.y)-4,0,1279);

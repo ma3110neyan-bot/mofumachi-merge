@@ -136,6 +136,32 @@ namespace Mofumachi.Tests
             }
             Assert.That(first,Is.InRange(30,60));Assert.That(first,Is.EqualTo(38).Within(1f/fps+.04f));Assert.That(recovered,Is.True);
         }
+        [Test] public void NormalWaterCarriesLongerBrightPacketsOverAVisibleBlueBody()
+        {
+            // A short upper-tier fall is only about ten phone pixels tall.
+            // Sub-two-pixel packets over a faint body disappear into the art.
+            var water=Water();
+            for(int stream=0;stream<6;stream++)
+            {
+                var outer=water.Sample(stream*8,.05f);
+                var core=water.Sample(stream*8+1,.05f);
+                Assert.That(outer.Alpha,Is.GreaterThanOrEqualTo(.45f),"The cyan body must remain visible behind the moving white packet");
+                Assert.That(Math.Sqrt(Math.Pow(core.B.X-core.A.X,2)+Math.Pow(core.B.Y-core.A.Y,2)),Is.GreaterThan(.014f),"The shortest upper fall needs a perceptible moving packet");
+                Assert.That(Math.Sqrt(Math.Pow(core.D.X-core.A.X,2)+Math.Pow(core.D.Y-core.A.Y,2)),Is.GreaterThan(.012f),"The highlight must survive phone-scale rasterization");
+            }
+        }
+        [Test] public void ShowHighlightsTravelDownTheReturningJetsRatherThanOnlyWobblingInPlace()
+        {
+            for(int jet=0;jet<3;jet++)
+            {
+                int index=136+jet*16+9;
+                var a=TownFountainWaterLayout.Quad(index,.1f,1,1);
+                var b=TownFountainWaterLayout.Quad(index,.2f,1,1);
+                float yA=(a.A.Y+a.B.Y+a.C.Y+a.D.Y)/4,yB=(b.A.Y+b.B.Y+b.C.Y+b.D.Y)/4;
+                Assert.That(yA-yB,Is.GreaterThan(.02f),"A white packet must travel toward the basin, rather than brighten one fixed wire segment");
+                Assert.That(Math.Min(a.Alpha,b.Alpha),Is.GreaterThan(.65f));
+            }
+        }
         [Test] public void ShowClockCountsSlowActiveFramesButNeverCountsPausedTime()
         {
             var type=typeof(TownWorldMap).Assembly.GetType("Mofumachi.Presentation.TownFountainWaterClock");Assert.That(type,Is.Not.Null);

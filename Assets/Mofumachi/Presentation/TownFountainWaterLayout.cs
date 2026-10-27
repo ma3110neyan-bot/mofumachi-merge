@@ -39,7 +39,7 @@ namespace Mofumachi.Presentation
                 // The blue body remains continuous; white packets actually fall.
                 // Fixed strips with alpha pulsing were indistinguishable from art.
                 float t=core?Repeat(phase*1.6f+part*.25f+stream*.11f):part/4f;
-                float next=core?Math.Min(1,t+.16f):t+.25f;
+                float next=core?Math.Min(1,t+.23f):t+.25f;
                 TownPoint Flow(float along)
                 {
                     var at=Lerp(starts[stream],ends[stream],along);
@@ -47,31 +47,34 @@ namespace Mofumachi.Presentation
                 }
                 var a=Flow(t);var b=Flow(next);
                 float dx=b.X-a.X,dy=b.Y-a.Y,length=(float)Math.Sqrt(dx*dx+dy*dy);
-                float width=(core?.0048f:.009f)*(1+.35f*showStrength),nx=length>0?-dy/length*width:width,ny=length>0?dx/length*width:0;
+                float width=(core?.0062f:.0115f)*(1+.35f*showStrength),nx=length>0?-dy/length*width:width,ny=length>0?dx/length*width:0;
                 float pulse=.5f+.5f*(float)Math.Sin(phase*2*(float)Math.PI-part*1.7f-stream*.8f);
-                return (0,new TownPoint(a.X+nx,a.Y+ny),new TownPoint(b.X+nx,b.Y+ny),new TownPoint(b.X-nx,b.Y-ny),new TownPoint(a.X-nx,a.Y-ny),(core?.72f+.12f*pulse:.32f+.10f*pulse)+.02f*showStrength);
+                return (0,new TownPoint(a.X+nx,a.Y+ny),new TownPoint(b.X+nx,b.Y+ny),new TownPoint(b.X-nx,b.Y-ny),new TownPoint(a.X-nx,a.Y-ny),(core?.72f+.12f*pulse:.46f+.10f*pulse)+.02f*showStrength);
             }
             if(index<72)
             {
                 int slot=index-48,stream=slot/4;float t=Repeat(phase*1.2f+slot%4*.25f+stream*.17f),side=slot%2==0?-1:1;
                 var p=new TownPoint(ends[stream].X+side*(.006f+(.025f+.012f*showStrength)*t),ends[stream].Y+(.045f+.025f*showStrength)*4*t*(1-t)-.012f*t);
-                return Diamond(1,p,.006f*(1-.25f*t),.012f,.80f*(1-t));
+                return Diamond(1,p,.0085f*(1-.25f*t),.014f,.80f*(1-t));
             }
             if(index<120)
             {
                 int part=index-72,ring=part/16,segment=part%16;float t=Repeat(phase*.6f+ring/3f),x=.035f+.105f*t,y=.008f+.024f*t;
                 float a=segment*(float)Math.PI/8,b=(segment+1)*(float)Math.PI/8;
                 TownPoint Point(float angle,float size)=>new TownPoint(.5f+(float)Math.Cos(angle)*x*size,.39f+(float)Math.Sin(angle)*y*size);
-                return (2,Point(a,1),Point(a,.82f),Point(b,.82f),Point(b,1),(.65f+.15f*anticipation)*(1-t));
+                return (2,Point(a,1),Point(a,.74f),Point(b,.74f),Point(b,1),(.65f+.15f*anticipation)*(1-t));
             }
             if(index<136)
             {
                 int sparkle=(index-120)/2;float glow=.25f+.75f*Math.Max(0,(float)Math.Sin(phase*2*Math.PI/2+sparkle*1.7f));bool horizontal=index%2==0;
-                return Diamond(3,glints[sparkle],(horizontal?.021f:.004f)*glow,(horizontal?.004f:.029f)*glow,(.74f+.10f*anticipation)*glow);
+                return Diamond(3,glints[sparkle],(horizontal?.024f:.004f)*glow,(horizontal?.004f:.032f)*glow,(.74f+.10f*anticipation)*glow);
             }
             if(index<184)
             {
-                int slot=index-136,jet=slot/16,part=slot%16/2;bool core=slot%2==1;float a=part/8f,b=(part+1)/8f;
+                int slot=index-136,jet=slot/16,part=slot%16/2;bool core=slot%2==1;
+                // Blue water keeps the arc continuous. White packets travel
+                // along it, so a show reads as moving water rather than wires.
+                float a=core?Repeat(phase*.7f+part/8f+jet*.13f):part/8f,b=core?Math.Min(1,a+.08f):(part+1)/8f;
                 TownPoint Curve(float t)
                 {
                     var start=new TownPoint(.5f+(jet-1)*.025f,.76f);
@@ -83,7 +86,7 @@ namespace Mofumachi.Presentation
                 }
                 var from=Curve(a);var to=Curve(b);float dx=to.X-from.X,dy=to.Y-from.Y,length=(float)Math.Sqrt(dx*dx+dy*dy);
                 float width=core?.004f:.009f,nx=length>.000001f?-dy/length*width:width,ny=length>.000001f?dx/length*width:0;
-                float alpha=showStrength*(core?.58f+.18f*(.5f+.5f*(float)Math.Sin(phase*7-part)):.30f);
+                float alpha=showStrength*(core?.68f+.08f*(.5f+.5f*(float)Math.Sin(phase*7-part)):.34f);
                 return (0,new TownPoint(from.X+nx,from.Y+ny),new TownPoint(to.X+nx,to.Y+ny),new TownPoint(to.X-nx,to.Y-ny),new TownPoint(from.X-nx,from.Y-ny),alpha);
             }
             int drop=index-184;float flight=Repeat(phase*.8f+drop/12f),direction=drop%2==0?-1:1;

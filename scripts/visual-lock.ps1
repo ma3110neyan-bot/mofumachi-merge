@@ -56,10 +56,11 @@ function Get-BasePolishPatch([string]$RepositoryPath) {
     $Allowed=@('Assets/Mofumachi/Presentation/TownWorldLayout.cs','Assets/Mofumachi/Presentation/TownContinuousWorldView.cs')
     $ScopeProperty=$Record.PSObject.Properties['scope_id']
     $Scope=if($ScopeProperty){[string]$ScopeProperty.Value}else{''}
-    if($Scope -and $Scope -notin @('town_boundary_final_2026_10_24','town_field_stability_2026_10_25','town_field_completion_2026_10_25','town_fountain_water_2026_10_25','town_fountain_show_2026_10_26','town_fountain_motion_2026_10_26')){throw 'Unknown bounded display correction scope.'}
-    $FountainMotion=$Scope -eq 'town_fountain_motion_2026_10_26'
-    $FountainShow=$Scope -in @('town_fountain_show_2026_10_26','town_fountain_motion_2026_10_26')
-    $Fountain=$Scope -in @('town_fountain_water_2026_10_25','town_fountain_show_2026_10_26','town_fountain_motion_2026_10_26')
+    if($Scope -and $Scope -notin @('town_boundary_final_2026_10_24','town_field_stability_2026_10_25','town_field_completion_2026_10_25','town_fountain_water_2026_10_25','town_fountain_show_2026_10_26','town_fountain_motion_2026_10_26','town_fountain_final_2026_10_27')){throw 'Unknown bounded display correction scope.'}
+    $FountainFinal=$Scope -eq 'town_fountain_final_2026_10_27'
+    $FountainMotion=$Scope -in @('town_fountain_motion_2026_10_26','town_fountain_final_2026_10_27')
+    $FountainShow=$Scope -in @('town_fountain_show_2026_10_26','town_fountain_motion_2026_10_26','town_fountain_final_2026_10_27')
+    $Fountain=$Scope -in @('town_fountain_water_2026_10_25','town_fountain_show_2026_10_26','town_fountain_motion_2026_10_26','town_fountain_final_2026_10_27')
     if($FountainShow){$Allowed+='Assets/Mofumachi/Presentation/TownFountainGraphic.cs'}
     $FieldFinal=$Scope -eq 'town_field_completion_2026_10_25' -or $Fountain
     $FieldStability=$Scope -eq 'town_field_stability_2026_10_25' -or $FieldFinal
@@ -120,13 +121,13 @@ function Get-BasePolishPatch([string]$RepositoryPath) {
             if($Frozen.path -ne 'Assets/Mofumachi/Presentation/TownContinuousWorldView.cs' -and $After[$Frozen.path] -ne $Frozen.sha256){throw 'Fountain pass cannot alter the frozen field scenery/navigation/growth.'}
         }
         if($FountainShow) {
-            $BeforePath=if($FountainMotion){'References/VisualLock/fountain-motion-current-before-2026-10-26.json'}else{'References/VisualLock/fountain-show-current-before-2026-10-26.json'}
+            $BeforePath=if($FountainFinal){'References/VisualLock/fountain-final-current-before-2026-10-27.json'}elseif($FountainMotion){'References/VisualLock/fountain-motion-current-before-2026-10-26.json'}else{'References/VisualLock/fountain-show-current-before-2026-10-26.json'}
             if($Record.current_before_record -ne $BeforePath){throw 'Show must bind the exact current native Before record.'}
             $BeforeText=[IO.File]::ReadAllText((Join-Path $RepositoryPath $BeforePath)).Replace("`r`n","`n")
             if((Get-VisualLockDigest ([Text.Encoding]::UTF8.GetBytes($BeforeText))) -ne $Record.current_before_record_lf_sha256){throw 'Current native Before record changed.'}
             $Prior=$BeforeText | ConvertFrom-Json
-            $PriorSource=if($FountainMotion){'5edfa5db37f1386b811713b43c4833b4cea451ab'}else{'8aa7a14264c3bda3050a9e794c576f6af11535c9'}
-            $PriorRun=if($FountainMotion){'20261026-111414-78cde31d'}else{'20261026-093151-b7d557b1'}
+            $PriorSource=if($FountainFinal){'98596daf798bcea54d39f6a41b58a565070e1370'}elseif($FountainMotion){'5edfa5db37f1386b811713b43c4833b4cea451ab'}else{'8aa7a14264c3bda3050a9e794c576f6af11535c9'}
+            $PriorRun=if($FountainFinal){'20261026-192546-249dc5ea'}elseif($FountainMotion){'20261026-111414-78cde31d'}else{'20261026-093151-b7d557b1'}
             if($Prior.source_revision -ne $PriorSource -or $Prior.run -ne $PriorRun -or @($Prior.images).Count -ne 3){throw 'Show Before is not the actual reviewed current fountain.'}
         }
     }

@@ -43,7 +43,8 @@
     }
   },
   "remaining_sequence": [
-    "fountain_motion_same_apk_pixel_verification",
+    "fountain_final_native_all_tests_and_images",
+    "fresh_town_qa_pixel_all_levels_and_fountain",
     "fountain_user_approval",
     "representative_character_2p5d_trial",
     "representative_pixel_and_user_approval",
@@ -191,7 +192,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "fountain_motion_native_verified_same_apk_pixel_pending",
+  "current_stage": "fountain_final_and_all_level_growth_implementation_native_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -711,7 +712,7 @@
     "native_images_verified": 124,
     "native_review": "References/Review/curved-boundary-2026-10-25-candidate/native-review.json"
   },
-  "base_polish": "References/VisualLock/fountain-motion-candidate-2026-10-26.json",
+  "base_polish": "References/VisualLock/fountain-final-candidate-2026-10-27.json",
   "previous_qa_build_report": {
     "run": "20261025-073237-f8fd542b",
     "status": "console_success_reported",
@@ -867,8 +868,8 @@
   "field_freeze": "References/VisualLock/town-field-frozen-2026-10-25.json",
   "fountain_water": {
     "implemented": true,
-    "native_unity_verified": true,
-    "qa_apk_generated": true,
+    "native_unity_verified": false,
+    "qa_apk_generated": false,
     "pixel_verified": false,
     "user_approved": false,
     "next_blocked": [
@@ -876,14 +877,20 @@
       "merge_quality_pass",
       "main"
     ],
-    "render_input_fingerprint": "840cb76482eede4757e12429b10413e76205f57a5ca30eefcfb36613710a783f",
-    "native_image_inspection_complete": true,
+    "render_input_fingerprint": "d7faa15b109e33ac52bd1d6d72243392c451a9393f5779d813f1e5e90342d678",
+    "native_image_inspection_complete": false,
     "native_visual_cleared": false,
-    "previous_native_review": "References/Review/fountain-show-2026-10-26-candidate/native-review.json",
-    "pixel_instructions": "docs/fountain-motion-pixel3a-2026-10-26.md",
-    "user_rejection": "2026-10-26:通常の動きと3分待機後のショーを実機で確認できなかった。未達。",
-    "native_run": "20261026-192546-249dc5ea",
-    "native_source_revision": "98596daf798bcea54d39f6a41b58a565070e1370",
-    "native_review": "References/Review/fountain-motion-2026-10-26-candidate/native-review.json"
+    "previous_native_review": "References/Review/fountain-motion-2026-10-26-candidate/native-review.json",
+    "pixel_instructions": "docs/fountain-final-growth-review-2026-10-27.md",
+    "user_rejection": "2026-10-26:通常の動きと3分待機後のショーを実機で確認できなかった。未達。"
+  },
+  "fresh_town_qa_test": {
+    "authorized_by": "user2026-10-26",
+    "package": "com.mofumachi.merge.qa.townlife",
+    "serial": "99RAY1BELH",
+    "uninstall_and_reset_authorized": true,
+    "pixel_executed": false,
+    "all_levels_including_four_required": true,
+    "balance_changes_authorized": false
   }
 }

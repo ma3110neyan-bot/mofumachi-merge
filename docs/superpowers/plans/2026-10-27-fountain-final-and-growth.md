@@ -69,3 +69,13 @@ Pixelで負荷不成立の場合は、未測定のまま「軽量で問題なし
 - Lv.7以降と初回上限は監査報告の比較案だけ。今回合格前に実装しない。
 
 ユーザーが見て分かる噴水と、初回から全Lvが実操作で成立した時だけ合格候補。未実機を完成と呼ばない。噴水／街成長確認が不成立ならその箇所だけを直し、2.5D／Merge／新機能／mainへ進めない。
+
+## 10月27日の実行記録
+
+- 同featureのb1533f0から実装。製品変更はWaterLayout1ファイルで、通常の芯・青い流水・しぶき・波紋・反射と、showの弧に沿う水の移動を強化。街・進行条件・保存は無変更。
+- 実RED2→噴水18/18、全CPU Presentation353/353＋Core125/125、API6組0警告エラー、PS15/15成功。VSTestのTCP制限を回避するため、通信を一切使わない同じNUnit3 frameworkのin-process runnerを使った。Native成功には数えない。
+- Native試験は全6遷移×5地区の60枚、全景計219枚、Lv0での実Update60秒を必須化。実画面での結果はWindowsQA待ち。原354・固定景観・歴史digest・旧候補は維持。
+- FreshTownQaは正確なQA ID／serial／Pixel3a／APK SHAを削除前に照合し、街QAだけuninstall→install→復元データ消去→起動。default install-r維持。mock RED→GREEN、実機削除未実行。
+- 独立レビューCritical0／Important0／Minor1、Windows全件QAへ進行可。Minor持越しはNativeの再納品拒否ラベル（空activeでのDeliver拒否であり、元完了依頼の再受注ではない）。Core監査では元依頼の再受注拒否を別に確認済み。Native／Pixelでの同一依頼再受注は別確認とする。
+- 留保：実Unity描画／219枚、WindowsPS5.1、Android復元／新規状態、Pixel見た目／FPS／熱／600秒／全Lv保存再起動、ユーザー採用。OFF/ON因果対は追加水レイヤー全体を隔離するもので、旧水と最終水の同一瞬間比較ではない。実旧Before原本3枚を保持し、姿勢／文字差分を全て水へ帰属しない。
+- これらの不足は実施済みと扱わず、候補のNative／APK／Pixel／採用はfalse。手順はdocs/fountain-final-growth-review-2026-10-27.md。主な原本はdocs/verification/fountain-final-growth-2026-10-27/。

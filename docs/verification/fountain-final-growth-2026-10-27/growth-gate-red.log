@@ -1,0 +1,60 @@
+Source SHA checks passed (loose, packed, detached, worktree, changed revision rejected).
+Hidden source inputs are readable and fingerprinted (explicit file, recursive file and directory).
+Clean product and same-run fingerprint gates passed (isolated real Git fixture).
+Native Unity images: 102, 720x1280 (visual review still required).
+Native Unity images: 102, 720x1280 (visual review still required).
+Native Unity images: 124, 720x1280 (visual review still required).
+Street boundary comparison: /tmp/mofumachi-script-test-a47912cf-2bf6-41dd-b2d7-ba27c9380af0/screenshots/street-boundary-before-after.html (Boundary-only renderer comparison; Pixel acceptance pending).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 123, 720x1280 (visual review still required).
+Native Unity images: 124, 720x1280 (visual review still required).
+Native Unity images: 124, 720x1280 (visual review still required).
+Native Unity images: 124, 720x1280 (visual review still required).
+Native Unity images: 124, 720x1280 (visual review still required).
+Boundary acceptance requires all22 comparison frames/documents; incomplete or falsely adopted fixture refused. No native/device execution.
+Native Unity images: 124, 720x1280 (visual review still required).
+Native Unity images: 138, 720x1280 (visual review still required).
+Street boundary comparison: /tmp/mofumachi-script-test-a47912cf-2bf6-41dd-b2d7-ba27c9380af0/screenshots/street-boundary-before-after.html (Boundary-only renderer comparison; Pixel acceptance pending).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 137, 720x1280 (visual review still required).
+Native Unity images: 138, 720x1280 (visual review still required).
+Native Unity images: 138, 720x1280 (visual review still required).
+Native Unity images: 138, 720x1280 (visual review still required).
+Native Unity images: 198, 720x1280 (visual review still required).
+Exception: /workspace/mofumachi-merge/scripts/build-android.ps1:103
+Line |
+ 103 |  … ) -PathType Leaf)){throw "Missing actual progression capture: $Name"}
+     |                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Missing actual progression capture: 32-growth-1-to-2.png

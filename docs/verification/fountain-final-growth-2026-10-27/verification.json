@@ -1,0 +1,118 @@
+{
+  "kind": "source-and-test-preparation-only",
+  "base_revision": "b1533f0",
+  "source_runtime_files_changed": [
+    "Assets/Mofumachi/Presentation/TownFountainWaterLayout.cs"
+  ],
+  "gameplay_balance_changed": false,
+  "save_schema_changed": false,
+  "street_scenery_changed": false,
+  "nunit_counts": {
+    "fountain-red.xml": {
+      "total": "2",
+      "passed": "0",
+      "failed": "2",
+      "skipped": "0",
+      "inconclusive": "0",
+      "duration": "0.048002",
+      "result": "Failed"
+    },
+    "fountain-green.xml": {
+      "total": "18",
+      "passed": "18",
+      "failed": "0",
+      "skipped": "0",
+      "inconclusive": "0",
+      "duration": "0.225435",
+      "result": "Passed"
+    },
+    "presentation-all.xml": {
+      "total": "353",
+      "passed": "353",
+      "failed": "0",
+      "skipped": "0",
+      "inconclusive": "0",
+      "duration": "551.835964",
+      "result": "Passed"
+    },
+    "core-all.xml": {
+      "total": "125",
+      "passed": "125",
+      "failed": "0",
+      "skipped": "0",
+      "inconclusive": "0",
+      "duration": "0.478720",
+      "result": "Passed"
+    }
+  },
+  "nunit_runner": "Same NUnit3 framework in-process, no sockets. VSTest TCP denied and second escalation cancelled; not a native Unity run.",
+  "api_compile": {
+    "assemblies": 6,
+    "warnings": 0,
+    "errors": 0,
+    "actual_unity_rendered": false
+  },
+  "candidate": "References/VisualLock/fountain-final-candidate-2026-10-27.json",
+  "candidate_render_digest": "d7faa15b109e33ac52bd1d6d72243392c451a9393f5779d813f1e5e90342d678",
+  "native": {
+    "verified": false,
+    "apk_generated": false,
+    "expected_editmode_cases": 144,
+    "expected_playmode_cases": 226,
+    "expected_full_captures": 219,
+    "growth_transition_count": 6,
+    "growth_five_district_comparison_and_reloaded_captures": 60,
+    "real_update_sequence_required_seconds": 60,
+    "initial_town_level_in_live_sequence": 0,
+    "before_source": "98596daf798bcea54d39f6a41b58a565070e1370",
+    "before_run": "20261026-192546-249dc5ea"
+  },
+  "pixel": {
+    "executed": false,
+    "fresh_install_executed": false,
+    "serial": "99RAY1BELH",
+    "only_authorized_reset_package": "com.mofumachi.merge.qa.townlife",
+    "fps": null,
+    "temperature": null,
+    "all_levels_save_and_restart_verified": false
+  },
+  "user_accepted": false,
+  "evidence_sha256": {
+    "NUnitInProcessRunner.cs": "20807737894beead4097d2537d9667f6eefd3a016a4dd1e25529b17223a1fd6e",
+    "fresh-green.log": "f4ce890787de81fb2f0df092e668edca53e1d486d434b50cccc2ebb516361889",
+    "api-compile-final.log": "38cdbe69370b4c5642c787c6b8b9624fc07dc26a44b26a57e5b32ed866c399ca",
+    "initial-show-red.log": "c5946cae6130ba8b69270821f94c967c1429dfd96d0ceb48c050023baec28dad",
+    "core-all.xml": "3167dd640dae66c1335a0b2961d182d79a8565e0cb5cfbcdb7440931eaa6d4d5",
+    "growth-gate-green.log": "170eebb8c3030bcb176e681c2d7ddec2c077dfa176c3f472f757f5f6e84b888b",
+    "powershell-results.json": "cfe3c965891e1ff7964ea701eb794255703f22f1d769aee413cab8009ea5926e",
+    "fresh-red.log": "4cb07d430c012229c94991da93c18cb38d8a60ee80598adc1d19fea5d27c2f5f",
+    "initial-show-green.log": "2dc69207c30e40efc3ecc0d9a5c69fef748b453ace9f0822745f044979a0774f",
+    "presentation-all.xml": "7a780c0714bfe8d6e6addbcc125b9040301d7374d87c7406508d6d8d62ee6964",
+    "fountain-green.xml": "fe07c6f096dad46745d6f61710261ac69a3d906588489ed041758fe90d271604",
+    "growth-gate-red.log": "d165acb2434575ffd5a5cbcb2dbb19bedc75d75d2ceacf9c2194de5bb07f6194",
+    "fountain-red.xml": "246ead44c3cdcd086026a9f9ba5b04dfa8dc7a442e7834392c57372908f3cce3",
+    ".gitattributes": "54d3a45b569210b3f0151f526d2d0bfc940c3a041b9970af06757595d16e0971",
+    "independent-review.json": "666e6b0985d6a26924101089bface2a255d05b656d49b53d91ce8d8bd77d68a4"
+  },
+  "powershell": {
+    "tested_host": "PowerShell7.4.6 on Linux",
+    "scripts_passed": 15,
+    "scripts_failed": 0,
+    "windows_powershell_5_1_executed": false,
+    "actual_device_commands_executed": false,
+    "evidence": "powershell-results.json"
+  },
+  "input_sha256_lf": {
+    "Assets/Mofumachi/Presentation/TownFountainWaterLayout.cs": "0c588c82a0beb6c1a17555dfeb19e25ba45531167d14378343f3c56e5942e461",
+    "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs": "32fdd01617fee282c14de020b3ce26eda6d354b81b8b8442d24834d4a1401ea9",
+    "Tests/Presentation/FountainWaterTests.cs": "eec85235e30ce0693a61618b0923e5338fc7b98f77092ec23149f33a209e436b",
+    "scripts/build-android.ps1": "bc3027ed06a281e51b35c80673f68b8a6411dfc09aa5e1337dda4340ae04b929",
+    "scripts/fountain-review.ps1": "799d342f5fcb146701cc0c037b48e3b216e8bcaf49e2be2e8bd16daabb374859",
+    "scripts/install-pixel3a.ps1": "ec1cee806ad297d7fb7cb771754f8b7936fb21260544c9ce528a9dbf58daf26f",
+    "scripts/tests/android-tools.tests.ps1": "6b6ee03ac2febe6c6998cc11a2e5b65a739cec2e91825f1c2bb227a7d333823c",
+    "scripts/tests/five-area-review.tests.ps1": "05ecc97aee89f5c96ff3e44ae9d89e67792d975f1c5a27ce94f0e7c5e23b9457",
+    "scripts/tests/fountain-live.tests.ps1": "00d3b8c12f1dd1b1134870205e027bd42890e2de0b8235e678b7c9b73c3e70d1",
+    "scripts/tests/town-boundary-lock.tests.ps1": "09c14140ebb261a8b05bab64894b4a715f515f138af9183ff375ee1a10913384",
+    "scripts/visual-lock.ps1": "aa8bb6b8a736f26a5c5206fb318c0fb1dc90b0942c6bc94d24f761e1867a1aa6"
+  }
+}

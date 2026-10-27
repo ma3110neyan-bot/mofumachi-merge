@@ -9,6 +9,7 @@ function Assert-FountainLiveSequence([string]$Directory) {
         if([double]::IsNaN($Number) -or [double]::IsInfinity($Number)){throw "Nonfinite live field: $Label"}
         return $Number
     }
+    if((Read-LiveNumber $Record.town_level 'town_level') -ne 0){throw 'The live show must also run in the actual initial town, not a seeded Lv6 fixture.'}
     if($Record.kind -ne 'native-realtime-update-sequence' -or $Record.cycle_seconds -ne 45 -or $Record.sample_period_seconds -ne .25 -or $Record.source_width -ne 720 -or $Record.source_height -ne 1280){throw 'Wrong fountain real-time evidence mode.'}
     foreach($Key in @('manual_advance','pixel_verified','adopted')){if($Record.$Key -isnot [bool] -or $Record.$Key){throw 'Real-time Unity evidence must not force time or claim Pixel/adoption.'}}
     if($Record.state_unchanged -isnot [bool] -or -not $Record.state_unchanged -or $Record.normal_mesh_changes -le 8 -or $Record.show_mesh_changes -le 3){throw 'Live water must actually animate its mesh and preserve saved state.'}

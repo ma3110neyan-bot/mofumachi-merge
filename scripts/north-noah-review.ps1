@@ -27,7 +27,10 @@ function Assert-NorthNoahEvidence([string]$Directory,[string]$ExpectedRevision='
     Flags $Record @('native_unity') $true;Flags $Record @('pixel_verified','adopted','navigation_changed','teleport_rescue') $false
     if($Record.source_revision -notmatch '^[a-f0-9]{40}$' -or $Record.product_fingerprint -notmatch '^[a-f0-9]{64}$' -or ($ExpectedRevision -and $Record.source_revision -ne $ExpectedRevision) -or ($ExpectedFingerprint -and $Record.product_fingerprint -ne $ExpectedFingerprint)){throw 'North/Noah source does not match this capture/build.'}
     $B=$Record.north_world_bounds
-    if((Number $B.x_min) -ne -.6 -or (Number $B.x_max) -ne .6 -or (Number $B.y_min) -ne 1 -or [Math]::Abs((Number $B.y_max)-1.32) -gt .000001){throw 'North changed its bounded scope.'}
+    # The producer declares these coordinates as C# float. JsonUtility may
+    # write .6f as .6000000238418579; compare exact native Single values rather
+    # than mixing Single-derived JSON with Double literals or a wider epsilon.
+    if([single](Number $B.x_min) -ne [single](-.6) -or [single](Number $B.x_max) -ne [single](.6) -or [single](Number $B.y_min) -ne [single](1) -or [single](Number $B.y_max) -ne [single](1.32)){throw 'North changed its bounded scope.'}
     Image $Record.historical_native_before 720 1280 '^36-north-historical-bb3fb82\.png$'
     if($Record.historical_native_before.sha256 -ne 'b001ee0b7bb6a1719876b16c951a9bdcf5c58df3d7817dc797b379cf0c863324'){throw 'Historical north native original changed.'}
     $North=@($Record.north_pairs);$Noah=@($Record.noah_pairs)

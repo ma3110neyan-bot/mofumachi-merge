@@ -1,0 +1,6 @@
+North/Noah native evidence metadata validated; visual/Pixel review and adoption pending.
+Exception: /workspace/mofumachi-merge/scripts/north-noah-review.ps1:30
+Line |
+  30 |  … B.y_max)-1.32) -gt .000001){throw 'North changed its bounded scope.'}
+     |                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | North changed its bounded scope.

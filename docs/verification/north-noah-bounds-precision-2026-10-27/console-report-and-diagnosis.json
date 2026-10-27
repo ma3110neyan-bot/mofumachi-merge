@@ -1,0 +1,21 @@
+{
+  "evidence_kind": "user console screenshot; raw XML/JSON/PNGs not yet received",
+  "run_directory": null,
+  "source_revision_verified": false,
+  "source_revision_expected": "4975fb1",
+  "editmode_console_passed": 144,
+  "playmode_console_passed": 234,
+  "native_full_images_console_count": 250,
+  "native_image_size": [
+    720,
+    1280
+  ],
+  "stopped_at": "scripts/north-noah-review.ps1:30 post-Unity bounds gate",
+  "error": "North changed its bounded scope.",
+  "apk_generated": false,
+  "raw_native_review_verified": false,
+  "visual_adopted": false,
+  "pixel_verified": false,
+  "root_cause": "Producer C# coordinates are Single; Unity JsonUtility emits .6f as .6000000238418579. The gate incorrectly compared this as Double against literal .6. Reproduced with the original gate and native-precision synthetic metadata; actual previous Unity output fountain-live.json contains this same exact Single representation.",
+  "correction": "Compare the finite bounds as exact native Single values, including ymax, without widening an epsilon. Both adjacent representable Single values must be rejected for all4 coordinates."
+}

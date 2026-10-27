@@ -165,9 +165,10 @@
   "comparison_scope": "Same-state OFF/ON is a reconstructed causal baseline; historical native Before remains separately identified.",
   "latest_native_failure": "References/Review/full-playmode-2026-10-27-220456/receipt-and-diagnosis.json",
   "fixed_native_pass_verified": false,
-  "internal_verification": "docs/verification/north-noah-capture-scene-repair-2026-10-27/results.json",
+  "internal_verification": "docs/verification/north-noah-bounds-precision-2026-10-27/results.json",
   "previous_native_failures": [
     "References/Review/full-playmode-2026-10-27-214011/receipt-and-diagnosis.json"
   ],
-  "previous_internal_verification": "docs/verification/north-noah-capture-repair-2026-10-27/results.json"
+  "previous_internal_verification": "docs/verification/north-noah-capture-scene-repair-2026-10-27/results.json",
+  "native_tests_console_success_report": "docs/verification/north-noah-bounds-precision-2026-10-27/console-report-and-diagnosis.json"
 }

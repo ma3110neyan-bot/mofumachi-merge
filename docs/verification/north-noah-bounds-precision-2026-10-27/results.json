@@ -1,0 +1,26 @@
+{
+  "scope": "post-native-metadata-bound-precision-only",
+  "base_revision": "4975fb1319ee61aa6f46c09cb023cd007ebe12dd",
+  "render_digest_unchanged": "1cc54e06e095cf20a237b6ebd08272ef19d4e1fbd0a3d7eb4f9b4c1748e561b8",
+  "runtime_and_capture_changed": false,
+  "received_raw_native_files": false,
+  "console_editmode_passed": 144,
+  "console_playmode_passed": 234,
+  "console_native_image_count": 250,
+  "focused_script_red_observed": true,
+  "focused_script_green_observed": true,
+  "adjacent_native_single_mutations_rejected": 8,
+  "review": {
+    "critical": 0,
+    "important": 0
+  },
+  "qa_apk_generated": false,
+  "visual_review_completed": false,
+  "pixel_verified": false,
+  "note": "Native success/counts are console reports. Focused parser fixtures use synthetic metadata and actual historical reference PNG; no new native execution or visual adoption is claimed.",
+  "powershell": {
+    "scripts": 17,
+    "passed": 17,
+    "failed": 0
+  }
+}

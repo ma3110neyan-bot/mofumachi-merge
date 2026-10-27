@@ -1,0 +1,30 @@
+[
+  {
+    "coordinate": "x_min",
+    "short_literal": -0.6,
+    "native_single_as_double": -0.6000000238418579,
+    "double_literal_exact_equal": false,
+    "native_single_equal": true
+  },
+  {
+    "coordinate": "x_max",
+    "short_literal": 0.6,
+    "native_single_as_double": 0.6000000238418579,
+    "double_literal_exact_equal": false,
+    "native_single_equal": true
+  },
+  {
+    "coordinate": "y_min",
+    "short_literal": 1,
+    "native_single_as_double": 1.0,
+    "double_literal_exact_equal": true,
+    "native_single_equal": true
+  },
+  {
+    "coordinate": "y_max",
+    "short_literal": 1.32,
+    "native_single_as_double": 1.3200000524520874,
+    "double_literal_exact_equal": false,
+    "native_single_equal": true
+  }
+]

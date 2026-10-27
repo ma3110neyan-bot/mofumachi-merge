@@ -12,6 +12,8 @@
 
 **run220456受領：修正版feb330d適用済み、実PlayMode233/234・failed1/skip0。** 前回の北Graphic階層エラーは解消。新比較撮影は北9ペアと6往復経路の検査を通り、ノア切抜きでyMax1467.535>1280となった。ShowHomeが正常に位置snapshotを引き継ぐのに、撮影が初期位置へ戻ると誤って想定していた。歩行証拠完了後に別の隔離Homeシーンへ入り、元のNoah/Momo位置と新カメラを検証する。実ゲームのsnapshot／Save／キャラ・噴水は無変更。原本References/Review/full-playmode-2026-10-27-220456/。今回修正後のUnity全件／画像／APK／Pixelは未確認。
 
+**最新コンソール：Edit144/144＋Play234/234、実PNG250枚生成まで成功。** 原XML／JSON／PNG未受領で原本検証は保留。停止はUnity後のnorth-noah-review.ps1:30の範囲検証。C#float±.6fのJSON表現±.6000000238418579をdouble±.6へ完全一致比較していた誤判定を再現。有限値検査を残し、4座標を元のSingle精度で一致検査へ修正。実座標の隣のSingle値も全4座標で拒否し、許容幅を広げない。C#撮影・ゲーム・画像・既存基準は変更しない。詳細docs/north-noah-bounds-precision-2026-10-27.md。今回runのフォルダー／sourceは画面未確認、先頭explorerは前回のため流用しない。APK／Pixel／視覚採用は未了。
+
 以下は過去の検証履歴。
 
 **2026-10-27最新受領：18ZIP・484原本、sourcebb3fb82／run102109-3bbbf9feの実Unity370件全Passed。** Edit144/144・Play226/226、failed0skip0inconclusive0。全219全景＋240実Update切出し＋実旧Before3枚＝462PNGのSHA／bytes／寸法／全デコード、既存全件／境界／歩行／実成長／水／show／連続ゲート、原354／固定景観18binding・歴史digestが成功。captureと街／成長APKのsource／fingerprintdca9b087…が一致。街79,033,873bytes／SHA1a4b9951…、成長79,033,881／SHA907da881…、両成功logの厳密bytes一致。binary自体は未受領、端末で実SHA／IDを照合する。原本と判定はReferences/Review/fountain-final-2026-10-27-candidate/。

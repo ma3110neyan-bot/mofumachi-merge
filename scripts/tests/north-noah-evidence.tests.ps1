@@ -38,6 +38,19 @@ try {
     $Record.sequence.noah_reaction_seconds=.65;$Record.sequence.momo_reaction_seconds=.65;$Record.sequence.noah_facing=1;$Record.sequence.momo_facing=-1
     Set-Content -LiteralPath (Join-Path $Temporary 'north-noah-before-after.html') '<!doctype html><title>Synthetic metadata fixture</title>'
     Save;Assert-NorthNoahEvidence $Temporary ('a'*40) ('b'*64)
+    # JsonUtility emits public C# float fields at their exact Single value,
+    # unlike the compact Double literals in the older synthetic fixture.
+    $CompactBounds=$Record.north_world_bounds
+    $NativeBounds=@{};foreach($Key in @('x_min','x_max','y_min','y_max')){$NativeBounds[$Key]=[double][single]$CompactBounds[$Key]}
+    $Record.north_world_bounds=$NativeBounds;Save;Assert-NorthNoahEvidence $Temporary
+    foreach($Key in @('x_min','x_max','y_min','y_max')){
+        $Original=$NativeBounds[$Key];$Bits=[BitConverter]::ToInt32([BitConverter]::GetBytes([single]$Original),0)
+        foreach($Step in @(-1,1)){
+            $NativeBounds[$Key]=[double][BitConverter]::ToSingle([BitConverter]::GetBytes([int]($Bits+$Step)),0)
+            Save;Reject {Assert-NorthNoahEvidence $Temporary}
+        };$NativeBounds[$Key]=$Original
+    }
+    $Record.north_world_bounds=$CompactBounds;Save;Assert-NorthNoahEvidence $Temporary
     $Record.sequence.isolated_start_verified=$false;Save;Reject {Assert-NorthNoahEvidence $Temporary};$Record.sequence.isolated_start_verified=$true
     $Record.sequence.Remove('isolated_start_verified');Save;Reject {Assert-NorthNoahEvidence $Temporary};$Record.sequence.isolated_start_verified=$true
     $Record.sequence.setup='reused-route-snapshot';Save;Reject {Assert-NorthNoahEvidence $Temporary};$Record.sequence.setup='fresh-isolated-Home-scene-after-completed-route-proof'

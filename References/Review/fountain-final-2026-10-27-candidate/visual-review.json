@@ -1,0 +1,61 @@
+{
+  "review_kind": "primary-agent private visual inspection; not an independent reviewer or Pixel acceptance",
+  "full_images_seen": 219,
+  "live_crops_seen": 240,
+  "before_originals_seen": 3,
+  "private_contact_pages_seen": 34,
+  "critical_visual_findings": 0,
+  "new_important_scenery_regressions_observed": 0,
+  "ordinary_water": "Wider cyan body and descending white packets, impact splashes, ripple and glint changes visible in unoccluded crop sequence. Phone-scale naturalness remains for user confirmation.",
+  "show": "Three high arcs, moving highlights/splash and return to ordinary state visible. First clearly high cropped jets around38.48s; recorded near-full strength38.7306s.",
+  "front_character": "Face/clothes/name remain readable in focused front shots.",
+  "behind_character": "Show water crosses lower face/neck/clothing in the rear shot; eyes remain readable. Not proof of a continuous solid-fountain depth crossing.",
+  "conversation_panel_intervals_reviewed": [
+    {
+      "first_file": "35-fountain-live-crop-013.png",
+      "last_file": "35-fountain-live-crop-028.png",
+      "start_seconds": 3.276643991470337,
+      "end_seconds": 7.049631118774414,
+      "sample_count": 16,
+      "stages": [
+        0
+      ]
+    },
+    {
+      "first_file": "35-fountain-live-crop-045.png",
+      "last_file": "35-fountain-live-crop-060.png",
+      "start_seconds": 11.321401596069336,
+      "end_seconds": 15.088643074035645,
+      "sample_count": 16,
+      "stages": [
+        0
+      ]
+    },
+    {
+      "first_file": "35-fountain-live-crop-166.png",
+      "last_file": "35-fountain-live-crop-213.png",
+      "start_seconds": 41.75119400024414,
+      "end_seconds": 53.57760238647461,
+      "sample_count": 48,
+      "stages": [
+        0,
+        2,
+        3
+      ]
+    }
+  ],
+  "conversation_partial_overlap_samples": 80,
+  "conversation_note": "Existing official conversation UI partially covers water during ordinary states and show tail. High jets remain visible during partial show overlap. InitialLv0 differs from priorLv6; do not infer frequency regression.",
+  "minor": [
+    "Show arcs retain a regular band/ribbon appearance; assess naturalness at phone scale."
+  ],
+  "pixel_focus": [
+    "Ordinary flow/show visibility while automatic conversation appears",
+    "Hero back/side/front depth and face/name readability",
+    "Existing east canopy/edge self-return",
+    "Actual FPS/heat/600seconds and every-level app restart"
+  ],
+  "eligible_for_same_apk_pixel_verification": true,
+  "pixel_verified": false,
+  "adopted": false
+}

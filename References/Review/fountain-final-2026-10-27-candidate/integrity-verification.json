@@ -1,0 +1,57 @@
+{
+  "editmode.xml": {
+    "id": "2",
+    "testcasecount": "144",
+    "result": "Passed",
+    "total": "144",
+    "passed": "144",
+    "failed": "0",
+    "inconclusive": "0",
+    "skipped": "0",
+    "asserts": "0",
+    "engine-version": "3.5.0.0",
+    "clr-version": "4.0.30319.42000",
+    "start-time": "2026-10-27 01:22:15Z",
+    "end-time": "2026-10-27 01:22:18Z",
+    "duration": "3.0838303",
+    "actual_case_count": 144
+  },
+  "playmode.xml": {
+    "id": "2",
+    "testcasecount": "226",
+    "result": "Passed",
+    "total": "226",
+    "passed": "226",
+    "failed": "0",
+    "inconclusive": "0",
+    "skipped": "0",
+    "asserts": "0",
+    "engine-version": "3.5.0.0",
+    "clr-version": "4.0.30319.42000",
+    "start-time": "2026-10-27 01:22:47Z",
+    "end-time": "2026-10-27 01:28:38Z",
+    "duration": "350.8313066",
+    "actual_case_count": 226
+  },
+  "apk_success_logs": [
+    {
+      "log": "android-build.log",
+      "path": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261027-102109-3bbbf9fe\\town-life-qa.apk",
+      "bytes": 79033873,
+      "matches_build_info": true
+    },
+    {
+      "log": "growth-android-build.log",
+      "path": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261027-102109-3bbbf9fe\\town-growth-check.apk",
+      "bytes": 79033881,
+      "matches_build_info": true
+    }
+  ],
+  "run_names": [
+    "20261027-102109-3bbbf9fe"
+  ],
+  "source": "bb3fb82b5b941dd29fb58d4d0dd1631af516a723",
+  "fingerprint": "dca9b087d7bc658b2f6dd8624cf5f3804f6a86b3201b51ebde0fc651c187a3ab",
+  "pngs_verified": 462,
+  "apk_binary_received": false
+}

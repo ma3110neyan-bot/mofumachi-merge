@@ -1,0 +1,2569 @@
+{
+  "parts": [
+    {
+      "part": "01",
+      "sediment_file_id": "file_00000000d19c820991d4c32fefac8f99",
+      "zip_bytes": 18273627,
+      "zip_sha256": "38a22c6abdfc19d4d99fc97e40e6b8490bdf4032e7b49fbc1f4eea895c35e904",
+      "entries": [
+        {
+          "file": "editmode.xml",
+          "bytes": 109006,
+          "sha256": "e40cca9cd7719cd6befd6c453156cf11bb065a61b53b96709a254f54b10372c5"
+        },
+        {
+          "file": "playmode.xml",
+          "bytes": 188920,
+          "sha256": "456310a4734f705bb65724ce5457fcbc569c6bc9cd9bdffceec5a6b32d92eec7"
+        },
+        {
+          "file": "build-info.json",
+          "bytes": 1070,
+          "sha256": "e3fb9ff223b7b07df84754120ef50679e07372d6336763147eac3f7138304259"
+        },
+        {
+          "file": "growth-build-info.json",
+          "bytes": 497,
+          "sha256": "6e8c112313020a3ecc81eed2abed5ff798c5f2af581aba6a5cea7127c8c6784c"
+        },
+        {
+          "file": "capture-manifest.json",
+          "bytes": 55792,
+          "sha256": "b70393d1403b3195a4e7fe60a5e97644e45a01d0998308fae074c838aae6b775"
+        },
+        {
+          "file": "android-build.log",
+          "bytes": 563778,
+          "sha256": "01a01b671c5a0626e9a214301af2508624f6165f86466eb4a15df10d5eac0241"
+        },
+        {
+          "file": "growth-android-build.log",
+          "bytes": 544616,
+          "sha256": "a657c72f90453a3a9d3796117d75b81980e16c7cb00f57961b3e21a708cc3c9c"
+        },
+        {
+          "file": "playmode.log",
+          "bytes": 334543,
+          "sha256": "c373d688b9a7d3d43f7bd198958cf046c9964c6fef9316b5ee196dca473b4f84"
+        },
+        {
+          "file": "before-after.html",
+          "bytes": 53730,
+          "sha256": "3093134caf136f2ddce6520586b1854f6acca386ffe2ddbdc3f6a481564b8073"
+        },
+        {
+          "file": "visual-adoption.json",
+          "bytes": 675,
+          "sha256": "97f0337970104c76f466a020856ef991c66cc2b60e43c7151f3d1a16e1d34b92"
+        },
+        {
+          "file": "texture-memory.txt",
+          "bytes": 516,
+          "sha256": "118a6c68ffd286ca07948f4cc848f40aa6a1392bb7565a531edb71c63094b62d"
+        },
+        {
+          "file": "README.txt",
+          "bytes": 1292,
+          "sha256": "918ae26b67cfdb4efd6e81851f31dba94dfda61aff9446f7ca31984d4313fb3e"
+        },
+        {
+          "file": "street-boundary-before-after.html",
+          "bytes": 5794,
+          "sha256": "7db63096c18ee8ce7a5a747fe4a26081e182d50113573069ce93c9d2028b71b1"
+        },
+        {
+          "file": "street-boundary-comparison.json",
+          "bytes": 204,
+          "sha256": "dc536e2a7015687adc2e3e710dffebb3d190349f831d065bbc73f0a7db55c392"
+        },
+        {
+          "file": "field-stability.json",
+          "bytes": 187,
+          "sha256": "773dcdb1877afbca6c683a670d49e34a88d7f239d049761f88c9889883d9046f"
+        },
+        {
+          "file": "town-growth-progression.json",
+          "bytes": 7592,
+          "sha256": "85e8e9d170afbcd3caa5335cc355e3e8e474b7ab5ff74ec10c80dd5400b5a6ee"
+        },
+        {
+          "file": "fountain-water-before-after.html",
+          "bytes": 1370,
+          "sha256": "9b641094ef184a0d459d892a260d651d2639610a02e65e032908383d3d63588f"
+        },
+        {
+          "file": "fountain-water-comparison.json",
+          "bytes": 537,
+          "sha256": "3009f3e982c844c79584cef4b0452946980db1f7bc118038b678c2bac884dcc1"
+        },
+        {
+          "file": "fountain-show-comparison.json",
+          "bytes": 2021,
+          "sha256": "32224f612043f5c69f555055c7d843bcc653eeef60dcb070e1d1ff1c1fe3afab"
+        },
+        {
+          "file": "fountain-show-before-after.html",
+          "bytes": 1807,
+          "sha256": "cdbfe4b8cb24f801407c9d585a0087550bb98fef65806ed51200e48fc87982ee"
+        },
+        {
+          "file": "01-merge-start.png",
+          "bytes": 601711,
+          "sha256": "4dffa1c8634a8ad45da2f56b45c4b0ed4dffeb8c1bff5cb5fdb8c97db39c2ada"
+        },
+        {
+          "file": "02-merge-all-items.png",
+          "bytes": 730928,
+          "sha256": "177cf235169ec41dd7f3bf3cf5b55f9dacd9d366f0f5ff09225bb6976d5318e4"
+        },
+        {
+          "file": "03-merge-selection.png",
+          "bytes": 728915,
+          "sha256": "1f54752797e2be29e6b83ae172f67a25a90219c3b48f1993df8c7b8de4f9ee57"
+        },
+        {
+          "file": "04-town-lv1-Central.png",
+          "bytes": 1816950,
+          "sha256": "bdec0336c5e5ed8c948c6901d6e494cee4afb3832258856072a092ebafe053f9"
+        },
+        {
+          "file": "04-town-lv1-East.png",
+          "bytes": 1759987,
+          "sha256": "706468c4ca640e2e38706c9b1088af691e12710bd70788c53fe3db4c23a15bd1"
+        },
+        {
+          "file": "04-town-lv1-North.png",
+          "bytes": 1747194,
+          "sha256": "7a2b287c03b17f66e2bf69c0d0fb8f3591151936feabda1581d2b01b6dbd7a73"
+        },
+        {
+          "file": "04-town-lv1-South.png",
+          "bytes": 1772949,
+          "sha256": "e84fd945b6c511910e90f50a0546f775e592aa2aadeb61b5b41b54b09296f12a"
+        },
+        {
+          "file": "04-town-lv1-West.png",
+          "bytes": 1753774,
+          "sha256": "8bdb1c50c31c92a3171002c03a0558101ab8ee2b0a64d5c64f623ed736fc1796"
+        },
+        {
+          "file": "04-town-lv3-Central.png",
+          "bytes": 1830950,
+          "sha256": "98dcd357514254500d89cad083f4e6bc37f1a0b81034282ecd6bfe1997b45025"
+        },
+        {
+          "file": "04-town-lv3-East.png",
+          "bytes": 1764614,
+          "sha256": "ea0b70ee3209cc8bc7d7aa1c9f0653f8f6450d9cbea08d13d1bb66c59be0d878"
+        },
+        {
+          "file": "04-town-lv3-North.png",
+          "bytes": 1764402,
+          "sha256": "b0b45398d3bc7a2b809c1e73e2fb4e7a948a9b2de3be3c5c032f0879ed5b7ea7"
+        },
+        {
+          "file": "04-town-lv3-South.png",
+          "bytes": 1784425,
+          "sha256": "5c6a41f50e4e9dc4e509c3403d465268360afbef6d72b8f8543d6f8132aac1ac"
+        }
+      ]
+    },
+    {
+      "part": "02",
+      "sediment_file_id": "file_00000000df208209ad1b8fde6b5cae5c",
+      "zip_bytes": 20140280,
+      "zip_sha256": "58464f6b8f7ab14a63eb3e1282fe73f4fc3510905dfb27b2c0938536a3b67e08",
+      "entries": [
+        {
+          "file": "04-town-lv3-West.png",
+          "bytes": 1755801,
+          "sha256": "96b82e3b632349528a7c5fa3c4bf9487fd88b2b30a973dbe5eba55cda8965ae1"
+        },
+        {
+          "file": "04-town-lv6-Central.png",
+          "bytes": 1838320,
+          "sha256": "4d8901c61e4433da3f9e6a83d647cce44d66ea0ea2b217848b1bd0c8cfb7045f"
+        },
+        {
+          "file": "04-town-lv6-East.png",
+          "bytes": 1777874,
+          "sha256": "5ee01d27dc4f2cad77c0d36c0aacb5a9bde716c576cebc1d2adfb0a949c78818"
+        },
+        {
+          "file": "04-town-lv6-North.png",
+          "bytes": 1787305,
+          "sha256": "9353cf08c8c5b42868b2bac1983b1eb1e7783b1f3b020e17cb647157912900ec"
+        },
+        {
+          "file": "04-town-lv6-South.png",
+          "bytes": 1785441,
+          "sha256": "19bca63c639dbe3804d08b5703b50a00296fd6628a99a4f466f392d0eb761943"
+        },
+        {
+          "file": "04-town-lv6-West.png",
+          "bytes": 1766566,
+          "sha256": "80a823284f999dd4b6d3551a962bd94af3c20f5840bd62c6ca71066693328ea0"
+        },
+        {
+          "file": "05-street-selected.png",
+          "bytes": 1729284,
+          "sha256": "e7dcd3d659bd2aff1c02e6ea5b8cd9fb3c904f0a7a8976b79ce64f2391e5b619"
+        },
+        {
+          "file": "06-walking-00.png",
+          "bytes": 1924379,
+          "sha256": "d598b29076347763c0fec0a33db1621b6fb76605a6ccdac6a72f08c6e483e0f4"
+        },
+        {
+          "file": "06-walking-01.png",
+          "bytes": 1923725,
+          "sha256": "71ecbbfbb1d5df3f4312b82cc2868a01a53e8fe892dda8d4575f32d5da597978"
+        },
+        {
+          "file": "06-walking-02.png",
+          "bytes": 1922522,
+          "sha256": "c97da6e317943d2e13b3bf15b6d421bde0cf7b0fbbe1e5caf3ecd5e91a7cc967"
+        },
+        {
+          "file": "06-walking-03.png",
+          "bytes": 1921769,
+          "sha256": "eebc1ca60cd99cd1a0e3b9f7be98d25da43f649b4fed04b5dcf24bc19e5d6bc6"
+        }
+      ]
+    },
+    {
+      "part": "03",
+      "sediment_file_id": "file_0000000045c88209a9d5660633d88864",
+      "zip_bytes": 20885807,
+      "zip_sha256": "1db178c93c034b04b4e6aa0eca9d9d3b570d8296a15663082bca857263e707f3",
+      "entries": [
+        {
+          "file": "06-walking-04.png",
+          "bytes": 1919878,
+          "sha256": "fd05c4a0b7ca03197661d11c808a6b1ce88da41d7fd50313da1f81023abcb642"
+        },
+        {
+          "file": "06-walking-05.png",
+          "bytes": 1922296,
+          "sha256": "45cdfc78fffe723259cd9c2a9ff643b031dc79a10485a7d1d35670de7b296b2f"
+        },
+        {
+          "file": "06-walking-06.png",
+          "bytes": 1922246,
+          "sha256": "8678ee7b0734ebce33b61d39b8f4dccc63097908e44d54bb7a48bca153899347"
+        },
+        {
+          "file": "06-walking-07.png",
+          "bytes": 1923330,
+          "sha256": "782bdb4547d2bec5a5a90373bedcf55043e23b817afbb2e4c1db9ba62a80e95f"
+        },
+        {
+          "file": "07-quest-story-goal.png",
+          "bytes": 557001,
+          "sha256": "57ea491a94f8388789ee6e00eef3dc5641b6d605c0b36817f33dcee97822df2b"
+        },
+        {
+          "file": "08-music-selection.png",
+          "bytes": 587579,
+          "sha256": "1c0d4254c56819386a7f81770c7f89fd60c5901d9ab9ad0839f818cedc875897"
+        },
+        {
+          "file": "09-connected-path-east.png",
+          "bytes": 1796541,
+          "sha256": "cb12c4abc07bd7448b5169db2f0b15a3f8dec2b6af204204b0a549735ac45a88"
+        },
+        {
+          "file": "09-connected-path-north.png",
+          "bytes": 1870466,
+          "sha256": "b001ee0b7bb6a1719876b16c951a9bdcf5c58df3d7817dc797b379cf0c863324"
+        },
+        {
+          "file": "09-connected-path-south.png",
+          "bytes": 1805898,
+          "sha256": "cb452475758939e2406fc230bda1fd80e74c6c4b03398c8fcfc390fb106d8fd7"
+        },
+        {
+          "file": "09-connected-path-west.png",
+          "bytes": 1814614,
+          "sha256": "12fd9ccc5952d655b08d42d40814034c79d9fa741d1fed875d90d3b360f4b84e"
+        },
+        {
+          "file": "10-book-discovery-details.png",
+          "bytes": 569808,
+          "sha256": "4ff9b3403155cb63579a0e3cc2d68b5e327ea8c9af32497b27f02b401af83db1"
+        },
+        {
+          "file": "10-book-fio.png",
+          "bytes": 628843,
+          "sha256": "33fdfef255be08571d1857c3149d1735be3d4b954b55cfa823e076185589f4a2"
+        },
+        {
+          "file": "10-book-lulu.png",
+          "bytes": 626283,
+          "sha256": "3669a9486fedc18162309c1239d29cc5e6d108b3ab7488564823442a34fee061"
+        },
+        {
+          "file": "10-book-miel.png",
+          "bytes": 632987,
+          "sha256": "e4da1672e6c6eefc27695d84ff25905d8496440e1592ec14344b5a3e9ac2fce3"
+        },
+        {
+          "file": "10-book-momo.png",
+          "bytes": 642058,
+          "sha256": "27b3ccc53f751be1eaf556d7244e1f4be51f3177b48c184df0a9057d23d3e725"
+        },
+        {
+          "file": "10-book-noah.png",
+          "bytes": 634855,
+          "sha256": "c86e04a8231119b43f4ce341bfdc8dcfb2ef1d24c8d55dba742243c2ef95d9bb"
+        },
+        {
+          "file": "10-book-pom.png",
+          "bytes": 622743,
+          "sha256": "2794480f7118de797db678490bc18fe7da9c11b7380ec799a30e303cbb810320"
+        },
+        {
+          "file": "11-today-start.png",
+          "bytes": 419197,
+          "sha256": "cbe6d33fc98b8ed101c183024178f8eefcdce9a0a420fa3acba5fc4a61302e56"
+        }
+      ]
+    },
+    {
+      "part": "04",
+      "sediment_file_id": "file_000000005ea88211a4f85b48c678d56d",
+      "zip_bytes": 19835483,
+      "zip_sha256": "0e202e68785cdc709d756ab9e7a91dc9b290f3dafda183e4d47ea26ca446e496",
+      "entries": [
+        {
+          "file": "12-today-ready.png",
+          "bytes": 422577,
+          "sha256": "991e91463f28c386db76e4e0bf0dea74781f5f67f35bc0ffcb07f1f99b920d6d"
+        },
+        {
+          "file": "13-today-flower-collected.png",
+          "bytes": 425502,
+          "sha256": "d67701c725901199eb883bafad5456cc80f97c65c8ea55aedc7069b5b6706726"
+        },
+        {
+          "file": "14-finale-still-has-daily-goals.png",
+          "bytes": 1839393,
+          "sha256": "2cd7ca499adbd48c11684bce003a7b003ebc0c98dcb1ef50b6069a227bab7f89"
+        },
+        {
+          "file": "15-wide-park-left.png",
+          "bytes": 1846804,
+          "sha256": "85e33c3ca851f44602a196fa69c0c06a2e9c87a2f95adfee1a07f11e46fddf4d"
+        },
+        {
+          "file": "15-wide-park-right.png",
+          "bytes": 1839636,
+          "sha256": "2ad084721801d7bb15be0fc5f9664d9132f34a11272e6236d4638cf979cb73f8"
+        },
+        {
+          "file": "16-residents-passing-00.png",
+          "bytes": 1911492,
+          "sha256": "ba6a00a6d7152459491aed2d5ac8ea29d82785efe29a85231e51fb32e26125c1"
+        },
+        {
+          "file": "16-residents-passing-01.png",
+          "bytes": 1923478,
+          "sha256": "9967e2067556510a109326175c1497117e95a8c6a0c351b7cde95dce49aa0fac"
+        },
+        {
+          "file": "16-residents-passing-02.png",
+          "bytes": 1931654,
+          "sha256": "fc0299366f0ae99b5b4d01f5f20c80a7ce3529b11dff9811f3513c238843dd94"
+        },
+        {
+          "file": "16-residents-passing-03.png",
+          "bytes": 1921906,
+          "sha256": "816d2a6f66b16472e83c47141f05481e94aa387d6440bc6f8c08aedaf706199a"
+        },
+        {
+          "file": "17-finger-follow-00.png",
+          "bytes": 1936152,
+          "sha256": "e296757d94696fe16a0746bcc00166e567b9f1a61490e3dacce7108ad583c393"
+        },
+        {
+          "file": "17-finger-follow-01.png",
+          "bytes": 1921975,
+          "sha256": "0f144c7610837a103719192aaf7fc730cd0985c09b0ad818a9997f60653926b6"
+        },
+        {
+          "file": "17-finger-follow-02.png",
+          "bytes": 1911255,
+          "sha256": "8a1d781dfe6f27d24f36de6bf61cf6d15affe203865f06828372e5e32df1acb7"
+        }
+      ]
+    },
+    {
+      "part": "05",
+      "sediment_file_id": "file_000000002f9482099d2a71b37466833d",
+      "zip_bytes": 20569619,
+      "zip_sha256": "71e77cbfc4a6cf1a6ecce64c9ddcc9f47ea1660e822a7157aad25b98f864b835",
+      "entries": [
+        {
+          "file": "17-finger-released.png",
+          "bytes": 1707525,
+          "sha256": "cd933b7089316c292de0fcbf6d535d4358508468d719ea1b5e702a9150fbf387"
+        },
+        {
+          "file": "18-continuous-walk-central.png",
+          "bytes": 1806872,
+          "sha256": "ce7931425c744dd2644ff502dae53d6b97cdf85fb55f4f7504da0e7257b8f405"
+        },
+        {
+          "file": "18-continuous-walk-east.png",
+          "bytes": 1749584,
+          "sha256": "f2a7a3cc66433008c0ca03f7884eb8e4b019dfc0ac4bd59913e2c650aceb759a"
+        },
+        {
+          "file": "18-continuous-walk-east-join.png",
+          "bytes": 1771523,
+          "sha256": "50a05ef731cd44a29fde599fa187dffe729a43c90e9f55f11612b691369349e1"
+        },
+        {
+          "file": "18-continuous-walk-west.png",
+          "bytes": 1737821,
+          "sha256": "b02bbb4dac35f46e4afa9c0d15e412560434af7457635db713b9da87b368d053"
+        },
+        {
+          "file": "18-continuous-walk-west-join.png",
+          "bytes": 1788011,
+          "sha256": "48d78a88e28f04f6b35e85d9b5d817724c629c18b2697886f38e321ffe8ed1d0"
+        },
+        {
+          "file": "19-book-discovery-first-page.png",
+          "bytes": 717079,
+          "sha256": "72bc21da2ea73a9eab8ef13d0952f6251e3a74069b4d2c0a961bea53195ec20b"
+        },
+        {
+          "file": "19-book-new-in-town.png",
+          "bytes": 1660333,
+          "sha256": "2de8a16d3ee7afed119774d3a3b40c20c49a7211829162504a5a9a04c3a499ac"
+        },
+        {
+          "file": "20-quest-arrived-door-prompt.png",
+          "bytes": 1752959,
+          "sha256": "a7948b8ccc78c071a86de3aef2ebbe2d210126d53d96d3b309f6229705480b6c"
+        },
+        {
+          "file": "20-quest-cabin.png",
+          "bytes": 1796305,
+          "sha256": "1c58f196d68d00e13190bf49b5ca7468fd5942d9b5bb6cc8be959b39c661c711"
+        },
+        {
+          "file": "20-quest-door-opening.png",
+          "bytes": 1745736,
+          "sha256": "8918d87d263fbe867a65a1739794653389d25dc799bccad27a604c4bb1506707"
+        },
+        {
+          "file": "20-quest-inside.png",
+          "bytes": 503472,
+          "sha256": "c810f5ee15a16a9731190ff5ca0e4bbc76edb1b04732cbb624d0bdb0ca14098d"
+        },
+        {
+          "file": "20-quest-walking.png",
+          "bytes": 1829258,
+          "sha256": "44e8397a443d6b709a2cd023d601c411b6f17e1ac66f9b4c5eca1524264c864e"
+        }
+      ]
+    },
+    {
+      "part": "06",
+      "sediment_file_id": "file_00000000279c8211aebec563357c0b05",
+      "zip_bytes": 20088171,
+      "zip_sha256": "39b0240d32183c3206b5ea293e75aada1e48eae3e67eddf6a9702e47663c50ef",
+      "entries": [
+        {
+          "file": "21b-cafe-arrived-door-prompt.png",
+          "bytes": 1732872,
+          "sha256": "aee047edcdb6af4b2105050b96a328fa41b58c373c66e4bfc5104ac5ae5b386b"
+        },
+        {
+          "file": "21b-cafe-cabin.png",
+          "bytes": 1774936,
+          "sha256": "00b1d8f19a6d3a5520a0a08d942524287ea1ea857d40c191cfd3a32a244fde88"
+        },
+        {
+          "file": "21b-cafe-door-opening.png",
+          "bytes": 1727538,
+          "sha256": "a80e547977419c5bd0506ce6480b8b1e6f711d89a728111e98e0409f2655f2a0"
+        },
+        {
+          "file": "21b-cafe-inside.png",
+          "bytes": 581444,
+          "sha256": "300e1db7b6e38aa600d737231c2a1b9c7a8423b2f290eb3df5aab1785fa203ca"
+        },
+        {
+          "file": "21b-cafe-walking.png",
+          "bytes": 1821749,
+          "sha256": "ee794c1fc08ca1fdeba121ec3cce78e49b509fbf9cfcab6273a592cba98c60d0"
+        },
+        {
+          "file": "21-shop-arrived-door-prompt.png",
+          "bytes": 1627747,
+          "sha256": "1f5049103be05bf5a07ad6648bd6429d21081479fd5917942269ac60605a72e8"
+        },
+        {
+          "file": "21-shop-cabin.png",
+          "bytes": 1789547,
+          "sha256": "4fdb0d3b8043c4743f898edd137eff4b07f125a1f07bbb765115db9b04bd7d97"
+        },
+        {
+          "file": "21-shop-door-opening.png",
+          "bytes": 1620141,
+          "sha256": "af13ca85e7ca6831c390a192564105de7f21147b44004d8d343831de5e1553ee"
+        },
+        {
+          "file": "21-shop-inside.png",
+          "bytes": 633399,
+          "sha256": "ef7ace750617e03e366cec1b7c6cab53355bce46e964afbba4188d664fbfa54b"
+        },
+        {
+          "file": "21-shop-walking.png",
+          "bytes": 1843309,
+          "sha256": "ca6c478bf70d69afe45f15461c8f0e9f390002e97590a4c5665ea8ffbcc15b8b"
+        },
+        {
+          "file": "22-merge-candidates.png",
+          "bytes": 593448,
+          "sha256": "a306cac1d08497fd5cbd201cbd524d4f032df2405290aade0b60c4b8586acf15"
+        },
+        {
+          "file": "22-title-candidates.png",
+          "bytes": 581407,
+          "sha256": "45751c74775e82f5ad93d0578fffaebb9ea74e29b9d774c5c9aa570ee97182c5"
+        },
+        {
+          "file": "23-merge-picnic.png",
+          "bytes": 730659,
+          "sha256": "009d1e7176db67243f7cc696b2cd439ae4fbb46f429ddd836e9566a99215fad7"
+        },
+        {
+          "file": "23-merge-pop-promenade.png",
+          "bytes": 730659,
+          "sha256": "009d1e7176db67243f7cc696b2cd439ae4fbb46f429ddd836e9566a99215fad7"
+        },
+        {
+          "file": "23-merge-ribbon.png",
+          "bytes": 730659,
+          "sha256": "009d1e7176db67243f7cc696b2cd439ae4fbb46f429ddd836e9566a99215fad7"
+        },
+        {
+          "file": "23-title-garden.png",
+          "bytes": 1568042,
+          "sha256": "9874ab529e0684ebb003c22f5d3b1a8ca6cc9be15ab63f70764c58bbe8c09c51"
+        }
+      ]
+    },
+    {
+      "part": "07",
+      "sediment_file_id": "file_000000009c148209832ef5307831aedb",
+      "zip_bytes": 20669849,
+      "zip_sha256": "6d8158369ad5ddcdd5988d9db8c855a67f727bb9865c9d1ff2c5ee2441d3f6ba",
+      "entries": [
+        {
+          "file": "23-title-letter.png",
+          "bytes": 1568042,
+          "sha256": "9874ab529e0684ebb003c22f5d3b1a8ca6cc9be15ab63f70764c58bbe8c09c51"
+        },
+        {
+          "file": "24-home-unobstructed.png",
+          "bytes": 1845426,
+          "sha256": "ccf7343a52796b35e9949d1513a3251ab7fdbc6bb793f9e4e795b6f99bd27270"
+        },
+        {
+          "file": "24-menu-open.png",
+          "bytes": 385632,
+          "sha256": "95a02e880b90d657c526a4c82a271c89a98999846cad6758181add53e6187ae4"
+        },
+        {
+          "file": "24-menu-return.png",
+          "bytes": 1845148,
+          "sha256": "d70cba8c85c7337ff5b2575111548eb29036b0344f65201046d100a7a2702094"
+        },
+        {
+          "file": "25-character-behind-fountain.png",
+          "bytes": 1871793,
+          "sha256": "c5291e3249411af89630a622054e1a1e777061ca005c0700b47f0a5b50277561"
+        },
+        {
+          "file": "25-character-greeting.png",
+          "bytes": 1916177,
+          "sha256": "f529cd4ebc0fec6bc17c5353f6cd1f8aff11deb547ecb7e177345b353bbc0202"
+        },
+        {
+          "file": "25-character-idle.png",
+          "bytes": 1845232,
+          "sha256": "f2ee46d14122f2d41b1e60ca400507ed1c5b70a8697a8c6bee45d842d7e116ed"
+        },
+        {
+          "file": "25-character-in-front-fountain.png",
+          "bytes": 1840282,
+          "sha256": "36dc25793d2dbdff02604924f273eb75eecc72e719316a178c95f6a24b7e0f62"
+        },
+        {
+          "file": "25-character-step-a.png",
+          "bytes": 1929525,
+          "sha256": "ab725cfc9461f09772e7562963a25245c1707d4f36f7a81f8b831b842898ead6"
+        },
+        {
+          "file": "25-character-step-b.png",
+          "bytes": 1917016,
+          "sha256": "60070eccf43e570d6d56e859628a9ee39162e2c02510ec75d56b849a81af6e23"
+        },
+        {
+          "file": "26-cardinal-North-arrival.png",
+          "bytes": 1797188,
+          "sha256": "93609436df70cf8c0e8217cd5502fd1a07ae6932c6efc15cb763b7d334e15e3d"
+        },
+        {
+          "file": "26-cardinal-North-join.png",
+          "bytes": 1902060,
+          "sha256": "ebda2ca41d2f6a06a435f5dad17d23245dcd399547637b4b74757d596db3d480"
+        }
+      ]
+    },
+    {
+      "part": "08",
+      "sediment_file_id": "file_0000000023848209964ef2b17925cd94",
+      "zip_bytes": 19226657,
+      "zip_sha256": "1fe26b244a89010191ceaaf5e90600972425591fb7a9a3a0a6f8a170b0974298",
+      "entries": [
+        {
+          "file": "26-cardinal-South-arrival.png",
+          "bytes": 1791433,
+          "sha256": "a9234817549c71abdb6e73cf96eca14c2c333b198f14a53eac5fff3e5923820f"
+        },
+        {
+          "file": "26-cardinal-South-join.png",
+          "bytes": 1887895,
+          "sha256": "7037ba0864e494cdbeda30b09818ef36f531bfe97a90b6d4f585dfe3aec71988"
+        },
+        {
+          "file": "27-merge-finale-live-purpose.png",
+          "bytes": 733019,
+          "sha256": "4b11f4931f13b4e73cc934660c2d417f600707363abc7ce272402c475bd495a2"
+        },
+        {
+          "file": "28-meet-friend-arrived.png",
+          "bytes": 1675281,
+          "sha256": "0b3be493d57ee787509b3889cfe07eb03aceee63d8e2b61a24546c6cc3888eab"
+        },
+        {
+          "file": "28-meet-friend-walking.png",
+          "bytes": 1869858,
+          "sha256": "95a1e3b86ea347b5c5c6388cc442f71425db137d2bd2e71dcbaffdc41666176f"
+        },
+        {
+          "file": "29-merge-drag-lift.png",
+          "bytes": 749319,
+          "sha256": "0c1cb45941a9fe8edc263330859bcf88532a8dd66d3de4d3106940807a328dc4"
+        },
+        {
+          "file": "29-merge-drag-match.png",
+          "bytes": 738630,
+          "sha256": "45e72fc3f04043982c2d2562d94bcaa8d5b8ee4671d981fbbb7c1e7ee0397fb4"
+        },
+        {
+          "file": "29-merge-landed.png",
+          "bytes": 727762,
+          "sha256": "528359cac4e76981fe4eeed2a79d5956b4c0402f8a27cc59a3c2549690f8ec1d"
+        },
+        {
+          "file": "30-boundary-east-join-after.png",
+          "bytes": 1807666,
+          "sha256": "2413b9dcbbb7590526ff96c2ff0b2fc83da6754b8f0d45f9dd14d545754ca3d5"
+        },
+        {
+          "file": "30-boundary-east-join-before-reconstructed.png",
+          "bytes": 1807666,
+          "sha256": "2413b9dcbbb7590526ff96c2ff0b2fc83da6754b8f0d45f9dd14d545754ca3d5"
+        },
+        {
+          "file": "30-boundary-east-lower-after.png",
+          "bytes": 1793478,
+          "sha256": "dd3faef613b8bf17614d50d4ea7ab2deb59c7bcd9bb98f2bd4ca37d182c3f4a2"
+        },
+        {
+          "file": "30-boundary-east-lower-before-reconstructed.png",
+          "bytes": 1790080,
+          "sha256": "c6ce985c35f4e5bdb17cbae47ca7469d698f17dae6ce97a59b67dffbb889c8ac"
+        },
+        {
+          "file": "30-boundary-east-upper-after.png",
+          "bytes": 1848184,
+          "sha256": "f42273768adc0d2ef002a6eaf1a19e50ac60e68d24353265b8b224c482d4ddea"
+        }
+      ]
+    },
+    {
+      "part": "09",
+      "sediment_file_id": "file_0000000037f08209b54267b8fe324cb0",
+      "zip_bytes": 20136381,
+      "zip_sha256": "1e9e42cac29b966fb331ad834a8fecc215b5ca8590eee563cb98074415919de1",
+      "entries": [
+        {
+          "file": "30-boundary-east-upper-before-reconstructed.png",
+          "bytes": 1848066,
+          "sha256": "b0ad1414cccb3b18b7532284b921ff9ffc6c54983964207f800ae85f889a8d27"
+        },
+        {
+          "file": "30-boundary-north-left-after.png",
+          "bytes": 1858712,
+          "sha256": "72e0d8066ec94a557d94b9f4e07d943a1ff75d51bdfbf8a2174a2fe3ce8d6303"
+        },
+        {
+          "file": "30-boundary-north-left-before-reconstructed.png",
+          "bytes": 1853241,
+          "sha256": "65785fa1225648e816b982e5d204b249d049d0d5077d3691222bb8900fc3d1ae"
+        },
+        {
+          "file": "30-boundary-north-right-after.png",
+          "bytes": 1861184,
+          "sha256": "7b603f934b2dff11b44d4e7057e1ecd6c336f2434c6d070b9a2a280de7d1315d"
+        },
+        {
+          "file": "30-boundary-north-right-before-reconstructed.png",
+          "bytes": 1861004,
+          "sha256": "577c5ab2c76fe6c0354102695dfe92f9194cda88489d57b0d9373717e408bc2f"
+        },
+        {
+          "file": "30-boundary-south-entry-after.png",
+          "bytes": 1807133,
+          "sha256": "60934b770f23d35d621102400650516597968291e30d8f3ea08eb890abb77bba"
+        },
+        {
+          "file": "30-boundary-south-entry-before-reconstructed.png",
+          "bytes": 1807133,
+          "sha256": "60934b770f23d35d621102400650516597968291e30d8f3ea08eb890abb77bba"
+        },
+        {
+          "file": "30-boundary-south-left-after.png",
+          "bytes": 1825827,
+          "sha256": "7074f5022d6262173af485fcd00ee36bac7873ea95ee1acb2bc3d57bed280c71"
+        },
+        {
+          "file": "30-boundary-south-left-before-reconstructed.png",
+          "bytes": 1824427,
+          "sha256": "1f6ed458f7b4b6fb71ae273a17d34a676e6d79bd0ce4f57030b433deb77ddca4"
+        },
+        {
+          "file": "30-boundary-south-right-after.png",
+          "bytes": 1791766,
+          "sha256": "03944866a6278581ff5f755f20525ba2a3728b6b684e27ea4b0b38396e647d5a"
+        },
+        {
+          "file": "30-boundary-south-right-before-reconstructed.png",
+          "bytes": 1790284,
+          "sha256": "11b2b22c05646874912d754acf83a1d2af789b897d7646b4fbd9a7b2d7243a89"
+        }
+      ]
+    },
+    {
+      "part": "10",
+      "sediment_file_id": "file_000000001f74820989a82efec03d1ca5",
+      "zip_bytes": 20935642,
+      "zip_sha256": "3d84a9519093adc7ba88d7ec9674c6e829043d3390654050b0c6e07212d5826b",
+      "entries": [
+        {
+          "file": "30-boundary-west-join-after.png",
+          "bytes": 1817196,
+          "sha256": "def07c63e1376d3ce8527d50731cb2148c1d99e6515b548aa35c8a0fb4fa1e9c"
+        },
+        {
+          "file": "30-boundary-west-join-before-reconstructed.png",
+          "bytes": 1817196,
+          "sha256": "def07c63e1376d3ce8527d50731cb2148c1d99e6515b548aa35c8a0fb4fa1e9c"
+        },
+        {
+          "file": "30-boundary-west-lower-after.png",
+          "bytes": 1817114,
+          "sha256": "c1b9e9ba88abdac1231cc045cbe2a9f4805c379a27f34381b64482a2e27a5c15"
+        },
+        {
+          "file": "30-boundary-west-lower-before-reconstructed.png",
+          "bytes": 1813437,
+          "sha256": "e804bacbb3a6c05eb7d8f48a829caa0940645b302cef76943b896fbe7ac5829f"
+        },
+        {
+          "file": "30-boundary-west-upper-after.png",
+          "bytes": 1842543,
+          "sha256": "0649927e1d2c04d16f63780005c58bd9932e186078a41ba8ae0472bea248b340"
+        },
+        {
+          "file": "30-boundary-west-upper-before-reconstructed.png",
+          "bytes": 1838379,
+          "sha256": "bf9fb21d19f60a4de69ca1790895f77981c4e71c60fd91943c1779aaa95ab271"
+        },
+        {
+          "file": "31-field-Central-edge.png",
+          "bytes": 1729162,
+          "sha256": "7c89651764a9f766231ac26c5419c963f83cb13b5bdb2fa87da60e5f84a1c2a8"
+        },
+        {
+          "file": "31-field-Central-return.png",
+          "bytes": 1598905,
+          "sha256": "170edc903adb8b7ac5e5619421b5a3d72a4f6fd9687428a214156b084719ba85"
+        },
+        {
+          "file": "31-field-east-corner-out.png",
+          "bytes": 1733938,
+          "sha256": "1c2cc203ba6c55c3cbb31b48fd608f0b337f81967f50e4972b1ce94f4b65c597"
+        },
+        {
+          "file": "31-field-east-corner-return.png",
+          "bytes": 1556284,
+          "sha256": "f8aabec2761d6df0817f32198cea9db748ffb06c4ad491687b30adb06dd57aab"
+        },
+        {
+          "file": "31-field-East-edge.png",
+          "bytes": 1749870,
+          "sha256": "6d25ad013cb2404aa0e3eb3080364b856c8f5f6edaf03f198b710fb3ffaf2cc7"
+        },
+        {
+          "file": "31-field-East-return.png",
+          "bytes": 1615436,
+          "sha256": "e5974e23cc2b266054ef5a0016eeafa82406850541fb297a5d4abd3f6701397c"
+        }
+      ]
+    },
+    {
+      "part": "11",
+      "sediment_file_id": "file_00000000ef808211a7e43fe32d2033a3",
+      "zip_bytes": 20031271,
+      "zip_sha256": "e5636e40eed35fb96ad5470817af3cffcdef86ba38b59b45d07b6741260b2d5e",
+      "entries": [
+        {
+          "file": "31-field-fountain-behind.png",
+          "bytes": 1766673,
+          "sha256": "bac8552609241c5d2d088f28908e1f48934e1d94c408065cb0efae2e64f80eff"
+        },
+        {
+          "file": "31-field-fountain-front.png",
+          "bytes": 1729917,
+          "sha256": "760dd8c334716b029f28f260055a964f7ec982027eeb04b53ddb8092c98589aa"
+        },
+        {
+          "file": "31-field-North-edge.png",
+          "bytes": 1672626,
+          "sha256": "7ae6c7e3668d78deca43038c436aa37c83924910fac10ffbe3886711b486750d"
+        },
+        {
+          "file": "31-field-North-return.png",
+          "bytes": 1603830,
+          "sha256": "cd9c6e3bcc42c41abaacc0cbe2e1e0cfe6b6e495730e4bb4b3484443e9a662db"
+        },
+        {
+          "file": "31-field-South-edge.png",
+          "bytes": 1651714,
+          "sha256": "e9a5fd3f731dd97e75864148c301d43c7306da0c01ba7866e52f395b44599e2d"
+        },
+        {
+          "file": "31-field-South-return.png",
+          "bytes": 1607345,
+          "sha256": "d6cf991331634c5f284c35b67450b544d8b0800d3f399089ccd7f6633286bb5d"
+        },
+        {
+          "file": "31-field-West-edge.png",
+          "bytes": 1738879,
+          "sha256": "80ba591f9efe68f68040d7e5b5e3b675e112e4663c6697c39ff5ffc6e9386eb2"
+        },
+        {
+          "file": "31-field-West-return.png",
+          "bytes": 1604253,
+          "sha256": "54d9d2d6e819259dfe861817cb43afec8e987f8d96b21eb9a3d93aeb2d9830fe"
+        },
+        {
+          "file": "32-growth-0-to-1-Central.png",
+          "bytes": 672091,
+          "sha256": "4b64f7e2492c3686f6c537dbc8abd09c82b7e97e1cbdcc240263210f0d671e72"
+        },
+        {
+          "file": "32-growth-0-to-1-East.png",
+          "bytes": 664311,
+          "sha256": "85692ac8b48fa0afc4cb3e8bbb30eb33fd069b64aa4dd8ddca4b413362ec8dcd"
+        },
+        {
+          "file": "32-growth-0-to-1-North.png",
+          "bytes": 654567,
+          "sha256": "c3fd5a5a3f51cd3a787c2d8f544542859b235607fcc964bf255ef7798a13fb7c"
+        },
+        {
+          "file": "32-growth-0-to-1-South.png",
+          "bytes": 657527,
+          "sha256": "8fe7f8674fb8c3bd9fe695960dcc9b102a5a39d799f7f7e766429bd9c2463fee"
+        },
+        {
+          "file": "32-growth-0-to-1-West.png",
+          "bytes": 659301,
+          "sha256": "bf424b24f9ae660efdbd3b14701456b7257545fe849a65741622a5475a784533"
+        },
+        {
+          "file": "32-growth-1-Central-reloaded.png",
+          "bytes": 1703927,
+          "sha256": "31f8065e163f7276379c97fc596ad7bdcd69c082d240d59fa15f2a75a057bad9"
+        },
+        {
+          "file": "32-growth-1-East-reloaded.png",
+          "bytes": 1645670,
+          "sha256": "b6f4da0d91ab02ea0eb6ce897090eda5a84fdf4966b0a328f39e62d98fe67180"
+        }
+      ]
+    },
+    {
+      "part": "12",
+      "sediment_file_id": "file_0000000033348211930c6a47c529030a",
+      "zip_bytes": 20001976,
+      "zip_sha256": "ca4235c00465bea9802afea77525e11bb6a9e58448343e2291d75fbe2404e886",
+      "entries": [
+        {
+          "file": "32-growth-1-North-reloaded.png",
+          "bytes": 1645713,
+          "sha256": "ecbcc8e2d7b5e662703bc2756ba93448480eb96db96ab4d5609fd5da924a7a1c"
+        },
+        {
+          "file": "32-growth-1-South-reloaded.png",
+          "bytes": 1660153,
+          "sha256": "f1b28d7ef21a6b87314f682dba8627c1add79cfd70c79e68be9940b231eaf4ae"
+        },
+        {
+          "file": "32-growth-1-to-2-Central.png",
+          "bytes": 668676,
+          "sha256": "1feda5df9185b05b370250a23a457a373ca210c86badeb77b9c61dcf627d3686"
+        },
+        {
+          "file": "32-growth-1-to-2-East.png",
+          "bytes": 689288,
+          "sha256": "387ebfc16b45a1021d93202d1790994abe841f4e92f3145e47f5755bf93188bf"
+        },
+        {
+          "file": "32-growth-1-to-2-North.png",
+          "bytes": 655195,
+          "sha256": "12ca42236911e2625ce43b928607c3801cc012d3a4fa22149f9c2ee4639eabc6"
+        },
+        {
+          "file": "32-growth-1-to-2-South.png",
+          "bytes": 656620,
+          "sha256": "32e171ba4136b3a636f486fd658405bc89af53b24b6e91e611d1b221ff278686"
+        },
+        {
+          "file": "32-growth-1-to-2-West.png",
+          "bytes": 689384,
+          "sha256": "836f0a68f397fb31d9696e5ef5499e6e53cecdab659afb8f3957ccfbe9a6abe6"
+        },
+        {
+          "file": "32-growth-1-West-reloaded.png",
+          "bytes": 1632308,
+          "sha256": "bc992bf0cfa48bc69a72932f7810c606082eff141cf9ed80e36fc3fb8b1fccc4"
+        },
+        {
+          "file": "32-growth-2-Central-reloaded.png",
+          "bytes": 1714130,
+          "sha256": "e42f7b4424c87202b4e9ad938d71b7a336907a7372f6c00f79f247cbd631684e"
+        },
+        {
+          "file": "32-growth-2-East-reloaded.png",
+          "bytes": 1646449,
+          "sha256": "e4852db2754ef09ca2621ee31e25be4ab1df9a7e88776b04cd60e7c212e3dad4"
+        },
+        {
+          "file": "32-growth-2-North-reloaded.png",
+          "bytes": 1646672,
+          "sha256": "49d6d0c0e425f3aa283d3db7c190e0071a3c5a9384cd835bc172a01241482e32"
+        },
+        {
+          "file": "32-growth-2-South-reloaded.png",
+          "bytes": 1661022,
+          "sha256": "373da0839e9608b315bcb086de4d961d1ed8fba737bf991af2fcb1dd8a3b7ef7"
+        },
+        {
+          "file": "32-growth-2-to-3-Central.png",
+          "bytes": 694211,
+          "sha256": "01abb174ed19fa1f13832418bf2e195af5d5fbc56bb51b83db25f13ac19bdafd"
+        },
+        {
+          "file": "32-growth-2-to-3-East.png",
+          "bytes": 690341,
+          "sha256": "3252330c258fe264b4676c8295bb0fd4d245dd749fd878d4e4cdeec5ae73be85"
+        },
+        {
+          "file": "32-growth-2-to-3-North.png",
+          "bytes": 672567,
+          "sha256": "30886cbef38007ad0a642e2a768fc0387de1a13af337723c4ac2fed06ed13fee"
+        },
+        {
+          "file": "32-growth-2-to-3-South.png",
+          "bytes": 671031,
+          "sha256": "4fcab2e1816cdf8114d997d7403379d94ce6c65e7ecd82e3ff23fa898cb1a654"
+        },
+        {
+          "file": "32-growth-2-to-3-West.png",
+          "bytes": 682289,
+          "sha256": "088568cf5384e17bb3ada1857630ecf952b972e2ba8f408074bded86184d4056"
+        },
+        {
+          "file": "32-growth-2-West-reloaded.png",
+          "bytes": 1631347,
+          "sha256": "a1d6372469205bbc0f5f87b2eb5f281cbec895cecc2f82a1e86d6a3fd9593b57"
+        }
+      ]
+    },
+    {
+      "part": "13",
+      "sediment_file_id": "file_0000000089288211b7872fe978de6e23",
+      "zip_bytes": 20484984,
+      "zip_sha256": "37662cacfa66e72e19413e750a4f12621e83abb4190041d975e94c8a8f17fbef",
+      "entries": [
+        {
+          "file": "32-growth-3-Central-reloaded.png",
+          "bytes": 1717092,
+          "sha256": "f171c06946c9262a248e5938438c72f0649e1f827298e56479e8ee8541ca2f57"
+        },
+        {
+          "file": "32-growth-3-East-reloaded.png",
+          "bytes": 1646793,
+          "sha256": "5cbdd6fce3b3831369ea79374f2743c730641e96907938f529e8a8f0ec03db63"
+        },
+        {
+          "file": "32-growth-3-North-reloaded.png",
+          "bytes": 1660311,
+          "sha256": "8aacc86656ce4bfbba73a30f254ea602bfce7744132504d4be4ffba9f963f2c8"
+        },
+        {
+          "file": "32-growth-3-South-reloaded.png",
+          "bytes": 1671309,
+          "sha256": "9e0ca238cb95479ed3ada1cc2b55c7a79fb86b5f7333b8c90274949b28d29a2d"
+        },
+        {
+          "file": "32-growth-3-to-4-Central.png",
+          "bytes": 665399,
+          "sha256": "0633dfe98332a393696996d25ec4d7d9da6f8467956fe24cd013e43a6a670d4a"
+        },
+        {
+          "file": "32-growth-3-to-4-East.png",
+          "bytes": 680615,
+          "sha256": "408ad8e94a03ee4f8d9b31010059250cbbffdc4e217c38c66bcd57adb21d9c2b"
+        },
+        {
+          "file": "32-growth-3-to-4-North.png",
+          "bytes": 666838,
+          "sha256": "76dabd6c0c4de0dc44bd39c37399d034471475b03d591c22bea5394fb77bbd26"
+        },
+        {
+          "file": "32-growth-3-to-4-South.png",
+          "bytes": 691611,
+          "sha256": "14920a586eaa101c744f353978aaaf0f2d92d39efa6350f3490f1d5c4e95b47c"
+        },
+        {
+          "file": "32-growth-3-to-4-West.png",
+          "bytes": 691941,
+          "sha256": "b17bf6cc450f88a803df09b09e1d5a20ad4f381d9f6883070b2a740bd39466a4"
+        },
+        {
+          "file": "32-growth-3-West-reloaded.png",
+          "bytes": 1633558,
+          "sha256": "e8c923568a0bd8953d738f736ef31bb63fcdfd4a4f65d431e06a8b290c36a52f"
+        },
+        {
+          "file": "32-growth-4-Central-reloaded.png",
+          "bytes": 1717540,
+          "sha256": "d8ce68967004999fa72592270c8fa9f577a41541585adcffd449b31925b9571e"
+        },
+        {
+          "file": "32-growth-4-East-reloaded.png",
+          "bytes": 1647187,
+          "sha256": "78882eb96b97770823ec4c8de055c77ecacc70dadfb51980510a12423acb542e"
+        },
+        {
+          "file": "32-growth-4-North-reloaded.png",
+          "bytes": 1660802,
+          "sha256": "2989bf519a8212d01b60b9d84cf5c2fb0527da522fd9f73f29d155054170cec5"
+        },
+        {
+          "file": "32-growth-4-South-reloaded.png",
+          "bytes": 1675479,
+          "sha256": "f1021bbaa910e9a6450d873c572cc4a2f4e74e85fab9b535866bf9deea27b574"
+        },
+        {
+          "file": "32-growth-4-to-5-Central.png",
+          "bytes": 665009,
+          "sha256": "8457c603ad37d31be9e7cd1ad8f1e0a3ed5c84800ced0638d83378926c11d5d4"
+        },
+        {
+          "file": "32-growth-4-to-5-East.png",
+          "bytes": 699343,
+          "sha256": "8c784fa3e0ac8bae2463c22c90cd24c81f14f9dabc6170231c33f5e45475f492"
+        },
+        {
+          "file": "32-growth-4-to-5-North.png",
+          "bytes": 697035,
+          "sha256": "f29d129fe80c972035f61ef341d8d6d5d5d4ba94894b9f7c28e0e27201933ec9"
+        }
+      ]
+    },
+    {
+      "part": "14",
+      "sediment_file_id": "file_00000000aa0482118949c70f67b4b69b",
+      "zip_bytes": 19955558,
+      "zip_sha256": "e82cf47e363581a1bc5b3c64b7464fd6d0796be89ff4f08f8a7fc372edc097c0",
+      "entries": [
+        {
+          "file": "32-growth-4-to-5-South.png",
+          "bytes": 660339,
+          "sha256": "b76cd6268da4eb5b16f43405492ec1362b897f255d4685f3f234ac513771d3a9"
+        },
+        {
+          "file": "32-growth-4-to-5-West.png",
+          "bytes": 688383,
+          "sha256": "eb329e652a43a8dae3814b837baa94ff5bd26c662b00fe131283bcabd655a16c"
+        },
+        {
+          "file": "32-growth-4-West-reloaded.png",
+          "bytes": 1633263,
+          "sha256": "169bdbbc86c035c6928754271a0e761a7c677c50b8f1d0d890e95b9b5b06c308"
+        },
+        {
+          "file": "32-growth-5-Central-reloaded.png",
+          "bytes": 1719706,
+          "sha256": "5bfce58106b31c4da69d898ef0a066af7c0ee7713e3d8f066bd3be635a84e7f0"
+        },
+        {
+          "file": "32-growth-5-East-reloaded.png",
+          "bytes": 1648476,
+          "sha256": "770aa333c2ff2d421311fb23dffd8d9abc4db526ed55427335f237886f82348f"
+        },
+        {
+          "file": "32-growth-5-North-reloaded.png",
+          "bytes": 1671915,
+          "sha256": "efff4d00895439d3d8d1801c5119d7a0ad5dc0de50dd1ed2d616842694bc0bfc"
+        },
+        {
+          "file": "32-growth-5-South-reloaded.png",
+          "bytes": 1675130,
+          "sha256": "be025012e58952012a060783e7dd2464a5838f1ea60d037439fa4d6d986c49a8"
+        },
+        {
+          "file": "32-growth-5-to-6-Central.png",
+          "bytes": 694699,
+          "sha256": "61e87fe9d62064faa8689ea9b9a2755adb545a66b0c727a15e23938aa0ff771b"
+        },
+        {
+          "file": "32-growth-5-to-6-East.png",
+          "bytes": 717662,
+          "sha256": "48b736a4f94b95674d9eff6105e1ced3ac364bb68e898b61e0cca418409c960f"
+        },
+        {
+          "file": "32-growth-5-to-6-North.png",
+          "bytes": 708018,
+          "sha256": "5016fc87530f8d181e6d5150cca31c82e6afed033932bdd1b9098270a3516020"
+        },
+        {
+          "file": "32-growth-5-to-6-South.png",
+          "bytes": 716803,
+          "sha256": "ded601009fc109619062e38477c71d1e1f553636ab3fd6bcd5baf8da0de44ebd"
+        },
+        {
+          "file": "32-growth-5-to-6-West.png",
+          "bytes": 725305,
+          "sha256": "9c82ffd7f3cfb13807a6f63278ea7a7a921f08401f00cf0a3123d7632d0a8cb8"
+        },
+        {
+          "file": "32-growth-5-West-reloaded.png",
+          "bytes": 1635122,
+          "sha256": "7239e3a379f61ce613c16d10f02a4081c7ae1a3b61271b850bd10484a18a5aca"
+        },
+        {
+          "file": "32-growth-6-Central-reloaded.png",
+          "bytes": 1723629,
+          "sha256": "88a07554545677f594329480e678f5d7d639deaad185dbb92698f0c31eec14db"
+        },
+        {
+          "file": "32-growth-6-East-reloaded.png",
+          "bytes": 1657498,
+          "sha256": "46e562550197814840dce194e8c539bf54612573045695944fe46cf0f5a0163f"
+        },
+        {
+          "file": "32-growth-6-North-reloaded.png",
+          "bytes": 1679840,
+          "sha256": "8792092c3fd564bcba39360a8ad810f5eae418752027a4520fa611383eac4ab5"
+        }
+      ]
+    },
+    {
+      "part": "15",
+      "sediment_file_id": "file_00000000e5188230af1d283eed924653",
+      "zip_bytes": 20673171,
+      "zip_sha256": "b55ec894678e59c28f90ea1b0179e9542fd1e1472a95d7497ccd120d280a37e8",
+      "entries": [
+        {
+          "file": "32-growth-6-South-reloaded.png",
+          "bytes": 1672313,
+          "sha256": "c46cce305449d40d86d36c82547847ab9968ef9a85ddfcff97c9e3d805d377a1"
+        },
+        {
+          "file": "32-growth-6-West-reloaded.png",
+          "bytes": 1643330,
+          "sha256": "8aad583c21712eb4fdad8554a6269a6e8b3c63a6e050e8f915fe990cf9100699"
+        },
+        {
+          "file": "33-fountain-behind-after.png",
+          "bytes": 1737874,
+          "sha256": "13617c6f88652620600437aa0676d66bf89d2de6b4918807a91d231dc7e60c85"
+        },
+        {
+          "file": "33-fountain-behind-before.png",
+          "bytes": 1738480,
+          "sha256": "c55b63f5e848b7325a3940e4f532079c7b1e47f8af365d9d28c2dcb8be08c6bc"
+        },
+        {
+          "file": "33-fountain-front-after.png",
+          "bytes": 1729078,
+          "sha256": "cd2f4fe4be1ead50ec648269b25c5bd249fa27827e056b6e48ecca09fc102455"
+        },
+        {
+          "file": "33-fountain-front-before.png",
+          "bytes": 1729272,
+          "sha256": "9caf61df12ecda9287a36c16ec96a34900a11f54b8816e7b80ffa5898d0967a5"
+        },
+        {
+          "file": "33-fountain-overview-after.png",
+          "bytes": 1732438,
+          "sha256": "41b86bd8ebcee2a279b447550bb80b5c07e49ffa625071de3473ca6c4aef83be"
+        },
+        {
+          "file": "33-fountain-overview-before.png",
+          "bytes": 1732691,
+          "sha256": "8bd5235d7851efac6e9f0db7079a10b53ce83600fc13b101df867ab035343977"
+        },
+        {
+          "file": "33-fountain-phase-00.png",
+          "bytes": 1737874,
+          "sha256": "13617c6f88652620600437aa0676d66bf89d2de6b4918807a91d231dc7e60c85"
+        },
+        {
+          "file": "33-fountain-phase-01.png",
+          "bytes": 1737791,
+          "sha256": "38e0f6a1d807318e2e7e6922cb0bfcb4d679d426e19fb66039865682195d4ac5"
+        },
+        {
+          "file": "33-fountain-phase-02.png",
+          "bytes": 1737826,
+          "sha256": "0cca6dd96979ce8a592f918a3b72d3b37935ad189e4e08515bb51ecb42c0f5f1"
+        },
+        {
+          "file": "33-fountain-phase-03.png",
+          "bytes": 1737812,
+          "sha256": "e8d920f8a47b3f6084779c8aa9f20890c5e8f7da00631aff3874d985821c9cf2"
+        }
+      ]
+    },
+    {
+      "part": "16",
+      "sediment_file_id": "file_000000005cb882098c4092706d44a0b0",
+      "zip_bytes": 20911568,
+      "zip_sha256": "6e2da1edd7f16c558aaad33d601f1ffdf0c03a8be504feb9a8f5d9cf06a27476",
+      "entries": [
+        {
+          "file": "34-fountain-behind-show.png",
+          "bytes": 1728732,
+          "sha256": "e641e0b7550583f925de22210efdaf4a45541861703c05e674178665dbf0f639"
+        },
+        {
+          "file": "34-fountain-behind-show-off.png",
+          "bytes": 1729788,
+          "sha256": "0ad4e1126753df99323f8b4e403574d3f7df788a205564e99af919f56dde4374"
+        },
+        {
+          "file": "34-fountain-front-show.png",
+          "bytes": 1720745,
+          "sha256": "37951bee7ea0307ac6c0cc4241994f063d525a47853c0169385ad8ae246ea5a3"
+        },
+        {
+          "file": "34-fountain-front-show-off.png",
+          "bytes": 1721048,
+          "sha256": "ab79205334747837699661b26057033713a77c6097dcf061e911ca02a86d1674"
+        },
+        {
+          "file": "34-fountain-overview-prelude.png",
+          "bytes": 1731515,
+          "sha256": "f67274b30f41afa223733f17c6b2993f482f2542f944d56afcba3cbdd41bf281"
+        },
+        {
+          "file": "34-fountain-overview-recovered.png",
+          "bytes": 1731588,
+          "sha256": "e989a91f29ba2de8de6c983e775a3ca96ae8ad6907831976a7994378ed791f07"
+        },
+        {
+          "file": "34-fountain-overview-show.png",
+          "bytes": 1731380,
+          "sha256": "ace6e114b1e00822149fdbbb4a6563fbbcc0a80b1dcda78e4f599edef34cb27e"
+        },
+        {
+          "file": "34-fountain-overview-show-off.png",
+          "bytes": 1731718,
+          "sha256": "c4054ae248dc2fa4de8f5886b1a5fc1920ccc5f625726eba343218dd5cc37af9"
+        },
+        {
+          "file": "35-fountain-live-normal.png",
+          "bytes": 1816675,
+          "sha256": "33e55c8a7f5368ebd7a79c1ce0ad379f26eabfddebd260741ed92bf264e68e0a"
+        },
+        {
+          "file": "35-fountain-live-recovered.png",
+          "bytes": 1697184,
+          "sha256": "75d2cbcb6c6e6c609deaa72270017cb34e5339b19bc90ad82c8a60f35420d833"
+        },
+        {
+          "file": "35-fountain-live-show.png",
+          "bytes": 1826497,
+          "sha256": "ed3bcb688aa0c6a7840bc86f28eed9f02b6ebf2bf91033549e2b5574c505af25"
+        },
+        {
+          "file": "34-fountain-behind-current-before.png",
+          "bytes": 1738238,
+          "sha256": "28d40050bf1cf20826a4ebfaab148af0ac2b7ed24df8173fac2e9e3862627c0b"
+        }
+      ]
+    },
+    {
+      "part": "17",
+      "sediment_file_id": "file_000000003be88209809b07ca5266b1d7",
+      "zip_bytes": 20966598,
+      "zip_sha256": "d2ab7ad9f769cc38e3dc5816445c8e5b0164bf1482c71c76e8be8143565d058a",
+      "entries": [
+        {
+          "file": "34-fountain-front-current-before.png",
+          "bytes": 1729203,
+          "sha256": "66487ab179dbd5680377b1d3f950336ab2c9eae596cd42d4ee544c1e66349f18"
+        },
+        {
+          "file": "34-fountain-overview-current-before.png",
+          "bytes": 1732593,
+          "sha256": "42c4a555557a8bb3717e4c1e14beac07d3fe7f47165e4af0d29e8eac3442c1be"
+        },
+        {
+          "file": "35-fountain-live-crop-000.png",
+          "bytes": 178361,
+          "sha256": "73738ae23ec5d0cf3b742db58458a3fe60c8d6cd554141afc5d55c36daf3500c"
+        },
+        {
+          "file": "35-fountain-live-crop-001.png",
+          "bytes": 178416,
+          "sha256": "f089feeef962d1a32e1b9f6b715df6da4646ad2338a830abcbb8a74b11ce40a6"
+        },
+        {
+          "file": "35-fountain-live-crop-002.png",
+          "bytes": 178326,
+          "sha256": "d4c7ab527ef5eda6f7a37100fed3d5ab00d467a6ab2a07a8e9f240620de4048e"
+        },
+        {
+          "file": "35-fountain-live-crop-003.png",
+          "bytes": 178376,
+          "sha256": "505f80f8ecfa683ea0f16ad77e1a3cd042830c31a510d3156bea46c68f3c7939"
+        },
+        {
+          "file": "35-fountain-live-crop-004.png",
+          "bytes": 178436,
+          "sha256": "b36ae6bdb2f2bf4a3770ca4de0a0121bb71cbe2d7c0590a137370fe88bd058d5"
+        },
+        {
+          "file": "35-fountain-live-crop-005.png",
+          "bytes": 178355,
+          "sha256": "fd4bb1dcf17c391db7b5b9f82ca95344982800788b1748e3b050b088dfe4fb4a"
+        },
+        {
+          "file": "35-fountain-live-crop-006.png",
+          "bytes": 178467,
+          "sha256": "fa185413423f1fa4ff46936b19afca3347231c9a6e1f8506b37e2229cdc941b3"
+        },
+        {
+          "file": "35-fountain-live-crop-007.png",
+          "bytes": 178335,
+          "sha256": "33c27305ce0c8d642475ebe843e3f7e8e80d11dcde57f1d975b0ae510f15c597"
+        },
+        {
+          "file": "35-fountain-live-crop-008.png",
+          "bytes": 178413,
+          "sha256": "083a857873d9aa426651df82034a49aa6cd64c07b64202b041de806972088ad1"
+        },
+        {
+          "file": "35-fountain-live-crop-009.png",
+          "bytes": 178417,
+          "sha256": "a67ee69aa1796ed6e5365232854203f8494e4d004041e4f5feb4600433573753"
+        },
+        {
+          "file": "35-fountain-live-crop-010.png",
+          "bytes": 178390,
+          "sha256": "92018734f53d499f8be819edea1a2af050765df01a5906156298f4ee2c7141b3"
+        },
+        {
+          "file": "35-fountain-live-crop-011.png",
+          "bytes": 178374,
+          "sha256": "6b86a89249465ac18edc3e9f782f000cde91c809a2b4952491203ee9c5cfb95d"
+        },
+        {
+          "file": "35-fountain-live-crop-012.png",
+          "bytes": 178388,
+          "sha256": "b892d0bc1a70584468e09b44d8b00b1534c32b757329a1df8600a7545f7f215f"
+        },
+        {
+          "file": "35-fountain-live-crop-013.png",
+          "bytes": 107194,
+          "sha256": "5228cf64c8495a0acdba1ffef0bad0fea07a4038273b263b033cef3d232b2396"
+        },
+        {
+          "file": "35-fountain-live-crop-014.png",
+          "bytes": 107162,
+          "sha256": "31ea049f941195d63314a116748aa160a34c2f3cc8782ee8f221d524ca958e65"
+        },
+        {
+          "file": "35-fountain-live-crop-015.png",
+          "bytes": 107197,
+          "sha256": "c426ef307a8ca43806fd3ca31cc06aefab950344fae29dfed30109b5fbebd09f"
+        },
+        {
+          "file": "35-fountain-live-crop-016.png",
+          "bytes": 107192,
+          "sha256": "39abc9e8c7065373f4402186a752c1b8b2731671176fa21a12e2b340582bc9a9"
+        },
+        {
+          "file": "35-fountain-live-crop-017.png",
+          "bytes": 107155,
+          "sha256": "3a6f1bca42fb05c1d26a2d8fe326e142131e202f3de28f7d79ed8d553869e4ec"
+        },
+        {
+          "file": "35-fountain-live-crop-018.png",
+          "bytes": 107203,
+          "sha256": "abc4692be977d33b50cdc048a0e6c0eafcfb6635779d2ccb5088118c5ff4ba55"
+        },
+        {
+          "file": "35-fountain-live-crop-019.png",
+          "bytes": 107161,
+          "sha256": "5f37bb259d1494c7a1e10a31bf26d1ae18f90e1b46f6e051c724b902ed5da7a4"
+        },
+        {
+          "file": "35-fountain-live-crop-020.png",
+          "bytes": 107175,
+          "sha256": "f39a57df9e708db85753dc3954c8d3c0dd1ce30fa2742a4f773197a21494596f"
+        },
+        {
+          "file": "35-fountain-live-crop-021.png",
+          "bytes": 107197,
+          "sha256": "44a2e50c5d7af066438fb464ea4fb3af07171edfc382e820cccfdb060d341f46"
+        },
+        {
+          "file": "35-fountain-live-crop-022.png",
+          "bytes": 106527,
+          "sha256": "25d91cb7cb340ed6bfc0f4629d5d0e2b1e6a75d5cb9083f8a573e112476dbf01"
+        },
+        {
+          "file": "35-fountain-live-crop-023.png",
+          "bytes": 105158,
+          "sha256": "58f7b08d556734b265a0b685524cb59b3ea16230a85793772dd5d90ae1a5585b"
+        },
+        {
+          "file": "35-fountain-live-crop-024.png",
+          "bytes": 103919,
+          "sha256": "0dd9b7e58cdf846a32c7b5ce44c8ca5d46f5ee340ff5d94e65de0e581dd21773"
+        },
+        {
+          "file": "35-fountain-live-crop-025.png",
+          "bytes": 102567,
+          "sha256": "fd2742af0d1409465fc5896ab6f1da0484acc350e2b80ce0e2ae11575ae11877"
+        },
+        {
+          "file": "35-fountain-live-crop-026.png",
+          "bytes": 100540,
+          "sha256": "0b09b5a88ec04988fe617e198e98127951d799293f67c08a14acda4a22f83519"
+        },
+        {
+          "file": "35-fountain-live-crop-027.png",
+          "bytes": 97691,
+          "sha256": "101829d1f5a59ab7384581772fbf0cd3dc7ca5bef62b7f9b9969fc11eb06ba59"
+        },
+        {
+          "file": "35-fountain-live-crop-028.png",
+          "bytes": 95537,
+          "sha256": "4047221961f9509907fe8da2cd55429c18352602d4730c7f9f9954c3c9534167"
+        },
+        {
+          "file": "35-fountain-live-crop-029.png",
+          "bytes": 178400,
+          "sha256": "0b7943b84d36ff369ec82afb79d80caaffb35eb9d4f509affd1cb5ce158167e4"
+        },
+        {
+          "file": "35-fountain-live-crop-030.png",
+          "bytes": 178444,
+          "sha256": "b47f1a554610b2f0b12e63c285c58919a560e4cc71f048d7e9e53e15e91ed51d"
+        },
+        {
+          "file": "35-fountain-live-crop-031.png",
+          "bytes": 178407,
+          "sha256": "26e220cc6e1a08796c4f08606af4385a28c17865d36fdde40dd7782751d6cc71"
+        },
+        {
+          "file": "35-fountain-live-crop-032.png",
+          "bytes": 178354,
+          "sha256": "c8c9ad9c2fd5e0048694932317f9d9eb5952659c4cfd86d43d97686c28e0c058"
+        },
+        {
+          "file": "35-fountain-live-crop-033.png",
+          "bytes": 178422,
+          "sha256": "8011363e478c90a18a4e16d346fbe92d3ad3ab07df3acb9150d256ac25d2fe28"
+        },
+        {
+          "file": "35-fountain-live-crop-034.png",
+          "bytes": 178409,
+          "sha256": "c5f09b3eec4f19562fe168d9c3a163bd17c5d343156764894ac5fc635250022c"
+        },
+        {
+          "file": "35-fountain-live-crop-035.png",
+          "bytes": 178380,
+          "sha256": "48e0ed1ee8d6ea216ac21292042bcca498020dd2262373e9ac185ef6738eca63"
+        },
+        {
+          "file": "35-fountain-live-crop-036.png",
+          "bytes": 178410,
+          "sha256": "ad8bc87f42a01a14aab0430d6a7f7e3cf0dbad6ef34c7959f075249ebcd6c611"
+        },
+        {
+          "file": "35-fountain-live-crop-037.png",
+          "bytes": 178373,
+          "sha256": "d7a77a5fdcb863c344ce9392057a616eb4e54b307d3ee341ca22c2092b7d254e"
+        },
+        {
+          "file": "35-fountain-live-crop-038.png",
+          "bytes": 178413,
+          "sha256": "ad6f6a70b4c59d7578aedc3c93fe1c6f505921f154bb42e44fc783b1a63c57d4"
+        },
+        {
+          "file": "35-fountain-live-crop-039.png",
+          "bytes": 178411,
+          "sha256": "513cda85e8074a945a66c4bfe8cbb7fed7093472027c06f6fa4aa9ecf3eb9b62"
+        },
+        {
+          "file": "35-fountain-live-crop-040.png",
+          "bytes": 178312,
+          "sha256": "d2b4a33cb0a665ebd4af594bf897ce577086d3051f311b3db36fc73bd6a0d4ba"
+        },
+        {
+          "file": "35-fountain-live-crop-041.png",
+          "bytes": 178401,
+          "sha256": "5e88503eb15b4876bac3b45220de0a348adaddf787fde5344170b01d81d9458b"
+        },
+        {
+          "file": "35-fountain-live-crop-042.png",
+          "bytes": 178370,
+          "sha256": "c918919488a4ae26fb2157f26efb0728fe3aa587598a15dbec76c78238647bc3"
+        },
+        {
+          "file": "35-fountain-live-crop-043.png",
+          "bytes": 178370,
+          "sha256": "7a203143a13997ceb6f36a0538798ede018638b5871e246955c483888f046748"
+        },
+        {
+          "file": "35-fountain-live-crop-044.png",
+          "bytes": 178459,
+          "sha256": "0c9dd1b335db00b22f15fd2cdb1b2c40be04538f901ceeded561dc302592d73a"
+        },
+        {
+          "file": "35-fountain-live-crop-045.png",
+          "bytes": 61600,
+          "sha256": "8977ec62d9842e19cb685ac84fba37c3ed7bef31b8443c3d69ba21fd98df5df0"
+        },
+        {
+          "file": "35-fountain-live-crop-046.png",
+          "bytes": 61600,
+          "sha256": "8977ec62d9842e19cb685ac84fba37c3ed7bef31b8443c3d69ba21fd98df5df0"
+        },
+        {
+          "file": "35-fountain-live-crop-047.png",
+          "bytes": 61600,
+          "sha256": "8977ec62d9842e19cb685ac84fba37c3ed7bef31b8443c3d69ba21fd98df5df0"
+        },
+        {
+          "file": "35-fountain-live-crop-048.png",
+          "bytes": 61600,
+          "sha256": "8977ec62d9842e19cb685ac84fba37c3ed7bef31b8443c3d69ba21fd98df5df0"
+        },
+        {
+          "file": "35-fountain-live-crop-049.png",
+          "bytes": 61600,
+          "sha256": "8977ec62d9842e19cb685ac84fba37c3ed7bef31b8443c3d69ba21fd98df5df0"
+        },
+        {
+          "file": "35-fountain-live-crop-050.png",
+          "bytes": 61600,
+          "sha256": "8977ec62d9842e19cb685ac84fba37c3ed7bef31b8443c3d69ba21fd98df5df0"
+        },
+        {
+          "file": "35-fountain-live-crop-051.png",
+          "bytes": 62218,
+          "sha256": "dd7e6a54c7af722de05f7adb707a6d6a0f3615268c77b7f53ff0e5fa1829b4c0"
+        },
+        {
+          "file": "35-fountain-live-crop-052.png",
+          "bytes": 62249,
+          "sha256": "d07d0b638f08513bcca73e4170b5cf610a542de0c106f81c3c2268a05262c77c"
+        },
+        {
+          "file": "35-fountain-live-crop-053.png",
+          "bytes": 62476,
+          "sha256": "fd0ff1c596ccd3c7e46015d42f0df61b44fc8c97cc23fe134dbb5cf5eb1a508b"
+        },
+        {
+          "file": "35-fountain-live-crop-054.png",
+          "bytes": 63049,
+          "sha256": "bcb5003dd8c7f8c44f84311cb3e74dac502db59d8735e3b660286551d534539d"
+        },
+        {
+          "file": "35-fountain-live-crop-055.png",
+          "bytes": 63190,
+          "sha256": "35a35ad893f2f7e02c1ff067f62e18aa13980e024435b199f94b08808a9270f8"
+        },
+        {
+          "file": "35-fountain-live-crop-056.png",
+          "bytes": 63213,
+          "sha256": "db931f2fc96e112a00cdb11cbcc0121e4e9972ea105c53e3769c994a70785b83"
+        },
+        {
+          "file": "35-fountain-live-crop-057.png",
+          "bytes": 63653,
+          "sha256": "b2b989c967a106ae9724ed83f226083bf016489c625b9cdfd1dcbde3a283b35f"
+        },
+        {
+          "file": "35-fountain-live-crop-058.png",
+          "bytes": 63554,
+          "sha256": "f57af801b5e61ccf9ca3e1d065150ae095e042f5631af303b3cc193e79f4c00f"
+        },
+        {
+          "file": "35-fountain-live-crop-059.png",
+          "bytes": 64098,
+          "sha256": "b9222ad79ef92e23b9a18c164234f3cde966246921cd6cf914c49a0db715bac8"
+        },
+        {
+          "file": "35-fountain-live-crop-060.png",
+          "bytes": 64500,
+          "sha256": "ead470a58c2cbb2ecead83b68addfa909e26f778d13e4fffd90152f284b849a5"
+        },
+        {
+          "file": "35-fountain-live-crop-061.png",
+          "bytes": 178410,
+          "sha256": "0a27f95d5cd67be8ebc17e195a165e14aeeb4b9b061b15c27a0df90a1f439d08"
+        },
+        {
+          "file": "35-fountain-live-crop-062.png",
+          "bytes": 178416,
+          "sha256": "03d2d1bbd00f8c46dca3ca0a5f75bc22eb237999ebac80c3f800834928e7635b"
+        },
+        {
+          "file": "35-fountain-live-crop-063.png",
+          "bytes": 178405,
+          "sha256": "b491b6b1637ffa234820b1dccb4d004e72e353e59176ddd018f6694c9c1e4d3e"
+        },
+        {
+          "file": "35-fountain-live-crop-064.png",
+          "bytes": 178405,
+          "sha256": "35cb37e0e7c4fa662c3618c75638740f26a8266adbd9faa35a125457d2b72ce4"
+        },
+        {
+          "file": "35-fountain-live-crop-065.png",
+          "bytes": 178409,
+          "sha256": "aa3936f40d91e15f848d9b061d094330692587cabee2e60fdf4be1afad9f8934"
+        },
+        {
+          "file": "35-fountain-live-crop-066.png",
+          "bytes": 178381,
+          "sha256": "fe2292564cf1e73bec93db7601cc640dda0dd6fe054f15717c0a39d74da4b3b0"
+        },
+        {
+          "file": "35-fountain-live-crop-067.png",
+          "bytes": 178406,
+          "sha256": "470be7f210df1c7890a2a84bf469dfab1575ed6e669f5f4db953fdfccf98a63b"
+        },
+        {
+          "file": "35-fountain-live-crop-068.png",
+          "bytes": 178408,
+          "sha256": "5935eb8f48eb22fc459dfb157748df43b2a9213b6da0acb54f048b4ba6022fc8"
+        },
+        {
+          "file": "35-fountain-live-crop-069.png",
+          "bytes": 178392,
+          "sha256": "d128287bd22baca675f738d7dd0454e4e7a138f56a5a5e9a7f37e158a298348e"
+        },
+        {
+          "file": "35-fountain-live-crop-070.png",
+          "bytes": 178430,
+          "sha256": "894b205d760000bb00c0fc9961b213377ff5a24f45fdd6db9a6cc2ad555feb31"
+        },
+        {
+          "file": "35-fountain-live-crop-071.png",
+          "bytes": 178403,
+          "sha256": "0326799efb6b260f2ce523a2cb9b874cffae70271c72ccd4713555710487f50c"
+        },
+        {
+          "file": "35-fountain-live-crop-072.png",
+          "bytes": 178347,
+          "sha256": "16c645d9c90118f1e54131a5f74f76eb6cdee9a555ca7f30647bdab4fe4475ed"
+        },
+        {
+          "file": "35-fountain-live-crop-073.png",
+          "bytes": 178359,
+          "sha256": "cc13109ee144db2262c050b9d938e0ac50e73ff6980104e9cbbd330bb3ba6a12"
+        },
+        {
+          "file": "35-fountain-live-crop-074.png",
+          "bytes": 178438,
+          "sha256": "ce92ed577c4085b7adfc4b80f3a8f68ec58cd706e8ca3d9a4ac11ced18be779a"
+        },
+        {
+          "file": "35-fountain-live-crop-075.png",
+          "bytes": 178422,
+          "sha256": "6e39f4209bffd48e2c309601d18f4f89bdaf5491797ac8100608e52f1e6146aa"
+        },
+        {
+          "file": "35-fountain-live-crop-076.png",
+          "bytes": 178430,
+          "sha256": "ccf7da2da3b4ceca25358c1b4cc070d9da1d39400476e13f6b0096824d338b96"
+        },
+        {
+          "file": "35-fountain-live-crop-077.png",
+          "bytes": 178420,
+          "sha256": "4ac1e08fbe09fc1c0349fd9534a13e71d8107019990f48af92c7f817e0fd1270"
+        },
+        {
+          "file": "35-fountain-live-crop-078.png",
+          "bytes": 178371,
+          "sha256": "755e9f694c360dae3c4a0b1a560238a041b4421478d7a44617fa3876b1b15def"
+        },
+        {
+          "file": "35-fountain-live-crop-079.png",
+          "bytes": 178356,
+          "sha256": "d5126231376e9776106662a7b29c25a11ee81a05df07514d85a08428e6195702"
+        },
+        {
+          "file": "35-fountain-live-crop-080.png",
+          "bytes": 178348,
+          "sha256": "00270acf36f5519365ed916ffb616d56b85dd480a765c5817d212fd5d390edac"
+        },
+        {
+          "file": "35-fountain-live-crop-081.png",
+          "bytes": 178447,
+          "sha256": "8ae46ebee0c4673e849be70801bb4b897ebde25594081afbbf4d014312f4f6d4"
+        },
+        {
+          "file": "35-fountain-live-crop-082.png",
+          "bytes": 178375,
+          "sha256": "b731ff087027ae14d979490508f807497728602b9316c3310fda5a9aac7dc452"
+        },
+        {
+          "file": "35-fountain-live-crop-083.png",
+          "bytes": 178455,
+          "sha256": "e2432511ba94ea7527a9836dc20eb30f9f7d00223e4c813bef1b7b87f6f28968"
+        },
+        {
+          "file": "35-fountain-live-crop-084.png",
+          "bytes": 178442,
+          "sha256": "145b6921ecc4e07672d7c46cd8338416f1a952e6ee563cd6a529e4f04282af51"
+        },
+        {
+          "file": "35-fountain-live-crop-085.png",
+          "bytes": 178415,
+          "sha256": "29a68ac3ae99f1da185f2f97800393f789812f77f34ad49875e85beb6dcbc6bc"
+        },
+        {
+          "file": "35-fountain-live-crop-086.png",
+          "bytes": 178452,
+          "sha256": "1f1347d6846dfb9cce2688714e3e0070382d02283470e323a53d6257e951b248"
+        },
+        {
+          "file": "35-fountain-live-crop-087.png",
+          "bytes": 178337,
+          "sha256": "c62815a5dc346b824120c3cac629916a3f359ad102f6569a0412304d9130c39e"
+        },
+        {
+          "file": "35-fountain-live-crop-088.png",
+          "bytes": 178425,
+          "sha256": "3943f954978cacd36a97920f06e91856daf73a51cc043cdd7c3f780526f254bf"
+        },
+        {
+          "file": "35-fountain-live-crop-089.png",
+          "bytes": 178406,
+          "sha256": "849d4b389667a7161dc59dcc9590b1093d9633f45b186c37c56e249070bc7077"
+        },
+        {
+          "file": "35-fountain-live-crop-090.png",
+          "bytes": 178414,
+          "sha256": "00a447a7da113d164ac9d6b05249bc10b847bfcfd07ed8593b0b3fd68ccf344a"
+        },
+        {
+          "file": "35-fountain-live-crop-091.png",
+          "bytes": 178431,
+          "sha256": "f8a0d2dc6b150cc9a76cee66d68e3bac7a209fcbac17521dd764bc3c267d96cf"
+        },
+        {
+          "file": "35-fountain-live-crop-092.png",
+          "bytes": 178385,
+          "sha256": "e2b9495b5c0d28b2332ed6ef69ba1d9a725374f1a59b7281e29a947b2bd04865"
+        },
+        {
+          "file": "35-fountain-live-crop-093.png",
+          "bytes": 178381,
+          "sha256": "f088437fd366017031a041a3d8c40f0290624eba9cf14fcd11647b71ae03b4fe"
+        },
+        {
+          "file": "35-fountain-live-crop-094.png",
+          "bytes": 178340,
+          "sha256": "cb9363add28a11e9a29f21b307149b4f9d26fbb801118c5c2ed92a82b3d6bfb0"
+        },
+        {
+          "file": "35-fountain-live-crop-095.png",
+          "bytes": 178385,
+          "sha256": "7280ec96159b9c819e26456b49c59fc49a9123595a7f06603fa57a683ce33eae"
+        },
+        {
+          "file": "35-fountain-live-crop-096.png",
+          "bytes": 178444,
+          "sha256": "253d5977ad4cb0e7dbbefb0645f4774cfd9689b35be2aabf1cb799bcbdc74e9c"
+        },
+        {
+          "file": "35-fountain-live-crop-097.png",
+          "bytes": 178426,
+          "sha256": "9cd46d6a3a6435ba6c44a36cdd75dd6c3cb759d211e8982237650a1928087df6"
+        },
+        {
+          "file": "35-fountain-live-crop-098.png",
+          "bytes": 178349,
+          "sha256": "8b1fa52ecd2fe43b1218b8c5a4ef7c0baca6aa752918a4d45180733d166bc7cb"
+        },
+        {
+          "file": "35-fountain-live-crop-099.png",
+          "bytes": 178422,
+          "sha256": "31bc637359d75cca67404fdfb8311cdf978746a7fbec48cd2a9227105ac678e1"
+        },
+        {
+          "file": "35-fountain-live-crop-100.png",
+          "bytes": 178396,
+          "sha256": "a39d0764ac75eef700ccca8f27027bd2e4905d64aa7c000bf99c3d5fb52abcaf"
+        },
+        {
+          "file": "35-fountain-live-crop-101.png",
+          "bytes": 178468,
+          "sha256": "93d254cc85f21a257bca66d253ecbb5e2f80a544cbbc29685b5a97426a127223"
+        },
+        {
+          "file": "35-fountain-live-crop-102.png",
+          "bytes": 178434,
+          "sha256": "197fe653d94d0b5f310d135a3cbc25c62ebd9f30ece66d659edb56d23d572859"
+        },
+        {
+          "file": "35-fountain-live-crop-103.png",
+          "bytes": 178384,
+          "sha256": "cf40c9a9f89146d04dcd0d02a3f29d94ecf12e0e73a04344f4777cedd88dc870"
+        },
+        {
+          "file": "35-fountain-live-crop-104.png",
+          "bytes": 178392,
+          "sha256": "55db882172af33ca219145218f1d1378823a4affdab5c039ed1aac274be4a6f3"
+        },
+        {
+          "file": "35-fountain-live-crop-105.png",
+          "bytes": 178344,
+          "sha256": "ae202ff21b1aab1276ca5990fd15c2ab30030539c4b93793692e509cce5e79d8"
+        },
+        {
+          "file": "35-fountain-live-crop-106.png",
+          "bytes": 178408,
+          "sha256": "a15092e85c79e6247984326271d5b9379de24e3da289b1ede479abc8db82990d"
+        },
+        {
+          "file": "35-fountain-live-crop-107.png",
+          "bytes": 178393,
+          "sha256": "ba6510af12c3d00e3bcb6e6cd26cf5316d67876b8ae164dfbcd8e852c5edb098"
+        },
+        {
+          "file": "35-fountain-live-crop-108.png",
+          "bytes": 178420,
+          "sha256": "9879eb1f2511aa2c83527caf05c4994afd507affb96d05030804431fcce15593"
+        },
+        {
+          "file": "35-fountain-live-crop-109.png",
+          "bytes": 178428,
+          "sha256": "e68a13439cd0bc74106803a0d5177870f91cf6607830a9c5eacdba153c3f71c4"
+        },
+        {
+          "file": "35-fountain-live-crop-110.png",
+          "bytes": 178508,
+          "sha256": "6d91ece636af4dbbc69796dc45634671c800ba06238661fceba167fe3170c1a0"
+        },
+        {
+          "file": "35-fountain-live-crop-111.png",
+          "bytes": 178420,
+          "sha256": "30646ff5a39ce762201c0e148fc1d2747c177d8f659c1102d17baba2159153fb"
+        },
+        {
+          "file": "35-fountain-live-crop-112.png",
+          "bytes": 178363,
+          "sha256": "782dd97731730e425a07623b220c1aba2d33aaf6d07b057256f95114f24dc3af"
+        },
+        {
+          "file": "35-fountain-live-crop-113.png",
+          "bytes": 178356,
+          "sha256": "c571d3a5c09b0fe07562edcb08fb68bcf91958b6cacfbd50049d6ef5a1b566a5"
+        },
+        {
+          "file": "35-fountain-live-crop-114.png",
+          "bytes": 178363,
+          "sha256": "ffd74ae277330f6d5dba7d4cd39d26f6c1c4dfe8727993c5921d30613f2e7bf6"
+        }
+      ]
+    },
+    {
+      "part": "18",
+      "sediment_file_id": "file_0000000087888209a6d6075da26d3bc0",
+      "zip_bytes": 18575456,
+      "zip_sha256": "d02c02e2bda83a7b3038c834f0199093f4666ce4be1c762351cbc2c2809392a3",
+      "entries": [
+        {
+          "file": "35-fountain-live-crop-115.png",
+          "bytes": 178315,
+          "sha256": "4b3da5a559a13b739bf6d77208897c432fe5b6809f305ef0f930e1e4a65b2cb4"
+        },
+        {
+          "file": "35-fountain-live-crop-116.png",
+          "bytes": 178469,
+          "sha256": "20054587882439f075fde51d7b94f8ca4fe3e6199c75ee7e4df47bf615a9d583"
+        },
+        {
+          "file": "35-fountain-live-crop-117.png",
+          "bytes": 178419,
+          "sha256": "014a2c1e9a36db9e8f60032c0eaa4d638b6c1506aea02ba95460bbc4c8b43041"
+        },
+        {
+          "file": "35-fountain-live-crop-118.png",
+          "bytes": 178387,
+          "sha256": "ebf0ad52d4064ced69c356cad115484fd3dd4e921ee1f565007571ed130f622e"
+        },
+        {
+          "file": "35-fountain-live-crop-119.png",
+          "bytes": 178415,
+          "sha256": "0f5ad9a92d1d63a3c57a145f23b107d6c0acbf720f3167ac5e118dd892b3304c"
+        },
+        {
+          "file": "35-fountain-live-crop-120.png",
+          "bytes": 178380,
+          "sha256": "37a765634f80d01c3a7e5cd3137c7777b5988d8bfc00cd562cac010b3aa41f84"
+        },
+        {
+          "file": "35-fountain-live-crop-121.png",
+          "bytes": 178456,
+          "sha256": "6fc0d845ab235fa9b6bdd86b82abbfa7170b34626defa54454b2504c0de244f4"
+        },
+        {
+          "file": "35-fountain-live-crop-122.png",
+          "bytes": 178338,
+          "sha256": "9fd7449a4e610b59efb10d4756702f6df9de4338bf51faa066a6a586dac0c69a"
+        },
+        {
+          "file": "35-fountain-live-crop-123.png",
+          "bytes": 178338,
+          "sha256": "14cc6f9093807de3636e9cf1970cc327eb1358fb04155a198b3c259bfd97c160"
+        },
+        {
+          "file": "35-fountain-live-crop-124.png",
+          "bytes": 178414,
+          "sha256": "5542b8c67f377694b6a0114874285b72364cac0914187104eebf0ed490e85779"
+        },
+        {
+          "file": "35-fountain-live-crop-125.png",
+          "bytes": 178395,
+          "sha256": "16c1387f6ea93eebe4a8be0efabadd2cd30524e352fe0386bfce6c755ac04314"
+        },
+        {
+          "file": "35-fountain-live-crop-126.png",
+          "bytes": 178379,
+          "sha256": "5dd95960fccce8aca0efc2abc528a54ab8b3281ed0a695e2faeedd92ee0ff7bb"
+        },
+        {
+          "file": "35-fountain-live-crop-127.png",
+          "bytes": 178425,
+          "sha256": "a5a9d019b56c4c75dc22d8301d64d178ab3545822823614e5cbff2996cecd39a"
+        },
+        {
+          "file": "35-fountain-live-crop-128.png",
+          "bytes": 178346,
+          "sha256": "efdb0ec82c7519c5ff328397055f825339972a62ccbf61b68a2d4a5dbce4089a"
+        },
+        {
+          "file": "35-fountain-live-crop-129.png",
+          "bytes": 178436,
+          "sha256": "41a9310768c49df1ac9e867b1b8081d7b57acb5eaa56512c570ecebcb6bc7f96"
+        },
+        {
+          "file": "35-fountain-live-crop-130.png",
+          "bytes": 178412,
+          "sha256": "0138c83dacf198b7fb72c8be9c9fc625bbe8000b9530abc1f1ab877577c61b94"
+        },
+        {
+          "file": "35-fountain-live-crop-131.png",
+          "bytes": 178402,
+          "sha256": "6a1cbe2e80bb84f76639e3000c557c6b3b5e269d17eac8a48378cbca5e3dd35a"
+        },
+        {
+          "file": "35-fountain-live-crop-132.png",
+          "bytes": 178377,
+          "sha256": "b652d150332aa5d5ae0017e3c017c99464e69c69e92c57a55412e70bc7168ec5"
+        },
+        {
+          "file": "35-fountain-live-crop-133.png",
+          "bytes": 178329,
+          "sha256": "7b45127d995f6b336d986ef85c16302d983924621c21cc5baafe9d4f5297be86"
+        },
+        {
+          "file": "35-fountain-live-crop-134.png",
+          "bytes": 178377,
+          "sha256": "bc294084e19f912edbefd2930609dd313308a326c43f9670018ffa486fc975ad"
+        },
+        {
+          "file": "35-fountain-live-crop-135.png",
+          "bytes": 178363,
+          "sha256": "2ca5899ff58b18cf33eb7fdfe0a9b6cb4e012a047bed689885f6aeba399123c0"
+        },
+        {
+          "file": "35-fountain-live-crop-136.png",
+          "bytes": 178447,
+          "sha256": "f44403447b59d4dd50c2fa018663e2ad293bb696a333dd61da77927808173270"
+        },
+        {
+          "file": "35-fountain-live-crop-137.png",
+          "bytes": 178387,
+          "sha256": "da307e4acc30c54cee493055f5ba3828f299752fa3f2d83bd4c44db43b777a39"
+        },
+        {
+          "file": "35-fountain-live-crop-138.png",
+          "bytes": 178350,
+          "sha256": "b2e0a3fed8c4434d808e180f6f199e0a163711e480214300fe398687847ff843"
+        },
+        {
+          "file": "35-fountain-live-crop-139.png",
+          "bytes": 178426,
+          "sha256": "76dffa3cbe6cbcd432b58f3387b5a9e8c88cf2a1a9517d23791ffc3b07b8fd47"
+        },
+        {
+          "file": "35-fountain-live-crop-140.png",
+          "bytes": 178373,
+          "sha256": "c949bc4b0272ffbdf5be46ba6085e5657c9cd1f3ecfda2c0443b458c79a1d514"
+        },
+        {
+          "file": "35-fountain-live-crop-141.png",
+          "bytes": 178432,
+          "sha256": "4faf69c5c675ac0a392ea741dbd44ce4289afa92f8f964902d3dc7888bb07ca8"
+        },
+        {
+          "file": "35-fountain-live-crop-142.png",
+          "bytes": 178421,
+          "sha256": "a50e64e0bfac0b47db6974699bb7255975ab58a1afb11bfa52265566abeee659"
+        },
+        {
+          "file": "35-fountain-live-crop-143.png",
+          "bytes": 178407,
+          "sha256": "b06f0294389b3af8d224c1909c07ab81416fd63c774c1c8a3a0f583df1e0e737"
+        },
+        {
+          "file": "35-fountain-live-crop-144.png",
+          "bytes": 178405,
+          "sha256": "03060db6c2ec0cc93a879a4a8f769af9fe046d931c4d3a8413003ab12942c30e"
+        },
+        {
+          "file": "35-fountain-live-crop-145.png",
+          "bytes": 178352,
+          "sha256": "5ad5d862097e7e34c5f478d86067c9f1f544530812b1233f6dc5f18b58c33354"
+        },
+        {
+          "file": "35-fountain-live-crop-146.png",
+          "bytes": 178342,
+          "sha256": "2ae9414e9332d49b1692402bc0401fb4302cd4d725ba984c702cb257a8f07f73"
+        },
+        {
+          "file": "35-fountain-live-crop-147.png",
+          "bytes": 178401,
+          "sha256": "112c276d87032c549bbca1ef10b8443dd48ab596a4c7be381765c7328f3d681c"
+        },
+        {
+          "file": "35-fountain-live-crop-148.png",
+          "bytes": 178450,
+          "sha256": "798081db076d8aba116d9b5052d6096d46f260e6cb57f348d02c44065ad68fa3"
+        },
+        {
+          "file": "35-fountain-live-crop-149.png",
+          "bytes": 178417,
+          "sha256": "2764bc940cede6bcd4c5e19673169b526a9f23c917bdfb9e90e47e8cce9b13ca"
+        },
+        {
+          "file": "35-fountain-live-crop-150.png",
+          "bytes": 178428,
+          "sha256": "d887782565acfb10153852c2956e46db8366865f545ae93101c9f587327f848c"
+        },
+        {
+          "file": "35-fountain-live-crop-151.png",
+          "bytes": 178354,
+          "sha256": "d424be9710f77db12d120a2d4dbfbd925c865a8fc0c2235a81ba0fa18ee2dd74"
+        },
+        {
+          "file": "35-fountain-live-crop-152.png",
+          "bytes": 178523,
+          "sha256": "a39cfe1d037f588d68d6d7281cd5e4d0d61c9473bbf793f8b81273f110ccbe5d"
+        },
+        {
+          "file": "35-fountain-live-crop-153.png",
+          "bytes": 178379,
+          "sha256": "e4f150202fab43baa0c323a28f1d706033ec33a47889b757e4690809cddca141"
+        },
+        {
+          "file": "35-fountain-live-crop-154.png",
+          "bytes": 178142,
+          "sha256": "4a3f96718540c629132b6dce6db760813b0dcd3e90d3fa5339b49914e67a8677"
+        },
+        {
+          "file": "35-fountain-live-crop-155.png",
+          "bytes": 178038,
+          "sha256": "b58bc9f3fb444e94f1694e946f3aef465294423f83cc22afc8114bec2d13d674"
+        },
+        {
+          "file": "35-fountain-live-crop-156.png",
+          "bytes": 177901,
+          "sha256": "abe7adcf0f349eef0da93e8447025418ed0daf15ed287265e4fd9aff01269914"
+        },
+        {
+          "file": "35-fountain-live-crop-157.png",
+          "bytes": 178083,
+          "sha256": "2af35243236a38521ffa7b12880f76db6607911ae8188c9ae3d5271c958f16e2"
+        },
+        {
+          "file": "35-fountain-live-crop-158.png",
+          "bytes": 177567,
+          "sha256": "29ccffb1753f323c0a5eca4d1ae9c7ffc66bd820cac9e47de74640beb7e21339"
+        },
+        {
+          "file": "35-fountain-live-crop-159.png",
+          "bytes": 177631,
+          "sha256": "45a022a8b0463a049cad75cb6054b286342703bde6167a782d3efc1791ea8885"
+        },
+        {
+          "file": "35-fountain-live-crop-160.png",
+          "bytes": 177261,
+          "sha256": "8f80d172338bed39f83f02ff79867b509ee32bc9522542bb42cbb553ad017d2d"
+        },
+        {
+          "file": "35-fountain-live-crop-161.png",
+          "bytes": 176942,
+          "sha256": "a29e324ba9870d54b54ec46a07d83a722603b95b87af69c7e6d7f152bca97845"
+        },
+        {
+          "file": "35-fountain-live-crop-162.png",
+          "bytes": 176547,
+          "sha256": "b3d5ae058a2b0f50f8920b335a434ef19a8b53f690810598c8ae8a100563f157"
+        },
+        {
+          "file": "35-fountain-live-crop-163.png",
+          "bytes": 176092,
+          "sha256": "8c5614da82ca8ce003c93c9a5acf69b92a9ab687d8809cf74b526ceb6053d9bb"
+        },
+        {
+          "file": "35-fountain-live-crop-164.png",
+          "bytes": 175921,
+          "sha256": "2c1564eed89668f8c735e8eaefe932759e2a4dc7f8e01a51546751d92986365c"
+        },
+        {
+          "file": "35-fountain-live-crop-165.png",
+          "bytes": 175556,
+          "sha256": "cd319017bc739238c7f1ee407a0d03874a641084aa861751b4d6204f54af19ff"
+        },
+        {
+          "file": "35-fountain-live-crop-166.png",
+          "bytes": 118822,
+          "sha256": "0903e46a90aeff8081868546feb964f1bd7701f02d0f04c7d46690928c4069f4"
+        },
+        {
+          "file": "35-fountain-live-crop-167.png",
+          "bytes": 118681,
+          "sha256": "8865caa565fa97af2557046b612d8e4123f3c6ff1f805f576a30c3642e0893d4"
+        },
+        {
+          "file": "35-fountain-live-crop-168.png",
+          "bytes": 118731,
+          "sha256": "ac91af632f1815efb0573643b0e891c3b411e5f33bd28c9362dc4a639c7c3748"
+        },
+        {
+          "file": "35-fountain-live-crop-169.png",
+          "bytes": 118716,
+          "sha256": "c5eb18b08ab968eefbc5b3bff27d1381f580089bfa845c108064f9336ec14577"
+        },
+        {
+          "file": "35-fountain-live-crop-170.png",
+          "bytes": 118540,
+          "sha256": "5d28ddb66c8d2ff5b7877a61f6ca51d32c8a6ae0435059494801e8d77329d804"
+        },
+        {
+          "file": "35-fountain-live-crop-171.png",
+          "bytes": 118856,
+          "sha256": "427cfff019867cb9f78323b950c2ac769c46a5e40f27c738b143d08c2995b14e"
+        },
+        {
+          "file": "35-fountain-live-crop-172.png",
+          "bytes": 118758,
+          "sha256": "76cf069f230e452e7404b44f818b79e70892f68c1ca774f1a5d41e9c244d58ed"
+        },
+        {
+          "file": "35-fountain-live-crop-173.png",
+          "bytes": 118682,
+          "sha256": "ed1223b86c8bc72eba6f5e9541cb202bbd6e7b6b651332b0feb4e05387849c81"
+        },
+        {
+          "file": "35-fountain-live-crop-174.png",
+          "bytes": 118822,
+          "sha256": "6037c1d1e89618731bf20878c775df08e2690f4b394807fbcf582ef9b88d5c69"
+        },
+        {
+          "file": "35-fountain-live-crop-175.png",
+          "bytes": 118839,
+          "sha256": "643217fbcb7e9a731322b06236d479277834d324110a3c8e6bedd3c7c364b14e"
+        },
+        {
+          "file": "35-fountain-live-crop-176.png",
+          "bytes": 119236,
+          "sha256": "76b43e22918207bdc26d1aff983875aa4d5a70b51d42992f48836807b348662d"
+        },
+        {
+          "file": "35-fountain-live-crop-177.png",
+          "bytes": 118958,
+          "sha256": "4fd309e429ad80d0e30b0f871480b0ebe4ad8ae65d1f4aa04f857c4f70d4465e"
+        },
+        {
+          "file": "35-fountain-live-crop-178.png",
+          "bytes": 118692,
+          "sha256": "a6d42e9aa79c46ef5bd4e9cf9746b253311b951cf4d5bf54a2925f7971b98974"
+        },
+        {
+          "file": "35-fountain-live-crop-179.png",
+          "bytes": 118702,
+          "sha256": "99fa631e670437b201ac59664ad6e3aa20ea69c0a5c9ffdf7c0a2f2454c8adcb"
+        },
+        {
+          "file": "35-fountain-live-crop-180.png",
+          "bytes": 118683,
+          "sha256": "5098d6e30175b6254b79e5fb0e1e678630de09d47e0b633a966ecc7905be207c"
+        },
+        {
+          "file": "35-fountain-live-crop-181.png",
+          "bytes": 118690,
+          "sha256": "3bc47a6a9d89d4bbc3f4b12ff3be9fca78717285f01e87c4bc0907d0058e2bd2"
+        },
+        {
+          "file": "35-fountain-live-crop-182.png",
+          "bytes": 62035,
+          "sha256": "1fd786601d403de6d3b447c59ba6a10b51ab656b4e6e195460a0e96230407d1d"
+        },
+        {
+          "file": "35-fountain-live-crop-183.png",
+          "bytes": 62044,
+          "sha256": "ac31fe4fcba140ad4d0a408e27d9baaccb549cc5dca297a28c22dd9106056f13"
+        },
+        {
+          "file": "35-fountain-live-crop-184.png",
+          "bytes": 62152,
+          "sha256": "98570b01f3b23e0ca5e5edc790ffca0cc19cf7b13313bcd3d936d12af9150a7e"
+        },
+        {
+          "file": "35-fountain-live-crop-185.png",
+          "bytes": 62116,
+          "sha256": "51f4df62a8c95802185cfcf4762dce82fafa725ca6e2cf23a0df91f467b3ee62"
+        },
+        {
+          "file": "35-fountain-live-crop-186.png",
+          "bytes": 62123,
+          "sha256": "532ab552013f6de1612852b59a5baf899ed653ce36c33c014e6296af500c52f5"
+        },
+        {
+          "file": "35-fountain-live-crop-187.png",
+          "bytes": 62130,
+          "sha256": "3dac15c322d317e1e81f25a66e6304b7129b0e7244ecea76a1149affe5d584c1"
+        },
+        {
+          "file": "35-fountain-live-crop-188.png",
+          "bytes": 62135,
+          "sha256": "74ba008baabe9f57a63480795b5f8f73ea03951009c1653e072bbe40b567a189"
+        },
+        {
+          "file": "35-fountain-live-crop-189.png",
+          "bytes": 62177,
+          "sha256": "88eee6948ce64bd3065c4575fa56d5f707c79c5fe8a18cb40200a6950ccc8cef"
+        },
+        {
+          "file": "35-fountain-live-crop-190.png",
+          "bytes": 63388,
+          "sha256": "374e0b2543b3c4870da53dd699f5ca3e929103928dda69e6460b9a976b1a50f0"
+        },
+        {
+          "file": "35-fountain-live-crop-191.png",
+          "bytes": 65590,
+          "sha256": "5bd5ac768e70c4c47a757e65a5642ed1156402a3be399af93d696d55c0ef3a81"
+        },
+        {
+          "file": "35-fountain-live-crop-192.png",
+          "bytes": 66718,
+          "sha256": "2dad1dda21d28d4a28485e29cc418312f2f0dee01f09d978029b91429525d305"
+        },
+        {
+          "file": "35-fountain-live-crop-193.png",
+          "bytes": 68197,
+          "sha256": "8e168fe2628ed0ab8bad02bad447b2a9dfad144b306dddddc9aa7fef963fdda1"
+        },
+        {
+          "file": "35-fountain-live-crop-194.png",
+          "bytes": 70475,
+          "sha256": "c77b3891cfb280738c59e0049ee64c904461777739fd4cdcb78b86495d290e6e"
+        },
+        {
+          "file": "35-fountain-live-crop-195.png",
+          "bytes": 72711,
+          "sha256": "e12fcaae03197f003650d496a857449d2e5f26aac12d342e1613a00fe79239a2"
+        },
+        {
+          "file": "35-fountain-live-crop-196.png",
+          "bytes": 73645,
+          "sha256": "5726d0175dd805a298e2443d52c214bcf6e44dfe777aa967ce435d3ec39fb955"
+        },
+        {
+          "file": "35-fountain-live-crop-197.png",
+          "bytes": 75167,
+          "sha256": "43b111e2827efbed3329d2f8d53330ff5437f61836245d2ee3386187a6823330"
+        },
+        {
+          "file": "35-fountain-live-crop-198.png",
+          "bytes": 117820,
+          "sha256": "f1cf9204956afb4c6ed1141eab1f1d93f954f4483b2ee015efbc9df301d8a64c"
+        },
+        {
+          "file": "35-fountain-live-crop-199.png",
+          "bytes": 117009,
+          "sha256": "5b2aa1dfecaa434e27db8b72215f8cd69ad0f1bfa89e01d5fd7856d5bf90c1da"
+        },
+        {
+          "file": "35-fountain-live-crop-200.png",
+          "bytes": 116932,
+          "sha256": "0b5959758c57ef22961bf4e6efd908a7861dc1c29a485db45b7db0a9d37770af"
+        },
+        {
+          "file": "35-fountain-live-crop-201.png",
+          "bytes": 116586,
+          "sha256": "17aead3ac7f3354c75ea092a08f6763d0639e98cfc36e451c1e93607d63c35ec"
+        },
+        {
+          "file": "35-fountain-live-crop-202.png",
+          "bytes": 116568,
+          "sha256": "94a7df3406f8304b6fdc192a84518b502e0948d0c45a1c00da0be83ba825b7ba"
+        },
+        {
+          "file": "35-fountain-live-crop-203.png",
+          "bytes": 116562,
+          "sha256": "b5205ccebca4e3d3dd8292061bbdffda3f89de412af1e728ed4bddc4089b50e4"
+        },
+        {
+          "file": "35-fountain-live-crop-204.png",
+          "bytes": 116737,
+          "sha256": "7faf543d60a8a6df82a7022616bed7381848fbc966654b4afee089ed06fbd083"
+        },
+        {
+          "file": "35-fountain-live-crop-205.png",
+          "bytes": 116908,
+          "sha256": "32f11ee3da065e8eb504aa397fbe6305f71047138e64a61662d66e9dd2ce066e"
+        },
+        {
+          "file": "35-fountain-live-crop-206.png",
+          "bytes": 116859,
+          "sha256": "827e996b452ebc8df45aed2cbba7cadb3fba2e17d040521c279950db685205d8"
+        },
+        {
+          "file": "35-fountain-live-crop-207.png",
+          "bytes": 116985,
+          "sha256": "c486fadab352433b27fbffe3e15ea45a8cfaceeee6ca9bfd26fa9c1602bc7192"
+        },
+        {
+          "file": "35-fountain-live-crop-208.png",
+          "bytes": 117671,
+          "sha256": "3fb8ebfaae0f0dab24ded46337440706f969e66fb1876e359430b5b536b23c83"
+        },
+        {
+          "file": "35-fountain-live-crop-209.png",
+          "bytes": 117785,
+          "sha256": "4928e76b6afcf61ff3f4e629000128727888e1858c3f19ab1be7b494eb60d51c"
+        },
+        {
+          "file": "35-fountain-live-crop-210.png",
+          "bytes": 117873,
+          "sha256": "be9b1af639ed1cf93b804ed11e5c70f4c035a4c5ee321e478c698094e37d63ee"
+        },
+        {
+          "file": "35-fountain-live-crop-211.png",
+          "bytes": 118478,
+          "sha256": "d44b683060da33f7b040bc18d9dd1f7733008f25c000c07a645fb2e11364a35c"
+        },
+        {
+          "file": "35-fountain-live-crop-212.png",
+          "bytes": 118881,
+          "sha256": "15ab8fe061cf3e95c0c5dc5c1c582dfe30186145c9925ba9895b8e709f6867ce"
+        },
+        {
+          "file": "35-fountain-live-crop-213.png",
+          "bytes": 118806,
+          "sha256": "2460f5a0ba129f36283b8e6ae547cf28401a4b51c70f070375cb1fa8418d34a6"
+        },
+        {
+          "file": "35-fountain-live-crop-214.png",
+          "bytes": 178422,
+          "sha256": "a85c5f423dc7cfadc45dd99f7ed61e631559e89b0205d7d025af58130c559b8f"
+        },
+        {
+          "file": "35-fountain-live-crop-215.png",
+          "bytes": 178620,
+          "sha256": "a72f8ee7b3b637ff9704277cae0dd9c18c312124ec30ebfa910e056dfafa14ab"
+        },
+        {
+          "file": "35-fountain-live-crop-216.png",
+          "bytes": 178690,
+          "sha256": "3d2ced1991bc63b919b7b20e0edf56de2b65b60692286a0c56458ce7926ad5ed"
+        },
+        {
+          "file": "35-fountain-live-crop-217.png",
+          "bytes": 178528,
+          "sha256": "2282b69009742e3589849d6f5df5de90246ece9a62e73b77a26959987292c4f9"
+        },
+        {
+          "file": "35-fountain-live-crop-218.png",
+          "bytes": 178128,
+          "sha256": "20be1e0bbd706b4deeeebfcf3459234cafc415c639b7eb40ffe4b892c418be73"
+        },
+        {
+          "file": "35-fountain-live-crop-219.png",
+          "bytes": 178447,
+          "sha256": "c2ea13874ae930fa271f96336dfc2393433d46752abf9504a9937947dbf4b018"
+        },
+        {
+          "file": "35-fountain-live-crop-220.png",
+          "bytes": 178294,
+          "sha256": "584c30c7e78bce1e7feac9b6e8f0144b0f97858cd333d8eb22a925d1e6a537c0"
+        },
+        {
+          "file": "35-fountain-live-crop-221.png",
+          "bytes": 177842,
+          "sha256": "2b3c47f7a1c380544dc6cf84dca251e3bf0b7f2ea05aa8d3e953d6e2c2dd81cd"
+        },
+        {
+          "file": "35-fountain-live-crop-222.png",
+          "bytes": 177446,
+          "sha256": "11945eaaf6235d72d1bc48bfc60cccc318691549e126cd2fc7bb600b0ae904ec"
+        },
+        {
+          "file": "35-fountain-live-crop-223.png",
+          "bytes": 177711,
+          "sha256": "629aca1b27b841f020d0ce6ab6ba441cfb83c48bdf0726d0efff8ecd66ac093c"
+        },
+        {
+          "file": "35-fountain-live-crop-224.png",
+          "bytes": 177228,
+          "sha256": "aba708afbaf5fc12bdff83876d3c3699c3536bc1e3f77edb76db5439645d3fde"
+        },
+        {
+          "file": "35-fountain-live-crop-225.png",
+          "bytes": 176409,
+          "sha256": "2315548b72aa2cac89a62c09cdd386bcc9be10f3022bb279e7e22548c5b531bc"
+        },
+        {
+          "file": "35-fountain-live-crop-226.png",
+          "bytes": 176552,
+          "sha256": "41fbce128a21640d53eba5f1995e031eec6a4ec4ca831ede2c23d4be0b8fe3f1"
+        },
+        {
+          "file": "35-fountain-live-crop-227.png",
+          "bytes": 176927,
+          "sha256": "9da3edc813fc91724c5f511a3944327a4003e5b710d78c2984f9fe767bda9c25"
+        },
+        {
+          "file": "35-fountain-live-crop-228.png",
+          "bytes": 176435,
+          "sha256": "869318cd98dc68bf346a1c14b57b2bced05880eb902fb621739a3a828a93182a"
+        },
+        {
+          "file": "35-fountain-live-crop-229.png",
+          "bytes": 175777,
+          "sha256": "49924b5e5bb8fcb1157c28381980219cb56c538c3343e2dc157575d1e953a863"
+        },
+        {
+          "file": "35-fountain-live-crop-230.png",
+          "bytes": 175926,
+          "sha256": "eea608011fbad3102b49070bad5243515df3bb37b7a056cef5b386205262feca"
+        },
+        {
+          "file": "35-fountain-live-crop-231.png",
+          "bytes": 175915,
+          "sha256": "710b6dd118fdcb0b12000b3e443d1a11c61a70ffa66f7d89a0c1838728988a73"
+        },
+        {
+          "file": "35-fountain-live-crop-232.png",
+          "bytes": 176019,
+          "sha256": "6273a404949f67d932758d409027464ee2ac4375739b7a8a77e335cfd03685d9"
+        },
+        {
+          "file": "35-fountain-live-crop-233.png",
+          "bytes": 176244,
+          "sha256": "dc0d77a337065c4109d691462b3c66952e49d3aefbb0738d1a3d71b8e9c8f6ca"
+        },
+        {
+          "file": "35-fountain-live-crop-234.png",
+          "bytes": 176120,
+          "sha256": "da5333e3a0f3d135334942c52785e3ce0326198ab46a9c8f72098ec2fbd7c603"
+        },
+        {
+          "file": "35-fountain-live-crop-235.png",
+          "bytes": 176045,
+          "sha256": "a1d143ef101b50624c4fe7cbddcc59e41099cca0264bbd5fb19f202e1394bb41"
+        },
+        {
+          "file": "35-fountain-live-crop-236.png",
+          "bytes": 175968,
+          "sha256": "d834ba59671c0bf3130e2114fd197c5cf223c1406a812374fb6fbc64a7356b23"
+        },
+        {
+          "file": "35-fountain-live-crop-237.png",
+          "bytes": 177593,
+          "sha256": "b92bb3edb12530eee142b9e631cb78007de633a08ee0aff7f9a7f67d94f43c42"
+        },
+        {
+          "file": "35-fountain-live-crop-238.png",
+          "bytes": 178179,
+          "sha256": "bf24fb81b6513da457e807568bcbc8f0509519804b2a3befe615f77761aa78d9"
+        },
+        {
+          "file": "35-fountain-live-crop-239.png",
+          "bytes": 178302,
+          "sha256": "4c791d262acc90848a144355c6997f077786b024a14cc76ca2ac807f50a13d51"
+        },
+        {
+          "file": "fountain-live.html",
+          "bytes": 64556,
+          "sha256": "ca9c3e33cd80376882e9d542309d9588e64d5a9408b0815375327efb12d09f89"
+        },
+        {
+          "file": "fountain-live.json",
+          "bytes": 98333,
+          "sha256": "af32fa04d7b8a9335067163ac437fc4ff387047b5320dcc82d2042acb9d72ff8"
+        }
+      ]
+    }
+  ],
+  "total_entries": 484
+}

@@ -43,7 +43,6 @@
     }
   },
   "remaining_sequence": [
-    "fountain_final_native_all_tests_and_images",
     "fresh_town_qa_pixel_all_levels_and_fountain",
     "fountain_user_approval",
     "representative_character_2p5d_trial",
@@ -192,7 +191,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "fountain_final_and_all_level_growth_implementation_native_pending",
+  "current_stage": "fountain_final_native_verified_fresh_town_qa_pixel_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -868,8 +867,8 @@
   "field_freeze": "References/VisualLock/town-field-frozen-2026-10-25.json",
   "fountain_water": {
     "implemented": true,
-    "native_unity_verified": false,
-    "qa_apk_generated": false,
+    "native_unity_verified": true,
+    "qa_apk_generated": true,
     "pixel_verified": false,
     "user_approved": false,
     "next_blocked": [
@@ -878,11 +877,15 @@
       "main"
     ],
     "render_input_fingerprint": "d7faa15b109e33ac52bd1d6d72243392c451a9393f5779d813f1e5e90342d678",
-    "native_image_inspection_complete": false,
+    "native_image_inspection_complete": true,
     "native_visual_cleared": false,
     "previous_native_review": "References/Review/fountain-motion-2026-10-26-candidate/native-review.json",
-    "pixel_instructions": "docs/fountain-final-growth-review-2026-10-27.md",
-    "user_rejection": "2026-10-26:通常の動きと3分待機後のショーを実機で確認できなかった。未達。"
+    "pixel_instructions": "docs/fountain-final-growth-pixel3a-2026-10-27.md",
+    "user_rejection": "2026-10-26:通常の動きと3分待機後のショーを実機で確認できなかった。未達。",
+    "native_run": "20261027-102109-3bbbf9fe",
+    "native_source_revision": "bb3fb82b5b941dd29fb58d4d0dd1631af516a723",
+    "native_review": "References/Review/fountain-final-2026-10-27-candidate/native-review.json",
+    "eligible_for_same_apk_pixel_verification": true
   },
   "fresh_town_qa_test": {
     "authorized_by": "user2026-10-26",
@@ -891,6 +894,7 @@
     "uninstall_and_reset_authorized": true,
     "pixel_executed": false,
     "all_levels_including_four_required": true,
-    "balance_changes_authorized": false
+    "balance_changes_authorized": false,
+    "native_all_levels_scene_reload_verified": true
   }
 }

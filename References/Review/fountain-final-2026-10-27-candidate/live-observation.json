@@ -1,0 +1,43 @@
+{
+  "kind": "real Unity Update observations, not Pixel performance",
+  "seconds": 60.117279052734375,
+  "frames": 240,
+  "first_peak_recorded_seconds": 38.7305908203125,
+  "stage_changes": [
+    {
+      "seconds": 0.009018899872899055,
+      "clock": 0.13333334028720856,
+      "stage": 0,
+      "file": "35-fountain-live-crop-000.png"
+    },
+    {
+      "seconds": 35.965599060058594,
+      "clock": 36.099998474121094,
+      "stage": 1,
+      "file": "35-fountain-live-crop-143.png"
+    },
+    {
+      "seconds": 37.977481842041016,
+      "clock": 38.099998474121094,
+      "stage": 2,
+      "file": "35-fountain-live-crop-151.png"
+    },
+    {
+      "seconds": 44.01874542236328,
+      "clock": 44.13333511352539,
+      "stage": 3,
+      "file": "35-fountain-live-crop-175.png"
+    },
+    {
+      "seconds": 45.0253791809082,
+      "clock": 0.13333334028720856,
+      "stage": 0,
+      "file": "35-fountain-live-crop-179.png"
+    }
+  ],
+  "max_sample_gap_seconds": 0.25398826599121094,
+  "normal_mesh_changes": 202,
+  "show_mesh_changes": 23,
+  "town_level": 0,
+  "sampling_is_not_device_fps": true
+}

@@ -1,0 +1,265 @@
+{
+    "kind": "isolated-real-delivery-growth-and-reload",
+    "initial_level": 0,
+    "initial_coins": 0,
+    "direct_level_assignment": false,
+    "pixel_verified": false,
+    "adopted": false,
+    "transitions": [
+        {
+            "from": 0,
+            "to": 1,
+            "coins": 30,
+            "completed_quests": 1,
+            "generated_level_one": 0,
+            "merges": 1,
+            "districts_checked": 5,
+            "quest_id": "tea-01",
+            "requirements": [
+                "tea:2:1"
+            ],
+            "reload_matched": true,
+            "reward_replay_rejected": true,
+            "districts": [
+                {
+                    "id": "West",
+                    "changed": true,
+                    "reload_matched": true
+                },
+                {
+                    "id": "Central",
+                    "changed": true,
+                    "reload_matched": true
+                },
+                {
+                    "id": "East",
+                    "changed": true,
+                    "reload_matched": true
+                },
+                {
+                    "id": "North",
+                    "changed": false,
+                    "reload_matched": true
+                },
+                {
+                    "id": "South",
+                    "changed": false,
+                    "reload_matched": true
+                }
+            ]
+        },
+        {
+            "from": 1,
+            "to": 2,
+            "coins": 70,
+            "completed_quests": 2,
+            "generated_level_one": 2,
+            "merges": 1,
+            "districts_checked": 5,
+            "quest_id": "bread-01",
+            "requirements": [
+                "bread:2:1"
+            ],
+            "reload_matched": true,
+            "reward_replay_rejected": true,
+            "districts": [
+                {
+                    "id": "West",
+                    "changed": true,
+                    "reload_matched": true
+                },
+                {
+                    "id": "Central",
+                    "changed": true,
+                    "reload_matched": true
+                },
+                {
+                    "id": "East",
+                    "changed": true,
+                    "reload_matched": true
+                },
+                {
+                    "id": "North",
+                    "changed": false,
+                    "reload_matched": true
+                },
+                {
+                    "id": "South",
+                    "changed": false,
+                    "reload_matched": true
+                }
+            ]
+        },
+        {
+            "from": 2,
+            "to": 3,
+            "coins": 110,
+            "completed_quests": 3,
+            "generated_level_one": 2,
+            "merges": 1,
+            "districts_checked": 5,
+            "quest_id": "flower-01",
+            "requirements": [
+                "flower:2:1"
+            ],
+            "reload_matched": true,
+            "reward_replay_rejected": true,
+            "districts": [
+                {
+                    "id": "West",
+                    "changed": true,
+                    "reload_matched": true
+                },
+                {
+                    "id": "Central",
+                    "changed": true,
+                    "reload_matched": true
+                },
+                {
+                    "id": "East",
+                    "changed": true,
+                    "reload_matched": true
+                },
+                {
+                    "id": "North",
+                    "changed": true,
+                    "reload_matched": true
+                },
+                {
+                    "id": "South",
+                    "changed": true,
+                    "reload_matched": true
+                }
+            ]
+        },
+        {
+            "from": 3,
+            "to": 4,
+            "coins": 180,
+            "completed_quests": 4,
+            "generated_level_one": 6,
+            "merges": 4,
+            "districts_checked": 5,
+            "quest_id": "tea-02",
+            "requirements": [
+                "tea:3:1",
+                "bread:2:1"
+            ],
+            "reload_matched": true,
+            "reward_replay_rejected": true,
+            "districts": [
+                {
+                    "id": "West",
+                    "changed": true,
+                    "reload_matched": true
+                },
+                {
+                    "id": "Central",
+                    "changed": false,
+                    "reload_matched": true
+                },
+                {
+                    "id": "East",
+                    "changed": true,
+                    "reload_matched": true
+                },
+                {
+                    "id": "North",
+                    "changed": true,
+                    "reload_matched": true
+                },
+                {
+                    "id": "South",
+                    "changed": true,
+                    "reload_matched": true
+                }
+            ]
+        },
+        {
+            "from": 4,
+            "to": 5,
+            "coins": 250,
+            "completed_quests": 5,
+            "generated_level_one": 6,
+            "merges": 4,
+            "districts_checked": 5,
+            "quest_id": "flower-02",
+            "requirements": [
+                "flower:3:1",
+                "tea:2:1"
+            ],
+            "reload_matched": true,
+            "reward_replay_rejected": true,
+            "districts": [
+                {
+                    "id": "West",
+                    "changed": true,
+                    "reload_matched": true
+                },
+                {
+                    "id": "Central",
+                    "changed": false,
+                    "reload_matched": true
+                },
+                {
+                    "id": "East",
+                    "changed": true,
+                    "reload_matched": true
+                },
+                {
+                    "id": "North",
+                    "changed": true,
+                    "reload_matched": true
+                },
+                {
+                    "id": "South",
+                    "changed": true,
+                    "reload_matched": true
+                }
+            ]
+        },
+        {
+            "from": 5,
+            "to": 6,
+            "coins": 330,
+            "completed_quests": 6,
+            "generated_level_one": 6,
+            "merges": 4,
+            "districts_checked": 5,
+            "quest_id": "bread-02",
+            "requirements": [
+                "bread:3:1",
+                "flower:2:1"
+            ],
+            "reload_matched": true,
+            "reward_replay_rejected": true,
+            "districts": [
+                {
+                    "id": "West",
+                    "changed": true,
+                    "reload_matched": true
+                },
+                {
+                    "id": "Central",
+                    "changed": true,
+                    "reload_matched": true
+                },
+                {
+                    "id": "East",
+                    "changed": true,
+                    "reload_matched": true
+                },
+                {
+                    "id": "North",
+                    "changed": true,
+                    "reload_matched": true
+                },
+                {
+                    "id": "South",
+                    "changed": true,
+                    "reload_matched": true
+                }
+            ]
+        }
+    ]
+}

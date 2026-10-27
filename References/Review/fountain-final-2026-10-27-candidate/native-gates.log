@@ -1,0 +1,6 @@
+Tests passed: 144/144
+Tests passed: 226/226
+Native Unity images: 219, 720x1280 (visual review still required).
+Real Update sequence: 240 crops / 60.1172790527344 seconds; first show 38.7305908203125 seconds. Pixel/user acceptance pending.
+Street boundary comparison: /workspace/runtime/fountain-final-native-2026-10-27/run-layout/screenshots/street-boundary-before-after.html (Boundary-only renderer comparison; Pixel acceptance pending).
+Received219 full +240 live +3 actual Before images pass production/source gates. Native scene reload is not Pixel app restart; adoption remains pending.

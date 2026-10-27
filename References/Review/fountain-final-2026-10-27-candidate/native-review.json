@@ -1,0 +1,73 @@
+{
+  "kind": "received native fountain-final and six-stage real delivery/scene-reload verification",
+  "run": "20261027-102109-3bbbf9fe",
+  "source_revision": "bb3fb82b5b941dd29fb58d4d0dd1631af516a723",
+  "product_fingerprint": "dca9b087d7bc658b2f6dd8624cf5f3804f6a86b3201b51ebde0fc651c187a3ab",
+  "candidate_render_digest": "d7faa15b109e33ac52bd1d6d72243392c451a9393f5779d813f1e5e90342d678",
+  "archives": 18,
+  "original_files": 484,
+  "full_pngs": 219,
+  "live_crops": 240,
+  "prior_before_pngs": 3,
+  "total_pngs": 462,
+  "editmode": {
+    "total": 144,
+    "passed": 144,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "playmode": {
+    "total": 226,
+    "passed": 226,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "archive_crc_sha_bytes_and_decode_verified": true,
+  "existing_native_and_source_gates_passed": true,
+  "growth": {
+    "transitions": 6,
+    "initial_level": 0,
+    "last_level": 6,
+    "districts_each": 5,
+    "comparison_and_reloaded_pngs": 60,
+    "all_game_state_except_save_timestamp_reload_asserted_in_native_test": true,
+    "direct_level_assignment": false,
+    "android_process_restart_tested": false,
+    "replay_caveat": "Native rejected Deliver after active quest cleared, not an explicit reaccept of original completed quest. Exact original-quest rejection is separate Core audit; Pixel still pending.",
+    "balance_changed": false
+  },
+  "apk": {
+    "app_id": "com.mofumachi.merge.qa.townlife",
+    "file": "town-life-qa.apk",
+    "sha256": "1a4b99518f4e846c2ffa45c80069b46b68ba59d2ece810187f6135420d535ace",
+    "bytes": 79033873,
+    "success_log_bytes_match": true,
+    "independently_hashed_binary_received": false
+  },
+  "growth_apk": {
+    "app_id": "com.mofumachi.merge.qa.growthcheck",
+    "file": "town-growth-check.apk",
+    "sha256": "907da881cf3a74c2530130ae90442f3bfc8a92728fe03a5489ff3f5e4da17225",
+    "bytes": 79033881,
+    "success_log_bytes_match": true,
+    "independently_hashed_binary_received": false
+  },
+  "prior_comparison": {
+    "same": 87,
+    "changed": 72,
+    "new": 60,
+    "twelve_noncentral_byte_identical": true
+  },
+  "native_unity_verified": true,
+  "qa_apk_generated": true,
+  "native_image_inspection_complete": true,
+  "native_visual_cleared": false,
+  "eligible_for_same_apk_pixel_verification": true,
+  "pixel_verified": false,
+  "fresh_install_executed": false,
+  "user_approved": false,
+  "adopted": false,
+  "next": "Use the already built SAME town QA, exact SHA/ID/serial/model checks, authorized fresh install then all levels/app restarts and fountain/600s device acceptance. No rebuild for receipt-only changes."
+}

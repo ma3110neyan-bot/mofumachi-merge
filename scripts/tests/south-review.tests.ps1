@@ -50,7 +50,29 @@ try {
     foreach($Image in $Stage.user_review_checkpoints.north_quest.images){Copy-BoundFile $Image.file}
     $ConditionsPath=$Stage.user_review_checkpoints.north_quest.conditions_record;Copy-BoundFile $ConditionsPath
     Copy-BoundFile 'Assets/Mofumachi/Presentation/TownNorthMasterLayout.cs'
+    $Polish=Get-BasePolishPatch $Repo
+    if($Polish -and $Polish.Record.scope_id -eq 'town_north_noah_trial_2026_10_27') {
+        # The historical North checkpoint stays unchanged. Copy the complete
+        # current authorization so only its exact bounded successor can proceed.
+        $Release=Get-Content -LiteralPath (Join-Path $Repo $Polish.Record.release_freeze) -Raw -Encoding UTF8 | ConvertFrom-Json
+        $Paths=@($Stage.base_polish,$Polish.Record.base_lock,$Polish.Record.field_freeze,$Polish.Record.current_before_record,$Polish.Record.release_freeze,'References/VisualLock/town-field-final-candidate-2026-10-25.json')+@($Polish.Record.changes.path)+@($Polish.Record.new_files.path)+@($Polish.Record.capture_inputs.path)+@($Release.files.path)
+        foreach($Relative in @($Paths | Select-Object -Unique)){Copy-BoundFile $Relative}
+    }
     Assert-SouthReviewPrerequisites $Root
+    if($Polish -and $Polish.Record.scope_id -eq 'town_north_noah_trial_2026_10_27') {
+        $PatchFile=Join-Path $Root $Stage.base_polish;$PatchBytes=[IO.File]::ReadAllBytes($PatchFile)
+        $Candidate=Get-Content -LiteralPath $PatchFile -Raw -Encoding UTF8 | ConvertFrom-Json
+        $Candidate.scope_id='town_fountain_final_2026_10_27';$Candidate | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath $PatchFile -Encoding UTF8
+        Reject {Assert-SouthReviewPrerequisites $Root};[IO.File]::WriteAllBytes($PatchFile,$PatchBytes)
+        $Candidate=Get-Content -LiteralPath $PatchFile -Raw -Encoding UTF8 | ConvertFrom-Json
+        $NorthBinding=@($Candidate.changes | Where-Object {$_.path -eq 'Assets/Mofumachi/Presentation/TownNorthMasterLayout.cs'})[0]
+        $NorthBinding.before_sha256='0'*64;$Candidate | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath $PatchFile -Encoding UTF8
+        Reject {Assert-SouthReviewPrerequisites $Root};[IO.File]::WriteAllBytes($PatchFile,$PatchBytes)
+        $ConditionsFile=Join-Path $Root $ConditionsPath;$ConditionsBytes=[IO.File]::ReadAllBytes($ConditionsFile)
+        $Unbound=Get-Content -LiteralPath $ConditionsFile -Raw -Encoding UTF8 | ConvertFrom-Json
+        $Unbound.north_layout_normalized_sha256='0'*64;$Unbound | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath $ConditionsFile -Encoding UTF8
+        Reject {Assert-SouthReviewPrerequisites $Root};[IO.File]::WriteAllBytes($ConditionsFile,$ConditionsBytes)
+    }
     $ConditionFile=Join-Path $Root $ConditionsPath;$OriginalCondition=[IO.File]::ReadAllBytes($ConditionFile)
     $Conditions=Get-Content -LiteralPath $ConditionFile -Raw | ConvertFrom-Json;$Conditions.circulation_verified=$false
     $Conditions | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $ConditionFile;Reject {Assert-SouthReviewPrerequisites $Root};[IO.File]::WriteAllBytes($ConditionFile,$OriginalCondition)

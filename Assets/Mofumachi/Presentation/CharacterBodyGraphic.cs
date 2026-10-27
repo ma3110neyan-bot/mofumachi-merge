@@ -12,8 +12,27 @@ namespace Mofumachi.Presentation
         public CharacterExpression Expression { get; private set; }
         private static readonly float[] rows={0,.12f,.26f,.40f,.52f,.65f,.80f,1};
         private float foot,wave,facing;private bool blink;
+        private bool noahTownTrial;private Noah25DTrialPose noahPose;
+        private static readonly float[] noahColumns={0,.06f,.16f,.18f,.30f,.37f,.42f,.47f,.53f,.625f,.65f,.70f,.84f,1};
+        private static readonly float[] noahRows={0,.06f,.14f,.22f,.28f,.36f,.44f,.49f,.53f,.60f,.67f,.80f,1};
+        internal Vector2 NoahArtSize
+        {
+            get{var r=GetPixelAdjustedRect();float scale=Mathf.Min(r.width/254f,r.height/323f);return new Vector2(254*scale,323*scale);}
+        }
+        internal void SetNoahTownTrial(bool enabled)
+        {
+            enabled=TownNoah25DTrial.IsEnabled(CharacterId,enabled);if(noahTownTrial==enabled)return;
+            noahTownTrial=enabled;pixels=portrait<0?Rect.zero:Bounds[(noahTownTrial?0:(int)Expression)*6+portrait];SetAllDirty();
+        }
+        internal void PoseNoah(Noah25DTrialPose pose,bool eyesClosed)
+        {
+            if(noahPose.Hop==pose.Hop&&noahPose.Lean==pose.Lean&&noahPose.Foot==pose.Foot&&noahPose.Breath==pose.Breath&&
+                noahPose.Hand==pose.Hand&&noahPose.Look==pose.Look&&noahPose.Travel==pose.Travel&&blink==eyesClosed)return;
+            noahPose=pose;blink=eyesClosed;SetVerticesDirty();
+        }
         public void Pose(float stepping,float greeting,float direction,bool eyesClosed)
         {
+            if(noahTownTrial){PoseNoah(default,eyesClosed);return;}
             stepping=float.IsFinite(stepping)?Mathf.Clamp(stepping,-1,1):0;
             greeting=float.IsFinite(greeting)?Mathf.Clamp(greeting,-1,1):0;
             direction=float.IsFinite(direction)?Mathf.Clamp(direction,-1,1):0;
@@ -30,11 +49,13 @@ namespace Mofumachi.Presentation
         public void Bind(string characterId,CharacterExpression expression)
         {
             var definition=CharacterCatalog.Find(characterId);CharacterId=characterId;Expression=expression;portrait=definition?.PortraitIndex??-1;
-            pixels=portrait<0?Rect.zero:Bounds[(int)expression*6+portrait];SetAllDirty();
+            noahTownTrial=TownNoah25DTrial.IsEnabled(characterId,noahTownTrial);
+            pixels=portrait<0?Rect.zero:Bounds[(noahTownTrial?0:(int)expression)*6+portrait];SetAllDirty();
         }
         protected override void OnPopulateMesh(VertexHelper vh)
         {
             vh.Clear();if(mainTexture==null||pixels.width<=0)return;
+            if(noahTownTrial){PopulateNoah(vh);return;}
             Rect target=GetPixelAdjustedRect();float scale=Mathf.Min(target.width/pixels.width,target.height/pixels.height);
             Vector2 size=pixels.size*scale,min=new Vector2(target.center.x-size.x/2,target.yMin),max=min+size;
             var uv=new Rect(pixels.x/1536f,1-pixels.yMax/1024f,pixels.width/1536f,pixels.height/1024f);
@@ -56,6 +77,29 @@ namespace Mofumachi.Presentation
                     vh.AddVert(new Vector3(min.x+size.x*u+offset.X,min.y+size.y*v+offset.Y),tint,new Vector2(source.x+u*source.width,source.y+v*source.height));
                 }
                 Vertex(left,bottom);Vertex(left,top);Vertex(right,top);Vertex(right,bottom);vh.AddTriangle(n,n+1,n+2);vh.AddTriangle(n,n+2,n+3);
+            }
+        }
+        private void PopulateNoah(VertexHelper vh)
+        {
+            Rect target=GetPixelAdjustedRect();Vector2 size=NoahArtSize;
+            // Register the actual two-paw midpoint to the navigation/shadow
+            // anchor. Keep the asymmetric original tail, coat and face intact.
+            Vector2 min=new Vector2(target.center.x-size.x*TownNoah25DTrial.FootCenterU,target.yMin);
+            var uv=new Rect(1263f/1536f,1-337f/1024f,254f/1536f,323f/1024f);
+            var tint=new Color(1,1,1,color.a);
+            for(int y=0;y<noahRows.Length-1;y++)for(int x=0;x<noahColumns.Length-1;x++)
+            {
+                float left=noahColumns[x],right=noahColumns[x+1],bottom=noahRows[y],top=noahRows[y+1];
+                var eyes=blink?TownNoah25DTrial.BlinkUvOffset((left+right)*.5f,(bottom+top)*.5f):default;
+                int n=vh.currentVertCount;
+                void Vertex(float u,float v)
+                {
+                    var offset=TownNoah25DTrial.VertexOffset(u,v,noahPose);
+                    vh.AddVert(new Vector3(min.x+size.x*u+offset.X,min.y+size.y*v+offset.Y),tint,
+                        new Vector2(uv.x+u*uv.width+eyes.X,uv.y+v*uv.height+eyes.Y));
+                }
+                Vertex(left,bottom);Vertex(left,top);Vertex(right,top);Vertex(right,bottom);
+                vh.AddTriangle(n,n+1,n+2);vh.AddTriangle(n,n+2,n+3);
             }
         }
     }

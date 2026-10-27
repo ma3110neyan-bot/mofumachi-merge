@@ -1,0 +1,51 @@
+# Independent whole-candidate review — 2026-10-27
+
+Verdict: **Critical 0 / Important 0 new actionable findings.** The reviewed source is suitable for the planned same-source Windows Unity capture/build handoff after the parent completes its final verification receipts. This is a source-review verdict, not native visual clearance, APK success, Pixel acceptance, or adoption of the North/Noah candidate.
+
+Reviewed `/workspace/mofumachi-merge` against approved base `ff7215c504efae5fee220d3540272ca4b260ade8`, the complete candidate patch at `/workspace/runtime/north-noah-oct27/final-review.patch`, actual new files and release manifest, AGENTS.md, the North/Noah plan, earlier runtime review, and the North, Noah, gate, and capture handoff reports. The initial whole-candidate rendering identity was `da9a00b8e5a0b216534063e92a2a3373b84eaedb4127c9e41c6afeed2995e401`; the scoped conversation-proof correction reviewed below is rebound to `3ae960672bc504de00506dc4f5d2d90d520686898e7c157a7af3f6dedb4941e6`. Source files were not edited. No test suites were rerun.
+
+## Scope and preservation
+
+The actual product changes are the four authorized existing rendering files and the Noah helper/meta. The North additions preserve the existing North constants, original ground and court quads, texture resources, dressing coordinates and navigation. The exact-id town opt-in confines the trial to Noah; shared body graphics default to the existing atlas/expression path, and other actors do not enter the trial branch. No Core, Save, quest, delivery, reward, Merge, BGM, book, navigation, fountain runtime or original artwork change was found in the candidate.
+
+An independent read-only manifest audit computed the release LF SHA256 as `221bb4b9b2417937b374f4b5bccc60d978df09523ce8f3d4efcfdec5b619e5b7`. All **502** manifest files matched their recorded hashes in both the current checkout and `git show ff7215c:<path>`; there were zero current or approved-base mismatches. The four authorized runtime replacements and the capture source are excluded from that independent release freeze. The candidate has exactly 13 cumulative changed bindings, 10 cumulative new inputs and one capture input. These are cumulative history bindings, not a claim of 24 newly changed product files.
+
+## Runtime and Unity lifecycle
+
+The North overlay reuses Central's texture, stays within x[-.6,.6], y[1,1.32], and is a non-raycast child below separately sorted scenery and actors. Its mesh cache has bounded finite vertices; columns register the side-lane and road-edge samples, including harmless collapsed edge triangles. BindPreview reuses the single entry child; camera refresh updates its projection. No actionable source error was found in those paths. Analytic and sampled triangle alpha tests do not establish how the actual artwork blends or whether players perceive the side lanes correctly.
+
+Noah retains original normal-body UVs with small original smiling-eye UV islands for blinking. The body, support transform, depth scale and shadow code preserve the actor's navigation root and existing world-Y ordering. The trial switch re-renders at zero elapsed time and leaves simulation clocks/state untouched. ResetVisual clears the pose through the trial-aware body.Pose path; menu, pause and OnDisable cleanup still use the existing lifecycle. The revised settle uses the continuous movement envelope, removing the previously reported moving-flag jump. The revised native talk test checks the greeting before triggering pause cleanup, removing the earlier premature OnDisable reset. Those two earlier Important causes are resolved in the reviewed source; their native execution remains pending.
+
+## Native fixture and state semantics
+
+The capture flow uses actual Texture2D renders and existing model movement. Same-state pairs call no yield or manual simulation between OFF and ON and check frame, model, camera, actor roots, fountain clocks/phases, complete GameState and main-store writes. North also checks actor visual geometry, and Noah checks the other five bodies. Comparison JPEGs are created from the two native 720x1280 PNG images as a 1440x1280 left/right derivative. The historical bb3fb82 North image retains its separate identity and is explicitly not the reconstructed causal baseline.
+
+The six route records use GuidePoint and AdvanceFrame, sample legal segments, require arrival, and do not restore or fast-travel the hero. The 48 Noah crops are explicitly fixed-step simulation, not real-time or FPS evidence. The revised greeting proof uses normal conversation behavior after an actual walk to the original resident and renews the existing four-second NPC pause before every manual step. It asserts the original NPC positions remain unchanged. The exact mutual greeting and both actors' reactions are checked, as detailed in the scoped recheck below.
+
+The unchanged main-save assertions are valid with the fixture's separate stores: ordinary walk callbacks update the isolated MemoryTownDailyStore while the GameState/TestStore remains unchanged. Those callbacks are not suppressed. No player save is used by this fixture.
+
+## Gate, history and packaging review
+
+The new scope validates all allowed replacement/addition bindings and pins the adopted release manifest's digest literally in production code. It checks frozen files with no replacement hashes, so refreshing a candidate hash cannot authorize editing those frozen inputs. The original 354-file baseline remains unchanged; only the validated Noah body replacement is passed to the original-base checker. The historical renderer reconstruction explicitly omits the three newly bound dependencies and retains `dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa`. The South prerequisite exception requires the precise validated scope and original North Before hash rather than rewriting historical approval.
+
+The actual TownQa path supplies source/fingerprint arguments to the capture test, requires the two new suites with their exact 3/4 case counts, raises the PlayMode minimum to 234, and requires the 250 full PNG inventory plus the new evidence metadata. Existing boundary, growth, field, fountain, show and live checks remain present. The native gate rejects wrong identities, absent modes/views, false invariants and unsafe image paths. Its PNG header and JPEG magic/hash checks are intentionally identity checks; full decoding and visual review remain necessary and are not represented as complete by this code.
+
+The archive writer includes the new JSON/HTML, all root JPEGs and all Noah crops. Names do not collide with the existing fountain artifacts; the HTML sequence has a flattened-extraction fallback. The installation instructions use the existing save-preserving default install-r route and do not request another reset.
+
+## Verification and limits
+
+Parent reported final Presentation NUnit **365/365 passed**, Core **125/125 passed**. Existing handoffs report six API assemblies passing before the final capture adjustment and the post-JPEG PlayMode API compile passing; parent owns the final all-six rerun and the three stale-binding PowerShell reruns. Those pending receipts must be reported accurately; this review does not promote them to completed results.
+
+No licensed Unity rendering or native PlayMode execution, new APK or Pixel run was available for this review. In particular, actual alpha rasterization/curb appearance, blink-island seams, paw contact and centering, fountain occlusion, crop framing, complete native fixture execution, device performance and the user's visual preference remain unverified. These are evidence limits, not newly demonstrated source defects. Current fountain adoption remains the user's explicit approval; it does not imply that previously unmeasured device load metrics have become measured.
+
+Codex / AI next improvement candidates: none beyond completing the authorized native and Pixel review.
+
+## Scoped recheck — conversation-proof correction
+
+Reviewed only the correction in `ExperienceCaptureTests.cs`, `scripts/north-noah-review.ps1` and `scripts/tests/north-noah-evidence.tests.ps1`, using the actual current source and `conversation-fix-review.txt`. **Critical 0 / Important 0 remaining findings in this fix.** No additional suites were run and no source files were edited.
+
+The parent's observation exposed a proof gap in the first version: `IsSpeaking` could accept a solo ambient bubble, and `Pause(id,300)` did not hold NPCs for that duration. The correction closes both causes in source. Every manual Step renews the supported four-second pause and checks all original NPC positions. After real arrival, StartInteraction clears any earlier bubble; the bounded loop attempts the public TryBeginConversation API and permits the unchanged automatic conversation path to satisfy the normal cooldown. Verification requires the actual Noah/Momo speaker, the exact greeting naming the other actor, positive reaction timers on both actors, and their opposite model-facing values. A solo ambient line cannot satisfy this conjunction. The same predicate is checked again after three steps immediately before the talk OFF/ON pair. Existing callback/Main GameState versus Daily-store semantics remain unchanged.
+
+The metadata gate requires the explicit mutual-greeting trigger/mode and boolean flag, validates both legitimate speaker orders against the corresponding Japanese greeting, bounds both positive reaction timers, and checks the facing values. Negative fixtures cover missing/false verification, ambient-only text/mode/trigger, an unrelated speaker, a missing active reaction, and incorrect facing; the reverse legitimate speaker order is accepted. No prior image, route, chronology, state, JPEG or packaging checks were removed in this correction.
+
+The implementer reports focused evidence/packaging GREEN and the corrected PlayMode API assembly compiling with zero warnings/errors. Parent owns the new capture binding and affected PowerShell reruns. The unchanged runtime NUnit results remain separate from this unexecuted native capture fixture. Actual native conversation frames and Pixel behavior remain pending; this source recheck does not certify them.

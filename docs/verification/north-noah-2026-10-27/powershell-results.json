@@ -1,0 +1,183 @@
+{
+  "scripts": 17,
+  "passed": 17,
+  "failed": 0,
+  "skipped": 0,
+  "runtime": "PowerShell 7.4.6",
+  "fresh_process_per_script": true,
+  "native_unity_or_pixel_executed": false,
+  "candidate_render_digest": "3ae960672bc504de00506dc4f5d2d90d520686898e7c157a7af3f6dedb4941e6",
+  "reviewed_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "release_freeze_lf_sha256": "221bb4b9b2417937b374f4b5bccc60d978df09523ce8f3d4efcfdec5b619e5b7",
+  "initial_attempt": {
+    "summary": "attempt-1/summary.json",
+    "passed": 14,
+    "failed": 3,
+    "skipped": 0,
+    "reason": "Three root-dependent tests ran while the active candidate capture binding was stale; all three passed after the final2 rebind."
+  },
+  "results": [
+    {
+      "script": "scripts/tests/android-tools.tests.ps1",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 18.229,
+      "log": "/workspace/runtime/north-noah-oct27/ps-final/android-tools.tests.log",
+      "attempt": 1,
+      "log_sha256": "020f0458e3f830d1b65aed9fc95f0872b99ce018dfd16d0723d8d1c91815d919"
+    },
+    {
+      "script": "scripts/tests/approved-design.tests.ps1",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 22.93,
+      "log": "/workspace/runtime/north-noah-oct27/ps-final/approved-design.tests.log",
+      "attempt": 3,
+      "log_sha256": "31a02baec52e8f3426ca1a673605cb4f119e9d9c0088ea1906829c1545e3c8bf"
+    },
+    {
+      "script": "scripts/tests/central-review.tests.ps1",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 0.908,
+      "log": "/workspace/runtime/north-noah-oct27/ps-final/central-review.tests.log",
+      "attempt": 1,
+      "log_sha256": "f7c476226c565c2ab5e0c4d07aab225daa185c0d2ea97dafe81874af4d188e96"
+    },
+    {
+      "script": "scripts/tests/east-review.tests.ps1",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 2.75,
+      "log": "/workspace/runtime/north-noah-oct27/ps-final/east-review.tests.log",
+      "attempt": 1,
+      "log_sha256": "8c6f26ad18607c5f13c722aef6d62fa50f6fe14b9dbafebe026140078e0461b7"
+    },
+    {
+      "script": "scripts/tests/five-area-packaging.tests.ps1",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 48.073,
+      "log": "/workspace/runtime/north-noah-oct27/ps-final/five-area-packaging.tests.log",
+      "attempt": 3,
+      "log_sha256": "2aa078ba8b4b6c8380f482e9be765676bca78b04a43c905ca4371e663fa9640b"
+    },
+    {
+      "script": "scripts/tests/five-area-review.tests.ps1",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 175.724,
+      "log": "/workspace/runtime/north-noah-oct27/ps-final/five-area-review.tests.log",
+      "attempt": 3,
+      "log_sha256": "a85a813348d939db35ab3e7640d9c10f4810235f7d1582cd0d226fb55472ef82"
+    },
+    {
+      "script": "scripts/tests/fountain-live.tests.ps1",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 4.226,
+      "log": "/workspace/runtime/north-noah-oct27/ps-final/fountain-live.tests.log",
+      "attempt": 1,
+      "log_sha256": "de253eca3f4c6350381dac15cbb76dd8195672681816eda915b05fb7c9cdf700"
+    },
+    {
+      "script": "scripts/tests/north-noah-evidence.tests.ps1",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 6.247,
+      "log": "/workspace/runtime/north-noah-oct27/ps-final/north-noah-evidence.tests.log",
+      "attempt": 3,
+      "log_sha256": "bb10f2822f4f0dc63b1b97d24659cfeb1715761baa2b5d69a273e3f8f8ff4b53"
+    },
+    {
+      "script": "scripts/tests/north-noah-lock.tests.ps1",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 95.798,
+      "log": "/workspace/runtime/north-noah-oct27/ps-final/north-noah-lock.tests.log",
+      "attempt": 1,
+      "log_sha256": "e85eb05f77db0fae2a4566a961721e2a5f24826065767917e106a5b5c4718369"
+    },
+    {
+      "script": "scripts/tests/north-review.tests.ps1",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 4.978,
+      "log": "/workspace/runtime/north-noah-oct27/ps-final/north-review.tests.log",
+      "attempt": 1,
+      "log_sha256": "32e0fa97c7d8d1ffd4154bedad86ccd9ab7b3e4c1e6f889dcf180366fbbc8a6d"
+    },
+    {
+      "script": "scripts/tests/pixel-visual-check.tests.ps1",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 1.694,
+      "log": "/workspace/runtime/north-noah-oct27/ps-final/pixel-visual-check.tests.log",
+      "attempt": 1,
+      "log_sha256": "1c280dd589e229d4cce103bab61bb0ee699ae04cba3a1fb24cfe9038c67b1de1"
+    },
+    {
+      "script": "scripts/tests/south-review.tests.ps1",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 51.519,
+      "log": "/workspace/runtime/north-noah-oct27/ps-final/south-review.tests.log",
+      "attempt": 1,
+      "log_sha256": "db3ce3490d9d45510b1052134c1d0caf6d2a67bf5b8063f3260cfd0627658905"
+    },
+    {
+      "script": "scripts/tests/stage1-camera-lock.tests.ps1",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 34.136,
+      "log": "/workspace/runtime/north-noah-oct27/ps-final/stage1-camera-lock.tests.log",
+      "attempt": 1,
+      "log_sha256": "29236994978a24246c20c810d7d592aeea955227db6436a23a4fdd792571e823"
+    },
+    {
+      "script": "scripts/tests/town-boundary-lock.tests.ps1",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 34.129,
+      "log": "/workspace/runtime/north-noah-oct27/ps-final/town-boundary-lock.tests.log",
+      "attempt": 1,
+      "log_sha256": "cb99430a060400e4289f1f3e62359149ade82082ef6605e25dd16eadfe2e8911"
+    },
+    {
+      "script": "scripts/tests/visual-lock.tests.ps1",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 1.943,
+      "log": "/workspace/runtime/north-noah-oct27/ps-final/visual-lock.tests.log",
+      "attempt": 1,
+      "log_sha256": "ace78b0c184997dfd783522327def306afb713a0ce9ed938c496dad362a4286b"
+    },
+    {
+      "script": "scripts/tests/west-review.tests.ps1",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 2.37,
+      "log": "/workspace/runtime/north-noah-oct27/ps-final/west-review.tests.log",
+      "attempt": 1,
+      "log_sha256": "f0f8eb695ca04325baa50ee6ecfff7b017c6f17ee7c0684cc6e371ceb3cc75ed"
+    },
+    {
+      "script": "scripts/tests/windows-json-encoding.tests.ps1",
+      "exit_code": 0,
+      "status": "passed",
+      "elapsed_seconds": 37.029,
+      "log": "/workspace/runtime/north-noah-oct27/ps-final/windows-json-encoding.tests.log",
+      "attempt": 1,
+      "log_sha256": "803d64247da587297f196260341f4e85907e83fce33e861c6cb4c0e4cceaf230"
+    }
+  ],
+  "latest_affected_rerun": {
+    "reason": "Final strict mutual Noah/Momo greeting proof and renewed NPC pause; capture/fixture change only. Unaffected prior fixture passes retained.",
+    "results": "attempt-3-results.json",
+    "scripts": 4,
+    "passed": 4,
+    "failed": 0,
+    "skipped": 0,
+    "prior_pass_logs_and_summary": "prior-final2/"
+  }
+}

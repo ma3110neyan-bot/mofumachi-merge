@@ -1,0 +1,15 @@
+{
+  "user_instruction": "噴水はリリース版として現状を採用・固定。今回、噴水の追加改修は行わない。中央→北局所修正と代表1名2.5D試作を並行承認。",
+  "file": "pixel-user-screenshots.pdf",
+  "uploaded_name": "Screenshot (2026_10_27 11_34_08).pdf",
+  "sha256": "7d3ca88cb7c24a2309176b4fecca1e49f0f13d80dfc1f5f10e47349a6432477e",
+  "bytes": 3752572,
+  "pages": 11,
+  "inspection": "All11pages privately inspected; page3 shows straight central-north paint join. Screenshots include initialLv0 and Lv6, town, modal, Merge and TOP. Still images do not prove full sequential growth, uninterrupted play, FPS or heat.",
+  "fountain_user_approved": true,
+  "user_authorized_next_stage": true,
+  "pixel_fps_verified": false,
+  "pixel_temperature_verified": false,
+  "pixel_all_level_restart_sequence_verified": false,
+  "note": "Latest explicit adoption overrides earlier pending fountain acceptance. No runtime fountain edit authorized."
+}

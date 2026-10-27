@@ -1,0 +1,2534 @@
+{
+  "authorized_by": "user",
+  "authorization_reference": "2026-10-27 中央→北境界最終修正＋次工程開始",
+  "fountain_adopted": true,
+  "approved_source_revision": "ff7215c504efae5fee220d3540272ca4b260ade8",
+  "approved_native_source_revision": "bb3fb82b5b941dd29fb58d4d0dd1631af516a723",
+  "approved_native_run": "20261027-102109-3bbbf9fe",
+  "approved_render_digest": "d7faa15b109e33ac52bd1d6d72243392c451a9393f5779d813f1e5e90342d678",
+  "pixel_performance_measured": false,
+  "files": [
+    {
+      "path": "Assets/Mofumachi/Core.meta",
+      "mode": "lf-text",
+      "sha256": "b987b048b03a59be463b8b43833dbb907a5ba6eb8643f8c094fa053eda7f7d00"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/ChapterCatalog.cs",
+      "mode": "lf-text",
+      "sha256": "a8efcc06c0434c928c06cc3a6a6387b0398e0dd254616661c6cc39b467b9cc58"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/ChapterCatalog.cs.meta",
+      "mode": "lf-text",
+      "sha256": "1468bf0d44362e72a15010537b072199f53571ffcad37319980e5158509e6ea9"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/ChapterProgress.cs",
+      "mode": "lf-text",
+      "sha256": "b8425d3a6f5a01dd94cd6b841cbf5fa71c5b9c5234270b65dac84cfe40d9d715"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/ChapterProgress.cs.meta",
+      "mode": "lf-text",
+      "sha256": "51aec79c133eb46f1c5d7867269941355063d6e122e331465263c487ae87a7e3"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/CharacterCatalog.cs",
+      "mode": "lf-text",
+      "sha256": "3ed579e4d12a1f26dab0bef7d0091c1bed60e0d939e0660faf2cf65d8e8c6c77"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/CharacterCatalog.cs.meta",
+      "mode": "lf-text",
+      "sha256": "b62f5c7824f1f140dbcb8306cbcabb5c93464abb03463627c042bcc411b05378"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/GameState.cs",
+      "mode": "lf-text",
+      "sha256": "1ba5ac4f3d6a016c1871395d0018770a97ab12b36a489df783bde1983e5a50f6"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/GameState.cs.meta",
+      "mode": "lf-text",
+      "sha256": "63e93a644271346360500d81025552b3c80046d0f0e68274db0a39a56d926da1"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/GameStateManager.cs",
+      "mode": "lf-text",
+      "sha256": "973696e9d052345dbabee5e545b52a564f900df45341046c66eea6f4a1dc85f6"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/GameStateManager.cs.meta",
+      "mode": "lf-text",
+      "sha256": "8687663b92cc6bbcef0429019ff955d087defd4d4939548ac5f3244178c08816"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/IStateStore.cs",
+      "mode": "lf-text",
+      "sha256": "f85bb9b7d64f0ca8d058f34a5fcd62e1bcde9868a9bd3ab1fba68ddd5e683642"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/IStateStore.cs.meta",
+      "mode": "lf-text",
+      "sha256": "00293619d6f39ce762bb4866f0128eea1037c4d9440e8709cff5881e77a31cd7"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/ItemCatalog.cs",
+      "mode": "lf-text",
+      "sha256": "51663fc69622675cdd34cb61786c335f45d9613fac9d01d4be3b2fc749f1569f"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/ItemCatalog.cs.meta",
+      "mode": "lf-text",
+      "sha256": "b9d865e3da764271aadf758837009b34de71937f197ac410cb3e7938602940d2"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/MergeBoard.cs",
+      "mode": "lf-text",
+      "sha256": "c8cce212aab65f2802585d3897a583987933c5cd04121dd99d5e6f3655710923"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/MergeBoard.cs.meta",
+      "mode": "lf-text",
+      "sha256": "8b11cc9155c133ef77352b87595c6c52c354fcd202a76e4bb1841cc3129a98a4"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/Mofumachi.Core.asmdef",
+      "mode": "lf-text",
+      "sha256": "fd81431ce78684433486a4f82e355c1bfcf7feb79003cb0b5eee2aa0a9eb36bf"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/Mofumachi.Core.asmdef.meta",
+      "mode": "lf-text",
+      "sha256": "a664c5a7e2deee0d87101f218b9f2a3eb3d1629057060b6ee3f28c75b5635352"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/QuestCatalog.cs",
+      "mode": "lf-text",
+      "sha256": "b6c69bed962d0f1777adbb40a7ea55abbbb9aa97de714fa15a3fc90164711bfa"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/QuestCatalog.cs.meta",
+      "mode": "lf-text",
+      "sha256": "22bc41a1c313302182968009ce69458f6fcac9f89d46bcc3d70659cce885d93b"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/QuestDefinition.cs",
+      "mode": "lf-text",
+      "sha256": "9f54e030aaf85eb73d3cd54e3e3b503371fe4fcbb53516e3be846452d452bec0"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/QuestDefinition.cs.meta",
+      "mode": "lf-text",
+      "sha256": "6971d5f025daa4e8deb97cafe35131754ea22f8058e68cb7fee1d4c69149b0a5"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/QuestManager.cs",
+      "mode": "lf-text",
+      "sha256": "ae79279f4d85db4bd5d7649416839bac0910b5b359e62c1ea3abb8ae16529cff"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/QuestManager.cs.meta",
+      "mode": "lf-text",
+      "sha256": "4ee02bc1ecf6e3ce467befecd92a085e7824df6308451458fa529faaca2841bd"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/RewardService.cs",
+      "mode": "lf-text",
+      "sha256": "dce245219309e7fa9f0c6ba07b12d8def36767bc02338412f2ec3a06f85357ff"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/RewardService.cs.meta",
+      "mode": "lf-text",
+      "sha256": "d1588e3ec585abca03c9bc818872e85a14ad865785d7c212498dbcb5ae4504ba"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/SaveService.cs",
+      "mode": "lf-text",
+      "sha256": "44a3131818203443aba51874570c0c9c7b2ff48b52b53c03e3a3c4750b6f29e7"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/SaveService.cs.meta",
+      "mode": "lf-text",
+      "sha256": "07f13986c53e709ffe428f527bbc4cf49da14a5f3cdb0dc62a3fee3779b9cfc3"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownFrameClock.cs",
+      "mode": "lf-text",
+      "sha256": "f6a46fd570f666b4b5b9db7921b7f228287dd705d3702d97557c86bb08bc3a10"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownFrameClock.cs.meta",
+      "mode": "lf-text",
+      "sha256": "d1432ea1297e06dfc38bb2a733d51318e2e6323489b45aefb0baad0d98205c78"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownGrowthService.cs",
+      "mode": "lf-text",
+      "sha256": "7efa6de4811aece728dd4cc854a50c2af586437dce68768c290fbc70a9c1434c"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownGrowthService.cs.meta",
+      "mode": "lf-text",
+      "sha256": "8fc34c2a0478c93b237d99475e70865eb3458aded81a7f495928325502cc27a9"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownMovement.cs",
+      "mode": "lf-text",
+      "sha256": "065e14c8ee34b65778324be2225b66e4f15209343b113a16f6b18690ad7e65d3"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownMovement.cs.meta",
+      "mode": "lf-text",
+      "sha256": "4f2114cf8fd3de6d632334ebbc9cda65a6fceab8f18b14d6854a48e0a45127f8"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownNavigation.cs",
+      "mode": "lf-text",
+      "sha256": "148d0ff5c863688c26136db5d4d39894f39b9024341f4df7190061d13ec12c7a"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownNavigation.cs.meta",
+      "mode": "lf-text",
+      "sha256": "8d576696421e87834e7cdf510dc85f96d3869db233e5bc4e2e0f54563829833e"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownPlaceCatalog.cs",
+      "mode": "lf-text",
+      "sha256": "c7db248efbd20b1b0cb28919ac12f15bd43a214d91cfff60b75348587186ff86"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownPlaceCatalog.cs.meta",
+      "mode": "lf-text",
+      "sha256": "ffb6c60dc2597e0bc4866db511affd18fa59b44134d590165786b9b8b0fbcfb1"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownRegionCatalog.cs",
+      "mode": "lf-text",
+      "sha256": "6c77a73311df3d9db7dffbf8ecd0ad38da53ae6620c55595774f320a2c2d87d1"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownRegionCatalog.cs.meta",
+      "mode": "lf-text",
+      "sha256": "223436e215aeb99930d34b1819df2dd551b5578f068e48a4079ad36c5265cc33"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownRegionJourney.cs",
+      "mode": "lf-text",
+      "sha256": "5b6982a464104879dd7eaac1420d473cb3cced7e4f966fd19f5513d92e4e6706"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownRegionJourney.cs.meta",
+      "mode": "lf-text",
+      "sha256": "8cf76d8ab6bd34fb55ea626a4e22f4cec6f9484acb47deb34778c8928d66906a"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownRegionTypes.cs",
+      "mode": "lf-text",
+      "sha256": "a2ce0584c0066f528ea85a382ae1a9b9bb821077adeed35fe5256053e77fe3ca"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownRegionTypes.cs.meta",
+      "mode": "lf-text",
+      "sha256": "28478c3734cbeb566847c50c57e4de12874d68e8e24d83f5feae5db4fc0b30ca"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownViewport.cs",
+      "mode": "lf-text",
+      "sha256": "6fc022de94781a63f1b517ba7df4e0ee3f342277d8ac8df99393ff27069a3277"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownViewport.cs.meta",
+      "mode": "lf-text",
+      "sha256": "9d02b7ebbc1e32a51a708b24031f2d3fe9cc6409349414797647ba04c02c21bf"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/link.xml",
+      "mode": "lf-text",
+      "sha256": "85c68bcfc62b26725dbe7304ff8348b712c8e904af0d69535e99e59cfb8dabff"
+    },
+    {
+      "path": "Assets/Mofumachi/Core/link.xml.meta",
+      "mode": "lf-text",
+      "sha256": "45504d61ff89f2c67577a260ba79a564b4cb7a1ed8af94bc8f6a7d07188557c6"
+    },
+    {
+      "path": "Assets/Mofumachi/Editor.meta",
+      "mode": "lf-text",
+      "sha256": "0fd62227ce4cb78a74394d1da1e0f84ae4d88b7df42a67312000f24286cd73c7"
+    },
+    {
+      "path": "Assets/Mofumachi/Editor/AndroidBuild.cs",
+      "mode": "lf-text",
+      "sha256": "78933406562159ed649af34fa6ba840eec0e1a3bf2a091b9fa4a372989e73731"
+    },
+    {
+      "path": "Assets/Mofumachi/Editor/AndroidBuild.cs.meta",
+      "mode": "lf-text",
+      "sha256": "6edecbe40ea5e087c848c7856602c67c82c3d39e805caf57bf9e0be886b4c505"
+    },
+    {
+      "path": "Assets/Mofumachi/Editor/Mofumachi.Editor.asmdef",
+      "mode": "lf-text",
+      "sha256": "57cad543b334aef3e9faf216cbf84ec11b3ff563de65bb02ed4031b195f5f30c"
+    },
+    {
+      "path": "Assets/Mofumachi/Editor/Mofumachi.Editor.asmdef.meta",
+      "mode": "lf-text",
+      "sha256": "78f88bb50972710fdaa31b6264302f3ddcc9a03166a16529808054bfd6a4db8f"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation.meta",
+      "mode": "lf-text",
+      "sha256": "051fa90835c1481f365d2f57baa502488eebf3fb4e462b1d05d15affc8de59fa"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/AudioManager.cs",
+      "mode": "lf-text",
+      "sha256": "09f8bb1f0cc9cbb1dde1e4daaedee7541e31e453d9b38479cf0b233d1b65580e"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/AudioManager.cs.meta",
+      "mode": "lf-text",
+      "sha256": "268632b4105bf5fc91a8c90936f78737bde067b18999896e7a8035f2f5f9dfea"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/BodyReaction.cs",
+      "mode": "lf-text",
+      "sha256": "cc0a0f5dbef10ad8e8fdb133dba027d055706e666613167b47c1d23264c6d100"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/BodyReaction.cs.meta",
+      "mode": "lf-text",
+      "sha256": "4b36307b4891d47be077812d68cb11897a9b173d68b95a676b77e1f164f1cdf1"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/ChapterPresentation.cs",
+      "mode": "lf-text",
+      "sha256": "6ba2b3864faae819f4460ff3ee3415611c1e9607077edf909e70336b2e4e9919"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/ChapterPresentation.cs.meta",
+      "mode": "lf-text",
+      "sha256": "db4544350049365847757e4b0310a0d04da2793058bafd954b8f595c0ff5579b"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/ChapterSummaryScreen.cs",
+      "mode": "lf-text",
+      "sha256": "6acc9f098669f802d33e13edd778bb5e8b2b726f66b5a7b0a6b043c4b8a560c5"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/ChapterSummaryScreen.cs.meta",
+      "mode": "lf-text",
+      "sha256": "314cb3cd70ebbc4c300fe87aa7a70e6973863d32553d02e66667c04410acb3ba"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/CharacterBodyGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "45a7e3e82cf0cb66b1f1755e0acfa18b31a6b3953ae15ba9d8a2ab79ff8d5a87"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/CharacterReaction.cs",
+      "mode": "lf-text",
+      "sha256": "8c79bb8d159cda4b2b7e5d921524191557bc86b05cbff3c254ae811b0174c8a8"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/CharacterReaction.cs.meta",
+      "mode": "lf-text",
+      "sha256": "05010ec60057d54bdfc3a9a1be82e0e63bd0ae3856e9d1b049bfd18004d5ef64"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/CharacterSelectionScreen.cs",
+      "mode": "lf-text",
+      "sha256": "6d554027a7602ea1bc0a3e9bf86a450732dc6347d0617d24b9873ca620439622"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/CharacterSelectionScreen.cs.meta",
+      "mode": "lf-text",
+      "sha256": "7616a66efe64f6e5834c410d6e4af322b70f2c16b1471964cf8f6e70a0163fa2"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/DecorativeFrameGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "c7aa859a30887e511da5ad12c7502d3716e90b29d51a5629ebe7ce435ae801be"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/DecorativeFrameGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "4d15f3fb21bb3907e062f3a14e55d54257d6939b4cec91d8feb6bf96c0c48f65"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/DeliveryPresentation.cs",
+      "mode": "lf-text",
+      "sha256": "d1747c2a5949eb9de8734c64ff8e97be07b1551d15c93bb9b9e8eff8e0f847f4"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/DeliveryPresentation.cs.meta",
+      "mode": "lf-text",
+      "sha256": "cef2031393672144df58dcf986827bc10b99c41027640422ccc94b326ca74c69"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/DiscardConfirmationView.cs",
+      "mode": "lf-text",
+      "sha256": "fc487dcd6726141824e4ffa0694f14bca738cd8d1488eed0f25c969ea4a03caa"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/DiscardConfirmationView.cs.meta",
+      "mode": "lf-text",
+      "sha256": "f7b35b6b950389e3ad976aabe067902a136e4af98f0a883dd33421051b5c1de1"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/ItemGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "29dee2c3b56060ade7ea8616673bae566b5f95c006b324b98aaccec41c1c7169"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/ItemGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "368b95d47e8e3396eabaa723bd2f9ac4e715794cfe71b2b0a0d59ae375cbc898"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/ItemSelectionFeedback.cs",
+      "mode": "lf-text",
+      "sha256": "ca55a31c1f522cc1ba73cd24e390e0cd1559f2882e3fa5c406669b128e2dcea3"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/ItemSelectionFeedback.cs.meta",
+      "mode": "lf-text",
+      "sha256": "9f9066987d5244606ae580ebaf0c8580934c98b66d9b52fb5e9b302422bd6174"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeActionMenuView.cs",
+      "mode": "lf-text",
+      "sha256": "24d1e302c1d5d6259f8d75081fd60349f03e3dff7805ae0104c798c30079c242"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeActionMenuView.cs.meta",
+      "mode": "lf-text",
+      "sha256": "d4bd447ad0282d03db1902358775328cef1faf76d5cc1cfa95fe93f641f9023a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeBoardView.cs",
+      "mode": "lf-text",
+      "sha256": "3e2e71144926ae5d9a5d87a5cf0605bd45f77fe5c67be8395b83440721444584"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeBoardView.cs.meta",
+      "mode": "lf-text",
+      "sha256": "d097438ff45e7e8508e1ba7caa084a2eec670e8d23f2abffcf86610ebe3a9806"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeCellSurfaceGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "0de1ee9b2e178b98227bf0b77a32db40c7a5aa1c5b8e4f867255565ecff8b728"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeCellSurfaceGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "b9ede717615c0309179515c002f91e7512ae371acffacd61424e69c6f0dbf1f6"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeEffectsView.cs",
+      "mode": "lf-text",
+      "sha256": "a55da9108223087f30424b98dfeba2de185cfd29924ea9fbdbcebfa1f1a89662"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeEffectsView.cs.meta",
+      "mode": "lf-text",
+      "sha256": "a63ae68a4ce0db10b7f97aefa6271395b997259b6df65d7abffee095322e4987"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeInputDiagnostics.cs",
+      "mode": "lf-text",
+      "sha256": "5b054878712fee1927d4d25aa61cb7234c2907232b4941114209d04512fcf307"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeInputDiagnostics.cs.meta",
+      "mode": "lf-text",
+      "sha256": "698eb7e867b51b59792e1f6af5ce26c7aa35d581d0b07e16eb44749e2b4c8345"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergePerspective.cs",
+      "mode": "lf-text",
+      "sha256": "693bde0f750a550ebcfbdc63035e898e28f022d8e4da9b943e7927f493070193"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergePerspective.cs.meta",
+      "mode": "lf-text",
+      "sha256": "a30f128dd57f247a597b0c22638fe2e7e106d615d04d21f54562e4a5b21a915b"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergePresentation.cs",
+      "mode": "lf-text",
+      "sha256": "f48bda4d13d2565cb5db56e1f4ce642f2e398c8b7ad6a07715ecc4d415683c31"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergePresentation.cs.meta",
+      "mode": "lf-text",
+      "sha256": "d5af660397805ed49b5b5ad82f0f4f15d3046b0ecd03748dd4875cc8acc5ff5d"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeSparkleGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "578416913dca3de3a98a8a381725ce76cfff3855311f45a70b1235cb01292c90"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeSparkleGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "b1ca3f5b6b41c20125d17ab6850885e275851f665407e915c012a98abc89a211"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeVisualTiming.cs",
+      "mode": "lf-text",
+      "sha256": "9d2696b9372c92b485e74b5716933970292534a2370959ff107394a7b31c71a1"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeVisualTiming.cs.meta",
+      "mode": "lf-text",
+      "sha256": "a8ffe5678260f1529979bd32290f53b65ab873027ec525f0c74e962d5d3a18f1"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/Mofumachi.Presentation.asmdef",
+      "mode": "lf-text",
+      "sha256": "8c70e8593579810a897e2806ced6d9b580a8d3047c9ab2246d293bace6e92912"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/Mofumachi.Presentation.asmdef.meta",
+      "mode": "lf-text",
+      "sha256": "0134461071191157fe6f60fe5524821281477462fb9264a0581469b8d50b466b"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MusicPreferenceStore.cs",
+      "mode": "lf-text",
+      "sha256": "701beecc3e4d318106ed7210357fbb003d50cd77dd5d06c8475537ba2a39fcd5"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MusicPreferenceStore.cs.meta",
+      "mode": "lf-text",
+      "sha256": "065b0832b2e8bbfcc73a12da4edfdcb48f25af64ad6ace67b682e2e6ae575a05"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MusicRoleSelection.cs",
+      "mode": "lf-text",
+      "sha256": "338910326cb2c19407eb005d389b2b2dd49370086dbf57714bb5c0efd139abc6"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MusicRoleSelection.cs.meta",
+      "mode": "lf-text",
+      "sha256": "fbfa7230ec000a427d875a751abbdae4f9e8e45105b9e10d185cc47ef606dde8"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MusicSelection.cs",
+      "mode": "lf-text",
+      "sha256": "c6146013512a02ac66f387542fc46fbad17f2d57728a5f3a100de8d4789351c2"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MusicSelection.cs.meta",
+      "mode": "lf-text",
+      "sha256": "a08c894de98c638c58691928c4864b30b7290fedc0143c0b59945ac01fa72be3"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MusicSettingsView.cs",
+      "mode": "lf-text",
+      "sha256": "7f470b3b42b4bb2a05ee5ae4710d3e4df1b29611d9a552a22e18807eb74d466e"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MusicSettingsView.cs.meta",
+      "mode": "lf-text",
+      "sha256": "15f7c7989976fda3f02e0ed75b5647d7c3db785d3ccc6492c4bf7a38652be8fc"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/PerspectiveBoardGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "d90ae48408197c438692132a2c85a30e656d828ec4e5fcf53c36aebeff9c3a6e"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/PerspectiveBoardGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "3631bad379b55ca2d2d36fd56252d6d08e6999e451100a9db401528c82abb280"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/PurchaseNoticeView.cs",
+      "mode": "lf-text",
+      "sha256": "ffba7d4d17d4622dba12e484a97f6d842229ed4df817e9769b2c86c81d98f866"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/PurchaseNoticeView.cs.meta",
+      "mode": "lf-text",
+      "sha256": "d3349a978abcfc7c1d1e0fb566e78ae38b790fcba10e835608ac2bccd0fcbe8b"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/QuestMergeScreens.cs",
+      "mode": "lf-text",
+      "sha256": "c787a0f8d4482ca651aaafd3651a95411c749a008687dd680c1cf1499c3679e8"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/QuestMergeScreens.cs.meta",
+      "mode": "lf-text",
+      "sha256": "2f77f5f7d625b0202649d623a06a942a6c001b380b3a127dc41c92498fee60a9"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/QuestStoryPresentation.cs",
+      "mode": "lf-text",
+      "sha256": "2d9de94e3b413ea6f36dc1baf394a1468853aa909df4255602d018ac1f593130"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/QuestStoryPresentation.cs.meta",
+      "mode": "lf-text",
+      "sha256": "b7ebd2dedbe2692426fb0aa66c0d2f48d91aa77ee2d8ffaa0f15696820869563"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/ResponsiveUILayout.cs",
+      "mode": "lf-text",
+      "sha256": "11d2c9e2d4ae5f448f6e725cb26c1eb4db147a0cae65f2ef2887978a88b1c012"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/ResponsiveUILayout.cs.meta",
+      "mode": "lf-text",
+      "sha256": "ba54779a6394b0c1f72ee87580ac5b497d64644561dac948c1b1a82ef2e94a86"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/RewardGrowthScreens.cs",
+      "mode": "lf-text",
+      "sha256": "e413539d1b36442960578552c8842220c6f4e763c7d5ccb0688f11ca055559ff"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/RewardGrowthScreens.cs.meta",
+      "mode": "lf-text",
+      "sha256": "6fd5484b246b8a2a24ddda8bcc6113cfd3c8f2f3e3474900f42bcdb10c06f64b"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/RibbonGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "579f6c739c5ee58369f2fbcb485aa8d5acd02584546a5563f38ddaa1ac0c21b4"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/RibbonGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "f5c93506f9918afb4b5e0f856ec2ad9eb5dec0a8133c4badf15d15ae2a52763c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/RoundedPanelGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "1f4cbb3d8e9fcc207bc98d101149926d1a2b2a6dd6da3b7c6ff80d779a5e1959"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/RoundedPanelGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "096f6e9fec5a8d4ef862fa53ea4772958020d271b6c2807c79c8eb0201292b54"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/ScreenContext.cs",
+      "mode": "lf-text",
+      "sha256": "195aa1b49b1061e1d73d2c97512b845b50e979a7932f0b3c67592b4ad4ddf500"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/ScreenContext.cs.meta",
+      "mode": "lf-text",
+      "sha256": "91d5adb459553936ea49ec4d24f2f232ca1625fd22665fe670f76257b63cd32d"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/SettingsScreen.cs",
+      "mode": "lf-text",
+      "sha256": "03a17ec9c8f3b85912fff6c9eb1928632bea24c699bf1f86f19b514fb225b203"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/SettingsScreen.cs.meta",
+      "mode": "lf-text",
+      "sha256": "785bbde5068889ef50b84137756f436e37b7486b9c3f4d2489a5f112892b5bc6"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/StoryPaperGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "e621787075a8f5a40d07bc493a22be1726b7d3d954e8199713e47a1ce5f29316"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/StoryPaperGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "139ad3c8a4325ee8cda805ce8e83240867c5e0a47c376be574a7600b1a92097e"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TopHomeScreens.cs",
+      "mode": "lf-text",
+      "sha256": "5184e0409095cdb0027bd32c63d3505fbd3535ae12b1d47820414e55c9a463f6"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TopHomeScreens.cs.meta",
+      "mode": "lf-text",
+      "sha256": "ee6fddf718502aad601568f88ae7de6c14d2e819e828c573a036786bc61da83f"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownActor.cs.meta",
+      "mode": "lf-text",
+      "sha256": "8ddd37eda672deb4d0e7365670042662b87dd5fa0723a502117a7595da6db6d2"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownAmbientGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "b05dce629507b5a364732022023c52a57f5e85774e7dc57e536012db98331436"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownAmbientGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "148bbb259d1bf2e8e6c2bf89ececef4dccab1fa8e49c99d8525c4c04e4ab021b"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownAreaNavigation.cs",
+      "mode": "lf-text",
+      "sha256": "d82de20fcb020db9cdd917b4fbce2ee67a2bad1fc6c63e05340edb10b0801505"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownAreaNavigation.cs.meta",
+      "mode": "lf-text",
+      "sha256": "ced6111fd39d899fe14721df26c36cb0c17804121814d54536392fcbf001e667"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBloomGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "349546584318a64ce7efed42702d72ec4a32726c9c49a4a81a878b24412b1a6b"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBloomGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "e07e7402c1c8fa4fa011e517a2741942ff80bd2b26e0e3de49c175f9d339b660"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "106c523b4701f9a7e8dbab44f1948f670eeb848560feaa1d676518d9fc1cf1cf"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "32db8df645367731266026ea9f7e47a5e659d255fa18864f7b0b6975341b159a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs",
+      "mode": "lf-text",
+      "sha256": "7c0075539bb31fbaf88b1e5b568df440eadee64cd75c7209f45a8f7f5cedee96"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs.meta",
+      "mode": "lf-text",
+      "sha256": "c21ffc13c1321c97db54d5af9191852ca0241d85c487002f0d27790c4fc6d06a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownCentralGroundGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "3ef1b72cc90d425b0da4e2b1712d3f6184d6ae0e1bdd2046defdcb3ce4529361"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownCentralGroundGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "279b6cf1fe5b681fd853b44c6ba8cac99fa15f5812d3271d26da064b3d03af72"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownCentralMasterLayout.cs",
+      "mode": "lf-text",
+      "sha256": "c15ec21ce62a21184031092318a67f15c2a05b2b75a91259c76b43200c99ac39"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownCentralMasterLayout.cs.meta",
+      "mode": "lf-text",
+      "sha256": "29f667bd477e5822770e731c2a867c7028080ae7e43fb10bccd13aae071f17bd"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownCharacterBook.cs",
+      "mode": "lf-text",
+      "sha256": "4cf737add5c0c0d8a498ec43fe6634a980e5a12d0c9d9d8f1fc974b0dcaef2dd"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownCharacterBook.cs.meta",
+      "mode": "lf-text",
+      "sha256": "08e817edd2a5956195136b5ccf0795cbb2949ba91466a345abc2cbcd747812f2"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownCharacterDialogue.cs",
+      "mode": "lf-text",
+      "sha256": "d0532f96337d1d96c50e36f8fe4979a5765e0dbf817c48614df6bfd00975365b"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownCharacterDialogue.cs.meta",
+      "mode": "lf-text",
+      "sha256": "3e8d6765765d11df4cfc41390a0283eb8c93c287fb0f1ef0d28db03c5ebc9594"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownCharacterMotion.cs",
+      "mode": "lf-text",
+      "sha256": "87548238a841cf7cafe1432d27f4f148c9307b216b980b016b1c7a4a83103218"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownCharacterMotion.cs.meta",
+      "mode": "lf-text",
+      "sha256": "0ff66fe5788a09ed70b8978b6c65b0b8bcd2008ec6b51150f8bf29e0d5b08dd2"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownContinuousWorldView.cs",
+      "mode": "lf-text",
+      "sha256": "936233ba84e95b224fbe23e2367c61fac6017e32797dd7a34fe5f00e87929364"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownContinuousWorldView.cs.meta",
+      "mode": "lf-text",
+      "sha256": "7172258c5f07fc02c0c3a872afa385404442b64a71ca49ff89fbdbd26ab94b5e"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownDailyProgress.cs",
+      "mode": "lf-text",
+      "sha256": "6698ec850d3c647ba81d26cfc630057b44d1014420100c38d8808396ef07a1bb"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownDailyProgress.cs.meta",
+      "mode": "lf-text",
+      "sha256": "28eb53369762434e7632a719db3c39b84651e4a8906ec8cea4533027a8c21662"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownDailyStore.cs",
+      "mode": "lf-text",
+      "sha256": "bf5efcbab4ff1706954db56081cbb7e5f837e737993d19cebe221712521a6a39"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownDailyStore.cs.meta",
+      "mode": "lf-text",
+      "sha256": "100505825a4424f3370a0e8a4aaeb49e01ec2c4c8a6879c639da48209b392ea6"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownDecorationGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "7a94c8d214f233ee8797285c743837ce03c8b80b208c940acc59e3fc77a085c1"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownDecorationGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "449ebab97dc98b667f78a1c96e47bc8920cf722dad924115ff547d383aa7e9de"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownDiscoveryNotice.cs",
+      "mode": "lf-text",
+      "sha256": "e891908cfec30acf7c8705fe49817d112501f49ed490464ef5a87ae8a5320011"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownDiscoveryNotice.cs.meta",
+      "mode": "lf-text",
+      "sha256": "d95c6058f6923ba5b3ea6e0ae3fdb0b1898971fa0045c762d8a0b0bd4ba66aee"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownDistrictLayout.cs",
+      "mode": "lf-text",
+      "sha256": "7dad7dc02ab32ac4bb853dd999c23c40b0be14cf74e7cfe9514f481aab11bdf7"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownDistrictLayout.cs.meta",
+      "mode": "lf-text",
+      "sha256": "5d0039d42f2e46936ee05f4518371e4bacacbd96c9eec34621d7b2fc91c2991d"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownEastGroundGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "30ccadfb7609784036878c7e21b25eccd0a0a5b0ac9263e2db2bc69b94984736"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownEastGroundGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "1ee2531d4c11dc676d181de9342ac7f40ea79cbf188368323873ca0d07209659"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownEastMasterLayout.cs",
+      "mode": "lf-text",
+      "sha256": "c6d9f04ad27d9ab72517209feda2728b51000a38ae381a72df31e7dd6529f952"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownEastMasterLayout.cs.meta",
+      "mode": "lf-text",
+      "sha256": "fd1440f0f48a7de0310fb7f460dbb582b19faa0f69529a50eaed5da3bdc036b0"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFacilityEntry.cs",
+      "mode": "lf-text",
+      "sha256": "c18f0f5af69aa679e07e6cf68f2b46101c07b992cd8300fcdbced479779e32e4"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFacilityEntry.cs.meta",
+      "mode": "lf-text",
+      "sha256": "6a8699ade23b750239d16bb317548f53df210d97d767f3e63180883831815b1b"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFacilityView.cs",
+      "mode": "lf-text",
+      "sha256": "b8ccad14abb5ae42b1646825f5f26b5898d3dfa03c32589229b4047f4c81333a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFacilityView.cs.meta",
+      "mode": "lf-text",
+      "sha256": "f9155b8c30164037006eed56695682b9e28646312cb17ab7e01e8694c3eea1a4"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "aa35f423ce60ed91efb0b92ace18a3b8e32d5948ddd863805b1c4da9c3c623dd"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "50e32fddd28c9f3f6062b35225f3fdd1e2dd4cd12dac5ce85f8ab7d8995eeb2c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainWaterGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "1eec844ab4bd924f4048e11b79512ad7df5306a15ca58198b9bd66c86397dc77"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainWaterGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "97dc71e0fe61a3428ef68a669af23c9573bdfebbe47f0af7789510bde740bef4"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainWaterLayout.cs",
+      "mode": "lf-text",
+      "sha256": "0c588c82a0beb6c1a17555dfeb19e25ba45531167d14378343f3c56e5942e461"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainWaterLayout.cs.meta",
+      "mode": "lf-text",
+      "sha256": "dffce2f1781cc31981a33024aad7e9e87d2d9525084f5c81181975271d825c9b"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGoalCard.cs",
+      "mode": "lf-text",
+      "sha256": "bac0a45c6b2b35d22e7d2f2013e337f1fab3402bd9672dd9eb05e80790c1097b"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGoalCard.cs.meta",
+      "mode": "lf-text",
+      "sha256": "4fbf28e73ec7077a2cae81be52366e3f32dd64b324fec479bea9a11bd8628c48"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGroundGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "197bbbea002d623950874a61c84747c8d03ae4f3aac536af940463e8313f96ee"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGroundGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "1411192b61cdc5ab958cbb0853230e5553c3881eca7cc28023e02c227e44af48"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGrowthComparisonView.cs",
+      "mode": "lf-text",
+      "sha256": "7c7b4f8f8a8bb2a8f7fbe68903d2f738620022f07186b9a29a5cc3cbb829aab0"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGrowthComparisonView.cs.meta",
+      "mode": "lf-text",
+      "sha256": "02dd96c484f6ecd8c5db61dbd2c6ae412234ee7509679d29459e5d1ff6a8d07b"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGrowthPresentation.cs",
+      "mode": "lf-text",
+      "sha256": "4d451154157fb82dd58f91a6bb22c5a66b0020a65c43cfc27a5775f2d01278f0"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGrowthPresentation.cs.meta",
+      "mode": "lf-text",
+      "sha256": "5607ec5a82de8d5b4410b14c4f8ff04cabbdf1cad0f0d673e7599c46cff3f20a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGrowthPropGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "03b9dbb7507c3cac3e02aef6b9894bfa09159807d974598c03ffe565472feb7e"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGrowthPropGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "d757f22a6c08a2e3a5a13d575c04b533c14dab5af4d53c1d327af62515c9ae8a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGrowthView.cs",
+      "mode": "lf-text",
+      "sha256": "d72b7bcc9f6bb8f30bcc7eee68bbbc6f59e4dc20012ff2df9a243ece8a9ac8b1"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGrowthView.cs.meta",
+      "mode": "lf-text",
+      "sha256": "8ff0726694cd49d25806b8d80e8f7ba1aa3ff4797610fc2bfcf89d62903c4d62"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownLifeView.cs",
+      "mode": "lf-text",
+      "sha256": "9c9fd697a71da91aa5fd882368e2c33e3aab72dc3be031e000982c029c719b99"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownLifeView.cs.meta",
+      "mode": "lf-text",
+      "sha256": "49855170d0ff74471105d01bf95068c4f914ae07c043501669071c631d15f805"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownMeetingApproach.cs",
+      "mode": "lf-text",
+      "sha256": "25bf6ee46d9a15805944daa47032e39ce451acd885920d52bad39aad8ce137d4"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownMeetingApproach.cs.meta",
+      "mode": "lf-text",
+      "sha256": "a967e44a203223875e029c972d2384fb5e46ce5cd41dd31da16d040bd8b12bf9"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownMeetingJourney.cs",
+      "mode": "lf-text",
+      "sha256": "a01a1d5927999646ceaa9d69a5e4f45893e54cbf4894c9ce123c393ee5e41ec0"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownMeetingJourney.cs.meta",
+      "mode": "lf-text",
+      "sha256": "183c3db5b293e246aa6deb196f2c8628ed84e7b7a72ca3571797345455cf9ab6"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownMenuView.cs",
+      "mode": "lf-text",
+      "sha256": "30dda71173e618be3483f11af2337af22d51c1a5fd6955b4aaafa5d281d08c52"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownMenuView.cs.meta",
+      "mode": "lf-text",
+      "sha256": "ffadeeec43ee695702d72a8e3cad2977870de35b6c1fbc6eb5909b154eb40951"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownNextGoal.cs",
+      "mode": "lf-text",
+      "sha256": "97ed2de4af01f5941ce76ef795a6a2b1468cbce8b19925a855bf0423d56541d4"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownNextGoal.cs.meta",
+      "mode": "lf-text",
+      "sha256": "d910705a4d98815a6aa88abd09c61198b6447dc99fc07a8ac4529d18ee22a7ae"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownNorthGroundGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "2275350e2c1411c52cc5165c25b78fe373baabe44167ce5fc723c7fa0631d031"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownNorthMasterLayout.cs.meta",
+      "mode": "lf-text",
+      "sha256": "2a9a0bab574d93d535b1e12b2de92579a2c3007a924e4c83d2f5703c9f4085d9"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownOutingDestinations.cs",
+      "mode": "lf-text",
+      "sha256": "d9095f1eda80b7a6c6b587d3e958a12452412cf168da1eeafc89049d8a65c554"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownOutingDestinations.cs.meta",
+      "mode": "lf-text",
+      "sha256": "ba19ab11f7a2e7421668ecd35bc19614cd855a5c6dfa0fe91175d86dc2386743"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownOutingMenu.cs",
+      "mode": "lf-text",
+      "sha256": "2febb134a3d8aff2b3df52fb523d39f36cca8daa6a2dfa88120da42b3419542a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownOutingMenu.cs.meta",
+      "mode": "lf-text",
+      "sha256": "9b9d2c66fe9d3fc2cc2780dbb2f6de17d9998afe282e2c3814b081d869d5e15a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownPlacesView.cs",
+      "mode": "lf-text",
+      "sha256": "3af7bb9365bdecffdb8deeb4894e8fc29e91dd30ad706783d33bc9ec308f4ea1"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownPlacesView.cs.meta",
+      "mode": "lf-text",
+      "sha256": "61648662aedfd0f12f6516a79dc6ec4490071fdb85380fbf6d2ab714e02f2641"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownRegionControls.cs",
+      "mode": "lf-text",
+      "sha256": "166785b16c9a2303026f6826eb2d354989f0bddc39fc38b59b2aaefbab3e7076"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownRegionControls.cs.meta",
+      "mode": "lf-text",
+      "sha256": "247a4fdc2e8db6a5ea296bb1d2838e6fec6c94faebb48c1c6a52f4e0b3705ad6"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownRegionSession.cs",
+      "mode": "lf-text",
+      "sha256": "e74c0fd72b1d3c9e28c9531a9778067e44be31ffaf0516c16f032b4dd29065c2"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownRegionSession.cs.meta",
+      "mode": "lf-text",
+      "sha256": "e2e0e7473ff93d10faca335ce4c6843a27dd5aab75390e556b91babe3cf9bb0c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownRegionView.cs",
+      "mode": "lf-text",
+      "sha256": "2357afdecbb32a2aa501b133a21953cd5975b33ef40316f9cb7520e7f10355b1"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownRegionView.cs.meta",
+      "mode": "lf-text",
+      "sha256": "f5f255facea3cb366f5228f4098f55d1377fae6dbd555cf120f622de724851d4"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSceneryLayout.cs",
+      "mode": "lf-text",
+      "sha256": "4e9beb593ce9f50f134737ffca9c75729cf0b7d5a7b175cbadd756c332ba723e"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSceneryLayout.cs.meta",
+      "mode": "lf-text",
+      "sha256": "7e5da69b5fa7aa9c6d68fab5fa4270ddc08a1c4f101aad3884bf656e5fb746ed"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSceneryView.cs",
+      "mode": "lf-text",
+      "sha256": "754081f0ca3cc0ee2ced1d42478c1bd025817bd27aa11a03953c918c68b19fc1"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSceneryView.cs.meta",
+      "mode": "lf-text",
+      "sha256": "51364aed8262a409f505931eb36841305118940ae09151cf33535095e177c2b4"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthEntryBlendGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "89c65a8e7500f3d5ee4e9f6168689e90472023c442ff59d2fff620836ef5ba54"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthEntryBlendGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "bcf968e87dd018a8784be2d42d4a643759e78bebb2422c65ca5d777796677188"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthEntryBlendLayout.cs",
+      "mode": "lf-text",
+      "sha256": "06c58c1b696014e4363e7239df6f355be50493c886bd0dd1ea341d98b41a4c2c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthEntryBlendLayout.cs.meta",
+      "mode": "lf-text",
+      "sha256": "b1e7c17f70ed275703b46f5e4712f295df5e7640e9cd2e61c01cb2bdadea08bf"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthGroundGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "7106d1278c3549ae04095a25992380fc17e2498d908ebb83086b0b9eaaf1b56c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthGroundGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "c09ec13eaee2942d92e67e1780e5f3e9923a2d2a3cf74806e88ced9f1b1bfe1c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthMasterLayout.cs",
+      "mode": "lf-text",
+      "sha256": "2793ef0a143fda041e03e3948d3d3398c966b51f7912b2e3b41b71b77f412f6b"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthMasterLayout.cs.meta",
+      "mode": "lf-text",
+      "sha256": "2262ee6ad1af522a8c51e4741956a9b8c98affd9dbaea1a605efece5396dbe32"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownStreetHud.cs",
+      "mode": "lf-text",
+      "sha256": "81e29e3eeedb249af0cf75174bfcc66c5f5c992ea906d5046e3b5816ddf593be"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownStreetHud.cs.meta",
+      "mode": "lf-text",
+      "sha256": "599e6cdd5182fd0a16c7c308da845d32dcb276d9eb995018371d670bb3da64b0"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownStreetSelection.cs",
+      "mode": "lf-text",
+      "sha256": "aea49eae6b9acad3fb7c83d9ab517d281b0dd2668611910a3a814130617b869b"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownStreetSelection.cs.meta",
+      "mode": "lf-text",
+      "sha256": "fc92ba36c20312be95e52975bd8f2c465301bb60af3dc5044e48b5bf9532ad75"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownStreetWalkView.cs",
+      "mode": "lf-text",
+      "sha256": "a1da2dd18b3609538985b4e292c22130d9e74cd9dc97f465404110f60652ea7b"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownStreetWalkView.cs.meta",
+      "mode": "lf-text",
+      "sha256": "8d8dde26d0337b08cb23947821db5a0b10058bcf99321fa32ef6349c9226a3ab"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownTodayView.cs",
+      "mode": "lf-text",
+      "sha256": "918324afbd608cb06f74e5f4af6b4d25a88efef470d0695ba101a9892c1580c3"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownTodayView.cs.meta",
+      "mode": "lf-text",
+      "sha256": "8c4880f8260e99fe5d1c8f6755628e722bfec85da40c440a345a8ca8a4848de4"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownViewportView.cs",
+      "mode": "lf-text",
+      "sha256": "f5bd9b75e8e94272f6005cf323ecd993138921e6c15ccfd1047129806ea22c70"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownViewportView.cs.meta",
+      "mode": "lf-text",
+      "sha256": "8df002451c50ca48108810209e80a5db67b67cc59798afc38bf539487a77caf7"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownVillageDetailGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "06b8b7c8e208742944ea4db0197996942994755fc22cb348aa9b27d73d27597c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownVillageDetailGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "550aab978c09cbc1f5bb1af68c5dd6736c6fd4dc88b3448eb2f99ec67ab8cdd7"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownVillageDressing.cs",
+      "mode": "lf-text",
+      "sha256": "9968121bf1d471d080c126e22ca6b96166606b08b051222e5bf58abfdff7f395"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownVillageDressing.cs.meta",
+      "mode": "lf-text",
+      "sha256": "f85c90ac647deb4e4c83541de21dcc8bc987b1a824a7f913931e93de268bf734"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWalkableArea.cs",
+      "mode": "lf-text",
+      "sha256": "d7eaa408694ac4271032889c6581d69de0ba9bd01a0e843d275e64504a66bd0e"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWalkableArea.cs.meta",
+      "mode": "lf-text",
+      "sha256": "95fa5750a9fe2281de1b2275bdffda8a3a538c7002ce8a8e8106542965be522a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWestGroundGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "50389a094ec3796be26ac42fd1839ef48bb440cb8a550809c9f560b1e362dae1"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWestGroundGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "f54a23a00a3d044a07e539e8df8e741bd0ee9c9b33c409070cecfb114bdf1820"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWestMasterLayout.cs",
+      "mode": "lf-text",
+      "sha256": "a13bb6d20528649f68e340ae0cce29b4707ef31c86165c4858494f5818667c17"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWestMasterLayout.cs.meta",
+      "mode": "lf-text",
+      "sha256": "01961b010fea1e4c249736b3d8a7f32ca568879070f4c950c5eeba70e2b93685"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWorldLayout.cs",
+      "mode": "lf-text",
+      "sha256": "2c18d61cc4c6fd2989064a97b4b425628757d9535f6948ab0abd0917ccdb7fd3"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWorldLayout.cs.meta",
+      "mode": "lf-text",
+      "sha256": "c34cdaf3804bdbbc7f69e6e6523bb6ab6fcca5df342d8a305b84f4bb4a70bab9"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWorldMap.cs",
+      "mode": "lf-text",
+      "sha256": "1be6c84d9129c093878adebf808b258e754bd65b75ea1aa15462b9d648d3baf4"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWorldMap.cs.meta",
+      "mode": "lf-text",
+      "sha256": "f2f22ee1f8ee4c0d1a81a98133ef2468c0e397b9ed75a8ae327de095323673c1"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWorldSurface.cs",
+      "mode": "lf-text",
+      "sha256": "fe93abefe957b153ccc567498003316eb2e3651de07a5f4d525822d480c0d2e6"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWorldSurface.cs.meta",
+      "mode": "lf-text",
+      "sha256": "2e8c3ff2f80b8703d9c80c3f195b01e432ddf1a03ade0b2fc3101079c4207f89"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWorldWalkModel.cs",
+      "mode": "lf-text",
+      "sha256": "cbb0e7d0deb41f322cb6c2e0f1ee9005677639a99da68f8a4de13c6a2a6f3452"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWorldWalkModel.cs.meta",
+      "mode": "lf-text",
+      "sha256": "2d8a796168a11afc64341edf88b4e1515ee7decb7bf8884f012a837cdc56e44e"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/UIFlowController.cs",
+      "mode": "lf-text",
+      "sha256": "f9e24228a7ce20dadb800d4380820694442e4bf6539026a232e7ed49bae3a106"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/UIFlowController.cs.meta",
+      "mode": "lf-text",
+      "sha256": "835f643c88fa2e4cc2adbed933a311284cdb0e693ef1d08ec923f200b6e158ca"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/UIFlowTownVisits.cs",
+      "mode": "lf-text",
+      "sha256": "aef89683223a5e93ef17d35312f0e9f051e1d77bc04cadb9c0cb8736a961cd3c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/UIFlowTownVisits.cs.meta",
+      "mode": "lf-text",
+      "sha256": "2b631b86608a4a150bd16508edd716093570b3318ecf0273e11bb842d01799e1"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/UIIconGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "0ccadbd1033cd9a2fc262cc4b9ce23586dbbe1cc2c79e2d8785227f64c0cc090"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/UIIconGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "385c317efc015bcbc5d7a4a5577a0dd5b479b94f0f233828e3cee2b74152e639"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/UIStrings.cs",
+      "mode": "lf-text",
+      "sha256": "9f5a3e4d21da39d439ee99cd59657c1406ce2359115222718115d1c85da47af0"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/UIStrings.cs.meta",
+      "mode": "lf-text",
+      "sha256": "6faa7c9808da02ee78ad8e579cafc97bec4512da36e0c6526c63345070819a66"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/UIWidgets.cs",
+      "mode": "lf-text",
+      "sha256": "0edd18d32869f76ef94e3c4260ffd4e724c378db53baadce28b66cfe2d39f676"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/UIWidgets.cs.meta",
+      "mode": "lf-text",
+      "sha256": "dee4d45efdee4ec6114ba7120613d51695ed46e6b49c496938c8290155ffe804"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/VolumeControl.cs",
+      "mode": "lf-text",
+      "sha256": "95e93372736e62de9721b77a924ebf36472ccfaae1bca7035a7148d586d6b2fe"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/VolumeControl.cs.meta",
+      "mode": "lf-text",
+      "sha256": "ef4f1da7882e6b5564575e6ce9a0fec4561dc967a92f5cd2b523191020076df1"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/link.xml",
+      "mode": "lf-text",
+      "sha256": "5b2252cff112e083b5100f19712f10449c94515a0f31c4b9bc9b914be631acab"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/link.xml.meta",
+      "mode": "lf-text",
+      "sha256": "1606338bef577b7ab98a01fe10cbd046afc94176d7c53a7060fbcbb4faa3619b"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources.meta",
+      "mode": "lf-text",
+      "sha256": "cb9434c1329b9865e377c657356302696f87ba9457fcab549e0a85991ca49ce6"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi.meta",
+      "mode": "lf-text",
+      "sha256": "958ff5784c045983fcc95042df0de28f248f9c19b5beb07b09034ffe462d234e"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio.meta",
+      "mode": "lf-text",
+      "sha256": "85f2d51e2f310496d06aba1e8769a0bef2a26d8e6ef09a173ecd11164ee4be7e"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/bgm-beginning-loop.ogg",
+      "mode": "binary",
+      "sha256": "c4837814a36e56ae829b989891fb392307a3da5c12cf7fb5dc5c4385856d6d1e"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/bgm-beginning-loop.ogg.meta",
+      "mode": "lf-text",
+      "sha256": "6cfab221e2ff265b51e769dc95d2597f41c8dd64edbee32edbf25ce79de4d237"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/bgm-merge-loop.ogg",
+      "mode": "binary",
+      "sha256": "5c869afb107d35a677440301a8cbd6e32ac54801da40a18fd53807fe0d4a388d"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/bgm-merge-loop.ogg.meta",
+      "mode": "lf-text",
+      "sha256": "d265c1cb8f3c4c28e5824ed44546ac473ff0f24aef1d6ac12d612a1c9635e28e"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/bgm-merge-picnic.ogg",
+      "mode": "binary",
+      "sha256": "2481d0216b9990a41d91fcf4341a5945d1010380cb1301dc7d5977412b2121b6"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/bgm-merge-picnic.ogg.meta",
+      "mode": "lf-text",
+      "sha256": "a96ac1b8b4c140086c3a118d736aeeee091619b3a0a08b039278146e7a0dabd7"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/bgm-merge-pop-promenade.ogg",
+      "mode": "binary",
+      "sha256": "38fc256db4b07b4cba71eacc86860c0551c416004267172a80c1943bcf68d13b"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/bgm-merge-pop-promenade.ogg.meta",
+      "mode": "lf-text",
+      "sha256": "def7304a11ee9309023e4a9cc13776a953effa574ca7701c30814e759af3eb95"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/bgm-merge-ribbon.ogg",
+      "mode": "binary",
+      "sha256": "1d2e755eb7aaf09d8c493ca514b400916d0a7d92b1d67516ada11d7af84d66f6"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/bgm-merge-ribbon.ogg.meta",
+      "mode": "lf-text",
+      "sha256": "0fb2dd99c5f8461251ec4169bf06b3ebe95a9a96a6f7ae52d5604f2a75a655a0"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/bgm-title-garden.ogg",
+      "mode": "binary",
+      "sha256": "adbb65abe86c8ee8e5a8446030d607a1dc67f3c1312d4e7c520faaaa3b20876c"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/bgm-title-garden.ogg.meta",
+      "mode": "lf-text",
+      "sha256": "0945f2e67caef802fddb8a6d304bb4bcae756414250a109b4e02075d7d7057eb"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/bgm-title-letter.ogg",
+      "mode": "binary",
+      "sha256": "04e5edb0569630461f02f83e4fe7b8258eeb9ffa338c2489e3270d7dcab47821"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/bgm-title-letter.ogg.meta",
+      "mode": "lf-text",
+      "sha256": "30cd506ceb767868bff9c20e532f91a2e51ba5476291ce6d67e8eeb7901e8417"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/bgm-town-loop.ogg",
+      "mode": "binary",
+      "sha256": "aeec5af9fb8eba5015d06343aead86cbe228ad95130491b3632016aceb0b4c58"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/bgm-town-loop.ogg.meta",
+      "mode": "lf-text",
+      "sha256": "f9d1fe6c5f026a2d0e6e20c344c7adad6cc70ea98c99870493a70452aabba017"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/se-character.ogg",
+      "mode": "binary",
+      "sha256": "57852e403d9bf60ef1b563c62ad7bebeaa311c7812148e18097ba4bf89dd981e"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/se-character.ogg.meta",
+      "mode": "lf-text",
+      "sha256": "2f9ab82f78a6d37f71842dbf2754d78278a011fabb80217fbffb61aee26e2bfa"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/se-confirm.ogg",
+      "mode": "binary",
+      "sha256": "fe23178e0455881cb8009c7182a1af8bfef734577e9acec2cfd12d59770f67bb"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/se-confirm.ogg.meta",
+      "mode": "lf-text",
+      "sha256": "e7d25103d756a9f283fc23b07a035c8082933b29cbed5e4ed77e3bb7f5e77f26"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/se-delivery.ogg",
+      "mode": "binary",
+      "sha256": "3b72589de6f771f94b8a19896751d550e2d22e060eb3ae0440dee38c16c1eb53"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/se-delivery.ogg.meta",
+      "mode": "lf-text",
+      "sha256": "c1e1a5719470a5d7b0cfd02b0c133b5d6f94840b54ef7436552dce8215ed0d4f"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/se-growth.ogg",
+      "mode": "binary",
+      "sha256": "45b1a31c8eaa0261a9d8f8a3606c6ef93b6859fe4ad945a95631dd7e332e9248"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/se-growth.ogg.meta",
+      "mode": "lf-text",
+      "sha256": "1247b693221141bd8ee4623df64b6524016115e89d291dcd6c090c1cd1758ed6"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/se-merge.ogg",
+      "mode": "binary",
+      "sha256": "928991d1c0ef89e6aeac1c2b20adb87a99f93ec6f518bf3d243272255666a57b"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/se-merge.ogg.meta",
+      "mode": "lf-text",
+      "sha256": "e2ca9c982e2b7e7dc943f743b7ee1edaca5db7c8148862a19459b096e1b832d2"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/se-reward.ogg",
+      "mode": "binary",
+      "sha256": "14a61947f725dfe4c8a33c97ba400943f04919c2f9c17129828ee09c3338db2c"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/Audio/se-reward.ogg.meta",
+      "mode": "lf-text",
+      "sha256": "3f67be5a51c65848c2a61f141be5894980256ad03dbf2cccfd765f99bb92c6c0"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/CharacterBodyAtlas.png",
+      "mode": "binary",
+      "sha256": "23d14025f146c429da01b6e3a74ef803254755f8d149f9eb53516aacaa30163d"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/CharacterBodyAtlas.png.meta",
+      "mode": "lf-text",
+      "sha256": "e6acd66925d15feae000e4649017433d9e81e19121a00dd4cadeaa8ac7b87a2f"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/CharacterMaster.png",
+      "mode": "binary",
+      "sha256": "cd423f6599cf41346064405240c72ac071aaa8d3fbd326d2b82661b13b0892c8"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/CharacterMaster.png.meta",
+      "mode": "lf-text",
+      "sha256": "4a070a059cdbd8d1751b4fee68cf1de89265655ae0369b39e87aa0f285bfd8cc"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/ItemAtlas.png",
+      "mode": "binary",
+      "sha256": "7cbceaa1b5dd73d07ed916178bd45ee7b026908a4e6386a021f41d1df344bb2d"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/ItemAtlas.png.meta",
+      "mode": "lf-text",
+      "sha256": "f95bef8047ed433d6db0f082ad6cad6b83bd366ec21cd98aabac081d4e45db9a"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/MergeBoardFrame.png",
+      "mode": "binary",
+      "sha256": "705eb3ab29695e028f7f3a07b9a1a27ded7d70c9d4a19a8134d1517cbfeab4d3"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/MergeBoardFrame.png.meta",
+      "mode": "lf-text",
+      "sha256": "be044c0960fd95206f0722eadad334784eb8f94e371f181603e7110f230a782f"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TitleLogo.png",
+      "mode": "binary",
+      "sha256": "5cbc8451a620d20887f3c74863509e080eddaa235649209c9c8141e053dc3190"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TitleLogo.png.meta",
+      "mode": "lf-text",
+      "sha256": "2079e03fba4a05d04308eb88f1cd00f9c013e7a0b1103341052dca8f2e85109c"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownBackground.png",
+      "mode": "binary",
+      "sha256": "971461342858e74c8db5f669f28c3e5c0c1a0f9d364e645ec55b9ea2834e7b51"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownBackground.png.meta",
+      "mode": "lf-text",
+      "sha256": "f99cba80eb6b6a1ad6937d34f5cf2b0dece2233a80b4236c476810238e81eba8"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownCentralFountain.png",
+      "mode": "binary",
+      "sha256": "54c71fdc1ea55a1e70ddf54d25480ca30c395e24fd84c3e8fbb13aafb8855c2f"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownCentralFountain.png.meta",
+      "mode": "lf-text",
+      "sha256": "0aa24803fbd7b5895abc4e7857a385150e1d441f521ec66bcb662668b0f59e25"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownCentralGround.png",
+      "mode": "binary",
+      "sha256": "f4f318978432504a89d3b56eb0eebc20df6e0bc4de9a00f6a2ab32f94a22016a"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownCentralGround.png.meta",
+      "mode": "lf-text",
+      "sha256": "5e1ca030225ed013c6dce988814af7ba6f3a0b4f050f8e8c3f12fffb3de1ee89"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownDecorationAtlas.png",
+      "mode": "binary",
+      "sha256": "4801dafea5d3dfc6f7eb0bcecc43ae0b6e9a48e309d8d1a59c52eeea3e535627"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownDecorationAtlas.png.meta",
+      "mode": "lf-text",
+      "sha256": "186956440667cefa60751dbe0e14fa71d447d6b586447c7c9d61e9239c800487"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownDeliveryParcels.png",
+      "mode": "binary",
+      "sha256": "200e19832dfbad493c97650d81abbe122396dab30af7e2e438de631d5f76afbf"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownDeliveryParcels.png.meta",
+      "mode": "lf-text",
+      "sha256": "77201182db0392c4ae71a7d801036b7c85aa9774531d799324c3cb1e5426d5ba"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownEastBackground.png",
+      "mode": "binary",
+      "sha256": "2e45be7b35f6533279def009a0c187bba24f16f7725287e2ffb40e630b0a4e3e"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownEastBackground.png.meta",
+      "mode": "lf-text",
+      "sha256": "c52151528afad79f925fb5149b8feb03ebc292ed708e3fa57a36530420c7db50"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownGardenSurface.png",
+      "mode": "binary",
+      "sha256": "473bd2926cfb84b21a5ef5e77872b5b147748bf37885955ff146057decefd59e"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownGardenSurface.png.meta",
+      "mode": "lf-text",
+      "sha256": "24bb879ab2307907194fac183e90acc499d42e82782a7a8ada031a5a6372c1d8"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownGrowthPropsAtlas.png",
+      "mode": "binary",
+      "sha256": "3780d259e887a5f1dbea66910e4f5ddc251153cdd21c5467b15164281d68bba1"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownGrowthPropsAtlas.png.meta",
+      "mode": "lf-text",
+      "sha256": "271c8bfef89154029aa6fb600846d05a978c09917e193e58e0b707cb3558533c"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownLandmarksAtlas.png",
+      "mode": "binary",
+      "sha256": "8f6d31d8cde0a9610f534d838793c6ca39e8c159f56920c44ba073bfc9f9205b"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownLandmarksAtlas.png.meta",
+      "mode": "lf-text",
+      "sha256": "c0617ea1bc49e156cf8e9457b3ff500b85579f99d73047c6d4ec9e79de4456b4"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownNatureAtlas.png",
+      "mode": "binary",
+      "sha256": "5821e085e20fdf02494b78807e8aac406c7cf2a036b262a8f79cc2eeb01c8b33"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownNatureAtlas.png.meta",
+      "mode": "lf-text",
+      "sha256": "c44c358bdd0c018e2ba76d1c4d08cfa4eba03fb520d54d9cebb40d6c6f56a7ac"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownNorthCourtMosaic.png",
+      "mode": "binary",
+      "sha256": "b7a7289a5a8446aca121ec7358c2a410383d4ca78d4ef7d3873785d5f5f12332"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownNorthCourtMosaic.png.meta",
+      "mode": "lf-text",
+      "sha256": "51b596757f1266857ba3b774467596c4762db91294520695b42936cbdf08d5cd"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownSeamlessMap.png",
+      "mode": "binary",
+      "sha256": "bbb336e06da7fc9757af22b0246e201715936a9ef5cbc3f23390dfb972457214"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownSeamlessMap.png.meta",
+      "mode": "lf-text",
+      "sha256": "e33d54f8267db8e8ead07bcb8c68e1eb054d64b07cd70cc69a3bf5d5620f366b"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownSouthGround.png",
+      "mode": "binary",
+      "sha256": "1ef84aaf534dbe1bdc21d40372ea150ce07c5e22f13e553e2a59f3add0ad2cf6"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownSouthGround.png.meta",
+      "mode": "lf-text",
+      "sha256": "7950faeb08a4c3bf4eecc936dfec95dd10846da6c42693c9053e1bf8e079d5b8"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownStreetPropsAtlas.png",
+      "mode": "binary",
+      "sha256": "7af43eea4502e7532431630213ab1d994605490918b06dbc98c937c5fd4ef661"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownStreetPropsAtlas.png.meta",
+      "mode": "lf-text",
+      "sha256": "bf07cc470c9ad038f04d9b218fdae5b22d1cd9ea4a1804190b6168b15284467b"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownVillageDetailsAtlas.png",
+      "mode": "binary",
+      "sha256": "6bafb741c5113bea5cf37b9c84387eaf51b7421a84f031cd93d8e79eca7652f3"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownVillageDetailsAtlas.png.meta",
+      "mode": "lf-text",
+      "sha256": "8429d1c7f4bdf65f87b23c08103d9810edc8c864187f4c3364716c26272a2787"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownWestBackground.png",
+      "mode": "binary",
+      "sha256": "a4bda540be5347d253d2decd010e2f96f4cb4b64861b4e73859338865342c328"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownWestBackground.png.meta",
+      "mode": "lf-text",
+      "sha256": "e8b2cbe034906a24f19f2a77687f70ed0c2b8864034aeaa7e366f18d4195982f"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownWestGround.png",
+      "mode": "binary",
+      "sha256": "4e48bdcfe4bbeb8bfca6c34aed65710469a8250a3b868f67d34bc5c93b115451"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/TownWestGround.png.meta",
+      "mode": "lf-text",
+      "sha256": "de6da5ff46f07ffca03eafbaf9e20b90e105c3ff641349428994099dd9c762d5"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFont-LICENSE.txt",
+      "mode": "lf-text",
+      "sha256": "9e20355e619c79b80faa607a8fd137d07dd6e33535d1a29ac27116dfbf88b696"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFont-LICENSE.txt.meta",
+      "mode": "lf-text",
+      "sha256": "aff3ad419feb00e713a5928825c2ca78590275b5d8441f2318b46e286efb2953"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFont.ttf",
+      "mode": "binary",
+      "sha256": "0c0f21bfcab0d3db93a5e5e79770f73b306bc6405b3a6d2a9161034d0bc06e35"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFont.ttf.meta",
+      "mode": "lf-text",
+      "sha256": "f2e214ab511b3d06203b99fc1265226c7d2ec84b6a76621b7f1765c0c8e30fd5"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFontBody-LICENSE.txt",
+      "mode": "lf-text",
+      "sha256": "a9363bf2eeebb1699d0c272f75b2e7a3ac3625c4f9dd53cead0e213ec4e00fb5"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFontBody-LICENSE.txt.meta",
+      "mode": "lf-text",
+      "sha256": "ba455fcf81b9107203ba45721c5cabffc2089ee0848ccd3006c4795b5c20c098"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFontBody.ttf",
+      "mode": "binary",
+      "sha256": "e1aaeca30ec4ad71f09973ed7ac36eb45b9760ad272298c150f5953359783122"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFontBody.ttf.meta",
+      "mode": "lf-text",
+      "sha256": "16d7bf579ae006c999a50288a117a974bb385bb3dcccd902f0be80e578d5b2c0"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFontBold.ttf",
+      "mode": "binary",
+      "sha256": "7f24a1d148c91dc9b336c12f69029466c93c8856f7b946c02cec0afa2edaf5e1"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFontBold.ttf.meta",
+      "mode": "lf-text",
+      "sha256": "4b0b80651c6770a709f953153b17ff6672002e49d4cfc6df7b7a864f384889e9"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFontStory-LICENSE.txt",
+      "mode": "lf-text",
+      "sha256": "07ceae7a6e3294cbbd0fdf6e35226550566a1cce9fd226d0f8a57f3d34c664fe"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFontStory-LICENSE.txt.meta",
+      "mode": "lf-text",
+      "sha256": "482c1c882cb53096c3a1334a5fad20d251db77ace1ed5e3fe39e6f53e8fbc511"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFontStory.ttf",
+      "mode": "binary",
+      "sha256": "9f67f58f5682aa5fb037df261f05ba0d4fc881ffa931a61c95fe564705b10fbf"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFontStory.ttf.meta",
+      "mode": "lf-text",
+      "sha256": "093f04c334f898520bea9e702d442dc49666cadab86847a90b7a33030d67449d"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIIconAtlas.png",
+      "mode": "binary",
+      "sha256": "16917bab7f1fcf867468579e89899cb78e559cdda87883dd45859b7acdc42513"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIIconAtlas.png.meta",
+      "mode": "lf-text",
+      "sha256": "74ed06cc30608a7480508cca3f54859c033d0e52d844e058f952095d28a3d1c8"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIPanelFrame.png",
+      "mode": "binary",
+      "sha256": "4d8c92397af9c9243ca99aafad2c26fdc1fe19898998217ea091b8e95d9e31e7"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIPanelFrame.png.meta",
+      "mode": "lf-text",
+      "sha256": "d284075c60675bab3b233d0c3a55a7cb4a4a3f4c8d7daf074cf64654fd6e4e49"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests.meta",
+      "mode": "lf-text",
+      "sha256": "66e733b43c26e9471fc7c929edfb7ed0f3b717e320cd356d5bee03d95b5a59bb"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/BuildTime.meta",
+      "mode": "lf-text",
+      "sha256": "79ac80e1630728650828a8ee0e302ab541986bbed8e515e3c3f0bf1a6e31c001"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/BuildTime/AndroidBuildTests.cs",
+      "mode": "lf-text",
+      "sha256": "de2ad69d5a9e23908a7c358104c748a16dba40896db1a794168dc84482be4bc0"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/BuildTime/AndroidBuildTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "db8d36050acab9af8bff249bcd9fb8be48b6cc8df531157616821eab40a33b46"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/BuildTime/Mofumachi.BuildTests.asmdef",
+      "mode": "lf-text",
+      "sha256": "74b8efb782034c9042b7997b96be8c2abc7e47c5253e3e707ecb7e74a1714343"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/BuildTime/Mofumachi.BuildTests.asmdef.meta",
+      "mode": "lf-text",
+      "sha256": "11ff3c5a9ef0431750e68f0f0b215d271220ae458d632265ac3bef087f014acc"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/BuildTime/PresentationContentTests.cs",
+      "mode": "lf-text",
+      "sha256": "4cff1e273720f5fa84e1cc119d4faae3c827e0b38fae5d18631be92e23281577"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/BuildTime/PresentationContentTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "83d2be6113c05be1cc185ddadf73dc7526c05a609ac18291cc0ed557325dfdbc"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/BuildTime/QaIdentityTests.cs",
+      "mode": "lf-text",
+      "sha256": "2acdb35b5ede11d840bccf260f6a887d1ad2a3ab3d1b4a131f81eae1be3487df"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/BuildTime/QaIdentityTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "3ebc16918cd9cd17520a8d154451d535457ae34a83932ed4222aa1a9d8e57a08"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/BuildTime/TownRegionContentTests.cs",
+      "mode": "lf-text",
+      "sha256": "81d1fb6aa41202c750c911b59595e7aa02bdaa5333c0b256276eac740cff02c6"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/BuildTime/TownRegionContentTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "ad2c3ba563015e697a6ab371950c8708026c59433a0372724b4c757e0ab5bb2a"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode.meta",
+      "mode": "lf-text",
+      "sha256": "7ac29a0434c308b2766af320ad37bdf767b8975920fe684cd863eb43922de058"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/ChapterProgressTests.cs",
+      "mode": "lf-text",
+      "sha256": "bc1ddf6321fb49abc77ffb76d21d3f28a00efbfd4d2576be6116ec8dfc8f0e73"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/ChapterProgressTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "a465406c4f324f6fc23279c333fd5f6c94f1b4fc1e635b4e65eb08afc25ebdde"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/CharacterPreferenceTests.cs",
+      "mode": "lf-text",
+      "sha256": "a32ff24233fd51d38bfea3f0c8e4b867fce9af1a6a2c3e0f3076d6d4a91f38df"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/CharacterPreferenceTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "6b26e6802eab55af8eed14df870e7e40eccc6aa711480362b38cc0a55fb92db7"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/DeliveryTests.cs",
+      "mode": "lf-text",
+      "sha256": "0e8e2fee2293e9e898ceffbb4bc8e9bf135a6d8dd322d03c5357880d995ce44d"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/DeliveryTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "1cca1abe03ffd6880f0f340f8faa0925c0a97d9e94bb1eb69aa1dc9e3586f807"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/ItemRemovalTests.cs",
+      "mode": "lf-text",
+      "sha256": "7bfe60d8e6874267c44d2c0bd62f5103797b77d727e4576be720a524daf112e7"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/ItemRemovalTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "c9a663eeb90f512a690ffadd043ab774be3bfe14e0f2cdf676c0dbbbd58c2725"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/MergeBoardTests.cs",
+      "mode": "lf-text",
+      "sha256": "8bb9bfaf202dfc59cd08b76282ec74756edbe95aedc73d6f6e1641a9a88906e6"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/MergeBoardTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "fb46ea85c137565626bc8135c5e1b7dc5b5f2acf81dd364bb72642da5963ef74"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/Mofumachi.EditModeTests.asmdef",
+      "mode": "lf-text",
+      "sha256": "aede0461b141e7e03719644e84b7e701e8bb975f8c8d5b90a181f1f65291bb5b"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/Mofumachi.EditModeTests.asmdef.meta",
+      "mode": "lf-text",
+      "sha256": "b1c299b275b2bc983025e21fff4758cbb5814e26355f9b0852e7f029e4dec87c"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/PreferencesTests.cs",
+      "mode": "lf-text",
+      "sha256": "5c44278c7d29ea7b6e5b776aefd7fff8a3e63833c7f3b19d2739a012434f7347"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/PreferencesTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "42f37a94c9915c52cb9e4ab9f329c0efd0cedb4aa0306b36d04492697301755f"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/QuestCatalogTests.cs",
+      "mode": "lf-text",
+      "sha256": "b008bb60317d62eb0d3bcec5ee62cee9bafe1efe5d1ea75496b3d33ccf1658c9"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/QuestCatalogTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "47e3f40aac9fcf45c7226a4d6df70d8f43d8ac84082f99f50afae2cf3be9ccbb"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/SaveServiceTests.cs",
+      "mode": "lf-text",
+      "sha256": "4dd86ca6aa40bcfda9e42891c913109625baebca6ff239cdaf634b5caf691c30"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/SaveServiceTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "1dd82c45b040ac2a034e9643e8d2acebc2950ed24949b5b452a43c3265c5dfa8"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/TownFrameClockTests.cs",
+      "mode": "lf-text",
+      "sha256": "99026ca522ed01e9bc4992519f3e2dcd8629c89f14107066764b01dfa3f3e142"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/TownFrameClockTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "2e0df1919f03d2eda9be01af240a3cb7ae54f1c4979cabd219e99de8ed350f39"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/TownMovementTests.cs",
+      "mode": "lf-text",
+      "sha256": "d0c7b4d6645731a32ce6b11b815205cbe443bdfbe45ccd23f93b6f28998bef9d"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/TownMovementTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "5f517583a47c999d3986a74a211c38467a3c8e955f8e6c0b6ecc5a4a7a6fb633"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/TownPlaceCatalogTests.cs",
+      "mode": "lf-text",
+      "sha256": "2f3eee991c09ee467bbc0004584843718953802f47b4369e2535db45a3185593"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/TownPlaceCatalogTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "dcb95f472cde30cd189b9ced4beee32846166c7683a50f23478d2f669bb8c604"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/TownRegionCatalogTests.cs",
+      "mode": "lf-text",
+      "sha256": "65e7c4df4e48e9cc8215b87e5b1484375c2ec32350fcd8545fb45f5b7f27a83f"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/TownRegionCatalogTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "aa1d5c08b3354bceb636cfeef81dde0a08a17ce834d507595c1b33602ae46ae0"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/TownRegionJourneyTests.cs",
+      "mode": "lf-text",
+      "sha256": "b9a8d3387fb67fecc9dc87cb35068e681ace85bb83195f15094da9cdd7ee4bd9"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/TownRegionJourneyTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "a7e98edd9f656a696ee9aadc5fe15bed7919f9af7a54f58094105347e84d5b76"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/TownViewportTests.cs",
+      "mode": "lf-text",
+      "sha256": "566af5834b6323cf48aa77706885fd4f65ee0396964c696f23d01442aca46baa"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/EditMode/TownViewportTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "7c7ba6e273aef965e6e83dc3a06c405f319ab49dce600bb70a5e5e848069e09f"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode.meta",
+      "mode": "lf-text",
+      "sha256": "84aac20263dfe299d2b6515b2742de2b613f3b469e5d44fe566e52d5192bff54"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/AudioManagerTests.cs",
+      "mode": "lf-text",
+      "sha256": "abbc06aceae20bc35f2c02e323a344830beb755fc4f65d2e4a54083302f61ca9"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/AudioManagerTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "67021dcc8eb965b9cb5fd42fafe37a2661e793155a1b63747566dec751ab7cc9"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/BaseProductLoopTests.cs",
+      "mode": "lf-text",
+      "sha256": "80b38c9eddef98ae0753d8ced5df177839b23c599915818e2cad67d960841bf7"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/BaseProductLoopTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "51add78cc03eec58ae96bf48862ba3efee03038e6308fac83d25a634b2b6396c"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/CaptureWorldTrace.cs",
+      "mode": "lf-text",
+      "sha256": "ca1385a4d7de1da060cb1b0847e77e11d873dd3fb0d7ae934811b7b3abccdae1"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/CaptureWorldTrace.cs.meta",
+      "mode": "lf-text",
+      "sha256": "b5e4f63e8b4ba67b2eed60eb4ad25f802556c199ff18e88967c1ff703c8cdc08"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/CentralMasterReviewTests.cs",
+      "mode": "lf-text",
+      "sha256": "b4ecd55fce2d66452f7e2a46b0fe1475dae31bcc804a5adced39bffb73dee63e"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/CentralMasterReviewTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "8dddd9de91449d8d5ac368591ffe49b1d9040e29e556278d1933b024fffb8aaa"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ChapterFlowTests.cs",
+      "mode": "lf-text",
+      "sha256": "158eee983a9573122b50cc99ad9401fee8adfbee3a8f2790bd8150c64c13c5a3"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ChapterFlowTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "6b2b8493ec22f0726050b83542005c03854ea376b51605c0655cd0139373ce00"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/CharacterSelectionTests.cs",
+      "mode": "lf-text",
+      "sha256": "462d9e349752d9fc408fa96aa866b5bc381df7d1adc0d140e5c1cc451b80f2b5"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/CharacterSelectionTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "cae7e0a8e93cf800ee40c029798f353dfe56574404aae14383142955d3a7e388"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/DailyWorldTests.cs",
+      "mode": "lf-text",
+      "sha256": "2894cd9b6d142e345a27f3c956a37f6e480610a4ab2ac4dd296c5a57d6638718"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/DailyWorldTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "11b109019bcbc7bd5db58bff01ef56fe7b2a450d50583c93a6d657a7718bf198"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/EastMasterReviewTests.cs",
+      "mode": "lf-text",
+      "sha256": "96daa223b5493efb66aac2ca2f63abdede2518039f51ec5579aca7a064de619d"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/EastMasterReviewTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "99b3ea488821e272f70f6c7c1b342ca16b7bd499f178792c10b756dd895debb2"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/EastWestHomeTests.cs",
+      "mode": "lf-text",
+      "sha256": "7526ace7f1df2e425b7fe9bc7b705b3ff829206ae5d4f204a03b45f1beb3d96e"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/EastWestHomeTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "0d76c06c8382734c35cfa84f5b8aabe42ba8e1197655fc07524370f42102052e"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "e0211f906b1ce8ff2bd5acc2cf5c294896451c75010c7c9e219c15a921134edd"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceGrowthTests.cs",
+      "mode": "lf-text",
+      "sha256": "c8e7ceec5f2012230e71f4334592a8b51f8bb291c7e62e6f31f722c820c340f6"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceGrowthTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "a64e24f174bda7cc0be5aec8fea156368450c82cae61d816f4ed3388a8430770"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceMergeTests.cs",
+      "mode": "lf-text",
+      "sha256": "fa0b1e1271cf537c0c29e50d10b882cfc643d6ffc5ae67fa54d370ce70c6d6ce"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceMergeTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "aa22075b21337fcbc089717c51cd9b4e91d79efcf28671ba8251065e205d714d"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceMusicTests.cs",
+      "mode": "lf-text",
+      "sha256": "663983aedb5942e1984194c29e3d0403ec689d1d332fb121bca29dfa2c817995"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceMusicTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "38ddf4f7eb8fa17e908e68d488e1ed708367f607958e1e816a6d649005028e95"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceWalkingTests.cs",
+      "mode": "lf-text",
+      "sha256": "cad0e887523bf34e35b6b9f732bbf7074501cc3f0315264a93aacf4095026df8"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceWalkingTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "21bfb7ee305eb6ea063d8b4ee9eafb32b1c5cbbd5bef3af4c19e1dd762f6d096"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/FiveAreaIntegrationReviewTests.cs",
+      "mode": "lf-text",
+      "sha256": "645b9f941eb9b2d1932f94ba0aec58c1047e1991dc6d6b266a285651906a0fbc"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/FiveAreaIntegrationReviewTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "503415d3b7374ca198f5a02ba86072ccfa8d03244f09e824ce370fa17286c88d"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/FivePlazaTests.cs",
+      "mode": "lf-text",
+      "sha256": "f38aa5e6a1f735742a5f42ac0a7fd429e0de62008d60f0532c6f6cae12f85251"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/FivePlazaTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "79542a8f6adb245c933adc65da6f5220a39e17b9b9273d3be7dae38d581f5622"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/LayoutNoticeTests.cs",
+      "mode": "lf-text",
+      "sha256": "9492439cd0f97593d8d79081d6320d293cfcfe549d94104e492a2219ee3242b2"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/LayoutNoticeTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "71034928d57d4f77768a26769823b84683790f534db7699f70170777c5179955"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/MajorPolishTests.cs",
+      "mode": "lf-text",
+      "sha256": "a2792af30c816c3f17808dd502c1269f293dcd56ce37a0420c52caec50ffcc1e"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/MajorPolishTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "8604a8f6274d2f7fcbfc5adbb891d88a7c2b2444d83957e3bf606b181209f66d"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/MergeInteractionTests.cs",
+      "mode": "lf-text",
+      "sha256": "8f3131fa79dfa2f9fb17699ff485cede4acc8bfe32491eac3afcbbe2185df3f5"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/MergeInteractionTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "e9c16e82fd7cf8e7d848776409a71a05a952514f1ce2182f2a4e97da46fd00be"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/MergePolishTests.cs",
+      "mode": "lf-text",
+      "sha256": "0e720cacac0dc726d907825342d7d7e40571fde16b519584d9f51283aaef0283"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/MergePolishTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "7d345838f1b8bec77a496fdde2a547c10013db46a406bed51232e1b4bc7025d3"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/MergeProgressionUiTests.cs",
+      "mode": "lf-text",
+      "sha256": "a1784ac507686cdf09d0e1fc561695021eb74e36c9019267cbe8626f3f4854c7"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/MergeProgressionUiTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "6411baf0962958ed52990da9e5d9b9fcb96caaa7a71df3bfcfb2d8623ca168b3"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/Mofumachi.PlayModeTests.asmdef",
+      "mode": "lf-text",
+      "sha256": "20fc78eaa65f75400cf2565759dd3e999a7c286e5ddd48007b84ec83c64b8b90"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/Mofumachi.PlayModeTests.asmdef.meta",
+      "mode": "lf-text",
+      "sha256": "ac37a3598aa2707e4e5c1f63028b216f16552645524b4339b61247ab7499b3ef"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/MultiQuestPresentationTests.cs",
+      "mode": "lf-text",
+      "sha256": "e6f7e3f2c42d986a05c7d82db2a973325a6376dda2151cb413c0dadfe5130b09"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/MultiQuestPresentationTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "d08469e29b8405569eeb339c442acc1f09e5a5e51a9bc4ab91211ded5623426a"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/NorthMasterReviewTests.cs",
+      "mode": "lf-text",
+      "sha256": "e9ee5e6af0008002acdfca3d0d42427f41cbe3ee8e946b45d4c9194275960c16"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/NorthMasterReviewTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "6415dfba8fb9b10f9dc65a4d259ab6ff2726dc1fcf6f82c08694f5fba4d22e19"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/PopPresentationTests.cs",
+      "mode": "lf-text",
+      "sha256": "3f7861968641831e774a53dd4a8881f5d52d2300e70ee0a5690ffbca681151e7"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/PopPresentationTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "853413d7922c7f140c67b05337842c2d554235fa6ad51e367b8c4538cd63a619"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/QualityPassMergeTests.cs",
+      "mode": "lf-text",
+      "sha256": "78c1f2f655c6ba705117deeced077d44bd1c0f6cd0fdbc5adb2a1683a4eb1b5a"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/QualityPassMergeTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "2bb2b0cf5ba0498f0a152b2bc9216b1fc92a91b607fb16667034498beddbb031"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/QualityPassStoryGrowthTests.cs",
+      "mode": "lf-text",
+      "sha256": "df3d8af1a12a91b2c3060d96d68db596a478c37db72367f3586cc1188bee49c3"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/QualityPassStoryGrowthTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "c1287a3eb1bb1cd1bf1160a13151d8e72540a2dbc4160ecb31ad5c1f9937d03d"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/QualityPassTravelTests.cs",
+      "mode": "lf-text",
+      "sha256": "07e48381e6514ffe6032e4c2fa87ea8caaeae569c8260d8f559adc3940eff51d"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/QualityPassTravelTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "e921a15561daedf337bf3a1bb54f73ffe60f9fe520ace007c9cedbe0542a2f11"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ResidentPresenceTests.cs",
+      "mode": "lf-text",
+      "sha256": "7f8b0dcd9b48d83e14c66b980c278984c5172f28cbd3c3e8140f7b30f242024b"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ResidentPresenceTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "3fe4decaf56feb765aac3ebcfa2790a4cef04e255bfc053418550d0cc0b8f7e4"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/RewardGrowthTests.cs",
+      "mode": "lf-text",
+      "sha256": "08318a0848ace89ddb921c1d1adf1aebb7e2bff442b6b3bcf8e1216e2c3d1d7e"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/RewardGrowthTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "4e5988019561bcf7f95bceb4e0697384b3c8ac6c97fb0776a3a17e1b14d64650"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/SeamlessFieldTests.cs",
+      "mode": "lf-text",
+      "sha256": "b055031580059f1d972a856241fb68658f6106e98e92648f52715af33ae9a30e"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/SeamlessFieldTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "29c4c86afbcf00f4ef476aa79b0019a63a745cd878404e2bfb2e9aa6d5637037"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/SettingsScreenTests.cs",
+      "mode": "lf-text",
+      "sha256": "6cde4f4b4ce1edd5fb994edf7a0d9d60546ee36eb18245ee8020d3598f06f865"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/SettingsScreenTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "6253949a443e5f3a543a711f40ceb295bc1a6181341fe9edb22a492fb17b63ef"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/SliceUiTestFixture.cs",
+      "mode": "lf-text",
+      "sha256": "90ddec66e8bbba5eb380b9fd8b1fc646e43cbaad4c4ddc1749e288ce9cf47c81"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/SliceUiTestFixture.cs.meta",
+      "mode": "lf-text",
+      "sha256": "36afed6e7b03eab9338705b2611697f933f885bfd21451c7e87eef3cf7ef28c5"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/SouthMasterReviewTests.cs",
+      "mode": "lf-text",
+      "sha256": "c03a4362c50286ddd0521253d1bc74faf041acad877e53760aa4a3b907035a24"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/SouthMasterReviewTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "186c35bcc241964ad70bfbba71fdea8c4eae7d887e3528764a792fdd027ac316"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/StoryTypographyTests.cs",
+      "mode": "lf-text",
+      "sha256": "4f7f8f51936fde3906dca031bc0db7c87ba02ee7aa5ad3e48ce6dc539cc396fc"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/StoryTypographyTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "617e9ab700aed66eabd1bca8fc7b7c95f8c5bc217e46ed3d53c738552d661f06"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/TownHabitTests.cs",
+      "mode": "lf-text",
+      "sha256": "51a5cb25415ccdad1060c10d8a42381f73d9875c55be315e07633366c195f320"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/TownHabitTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "55405fb5a9e0cda2d66ce7c84b14a8a93b86a652ad7c39bf6a0b82e8adf6e05f"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/TownLifeTests.cs",
+      "mode": "lf-text",
+      "sha256": "faec773597ebe070ab63665015fdc24824792452785a6760289db2fe058db3ad"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/TownLifeTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "37d0cb96116efef534e8fd7e781bd53704d212e1679287b83da32910f7230fe4"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/TownMotionPresentationTests.cs",
+      "mode": "lf-text",
+      "sha256": "94692702cb53503763567ecdae8f99b214e42336ac8981af39863ba37f08d131"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/TownMotionPresentationTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "4488f8e39f51e9b583afd0863f693d0c2f9093881a858e1a621bef5c00ce2055"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/TownRegionFlowTests.cs",
+      "mode": "lf-text",
+      "sha256": "48dce23fb8ba8eea94a1e24e996fc7a9c1c2700e6da3081c336801dff620e9a7"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/TownRegionFlowTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "b328d7a0b59d406924742a75acdb03d4ed28a2ddf4a46d858795fac8a3e900ce"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/TownRegionLifeTests.cs",
+      "mode": "lf-text",
+      "sha256": "8c8bc43865f6d30650d75b00f2d9a3a0deefbf7dbf201fa1967323d3467be622"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/TownRegionLifeTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "d39dc0ff7fb40e335f10c6b22741d5320971de3c3f959036eb506ef62498ad09"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/TownReviewRoutes.cs",
+      "mode": "lf-text",
+      "sha256": "f68dc2a279304e1c877b77698702062c987c3b5e37239a89cdcc69535215d1e2"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/TownReviewRoutes.cs.meta",
+      "mode": "lf-text",
+      "sha256": "cb59fb64680f6c4fca78bdce203824e4638f9c411ce6990ad7e7677166a231cd"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/TownViewportPresentationTests.cs",
+      "mode": "lf-text",
+      "sha256": "3addfeb3433914dc1c36afe2bf2ce294b6cd4dcfec1c966573f2623da58d2aae"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/TownViewportPresentationTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "3d12b6a9230ed09db81d3659376caadca5dd6497de277cd12a16a6f942dd8b1f"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/VerticalSliceFlowTests.cs",
+      "mode": "lf-text",
+      "sha256": "e91103e0e99f49317da7c5555db30756b40c90c3e18f6a5fa9239d8991bb43cd"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/VerticalSliceFlowTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "38e58f797ecc654dfda405c028302b75e255569620817e8f6111bd3cbdbdfdb1"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/VisualLockPresentationTests.cs",
+      "mode": "lf-text",
+      "sha256": "6bff9613ce15f749c378e7e1e2b0ae90efe2dbafd9a465c81f1075abc6a34d79"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/VisualLockPresentationTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "cdcc279b55a21f3ade96988ac934a06d5f4b540b0008d1a8f8d69cd11b3a1216"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/WestMasterReviewTests.cs",
+      "mode": "lf-text",
+      "sha256": "421bc02117b0363317a5fd252a4ded693f9868499a1a9396fa91821985331136"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/WestMasterReviewTests.cs.meta",
+      "mode": "lf-text",
+      "sha256": "06a2b707b4efe4d924535caefbedb61bb39aa2bbeded878b3bac30c963afb47b"
+    },
+    {
+      "path": "Assets/Scenes/GameScene.unity",
+      "mode": "lf-text",
+      "sha256": "1ca47af5df69a6ee6134d50c83a2533f4f2ce6f652d1e406a05b774fa1557748"
+    },
+    {
+      "path": "Assets/Scenes/GameScene.unity.meta",
+      "mode": "lf-text",
+      "sha256": "946f757105cdc77bd90781b8890c62de9b7676327f1aa31e7619e4f2e12da198"
+    },
+    {
+      "path": "Assets/Scenes/SampleScene.unity",
+      "mode": "lf-text",
+      "sha256": "387d8216a517be775b6ecc2ab55b97ece687c3372322da2ba027a96908014912"
+    },
+    {
+      "path": "Assets/Scenes/SampleScene.unity.meta",
+      "mode": "lf-text",
+      "sha256": "204f446bc13539151c15af875550a7fa6f791662e967572a1b4b06fd0005dad1"
+    },
+    {
+      "path": "Assets/Scenes/TitleScene.unity",
+      "mode": "lf-text",
+      "sha256": "1ca47af5df69a6ee6134d50c83a2533f4f2ce6f652d1e406a05b774fa1557748"
+    },
+    {
+      "path": "Assets/Scenes/TitleScene.unity.meta",
+      "mode": "lf-text",
+      "sha256": "040b8dcd9f5dac0cc6e08df8e0ad874afd6e2053efe0fc7aa675c4b9afd77502"
+    },
+    {
+      "path": "Packages/manifest.json",
+      "mode": "lf-text",
+      "sha256": "c2d7346d32c3facad13330d6eebfe6ff22d26c25aa1c109f90875921dc833891"
+    },
+    {
+      "path": "Packages/packages-lock.json",
+      "mode": "lf-text",
+      "sha256": "409523b4d7b059ca81f2705b8d6616c40572d32a96d6b6cd0e3439cd863b7b04"
+    },
+    {
+      "path": "ProjectSettings/ProjectVersion.txt",
+      "mode": "lf-text",
+      "sha256": "338824f489d7ef647583e723283307ae92b3bb241d2fe874ac759dbf2f091701"
+    }
+  ],
+  "authorized_exceptions": [
+    "Assets/Mofumachi/Presentation/CharacterBodyGraphic.cs",
+    "Assets/Mofumachi/Presentation/TownActor.cs",
+    "Assets/Mofumachi/Presentation/TownNorthGroundGraphic.cs",
+    "Assets/Mofumachi/Presentation/TownNorthMasterLayout.cs",
+    "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs"
+  ],
+  "new_runtime_files_authorized": [
+    "Assets/Mofumachi/Presentation/TownNoah25DTrial.cs",
+    "Assets/Mofumachi/Presentation/TownNoah25DTrial.cs.meta"
+  ],
+  "unity_configuration_note": "Matches existing clean-product policy: Unity-local ProjectSettings serialization is recorded separately in build-info, not rewritten by this task. ProjectVersion, Packages, all runtime/scenes/art remain locked."
+}

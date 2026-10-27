@@ -29,7 +29,8 @@ try {
     Remove-Item -LiteralPath $File
     $Entries[0].path='title.cs';@{files=$Entries} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $Manifest -Encoding UTF8
     Reject {Assert-BaseVisualLock $Fixture $Manifest}
-    Assert-BaseVisualLock (Join-Path $PSScriptRoot '../..') (Join-Path $PSScriptRoot '../../References/VisualLock/base-2026-10-21.json')
+    $Repo=(Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
+    Assert-OriginalBaseForCandidate $Repo
     $Before=Join-Path $Fixture 'before';$After=Join-Path $Fixture 'after';$Reports=Join-Path $Fixture 'reports'
     foreach($Directory in @($Before,$After,$Reports,(Join-Path $Fixture 'References/VisualLock'))){New-Item -ItemType Directory -Path $Directory -Force | Out-Null}
     $Entries=@(foreach($Name in @('04-town-lv6-Central.png','02-merge-all-items.png')) {

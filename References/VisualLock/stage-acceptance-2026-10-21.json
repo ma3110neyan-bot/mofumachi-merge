@@ -43,10 +43,8 @@
     }
   },
   "remaining_sequence": [
-    "fresh_town_qa_pixel_all_levels_and_fountain",
-    "fountain_user_approval",
-    "representative_character_2p5d_trial",
-    "representative_pixel_and_user_approval",
+    "north_link_and_one_noah_native_review",
+    "north_link_and_one_noah_pixel_and_user_approval",
     "merge_quality_pass",
     "book_foreground",
     "tutorial",
@@ -191,7 +189,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "fountain_final_native_verified_fresh_town_qa_pixel_pending",
+  "current_stage": "north_link_noah_trial_implemented_native_unity_and_pixel_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -711,7 +709,7 @@
     "native_images_verified": 124,
     "native_review": "References/Review/curved-boundary-2026-10-25-candidate/native-review.json"
   },
-  "base_polish": "References/VisualLock/fountain-final-candidate-2026-10-27.json",
+  "base_polish": "References/VisualLock/north-noah-candidate-2026-10-27.json",
   "previous_qa_build_report": {
     "run": "20261025-073237-f8fd542b",
     "status": "console_success_reported",
@@ -797,7 +795,7 @@
     "repair": "docs/verification/south-entry-mesh-test-repair-2026-10-25.json",
     "repaired_native_pass_verified": false
   },
-  "latest_user_stage_order": "2026-10-25 user freezes current5district graphical base candidate; fountain approval -> representative1character2.5D approval -> Merge -> book foreground -> tutorial -> releasePolish. No later stage before prior stage approval; no main.",
+  "latest_user_stage_order": "2026-10-27 user adopts/freezes current fountain as release. Authorizes central-to-north local join and one Noah2.5D trial in parallel; new native/Pixel comparisons before adoption or six-character expansion; no main.",
   "latest_curved_boundary_success_report": "docs/verification/curved-boundary-qa-build-screen-report-2026-10-25.json",
   "latest_curved_boundary_native_run": {
     "run": "20261025-084947-eecbc994",
@@ -870,9 +868,10 @@
     "native_unity_verified": true,
     "qa_apk_generated": true,
     "pixel_verified": false,
-    "user_approved": false,
+    "user_approved": true,
     "next_blocked": [
-      "representative_character_2_5d",
+      "additional_fountain_rework",
+      "six_character_rollout",
       "merge_quality_pass",
       "main"
     ],
@@ -885,7 +884,12 @@
     "native_run": "20261027-102109-3bbbf9fe",
     "native_source_revision": "bb3fb82b5b941dd29fb58d4d0dd1631af516a723",
     "native_review": "References/Review/fountain-final-2026-10-27-candidate/native-review.json",
-    "eligible_for_same_apk_pixel_verification": true
+    "eligible_for_same_apk_pixel_verification": true,
+    "adopted": true,
+    "frozen": true,
+    "approval_record": "References/Review/fountain-release-approval-2026-10-27/approval-receipt.json",
+    "release_freeze": "References/VisualLock/fountain-release-and-field-freeze-2026-10-27.json",
+    "adoption_scope": "Explicit user adoption of current release fountain; unknown Pixel FPS/heat metrics are not inferred."
   },
   "fresh_town_qa_test": {
     "authorized_by": "user2026-10-26",
@@ -896,5 +900,19 @@
     "all_levels_including_four_required": true,
     "balance_changes_authorized": false,
     "native_all_levels_scene_reload_verified": true
+  },
+  "north_noah_trial": {
+    "authorized_by": "user2026-10-27",
+    "representative": "noah",
+    "implemented": true,
+    "native_unity_verified": false,
+    "qa_apk_generated": false,
+    "pixel_verified": false,
+    "adopted": false,
+    "six_character_rollout_authorized": false,
+    "candidate_record": "References/VisualLock/north-noah-candidate-2026-10-27.json",
+    "native_evidence_expected": "north-noah-comparison.json",
+    "instructions": "docs/north-noah-trial-2026-10-27.md",
+    "internal_verification": "docs/verification/north-noah-2026-10-27/results.json"
   }
 }

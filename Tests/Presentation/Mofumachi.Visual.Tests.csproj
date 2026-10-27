@@ -16,6 +16,7 @@
     <Compile Include="../../Assets/Mofumachi/Presentation/TownGrowthPresentation.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownGrowthPresentation.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownOutingDestinations.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownOutingDestinations.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownStreetSelection.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownStreetSelection.cs')" />
+    <Compile Include="../../Assets/Mofumachi/Presentation/TownNoah25DTrial.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownNoah25DTrial.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownCharacterMotion.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownCharacterMotion.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/MusicSelection.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/MusicSelection.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/MusicRoleSelection.cs" />

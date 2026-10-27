@@ -87,4 +87,61 @@ namespace Mofumachi.Presentation
             return result.AsReadOnly();
         }
     }
+    // North owns only this ground contact. The accepted Central mesh, all
+    // independently sorted dressing and the broad walking floor stay intact.
+    public static class TownNorthEntryBlendLayout
+    {
+        public const string Resource=TownCentralMasterLayout.Resource;
+        public const float Left=-.60f,Right=.60f,Bottom=1f,Top=1.32f;
+        public const int Columns=35,Rows=17;
+        private static readonly float[] heights={Bottom,1.006f,1.012f,1.025f,1.045f,1.05f,1.057f,1.07f,1.10f,1.135f,1.15f,1.20f,1.23f,1.26f,1.28f,1.30f,Top};
+        private static readonly float[] offsets={.025f,.05f,.075f,.10f,.125f,.15f,.175f,.20f,.23f,.25f,.27f,.30f,.33f,.35f,.375f,.48f};
+        public static IReadOnlyList<(TownPoint World,TownPoint UV,float Alpha)> Vertices {get;}=BuildVertices();
+        // Continue the original curbs toward their wider Central forecourt.
+        // At the North neck, source y=.76 has the same approximately .31-wide
+        // paving as North's original y=1.32. No new painting or tiled material.
+        public static TownPoint TexturePoint(TownPoint p)=>TownCentralMasterLayout.TexturePoint(new TownPoint(p.X,Bottom-.75f*(p.Y-Bottom)));
+        public static float RoadHalfWidth(float y)
+        {
+            float d=y-Bottom;
+            if(d<=.05f)return Lerp(.48f,.42f,d/.05f);
+            if(d<=.10f)return Lerp(.42f,.31f,(d-.05f)/.05f);
+            if(d<=.15f)return Lerp(.31f,.26f,(d-.10f)/.05f);
+            if(d<=.23f)return Lerp(.26f,.23f,(d-.15f)/.08f);
+            return Lerp(.23f,.20f,(d-.23f)/.09f);
+        }
+        public static float VertexOpacity(TownPoint p)
+        {
+            if(!TownWorldLayout.Finite(p)||p.X<Left||p.X>Right||p.Y<Bottom||p.Y>Top)return 0;
+            float d=p.Y-Bottom,across=Math.Abs(p.X);
+            float road=1-Smooth((across-(RoadHalfWidth(p.Y)-.035f))/.035f);
+            float gardenEnd=.045f+.012f*(float)Math.Pow(Math.Sin(12*p.X+.4f),2);
+            float garden=1-Smooth(d/gardenEnd),paving=1-Smooth((d-.28f)/.04f);
+            // The existing free side crossings are low paving, not new flower
+            // walls. Retain those North texels after the shallow contact feather.
+            float lane=Smooth((across-.23f)/.02f)*(1-Smooth((across-.35f)/.025f));
+            float laneClearance=1-lane*Smooth(d/.012f)*(1-Smooth((d-.10f)/.035f));
+            return Math.Max(garden,road*paving)*laneClearance;
+        }
+        private static float Smooth(float value){float t=Math.Max(0,Math.Min(1,value));return t*t*(3-2*t);}
+        private static float Lerp(float a,float b,float t)=>a+(b-a)*Math.Max(0,Math.Min(1,t));
+        private static IReadOnlyList<(TownPoint World,TownPoint UV,float Alpha)> BuildVertices()
+        {
+            var result=new List<(TownPoint,TownPoint,float)>(Columns*Rows);
+            foreach(float y in heights)
+            {
+                float half=RoadHalfWidth(y);
+                for(int col=0;col<Columns;col++)
+                {
+                    // Register columns to the free side lanes and clip them to
+                    // the actual road edge. Otherwise triangle interpolation
+                    // leaks faint flowers into a lane or an untouched bank.
+                    int side=col-Columns/2;
+                    float x=col==0?Left:col==Columns-1?Right:side==0?0:Math.Sign(side)*Math.Min(half,offsets[Math.Abs(side)-1]);
+                    var p=new TownPoint(x,y);result.Add((p,TexturePoint(p),VertexOpacity(p)));
+                }
+            }
+            return result.AsReadOnly();
+        }
+    }
 }

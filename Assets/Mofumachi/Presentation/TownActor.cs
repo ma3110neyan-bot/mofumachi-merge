@@ -17,6 +17,16 @@ namespace Mofumachi.Presentation
         public TownPoint Position=>worldResident==null?(Controlled?Movement.Position:npcPosition):TownWorldLayout.ToLocal(worldResident.Region,worldResident.Position);
         public TownPoint RenderPosition { get; private set; }
         public RectTransform VisualRoot { get; private set; }
+        private bool noahTrialRequested=true;
+        public bool NoahTrialEnabled=>TownNoah25DTrial.IsEnabled(CharacterId,noahTrialRequested);
+        // An evidence-capture switch, deliberately absent from product UI and
+        // persistence. Re-render the same instant without resetting any clock.
+        public void SetNoahTrialEnabled(bool enabled)
+        {
+            bool previous=NoahTrialEnabled;noahTrialRequested=enabled;
+            if(previous==NoahTrialEnabled)return;
+            body?.SetNoahTownTrial(NoahTrialEnabled);if(life!=null)Render(0,0);
+        }
         public bool IsGuided { get; private set; }
         public TownPoint GuidedTarget=>guideTarget;
         public TownPlace Place {get;private set;} public string DestinationId=>Place?.Id;
@@ -43,6 +53,7 @@ namespace Mofumachi.Presentation
             this.navigation=navigation;npcPosition=movement.Position;previous=Position;rect=(RectTransform)transform;
             VisualRoot=UIWidgets.Node("Town actor visual",rect,new Rect(0,0,1,1));VisualRoot.pivot=new Vector2(.5f,0);
             body=VisualRoot.gameObject.AddComponent<CharacterBodyGraphic>();body.Bind(characterId);body.raycastTarget=true;
+            body.SetNoahTownTrial(NoahTrialEnabled);
             softShadow=CreateShadow("Town actor soft shadow",new Rect(.12f,-.06f,.76f,.12f),.075f);
             contactShadow=CreateShadow("Town actor contact shadow",new Rect(.27f,-.032f,.46f,.064f),.19f);
             softShadow.transform.SetAsFirstSibling();contactShadow.transform.SetSiblingIndex(1);
@@ -166,6 +177,15 @@ namespace Mofumachi.Presentation
             float attention=.5f+.5f*Mathf.Sin(breath*.65f+resident*.617f);
             float rest=-2*benchBlend-1.3f*flowerBlend*attention;
             float scale=viewScale*DepthScale;
+            if(NoahTrialEnabled)
+            {
+                var trial=TownNoah25DTrial.Sample(stride,amplitude,facing,IsResting?1:0,breath,reactionRemaining,surprised,moving);
+                float sx=scale*(1-trial.Breath*.35f),sy=scale*(1+trial.Breath);
+                var support=TownNoah25DTrial.SupportTranslation(body.NoahArtSize.x,trial,sx,sy);
+                VisualRoot.anchoredPosition=new Vector2(support.X,support.Y);
+                VisualRoot.localScale=new Vector3(sx,sy,1);VisualRoot.localRotation=Quaternion.Euler(0,0,trial.Lean);
+                body.PoseNoah(trial,TownCharacterMotion.Blink(breath,resident));UpdateShadows(trial.Hop,scale);return;
+            }
             VisualRoot.anchoredPosition=new Vector2(-pose.Foot*1.1f,pose.Hop+reaction.Hop+rest)*scale;
             float compression=pose.Breath+reaction.Breath-Mathf.Cos(stride*2)*amplitude*.006f;
             VisualRoot.localScale=new Vector3(scale*(1-compression*.35f),scale*(1+compression),1);

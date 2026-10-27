@@ -10,6 +10,7 @@ Set-StrictMode -Version Latest
 . (Join-Path $PSScriptRoot 'five-area-review.ps1')
 . (Join-Path $PSScriptRoot 'south-final-review.ps1')
 . (Join-Path $PSScriptRoot 'fountain-review.ps1')
+. (Join-Path $PSScriptRoot 'north-noah-review.ps1')
 function Assert-TestRun([string]$ResultPath,[int]$MinimumTests,[string[]]$RequiredSuites) {
     if (-not (Test-Path -LiteralPath $ResultPath)) { throw "Missing current test XML: $ResultPath" }
     [xml]$Results = Get-Content -LiteralPath $ResultPath -Raw
@@ -20,7 +21,7 @@ function Assert-TestRun([string]$ResultPath,[int]$MinimumTests,[string[]]$Requir
     foreach($Suite in $RequiredSuites) {
         if(@($Results.SelectNodes('//test-suite') | Where-Object { $_.GetAttribute('name') -eq $Suite -and $_.GetAttribute('result') -eq 'Passed' -and $_.SelectNodes('.//test-case').Count -gt 0 }).Count -eq 0) { throw "Missing passed suite: $Suite" }
     }
-    foreach($Gate in @(@{Name='CharacterSelectionTests';Count=4},@{Name='DailyWorldTests';Count=13},@{Name='MajorPolishTests';Count=6},@{Name='SeamlessFieldTests';Count=8},@{Name='EastWestHomeTests';Count=4},@{Name='ResidentPresenceTests';Count=5},@{Name='FivePlazaTests';Count=5},@{Name='BaseProductLoopTests';Count=5},@{Name='VisualLockPresentationTests';Count=2},@{Name='CentralMasterReviewTests';Count=2},@{Name='WestMasterReviewTests';Count=3},@{Name='EastMasterReviewTests';Count=3},@{Name='NorthMasterReviewTests';Count=3},@{Name='SouthMasterReviewTests';Count=3},@{Name='FiveAreaIntegrationReviewTests';Count=1})) {
+    foreach($Gate in @(@{Name='CharacterSelectionTests';Count=4},@{Name='DailyWorldTests';Count=13},@{Name='MajorPolishTests';Count=6},@{Name='SeamlessFieldTests';Count=8},@{Name='EastWestHomeTests';Count=4},@{Name='ResidentPresenceTests';Count=5},@{Name='FivePlazaTests';Count=5},@{Name='BaseProductLoopTests';Count=5},@{Name='VisualLockPresentationTests';Count=2},@{Name='CentralMasterReviewTests';Count=2},@{Name='WestMasterReviewTests';Count=3},@{Name='EastMasterReviewTests';Count=3},@{Name='NorthMasterReviewTests';Count=3},@{Name='SouthMasterReviewTests';Count=3},@{Name='FiveAreaIntegrationReviewTests';Count=1},@{Name='NorthEntryBlendReviewTests';Count=3},@{Name='Noah25DTrialPresentationTests';Count=4})) {
         if($Gate.Name -in $RequiredSuites) {
             $Suite=$Results.SelectNodes('//test-suite') | Where-Object {$_.GetAttribute('name') -eq $Gate.Name} | Select-Object -First 1
             if($Suite.SelectNodes('.//test-case').Count -ne $Gate.Count){throw "Incomplete suite: $($Gate.Name), expected $($Gate.Count) cases."}
@@ -61,7 +62,7 @@ function Read-SourceRevision([string]$RepositoryPath) {
     }
     throw 'Source SHA not found; do not build an unidentified APK.'
 }
-function Assert-NativeCaptures([string]$Directory,[switch]$RequireBoundary,[switch]$RequireField,[switch]$RequireGrowth,[switch]$RequireFountain,[switch]$RequireFountainShow) {
+function Assert-NativeCaptures([string]$Directory,[switch]$RequireBoundary,[switch]$RequireField,[switch]$RequireGrowth,[switch]$RequireFountain,[switch]$RequireFountainShow,[switch]$RequireNorthNoah,[string]$ExpectedRevision='',[string]$ExpectedFingerprint='') {
     $Images=@(Get-ChildItem -LiteralPath $Directory -Filter '*.png' -File -ErrorAction SilentlyContinue)
     if($Images.Count -lt 102){throw "Native captures incomplete: $($Images.Count)/102. Inspect the same-run PlayMode log."}
     foreach($Name in @('15-wide-park-left','15-wide-park-right','16-residents-passing-00','17-finger-follow-00','17-finger-released','18-continuous-walk-west','18-continuous-walk-central','18-continuous-walk-east','19-book-new-in-town','19-book-discovery-first-page','20-quest-cabin','20-quest-door-opening','20-quest-inside','21-shop-cabin','21-shop-door-opening','21-shop-inside','22-title-candidates','22-merge-candidates','23-title-letter','23-title-garden','23-merge-picnic','23-merge-ribbon','23-merge-pop-promenade','24-home-unobstructed','24-menu-open','24-menu-return','25-character-idle','25-character-step-a','25-character-step-b','25-character-greeting','25-character-behind-fountain','25-character-in-front-fountain','04-town-lv1-North','04-town-lv1-South','04-town-lv6-North','04-town-lv6-South','09-connected-path-north','09-connected-path-south','26-cardinal-North-join','26-cardinal-North-arrival','26-cardinal-South-join','26-cardinal-South-arrival','27-merge-finale-live-purpose','20-quest-arrived-door-prompt','21-shop-arrived-door-prompt','21b-cafe-cabin','21b-cafe-walking','21b-cafe-arrived-door-prompt','21b-cafe-door-opening','21b-cafe-inside','28-meet-friend-walking','28-meet-friend-arrived','29-merge-drag-lift','29-merge-drag-match','29-merge-landed')) {
@@ -76,6 +77,10 @@ function Assert-NativeCaptures([string]$Directory,[switch]$RequireBoundary,[swit
         if($Width -ne 720 -or $Height -ne 1280){throw "Wrong native capture size: $($Image.Name) ($Width x $Height)"}
     }
     Write-Host "Native Unity images: $($Images.Count), 720x1280 (visual review still required)."
+    if($RequireNorthNoah){
+        if($Images.Count -lt 250){throw 'North/Noah TownQa requires the existing219 full captures plus30 candidate frames and one actual historical North original.'}
+        Assert-NorthNoahEvidence $Directory $ExpectedRevision $ExpectedFingerprint
+    }
     $BoundaryComparison=Join-Path $Directory 'street-boundary-before-after.html'
     if($RequireBoundary) {
         if($Images.Count -lt 124 -or -not(Test-Path -LiteralPath $BoundaryComparison -PathType Leaf)){throw 'Town boundary comparison requires124 captures and its comparison HTML.'}
@@ -165,14 +170,16 @@ function Assert-SourceUnchanged([string]$RepositoryPath,[string]$ExpectedRevisio
 function Write-NativeReviewArchives([string]$Directory) {
     # Keep review uploads under 32 MiB without asking the player to copy a long
     # packing command. APK bytes stay in the run directory, outside review ZIPs.
-    $Files=@(foreach($Name in @('editmode.xml','playmode.xml','build-info.json','growth-build-info.json','capture-manifest.json','android-build.log','growth-android-build.log','playmode.log','before-after.html','visual-adoption.json','screenshots/texture-memory.txt','screenshots/README.txt','screenshots/street-boundary-before-after.html','screenshots/street-boundary-comparison.json','screenshots/field-stability.json','screenshots/town-growth-progression.json','screenshots/fountain-water-before-after.html','screenshots/fountain-water-comparison.json','screenshots/fountain-show-comparison.json','screenshots/fountain-show-before-after.html')) {
+    $Files=@(foreach($Name in @('editmode.xml','playmode.xml','build-info.json','growth-build-info.json','capture-manifest.json','android-build.log','growth-android-build.log','playmode.log','before-after.html','visual-adoption.json','screenshots/texture-memory.txt','screenshots/README.txt','screenshots/street-boundary-before-after.html','screenshots/street-boundary-comparison.json','screenshots/field-stability.json','screenshots/town-growth-progression.json','screenshots/fountain-water-before-after.html','screenshots/fountain-water-comparison.json','screenshots/fountain-show-comparison.json','screenshots/fountain-show-before-after.html','screenshots/north-noah-comparison.json','screenshots/north-noah-before-after.html')) {
         $Path=Join-Path $Directory $Name
         if(Test-Path -LiteralPath $Path -PathType Leaf){Get-Item -LiteralPath $Path}
-    })+@(Get-ChildItem -LiteralPath (Join-Path $Directory 'screenshots') -Filter '*.png' -File | Sort-Object Name)
+    })+@(Get-ChildItem -LiteralPath (Join-Path $Directory 'screenshots') -Filter '*.png' -File | Sort-Object Name)+@(Get-ChildItem -LiteralPath (Join-Path $Directory 'screenshots') -Filter '*.jpg' -File | Sort-Object Name)
     $BeforeDir=Join-Path $Directory 'screenshots/fountain-before'
     if(Test-Path -LiteralPath $BeforeDir){$Files+=@(Get-ChildItem -LiteralPath $BeforeDir -Filter '*.png' -File | Sort-Object Name)}
     $LiveDir=Join-Path $Directory 'screenshots/fountain-live'
     if(Test-Path -LiteralPath $LiveDir){$Files+=@(Get-ChildItem -LiteralPath $LiveDir -File | Sort-Object Name)}
+    $NoahDir=Join-Path $Directory 'screenshots/noah-sequence'
+    if(Test-Path -LiteralPath $NoahDir){$Files+=@(Get-ChildItem -LiteralPath $NoahDir -Filter '*.png' -File | Sort-Object Name)}
     $Batch=New-Object 'System.Collections.Generic.List[string]';$Bytes=0L;$Part=1
     foreach($File in $Files) {
         if($File.Length -gt 20MB){throw "Review file exceeds upload budget: $($File.FullName)"}
@@ -220,7 +227,7 @@ function Assert-ProductUnchanged([string]$RepositoryPath,[string]$ExpectedRevisi
     Assert-SourceUnchanged $RepositoryPath $ExpectedRevision
     if((Get-ProductFingerprint $RepositoryPath) -ne $ExpectedFingerprint){throw 'Product inputs changed during acceptance; repeat tests, captures and APK together.'}
     $LockPath=Join-Path $RepositoryPath 'References/VisualLock/base-2026-10-21.json'
-    if(Test-Path -LiteralPath $LockPath){Assert-BaseVisualLock $RepositoryPath $LockPath}
+    if(Test-Path -LiteralPath $LockPath){Assert-OriginalBaseForCandidate $RepositoryPath}
     if(Test-Path -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/approved-design-2026-10-21.json')){Assert-ApprovedVisualLock $RepositoryPath}
 }
 function Invoke-Unity([string[]]$UnityArguments) {
@@ -243,7 +250,7 @@ if((Get-Content (Join-Path $ProjectPath 'ProjectSettings\ProjectVersion.txt') -R
 $GitRevision=Read-SourceRevision $ProjectPath
 $SourceGit=Find-SourceGit
 Assert-CleanProductSource $ProjectPath $SourceGit
-Assert-BaseVisualLock $ProjectPath (Join-Path $ProjectPath 'References/VisualLock/base-2026-10-21.json')
+Assert-OriginalBaseForCandidate $ProjectPath
 Assert-ApprovedVisualLock $ProjectPath
 if(-not ($CentralReview -or $WestReview -or $EastReview -or $NorthReview -or $SouthReview -or $FiveAreaReview)){Assert-BaseStagesReadyForAcceptance $ProjectPath}
 if($FiveAreaReview){Assert-FiveAreaReviewPrerequisites $ProjectPath}elseif($SouthReview){Assert-SouthReviewPrerequisites $ProjectPath}elseif($NorthReview){Assert-NorthReviewPrerequisites $ProjectPath}elseif($EastReview){Assert-EastReviewPrerequisites $ProjectPath}
@@ -292,11 +299,11 @@ Assert-TestRun $EditXml 144 @('PreferencesTests','AndroidBuildTests','Presentati
 Assert-ProductUnchanged $ProjectPath $GitRevision $ProductFingerprint
 $PlayXml=Join-Path $OutputDir 'playmode.xml'
 Write-Host '[2/4] Running all PlayMode tests and capturing native Unity images...'
-Invoke-Unity @('-batchmode','-projectPath',$ProjectPath,'-buildTarget','Android','-runTests','-testPlatform','PlayMode','-testResults',$PlayXml,'-mofumachiScreenshots',(Join-Path $OutputDir 'screenshots'),'-logFile',(Join-Path $OutputDir 'playmode.log'))
-Assert-TestRun $PlayXml 226 @('VerticalSliceFlowTests','LayoutNoticeTests','AudioManagerTests','MergeInteractionTests','RewardGrowthTests','SettingsScreenTests','PopPresentationTests','CharacterSelectionTests','MultiQuestPresentationTests','TownLifeTests','StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests','FiveAreaIntegrationReviewTests')
+Invoke-Unity @('-batchmode','-projectPath',$ProjectPath,'-buildTarget','Android','-runTests','-testPlatform','PlayMode','-testResults',$PlayXml,'-mofumachiScreenshots',(Join-Path $OutputDir 'screenshots'),'-mofumachiSourceRevision',$GitRevision,'-mofumachiProductFingerprint',$ProductFingerprint,'-logFile',(Join-Path $OutputDir 'playmode.log'))
+Assert-TestRun $PlayXml 234 @('VerticalSliceFlowTests','LayoutNoticeTests','AudioManagerTests','MergeInteractionTests','RewardGrowthTests','SettingsScreenTests','PopPresentationTests','CharacterSelectionTests','MultiQuestPresentationTests','TownLifeTests','StoryTypographyTests','TownMotionPresentationTests','ChapterFlowTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','TownViewportPresentationTests','TownHabitTests','TownRegionFlowTests','TownRegionLifeTests','QualityPassTravelTests','QualityPassStoryGrowthTests','QualityPassMergeTests','ExperienceWalkingTests','ExperienceMergeTests','ExperienceMusicTests','ExperienceGrowthTests','ExperienceCaptureTests','DailyWorldTests','MajorPolishTests','SeamlessFieldTests','EastWestHomeTests','ResidentPresenceTests','FivePlazaTests','BaseProductLoopTests','VisualLockPresentationTests','CentralMasterReviewTests','WestMasterReviewTests','EastMasterReviewTests','NorthMasterReviewTests','SouthMasterReviewTests','FiveAreaIntegrationReviewTests','NorthEntryBlendReviewTests','Noah25DTrialPresentationTests')
 $CaptureDir=Join-Path $OutputDir 'screenshots'
 Assert-ProductUnchanged $ProjectPath $GitRevision $ProductFingerprint
-Assert-NativeCaptures $CaptureDir -RequireBoundary:$TownQa -RequireField:$TownQa -RequireGrowth:$TownQa -RequireFountain:$TownQa -RequireFountainShow:$TownQa
+Assert-NativeCaptures $CaptureDir -RequireBoundary:$TownQa -RequireField:$TownQa -RequireGrowth:$TownQa -RequireFountain:$TownQa -RequireFountainShow:$TownQa -RequireNorthNoah:$TownQa -ExpectedRevision $GitRevision -ExpectedFingerprint $ProductFingerprint
 $CaptureEntries=@(Get-ChildItem -LiteralPath $CaptureDir -Filter '*.png' -File | Sort-Object Name | ForEach-Object {[ordered]@{file=$_.Name;bytes=$_.Length;sha256=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}})
 [ordered]@{gitRevision=$GitRevision;productFingerprint=$ProductFingerprint;width=720;height=1280;count=$CaptureEntries.Count;scope='Unity fixture renders; not Pixel captures';images=$CaptureEntries} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $OutputDir 'capture-manifest.json') -Encoding UTF8
 $ApkName='vertical-slice.apk';$BuildMethod='Mofumachi.Editor.AndroidBuild.BuildDevelopmentApk';$PackageId='com.mofumachi.merge'

@@ -56,11 +56,12 @@ function Get-BasePolishPatch([string]$RepositoryPath) {
     $Allowed=@('Assets/Mofumachi/Presentation/TownWorldLayout.cs','Assets/Mofumachi/Presentation/TownContinuousWorldView.cs')
     $ScopeProperty=$Record.PSObject.Properties['scope_id']
     $Scope=if($ScopeProperty){[string]$ScopeProperty.Value}else{''}
-    if($Scope -and $Scope -notin @('town_boundary_final_2026_10_24','town_field_stability_2026_10_25','town_field_completion_2026_10_25','town_fountain_water_2026_10_25','town_fountain_show_2026_10_26','town_fountain_motion_2026_10_26','town_fountain_final_2026_10_27')){throw 'Unknown bounded display correction scope.'}
-    $FountainFinal=$Scope -eq 'town_fountain_final_2026_10_27'
-    $FountainMotion=$Scope -in @('town_fountain_motion_2026_10_26','town_fountain_final_2026_10_27')
-    $FountainShow=$Scope -in @('town_fountain_show_2026_10_26','town_fountain_motion_2026_10_26','town_fountain_final_2026_10_27')
-    $Fountain=$Scope -in @('town_fountain_water_2026_10_25','town_fountain_show_2026_10_26','town_fountain_motion_2026_10_26','town_fountain_final_2026_10_27')
+    if($Scope -and $Scope -notin @('town_boundary_final_2026_10_24','town_field_stability_2026_10_25','town_field_completion_2026_10_25','town_fountain_water_2026_10_25','town_fountain_show_2026_10_26','town_fountain_motion_2026_10_26','town_fountain_final_2026_10_27','town_north_noah_trial_2026_10_27')){throw 'Unknown bounded display correction scope.'}
+    $NorthNoah=$Scope -eq 'town_north_noah_trial_2026_10_27'
+    $FountainFinal=$Scope -eq 'town_fountain_final_2026_10_27' -or $NorthNoah
+    $FountainMotion=$Scope -eq 'town_fountain_motion_2026_10_26' -or $FountainFinal
+    $FountainShow=$Scope -eq 'town_fountain_show_2026_10_26' -or $FountainMotion
+    $Fountain=$Scope -eq 'town_fountain_water_2026_10_25' -or $FountainShow
     if($FountainShow){$Allowed+='Assets/Mofumachi/Presentation/TownFountainGraphic.cs'}
     $FieldFinal=$Scope -eq 'town_field_completion_2026_10_25' -or $Fountain
     $FieldStability=$Scope -eq 'town_field_stability_2026_10_25' -or $FieldFinal
@@ -68,7 +69,9 @@ function Get-BasePolishPatch([string]$RepositoryPath) {
     if($Boundary){$Allowed+=@('Assets/Mofumachi/Presentation/TownSouthGroundGraphic.cs','Assets/Mofumachi/Presentation/TownSouthEntryBlendLayout.cs','Assets/Mofumachi/Presentation/TownSouthEntryBlendGraphic.cs')}
     if($FieldStability){$Allowed+='Assets/Mofumachi/Presentation/TownAreaNavigation.cs'}
     if($FieldFinal){$Allowed+=@('Assets/Mofumachi/Presentation/TownGrowthPresentation.cs','Assets/Mofumachi/Presentation/TownGrowthComparisonView.cs')}
+    if($NorthNoah){$Allowed+=@('Assets/Mofumachi/Presentation/TownNorthMasterLayout.cs','Assets/Mofumachi/Presentation/TownNorthGroundGraphic.cs','Assets/Mofumachi/Presentation/TownActor.cs','Assets/Mofumachi/Presentation/CharacterBodyGraphic.cs')}
     if($Changes.Count -lt 1 -or $Changes.Count -gt $Allowed.Count){throw 'Display changes exceed the explicitly authorized correction scope.'}
+    if($NorthNoah -and $Changes.Count -ne $Allowed.Count){throw 'North/Noah must retain every cumulative historical and four authorized runtime binding.'}
     $Before=@{};$After=@{}
     foreach($Change in $Changes) {
         $Path=[string]$Change.path
@@ -87,6 +90,7 @@ function Get-BasePolishPatch([string]$RepositoryPath) {
         $Added=@($AddedProperty.Value);$Captures=@($CaptureProperty.Value)
         $AllowedAdded=@('Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs','Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs.meta','Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs','Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs.meta')
         if($Fountain){$AllowedAdded+=@('Assets/Mofumachi/Presentation/TownFountainWaterLayout.cs','Assets/Mofumachi/Presentation/TownFountainWaterLayout.cs.meta','Assets/Mofumachi/Presentation/TownFountainWaterGraphic.cs','Assets/Mofumachi/Presentation/TownFountainWaterGraphic.cs.meta')}
+        if($NorthNoah){$AllowedAdded+=@('Assets/Mofumachi/Presentation/TownNoah25DTrial.cs','Assets/Mofumachi/Presentation/TownNoah25DTrial.cs.meta')}
         if($Added.Count -ne $AllowedAdded.Count -or $Captures.Count -ne 1){throw 'Boundary rendering/capture input list is incomplete.'}
         foreach($InputFile in $Added) {
             $Path=[string]$InputFile.path
@@ -131,6 +135,19 @@ function Get-BasePolishPatch([string]$RepositoryPath) {
             if($Prior.source_revision -ne $PriorSource -or $Prior.run -ne $PriorRun -or @($Prior.images).Count -ne 3){throw 'Show Before is not the actual reviewed current fountain.'}
         }
     }
+    if($NorthNoah) {
+        $ReleasePath='References/VisualLock/fountain-release-and-field-freeze-2026-10-27.json'
+        if($Record.release_freeze -ne $ReleasePath){throw 'North/Noah requires the exact adopted fountain and field freeze.'}
+        $ReleaseText=[IO.File]::ReadAllText((Join-Path $RepositoryPath $ReleasePath)).Replace("`r`n","`n")
+        $ExpectedReleaseDigest='221bb4b9b2417937b374f4b5bccc60d978df09523ce8f3d4efcfdec5b619e5b7'
+        if($Record.release_freeze_lf_sha256 -ne $ExpectedReleaseDigest -or (Get-VisualLockDigest ([Text.Encoding]::UTF8.GetBytes($ReleaseText))) -ne $ExpectedReleaseDigest){throw 'Adopted fountain and field freeze content changed.'}
+        $Release=$ReleaseText | ConvertFrom-Json
+        if($Release.authorized_by -ne 'user' -or $Release.fountain_adopted -isnot [bool] -or -not $Release.fountain_adopted -or $Release.approved_source_revision -ne 'ff7215c504efae5fee220d3540272ca4b260ade8'){throw 'North/Noah requires the user-adopted current fountain release.'}
+        # Cumulative replacements reconstruct the original image review only.
+        # The adopted current product is checked independently with NO replacement
+        # hashes, so rebinding a candidate cannot authorize frozen product edits.
+        Assert-BaseVisualLock $RepositoryPath (Join-Path $RepositoryPath $ReleasePath)
+    }
     return @{Record=$Record;Before=$Before;After=$After}
 }
 function Get-ReviewedCentralInputFingerprint([string]$RepositoryPath) {
@@ -142,9 +159,24 @@ function Get-ReviewedCentralInputFingerprint([string]$RepositoryPath) {
     # dependency. Omit it only when reconstructing that historical identity;
     # its original file remains locked and fresh captures bind its current hash.
     $Historical['Assets/Mofumachi/Presentation/TownAreaNavigation.cs']=$null
+    # These dependencies became explicit for the Noah trial. Fresh captures
+    # always bind all three, while the original review predates their inclusion.
+    foreach($Name in @('CharacterBodyGraphic.cs','TownNoah25DTrial.cs','TownNoah25DTrial.cs.meta')){$Historical['Assets/Mofumachi/Presentation/'+$Name]=$null}
     $Reviewed=Get-CentralInputFingerprint $RepositoryPath $Historical
     if($Patch.Record.reviewed_render_digest -ne $Reviewed){throw 'Base polish is not bound to the original reviewed rendering inputs.'}
     return $Reviewed
+}
+function Assert-OriginalBaseForCandidate([string]$RepositoryPath) {
+    $Patch=Get-BasePolishPatch $RepositoryPath
+    $Replacements=@{}
+    if($Patch -and $Patch.Record.PSObject.Properties['scope_id'] -and $Patch.Record.scope_id -eq 'town_north_noah_trial_2026_10_27') {
+        # Only this original input belongs to the newly authorized runtime
+        # scope. Get-BasePolishPatch has already validated its original Before,
+        # current After, and every independently frozen release input.
+        $Body='Assets/Mofumachi/Presentation/CharacterBodyGraphic.cs'
+        $Replacements[$Body]=$Patch.After[$Body]
+    }
+    Assert-BaseVisualLock $RepositoryPath (Join-Path $RepositoryPath 'References/VisualLock/base-2026-10-21.json') $Replacements
 }
 function Write-VisualLockComparison([string]$RepositoryPath,[string]$RunDirectory,[string]$BeforeDirectory='',[string]$OutputDirectory='') {
     $Baseline=Get-Content -LiteralPath (Join-Path $RepositoryPath 'References/VisualLock/baseline-native-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json

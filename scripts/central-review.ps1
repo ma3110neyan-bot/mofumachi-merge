@@ -20,6 +20,7 @@ function Get-CentralInputPaths {
     foreach($Name in @('TownBoundaryGardenLayout.cs','TownBoundaryGardenLayout.cs.meta','TownBoundaryGardenGraphic.cs','TownBoundaryGardenGraphic.cs.meta')) {'Assets/Mofumachi/Presentation/'+$Name}
     'Assets/Mofumachi/Presentation/TownAreaNavigation.cs'
     foreach($Name in @('TownFountainWaterLayout.cs','TownFountainWaterLayout.cs.meta','TownFountainWaterGraphic.cs','TownFountainWaterGraphic.cs.meta')) {'Assets/Mofumachi/Presentation/'+$Name}
+    foreach($Name in @('CharacterBodyGraphic.cs','TownNoah25DTrial.cs','TownNoah25DTrial.cs.meta')) {'Assets/Mofumachi/Presentation/'+$Name}
 }
 function Get-CentralInputFingerprint([string]$RepositoryPath,[hashtable]$ReviewedHashes=@{}) {
     $Lines=foreach($Relative in Get-CentralInputPaths) {

@@ -45,7 +45,12 @@ function Assert-SouthReviewPrerequisites([string]$RepositoryPath) {
     if($Conditions.approved_base_revision -ne $Approval.reviewed_candidate -or $Conditions.local_presentation_tests.passed -ne 15 -or $Conditions.local_presentation_tests.total -ne 15 -or $Conditions.local_presentation_tests.failed -ne 0){throw 'North conditional authorization lacks its exact CPU verification record.'}
     $Path=Join-Path $RepositoryPath 'Assets/Mofumachi/Presentation/TownNorthMasterLayout.cs'
     $Bytes=[Text.Encoding]::UTF8.GetBytes([IO.File]::ReadAllText($Path).Replace("`r`n","`n"))
-    if((Get-VisualLockDigest $Bytes) -ne $Conditions.north_layout_normalized_sha256){throw 'North adjusted layout changed since conditions were checked.'}
+    $Actual=Get-VisualLockDigest $Bytes
+    if($Actual -ne $Conditions.north_layout_normalized_sha256) {
+        $Patch=Get-BasePolishPatch $RepositoryPath
+        $North='Assets/Mofumachi/Presentation/TownNorthMasterLayout.cs'
+        if(-not $Patch -or $Patch.Record.scope_id -ne 'town_north_noah_trial_2026_10_27' -or -not $Patch.Before.ContainsKey($North) -or $Patch.Before[$North] -ne $Conditions.north_layout_normalized_sha256 -or $Patch.After[$North] -ne $Actual){throw 'North adjusted layout changed since conditions were checked.'}
+    }
 }
 function Write-SouthComparisonJpeg([string]$Directory) {
     Add-Type -AssemblyName System.Drawing

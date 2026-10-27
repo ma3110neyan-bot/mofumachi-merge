@@ -11,20 +11,25 @@ namespace Mofumachi.Presentation
         private TownContinuousWorldView world;private TownPoint center;private float width=1.10f;
         private static Texture2D painting;
         private TownNorthCourtGraphic court;
+        private TownNorthEntryBlendGraphic entry;
         public override Texture mainTexture=>painting!=null?painting:painting=Resources.Load<Texture2D>(TownNorthMasterLayout.Resource);
+        private void EnsureEntry()
+        {if(entry==null)entry=UIWidgets.Node("North central road join",rectTransform,new Rect(0,0,1,1)).gameObject.AddComponent<TownNorthEntryBlendGraphic>();}
         public void Bind(TownContinuousWorldView source)
         {
             world=source;raycastTarget=false;SetAllDirty();
             court=UIWidgets.Node("North delivery court stone inlay",rectTransform,new Rect(0,0,1,1)).gameObject.AddComponent<TownNorthCourtGraphic>();court.Bind(source);
+            EnsureEntry();entry.Bind(source);
         }
         public void BindPreview(TownPoint source,float sourceWidth)
         {
             world=null;center=source;width=sourceWidth;raycastTarget=false;SetAllDirty();
             if(court==null)court=UIWidgets.Node("North delivery court stone inlay",rectTransform,new Rect(0,0,1,1)).gameObject.AddComponent<TownNorthCourtGraphic>();
             court.BindPreview(source,sourceWidth);
+            EnsureEntry();entry.BindPreview(source,sourceWidth);
         }
-        public void SetPreview(TownPoint source,float sourceWidth){center=source;width=sourceWidth;SetVerticesDirty();court?.BindPreview(source,sourceWidth);}
-        public void Refresh(){SetVerticesDirty();court?.SetVerticesDirty();}
+        public void SetPreview(TownPoint source,float sourceWidth){center=source;width=sourceWidth;SetVerticesDirty();court?.BindPreview(source,sourceWidth);entry?.SetPreview(source,sourceWidth);}
+        public void Refresh(){SetVerticesDirty();court?.SetVerticesDirty();entry?.Refresh();}
         protected override void OnPopulateMesh(VertexHelper vh)
         {
             vh.Clear();if(mainTexture==null)return;
@@ -33,6 +38,29 @@ namespace Mofumachi.Presentation
             Vertex(TownNorthMasterLayout.Left,TownNorthMasterLayout.Bottom);Vertex(TownNorthMasterLayout.Left,TownNorthMasterLayout.Top);
             Vertex(TownNorthMasterLayout.Right,TownNorthMasterLayout.Top);Vertex(TownNorthMasterLayout.Right,TownNorthMasterLayout.Bottom);
             vh.AddTriangle(0,1,2);vh.AddTriangle(0,2,3);
+        }
+    }
+    // A source-bound ground layer only. The inherited enabled flag permits an
+    // isolated same-state causal comparison; there is no product diagnostic UI.
+    [RequireComponent(typeof(CanvasRenderer))]
+    public sealed class TownNorthEntryBlendGraphic:MaskableGraphic
+    {
+        private static Texture2D painting;
+        private TownContinuousWorldView world;private TownPoint center;private float width=1.10f;private bool bound;
+        public override Texture mainTexture=>painting!=null?painting:painting=Resources.Load<Texture2D>(TownNorthEntryBlendLayout.Resource);
+        public void Bind(TownContinuousWorldView source){world=source;bound=true;raycastTarget=false;SetAllDirty();}
+        public void BindPreview(TownPoint source,float sourceWidth){world=null;center=source;width=sourceWidth;bound=true;raycastTarget=false;SetAllDirty();}
+        public void SetPreview(TownPoint source,float sourceWidth){center=source;width=sourceWidth;SetVerticesDirty();}
+        public void Refresh()=>SetVerticesDirty();
+        protected override void OnPopulateMesh(VertexHelper vh)
+        {
+            vh.Clear();if(!bound||mainTexture==null)return;
+            float scale=world!=null?world.RenderScale:rectTransform.rect.width/width;
+            Vector2 Local(TownPoint p)=>world!=null?world.Local(p,rectTransform):rectTransform.rect.center+new Vector2((p.X-center.X)*scale,(p.Y-center.Y)*scale);
+            foreach(var vertex in TownNorthEntryBlendLayout.Vertices)
+            {var tint=color;tint.a*=vertex.Alpha;vh.AddVert(Local(vertex.World),tint,new Vector2(vertex.UV.X,vertex.UV.Y));}
+            for(int row=0;row<TownNorthEntryBlendLayout.Rows-1;row++)for(int col=0;col<TownNorthEntryBlendLayout.Columns-1;col++)
+            {int i=row*TownNorthEntryBlendLayout.Columns+col;vh.AddTriangle(i,i+TownNorthEntryBlendLayout.Columns,i+TownNorthEntryBlendLayout.Columns+1);vh.AddTriangle(i,i+TownNorthEntryBlendLayout.Columns+1,i+1);}
         }
     }
     // Flush painted stonework, below actors and scenery. The native review

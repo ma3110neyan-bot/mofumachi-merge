@@ -15,6 +15,249 @@ namespace Mofumachi.Tests
     // from an isolated fixture, never the developer's/Pixel player's saved town.
     public sealed class ExperienceCaptureTests : SliceUiTestFixture
     {
+        [Serializable] private sealed class NativeImage
+        {public string file,sha256;public int bytes,width,height;}
+        [Serializable] private sealed class NativePair
+        {
+            public string id,mode="";public int level,changed_pixels,outside_allowed_pixels,allowed_x,allowed_y,allowed_width,allowed_height;
+            public float camera_x,camera_y,water_clock,water_phase,original_water_phase;public int unity_frame,store_writes;
+            public string state_sha256,world_model_sha256;
+            public bool frame_unchanged,actors_unchanged,camera_unchanged,water_clock_unchanged,water_phase_unchanged,state_unchanged,store_writes_unchanged,world_model_unchanged,other_five_unchanged;
+            public NativeImage before,after,comparison;
+        }
+        [Serializable] private sealed class NativePathPoint {public float x,y,elapsed_seconds;}
+        [Serializable] private sealed class NativePath
+        {
+            public string id;public int steps;public float distance,start_x,start_y,target_x,target_y;
+            public bool arrived,all_points_walkable=true;public NativeImage image;public List<NativePathPoint> points=new List<NativePathPoint>();
+        }
+        [Serializable] private sealed class NoahSequenceFrame
+        {public int index;public string mode;public float elapsed_seconds,world_x,world_y;public bool walking;public NativeImage image;}
+        [Serializable] private sealed class NoahSequence
+        {
+            public string kind="native-fixed-step-town-AdvanceFrame",greet_trigger="public TryBeginConversation or normal AdvanceFrame auto; verified Noah/Momo greeting",conversation_mode="mutual-noah-momo-greeting";
+            public string conversation_speaker_id,conversation_partner_id,conversation_text;
+            public bool manual_advance=true,state_unchanged,store_writes_unchanged,actual_conversation_verified;
+            public float step_seconds=1f/30,noah_reaction_seconds,momo_reaction_seconds,noah_facing,momo_facing;public int sample_step_count=3,source_width=720,source_height=1280,crop_x,crop_y,crop_width,crop_height;
+            public List<NoahSequenceFrame> frames=new List<NoahSequenceFrame>();
+        }
+        [Serializable] private sealed class NorthWorldBounds {public float x_min=-.6f,x_max=.6f,y_min=1,y_max=1.32f;}
+        [Serializable] private sealed class NorthNoahProof
+        {
+            public string kind="same-state-native-north-noah-comparison",before="reconstructed causal baseline: north join disabled / Noah legacy at the same instant",after="current product code";
+            public string source_revision,product_fingerprint,historical_before="bb3fb82 native run102109 / 09-connected-path-north.png is historical context only, not this causal baseline";
+            public bool native_unity=true,pixel_verified=false,adopted=false,navigation_changed=false,teleport_rescue=false;
+            public NorthWorldBounds north_world_bounds=new NorthWorldBounds();
+            public List<NativePair> north_pairs=new List<NativePair>(),noah_pairs=new List<NativePair>();
+            public NativeImage historical_native_before;
+            public List<NativePath> routes=new List<NativePath>();public NoahSequence sequence=new NoahSequence();
+        }
+        private static string EvidenceSha(byte[] bytes)
+        {using(var hash=System.Security.Cryptography.SHA256.Create())return BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-","").ToLowerInvariant();}
+        private static string EvidenceArgument(string name)
+        {var args=Environment.GetCommandLineArgs();int at=Array.IndexOf(args,name);return at>=0&&at+1<args.Length?args[at+1]:"";}
+        private static NativeImage SaveNativeImage(string output,string name,Texture2D image)
+        {
+            return SaveNativeEncoding(output,name,image,image.EncodeToPNG());
+        }
+        private static NativeImage SaveNativeEncoding(string output,string name,Texture2D image,byte[] bytes)
+        {
+            if(output!=null){string path=Path.Combine(output,name);Directory.CreateDirectory(Path.GetDirectoryName(path));File.WriteAllBytes(path,bytes);}
+            return new NativeImage{file=name,bytes=bytes.Length,width=image.width,height=image.height,sha256=EvidenceSha(bytes)};
+        }
+        private static string ModelEvidence(TownLifeView town)=>string.Join(";",town.World.Model.Residents.OrderBy(r=>r.Id).Select(r=>FormattableString.Invariant($"{r.Id}:{r.Position.X:R},{r.Position.Y:R}/{r.Previous.X:R},{r.Previous.Y:R}/{r.Target.X:R},{r.Target.Y:R}/{r.IsWalking}/{r.Stride:R}/{r.Facing:R}/{r.Rest:R}/{r.Speed:R}/{r.PauseRemaining:R}/{r.DistanceWalked:R}/{r.PlaceId}")));
+        private static string ActorEvidence(TownLifeView town,bool visual,string except="")
+        {
+            var text=new System.Text.StringBuilder();
+            foreach(var actor in town.Actors.Where(a=>a.CharacterId!=except).OrderBy(a=>a.CharacterId))
+            {
+                text.Append(actor.CharacterId).Append(':').Append(JsonUtility.ToJson(new TransformEvidence(actor.transform)));
+                if(!visual)continue;text.Append(JsonUtility.ToJson(new TransformEvidence(actor.VisualRoot)));
+                var mesh=actor.VisualRoot.GetComponent<CharacterBodyGraphic>().canvasRenderer.GetMesh();
+                if(mesh!=null)
+                {
+                    foreach(var v in mesh.vertices)text.Append(FormattableString.Invariant($"/{v.x:R},{v.y:R},{v.z:R}"));
+                    foreach(var uv in mesh.uv)text.Append(FormattableString.Invariant($"/uv{uv.x:R},{uv.y:R}"));
+                    foreach(var color in mesh.colors32)text.Append($"/c{color.r},{color.g},{color.b},{color.a}");
+                }
+            }
+            return text.ToString();
+        }
+        [Serializable] private sealed class TransformEvidence
+        {
+            public Vector3 position,scale;public Quaternion rotation;
+            public TransformEvidence(Transform t){position=t.localPosition;scale=t.localScale;rotation=t.localRotation;}
+        }
+        private RectInt EvidenceRect(Rect bounds)
+        {
+            int x=Mathf.Clamp(Mathf.FloorToInt(bounds.xMin)-3,0,719),y=Mathf.Clamp(Mathf.FloorToInt(bounds.yMin)-3,0,1279);
+            return new RectInt(x,y,Mathf.Clamp(Mathf.CeilToInt(bounds.xMax)+3,x+1,720)-x,Mathf.Clamp(Mathf.CeilToInt(bounds.yMax)+3,y+1,1280)-y);
+        }
+        private Rect ProjectEvidence(TownLifeView town,TownPoint low,TownPoint high)
+        {
+            Vector2 a=captureCamera.WorldToScreenPoint(town.transform.TransformPoint(town.World.Local(low))),b=captureCamera.WorldToScreenPoint(town.transform.TransformPoint(town.World.Local(high)));
+            return Rect.MinMaxRect(Mathf.Min(a.x,b.x),Mathf.Min(a.y,b.y),Mathf.Max(a.x,b.x),Mathf.Max(a.y,b.y));
+        }
+        private Rect ActorEvidenceRect(TownActor actor)
+        {
+            var corners=new Vector3[4];actor.VisualRoot.GetWorldCorners(corners);var points=corners.Select(p=>(Vector2)captureCamera.WorldToScreenPoint(p)).ToArray();
+            return Rect.MinMaxRect(points.Min(p=>p.x)-20,points.Min(p=>p.y)-20,points.Max(p=>p.x)+20,points.Max(p=>p.y)+20);
+        }
+        private NativePair CaptureNativePair(string output,TownLifeView town,string id,Action beforeSwitch,Action afterSwitch,Func<Rect> allowed,bool noah=false)
+        {
+            Texture2D before=null,after=null;
+            try
+            {
+                beforeSwitch();before=Portrait();var bounds=allowed();
+                var water=town.GetComponentInChildren<TownFountainWaterGraphic>();var original=town.GetComponentInChildren<TownAmbientGraphic>();
+                string state=StateCodec.Encode(Flow.Game.State),model=ModelEvidence(town),actors=ActorEvidence(town,!noah),others=ActorEvidence(town,true,"noah");
+                int frame=Time.frameCount,writes=Store.Writes;bool following=town.World.FollowingHero;var camera=town.World.Camera.Center;float clock=water.ShowElapsed,phase=water.Phase,originalPhase=original.Phase;
+                afterSwitch();after=Portrait();var otherBounds=allowed();bounds=Rect.MinMaxRect(Mathf.Min(bounds.xMin,otherBounds.xMin),Mathf.Min(bounds.yMin,otherBounds.yMin),Mathf.Max(bounds.xMax,otherBounds.xMax),Mathf.Max(bounds.yMax,otherBounds.yMax));var area=EvidenceRect(bounds);
+                var pair=new NativePair{id=id,level=town.TownLevel,camera_x=camera.X,camera_y=camera.Y,unity_frame=frame,store_writes=writes,water_clock=clock,water_phase=phase,original_water_phase=originalPhase,state_sha256=EvidenceSha(System.Text.Encoding.UTF8.GetBytes(state)),world_model_sha256=EvidenceSha(System.Text.Encoding.UTF8.GetBytes(model)),allowed_x=area.x,allowed_y=area.y,allowed_width=area.width,allowed_height=area.height};
+                var first=before.GetPixels32();var second=after.GetPixels32();for(int i=0;i<first.Length;i++)if(!first[i].Equals(second[i])){pair.changed_pixels++;if(!area.Contains(new Vector2Int(i%720,i/720)))pair.outside_allowed_pixels++;}
+                pair.frame_unchanged=Time.frameCount==frame;pair.actors_unchanged=actors==ActorEvidence(town,!noah);pair.other_five_unchanged=others==ActorEvidence(town,true,"noah");pair.camera_unchanged=camera.Equals(town.World.Camera.Center)&&following==town.World.FollowingHero;
+                pair.water_clock_unchanged=clock==water.ShowElapsed;pair.water_phase_unchanged=phase==water.Phase&&originalPhase==original.Phase;pair.state_unchanged=state==StateCodec.Encode(Flow.Game.State);pair.store_writes_unchanged=writes==Store.Writes;pair.world_model_unchanged=model==ModelEvidence(town);
+                Assert.That(new[]{pair.frame_unchanged,pair.actors_unchanged,pair.other_five_unchanged,pair.camera_unchanged,pair.water_clock_unchanged,pair.water_phase_unchanged,pair.state_unchanged,pair.store_writes_unchanged,pair.world_model_unchanged},Is.All.True,"Causal switching must preserve the exact instant and all unrelated actors/state");
+                Assert.That(pair.changed_pixels,Is.GreaterThan(0));Assert.That(pair.outside_allowed_pixels,Is.Zero,"Causal pixels must stay within the projected scoped geometry");
+                pair.before=SaveNativeImage(output,id+"-before-reconstructed.png",before);pair.after=SaveNativeImage(output,id+"-after.png",after);
+                // Browser-review derivative of these exact two native renders;
+                // the PNG originals above remain the causal pixel evidence.
+                var comparison=new Texture2D(1440,1280,TextureFormat.RGB24,false);
+                try
+                {
+                    comparison.SetPixels(0,0,720,1280,before.GetPixels());comparison.SetPixels(720,0,720,1280,after.GetPixels());comparison.Apply();
+                    pair.comparison=SaveNativeEncoding(output,id+"-before-left-after-right.jpg",comparison,comparison.EncodeToJPG(90));
+                }
+                finally{UnityEngine.Object.DestroyImmediate(comparison);}
+                return pair;
+            }
+            finally{afterSwitch();if(before!=null)UnityEngine.Object.DestroyImmediate(before);if(after!=null)UnityEngine.Object.DestroyImmediate(after);}
+        }
+        [UnityTest,Timeout(120000)] public IEnumerator NorthNoahBeforeAfterAndFixedStepEvidencePreserveSavedState()
+        {
+            yield return EnterHome();Assert.That(Flow.Game.SelectFavorite("noah"),Is.True);string output=OutputDirectory();
+            var proof=new NorthNoahProof{source_revision=EvidenceArgument("-mofumachiSourceRevision"),product_fingerprint=EvidenceArgument("-mofumachiProductFingerprint")};
+            foreach(int level in new[]{1,3,6})
+            {
+                // Representative levels exist only in this disposable test store;
+                // real progression/reload remains covered by the existing gate.
+                Flow.Game.State.townGrowthLevel=level;Flow.ShowHome();yield return null;EnsurePortraitCamera();
+                var town=Flow.GetComponentInChildren<TownLifeView>();town.StartInteraction();town.World.Freeze();Assert.That(town.World.LookAt(TownDistrictId.North),Is.True);
+                var blend=town.GetComponentInChildren<TownNorthEntryBlendGraphic>(true);Assert.That(blend,Is.Not.Null);Assert.That(blend.name,Is.EqualTo("North central road join"));
+                for(int view=0;view<3;view++)
+                {
+                    town.World.Camera.Jump(new TownPoint(0,new[]{.85f,1f,1.15f}[view]));town.World.Refresh();var warm=Portrait();UnityEngine.Object.DestroyImmediate(warm);
+                    proof.north_pairs.Add(CaptureNativePair(output,town,"36-north-lv"+level+"-view"+view,()=>blend.enabled=false,()=>blend.enabled=true,()=>ProjectEvidence(town,new TownPoint(-.6f,1),new TownPoint(.6f,1.32f))));
+                }
+            }
+            var field=Flow.GetComponentInChildren<TownLifeView>();string saved=StateCodec.Encode(Flow.Game.State);int savedWrites=Store.Writes;
+            NativePath Walk(string id,TownPoint target)
+            {
+                field.StartInteraction();var start=field.World.Model.Hero.Position;var route=new NativePath{id=id,start_x=start.X,start_y=start.Y,target_x=target.X,target_y=target.Y};
+                route.points.Add(new NativePathPoint{x=start.X,y=start.Y,elapsed_seconds=0});Assert.That(field.World.GuidePoint(target),Is.True);
+                var previous=start;while(field.World.Model.Hero.IsWalking&&route.steps<6000)
+                {
+                    field.AdvanceFrame(1f/30);route.steps++;var p=field.World.Model.Hero.Position;route.distance+=TownWalkableArea.Distance(previous,p);route.all_points_walkable&=field.World.Model.Area.Contains(p)&&field.World.Model.Area.CanTravel(previous,p);previous=p;
+                    if(route.steps%3==0||!field.World.Model.Hero.IsWalking)route.points.Add(new NativePathPoint{x=p.X,y=p.Y,elapsed_seconds=route.steps/30f});
+                }
+                route.arrived=!field.World.Model.Hero.IsWalking&&TownWalkableArea.Distance(field.World.Model.Hero.Position,target)<.002f;
+                Assert.That(route.arrived,Is.True,"Actual model walking must arrive without Restore/FastTravel rescue: "+id);Assert.That(route.all_points_walkable,Is.True);
+                if(!id.StartsWith("setup-",StringComparison.Ordinal))
+                {field.World.Camera.Jump(new TownPoint(0,1));field.World.Refresh();var image=Portrait();try{route.image=SaveNativeImage(output,"36-route-"+id+".png",image);}finally{UnityEngine.Object.DestroyImmediate(image);}}return route;
+            }
+            proof.routes.Add(Walk("central-to-north",new TownPoint(0,1.65f)));proof.routes.Add(Walk("north-to-central",TownWorldMap.Place("square")));
+            foreach(var lane in new[]{("left",-.30f),("right",.30f)})
+            {Walk("setup-"+lane.Item1,new TownPoint(lane.Item2,.95f));proof.routes.Add(Walk(lane.Item1+"-out",new TownPoint(lane.Item2,1.05f)));proof.routes.Add(Walk(lane.Item1+"-return",new TownPoint(lane.Item2,.95f)));}
+            Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(saved));Assert.That(Store.Writes,Is.EqualTo(savedWrites));
+            // Rebuild the isolated scene for a short readable actor sequence.
+            Flow.ShowHome();yield return null;EnsurePortraitCamera();field=Flow.GetComponentInChildren<TownLifeView>();field.StartInteraction();field.World.LookAt(TownDistrictId.Central);field.World.Camera.Jump(new TownPoint(0,-.05f));field.World.Refresh();
+            var noah=field.Actors.Single(a=>a.CharacterId=="noah");Assert.That(noah.Controlled&&noah.NoahTrialEnabled,Is.True);
+            var friend=field.Actors.Single(a=>a.CharacterId=="momo");
+            foreach(var actor in field.World.Model.Residents.Where(r=>!r.Controlled))field.World.Model.Pause(actor.Id,4);
+            var npcPositions=field.World.Model.Residents.Where(r=>!r.Controlled).Select(r=>r.Position).ToArray();
+            var initial=Portrait();UnityEngine.Object.DestroyImmediate(initial);var cropBounds=ActorEvidenceRect(noah);var projected=ProjectEvidence(field,new TownPoint(-.45f,-.3f),new TownPoint(.45f,-.15f));cropBounds=Rect.MinMaxRect(Mathf.Min(cropBounds.xMin,projected.xMin),cropBounds.yMin-24,Mathf.Max(cropBounds.xMax,projected.xMax),cropBounds.yMax+80);var crop=EvidenceRect(cropBounds);
+            var sequence=proof.sequence;sequence.crop_x=crop.x;sequence.crop_y=crop.y;sequence.crop_width=crop.width;sequence.crop_height=crop.height;
+            saved=StateCodec.Encode(Flow.Game.State);savedWrites=Store.Writes;float elapsed=0;
+            void Step()
+            {
+                // Pause is capped at four seconds by the real model. Renew it
+                // each isolated step; do not assume a longer request can hold.
+                foreach(var actor in field.World.Model.Residents.Where(r=>!r.Controlled))field.World.Model.Pause(actor.Id,4);
+                field.AdvanceFrame(1f/30);elapsed+=1f/30;
+                Assert.That(field.World.Model.Residents.Where(r=>!r.Controlled).Select(r=>r.Position).ToArray(),Is.EqualTo(npcPositions));
+            }
+            const System.Reflection.BindingFlags privateFields=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
+            var speakerField=typeof(TownLifeView).GetField("speaker",privateFields);var reactionField=typeof(TownActor).GetField("reactionRemaining",privateFields);
+            bool VerifiedGreeting()
+            {
+                var speaker=(TownActor)speakerField.GetValue(field);if(!field.IsSpeaking||(speaker!=noah&&speaker!=friend))return false;
+                var partner=speaker==noah?friend:noah;string expected="こんにちは、"+CharacterCatalog.Find(partner.CharacterId).Name+"♪";
+                var bubble=Flow.GetComponentsInChildren<Text>().SingleOrDefault(t=>t.name=="Town bubble");
+                return bubble!=null&&bubble.text==expected&&(float)reactionField.GetValue(noah)>0&&(float)reactionField.GetValue(friend)>0
+                    &&field.World.Model.Residents.Single(r=>r.Id=="noah").Facing==1&&field.World.Model.Residents.Single(r=>r.Id=="momo").Facing==-1;
+            }
+            for(int index=0;index<48;index++)
+            {
+                string mode=index<8?"idle":index<16?"start-walk":index<32?"walk":index<40?"stop":"greet";
+                if(index==8)Assert.That(field.World.GuidePoint(new TownPoint(-.32f,-.25f)),Is.True);
+                if(index==32){field.World.CancelHero();field.StartInteraction();}
+                if(index==40)
+                {
+                    // Walk to the actual, paused original central resident. The
+                    // elapsed gap is recorded honestly, not edited into motion.
+                    var target=new TownPoint(friend.WorldPosition.X-.20f,friend.WorldPosition.Y);
+                    Assert.That(field.World.GuidePoint(target),Is.True);int budget=0;while(field.World.Model.Hero.IsWalking&&budget++<6000)Step();Assert.That(field.World.Model.Hero.IsWalking,Is.False);
+                    // Arrival may have started social dialogue already. Clear
+                    // it, then verify a new mutual greeting, including the real
+                    // automatic path if it wins the normal social cooldown.
+                    field.StartInteraction();budget=0;
+                    while(!VerifiedGreeting()&&budget++<360){field.TryBeginConversation(noah,friend);if(!VerifiedGreeting())Step();}
+                    Assert.That(VerifiedGreeting(),Is.True,"A solo ambient bubble is not evidence of Noah/Momo greeting");
+                    var speaker=(TownActor)speakerField.GetValue(field);sequence.actual_conversation_verified=true;sequence.conversation_speaker_id=speaker.CharacterId;sequence.conversation_partner_id=speaker==noah?"momo":"noah";
+                    sequence.conversation_text=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town bubble").text;
+                    sequence.noah_reaction_seconds=(float)reactionField.GetValue(noah);sequence.momo_reaction_seconds=(float)reactionField.GetValue(friend);
+                    sequence.noah_facing=field.World.Model.Residents.Single(r=>r.Id=="noah").Facing;sequence.momo_facing=field.World.Model.Residents.Single(r=>r.Id=="momo").Facing;
+                }
+                for(int step=0;step<3;step++)Step();
+                if(index>=8&&index<32)Assert.That(field.World.Model.Hero.IsWalking,Is.True,"Walk/start samples must show actual model motion");
+                // Manual simulation does not tick independent fountain Updates.
+                // Camera framing is explicitly fixed for all sequence samples.
+                field.World.Camera.Jump(new TownPoint(0,-.05f));field.World.Refresh();
+                if(index==3||index==20||index==40)
+                {
+                    if(index==40)Assert.That(VerifiedGreeting(),Is.True,"The talk pair must render the verified greeting while both actors still react");
+                    string pairMode=index==3?"idle":index==20?"walk":"talk";
+                    var pair=CaptureNativePair(output,field,"37-noah-"+pairMode,()=>noah.SetNoahTrialEnabled(false),()=>noah.SetNoahTrialEnabled(true),()=>ActorEvidenceRect(noah),true);pair.mode=pairMode;proof.noah_pairs.Add(pair);
+                }
+                var portrait=Portrait();Texture2D cropped=null;
+                try
+                {
+                    var actual=ActorEvidenceRect(noah);Assert.That(actual.xMin,Is.GreaterThanOrEqualTo(crop.x));Assert.That(actual.xMax,Is.LessThanOrEqualTo(crop.xMax));Assert.That(actual.yMin,Is.GreaterThanOrEqualTo(crop.y));Assert.That(actual.yMax,Is.LessThanOrEqualTo(crop.yMax));
+                    cropped=new Texture2D(crop.width,crop.height,TextureFormat.RGB24,false);cropped.SetPixels(portrait.GetPixels(crop.x,crop.y,crop.width,crop.height));cropped.Apply();
+                    sequence.frames.Add(new NoahSequenceFrame{index=index,mode=mode,elapsed_seconds=elapsed,world_x=noah.WorldPosition.X,world_y=noah.WorldPosition.Y,walking=field.World.Model.Hero.IsWalking,image=SaveNativeImage(output,"noah-sequence/37-noah-frame-"+index.ToString("00")+".png",cropped)});
+                }
+                finally{UnityEngine.Object.DestroyImmediate(portrait);if(cropped!=null)UnityEngine.Object.DestroyImmediate(cropped);}
+            }
+            sequence.state_unchanged=saved==StateCodec.Encode(Flow.Game.State);sequence.store_writes_unchanged=savedWrites==Store.Writes;Assert.That(sequence.state_unchanged&&sequence.store_writes_unchanged,Is.True);
+            if(output!=null)
+            {
+                Assert.That(proof.source_revision,Does.Match("^[a-f0-9]{40}$"));Assert.That(proof.product_fingerprint,Does.Match("^[a-f0-9]{64}$"));
+                string repo=Directory.GetParent(Application.dataPath).FullName;var historical=File.ReadAllBytes(Path.Combine(repo,"References/Review/fountain-final-2026-10-27-candidate/native/09-connected-path-north.png"));
+                Assert.That(EvidenceSha(historical),Is.EqualTo("b001ee0b7bb6a1719876b16c951a9bdcf5c58df3d7817dc797b379cf0c863324"));
+                proof.historical_native_before=new NativeImage{file="36-north-historical-bb3fb82.png",bytes=historical.Length,width=720,height=1280,sha256=EvidenceSha(historical)};File.WriteAllBytes(Path.Combine(output,proof.historical_native_before.file),historical);
+                File.WriteAllText(Path.Combine(output,"north-noah-comparison.json"),JsonUtility.ToJson(proof,true));WriteNorthNoahHtml(output,proof);
+            }
+            LogAssert.NoUnexpectedReceived();
+        }
+        private static void WriteNorthNoahHtml(string output,NorthNoahProof proof)
+        {
+            var html=new System.Text.StringBuilder("<!doctype html><meta charset='utf-8'><title>Native North / Noah causal review</title><style>body{font:16px sans-serif;background:#fff7ef;color:#50343b}img{max-width:46%;vertical-align:top}section{margin-bottom:2rem}#frame{max-width:100%}</style><h1>Actual Unity North / Noah candidate</h1><p>Native UGUI captures. Before is a reconstructed same-instant causal baseline; not a prior runtime capture. North join disabled / Noah legacy only. Current fountain is frozen unchanged. Pixel performance and candidate adoption remain pending.</p>");
+            foreach(var pair in proof.north_pairs.Concat(proof.noah_pairs))html.Append("<section><h2>").Append(pair.id).Append("</h2><p>Before (reconstructed) left / After right; changed pixels ").Append(pair.changed_pixels).Append("; outside scoped projection ").Append(pair.outside_allowed_pixels).Append("</p><a href='").Append(pair.comparison.file).Append("'>Open actual native comparison .jpg (Before left / After right)</a><p><img style='max-width:100%' src='").Append(pair.comparison.file).Append("'></p><a href='").Append(pair.before.file).Append("'>Before original PNG</a> / <a href='").Append(pair.after.file).Append("'>After original PNG</a></section>");
+            html.Append("<h2>Historical actual native Before: bb3fb82 / run102109</h2><p>09-connected-path-north.png: different historical runtime conditions; never the same-state causal baseline above.</p><img src='").Append(proof.historical_native_before.file).Append("'>");
+            html.Append("<h2>Actual model walking, no navigation changes or teleport rescue</h2>");foreach(var route in proof.routes)html.Append("<p>").Append(route.id).Append(": ").Append(route.steps).Append(" fixed steps; sampled actual positions in JSON.</p><img src='").Append(route.image.file).Append("'>");
+            html.Append("<h2>Noah: idle → start walk → walk → stop → greet</h2><p>48 actual native PNG crops; manual TownLifeView.AdvanceFrame at 1/30s, sampled each 3 steps. This is a fixed-step render sequence, not a real-time/FPS or Pixel measurement. The walk-to-friend gap is retained in timestamps.</p><button id='play'>Play / pause</button><p id='time'></p><img id='frame'><script>const data=").Append(JsonUtility.ToJson(proof.sequence)).Append(";let i=0,playing=true;document.querySelector('#play').onclick=()=>playing=!playing;function tick(){const f=data.frames[i];const image=document.querySelector('#frame');image.onerror=()=>{image.onerror=null;image.src=f.image.file.split('/').pop()};image.src=f.image.file;document.querySelector('#time').textContent=f.index+' / '+f.mode+' / '+f.elapsed_seconds.toFixed(3)+' simulated seconds';setTimeout(()=>{if(playing)i=(i+1)%data.frames.length;tick()},100)}tick()</script>");
+            File.WriteAllText(Path.Combine(output,"north-noah-before-after.html"),html.ToString());
+        }
         [Serializable] private sealed class GrowthDistrictProof
         {public string id="";public bool changed=false,reload_matched=false;}
         [Serializable] private sealed class GrowthTransitionProof

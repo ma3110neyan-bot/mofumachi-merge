@@ -1,0 +1,59 @@
+{
+  "date_jst": "2026-10-27",
+  "scope": "central-to-north-local-ground-and-one-town-Noah-2.5D-trial",
+  "base_source": "ff7215c504efae5fee220d3540272ca4b260ade8",
+  "render_digest": "3ae960672bc504de00506dc4f5d2d90d520686898e7c157a7af3f6dedb4941e6",
+  "historical_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "release_freeze_lf_sha256": "221bb4b9b2417937b374f4b5bccc60d978df09523ce8f3d4efcfdec5b619e5b7",
+  "frozen_product_files_unchanged": 502,
+  "candidate_bindings_verified": 24,
+  "nunit": {
+    "presentation": {
+      "passed": 365,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0,
+      "seconds": 622.682949
+    },
+    "core": {
+      "passed": 125,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    }
+  },
+  "powershell": {
+    "scripts": 17,
+    "passed": 17,
+    "failed": 0,
+    "skipped": 0
+  },
+  "unity_api_compilation": {
+    "assemblies": 6,
+    "warnings": 0,
+    "errors": 0,
+    "licensed_editor_execution": false,
+    "final_capture_included": true
+  },
+  "implemented": true,
+  "native_unity_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "native_suite_expected": {
+    "editmode": 144,
+    "playmode": 234
+  },
+  "evidence_expected": {
+    "full_png": 250,
+    "noah_cropped_frames": 48,
+    "true_jpeg_pairs": 12
+  },
+  "note": "CPU/API/parser/mock tests are not native rendering, APK or device evidence. The final fixture-only mutual-greeting correction passed focused parser negatives, final all-six API compilation and all four affected PowerShell fixtures; latest17 all passed. Native/Pixel and North/Noah adoption remain pending.",
+  "source_review": {
+    "critical": 0,
+    "important": 0,
+    "independent_review": "final-review.md",
+    "conversation_proof_correction_reviewed": true
+  }
+}

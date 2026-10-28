@@ -48,3 +48,10 @@ Files: ExperienceCaptureTests.cs; scripts/north-noah-review.ps1; relevant fixtur
 ## 実行結果と残る受入
 
 関連CPU25件・変更Unity2assemblyのAPIコンパイル・影響するPS3本・独立最終レビューを確認。CharacterBodyGraphicは既存メッシュと正式目の登録を再利用できたので変更しなかった。実Unity実行／新APK／Pixel負荷・見た目承認は未了で、既存全件TownQaのWindows実行へ引き渡す。新採用・6名展開・main統合は完了扱いにしない。
+
+### Task4: Native capture failure diagnosis (after source handoff)
+
+- [x] Preserve raw234/233/1 XML/log with source identity; dedicated Noah4 and North3 native passes retained only for that source.
+- [x] Add rejected PNG/JSON/Graphic-state diagnostics before the same zero-outside assertion; do not widen its scope or change game code.
+- [x] Verify exact-one-method Android PlayMode diagnostic arguments and original rejected ZIP bytes with focused synthetic PowerShell fixtures; compile PlayMode test assembly only.
+- [ ] Receive one-method native diagnostic ZIP and identify the actual out-of-scope graphic. Runtime fix and visual acceptance remain pending; do not repeat full suites yet.

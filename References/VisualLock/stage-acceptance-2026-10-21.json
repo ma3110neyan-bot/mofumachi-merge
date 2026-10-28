@@ -946,6 +946,8 @@
     "pixel_verified": false,
     "adopted": false,
     "six_character_rollout_authorized": false,
-    "native_visual_cleared": false
+    "native_visual_cleared": false,
+    "latest_native_failure": "References/Review/full-playmode-2026-10-28-201053/receipt-and-diagnosis.json",
+    "native_visual_status": "scoped_capture_outside_pixels_unresolved_awaiting_single_test_diagnostic"
   }
 }

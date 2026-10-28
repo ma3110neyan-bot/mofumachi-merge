@@ -106,22 +106,65 @@ namespace Mofumachi.Tests
             var corners=new Vector3[4];actor.VisualRoot.GetWorldCorners(corners);var points=corners.Select(p=>(Vector2)captureCamera.WorldToScreenPoint(p)).ToArray();
             return Rect.MinMaxRect(points.Min(p=>p.x)-20,points.Min(p=>p.y)-20,points.Max(p=>p.x)+20,points.Max(p=>p.y)+20);
         }
+        [Serializable] private sealed class NativeGraphicState
+        {
+            public string path,type;public bool active_self,active_in_hierarchy;
+            public Rect screen;public Color color;
+        }
+        [Serializable] private sealed class NativePairFailure
+        {
+            public string kind="failed-native-pair-diagnostic",coordinate_origin="bottom-left",source_revision,product_fingerprint;
+            public bool diagnostic_only=true,passed=false,pixel_verified=false,adopted=false;
+            public Rect before_scope,after_scope;public NativePair pair;
+            public int outside_x_min,outside_y_min,outside_x_max,outside_y_max;
+            public NativeGraphicState[] before_graphics,after_graphics;
+        }
+        private NativeGraphicState[] GraphicStates()
+        {
+            string PathOf(Transform t)
+            {var path=t.name;while(t.parent!=null){t=t.parent;path=t.name+"/"+path;}return path;}
+            return Flow.GetComponentsInChildren<Graphic>(true).Select(g=>
+            {
+                var corners=new Vector3[4];g.rectTransform.GetWorldCorners(corners);
+                var p=corners.Select(v=>(Vector2)captureCamera.WorldToScreenPoint(v)).ToArray();
+                return new NativeGraphicState{path=PathOf(g.transform),type=g.GetType().Name,active_self=g.gameObject.activeSelf,active_in_hierarchy=g.gameObject.activeInHierarchy,
+                    screen=Rect.MinMaxRect(p.Min(v=>v.x),p.Min(v=>v.y),p.Max(v=>v.x),p.Max(v=>v.y)),color=g.color};
+            }).ToArray();
+        }
         private NativePair CaptureNativePair(string output,TownLifeView town,string id,Action beforeSwitch,Action afterSwitch,Func<Rect> allowed,bool noah=false)
         {
             Texture2D before=null,after=null;
             try
             {
-                beforeSwitch();before=Portrait();var bounds=allowed();
+                beforeSwitch();before=Portrait();var bounds=allowed();var beforeScope=bounds;
+                var beforeGraphics=noah?GraphicStates():null;
                 var water=town.GetComponentInChildren<TownFountainWaterGraphic>();var original=town.GetComponentInChildren<TownAmbientGraphic>();
                 string state=StateCodec.Encode(Flow.Game.State),model=ModelEvidence(town),actors=ActorEvidence(town,!noah),others=ActorEvidence(town,true,"noah");
                 int frame=Time.frameCount,writes=Store.Writes;bool following=town.World.FollowingHero;var camera=town.World.Camera.Center;float clock=water.ShowElapsed,phase=water.Phase,originalPhase=original.Phase;
                 afterSwitch();after=Portrait();var otherBounds=allowed();bounds=Rect.MinMaxRect(Mathf.Min(bounds.xMin,otherBounds.xMin),Mathf.Min(bounds.yMin,otherBounds.yMin),Mathf.Max(bounds.xMax,otherBounds.xMax),Mathf.Max(bounds.yMax,otherBounds.yMax));var area=EvidenceRect(bounds);
                 var pair=new NativePair{id=id,level=town.TownLevel,camera_x=camera.X,camera_y=camera.Y,unity_frame=frame,store_writes=writes,water_clock=clock,water_phase=phase,original_water_phase=originalPhase,state_sha256=EvidenceSha(System.Text.Encoding.UTF8.GetBytes(state)),world_model_sha256=EvidenceSha(System.Text.Encoding.UTF8.GetBytes(model)),allowed_x=area.x,allowed_y=area.y,allowed_width=area.width,allowed_height=area.height};
-                var first=before.GetPixels32();var second=after.GetPixels32();for(int i=0;i<first.Length;i++)if(!first[i].Equals(second[i])){pair.changed_pixels++;if(!area.Contains(new Vector2Int(i%720,i/720)))pair.outside_allowed_pixels++;}
+                int outsideMinX=720,outsideMinY=1280,outsideMaxX=-1,outsideMaxY=-1;
+                var first=before.GetPixels32();var second=after.GetPixels32();for(int i=0;i<first.Length;i++)if(!first[i].Equals(second[i]))
+                {
+                    pair.changed_pixels++;int x=i%720,y=i/720;if(!area.Contains(new Vector2Int(x,y)))
+                    {pair.outside_allowed_pixels++;outsideMinX=Math.Min(outsideMinX,x);outsideMinY=Math.Min(outsideMinY,y);outsideMaxX=Math.Max(outsideMaxX,x);outsideMaxY=Math.Max(outsideMaxY,y);}
+                }
                 pair.frame_unchanged=Time.frameCount==frame;pair.actors_unchanged=actors==ActorEvidence(town,!noah);pair.other_five_unchanged=others==ActorEvidence(town,true,"noah");pair.camera_unchanged=camera.Equals(town.World.Camera.Center)&&following==town.World.FollowingHero;
                 pair.water_clock_unchanged=clock==water.ShowElapsed;pair.water_phase_unchanged=phase==water.Phase&&originalPhase==original.Phase;pair.state_unchanged=state==StateCodec.Encode(Flow.Game.State);pair.store_writes_unchanged=writes==Store.Writes;pair.world_model_unchanged=model==ModelEvidence(town);
                 Assert.That(new[]{pair.frame_unchanged,pair.actors_unchanged,pair.other_five_unchanged,pair.camera_unchanged,pair.water_clock_unchanged,pair.water_phase_unchanged,pair.state_unchanged,pair.store_writes_unchanged,pair.world_model_unchanged},Is.All.True,"Causal switching must preserve the exact instant and all unrelated actors/state");
-                Assert.That(pair.changed_pixels,Is.GreaterThan(0));Assert.That(pair.outside_allowed_pixels,Is.Zero,"Causal pixels must stay within the projected scoped geometry");
+                if(pair.outside_allowed_pixels>0&&output!=null)
+                {
+                    // Keep the real rejected pixels before throwing. Diagnostic
+                    // files cannot satisfy the completed native comparison gate.
+                    pair.before=SaveNativeImage(output,"failed-pairs/"+id+"-FAILED-before.png",before);
+                    pair.after=SaveNativeImage(output,"failed-pairs/"+id+"-FAILED-after.png",after);
+                    var failure=new NativePairFailure{source_revision=EvidenceArgument("-mofumachiSourceRevision"),product_fingerprint=EvidenceArgument("-mofumachiProductFingerprint"),
+                        before_scope=beforeScope,after_scope=otherBounds,pair=pair,outside_x_min=outsideMinX,outside_y_min=outsideMinY,outside_x_max=outsideMaxX,outside_y_max=outsideMaxY,
+                        before_graphics=beforeGraphics,after_graphics=noah?GraphicStates():null};
+                    File.WriteAllText(Path.Combine(output,"failed-pairs/"+id+"-FAILED.json"),JsonUtility.ToJson(failure,true));
+                }
+                Assert.That(pair.changed_pixels,Is.GreaterThan(0));Assert.That(pair.outside_allowed_pixels,Is.Zero,
+                    $"{id}: causal pixels must stay within the projected scoped geometry; outside bbox=({outsideMinX},{outsideMinY})–({outsideMaxX},{outsideMaxY}); failed-pairs retains original PNG/JSON when output is enabled");
                 pair.before=SaveNativeImage(output,id+"-before-reconstructed.png",before);pair.after=SaveNativeImage(output,id+"-after.png",after);
                 // Browser-review derivative of these exact two native renders;
                 // the PNG originals above remain the causal pixel evidence.

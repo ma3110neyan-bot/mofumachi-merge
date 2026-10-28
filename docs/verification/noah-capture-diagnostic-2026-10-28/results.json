@@ -1,0 +1,53 @@
+{
+  "date_jst": "2026-10-28",
+  "scope": "Preserve rejected native pair pixels; exact-one-method diagnostic, not runtime fix or QA acceptance",
+  "base_revision": "1d11629ae8bab0ec398c6e53bd0bfd5f3030c92c",
+  "raw_native_failure": "References/Review/full-playmode-2026-10-28-201053/receipt-and-diagnosis.json",
+  "original_native_counts": {
+    "total": 234,
+    "passed": 233,
+    "failed": 1,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "original_related_native_passes": {
+    "Noah25DTrialPresentationTests": 4,
+    "NorthEntryBlendReviewTests": 3,
+    "FiveAreaIntegrationReviewTests": 1
+  },
+  "failure_id": "ExperienceCaptureTests.NorthNoahBeforeAfterAndFixedStepEvidencePreserveSavedState",
+  "outside_pixels": 5621,
+  "root_cause_confirmed": false,
+  "failed_pair_image_received": false,
+  "runtime_modified": false,
+  "original_art_modified": false,
+  "comparison_region_or_zero_outside_check_relaxed": false,
+  "source_checks": [
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs",
+      "sha256_lf": "4b5f9038fbd558aa68d6a54d051c0971a50784786081d41bd7fbf3fa394b7a63"
+    },
+    {
+      "path": "scripts/diagnose-noah-capture.ps1",
+      "sha256_lf": "20f6db6b80023066a09399144a099cd289647294f38e333aa521c66e7b53b2e2"
+    },
+    {
+      "path": "scripts/tests/noah-capture-diagnostic.tests.ps1",
+      "sha256_lf": "c22e2e7a4c963e39c4f5f525c2b17bcea1b88b229cb77519605999fbbc4cb148"
+    }
+  ],
+  "candidate_render_digest": "f5cefa7355f6e293681aaf0b67867a50aff975aaa7e72c6277710853bf811594",
+  "focused_verification": {
+    "synthetic_ps_helper": "passed: exact filter/Android target/space-containing argument arrays/raw zip bytes/no unrelated North captures",
+    "api_compile": "PlayMode test assembly only:0warnings0errors",
+    "independent_review": "Critical0/Important0/Minor0",
+    "windows_powershell_5_1_executed": false,
+    "windows_5_1_compatibility": "inspection only"
+  },
+  "full_suites_rerun": false,
+  "new_native_diagnostic_executed": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "next": "Run diagnose-noah-capture.ps1 once on user Windows; receive failed original pair PNG/JSON and inspect actual changed graphics before any runtime fix."
+}

@@ -1,0 +1,40 @@
+{
+  "run": "20261028-201053-b151fb9b",
+  "source_revision": "1d11629ae8bab0ec398c6e53bd0bfd5f3030c92c",
+  "product_fingerprint": "220cc497c171ec7f831cb14c93e105913663ec57fecd561f709e9195a75a81a6",
+  "files": [
+    {
+      "file": "playmode.xml",
+      "bytes": 197963,
+      "sha256": "2b09053c409774571012be5c68481455dd81b3265d792ae2e4f5477db85d5d16"
+    },
+    {
+      "file": "playmode.log",
+      "bytes": 345099,
+      "sha256": "aa5a80b1257e3f7fb1acc05f3a03e35d5e3dd9e844f9559d7ad9255f5efa73fb"
+    }
+  ],
+  "total": 234,
+  "passed": 233,
+  "failed": 1,
+  "skipped": 0,
+  "inconclusive": 0,
+  "failure": {
+    "test": "Mofumachi.Tests.ExperienceCaptureTests.NorthNoahBeforeAfterAndFixedStepEvidencePreserveSavedState",
+    "message": "  Causal pixels must stay within the projected scoped geometry\n  Expected: 0\n  But was:  5621\n",
+    "stack": "at Mofumachi.Tests.ExperienceCaptureTests.CaptureNativePair (System.String output, Mofumachi.Presentation.TownLifeView town, System.String id, System.Action beforeSwitch, System.Action afterSwitch, System.Func`1[TResult] allowed, System.Boolean noah) [0x003ef] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\ExperienceCaptureTests.cs:124\nat Mofumachi.Tests.ExperienceCaptureTests+<NorthNoahBeforeAfterAndFixedStepEvidencePreserveSavedState>d__19.MoveNext () [0x00ebc] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\ExperienceCaptureTests.cs:243\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+  },
+  "related_passed": [
+    "Noah25DTrialPresentationTests:4/4 including actual Sorting",
+    "NorthEntryBlendReviewTests:3/3",
+    "FiveAreaIntegrationReviewTests:1/1"
+  ],
+  "diagnosis": "Only scoped causal image comparison failed:5621 pixels outside Noah actor projection. Failed pair ID/pixels/graphic state not retained by old capture helper; source not yet determined. Do not widen allowed region, skip check, modify game or claim root cause from count alone.",
+  "hypotheses_unconfirmed": [
+    "dependent resident-name visibility follows current animated body bounds",
+    "other changed UI or insufficient actor/shadow projection"
+  ],
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "next": "Preserve failing pair before/after PNG + projected scope + graphic state; rerun ONLY failed native method, no whole EditMode/PlayMode repeat."
+}

@@ -54,4 +54,11 @@ Files: ExperienceCaptureTests.cs; scripts/north-noah-review.ps1; relevant fixtur
 - [x] Preserve raw234/233/1 XML/log with source identity; dedicated Noah4 and North3 native passes retained only for that source.
 - [x] Add rejected PNG/JSON/Graphic-state diagnostics before the same zero-outside assertion; do not widen its scope or change game code.
 - [x] Verify exact-one-method Android PlayMode diagnostic arguments and original rejected ZIP bytes with focused synthetic PowerShell fixtures; compile PlayMode test assembly only.
-- [ ] Receive one-method native diagnostic ZIP and identify the actual out-of-scope graphic. Runtime fix and visual acceptance remain pending; do not repeat full suites yet.
+- [x] Receive one-method native diagnostic ZIP and identify the actual out-of-scope graphic. Runtime fix and visual acceptance remain pending; do not repeat full suites yet.
+
+### Task5: Control caption context without changing the game
+
+- [x] Confirm actual Momo nameplate toggle from raw PNG/JSON and recompute5621 outside pixels.
+- [x] Hold product After caption state only in reconstructed Before; retain natural Before PNG even on failure; leave actual After/pixel rectangle/zero check unchanged.
+- [x] Validate protocol3 metadata and bounded Noah-only PNG/sequence archives with affected PS fixtures; PlayMode API compile only; independent review fixed natural-image retention.
+- [ ] Receive the same single-method native retest and inspect all six original pairs and sequence. Runtime visual acceptance, APK/Pixel, rollout remain pending.

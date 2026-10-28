@@ -78,7 +78,7 @@ function Assert-NativeCaptures([string]$Directory,[switch]$RequireBoundary,[swit
     }
     Write-Host "Native Unity images: $($Images.Count), 720x1280 (visual review still required)."
     if($RequireNorthNoah){
-        if($Images.Count -lt 250){throw 'North/Noah TownQa requires the existing219 full captures plus30 candidate frames and one actual historical North original.'}
+        if($Images.Count -lt 256){throw 'North/Noah TownQa requires the existing219 full captures plus36 candidate frames and one actual historical North original; natural-caption context PNGs are additional.'}
         Assert-NorthNoahEvidence $Directory $ExpectedRevision $ExpectedFingerprint -RequireQuality
     }
     $BoundaryComparison=Join-Path $Directory 'street-boundary-before-after.html'
@@ -170,7 +170,7 @@ function Assert-SourceUnchanged([string]$RepositoryPath,[string]$ExpectedRevisio
 function Write-NativeReviewArchives([string]$Directory) {
     # Keep review uploads under 32 MiB without asking the player to copy a long
     # packing command. APK bytes stay in the run directory, outside review ZIPs.
-    $Files=@(foreach($Name in @('editmode.xml','playmode.xml','build-info.json','growth-build-info.json','capture-manifest.json','android-build.log','growth-android-build.log','playmode.log','before-after.html','visual-adoption.json','screenshots/texture-memory.txt','screenshots/README.txt','screenshots/street-boundary-before-after.html','screenshots/street-boundary-comparison.json','screenshots/field-stability.json','screenshots/town-growth-progression.json','screenshots/fountain-water-before-after.html','screenshots/fountain-water-comparison.json','screenshots/fountain-show-comparison.json','screenshots/fountain-show-before-after.html','screenshots/north-noah-comparison.json','screenshots/north-noah-before-after.html')) {
+    $Files=@(foreach($Name in @('editmode.xml','playmode.xml','build-info.json','growth-build-info.json','capture-manifest.json','android-build.log','growth-android-build.log','playmode.log','before-after.html','visual-adoption.json','screenshots/texture-memory.txt','screenshots/README.txt','screenshots/street-boundary-before-after.html','screenshots/street-boundary-comparison.json','screenshots/field-stability.json','screenshots/town-growth-progression.json','screenshots/fountain-water-before-after.html','screenshots/fountain-water-comparison.json','screenshots/fountain-show-comparison.json','screenshots/fountain-show-before-after.html','screenshots/north-noah-comparison.json','screenshots/north-noah-before-after.html','screenshots/noah-before-after.html')) {
         $Path=Join-Path $Directory $Name
         if(Test-Path -LiteralPath $Path -PathType Leaf){Get-Item -LiteralPath $Path}
     })+@(Get-ChildItem -LiteralPath (Join-Path $Directory 'screenshots') -Filter '*.png' -File | Sort-Object Name)+@(Get-ChildItem -LiteralPath (Join-Path $Directory 'screenshots') -Filter '*.jpg' -File | Sort-Object Name)

@@ -1,0 +1,11 @@
+﻿{
+    "scope":  "diagnostic-single-noah-capture-not-full-qa",
+    "gitRevision":  "5860f9ceeeaab937be86666d50fa194c28ebb60f",
+    "productFingerprint":  "bc3066ab081b91773277ebb2811f8745b08c746d9644a08c521d4c035bc6559d",
+    "native_test_passed":  false,
+    "source_unchanged":  true,
+    "qa_apk_generated":  false,
+    "pixel_verified":  false,
+    "adopted":  false,
+    "error":  "Unity exit 2. Inspect C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\noah-pair-20261028-205828-8cdc5361"
+}

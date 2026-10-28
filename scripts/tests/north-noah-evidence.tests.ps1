@@ -106,12 +106,31 @@ try {
     }
     $Record.noah_pairs=$QualityPairs;$Record.sequence.noah_reaction_seconds=1.01;Save;Reject {Assert-NorthNoahEvidence $Temporary}
     $Record.sequence.noah_reaction_seconds=1;$Record.sequence.momo_reaction_seconds=.9;Save;Reject {Assert-NorthNoahEvidence $Temporary}
-    $Record.sequence.momo_reaction_seconds=.65;$Record.noah_quality_version=3;Save;Reject {Assert-NorthNoahEvidence $Temporary}
+    $Record.sequence.momo_reaction_seconds=.65;$Record.noah_quality_version=4;Save;Reject {Assert-NorthNoahEvidence $Temporary}
     $Record.noah_quality_version=2;Save;Assert-NorthNoahEvidence $Temporary
     $Frames[26].facing=-1;Save;Reject {Assert-NorthNoahEvidence $Temporary};$Frames[26].facing=1
     $Frames[20].facing=1;Save;Reject {Assert-NorthNoahEvidence $Temporary};$Frames[20].facing=-1
-    Save;Assert-NorthNoahEvidence $Temporary -RequireQuality
+    Save;Assert-NorthNoahEvidence $Temporary
     $Record.Remove('noah_quality_version');Save;Reject {Assert-NorthNoahEvidence $Temporary -RequireQuality};$Record.noah_quality_version=2;Save
+    $Record.noah_quality_version=3
+    $Record.before='reconstructed causal baseline: north join disabled / Noah legacy with product name visibility at the same instant'
+    Set-Content -LiteralPath (Join-Path $Temporary 'noah-before-after.html') '<!doctype html><title>Synthetic Noah review only</title>'
+    foreach($Pair in $QualityPairs) {
+        $Product=@(foreach($Id in @('fio','lulu','miel','momo','noah','pom')){@{character_id=$Id;active=($Id -eq 'momo' -or $Id -eq 'noah')}})
+        $Natural=@(foreach($State in $Product){@{character_id=$State.character_id;active=$State.active}})
+        $Changed=$Pair.mode -eq 'talk';if($Changed){$Natural[3].active=$false}
+        $Pair.name_control=@{mode='candidate-resident-name-visibility-in-reconstructed-before-only';before_applied=$true;after_natural=$true;only_name_visibility_changed=$true;natural_visibility_changed=$Changed;natural_before=$Natural;controlled_before=$Product;product_after=$Product;natural_before_image=$(if($Changed){Image ($Pair.id+'-ui-natural-before.png') -Salt 2}else{$Pair.before})}
+    }
+    Save;Assert-NorthNoahEvidence $Temporary -RequireQuality
+    $Talk=@($QualityPairs | Where-Object {$_.mode -eq 'talk'})[0];$Control=$Talk.name_control
+    foreach($Flag in @('before_applied','after_natural','only_name_visibility_changed')){$Control[$Flag]=$false;Save;Reject {Assert-NorthNoahEvidence $Temporary -RequireQuality};$Control[$Flag]=$true}
+    $Control.natural_visibility_changed=$false;Save;Reject {Assert-NorthNoahEvidence $Temporary};$Control.natural_visibility_changed=$true
+    $Control.controlled_before=@($Control.product_after | ForEach-Object {@{character_id=$_.character_id;active=$_.active}})
+    $Control.controlled_before[3].active=$false;Save;Reject {Assert-NorthNoahEvidence $Temporary};$Control.controlled_before[3].active=$true
+    $Control.controlled_before[5].character_id='momo';Save;Reject {Assert-NorthNoahEvidence $Temporary};$Control.controlled_before[5].character_id='pom'
+    $NaturalImage=$Control.natural_before_image;$Control.natural_before_image=$Talk.before;Save;Reject {Assert-NorthNoahEvidence $Temporary};$Control.natural_before_image=$NaturalImage
+    $Control.mode='hide-all-ui';Save;Reject {Assert-NorthNoahEvidence $Temporary};$Control.mode='candidate-resident-name-visibility-in-reconstructed-before-only'
+    Save;Assert-NorthNoahEvidence $Temporary -RequireQuality
     Remove-Item -LiteralPath (Join-Path $Temporary 'north-noah-before-after.html');Reject {Assert-NorthNoahEvidence $Temporary}
     Write-Host 'North/Noah metadata gate tests passed; synthetic fixtures only, native Unity/Pixel execution pending.'
 } finally {Remove-Item -LiteralPath $Temporary -Recurse -Force}

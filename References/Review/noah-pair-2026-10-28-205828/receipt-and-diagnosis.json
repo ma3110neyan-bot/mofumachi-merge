@@ -1,0 +1,81 @@
+{
+  "uploaded_file_id": "file_00000000948c820983bd76504bf27086",
+  "run": "noah-pair-20261028-205828-8cdc5361",
+  "zip_sha256": "7a17b370f94aa7527d3364b6239ccddcd86d862a1bd220e0885a3f7a0ac52e4e",
+  "source_revision": "5860f9ceeeaab937be86666d50fa194c28ebb60f",
+  "product_fingerprint": "bc3066ab081b91773277ebb2811f8745b08c746d9644a08c521d4c035bc6559d",
+  "files": [
+    {
+      "file": "37-noah-idle-before-left-after-right.jpg",
+      "bytes": 875136,
+      "sha256": "93fa338887456c6765f48bd469c782167a8577dd69d4459b8117acd655b05372"
+    },
+    {
+      "file": "37-noah-stop-before-left-after-right.jpg",
+      "bytes": 873803,
+      "sha256": "4882a472b6eb107325864eb334a133f9815aabb97c89812bd85b9495edd70985"
+    },
+    {
+      "file": "37-noah-talk-FAILED-after.png",
+      "bytes": 1689244,
+      "sha256": "d5b90cf25acb7c05fba4b8ff740cafedc3fc9c879fd5daf2d692ecca9c3f660a"
+    },
+    {
+      "file": "37-noah-talk-FAILED-before.png",
+      "bytes": 1697705,
+      "sha256": "96881730f7c605000f9e59ce9b4126243665fb73561aff8335b00090258423da"
+    },
+    {
+      "file": "37-noah-talk-FAILED.json",
+      "bytes": 496489,
+      "sha256": "e41ce2c8691ab95d92237bc7c5d4548cfd29913b04f34652a95a3ff9616f222a"
+    },
+    {
+      "file": "37-noah-turn-before-left-after-right.jpg",
+      "bytes": 890979,
+      "sha256": "02e9f67c6999a354f8d4c098d491aceb60be32f8e773ea59b83f15f83af82838"
+    },
+    {
+      "file": "37-noah-walk-before-left-after-right.jpg",
+      "bytes": 889466,
+      "sha256": "5a8435f4867be2e528227d0da438b22d58074d801db9a768acc0aafec5998f9f"
+    },
+    {
+      "file": "playmode.log",
+      "bytes": 57087,
+      "sha256": "19dfefcb97e93ee9f8884d097eae2fc6edf2928cf7309d16adad80cefda8301e"
+    },
+    {
+      "file": "playmode.xml",
+      "bytes": 5518,
+      "sha256": "27e9ee02f4cc35bfaddc859eaef8673bb1881e4bea1514f2b3b8594655f3fdcf"
+    },
+    {
+      "file": "source-info.json",
+      "bytes": 535,
+      "sha256": "38649a68ee0038749054ba574fc6a24b1352b4c5661ecfe34273f66dc83fb994"
+    }
+  ],
+  "native_test_total": 1,
+  "passed": 0,
+  "failed": 1,
+  "skipped": 0,
+  "pair": "37-noah-talk",
+  "changed_pixels_recomputed": 19665,
+  "outside_pixels_recomputed": 5621,
+  "outside_bbox_top_left": [
+    513,
+    751,
+    660,
+    795
+  ],
+  "cause_confirmed": "Momo resident-name panel inactive→active; existing overlap-avoidance recomputes against Noah animated RectTransform. Other five body meshes/model/camera/water/save checks all unchanged. All5621 outside pixels lie on the newly visible Momo name plate (including its shadow).",
+  "geometry": {
+    "momo_name_top_bottom_left_y": 528.727294921875,
+    "noah_before_visual_bottom_y": 528.59326171875,
+    "noah_after_visual_bottom_y": 529.648193359375
+  },
+  "implementation_direction": "Keep product/runtime and original actor-only rectangle unchanged. Reconstructed Before holds candidate resident-caption visibility only; After remains natural product render. Preserve natural-before image and caption-state record for every mode, no masking or blanket UI suppression.",
+  "pixel_verified": false,
+  "adopted": false
+}

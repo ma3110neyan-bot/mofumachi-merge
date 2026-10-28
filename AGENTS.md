@@ -2,6 +2,13 @@
 
 ## 2026-10-28最新：北境界合格・固定／ノア1名の2.5D品質候補
 
+**最新単体診断run205828-8cdc5361受領、原因はモモ名札の切替と確定。** source5860f9c、1件失敗。実PNGで全19665／範囲外5621を再計算し、モモ名札＋影と一致。矩形端の約0.134px重なりで既存の名札回避がfalse→true。原本 `References/Review/noah-pair-2026-10-28-205828/`。街や他5名の原画が変わったという故障ではなく、比較のUI条件が異なっていた。
+
+**テストだけ修正：比較Beforeの住人名札を製品Afterの表示状態へ揃える。Afterは自然な製品描画のまま。** 自然なBeforeで名札が異なる場合のPNGと6名のフラグは失敗時にも保存し、隠さず別記。位置・色・他のGraphic状態・モデル・カメラ・水・Save不変とノア矩形外0は維持。製品／原画は1d11629から無変更。メタデータv3とノア専用HTML、元PNG／48コマを24MiB以下の診断ZIPへ分割。手順 `docs/noah-name-context-fix-2026-10-28.md`。
+
+次は同じ `diagnose-noah-capture.ps1` で**失敗していた1件だけ再確認**し、ZIP全パートを受領。新Unity成功／新APK／Pixel成功は未確認。これが通り実画像を見終わるまで全件TownQaを繰り返さない。以下の「対象未特定」は前の履歴。
+
+
 **run201053-b151fb9bの原XML/log受領：source1d11629、Play234件中233成功／1失敗／skip0。** ノア専用4（接地・Sorting含む）、北3、5地区連続移動は成功。唯一の失敗は比較撮影のoutside_allowed_pixels=5621。失敗したペアID／PNGが保存されず、実際の差分対象は未特定。推測でゲームを修正したり許容範囲を広げたりしない。原本 `References/Review/full-playmode-2026-10-28-201053/`。
 
 今回は**実装済みのノア・街・原画を変更せず**、既存撮影の失敗前PNG/JSON・Graphic座標／表示状態保存を追加。次は新しい `scripts/diagnose-noah-capture.ps1` で**失敗メソッド1件のみ**を実行し、`Builds/Diagnostics/noah-pair-*.zip` を受領する。全EditMode／全PlayMode／APK／Pixel／保存初期化を行わない。単体診断成功をQA採用に使わない。手順 `docs/noah-capture-diagnostic-2026-10-28.md`。原因未特定・修正済みと報告しない。以下の全件TownQa手順は、この切り分け完了前には繰り返さない。

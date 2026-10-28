@@ -1,0 +1,54 @@
+{
+  "date_jst": "2026-10-28",
+  "base_revision": "5860f9ceeeaab937be86666d50fa194c28ebb60f",
+  "native_diagnostic": "References/Review/noah-pair-2026-10-28-205828/receipt-and-diagnosis.json",
+  "confirmed_cause": "Natural legacy/candidate Noah pose changes Momo caption overlap predicate, causing inactive→active caption and5621 actor-outside pixels. No change to other5 body/state, camera, water or save.",
+  "raw_changed_pixels": 19665,
+  "raw_outside_pixels": 5621,
+  "fix_scope": "Test-only causal Before resident-caption context; actual After natural; natural Before image retained before rejection. Original actor rectangle and outside==0 unchanged.",
+  "runtime_modified": false,
+  "runtime_reference": "1d11629ae8bab0ec398c6e53bd0bfd5f3030c92c",
+  "comparison_protocol": 3,
+  "candidate_render_digest": "92795692dcfc67b9e8b6ec626403805d105afc451773cc65ea12d5ed32b3aa8a",
+  "source_files": [
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs",
+      "sha256_lf": "fe4c69eb6b47e9b4e22b228656d6a1069e7cb44eca215f7d30bd56ffb924eaab"
+    },
+    {
+      "path": "scripts/north-noah-review.ps1",
+      "sha256_lf": "229897e959f725c58e2600cb24c685d3f286b9e9a52b535bb5b695d067cebe85"
+    },
+    {
+      "path": "scripts/diagnose-noah-capture.ps1",
+      "sha256_lf": "bbf4d3942172b4e8db7a4c877c731a41a097f805430be233c0be3b4ef3f03e01"
+    },
+    {
+      "path": "scripts/build-android.ps1",
+      "sha256_lf": "cd110d9e9d08b809a72c10478ca2bafc5b20584a1db93be9be54593d577ed1cf"
+    }
+  ],
+  "related_checks": {
+    "powershell": [
+      "north-noah-evidence.tests.ps1",
+      "noah-capture-diagnostic.tests.ps1",
+      "android-tools.tests.ps1"
+    ],
+    "type": "synthetic fixture runs only",
+    "api_compile": "PlayMode test assembly only,0warnings0errors",
+    "independent_review": "Critical0/Important0 remaining/Minor0; natural-image failure retention fixed"
+  },
+  "full_editmode_or_playmode_rerun": false,
+  "new_native_render_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "six_character_rollout_authorized": false,
+  "output_plan": "Same single native method, now verifies v3 proof; six original pairs/natural context/48crops/Noah-only HTML packed in <=24MiB raw groups. Full QA not requested until this retest and image review succeed.",
+  "pixel_metrics": {
+    "fps": null,
+    "heat": null,
+    "memory": null,
+    "tap_latency": null
+  }
+}

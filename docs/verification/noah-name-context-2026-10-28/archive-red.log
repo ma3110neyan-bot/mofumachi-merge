@@ -1,0 +1,5 @@
+Exception: /workspace/mofumachi-merge/scripts/tests/noah-capture-diagnostic.tests.ps1:41
+Line |
+  41 |  … rts.Count -lt 2){throw 'Bounded diagnostic parts were not produced.'}
+     |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Bounded diagnostic parts were not produced.

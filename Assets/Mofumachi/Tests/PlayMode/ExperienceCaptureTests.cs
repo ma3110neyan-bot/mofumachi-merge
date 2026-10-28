@@ -24,6 +24,15 @@ namespace Mofumachi.Tests
             public string state_sha256,world_model_sha256;
             public bool frame_unchanged,actors_unchanged,camera_unchanged,water_clock_unchanged,water_phase_unchanged,state_unchanged,store_writes_unchanged,world_model_unchanged,other_five_unchanged;
             public NativeImage before,after,comparison;
+            public NativeNameControl name_control;
+        }
+        [Serializable] private sealed class NativeNameVisibility {public string character_id;public bool active;}
+        [Serializable] private sealed class NativeNameControl
+        {
+            public string mode="candidate-resident-name-visibility-in-reconstructed-before-only";
+            public bool before_applied,after_natural,only_name_visibility_changed,natural_visibility_changed;
+            public NativeNameVisibility[] natural_before,controlled_before,product_after;
+            public NativeImage natural_before_image;
         }
         [Serializable] private sealed class NativePathPoint {public float x,y,elapsed_seconds;}
         [Serializable] private sealed class NativePath
@@ -46,8 +55,8 @@ namespace Mofumachi.Tests
         [Serializable] private sealed class NorthWorldBounds {public float x_min=-.6f,x_max=.6f,y_min=1,y_max=1.32f;}
         [Serializable] private sealed class NorthNoahProof
         {
-            public int noah_quality_version=2;
-            public string kind="same-state-native-north-noah-comparison",before="reconstructed causal baseline: north join disabled / Noah legacy at the same instant",after="current product code";
+            public int noah_quality_version=3;
+            public string kind="same-state-native-north-noah-comparison",before="reconstructed causal baseline: north join disabled / Noah legacy with product name visibility at the same instant",after="current product code";
             public string source_revision,product_fingerprint,historical_before="bb3fb82 native run102109 / 09-connected-path-north.png is historical context only, not this causal baseline";
             public bool native_unity=true,pixel_verified=false,adopted=false,navigation_changed=false,teleport_rescue=false;
             public NorthWorldBounds north_world_bounds=new NorthWorldBounds();
@@ -119,30 +128,71 @@ namespace Mofumachi.Tests
             public int outside_x_min,outside_y_min,outside_x_max,outside_y_max;
             public NativeGraphicState[] before_graphics,after_graphics;
         }
+        private static string GraphicPath(Transform t)
+        {var path=t.name;while(t.parent!=null){t=t.parent;path=t.name+"/"+path;}return path;}
         private NativeGraphicState[] GraphicStates()
         {
-            string PathOf(Transform t)
-            {var path=t.name;while(t.parent!=null){t=t.parent;path=t.name+"/"+path;}return path;}
             return Flow.GetComponentsInChildren<Graphic>(true).Select(g=>
             {
                 var corners=new Vector3[4];g.rectTransform.GetWorldCorners(corners);
                 var p=corners.Select(v=>(Vector2)captureCamera.WorldToScreenPoint(v)).ToArray();
-                return new NativeGraphicState{path=PathOf(g.transform),type=g.GetType().Name,active_self=g.gameObject.activeSelf,active_in_hierarchy=g.gameObject.activeInHierarchy,
+                return new NativeGraphicState{path=GraphicPath(g.transform),type=g.GetType().Name,active_self=g.gameObject.activeSelf,active_in_hierarchy=g.gameObject.activeInHierarchy,
                     screen=Rect.MinMaxRect(p.Min(v=>v.x),p.Min(v=>v.y),p.Max(v=>v.x),p.Max(v=>v.y)),color=g.color};
             }).ToArray();
         }
+        private static NativeNameVisibility[] NameVisibility(TownLifeView town)=>town.Actors.OrderBy(a=>a.CharacterId,StringComparer.Ordinal)
+            .Select(a=>new NativeNameVisibility{character_id=a.CharacterId,active=a.transform.Find("Town actor name panel").gameObject.activeSelf}).ToArray();
+        private static bool SameNames(NativeNameVisibility[] a,NativeNameVisibility[] b)=>a.Length==b.Length&&a.Zip(b,(x,y)=>x.character_id==y.character_id&&x.active==y.active).All(v=>v);
+        private static void ApplyNames(TownLifeView town,NativeNameVisibility[] values)
+        {foreach(var state in values)town.Actors.Single(a=>a.CharacterId==state.character_id).transform.Find("Town actor name panel").gameObject.SetActive(state.active);}
+        private static bool OnlyNameVisibilityChanged(TownLifeView town,NativeGraphicState[] before,NativeGraphicState[] after)
+        {
+            var permitted=new HashSet<string>(town.Actors.SelectMany(a=>a.transform.Find("Town actor name panel").GetComponentsInChildren<Graphic>(true)).Select(g=>GraphicPath(g.transform)),StringComparer.Ordinal);
+            if(before.Length!=after.Length)return false;
+            for(int i=0;i<before.Length;i++)
+            {
+                var a=before[i];var b=after[i];
+                if(a.path!=b.path||a.type!=b.type||!a.screen.Equals(b.screen)||!a.color.Equals(b.color))return false;
+                if(a.active_self==b.active_self&&a.active_in_hierarchy==b.active_in_hierarchy)continue;
+                if(!permitted.Contains(a.path))return false;
+            }
+            return true;
+        }
         private NativePair CaptureNativePair(string output,TownLifeView town,string id,Action beforeSwitch,Action afterSwitch,Func<Rect> allowed,bool noah=false)
         {
-            Texture2D before=null,after=null;
+            Texture2D before=null,after=null,naturalBefore=null;
             try
             {
-                beforeSwitch();before=Portrait();var bounds=allowed();var beforeScope=bounds;
+                NativeNameVisibility[] candidateNames=null;NativeNameControl control=null;
+                if(noah)
+                {
+                    // Current product captions are the fixed scene context for
+                    // this reconstructed body-only comparison. The actual After
+                    // never receives an override; natural legacy UI is retained.
+                    afterSwitch();var warm=Portrait();UnityEngine.Object.DestroyImmediate(warm);candidateNames=NameVisibility(town);
+                }
+                beforeSwitch();naturalBefore=Portrait();
+                if(noah)
+                {
+                    var naturalNames=NameVisibility(town);var naturalGraphics=GraphicStates();
+                    before=Portrait(()=>ApplyNames(town,candidateNames));
+                    control=new NativeNameControl{natural_before=naturalNames,controlled_before=NameVisibility(town),
+                        before_applied=SameNames(candidateNames,NameVisibility(town)),natural_visibility_changed=!SameNames(naturalNames,candidateNames),
+                        only_name_visibility_changed=OnlyNameVisibilityChanged(town,naturalGraphics,GraphicStates())};
+                    if(control.natural_visibility_changed)control.natural_before_image=SaveNativeImage(output,id+"-ui-natural-before.png",naturalBefore);
+                    Assert.That(control.before_applied&&control.only_name_visibility_changed,Is.True,id+": caption control must change only resident-name visibility in reconstructed Before");
+                    if(!control.natural_visibility_changed)Assert.That(before.GetPixels32().SequenceEqual(naturalBefore.GetPixels32()),Is.True,"Unchanged natural UI must retain the exact original Before pixels");
+                }
+                else{before=naturalBefore;naturalBefore=null;}
+                var bounds=allowed();var beforeScope=bounds;
                 var beforeGraphics=noah?GraphicStates():null;
                 var water=town.GetComponentInChildren<TownFountainWaterGraphic>();var original=town.GetComponentInChildren<TownAmbientGraphic>();
                 string state=StateCodec.Encode(Flow.Game.State),model=ModelEvidence(town),actors=ActorEvidence(town,!noah),others=ActorEvidence(town,true,"noah");
                 int frame=Time.frameCount,writes=Store.Writes;bool following=town.World.FollowingHero;var camera=town.World.Camera.Center;float clock=water.ShowElapsed,phase=water.Phase,originalPhase=original.Phase;
                 afterSwitch();after=Portrait();var otherBounds=allowed();bounds=Rect.MinMaxRect(Mathf.Min(bounds.xMin,otherBounds.xMin),Mathf.Min(bounds.yMin,otherBounds.yMin),Mathf.Max(bounds.xMax,otherBounds.xMax),Mathf.Max(bounds.yMax,otherBounds.yMax));var area=EvidenceRect(bounds);
+                if(noah){control.product_after=NameVisibility(town);control.after_natural=SameNames(candidateNames,control.product_after);Assert.That(control.after_natural,Is.True,"After must retain the unmodified natural product caption state");}
                 var pair=new NativePair{id=id,level=town.TownLevel,camera_x=camera.X,camera_y=camera.Y,unity_frame=frame,store_writes=writes,water_clock=clock,water_phase=phase,original_water_phase=originalPhase,state_sha256=EvidenceSha(System.Text.Encoding.UTF8.GetBytes(state)),world_model_sha256=EvidenceSha(System.Text.Encoding.UTF8.GetBytes(model)),allowed_x=area.x,allowed_y=area.y,allowed_width=area.width,allowed_height=area.height};
+                pair.name_control=control;
                 int outsideMinX=720,outsideMinY=1280,outsideMaxX=-1,outsideMaxY=-1;
                 var first=before.GetPixels32();var second=after.GetPixels32();for(int i=0;i<first.Length;i++)if(!first[i].Equals(second[i]))
                 {
@@ -158,6 +208,7 @@ namespace Mofumachi.Tests
                     // files cannot satisfy the completed native comparison gate.
                     pair.before=SaveNativeImage(output,"failed-pairs/"+id+"-FAILED-before.png",before);
                     pair.after=SaveNativeImage(output,"failed-pairs/"+id+"-FAILED-after.png",after);
+                    if(noah&&!control.natural_visibility_changed)control.natural_before_image=pair.before;
                     var failure=new NativePairFailure{source_revision=EvidenceArgument("-mofumachiSourceRevision"),product_fingerprint=EvidenceArgument("-mofumachiProductFingerprint"),
                         before_scope=beforeScope,after_scope=otherBounds,pair=pair,outside_x_min=outsideMinX,outside_y_min=outsideMinY,outside_x_max=outsideMaxX,outside_y_max=outsideMaxY,
                         before_graphics=beforeGraphics,after_graphics=noah?GraphicStates():null};
@@ -166,6 +217,7 @@ namespace Mofumachi.Tests
                 Assert.That(pair.changed_pixels,Is.GreaterThan(0));Assert.That(pair.outside_allowed_pixels,Is.Zero,
                     $"{id}: causal pixels must stay within the projected scoped geometry; outside bbox=({outsideMinX},{outsideMinY})–({outsideMaxX},{outsideMaxY}); failed-pairs retains original PNG/JSON when output is enabled");
                 pair.before=SaveNativeImage(output,id+"-before-reconstructed.png",before);pair.after=SaveNativeImage(output,id+"-after.png",after);
+                if(noah&&!control.natural_visibility_changed)control.natural_before_image=pair.before;
                 // Browser-review derivative of these exact two native renders;
                 // the PNG originals above remain the causal pixel evidence.
                 var comparison=new Texture2D(1440,1280,TextureFormat.RGB24,false);
@@ -177,7 +229,7 @@ namespace Mofumachi.Tests
                 finally{UnityEngine.Object.DestroyImmediate(comparison);}
                 return pair;
             }
-            finally{afterSwitch();if(before!=null)UnityEngine.Object.DestroyImmediate(before);if(after!=null)UnityEngine.Object.DestroyImmediate(after);}
+            finally{afterSwitch();if(noah)town.RefreshWorldPresentation();if(before!=null)UnityEngine.Object.DestroyImmediate(before);if(after!=null)UnityEngine.Object.DestroyImmediate(after);if(naturalBefore!=null)UnityEngine.Object.DestroyImmediate(naturalBefore);}
         }
         [UnityTest,Timeout(120000)] public IEnumerator NorthNoahBeforeAfterAndFixedStepEvidencePreserveSavedState()
         {
@@ -309,12 +361,25 @@ namespace Mofumachi.Tests
         }
         private static void WriteNorthNoahHtml(string output,NorthNoahProof proof)
         {
-            var html=new System.Text.StringBuilder("<!doctype html><meta charset='utf-8'><title>Native North / Noah causal review</title><style>body{font:16px sans-serif;background:#fff7ef;color:#50343b}img{max-width:46%;vertical-align:top}section{margin-bottom:2rem}#frame{max-width:100%}</style><h1>Actual Unity North / Noah candidate</h1><p>Native UGUI captures. Before is a reconstructed same-instant causal baseline; not a prior runtime capture. North join disabled / Noah legacy only. Current fountain and accepted North code are frozen unchanged. Noah Before uses the legacy rendering branch at the identical remaining reaction clock; its historical duration was0.65s while the candidate is1s, so this is not equal-elapsed prior reaction behavior. Pixel performance and candidate adoption remain pending.</p>");
+            var html=new System.Text.StringBuilder("<!doctype html><meta charset='utf-8'><title>Native North / Noah causal review</title><style>body{font:16px sans-serif;background:#fff7ef;color:#50343b}img{max-width:46%;vertical-align:top}section{margin-bottom:2rem}#frame{max-width:100%}</style><h1>Actual Unity North / Noah candidate</h1><p>Native UGUI captures. Before is a reconstructed same-instant causal baseline; not a prior runtime capture. North join disabled / Noah legacy with current product name visibility held only in reconstructed Before. Natural-caption changes are disclosed in metadata and separate original PNGs; actual product After is unmodified. Current fountain and accepted North code are frozen unchanged. Noah Before uses the legacy rendering branch at the identical remaining reaction clock; its historical duration was0.65s while the candidate is1s, so this is not equal-elapsed prior reaction behavior. Pixel performance and candidate adoption remain pending.</p>");
             foreach(var pair in proof.north_pairs.Concat(proof.noah_pairs))html.Append("<section><h2>").Append(pair.id).Append("</h2><p>Before (reconstructed) left / After right; changed pixels ").Append(pair.changed_pixels).Append("; outside scoped projection ").Append(pair.outside_allowed_pixels).Append("</p><a href='").Append(pair.comparison.file).Append("'>Open actual native comparison .jpg (Before left / After right)</a><p><img style='max-width:100%' src='").Append(pair.comparison.file).Append("'></p><a href='").Append(pair.before.file).Append("'>Before original PNG</a> / <a href='").Append(pair.after.file).Append("'>After original PNG</a></section>");
             html.Append("<h2>Historical actual native Before: bb3fb82 / run102109</h2><p>09-connected-path-north.png: different historical runtime conditions; never the same-state causal baseline above.</p><img src='").Append(proof.historical_native_before.file).Append("'>");
             html.Append("<h2>Actual model walking, no navigation changes or teleport rescue</h2>");foreach(var route in proof.routes)html.Append("<p>").Append(route.id).Append(": ").Append(route.steps).Append(" fixed steps; sampled actual positions in JSON.</p><img src='").Append(route.image.file).Append("'>");
-            html.Append("<h2>Noah: idle → start → walk → turn → stop / separate greeting</h2><p>48 actual native PNG crops; manual TownLifeView.AdvanceFrame at 1/30s, sampled each 3 steps. Frames0–39 are one contiguous4-second episode including real direction reversal at2.4s. Frames40–47 are the later verified mutual greeting. The timestamp gap is shown as a cut, never a continuous/FPS or Pixel measurement.</p><button id='play'>Play / pause</button><p id='time'></p><img id='frame'><script>const data=").Append(JsonUtility.ToJson(proof.sequence)).Append(";let i=0,playing=true;document.querySelector('#play').onclick=()=>playing=!playing;function tick(){const f=data.frames[i];const image=document.querySelector('#frame');image.onerror=()=>{image.onerror=null;image.src=f.image.file.split('/').pop()};image.src=f.image.file;document.querySelector('#time').textContent=(i===40?'CUT: later greeting / ':'')+f.index+' / '+f.mode+' / '+f.elapsed_seconds.toFixed(3)+' simulated seconds';setTimeout(()=>{if(playing)i=(i+1)%data.frames.length;tick()},i===40?1000:100)}tick()</script>");
+            AppendNoahSequence(html,proof.sequence);
             File.WriteAllText(Path.Combine(output,"north-noah-before-after.html"),html.ToString());
+            var noah=new System.Text.StringBuilder("<!doctype html><meta charset='utf-8'><title>Noah native review</title><style>body{font:16px sans-serif;background:#fff7ef;color:#50343b;max-width:1500px;margin:auto}img{max-width:100%}section{margin:2rem 0}</style><h1>ノア1名 Before / After（実Unity）</h1><p>Beforeは原画差分確認用の再現で、名札状態を製品Afterへ揃えています。Afterは通常の製品表示です。通常時に名札が変わる場合は、そのBefore原本も別に残します。新旧の挨拶時間は異なるため、旧版の同じ経過時間を再現した映像ではありません。Pixel負荷・ユーザー採用は未確認です。</p>");
+            foreach(var pair in proof.noah_pairs)
+            {
+                noah.Append("<section><h2>").Append(pair.mode).Append("</h2><a href='").Append(pair.comparison.file).Append("'>比較JPEG</a><p><img src='").Append(pair.comparison.file).Append("'></p><a href='").Append(pair.before.file).Append("'>比較Before原PNG</a> / <a href='").Append(pair.after.file).Append("'>通常製品After原PNG</a>");
+                if(pair.name_control.natural_visibility_changed)noah.Append("<p>通常時の名札切替あり。<a href='").Append(pair.name_control.natural_before_image.file).Append("'>名札状態を揃える前のBefore原PNG</a></p>");
+                noah.Append("</section>");
+            }
+            AppendNoahSequence(noah,proof.sequence);
+            File.WriteAllText(Path.Combine(output,"noah-before-after.html"),noah.ToString());
+        }
+        private static void AppendNoahSequence(System.Text.StringBuilder html,NoahSequence sequence)
+        {
+            html.Append("<h2>Noah: idle → start → walk → turn → stop / separate greeting</h2><p>48 actual native PNG crops; manual TownLifeView.AdvanceFrame at 1/30s, sampled each 3 steps. Frames0–39 are one contiguous4-second episode including real direction reversal at2.4s. Frames40–47 are the later verified mutual greeting. The timestamp gap is shown as a cut, never a continuous/FPS or Pixel measurement.</p><button id='play'>Play / pause</button><p id='time'></p><img id='frame'><script>const data=").Append(JsonUtility.ToJson(sequence)).Append(";let i=0,playing=true;document.querySelector('#play').onclick=()=>playing=!playing;function tick(){const f=data.frames[i];const image=document.querySelector('#frame');image.onerror=()=>{image.onerror=null;image.src=f.image.file.split('/').pop()};image.src=f.image.file;document.querySelector('#time').textContent=(i===40?'CUT: later greeting / ':'')+f.index+' / '+f.mode+' / '+f.elapsed_seconds.toFixed(3)+' simulated seconds';setTimeout(()=>{if(playing)i=(i+1)%data.frames.length;tick()},i===40?1000:100)}tick()</script>");
         }
         [Serializable] private sealed class GrowthDistrictProof
         {public string id="";public bool changed=false,reload_matched=false;}
@@ -645,7 +710,7 @@ namespace Mofumachi.Tests
             }
             foreach(var t in captureCanvas.GetComponentsInChildren<Transform>(true))t.gameObject.layer=30;
         }
-        private Texture2D Portrait()
+        private Texture2D Portrait(Action beforeRender=null)
         {
             EnsurePortraitCamera();var previous=RenderTexture.active;Texture2D image=null;
             try
@@ -661,6 +726,7 @@ namespace Mofumachi.Tests
                         Assert.That(Vector2.Distance(((RectTransform)actor.transform).anchoredPosition,town.World.Local(actor.WorldPosition)),Is.LessThan(.01f),"Direct capture must not mix the current scenery with stale actor positions");
                 }
                 Canvas.ForceUpdateCanvases();
+                beforeRender?.Invoke();Canvas.ForceUpdateCanvases();
                 captureCamera.Render();RenderTexture.active=target;image=new Texture2D(720,1280,TextureFormat.RGB24,false);image.ReadPixels(new Rect(0,0,720,1280),0,0);image.Apply();return image;
             }
             catch{if(image!=null)UnityEngine.Object.DestroyImmediate(image);throw;}

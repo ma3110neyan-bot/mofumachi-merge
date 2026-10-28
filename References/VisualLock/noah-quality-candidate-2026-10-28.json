@@ -8,7 +8,7 @@
   "before_runtime_source": "43a27646fcf65174afb938fb78c0b93d7e0628ad",
   "before_render_digest": "73b1027987ca543d38df99459571cc0ae441512511a8c8c7f1b3fc58bc567b5b",
   "reviewed_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
-  "candidate_render_digest": "f5cefa7355f6e293681aaf0b67867a50aff975aaa7e72c6277710853bf811594",
+  "candidate_render_digest": "92795692dcfc67b9e8b6ec626403805d105afc451773cc65ea12d5ed32b3aa8a",
   "changes": [
     {
       "path": "Assets/Mofumachi/Presentation/TownContinuousWorldView.cs",
@@ -122,7 +122,7 @@
     {
       "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs",
       "before_sha256": "3bdc727de2275daa8bd1fe45de9f9f8002380ceeb9c9cbda7944a964996bc6b7",
-      "after_sha256": "4b5f9038fbd558aa68d6a54d051c0971a50784786081d41bd7fbf3fa394b7a63"
+      "after_sha256": "fe4c69eb6b47e9b4e22b228656d6a1069e7cb44eca215f7d30bd56ffb924eaab"
     }
   ],
   "qa_apk_generated": false,
@@ -186,8 +186,10 @@
   "native_visual_cleared": false,
   "fixed_native_pass_verified": false,
   "native_scope_image_review_complete": false,
-  "native_visual_status": "scoped_capture_outside_pixels_unresolved_awaiting_single_test_diagnostic",
-  "latest_native_failure": "References/Review/full-playmode-2026-10-28-201053/receipt-and-diagnosis.json",
-  "latest_native_failure_source": "1d11629ae8bab0ec398c6e53bd0bfd5f3030c92c",
-  "latest_diagnostic_verification": "docs/verification/noah-capture-diagnostic-2026-10-28/results.json"
+  "native_visual_status": "name_caption_context_corrected_in_capture_pending_native_retest",
+  "latest_native_failure": "References/Review/noah-pair-2026-10-28-205828/receipt-and-diagnosis.json",
+  "latest_native_failure_source": "5860f9ceeeaab937be86666d50fa194c28ebb60f",
+  "latest_diagnostic_verification": "docs/verification/noah-name-context-2026-10-28/results.json",
+  "previous_native_failure": "References/Review/full-playmode-2026-10-28-201053/receipt-and-diagnosis.json",
+  "native_comparison_protocol_version": 3
 }

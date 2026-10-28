@@ -9,20 +9,33 @@ function Get-NoahDiagnosticArguments([string]$RepositoryPath,[string]$Directory,
         '-testResults',(Join-Path $Directory 'playmode.xml'),'-logFile',(Join-Path $Directory 'playmode.log'),
         '-mofumachiScreenshots',(Join-Path $Directory 'screenshots'),'-mofumachiSourceRevision',$Revision,'-mofumachiProductFingerprint',$Fingerprint)
 }
-function Write-NoahDiagnosticArchive([string]$Directory) {
+function Write-NoahDiagnosticArchive([string]$Directory,[long]$MaxPartBytes=24MB) {
+    if($MaxPartBytes -le 0){throw 'Diagnostic part budget must be positive.'}
     $Files=@(foreach($Name in @('source-info.json','playmode.xml','playmode.log')){
         $Path=Join-Path $Directory $Name;if(Test-Path -LiteralPath $Path -PathType Leaf){Get-Item -LiteralPath $Path}
     })
     $Screenshots=Join-Path $Directory 'screenshots'
     $Failed=Join-Path $Screenshots 'failed-pairs'
     if(Test-Path -LiteralPath $Failed){$Files+=@(Get-ChildItem -LiteralPath $Failed -File)}
-    # A successful diagnostic may also produce six review JPEGs. Keep them,
-    # but do not upload unrelated North captures or turn this into full QA.
-    if(Test-Path -LiteralPath $Screenshots){$Files+=@(Get-ChildItem -LiteralPath $Screenshots -File | Where-Object {$_.Name -like '37-noah-*.jpg' -or $_.Name -eq 'north-noah-comparison.json'})}
+    # Keep all Noah original PNGs, their natural-caption context, six JPEGs
+    # and sequence, without the unrelated North review bulk.
+    if(Test-Path -LiteralPath $Screenshots){$Files+=@(Get-ChildItem -LiteralPath $Screenshots -File | Where-Object {$_.Name -like '37-noah-*.jpg' -or $_.Name -like '37-noah-*.png' -or $_.Name -in @('north-noah-comparison.json','noah-before-after.html')})}
+    $Sequence=Join-Path $Screenshots 'noah-sequence'
+    if(Test-Path -LiteralPath $Sequence){$Files+=@(Get-ChildItem -LiteralPath $Sequence -Filter '*.png' -File)}
     if($Files.Count -eq 0){throw 'No diagnostic evidence to archive.'}
-    $Archive=$Directory+'.zip'
-    Compress-Archive -LiteralPath @($Files.FullName) -DestinationPath $Archive -Force
-    return $Archive
+    $Groups=New-Object 'System.Collections.Generic.List[object]'
+    $Group=New-Object 'System.Collections.Generic.List[string]';$Bytes=0L
+    foreach($File in $Files){
+        if($File.Length -gt $MaxPartBytes){throw 'Single diagnostic file exceeds the upload budget.'}
+        if($Group.Count -gt 0 -and $Bytes+$File.Length -gt $MaxPartBytes){$Groups.Add($Group.ToArray());$Group.Clear();$Bytes=0L}
+        $Group.Add($File.FullName);$Bytes+=$File.Length
+    }
+    if($Group.Count){$Groups.Add($Group.ToArray())}
+    for($Index=0;$Index -lt $Groups.Count;$Index++){
+        $Suffix=if($Groups.Count -eq 1){'.zip'}else{'-{0:D2}.zip' -f ($Index+1)}
+        $Archive=$Directory+$Suffix;Compress-Archive -LiteralPath @($Groups[$Index]) -DestinationPath $Archive -Force
+        $Archive
+    }
 }
 if($MyInvocation.InvocationName -eq '.'){return}
 
@@ -44,13 +57,14 @@ try {
     [xml]$Result=Get-Content -LiteralPath (Join-Path $OutputDir 'playmode.xml') -Raw
     $Cases=@($Result.SelectNodes('//test-case'))
     if($Cases.Count -ne 1 -or $Cases[0].fullname -ne 'Mofumachi.Tests.ExperienceCaptureTests.NorthNoahBeforeAfterAndFixedStepEvidencePreserveSavedState'){throw 'Diagnostic did not execute exactly the requested one native method.'}
+    Assert-NorthNoahEvidence (Join-Path $OutputDir 'screenshots') $Revision $Fingerprint -RequireQuality
     $Record.native_test_passed=$true
 } catch {$Failure=$_.Exception.Message;$Record.error=$Failure}
 try {Assert-ProductUnchanged $RepositoryPath $Revision $Fingerprint;$Record.source_unchanged=$true}
 catch {$Failure=$_.Exception.Message;$Record.error=$Failure;$Record.native_test_passed=$false}
 $Record | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $OutputDir 'source-info.json') -Encoding UTF8
-$Archive=Write-NoahDiagnosticArchive $OutputDir
-Write-Host "Noah single-test diagnostic ZIP: $Archive"
+foreach($Archive in @(Write-NoahDiagnosticArchive $OutputDir)){Write-Host "Noah single-test diagnostic ZIP: $Archive"}
 Write-Host 'Diagnostic only. No EditMode suite, no unrelated PlayMode tests, no APK build, no Pixel install or save reset.'
 if($Failure){throw "Single Noah capture did not pass. Share the diagnostic ZIP above. $Failure"}
 Write-Host 'One native capture method passed. Full QA and Pixel/user acceptance remain pending.'
+Write-Host ('Noah Before/After and sequence: '+(Join-Path $OutputDir 'screenshots/noah-before-after.html'))

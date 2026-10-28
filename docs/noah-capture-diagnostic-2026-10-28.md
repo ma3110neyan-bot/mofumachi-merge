@@ -1,3 +1,5 @@
+> 最新：原画像でモモ名札の切替と確定し、[比較条件を修正](noah-name-context-fix-2026-10-28.md)。同じ単体コマンドで再確認する。以下の「未特定」は旧診断時の履歴。
+
 # ノア比較撮影1件の診断（全件QAではない）
 
 受領原本 `References/Review/full-playmode-2026-10-28-201053/` はsource1d11629、PlayMode234中233成功／1失敗／skip0／inconclusive0。ノア表示・接地・Sorting専用4件、北接続3件、5地区連続移動1件は成功。唯一の失敗は `ExperienceCaptureTests.NorthNoahBeforeAfterAndFixedStepEvidencePreserveSavedState` の比較範囲外5621画素。失敗ペアのID・差分画像が原本にないため、どの表示が変化したかは未特定。

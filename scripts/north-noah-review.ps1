@@ -23,7 +23,11 @@ function Assert-NorthNoahEvidence([string]$Directory,[string]$ExpectedRevision='
         # review must decode the entire JPEG and both original PNGs.
         if($A -ne 255 -or $B -ne 216 -or $C -ne 255){throw 'Comparison .jpg is not JPEG encoded.'}
     }
-    if($Record.kind -ne 'same-state-native-north-noah-comparison' -or $Record.before -ne 'reconstructed causal baseline: north join disabled / Noah legacy at the same instant' -or $Record.after -ne 'current product code'){throw 'Wrong native causal comparison mode.'}
+    $Version=if($Record.PSObject.Properties['noah_quality_version']){Number $Record.noah_quality_version}else{1}
+    if($Version -notin @(1,2,3) -or ($RequireQuality -and $Version -ne 3)){throw 'Current Noah quality evidence version is required.'}
+    $ExpectedBefore=if($Version -eq 3){'reconstructed causal baseline: north join disabled / Noah legacy with product name visibility at the same instant'}else{'reconstructed causal baseline: north join disabled / Noah legacy at the same instant'}
+    if($Record.kind -ne 'same-state-native-north-noah-comparison' -or $Record.before -ne $ExpectedBefore -or $Record.after -ne 'current product code'){throw 'Wrong native causal comparison mode.'}
+    if($Version -eq 3 -and -not(Test-Path -LiteralPath (Join-Path $Directory 'noah-before-after.html') -PathType Leaf)){throw 'Missing Noah-only browser review.'}
     Flags $Record @('native_unity') $true;Flags $Record @('pixel_verified','adopted','navigation_changed','teleport_rescue') $false
     if($Record.source_revision -notmatch '^[a-f0-9]{40}$' -or $Record.product_fingerprint -notmatch '^[a-f0-9]{64}$' -or ($ExpectedRevision -and $Record.source_revision -ne $ExpectedRevision) -or ($ExpectedFingerprint -and $Record.product_fingerprint -ne $ExpectedFingerprint)){throw 'North/Noah source does not match this capture/build.'}
     $B=$Record.north_world_bounds
@@ -34,9 +38,7 @@ function Assert-NorthNoahEvidence([string]$Directory,[string]$ExpectedRevision='
     Image $Record.historical_native_before 720 1280 '^36-north-historical-bb3fb82\.png$'
     if($Record.historical_native_before.sha256 -ne 'b001ee0b7bb6a1719876b16c951a9bdcf5c58df3d7817dc797b379cf0c863324'){throw 'Historical north native original changed.'}
     $North=@($Record.north_pairs);$Noah=@($Record.noah_pairs)
-    $Version=if($Record.PSObject.Properties['noah_quality_version']){Number $Record.noah_quality_version}else{1}
-    if($Version -notin @(1,2) -or ($RequireQuality -and $Version -ne 2)){throw 'Current Noah quality evidence version is required.'}
-    $Quality=$Version -eq 2
+    $Quality=$Version -ge 2
     $Modes=if($Quality){@('idle','walk','talk','turn','stop','reaction')}else{@('idle','walk','talk')}
     if($North.Count -ne 9 -or $Noah.Count -ne $Modes.Count){throw 'Missing north or complete Noah same-state pose pairs.'}
     foreach($Level in @(1,3,6)){foreach($View in 0..2){$Y=@(.85,1,1.15)[$View];$Rows=@($North | Where-Object {$_.level -eq $Level -and [Math]::Abs([double]$_.camera_y-$Y) -lt .00001 -and $_.camera_x -eq 0});if($Rows.Count -ne 1 -or $Rows[0].id -ne "36-north-lv$Level-view$View"){throw 'Missing or repeated north level/view pair.'}}}
@@ -53,6 +55,24 @@ function Assert-NorthNoahEvidence([string]$Directory,[string]$ExpectedRevision='
         ComparisonJpeg $Pair.comparison $Pair.id
     }
     foreach($Pair in $Noah){Flags $Pair @('other_five_unchanged') $true}
+    if($Version -eq 3){foreach($Pair in $Noah){
+        $Control=$Pair.name_control
+        if($Control.mode -ne 'candidate-resident-name-visibility-in-reconstructed-before-only'){throw 'Only reconstructed-Before resident-name visibility may be controlled.'}
+        Flags $Control @('before_applied','after_natural','only_name_visibility_changed') $true
+        $Maps=@{}
+        foreach($Key in @('natural_before','controlled_before','product_after')){
+            $States=@($Control.$Key);if($States.Count -ne 6){throw 'Each name state must retain all six residents.'};$Map=@{}
+            foreach($State in $States){if($State.character_id -isnot [string] -or $State.character_id -cnotin @('fio','lulu','miel','momo','noah','pom') -or $Map.ContainsKey($State.character_id) -or $State.active -isnot [bool]){throw 'Invalid or repeated resident-name state.'};$Map[$State.character_id]=$State.active};$Maps[$Key]=$Map
+        }
+        $Changed=$false
+        foreach($Id in @('fio','lulu','miel','momo','noah','pom')){
+            if($Maps.controlled_before[$Id] -ne $Maps.product_after[$Id]){throw 'Reconstructed Before must use the natural product After name state.'}
+            if($Maps.natural_before[$Id] -ne $Maps.product_after[$Id]){$Changed=$true}
+        }
+        if($Control.natural_visibility_changed -isnot [bool] -or $Control.natural_visibility_changed -ne $Changed){throw 'Natural name-visibility change was not disclosed correctly.'}
+        if($Changed){Image $Control.natural_before_image 720 1280 ('^'+[regex]::Escape($Pair.id)+'-ui-natural-before\.png$')}
+        else{if($Control.natural_before_image.file -ne $Pair.before.file -or $Control.natural_before_image.sha256 -ne $Pair.before.sha256 -or $Control.natural_before_image.bytes -ne $Pair.before.bytes){throw 'Unchanged natural Before must identify the exact original comparison PNG.'}}
+    }}
     $Routes=@($Record.routes);if($Routes.Count -ne 6){throw 'Missing actual central/north crossing and return paths.'}
     foreach($Id in @('central-to-north','north-to-central','left-out','left-return','right-out','right-return')){
         $Rows=@($Routes | Where-Object {$_.id -eq $Id});if($Rows.Count -ne 1){throw 'Missing/repeated actual walking path.'};$Route=$Rows[0]

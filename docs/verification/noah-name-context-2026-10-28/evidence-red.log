@@ -1,0 +1,13 @@
+North/Noah native evidence metadata validated; visual/Pixel review and adoption pending.
+North/Noah native evidence metadata validated; visual/Pixel review and adoption pending.
+North/Noah native evidence metadata validated; visual/Pixel review and adoption pending.
+North/Noah native evidence metadata validated; visual/Pixel review and adoption pending.
+Review ZIPs: /tmp/mofu-north-noah-3812c863-c94c-48f0-a39d-1023905946b4/pack\five-plaza-review-*.zip (Unity fixture images; Pixel acceptance pending).
+North/Noah native evidence metadata validated; visual/Pixel review and adoption pending.
+North/Noah native evidence metadata validated; visual/Pixel review and adoption pending.
+North/Noah native evidence metadata validated; visual/Pixel review and adoption pending.
+Exception: /workspace/mofumachi-merge/scripts/north-noah-review.ps1:26
+Line |
+  26 |  … 'current product code'){throw 'Wrong native causal comparison mode.'}
+     |                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Wrong native causal comparison mode.

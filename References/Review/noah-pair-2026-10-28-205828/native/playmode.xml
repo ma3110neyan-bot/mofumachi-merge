@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-28 11:58:53Z" end-time="2026-10-28 11:59:06Z" duration="13.9484063">
+  <test-suite type="TestSuite" id="1286" name="もふまちメルジュ" fullname="もふまちメルジュ" runstate="Runnable" testcasecount="234" result="Failed" site="Child" start-time="2026-10-28 11:58:53Z" end-time="2026-10-28 11:59:06Z" duration="13.948406" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1566" name="Mofumachi.PlayModeTests.dll" fullname="C:/Users/User/Desktop/Mofumachi/mofumachi-merge/Library/ScriptAssemblies/Mofumachi.PlayModeTests.dll" runstate="Runnable" testcasecount="234" result="Failed" site="Child" start-time="2026-10-28 11:58:53Z" end-time="2026-10-28 11:59:06Z" duration="13.937427" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="7724" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1567" name="Mofumachi" fullname="Mofumachi" runstate="Runnable" testcasecount="234" result="Failed" site="Child" start-time="2026-10-28 11:58:53Z" end-time="2026-10-28 11:59:06Z" duration="13.934584" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1568" name="Tests" fullname="Mofumachi.Tests" runstate="Runnable" testcasecount="234" result="Failed" site="Child" start-time="2026-10-28 11:58:53Z" end-time="2026-10-28 11:59:06Z" duration="13.932175" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1332" name="ExperienceCaptureTests" fullname="Mofumachi.Tests.ExperienceCaptureTests" classname="Mofumachi.Tests.ExperienceCaptureTests" runstate="Runnable" testcasecount="5" result="Failed" site="Child" start-time="2026-10-28 11:58:53Z" end-time="2026-10-28 11:59:06Z" duration="13.918348" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1333" name="NorthNoahBeforeAfterAndFixedStepEvidencePreserveSavedState" fullname="Mofumachi.Tests.ExperienceCaptureTests.NorthNoahBeforeAfterAndFixedStepEvidencePreserveSavedState" methodname="NorthNoahBeforeAfterAndFixedStepEvidencePreserveSavedState" classname="Mofumachi.Tests.ExperienceCaptureTests" runstate="Runnable" seed="1621784254" result="Failed" start-time="2026-10-28 11:58:53Z" end-time="2026-10-28 11:59:06Z" duration="13.902646" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  37-noah-talk: causal pixels must stay within the projected scoped geometry; outside bbox=(513,484)–(660,528); failed-pairs retains original PNG/JSON when output is enabled
+  Expected: 0
+  But was:  5621
+]]></message>
+                <stack-trace><![CDATA[at Mofumachi.Tests.ExperienceCaptureTests.CaptureNativePair (System.String output, Mofumachi.Presentation.TownLifeView town, System.String id, System.Action beforeSwitch, System.Action afterSwitch, System.Func`1[TResult] allowed, System.Boolean noah) [0x0053e] in C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Assets\Mofumachi\Tests\PlayMode\ExperienceCaptureTests.cs:166
+at Mofumachi.Tests.ExperienceCaptureTests+<NorthNoahBeforeAfterAndFixedStepEvidencePreserveSavedState>d__22.MoveNext () [0x00ebc] in C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Assets\Mofumachi\Tests\PlayMode\ExperienceCaptureTests.cs:286
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@80f691d4262b\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

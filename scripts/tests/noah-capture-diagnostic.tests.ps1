@@ -33,8 +33,18 @@ try {
         $Entry=$Archive.GetEntry('37-noah-turn-FAILED-before.png');$Stream=$Entry.Open();$Memory=New-Object IO.MemoryStream
         try{$Stream.CopyTo($Memory);$Actual=$Memory.ToArray();if(($Actual -join ',') -ne ($Bytes -join ',')){throw 'Raw rejected image bytes changed.'}}finally{$Memory.Dispose();$Stream.Dispose()}
     } finally {$Archive.Dispose()}
+    # Retain complete Noah originals/sequence on success too, in bounded parts.
+    $Frames=Join-Path $Temporary 'screenshots/noah-sequence';New-Item -ItemType Directory -Path $Frames -Force | Out-Null
+    $Evidence=@('screenshots/37-noah-talk-ui-natural-before.png','screenshots/37-noah-talk-after.png','screenshots/noah-before-after.html','screenshots/noah-sequence/37-noah-frame-00.png')
+    foreach($Name in $Evidence){[IO.File]::WriteAllBytes((Join-Path $Temporary $Name),(New-Object byte[] 800))}
+    $Parts=@(Write-NoahDiagnosticArchive $Temporary -MaxPartBytes 1500)
+    if($Parts.Count -lt 2){throw 'Bounded diagnostic parts were not produced.'}
+    $AllNames=@()
+    foreach($Part in $Parts){$ZipPart=[IO.Compression.ZipFile]::OpenRead($Part);try{$AllNames+=@($ZipPart.Entries.FullName);if(($ZipPart.Entries | Measure-Object -Property Length -Sum).Sum -gt 1500){throw 'Uncompressed part budget exceeded.'}}finally{$ZipPart.Dispose()}}
+    foreach($Name in $Evidence){if(@($AllNames | Where-Object {$_ -eq [IO.Path]::GetFileName($Name)}).Count -ne 1){throw "Noah original/sequence missing or duplicated: $Name"}}
     Write-Host 'Noah diagnostic: one exact native method, safe argument boundaries, original rejected bytes retained, unrelated captures excluded. Synthetic fixture only.'
 } finally {
     if(Test-Path -LiteralPath $Temporary){Remove-Item -LiteralPath $Temporary -Recurse -Force}
     if(Test-Path -LiteralPath ($Temporary+'.zip')){Remove-Item -LiteralPath ($Temporary+'.zip') -Force}
+    foreach($Part in @(Get-ChildItem -Path ($Temporary+'-*.zip') -ErrorAction SilentlyContinue)){Remove-Item -LiteralPath $Part.FullName -Force}
 }

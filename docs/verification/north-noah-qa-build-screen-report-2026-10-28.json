@@ -1,0 +1,58 @@
+{
+  "received_on_jst": "2026-10-28",
+  "status": "console_success_reported",
+  "run": "20261028-101255-ecac0943",
+  "evidence": "User PowerShell screenshot showing normal completion and return to the project prompt. No raw artifacts received for this run.",
+  "expected_source_before_record_only_update": "292cf8ace0fe664a69caf6c5cd4882ac4b64594a",
+  "source_revision": null,
+  "run_suffix_is_not_source_revision": true,
+  "editmode": {
+    "passed_reported": 144,
+    "total_reported": 144,
+    "raw_xml_verified": false
+  },
+  "playmode": {
+    "passed_reported": 234,
+    "total_reported": 234,
+    "raw_xml_verified": false
+  },
+  "zero_fail_skip_gate_reported_passed": true,
+  "native_capture_count_reported": 250,
+  "capture_dimensions_reported": [
+    720,
+    1280
+  ],
+  "north_noah_metadata_gate_reported_passed": true,
+  "continuous_fountain_sequence": {
+    "crops_reported": 240,
+    "seconds_reported": 60.1862564086914,
+    "first_show_seconds_reported": 38.7693099975586,
+    "raw_verified": false,
+    "pixel_performance_evidence": false
+  },
+  "run_directory_reported": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261028-101255-ecac0943",
+  "boundary_comparison_path_reported": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261028-101255-ecac0943\\screenshots\\street-boundary-before-after.html",
+  "native_comparison_path_reported": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261028-101255-ecac0943\\before-after.html",
+  "review_zip_pattern_reported": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261028-101255-ecac0943\\five-plaza-review-*.zip",
+  "qa_apk_generated_reported": true,
+  "qa_apk_path_reported": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261028-101255-ecac0943\\town-life-qa.apk",
+  "qa_apk_sha256_reported": "bed99d180cbd091fce4198c348e8c71637527d582a381050c083af6ae3369875",
+  "growth_apk_generated_reported": true,
+  "growth_apk_path_reported": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Android\\20261028-101255-ecac0943\\town-growth-check.apk",
+  "growth_apk_sha256_reported": "5943f460c5f4d490deda0daf32a9cb82f1e3fc6ce3f7cd605172aa3d0f05dde7",
+  "qa_package_expected": "com.mofumachi.merge.qa.townlife",
+  "growth_package_expected": "com.mofumachi.merge.qa.growthcheck",
+  "build_info_received": false,
+  "raw_success_xml_received": false,
+  "native_images_received": false,
+  "apk_bytes_received": false,
+  "sha256_independently_verified": false,
+  "native_visual_review_complete": false,
+  "pixel_verified": false,
+  "north_noah_adopted": false,
+  "fountain_already_user_approved_and_frozen": true,
+  "six_character_rollout_started": false,
+  "merge_started": false,
+  "main_merged": false,
+  "next": "Receive all five-plaza-review ZIP parts from this exact successful run; verify raw test cases, build/capture/source identity, hashes and decoded images, north Before/After and Noah idle/walk/talk. Then verify the existing same-run APK on Pixel with save-preserving update. No Pull or rebuild for this receipt-only update."
+}

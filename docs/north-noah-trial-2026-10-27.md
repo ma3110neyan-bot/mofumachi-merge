@@ -1,6 +1,8 @@
 # 中央→北の接続／ノア1名2.5D試作 — 2026-10-27
 
-最新コンソールは全Unityテスト144＋234と250画像生成が成功し、その後の範囲数値検証で停止。[単精度照合の修正](north-noah-bounds-precision-2026-10-27.md) を適用する。原本照合・APK・Pixelは未確認。
+10月28日のrun `20261028-101255-ecac0943` はUnity144＋234件、250画像、北／ノアメタデータ検証、街QA／成長QA APK生成まで正常終了したと画面で確認。Single誤判定は画面上で解消。原XML／build-info／画像／APK bytesは未受領で、実画像採用・Pixelは未確認。次はこのrunの `five-plaza-review-*.zip` 全部を提出する。今回の受領記録だけではPull／再ビルド不要。[画面成功記録](verification/north-noah-qa-build-screen-report-2026-10-28.json)。
+
+以下は過去の失敗と修正の履歴。
 
 最新run220456は前回の階層修正を通過し、ノア撮影の初期位置引継ぎで停止。撮影用シーンの修正記録は [こちら](north-noah-capture-scene-repair-2026-10-27.md)。修正版の実Unity全件／APK／Pixelは未確認。
 
@@ -10,7 +12,7 @@
 
 ユーザーが現在の噴水をリリース版として採用したため、水流・ショー・大きさ・前後描画の実装を固定する。噴水の追加Polishはリリース後の提案だけに残す。今回の変更対象は中央→北の地面接続と、街で表示するノア1名だけ。図鑑・原画・他5名・BGM・Save・依頼・納品・報酬・Merge・mainは変更しない。
 
-設計・実装済み。内部NUnitはPresentation365/365＋Core125/125、failed0/skip0/inconclusive0。PowerShell17/17、Unity APIに対する6assemblyコンパイルは警告0・エラー0。採用版の固定502ファイルと24候補bindingを照合済み。これはライセンス付きUnityの描画実行ではない。変更後のUnity実画面、QA APK、Pixel 3a負荷は新しい同一ソースの結果を受領するまで未確認。前版370件成功や既存Pixel画像を、新版の合格として転用しない。
+設計・実装済み。内部NUnitはPresentation365/365＋Core125/125、failed0/skip0/inconclusive0。PowerShell17/17、Unity APIに対する6assemblyコンパイルは警告0・エラー0。採用版の固定502ファイルと24候補bindingを照合済み。これはライセンス付きUnityの描画実行ではない。新しい同一runのUnity成功／APK生成はコンソール報告済み。実XML／画像／APK同一性の原本照合とPixel 3a負荷は未確認。前版370件成功や既存Pixel画像を、新版の合格として転用しない。
 
 ## 確認すること
 

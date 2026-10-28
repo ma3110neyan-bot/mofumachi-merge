@@ -170,5 +170,7 @@
     "References/Review/full-playmode-2026-10-27-214011/receipt-and-diagnosis.json"
   ],
   "previous_internal_verification": "docs/verification/north-noah-capture-scene-repair-2026-10-27/results.json",
-  "native_tests_console_success_report": "docs/verification/north-noah-bounds-precision-2026-10-27/console-report-and-diagnosis.json"
+  "native_tests_console_success_report": "docs/verification/north-noah-qa-build-screen-report-2026-10-28.json",
+  "previous_native_tests_console_success_report": "docs/verification/north-noah-bounds-precision-2026-10-27/console-report-and-diagnosis.json",
+  "qa_build_console_success_report": "docs/verification/north-noah-qa-build-screen-report-2026-10-28.json"
 }

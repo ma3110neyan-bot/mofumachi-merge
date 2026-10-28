@@ -6,13 +6,17 @@
 
 現在の承認範囲は**中央→北の地面接続の局所修正＋街のノア1名の2.5D試作を並行**。原画／顔／服／色／体型／他5名／図鑑／BGM／Save／依頼／納品／報酬／Merge／噴水／既存景観／歩行判定を維持。`fountain-release-and-field-freeze-2026-10-27.json` はff7215cの502製品入力を固定し、正規化SHAをゲートへ固定した。旧354入力は今回明示許可されたBody描画の1ファイルだけを検証済み候補へ置換し、原本JSONや原画を上書きしない。
 
-候補は `north-noah-candidate-2026-10-27.json`、手順は `docs/north-noah-trial-2026-10-27.md`。設計・実装済み。内部NUnit365＋125件、PS17本、実Unity APIへの6assemblyコンパイルが成功（描画実行ではない）。**この候補の実Unity描画／APK生成／Pixel確認は未実行**。前版bb3fb82の成功を新版へ流用しない。実同条件Before／Afterと静止・歩行・会話、Pixel負荷確認後に採否を判断し、ノア未承認で6名へ展開しない。今回は**セーブ維持の更新インストール**とし、以前のFresh手順を自動再実行しない。main／Mergeへ進めない。
+候補は `north-noah-candidate-2026-10-27.json`、手順は `docs/north-noah-trial-2026-10-27.md`。設計・実装済み。内部NUnit365＋125件、PS17本、実Unity APIへの6assemblyコンパイルが成功（描画実行ではない）。**10月28日コンソールでUnity／APK生成成功を受領、原本／実画像レビュー／Pixel確認は未了**。前版bb3fb82の成功を新版へ流用しない。実同条件Before／Afterと静止・歩行・会話、Pixel負荷確認後に採否を判断し、ノア未承認で6名へ展開しない。今回は**セーブ維持の更新インストール**とし、以前のFresh手順を自動再実行しない。main／Mergeへ進めない。
 
 **2026-10-27 run214011受領：実PlayMode234件中233成功・failed1/skip0。** 北専用3／ノア専用4は成功。新比較撮影がキャラ層の子孫から隣接する北地面を探しnullになった。撮影探索先だけFlowルートへ修正し、景観／ノア／噴水のruntimeは無変更。原本と診断はReferences/Review/full-playmode-2026-10-27-214011/。修正後の234件／画像／APK／Pixelは未確認。手順docs/north-noah-capture-repair-2026-10-27.md。
 
 **run220456受領：修正版feb330d適用済み、実PlayMode233/234・failed1/skip0。** 前回の北Graphic階層エラーは解消。新比較撮影は北9ペアと6往復経路の検査を通り、ノア切抜きでyMax1467.535>1280となった。ShowHomeが正常に位置snapshotを引き継ぐのに、撮影が初期位置へ戻ると誤って想定していた。歩行証拠完了後に別の隔離Homeシーンへ入り、元のNoah/Momo位置と新カメラを検証する。実ゲームのsnapshot／Save／キャラ・噴水は無変更。原本References/Review/full-playmode-2026-10-27-220456/。今回修正後のUnity全件／画像／APK／Pixelは未確認。
 
-**最新コンソール：Edit144/144＋Play234/234、実PNG250枚生成まで成功。** 原XML／JSON／PNG未受領で原本検証は保留。停止はUnity後のnorth-noah-review.ps1:30の範囲検証。C#float±.6fのJSON表現±.6000000238418579をdouble±.6へ完全一致比較していた誤判定を再現。有限値検査を残し、4座標を元のSingle精度で一致検査へ修正。実座標の隣のSingle値も全4座標で拒否し、許容幅を広げない。C#撮影・ゲーム・画像・既存基準は変更しない。詳細docs/north-noah-bounds-precision-2026-10-27.md。今回runのフォルダー／sourceは画面未確認、先頭explorerは前回のため流用しない。APK／Pixel／視覚採用は未了。
+**10月27日の旧コンソール：Edit144/144＋Play234/234、実PNG250枚生成まで成功。** 原XML／JSON／PNG未受領で原本検証は保留。停止はUnity後のnorth-noah-review.ps1:30の範囲検証。C#float±.6fのJSON表現±.6000000238418579をdouble±.6へ完全一致比較していた誤判定を再現。有限値検査を残し、4座標を元のSingle精度で一致検査へ修正。実座標の隣のSingle値も全4座標で拒否し、許容幅を広げない。C#撮影・ゲーム・画像・既存基準は変更しない。詳細docs/north-noah-bounds-precision-2026-10-27.md。今回runのフォルダー／sourceは画面未確認、先頭explorerは前回のため流用しない。APK／Pixel／視覚採用は未了。
+
+**2026-10-28最新：run101255-ecac0943は144/144＋234/234、250画像、北／ノアmetadata検証、街QA／成長QA APK生成までコンソール正常終了。** 前回のSingle範囲誤判定は画面上で解消。原XML／build-info／PNG／APK bytes未受領、source SHAは画面にない（run末尾をgit SHAとしない）。実画像／Pixel採用は保留。報告SHAは街bed99d18…、成長5943f460…。実Update240枚／60.186秒／first show38.769秒はUnity記録で実機FPSではない。記録docs/verification/north-noah-qa-build-screen-report-2026-10-28.json。
+
+**次は同runのfive-plaza-review-*.zip全パート受領→原XML／source／画像照合→中央北9対／ノア静止・歩行・会話確認。** 今回は受領記録だけでゲーム／検査／撮影コード無変更、Pull／再ビルド不要。生成済みAPKを維持し、実画像確認後に同runの街QAをSHA／ID照合してPixelへ更新install-r。以前のFresh／アンインストールを再実行しない。噴水固定、6名展開／Merge／mainは未許可。チャット画像なし。
 
 以下は過去の検証履歴。
 

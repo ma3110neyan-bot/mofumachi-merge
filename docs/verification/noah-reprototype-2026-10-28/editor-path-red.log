@@ -1,0 +1,5 @@
+Exception: /workspace/mofumachi-merge/scripts/tests/noah-reprototype.tests.ps1:20
+Line |
+  20 |  … Unity.exe'){throw 'Selected editor was validated but ignored by the r …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Selected editor was validated but ignored by the real launcher.

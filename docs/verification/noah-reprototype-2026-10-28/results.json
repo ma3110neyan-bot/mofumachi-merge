@@ -1,0 +1,152 @@
+{
+  "date_utc": "2026-10-28",
+  "base_revision": "0fe11b3de2177bc1e3a43b304a384d35360a14df",
+  "scope": "Noah-only reprototype after explicit user rejection; no other-five rollout",
+  "candidate_render_digest": "2c40fe78b7b5ce0cf13041b236aae405f2bdb92fd8f5289bdf6ca11893f6b8b3",
+  "baseline_runtime_source": "1d11629ae8bab0ec398c6e53bd0bfd5f3030c92c",
+  "baseline_native_episode": "noah-pair-20261028-222202-ca3a3b66",
+  "runtime_files_changed": [
+    "Assets/Mofumachi/Presentation/TownNoah25DTrial.cs",
+    "Assets/Mofumachi/Presentation/TownActor.cs",
+    "Assets/Mofumachi/Presentation/CharacterBodyGraphic.cs"
+  ],
+  "source_files": [
+    {
+      "path": "Assets/Mofumachi/Presentation/TownNoah25DTrial.cs",
+      "sha256_lf": "56f7c1c1c270cd2ed8d9a06b0ede9b5085be8f54f78b3ccf7086fac170d33bd6"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownActor.cs",
+      "sha256_lf": "d348ce0994211fd9685d975bf770b76eed508bf423ad6b1cd63e4c1d6141f0f4"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/CharacterBodyGraphic.cs",
+      "sha256_lf": "7215041a75c69f08f2a1dd58fa4a6873d2cf6347bb6cd41dee44ab38f93903ce"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs",
+      "sha256_lf": "eb2e9ba5c8fadc35d6ee992dfcde55575d411a2cb3fcd8b1cfe4cf4be7639c7f"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/Noah25DTrialPresentationTests.cs",
+      "sha256_lf": "af47684f31816292958e9da0cc51e50e0ad20968675aec8d6b9297b555d42b6d"
+    },
+    {
+      "path": "Tests/Presentation/Noah25DTrialTests.cs",
+      "sha256_lf": "ce8686725ce69a807a631ea2ac4cc05ac68ccb8727ab11baec63fdacf03b0f3b"
+    },
+    {
+      "path": "scripts/capture-noah-reprototype.ps1",
+      "sha256_lf": "339633a821ad17a4cee53572e49a267ce77bfbccd7bd51a0799a6a59d4d02ee9"
+    },
+    {
+      "path": "scripts/noah-reprototype-review.ps1",
+      "sha256_lf": "f340709115102b0e99d4a0b6e8343edc25ec0341f7784acb7da351a0b7b1405f"
+    },
+    {
+      "path": "scripts/build-android.ps1",
+      "sha256_lf": "c2d2791a46efca3df748c501a704d914f7eadfc76d7861743983fc511467eb5c"
+    }
+  ],
+  "checks": {
+    "focused_cpu": {
+      "total": 29,
+      "passed": 29,
+      "failed": 0,
+      "skipped": 0,
+      "includes": "Noah motion/relief/light/projected grid + resident motion only; not full suite"
+    },
+    "unity_api_compile": {
+      "assemblies": [
+        "Mofumachi.Presentation",
+        "Mofumachi.PlayModeTests"
+      ],
+      "warnings": 0,
+      "errors": 0,
+      "type": "compile against Unity6000.6.4f1 APIs only, not Unity runtime"
+    },
+    "powershell": [
+      "noah-reprototype.tests.ps1: positive proof,12invalid mutations, exact one method, real launch wrapper/custom+default paths with only external Start-Process mocked, bounded original archives",
+      "north-noah-lock.tests.ps1: active-candidate bindings, immutable accepted North/art/fountain/navigation",
+      "android-tools.tests.ps1: affected shared launcher/inventory compatibility, synthetic XML and mocked device commands only"
+    ],
+    "original_binding_gate": {
+      "current_bindings": 24,
+      "original_base_inputs": 354,
+      "release_frozen_inputs": 502,
+      "north_frozen_inputs": 20,
+      "historical_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa"
+    },
+    "model_console": "same input schedule arrives at6.4simulated seconds, other residents stationary; sorting points restore exactly; not rendering",
+    "rejected_baseline_methods": "three Previous* methods exactly match1d11629 after names normalized; previous624whiteflat grid/root/two shadows preserved"
+  },
+  "mesh_budget": {
+    "new_body_vertices": 720,
+    "active_new_shadow_vertices": 97,
+    "new_shadow_graphics": 1,
+    "legacy_shadow_graphics_retained_but_disabled_for_new_noah": 2,
+    "extra_textures": 0,
+    "extra_material_instances": 0,
+    "particle_systems_added": 0,
+    "pixel_cost_measured": false
+  },
+  "final_source_review": {
+    "initial_important_findings": 3,
+    "report": "final-source-review.md",
+    "fixes": [
+      {
+        "finding": "new depth crosses old capture near plane",
+        "red": "analytical plane10 minDepth=-2.166773214204161, exit1",
+        "green": "plane30 minDepth=17.833226785795837/max42.16677321420416, exit0; native per-vertex clip assertion added, awaiting actual native execution"
+      },
+      {
+        "finding": "arrival frame wrongly rejected as moving",
+        "red": "actual model frame30 at6.2s still walking, positive parser fixture failed",
+        "green": "require stopped by6.4s (frame95 at final cadence) and throughout speech; no time-gap tolerance widened"
+      },
+      {
+        "finding": "custom editor path ignored",
+        "red": "real Invoke-Unity with mocked external Start-Process launched default despite selected path",
+        "green": "explicit optional EditorPath propagated; custom/default path fixtures pass"
+      }
+    ],
+    "remaining_known_material_findings": 0,
+    "independent_rereview_performed": false,
+    "visual_approval_inferred": false
+  },
+  "new_native_proof": {
+    "method": "Mofumachi.Tests.ExperienceCaptureTests.NoahReprototypeContinuousSequencePreservesArtAndSavedState",
+    "methods_to_run": 1,
+    "pairs": 6,
+    "sequence_frames": 144,
+    "sequence_encoding": "direct native RGB crop JPEG90; causal comparison pair originals remain lossless PNG",
+    "fixed_step_seconds": 0.03333333333333333,
+    "sample_steps": 2,
+    "simulated_duration_seconds": 9.6,
+    "cut": false,
+    "real_time_fps_evidence": false,
+    "speaker_required": "noah",
+    "sorting_examples": 2,
+    "sorting_examples_are_route_proof": false,
+    "native_run_verified": false
+  },
+  "full_editmode_or_playmode_run": false,
+  "new_native_render_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "six_character_rollout_authorized": false,
+  "pixel_metrics": {
+    "fps": null,
+    "heat": null,
+    "memory": null,
+    "tap_latency": null
+  },
+  "limitations": [
+    "Original illustration preserved in source; perceived dimensionality/naturalness/silhouette still require actual native image and user review.",
+    "Existing dialogue-panel overlap with hat/ears retained; no frozen UI edits.",
+    "Model console emitted optional NuGet audit retrieval warnings; no packages changed and no vulnerability/device claim inferred.",
+    "Cloud Unity startup/USB route remain unavailable as previously established; do not repeat permission/startup attempts.",
+    "No real Pixel install, uninstall, save reset, benchmark or main integration performed."
+  ]
+}

@@ -1,0 +1,5 @@
+Exception: /workspace/mofumachi-merge/scripts/noah-reprototype-review.ps1:41
+Line |
+  41 |  … $S.source_height -ne 1280){throw 'Wrong continuous native sequence.'}
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Wrong continuous native sequence.

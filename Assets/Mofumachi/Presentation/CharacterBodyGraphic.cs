@@ -12,8 +12,10 @@ namespace Mofumachi.Presentation
         public CharacterExpression Expression { get; private set; }
         private static readonly float[] rows={0,.12f,.26f,.40f,.52f,.65f,.80f,1};
         private float foot,wave,facing;private bool blink;
-        private bool noahTownTrial;private Noah25DTrialPose noahPose;
+        private bool noahTownTrial,noahReprototype=true;private Noah25DTrialPose noahPose;
+        internal void SetNoahReprototype(bool enabled){if(noahReprototype==enabled)return;noahReprototype=enabled;SetVerticesDirty();}
         private static readonly float[] noahColumns={0,.06f,.16f,.18f,.30f,.37f,.42f,.47f,.53f,.625f,.65f,.70f,.84f,1};
+        private static readonly float[] noahDepthColumns={0,.06f,.16f,.18f,.30f,.303f,.37f,.42f,.47f,.53f,.535f,.625f,.65f,.70f,.84f,1};
         private static readonly float[] noahRows={0,.06f,.14f,.22f,.28f,.36f,.44f,.49f,.53f,.60f,.67f,.80f,1};
         internal Vector2 NoahArtSize
         {
@@ -86,16 +88,18 @@ namespace Mofumachi.Presentation
             // anchor. Keep the asymmetric original tail, coat and face intact.
             Vector2 min=new Vector2(target.center.x-size.x*TownNoah25DTrial.FootCenterU,target.yMin);
             var uv=new Rect(1263f/1536f,1-337f/1024f,254f/1536f,323f/1024f);
-            var tint=new Color(1,1,1,color.a);
-            for(int y=0;y<noahRows.Length-1;y++)for(int x=0;x<noahColumns.Length-1;x++)
+            var columns=noahReprototype?noahDepthColumns:noahColumns;
+            for(int y=0;y<noahRows.Length-1;y++)for(int x=0;x<columns.Length-1;x++)
             {
-                float left=noahColumns[x],right=noahColumns[x+1],bottom=noahRows[y],top=noahRows[y+1];
+                float left=columns[x],right=columns[x+1],bottom=noahRows[y],top=noahRows[y+1];
                 var eyes=blink?TownNoah25DTrial.BlinkUvOffset((left+right)*.5f,(bottom+top)*.5f):default;
                 int n=vh.currentVertCount;
                 void Vertex(float u,float v)
                 {
-                    var offset=TownNoah25DTrial.VertexOffset(u,v,noahPose);
-                    vh.AddVert(new Vector3(min.x+size.x*u+offset.X,min.y+size.y*v+offset.Y),tint,
+                    var offset=noahReprototype?TownNoah25DTrial.VertexOffset(u,v,noahPose):TownNoah25DTrial.PreviousVertexOffset(u,v,noahPose);
+                    float light=noahReprototype?TownNoah25DTrial.SurfaceLight(u,v,noahPose):1;
+                    var tint=new Color(light,light,light,color.a);
+                    vh.AddVert(new Vector3(min.x+size.x*u+offset.X,min.y+size.y*v+offset.Y,noahReprototype?TownNoah25DTrial.SurfaceDepth(u,v):0),tint,
                         new Vector2(uv.x+u*uv.width+eyes.X,uv.y+v*uv.height+eyes.Y));
                 }
                 Vertex(left,bottom);Vertex(left,top);Vertex(right,top);Vertex(right,bottom);

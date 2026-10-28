@@ -53,9 +53,16 @@ namespace Mofumachi.Tests
             public List<NoahSequenceFrame> frames=new List<NoahSequenceFrame>();
         }
         [Serializable] private sealed class NorthWorldBounds {public float x_min=-.6f,x_max=.6f,y_min=1,y_max=1.32f;}
+        [Serializable] private sealed class NoahSortingExample
+        {public string id,kind="display-only world-foot-Y sorting, not route proof";public float world_x,world_y;public int actor_sibling,prop_sibling;public bool behind,correct;public NativeImage image;}
         [Serializable] private sealed class NorthNoahProof
         {
             public int noah_quality_version=3;
+            public int noah_reprototype_version;
+            public float capture_canvas_distance,capture_near_clip,capture_far_clip;
+            public bool capture_clip_verified;
+            public string baseline_source_revision,original_atlas_sha256;
+            public List<NoahSortingExample> noah_sorting_examples=new List<NoahSortingExample>();
             public string kind="same-state-native-north-noah-comparison",before="reconstructed causal baseline: north join disabled / Noah legacy with product name visibility at the same instant",after="current product code";
             public string source_revision,product_fingerprint,historical_before="bb3fb82 native run102109 / 09-connected-path-north.png is historical context only, not this causal baseline";
             public bool native_unity=true,pixel_verified=false,adopted=false,navigation_changed=false,teleport_rescue=false;
@@ -230,6 +237,106 @@ namespace Mofumachi.Tests
                 return pair;
             }
             finally{afterSwitch();if(noah)town.RefreshWorldPresentation();if(before!=null)UnityEngine.Object.DestroyImmediate(before);if(after!=null)UnityEngine.Object.DestroyImmediate(after);if(naturalBefore!=null)UnityEngine.Object.DestroyImmediate(naturalBefore);}
+        }
+        [UnityTest,Timeout(120000)] public IEnumerator NoahReprototypeContinuousSequencePreservesArtAndSavedState()
+        {
+            yield return EnterHome();Assert.That(Flow.Game.SelectFavorite("noah"),Is.True);Flow.ShowHome();yield return null;
+            EnsurePortraitCamera();var field=Flow.GetComponentInChildren<TownLifeView>();field.enabled=false;field.StartInteraction();
+            var noah=field.Actors.Single(a=>a.CharacterId=="noah");var friend=field.Actors.Single(a=>a.CharacterId=="momo");
+            Assert.That(noah.Controlled&&noah.NoahReprototypeEnabled,Is.True);
+            Assert.That(TownWalkableArea.Distance(noah.WorldPosition,TownWorldMap.Place("square")),Is.LessThan(.002f));
+            Assert.That(TownWalkableArea.Distance(friend.WorldPosition,TownCentralMasterLayout.ArrivalFriend),Is.LessThan(.002f));
+            string rootOutput=OutputDirectory(),output=rootOutput==null?null:Path.Combine(rootOutput,"noah-reprototype");
+            var proof=new NorthNoahProof{noah_reprototype_version=1,kind="noah-only-reprototype-comparison",source_revision=EvidenceArgument("-mofumachiSourceRevision"),product_fingerprint=EvidenceArgument("-mofumachiProductFingerprint"),
+                baseline_source_revision="1d11629ae8bab0ec398c6e53bd0bfd5f3030c92c",before="reconstructed rejected Noah renderer 1d11629 at identical clocks; candidate name visibility on Before only",historical_before="rejected native Noah run222202, distinct historical episode"};
+            proof.capture_canvas_distance=captureCanvas.planeDistance;proof.capture_near_clip=captureCamera.nearClipPlane;proof.capture_far_clip=captureCamera.farClipPlane;
+            string repo=Directory.GetParent(Application.dataPath).FullName;
+            proof.original_atlas_sha256=EvidenceSha(File.ReadAllBytes(Path.Combine(repo,"Assets/Mofumachi/Resources/Mofumachi/CharacterBodyAtlas.png")));
+            var sequence=proof.sequence;sequence.setup="fresh-isolated-Home-scene-Noah-only";sequence.kind="native-continuous-fixed-step-Noah-reprototype";sequence.sample_step_count=2;
+            sequence.greet_trigger="public TryBeginConversation(noah,momo); automatic social timer held only in isolated fixture";sequence.conversation_mode="speaker-noah-to-momo";
+            const System.Reflection.BindingFlags flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
+            var socialField=typeof(TownLifeView).GetField("nextSocial",flags);var speakerField=typeof(TownLifeView).GetField("speaker",flags);
+            var facingField=typeof(TownActor).GetField("facing",flags);var reactionField=typeof(TownActor).GetField("reactionRemaining",flags);
+            socialField.SetValue(field,float.PositiveInfinity); // No shipping cooldown change; choose an actual Noah-first interaction in this fixture.
+            foreach(var r in field.World.Model.Residents.Where(r=>!r.Controlled))field.World.Model.Pause(r.Id,4);
+            var npcPositions=field.World.Model.Residents.Where(r=>!r.Controlled).Select(r=>r.Position).ToArray();
+            string saved=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;float elapsed=0;
+            field.World.Camera.Jump(new TownPoint(0,.15f));field.World.Refresh();var warm=Portrait();UnityEngine.Object.DestroyImmediate(warm);
+            var noahMesh=noah.GetComponentInChildren<CharacterBodyGraphic>().canvasRenderer.GetMesh();
+            Assert.That(noahMesh.vertices.Min(v=>v.z),Is.LessThan(-3));
+            Assert.That(noahMesh.colors32.Min(c=>c.r),Is.LessThan(237));
+            Assert.That(noahMesh.colors32.All(c=>c.r==c.g&&c.g==c.b&&c.a==255),Is.True);
+            var actorBounds=ActorEvidenceRect(noah);var projection=ProjectEvidence(field,new TownPoint(-.45f,-.30f),new TownPoint(.45f,-.15f));
+            var crop=EvidenceRect(Rect.MinMaxRect(Mathf.Min(actorBounds.xMin,projection.xMin),actorBounds.yMin-24,Mathf.Max(actorBounds.xMax,projection.xMax),actorBounds.yMax+90));
+            sequence.crop_x=crop.x;sequence.crop_y=crop.y;sequence.crop_width=crop.width;sequence.crop_height=crop.height;sequence.isolated_start_verified=true;
+            void Step()
+            {
+                foreach(var r in field.World.Model.Residents.Where(r=>!r.Controlled))field.World.Model.Pause(r.Id,4);
+                field.AdvanceFrame(1f/30);elapsed+=1f/30;
+                Assert.That(field.World.Model.Residents.Where(r=>!r.Controlled).Select(r=>r.Position).ToArray(),Is.EqualTo(npcPositions));
+            }
+            for(int index=0;index<144;index++)
+            {
+                string mode=index<12?"idle":index<36?"walk":index<48?"stop":index<90?"turn-and-walk":index<96?"settle":"noah-speaking";
+                if(index==12)Assert.That(field.World.GuidePoint(new TownPoint(-.32f,-.25f)),Is.True);
+                if(index==36){field.World.CancelHero();field.StartInteraction();}
+                if(index==48)Assert.That(field.World.GuidePoint(new TownPoint(friend.WorldPosition.X-.20f,friend.WorldPosition.Y)),Is.True);
+                if(index==96)
+                {
+                    Assert.That(field.World.Model.Hero.IsWalking,Is.False,"The actual walk must arrive before speaking");field.StartInteraction();socialField.SetValue(field,0f);
+                    Assert.That(field.TryBeginConversation(noah,friend),Is.True,"Noah must start the real public conversation, not a forced smile or fake bubble");
+                    Assert.That(speakerField.GetValue(field),Is.SameAs(noah));
+                    sequence.actual_conversation_verified=true;sequence.conversation_speaker_id="noah";sequence.conversation_partner_id="momo";
+                    sequence.conversation_text=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town bubble").text;
+                    Assert.That(sequence.conversation_text,Is.EqualTo("こんにちは、モモ♪"));
+                    sequence.noah_reaction_seconds=(float)reactionField.GetValue(noah);sequence.momo_reaction_seconds=(float)reactionField.GetValue(friend);
+                    sequence.noah_facing=field.World.Model.Residents.Single(r=>r.Id=="noah").Facing;sequence.momo_facing=field.World.Model.Residents.Single(r=>r.Id=="momo").Facing;
+                }
+                for(int step=0;step<2;step++)Step();
+                if(index>=96)Assert.That(field.IsSpeaking&&object.ReferenceEquals(speakerField.GetValue(field),noah),Is.True,"The sequence must retain actual Noah speech");
+                field.World.Camera.Jump(new TownPoint(0,.15f));field.World.Refresh();
+                if(index==11||index==29||index==44||index==50||index==101||index==104)
+                {
+                    string pairMode=index==11?"idle":index==29?"walk":index==44?"stop":index==50?"turn":index==101?"talk":"reaction";
+                    var pair=CaptureNativePair(output,field,"38-noah-"+pairMode,()=>noah.SetNoahReprototypeEnabled(false),()=>noah.SetNoahReprototypeEnabled(true),()=>ActorEvidenceRect(noah),true);pair.mode=pairMode;proof.noah_pairs.Add(pair);
+                }
+                var portrait=Portrait();Texture2D sample=null;
+                try
+                {
+                    var bounds=ActorEvidenceRect(noah);
+                    Assert.That(bounds.xMin>=crop.x&&bounds.xMax<=crop.xMax&&bounds.yMin>=crop.y&&bounds.yMax<=crop.yMax,Is.True,$"Noah frame{index} lies outside the declared crop: {bounds}/{crop}");
+                    sample=new Texture2D(crop.width,crop.height,TextureFormat.RGB24,false);sample.SetPixels(portrait.GetPixels(crop.x,crop.y,crop.width,crop.height));sample.Apply();
+                    sequence.frames.Add(new NoahSequenceFrame{index=index,mode=mode,elapsed_seconds=elapsed,world_x=noah.WorldPosition.X,world_y=noah.WorldPosition.Y,facing=(float)facingField.GetValue(noah),reaction_seconds=(float)reactionField.GetValue(noah),walking=field.World.Model.Hero.IsWalking,image=SaveNativeEncoding(output,"38-noah-frame-"+index.ToString("00")+".jpg",sample,sample.EncodeToJPG(90))});
+                }
+                finally{UnityEngine.Object.DestroyImmediate(portrait);if(sample!=null)UnityEngine.Object.DestroyImmediate(sample);}
+            }
+            sequence.state_unchanged=saved==StateCodec.Encode(Flow.Game.State);sequence.store_writes_unchanged=writes==Store.Writes;Assert.That(sequence.state_unchanged&&sequence.store_writes_unchanged,Is.True);
+            var snapshot=field.World.Capture();
+            try
+            {
+                field.StartInteraction();
+                foreach(var item in new[]{("fountain-front",new TownPoint(.26f,.14f)),("fountain-back",new TownPoint(.26f,.46f))})
+                {
+                    field.World.Model.Restore("noah",item.Item2,null);field.World.Camera.Jump(item.Item2);field.World.Refresh();field.RefreshWorldPresentation();Canvas.ForceUpdateCanvases();
+                    Assert.That(TownWalkableArea.Distance(noah.WorldPosition,item.Item2),Is.LessThan(.00001f),"Sorting examples must show the declared real world feet.");
+                    var fountain=Flow.GetComponentInChildren<TownFountainGraphic>(true);int actorOrder=noah.transform.GetSiblingIndex(),propOrder=fountain.transform.GetSiblingIndex();bool behind=item.Item2.Y>TownCentralMasterLayout.FountainCenterY;
+                    Assert.That(actorOrder<propOrder,Is.EqualTo(behind));
+                    var image=Portrait();try{proof.noah_sorting_examples.Add(new NoahSortingExample{id=item.Item1,world_x=item.Item2.X,world_y=item.Item2.Y,actor_sibling=actorOrder,prop_sibling=propOrder,behind=behind,correct=true,image=SaveNativeImage(output,"38-noah-"+item.Item1+".png",image)});}finally{UnityEngine.Object.DestroyImmediate(image);}
+                }
+            }
+            finally{field.World.Restore(snapshot);noah.SetNoahReprototypeEnabled(true);field.RefreshWorldPresentation();}
+            Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(saved));Assert.That(Store.Writes,Is.EqualTo(writes));
+            if(output!=null)
+            {
+                proof.capture_clip_verified=true; // Every Portrait checks all transformed active Noah vertices before Camera.Render.
+                File.WriteAllText(Path.Combine(output,"noah-reprototype.json"),JsonUtility.ToJson(proof,true));
+                var html=new System.Text.StringBuilder("<!doctype html><meta charset='utf-8'><title>Noah 2.5D reprototype</title><style>body{font:16px sans-serif;background:#fff7ef;color:#50343b;max-width:1500px;margin:auto}img{max-width:100%}section{margin:2rem 0}</style><h1>ノア1名 再試作：実Unity</h1><p>Beforeは今回不合格となった1d11629の描画を同じ時計で再現。比較Beforeの名札だけ製品Afterと同じ表示条件です。Afterは自然な製品表示。原画は変更していません。採用／Pixel負荷は未確認です。</p>");
+                foreach(var pair in proof.noah_pairs){html.Append("<section><h2>").Append(pair.mode).Append("</h2><a href='").Append(pair.comparison.file).Append("'><img src='").Append(pair.comparison.file).Append("'></a>");if(pair.name_control.natural_visibility_changed)html.Append("<p><a href='").Append(pair.name_control.natural_before_image.file).Append("'>名札を揃える前の自然なBefore原本</a></p>");html.Append("</section>");}
+                html.Append("<h2>静止→歩行→停止→方向転換→ノアの会話（CUTなし）</h2><p>1/30秒の実AdvanceFrameを2ステップごとに記録した連続標本（144コマ／9.6秒、JPEG）。9.6秒の終端でループします。実時間動画・FPS測定ではありません。会話開始の順番だけ隔離fixtureの自動会話タイマーで制御しています。</p><button id='play'>再生／停止</button><p id='time'></p><img id='frame'><script>const frames=").Append(JsonUtility.ToJson(sequence)).Append(".frames;let i=0,p=true;document.querySelector('#play').onclick=()=>p=!p;function tick(){const f=frames[i];document.querySelector('#frame').src=f.image.file;document.querySelector('#time').textContent=f.index+' / '+f.mode+' / '+f.elapsed_seconds.toFixed(3)+' simulated seconds';if(p)i=(i+1)%frames.length;setTimeout(tick,1000/15)}tick()</script><h2>噴水前後の表示例</h2><p>表示位置を置いたSorting確認で、実歩行の証拠とは別です。</p>");
+                foreach(var example in proof.noah_sorting_examples)html.Append("<p>").Append(example.id).Append("</p><img src='").Append(example.image.file).Append("'>");
+                File.WriteAllText(Path.Combine(output,"noah-reprototype.html"),html.ToString());
+            }
+            LogAssert.NoUnexpectedReceived();
         }
         [UnityTest,Timeout(120000)] public IEnumerator NorthNoahBeforeAfterAndFixedStepEvidencePreserveSavedState()
         {
@@ -705,7 +812,9 @@ namespace Mofumachi.Tests
                 target=new RenderTexture(720,1280,24);target.Create();captureCamera.targetTexture=target;
                 captureCamera.clearFlags=CameraClearFlags.SolidColor;captureCamera.backgroundColor=new Color(.98f,.94f,.91f);captureCamera.cullingMask=1<<30;
                 captureCamera.orthographic=true;captureCamera.orthographicSize=320;captureCamera.nearClipPlane=.1f;captureCamera.farClipPlane=100;captureCamera.transform.position=new Vector3(0,0,-20);
-                captureCanvas.GetComponent<CanvasScaler>().enabled=false;captureCanvas.renderMode=RenderMode.ScreenSpaceCamera;captureCanvas.worldCamera=captureCamera;captureCanvas.planeDistance=10;captureCanvas.scaleFactor=2;
+                // Orthographic XY stays identical. The original plane10 clips
+                // the new original-art relief/yaw; reserve depth on both sides.
+                captureCanvas.GetComponent<CanvasScaler>().enabled=false;captureCanvas.renderMode=RenderMode.ScreenSpaceCamera;captureCanvas.worldCamera=captureCamera;captureCanvas.planeDistance=30;captureCanvas.scaleFactor=2;
                 Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(720,1280),new Rect(0,0,720,1280));
             }
             foreach(var t in captureCanvas.GetComponentsInChildren<Transform>(true))t.gameObject.layer=30;
@@ -727,6 +836,15 @@ namespace Mofumachi.Tests
                 }
                 Canvas.ForceUpdateCanvases();
                 beforeRender?.Invoke();Canvas.ForceUpdateCanvases();
+                foreach(var actor in Flow.GetComponentsInChildren<TownActor>().Where(a=>a.NoahReprototypeEnabled&&a.RegionVisible))
+                {
+                    var graphic=actor.GetComponentInChildren<CharacterBodyGraphic>();var mesh=graphic.canvasRenderer.GetMesh();
+                    foreach(var vertex in mesh.vertices)
+                    {
+                        float depth=captureCamera.WorldToScreenPoint(graphic.transform.TransformPoint(vertex)).z;
+                        Assert.That(depth,Is.GreaterThan(captureCamera.nearClipPlane).And.LessThan(captureCamera.farClipPlane),"The complete dimensional Noah must fit the actual capture camera, not be clipped into a misleading comparison.");
+                    }
+                }
                 captureCamera.Render();RenderTexture.active=target;image=new Texture2D(720,1280,TextureFormat.RGB24,false);image.ReadPixels(new Rect(0,0,720,1280),0,0);image.Apply();return image;
             }
             catch{if(image!=null)UnityEngine.Object.DestroyImmediate(image);throw;}

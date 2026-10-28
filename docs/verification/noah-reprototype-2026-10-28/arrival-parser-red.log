@@ -1,0 +1,5 @@
+Exception: /workspace/mofumachi-merge/scripts/noah-reprototype-review.ps1:50
+Line |
+  50 |  …  $F.walking){throw 'Idle, stop and conversation must actually stop.'}
+     |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Idle, stop and conversation must actually stop.

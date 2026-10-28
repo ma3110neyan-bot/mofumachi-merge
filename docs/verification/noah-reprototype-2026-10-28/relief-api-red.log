@@ -1,0 +1,25 @@
+/workspace/mofumachi-merge/Tests/Presentation/Noah25DTrialTests.cs(26,42): error CS0117: 'TownNoah25DTrial' does not contain a definition for 'SurfaceDepth' [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+/workspace/mofumachi-merge/Tests/Presentation/Noah25DTrialTests.cs(27,42): error CS0117: 'TownNoah25DTrial' does not contain a definition for 'SurfaceDepth' [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+/workspace/mofumachi-merge/Tests/Presentation/Noah25DTrialTests.cs(28,86): error CS0117: 'TownNoah25DTrial' does not contain a definition for 'SurfaceDepth' [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+/workspace/mofumachi-merge/Tests/Presentation/Noah25DTrialTests.cs(29,86): error CS0117: 'TownNoah25DTrial' does not contain a definition for 'SurfaceDepth' [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+/workspace/mofumachi-merge/Tests/Presentation/Noah25DTrialTests.cs(31,46): error CS0117: 'TownNoah25DTrial' does not contain a definition for 'SurfaceDepth' [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+/workspace/mofumachi-merge/Tests/Presentation/Noah25DTrialTests.cs(37,43): error CS0117: 'TownNoah25DTrial' does not contain a definition for 'SurfaceLight' [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+/workspace/mofumachi-merge/Tests/Presentation/Noah25DTrialTests.cs(38,49): error CS0117: 'TownNoah25DTrial' does not contain a definition for 'SurfaceLight' [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+/workspace/mofumachi-merge/Tests/Presentation/Noah25DTrialTests.cs(39,42): error CS0117: 'TownNoah25DTrial' does not contain a definition for 'SurfaceLight' [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+/workspace/mofumachi-merge/Tests/Presentation/Noah25DTrialTests.cs(41,46): error CS0117: 'TownNoah25DTrial' does not contain a definition for 'SurfaceLight' [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+
+Build FAILED.
+
+/workspace/mofumachi-merge/Tests/Presentation/Noah25DTrialTests.cs(26,42): error CS0117: 'TownNoah25DTrial' does not contain a definition for 'SurfaceDepth' [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+/workspace/mofumachi-merge/Tests/Presentation/Noah25DTrialTests.cs(27,42): error CS0117: 'TownNoah25DTrial' does not contain a definition for 'SurfaceDepth' [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+/workspace/mofumachi-merge/Tests/Presentation/Noah25DTrialTests.cs(28,86): error CS0117: 'TownNoah25DTrial' does not contain a definition for 'SurfaceDepth' [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+/workspace/mofumachi-merge/Tests/Presentation/Noah25DTrialTests.cs(29,86): error CS0117: 'TownNoah25DTrial' does not contain a definition for 'SurfaceDepth' [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+/workspace/mofumachi-merge/Tests/Presentation/Noah25DTrialTests.cs(31,46): error CS0117: 'TownNoah25DTrial' does not contain a definition for 'SurfaceDepth' [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+/workspace/mofumachi-merge/Tests/Presentation/Noah25DTrialTests.cs(37,43): error CS0117: 'TownNoah25DTrial' does not contain a definition for 'SurfaceLight' [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+/workspace/mofumachi-merge/Tests/Presentation/Noah25DTrialTests.cs(38,49): error CS0117: 'TownNoah25DTrial' does not contain a definition for 'SurfaceLight' [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+/workspace/mofumachi-merge/Tests/Presentation/Noah25DTrialTests.cs(39,42): error CS0117: 'TownNoah25DTrial' does not contain a definition for 'SurfaceLight' [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+/workspace/mofumachi-merge/Tests/Presentation/Noah25DTrialTests.cs(41,46): error CS0117: 'TownNoah25DTrial' does not contain a definition for 'SurfaceLight' [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+    0 Warning(s)
+    9 Error(s)
+
+Time Elapsed 00:00:03.28

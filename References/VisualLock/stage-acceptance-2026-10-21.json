@@ -709,7 +709,7 @@
     "native_images_verified": 124,
     "native_review": "References/Review/curved-boundary-2026-10-25-candidate/native-review.json"
   },
-  "base_polish": "References/VisualLock/noah-quality-candidate-2026-10-28.json",
+  "base_polish": "References/VisualLock/noah-reprototype-candidate-2026-10-28.json",
   "previous_qa_build_report": {
     "run": "20261025-073237-f8fd542b",
     "status": "console_success_reported",
@@ -955,6 +955,21 @@
     "native_scope_image_review_scope": "single native diagnostic Noah-only images",
     "latest_native_review": "References/Review/noah-pair-2026-10-28-222202/native-review.json",
     "latest_native_failure_resolved_in_single_method": true,
-    "ready_for_full_qa": false
+    "ready_for_full_qa": false,
+    "user_rejected": true,
+    "rejection_reference": "2026-10-28 user: 現在のノアは2.5D化の合格とは認めません。残り5名への展開は禁止。"
+  },
+  "noah_reprototype_pass": {
+    "representative": "noah",
+    "candidate_record": "References/VisualLock/noah-reprototype-candidate-2026-10-28.json",
+    "implemented": true,
+    "native_unity_verified": false,
+    "native_diagnostic_verified": false,
+    "native_visual_cleared": false,
+    "qa_apk_generated": false,
+    "pixel_verified": false,
+    "adopted": false,
+    "six_character_rollout_authorized": false,
+    "native_visual_status": "reprototype_implemented_pending_native_images"
   }
 }

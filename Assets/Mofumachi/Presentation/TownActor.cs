@@ -19,6 +19,14 @@ namespace Mofumachi.Presentation
         public RectTransform VisualRoot { get; private set; }
         private bool noahTrialRequested=true;
         public bool NoahTrialEnabled=>TownNoah25DTrial.IsEnabled(CharacterId,noahTrialRequested);
+        private bool noahReprototypeRequested=true;
+        public bool NoahReprototypeEnabled=>NoahTrialEnabled&&noahReprototypeRequested;
+        public void SetNoahReprototypeEnabled(bool enabled)
+        {
+            bool previous=NoahReprototypeEnabled;noahReprototypeRequested=enabled;
+            if(previous==NoahReprototypeEnabled)return;
+            body?.SetNoahReprototype(NoahReprototypeEnabled);EnsureNoahShadow();if(life!=null)Render(0,0);
+        }
         private float ReactionSeconds=>NoahTrialEnabled?TownNoah25DTrial.ReactionSeconds:.65f;
         // An evidence-capture switch, deliberately absent from product UI and
         // persistence. Re-render the same instant without resetting any clock.
@@ -26,7 +34,7 @@ namespace Mofumachi.Presentation
         {
             bool previous=NoahTrialEnabled;noahTrialRequested=enabled;
             if(previous==NoahTrialEnabled)return;
-            body?.SetNoahTownTrial(NoahTrialEnabled);if(life!=null)Render(0,0);
+            body?.SetNoahTownTrial(NoahTrialEnabled);body?.SetNoahReprototype(NoahReprototypeEnabled);EnsureNoahShadow();if(life!=null)Render(0,0);
         }
         public bool IsGuided { get; private set; }
         public TownPoint GuidedTarget=>guideTarget;
@@ -42,6 +50,7 @@ namespace Mofumachi.Presentation
         private TownLifeView life;
         private CharacterBodyGraphic body;
         private RoundedPanelGraphic softShadow,contactShadow;
+        private NoahGroundShadowGraphic noahShadow;
         private RectTransform rect;
         private bool dragged,surprised,moving;
         private bool regionalGuidance,transitionHeld;
@@ -55,15 +64,23 @@ namespace Mofumachi.Presentation
             VisualRoot=UIWidgets.Node("Town actor visual",rect,new Rect(0,0,1,1));VisualRoot.pivot=new Vector2(.5f,0);
             body=VisualRoot.gameObject.AddComponent<CharacterBodyGraphic>();body.Bind(characterId);body.raycastTarget=true;
             body.SetNoahTownTrial(NoahTrialEnabled);
+            body.SetNoahReprototype(NoahReprototypeEnabled);
             softShadow=CreateShadow("Town actor soft shadow",new Rect(.12f,-.06f,.76f,.12f),.075f);
             contactShadow=CreateShadow("Town actor contact shadow",new Rect(.27f,-.032f,.46f,.064f),.19f);
             softShadow.transform.SetAsFirstSibling();contactShadow.transform.SetSiblingIndex(1);
+            EnsureNoahShadow();
             visibility=gameObject.AddComponent<CanvasGroup>();
         }
         private RoundedPanelGraphic CreateShadow(string name,Rect bounds,float opacity)
         {
             var shadow=UIWidgets.Node(name,rect,bounds).gameObject.AddComponent<RoundedPanelGraphic>();
             shadow.radius=100;shadow.decorated=false;shadow.raycastTarget=false;shadow.color=new Color(.24f,.19f,.26f,opacity);return shadow;
+        }
+        private void EnsureNoahShadow()
+        {
+            if(!NoahReprototypeEnabled||rect==null||noahShadow!=null)return;
+            noahShadow=UIWidgets.Node("Noah soft ground shadow",rect,new Rect(.18f,-.06f,.64f,.12f)).gameObject.AddComponent<NoahGroundShadowGraphic>();
+            noahShadow.raycastTarget=false;noahShadow.color=new Color(.18f,.14f,.20f,.28f);noahShadow.transform.SetAsFirstSibling();
         }
         internal void Connect(TownLifeView view,TownPoint a,TownPoint b,float delay)
         {life=view;npcA=a;npcB=b;npcTarget=b;waitRemaining=delay;ResetVisual();}
@@ -180,11 +197,13 @@ namespace Mofumachi.Presentation
             float scale=viewScale*DepthScale;
             if(NoahTrialEnabled)
             {
-                var trial=TownNoah25DTrial.Sample(stride,amplitude,facing,IsResting?1:0,breath,reactionRemaining,surprised,moving);
-                float sx=scale*(1-trial.Breath*.35f)*(1-.035f*Mathf.Abs(trial.Look)),sy=scale*(1+trial.Breath);
-                var support=TownNoah25DTrial.SupportTranslation(body.NoahArtSize.x,trial,sx,sy);
+                var trial=NoahReprototypeEnabled?TownNoah25DTrial.Sample(stride,amplitude,facing,IsResting?1:0,breath,reactionRemaining,surprised,moving):TownNoah25DTrial.PreviousSample(stride,amplitude,facing,IsResting?1:0,breath,reactionRemaining,surprised,moving);
+                float sx=scale*(1-trial.Breath*.35f),sy=scale*(1+trial.Breath);
+                if(!NoahReprototypeEnabled)sx*=1-.035f*Mathf.Abs(trial.Look);
+                var support=NoahReprototypeEnabled?TownNoah25DTrial.SupportTranslation(body.NoahArtSize.x,trial,sx,sy):TownNoah25DTrial.PreviousSupportTranslation(body.NoahArtSize.x,trial,sx,sy);
                 VisualRoot.anchoredPosition=new Vector2(support.X,support.Y);
-                VisualRoot.localScale=new Vector3(sx,sy,1);VisualRoot.localRotation=Quaternion.Euler(0,0,trial.Lean);
+                VisualRoot.localScale=new Vector3(sx,sy,NoahReprototypeEnabled?scale:1);
+                VisualRoot.localRotation=NoahReprototypeEnabled?Quaternion.AngleAxis(trial.Lean,Vector3.forward)*Quaternion.AngleAxis(-trial.Look*TownNoah25DTrial.YawDegrees,Vector3.up):Quaternion.Euler(0,0,trial.Lean);
                 body.PoseNoah(trial,TownCharacterMotion.Blink(breath,resident)||TownNoah25DTrial.SmilingEyes(reactionRemaining));UpdateShadows(trial.Hop,scale);return;
             }
             VisualRoot.anchoredPosition=new Vector2(-pose.Foot*1.1f,pose.Hop+reaction.Hop+rest)*scale;
@@ -199,6 +218,8 @@ namespace Mofumachi.Presentation
         private void UpdateShadows(float height,float scale)
         {
             if(softShadow==null||contactShadow==null)return;height=Mathf.Clamp(height,0,12);
+            softShadow.enabled=contactShadow.enabled=!NoahReprototypeEnabled;
+            if(noahShadow!=null){noahShadow.enabled=NoahReprototypeEnabled;noahShadow.rectTransform.localScale=Vector3.one*scale;}
             if(NoahTrialEnabled)
             {
                 // Same two grounded graphics; do not lift the shadow with the
@@ -232,5 +253,32 @@ namespace Mofumachi.Presentation
         {if(!Controlled||Movement.OwnedPointerId!=e.pointerId)return;Movement.ReleasePointer(e.pointerId);if(worldResident!=null&&dragged)life.World.ReleasePointer();FreezeMovement();life.ActorReleased(this);if(dragged)e.eligibleForClick=false;}
         public void OnPointerClick(PointerEventData e){if(!dragged){if(Controlled&&life.CanInteract)life.GetComponent<TownStreetWalkView>()?.Arm();else React();}}
         private void OnDisable(){Movement?.CancelInput();ResetVisual();dragged=false;}
+    }
+    // One unlit, noninteractive ellipse. Smooth alpha falloff replaces the
+    // Noah-only hard rounded rectangles; the legacy shadows stay available
+    // unchanged for the causal OFF comparison. No texture/material allocation.
+    internal sealed class NoahGroundShadowGraphic : UnityEngine.UI.MaskableGraphic
+    {
+        private static readonly float[] radii={.25f,.55f,.80f,1};
+        private static readonly float[] opacity={.90f,.50f,.15f,0};
+        protected override void OnPopulateMesh(UnityEngine.UI.VertexHelper vh)
+        {
+            vh.Clear();var r=GetPixelAdjustedRect();if(r.width<=0||r.height<=0)return;
+            const int sectors=24;vh.AddVert(r.center,color,Vector2.zero);
+            for(int ring=0;ring<radii.Length;ring++)for(int i=0;i<sectors;i++)
+            {
+                float angle=i*(Mathf.PI*2/sectors);var tint=color;tint.a*=opacity[ring];
+                vh.AddVert(new Vector2(r.center.x+Mathf.Cos(angle)*r.width*.5f*radii[ring],r.center.y+Mathf.Sin(angle)*r.height*.5f*radii[ring]),tint,Vector2.zero);
+            }
+            for(int i=0;i<sectors;i++)
+            {
+                int next=(i+1)%sectors;vh.AddTriangle(0,1+i,1+next);
+                for(int ring=0;ring<radii.Length-1;ring++)
+                {
+                    int a=1+ring*sectors+i,b=1+ring*sectors+next,c=b+sectors,d=a+sectors;
+                    vh.AddTriangle(a,d,c);vh.AddTriangle(a,c,b);
+                }
+            }
+        }
     }
 }

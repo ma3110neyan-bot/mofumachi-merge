@@ -103,7 +103,8 @@ try {
     Reject {Assert-OriginalBaseForCandidate $Root} 'legacy scope cannot authorize body replacement'
     # New Noah-only pass: user accepted North. Restore the fixture to the new
     # current product before exercising its independently anchored freeze.
-    $Record=Get-Content -LiteralPath (Join-Path $Repo 'References/VisualLock/noah-quality-candidate-2026-10-28.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    $CurrentStage=Get-Content -LiteralPath (Join-Path $Repo 'References/VisualLock/stage-acceptance-2026-10-21.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    $Record=Get-Content -LiteralPath (Join-Path $Repo $CurrentStage.base_polish) -Raw -Encoding UTF8 | ConvertFrom-Json
     foreach($InputFile in @($Record.changes)+@($Record.new_files)+@($Record.capture_inputs)) {
         Copy-Item -LiteralPath (Join-Path $Repo $InputFile.path) -Destination (Join-Path $Root $InputFile.path)
     }

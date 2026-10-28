@@ -125,8 +125,8 @@
       "after_sha256": "8f84199831019a469de1a6a1dc981e9bcff2ba0faad89e3e18519608273a55a5"
     }
   ],
-  "native_unity_verified": false,
-  "qa_apk_generated": false,
+  "native_unity_verified": true,
+  "qa_apk_generated": true,
   "pixel_verified": false,
   "adopted": false,
   "merge_quality_pass_started": false,
@@ -164,7 +164,7 @@
   "current_before_native_run": "20261027-102109-3bbbf9fe",
   "comparison_scope": "Same-state OFF/ON is a reconstructed causal baseline; historical native Before remains separately identified.",
   "latest_native_failure": "References/Review/full-playmode-2026-10-27-220456/receipt-and-diagnosis.json",
-  "fixed_native_pass_verified": false,
+  "fixed_native_pass_verified": true,
   "internal_verification": "docs/verification/north-noah-bounds-precision-2026-10-27/results.json",
   "previous_native_failures": [
     "References/Review/full-playmode-2026-10-27-214011/receipt-and-diagnosis.json"
@@ -172,5 +172,11 @@
   "previous_internal_verification": "docs/verification/north-noah-capture-scene-repair-2026-10-27/results.json",
   "native_tests_console_success_report": "docs/verification/north-noah-qa-build-screen-report-2026-10-28.json",
   "previous_native_tests_console_success_report": "docs/verification/north-noah-bounds-precision-2026-10-27/console-report-and-diagnosis.json",
-  "qa_build_console_success_report": "docs/verification/north-noah-qa-build-screen-report-2026-10-28.json"
+  "qa_build_console_success_report": "docs/verification/north-noah-qa-build-screen-report-2026-10-28.json",
+  "native_scope_image_review_complete": true,
+  "native_visual_status": "north_local_visual_regression_hold",
+  "native_review": "References/Review/north-noah-2026-10-28-candidate/native-review.json",
+  "native_source_revision": "292cf8ace0fe664a69caf6c5cd4882ac4b64594a",
+  "native_run": "20261028-101255-ecac0943",
+  "noah_native_visual_status": "no_important_identity_or_pose_regression_observed_in_received_scope"
 }

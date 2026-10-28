@@ -1,0 +1,175 @@
+{
+  "kind": "received native central-north seam and Noah-only 2.5D review",
+  "run": "20261028-101255-ecac0943",
+  "received_on_jst": "2026-10-28",
+  "source_revision": "292cf8ace0fe664a69caf6c5cd4882ac4b64594a",
+  "product_fingerprint": "5bab55108d85603e2192ed0a7502f6bac72d093f967425994f77352ac032899e",
+  "candidate_render_digest": "1cc54e06e095cf20a237b6ebd08272ef19d4e1fbd0a3d7eb4f9b4c1748e561b8",
+  "archives": 23,
+  "original_files": 577,
+  "full_pngs": 250,
+  "total_pngs_decoded": 541,
+  "comparison_jpegs_decoded": 12,
+  "editmode": {
+    "total": 144,
+    "passed": 144,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "playmode": {
+    "total": 234,
+    "passed": 234,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "existing_native_and_source_gates_passed": true,
+  "causal_difference_counts_recomputed": 12,
+  "outside_causal_rectangles_changed_pixels": 0,
+  "source_freeze": {
+    "original_base_checked": true,
+    "adopted_release_files": 502,
+    "adopted_release_files_checked": true,
+    "historical_reviewed_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa"
+  },
+  "north": {
+    "visual_status": "rejected_local_visual_regression",
+    "critical": 0,
+    "important": 2,
+    "minor": 0,
+    "inspected_pairs": 9,
+    "route_images_inspected": 6,
+    "issues": [
+      {
+        "id": "N1",
+        "severity": "Important",
+        "file": "36-north-lv1-view1-after.png",
+        "region_top_left_xyxy": [
+          190,
+          500,
+          550,
+          639
+        ],
+        "finding": "Planted shoulders replace the broad visible paved approach; near the lower end the visible paved strip is approximately x295-435. Walkable model is unchanged but the visual walkway becomes narrower."
+      },
+      {
+        "id": "N2",
+        "severity": "Important",
+        "file": "36-north-lv1-view1-after.png",
+        "regions_top_left_xyxy": [
+          [
+            205,
+            431,
+            295,
+            639
+          ],
+          [
+            440,
+            431,
+            570,
+            639
+          ]
+        ],
+        "finding": "Flowers, rocks and curbs are vertically smeared and a larger tile pattern begins abruptly. Present in raw PNG and all nine pair views, not JPEG compression."
+      }
+    ],
+    "root_cause_evidence": "Entry layer samples Central y=1-.75*(worldY-1), reversing/scaling its source texture over a .32-world band while blending the painted banks over North paving. Ground-strip UV and opacity registration are the local investigation target.",
+    "surrounding_dressing_retained_in_inspected_scope": true,
+    "navigation_changed": false,
+    "routes": [
+      {
+        "id": "central-to-north",
+        "arrived": true,
+        "all_points_walkable": true,
+        "steps": 508,
+        "distance": 1.9987945556640625
+      },
+      {
+        "id": "north-to-central",
+        "arrived": true,
+        "all_points_walkable": true,
+        "steps": 510,
+        "distance": 2.007784605026245
+      },
+      {
+        "id": "left-out",
+        "arrived": true,
+        "all_points_walkable": true,
+        "steps": 33,
+        "distance": 0.09999996423721313
+      },
+      {
+        "id": "left-return",
+        "arrived": true,
+        "all_points_walkable": true,
+        "steps": 33,
+        "distance": 0.09999996423721313
+      },
+      {
+        "id": "right-out",
+        "arrived": true,
+        "all_points_walkable": true,
+        "steps": 33,
+        "distance": 0.09999996423721313
+      },
+      {
+        "id": "right-return",
+        "arrived": true,
+        "all_points_walkable": true,
+        "steps": 33,
+        "distance": 0.09999996423721313
+      }
+    ],
+    "route_claim_limit": "Received Unity fixture/model traces with six sampled routes and no teleport rescue; not Pixel input validation."
+  },
+  "noah": {
+    "visual_status": "no_important_identity_or_pose_regression_observed_in_received_scope",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "inspected_pairs": 3,
+    "sequence_crops_inspected": 48,
+    "original_face_colors_clothes_body_tail_retained_in_inspected_views": true,
+    "other_five_metadata_unchanged": true,
+    "visible_other_actor": "momo",
+    "caveats": [
+      "Other four actors are not individually visible in the three scoped pairs; source/mesh invariants are checked separately.",
+      "Greeting jumps from sequence t4.0 to t15.933; this is fixed-step sampled evidence, not continuous real-time FPS.",
+      "Existing greeting UI covers part of Noah upper head in both Before and After.",
+      "Direction changes, sustained foot contact and performance require Pixel viewing."
+    ],
+    "adopted": false,
+    "six_character_rollout_authorized": false
+  },
+  "apk": {
+    "app_id": "com.mofumachi.merge.qa.townlife",
+    "file": "town-life-qa.apk",
+    "sha256_from_raw_build_info": "bed99d180cbd091fce4198c348e8c71637527d582a381050c083af6ae3369875",
+    "bytes": 79043785,
+    "success_log_bytes_match": true,
+    "binary_received": false,
+    "sha256_independently_recomputed": false
+  },
+  "growth_apk": {
+    "app_id": "com.mofumachi.merge.qa.growthcheck",
+    "file": "town-growth-check.apk",
+    "sha256_from_raw_build_info": "5943f460c5f4d490deda0daf32a9cb82f1e3fc6ce3f7cd605172aa30df05dde7",
+    "bytes": 79043833,
+    "success_log_bytes_match": true,
+    "binary_received": false,
+    "sha256_independently_recomputed": false
+  },
+  "native_unity_verified": true,
+  "fixed_native_pass_verified": true,
+  "qa_apk_generated": true,
+  "native_scope_image_review_complete": true,
+  "all250_full_images_individually_inspected": false,
+  "native_visual_cleared": false,
+  "eligible_for_same_apk_pixel_verification": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "fountain_remains_adopted_and_frozen": true,
+  "game_or_qa_code_changed_in_this_receipt": false,
+  "next": "North ground strip requires localized correction and a new same-run visual check. Do not install/adopt this visually rejected combined APK as the accepted city candidate. Keep Noah trial and all approved city/fountain inputs unchanged; no six-character rollout, Merge or main."
+}

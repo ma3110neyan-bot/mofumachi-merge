@@ -1,0 +1,3450 @@
+{
+    "kind": "same-state-native-north-noah-comparison",
+    "before": "reconstructed causal baseline: north join disabled / Noah legacy at the same instant",
+    "after": "current product code",
+    "source_revision": "292cf8ace0fe664a69caf6c5cd4882ac4b64594a",
+    "product_fingerprint": "5bab55108d85603e2192ed0a7502f6bac72d093f967425994f77352ac032899e",
+    "historical_before": "bb3fb82 native run102109 / 09-connected-path-north.png is historical context only, not this causal baseline",
+    "native_unity": true,
+    "pixel_verified": false,
+    "adopted": false,
+    "navigation_changed": false,
+    "teleport_rescue": false,
+    "north_world_bounds": {
+        "x_min": -0.6000000238418579,
+        "x_max": 0.6000000238418579,
+        "y_min": 1.0,
+        "y_max": 1.3200000524520874
+    },
+    "north_pairs": [
+        {
+            "id": "36-north-lv1-view0",
+            "mode": "",
+            "level": 1,
+            "changed_pixels": 71134,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 0,
+            "allowed_y": 735,
+            "allowed_width": 720,
+            "allowed_height": 216,
+            "camera_x": 0.0,
+            "camera_y": 0.8500000238418579,
+            "water_clock": 0.0,
+            "water_phase": 0.0,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 105464,
+            "store_writes": 4,
+            "state_sha256": "1057307d9d7225148eb045f529742d765bb1ef23b6206b07cbcf50eba67ba2e3",
+            "world_model_sha256": "f39e08760bb6b4794607e91b1f8a9a866475efe27370ca5b1692fd395600fec2",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "36-north-lv1-view0-before-reconstructed.png",
+                "sha256": "a67930e7325803d5d8cc23fc44e04c1c2a907de3f3e613ec55edb56212db4c34",
+                "bytes": 1848568,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "36-north-lv1-view0-after.png",
+                "sha256": "8db45b7abca4b6f80a71358fcd69b712ff5f348494c27bded9be039f2809b4ca",
+                "bytes": 1854368,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "36-north-lv1-view0-before-left-after-right.jpg",
+                "sha256": "28f59b2da4f1a3d20a44ab2f5e5d5158ee46dd54c95a33b09abc9caf294f3f6b",
+                "bytes": 868618,
+                "width": 1440,
+                "height": 1280
+            }
+        },
+        {
+            "id": "36-north-lv1-view1",
+            "mode": "",
+            "level": 1,
+            "changed_pixels": 71009,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 0,
+            "allowed_y": 637,
+            "allowed_width": 720,
+            "allowed_height": 216,
+            "camera_x": 0.0,
+            "camera_y": 1.0,
+            "water_clock": 0.0,
+            "water_phase": 0.0,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 105464,
+            "store_writes": 4,
+            "state_sha256": "1057307d9d7225148eb045f529742d765bb1ef23b6206b07cbcf50eba67ba2e3",
+            "world_model_sha256": "f39e08760bb6b4794607e91b1f8a9a866475efe27370ca5b1692fd395600fec2",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "36-north-lv1-view1-before-reconstructed.png",
+                "sha256": "721f95a9eef7b8ee48cfe363cb51ee654702e21a7cb937a30b2bb9b851622f4f",
+                "bytes": 1837479,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "36-north-lv1-view1-after.png",
+                "sha256": "10ca4b77976a66ccfc0aad8da2f03cc302f6f90311ce979390b5d5cce7ba2b02",
+                "bytes": 1843335,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "36-north-lv1-view1-before-left-after-right.jpg",
+                "sha256": "0c209c6f7aeae3dd508819e81c817f92780df9776b5646f99898f37ea14e31d8",
+                "bytes": 859548,
+                "width": 1440,
+                "height": 1280
+            }
+        },
+        {
+            "id": "36-north-lv1-view2",
+            "mode": "",
+            "level": 1,
+            "changed_pixels": 70956,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 0,
+            "allowed_y": 538,
+            "allowed_width": 720,
+            "allowed_height": 217,
+            "camera_x": 0.0,
+            "camera_y": 1.149999976158142,
+            "water_clock": 0.0,
+            "water_phase": 0.0,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 105464,
+            "store_writes": 4,
+            "state_sha256": "1057307d9d7225148eb045f529742d765bb1ef23b6206b07cbcf50eba67ba2e3",
+            "world_model_sha256": "f39e08760bb6b4794607e91b1f8a9a866475efe27370ca5b1692fd395600fec2",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "36-north-lv1-view2-before-reconstructed.png",
+                "sha256": "fac313685571c9c33e1e3611e9b3cb1dc53ed060a7c573d0740be57dcb27eb1e",
+                "bytes": 1827005,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "36-north-lv1-view2-after.png",
+                "sha256": "6ac2f2880519e6337f151546fa4990b931b9a3f4bfe4dc4ca242733635041c11",
+                "bytes": 1832968,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "36-north-lv1-view2-before-left-after-right.jpg",
+                "sha256": "a01074ef8546347d1141aa9511693166bcb0371dd96843e775819f39ed252966",
+                "bytes": 847704,
+                "width": 1440,
+                "height": 1280
+            }
+        },
+        {
+            "id": "36-north-lv3-view0",
+            "mode": "",
+            "level": 3,
+            "changed_pixels": 70899,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 0,
+            "allowed_y": 735,
+            "allowed_width": 720,
+            "allowed_height": 216,
+            "camera_x": 0.0,
+            "camera_y": 0.8500000238418579,
+            "water_clock": 0.03333333507180214,
+            "water_phase": 0.03333333507180214,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 105465,
+            "store_writes": 5,
+            "state_sha256": "89f98e7f597578be76667281baa4e9671d589277a6c24949b4153d73e6921a7d",
+            "world_model_sha256": "7d72a48ac7d3a1a29524b96b2a6cbb9c737471ff1698e110c56674343676e013",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "36-north-lv3-view0-before-reconstructed.png",
+                "sha256": "7148df1e8dee9c19d98c1465bfd775d1debf7b944a892fed072546274a598a43",
+                "bytes": 1857269,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "36-north-lv3-view0-after.png",
+                "sha256": "d35920f6251451517b5ed3a185385361dacd1943b58481e5273dcd43fb17d5ba",
+                "bytes": 1863380,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "36-north-lv3-view0-before-left-after-right.jpg",
+                "sha256": "94fdaabb50dba36502bd33e67841b8cb105c5a2079890db4f853da8e2022ebb0",
+                "bytes": 875315,
+                "width": 1440,
+                "height": 1280
+            }
+        },
+        {
+            "id": "36-north-lv3-view1",
+            "mode": "",
+            "level": 3,
+            "changed_pixels": 70762,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 0,
+            "allowed_y": 637,
+            "allowed_width": 720,
+            "allowed_height": 216,
+            "camera_x": 0.0,
+            "camera_y": 1.0,
+            "water_clock": 0.03333333507180214,
+            "water_phase": 0.03333333507180214,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 105465,
+            "store_writes": 5,
+            "state_sha256": "89f98e7f597578be76667281baa4e9671d589277a6c24949b4153d73e6921a7d",
+            "world_model_sha256": "7d72a48ac7d3a1a29524b96b2a6cbb9c737471ff1698e110c56674343676e013",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "36-north-lv3-view1-before-reconstructed.png",
+                "sha256": "3ea7fb351b7c0eb3170aeeec0dc8f854796d41836424a996bff38d52859d26cc",
+                "bytes": 1844737,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "36-north-lv3-view1-after.png",
+                "sha256": "63ee05e064fcd583fda16738f4185cbc857b237531bee98b49cbbc691b582288",
+                "bytes": 1851089,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "36-north-lv3-view1-before-left-after-right.jpg",
+                "sha256": "33f1102395e86c8abee16c134026f372d7219ba107c1fd65b72f9779fa501007",
+                "bytes": 865729,
+                "width": 1440,
+                "height": 1280
+            }
+        },
+        {
+            "id": "36-north-lv3-view2",
+            "mode": "",
+            "level": 3,
+            "changed_pixels": 70716,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 0,
+            "allowed_y": 538,
+            "allowed_width": 720,
+            "allowed_height": 217,
+            "camera_x": 0.0,
+            "camera_y": 1.149999976158142,
+            "water_clock": 0.03333333507180214,
+            "water_phase": 0.03333333507180214,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 105465,
+            "store_writes": 5,
+            "state_sha256": "89f98e7f597578be76667281baa4e9671d589277a6c24949b4153d73e6921a7d",
+            "world_model_sha256": "7d72a48ac7d3a1a29524b96b2a6cbb9c737471ff1698e110c56674343676e013",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "36-north-lv3-view2-before-reconstructed.png",
+                "sha256": "dab5bf9f57cf5d3fc8cef4c40974815fb7db71675d8a685db8c2fd1a6d11cd0a",
+                "bytes": 1835816,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "36-north-lv3-view2-after.png",
+                "sha256": "92b7ef0544f268d8f3463910f65575f808c43d980d42487b167bcc90b2ab5763",
+                "bytes": 1842208,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "36-north-lv3-view2-before-left-after-right.jpg",
+                "sha256": "4b6bbff209660917ce1517165d15ec7c05a152056c519c7270b5d1d85a17b220",
+                "bytes": 855060,
+                "width": 1440,
+                "height": 1280
+            }
+        },
+        {
+            "id": "36-north-lv6-view0",
+            "mode": "",
+            "level": 6,
+            "changed_pixels": 67694,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 0,
+            "allowed_y": 735,
+            "allowed_width": 720,
+            "allowed_height": 216,
+            "camera_x": 0.0,
+            "camera_y": 0.8500000238418579,
+            "water_clock": 0.06666667014360428,
+            "water_phase": 0.06666667014360428,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 105466,
+            "store_writes": 6,
+            "state_sha256": "e9319b89dfc63d497df873307a087ad0abbda9afbb6ff9224bc743b5ca1eedc2",
+            "world_model_sha256": "7d72a48ac7d3a1a29524b96b2a6cbb9c737471ff1698e110c56674343676e013",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "36-north-lv6-view0-before-reconstructed.png",
+                "sha256": "444099e78d1487fb1e7c7e16add31025eba9056a89bbe594e14e2f62f23af073",
+                "bytes": 1882477,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "36-north-lv6-view0-after.png",
+                "sha256": "d766bf86f3fb4b049108634f02575db7c090e7f6a6083f76ac97866c221200cb",
+                "bytes": 1883101,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "36-north-lv6-view0-before-left-after-right.jpg",
+                "sha256": "745751fa94bc960d91a99d25bbfbc0af620caae41163394134c84bd125009421",
+                "bytes": 897367,
+                "width": 1440,
+                "height": 1280
+            }
+        },
+        {
+            "id": "36-north-lv6-view1",
+            "mode": "",
+            "level": 6,
+            "changed_pixels": 67558,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 0,
+            "allowed_y": 637,
+            "allowed_width": 720,
+            "allowed_height": 216,
+            "camera_x": 0.0,
+            "camera_y": 1.0,
+            "water_clock": 0.06666667014360428,
+            "water_phase": 0.06666667014360428,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 105466,
+            "store_writes": 6,
+            "state_sha256": "e9319b89dfc63d497df873307a087ad0abbda9afbb6ff9224bc743b5ca1eedc2",
+            "world_model_sha256": "7d72a48ac7d3a1a29524b96b2a6cbb9c737471ff1698e110c56674343676e013",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "36-north-lv6-view1-before-reconstructed.png",
+                "sha256": "61dcd3228b687fef6fe6f00115bc245fd49bae27621a975b3918ca029970489e",
+                "bytes": 1870157,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "36-north-lv6-view1-after.png",
+                "sha256": "0e03e9667b15e1d4740f619d165c2c54331c8f99757635b04fe6f8299e897cdb",
+                "bytes": 1870665,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "36-north-lv6-view1-before-left-after-right.jpg",
+                "sha256": "43a29106e636d7fa2d3ee3d195d8bc556fbf089a84ac2190ac132fcdff24ce3e",
+                "bytes": 888263,
+                "width": 1440,
+                "height": 1280
+            }
+        },
+        {
+            "id": "36-north-lv6-view2",
+            "mode": "",
+            "level": 6,
+            "changed_pixels": 67412,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 0,
+            "allowed_y": 538,
+            "allowed_width": 720,
+            "allowed_height": 217,
+            "camera_x": 0.0,
+            "camera_y": 1.149999976158142,
+            "water_clock": 0.06666667014360428,
+            "water_phase": 0.06666667014360428,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 105466,
+            "store_writes": 6,
+            "state_sha256": "e9319b89dfc63d497df873307a087ad0abbda9afbb6ff9224bc743b5ca1eedc2",
+            "world_model_sha256": "7d72a48ac7d3a1a29524b96b2a6cbb9c737471ff1698e110c56674343676e013",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "36-north-lv6-view2-before-reconstructed.png",
+                "sha256": "cbaa0a6cede23edde92a141a2c4c886118077c0e6cf1bf0b4013b04e6257835b",
+                "bytes": 1860675,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "36-north-lv6-view2-after.png",
+                "sha256": "5a162cdaa0540807c6fe0e54c11e41e9a488ab0563f2b3357b798150ae4ea3a8",
+                "bytes": 1861254,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "36-north-lv6-view2-before-left-after-right.jpg",
+                "sha256": "6d7fd7d88efd4bf01211f202a5621c024035d342b82ee1db6976335c4e1834ef",
+                "bytes": 877872,
+                "width": 1440,
+                "height": 1280
+            }
+        }
+    ],
+    "noah_pairs": [
+        {
+            "id": "37-noah-idle",
+            "mode": "idle",
+            "level": 6,
+            "changed_pixels": 16156,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 274,
+            "allowed_y": 485,
+            "allowed_width": 172,
+            "allowed_height": 204,
+            "camera_x": 0.0,
+            "camera_y": -0.05000000074505806,
+            "water_clock": 0.03333333507180214,
+            "water_phase": 0.03333333507180214,
+            "original_water_phase": 0.14367911219596863,
+            "unity_frame": 105471,
+            "store_writes": 8,
+            "state_sha256": "831fcf83d45039ba81b425a83562ecb9ce2e0a945b3be8b8b0017f4e8ba6e5e0",
+            "world_model_sha256": "3165fcbcc64d60454835b6b0162e67bf1e402bdfed0a047ebf68de9fc8233d70",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "37-noah-idle-before-reconstructed.png",
+                "sha256": "a097d4b9bcd9a2f6e0a0906954f7ffc6383c97a171531d6447c4e1cb57d42f4e",
+                "bytes": 1845700,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "37-noah-idle-after.png",
+                "sha256": "34f772934cda2a0c5653384fb80847858b461d5be63127f89baf89ef3521f677",
+                "bytes": 1845635,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "37-noah-idle-before-left-after-right.jpg",
+                "sha256": "a0e5beec6b014a5f2810f8ceb2809afd90b4b4c0b3d5a6ae3b6e3bfd2c60711d",
+                "bytes": 875116,
+                "width": 1440,
+                "height": 1280
+            }
+        },
+        {
+            "id": "37-noah-walk",
+            "mode": "walk",
+            "level": 6,
+            "changed_pixels": 17035,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 172,
+            "allowed_y": 488,
+            "allowed_width": 177,
+            "allowed_height": 208,
+            "camera_x": 0.0,
+            "camera_y": -0.05000000074505806,
+            "water_clock": 0.03333333507180214,
+            "water_phase": 0.03333333507180214,
+            "original_water_phase": 0.14367911219596863,
+            "unity_frame": 105471,
+            "store_writes": 8,
+            "state_sha256": "831fcf83d45039ba81b425a83562ecb9ce2e0a945b3be8b8b0017f4e8ba6e5e0",
+            "world_model_sha256": "0975d4768d050ceece03f7c59a722005d050a6d8dc66326da2646c0cf0364558",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "37-noah-walk-before-reconstructed.png",
+                "sha256": "26f63ce28c0a252303c868a7a3702f21006719b82cbd9c6f112705deae34ab97",
+                "bytes": 1917781,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "37-noah-walk-after.png",
+                "sha256": "fc4b883edcec8e80b35bdeabb7d7459e288b60fd02fa7fe1c3628608ba786bb4",
+                "bytes": 1918013,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "37-noah-walk-before-left-after-right.jpg",
+                "sha256": "eea30741330e562ce1602cb1d5c55dc0e57ce34a7f3174feb5c0fa9684052319",
+                "bytes": 889542,
+                "width": 1440,
+                "height": 1280
+            }
+        },
+        {
+            "id": "37-noah-talk",
+            "mode": "talk",
+            "level": 6,
+            "changed_pixels": 13656,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 364,
+            "allowed_y": 508,
+            "allowed_width": 173,
+            "allowed_height": 210,
+            "camera_x": 0.0,
+            "camera_y": -0.05000000074505806,
+            "water_clock": 0.03333333507180214,
+            "water_phase": 0.03333333507180214,
+            "original_water_phase": 0.14367911219596863,
+            "unity_frame": 105471,
+            "store_writes": 8,
+            "state_sha256": "831fcf83d45039ba81b425a83562ecb9ce2e0a945b3be8b8b0017f4e8ba6e5e0",
+            "world_model_sha256": "5f223316587373b6961c02bd64d66a00555dd86bfc3563c69bbc31cdb2c8c1c8",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "37-noah-talk-before-reconstructed.png",
+                "sha256": "08b04b804342bb1d219f361b625dc6219313e80bb2ebf555c13218ce76df0824",
+                "bytes": 1688924,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "37-noah-talk-after.png",
+                "sha256": "2528574b85455193c2b74ca728e3f4db5987bb5fa7968cd7f48f1dea6f9b6cb8",
+                "bytes": 1688992,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "37-noah-talk-before-left-after-right.jpg",
+                "sha256": "86919e352ba08f1cc837f2abddadd975854b60ce55161b79088861c4a44237ae",
+                "bytes": 773313,
+                "width": 1440,
+                "height": 1280
+            }
+        }
+    ],
+    "historical_native_before": {
+        "file": "36-north-historical-bb3fb82.png",
+        "sha256": "b001ee0b7bb6a1719876b16c951a9bdcf5c58df3d7817dc797b379cf0c863324",
+        "bytes": 1870466,
+        "width": 720,
+        "height": 1280
+    },
+    "routes": [
+        {
+            "id": "central-to-north",
+            "steps": 508,
+            "distance": 1.9987945556640625,
+            "start_x": 0.0,
+            "start_y": -0.25,
+            "target_x": 0.0,
+            "target_y": 1.649999976158142,
+            "arrived": true,
+            "all_points_walkable": true,
+            "image": {
+                "file": "36-route-central-to-north.png",
+                "sha256": "886b953a1d96099e7cf91b7fad99c47d4a7938ca99b6a26c741e178bf80fe794",
+                "bytes": 1627005,
+                "width": 720,
+                "height": 1280
+            },
+            "points": [
+                {
+                    "x": 0.0,
+                    "y": -0.25,
+                    "elapsed_seconds": 0.0
+                },
+                {
+                    "x": -0.0022887287195771933,
+                    "y": -0.2455545961856842,
+                    "elapsed_seconds": 0.10000000149011612
+                },
+                {
+                    "x": -0.007476512808352709,
+                    "y": -0.23547832667827606,
+                    "elapsed_seconds": 0.20000000298023224
+                },
+                {
+                    "x": -0.01296946033835411,
+                    "y": -0.22480934858322144,
+                    "elapsed_seconds": 0.30000001192092896
+                },
+                {
+                    "x": -0.01846240647137165,
+                    "y": -0.2141403704881668,
+                    "elapsed_seconds": 0.4000000059604645
+                },
+                {
+                    "x": -0.02395535260438919,
+                    "y": -0.20347139239311218,
+                    "elapsed_seconds": 0.5
+                },
+                {
+                    "x": -0.02944829873740673,
+                    "y": -0.19280241429805756,
+                    "elapsed_seconds": 0.6000000238418579
+                },
+                {
+                    "x": -0.03494124859571457,
+                    "y": -0.18213343620300293,
+                    "elapsed_seconds": 0.699999988079071
+                },
+                {
+                    "x": -0.04043420031666756,
+                    "y": -0.1714644581079483,
+                    "elapsed_seconds": 0.800000011920929
+                },
+                {
+                    "x": -0.045927152037620544,
+                    "y": -0.16079548001289368,
+                    "elapsed_seconds": 0.8999999761581421
+                },
+                {
+                    "x": -0.05142010375857353,
+                    "y": -0.15012650191783905,
+                    "elapsed_seconds": 1.0
+                },
+                {
+                    "x": -0.05691304802894592,
+                    "y": -0.13945752382278442,
+                    "elapsed_seconds": 1.100000023841858
+                },
+                {
+                    "x": -0.062405992299318314,
+                    "y": -0.1287885457277298,
+                    "elapsed_seconds": 1.2000000476837158
+                },
+                {
+                    "x": -0.0678989365696907,
+                    "y": -0.11811955273151398,
+                    "elapsed_seconds": 1.2999999523162842
+                },
+                {
+                    "x": -0.0733918771147728,
+                    "y": -0.10745055228471756,
+                    "elapsed_seconds": 1.399999976158142
+                },
+                {
+                    "x": -0.07888481765985489,
+                    "y": -0.09678155183792114,
+                    "elapsed_seconds": 1.5
+                },
+                {
+                    "x": -0.08437775820493698,
+                    "y": -0.08611255139112473,
+                    "elapsed_seconds": 1.600000023841858
+                },
+                {
+                    "x": -0.08987069875001907,
+                    "y": -0.07544355094432831,
+                    "elapsed_seconds": 1.7000000476837158
+                },
+                {
+                    "x": -0.09536363929510117,
+                    "y": -0.06477455049753189,
+                    "elapsed_seconds": 1.7999999523162842
+                },
+                {
+                    "x": -0.10085657984018326,
+                    "y": -0.054105550050735474,
+                    "elapsed_seconds": 1.899999976158142
+                },
+                {
+                    "x": -0.10634952038526535,
+                    "y": -0.043436549603939056,
+                    "elapsed_seconds": 2.0
+                },
+                {
+                    "x": -0.11184246093034744,
+                    "y": -0.03276754915714264,
+                    "elapsed_seconds": 2.0999999046325684
+                },
+                {
+                    "x": -0.11733540147542953,
+                    "y": -0.022098548710346222,
+                    "elapsed_seconds": 2.200000047683716
+                },
+                {
+                    "x": -0.12282834202051163,
+                    "y": -0.011429548263549805,
+                    "elapsed_seconds": 2.299999952316284
+                },
+                {
+                    "x": -0.12832129001617432,
+                    "y": -0.0007605485152453184,
+                    "elapsed_seconds": 2.4000000953674316
+                },
+                {
+                    "x": -0.1338142305612564,
+                    "y": 0.00990845076739788,
+                    "elapsed_seconds": 2.5
+                },
+                {
+                    "x": -0.1393071711063385,
+                    "y": 0.02057744935154915,
+                    "elapsed_seconds": 2.5999999046325684
+                },
+                {
+                    "x": -0.1448001116514206,
+                    "y": 0.031246449798345566,
+                    "elapsed_seconds": 2.700000047683716
+                },
+                {
+                    "x": -0.15029305219650269,
+                    "y": 0.04191545024514198,
+                    "elapsed_seconds": 2.799999952316284
+                },
+                {
+                    "x": -0.15578599274158478,
+                    "y": 0.0525844506919384,
+                    "elapsed_seconds": 2.9000000953674316
+                },
+                {
+                    "x": -0.16127893328666687,
+                    "y": 0.06325344741344452,
+                    "elapsed_seconds": 3.0
+                },
+                {
+                    "x": -0.16677187383174896,
+                    "y": 0.07392244786024094,
+                    "elapsed_seconds": 3.0999999046325684
+                },
+                {
+                    "x": -0.17226481437683105,
+                    "y": 0.08459144830703735,
+                    "elapsed_seconds": 3.200000047683716
+                },
+                {
+                    "x": -0.17775775492191315,
+                    "y": 0.09526044875383377,
+                    "elapsed_seconds": 3.299999952316284
+                },
+                {
+                    "x": -0.18325069546699524,
+                    "y": 0.10592944920063019,
+                    "elapsed_seconds": 3.4000000953674316
+                },
+                {
+                    "x": -0.18874363601207733,
+                    "y": 0.1165984496474266,
+                    "elapsed_seconds": 3.5
+                },
+                {
+                    "x": -0.19423657655715942,
+                    "y": 0.12726745009422302,
+                    "elapsed_seconds": 3.5999999046325684
+                },
+                {
+                    "x": -0.19972951710224152,
+                    "y": 0.13793642818927765,
+                    "elapsed_seconds": 3.700000047683716
+                },
+                {
+                    "x": -0.2052224576473236,
+                    "y": 0.14860540628433228,
+                    "elapsed_seconds": 3.799999952316284
+                },
+                {
+                    "x": -0.2107153981924057,
+                    "y": 0.1592743843793869,
+                    "elapsed_seconds": 3.9000000953674316
+                },
+                {
+                    "x": -0.2162083387374878,
+                    "y": 0.16994336247444153,
+                    "elapsed_seconds": 4.0
+                },
+                {
+                    "x": -0.22170127928256989,
+                    "y": 0.18061234056949615,
+                    "elapsed_seconds": 4.099999904632568
+                },
+                {
+                    "x": -0.22719421982765198,
+                    "y": 0.19128131866455078,
+                    "elapsed_seconds": 4.199999809265137
+                },
+                {
+                    "x": -0.23268716037273407,
+                    "y": 0.2019502967596054,
+                    "elapsed_seconds": 4.300000190734863
+                },
+                {
+                    "x": -0.23818010091781616,
+                    "y": 0.21261927485466003,
+                    "elapsed_seconds": 4.400000095367432
+                },
+                {
+                    "x": -0.24367304146289825,
+                    "y": 0.22328825294971466,
+                    "elapsed_seconds": 4.5
+                },
+                {
+                    "x": -0.24916598200798035,
+                    "y": 0.2339572310447693,
+                    "elapsed_seconds": 4.599999904632568
+                },
+                {
+                    "x": -0.253068745136261,
+                    "y": 0.24506263434886932,
+                    "elapsed_seconds": 4.699999809265137
+                },
+                {
+                    "x": -0.25379106402397156,
+                    "y": 0.2570408582687378,
+                    "elapsed_seconds": 4.800000190734863
+                },
+                {
+                    "x": -0.25451338291168213,
+                    "y": 0.26901906728744507,
+                    "elapsed_seconds": 4.900000095367432
+                },
+                {
+                    "x": -0.2552357017993927,
+                    "y": 0.28099727630615234,
+                    "elapsed_seconds": 5.0
+                },
+                {
+                    "x": -0.25595802068710327,
+                    "y": 0.2929754853248596,
+                    "elapsed_seconds": 5.099999904632568
+                },
+                {
+                    "x": -0.25668033957481384,
+                    "y": 0.3049536943435669,
+                    "elapsed_seconds": 5.199999809265137
+                },
+                {
+                    "x": -0.2531556487083435,
+                    "y": 0.3160048723220825,
+                    "elapsed_seconds": 5.300000190734863
+                },
+                {
+                    "x": -0.24750745296478271,
+                    "y": 0.3265925347805023,
+                    "elapsed_seconds": 5.400000095367432
+                },
+                {
+                    "x": -0.24185925722122192,
+                    "y": 0.3371801972389221,
+                    "elapsed_seconds": 5.5
+                },
+                {
+                    "x": -0.23621106147766113,
+                    "y": 0.3477678596973419,
+                    "elapsed_seconds": 5.599999904632568
+                },
+                {
+                    "x": -0.23056286573410034,
+                    "y": 0.3583555221557617,
+                    "elapsed_seconds": 5.699999809265137
+                },
+                {
+                    "x": -0.22491466999053955,
+                    "y": 0.3689431846141815,
+                    "elapsed_seconds": 5.800000190734863
+                },
+                {
+                    "x": -0.21926647424697876,
+                    "y": 0.3795308470726013,
+                    "elapsed_seconds": 5.900000095367432
+                },
+                {
+                    "x": -0.21361827850341797,
+                    "y": 0.3901185095310211,
+                    "elapsed_seconds": 6.0
+                },
+                {
+                    "x": -0.20797008275985718,
+                    "y": 0.4007061719894409,
+                    "elapsed_seconds": 6.099999904632568
+                },
+                {
+                    "x": -0.2023218870162964,
+                    "y": 0.4112938344478607,
+                    "elapsed_seconds": 6.199999809265137
+                },
+                {
+                    "x": -0.1966737061738968,
+                    "y": 0.4218814969062805,
+                    "elapsed_seconds": 6.300000190734863
+                },
+                {
+                    "x": -0.1910255253314972,
+                    "y": 0.4324691593647003,
+                    "elapsed_seconds": 6.400000095367432
+                },
+                {
+                    "x": -0.1853773444890976,
+                    "y": 0.4430568218231201,
+                    "elapsed_seconds": 6.5
+                },
+                {
+                    "x": -0.18228872120380402,
+                    "y": 0.4544946253299713,
+                    "elapsed_seconds": 6.599999904632568
+                },
+                {
+                    "x": -0.18047988414764404,
+                    "y": 0.4663574993610382,
+                    "elapsed_seconds": 6.699999809265137
+                },
+                {
+                    "x": -0.17867104709148407,
+                    "y": 0.4782203733921051,
+                    "elapsed_seconds": 6.800000190734863
+                },
+                {
+                    "x": -0.1768622100353241,
+                    "y": 0.490083247423172,
+                    "elapsed_seconds": 6.900000095367432
+                },
+                {
+                    "x": -0.17505337297916412,
+                    "y": 0.5019461512565613,
+                    "elapsed_seconds": 7.0
+                },
+                {
+                    "x": -0.17324453592300415,
+                    "y": 0.5138090252876282,
+                    "elapsed_seconds": 7.099999904632568
+                },
+                {
+                    "x": -0.17143569886684418,
+                    "y": 0.5256718993186951,
+                    "elapsed_seconds": 7.199999809265137
+                },
+                {
+                    "x": -0.1696268618106842,
+                    "y": 0.537534773349762,
+                    "elapsed_seconds": 7.300000190734863
+                },
+                {
+                    "x": -0.16781802475452423,
+                    "y": 0.5493976473808289,
+                    "elapsed_seconds": 7.400000095367432
+                },
+                {
+                    "x": -0.16600918769836426,
+                    "y": 0.5612605214118958,
+                    "elapsed_seconds": 7.5
+                },
+                {
+                    "x": -0.16420035064220428,
+                    "y": 0.5731233954429626,
+                    "elapsed_seconds": 7.599999904632568
+                },
+                {
+                    "x": -0.1623915135860443,
+                    "y": 0.5849862694740295,
+                    "elapsed_seconds": 7.699999809265137
+                },
+                {
+                    "x": -0.16058267652988434,
+                    "y": 0.5968491435050964,
+                    "elapsed_seconds": 7.800000190734863
+                },
+                {
+                    "x": -0.15877383947372437,
+                    "y": 0.6087120175361633,
+                    "elapsed_seconds": 7.900000095367432
+                },
+                {
+                    "x": -0.1569650024175644,
+                    "y": 0.6205748915672302,
+                    "elapsed_seconds": 8.0
+                },
+                {
+                    "x": -0.15515616536140442,
+                    "y": 0.6324377655982971,
+                    "elapsed_seconds": 8.100000381469727
+                },
+                {
+                    "x": -0.15334732830524445,
+                    "y": 0.644300639629364,
+                    "elapsed_seconds": 8.199999809265137
+                },
+                {
+                    "x": -0.15153849124908447,
+                    "y": 0.6561635136604309,
+                    "elapsed_seconds": 8.300000190734863
+                },
+                {
+                    "x": -0.1497296541929245,
+                    "y": 0.6680263876914978,
+                    "elapsed_seconds": 8.399999618530273
+                },
+                {
+                    "x": -0.14792081713676453,
+                    "y": 0.6798892617225647,
+                    "elapsed_seconds": 8.5
+                },
+                {
+                    "x": -0.14611198008060455,
+                    "y": 0.6917521357536316,
+                    "elapsed_seconds": 8.600000381469727
+                },
+                {
+                    "x": -0.14430314302444458,
+                    "y": 0.7036150097846985,
+                    "elapsed_seconds": 8.699999809265137
+                },
+                {
+                    "x": -0.1424943059682846,
+                    "y": 0.7154778838157654,
+                    "elapsed_seconds": 8.800000190734863
+                },
+                {
+                    "x": -0.14068546891212463,
+                    "y": 0.7273407578468323,
+                    "elapsed_seconds": 8.899999618530273
+                },
+                {
+                    "x": -0.13887663185596466,
+                    "y": 0.7392036318778992,
+                    "elapsed_seconds": 9.0
+                },
+                {
+                    "x": -0.1370677947998047,
+                    "y": 0.7510665059089661,
+                    "elapsed_seconds": 9.100000381469727
+                },
+                {
+                    "x": -0.13525895774364471,
+                    "y": 0.762929379940033,
+                    "elapsed_seconds": 9.199999809265137
+                },
+                {
+                    "x": -0.13345012068748474,
+                    "y": 0.7747922539710999,
+                    "elapsed_seconds": 9.300000190734863
+                },
+                {
+                    "x": -0.13164128363132477,
+                    "y": 0.7866551280021667,
+                    "elapsed_seconds": 9.399999618530273
+                },
+                {
+                    "x": -0.1298324465751648,
+                    "y": 0.7985180020332336,
+                    "elapsed_seconds": 9.5
+                },
+                {
+                    "x": -0.12802360951900482,
+                    "y": 0.8103808760643005,
+                    "elapsed_seconds": 9.600000381469727
+                },
+                {
+                    "x": -0.12621477246284485,
+                    "y": 0.8222437500953674,
+                    "elapsed_seconds": 9.699999809265137
+                },
+                {
+                    "x": -0.12440593540668488,
+                    "y": 0.8341066241264343,
+                    "elapsed_seconds": 9.800000190734863
+                },
+                {
+                    "x": -0.1225970983505249,
+                    "y": 0.8459694981575012,
+                    "elapsed_seconds": 9.899999618530273
+                },
+                {
+                    "x": -0.12078826129436493,
+                    "y": 0.8578323721885681,
+                    "elapsed_seconds": 10.0
+                },
+                {
+                    "x": -0.11897942423820496,
+                    "y": 0.869695246219635,
+                    "elapsed_seconds": 10.100000381469727
+                },
+                {
+                    "x": -0.11717058718204498,
+                    "y": 0.8815581202507019,
+                    "elapsed_seconds": 10.199999809265137
+                },
+                {
+                    "x": -0.11536175012588501,
+                    "y": 0.8934209942817688,
+                    "elapsed_seconds": 10.300000190734863
+                },
+                {
+                    "x": -0.11355291306972504,
+                    "y": 0.9052838683128357,
+                    "elapsed_seconds": 10.399999618530273
+                },
+                {
+                    "x": -0.11174407601356506,
+                    "y": 0.9171467423439026,
+                    "elapsed_seconds": 10.5
+                },
+                {
+                    "x": -0.10993523895740509,
+                    "y": 0.9290096163749695,
+                    "elapsed_seconds": 10.600000381469727
+                },
+                {
+                    "x": -0.10812640190124512,
+                    "y": 0.9408724904060364,
+                    "elapsed_seconds": 10.699999809265137
+                },
+                {
+                    "x": -0.10631756484508514,
+                    "y": 0.9527353644371033,
+                    "elapsed_seconds": 10.800000190734863
+                },
+                {
+                    "x": -0.10450872778892517,
+                    "y": 0.9645982384681702,
+                    "elapsed_seconds": 10.899999618530273
+                },
+                {
+                    "x": -0.1026998907327652,
+                    "y": 0.9764611124992371,
+                    "elapsed_seconds": 11.0
+                },
+                {
+                    "x": -0.10089105367660522,
+                    "y": 0.988323986530304,
+                    "elapsed_seconds": 11.100000381469727
+                },
+                {
+                    "x": -0.09908221662044525,
+                    "y": 1.0001869201660156,
+                    "elapsed_seconds": 11.199999809265137
+                },
+                {
+                    "x": -0.09727337956428528,
+                    "y": 1.0120497941970825,
+                    "elapsed_seconds": 11.300000190734863
+                },
+                {
+                    "x": -0.0954645425081253,
+                    "y": 1.0239126682281494,
+                    "elapsed_seconds": 11.399999618530273
+                },
+                {
+                    "x": -0.09365570545196533,
+                    "y": 1.0357755422592163,
+                    "elapsed_seconds": 11.5
+                },
+                {
+                    "x": -0.09184686839580536,
+                    "y": 1.0476384162902832,
+                    "elapsed_seconds": 11.600000381469727
+                },
+                {
+                    "x": -0.09003803133964539,
+                    "y": 1.05950129032135,
+                    "elapsed_seconds": 11.699999809265137
+                },
+                {
+                    "x": -0.08822919428348541,
+                    "y": 1.071364164352417,
+                    "elapsed_seconds": 11.800000190734863
+                },
+                {
+                    "x": -0.08642035722732544,
+                    "y": 1.0832270383834839,
+                    "elapsed_seconds": 11.899999618530273
+                },
+                {
+                    "x": -0.08461152017116547,
+                    "y": 1.0950899124145508,
+                    "elapsed_seconds": 12.0
+                },
+                {
+                    "x": -0.0828026831150055,
+                    "y": 1.1069527864456177,
+                    "elapsed_seconds": 12.100000381469727
+                },
+                {
+                    "x": -0.08099384605884552,
+                    "y": 1.1188156604766846,
+                    "elapsed_seconds": 12.199999809265137
+                },
+                {
+                    "x": -0.07918500900268555,
+                    "y": 1.1306785345077515,
+                    "elapsed_seconds": 12.300000190734863
+                },
+                {
+                    "x": -0.07737617194652557,
+                    "y": 1.1425414085388184,
+                    "elapsed_seconds": 12.399999618530273
+                },
+                {
+                    "x": -0.0755673348903656,
+                    "y": 1.1544042825698853,
+                    "elapsed_seconds": 12.5
+                },
+                {
+                    "x": -0.07375849783420563,
+                    "y": 1.1662671566009521,
+                    "elapsed_seconds": 12.600000381469727
+                },
+                {
+                    "x": -0.07194966077804565,
+                    "y": 1.178130030632019,
+                    "elapsed_seconds": 12.699999809265137
+                },
+                {
+                    "x": -0.07014082372188568,
+                    "y": 1.189992904663086,
+                    "elapsed_seconds": 12.800000190734863
+                },
+                {
+                    "x": -0.06833198666572571,
+                    "y": 1.2018557786941528,
+                    "elapsed_seconds": 12.899999618530273
+                },
+                {
+                    "x": -0.06652316451072693,
+                    "y": 1.2137186527252197,
+                    "elapsed_seconds": 13.0
+                },
+                {
+                    "x": -0.06471433490514755,
+                    "y": 1.2255815267562866,
+                    "elapsed_seconds": 13.100000381469727
+                },
+                {
+                    "x": -0.06290551275014877,
+                    "y": 1.2374444007873535,
+                    "elapsed_seconds": 13.199999809265137
+                },
+                {
+                    "x": -0.061096686869859695,
+                    "y": 1.2493072748184204,
+                    "elapsed_seconds": 13.300000190734863
+                },
+                {
+                    "x": -0.05928786098957062,
+                    "y": 1.2611701488494873,
+                    "elapsed_seconds": 13.399999618530273
+                },
+                {
+                    "x": -0.05747903510928154,
+                    "y": 1.2730330228805542,
+                    "elapsed_seconds": 13.5
+                },
+                {
+                    "x": -0.05567020922899246,
+                    "y": 1.284895896911621,
+                    "elapsed_seconds": 13.600000381469727
+                },
+                {
+                    "x": -0.053861383348703384,
+                    "y": 1.296758770942688,
+                    "elapsed_seconds": 13.699999809265137
+                },
+                {
+                    "x": -0.05205255746841431,
+                    "y": 1.3086216449737549,
+                    "elapsed_seconds": 13.800000190734863
+                },
+                {
+                    "x": -0.05024373158812523,
+                    "y": 1.3204845190048218,
+                    "elapsed_seconds": 13.899999618530273
+                },
+                {
+                    "x": -0.04843490570783615,
+                    "y": 1.3323473930358887,
+                    "elapsed_seconds": 14.0
+                },
+                {
+                    "x": -0.04662607982754707,
+                    "y": 1.3442102670669556,
+                    "elapsed_seconds": 14.100000381469727
+                },
+                {
+                    "x": -0.044817253947257996,
+                    "y": 1.3560731410980225,
+                    "elapsed_seconds": 14.199999809265137
+                },
+                {
+                    "x": -0.04300842806696892,
+                    "y": 1.3679360151290894,
+                    "elapsed_seconds": 14.300000190734863
+                },
+                {
+                    "x": -0.04119960218667984,
+                    "y": 1.3797988891601563,
+                    "elapsed_seconds": 14.399999618530273
+                },
+                {
+                    "x": -0.03939077630639076,
+                    "y": 1.3916617631912231,
+                    "elapsed_seconds": 14.5
+                },
+                {
+                    "x": -0.037581950426101685,
+                    "y": 1.40352463722229,
+                    "elapsed_seconds": 14.600000381469727
+                },
+                {
+                    "x": -0.03577312454581261,
+                    "y": 1.415387511253357,
+                    "elapsed_seconds": 14.699999809265137
+                },
+                {
+                    "x": -0.03396429866552353,
+                    "y": 1.4272503852844238,
+                    "elapsed_seconds": 14.800000190734863
+                },
+                {
+                    "x": -0.03215547278523445,
+                    "y": 1.4391132593154907,
+                    "elapsed_seconds": 14.899999618530273
+                },
+                {
+                    "x": -0.030346646904945374,
+                    "y": 1.4509761333465576,
+                    "elapsed_seconds": 15.0
+                },
+                {
+                    "x": -0.026347698643803596,
+                    "y": 1.4617481231689453,
+                    "elapsed_seconds": 15.100000381469727
+                },
+                {
+                    "x": -0.017941324040293694,
+                    "y": 1.4703115224838257,
+                    "elapsed_seconds": 15.199999809265137
+                },
+                {
+                    "x": -0.011936267837882042,
+                    "y": 1.4799461364746094,
+                    "elapsed_seconds": 15.300000190734863
+                },
+                {
+                    "x": -0.011096040718257427,
+                    "y": 1.4919166564941406,
+                    "elapsed_seconds": 15.399999618530273
+                },
+                {
+                    "x": -0.010255814529955387,
+                    "y": 1.5038871765136719,
+                    "elapsed_seconds": 15.5
+                },
+                {
+                    "x": -0.009415590204298496,
+                    "y": 1.5158576965332031,
+                    "elapsed_seconds": 15.600000381469727
+                },
+                {
+                    "x": -0.008575365878641605,
+                    "y": 1.5278282165527344,
+                    "elapsed_seconds": 15.699999809265137
+                },
+                {
+                    "x": -0.007735141087323427,
+                    "y": 1.5397987365722656,
+                    "elapsed_seconds": 15.800000190734863
+                },
+                {
+                    "x": -0.006894915364682674,
+                    "y": 1.5517692565917969,
+                    "elapsed_seconds": 15.899999618530273
+                },
+                {
+                    "x": -0.006054690573364496,
+                    "y": 1.5637397766113281,
+                    "elapsed_seconds": 16.0
+                },
+                {
+                    "x": -0.005214466247707605,
+                    "y": 1.5757102966308594,
+                    "elapsed_seconds": 16.100000381469727
+                },
+                {
+                    "x": -0.0043742419220507145,
+                    "y": 1.5876808166503906,
+                    "elapsed_seconds": 16.200000762939453
+                },
+                {
+                    "x": -0.0035340175963938236,
+                    "y": 1.5996513366699219,
+                    "elapsed_seconds": 16.299999237060547
+                },
+                {
+                    "x": -0.0026937939692288637,
+                    "y": 1.6116218566894531,
+                    "elapsed_seconds": 16.399999618530273
+                },
+                {
+                    "x": -0.0018535708077251911,
+                    "y": 1.6235923767089844,
+                    "elapsed_seconds": 16.5
+                },
+                {
+                    "x": -0.001110259210690856,
+                    "y": 1.6341822147369385,
+                    "elapsed_seconds": 16.600000381469727
+                },
+                {
+                    "x": -0.0006580550689250231,
+                    "y": 1.6406246423721313,
+                    "elapsed_seconds": 16.700000762939453
+                },
+                {
+                    "x": -0.00038030289579182863,
+                    "y": 1.6445817947387695,
+                    "elapsed_seconds": 16.799999237060547
+                },
+                {
+                    "x": -0.00012823552242480218,
+                    "y": 1.6481730937957764,
+                    "elapsed_seconds": 16.899999618530273
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.649999976158142,
+                    "elapsed_seconds": 16.933332443237305
+                }
+            ]
+        },
+        {
+            "id": "north-to-central",
+            "steps": 510,
+            "distance": 2.007784605026245,
+            "start_x": 0.0,
+            "start_y": 1.649999976158142,
+            "target_x": 0.0,
+            "target_y": -0.25,
+            "arrived": true,
+            "all_points_walkable": true,
+            "image": {
+                "file": "36-route-north-to-central.png",
+                "sha256": "35b0ef6faf1c1cb0506432095c239c5bc950470ae546f28d383a3bad73e6d531",
+                "bytes": 1642754,
+                "width": 720,
+                "height": 1280
+            },
+            "points": [
+                {
+                    "x": 0.0,
+                    "y": 1.649999976158142,
+                    "elapsed_seconds": 0.0
+                },
+                {
+                    "x": -0.004267705138772726,
+                    "y": 1.6473948955535889,
+                    "elapsed_seconds": 0.10000000149011612
+                },
+                {
+                    "x": -0.014009790495038033,
+                    "y": 1.6416040658950806,
+                    "elapsed_seconds": 0.20000000298023224
+                },
+                {
+                    "x": -0.024426907300949097,
+                    "y": 1.6356475353240967,
+                    "elapsed_seconds": 0.30000001192092896
+                },
+                {
+                    "x": -0.026014316827058792,
+                    "y": 1.6237528324127197,
+                    "elapsed_seconds": 0.4000000059604645
+                },
+                {
+                    "x": -0.027601726353168488,
+                    "y": 1.6118581295013428,
+                    "elapsed_seconds": 0.5
+                },
+                {
+                    "x": -0.029189135879278183,
+                    "y": 1.5999634265899658,
+                    "elapsed_seconds": 0.6000000238418579
+                },
+                {
+                    "x": -0.03077654540538788,
+                    "y": 1.5880687236785889,
+                    "elapsed_seconds": 0.699999988079071
+                },
+                {
+                    "x": -0.032363954931497574,
+                    "y": 1.576174020767212,
+                    "elapsed_seconds": 0.800000011920929
+                },
+                {
+                    "x": -0.03395136445760727,
+                    "y": 1.564279317855835,
+                    "elapsed_seconds": 0.8999999761581421
+                },
+                {
+                    "x": -0.035538773983716965,
+                    "y": 1.552384614944458,
+                    "elapsed_seconds": 1.0
+                },
+                {
+                    "x": -0.03712618350982666,
+                    "y": 1.540489912033081,
+                    "elapsed_seconds": 1.100000023841858
+                },
+                {
+                    "x": -0.038713593035936356,
+                    "y": 1.528595209121704,
+                    "elapsed_seconds": 1.2000000476837158
+                },
+                {
+                    "x": -0.04030100256204605,
+                    "y": 1.5167005062103271,
+                    "elapsed_seconds": 1.2999999523162842
+                },
+                {
+                    "x": -0.041888412088155746,
+                    "y": 1.5048058032989502,
+                    "elapsed_seconds": 1.399999976158142
+                },
+                {
+                    "x": -0.04347582161426544,
+                    "y": 1.4929111003875732,
+                    "elapsed_seconds": 1.5
+                },
+                {
+                    "x": -0.04506323114037514,
+                    "y": 1.4810163974761963,
+                    "elapsed_seconds": 1.600000023841858
+                },
+                {
+                    "x": -0.04665064066648483,
+                    "y": 1.4691216945648193,
+                    "elapsed_seconds": 1.7000000476837158
+                },
+                {
+                    "x": -0.04823805019259453,
+                    "y": 1.4572269916534424,
+                    "elapsed_seconds": 1.7999999523162842
+                },
+                {
+                    "x": -0.049825459718704224,
+                    "y": 1.4453322887420654,
+                    "elapsed_seconds": 1.899999976158142
+                },
+                {
+                    "x": -0.05141286924481392,
+                    "y": 1.4334375858306885,
+                    "elapsed_seconds": 2.0
+                },
+                {
+                    "x": -0.053000278770923615,
+                    "y": 1.4215428829193115,
+                    "elapsed_seconds": 2.0999999046325684
+                },
+                {
+                    "x": -0.05458768829703331,
+                    "y": 1.4096481800079346,
+                    "elapsed_seconds": 2.200000047683716
+                },
+                {
+                    "x": -0.056175097823143005,
+                    "y": 1.3977534770965576,
+                    "elapsed_seconds": 2.299999952316284
+                },
+                {
+                    "x": -0.0577625073492527,
+                    "y": 1.3858587741851807,
+                    "elapsed_seconds": 2.4000000953674316
+                },
+                {
+                    "x": -0.059349916875362396,
+                    "y": 1.3739640712738037,
+                    "elapsed_seconds": 2.5
+                },
+                {
+                    "x": -0.06093732640147209,
+                    "y": 1.3620693683624268,
+                    "elapsed_seconds": 2.5999999046325684
+                },
+                {
+                    "x": -0.06252474337816238,
+                    "y": 1.3501746654510498,
+                    "elapsed_seconds": 2.700000047683716
+                },
+                {
+                    "x": -0.06411216408014297,
+                    "y": 1.3382799625396729,
+                    "elapsed_seconds": 2.799999952316284
+                },
+                {
+                    "x": -0.06569958478212357,
+                    "y": 1.326385259628296,
+                    "elapsed_seconds": 2.9000000953674316
+                },
+                {
+                    "x": -0.06728700548410416,
+                    "y": 1.314490556716919,
+                    "elapsed_seconds": 3.0
+                },
+                {
+                    "x": -0.06887442618608475,
+                    "y": 1.302595853805542,
+                    "elapsed_seconds": 3.0999999046325684
+                },
+                {
+                    "x": -0.07046184688806534,
+                    "y": 1.290701150894165,
+                    "elapsed_seconds": 3.200000047683716
+                },
+                {
+                    "x": -0.07204926759004593,
+                    "y": 1.278806447982788,
+                    "elapsed_seconds": 3.299999952316284
+                },
+                {
+                    "x": -0.07363668829202652,
+                    "y": 1.2669117450714111,
+                    "elapsed_seconds": 3.4000000953674316
+                },
+                {
+                    "x": -0.07522410899400711,
+                    "y": 1.2550170421600342,
+                    "elapsed_seconds": 3.5
+                },
+                {
+                    "x": -0.0768115296959877,
+                    "y": 1.2431223392486572,
+                    "elapsed_seconds": 3.5999999046325684
+                },
+                {
+                    "x": -0.07839895039796829,
+                    "y": 1.2312276363372803,
+                    "elapsed_seconds": 3.700000047683716
+                },
+                {
+                    "x": -0.07998637109994888,
+                    "y": 1.2193329334259033,
+                    "elapsed_seconds": 3.799999952316284
+                },
+                {
+                    "x": -0.08157379180192947,
+                    "y": 1.2074382305145264,
+                    "elapsed_seconds": 3.9000000953674316
+                },
+                {
+                    "x": -0.08316121250391006,
+                    "y": 1.1955435276031494,
+                    "elapsed_seconds": 4.0
+                },
+                {
+                    "x": -0.08474863320589066,
+                    "y": 1.1836488246917725,
+                    "elapsed_seconds": 4.099999904632568
+                },
+                {
+                    "x": -0.08633605390787125,
+                    "y": 1.1717541217803955,
+                    "elapsed_seconds": 4.199999809265137
+                },
+                {
+                    "x": -0.08792347460985184,
+                    "y": 1.1598594188690186,
+                    "elapsed_seconds": 4.300000190734863
+                },
+                {
+                    "x": -0.08951089531183243,
+                    "y": 1.1479647159576416,
+                    "elapsed_seconds": 4.400000095367432
+                },
+                {
+                    "x": -0.09109831601381302,
+                    "y": 1.1360700130462646,
+                    "elapsed_seconds": 4.5
+                },
+                {
+                    "x": -0.09268573671579361,
+                    "y": 1.1241753101348877,
+                    "elapsed_seconds": 4.599999904632568
+                },
+                {
+                    "x": -0.0942731574177742,
+                    "y": 1.1122806072235107,
+                    "elapsed_seconds": 4.699999809265137
+                },
+                {
+                    "x": -0.09586057811975479,
+                    "y": 1.1003859043121338,
+                    "elapsed_seconds": 4.800000190734863
+                },
+                {
+                    "x": -0.09744799882173538,
+                    "y": 1.0884912014007568,
+                    "elapsed_seconds": 4.900000095367432
+                },
+                {
+                    "x": -0.09903541952371597,
+                    "y": 1.0765964984893799,
+                    "elapsed_seconds": 5.0
+                },
+                {
+                    "x": -0.10062284022569656,
+                    "y": 1.064701795578003,
+                    "elapsed_seconds": 5.099999904632568
+                },
+                {
+                    "x": -0.10221026092767715,
+                    "y": 1.052807092666626,
+                    "elapsed_seconds": 5.199999809265137
+                },
+                {
+                    "x": -0.10379768162965775,
+                    "y": 1.040912389755249,
+                    "elapsed_seconds": 5.300000190734863
+                },
+                {
+                    "x": -0.10538510233163834,
+                    "y": 1.029017686843872,
+                    "elapsed_seconds": 5.400000095367432
+                },
+                {
+                    "x": -0.10697252303361893,
+                    "y": 1.0171229839324951,
+                    "elapsed_seconds": 5.5
+                },
+                {
+                    "x": -0.10855994373559952,
+                    "y": 1.0052282810211182,
+                    "elapsed_seconds": 5.599999904632568
+                },
+                {
+                    "x": -0.11014736443758011,
+                    "y": 0.9933336973190308,
+                    "elapsed_seconds": 5.699999809265137
+                },
+                {
+                    "x": -0.1117347851395607,
+                    "y": 0.9814391732215881,
+                    "elapsed_seconds": 5.800000190734863
+                },
+                {
+                    "x": -0.11332220584154129,
+                    "y": 0.9695446491241455,
+                    "elapsed_seconds": 5.900000095367432
+                },
+                {
+                    "x": -0.11490962654352188,
+                    "y": 0.9576501250267029,
+                    "elapsed_seconds": 6.0
+                },
+                {
+                    "x": -0.11649704724550247,
+                    "y": 0.9457556009292603,
+                    "elapsed_seconds": 6.099999904632568
+                },
+                {
+                    "x": -0.11808446794748306,
+                    "y": 0.9338610768318176,
+                    "elapsed_seconds": 6.199999809265137
+                },
+                {
+                    "x": -0.11967188864946365,
+                    "y": 0.921966552734375,
+                    "elapsed_seconds": 6.300000190734863
+                },
+                {
+                    "x": -0.12125930935144424,
+                    "y": 0.9100720286369324,
+                    "elapsed_seconds": 6.400000095367432
+                },
+                {
+                    "x": -0.12284673005342484,
+                    "y": 0.8981775045394897,
+                    "elapsed_seconds": 6.5
+                },
+                {
+                    "x": -0.12443415075540543,
+                    "y": 0.8862829804420471,
+                    "elapsed_seconds": 6.599999904632568
+                },
+                {
+                    "x": -0.1260215789079666,
+                    "y": 0.8743884563446045,
+                    "elapsed_seconds": 6.699999809265137
+                },
+                {
+                    "x": -0.1276089996099472,
+                    "y": 0.8624939322471619,
+                    "elapsed_seconds": 6.800000190734863
+                },
+                {
+                    "x": -0.1291964203119278,
+                    "y": 0.8505994081497192,
+                    "elapsed_seconds": 6.900000095367432
+                },
+                {
+                    "x": -0.1307838410139084,
+                    "y": 0.8387048840522766,
+                    "elapsed_seconds": 7.0
+                },
+                {
+                    "x": -0.13237126171588898,
+                    "y": 0.826810359954834,
+                    "elapsed_seconds": 7.099999904632568
+                },
+                {
+                    "x": -0.13395868241786957,
+                    "y": 0.8149158358573914,
+                    "elapsed_seconds": 7.199999809265137
+                },
+                {
+                    "x": -0.13554610311985016,
+                    "y": 0.8030213117599487,
+                    "elapsed_seconds": 7.300000190734863
+                },
+                {
+                    "x": -0.13713352382183075,
+                    "y": 0.7911267876625061,
+                    "elapsed_seconds": 7.400000095367432
+                },
+                {
+                    "x": -0.13872094452381134,
+                    "y": 0.7792322635650635,
+                    "elapsed_seconds": 7.5
+                },
+                {
+                    "x": -0.14030836522579193,
+                    "y": 0.7673377394676208,
+                    "elapsed_seconds": 7.599999904632568
+                },
+                {
+                    "x": -0.14189578592777252,
+                    "y": 0.7554432153701782,
+                    "elapsed_seconds": 7.699999809265137
+                },
+                {
+                    "x": -0.1434832066297531,
+                    "y": 0.7435486912727356,
+                    "elapsed_seconds": 7.800000190734863
+                },
+                {
+                    "x": -0.1450706273317337,
+                    "y": 0.731654167175293,
+                    "elapsed_seconds": 7.900000095367432
+                },
+                {
+                    "x": -0.1466580480337143,
+                    "y": 0.7197596430778503,
+                    "elapsed_seconds": 8.0
+                },
+                {
+                    "x": -0.14824546873569489,
+                    "y": 0.7078651189804077,
+                    "elapsed_seconds": 8.100000381469727
+                },
+                {
+                    "x": -0.14983288943767548,
+                    "y": 0.6959705948829651,
+                    "elapsed_seconds": 8.199999809265137
+                },
+                {
+                    "x": -0.15142031013965607,
+                    "y": 0.6840760707855225,
+                    "elapsed_seconds": 8.300000190734863
+                },
+                {
+                    "x": -0.15300773084163666,
+                    "y": 0.6721815466880798,
+                    "elapsed_seconds": 8.399999618530273
+                },
+                {
+                    "x": -0.15459515154361725,
+                    "y": 0.6602870225906372,
+                    "elapsed_seconds": 8.5
+                },
+                {
+                    "x": -0.15618257224559784,
+                    "y": 0.6483924984931946,
+                    "elapsed_seconds": 8.600000381469727
+                },
+                {
+                    "x": -0.15776999294757843,
+                    "y": 0.636497974395752,
+                    "elapsed_seconds": 8.699999809265137
+                },
+                {
+                    "x": -0.15935741364955902,
+                    "y": 0.6246034502983093,
+                    "elapsed_seconds": 8.800000190734863
+                },
+                {
+                    "x": -0.1609448343515396,
+                    "y": 0.6127089262008667,
+                    "elapsed_seconds": 8.899999618530273
+                },
+                {
+                    "x": -0.1625322550535202,
+                    "y": 0.6008144021034241,
+                    "elapsed_seconds": 9.0
+                },
+                {
+                    "x": -0.1641196757555008,
+                    "y": 0.5889198780059814,
+                    "elapsed_seconds": 9.100000381469727
+                },
+                {
+                    "x": -0.16570709645748138,
+                    "y": 0.5770253539085388,
+                    "elapsed_seconds": 9.199999809265137
+                },
+                {
+                    "x": -0.16729451715946198,
+                    "y": 0.5651308298110962,
+                    "elapsed_seconds": 9.300000190734863
+                },
+                {
+                    "x": -0.16888193786144257,
+                    "y": 0.5532363057136536,
+                    "elapsed_seconds": 9.399999618530273
+                },
+                {
+                    "x": -0.16607706248760223,
+                    "y": 0.5447923541069031,
+                    "elapsed_seconds": 9.5
+                },
+                {
+                    "x": -0.16796956956386566,
+                    "y": 0.532942533493042,
+                    "elapsed_seconds": 9.600000381469727
+                },
+                {
+                    "x": -0.1698620617389679,
+                    "y": 0.5210927128791809,
+                    "elapsed_seconds": 9.699999809265137
+                },
+                {
+                    "x": -0.17175456881523132,
+                    "y": 0.5092428922653198,
+                    "elapsed_seconds": 9.800000190734863
+                },
+                {
+                    "x": -0.17364706099033356,
+                    "y": 0.49739307165145874,
+                    "elapsed_seconds": 9.899999618530273
+                },
+                {
+                    "x": -0.1755395531654358,
+                    "y": 0.48554325103759766,
+                    "elapsed_seconds": 10.0
+                },
+                {
+                    "x": -0.17743206024169922,
+                    "y": 0.47369343042373657,
+                    "elapsed_seconds": 10.100000381469727
+                },
+                {
+                    "x": -0.18325763940811157,
+                    "y": 0.4632023274898529,
+                    "elapsed_seconds": 10.199999809265137
+                },
+                {
+                    "x": -0.18908321857452393,
+                    "y": 0.45271122455596924,
+                    "elapsed_seconds": 10.300000190734863
+                },
+                {
+                    "x": -0.19490879774093628,
+                    "y": 0.44222012162208557,
+                    "elapsed_seconds": 10.399999618530273
+                },
+                {
+                    "x": -0.20073437690734863,
+                    "y": 0.4317290186882019,
+                    "elapsed_seconds": 10.5
+                },
+                {
+                    "x": -0.206559956073761,
+                    "y": 0.42123791575431824,
+                    "elapsed_seconds": 10.600000381469727
+                },
+                {
+                    "x": -0.21238553524017334,
+                    "y": 0.41074681282043457,
+                    "elapsed_seconds": 10.699999809265137
+                },
+                {
+                    "x": -0.2182111144065857,
+                    "y": 0.4002557098865509,
+                    "elapsed_seconds": 10.800000190734863
+                },
+                {
+                    "x": -0.22403669357299805,
+                    "y": 0.38976460695266724,
+                    "elapsed_seconds": 10.899999618530273
+                },
+                {
+                    "x": -0.2298623025417328,
+                    "y": 0.37927350401878357,
+                    "elapsed_seconds": 11.0
+                },
+                {
+                    "x": -0.23568792641162872,
+                    "y": 0.3687824010848999,
+                    "elapsed_seconds": 11.100000381469727
+                },
+                {
+                    "x": -0.24151355028152466,
+                    "y": 0.35829129815101624,
+                    "elapsed_seconds": 11.199999809265137
+                },
+                {
+                    "x": -0.2473391741514206,
+                    "y": 0.34780019521713257,
+                    "elapsed_seconds": 11.300000190734863
+                },
+                {
+                    "x": -0.2515127658843994,
+                    "y": 0.3368166387081146,
+                    "elapsed_seconds": 11.399999618530273
+                },
+                {
+                    "x": -0.2523823380470276,
+                    "y": 0.3248481750488281,
+                    "elapsed_seconds": 11.5
+                },
+                {
+                    "x": -0.25325191020965576,
+                    "y": 0.3128797113895416,
+                    "elapsed_seconds": 11.600000381469727
+                },
+                {
+                    "x": -0.25412148237228394,
+                    "y": 0.3009112477302551,
+                    "elapsed_seconds": 11.699999809265137
+                },
+                {
+                    "x": -0.2549910545349121,
+                    "y": 0.28894278407096863,
+                    "elapsed_seconds": 11.800000190734863
+                },
+                {
+                    "x": -0.2558606266975403,
+                    "y": 0.27697432041168213,
+                    "elapsed_seconds": 11.899999618530273
+                },
+                {
+                    "x": -0.25673019886016846,
+                    "y": 0.26500585675239563,
+                    "elapsed_seconds": 12.0
+                },
+                {
+                    "x": -0.25137650966644287,
+                    "y": 0.25426629185676575,
+                    "elapsed_seconds": 12.100000381469727
+                },
+                {
+                    "x": -0.24602282047271729,
+                    "y": 0.24352672696113586,
+                    "elapsed_seconds": 12.199999809265137
+                },
+                {
+                    "x": -0.2406691312789917,
+                    "y": 0.23278716206550598,
+                    "elapsed_seconds": 12.300000190734863
+                },
+                {
+                    "x": -0.2353154420852661,
+                    "y": 0.2220475971698761,
+                    "elapsed_seconds": 12.399999618530273
+                },
+                {
+                    "x": -0.22996175289154053,
+                    "y": 0.21130803227424622,
+                    "elapsed_seconds": 12.5
+                },
+                {
+                    "x": -0.22460810840129852,
+                    "y": 0.20056846737861633,
+                    "elapsed_seconds": 12.600000381469727
+                },
+                {
+                    "x": -0.21925443410873413,
+                    "y": 0.18982890248298645,
+                    "elapsed_seconds": 12.699999809265137
+                },
+                {
+                    "x": -0.21390075981616974,
+                    "y": 0.17908933758735657,
+                    "elapsed_seconds": 12.800000190734863
+                },
+                {
+                    "x": -0.20854710042476654,
+                    "y": 0.16834977269172668,
+                    "elapsed_seconds": 12.899999618530273
+                },
+                {
+                    "x": -0.20319344103336334,
+                    "y": 0.1576102077960968,
+                    "elapsed_seconds": 13.0
+                },
+                {
+                    "x": -0.19783976674079895,
+                    "y": 0.14687064290046692,
+                    "elapsed_seconds": 13.100000381469727
+                },
+                {
+                    "x": -0.19248610734939575,
+                    "y": 0.13613107800483704,
+                    "elapsed_seconds": 13.199999809265137
+                },
+                {
+                    "x": -0.18713243305683136,
+                    "y": 0.12539151310920715,
+                    "elapsed_seconds": 13.300000190734863
+                },
+                {
+                    "x": -0.18177875876426697,
+                    "y": 0.11465194821357727,
+                    "elapsed_seconds": 13.399999618530273
+                },
+                {
+                    "x": -0.17642509937286377,
+                    "y": 0.10391238331794739,
+                    "elapsed_seconds": 13.5
+                },
+                {
+                    "x": -0.17107143998146057,
+                    "y": 0.0931728184223175,
+                    "elapsed_seconds": 13.600000381469727
+                },
+                {
+                    "x": -0.16571776568889618,
+                    "y": 0.08243325352668762,
+                    "elapsed_seconds": 13.699999809265137
+                },
+                {
+                    "x": -0.16036410629749298,
+                    "y": 0.07169368863105774,
+                    "elapsed_seconds": 13.800000190734863
+                },
+                {
+                    "x": -0.1550104320049286,
+                    "y": 0.060954123735427856,
+                    "elapsed_seconds": 13.899999618530273
+                },
+                {
+                    "x": -0.1496567726135254,
+                    "y": 0.050214558839797974,
+                    "elapsed_seconds": 14.0
+                },
+                {
+                    "x": -0.144303098320961,
+                    "y": 0.03947499394416809,
+                    "elapsed_seconds": 14.100000381469727
+                },
+                {
+                    "x": -0.1389494389295578,
+                    "y": 0.028735429048538208,
+                    "elapsed_seconds": 14.199999809265137
+                },
+                {
+                    "x": -0.1335957795381546,
+                    "y": 0.017995864152908325,
+                    "elapsed_seconds": 14.300000190734863
+                },
+                {
+                    "x": -0.1282421052455902,
+                    "y": 0.007256298791617155,
+                    "elapsed_seconds": 14.399999618530273
+                },
+                {
+                    "x": -0.12288844585418701,
+                    "y": -0.003483266569674015,
+                    "elapsed_seconds": 14.5
+                },
+                {
+                    "x": -0.11753477901220322,
+                    "y": -0.014222831465303898,
+                    "elapsed_seconds": 14.600000381469727
+                },
+                {
+                    "x": -0.11218111217021942,
+                    "y": -0.024962397292256355,
+                    "elapsed_seconds": 14.699999809265137
+                },
+                {
+                    "x": -0.10682744532823563,
+                    "y": -0.03570196405053139,
+                    "elapsed_seconds": 14.800000190734863
+                },
+                {
+                    "x": -0.10147377848625183,
+                    "y": -0.04644152894616127,
+                    "elapsed_seconds": 14.899999618530273
+                },
+                {
+                    "x": -0.09612011164426804,
+                    "y": -0.05718109384179115,
+                    "elapsed_seconds": 15.0
+                },
+                {
+                    "x": -0.09076644480228424,
+                    "y": -0.06792066246271133,
+                    "elapsed_seconds": 15.100000381469727
+                },
+                {
+                    "x": -0.08541277796030045,
+                    "y": -0.07866022735834122,
+                    "elapsed_seconds": 15.199999809265137
+                },
+                {
+                    "x": -0.08005911111831665,
+                    "y": -0.0893997922539711,
+                    "elapsed_seconds": 15.300000190734863
+                },
+                {
+                    "x": -0.07470544427633286,
+                    "y": -0.10013935714960098,
+                    "elapsed_seconds": 15.399999618530273
+                },
+                {
+                    "x": -0.06935177743434906,
+                    "y": -0.11087892204523087,
+                    "elapsed_seconds": 15.5
+                },
+                {
+                    "x": -0.06399811059236526,
+                    "y": -0.12161848694086075,
+                    "elapsed_seconds": 15.600000381469727
+                },
+                {
+                    "x": -0.05864444375038147,
+                    "y": -0.13235804438591003,
+                    "elapsed_seconds": 15.699999809265137
+                },
+                {
+                    "x": -0.053290776908397675,
+                    "y": -0.14309760928153992,
+                    "elapsed_seconds": 15.800000190734863
+                },
+                {
+                    "x": -0.04793711006641388,
+                    "y": -0.1538371741771698,
+                    "elapsed_seconds": 15.899999618530273
+                },
+                {
+                    "x": -0.042583443224430084,
+                    "y": -0.16457673907279968,
+                    "elapsed_seconds": 16.0
+                },
+                {
+                    "x": -0.03722977638244629,
+                    "y": -0.17531630396842957,
+                    "elapsed_seconds": 16.100000381469727
+                },
+                {
+                    "x": -0.031876109540462494,
+                    "y": -0.18605586886405945,
+                    "elapsed_seconds": 16.200000762939453
+                },
+                {
+                    "x": -0.0265224426984787,
+                    "y": -0.19679543375968933,
+                    "elapsed_seconds": 16.299999237060547
+                },
+                {
+                    "x": -0.021168775856494904,
+                    "y": -0.20753499865531921,
+                    "elapsed_seconds": 16.399999618530273
+                },
+                {
+                    "x": -0.01581510901451111,
+                    "y": -0.2182745635509491,
+                    "elapsed_seconds": 16.5
+                },
+                {
+                    "x": -0.010461442172527313,
+                    "y": -0.22901412844657898,
+                    "elapsed_seconds": 16.600000381469727
+                },
+                {
+                    "x": -0.006200538482517004,
+                    "y": -0.23756159842014313,
+                    "elapsed_seconds": 16.700000762939453
+                },
+                {
+                    "x": -0.0036750836297869682,
+                    "y": -0.24262769520282745,
+                    "elapsed_seconds": 16.799999237060547
+                },
+                {
+                    "x": -0.0020163371227681637,
+                    "y": -0.2459551841020584,
+                    "elapsed_seconds": 16.899999618530273
+                },
+                {
+                    "x": 0.0,
+                    "y": -0.25,
+                    "elapsed_seconds": 17.0
+                }
+            ]
+        },
+        {
+            "id": "left-out",
+            "steps": 33,
+            "distance": 0.09999996423721313,
+            "start_x": -0.30000001192092896,
+            "start_y": 0.949999988079071,
+            "target_x": -0.30000001192092896,
+            "target_y": 1.0499999523162842,
+            "arrived": true,
+            "all_points_walkable": true,
+            "image": {
+                "file": "36-route-left-out.png",
+                "sha256": "04769f9caaf843ea6a028fdcf3888c5366ee8b3332a256594920c1a6bdb87be5",
+                "bytes": 1760720,
+                "width": 720,
+                "height": 1280
+            },
+            "points": [
+                {
+                    "x": -0.30000001192092896,
+                    "y": 0.949999988079071,
+                    "elapsed_seconds": 0.0
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 0.9549999833106995,
+                    "elapsed_seconds": 0.10000000149011612
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 0.9663333296775818,
+                    "elapsed_seconds": 0.20000000298023224
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 0.9783333539962769,
+                    "elapsed_seconds": 0.30000001192092896
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 0.9903333783149719,
+                    "elapsed_seconds": 0.4000000059604645
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 1.002333402633667,
+                    "elapsed_seconds": 0.5
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 1.0143332481384277,
+                    "elapsed_seconds": 0.6000000238418579
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 1.0263330936431885,
+                    "elapsed_seconds": 0.699999988079071
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 1.0359724760055542,
+                    "elapsed_seconds": 0.800000011920929
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 1.0416858196258545,
+                    "elapsed_seconds": 0.8999999761581421
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 1.045415997505188,
+                    "elapsed_seconds": 1.0
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 1.0499999523162842,
+                    "elapsed_seconds": 1.100000023841858
+                }
+            ]
+        },
+        {
+            "id": "left-return",
+            "steps": 33,
+            "distance": 0.09999996423721313,
+            "start_x": -0.30000001192092896,
+            "start_y": 1.0499999523162842,
+            "target_x": -0.30000001192092896,
+            "target_y": 0.949999988079071,
+            "arrived": true,
+            "all_points_walkable": true,
+            "image": {
+                "file": "36-route-left-return.png",
+                "sha256": "8586d6111476744c99382423162143a675ced4462d84e7fcc34aa3814b1be5ad",
+                "bytes": 1762111,
+                "width": 720,
+                "height": 1280
+            },
+            "points": [
+                {
+                    "x": -0.30000001192092896,
+                    "y": 1.0499999523162842,
+                    "elapsed_seconds": 0.0
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 1.0449998378753662,
+                    "elapsed_seconds": 0.10000000149011612
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 1.0336666107177734,
+                    "elapsed_seconds": 0.20000000298023224
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 1.0216667652130127,
+                    "elapsed_seconds": 0.30000001192092896
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 1.009666919708252,
+                    "elapsed_seconds": 0.4000000059604645
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 0.9976670145988464,
+                    "elapsed_seconds": 0.5
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 0.9856669902801514,
+                    "elapsed_seconds": 0.6000000238418579
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 0.9736669659614563,
+                    "elapsed_seconds": 0.699999988079071
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 0.964027464389801,
+                    "elapsed_seconds": 0.800000011920929
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 0.9583141207695007,
+                    "elapsed_seconds": 0.8999999761581421
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 0.9545838236808777,
+                    "elapsed_seconds": 1.0
+                },
+                {
+                    "x": -0.30000001192092896,
+                    "y": 0.949999988079071,
+                    "elapsed_seconds": 1.100000023841858
+                }
+            ]
+        },
+        {
+            "id": "right-out",
+            "steps": 33,
+            "distance": 0.09999996423721313,
+            "start_x": 0.30000001192092896,
+            "start_y": 0.949999988079071,
+            "target_x": 0.30000001192092896,
+            "target_y": 1.0499999523162842,
+            "arrived": true,
+            "all_points_walkable": true,
+            "image": {
+                "file": "36-route-right-out.png",
+                "sha256": "e60bbb087f042517bc9a3afcb2bf9637390631931f2644af37d5ebd02318943e",
+                "bytes": 1757512,
+                "width": 720,
+                "height": 1280
+            },
+            "points": [
+                {
+                    "x": 0.30000001192092896,
+                    "y": 0.949999988079071,
+                    "elapsed_seconds": 0.0
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 0.9549999833106995,
+                    "elapsed_seconds": 0.10000000149011612
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 0.9663333296775818,
+                    "elapsed_seconds": 0.20000000298023224
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 0.9783333539962769,
+                    "elapsed_seconds": 0.30000001192092896
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 0.9903333783149719,
+                    "elapsed_seconds": 0.4000000059604645
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 1.002333402633667,
+                    "elapsed_seconds": 0.5
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 1.0143332481384277,
+                    "elapsed_seconds": 0.6000000238418579
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 1.0263330936431885,
+                    "elapsed_seconds": 0.699999988079071
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 1.0359724760055542,
+                    "elapsed_seconds": 0.800000011920929
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 1.0416858196258545,
+                    "elapsed_seconds": 0.8999999761581421
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 1.045415997505188,
+                    "elapsed_seconds": 1.0
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 1.0499999523162842,
+                    "elapsed_seconds": 1.100000023841858
+                }
+            ]
+        },
+        {
+            "id": "right-return",
+            "steps": 33,
+            "distance": 0.09999996423721313,
+            "start_x": 0.30000001192092896,
+            "start_y": 1.0499999523162842,
+            "target_x": 0.30000001192092896,
+            "target_y": 0.949999988079071,
+            "arrived": true,
+            "all_points_walkable": true,
+            "image": {
+                "file": "36-route-right-return.png",
+                "sha256": "38cde0effecffc24be182042a70b1451d4cca3133559e04058dd1ddb36571d37",
+                "bytes": 1759995,
+                "width": 720,
+                "height": 1280
+            },
+            "points": [
+                {
+                    "x": 0.30000001192092896,
+                    "y": 1.0499999523162842,
+                    "elapsed_seconds": 0.0
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 1.0449998378753662,
+                    "elapsed_seconds": 0.10000000149011612
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 1.0336666107177734,
+                    "elapsed_seconds": 0.20000000298023224
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 1.0216667652130127,
+                    "elapsed_seconds": 0.30000001192092896
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 1.009666919708252,
+                    "elapsed_seconds": 0.4000000059604645
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 0.9976670145988464,
+                    "elapsed_seconds": 0.5
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 0.9856669902801514,
+                    "elapsed_seconds": 0.6000000238418579
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 0.9736669659614563,
+                    "elapsed_seconds": 0.699999988079071
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 0.964027464389801,
+                    "elapsed_seconds": 0.800000011920929
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 0.9583141207695007,
+                    "elapsed_seconds": 0.8999999761581421
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 0.9545838236808777,
+                    "elapsed_seconds": 1.0
+                },
+                {
+                    "x": 0.30000001192092896,
+                    "y": 0.949999988079071,
+                    "elapsed_seconds": 1.100000023841858
+                }
+            ]
+        }
+    ],
+    "sequence": {
+        "setup": "fresh-isolated-Home-scene-after-completed-route-proof",
+        "isolated_start_verified": true,
+        "kind": "native-fixed-step-town-AdvanceFrame",
+        "greet_trigger": "public TryBeginConversation or normal AdvanceFrame auto; verified Noah/Momo greeting",
+        "conversation_mode": "mutual-noah-momo-greeting",
+        "conversation_speaker_id": "momo",
+        "conversation_partner_id": "noah",
+        "conversation_text": "こんにちは、ノア♪",
+        "manual_advance": true,
+        "state_unchanged": true,
+        "store_writes_unchanged": true,
+        "actual_conversation_verified": true,
+        "step_seconds": 0.03333333507180214,
+        "noah_reaction_seconds": 0.6499999761581421,
+        "momo_reaction_seconds": 0.6499999761581421,
+        "noah_facing": 1.0,
+        "momo_facing": -1.0,
+        "sample_step_count": 3,
+        "source_width": 720,
+        "source_height": 1280,
+        "crop_x": 62,
+        "crop_y": 462,
+        "crop_width": 596,
+        "crop_height": 307,
+        "frames": [
+            {
+                "index": 0,
+                "mode": "idle",
+                "elapsed_seconds": 0.10000000894069672,
+                "world_x": 0.0,
+                "world_y": -0.25,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-00.png",
+                    "sha256": "cd2a7dfffa6b29ab4d12a4026c6af4d6ebf299cac55a4ae250cb3c77ebe4a074",
+                    "bytes": 379696,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 1,
+                "mode": "idle",
+                "elapsed_seconds": 0.20000000298023224,
+                "world_x": 0.0,
+                "world_y": -0.25,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-01.png",
+                    "sha256": "f47f0069c16826463463b0d8868e3b5af0183b8268e44c00e821ba5cec653314",
+                    "bytes": 379750,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 2,
+                "mode": "idle",
+                "elapsed_seconds": 0.30000001192092896,
+                "world_x": 0.0,
+                "world_y": -0.25,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-02.png",
+                    "sha256": "a7c091a98d3c8e63e40790f7517d60f44bb5fb9149d034507280280d7fceba9e",
+                    "bytes": 379697,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 3,
+                "mode": "idle",
+                "elapsed_seconds": 0.4000000059604645,
+                "world_x": 0.0,
+                "world_y": -0.25,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-03.png",
+                    "sha256": "393d4e65390a57656e6412243f3a84b2153c201142b10a6e4ee5dc4f0d90ca15",
+                    "bytes": 379690,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 4,
+                "mode": "idle",
+                "elapsed_seconds": 0.5,
+                "world_x": 0.0,
+                "world_y": -0.25,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-04.png",
+                    "sha256": "cbee92303fa03e6c06b8614e198b167ae0e96df5210f830e28d7fe166d84de7f",
+                    "bytes": 379816,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 5,
+                "mode": "idle",
+                "elapsed_seconds": 0.6000000834465027,
+                "world_x": 0.0,
+                "world_y": -0.25,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-05.png",
+                    "sha256": "3ffa56d9adfb574ad922b55d0ebc0da8dabae1a17530ffef283adf3ccea413c7",
+                    "bytes": 379886,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 6,
+                "mode": "idle",
+                "elapsed_seconds": 0.7000001668930054,
+                "world_x": 0.0,
+                "world_y": -0.25,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-06.png",
+                    "sha256": "db7078b2318fceadf5a011a8de25aae40e05654fe9e9d89ccac58ad76c806b6b",
+                    "bytes": 379755,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 7,
+                "mode": "idle",
+                "elapsed_seconds": 0.8000002503395081,
+                "world_x": 0.0,
+                "world_y": -0.25,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-07.png",
+                    "sha256": "1afa7db1c258b14d915b2525eb40190854f8bd048b78388653d5dc408d537e37",
+                    "bytes": 379737,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 8,
+                "mode": "start-walk",
+                "elapsed_seconds": 0.9000003337860107,
+                "world_x": -0.005000000819563866,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-08.png",
+                    "sha256": "67842217d02178bd61e2e491fd00f7af54e68b6a99dbe575a4549b3e4dcbb29e",
+                    "bytes": 379835,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 9,
+                "mode": "start-walk",
+                "elapsed_seconds": 1.0000003576278687,
+                "world_x": -0.016333336010575294,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-09.png",
+                    "sha256": "bf1c295fd23948183bf08beec9296bfed6880cdfed835b3965f0bd98e58532b6",
+                    "bytes": 379687,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 10,
+                "mode": "start-walk",
+                "elapsed_seconds": 1.100000262260437,
+                "world_x": -0.028333337977528572,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-10.png",
+                    "sha256": "bca309cc98b77c74c9d389a271c1c34766c26cfede69ae6c2b83777cf39a0c7d",
+                    "bytes": 379744,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 11,
+                "mode": "start-walk",
+                "elapsed_seconds": 1.2000001668930054,
+                "world_x": -0.0403333380818367,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-11.png",
+                    "sha256": "42507da7f71c6d26b7ab158de875965a0e935cc741b5625acbd5b3397a77dba0",
+                    "bytes": 379743,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 12,
+                "mode": "start-walk",
+                "elapsed_seconds": 1.3000000715255737,
+                "world_x": -0.05233334004878998,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-12.png",
+                    "sha256": "3a630d4aed4e40a7ad9ef44518f2f61c1d9d1e217fe3a50e136158b22a6d3b54",
+                    "bytes": 379662,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 13,
+                "mode": "start-walk",
+                "elapsed_seconds": 1.399999976158142,
+                "world_x": -0.06433334201574326,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-13.png",
+                    "sha256": "28eaa612ce132bed870fd2dfd31d85305cbb8ac862b11d91907de1cee2f85d42",
+                    "bytes": 378840,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 14,
+                "mode": "start-walk",
+                "elapsed_seconds": 1.4999998807907104,
+                "world_x": -0.07633334398269653,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-14.png",
+                    "sha256": "823a5fa2d87d18d21737288891f1cc63668ce3ac414840e112ff438c3069d973",
+                    "bytes": 378645,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 15,
+                "mode": "start-walk",
+                "elapsed_seconds": 1.5999997854232788,
+                "world_x": -0.08833334594964981,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-15.png",
+                    "sha256": "4acf64c747da7b21b2103f502d8f6d28b04bfd2a2785a5f048ae9447bdd37aca",
+                    "bytes": 378114,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 16,
+                "mode": "walk",
+                "elapsed_seconds": 1.6999996900558472,
+                "world_x": -0.10033334791660309,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-16.png",
+                    "sha256": "62fa47d0fcbcc0ef065cd1e205cb7fb8596354c2b14be5cc7a559084c0f68477",
+                    "bytes": 377902,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 17,
+                "mode": "walk",
+                "elapsed_seconds": 1.7999995946884155,
+                "world_x": -0.11233334988355637,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-17.png",
+                    "sha256": "d9f6bc40c86678ed77a73777817600a72d6c45ca78d3636c28517b6697577182",
+                    "bytes": 377858,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 18,
+                "mode": "walk",
+                "elapsed_seconds": 1.8999994993209839,
+                "world_x": -0.12433335185050964,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-18.png",
+                    "sha256": "ed4f57e2007769bede4532cefa4cdfcc5cad87f573a0eb58cff41ceb7f8ca52a",
+                    "bytes": 377169,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 19,
+                "mode": "walk",
+                "elapsed_seconds": 1.9999994039535522,
+                "world_x": -0.13633333146572113,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-19.png",
+                    "sha256": "d9fd148209cf8a8e8c06b55a7bc7ff222f216551bfdd6b3333986a0969805c2b",
+                    "bytes": 377208,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 20,
+                "mode": "walk",
+                "elapsed_seconds": 2.09999942779541,
+                "world_x": -0.14833331108093262,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-20.png",
+                    "sha256": "ef82645edc493ccf55cc33879c0224feac8cf281ca053b153b6511c018249a40",
+                    "bytes": 376597,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 21,
+                "mode": "walk",
+                "elapsed_seconds": 2.1999993324279785,
+                "world_x": -0.1603332906961441,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-21.png",
+                    "sha256": "e214876a5126b89a4284670b87b3f30dd2b0c8b0a813c903749c7190fa28d4a5",
+                    "bytes": 376953,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 22,
+                "mode": "walk",
+                "elapsed_seconds": 2.299999237060547,
+                "world_x": -0.1723332703113556,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-22.png",
+                    "sha256": "a7d55aa0253e587f3f579ef200e1a9f7ece3ca4e2fd61a5e57ab4da2d4060ee7",
+                    "bytes": 376687,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 23,
+                "mode": "walk",
+                "elapsed_seconds": 2.3999991416931152,
+                "world_x": -0.18433324992656708,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-23.png",
+                    "sha256": "2cb361a09007067380aa4d9e4422bacee19ce7e94edaafeafe49ea7cd634b4d8",
+                    "bytes": 376232,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 24,
+                "mode": "walk",
+                "elapsed_seconds": 2.4999990463256836,
+                "world_x": -0.19633322954177856,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-24.png",
+                    "sha256": "df0b37d01920bd1766b3889d423df3858501cba77c68e8e6a2aa14f2a3300f5b",
+                    "bytes": 375893,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 25,
+                "mode": "walk",
+                "elapsed_seconds": 2.599998950958252,
+                "world_x": -0.20833320915699005,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-25.png",
+                    "sha256": "f8ea55051cc64ffed3e2fc39fa89c847415ec1845f849483da7a613a66a67695",
+                    "bytes": 376244,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 26,
+                "mode": "walk",
+                "elapsed_seconds": 2.6999988555908203,
+                "world_x": -0.22033318877220154,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-26.png",
+                    "sha256": "6ecac7968b631e31e9340549c9a145557fd96f4964f0a468848d6bf6e28ddd9b",
+                    "bytes": 376245,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 27,
+                "mode": "walk",
+                "elapsed_seconds": 2.7999987602233887,
+                "world_x": -0.23233316838741302,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-27.png",
+                    "sha256": "403b807039dfa114e4cff2e9c65d148ed135173eb99a9002d49b9c61970d726e",
+                    "bytes": 376023,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 28,
+                "mode": "walk",
+                "elapsed_seconds": 2.899998664855957,
+                "world_x": -0.2443331480026245,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-28.png",
+                    "sha256": "061a0e12736be84500d341b3615bdb1dfb5e5d3214489c4de2adbcf2335710e0",
+                    "bytes": 376153,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 29,
+                "mode": "walk",
+                "elapsed_seconds": 2.9999985694885254,
+                "world_x": -0.2563331425189972,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-29.png",
+                    "sha256": "a72ae1eeb4fe3b8dae8a04fb58750cc88d1241c4307678cc7830a536833edd52",
+                    "bytes": 376187,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 30,
+                "mode": "walk",
+                "elapsed_seconds": 3.0999984741210938,
+                "world_x": -0.26833316683769226,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-30.png",
+                    "sha256": "87433ac1067b4dc6d226cd8f99036dd7c02a806dcce447c54c79b4f6139d86f7",
+                    "bytes": 376102,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 31,
+                "mode": "walk",
+                "elapsed_seconds": 3.199998378753662,
+                "world_x": -0.28033319115638733,
+                "world_y": -0.25,
+                "walking": true,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-31.png",
+                    "sha256": "922e592e528478854807e0006ca10d702bbcc036c73abb5c3297b2e2c3362675",
+                    "bytes": 375932,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 32,
+                "mode": "stop",
+                "elapsed_seconds": 3.2999982833862305,
+                "world_x": -0.28033319115638733,
+                "world_y": -0.25,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-32.png",
+                    "sha256": "4974141c6549a8d8bc61a39f3565e0a6c4f114e60f3a6e786ce02f908eee6c9d",
+                    "bytes": 376130,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 33,
+                "mode": "stop",
+                "elapsed_seconds": 3.399998188018799,
+                "world_x": -0.28033319115638733,
+                "world_y": -0.25,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-33.png",
+                    "sha256": "42f4ffb9fe85ac62a5203eb5f90431934506d1d936e69c9dce2e99365d53d6f7",
+                    "bytes": 376054,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 34,
+                "mode": "stop",
+                "elapsed_seconds": 3.499998092651367,
+                "world_x": -0.28033319115638733,
+                "world_y": -0.25,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-34.png",
+                    "sha256": "898d0e161d23716b34470d89c7529b745c76b646309f8f0da9c3a16f0c0aacef",
+                    "bytes": 376144,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 35,
+                "mode": "stop",
+                "elapsed_seconds": 3.5999979972839355,
+                "world_x": -0.28033319115638733,
+                "world_y": -0.25,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-35.png",
+                    "sha256": "c86b583f214a625ee7edc7ec389fd036151f4ded9e5b3f7cc41f7a236b7dbd24",
+                    "bytes": 376102,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 36,
+                "mode": "stop",
+                "elapsed_seconds": 3.699997901916504,
+                "world_x": -0.28033319115638733,
+                "world_y": -0.25,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-36.png",
+                    "sha256": "cee3dfecd0e3799250086342bb5de0831dce31c4a90fa8e5d11128caec25dbbd",
+                    "bytes": 376098,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 37,
+                "mode": "stop",
+                "elapsed_seconds": 3.7999978065490723,
+                "world_x": -0.28033319115638733,
+                "world_y": -0.25,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-37.png",
+                    "sha256": "b33d04e30b5ad99cab274dba27b0def3ffe057831d4c6f842d4df9d1fb747bc9",
+                    "bytes": 376203,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 38,
+                "mode": "stop",
+                "elapsed_seconds": 3.8999977111816406,
+                "world_x": -0.28033319115638733,
+                "world_y": -0.25,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-38.png",
+                    "sha256": "d8c3fabea9baeebf2fefb277bfaba3f3387fc07f654ea268593dc9115c357266",
+                    "bytes": 376149,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 39,
+                "mode": "stop",
+                "elapsed_seconds": 3.999997615814209,
+                "world_x": -0.28033319115638733,
+                "world_y": -0.25,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-39.png",
+                    "sha256": "8868a5293d921f9e622499e3f67bc383e6d268e04c91ff25933fb020741949a5",
+                    "bytes": 376176,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 40,
+                "mode": "greet",
+                "elapsed_seconds": 15.933432579040527,
+                "world_x": 0.14000000059604645,
+                "world_y": -0.2199999988079071,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-40.png",
+                    "sha256": "c6aee00749f713a1260ded8f0fd00c2ab4af3a410c4d8b8652eb00016e89d55f",
+                    "bytes": 249045,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 41,
+                "mode": "greet",
+                "elapsed_seconds": 16.033432006835938,
+                "world_x": 0.14000000059604645,
+                "world_y": -0.2199999988079071,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-41.png",
+                    "sha256": "7fffe620eb6c025231d48d08f3fa83f3369a9d3113dd718f67c17c081a2e34bc",
+                    "bytes": 248808,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 42,
+                "mode": "greet",
+                "elapsed_seconds": 16.13343048095703,
+                "world_x": 0.14000000059604645,
+                "world_y": -0.2199999988079071,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-42.png",
+                    "sha256": "f55fcf924b574af73c92a28c815747709d3027f50c5481fa90ca6a4b3d6ee82b",
+                    "bytes": 248855,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 43,
+                "mode": "greet",
+                "elapsed_seconds": 16.233428955078125,
+                "world_x": 0.14000000059604645,
+                "world_y": -0.2199999988079071,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-43.png",
+                    "sha256": "d4366ef8f7319c0d8051fe66c6a2f5aaf5477540925e3bb29ed44f26a28d2c54",
+                    "bytes": 248931,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 44,
+                "mode": "greet",
+                "elapsed_seconds": 16.33342742919922,
+                "world_x": 0.14000000059604645,
+                "world_y": -0.2199999988079071,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-44.png",
+                    "sha256": "e87835f90826eb7f22e8a36325655f581b6e10f1df69f2071ab2ce8e21e41b02",
+                    "bytes": 249127,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 45,
+                "mode": "greet",
+                "elapsed_seconds": 16.433425903320313,
+                "world_x": 0.14000000059604645,
+                "world_y": -0.2199999988079071,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-45.png",
+                    "sha256": "7424e1be238e637b7a4b78a2cf28a0a2c4237c5c0e425898d2acdb864adc1b9c",
+                    "bytes": 249254,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 46,
+                "mode": "greet",
+                "elapsed_seconds": 16.533424377441406,
+                "world_x": 0.14000000059604645,
+                "world_y": -0.2199999988079071,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-46.png",
+                    "sha256": "14ef6f940523b371832db71b42511229b339b35ef55d2a6b70c56a5da746156c",
+                    "bytes": 267165,
+                    "width": 596,
+                    "height": 307
+                }
+            },
+            {
+                "index": 47,
+                "mode": "greet",
+                "elapsed_seconds": 16.6334228515625,
+                "world_x": 0.14000000059604645,
+                "world_y": -0.2199999988079071,
+                "walking": false,
+                "image": {
+                    "file": "noah-sequence/37-noah-frame-47.png",
+                    "sha256": "4746fa5c36b321f5fd49ec6c452bab126e5329beb5723970d59a219abe53ffd0",
+                    "bytes": 267203,
+                    "width": 596,
+                    "height": 307
+                }
+            }
+        ]
+    }
+}

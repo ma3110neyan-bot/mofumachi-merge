@@ -1,0 +1,122 @@
+[
+  {
+    "id": "36-north-lv1-view0",
+    "changed_pixels": 71134,
+    "difference_bbox_top_left_xyxy": [
+      0,
+      332,
+      719,
+      541
+    ]
+  },
+  {
+    "id": "36-north-lv1-view1",
+    "changed_pixels": 71009,
+    "difference_bbox_top_left_xyxy": [
+      0,
+      431,
+      719,
+      639
+    ]
+  },
+  {
+    "id": "36-north-lv1-view2",
+    "changed_pixels": 70956,
+    "difference_bbox_top_left_xyxy": [
+      0,
+      529,
+      719,
+      737
+    ]
+  },
+  {
+    "id": "36-north-lv3-view0",
+    "changed_pixels": 70899,
+    "difference_bbox_top_left_xyxy": [
+      0,
+      332,
+      719,
+      541
+    ]
+  },
+  {
+    "id": "36-north-lv3-view1",
+    "changed_pixels": 70762,
+    "difference_bbox_top_left_xyxy": [
+      0,
+      431,
+      719,
+      639
+    ]
+  },
+  {
+    "id": "36-north-lv3-view2",
+    "changed_pixels": 70716,
+    "difference_bbox_top_left_xyxy": [
+      0,
+      529,
+      719,
+      737
+    ]
+  },
+  {
+    "id": "36-north-lv6-view0",
+    "changed_pixels": 67694,
+    "difference_bbox_top_left_xyxy": [
+      0,
+      332,
+      719,
+      541
+    ]
+  },
+  {
+    "id": "36-north-lv6-view1",
+    "changed_pixels": 67558,
+    "difference_bbox_top_left_xyxy": [
+      0,
+      431,
+      719,
+      639
+    ]
+  },
+  {
+    "id": "36-north-lv6-view2",
+    "changed_pixels": 67412,
+    "difference_bbox_top_left_xyxy": [
+      0,
+      529,
+      719,
+      737
+    ]
+  },
+  {
+    "id": "37-noah-idle",
+    "changed_pixels": 16156,
+    "difference_bbox_top_left_xyxy": [
+      299,
+      614,
+      431,
+      770
+    ]
+  },
+  {
+    "id": "37-noah-walk",
+    "changed_pixels": 17035,
+    "difference_bbox_top_left_xyxy": [
+      195,
+      610,
+      333,
+      770
+    ]
+  },
+  {
+    "id": "37-noah-talk",
+    "changed_pixels": 13656,
+    "difference_bbox_top_left_xyxy": [
+      391,
+      623,
+      523,
+      750
+    ]
+  }
+]

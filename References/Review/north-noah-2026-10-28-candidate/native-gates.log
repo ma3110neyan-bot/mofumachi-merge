@@ -1,0 +1,8 @@
+Tests passed: 144/144
+Tests passed: 234/234
+Native Unity images: 250, 720x1280 (visual review still required).
+North/Noah native evidence metadata validated; visual/Pixel review and adoption pending.
+Real Update sequence: 240 crops / 60.1862564086914 seconds; first show 38.7693099975586 seconds. Pixel/user acceptance pending.
+Street boundary comparison: /workspace/runtime/north-noah-oct28/layout/screenshots/street-boundary-before-after.html (Boundary-only renderer comparison; Pixel acceptance pending).
+Original base/release-freeze/current render digest validated: 1cc54e06e095cf20a237b6ebd08272ef19d4e1fbd0a3d7eb4f9b4c1748e561b8
+Received evidence gates passed. This is artifact verification, not a new Unity run or Pixel acceptance.

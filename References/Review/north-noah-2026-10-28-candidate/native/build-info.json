@@ -1,0 +1,21 @@
+﻿{
+    "gitRevision":  "292cf8ace0fe664a69caf6c5cd4882ac4b64594a",
+    "revisionSource":  "git-metadata + clean product inputs",
+    "productFingerprint":  "5bab55108d85603e2192ed0a7502f6bac72d093f967425994f77352ac032899e",
+    "localUnityConfigurationChanges":  [
+                                           "\"Assets/Settings/Build Profiles/Android\\342\\204\\242.asset\"",
+                                           "Assets/Settings/UniversalRP.asset",
+                                           "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+                                           "ProjectSettings/ProjectSettings.asset"
+                                       ],
+    "nativeCaptureCount":  250,
+    "unity":  "6000.6.4f1",
+    "appId":  "com.mofumachi.merge.qa.townlife",
+    "versionCode":  1,
+    "apk":  "town-life-qa.apk",
+    "sha256":  "bed99d180cbd091fce4198c348e8c71637527d582a381050c083af6ae3369875",
+    "bytes":  79043785,
+    "builtAtUtc":  "2026-10-28T01:24:06.0481711Z",
+    "qa":  true,
+    "townQa":  true
+}

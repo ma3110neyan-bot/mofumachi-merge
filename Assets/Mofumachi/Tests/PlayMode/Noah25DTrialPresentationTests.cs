@@ -38,6 +38,39 @@ namespace Mofumachi.Tests
             Assert.That(life.World.Camera.Center,Is.EqualTo(center));Assert.That(JsonUtility.ToJson(Flow.Game.State),Is.EqualTo(state));
             Assert.That(new[]{"breath","stride","amplitude","reactionRemaining"}.Select(n=>Clock(noah,n)).ToArray(),Is.EqualTo(clocks));
             noah.SetNoahTrialEnabled(true);LogAssert.NoUnexpectedReceived();
+            // Display-only samples: not walking/escape evidence. Sorting must
+            // follow navigation feet, never the animated head/paw/root offset.
+            var snapshot=life.World.Capture();var kinds=new System.Collections.Generic.HashSet<TownSceneryKind>();
+            bool fountainFront=false,fountainBack=false;
+            try
+            {
+                foreach(var at in new[]{new TownPoint(.36f,.14f),new TownPoint(.36f,.46f),new TownPoint(-.40f,.48f),new TownPoint(-1.2f,-.25f),new TownPoint(1.2f,-.25f)})
+                {
+                    life.World.Model.Restore("noah",at,null);life.World.Camera.Jump(at);life.World.Refresh();
+                    life.RefreshWorldPresentation();Canvas.ForceUpdateCanvases();
+                    int actorOrder=noah.transform.GetSiblingIndex();
+                    foreach(var piece in life.GetComponent<TownSceneryView>().Pieces.Where(p=>p.Rect.gameObject.activeSelf))
+                    {
+                        float delta=noah.WorldPosition.Y-TownSouthMasterLayout.DepthY(piece.Placement);
+                        if(Mathf.Abs(delta)<.0001f)continue;
+                        kinds.Add(piece.Placement.Kind);
+                        Assert.That(actorOrder<piece.Rect.GetSiblingIndex(),Is.EqualTo(delta>0),piece.Placement.Kind+" must use world feet Y, not animated body height");
+                    }
+                    var fountain=Flow.GetComponentInChildren<TownFountainGraphic>(true);
+                    float side=noah.WorldPosition.Y-TownCentralMasterLayout.FountainCenterY;
+                    Assert.That(actorOrder<fountain.transform.GetSiblingIndex(),Is.EqualTo(side>0));
+                    fountainFront|=side<0;fountainBack|=side>0;
+                    Assert.That(noah.VisualRoot.parent,Is.SameAs(noah.transform));
+                    Assert.That(noah.transform.Find("Town actor contact shadow").parent,Is.SameAs(noah.transform));
+                }
+                Assert.That(fountainFront&&fountainBack,Is.True);
+                Assert.That(kinds.Contains(TownSceneryKind.Tree),Is.True);
+                Assert.That(kinds.Contains(TownSceneryKind.ParkBench),Is.True);
+                Assert.That(kinds.Contains(TownSceneryKind.Flowerbed),Is.True);
+                Assert.That(kinds.Contains(TownSceneryKind.Cafe),Is.True);
+            }
+            finally{life.World.Restore(snapshot);life.RefreshWorldPresentation();}
+            LogAssert.NoUnexpectedReceived();
         }
 
         [UnityTest] public IEnumerator SharedPortraitDefaultsAndOtherFiveTownMeshesRetainTheLegacyAtlas()

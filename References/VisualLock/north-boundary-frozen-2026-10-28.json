@@ -1,0 +1,110 @@
+{
+  "authorized_by": "user",
+  "authorization_reference": "2026-10-28: 北との境界は合格・固定です。今後変更しないでください。代表1名のみ2.5D化。街・北境界・噴水・図鑑・BGM・Save／依頼／納品／報酬は変更禁止。",
+  "north_boundary_approved": true,
+  "source_code_reference": "292cf8ace0fe664a69caf6c5cd4882ac4b64594a",
+  "source_identity_note": "Accepted boundary code is byte-identical to source292cf8a. The submitted device PDF does not independently identify its installed APK. This record captures explicit user acceptance, not measured FPS or Noah approval.",
+  "device_receipt": "References/Review/noah-quality-device-2026-10-28/receipt.json",
+  "files": [
+    {
+      "path": "Assets/Mofumachi/Presentation/TownContinuousWorldView.cs",
+      "mode": "lf-text",
+      "sha256": "936233ba84e95b224fbe23e2367c61fac6017e32797dd7a34fe5f00e87929364"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthEntryBlendGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "89c65a8e7500f3d5ee4e9f6168689e90472023c442ff59d2fff620836ef5ba54"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthEntryBlendLayout.cs",
+      "mode": "lf-text",
+      "sha256": "06c58c1b696014e4363e7239df6f355be50493c886bd0dd1ea341d98b41a4c2c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthGroundGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "7106d1278c3549ae04095a25992380fc17e2498d908ebb83086b0b9eaaf1b56c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWorldLayout.cs",
+      "mode": "lf-text",
+      "sha256": "2c18d61cc4c6fd2989064a97b4b425628757d9535f6948ab0abd0917ccdb7fd3"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownAreaNavigation.cs",
+      "mode": "lf-text",
+      "sha256": "d82de20fcb020db9cdd917b4fbce2ee67a2bad1fc6c63e05340edb10b0801505"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGrowthPresentation.cs",
+      "mode": "lf-text",
+      "sha256": "4d451154157fb82dd58f91a6bb22c5a66b0020a65c43cfc27a5775f2d01278f0"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGrowthComparisonView.cs",
+      "mode": "lf-text",
+      "sha256": "7c7b4f8f8a8bb2a8f7fbe68903d2f738620022f07186b9a29a5cc3cbb829aab0"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "aa35f423ce60ed91efb0b92ace18a3b8e32d5948ddd863805b1c4da9c3c623dd"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownNorthMasterLayout.cs",
+      "mode": "lf-text",
+      "sha256": "e4b3017ce094570fe1a37123edd9585b673da9f69270ecd4bcc7bb0bea9502f8"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownNorthGroundGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "e6d98497100b11199e0712b6da7ec60184f53c871d5f56f7978e42db2c6d89ae"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs",
+      "mode": "lf-text",
+      "sha256": "7c0075539bb31fbaf88b1e5b568df440eadee64cd75c7209f45a8f7f5cedee96"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs.meta",
+      "mode": "lf-text",
+      "sha256": "c21ffc13c1321c97db54d5af9191852ca0241d85c487002f0d27790c4fc6d06a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "106c523b4701f9a7e8dbab44f1948f670eeb848560feaa1d676518d9fc1cf1cf"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "32db8df645367731266026ea9f7e47a5e659d255fa18864f7b0b6975341b159a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainWaterLayout.cs",
+      "mode": "lf-text",
+      "sha256": "0c588c82a0beb6c1a17555dfeb19e25ba45531167d14378343f3c56e5942e461"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainWaterLayout.cs.meta",
+      "mode": "lf-text",
+      "sha256": "dffce2f1781cc31981a33024aad7e9e87d2d9525084f5c81181975271d825c9b"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainWaterGraphic.cs",
+      "mode": "lf-text",
+      "sha256": "1eec844ab4bd924f4048e11b79512ad7df5306a15ca58198b9bd66c86397dc77"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainWaterGraphic.cs.meta",
+      "mode": "lf-text",
+      "sha256": "97dc71e0fe61a3428ef68a669af23c9573bdfebbe47f0af7789510bde740bef4"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownNoah25DTrial.cs.meta",
+      "mode": "lf-text",
+      "sha256": "35478d3a8fc396bbbaab55599147ff1e6e3e8d1164902729ff39b904a1ee1d5b"
+    }
+  ]
+}

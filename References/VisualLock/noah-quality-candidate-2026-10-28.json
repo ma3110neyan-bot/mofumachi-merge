@@ -1,0 +1,190 @@
+{
+  "scope_id": "town_noah_quality_2026_10_28",
+  "authorized_by": "user",
+  "authorization_reference": "2026-10-28: 北との境界は合格・固定です。今後変更しないでください。代表1名のみ2.5D化。街・北境界・噴水・図鑑・BGM・Save／依頼／納品／報酬は変更禁止。",
+  "base_lock": "References/VisualLock/five-area-approved-2026-10-24.json",
+  "base_lock_hash_mode": "lf-text",
+  "base_lock_sha256": "e70eb3532ff987a1def4e2a101426b8098452308f21544f5ab83e4ac7a5ea9a4",
+  "before_runtime_source": "43a27646fcf65174afb938fb78c0b93d7e0628ad",
+  "before_render_digest": "73b1027987ca543d38df99459571cc0ae441512511a8c8c7f1b3fc58bc567b5b",
+  "reviewed_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "candidate_render_digest": "4b8cf649c2c9d05539725f7826f16fd5db068b219fb5325527873caa64aa2ef8",
+  "changes": [
+    {
+      "path": "Assets/Mofumachi/Presentation/TownContinuousWorldView.cs",
+      "before_sha256": "d78dccf8e33f017fd1b8dfda71da3688b48a60de43d343a428ff78188e4fdc15",
+      "after_sha256": "936233ba84e95b224fbe23e2367c61fac6017e32797dd7a34fe5f00e87929364"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthEntryBlendGraphic.cs",
+      "before_sha256": "2ef4b84fa9593231411815dc67a9296e7b49965c5dec2e65f50d33034f657b70",
+      "after_sha256": "89c65a8e7500f3d5ee4e9f6168689e90472023c442ff59d2fff620836ef5ba54"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthEntryBlendLayout.cs",
+      "before_sha256": "7f56be2082652006de53aba85196ba0869dc82442e9ab2f9ddaf0f3aca641a5a",
+      "after_sha256": "06c58c1b696014e4363e7239df6f355be50493c886bd0dd1ea341d98b41a4c2c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownSouthGroundGraphic.cs",
+      "before_sha256": "53c3cad7dd3015fa959a41ec1e2870651f5d6895a9548b9336cb60cbb80903f9",
+      "after_sha256": "7106d1278c3549ae04095a25992380fc17e2498d908ebb83086b0b9eaaf1b56c"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownWorldLayout.cs",
+      "before_sha256": "07b9b026a48e6e1ddae4131b092a92f197f30917c6ac91f2ea868c86d5c9d91d",
+      "after_sha256": "2c18d61cc4c6fd2989064a97b4b425628757d9535f6948ab0abd0917ccdb7fd3"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownAreaNavigation.cs",
+      "before_sha256": "07bd7a1176953d57608bfc0086c2fc26fc27e30d7eb0c167aa18eb57b327a10c",
+      "after_sha256": "d82de20fcb020db9cdd917b4fbce2ee67a2bad1fc6c63e05340edb10b0801505"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGrowthPresentation.cs",
+      "before_sha256": "890b2100572e8eb7435d9ddbccd2977a1825e7913c0bddddb5cc4a18fd13a460",
+      "after_sha256": "4d451154157fb82dd58f91a6bb22c5a66b0020a65c43cfc27a5775f2d01278f0"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownGrowthComparisonView.cs",
+      "before_sha256": "a59ab51572fc798aeefdcda20a0e18a3e52d4cf8a14ebe8e7dcefc633f99ade3",
+      "after_sha256": "7c7b4f8f8a8bb2a8f7fbe68903d2f738620022f07186b9a29a5cc3cbb829aab0"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainGraphic.cs",
+      "before_sha256": "fc6955a6b4d47e5c8552b7bff8b211c56a165ff95f6a5cdd369a3cad21a1ab90",
+      "after_sha256": "aa35f423ce60ed91efb0b92ace18a3b8e32d5948ddd863805b1c4da9c3c623dd"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownNorthMasterLayout.cs",
+      "before_sha256": "426033650247fe707d748d5eee8cd5f317254e5732f284aff03c442f18e732e5",
+      "after_sha256": "e4b3017ce094570fe1a37123edd9585b673da9f69270ecd4bcc7bb0bea9502f8"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownNorthGroundGraphic.cs",
+      "before_sha256": "f9cb41c881d86abbb4dc61a6fe8d246b0f8966581faf7f284c147022ef7d5b3a",
+      "after_sha256": "e6d98497100b11199e0712b6da7ec60184f53c871d5f56f7978e42db2c6d89ae"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownActor.cs",
+      "before_sha256": "be3ecfae09a77ffbff6b0365c2584d67e0f446d689ab52137c40895196857be5",
+      "after_sha256": "dde7b935061c6c6b1dcaebc8466361db03a2c799d219ed075f030f813c1ddd43"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/CharacterBodyGraphic.cs",
+      "before_sha256": "1ab679902e3bc8a9631a999c58bfb03d624c7505ee089d8cf076417c4b5c900d",
+      "after_sha256": "cb76532ce44a42d18ee0bb6b5150617d49e910df4e5a06642391a1a822ef6f3e"
+    }
+  ],
+  "new_files": [
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs",
+      "after_sha256": "7c0075539bb31fbaf88b1e5b568df440eadee64cd75c7209f45a8f7f5cedee96"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenLayout.cs.meta",
+      "after_sha256": "c21ffc13c1321c97db54d5af9191852ca0241d85c487002f0d27790c4fc6d06a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs",
+      "after_sha256": "106c523b4701f9a7e8dbab44f1948f670eeb848560feaa1d676518d9fc1cf1cf"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownBoundaryGardenGraphic.cs.meta",
+      "after_sha256": "32db8df645367731266026ea9f7e47a5e659d255fa18864f7b0b6975341b159a"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainWaterLayout.cs",
+      "after_sha256": "0c588c82a0beb6c1a17555dfeb19e25ba45531167d14378343f3c56e5942e461"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainWaterLayout.cs.meta",
+      "after_sha256": "dffce2f1781cc31981a33024aad7e9e87d2d9525084f5c81181975271d825c9b"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainWaterGraphic.cs",
+      "after_sha256": "1eec844ab4bd924f4048e11b79512ad7df5306a15ca58198b9bd66c86397dc77"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownFountainWaterGraphic.cs.meta",
+      "after_sha256": "97dc71e0fe61a3428ef68a669af23c9573bdfebbe47f0af7789510bde740bef4"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownNoah25DTrial.cs",
+      "after_sha256": "ba32ec0f29a7a95a7f856653ccfb56179ff5ee90067cb01e4b56f153894ff231"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownNoah25DTrial.cs.meta",
+      "after_sha256": "35478d3a8fc396bbbaab55599147ff1e6e3e8d1164902729ff39b904a1ee1d5b"
+    }
+  ],
+  "capture_inputs": [
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs",
+      "before_sha256": "3bdc727de2275daa8bd1fe45de9f9f8002380ceeb9c9cbda7944a964996bc6b7",
+      "after_sha256": "b57ef524ac7860a6a3ed00f7e4acc7766a65e809ea50a4bf3f2a9bfeb74aa450"
+    }
+  ],
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "merge_quality_pass_started": false,
+  "pass_id": "noah_quality_2026_10_28",
+  "fountain_pass_started": false,
+  "character_trial_started": true,
+  "field_stability_passed": false,
+  "pixel_growth_app_id": "com.mofumachi.merge.qa.growthcheck",
+  "previous_native_evidence": "References/Review/fountain-final-2026-10-27-candidate/native-review.json",
+  "field_freeze": "References/VisualLock/town-field-frozen-2026-10-25.json",
+  "field_freeze_hash_mode": "lf-text",
+  "field_freeze_sha256": "6a44d14c4127305e698ce9ecccec6acdfbc089934da8397d111b61984a9c3821",
+  "field_base_user_approved": true,
+  "fountain_user_approved": true,
+  "eligible_for_same_apk_pixel_verification": false,
+  "before_effect_source": "98596daf798bcea54d39f6a41b58a565070e1370",
+  "current_before_record": "References/VisualLock/fountain-final-current-before-2026-10-27.json",
+  "current_before_record_lf_sha256": "8f6a5f0bd3595ae8294bd4638396c1a81c8e7c6577670989992cf1ec1b238b6e",
+  "continuous_native_sequence_required": true,
+  "qa_cycle_seconds": 45,
+  "release_cycle_seconds": 180,
+  "fountain_frozen": true,
+  "character_trial_id": "noah",
+  "release_freeze": "References/VisualLock/fountain-release-and-field-freeze-2026-10-27.json",
+  "release_freeze_lf_sha256": "221bb4b9b2417937b374f4b5bccc60d978df09523ce8f3d4efcfdec5b619e5b7",
+  "current_before_runtime_source": "ff7215c504efae5fee220d3540272ca4b260ade8",
+  "current_before_native_source": "bb3fb82b5b941dd29fb58d4d0dd1631af516a723",
+  "current_before_native_run": "20261027-102109-3bbbf9fe",
+  "comparison_scope": "Same-state OFF/ON is a reconstructed causal baseline; historical native Before remains separately identified.",
+  "internal_verification": "docs/verification/noah-quality-2026-10-28/results.json",
+  "previous_internal_verification": "docs/verification/north-noah-capture-scene-repair-2026-10-27/results.json",
+  "previous_native_tests_console_success_report": "docs/verification/north-noah-qa-build-screen-report-2026-10-28.json",
+  "previous_candidate_record": "References/VisualLock/north-noah-candidate-2026-10-27.json",
+  "north_boundary_freeze": "References/VisualLock/north-boundary-frozen-2026-10-28.json",
+  "north_boundary_freeze_lf_sha256": "f932528f592232abec8070b917a1082bcaa723d0ef30ddca3d54bc22969a82d3",
+  "north_boundary_user_approved": true,
+  "previous_native_unity_verified": true,
+  "previous_native_image_inspection_complete": false,
+  "previous_native_visual_cleared": false,
+  "previous_native_test_inventory_expected": {
+    "editmode": 144,
+    "playmode": 234
+  },
+  "previous_native_capture_count_expected": 250,
+  "previous_latest_native_failure": "References/Review/full-playmode-2026-10-27-220456/receipt-and-diagnosis.json",
+  "previous_fixed_native_pass_verified": true,
+  "previous_previous_native_failures": [
+    "References/Review/full-playmode-2026-10-27-214011/receipt-and-diagnosis.json"
+  ],
+  "previous_qa_build_console_success_report": "docs/verification/north-noah-qa-build-screen-report-2026-10-28.json",
+  "previous_native_scope_image_review_complete": true,
+  "previous_native_visual_status": "north_local_visual_regression_hold",
+  "previous_native_review": "References/Review/north-noah-2026-10-28-candidate/native-review.json",
+  "previous_native_source_revision": "292cf8ace0fe664a69caf6c5cd4882ac4b64594a",
+  "previous_native_run": "20261028-101255-ecac0943",
+  "previous_noah_native_visual_status": "no_important_identity_or_pose_regression_observed_in_received_scope",
+  "native_unity_verified": false,
+  "native_visual_cleared": false,
+  "fixed_native_pass_verified": false,
+  "native_scope_image_review_complete": false,
+  "native_visual_status": "implemented_pending_new_native_and_pixel_review"
+}

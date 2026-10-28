@@ -709,7 +709,7 @@
     "native_images_verified": 124,
     "native_review": "References/Review/curved-boundary-2026-10-25-candidate/native-review.json"
   },
-  "base_polish": "References/VisualLock/north-noah-candidate-2026-10-27.json",
+  "base_polish": "References/VisualLock/noah-quality-candidate-2026-10-28.json",
   "previous_qa_build_report": {
     "run": "20261025-073237-f8fd542b",
     "status": "console_success_reported",
@@ -929,5 +929,23 @@
     "native_source_revision": "292cf8ace0fe664a69caf6c5cd4882ac4b64594a",
     "native_run": "20261028-101255-ecac0943",
     "noah_native_visual_status": "no_important_identity_or_pose_regression_observed_in_received_scope"
+  },
+  "north_boundary_2026_10_28": {
+    "authorized_by": "user",
+    "user_approved": true,
+    "frozen": true,
+    "freeze_record": "References/VisualLock/north-boundary-frozen-2026-10-28.json",
+    "note": "Current boundary accepted explicitly; prior Codex visual hold is historical. No fresh performance claims."
+  },
+  "noah_quality_pass": {
+    "representative": "noah",
+    "candidate_record": "References/VisualLock/noah-quality-candidate-2026-10-28.json",
+    "implemented": true,
+    "native_unity_verified": false,
+    "qa_apk_generated": false,
+    "pixel_verified": false,
+    "adopted": false,
+    "six_character_rollout_authorized": false,
+    "native_visual_cleared": false
   }
 }

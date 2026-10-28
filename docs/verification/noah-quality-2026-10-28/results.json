@@ -1,0 +1,121 @@
+{
+  "date_jst": "2026-10-28",
+  "base_revision": "d54812f984580227f6c4c9c27467123851db8018",
+  "scope": "Noah1 original-art presentation only; North user accepted/frozen",
+  "candidate_record": "References/VisualLock/noah-quality-candidate-2026-10-28.json",
+  "candidate_render_digest": "4b8cf649c2c9d05539725f7826f16fd5db068b219fb5325527873caa64aa2ef8",
+  "source_files": [
+    {
+      "path": "Assets/Mofumachi/Presentation/TownActor.cs",
+      "sha256_lf": "dde7b935061c6c6b1dcaebc8466361db03a2c799d219ed075f030f813c1ddd43"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownNoah25DTrial.cs",
+      "sha256_lf": "ba32ec0f29a7a95a7f856653ccfb56179ff5ee90067cb01e4b56f153894ff231"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs",
+      "sha256_lf": "b57ef524ac7860a6a3ed00f7e4acc7766a65e809ea50a4bf3f2a9bfeb74aa450"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/Noah25DTrialPresentationTests.cs",
+      "sha256_lf": "5942b4500aff4e644b1672d0adcdb45dc9cbe145305b71bdb387bfcd4aca9229"
+    },
+    {
+      "path": "Tests/Presentation/Noah25DTrialTests.cs",
+      "sha256_lf": "fb9cec0eafca7311271be66b8b1b29d130be7519601c6d88c9aee05e7bdfb146"
+    },
+    {
+      "path": "scripts/visual-lock.ps1",
+      "sha256_lf": "fa31f3b1a54d65a287cffd94432c66d7441fa609340277e7d4e75678dcb34131"
+    },
+    {
+      "path": "scripts/north-noah-review.ps1",
+      "sha256_lf": "5d55a4bd9ae0cf02e8981f69646eca5dadbfc3c519405d2d1d51cfa6debb1a59"
+    },
+    {
+      "path": "scripts/build-android.ps1",
+      "sha256_lf": "e0e6341b01e04fe7ae78c2bb46de6cbed72eb65ae9636cc9ec660ef0f2f52d74"
+    }
+  ],
+  "implemented": true,
+  "focused_cpu_nunit": {
+    "total": 25,
+    "passed": 25,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0,
+    "filter": "Noah25DTrialTests OR ResidentPresenceTests",
+    "note": "Math-source NUnit only, not native Unity or Pixel"
+  },
+  "api_compatibility_compile": {
+    "assemblies": [
+      "Mofumachi.Presentation",
+      "Mofumachi.PlayModeTests"
+    ],
+    "warnings": 0,
+    "errors": 0,
+    "unity_api": "6000.6.4f1",
+    "note": "Compile only; no Unity runtime execution"
+  },
+  "powershell_fixtures": {
+    "passed": [
+      "north-noah-evidence.tests.ps1",
+      "north-noah-lock.tests.ps1",
+      "android-tools.tests.ps1"
+    ],
+    "synthetic": true,
+    "no_device_install_or_reset_performed": true
+  },
+  "independent_review": {
+    "critical": 0,
+    "important_remaining": 0,
+    "initial_important_fixed": 3,
+    "numeric_states": 7686,
+    "triangle_area_min": 1.3548951,
+    "planted_foot_y_error_max": 2.546726e-07,
+    "tail_mesh_corner_offset_max": 0,
+    "note": "Code/numerical review, visual superiority not judged"
+  },
+  "native_unity_verified": false,
+  "native_execution_attempted_for_this_candidate": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "six_character_rollout_authorized": false,
+  "environment_limit": "Cloud Unity bootstrap was previously blocked by configuration/licensing startup. Pixel USB is on user Windows, not this cloud workspace. Full native acceptance is handed off once as a complete candidate; not substituted by CPU tests.",
+  "before_limit": "Reconstructed same-clock legacy OFF/ON, not equal-elapsed old0.65s versus new1s reaction behavior. Old native292cf8a originals remain separately identified.",
+  "expected_native_evidence": {
+    "editmode_gate": 144,
+    "playmode_gate": 234,
+    "portrait_png_expected": 256,
+    "noah_pairs": [
+      "idle",
+      "walk",
+      "turn",
+      "stop",
+      "talk",
+      "reaction"
+    ],
+    "noah_fixed_step_crops": 48,
+    "continuous_first40_seconds": 4,
+    "separate_later_greeting": true,
+    "fps_measurement": false
+  },
+  "pixel_metrics": {
+    "fps": null,
+    "temperature": null,
+    "memory_pss_kb": null,
+    "tap_latency": null,
+    "crashes": null
+  },
+  "final_status": "Implemented source candidate; fresh Unity/APK/Pixel and explicit visual approval pending",
+  "current_frozen_input_gates": {
+    "passed": true,
+    "current_bindings": 24,
+    "accepted_north_bindings": 20,
+    "original_inputs": 354,
+    "adopted_release_inputs": 502,
+    "historical_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa"
+  }
+}

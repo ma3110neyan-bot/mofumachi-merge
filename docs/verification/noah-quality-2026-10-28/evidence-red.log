@@ -1,0 +1,10 @@
+North/Noah native evidence metadata validated; visual/Pixel review and adoption pending.
+North/Noah native evidence metadata validated; visual/Pixel review and adoption pending.
+North/Noah native evidence metadata validated; visual/Pixel review and adoption pending.
+North/Noah native evidence metadata validated; visual/Pixel review and adoption pending.
+Review ZIPs: /tmp/mofu-north-noah-860ed94e-f326-415f-b443-5e2f06936fc1/pack\five-plaza-review-*.zip (Unity fixture images; Pixel acceptance pending).
+Exception: /workspace/mofumachi-merge/scripts/north-noah-review.ps1:37
+Line |
+  37 |  … ount -ne 3){throw 'Need nine north and three Noah same-state pairs.'} …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Need nine north and three Noah same-state pairs.

@@ -95,6 +95,23 @@ try {
             if(@($Zip.Entries | Where-Object {$_.FullName -eq $Name}).Count -ne 1){throw "New native evidence omitted or collided in existing TownQa archive: $Name"}
         }
     } finally {$Zip.Dispose()}
+    $Record.noah_quality_version=2
+    foreach($Frame in $Frames){$Frame.facing=if($Frame.index -lt 24){-1}else{1};$Frame.reaction_seconds=0}
+    $Record.noah_pairs+=@(foreach($Mode in @('turn','stop','reaction')){$P=Pair "37-noah-$Mode";$P.mode=$Mode;$P})
+    $Record.sequence.noah_reaction_seconds=1
+    Save;Assert-NorthNoahEvidence $Temporary
+    $QualityPairs=$Record.noah_pairs
+    foreach($Mode in @('turn','stop','reaction')) {
+        $Record.noah_pairs=@($QualityPairs | Where-Object {$_.mode -ne $Mode});Save;Reject {Assert-NorthNoahEvidence $Temporary}
+    }
+    $Record.noah_pairs=$QualityPairs;$Record.sequence.noah_reaction_seconds=1.01;Save;Reject {Assert-NorthNoahEvidence $Temporary}
+    $Record.sequence.noah_reaction_seconds=1;$Record.sequence.momo_reaction_seconds=.9;Save;Reject {Assert-NorthNoahEvidence $Temporary}
+    $Record.sequence.momo_reaction_seconds=.65;$Record.noah_quality_version=3;Save;Reject {Assert-NorthNoahEvidence $Temporary}
+    $Record.noah_quality_version=2;Save;Assert-NorthNoahEvidence $Temporary
+    $Frames[26].facing=-1;Save;Reject {Assert-NorthNoahEvidence $Temporary};$Frames[26].facing=1
+    $Frames[20].facing=1;Save;Reject {Assert-NorthNoahEvidence $Temporary};$Frames[20].facing=-1
+    Save;Assert-NorthNoahEvidence $Temporary -RequireQuality
+    $Record.Remove('noah_quality_version');Save;Reject {Assert-NorthNoahEvidence $Temporary -RequireQuality};$Record.noah_quality_version=2;Save
     Remove-Item -LiteralPath (Join-Path $Temporary 'north-noah-before-after.html');Reject {Assert-NorthNoahEvidence $Temporary}
     Write-Host 'North/Noah metadata gate tests passed; synthetic fixtures only, native Unity/Pixel execution pending.'
 } finally {Remove-Item -LiteralPath $Temporary -Recurse -Force}

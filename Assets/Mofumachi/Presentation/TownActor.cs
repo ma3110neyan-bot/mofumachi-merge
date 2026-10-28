@@ -19,6 +19,7 @@ namespace Mofumachi.Presentation
         public RectTransform VisualRoot { get; private set; }
         private bool noahTrialRequested=true;
         public bool NoahTrialEnabled=>TownNoah25DTrial.IsEnabled(CharacterId,noahTrialRequested);
+        private float ReactionSeconds=>NoahTrialEnabled?TownNoah25DTrial.ReactionSeconds:.65f;
         // An evidence-capture switch, deliberately absent from product UI and
         // persistence. Re-render the same instant without resetting any clock.
         public void SetNoahTrialEnabled(bool enabled)
@@ -79,7 +80,7 @@ namespace Mofumachi.Presentation
         internal void SetWalkRoute(System.Collections.Generic.IReadOnlyList<TownPoint> route,int start)
         {if(Controlled||route==null||route.Count<3)return;walkRoute=route;routeDirection=start%2==0?1:-1;routeIndex=(start+routeDirection+route.Count)%route.Count;npcTarget=route[routeIndex];}
         internal void SetDestination(TownPlace place,float wait){if(Controlled||place==null)return;regionalGuidance=transitionHeld=false;Place=place;npcTarget=place.Position;waitRemaining=wait;}
-        internal void Greet(){if(worldResident!=null)life.World.Model.Pause(CharacterId,1.4f);socialRemaining=1;reactionRemaining=.65f;surprised=false;}
+        internal void Greet(){if(worldResident!=null)life.World.Model.Pause(CharacterId,1.4f);socialRemaining=1;reactionRemaining=ReactionSeconds;surprised=false;}
         internal void FaceTowards(TownPoint other){if(worldResident!=null)life.World.Model.Face(CharacterId,TownWorldLayout.ToWorld(RegionId,other));float x=other.X-Position.X;if(Mathf.Abs(x)>.002f)facingTarget=Mathf.Sign(x);}
         public bool GuideTo(TownPoint target)=>BeginGuide(target,false);
         private bool BeginGuide(TownPoint target,bool preserveJourney)
@@ -180,11 +181,11 @@ namespace Mofumachi.Presentation
             if(NoahTrialEnabled)
             {
                 var trial=TownNoah25DTrial.Sample(stride,amplitude,facing,IsResting?1:0,breath,reactionRemaining,surprised,moving);
-                float sx=scale*(1-trial.Breath*.35f),sy=scale*(1+trial.Breath);
+                float sx=scale*(1-trial.Breath*.35f)*(1-.035f*Mathf.Abs(trial.Look)),sy=scale*(1+trial.Breath);
                 var support=TownNoah25DTrial.SupportTranslation(body.NoahArtSize.x,trial,sx,sy);
                 VisualRoot.anchoredPosition=new Vector2(support.X,support.Y);
                 VisualRoot.localScale=new Vector3(sx,sy,1);VisualRoot.localRotation=Quaternion.Euler(0,0,trial.Lean);
-                body.PoseNoah(trial,TownCharacterMotion.Blink(breath,resident));UpdateShadows(trial.Hop,scale);return;
+                body.PoseNoah(trial,TownCharacterMotion.Blink(breath,resident)||TownNoah25DTrial.SmilingEyes(reactionRemaining));UpdateShadows(trial.Hop,scale);return;
             }
             VisualRoot.anchoredPosition=new Vector2(-pose.Foot*1.1f,pose.Hop+reaction.Hop+rest)*scale;
             float compression=pose.Breath+reaction.Breath-Mathf.Cos(stride*2)*amplitude*.006f;
@@ -198,6 +199,15 @@ namespace Mofumachi.Presentation
         private void UpdateShadows(float height,float scale)
         {
             if(softShadow==null||contactShadow==null)return;height=Mathf.Clamp(height,0,12);
+            if(NoahTrialEnabled)
+            {
+                // Same two grounded graphics; do not lift the shadow with the
+                // rendered body, or let the asymmetric tail set its footprint.
+                softShadow.rectTransform.localScale=new Vector3(scale*.68f,scale*.80f,1);
+                contactShadow.rectTransform.localScale=new Vector3(scale*.67f,scale*.85f,1);
+                softShadow.color=new Color(.24f,.19f,.26f,.105f);
+                contactShadow.color=new Color(.24f,.19f,.26f,.24f);return;
+            }
             softShadow.rectTransform.localScale=Vector3.one*(scale*(1+height*.006f));
             contactShadow.rectTransform.localScale=Vector3.one*(scale*(1-height*.012f));
             softShadow.color=new Color(.24f,.19f,.26f,.075f*(1-height*.015f));
@@ -207,9 +217,9 @@ namespace Mofumachi.Presentation
         {previous=Position;RenderPosition=Position;moving=false;movementIntensity=0;if(life!=null)rect.anchoredPosition=worldResident==null?life.Local(Position):life.World.Local(worldResident.Position);}
         internal void ResetVisual()
         {IsGuided=false;FreezeMovement();stride=amplitude=breath=reactionRemaining=speedBlend=socialRemaining=facing=facingTarget=benchBlend=flowerBlend=0;surprised=false;float scale=viewScale*DepthScale;if(VisualRoot!=null){VisualRoot.anchoredPosition=Vector2.zero;VisualRoot.localScale=new Vector3(scale,scale,1);VisualRoot.localRotation=Quaternion.identity;}UpdateShadows(0,scale);if(body!=null){if(body.Expression!=CharacterExpression.Normal)body.Bind(CharacterId);body.Pose(0,0,0,false);}}
-        public void React(){if(life==null||!life.CanInteract||!RegionVisible||journeyFade>0||life.IsManuallyDragging||life.NearbyFacility!=null)return;if(worldResident!=null&&!Controlled)life.World.Model.Pause(CharacterId,2);surprised=false;reactionRemaining=.65f;life.React(this);}
+        public void React(){if(life==null||!life.CanInteract||!RegionVisible||journeyFade>0||life.IsManuallyDragging||life.NearbyFacility!=null)return;if(worldResident!=null&&!Controlled)life.World.Model.Pause(CharacterId,2);surprised=false;reactionRemaining=ReactionSeconds;life.React(this);}
         internal void SetViewScale(float scale){viewScale=float.IsFinite(scale)?Mathf.Clamp(scale,1,1.15f):1;}
-        internal void Surprise(){surprised=true;reactionRemaining=.65f;}
+        internal void Surprise(){surprised=true;reactionRemaining=ReactionSeconds;}
         public void OnPointerDown(PointerEventData e)
         {if(!Controlled||!life.CanInteract||!RegionVisible||Movement.OwnedPointerId.HasValue&&(worldResident!=null||!IsGuided))return;life.StartInteraction();if(IsGuided){Movement.CancelInput();IsGuided=false;FreezeMovement();}if(Movement.TryBeginDrag(e.pointerId))dragged=false;}
         public void OnBeginDrag(PointerEventData e)

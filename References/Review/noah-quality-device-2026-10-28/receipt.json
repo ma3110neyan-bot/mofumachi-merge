@@ -1,0 +1,29 @@
+{
+  "file_id": "file_00000000ceac820985378eaeb3b3eb77",
+  "file": "Screenshot (2026_10_28 19_03_09).pdf",
+  "bytes": 4373958,
+  "sha256": "330076bc908367556626b32b5916d018a030de9986046f09c1d8994298036846",
+  "pages": 14,
+  "reviewed_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "device_context": "User Pixel3a QA feedback; screen has Noah selected, central/north and a Noah/Pom greeting. All14pages privately inspected.",
+  "installed_apk_identity_verified": false,
+  "fps_measured": false,
+  "heat_measured": false,
+  "user_acceptance": "North boundary accepted/frozen in accompanying message. Noah quality approval pending.",
+  "scope_note": "Merge/reward/daily screenshots are context only; no changes to those systems authorized."
+}

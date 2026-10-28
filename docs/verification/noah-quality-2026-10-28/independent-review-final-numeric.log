@@ -1,0 +1,6 @@
+Cartesian numeric check: 7686 independent phase/reaction/walk/facing states; minimum triangle area=1.3548951; maximum planted-foot Y error=2.546726E-07; maximum tail mesh-corner offset=0
+Idle facing=-1: lean=1.2707409; positive yaw scale=0.96633095; actual face point X=-8.20775054182996
+Idle facing=-0.5: lean=0.5457409; positive yaw scale=0.9838551; actual face point X=-7.677111766306309
+Idle facing=0: lean=-0.17925914; positive yaw scale=1.0013793; actual face point X=-7.146295152069201
+Idle facing=0.5: lean=-0.90425915; positive yaw scale=0.9838551; actual face point X=-6.358048893472922
+Idle facing=1: lean=-1.6292592; positive yaw scale=0.96633095; actual face point X=-5.567764181371292

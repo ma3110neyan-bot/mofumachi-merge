@@ -1,0 +1,10 @@
+Mofumachi.Visual.Tests.Noah25DTrialTests.RegisteredHandAndFootMeshNeverFoldsDuringAFullGaitOrGreeting Failed
+  Front triangle folded at sample19, cell2/6
+  Expected: greater than 0.0199999996f
+  But was:  -0.224190235f
+
+Mofumachi.Visual.Tests.Noah25DTrialTests.RigidFaceAndTailRetainTheirShapeWhileTheOriginalPawsMove Failed
+  Expected: 0
+  But was:  0.166399702f
+
+NUnit in-process: total=11, passed=9, failed=2, skipped=0, inconclusive=0, duration=0.175s

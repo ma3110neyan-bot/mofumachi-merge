@@ -1,6 +1,6 @@
 # Identity/invariant gate for actual native outputs. Synthetic fixtures validate
 # this parser only; successful metadata validation is never an image review.
-function Assert-NorthNoahEvidence([string]$Directory,[string]$ExpectedRevision='',[string]$ExpectedFingerprint='') {
+function Assert-NorthNoahEvidence([string]$Directory,[string]$ExpectedRevision='',[string]$ExpectedFingerprint='',[switch]$RequireQuality) {
     $Record=Get-Content -LiteralPath (Join-Path $Directory 'north-noah-comparison.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     if(-not(Test-Path -LiteralPath (Join-Path $Directory 'north-noah-before-after.html') -PathType Leaf)){throw 'Missing north/Noah native comparison HTML.'}
     function Number($Value){if($null -eq $Value -or $Value -isnot [ValueType] -or $Value -is [bool]){throw 'Missing native numeric field.'};$N=[double]$Value;if([double]::IsNaN($N) -or [double]::IsInfinity($N)){throw 'Nonfinite native field.'};return $N}
@@ -34,9 +34,13 @@ function Assert-NorthNoahEvidence([string]$Directory,[string]$ExpectedRevision='
     Image $Record.historical_native_before 720 1280 '^36-north-historical-bb3fb82\.png$'
     if($Record.historical_native_before.sha256 -ne 'b001ee0b7bb6a1719876b16c951a9bdcf5c58df3d7817dc797b379cf0c863324'){throw 'Historical north native original changed.'}
     $North=@($Record.north_pairs);$Noah=@($Record.noah_pairs)
-    if($North.Count -ne 9 -or $Noah.Count -ne 3){throw 'Need nine north and three Noah same-state pairs.'}
+    $Version=if($Record.PSObject.Properties['noah_quality_version']){Number $Record.noah_quality_version}else{1}
+    if($Version -notin @(1,2) -or ($RequireQuality -and $Version -ne 2)){throw 'Current Noah quality evidence version is required.'}
+    $Quality=$Version -eq 2
+    $Modes=if($Quality){@('idle','walk','talk','turn','stop','reaction')}else{@('idle','walk','talk')}
+    if($North.Count -ne 9 -or $Noah.Count -ne $Modes.Count){throw 'Missing north or complete Noah same-state pose pairs.'}
     foreach($Level in @(1,3,6)){foreach($View in 0..2){$Y=@(.85,1,1.15)[$View];$Rows=@($North | Where-Object {$_.level -eq $Level -and [Math]::Abs([double]$_.camera_y-$Y) -lt .00001 -and $_.camera_x -eq 0});if($Rows.Count -ne 1 -or $Rows[0].id -ne "36-north-lv$Level-view$View"){throw 'Missing or repeated north level/view pair.'}}}
-    foreach($Mode in @('idle','walk','talk')){if(@($Noah | Where-Object {$_.mode -eq $Mode -and $_.id -eq "37-noah-$Mode"}).Count -ne 1){throw 'Missing Noah mode pair.'}}
+    foreach($Mode in $Modes){if(@($Noah | Where-Object {$_.mode -eq $Mode -and $_.id -eq "37-noah-$Mode"}).Count -ne 1){throw 'Missing Noah mode pair.'}}
     foreach($Pair in @($North)+@($Noah)){
         Flags $Pair @('frame_unchanged','actors_unchanged','camera_unchanged','water_clock_unchanged','water_phase_unchanged','state_unchanged','store_writes_unchanged','world_model_unchanged') $true
         if($Pair.state_sha256 -notmatch '^[a-f0-9]{64}$' -or $Pair.world_model_sha256 -notmatch '^[a-f0-9]{64}$'){throw 'Missing saved-state/model audit digest.'}
@@ -75,7 +79,8 @@ function Assert-NorthNoahEvidence([string]$Directory,[string]$ExpectedRevision='
     if(($Sequence.conversation_speaker_id -eq 'noah' -and $Sequence.conversation_partner_id -eq 'momo')){$Partner=[regex]::Unescape('\u30e2\u30e2')}
     elseif($Sequence.conversation_speaker_id -eq 'momo' -and $Sequence.conversation_partner_id -eq 'noah'){$Partner=[regex]::Unescape('\u30ce\u30a2')}
     else{throw 'Greeting must identify actual Noah/Momo speaker and partner.'}
-    if($Sequence.conversation_text -ne ([regex]::Unescape('\u3053\u3093\u306b\u3061\u306f\u3001')+$Partner+[char]0x266a) -or (Number $Sequence.noah_reaction_seconds) -le 0 -or (Number $Sequence.momo_reaction_seconds) -le 0 -or (Number $Sequence.noah_reaction_seconds) -gt .651 -or (Number $Sequence.momo_reaction_seconds) -gt .651 -or (Number $Sequence.noah_facing) -ne 1 -or (Number $Sequence.momo_facing) -ne -1){throw 'Greeting text, both positive reactions and mutual facing must be verified together.'}
+    $NoahReactionLimit=if($Quality){1.001}else{.651}
+    if($Sequence.conversation_text -ne ([regex]::Unescape('\u3053\u3093\u306b\u3061\u306f\u3001')+$Partner+[char]0x266a) -or (Number $Sequence.noah_reaction_seconds) -le 0 -or (Number $Sequence.momo_reaction_seconds) -le 0 -or (Number $Sequence.noah_reaction_seconds) -gt $NoahReactionLimit -or (Number $Sequence.momo_reaction_seconds) -gt .651 -or (Number $Sequence.noah_facing) -ne 1 -or (Number $Sequence.momo_facing) -ne -1){throw 'Greeting text, both positive reactions and mutual facing must be verified together.'}
     foreach($Key in @('crop_x','crop_y','crop_width','crop_height')){$N=Number $Sequence.$Key;if($N -lt 0 -or $N -ne [Math]::Floor($N)){throw 'Invalid actor crop.'}}
     if($Sequence.crop_width -lt 64 -or $Sequence.crop_height -lt 64 -or $Sequence.crop_x+$Sequence.crop_width -gt 720 -or $Sequence.crop_y+$Sequence.crop_height -gt 1280){throw 'Actor crop outside portrait.'}
     $Frames=@($Sequence.frames);if($Frames.Count -ne 48){throw 'Need exactly48 bounded native actor crops.'}
@@ -85,5 +90,9 @@ function Assert-NorthNoahEvidence([string]$Directory,[string]$ExpectedRevision='
         Image $Frame.image $Sequence.crop_width $Sequence.crop_height ('^noah-sequence/37-noah-frame-'+$i.ToString('00')+'\.png$');$Hashes+=@($Frame.image.sha256)
     }
     if(@($Hashes | Select-Object -Unique).Count -lt 8 -or @($WalkPositions | Select-Object -Unique).Count -lt 8){throw 'Actor sequence or actual model walking is frozen.'}
+    if($Quality) {
+        foreach($Frame in $Frames){$Facing=Number $Frame.facing;$Reaction=Number $Frame.reaction_seconds;if($Facing -lt -1 -or $Facing -gt 1 -or $Reaction -lt 0 -or $Reaction -gt 1.001){throw 'Invalid actual Noah facing/reaction sample.'}}
+        if((Number $Frames[20].facing) -gt -.25 -or (Number $Frames[26].facing) -lt .25){throw 'Noah must actually reverse direction within the contiguous walking episode.'}
+    }
     Write-Host 'North/Noah native evidence metadata validated; visual/Pixel review and adoption pending.'
 }

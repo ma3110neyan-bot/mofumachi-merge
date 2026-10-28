@@ -56,8 +56,15 @@ function Get-BasePolishPatch([string]$RepositoryPath) {
     $Allowed=@('Assets/Mofumachi/Presentation/TownWorldLayout.cs','Assets/Mofumachi/Presentation/TownContinuousWorldView.cs')
     $ScopeProperty=$Record.PSObject.Properties['scope_id']
     $Scope=if($ScopeProperty){[string]$ScopeProperty.Value}else{''}
-    if($Scope -and $Scope -notin @('town_boundary_final_2026_10_24','town_field_stability_2026_10_25','town_field_completion_2026_10_25','town_fountain_water_2026_10_25','town_fountain_show_2026_10_26','town_fountain_motion_2026_10_26','town_fountain_final_2026_10_27','town_north_noah_trial_2026_10_27')){throw 'Unknown bounded display correction scope.'}
-    $NorthNoah=$Scope -eq 'town_north_noah_trial_2026_10_27'
+    if($Scope -and $Scope -notin @('town_boundary_final_2026_10_24','town_field_stability_2026_10_25','town_field_completion_2026_10_25','town_fountain_water_2026_10_25','town_fountain_show_2026_10_26','town_fountain_motion_2026_10_26','town_fountain_final_2026_10_27','town_north_noah_trial_2026_10_27','town_noah_quality_2026_10_28')){throw 'Unknown bounded display correction scope.'}
+    $NoahQuality=$Scope -eq 'town_noah_quality_2026_10_28'
+    $NorthApproval=$Stages.PSObject.Properties['north_boundary_2026_10_28']
+    if($NorthApproval) {
+        $Checkpoint=$NorthApproval.Value
+        if($Checkpoint.user_approved -isnot [bool] -or -not $Checkpoint.user_approved -or $Checkpoint.frozen -isnot [bool] -or -not $Checkpoint.frozen -or $Checkpoint.freeze_record -ne 'References/VisualLock/north-boundary-frozen-2026-10-28.json'){throw 'Accepted North checkpoint must remain frozen.'}
+        if(-not $NoahQuality){throw 'Accepted North checkpoint requires the Noah-only scope; previous boundary scope cannot reopen it.'}
+    }
+    $NorthNoah=$Scope -eq 'town_north_noah_trial_2026_10_27' -or $NoahQuality
     $FountainFinal=$Scope -eq 'town_fountain_final_2026_10_27' -or $NorthNoah
     $FountainMotion=$Scope -eq 'town_fountain_motion_2026_10_26' -or $FountainFinal
     $FountainShow=$Scope -eq 'town_fountain_show_2026_10_26' -or $FountainMotion
@@ -148,6 +155,16 @@ function Get-BasePolishPatch([string]$RepositoryPath) {
         # hashes, so rebinding a candidate cannot authorize frozen product edits.
         Assert-BaseVisualLock $RepositoryPath (Join-Path $RepositoryPath $ReleasePath)
     }
+    if($NoahQuality) {
+        # The new instruction freezes the accepted North join too. Rebinding a
+        # candidate must never silently reopen the previous boundary scope.
+        $NorthFreeze='References/VisualLock/north-boundary-frozen-2026-10-28.json'
+        $NorthDigest='f932528f592232abec8070b917a1082bcaa723d0ef30ddca3d54bc22969a82d3'
+        if($Record.north_boundary_freeze -ne $NorthFreeze -or $Record.north_boundary_freeze_lf_sha256 -ne $NorthDigest){throw 'Noah-only pass requires the accepted North boundary freeze.'}
+        $NorthText=[IO.File]::ReadAllText((Join-Path $RepositoryPath $NorthFreeze)).Replace("`r`n","`n")
+        if((Get-VisualLockDigest ([Text.Encoding]::UTF8.GetBytes($NorthText))) -ne $NorthDigest){throw 'Accepted North boundary freeze content changed.'}
+        Assert-BaseVisualLock $RepositoryPath (Join-Path $RepositoryPath $NorthFreeze)
+    }
     return @{Record=$Record;Before=$Before;After=$After}
 }
 function Get-ReviewedCentralInputFingerprint([string]$RepositoryPath) {
@@ -169,7 +186,7 @@ function Get-ReviewedCentralInputFingerprint([string]$RepositoryPath) {
 function Assert-OriginalBaseForCandidate([string]$RepositoryPath) {
     $Patch=Get-BasePolishPatch $RepositoryPath
     $Replacements=@{}
-    if($Patch -and $Patch.Record.PSObject.Properties['scope_id'] -and $Patch.Record.scope_id -eq 'town_north_noah_trial_2026_10_27') {
+    if($Patch -and $Patch.Record.PSObject.Properties['scope_id'] -and $Patch.Record.scope_id -in @('town_north_noah_trial_2026_10_27','town_noah_quality_2026_10_28')) {
         # Only this original input belongs to the newly authorized runtime
         # scope. Get-BasePolishPatch has already validated its original Before,
         # current After, and every independently frozen release input.

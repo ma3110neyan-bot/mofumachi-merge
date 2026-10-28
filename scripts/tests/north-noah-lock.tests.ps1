@@ -101,5 +101,31 @@ try {
     $Legacy=Get-BasePolishPatch $Root
     if($Legacy.Before.Count -ne 18 -or $Legacy.After.Count -ne 18){throw 'Legacy fountain-final binding compatibility failed.'}
     Reject {Assert-OriginalBaseForCandidate $Root} 'legacy scope cannot authorize body replacement'
-    Write-Host 'North/Noah lock: four authorized runtime changes pass; release fountain/art/navigation stay frozen after candidate rebinding; original historical identity retained.'
+    # New Noah-only pass: user accepted North. Restore the fixture to the new
+    # current product before exercising its independently anchored freeze.
+    $Record=Get-Content -LiteralPath (Join-Path $Repo 'References/VisualLock/noah-quality-candidate-2026-10-28.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach($InputFile in @($Record.changes)+@($Record.new_files)+@($Record.capture_inputs)) {
+        Copy-Item -LiteralPath (Join-Path $Repo $InputFile.path) -Destination (Join-Path $Root $InputFile.path)
+    }
+    $NorthFreezePath=Join-Path $Root $Record.north_boundary_freeze
+    Copy-Item -LiteralPath (Join-Path $Repo $Record.north_boundary_freeze) -Destination $NorthFreezePath
+    @{base_polish=$RecordRelative;north_boundary_2026_10_28=@{user_approved=$true;frozen=$true;freeze_record=$Record.north_boundary_freeze}} | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $Root 'References/VisualLock/stage-acceptance-2026-10-21.json') -Encoding UTF8
+    SaveRecord;$null=Get-BasePolishPatch $Root;Assert-OriginalBaseForCandidate $Root
+    foreach($FrozenPath in @('Assets/Mofumachi/Presentation/TownNorthMasterLayout.cs','Assets/Mofumachi/Presentation/TownNorthGroundGraphic.cs','Assets/Mofumachi/Presentation/TownContinuousWorldView.cs')) {
+        $Path=Join-Path $Root $FrozenPath;$Saved=[IO.File]::ReadAllBytes($Path)
+        $Binding=@($Record.changes | Where-Object {$_.path -eq $FrozenPath})[0];$SavedHash=$Binding.after_sha256
+        [IO.File]::AppendAllText($Path,' forbidden accepted-boundary change')
+        $Binding.after_sha256=FileDigest $Path;SaveRecord
+        Reject {Get-BasePolishPatch $Root} "accepted boundary rebound in Noah-only pass: $FrozenPath"
+        $Record.scope_id='town_north_noah_trial_2026_10_27';SaveRecord
+        Reject {Get-BasePolishPatch $Root} "scope downgrade cannot reopen accepted boundary: $FrozenPath"
+        $Record.scope_id='town_noah_quality_2026_10_28'
+        [IO.File]::WriteAllBytes($Path,$Saved);$Binding.after_sha256=$SavedHash;SaveRecord
+    }
+    $Saved=[IO.File]::ReadAllBytes($NorthFreezePath)
+    [IO.File]::AppendAllText($NorthFreezePath,' ');$Record.north_boundary_freeze_lf_sha256=FileDigest $NorthFreezePath;SaveRecord
+    Reject {Get-BasePolishPatch $Root} 'rehashed accepted-North freeze'
+    [IO.File]::WriteAllBytes($NorthFreezePath,$Saved);$Record.north_boundary_freeze_lf_sha256=FileDigest $NorthFreezePath;SaveRecord
+    $null=Get-BasePolishPatch $Root
+    Write-Host 'North/Noah locks: legacy compatibility and new Noah-only pass; accepted North/fountain/art/navigation reject candidate rebinding.'
 } finally {if(Test-Path -LiteralPath $Root){Remove-Item -LiteralPath $Root -Recurse -Force}}

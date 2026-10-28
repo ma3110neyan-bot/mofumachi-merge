@@ -32,7 +32,7 @@ namespace Mofumachi.Visual.Tests
                     feet[i++]=(float)(x*Math.Sin(radians)+y*Math.Cos(radians))+root.Y;
                 }
                 Assert.That(Math.Min(feet[0],feet[1]),Is.EqualTo(0).Within(.00001));
-                Assert.That(Math.Max(feet[0],feet[1]),Is.GreaterThan(.01f).And.LessThan(4.1f));
+                Assert.That(Math.Max(feet[0],feet[1]),Is.GreaterThan(.01f).And.LessThan(6.5f));
             }
         }
 
@@ -40,19 +40,30 @@ namespace Mofumachi.Visual.Tests
         {
             var pose=TownNoah25DTrial.Sample(1,1,1,0,2,.325f,false,true);
             var first=TownNoah25DTrial.VertexOffset(.1f,.49f,pose);
-            foreach(float u in new[]{0f,.2f,.5f,.8f,1f})
+            foreach(float u in new[]{0f,.2f,.5f,.65f})
             foreach(float v in new[]{.49f,.67f,1f})
             {
                 var face=TownNoah25DTrial.VertexOffset(u,v,pose);
                 Assert.That(face.X,Is.EqualTo(first.X));Assert.That(face.Y,Is.Zero);
             }
-            Assert.That(first.X,Is.GreaterThan(0).And.LessThanOrEqualTo(.6f));
+            Assert.That(first.X,Is.Zero);
             foreach(float u in new[]{.7f,.85f,1f})
             foreach(float v in new[]{0f,.06f,.14f,.2f,.36f,.44f})
             {
                 var tail=TownNoah25DTrial.VertexOffset(u,v,pose);
                 Assert.That(tail.X,Is.Zero);Assert.That(tail.Y,Is.Zero);
             }
+            foreach(float u in new[]{.85f,.95f,1f})
+            foreach(float v in new[]{.45f,.49f,.53f,.60f})
+            {
+                var tail=TownNoah25DTrial.VertexOffset(u,v,pose);
+                Assert.That(tail.X,Is.Zero);Assert.That(tail.Y,Is.Zero);
+            }
+            // Opaque upper curl in the formal atlas, including every corner
+            // of the actual .70/.84/1 by .80/1 mesh cells, not alpha gutter.
+            foreach(float u in new[]{.70f,.75f,.78f,.82f,.84f,.85f,.90f,.95f,1f})
+            foreach(float v in new[]{.80f,.85f,.90f,.92f,.95f,1f})
+            {var curl=TownNoah25DTrial.VertexOffset(u,v,pose);Assert.That(curl.X,Is.Zero);Assert.That(curl.Y,Is.Zero);}
             Assert.That(TownNoah25DTrial.VertexOffset(.18f,.36f,pose).X,Is.Not.Zero);
         }
 
@@ -77,7 +88,7 @@ namespace Mofumachi.Visual.Tests
             }
             var settled=TownNoah25DTrial.Sample(0,0,1,0,1,0,false,false);
             Assert.That(settled.Hop,Is.Zero);Assert.That(settled.Foot,Is.Zero);
-            Assert.That(TownNoah25DTrial.Sample(0,0,1,0,1,.65f,false,false).Hop,Is.Zero);
+            Assert.That(TownNoah25DTrial.Sample(0,0,1,0,1,1f,false,false).Hop,Is.Zero);
         }
 
         [Test] public void BlinkSamplesOnlyTheTwoRegisteredEyesFromTheFormalSmile()
@@ -94,6 +105,93 @@ namespace Mofumachi.Visual.Tests
             }
         }
 
+        [Test] public void StepsAndRaisedPawAreReadableAtTheExistingTownArtSize()
+        {
+            var walk=TownNoah25DTrial.Sample((float)Math.PI/2,1,1,0,2,0,false,true);
+            var left=TownNoah25DTrial.VertexOffset(.303f,0,walk);
+            var right=TownNoah25DTrial.VertexOffset(.535f,0,walk);
+            Assert.That(Math.Abs(right.Y-left.Y),Is.InRange(4.8f,6.2f),"Alternating paws need a visible stride, without moving navigation feet.");
+            var idle=TownNoah25DTrial.Sample(0,0,1,0,2,0,false,false);
+            float maxHandTravel=0;
+            for(int i=1;i<30;i++)
+            {
+                var greet=TownNoah25DTrial.Sample(0,0,1,0,2,i/30f,false,false);
+                var a=TownNoah25DTrial.VertexOffset(.16f,.43f,idle);
+                var b=TownNoah25DTrial.VertexOffset(.16f,.43f,greet);
+                maxHandTravel=Math.Max(maxHandTravel,(float)Math.Sqrt((b.X-a.X)*(b.X-a.X)+(b.Y-a.Y)*(b.Y-a.Y)));
+            }
+            Assert.That(maxHandTravel,Is.InRange(2.5f,7f),"A greeting must move the original raised paw, not just wobble the entire sprite.");
+        }
+
+        [Test] public void FacingBothWaysMovesTheRigidHeadWithoutMirroringItsOriginalFeatures()
+        {
+            var left=TownNoah25DTrial.Sample(0,0,-1,0,1,0,false,false);
+            var right=TownNoah25DTrial.Sample(0,0,1,0,1,0,false,false);
+            float HeadX(Noah25DTrialPose pose)
+            {
+                float sx=(1-pose.Breath*.35f)*(1-.035f*Math.Abs(pose.Look)),sy=1+pose.Breath;
+                var root=TownNoah25DTrial.SupportTranslation(61.33746f,pose,sx,sy);
+                double angle=pose.Lean*Math.PI/180;
+                return root.X+(float)((61.33746f*(.30f-.419f))*sx*Math.Cos(angle)-78*.80f*sy*Math.Sin(angle));
+            }
+            Assert.That(HeadX(right)-HeadX(left),Is.InRange(2.5f,3.6f),"Whole-art direction change must be visible while face/tail retain their shape.");
+            foreach(float u in new[]{.10f,.30f,.50f,.65f,.80f})
+            {
+                var face=TownNoah25DTrial.VertexOffset(u,.80f,right);
+                Assert.That(face.X,Is.Zero);Assert.That(face.Y,Is.Zero);
+            }
+        }
+
+        [Test] public void DirectionAndMidStrideStopsAreContinuousAndCompletelySettle()
+        {
+            float blend=1,facing=1;
+            var previous=TownNoah25DTrial.Sample(1.2f,blend,facing,0,2,0,false,true);
+            for(int i=0;i<120;i++)
+            {
+                blend=TownCharacterMotion.BlendMovement(blend,0,1f/60);
+                facing=TownCharacterMotion.Turn(facing,-1,1f/60);
+                var next=TownNoah25DTrial.Sample(1.2f,blend,facing,0,2,0,false,false);
+                var a=TownNoah25DTrial.VertexOffset(.535f,0,previous);
+                var b=TownNoah25DTrial.VertexOffset(.535f,0,next);
+                Assert.That(Math.Abs(b.Y-a.Y),Is.LessThan(.65f));
+                Assert.That(Math.Abs(next.Look-previous.Look),Is.LessThan(.11f));previous=next;
+            }
+            Assert.That(Math.Abs(previous.Foot),Is.LessThan(.0001f));
+            Assert.That(previous.Look,Is.EqualTo(-1).Within(.001));
+        }
+
+        [Test] public void GreetingHasOneBriefFormalSmileAndReturnsToOpenEyes()
+        {
+            Assert.That(TownNoah25DTrial.SmilingEyes(0),Is.False);
+            Assert.That(TownNoah25DTrial.SmilingEyes(1),Is.False);
+            Assert.That(TownNoah25DTrial.SmilingEyes(.50f),Is.True);
+            Assert.That(TownNoah25DTrial.SmilingEyes(.10f),Is.False);
+            foreach(float input in new[]{float.NaN,float.PositiveInfinity,-.5f})
+                Assert.That(TownNoah25DTrial.SmilingEyes(input),Is.False);
+        }
+
+        [Test] public void RegisteredHandAndFootMeshNeverFoldsDuringAFullGaitOrGreeting()
+        {
+            float[] xs={0,.06f,.16f,.18f,.30f,.37f,.42f,.47f,.53f,.625f,.65f,.70f,.84f,1};
+            float[] ys={0,.06f,.14f,.22f,.28f,.36f,.44f,.49f,.53f,.60f,.67f,.80f,1};
+            for(int sample=0;sample<=60;sample++)
+            foreach(float blend in new[]{0f,.5f,1f})
+            foreach(float direction in new[]{-1f,1f})
+            foreach(bool reacting in new[]{false,true})
+            {
+                var pose=TownNoah25DTrial.Sample(sample*.11f,blend,direction,0,2,reacting?sample/60f:0,false,blend>0);
+                StreetCharacterOffset Point(float x,float y)
+                {var o=TownNoah25DTrial.VertexOffset(x,y,pose);return new StreetCharacterOffset(61.33746f*x+o.X,78*y+o.Y);}
+                float Area(StreetCharacterOffset a,StreetCharacterOffset b,StreetCharacterOffset c)=>(b.X-a.X)*(c.Y-a.Y)-(b.Y-a.Y)*(c.X-a.X);
+                for(int y=0;y<ys.Length-1;y++)for(int x=0;x<xs.Length-1;x++)
+                {
+                    var a=Point(xs[x],ys[y]);var b=Point(xs[x+1],ys[y]);var c=Point(xs[x+1],ys[y+1]);var d=Point(xs[x],ys[y+1]);
+                    Assert.That(Area(a,b,c),Is.GreaterThan(.02f),$"Front triangle folded at sample{sample}, cell{x}/{y}");
+                    Assert.That(Area(a,c,d),Is.GreaterThan(.02f),$"Back triangle folded at sample{sample}, cell{x}/{y}");
+                }
+            }
+        }
+
         [Test] public void InvalidAndLongRunningInputsStayFiniteAndInsideSubtleMotionBounds()
         {
             foreach(float value in new[]{float.NaN,float.NegativeInfinity,-float.MaxValue,-1f,0f,1f,float.MaxValue,float.PositiveInfinity})
@@ -102,7 +200,7 @@ namespace Mofumachi.Visual.Tests
                 foreach(float part in new[]{pose.Hop,pose.Lean,pose.Foot,pose.Breath,pose.Hand,pose.Look,pose.Travel})
                     Assert.That(float.IsFinite(part),Is.True);
                 Assert.That(pose.Hop,Is.InRange(0f,5f));Assert.That(Math.Abs(pose.Lean),Is.LessThanOrEqualTo(2));
-                Assert.That(Math.Abs(pose.Breath),Is.LessThanOrEqualTo(.005f));Assert.That(Math.Abs(pose.Hand),Is.LessThanOrEqualTo(1));
+                Assert.That(Math.Abs(pose.Breath),Is.LessThanOrEqualTo(.01f));Assert.That(Math.Abs(pose.Hand),Is.LessThanOrEqualTo(1));
                 var offset=TownNoah25DTrial.VertexOffset(value,value,pose);
                 Assert.That(float.IsFinite(offset.X)&&float.IsFinite(offset.Y),Is.True);
                 var root=TownNoah25DTrial.SupportTranslation(value,pose,value,value);

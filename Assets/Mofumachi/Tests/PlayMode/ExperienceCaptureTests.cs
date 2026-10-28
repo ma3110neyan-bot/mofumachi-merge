@@ -32,7 +32,7 @@ namespace Mofumachi.Tests
             public bool arrived,all_points_walkable=true;public NativeImage image;public List<NativePathPoint> points=new List<NativePathPoint>();
         }
         [Serializable] private sealed class NoahSequenceFrame
-        {public int index;public string mode;public float elapsed_seconds,world_x,world_y;public bool walking;public NativeImage image;}
+        {public int index;public string mode;public float elapsed_seconds,world_x,world_y,facing,reaction_seconds;public bool walking;public NativeImage image;}
         [Serializable] private sealed class NoahSequence
         {
             public string setup="fresh-isolated-Home-scene-after-completed-route-proof";
@@ -46,6 +46,7 @@ namespace Mofumachi.Tests
         [Serializable] private sealed class NorthWorldBounds {public float x_min=-.6f,x_max=.6f,y_min=1,y_max=1.32f;}
         [Serializable] private sealed class NorthNoahProof
         {
+            public int noah_quality_version=2;
             public string kind="same-state-native-north-noah-comparison",before="reconstructed causal baseline: north join disabled / Noah legacy at the same instant",after="current product code";
             public string source_revision,product_fingerprint,historical_before="bb3fb82 native run102109 / 09-connected-path-north.png is historical context only, not this causal baseline";
             public bool native_unity=true,pixel_verified=false,adopted=false,navigation_changed=false,teleport_rescue=false;
@@ -211,6 +212,7 @@ namespace Mofumachi.Tests
             {
                 string mode=index<8?"idle":index<16?"start-walk":index<32?"walk":index<40?"stop":"greet";
                 if(index==8)Assert.That(field.World.GuidePoint(new TownPoint(-.32f,-.25f)),Is.True);
+                if(index==24)Assert.That(field.World.GuidePoint(new TownPoint(.15f,-.25f)),Is.True,"Reverse through the real movement model, not a forced visual pose");
                 if(index==32){field.World.CancelHero();field.StartInteraction();}
                 if(index==40)
                 {
@@ -234,10 +236,10 @@ namespace Mofumachi.Tests
                 // Manual simulation does not tick independent fountain Updates.
                 // Camera framing is explicitly fixed for all sequence samples.
                 field.World.Camera.Jump(new TownPoint(0,-.05f));field.World.Refresh();
-                if(index==3||index==20||index==40)
+                if(index==3||index==20||index==26||index==36||index==40||index==43)
                 {
                     if(index==40)Assert.That(VerifiedGreeting(),Is.True,"The talk pair must render the verified greeting while both actors still react");
-                    string pairMode=index==3?"idle":index==20?"walk":"talk";
+                    string pairMode=index==3?"idle":index==20?"walk":index==26?"turn":index==36?"stop":index==40?"talk":"reaction";
                     var pair=CaptureNativePair(output,field,"37-noah-"+pairMode,()=>noah.SetNoahTrialEnabled(false),()=>noah.SetNoahTrialEnabled(true),()=>ActorEvidenceRect(noah),true);pair.mode=pairMode;proof.noah_pairs.Add(pair);
                 }
                 var portrait=Portrait();Texture2D cropped=null;
@@ -247,7 +249,7 @@ namespace Mofumachi.Tests
                     string framing=FormattableString.Invariant($"Noah frame {index}/{mode}; world=({noah.WorldPosition.X:R},{noah.WorldPosition.Y:R}), camera=({center.X:R},{center.Y:R}), crop={crop}, actor={actual}");
                     Assert.That(actual.xMin,Is.GreaterThanOrEqualTo(crop.x),framing);Assert.That(actual.xMax,Is.LessThanOrEqualTo(crop.xMax),framing);Assert.That(actual.yMin,Is.GreaterThanOrEqualTo(crop.y),framing);Assert.That(actual.yMax,Is.LessThanOrEqualTo(crop.yMax),framing);
                     cropped=new Texture2D(crop.width,crop.height,TextureFormat.RGB24,false);cropped.SetPixels(portrait.GetPixels(crop.x,crop.y,crop.width,crop.height));cropped.Apply();
-                    sequence.frames.Add(new NoahSequenceFrame{index=index,mode=mode,elapsed_seconds=elapsed,world_x=noah.WorldPosition.X,world_y=noah.WorldPosition.Y,walking=field.World.Model.Hero.IsWalking,image=SaveNativeImage(output,"noah-sequence/37-noah-frame-"+index.ToString("00")+".png",cropped)});
+                    sequence.frames.Add(new NoahSequenceFrame{index=index,mode=mode,elapsed_seconds=elapsed,world_x=noah.WorldPosition.X,world_y=noah.WorldPosition.Y,facing=(float)typeof(TownActor).GetField("facing",privateFields).GetValue(noah),reaction_seconds=(float)reactionField.GetValue(noah),walking=field.World.Model.Hero.IsWalking,image=SaveNativeImage(output,"noah-sequence/37-noah-frame-"+index.ToString("00")+".png",cropped)});
                 }
                 finally{UnityEngine.Object.DestroyImmediate(portrait);if(cropped!=null)UnityEngine.Object.DestroyImmediate(cropped);}
             }
@@ -264,11 +266,11 @@ namespace Mofumachi.Tests
         }
         private static void WriteNorthNoahHtml(string output,NorthNoahProof proof)
         {
-            var html=new System.Text.StringBuilder("<!doctype html><meta charset='utf-8'><title>Native North / Noah causal review</title><style>body{font:16px sans-serif;background:#fff7ef;color:#50343b}img{max-width:46%;vertical-align:top}section{margin-bottom:2rem}#frame{max-width:100%}</style><h1>Actual Unity North / Noah candidate</h1><p>Native UGUI captures. Before is a reconstructed same-instant causal baseline; not a prior runtime capture. North join disabled / Noah legacy only. Current fountain is frozen unchanged. Pixel performance and candidate adoption remain pending.</p>");
+            var html=new System.Text.StringBuilder("<!doctype html><meta charset='utf-8'><title>Native North / Noah causal review</title><style>body{font:16px sans-serif;background:#fff7ef;color:#50343b}img{max-width:46%;vertical-align:top}section{margin-bottom:2rem}#frame{max-width:100%}</style><h1>Actual Unity North / Noah candidate</h1><p>Native UGUI captures. Before is a reconstructed same-instant causal baseline; not a prior runtime capture. North join disabled / Noah legacy only. Current fountain and accepted North code are frozen unchanged. Noah Before uses the legacy rendering branch at the identical remaining reaction clock; its historical duration was0.65s while the candidate is1s, so this is not equal-elapsed prior reaction behavior. Pixel performance and candidate adoption remain pending.</p>");
             foreach(var pair in proof.north_pairs.Concat(proof.noah_pairs))html.Append("<section><h2>").Append(pair.id).Append("</h2><p>Before (reconstructed) left / After right; changed pixels ").Append(pair.changed_pixels).Append("; outside scoped projection ").Append(pair.outside_allowed_pixels).Append("</p><a href='").Append(pair.comparison.file).Append("'>Open actual native comparison .jpg (Before left / After right)</a><p><img style='max-width:100%' src='").Append(pair.comparison.file).Append("'></p><a href='").Append(pair.before.file).Append("'>Before original PNG</a> / <a href='").Append(pair.after.file).Append("'>After original PNG</a></section>");
             html.Append("<h2>Historical actual native Before: bb3fb82 / run102109</h2><p>09-connected-path-north.png: different historical runtime conditions; never the same-state causal baseline above.</p><img src='").Append(proof.historical_native_before.file).Append("'>");
             html.Append("<h2>Actual model walking, no navigation changes or teleport rescue</h2>");foreach(var route in proof.routes)html.Append("<p>").Append(route.id).Append(": ").Append(route.steps).Append(" fixed steps; sampled actual positions in JSON.</p><img src='").Append(route.image.file).Append("'>");
-            html.Append("<h2>Noah: idle → start walk → walk → stop → greet</h2><p>48 actual native PNG crops; manual TownLifeView.AdvanceFrame at 1/30s, sampled each 3 steps. This presentation episode starts in a separate fresh fixture Home scene after the completed route proof, with verified original Noah/Momo anchors. This is a fixed-step render sequence, not a real-time/FPS or Pixel measurement. The walk-to-friend gap is retained in timestamps.</p><button id='play'>Play / pause</button><p id='time'></p><img id='frame'><script>const data=").Append(JsonUtility.ToJson(proof.sequence)).Append(";let i=0,playing=true;document.querySelector('#play').onclick=()=>playing=!playing;function tick(){const f=data.frames[i];const image=document.querySelector('#frame');image.onerror=()=>{image.onerror=null;image.src=f.image.file.split('/').pop()};image.src=f.image.file;document.querySelector('#time').textContent=f.index+' / '+f.mode+' / '+f.elapsed_seconds.toFixed(3)+' simulated seconds';setTimeout(()=>{if(playing)i=(i+1)%data.frames.length;tick()},100)}tick()</script>");
+            html.Append("<h2>Noah: idle → start → walk → turn → stop / separate greeting</h2><p>48 actual native PNG crops; manual TownLifeView.AdvanceFrame at 1/30s, sampled each 3 steps. Frames0–39 are one contiguous4-second episode including real direction reversal at2.4s. Frames40–47 are the later verified mutual greeting. The timestamp gap is shown as a cut, never a continuous/FPS or Pixel measurement.</p><button id='play'>Play / pause</button><p id='time'></p><img id='frame'><script>const data=").Append(JsonUtility.ToJson(proof.sequence)).Append(";let i=0,playing=true;document.querySelector('#play').onclick=()=>playing=!playing;function tick(){const f=data.frames[i];const image=document.querySelector('#frame');image.onerror=()=>{image.onerror=null;image.src=f.image.file.split('/').pop()};image.src=f.image.file;document.querySelector('#time').textContent=(i===40?'CUT: later greeting / ':'')+f.index+' / '+f.mode+' / '+f.elapsed_seconds.toFixed(3)+' simulated seconds';setTimeout(()=>{if(playing)i=(i+1)%data.frames.length;tick()},i===40?1000:100)}tick()</script>");
             File.WriteAllText(Path.Combine(output,"north-noah-before-after.html"),html.ToString());
         }
         [Serializable] private sealed class GrowthDistrictProof

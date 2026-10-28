@@ -79,7 +79,7 @@ function Assert-NativeCaptures([string]$Directory,[switch]$RequireBoundary,[swit
     Write-Host "Native Unity images: $($Images.Count), 720x1280 (visual review still required)."
     if($RequireNorthNoah){
         if($Images.Count -lt 250){throw 'North/Noah TownQa requires the existing219 full captures plus30 candidate frames and one actual historical North original.'}
-        Assert-NorthNoahEvidence $Directory $ExpectedRevision $ExpectedFingerprint
+        Assert-NorthNoahEvidence $Directory $ExpectedRevision $ExpectedFingerprint -RequireQuality
     }
     $BoundaryComparison=Join-Path $Directory 'street-boundary-before-after.html'
     if($RequireBoundary) {

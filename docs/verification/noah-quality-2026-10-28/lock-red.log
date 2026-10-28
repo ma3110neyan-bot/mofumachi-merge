@@ -1,0 +1,5 @@
+Exception: /workspace/mofumachi-merge/scripts/visual-lock.ps1:59
+Line |
+  59 |  … rial_2026_10_27')){throw 'Unknown bounded display correction scope.'}
+     |                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Unknown bounded display correction scope.

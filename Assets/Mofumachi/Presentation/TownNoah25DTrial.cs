@@ -16,33 +16,41 @@ namespace Mofumachi.Presentation
         // Measured on the unchanged normal Noah crop (1263,14,254,323).
         // The large tail is outside the two paw centres.
         public const float LeftFootU=.303f,RightFootU=.535f,FootCenterU=.419f;
+        public const float ReactionSeconds=1f;
+        public static bool SmilingEyes(float remaining)=>float.IsFinite(remaining)&&remaining>.34f&&remaining<.65f;
         public static Noah25DTrialPose Sample(float stride,float walking,float facing,float resting,float elapsed,float reactionRemaining,bool arrival,bool moving)
         {
             double phase=float.IsFinite(stride)?stride:0,time=float.IsFinite(elapsed)&&elapsed>=0?elapsed:0;
             walking=Clamp(walking,0,1);facing=Clamp(facing,-1,1);resting=Clamp(resting,0,1);
             float step=(float)Math.Sin(phase),idle=1-walking,settle=4*walking*idle;
-            var reaction=TownCharacterMotion.Reaction(reactionRemaining,.65f,arrival);
-            return new Noah25DTrialPose(Math.Abs(step)*1.8f*walking+reaction.Hop*.4f,
-                Clamp((step*.85f+facing*.3f)*walking+(float)Math.Sin(time*.9+3.085)*(.2f+.08f*resting)*idle+
-                    facing*settle*.12f+reaction.Lean*.35f,-2,2),
+            var reaction=TownCharacterMotion.Reaction(reactionRemaining,ReactionSeconds,arrival);
+            float progress=Clamp(1-reactionRemaining/ReactionSeconds,0,1);
+            float greeting=float.IsFinite(reactionRemaining)&&reactionRemaining>0&&reactionRemaining<ReactionSeconds?
+                (float)Math.Sin(progress*Math.PI)*(.7f+.3f*(float)Math.Sin(progress*Math.PI*4)):0;
+            return new Noah25DTrialPose(Math.Abs(step)*2.6f*walking+reaction.Hop*.4f,
+                Clamp((step*.95f+facing*.3f)*walking+(float)Math.Sin(time*.9+3.085)*(.24f+.08f*resting)*idle+
+                    facing*settle*.12f+reaction.Lean*.4f-facing*1.45f,-2,2),
                 // The smoothed walking envelope controls the settle on both
                 // sides of a start/stop; the discrete moving flag cannot snap it.
-                step*walking,(float)Math.Sin(time*1.8+3.085)*.002f+reaction.Breath*.15f-settle*.0005f,
-                (float)Math.Sin(time*1.3+3.085)*.035f*idle+step*.12f*walking+reaction.Hand*.65f,
-                facing,(float)Math.Cos(phase)*walking*facing*1.1f);
+                step*walking,(float)Math.Sin(time*1.8+3.085)*(.002f+.002f*idle)+reaction.Breath*.15f-settle*.0005f,
+                Clamp((float)Math.Sin(time*1.3+3.085)*.055f*idle+step*.24f*walking+greeting*.9f,-1,1),
+                facing,(float)Math.Cos(phase)*walking*facing*1.8f);
         }
         public static StreetCharacterOffset VertexOffset(float u,float v,Noah25DTrialPose pose)
         {
             u=Clamp(u,0,1);v=Clamp(v,0,1);
-            float paws=Smooth((u-.12f)/.04f)*(1-Smooth((u-.625f)/.025f));
+            float paws=Smooth((u-.12f)/.04f)*(1-Smooth((u-.60f)/.05f));
             float side=Clamp((u-FootCenterU)/.095f,-1,1),footBand=(1-Smooth(v/.18f))*paws;
-            float lift=(Math.Max(0,side*pose.Foot)*3.2f-pose.Hop)*footBand;
+            float lift=(Math.Max(0,side*pose.Foot)*5.4f-pose.Hop)*footBand;
             // Two small regions in the original illustration. Neither the
             // centre of the coat nor the squirrel's tail is an arm.
-            float left=Island(u,v,.18f,.36f,.12f,.11f),right=Island(u,v,.42f,.34f,.075f,.09f);
-            float hand=pose.Hand*(left*.7f-right*.4f);
-            float head=Smooth((v-.44f)/.05f)*pose.Look*.55f;
-            return new StreetCharacterOffset(-side*pose.Travel*footBand+hand+head,lift);
+            float left=Island(u,v,.16f,.43f,.15f,.15f)*(1-Smooth((v-.44f)/.05f));
+            float right=Island(u,v,.50f,.33f,.10f,.10f);
+            float hand=pose.Hand*(left*.9f-right*.45f);
+            // Face/hat and upper tail curl overlap in the original drawing.
+            // Turn the complete illustration about its planted paw in the
+            // actor transform; do not shear a horizontal "head" strip.
+            return new StreetCharacterOffset(-side*pose.Travel*footBand+hand*2.4f,lift+hand*3.1f);
         }
         public static StreetCharacterOffset SupportTranslation(float artWidth,Noah25DTrialPose pose,float scaleX,float scaleY)
         {

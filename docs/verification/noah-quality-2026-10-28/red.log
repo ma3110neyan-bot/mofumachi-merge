@@ -1,0 +1,10 @@
+Mofumachi.Visual.Tests.Noah25DTrialTests.FacingBothWaysMovesTheRigidHeadWithoutMirroringItsOriginalFeatures Failed
+  Expected: in range (2.5,3.6)
+  But was:  1.10000002f
+
+Mofumachi.Visual.Tests.Noah25DTrialTests.StepsAndRaisedPawAreReadableAtTheExistingTownArtSize Failed
+  Alternating paws need a visible stride, without moving navigation feet.
+  Expected: in range (4.8,6.2)
+  But was:  3.20000005f
+
+NUnit in-process: total=9, passed=7, failed=2, skipped=0, inconclusive=0, duration=0.072s

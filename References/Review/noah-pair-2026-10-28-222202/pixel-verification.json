@@ -1,0 +1,74 @@
+[
+  {
+    "mode": "idle",
+    "changed_pixels": 16426,
+    "outside_pixels": 0,
+    "bbox_top_left": [
+      299,
+      614,
+      431,
+      770
+    ],
+    "natural_labels_changed": false
+  },
+  {
+    "mode": "walk",
+    "changed_pixels": 16895,
+    "outside_pixels": 0,
+    "bbox_top_left": [
+      195,
+      609,
+      329,
+      770
+    ],
+    "natural_labels_changed": false
+  },
+  {
+    "mode": "turn",
+    "changed_pixels": 16439,
+    "outside_pixels": 0,
+    "bbox_top_left": [
+      205,
+      610,
+      333,
+      770
+    ],
+    "natural_labels_changed": false
+  },
+  {
+    "mode": "stop",
+    "changed_pixels": 16482,
+    "outside_pixels": 0,
+    "bbox_top_left": [
+      242,
+      613,
+      372,
+      770
+    ],
+    "natural_labels_changed": false
+  },
+  {
+    "mode": "talk",
+    "changed_pixels": 13739,
+    "outside_pixels": 0,
+    "bbox_top_left": [
+      392,
+      623,
+      522,
+      750
+    ],
+    "natural_labels_changed": true
+  },
+  {
+    "mode": "reaction",
+    "changed_pixels": 13515,
+    "outside_pixels": 0,
+    "bbox_top_left": [
+      392,
+      623,
+      521,
+      750
+    ],
+    "natural_labels_changed": false
+  }
+]

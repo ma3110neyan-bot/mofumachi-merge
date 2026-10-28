@@ -185,11 +185,26 @@
   "native_unity_verified": false,
   "native_visual_cleared": false,
   "fixed_native_pass_verified": false,
-  "native_scope_image_review_complete": false,
-  "native_visual_status": "name_caption_context_corrected_in_capture_pending_native_retest",
+  "native_scope_image_review_complete": true,
+  "native_visual_status": "needs_more_noah_only_work_before_full_qa_candidate",
   "latest_native_failure": "References/Review/noah-pair-2026-10-28-205828/receipt-and-diagnosis.json",
   "latest_native_failure_source": "5860f9ceeeaab937be86666d50fa194c28ebb60f",
   "latest_diagnostic_verification": "docs/verification/noah-name-context-2026-10-28/results.json",
   "previous_native_failure": "References/Review/full-playmode-2026-10-28-201053/receipt-and-diagnosis.json",
-  "native_comparison_protocol_version": 3
+  "native_comparison_protocol_version": 3,
+  "native_scope_image_review_scope": "six Noah pairs and48fixed-step crops from single native diagnostic; excludes North images",
+  "native_diagnostic_verified": true,
+  "native_capture_method_pass_verified": true,
+  "latest_native_review": "References/Review/noah-pair-2026-10-28-222202/native-review.json",
+  "latest_native_diagnostic_run": "noah-pair-20261028-222202-ca3a3b66",
+  "latest_native_diagnostic_source": "5102e9a193d817149d3efaec4f447724656343f1",
+  "latest_native_diagnostic_counts": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "latest_native_failure_resolved_in_single_method": true,
+  "ready_for_full_qa": false
 }

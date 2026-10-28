@@ -61,4 +61,10 @@ Files: ExperienceCaptureTests.cs; scripts/north-noah-review.ps1; relevant fixtur
 - [x] Confirm actual Momo nameplate toggle from raw PNG/JSON and recompute5621 outside pixels.
 - [x] Hold product After caption state only in reconstructed Before; retain natural Before PNG even on failure; leave actual After/pixel rectangle/zero check unchanged.
 - [x] Validate protocol3 metadata and bounded Noah-only PNG/sequence archives with affected PS fixtures; PlayMode API compile only; independent review fixed natural-image retention.
-- [ ] Receive the same single-method native retest and inspect all six original pairs and sequence. Runtime visual acceptance, APK/Pixel, rollout remain pending.
+- [x] Receive the same single-method native retest and inspect all six original pairs and sequence. Runtime visual acceptance, APK/Pixel, rollout remain pending.
+
+### Native image review outcome — run222202
+
+Source5102e9a, exactly1/1 native method passed; all72 received originals and67 decoded images verified. Caption-context correction works in this capture, all6Noah pairs outside0. Main and independent visual reviews agree the current result does **not** yet meet the user's clearly-better-than-2D criterion: direction remains mostly front-facing, wave is weak, and Momo is the speaker in the talk evidence. No important artwork break observed. See `docs/noah-native-review-2026-10-28.md` and the preserved review folder. Runtime remains unchanged since1d11629.
+
+Task3's fullTownQa/Pixel handoff stays unchecked because this is not yet the representative acceptance candidate. Next implementation work remains Noah-only readability of facing/gait/greeting plus actual Noah conversation evidence, with focused checks before further native image review. No new runtime changes, full suites, APK, Pixel, adoption or six-character rollout are claimed by this receipt review.

@@ -1,0 +1,11 @@
+﻿{
+    "scope":  "diagnostic-single-noah-capture-not-full-qa",
+    "gitRevision":  "5102e9a193d817149d3efaec4f447724656343f1",
+    "productFingerprint":  "6a70b91fe33a5897c1d00c0a16dc26d19f9462fc888ff5665aa8f03dc8a73117",
+    "native_test_passed":  true,
+    "source_unchanged":  true,
+    "qa_apk_generated":  false,
+    "pixel_verified":  false,
+    "adopted":  false,
+    "error":  ""
+}

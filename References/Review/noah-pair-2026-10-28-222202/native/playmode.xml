@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-28 13:23:13Z" end-time="2026-10-28 13:23:29Z" duration="15.1914424">
+  <test-suite type="TestSuite" id="1286" name="もふまちメルジュ" fullname="もふまちメルジュ" runstate="Runnable" testcasecount="234" result="Passed" start-time="2026-10-28 13:23:13Z" end-time="2026-10-28 13:23:29Z" duration="15.191442" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1566" name="Mofumachi.PlayModeTests.dll" fullname="C:/Users/User/Desktop/Mofumachi/mofumachi-merge/Library/ScriptAssemblies/Mofumachi.PlayModeTests.dll" runstate="Runnable" testcasecount="234" result="Passed" start-time="2026-10-28 13:23:14Z" end-time="2026-10-28 13:23:29Z" duration="15.181386" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="4748" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1567" name="Mofumachi" fullname="Mofumachi" runstate="Runnable" testcasecount="234" result="Passed" start-time="2026-10-28 13:23:14Z" end-time="2026-10-28 13:23:29Z" duration="15.178721" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1568" name="Tests" fullname="Mofumachi.Tests" runstate="Runnable" testcasecount="234" result="Passed" start-time="2026-10-28 13:23:14Z" end-time="2026-10-28 13:23:29Z" duration="15.176458" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1332" name="ExperienceCaptureTests" fullname="Mofumachi.Tests.ExperienceCaptureTests" classname="Mofumachi.Tests.ExperienceCaptureTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-28 13:23:14Z" end-time="2026-10-28 13:23:29Z" duration="15.163240" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1333" name="NorthNoahBeforeAfterAndFixedStepEvidencePreserveSavedState" fullname="Mofumachi.Tests.ExperienceCaptureTests.NorthNoahBeforeAfterAndFixedStepEvidencePreserveSavedState" methodname="NorthNoahBeforeAfterAndFixedStepEvidencePreserveSavedState" classname="Mofumachi.Tests.ExperienceCaptureTests" runstate="Runnable" seed="95720987" result="Passed" start-time="2026-10-28 13:23:14Z" end-time="2026-10-28 13:23:29Z" duration="15.148886" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

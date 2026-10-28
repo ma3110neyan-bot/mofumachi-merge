@@ -1,0 +1,199 @@
+{
+  "review_date_utc": "2026-10-28",
+  "run": "noah-pair-20261028-222202-ca3a3b66",
+  "scope": "single native capture method; Noah images only, not full QA",
+  "source_revision": "5102e9a193d817149d3efaec4f447724656343f1",
+  "product_fingerprint": "6a70b91fe33a5897c1d00c0a16dc26d19f9462fc888ff5665aa8f03dc8a73117",
+  "runtime_unchanged_since": "1d11629ae8bab0ec398c6e53bd0bfd5f3030c92c",
+  "archives": [
+    {
+      "uploaded_file_id": "file_00000000d818820996ea49dca78c51cc",
+      "file": "noah-pair-20261028-222202-ca3a3b66-01.zip",
+      "bytes": 23569459,
+      "sha256": "181905f109a9d75f3a535a07e0f5f51418913bda4c5796a2c6c67baabe6377ac",
+      "file_count": 19
+    },
+    {
+      "uploaded_file_id": "file_0000000088a88211b2740979bc5951ac",
+      "file": "noah-pair-20261028-222202-ca3a3b66-02.zip",
+      "bytes": 21856341,
+      "sha256": "a0cc0faf79051a6db6b1b2e6ca8bde8932535b02ed3f6545db8834430f57df27",
+      "file_count": 53
+    }
+  ],
+  "duplicate_previous_failure": {
+    "uploaded_file_id": "file_00000000955882309521396efac2b490",
+    "file": "noah-pair-20261028-205828-8cdc5361.zip",
+    "sha256": "7a17b370f94aa7527d3364b6239ccddcd86d862a1bd220e0885a3f7a0ac52e4e",
+    "same_as_previous_receipt": true,
+    "record": "References/Review/noah-pair-2026-10-28-205828/receipt-and-diagnosis.json"
+  },
+  "native_tests": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0,
+    "method": "Mofumachi.Tests.ExperienceCaptureTests.NorthNoahBeforeAfterAndFixedStepEvidencePreserveSavedState",
+    "start_utc": "2026-10-28 13:23:13Z",
+    "end_utc": "2026-10-28 13:23:29Z"
+  },
+  "original_files_received": 72,
+  "images_fully_decoded": 67,
+  "png_count": 61,
+  "jpeg_count": 6,
+  "all_received_file_bytes_and_sha_verified": true,
+  "all_image_dimensions_and_declared_identity_verified": true,
+  "noah_pairs_recomputed": [
+    {
+      "mode": "idle",
+      "changed_pixels": 16426,
+      "outside_pixels": 0,
+      "bbox_top_left": [
+        299,
+        614,
+        431,
+        770
+      ],
+      "natural_labels_changed": false
+    },
+    {
+      "mode": "walk",
+      "changed_pixels": 16895,
+      "outside_pixels": 0,
+      "bbox_top_left": [
+        195,
+        609,
+        329,
+        770
+      ],
+      "natural_labels_changed": false
+    },
+    {
+      "mode": "turn",
+      "changed_pixels": 16439,
+      "outside_pixels": 0,
+      "bbox_top_left": [
+        205,
+        610,
+        333,
+        770
+      ],
+      "natural_labels_changed": false
+    },
+    {
+      "mode": "stop",
+      "changed_pixels": 16482,
+      "outside_pixels": 0,
+      "bbox_top_left": [
+        242,
+        613,
+        372,
+        770
+      ],
+      "natural_labels_changed": false
+    },
+    {
+      "mode": "talk",
+      "changed_pixels": 13739,
+      "outside_pixels": 0,
+      "bbox_top_left": [
+        392,
+        623,
+        522,
+        750
+      ],
+      "natural_labels_changed": true
+    },
+    {
+      "mode": "reaction",
+      "changed_pixels": 13515,
+      "outside_pixels": 0,
+      "bbox_top_left": [
+        392,
+        623,
+        521,
+        750
+      ],
+      "natural_labels_changed": false
+    }
+  ],
+  "natural_caption_context": [
+    {
+      "mode": "talk",
+      "changed_caption_ids": [
+        "momo"
+      ],
+      "natural_vs_controlled_changed_pixels": 5926,
+      "bbox_top_left": [
+        513,
+        751,
+        660,
+        795
+      ]
+    }
+  ],
+  "name_context_failure_resolved_for_this_native_method": true,
+  "scope_checks": {
+    "pair_invariants_all_true": true,
+    "other_five_body_unchanged_in_capture": true,
+    "actual_after_natural": true,
+    "reconstructed_before_caption_visibility_only": true,
+    "all_noah_outside_pixels_zero": true,
+    "original_artwork_edited": false
+  },
+  "sequence": {
+    "kind": "native-fixed-step-town-AdvanceFrame",
+    "manual_advance": true,
+    "step_seconds": 0.03333333507180214,
+    "sample_step_count": 3,
+    "frames_received": 48,
+    "continuous_first_segment_seconds": [
+      0.10000000894069672,
+      3.999997615814209
+    ],
+    "separate_greeting_segment_seconds": [
+      14.33341121673584,
+      15.03342056274414
+    ],
+    "has_cut_before_frame_40": true,
+    "actual_reversal_verified": true,
+    "speaker": "momo",
+    "partner": "noah",
+    "text": "こんにちは、ノア♪",
+    "real_time_fps_evidence": false
+  },
+  "limitations": [
+    "North pair/route/historical image metadata is present, but those images are not included in the Noah-only diagnostic archives; no new independent full North image validation claimed.",
+    "Before is a reconstructed legacy body with natural candidate caption visibility and the same remaining reaction clock; legacy and candidate reaction durations differ.",
+    "Fixed-step crops are not real-time smoothness or Pixel performance measurements.",
+    "Noah speaking and relevant foreground prop overlap are not demonstrated by these received captures."
+  ],
+  "visual_review": {
+    "status": "needs_more_noah_only_work_before_full_qa_candidate",
+    "critical_observed": 0,
+    "important": 2,
+    "original_identity_preserved_in_received_views": true,
+    "clear_improvement_over_2d_demonstrated": false,
+    "findings": [
+      "At normal game scale, walk/turn remain predominantly front-facing with small lean and foot changes; improvement is too subtle for the user criterion.",
+      "Raised-paw greeting lacks a clearly readable wave; Momo is the speaker, leaving Noah speaking behavior unverified."
+    ],
+    "independent_report": "independent-visual-review.md",
+    "root_concurs": true
+  },
+  "full_native_qa_verified": false,
+  "ready_for_full_qa": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "six_character_rollout_authorized": false,
+  "pixel_metrics": {
+    "fps": null,
+    "heat": null,
+    "memory": null,
+    "tap_latency": null
+  },
+  "changes_in_this_receipt_review": "Evidence and review status only; no runtime, art, capture method, QA tool or frozen town changes.",
+  "next_scope": "Noah-only readability of facing/gait/greeting, actual Noah conversation evidence; focused related checks, then visual review before full QA."
+}

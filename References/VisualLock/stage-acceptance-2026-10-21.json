@@ -948,6 +948,13 @@
     "six_character_rollout_authorized": false,
     "native_visual_cleared": false,
     "latest_native_failure": "References/Review/noah-pair-2026-10-28-205828/receipt-and-diagnosis.json",
-    "native_visual_status": "name_caption_context_corrected_in_capture_pending_native_retest"
+    "native_visual_status": "needs_more_noah_only_work_before_full_qa_candidate",
+    "native_diagnostic_verified": true,
+    "native_capture_method_pass_verified": true,
+    "native_scope_image_review_complete": true,
+    "native_scope_image_review_scope": "single native diagnostic Noah-only images",
+    "latest_native_review": "References/Review/noah-pair-2026-10-28-222202/native-review.json",
+    "latest_native_failure_resolved_in_single_method": true,
+    "ready_for_full_qa": false
   }
 }

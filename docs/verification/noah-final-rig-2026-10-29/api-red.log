@@ -1,0 +1,11 @@
+/workspace/mofumachi-merge/Tests/Presentation/NoahFinalRigTests.cs(9,24): error CS0246: The type or namespace name 'NoahFinalRigPose' could not be found (are you missing a using directive or an assembly reference?) [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+/workspace/mofumachi-merge/Tests/Presentation/NoahFinalRigTests.cs(11,58): error CS0246: The type or namespace name 'NoahFinalRigPose' could not be found (are you missing a using directive or an assembly reference?) [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+
+Build FAILED.
+
+/workspace/mofumachi-merge/Tests/Presentation/NoahFinalRigTests.cs(9,24): error CS0246: The type or namespace name 'NoahFinalRigPose' could not be found (are you missing a using directive or an assembly reference?) [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+/workspace/mofumachi-merge/Tests/Presentation/NoahFinalRigTests.cs(11,58): error CS0246: The type or namespace name 'NoahFinalRigPose' could not be found (are you missing a using directive or an assembly reference?) [/workspace/mofumachi-merge/Tests/Presentation/Mofumachi.Visual.Tests.csproj]
+    0 Warning(s)
+    2 Error(s)
+
+Time Elapsed 00:00:02.08

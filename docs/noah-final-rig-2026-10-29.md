@@ -1,0 +1,42 @@
+# ノア1名：最終方式比較とPixel確認
+
+現方式f451068をBeforeとして保ち、同じ正式atlasを重み付き7骨で扱う試作を追加した。従来の浅いZ凹凸を大きくする反復ではなく、部位の前後差をXYへ明示投影し、共通rootの下に頭・胴・尾・左右腕・左右足を置く。顔・目・口・顎は同じ変換、UV／原画はそのまま。床の楕円影と接触核もノアだけ。身体720／影97頂点、1body Graphicと既存影Graphic、テクスチャ／マテリアル追加なし。
+
+**実装済み・実Unity描画／APK／Pixel未確認。正式採用ではない。** CPU幾何検査やAPIコンパイルを、明確な立体感／実機負荷の合格にしない。通常製品は現方式のままで、新方式は明示した試作APKだけで有効。他5名、正式原画、街、北境界、噴水、図鑑、BGM、Merge、Core／Save／依頼／納品／報酬を変更していない。
+
+## 方式と判断
+
+比較は [設計記録](superpowers/specs/2026-10-29-noah-final-rig-design.md) にある。SpriteSkinを使った正式パーツ分割／向き別スプライトの方が異なる向きを表せるが、現資産にパーツ原稿と側面・背面はない。今回の重み付きリグは、正面PNGを切って欠けた首や関節を描き足さずに比較できる最終技術試作として選んだ。実物のパーツ原稿を持つ2Dボーン方式と同一とは説明しない。見えない側面・背面を作ったとも言わない。
+
+**採用方式は未決定。今回が一枚絵ベース方式の最終1回。** 静止Before／Afterを説明なしで明らかに立体的と判断できなければ、この凹凸／重み付き一枚絵方式は終了する。次は正式原画を基準にした頭・胴・尾・上腕／前腕・脚の分割原稿と隠れ部分の下絵、左右3/4・側面・背面の正式ビューを用意し、2Dボーンと向き別絵を組み合わせる方式へ正式に切り替える提案をする。新しいビューと関節の見え方をノア1名で検収し、原画の印象を守れない案は採用しない。他5名へは承認後のみ。フル3D化は行わない。
+
+## Windowsで1回だけ実行
+
+GitHub Desktopで既存 `feat/daily-world-pass-20261016` をPullし、Unityを閉じる。Pixel3aをUSB接続・ロック解除し、以下を実行する。
+
+```powershell
+Set-Location -LiteralPath "C:\Users\User\Desktop\Mofumachi\mofumachi-merge"
+powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\capture-noah-final-rig.ps1" -BuildApks -Pixel3a
+```
+
+全件EditMode／PlayModeは実行しない。ノアの既存撮影メソッド**1件のみ**を新しいprotocol3で検証し、成功した同一ソースから `noah-current.apk` と `noah-rig.apk` の実験用2本を作る。実験用は通常の全件QA／リリース合格と別。各APKはmode／source／fingerprint／package／SHA256を別JSONに記録する。
+
+ブラウザーで比較が開く。静止／歩行／停止／左右転換／会話／挨拶／前後歩行、影だけ、静止4方向の**13組**、222コマ／14.8秒の連続After標本が入る。Beforeはf451068を同じ時計で再現したもの。静止4方向は向きを保持した表示用fixtureで、実歩行とは区別する。連続標本は15標本/秒の固定刻みで、実時間動画・FPSではない。会話パネルの既存の帽子への重なりも維持している。
+
+## Pixelの確認
+
+同じ街QA ID `com.mofumachi.merge.qa.townlife` をPixel `99RAY1BELH` へ**install-r**で更新する。アンインストール／Save消去／初期化はしない。画面が起動するまでUnity SurfaceViewを待ち、端末でノアを選択して街が表示されたらPowerShellでEnterを押す。
+
+現方式を10分、改善方式を10分、同じ明るさ・電源条件・場所・経路で試す。開始温度が大きく異なる場合は冷ましてから次を開始する。左右・前後・停止・タップ・モモとの会話、噴水の手前／奥、木・ベンチ・花壇・建物の近くでの前後関係を含める。各回のFPS測定が終わると、別の20秒録画を開始するEnter待ちになる。録画中に静止→歩行→停止→方向転換→会話を見せる。エンコーダは性能測定区間では動かない。
+
+各回の最後に、カクつき `none / observed / unknown`、タップ応答 `responsive / delayed / unknown`、熱の印象 `similar / hotter / unknown` を入力する。タップ応答は実操作の評価で、ミリ秒の計測値にはしない。
+
+保存する証拠：Unity SurfaceViewの実present時刻と平均FPS／p95間隔、PSS、バッテリー温度開始／終了とthermal原文、クラッシュバッファ／時刻範囲／PID、実機PNGと別撮りMP4、手動評価、インストールAPKの実SHA。取得できない値は未計測のままにする。バッテリー温度をCPU温度と呼ばず、クラッシュバッファにないことだけで重大クラッシュ皆無とも断定しない。
+
+一括 `-Pixel3a` は終了／エラー後に現方式のAPKへinstall-rで戻す。改善方式を採用する操作ではない。復帰失敗はPowerShellのエラーとして残り、復帰成功を推測しない。保存は保持する。
+
+## 提出するファイル
+
+コンソールに出る今回の `Builds\Diagnostics\noah-final-rig-日時-ID-*.zip` **全パート**と、同じrun内の `pixel-current-*.zip`／`pixel-rig-*.zip` を共有する。APK本体を無理にZIPへ詰めない。画像原本・実測値を受領後に、静止差、向き、接地、原画の印象、負荷を分けて判定する。小さい差なら不合格で方式終了。合格前の6名展開・Merge・mainへ進まない。
+
+ビルド失敗時は今回runの `trial-build.log` も必要。全件QAを再実行せず、同じrunの証拠で原因を特定する。クラウド側にWindowsのUSB接続やAndroidビルド環境はないため、実機成功を代理で断言しない。

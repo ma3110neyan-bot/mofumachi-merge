@@ -1,5 +1,5 @@
 # Read-only proof validator. Header/hash checks are not a visual review or full decode.
-function Assert-NoahReprototypeEvidence([string]$Directory,[string]$Revision,[string]$Fingerprint,[string]$AtlasSha) {
+function Assert-NoahReprototypeEvidence([string]$Directory,[string]$Revision,[string]$Fingerprint,[string]$AtlasSha,[switch]$FinalRig) {
     $R=Get-Content -LiteralPath (Join-Path $Directory 'noah-reprototype.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     function Num($V){if($null -eq $V -or $V -isnot [ValueType] -or $V -is [bool] -or [double]::IsNaN([double]$V) -or [double]::IsInfinity([double]$V)){throw 'Missing finite proof number.'};return [double]$V}
     function TrueFlags($V,[string[]]$Keys){foreach($K in $Keys){if($V.$K -isnot [bool] -or -not $V.$K){throw "Missing Noah invariant: $K"}}}
@@ -15,18 +15,27 @@ function Assert-NoahReprototypeEvidence([string]$Directory,[string]$Revision,[st
             if($IW -ne $W -or $IH -ne $H){throw 'Wrong PNG dimensions.'}
         }
     }
-    if($R.noah_reprototype_version -ne 2 -or $R.kind -ne 'noah-depth-focus-comparison' -or $R.before -ne 'reconstructed current22 Noah renderer at identical clocks; shadow-only pair labeled separately' -or $R.baseline_source_revision -ne '22f2831d834a4be380c69692f8dfbdb2cf912181' -or $R.after -ne 'current product code'){throw 'Wrong current rejected-candidate comparison.'}
+    $Version=if($FinalRig){3}else{2};$Tag=if($FinalRig){'currentf451'}else{'current22'}
+    $Kind=if($FinalRig){'noah-final-rig-comparison'}else{'noah-depth-focus-comparison'}
+    $Baseline=if($FinalRig){'f45106840405e0f2ff27296efa12d6c1255c1db9'}else{'22f2831d834a4be380c69692f8dfbdb2cf912181'}
+    $After=if($FinalRig){'opt-in experimental Noah rig code'}else{'current product code'}
+    if($R.noah_reprototype_version -ne $Version -or $R.kind -ne $Kind -or $R.before -ne "reconstructed $Tag Noah renderer at identical clocks; shadow-only pair labeled separately" -or $R.baseline_source_revision -ne $Baseline -or $R.after -ne $After){throw 'Wrong current rejected-candidate comparison.'}
     if($Revision -notmatch '^[a-f0-9]{40}$' -or $Fingerprint -notmatch '^[a-f0-9]{64}$' -or $AtlasSha -notmatch '^[a-f0-9]{64}$' -or $R.source_revision -ne $Revision -or $R.product_fingerprint -ne $Fingerprint -or $R.original_atlas_sha256 -ne $AtlasSha){throw 'Noah proof source/atlas mismatch.'}
     TrueFlags $R @('native_unity')
     TrueFlags $R @('capture_clip_verified','current_before_branch_verified')
     if((Num $R.capture_canvas_distance) -ne 30 -or [Math]::Abs((Num $R.capture_near_clip)-.1) -gt .000001 -or (Num $R.capture_far_clip) -ne 100){throw 'Wrong portrait depth clearance for relief.'}
     foreach($K in @('pixel_verified','adopted','navigation_changed','teleport_rescue')){if($R.$K -isnot [bool] -or $R.$K){throw 'Native proof cannot claim device/adoption/navigation changes.'}}
     if(-not(Test-Path -LiteralPath (Join-Path $Directory 'noah-reprototype.html') -PathType Leaf)){throw 'Missing Noah browser review.'}
-    $Pairs=@($R.noah_pairs);if($Pairs.Count -ne 9){throw 'Need eight body-depth pairs and one shadow-only pair.'}
-    foreach($Mode in @('idle','walk','stop','turn','talk','reaction','forward','back','ground-shadow')){
+    $Modes=@('idle','walk','stop','turn','talk','reaction','forward','back','ground-shadow');if($FinalRig){$Modes+=@('static-left','static-right','static-away','static-toward')}
+    $Pairs=@($R.noah_pairs);if($Pairs.Count -ne $Modes.Count){throw 'Incomplete body,shadow or held-heading pairs.'}
+    foreach($Mode in $Modes){
         $Rows=@($Pairs | Where-Object {$_.mode -eq $Mode});if($Rows.Count -ne 1){throw 'Missing/repeated Noah state.'};$P=$Rows[0]
         if($P.id -ne "38-noah-$Mode" -or (Num $P.changed_pixels) -lt 1 -or (Num $P.outside_allowed_pixels) -ne 0){throw 'Noah pair invisible or outside its unchanged scope.'}
-        if($Mode -eq 'ground-shadow'){if($P.comparison_kind -ne 'current22-shadow-only-current-body'){throw 'Wrong shadow-only baseline.'};TrueFlags $P @('body_unchanged_for_shadow')}elseif($P.comparison_kind -ne 'current22-whole-noah'){throw 'Body pairs must compare current22 with focus.'}
+        if($FinalRig -and $Mode.StartsWith('static-')){
+            TrueFlags $P @('display_heading_only');$HX=if($Mode -eq 'static-left'){-1}elseif($Mode -eq 'static-right'){1}else{0};$HY=if($Mode -eq 'static-away'){1}elseif($Mode -eq 'static-toward'){-1}else{0}
+            if((Num $P.display_heading_x) -ne $HX -or (Num $P.display_heading_y) -ne $HY){throw 'Held heading comparison is mislabeled.'}
+        }
+        if($Mode -eq 'ground-shadow'){if($P.comparison_kind -ne "$Tag-shadow-only-current-body"){throw 'Wrong shadow-only baseline.'};TrueFlags $P @('body_unchanged_for_shadow')}elseif($P.comparison_kind -ne "$Tag-whole-noah"){throw 'Body pairs must compare the exact declared Before with candidate.'}
         TrueFlags $P @('frame_unchanged','actors_unchanged','camera_unchanged','water_clock_unchanged','water_phase_unchanged','state_unchanged','store_writes_unchanged','world_model_unchanged','other_five_unchanged')
         foreach($K in @('allowed_x','allowed_y','allowed_width','allowed_height')){if((Num $P.$K) -lt 0 -or (Num $P.$K) -ne [Math]::Floor((Num $P.$K))){throw 'Invalid actor pixel bounds.'}}
         if($P.allowed_width -lt 1 -or $P.allowed_height -lt 1 -or $P.allowed_x+$P.allowed_width -gt 720 -or $P.allowed_y+$P.allowed_height -gt 1280){throw 'Actor bounds outside portrait.'}

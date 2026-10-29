@@ -8,9 +8,10 @@ function Get-NoahReprototypeArguments([string]$Repository,[string]$Directory,[st
     $A[[Array]::IndexOf($A,'-testFilter')+1]='Mofumachi.Tests.ExperienceCaptureTests.NoahReprototypeContinuousSequencePreservesArtAndSavedState'
     return $A
 }
-function Write-NoahReprototypeArchives([string]$Directory,[long]$MaxPartBytes=24MB) {
+function Write-NoahReprototypeArchives([string]$Directory,[long]$MaxPartBytes=24MB,[string[]]$ExtraNames=@()) {
     if($MaxPartBytes -le 0){throw 'Positive archive budget required.'}
-    $Files=@(foreach($Name in @('source-info.json','playmode.xml','playmode.log')){$P=Join-Path $Directory $Name;if(Test-Path -LiteralPath $P -PathType Leaf){Get-Item -LiteralPath $P}})
+    foreach($Name in $ExtraNames){if($Name -notmatch '^[A-Za-z0-9][A-Za-z0-9._-]*$' -or $Name.EndsWith('.apk')){throw 'Extra review records must be local named metadata/logs, not APKs or external paths.'}}
+    $Files=@(foreach($Name in (@('source-info.json','playmode.xml','playmode.log')+$ExtraNames)){$P=Join-Path $Directory $Name;if(Test-Path -LiteralPath $P -PathType Leaf){Get-Item -LiteralPath $P}})
     $Shots=Join-Path $Directory 'screenshots/noah-reprototype';if(Test-Path -LiteralPath $Shots){$Files+=@(Get-ChildItem -LiteralPath $Shots -Recurse -File | Sort-Object FullName)}
     if($Files.Count -eq 0 -or @($Files.Name | Select-Object -Unique).Count -ne $Files.Count){throw 'Empty or colliding diagnostic names.'}
     $Batch=New-Object 'System.Collections.Generic.List[string]';$Bytes=0L;$Part=1

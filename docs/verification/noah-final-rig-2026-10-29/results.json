@@ -1,0 +1,64 @@
+{
+  "base_commit": "9fbb684769e15bd5d7cf5a47c99897b77150389b",
+  "scope": "Noah final weighted-rig opt-in source verification only",
+  "related_cpu_tests": {
+    "total": 31,
+    "passed": 31,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "new_cpu_tests": 6,
+  "whole_editmode_or_playmode_run": false,
+  "unity_api_compiles": {
+    "presentation": "0 warnings/errors",
+    "playmode": "0 warnings/errors",
+    "editor": "0 warnings/errors",
+    "actual_unity_execution": false
+  },
+  "powershell_checks": [
+    "protocol2 and protocol3 positive fixtures",
+    "28 proof rejection mutations",
+    "one-method exact argument and launcher",
+    "raw24MiB part budget, metadata inclusion and APK exclusion",
+    "trial input tampering and adoption rejection",
+    "APK hash/mode/package and same-source pair rejection",
+    "running renderer mode proof and stale/wrong/missing rejection",
+    "delayed/missing Unity SurfaceView"
+  ],
+  "tdd_observed": {
+    "rig_api_absent_red": true,
+    "native_switch_api_absent_red": true,
+    "old_protocol_rejects_v3_red": true,
+    "neck_tail_foot_fold_red": true,
+    "inherited_root_fold_red": true,
+    "broad_shadow_coverage_red": true,
+    "final_related_cpu_green": true
+  },
+  "current_bindings": 24,
+  "extra_trial_input_bindings": 2,
+  "original_frozen_inputs": 354,
+  "release_frozen_inputs": 502,
+  "accepted_north_inputs": 20,
+  "candidate_render_digest": "bc4df123b11a3781a91a0605725097b0c69b868b450151e3a36860a20ff51a64",
+  "historical_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "current_f451_pure_renderer_unchanged": true,
+  "normal_product_default": "current-f451",
+  "native_diagnostic_verified": false,
+  "new_native_images_received": false,
+  "qa_apk_generated": false,
+  "experimental_apk_pair_generated": false,
+  "pixel_verified": false,
+  "pixel_metrics": {
+    "fps": null,
+    "stutter": null,
+    "heat": null,
+    "tap_latency_ms": null,
+    "memory": null,
+    "crashes": null
+  },
+  "adopted": false,
+  "six_character_rollout_authorized": false,
+  "source_review": "pending one fresh reviewer",
+  "cpu_study_note": "Internal software raster only, not Unity or required Before/After evidence; cannot establish obvious dimensionality or device load."
+}

@@ -1,0 +1,6 @@
+Noah-only native identities and continuous sequence validated; visual/Pixel/user acceptance remain pending.
+Exception: /workspace/runtime/noah-final-rig-oct29/old-proof-gate.ps1:18
+Line |
+  18 |  …  product code'){throw 'Wrong current rejected-candidate comparison.'}
+     |                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Wrong current rejected-candidate comparison.

@@ -1,0 +1,9 @@
+Mofumachi.Visual.Tests.NoahFinalRigTests.GridNeverFoldsAndInputsRemainFinite Failed
+  Expected: less than 0
+  But was:  3.65007973f
+
+Mofumachi.Visual.Tests.NoahFinalRigTests.StaticDepthIsProjectedIntoXYEvenWithoutCanvasPerspective Failed
+  Expected: greater than 3
+  But was:  2.38418579E-07f
+
+NUnit in-process: total=5, passed=3, failed=2, skipped=0, inconclusive=0, duration=0.057s

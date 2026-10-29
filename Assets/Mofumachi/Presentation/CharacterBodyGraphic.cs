@@ -14,6 +14,9 @@ namespace Mofumachi.Presentation
         private float foot,wave,facing;private bool blink;
         private bool noahTownTrial,noahReprototype=true;private Noah25DTrialPose noahPose;
         private bool noahDepthFocus=true;private NoahDepthFocusPose depthPose;
+        private bool noahFinalRig;private NoahFinalRigPose rigPose;
+        internal void SetNoahFinalRig(bool enabled){if(noahFinalRig==enabled)return;noahFinalRig=enabled;SetVerticesDirty();}
+        internal void PoseNoahFinalRig(NoahFinalRigPose pose,bool eyesClosed){rigPose=pose;blink=eyesClosed;SetVerticesDirty();}
         private bool DepthFocus=>noahTownTrial&&noahReprototype&&noahDepthFocus;
         internal void SetNoahDepthFocus(bool enabled){if(noahDepthFocus==enabled)return;noahDepthFocus=enabled;SetVerticesDirty();}
         internal void PoseNoahDepthFocus(NoahDepthFocusPose pose,bool eyesClosed)
@@ -101,6 +104,11 @@ namespace Mofumachi.Presentation
                 int n=vh.currentVertCount;
                 void Vertex(float u,float v)
                 {
+                    if(DepthFocus&&noahFinalRig)
+                    {
+                        var point=TownNoahFinalRig.Vertex(u,v,size.x,size.y,rigPose);
+                        vh.AddVert(new Vector3(point.X,target.yMin+point.Y,point.Z),new Color(point.Light,point.Light,point.Light,color.a),new Vector2(uv.x+u*uv.width+eyes.X,uv.y+v*uv.height+eyes.Y));return;
+                    }
                     if(DepthFocus)
                     {
                         var point=TownNoahDepthFocus.Vertex(u,v,size.x,size.y,depthPose);

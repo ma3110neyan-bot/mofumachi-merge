@@ -23,6 +23,17 @@ namespace Mofumachi.Presentation
         public bool NoahReprototypeEnabled=>NoahTrialEnabled&&noahReprototypeRequested;
         private bool noahDepthFocusRequested=true;
         public bool NoahDepthFocusEnabled=>NoahReprototypeEnabled&&noahDepthFocusRequested;
+#if MOFUMACHI_NOAH_FINAL_RIG
+        private bool noahFinalRigRequested=true;
+#else
+        private bool noahFinalRigRequested=false;
+#endif
+        public bool NoahFinalRigEnabled=>NoahDepthFocusEnabled&&TownNoahFinalRig.IsEnabled(CharacterId,noahFinalRigRequested);
+        public void SetNoahFinalRigEnabled(bool enabled)
+        {
+            bool previous=NoahFinalRigEnabled;noahFinalRigRequested=enabled;if(previous==NoahFinalRigEnabled)return;
+            body?.SetNoahFinalRig(NoahFinalRigEnabled);if(life!=null)Render(0,0);
+        }
         public void SetNoahDepthFocusEnabled(bool enabled)
         {
             bool previous=NoahDepthFocusEnabled;noahDepthFocusRequested=enabled;if(previous==NoahDepthFocusEnabled)return;
@@ -74,6 +85,8 @@ namespace Mofumachi.Presentation
             body.SetNoahTownTrial(NoahTrialEnabled);
             body.SetNoahReprototype(NoahReprototypeEnabled);
             body.SetNoahDepthFocus(NoahDepthFocusEnabled);
+            body.SetNoahFinalRig(NoahFinalRigEnabled);
+            if(CharacterId=="noah")Debug.Log("MOFUMACHI_NOAH_TRIAL_MODE "+(NoahFinalRigEnabled?"rig":"current"));
             softShadow=CreateShadow("Town actor soft shadow",new Rect(.12f,-.06f,.76f,.12f),.075f);
             contactShadow=CreateShadow("Town actor contact shadow",new Rect(.27f,-.032f,.46f,.064f),.19f);
             softShadow.transform.SetAsFirstSibling();contactShadow.transform.SetSiblingIndex(1);
@@ -213,10 +226,19 @@ namespace Mofumachi.Presentation
             float scale=viewScale*DepthScale;
             if(NoahTrialEnabled)
             {
+                body.SetNoahFinalRig(NoahFinalRigEnabled);
                 var trial=NoahReprototypeEnabled?TownNoah25DTrial.Sample(stride,amplitude,facing,IsResting?1:0,breath,reactionRemaining,surprised,moving):TownNoah25DTrial.PreviousSample(stride,amplitude,facing,IsResting?1:0,breath,reactionRemaining,surprised,moving);
                 float sx=scale*(1-trial.Breath*.35f),sy=scale*(1+trial.Breath);
                 if(NoahDepthFocusEnabled)
                 {
+                    if(NoahFinalRigEnabled)
+                    {
+                        var rig=TownNoahFinalRig.Pose(trial,noahHeadFacing,noahForward);
+                        var rigGround=TownNoahFinalRig.Support(body.NoahArtSize.x,body.NoahArtSize.y,rig);
+                        VisualRoot.anchoredPosition=new Vector2(rigGround.X*sx,rigGround.Y*sy);
+                        VisualRoot.localScale=new Vector3(sx,sy,scale);VisualRoot.localRotation=Quaternion.identity;
+                        body.PoseNoahFinalRig(rig,TownCharacterMotion.Blink(breath,resident)||TownNoah25DTrial.SmilingEyes(reactionRemaining));UpdateShadows(trial.Hop,scale);return;
+                    }
                     var focus=TownNoahDepthFocus.Pose(trial,stride,amplitude,noahHeadFacing,noahForward,reactionRemaining);
                     var planted=TownNoahDepthFocus.Support(body.NoahArtSize.x,body.NoahArtSize.y,focus,sx,sy,scale);
                     VisualRoot.anchoredPosition=new Vector2(planted.X,planted.Y);VisualRoot.localScale=new Vector3(sx,sy,scale);
@@ -243,7 +265,7 @@ namespace Mofumachi.Presentation
         {
             if(softShadow==null||contactShadow==null)return;height=Mathf.Clamp(height,0,12);
             softShadow.enabled=contactShadow.enabled=!NoahReprototypeEnabled;
-            if(noahShadow!=null){noahShadow.enabled=NoahReprototypeEnabled;noahShadow.ConfigureGrounding(NoahDepthFocusEnabled);noahShadow.rectTransform.localScale=Vector3.one*scale;}
+            if(noahShadow!=null){noahShadow.enabled=NoahReprototypeEnabled;if(NoahFinalRigEnabled)noahShadow.ConfigureFinalRig();else noahShadow.ConfigureGrounding(NoahDepthFocusEnabled);noahShadow.rectTransform.localScale=Vector3.one*scale;}
             if(NoahTrialEnabled)
             {
                 // Same two grounded graphics; do not lift the shadow with the
@@ -284,10 +306,17 @@ namespace Mofumachi.Presentation
     [RequireComponent(typeof(CanvasRenderer))]
     internal sealed class NoahGroundShadowGraphic : UnityEngine.UI.MaskableGraphic
     {
-        private bool configured,depthFocus;
+        private bool configured,depthFocus,finalRig;
         internal void ConfigureGrounding(bool focus)
         {
-            if(configured&&depthFocus==focus)return;configured=true;depthFocus=focus;var p=TownNoahDepthFocus.Grounding(focus);
+            if(configured&&depthFocus==focus&&!finalRig)return;configured=true;depthFocus=focus;finalRig=false;ApplyGrounding(TownNoahDepthFocus.Grounding(focus));
+        }
+        internal void ConfigureFinalRig()
+        {
+            if(configured&&finalRig)return;configured=true;finalRig=true;ApplyGrounding(TownNoahFinalRig.Grounding);
+        }
+        private void ApplyGrounding(NoahGroundingProfile p)
+        {
             rectTransform.anchorMin=new Vector2(p.X,p.Y);rectTransform.anchorMax=new Vector2(p.X+p.Width,p.Y+p.Height);rectTransform.offsetMin=rectTransform.offsetMax=Vector2.zero;
             color=new Color(.18f,.14f,.20f,p.Alpha);SetVerticesDirty();
         }
@@ -299,7 +328,7 @@ namespace Mofumachi.Presentation
             const int sectors=24;vh.AddVert(r.center,color,Vector2.zero);
             for(int ring=0;ring<radii.Length;ring++)for(int i=0;i<sectors;i++)
             {
-                float angle=i*(Mathf.PI*2/sectors);var tint=color;tint.a*=depthFocus?TownNoahDepthFocus.GroundOpacity(radii[ring],true):opacity[ring];
+                float angle=i*(Mathf.PI*2/sectors);var tint=color;tint.a*=finalRig?TownNoahFinalRig.GroundOpacity(radii[ring]):depthFocus?TownNoahDepthFocus.GroundOpacity(radii[ring],true):opacity[ring];
                 vh.AddVert(new Vector2(r.center.x+Mathf.Cos(angle)*r.width*.5f*radii[ring],r.center.y+Mathf.Sin(angle)*r.height*.5f*radii[ring]),tint,Vector2.zero);
             }
             for(int i=0;i<sectors;i++)

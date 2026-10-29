@@ -189,7 +189,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "north_link_noah_trial_implemented_native_unity_and_pixel_pending",
+  "current_stage": "noah_final_rig_comparison_implemented_native_pixel_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -709,7 +709,7 @@
     "native_images_verified": 124,
     "native_review": "References/Review/curved-boundary-2026-10-25-candidate/native-review.json"
   },
-  "base_polish": "References/VisualLock/noah-depth-focus-candidate-2026-10-29.json",
+  "base_polish": "References/VisualLock/noah-final-rig-candidate-2026-10-29.json",
   "previous_qa_build_report": {
     "run": "20261025-073237-f8fd542b",
     "status": "console_success_reported",
@@ -1016,5 +1016,21 @@
       "inconclusive": 0
     },
     "latest_native_diagnostic_images": 251
+  },
+  "noah_final_rig_pass": {
+    "trial_only": true,
+    "normal_product_default": "current-f451068",
+    "native_unity_verified": false,
+    "native_diagnostic_verified": false,
+    "native_visual_cleared": false,
+    "qa_apk_generated": false,
+    "experimental_apk_pair_generated": false,
+    "pixel_verified": false,
+    "adopted": false,
+    "six_character_rollout_authorized": false,
+    "native_visual_status": "final_rig_implemented_pending_native_and_pixel_comparison",
+    "representative": "noah",
+    "candidate_record": "References/VisualLock/noah-final-rig-candidate-2026-10-29.json",
+    "implemented": true
   }
 }

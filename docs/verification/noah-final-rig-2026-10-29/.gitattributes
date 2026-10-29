@@ -1,0 +1,2 @@
+# Raw verification logs retain their original whitespace.
+*.log binary

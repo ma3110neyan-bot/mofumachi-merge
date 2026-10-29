@@ -1,6 +1,8 @@
+param([string]$ProofValidator='')
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
 . (Join-Path $PSScriptRoot '../capture-noah-reprototype.ps1')
+if($ProofValidator){. $ProofValidator}
 function Reject([scriptblock]$Action){$Rejected=$false;try{& $Action}catch{$Rejected=$true};if(-not $Rejected){throw 'Invalid Noah proof accepted.'}}
 $Temporary=Join-Path ([IO.Path]::GetTempPath()) ('mofu-noah-reprototype-'+[guid]::NewGuid())
 try {
@@ -94,7 +96,33 @@ try {
         {$script:Bad.noah_pairs[8].body_unchanged_for_shadow=$false},
         {$script:Bad.current_before_branch_verified=$false}
     )){$script:Bad=$Original | ConvertFrom-Json;& $Mutate;SaveProof $script:Bad;Reject {Assert-NoahReprototypeEvidence $Dir ('a'*40) ('b'*64) ('c'*64)}}
-    Write-Host 'Noah reprototype helper: exact single method, bounded raw archive, unrelated work excluded; synthetic fixtures only.'
+    $Final=$Original | ConvertFrom-Json;$Final.noah_reprototype_version=3;$Final.kind='noah-final-rig-comparison'
+    $Final.before='reconstructed currentf451 Noah renderer at identical clocks; shadow-only pair labeled separately';$Final.baseline_source_revision='f45106840405e0f2ff27296efa12d6c1255c1db9';$Final.after='opt-in experimental Noah rig code'
+    foreach($P in $Final.noah_pairs){$P.comparison_kind=$P.comparison_kind.Replace('current22','currentf451')}
+    foreach($Mode in @('static-left','static-right','static-away','static-toward')){
+        $P=$Final.noah_pairs[0] | ConvertTo-Json -Depth 20 | ConvertFrom-Json;$P.id="38-noah-$Mode";$P.mode=$Mode
+        $P.before=ProofImage "38-noah-$Mode-before-reconstructed.png" 720 1280;$P.after=ProofImage "38-noah-$Mode-after.png" 720 1280;$P.comparison=ProofImage "38-noah-$Mode-before-left-after-right.jpg" 1440 1280 $true;$P.name_control.natural_before_image=$P.before
+        $P | Add-Member -NotePropertyName display_heading_only -NotePropertyValue $true
+        $P | Add-Member -NotePropertyName display_heading_x -NotePropertyValue $(if($Mode -eq 'static-left'){-1}elseif($Mode -eq 'static-right'){1}else{0})
+        $P | Add-Member -NotePropertyName display_heading_y -NotePropertyValue $(if($Mode -eq 'static-away'){1}elseif($Mode -eq 'static-toward'){-1}else{0})
+        $Final.noah_pairs+=@($P)
+    }
+    SaveProof $Final;Assert-NoahReprototypeEvidence $Dir ('a'*40) ('b'*64) ('c'*64) -FinalRig
+    Reject {Assert-NoahReprototypeEvidence $Dir ('a'*40) ('b'*64) ('c'*64)}
+    $FinalJson=$Final | ConvertTo-Json -Depth 20
+    foreach($Mutation in @(
+        {$script:Bad.baseline_source_revision='22f2831d834a4be380c69692f8dfbdb2cf912181'},
+        {$script:Bad.noah_pairs=@($script:Bad.noah_pairs | Where-Object {$_.mode -ne 'static-away'})},
+        {$script:Bad.noah_pairs[9].outside_allowed_pixels=1},
+        {$script:Bad.noah_pairs[9].comparison_kind='current22-whole-noah'},
+        {$script:Bad.noah_pairs[8].body_unchanged_for_shadow=$false},
+        {$script:Bad.current_before_branch_verified=$false},
+        {$script:Bad.pixel_verified=$true},
+        {$script:Bad.after='current product code'},
+        {$script:Bad.noah_pairs[9].display_heading_x=1},
+        {$script:Bad.noah_pairs[11].display_heading_only=$false}
+    )){$script:Bad=$FinalJson | ConvertFrom-Json;& $Mutation;SaveProof $script:Bad;Reject {Assert-NoahReprototypeEvidence $Dir ('a'*40) ('b'*64) ('c'*64) -FinalRig}}
+    Write-Host 'Noah reprototype protocol2 and final-rig protocol3: exact single method, bounded archive, positive proofs and28 rejection mutations; synthetic fixtures only.'
 } finally {
     if(Test-Path -LiteralPath $Temporary){Remove-Item -LiteralPath $Temporary -Recurse -Force}
     foreach($Part in @(Get-ChildItem -Path ($Temporary+'-*.zip') -ErrorAction SilentlyContinue)){Remove-Item -LiteralPath $Part.FullName -Force}

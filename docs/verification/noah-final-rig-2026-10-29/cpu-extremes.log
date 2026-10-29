@@ -1,0 +1,6 @@
+Mofumachi.Visual.Tests.NoahFinalRigTests.GridNeverFoldsAndInputsRemainFinite Failed
+  look=1,head=-1,forward=-1,step=-1,hand=1,u=0.06,v=0
+  Expected: less than 0
+  But was:  0.115597486f
+
+NUnit in-process: total=5, passed=4, failed=1, skipped=0, inconclusive=0, duration=0.212s

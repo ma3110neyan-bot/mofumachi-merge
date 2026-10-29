@@ -270,4 +270,95 @@ namespace Mofumachi.Presentation
         private static float S(float x){x=C(x,0,1);return x*x*(3-2*x);}
         private static float C(float x,float min,float max)=>float.IsFinite(x)?Math.Max(min,Math.Min(max,x)):0;
     }
+
+    // Final, opt-in weighted 2D rig. Each bone is an affine transform of the
+    // SAME formal atlas, not new side/back artwork or a 3D character model.
+    // Depth is explicitly projected into XY, so an orthographic UI camera does
+    // not silently discard the separation as it did with a shallow Z relief.
+    internal readonly struct NoahRigBone
+    {
+        private readonly float xx,xy,yx,yy,tx,ty,depth,light;
+        internal NoahRigBone(float u,float v,float yaw,float roll,float z,float shiftY,float shade)
+        {
+            double y=yaw*Math.PI/180,r=roll*Math.PI/180;
+            xx=(float)(Math.Cos(y)*Math.Cos(r));xy=(float)-Math.Sin(r);
+            yx=(float)(Math.Cos(y)*Math.Sin(r));yy=(float)Math.Cos(r);
+            float px=u-.419f;
+            tx=px-xx*px-xy*v;ty=v-yx*px-yy*v;
+            // Depth uses art-height units, independent of the actor's size.
+            tx-=z*(.36f+(float)Math.Sin(y)*.7f);ty+=z*.08f+shiftY;depth=z;light=shade;
+        }
+        internal NoahDepthVertex Apply(float x,float y,float width,float height)
+            =>new NoahDepthVertex((xx*x+xy*y+tx)*width,(yx*x+yy*y+ty)*height,depth*height,light);
+    }
+    public readonly struct NoahFinalRigPose
+    {
+        internal readonly NoahRigBone Head,Body,Tail,LeftArm,RightArm,LeftFoot,RightFoot;
+        internal readonly float RootCos,RootSin;
+        internal readonly bool Prepared;
+        internal NoahFinalRigPose(Noah25DTrialPose m,float head,float forward)
+        {
+            Prepared=true;
+            // All seven bones inherit ONE root tilt. Rotating each bind pivot
+            // independently adds incompatible translations across skin seams.
+            double root=m.Lean*.3*Math.PI/180;RootCos=(float)Math.Cos(root);RootSin=(float)Math.Sin(root);
+            float lean=0,tilt=m.Foot*.55f;
+            Head=new NoahRigBone(.36f,.50f,12+head*15,lean+m.Hand*.65f,-.18f,-forward*.012f,1);
+            Body=new NoahRigBone(.40f,.31f,28+m.Look*12,lean,-.05f,0,.91f);
+            Tail=new NoahRigBone(.73f,.27f,3+m.Look*3,lean*.4f,.025f,0,.89f);
+            LeftArm=new NoahRigBone(.22f,.38f,15+m.Look*10,lean+m.Hand*7,-.10f-m.Foot*.015f,0,.96f);
+            RightArm=new NoahRigBone(.53f,.36f,22+m.Look*10,lean-m.Hand*4,-.08f+m.Foot*.015f,0,.93f);
+            LeftFoot=new NoahRigBone(.303f,.10f,18+m.Look*10,lean+tilt,-m.Foot*.018f,Math.Max(0,-m.Foot)*.024f,1);
+            RightFoot=new NoahRigBone(.535f,.10f,18+m.Look*10,lean-tilt,m.Foot*.018f,Math.Max(0,m.Foot)*.024f,1);
+        }
+    }
+    public static class TownNoahFinalRig
+    {
+        public static bool IsEnabled(string id,bool requested)=>requested&&id=="noah";
+        public static NoahFinalRigPose Pose(Noah25DTrialPose motion,float headFacing,float forward)
+        {
+            var m=new Noah25DTrialPose(C(motion.Hop,0,5),C(motion.Lean,-4.2f,4.2f),C(motion.Foot,-1,1),C(motion.Breath,-.01f,.01f),C(motion.Hand,-1,1),C(motion.Look,-1,1),C(motion.Travel,-2,2));
+            return new NoahFinalRigPose(m,C(headFacing,-1,1),C(forward,-1,1));
+        }
+        public static float HeadWeight(float u,float v)
+        {
+            float upper=S(u/.16f)*(1-S((u-.65f)/.19f))*S((v-.42f)/.11f);
+            float chin=S((u-.18f)/.12f)*(1-S((u-.625f)/.215f))*S((v-.36f)/.08f);
+            return Math.Max(upper,chin);
+        }
+        public static NoahDepthVertex Vertex(float u,float v,float width,float height,NoahFinalRigPose pose)
+        {
+            if(!pose.Prepared)pose=Pose(default,0,0);
+            u=C(u,0,1);v=C(v,0,1);width=C(width,0,512);height=C(height,0,512);
+            float x=u-.419f,head=HeadWeight(u,v),remaining=1-head;
+            float tail=remaining*S((u-.625f)/.375f);remaining-=tail;
+            float feet=remaining*(1-S(v/.18f))*S(u/.18f)*(1-S((u-.60f)/.18f));remaining-=feet;
+            float leftFoot=feet*(1-S((u-.37f)/.10f)),rightFoot=feet-leftFoot;
+            float leftArm=remaining*Island(u,v,.16f,.43f,.15f,.15f)*(1-S((v-.44f)/.05f));remaining-=leftArm;
+            float rightArm=remaining*Island(u,v,.50f,.33f,.10f,.10f);remaining-=rightArm;
+            var h=pose.Head.Apply(x,v,width,height);var b=pose.Body.Apply(x,v,width,height);var t=pose.Tail.Apply(x,v,width,height);
+            var la=pose.LeftArm.Apply(x,v,width,height);var ra=pose.RightArm.Apply(x,v,width,height);var lf=pose.LeftFoot.Apply(x,v,width,height);var rf=pose.RightFoot.Apply(x,v,width,height);
+            float px=h.X*head+b.X*remaining+t.X*tail+la.X*leftArm+ra.X*rightArm+lf.X*leftFoot+rf.X*rightFoot;
+            float py=h.Y*head+b.Y*remaining+t.Y*tail+la.Y*leftArm+ra.Y*rightArm+lf.Y*leftFoot+rf.Y*rightFoot;
+            return new NoahDepthVertex(px*pose.RootCos-py*pose.RootSin,px*pose.RootSin+py*pose.RootCos,
+                h.Z*head+b.Z*remaining+t.Z*tail+la.Z*leftArm+ra.Z*rightArm+lf.Z*leftFoot+rf.Z*rightFoot,
+                h.Light*head+b.Light*remaining+t.Light*tail+la.Light*leftArm+ra.Light*rightArm+lf.Light*leftFoot+rf.Light*rightFoot);
+        }
+        public static StreetCharacterOffset Support(float width,float height,NoahFinalRigPose pose)
+        {
+            var a=Vertex(.303f,0,width,height,pose);var b=Vertex(.535f,0,width,height,pose);
+            return new StreetCharacterOffset(0,-Math.Min(a.Y,b.Y));
+        }
+        public static NoahGroundingProfile Grounding=>new NoahGroundingProfile(.01f,-.04f,.98f,.16f,.54f);
+        public static float GroundOpacity(float radius)
+        {
+            radius=C(Math.Abs(radius),0,1);
+            // Broad soft ellipse plus a compact contact core in the same mesh.
+            return .65f*(1-S(radius*radius))+.35f*(1-S(radius/.42f));
+        }
+        private static float Island(float u,float v,float x,float y,float rx,float ry)
+        {float dx=(u-x)/rx,dy=(v-y)/ry;return 1-S(dx*dx+dy*dy);}
+        private static float S(float x){x=C(x,0,1);return x*x*(3-2*x);}
+        private static float C(float x,float lo,float hi)=>float.IsFinite(x)?Math.Max(lo,Math.Min(hi,x)):0;
+    }
 }

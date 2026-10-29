@@ -1,0 +1,6 @@
+Mofumachi.Visual.Tests.NoahFinalRigTests.ContactShadowAlsoRetainsTheBroadEllipseBesideTheFeet Failed
+  A darker centre must not erase the broad grounding ellipse. Numeric coverage, not visual approval.
+  Expected: greater than 0.300471783f
+  But was:  0.0725169852f
+
+NUnit in-process: total=1, passed=0, failed=1, skipped=0, inconclusive=0, duration=0.045s

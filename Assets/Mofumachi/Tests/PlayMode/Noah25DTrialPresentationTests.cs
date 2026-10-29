@@ -32,6 +32,17 @@ namespace Mofumachi.Tests
             noah.SetNoahTrialEnabled(true);Canvas.ForceUpdateCanvases();
             Assert.That(body.canvasRenderer.GetMesh().vertexCount,Is.GreaterThan(224));
             var dimensional=body.canvasRenderer.GetMesh();
+            Assert.That(noah.NoahFinalRigEnabled,Is.False,"The final rig must not become the normal product default before adoption.");
+            var currentVertices=dimensional.vertices;var currentUv=dimensional.uv;var currentColors=dimensional.colors32;
+            var currentRoot=noah.VisualRoot.localToWorldMatrix;
+            foreach(var actor in life.Actors){actor.SetNoahFinalRigEnabled(true);Assert.That(actor.NoahFinalRigEnabled,Is.EqualTo(actor==noah));}
+            Canvas.ForceUpdateCanvases();var rig=body.canvasRenderer.GetMesh();
+            Assert.That(rig.vertexCount,Is.EqualTo(720));Assert.That(rig.uv.SequenceEqual(currentUv),Is.True,"Rig cannot change formal pixels or blink registration.");
+            Assert.That(rig.vertices.SequenceEqual(currentVertices),Is.False,"The opt-in must actually change the rendered geometry.");
+            foreach(var actor in life.Actors)actor.SetNoahFinalRigEnabled(false);
+            Canvas.ForceUpdateCanvases();var exactCurrent=body.canvasRenderer.GetMesh();
+            Assert.That(exactCurrent.vertices.SequenceEqual(currentVertices)&&exactCurrent.colors32.SequenceEqual(currentColors),Is.True,"OFF must restore f451068 at the same clock.");
+            Assert.That(noah.VisualRoot.localToWorldMatrix,Is.EqualTo(currentRoot));
             Assert.That(dimensional.vertices.Min(v=>v.z),Is.LessThan(-3));
             Assert.That(dimensional.colors32.Min(c=>c.r),Is.LessThan(237));
             Assert.That(dimensional.colors32.All(c=>c.r==c.g&&c.g==c.b&&c.a==255),Is.True,"Only neutral lighting, not recoloring or opacity loss.");

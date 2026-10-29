@@ -1,0 +1,254 @@
+{
+  "received_date_jst": "2026-10-29",
+  "run": "noah-reprototype-20261029-143238-cdb9442e",
+  "source_revision": "f45106840405e0f2ff27296efa12d6c1255c1db9",
+  "product_fingerprint": "8073840d32cf64e0fb095b6716041a4eb47b378ed5965f63c823f7da4a389749",
+  "scope": "Noah only: 8 same-instant current22 body pairs,1 separately labeled shadow-only pair,222 continuous fixed-step After crops and2 display-only fountain placements. Not a Before video/full QA/Pixel trial.",
+  "native_counts": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "method": "Mofumachi.Tests.ExperienceCaptureTests.NoahReprototypeContinuousSequencePreservesArtAndSavedState",
+  "native_capture_method_verified": true,
+  "checks": {
+    "original_files_preserved_byte_for_byte": 256,
+    "images_fully_decoded_hash_bytes_dimensions_verified": 251,
+    "png_count": 20,
+    "jpeg_count": 231,
+    "source_and_proof_identities_match": true,
+    "original_atlas_sha256": "23d14025f146c429da01b6e3a74ef803254755f8d149f9eb53516aacaa30163d",
+    "original_atlas_matches_checkout": true,
+    "strict_readonly_native_proof_gate_passed": true,
+    "current22_before_branch_verified": true,
+    "baseline_source_revision": "22f2831d834a4be380c69692f8dfbdb2cf912181",
+    "causal_pairs_independently_recomputed": [
+      {
+        "id": "38-noah-idle",
+        "changed_pixels": 10487,
+        "outside_allowed_pixels": 0,
+        "bbox_top_left": [
+          303,
+          746,
+          417,
+          902
+        ]
+      },
+      {
+        "id": "38-noah-walk",
+        "changed_pixels": 15524,
+        "outside_allowed_pixels": 0,
+        "bbox_top_left": [
+          214,
+          743,
+          340,
+          902
+        ]
+      },
+      {
+        "id": "38-noah-stop",
+        "changed_pixels": 15484,
+        "outside_allowed_pixels": 0,
+        "bbox_top_left": [
+          183,
+          744,
+          308,
+          902
+        ]
+      },
+      {
+        "id": "38-noah-turn",
+        "changed_pixels": 15167,
+        "outside_allowed_pixels": 0,
+        "bbox_top_left": [
+          193,
+          743,
+          322,
+          901
+        ]
+      },
+      {
+        "id": "38-noah-talk",
+        "changed_pixels": 12881,
+        "outside_allowed_pixels": 0,
+        "bbox_top_left": [
+          395,
+          754,
+          524,
+          882
+        ]
+      },
+      {
+        "id": "38-noah-reaction",
+        "changed_pixels": 12632,
+        "outside_allowed_pixels": 0,
+        "bbox_top_left": [
+          395,
+          754,
+          526,
+          882
+        ]
+      },
+      {
+        "id": "38-noah-forward",
+        "changed_pixels": 16107,
+        "outside_allowed_pixels": 0,
+        "bbox_top_left": [
+          395,
+          648,
+          525,
+          818
+        ]
+      },
+      {
+        "id": "38-noah-back",
+        "changed_pixels": 15735,
+        "outside_allowed_pixels": 0,
+        "bbox_top_left": [
+          395,
+          736,
+          522,
+          901
+        ]
+      },
+      {
+        "id": "38-noah-ground-shadow",
+        "changed_pixels": 1221,
+        "outside_allowed_pixels": 0,
+        "bbox_top_left": [
+          395,
+          919,
+          509,
+          935
+        ]
+      }
+    ],
+    "outside_allowed_pixels_all_pairs": 0,
+    "natural_after_retained": true,
+    "natural_name_visibility_changed_pairs": [],
+    "shadow_only_body_unchanged_in_native_mesh_assertion": true,
+    "frozen_inputs": {
+      "original_base_inputs": 354,
+      "release_inputs": 502,
+      "accepted_north_inputs": 20,
+      "current_bindings": 24,
+      "current_render_digest": "d3261a6ae1ec0f410ac155daeb93d81951a812476d03d463e4979dbd128ceda3",
+      "historical_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+      "gate_passed": true
+    }
+  },
+  "sequence": {
+    "frames": 222,
+    "unique_image_sha256": 222,
+    "first_simulated_seconds": 0.06666667014360428,
+    "last_simulated_seconds": 14.800084114074707,
+    "step_seconds": 0.03333333507180214,
+    "sample_step_count": 2,
+    "continuous_without_cut": true,
+    "actual_noah_speech_verified": true,
+    "speaker": "noah",
+    "partner": "momo",
+    "text": "こんにちは、モモ♪",
+    "head_leads_body_in_turn_verified": true,
+    "model_phases": [
+      "idle",
+      "left walk",
+      "stop",
+      "right turn and walk",
+      "settle",
+      "Noah conversation and reaction",
+      "forward-away",
+      "back-toward",
+      "depth-stop"
+    ],
+    "forward_frame": {
+      "index": 158,
+      "mode": "forward-away",
+      "elapsed_seconds": 10.600028038024902,
+      "world_x": 0.14000000059604645,
+      "world_y": -0.10766681283712387,
+      "facing": 1.0,
+      "reaction_seconds": 0.0,
+      "head_facing": 0.3500000238418579,
+      "depth_forward": 1.0,
+      "walking": true,
+      "image": {
+        "file": "38-noah-frame-158.jpg",
+        "sha256": "b34d99a3ce6056d1723e78ccef4a1f4be8807b2524ca20c013e051515222dbe6",
+        "bytes": 112774,
+        "width": 596,
+        "height": 394
+      }
+    },
+    "back_frame": {
+      "index": 195,
+      "mode": "back-toward",
+      "elapsed_seconds": 13.066727638244629,
+      "world_x": 0.14000000059604645,
+      "world_y": -0.2483331263065338,
+      "facing": 1.0,
+      "reaction_seconds": 0.0,
+      "head_facing": 0.3500000238418579,
+      "depth_forward": -1.0,
+      "walking": true,
+      "image": {
+        "file": "38-noah-frame-195.jpg",
+        "sha256": "7fd04ca213b12b5374ae535ab803458531a87627c2399436c4736b05faa4dc0e",
+        "bytes": 113238,
+        "width": 596,
+        "height": 394
+      }
+    },
+    "final_frame": {
+      "index": 221,
+      "mode": "depth-stop",
+      "elapsed_seconds": 14.800084114074707,
+      "world_x": 0.14000000059604645,
+      "world_y": -0.30000001192092896,
+      "facing": 1.0,
+      "reaction_seconds": 0.5999996662139893,
+      "head_facing": 1.0,
+      "depth_forward": 0.0,
+      "walking": false,
+      "image": {
+        "file": "38-noah-frame-221.jpg",
+        "sha256": "5fd8b432be0808edfd4168310521fc8ffeec80cb410e57c86aa357ecfac5587b",
+        "bytes": 73541,
+        "width": 596,
+        "height": 394
+      }
+    },
+    "state_unchanged": true,
+    "store_writes_unchanged": true,
+    "real_time_fps_evidence": false
+  },
+  "visual_review": {
+    "method": "Primary-agent direct inspection of all9 native paired PNG regions,2 full fountain PNGs, raw motion crops0/158/195/221 and contact sheets of all222 After samples. Analysis crops are derivatives, not new Unity renders. No real-time playback/Pixel observation claimed.",
+    "identity": "Original atlas is unchanged; no important new damage to face, eyes, clothing, hue, proportions or tail identity observed in this received scope. This is not universal pixel-perfect silhouette equivalence.",
+    "motion": "Walking, stop/settle, blink, small paw/lean reactions and actual Noah speech are visible. Head-facing lead and signed front/back motion are present in metadata. This confirms motion exists, not measured real-time smoothness.",
+    "grounding_hold": "Shadow-only pair changes1221 pixels, proving the new shadow is rendered. At ordinary town scale the ellipse/contact remains hard to read among the stone texture immediately above the name card; visibly stronger grounded presence is still insufficient. No claim that the component is missing.",
+    "depth_hold": "Shading and relative face/body displacement changed, but both still read as a mostly frontal illustration; left/right reversal and forward/away samples do not clearly communicate a body turning in depth. Under the user standard of obvious improvement without explanation, this is not a visual acceptance candidate.",
+    "greeting": "Closed-eye reaction, small head/body lean and raised paw are visible; these alone do not establish dimensionality.",
+    "existing_ui_constraint": "Conversation panel overlaps hat/ears in Before and After; this retained layout is not a newly introduced Noah regression. No frozen UI was modified.",
+    "sorting": "Declared feet-Y sibling order is correct in two placed fountain examples. Noah stands mostly to the side of fountain; direct overlap is small. These are not a continuous route or exhaustive wood/bench/building/flower occlusion proof.",
+    "other_characters_scope": "All9 paired differences outside Noah projected allowed rectangle are0. Momo is visible in the episode; not a separate visual acceptance of all other five characters or all five town areas.",
+    "status": "needs_more_grounding_and_spatial_turn_before_full_qa_candidate",
+    "ready_for_full_qa": false,
+    "user_approval_received": false,
+    "adopted": false,
+    "remaining_work": "Keep only Noah in scope; resolve readable foot contact and clearly spatial face/body/limb turning before whole QA or device handoff. Do not count a repeated successful capture as visual progress."
+  },
+  "full_editmode_or_playmode_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "pixel_metrics": {
+    "fps": null,
+    "heat": null,
+    "memory": null,
+    "tap_latency": null
+  },
+  "six_character_rollout_authorized": false,
+  "work_this_turn": "Receipt, independent hash/decode/pixel/protocol/frozen-input validation, visual review and record preservation only. No product/runtime/capture/QA script changes, whole test suite, APK build or device/save operations. Record-only updates do not require Pull/rebuild/re-capture."
+}

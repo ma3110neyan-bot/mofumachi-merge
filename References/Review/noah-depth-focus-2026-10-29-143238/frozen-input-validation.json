@@ -1,0 +1,9 @@
+{
+  "candidate_render_digest": "d3261a6ae1ec0f410ac155daeb93d81951a812476d03d463e4979dbd128ceda3",
+  "historical_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+  "candidate_bindings": 24,
+  "original_base_inputs": 354,
+  "release_inputs": 502,
+  "accepted_north_inputs": 20,
+  "gate_passed": true
+}

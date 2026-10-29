@@ -1,0 +1,11 @@
+﻿{
+    "scope":  "single-native-Noah-reprototype-not-full-QA",
+    "gitRevision":  "f45106840405e0f2ff27296efa12d6c1255c1db9",
+    "productFingerprint":  "8073840d32cf64e0fb095b6716041a4eb47b378ed5965f63c823f7da4a389749",
+    "native_test_passed":  true,
+    "source_unchanged":  true,
+    "qa_apk_generated":  false,
+    "pixel_verified":  false,
+    "adopted":  false,
+    "error":  ""
+}

@@ -1,0 +1,2 @@
+# Uploaded originals retain their exact bytes, including BOM/CRLF.
+native/** binary

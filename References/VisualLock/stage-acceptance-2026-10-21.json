@@ -993,13 +993,28 @@
     "candidate_record": "References/VisualLock/noah-depth-focus-candidate-2026-10-29.json",
     "implemented": true,
     "native_unity_verified": false,
-    "native_diagnostic_verified": false,
+    "native_diagnostic_verified": true,
     "native_visual_cleared": false,
     "qa_apk_generated": false,
     "pixel_verified": false,
     "adopted": false,
     "ready_for_full_qa": false,
     "six_character_rollout_authorized": false,
-    "native_visual_status": "depth_focus_implemented_pending_native_images"
+    "native_visual_status": "needs_more_grounding_and_spatial_turn_before_full_qa_candidate",
+    "native_scope_image_review_complete": true,
+    "native_capture_method_pass_verified": true,
+    "native_unity_verification_scope_note": "Received sourcef451068 Noah-only method1/1 is verified. Full EditMode/PlayMode,QA APK,Pixel benchmark and user adoption remain unverified; visual quality held.",
+    "latest_native_review": "References/Review/noah-depth-focus-2026-10-29-143238/native-review.json",
+    "latest_native_diagnostic_run": "noah-reprototype-20261029-143238-cdb9442e",
+    "latest_native_diagnostic_source": "f45106840405e0f2ff27296efa12d6c1255c1db9",
+    "latest_native_diagnostic_product_fingerprint": "8073840d32cf64e0fb095b6716041a4eb47b378ed5965f63c823f7da4a389749",
+    "latest_native_diagnostic_counts": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    "latest_native_diagnostic_images": 251
   }
 }

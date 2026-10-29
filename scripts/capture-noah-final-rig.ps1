@@ -9,6 +9,8 @@ function Get-NoahFinalRigArguments([string]$Repository,[string]$Directory,[strin
 function Assert-NoahFinalTrialInputs([string]$Repository) {
     $Record=Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $Repository 'References/VisualLock/noah-final-rig-candidate-2026-10-29.json') | ConvertFrom-Json
     if($Record.scope_id -ne 'town_noah_quality_2026_10_28' -or $Record.trial_only -isnot [bool] -or -not $Record.trial_only){throw 'Final trial must remain Noah-only.'}
+    $TrialStatus=$Record.PSObject.Properties['trial_discontinued']
+    if(-not $TrialStatus -or $TrialStatus.Value -isnot [bool] -or $TrialStatus.Value){throw 'Noah final rig is retired or missing its active-trial status. Keep the received evidence; do not repeat this capture or APK build.'}
     foreach($Key in @('adopted','six_character_rollout_authorized')){if($Record.$Key -isnot [bool] -or $Record.$Key){throw 'Final trial must remain unadopted with no rollout.'}}
     if(@($Record.trial_inputs).Count -ne 2){throw 'Final trial must bind its exact editor builder and meta.'}
     $Expected=@('Assets/Mofumachi/Editor/NoahFinalRigBuild.cs','Assets/Mofumachi/Editor/NoahFinalRigBuild.cs.meta')

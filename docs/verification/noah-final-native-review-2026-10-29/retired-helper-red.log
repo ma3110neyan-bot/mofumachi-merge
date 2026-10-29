@@ -1,0 +1,5 @@
+Exception: /workspace/mofumachi-merge/scripts/tests/noah-final-rig.tests.ps1:23
+Line |
+  23 |  … mentCaught){throw 'Retired or unspecified final rig was allowed to re …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Retired or unspecified final rig was allowed to reach capture/build.

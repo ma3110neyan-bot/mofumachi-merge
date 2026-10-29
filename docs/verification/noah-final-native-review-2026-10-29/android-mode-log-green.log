@@ -1,0 +1,1 @@
+PASS android: actual compiled TownActor.Bind has 1 mode prefix/1 Debug.Log call sites. Static compilation proof only; not engine/device execution.

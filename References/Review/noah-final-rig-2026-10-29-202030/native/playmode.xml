@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-29 11:21:53Z" end-time="2026-10-29 11:22:13Z" duration="19.3314785">
+  <test-suite type="TestSuite" id="1287" name="もふまちメルジュ" fullname="もふまちメルジュ" runstate="Runnable" testcasecount="235" result="Failed" site="Child" start-time="2026-10-29 11:21:53Z" end-time="2026-10-29 11:22:13Z" duration="19.331479" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1568" name="Mofumachi.PlayModeTests.dll" fullname="C:/Users/User/Desktop/Mofumachi/mofumachi-merge/Library/ScriptAssemblies/Mofumachi.PlayModeTests.dll" runstate="Runnable" testcasecount="235" result="Failed" site="Child" start-time="2026-10-29 11:21:53Z" end-time="2026-10-29 11:22:13Z" duration="19.321177" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="7792" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1569" name="Mofumachi" fullname="Mofumachi" runstate="Runnable" testcasecount="235" result="Failed" site="Child" start-time="2026-10-29 11:21:53Z" end-time="2026-10-29 11:22:13Z" duration="19.318106" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1570" name="Tests" fullname="Mofumachi.Tests" runstate="Runnable" testcasecount="235" result="Failed" site="Child" start-time="2026-10-29 11:21:53Z" end-time="2026-10-29 11:22:13Z" duration="19.315680" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1333" name="ExperienceCaptureTests" fullname="Mofumachi.Tests.ExperienceCaptureTests" classname="Mofumachi.Tests.ExperienceCaptureTests" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2026-10-29 11:21:53Z" end-time="2026-10-29 11:22:13Z" duration="19.301027" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1334" name="NoahReprototypeContinuousSequencePreservesArtAndSavedState" fullname="Mofumachi.Tests.ExperienceCaptureTests.NoahReprototypeContinuousSequencePreservesArtAndSavedState" methodname="NoahReprototypeContinuousSequencePreservesArtAndSavedState" classname="Mofumachi.Tests.ExperienceCaptureTests" runstate="Runnable" seed="1405899335" result="Failed" start-time="2026-10-29 11:21:53Z" end-time="2026-10-29 11:22:13Z" duration="19.285131" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[Unhandled log message: '[Log] MOFUMACHI_NOAH_TRIAL_MODE current'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[Mofumachi.Presentation.TownActor:Bind (string,bool,Mofumachi.Core.TownMovement,Mofumachi.Core.TownNavigation) (at Assets/Mofumachi/Presentation/TownActor.cs:89)
+Mofumachi.Presentation.TownLifeView:Bind (Mofumachi.Presentation.ScreenContext,UnityEngine.UI.RawImage) (at Assets/Mofumachi/Presentation/TownLifeView.cs:39)
+Mofumachi.Presentation.TopHomeScreens:BuildHome (UnityEngine.RectTransform,Mofumachi.Presentation.ScreenContext,UnityEngine.UI.RawImage) (at Assets/Mofumachi/Presentation/TopHomeScreens.cs:42)
+Mofumachi.Presentation.UIFlowController:Render (string,bool,bool) (at Assets/Mofumachi/Presentation/UIFlowController.cs:408)
+Mofumachi.Presentation.UIFlowController:ConfirmFavorite () (at Assets/Mofumachi/Presentation/UIFlowController.cs:210)
+Mofumachi.Tests.SliceUiTestFixture/<EnterHome>d__12:MoveNext () (at Assets/Mofumachi/Tests/PlayMode/SliceUiTestFixture.cs:52)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[MOFUMACHI_NOAH_TRIAL_MODE current
+MOFUMACHI_NOAH_TRIAL_MODE current
+MOFUMACHI_NOAH_TRIAL_MODE current
+MOFUMACHI_NOAH_TRIAL_MODE current
+Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

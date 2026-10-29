@@ -86,7 +86,11 @@ namespace Mofumachi.Presentation
             body.SetNoahReprototype(NoahReprototypeEnabled);
             body.SetNoahDepthFocus(NoahDepthFocusEnabled);
             body.SetNoahFinalRig(NoahFinalRigEnabled);
+#if UNITY_ANDROID && !UNITY_EDITOR
+            // Device attribution only. Editor capture tests keep their strict
+            // unexpected-log check; no logging exception is needed there.
             if(CharacterId=="noah")Debug.Log("MOFUMACHI_NOAH_TRIAL_MODE "+(NoahFinalRigEnabled?"rig":"current"));
+#endif
             softShadow=CreateShadow("Town actor soft shadow",new Rect(.12f,-.06f,.76f,.12f),.075f);
             contactShadow=CreateShadow("Town actor contact shadow",new Rect(.27f,-.032f,.46f,.064f),.19f);
             softShadow.transform.SetAsFirstSibling();contactShadow.transform.SetSiblingIndex(1);

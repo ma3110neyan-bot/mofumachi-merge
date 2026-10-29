@@ -189,7 +189,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "noah_final_rig_comparison_implemented_native_pixel_pending",
+  "current_stage": "noah_one_atlas_method_retired_authored_rig_proposal",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -1028,9 +1028,15 @@
     "pixel_verified": false,
     "adopted": false,
     "six_character_rollout_authorized": false,
-    "native_visual_status": "final_rig_implemented_pending_native_and_pixel_comparison",
+    "native_visual_status": "rejected_one_atlas_method_retired",
     "representative": "noah",
     "candidate_record": "References/VisualLock/noah-final-rig-candidate-2026-10-29.json",
-    "implemented": true
+    "implemented": true,
+    "trial_discontinued": true,
+    "native_images_received": true,
+    "native_unity_rendering_observed": true,
+    "native_scope_image_review_complete": true,
+    "native_review": "References/Review/noah-final-rig-2026-10-29-202030/native-review.json",
+    "next_method_proposal": "docs/noah-authored-rig-proposal-2026-10-29.md"
   }
 }

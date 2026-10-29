@@ -1,0 +1,1 @@
+PASS editor: actual compiled TownActor.Bind has 0 mode prefix/0 Debug.Log call sites. Static compilation proof only; not engine/device execution.

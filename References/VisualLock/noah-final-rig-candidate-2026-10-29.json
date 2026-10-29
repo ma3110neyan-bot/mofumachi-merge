@@ -8,7 +8,7 @@
   "before_runtime_source": "43a27646fcf65174afb938fb78c0b93d7e0628ad",
   "before_render_digest": "73b1027987ca543d38df99459571cc0ae441512511a8c8c7f1b3fc58bc567b5b",
   "reviewed_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
-  "candidate_render_digest": "bc4df123b11a3781a91a0605725097b0c69b868b450151e3a36860a20ff51a64",
+  "candidate_render_digest": "29be1273d27a5cd6fcd97f2e6d612573d3709e7dafe2592509dbc0230add60ec",
   "changes": [
     {
       "path": "Assets/Mofumachi/Presentation/TownContinuousWorldView.cs",
@@ -68,7 +68,7 @@
     {
       "path": "Assets/Mofumachi/Presentation/TownActor.cs",
       "before_sha256": "be3ecfae09a77ffbff6b0365c2584d67e0f446d689ab52137c40895196857be5",
-      "after_sha256": "9dbbdbc485acd93cb642594891193344459e72cffa1a95dfbf0d6a5bb4cc74c8"
+      "after_sha256": "10dc0c0a8f041bc511ef13c0d89bb773ef6e8a0fc564f39325e20a8a0c68c57e"
     },
     {
       "path": "Assets/Mofumachi/Presentation/CharacterBodyGraphic.cs",
@@ -154,7 +154,7 @@
   "current_before_runtime_source": "ff7215c504efae5fee220d3540272ca4b260ade8",
   "current_before_native_source": "bb3fb82b5b941dd29fb58d4d0dd1631af516a723",
   "current_before_native_run": "20261027-102109-3bbbf9fe",
-  "comparison_scope": "8same-instant body-depth pairs against current22f2831 renderer plus separately labeled shadow-only pair at unchanged new body pose;222fixed-step samples14.8s including front/back; no hardwareFPS claim.",
+  "comparison_scope": "f451 same-clock Before vs final opt-in rig;13 pairs incl4 held display headings and shadow-only;222 fixed-step After crops14.8simulated seconds, not real-time FPS.",
   "internal_verification": "docs/verification/noah-depth-focus-2026-10-29/results.json",
   "previous_internal_verification": "docs/verification/noah-capture-simulation-repair-2026-10-29/results.json",
   "previous_native_tests_console_success_report": "docs/verification/north-noah-qa-build-screen-report-2026-10-28.json",
@@ -185,11 +185,11 @@
   "native_unity_verified": false,
   "native_visual_cleared": false,
   "fixed_native_pass_verified": false,
-  "native_scope_image_review_complete": false,
-  "native_visual_status": "final_rig_implemented_pending_native_and_pixel_comparison",
+  "native_scope_image_review_complete": true,
+  "native_visual_status": "rejected_one_atlas_method_retired",
   "previous_native_failure": "References/Review/full-playmode-2026-10-28-201053/receipt-and-diagnosis.json",
   "native_comparison_protocol_version": 3,
-  "native_scope_image_review_scope": "Protocol3: f451068 Before,13 pairs including4 held static headings,222 continuous After samples. New native results pending.",
+  "native_scope_image_review_scope": "All263 images decoded;13 pairs independently compared;24 selected sequence frames visually inspected out of222 fixed-step samples. Protocol3 data validation is not a passed Unity test.",
   "native_diagnostic_verified": false,
   "native_capture_method_pass_verified": false,
   "ready_for_full_qa": false,
@@ -218,7 +218,7 @@
   "previous_reprototype_native_failure": "References/Review/noah-reprototype-2026-10-29-120718/receipt-and-diagnosis.json",
   "shadow_dependency_failure_resolved_in_native_run": "noah-reprototype-20261029-122017-2b20bef3",
   "previous_capture_repair_internal_verification": "docs/verification/noah-shadow-component-repair-2026-10-29/results.json",
-  "native_unity_verification_scope_note": "No new Unity engine execution,APK or Pixel results for this final opt-in rig. Old sourcef451068 native evidence is rejected baseline history.",
+  "native_unity_verification_scope_note": "Run861d962 rendered13 pairs/222 samples but single method FAILED on unexpected editor attribution log. New Android-only log fix is API/IL-checked only; no repaired native pass, APK or Pixel result.",
   "full_qa_verified": false,
   "previous_reprototype_latest_native_failure": "References/Review/noah-reprototype-2026-10-29-122017/receipt-and-diagnosis.json",
   "previous_reprototype_latest_native_failure_source": "09bef629aed02739a28a6f73ed80e8eb52a249cd",
@@ -275,5 +275,25 @@
     }
   ],
   "final_iteration_limit": 1,
-  "if_static_depth_remains_insufficient": "Retire this one-atlas relief/weighted rig and propose authored split parts plus2D bones and directional views; no further coefficient iteration."
+  "if_static_depth_remains_insufficient": "Retire this one-atlas relief/weighted rig and propose authored split parts plus2D bones and directional views; no further coefficient iteration.",
+  "status": "rejected_visual_retired",
+  "trial_discontinued": true,
+  "retirement_reason": "Final one-atlas rig still reads as a front-facing sheet at native town size and held left/right/away/toward headings; no further coefficient iteration.",
+  "native_images_received": true,
+  "native_unity_rendering_observed": true,
+  "ready_for_trial_apk_build": false,
+  "native_review": "References/Review/noah-final-rig-2026-10-29-202030/native-review.json",
+  "latest_native_run": "noah-final-rig-20261029-202030-392b0a19",
+  "latest_native_source_revision": "861d962f03acbdd77dcf615e992e3d8a87e4c8e5",
+  "latest_native_product_fingerprint": "4249f5618fc76917636532f9754a2b6f672c4780963246730d23f5b0c081ce4c",
+  "latest_native_counts": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "latest_native_image_count": 263,
+  "latest_internal_verification": "docs/verification/noah-final-native-review-2026-10-29/results.json",
+  "next_method_proposal": "docs/noah-authored-rig-proposal-2026-10-29.md"
 }

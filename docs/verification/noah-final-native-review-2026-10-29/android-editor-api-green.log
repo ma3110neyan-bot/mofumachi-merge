@@ -1,0 +1,9 @@
+  Determining projects to restore...
+  Restored /workspace/runtime/noah-final-rig-native-20261029-202030/verification/compile-android-editor/Mofumachi.Presentation.csproj (in 74 ms).
+  Mofumachi.Presentation -> /workspace/runtime/noah-final-rig-native-20261029-202030/verification/compile-android-editor/bin/Debug/netstandard2.1/Mofumachi.Presentation.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:03.34

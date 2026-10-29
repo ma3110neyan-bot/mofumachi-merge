@@ -1,0 +1,45 @@
+{
+  "scope": "Related source fix after received failed Noah final trial; no visual tweak or whole test suites",
+  "received_source": "861d962f03acbdd77dcf615e992e3d8a87e4c8e5",
+  "native_failure_reproduced_from_received_xml": true,
+  "received_native_single_method": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "red_green": {
+    "actual_compiled_editor_Bind_informational_log_present_red": true,
+    "editor_Bind_log_absent_green": true,
+    "active_Android_editor_Bind_log_absent_green": true,
+    "Android_player_Bind_log_retained_green": true,
+    "retired_launcher_allowed_red": true,
+    "retired_missing_null_string_status_rejected_green": true,
+    "actual_retired_candidate_stopped_before_Unity_or_device_green": true
+  },
+  "api_compiles": {
+    "editor": "0 warnings/errors",
+    "android_editor": "0 warnings/errors",
+    "android_player_api_only": "0 warnings/errors"
+  },
+  "full_editmode_or_playmode_run": false,
+  "engine_execution_for_fixed_source": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "six_character_rollout_authorized": false,
+  "visual_trial_status": "retired",
+  "frozen_inputs": {
+    "gate_passed": true,
+    "candidate_render_digest": "29be1273d27a5cd6fcd97f2e6d612573d3709e7dafe2592509dbc0230add60ec",
+    "historical_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+    "candidate_bindings": 24,
+    "original_base_inputs": 354,
+    "release_inputs": 502,
+    "accepted_north_inputs": 20
+  },
+  "raw_native_review": "References/Review/noah-final-rig-2026-10-29-202030/native-review.json",
+  "note": "API/IL compilation checks the logging boundary only; does not convert the failed native run into pass. Existing capture test and strict NoUnexpectedReceived remain unchanged.",
+  "frozen_input_mutation_regressions_passed": true
+}

@@ -1,0 +1,12 @@
+﻿{
+    "scope":  "single-native-Noah-final-rig-not-full-QA",
+    "gitRevision":  "861d962f03acbdd77dcf615e992e3d8a87e4c8e5",
+    "productFingerprint":  "4249f5618fc76917636532f9754a2b6f672c4780963246730d23f5b0c081ce4c",
+    "native_test_passed":  false,
+    "source_unchanged":  true,
+    "qa_apk_generated":  false,
+    "experimental_apk_pair_generated":  false,
+    "pixel_verified":  false,
+    "adopted":  false,
+    "error":  "Unity exit 2. Inspect C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\noah-final-rig-20261029-202030-392b0a19"
+}

@@ -1,0 +1,2 @@
+Unhandled exception. System.Exception: editor: Bind emitted device-only mode log (1 prefixes/1 Debug.Log sites), expected 0.
+   at Program.<Main>$(String[] args) in /workspace/runtime/noah-final-rig-native-20261029-202030/verification/log-check/Program.cs:line 18

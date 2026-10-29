@@ -1,0 +1,171 @@
+{
+  "received_date_jst": "2026-10-29",
+  "run": "noah-final-rig-20261029-202030-392b0a19",
+  "source_revision": "861d962f03acbdd77dcf615e992e3d8a87e4c8e5",
+  "product_fingerprint": "4249f5618fc76917636532f9754a2b6f672c4780963246730d23f5b0c081ce4c",
+  "native_counts": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "native_capture_method_pass_verified": false,
+  "native_unity_rendering_observed": true,
+  "failure": {
+    "message": "Unhandled log message: '[Log] MOFUMACHI_NOAH_TRIAL_MODE current'. Use UnityEngine.TestTools.LogAssert.Expect",
+    "site": "TownActor.Bind -> ExperienceCaptureTests.NoahReprototypeContinuousSequencePreservesArtAndSavedState -> LogAssert.NoUnexpectedReceived",
+    "classification": "device attribution info log incorrectly emitted in Editor; not an APK or Pixel error",
+    "secondary_failure": "noah-current-build.json absent because the failed native method prevented APK creation",
+    "no_log_validation_relaxation": true
+  },
+  "checks": {
+    "original_members_preserved_byte_for_byte": 268,
+    "zip_parts": 4,
+    "images_fully_decoded_hash_bytes_dimensions_verified": 263,
+    "png_count": 28,
+    "jpeg_count": 235,
+    "strict_protocol3_data_validator_passed": true,
+    "data_validation_does_not_override_failed_test": true,
+    "original_atlas_sha256": "23d14025f146c429da01b6e3a74ef803254755f8d149f9eb53516aacaa30163d",
+    "original_atlas_matches_checkout": true,
+    "causal_pairs_independently_recomputed": [
+      {
+        "mode": "idle",
+        "changed_pixels": 15521,
+        "outside_allowed_pixels": 0
+      },
+      {
+        "mode": "walk",
+        "changed_pixels": 15810,
+        "outside_allowed_pixels": 0
+      },
+      {
+        "mode": "stop",
+        "changed_pixels": 15696,
+        "outside_allowed_pixels": 0
+      },
+      {
+        "mode": "turn",
+        "changed_pixels": 15645,
+        "outside_allowed_pixels": 0
+      },
+      {
+        "mode": "talk",
+        "changed_pixels": 13194,
+        "outside_allowed_pixels": 0
+      },
+      {
+        "mode": "reaction",
+        "changed_pixels": 12925,
+        "outside_allowed_pixels": 0
+      },
+      {
+        "mode": "forward",
+        "changed_pixels": 16226,
+        "outside_allowed_pixels": 0
+      },
+      {
+        "mode": "back",
+        "changed_pixels": 16279,
+        "outside_allowed_pixels": 0
+      },
+      {
+        "mode": "ground-shadow",
+        "changed_pixels": 1496,
+        "outside_allowed_pixels": 0
+      },
+      {
+        "mode": "static-left",
+        "changed_pixels": 16376,
+        "outside_allowed_pixels": 0
+      },
+      {
+        "mode": "static-right",
+        "changed_pixels": 15799,
+        "outside_allowed_pixels": 0
+      },
+      {
+        "mode": "static-away",
+        "changed_pixels": 16311,
+        "outside_allowed_pixels": 0
+      },
+      {
+        "mode": "static-toward",
+        "changed_pixels": 16350,
+        "outside_allowed_pixels": 0
+      }
+    ],
+    "sequence_samples": 222,
+    "sequence_simulated_seconds": 14.800084114074707,
+    "actual_hardware_fps_measured": false
+  },
+  "visual_review": {
+    "reviewer": "Codex primary agent",
+    "independent_subagent_review": false,
+    "selected_continuous_frame_indices": [
+      0,
+      10,
+      12,
+      24,
+      35,
+      36,
+      44,
+      48,
+      51,
+      65,
+      80,
+      94,
+      96,
+      110,
+      125,
+      143,
+      144,
+      158,
+      173,
+      174,
+      195,
+      209,
+      210,
+      221
+    ],
+    "all222_samples_decoded_but_not_all_visually_inspected": true,
+    "shadow": "Changed1496 pixels in isolated shadow pair; still weak against busy ground at normal town size. Pixel count is not a perception metric.",
+    "static": "Head/body relative placement and tilt change, but face and torso remain a forward-facing sheet; held left/right/away/toward comparisons do not meet obvious volume criterion.",
+    "motion": "Actual model moves and settles, changes head/body lean, blinks and converses; sampled evidence cannot establish real-time smoothness or touch performance.",
+    "portrait_identity": "Formal texture bytes retained; no new side/back artwork exists. Does not approve all deformed silhouettes.",
+    "sorting": "Two display-only fountain sibling-order examples; not a continuous occlusion-route proof.",
+    "conversation": "Existing conversation panel still covers hat in some samples on both sides; unchanged UI is not fixed by this trial.",
+    "other_five": "Pair invariant declarations and zero out-of-scope pixel changes verified; all five were not individually visible in these scenes.",
+    "native_town_size_examples_inspected": true,
+    "all13_native_pair_crops_inspected": true
+  },
+  "decision": "rejected_one_atlas_method_retired",
+  "trial_discontinued": true,
+  "final_iteration_limit": 1,
+  "further_coefficient_iteration_authorized": false,
+  "ready_for_full_qa": false,
+  "ready_for_trial_apk_build": false,
+  "qa_apk_generated": false,
+  "experimental_apk_pair_generated": false,
+  "pixel_verified": false,
+  "pixel_metrics": {
+    "fps": null,
+    "stutter": null,
+    "heat": null,
+    "tap_latency_ms": null,
+    "memory": null,
+    "crashes": null
+  },
+  "adopted": false,
+  "six_character_rollout_authorized": false,
+  "next_method_proposal": "docs/noah-authored-rig-proposal-2026-10-29.md",
+  "next_method_implemented": false,
+  "source_fix": {
+    "scope": "Android-player-only attribution log; stop retired trial in launcher",
+    "source_api_and_il_checked": true,
+    "native_unity_rerun": false,
+    "record": "docs/verification/noah-final-native-review-2026-10-29/results.json"
+  },
+  "user_action": "No rerun, full suite, APK build or Pixel trial of this rejected method. Existing saves and fixed town are preserved."
+}

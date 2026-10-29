@@ -14,8 +14,16 @@ try {
         $Path=Join-Path $D $Name;New-Item -ItemType Directory -Path (Split-Path -Parent $Path) -Force | Out-Null;[IO.File]::WriteAllText($Path,'trial fixture')
         @{path=$Name;sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath $Path).Hash.ToLowerInvariant()}
     })
-    $Record=@{scope_id='town_noah_quality_2026_10_28';trial_only=$true;adopted=$false;six_character_rollout_authorized=$false;trial_inputs=$Inputs};$RecordPath=Join-Path $RecordDir 'noah-final-rig-candidate-2026-10-29.json'
+    $Record=@{scope_id='town_noah_quality_2026_10_28';trial_only=$true;trial_discontinued=$false;adopted=$false;six_character_rollout_authorized=$false;trial_inputs=$Inputs};$RecordPath=Join-Path $RecordDir 'noah-final-rig-candidate-2026-10-29.json'
     $Record | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $RecordPath;Assert-NoahFinalTrialInputs $D
+    foreach($Retired in @($true,$null,'false')){
+        $Record.trial_discontinued=$Retired;$Record | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $RecordPath
+        $RetirementCaught=$false
+        try{Assert-NoahFinalTrialInputs $D}catch{if($_.Exception.Message -notmatch 'retired or missing its active-trial status'){throw};$RetirementCaught=$true}
+        if(-not $RetirementCaught){throw 'Retired or unspecified final rig was allowed to reach capture/build.'}
+    }
+    $Record.Remove('trial_discontinued');$Record | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $RecordPath;RejectFinal {Assert-NoahFinalTrialInputs $D}
+    $Record.trial_discontinued=$false;$Record | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $RecordPath;Assert-NoahFinalTrialInputs $D
     $Changed=Join-Path $D $Inputs[0].path;[IO.File]::AppendAllText($Changed,' changed');RejectFinal {Assert-NoahFinalTrialInputs $D};[IO.File]::WriteAllText($Changed,'trial fixture')
     $Record.adopted=$true;$Record | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $RecordPath;RejectFinal {Assert-NoahFinalTrialInputs $D}
     [IO.File]::WriteAllText((Join-Path $D 'trial-build.log'),'raw build record')

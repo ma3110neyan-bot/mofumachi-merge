@@ -1,0 +1,136 @@
+{
+  "images": [
+    {
+      "file": "38-noah-frame-00.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4",
+      "width": 596,
+      "height": 318,
+      "fully_decoded": true
+    },
+    {
+      "file": "38-noah-frame-01.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4",
+      "width": 596,
+      "height": 318,
+      "fully_decoded": true
+    },
+    {
+      "file": "38-noah-frame-02.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4",
+      "width": 596,
+      "height": 318,
+      "fully_decoded": true
+    },
+    {
+      "file": "38-noah-frame-03.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4",
+      "width": 596,
+      "height": 318,
+      "fully_decoded": true
+    },
+    {
+      "file": "38-noah-frame-04.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4",
+      "width": 596,
+      "height": 318,
+      "fully_decoded": true
+    },
+    {
+      "file": "38-noah-frame-05.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4",
+      "width": 596,
+      "height": 318,
+      "fully_decoded": true
+    },
+    {
+      "file": "38-noah-frame-06.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4",
+      "width": 596,
+      "height": 318,
+      "fully_decoded": true
+    },
+    {
+      "file": "38-noah-frame-07.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4",
+      "width": 596,
+      "height": 318,
+      "fully_decoded": true
+    },
+    {
+      "file": "38-noah-frame-08.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4",
+      "width": 596,
+      "height": 318,
+      "fully_decoded": true
+    },
+    {
+      "file": "38-noah-frame-09.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4",
+      "width": 596,
+      "height": 318,
+      "fully_decoded": true
+    },
+    {
+      "file": "38-noah-frame-10.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4",
+      "width": 596,
+      "height": 318,
+      "fully_decoded": true
+    },
+    {
+      "file": "38-noah-frame-11.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4",
+      "width": 596,
+      "height": 318,
+      "fully_decoded": true
+    },
+    {
+      "file": "38-noah-idle-after.png",
+      "bytes": 1819798,
+      "sha256": "e53e06097dab7c987961586862a674c9d6c488fe05229ba49f9cff9448f37617",
+      "width": 720,
+      "height": 1280,
+      "fully_decoded": true
+    },
+    {
+      "file": "38-noah-idle-before-left-after-right.jpg",
+      "bytes": 854373,
+      "sha256": "b2f9c626975094bc35e12226e3fb836e77c19eb9417e4f71514b003b38c76759",
+      "width": 1440,
+      "height": 1280,
+      "fully_decoded": true
+    },
+    {
+      "file": "38-noah-idle-before-reconstructed.png",
+      "bytes": 1819864,
+      "sha256": "0e7cabc6f4f09236cd6ec2a585dbff19809308f284fc327c72cda4a9c9eb4bf6",
+      "width": 720,
+      "height": 1280,
+      "fully_decoded": true
+    }
+  ],
+  "decoded_image_count": 15,
+  "partial_sequence_frames": 12,
+  "unique_frame_sha256": 1,
+  "idle_pair_changed_pixels": 10131,
+  "idle_pair_change_bbox_top_left_xywh": [
+    308,
+    745,
+    124,
+    157
+  ],
+  "complete_native_proof_json_present": false,
+  "visual_scope": "idle only; no walking, stopping, turning or conversation captured; no quality adoption"
+}

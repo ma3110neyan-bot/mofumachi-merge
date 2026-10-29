@@ -1,5 +1,11 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-10-29最新：ノア撮影の無効化設定だけ修正
+
+最新run122017-2b20bef3／source09bef62は実Unity **0/1**、画像15点。前のCanvasRenderer欠落は解消し静止比較まで進んだ。今回の原因は撮影がTownLifeViewを無効化し、CanSimulate／CanInteractがfalseのまま公開GuidePointを呼んだこと。受領12標本は全SHA同一で動作が進んでいない。原本18点 `References/Review/noah-reprototype-2026-10-29-122017/`、画像全デコード／静止差分10131画素を再計算済み。静止のみで見た目合格にしない。
+
+修正は既存撮影メソッドのみ。enabledを落とさず、yieldなしの同期ループで実AdvanceFrameを使う。操作可能状態・実時計の進み・Unityフレーム不変を確認し、製品の入力ガードは変えない。ゲーム本体／原画／他5名／街／北境界／噴水／Save等は前版と同じ。修正版はAPIコンパイル／固定入力検査のみ、実Unity連続動作・全件・APK・Pixel・採用は未確認。6名展開禁止。次は同じcapture-noah-reprototype.ps1の1件だけ。詳細 `docs/noah-capture-simulation-repair-2026-10-29.md`。以下は前回の修正履歴。
+
 ## 2026-10-29最新：ノア単体撮影の影コンポーネント修正
 
 最新run120718-65fcb65c／source5083efaは実Unity **0/1、画像0**。新影 `NoahGroundShadowGraphic` がCanvasRendererを持たず、Home再入場の無効化／マスク解除と終了処理でMissingComponentException。原本3点 `References/Review/noah-reprototype-2026-10-29-120718/`。旧205828／222202再添付3ZIPは既受領SHAと同一、新候補へ成功を流用しない。

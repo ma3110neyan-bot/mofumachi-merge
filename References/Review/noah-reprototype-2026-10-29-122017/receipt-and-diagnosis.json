@@ -1,0 +1,187 @@
+{
+  "received_date_jst": "2026-10-29",
+  "run": "noah-reprototype-20261029-122017-2b20bef3",
+  "archive": {
+    "uploaded_file_id": "file_00000000f55481f893f66b590ed563b8",
+    "file": "noah-reprototype-20261029-122017-2b20bef3-01.zip",
+    "bytes": 5511668,
+    "sha256": "2fbfc1c451876df2539318fc4a7a62d3a65eca620075aa491f43cccabc52a606",
+    "entries": 18,
+    "zip_crc_verified": true
+  },
+  "files": [
+    {
+      "file": "source-info.json",
+      "bytes": 542,
+      "sha256": "89620d33d2c4624ca78a34b615a79dccd8b23d537493c07dacc19606fa2f03b0"
+    },
+    {
+      "file": "playmode.xml",
+      "bytes": 4962,
+      "sha256": "4311a996db1c4bf7256e4487ac0859587033ea0052068f9e4a8c9fa3debbe747"
+    },
+    {
+      "file": "playmode.log",
+      "bytes": 58888,
+      "sha256": "860d73c4c9e602fa9010aba046041288f85162cc3e2a99d1f58e6898760e55a3"
+    },
+    {
+      "file": "38-noah-frame-00.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4"
+    },
+    {
+      "file": "38-noah-frame-01.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4"
+    },
+    {
+      "file": "38-noah-frame-02.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4"
+    },
+    {
+      "file": "38-noah-frame-03.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4"
+    },
+    {
+      "file": "38-noah-frame-04.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4"
+    },
+    {
+      "file": "38-noah-frame-05.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4"
+    },
+    {
+      "file": "38-noah-frame-06.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4"
+    },
+    {
+      "file": "38-noah-frame-07.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4"
+    },
+    {
+      "file": "38-noah-frame-08.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4"
+    },
+    {
+      "file": "38-noah-frame-09.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4"
+    },
+    {
+      "file": "38-noah-frame-10.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4"
+    },
+    {
+      "file": "38-noah-frame-11.jpg",
+      "bytes": 87566,
+      "sha256": "089e9977c76f467b39b57ebcd0dd167a8ec5e80e3e59c8bcb4539fc9e6be3db4"
+    },
+    {
+      "file": "38-noah-idle-after.png",
+      "bytes": 1819798,
+      "sha256": "e53e06097dab7c987961586862a674c9d6c488fe05229ba49f9cff9448f37617"
+    },
+    {
+      "file": "38-noah-idle-before-left-after-right.jpg",
+      "bytes": 854373,
+      "sha256": "b2f9c626975094bc35e12226e3fb836e77c19eb9417e4f71514b003b38c76759"
+    },
+    {
+      "file": "38-noah-idle-before-reconstructed.png",
+      "bytes": 1819864,
+      "sha256": "0e7cabc6f4f09236cd6ec2a585dbff19809308f284fc327c72cda4a9c9eb4bf6"
+    }
+  ],
+  "source_revision": "09bef629aed02739a28a6f73ed80e8eb52a249cd",
+  "reported_product_fingerprint": "c42ba87c22e4828c6ef4d998e9570b8f90d6c167823c5e83560b84eb7f1c63d5",
+  "native_counts": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "method": "Mofumachi.Tests.ExperienceCaptureTests.NoahReprototypeContinuousSequencePreservesArtAndSavedState",
+  "duration_seconds": 3.441212,
+  "previous_shadow_dependency_failure_resolved_in_this_native_run": true,
+  "shadow_evidence": "Initial actual CanvasRenderer assertion, Home re-entry and first idle native PNG pair completed; no MissingComponentException in received log. This does not approve full lifecycle or visual quality.",
+  "failure": {
+    "type": "AssertionException",
+    "location": "ExperienceCaptureTests.cs:284",
+    "failed_call": "field.World.GuidePoint(new TownPoint(-.32f,-.25f)) returns false at index12",
+    "cause": "The capture fixture sets field.enabled=false before manual stepping. TownLifeView.CanSimulate requires isActiveAndEnabled; CanInteract therefore rejects public GuidePoint. AdvanceFrame also cancels rather than advancing while disabled.",
+    "evidence": [
+      "09bef62 fixture line247 disables field before capturing",
+      "TownLifeView.CanSimulate/CanInteract and AdvanceFrame guard",
+      "TownContinuousWorldView.GuidePoint guard",
+      "All twelve received idle JPEG files have identical SHA256, consistent with simulation not stepping."
+    ],
+    "game_navigation_defect_inferred": false
+  },
+  "images": {
+    "total_fully_decoded": 15,
+    "full_png_pairs": 1,
+    "full_png_count": 2,
+    "comparison_jpeg_count": 1,
+    "partial_sequence_frames": 12,
+    "unique_sequence_frame_sha256": 1,
+    "recomputed_idle_pair_changed_pixels": 10131,
+    "recomputed_change_bbox_top_left_xywh": [
+      308,
+      745,
+      124,
+      157
+    ],
+    "proof_json_or_complete_html": false
+  },
+  "visual_review": {
+    "scope": "one idle pair and first crop; all 15 files fully decoded, twelve frames byte-identical",
+    "finding": "Original Noah face, clothing, colors and tail remain recognizable; received idle-only difference is insufficient to judge natural movement or approve requested 2.5D. No walking/stop/turn/conversation evidence received.",
+    "approved": false
+  },
+  "repeated_history": [
+    {
+      "archive": "noah-reprototype-20261029-120718-65fcb65c-01.zip",
+      "bytes": 17913,
+      "sha256": "8ea2d1b5bc7fc6b05e71a889a76362befd0c70a5f777da1850447c843ed9befc",
+      "same_bytes_as_previous_receipt": true,
+      "previous_receipt": "References/Review/noah-reprototype-2026-10-29-120718/receipt-and-diagnosis.json"
+    },
+    {
+      "archive": "noah-pair-20261028-222202-ca3a3b66-02.zip",
+      "bytes": 21856341,
+      "sha256": "a0cc0faf79051a6db6b1b2e6ca8bde8932535b02ed3f6545db8834430f57df27",
+      "same_bytes_as_previous_receipt": true,
+      "previous_receipt": "References/Review/noah-pair-2026-10-28-222202/receipt.json"
+    },
+    {
+      "archive": "noah-pair-20261028-222202-ca3a3b66-01.zip",
+      "bytes": 23569459,
+      "sha256": "181905f109a9d75f3a535a07e0f5f51418913bda4c5796a2c6c67baabe6377ac",
+      "same_bytes_as_previous_receipt": true,
+      "previous_receipt": "References/Review/noah-pair-2026-10-28-222202/receipt.json"
+    },
+    {
+      "archive": "noah-pair-20261028-205828-8cdc5361.zip",
+      "bytes": 6695869,
+      "sha256": "7a17b370f94aa7527d3364b6239ccddcd86d862a1bd220e0885a3f7a0ac52e4e",
+      "same_bytes_as_previous_receipt": true,
+      "previous_receipt": "References/Review/noah-pair-2026-10-28-205828/receipt-and-diagnosis.json"
+    }
+  ],
+  "local_fix_scope": "Capture fixture only: retain enabled TownLifeView and public input; fixed-step loop has no yield so Unity Update cannot interleave. Assert actual private simulation clock advances, and actual Unity frame stays fixed for every step. Do not bypass or weaken production input guards.",
+  "after_fix_native_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "six_character_rollout_authorized": false
+}

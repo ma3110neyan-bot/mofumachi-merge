@@ -8,7 +8,7 @@
   "before_runtime_source": "43a27646fcf65174afb938fb78c0b93d7e0628ad",
   "before_render_digest": "73b1027987ca543d38df99459571cc0ae441512511a8c8c7f1b3fc58bc567b5b",
   "reviewed_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
-  "candidate_render_digest": "dc6d6f94586429bf826fb1ca820bb53a50045b069babfc4c106abf6681f10a9f",
+  "candidate_render_digest": "3af093c39b3e39455b0c36e6e255c52cf9385d5e27b4d88aca620dcc6f71f45e",
   "changes": [
     {
       "path": "Assets/Mofumachi/Presentation/TownContinuousWorldView.cs",
@@ -122,7 +122,7 @@
     {
       "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs",
       "before_sha256": "3bdc727de2275daa8bd1fe45de9f9f8002380ceeb9c9cbda7944a964996bc6b7",
-      "after_sha256": "e0f7061e71bd3891fce4688fc33246c63c08552e9c35dfdeffaf828d2faaed35"
+      "after_sha256": "23e7857bba2ab0e940950d4cf08bc3f23cfda64a74af4914e01c821fef851aa5"
     }
   ],
   "qa_apk_generated": false,
@@ -155,7 +155,7 @@
   "current_before_native_source": "bb3fb82b5b941dd29fb58d4d0dd1631af516a723",
   "current_before_native_run": "20261027-102109-3bbbf9fe",
   "comparison_scope": "Same-instant reconstructed rejected1d11629 renderer vs current Noah reprototype; natural After and retained natural Before. JPEG motion samples are separate from causal PNG pairs and not hardware FPS.",
-  "internal_verification": "docs/verification/noah-shadow-component-repair-2026-10-29/results.json",
+  "internal_verification": "docs/verification/noah-capture-simulation-repair-2026-10-29/results.json",
   "previous_internal_verification": "docs/verification/north-noah-capture-scene-repair-2026-10-27/results.json",
   "previous_native_tests_console_success_report": "docs/verification/north-noah-qa-build-screen-report-2026-10-28.json",
   "previous_candidate_record": "References/VisualLock/noah-quality-candidate-2026-10-28.json",
@@ -186,10 +186,10 @@
   "native_visual_cleared": false,
   "fixed_native_pass_verified": false,
   "native_scope_image_review_complete": false,
-  "native_visual_status": "shadow_dependency_fixed_pending_single_native_capture",
+  "native_visual_status": "capture_fixture_fixed_pending_continuous_native_proof",
   "previous_native_failure": "References/Review/full-playmode-2026-10-28-201053/receipt-and-diagnosis.json",
   "native_comparison_protocol_version": 3,
-  "native_scope_image_review_scope": "run120718 failed before capture: no new images; waiting for repaired single-method capture",
+  "native_scope_image_review_scope": "run122017: idle pair and12 byte-identical partial crops only; requested continuous movement not captured; no adoption",
   "native_diagnostic_verified": false,
   "native_capture_method_pass_verified": false,
   "ready_for_full_qa": false,
@@ -214,8 +214,8 @@
   "native_reprototype_protocol_version": 1,
   "minimal_native_capture_command": "scripts/capture-noah-reprototype.ps1",
   "six_character_rollout_authorized": false,
-  "latest_native_failure": "References/Review/noah-reprototype-2026-10-29-120718/receipt-and-diagnosis.json",
-  "latest_native_failure_source": "5083efa2b8b254dd3924b4997ddbc96bfec4c90f",
+  "latest_native_failure": "References/Review/noah-reprototype-2026-10-29-122017/receipt-and-diagnosis.json",
+  "latest_native_failure_source": "09bef629aed02739a28a6f73ed80e8eb52a249cd",
   "latest_native_failure_counts": {
     "total": 1,
     "passed": 0,
@@ -223,6 +223,9 @@
     "skipped": 0,
     "inconclusive": 0
   },
-  "latest_native_failure_images": 0,
-  "previous_reprototype_internal_verification": "docs/verification/noah-reprototype-2026-10-28/results.json"
+  "latest_native_failure_images": 15,
+  "previous_reprototype_internal_verification": "docs/verification/noah-reprototype-2026-10-28/results.json",
+  "previous_reprototype_native_failure": "References/Review/noah-reprototype-2026-10-29-120718/receipt-and-diagnosis.json",
+  "shadow_dependency_failure_resolved_in_native_run": "noah-reprototype-20261029-122017-2b20bef3",
+  "previous_capture_repair_internal_verification": "docs/verification/noah-shadow-component-repair-2026-10-29/results.json"
 }

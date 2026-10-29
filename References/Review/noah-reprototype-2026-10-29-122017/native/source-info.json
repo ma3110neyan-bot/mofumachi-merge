@@ -1,0 +1,11 @@
+﻿{
+    "scope":  "single-native-Noah-reprototype-not-full-QA",
+    "gitRevision":  "09bef629aed02739a28a6f73ed80e8eb52a249cd",
+    "productFingerprint":  "c42ba87c22e4828c6ef4d998e9570b8f90d6c167823c5e83560b84eb7f1c63d5",
+    "native_test_passed":  false,
+    "source_unchanged":  true,
+    "qa_apk_generated":  false,
+    "pixel_verified":  false,
+    "adopted":  false,
+    "error":  "Unity exit 2. Inspect C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\noah-reprototype-20261029-122017-2b20bef3"
+}

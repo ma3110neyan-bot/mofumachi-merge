@@ -244,7 +244,8 @@ namespace Mofumachi.Tests
             var initialNoah=Flow.GetComponentInChildren<TownLifeView>().Actors.Single(a=>a.CharacterId=="noah");
             Assert.That(initialNoah.transform.Find("Noah soft ground shadow").GetComponent<CanvasRenderer>(),Is.Not.Null,"Noah's shadow must own its renderer before Home is disabled or rebuilt.");
             Assert.That(Flow.Game.SelectFavorite("noah"),Is.True);Flow.ShowHome();yield return null;
-            EnsurePortraitCamera();var field=Flow.GetComponentInChildren<TownLifeView>();field.enabled=false;field.StartInteraction();
+            EnsurePortraitCamera();var field=Flow.GetComponentInChildren<TownLifeView>();field.StartInteraction();
+            Assert.That(field.isActiveAndEnabled&&field.CanInteract,Is.True,"Manual capture must keep the real simulation and public input enabled.");
             var noah=field.Actors.Single(a=>a.CharacterId=="noah");var friend=field.Actors.Single(a=>a.CharacterId=="momo");
             Assert.That(noah.Controlled&&noah.NoahReprototypeEnabled,Is.True);
             Assert.That(TownWalkableArea.Distance(noah.WorldPosition,TownWorldMap.Place("square")),Is.LessThan(.002f));
@@ -259,6 +260,7 @@ namespace Mofumachi.Tests
             sequence.greet_trigger="public TryBeginConversation(noah,momo); automatic social timer held only in isolated fixture";sequence.conversation_mode="speaker-noah-to-momo";
             const System.Reflection.BindingFlags flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
             var socialField=typeof(TownLifeView).GetField("nextSocial",flags);var speakerField=typeof(TownLifeView).GetField("speaker",flags);
+            var simulationTimeField=typeof(TownLifeView).GetField("now",flags);
             var facingField=typeof(TownActor).GetField("facing",flags);var reactionField=typeof(TownActor).GetField("reactionRemaining",flags);
             socialField.SetValue(field,float.PositiveInfinity); // No shipping cooldown change; choose an actual Noah-first interaction in this fixture.
             foreach(var r in field.World.Model.Residents.Where(r=>!r.Controlled))field.World.Model.Pause(r.Id,4);
@@ -272,10 +274,14 @@ namespace Mofumachi.Tests
             var actorBounds=ActorEvidenceRect(noah);var projection=ProjectEvidence(field,new TownPoint(-.45f,-.30f),new TownPoint(.45f,-.15f));
             var crop=EvidenceRect(Rect.MinMaxRect(Mathf.Min(actorBounds.xMin,projection.xMin),actorBounds.yMin-24,Mathf.Max(actorBounds.xMax,projection.xMax),actorBounds.yMax+90));
             sequence.crop_x=crop.x;sequence.crop_y=crop.y;sequence.crop_width=crop.width;sequence.crop_height=crop.height;sequence.isolated_start_verified=true;
+            int sequenceUnityFrame=Time.frameCount;
             void Step()
             {
                 foreach(var r in field.World.Model.Residents.Where(r=>!r.Controlled))field.World.Model.Pause(r.Id,4);
+                float previousSimulationTime=(float)simulationTimeField.GetValue(field);
                 field.AdvanceFrame(1f/30);elapsed+=1f/30;
+                Assert.That((float)simulationTimeField.GetValue(field)-previousSimulationTime,Is.EqualTo(1f/30).Within(.00001f),"Every recorded step must advance the actual simulation, not just the capture timestamp.");
+                Assert.That(Time.frameCount,Is.EqualTo(sequenceUnityFrame),"No Unity Update may interleave with the synchronous fixed-step capture.");
                 Assert.That(field.World.Model.Residents.Where(r=>!r.Controlled).Select(r=>r.Position).ToArray(),Is.EqualTo(npcPositions));
             }
             for(int index=0;index<144;index++)

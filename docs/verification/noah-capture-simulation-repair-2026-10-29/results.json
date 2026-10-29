@@ -1,0 +1,62 @@
+{
+  "date_jst": "2026-10-29",
+  "base_revision": "09bef629aed02739a28a6f73ed80e8eb52a249cd",
+  "scope": "Existing Noah capture fixture only, no runtime changes",
+  "received_native_failure": "References/Review/noah-reprototype-2026-10-29-122017/receipt-and-diagnosis.json",
+  "received_native_counts": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "received_images": 15,
+  "received_partial_frames": 12,
+  "received_partial_frame_unique_sha256": 1,
+  "previous_shadow_failure_resolved_in_received_native_run": true,
+  "source_files": [
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs",
+      "sha256_lf": "23e7857bba2ab0e940950d4cf08bc3f23cfda64a74af4914e01c821fef851aa5"
+    }
+  ],
+  "checks": {
+    "native_red": "Received native GuidePoint false at index12/line284; disabled TownLifeView causes CanSimulate/CanInteract false and AdvanceFrame cancellation.",
+    "regression_assertions_added": [
+      "Actual active/enabled component and public CanInteract before capture",
+      "Actual simulation now advances1/30 within1e-5 per step",
+      "Unity frame remains fixed through synchronous fixed-step capture"
+    ],
+    "unity_api_compile": {
+      "assembly": "Mofumachi.PlayModeTests",
+      "exit_code": 0,
+      "warnings": 0,
+      "errors": 0,
+      "kind": "API compile, not Unity execution"
+    },
+    "current_bindings": 24,
+    "original_base_inputs": 354,
+    "release_frozen_inputs": 502,
+    "north_frozen_inputs": 20,
+    "current_input_digest": "3af093c39b3e39455b0c36e6e255c52cf9385d5e27b4d88aca620dcc6f71f45e",
+    "historical_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+    "digest_note": "Current capture input belongs to fingerprint. Refreshed current candidate binding after source edit; accepted historical/art/North/fountain locks unchanged.",
+    "runtime_core_art_scenes_packages_settings_unchanged": true,
+    "production_input_guard_or_gate_tolerance_weakened": false,
+    "new_cpu_math_tests_run": false,
+    "full_editmode_or_playmode_run": false
+  },
+  "native_after_fix_verified": false,
+  "new_continuous_visual_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "six_character_rollout_authorized": false,
+  "next_command": "scripts/capture-noah-reprototype.ps1",
+  "next_method_count": 1,
+  "limitations": [
+    "One partial idle comparison is insufficient for 2.5D approval; walking/stop/turn/conversation not captured.",
+    "Repaired native simulation has not been executed in cloud.",
+    "Pixel FPS/heat/memory/latency are unmeasured; no install, uninstall or save reset."
+  ]
+}

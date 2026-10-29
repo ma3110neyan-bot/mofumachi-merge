@@ -13,6 +13,11 @@ namespace Mofumachi.Presentation
         private static readonly float[] rows={0,.12f,.26f,.40f,.52f,.65f,.80f,1};
         private float foot,wave,facing;private bool blink;
         private bool noahTownTrial,noahReprototype=true;private Noah25DTrialPose noahPose;
+        private bool noahDepthFocus=true;private NoahDepthFocusPose depthPose;
+        private bool DepthFocus=>noahTownTrial&&noahReprototype&&noahDepthFocus;
+        internal void SetNoahDepthFocus(bool enabled){if(noahDepthFocus==enabled)return;noahDepthFocus=enabled;SetVerticesDirty();}
+        internal void PoseNoahDepthFocus(NoahDepthFocusPose pose,bool eyesClosed)
+        {depthPose=pose;noahPose=pose.Motion;blink=eyesClosed;SetVerticesDirty();}
         internal void SetNoahReprototype(bool enabled){if(noahReprototype==enabled)return;noahReprototype=enabled;SetVerticesDirty();}
         private static readonly float[] noahColumns={0,.06f,.16f,.18f,.30f,.37f,.42f,.47f,.53f,.625f,.65f,.70f,.84f,1};
         private static readonly float[] noahDepthColumns={0,.06f,.16f,.18f,.30f,.303f,.37f,.42f,.47f,.53f,.535f,.625f,.65f,.70f,.84f,1};
@@ -34,7 +39,7 @@ namespace Mofumachi.Presentation
         }
         public void Pose(float stepping,float greeting,float direction,bool eyesClosed)
         {
-            if(noahTownTrial){PoseNoah(default,eyesClosed);return;}
+            if(noahTownTrial){if(DepthFocus)PoseNoahDepthFocus(default,eyesClosed);else PoseNoah(default,eyesClosed);return;}
             stepping=float.IsFinite(stepping)?Mathf.Clamp(stepping,-1,1):0;
             greeting=float.IsFinite(greeting)?Mathf.Clamp(greeting,-1,1):0;
             direction=float.IsFinite(direction)?Mathf.Clamp(direction,-1,1):0;
@@ -96,6 +101,11 @@ namespace Mofumachi.Presentation
                 int n=vh.currentVertCount;
                 void Vertex(float u,float v)
                 {
+                    if(DepthFocus)
+                    {
+                        var point=TownNoahDepthFocus.Vertex(u,v,size.x,size.y,depthPose);
+                        vh.AddVert(new Vector3(point.X,target.yMin+point.Y,point.Z),new Color(point.Light,point.Light,point.Light,color.a),new Vector2(uv.x+u*uv.width+eyes.X,uv.y+v*uv.height+eyes.Y));return;
+                    }
                     var offset=noahReprototype?TownNoah25DTrial.VertexOffset(u,v,noahPose):TownNoah25DTrial.PreviousVertexOffset(u,v,noahPose);
                     float light=noahReprototype?TownNoah25DTrial.SurfaceLight(u,v,noahPose):1;
                     var tint=new Color(light,light,light,color.a);

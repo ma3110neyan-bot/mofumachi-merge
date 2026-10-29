@@ -1,0 +1,2 @@
+# Preserve the exact command output bytes, including exception-line whitespace.
+*.log binary

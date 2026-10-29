@@ -1,5 +1,15 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-10-29最新：ノア立体感集中パスを実装候補へ
+
+ユーザーはrun123240の動きを合格方向、2.5D見た目を不合格と明示。今回だけノアの接地影・パーツの前後差・向きと前後歩行の奥行きへ集中する。他5名、原画、街・北境界・噴水・図鑑・BGM・Merge・Save等は維持。新候補 `References/VisualLock/noah-depth-focus-candidate-2026-10-29.json`、仕様／計画はnoah-depth-focus。
+
+既存3runtimeファイルだけで、同じatlas／720頂点body／97頂点shadowを使う小さな頭・胴・手足の層差と影を実装。顔内部は剛体、外側の尾を局所変形させず、三軸回転後の足を床へ登録。姿勢のtrigは一度計算して使い回す。**実装済み・新Unity実画像／APK／Pixel未確認。** 原本・見た目合格と数値テストを混同しない。
+
+比較Beforeは今回不合格の22f2831とし、旧TownNoah25DTrial計算を保持。新しいFocusOFFで旧body／root／影、歴史的ReprototypeOFF／TrialOFFで旧1d／2Dを残す。単体capture-noah-reprototype.ps1の同じ1メソッドをprotocol2へ更新し、8身体対＋影のみ1対／222連続標本14.8秒（前後の実公開歩行を含む）を提出する。影比較は身体をAfterに固定。同期ループの実時計／Unityframe検査と原本範囲外0を保つ。固定標本をFPSと呼ばない。
+
+途中はノア関連最小テストのみ。新実画像で明確に改善した承認候補となるまで全件QA・新APK・Pixel計測へ進めず、過去の1/1を流用しない。Save維持、Fresh／uninstall／main禁止、残り5名展開禁止。詳細 `docs/noah-depth-focus-2026-10-29.md`。以下は不合格となった前回の受領履歴。
+
 ## 2026-10-29最新：ノア単体撮影成功／見た目は未合格
 
 run123240-dd41010e／source22f2831の2ZIPを受領。**実Unityノア専用1/1成功**、failed0／skip0。169原本保存、164画像（PNG14／JPEG150）を全デコード・SHA／bytes／寸法照合、6対差分を再計算して投影範囲外0。144標本は全SHA異なり、静止→左歩行→停止→右方向転換／歩行→ノア自身の会話／挨拶が連続する。前2回の影と無効化の撮影不具合はこの単体で解消。原本・判定 `References/Review/noah-reprototype-2026-10-29-123240/`。

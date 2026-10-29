@@ -41,6 +41,15 @@ namespace Mofumachi.Tests
             var shadowMesh=shadow.canvasRenderer.GetMesh();
             Assert.That(shadowMesh.vertexCount,Is.LessThanOrEqualTo(100));
             Assert.That(shadowMesh.colors32.Any(c=>c.a==0)&&shadowMesh.colors32.Any(c=>c.a>40),Is.True,"Soft edge and dark contact must both exist.");
+            Assert.That(noah.NoahDepthFocusEnabled,Is.True);
+            var focusVertices=dimensional.vertices;var focusColors=dimensional.colors32;
+            float strongWidth=shadow.rectTransform.rect.width,strongAlpha=shadow.color.a;
+            noah.SetNoahDepthFocusEnabled(false);Canvas.ForceUpdateCanvases();
+            Assert.That(body.canvasRenderer.GetMesh().vertexCount,Is.EqualTo(720),"Current22 Before must retain its existing original-art grid.");
+            Assert.That(shadow.rectTransform.rect.width,Is.LessThan(strongWidth));Assert.That(shadow.color.a,Is.LessThan(strongAlpha));
+            noah.SetNoahDepthFocusEnabled(true);Canvas.ForceUpdateCanvases();
+            Assert.That(body.canvasRenderer.GetMesh().vertices.SequenceEqual(focusVertices),Is.True,"Depth-only comparison must restore the identical instant.");
+            Assert.That(body.canvasRenderer.GetMesh().colors32.SequenceEqual(focusColors),Is.True);
             var candidateUv=dimensional.uv;
             noah.SetNoahReprototypeEnabled(false);Canvas.ForceUpdateCanvases();
             var rejected=body.canvasRenderer.GetMesh();

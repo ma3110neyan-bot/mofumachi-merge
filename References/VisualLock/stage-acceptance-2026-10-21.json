@@ -709,7 +709,7 @@
     "native_images_verified": 124,
     "native_review": "References/Review/curved-boundary-2026-10-25-candidate/native-review.json"
   },
-  "base_polish": "References/VisualLock/noah-reprototype-candidate-2026-10-28.json",
+  "base_polish": "References/VisualLock/noah-depth-focus-candidate-2026-10-29.json",
   "previous_qa_build_report": {
     "run": "20261025-073237-f8fd542b",
     "status": "console_success_reported",
@@ -984,6 +984,22 @@
       "inconclusive": 0
     },
     "latest_native_failure_resolved_in_single_method": true,
-    "ready_for_full_qa": false
+    "ready_for_full_qa": false,
+    "user_rejected": true,
+    "rejection_reference": "2026-10-29 user: 動きは合格方向、2.5Dの見た目は不合格。残り5名展開禁止。"
+  },
+  "noah_depth_focus_pass": {
+    "representative": "noah",
+    "candidate_record": "References/VisualLock/noah-depth-focus-candidate-2026-10-29.json",
+    "implemented": true,
+    "native_unity_verified": false,
+    "native_diagnostic_verified": false,
+    "native_visual_cleared": false,
+    "qa_apk_generated": false,
+    "pixel_verified": false,
+    "adopted": false,
+    "ready_for_full_qa": false,
+    "six_character_rollout_authorized": false,
+    "native_visual_status": "depth_focus_implemented_pending_native_images"
   }
 }

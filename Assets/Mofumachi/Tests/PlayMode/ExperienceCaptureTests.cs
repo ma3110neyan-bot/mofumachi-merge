@@ -19,7 +19,7 @@ namespace Mofumachi.Tests
         {public string file,sha256;public int bytes,width,height;}
         [Serializable] private sealed class NativePair
         {
-            public string id,mode="";public int level,changed_pixels,outside_allowed_pixels,allowed_x,allowed_y,allowed_width,allowed_height;
+            public string id,mode="",comparison_kind="";public bool body_unchanged_for_shadow;public int level,changed_pixels,outside_allowed_pixels,allowed_x,allowed_y,allowed_width,allowed_height;
             public float camera_x,camera_y,water_clock,water_phase,original_water_phase;public int unity_frame,store_writes;
             public string state_sha256,world_model_sha256;
             public bool frame_unchanged,actors_unchanged,camera_unchanged,water_clock_unchanged,water_phase_unchanged,state_unchanged,store_writes_unchanged,world_model_unchanged,other_five_unchanged;
@@ -41,7 +41,7 @@ namespace Mofumachi.Tests
             public bool arrived,all_points_walkable=true;public NativeImage image;public List<NativePathPoint> points=new List<NativePathPoint>();
         }
         [Serializable] private sealed class NoahSequenceFrame
-        {public int index;public string mode;public float elapsed_seconds,world_x,world_y,facing,reaction_seconds;public bool walking;public NativeImage image;}
+        {public int index;public string mode;public float elapsed_seconds,world_x,world_y,facing,reaction_seconds,head_facing,depth_forward;public bool walking;public NativeImage image;}
         [Serializable] private sealed class NoahSequence
         {
             public string setup="fresh-isolated-Home-scene-after-completed-route-proof";
@@ -60,7 +60,7 @@ namespace Mofumachi.Tests
             public int noah_quality_version=3;
             public int noah_reprototype_version;
             public float capture_canvas_distance,capture_near_clip,capture_far_clip;
-            public bool capture_clip_verified;
+            public bool capture_clip_verified,current_before_branch_verified;
             public string baseline_source_revision,original_atlas_sha256;
             public List<NoahSortingExample> noah_sorting_examples=new List<NoahSortingExample>();
             public string kind="same-state-native-north-noah-comparison",before="reconstructed causal baseline: north join disabled / Noah legacy with product name visibility at the same instant",after="current product code";
@@ -165,7 +165,7 @@ namespace Mofumachi.Tests
             }
             return true;
         }
-        private NativePair CaptureNativePair(string output,TownLifeView town,string id,Action beforeSwitch,Action afterSwitch,Func<Rect> allowed,bool noah=false)
+        private NativePair CaptureNativePair(string output,TownLifeView town,string id,Action beforeSwitch,Action afterSwitch,Func<Rect> allowed,bool noah=false,Action beforeRender=null)
         {
             Texture2D before=null,after=null,naturalBefore=null;
             try
@@ -178,11 +178,11 @@ namespace Mofumachi.Tests
                     // never receives an override; natural legacy UI is retained.
                     afterSwitch();var warm=Portrait();UnityEngine.Object.DestroyImmediate(warm);candidateNames=NameVisibility(town);
                 }
-                beforeSwitch();naturalBefore=Portrait();
+                beforeSwitch();naturalBefore=Portrait(beforeRender);
                 if(noah)
                 {
                     var naturalNames=NameVisibility(town);var naturalGraphics=GraphicStates();
-                    before=Portrait(()=>ApplyNames(town,candidateNames));
+                    before=Portrait(()=>{beforeRender?.Invoke();ApplyNames(town,candidateNames);});
                     control=new NativeNameControl{natural_before=naturalNames,controlled_before=NameVisibility(town),
                         before_applied=SameNames(candidateNames,NameVisibility(town)),natural_visibility_changed=!SameNames(naturalNames,candidateNames),
                         only_name_visibility_changed=OnlyNameVisibilityChanged(town,naturalGraphics,GraphicStates())};
@@ -247,12 +247,12 @@ namespace Mofumachi.Tests
             EnsurePortraitCamera();var field=Flow.GetComponentInChildren<TownLifeView>();field.StartInteraction();
             Assert.That(field.isActiveAndEnabled&&field.CanInteract,Is.True,"Manual capture must keep the real simulation and public input enabled.");
             var noah=field.Actors.Single(a=>a.CharacterId=="noah");var friend=field.Actors.Single(a=>a.CharacterId=="momo");
-            Assert.That(noah.Controlled&&noah.NoahReprototypeEnabled,Is.True);
+            Assert.That(noah.Controlled&&noah.NoahDepthFocusEnabled,Is.True);
             Assert.That(TownWalkableArea.Distance(noah.WorldPosition,TownWorldMap.Place("square")),Is.LessThan(.002f));
             Assert.That(TownWalkableArea.Distance(friend.WorldPosition,TownCentralMasterLayout.ArrivalFriend),Is.LessThan(.002f));
             string rootOutput=OutputDirectory(),output=rootOutput==null?null:Path.Combine(rootOutput,"noah-reprototype");
-            var proof=new NorthNoahProof{noah_reprototype_version=1,kind="noah-only-reprototype-comparison",source_revision=EvidenceArgument("-mofumachiSourceRevision"),product_fingerprint=EvidenceArgument("-mofumachiProductFingerprint"),
-                baseline_source_revision="1d11629ae8bab0ec398c6e53bd0bfd5f3030c92c",before="reconstructed rejected Noah renderer 1d11629 at identical clocks; candidate name visibility on Before only",historical_before="rejected native Noah run222202, distinct historical episode"};
+            var proof=new NorthNoahProof{noah_reprototype_version=2,kind="noah-depth-focus-comparison",source_revision=EvidenceArgument("-mofumachiSourceRevision"),product_fingerprint=EvidenceArgument("-mofumachiProductFingerprint"),
+                baseline_source_revision="22f2831d834a4be380c69692f8dfbdb2cf912181",before="reconstructed current22 Noah renderer at identical clocks; shadow-only pair labeled separately",historical_before="rejected native Noah run123240, source22f2831"};
             proof.capture_canvas_distance=captureCanvas.planeDistance;proof.capture_near_clip=captureCamera.nearClipPlane;proof.capture_far_clip=captureCamera.farClipPlane;
             string repo=Directory.GetParent(Application.dataPath).FullName;
             proof.original_atlas_sha256=EvidenceSha(File.ReadAllBytes(Path.Combine(repo,"Assets/Mofumachi/Resources/Mofumachi/CharacterBodyAtlas.png")));
@@ -262,17 +262,28 @@ namespace Mofumachi.Tests
             var socialField=typeof(TownLifeView).GetField("nextSocial",flags);var speakerField=typeof(TownLifeView).GetField("speaker",flags);
             var simulationTimeField=typeof(TownLifeView).GetField("now",flags);
             var facingField=typeof(TownActor).GetField("facing",flags);var reactionField=typeof(TownActor).GetField("reactionRemaining",flags);
+            var headField=typeof(TownActor).GetField("noahHeadFacing",flags);var forwardField=typeof(TownActor).GetField("noahForward",flags);
             socialField.SetValue(field,float.PositiveInfinity); // No shipping cooldown change; choose an actual Noah-first interaction in this fixture.
             foreach(var r in field.World.Model.Residents.Where(r=>!r.Controlled))field.World.Model.Pause(r.Id,4);
             var npcPositions=field.World.Model.Residents.Where(r=>!r.Controlled).Select(r=>r.Position).ToArray();
             string saved=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;float elapsed=0;
             field.World.Camera.Jump(new TownPoint(0,.15f));field.World.Refresh();var warm=Portrait();UnityEngine.Object.DestroyImmediate(warm);
+            noah.SetNoahDepthFocusEnabled(false);var currentBefore=Portrait();UnityEngine.Object.DestroyImmediate(currentBefore);
+            var originalBody=noah.GetComponentInChildren<CharacterBodyGraphic>();var currentMesh=originalBody.canvasRenderer.GetMesh();
+            Assert.That(currentMesh.vertexCount,Is.EqualTo(720));
+            float[] originalXs={0,.06f,.16f,.18f,.30f,.303f,.37f,.42f,.47f,.53f,.535f,.625f,.65f,.70f,.84f,1};
+            float[] originalYs={0,.06f,.14f,.22f,.28f,.36f,.44f,.49f,.53f,.60f,.67f,.80f,1};
+            var originalVertices=currentMesh.vertices;int vertexIndex=0;
+            for(int y=0;y<originalYs.Length-1;y++)for(int x=0;x<originalXs.Length-1;x++)
+                foreach(var uv in new[]{new Vector2(originalXs[x],originalYs[y]),new Vector2(originalXs[x],originalYs[y+1]),new Vector2(originalXs[x+1],originalYs[y+1]),new Vector2(originalXs[x+1],originalYs[y])})
+                    Assert.That(originalVertices[vertexIndex++].z,Is.EqualTo(TownNoah25DTrial.SurfaceDepth(uv.x,uv.y)),"Before must use the intact current22 surface, not older1d or 2D.");
+            proof.current_before_branch_verified=true;noah.SetNoahDepthFocusEnabled(true);var restored=Portrait();UnityEngine.Object.DestroyImmediate(restored);
             var noahMesh=noah.GetComponentInChildren<CharacterBodyGraphic>().canvasRenderer.GetMesh();
             Assert.That(noahMesh.vertices.Min(v=>v.z),Is.LessThan(-3));
             Assert.That(noahMesh.colors32.Min(c=>c.r),Is.LessThan(237));
             Assert.That(noahMesh.colors32.All(c=>c.r==c.g&&c.g==c.b&&c.a==255),Is.True);
             var actorBounds=ActorEvidenceRect(noah);var projection=ProjectEvidence(field,new TownPoint(-.45f,-.30f),new TownPoint(.45f,-.15f));
-            var crop=EvidenceRect(Rect.MinMaxRect(Mathf.Min(actorBounds.xMin,projection.xMin),actorBounds.yMin-24,Mathf.Max(actorBounds.xMax,projection.xMax),actorBounds.yMax+90));
+            var crop=EvidenceRect(Rect.MinMaxRect(Mathf.Min(actorBounds.xMin,projection.xMin),actorBounds.yMin-50,Mathf.Max(actorBounds.xMax,projection.xMax),actorBounds.yMax+140));
             sequence.crop_x=crop.x;sequence.crop_y=crop.y;sequence.crop_width=crop.width;sequence.crop_height=crop.height;sequence.isolated_start_verified=true;
             int sequenceUnityFrame=Time.frameCount;
             void Step()
@@ -284,9 +295,9 @@ namespace Mofumachi.Tests
                 Assert.That(Time.frameCount,Is.EqualTo(sequenceUnityFrame),"No Unity Update may interleave with the synchronous fixed-step capture.");
                 Assert.That(field.World.Model.Residents.Where(r=>!r.Controlled).Select(r=>r.Position).ToArray(),Is.EqualTo(npcPositions));
             }
-            for(int index=0;index<144;index++)
+            for(int index=0;index<222;index++)
             {
-                string mode=index<12?"idle":index<36?"walk":index<48?"stop":index<90?"turn-and-walk":index<96?"settle":"noah-speaking";
+                string mode=index<12?"idle":index<36?"walk":index<48?"stop":index<90?"turn-and-walk":index<96?"settle":index<144?"noah-speaking":index<174?"forward-away":index<210?"back-toward":"depth-stop";
                 if(index==12)Assert.That(field.World.GuidePoint(new TownPoint(-.32f,-.25f)),Is.True);
                 if(index==36){field.World.CancelHero();field.StartInteraction();}
                 if(index==48)Assert.That(field.World.GuidePoint(new TownPoint(friend.WorldPosition.X-.20f,friend.WorldPosition.Y)),Is.True);
@@ -301,13 +312,16 @@ namespace Mofumachi.Tests
                     sequence.noah_reaction_seconds=(float)reactionField.GetValue(noah);sequence.momo_reaction_seconds=(float)reactionField.GetValue(friend);
                     sequence.noah_facing=field.World.Model.Residents.Single(r=>r.Id=="noah").Facing;sequence.momo_facing=field.World.Model.Residents.Single(r=>r.Id=="momo").Facing;
                 }
+                if(index==144){field.StartInteraction();Assert.That(field.World.GuidePoint(new TownPoint(.14f,-.08f)),Is.True,"Actual forward walk must accept input.");}
+                if(index==174){field.StartInteraction();Assert.That(field.World.GuidePoint(new TownPoint(.14f,-.30f)),Is.True,"Actual backward walk must accept input.");}
+                if(index==210){field.World.CancelHero();field.StartInteraction();}
                 for(int step=0;step<2;step++)Step();
-                if(index>=96)Assert.That(field.IsSpeaking&&object.ReferenceEquals(speakerField.GetValue(field),noah),Is.True,"The sequence must retain actual Noah speech");
+                if(index>=96&&index<144)Assert.That(field.IsSpeaking&&object.ReferenceEquals(speakerField.GetValue(field),noah),Is.True,"The sequence must retain actual Noah speech");
                 field.World.Camera.Jump(new TownPoint(0,.15f));field.World.Refresh();
-                if(index==11||index==29||index==44||index==50||index==101||index==104)
+                if(index==11||index==29||index==44||index==50||index==101||index==104||index==158||index==195)
                 {
-                    string pairMode=index==11?"idle":index==29?"walk":index==44?"stop":index==50?"turn":index==101?"talk":"reaction";
-                    var pair=CaptureNativePair(output,field,"38-noah-"+pairMode,()=>noah.SetNoahReprototypeEnabled(false),()=>noah.SetNoahReprototypeEnabled(true),()=>ActorEvidenceRect(noah),true);pair.mode=pairMode;proof.noah_pairs.Add(pair);
+                    string pairMode=index==11?"idle":index==29?"walk":index==44?"stop":index==50?"turn":index==101?"talk":index==104?"reaction":index==158?"forward":"back";
+                    var pair=CaptureNativePair(output,field,"38-noah-"+pairMode,()=>noah.SetNoahDepthFocusEnabled(false),()=>noah.SetNoahDepthFocusEnabled(true),()=>ActorEvidenceRect(noah),true);pair.mode=pairMode;pair.comparison_kind="current22-whole-noah";proof.noah_pairs.Add(pair);
                 }
                 var portrait=Portrait();Texture2D sample=null;
                 try
@@ -315,10 +329,17 @@ namespace Mofumachi.Tests
                     var bounds=ActorEvidenceRect(noah);
                     Assert.That(bounds.xMin>=crop.x&&bounds.xMax<=crop.xMax&&bounds.yMin>=crop.y&&bounds.yMax<=crop.yMax,Is.True,$"Noah frame{index} lies outside the declared crop: {bounds}/{crop}");
                     sample=new Texture2D(crop.width,crop.height,TextureFormat.RGB24,false);sample.SetPixels(portrait.GetPixels(crop.x,crop.y,crop.width,crop.height));sample.Apply();
-                    sequence.frames.Add(new NoahSequenceFrame{index=index,mode=mode,elapsed_seconds=elapsed,world_x=noah.WorldPosition.X,world_y=noah.WorldPosition.Y,facing=(float)facingField.GetValue(noah),reaction_seconds=(float)reactionField.GetValue(noah),walking=field.World.Model.Hero.IsWalking,image=SaveNativeEncoding(output,"38-noah-frame-"+index.ToString("00")+".jpg",sample,sample.EncodeToJPG(90))});
+                    sequence.frames.Add(new NoahSequenceFrame{index=index,mode=mode,elapsed_seconds=elapsed,world_x=noah.WorldPosition.X,world_y=noah.WorldPosition.Y,facing=(float)facingField.GetValue(noah),reaction_seconds=(float)reactionField.GetValue(noah),walking=field.World.Model.Hero.IsWalking,head_facing=(float)headField.GetValue(noah),depth_forward=(float)forwardField.GetValue(noah),image=SaveNativeEncoding(output,"38-noah-frame-"+index.ToString("00")+".jpg",sample,sample.EncodeToJPG(90))});
                 }
                 finally{UnityEngine.Object.DestroyImmediate(portrait);if(sample!=null)UnityEngine.Object.DestroyImmediate(sample);}
             }
+            var shadow=noah.transform.Find("Noah soft ground shadow").GetComponent<Graphic>();
+            var configure=shadow.GetType().GetMethod("ConfigureGrounding",flags);
+            var bodyBeforeShadow=originalBody.canvasRenderer.GetMesh();var bodyVertices=bodyBeforeShadow.vertices;var bodyUvs=bodyBeforeShadow.uv;var bodyColors=bodyBeforeShadow.colors32;
+            var shadowPair=CaptureNativePair(output,field,"38-noah-ground-shadow",()=>{},()=>configure.Invoke(shadow,new object[]{true}),()=>ActorEvidenceRect(noah),true,()=>configure.Invoke(shadow,new object[]{false}));
+            var bodyAfterShadow=originalBody.canvasRenderer.GetMesh();shadowPair.body_unchanged_for_shadow=bodyAfterShadow.vertices.SequenceEqual(bodyVertices)&&bodyAfterShadow.uv.SequenceEqual(bodyUvs)&&bodyAfterShadow.colors32.SequenceEqual(bodyColors);
+            Assert.That(shadowPair.body_unchanged_for_shadow,Is.True,"Shadow-only comparison must preserve the exact After body.");
+            shadowPair.mode="ground-shadow";shadowPair.comparison_kind="current22-shadow-only-current-body";proof.noah_pairs.Add(shadowPair);
             sequence.state_unchanged=saved==StateCodec.Encode(Flow.Game.State);sequence.store_writes_unchanged=writes==Store.Writes;Assert.That(sequence.state_unchanged&&sequence.store_writes_unchanged,Is.True);
             var snapshot=field.World.Capture();
             try
@@ -333,15 +354,15 @@ namespace Mofumachi.Tests
                     var image=Portrait();try{proof.noah_sorting_examples.Add(new NoahSortingExample{id=item.Item1,world_x=item.Item2.X,world_y=item.Item2.Y,actor_sibling=actorOrder,prop_sibling=propOrder,behind=behind,correct=true,image=SaveNativeImage(output,"38-noah-"+item.Item1+".png",image)});}finally{UnityEngine.Object.DestroyImmediate(image);}
                 }
             }
-            finally{field.World.Restore(snapshot);noah.SetNoahReprototypeEnabled(true);field.RefreshWorldPresentation();}
+            finally{field.World.Restore(snapshot);noah.SetNoahDepthFocusEnabled(true);field.RefreshWorldPresentation();}
             Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(saved));Assert.That(Store.Writes,Is.EqualTo(writes));
             if(output!=null)
             {
                 proof.capture_clip_verified=true; // Every Portrait checks all transformed active Noah vertices before Camera.Render.
                 File.WriteAllText(Path.Combine(output,"noah-reprototype.json"),JsonUtility.ToJson(proof,true));
-                var html=new System.Text.StringBuilder("<!doctype html><meta charset='utf-8'><title>Noah 2.5D reprototype</title><style>body{font:16px sans-serif;background:#fff7ef;color:#50343b;max-width:1500px;margin:auto}img{max-width:100%}section{margin:2rem 0}</style><h1>ノア1名 再試作：実Unity</h1><p>Beforeは今回不合格となった1d11629の描画を同じ時計で再現。比較Beforeの名札だけ製品Afterと同じ表示条件です。Afterは自然な製品表示。原画は変更していません。採用／Pixel負荷は未確認です。</p>");
+                var html=new System.Text.StringBuilder("<!doctype html><meta charset='utf-8'><title>Noah 2.5D reprototype</title><style>body{font:16px sans-serif;background:#fff7ef;color:#50343b;max-width:1500px;margin:auto}img{max-width:100%}section{margin:2rem 0}</style><h1>ノア1名 再試作：実Unity</h1><p>Beforeは今回不合格となった22f2831の描画を同じ時計で再現。ground-shadowは身体をAfterのまま保った影だけの比較です。比較Beforeの名札だけ製品Afterと同じ表示条件です。Afterは自然な製品表示。原画は変更していません。採用／Pixel負荷は未確認です。</p>");
                 foreach(var pair in proof.noah_pairs){html.Append("<section><h2>").Append(pair.mode).Append("</h2><a href='").Append(pair.comparison.file).Append("'><img src='").Append(pair.comparison.file).Append("'></a>");if(pair.name_control.natural_visibility_changed)html.Append("<p><a href='").Append(pair.name_control.natural_before_image.file).Append("'>名札を揃える前の自然なBefore原本</a></p>");html.Append("</section>");}
-                html.Append("<h2>静止→歩行→停止→方向転換→ノアの会話（CUTなし）</h2><p>1/30秒の実AdvanceFrameを2ステップごとに記録した連続標本（144コマ／9.6秒、JPEG）。9.6秒の終端でループします。実時間動画・FPS測定ではありません。会話開始の順番だけ隔離fixtureの自動会話タイマーで制御しています。</p><button id='play'>再生／停止</button><p id='time'></p><img id='frame'><script>const frames=").Append(JsonUtility.ToJson(sequence)).Append(".frames;let i=0,p=true;document.querySelector('#play').onclick=()=>p=!p;function tick(){const f=frames[i];document.querySelector('#frame').src=f.image.file;document.querySelector('#time').textContent=f.index+' / '+f.mode+' / '+f.elapsed_seconds.toFixed(3)+' simulated seconds';if(p)i=(i+1)%frames.length;setTimeout(tick,1000/15)}tick()</script><h2>噴水前後の表示例</h2><p>表示位置を置いたSorting確認で、実歩行の証拠とは別です。</p>");
+                html.Append("<h2>静止→歩行→停止→方向転換→ノアの会話→前後歩行（CUTなし）</h2><p>1/30秒の実AdvanceFrameを2ステップごとに記録した連続標本（222コマ／14.8秒、JPEG）。14.8秒の終端でループします。実時間動画・FPS測定ではありません。会話開始の順番だけ隔離fixtureの自動会話タイマーで制御しています。</p><button id='play'>再生／停止</button><p id='time'></p><img id='frame'><script>const frames=").Append(JsonUtility.ToJson(sequence)).Append(".frames;let i=0,p=true;document.querySelector('#play').onclick=()=>p=!p;function tick(){const f=frames[i];document.querySelector('#frame').src=f.image.file;document.querySelector('#time').textContent=f.index+' / '+f.mode+' / '+f.elapsed_seconds.toFixed(3)+' simulated seconds';if(p)i=(i+1)%frames.length;setTimeout(tick,1000/15)}tick()</script><h2>噴水前後の表示例</h2><p>表示位置を置いたSorting確認で、実歩行の証拠とは別です。</p>");
                 foreach(var example in proof.noah_sorting_examples)html.Append("<p>").Append(example.id).Append("</p><img src='").Append(example.image.file).Append("'>");
                 File.WriteAllText(Path.Combine(output,"noah-reprototype.html"),html.ToString());
             }

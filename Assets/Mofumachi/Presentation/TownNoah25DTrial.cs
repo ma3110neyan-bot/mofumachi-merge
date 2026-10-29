@@ -154,4 +154,120 @@ namespace Mofumachi.Presentation
         private static float Smooth(float value){value=Clamp(value,0,1);return value*value*(3-2*value);}
         private static float Clamp(float value,float min,float max)=>float.IsFinite(value)?Math.Max(min,Math.Min(max,value)):0;
     }
+
+    public readonly struct NoahDepthVertex
+    {
+        public float X {get;} public float Y {get;} public float Z {get;} public float Light {get;}
+        public NoahDepthVertex(float x,float y,float z,float light){X=x;Y=y;Z=z;Light=light;}
+    }
+    public readonly struct NoahDepthFocusPose
+    {
+        public Noah25DTrialPose Motion {get;}
+        public float HeadFacing {get;} public float Forward {get;} public float Sway {get;} public float Nod {get;}
+        public float Yaw {get;} public float Pitch {get;} public float Roll {get;}
+        internal readonly double BodyCosY,BodySinY,BodyCosX,BodySinX,HeadCosY,HeadSinY,HeadCosX,HeadSinX,RootCosY,RootSinY,RootCosX,RootSinX,RootCosZ,RootSinZ;
+        internal readonly float HeadDepth;
+        internal readonly bool Prepared;
+        internal NoahDepthFocusPose(Noah25DTrialPose motion,float head,float forward,float sway,float nod,float yaw,float pitch,float roll)
+        {
+            Motion=motion;HeadFacing=head;Forward=forward;Sway=sway;Nod=nod;Yaw=yaw;Pitch=pitch;Roll=roll;
+            Prepared=true;
+            const double radians=Math.PI/180;
+            BodyCosY=Math.Cos(motion.Look*2*radians);BodySinY=Math.Sin(motion.Look*2*radians);BodyCosX=Math.Cos(sway*.8*radians);BodySinX=Math.Sin(sway*.8*radians);
+            HeadCosY=Math.Cos(-head*6*radians);HeadSinY=Math.Sin(-head*6*radians);HeadCosX=Math.Cos((-pitch*.65+nod)*radians);HeadSinX=Math.Sin((-pitch*.65+nod)*radians);
+            RootCosY=Math.Cos(yaw*radians);RootSinY=Math.Sin(yaw*radians);RootCosX=Math.Cos(pitch*radians);RootSinX=Math.Sin(pitch*radians);RootCosZ=Math.Cos(roll*radians);RootSinZ=Math.Sin(roll*radians);
+            HeadDepth=-10+motion.Foot*.45f;
+        }
+    }
+    public readonly struct NoahGroundingProfile
+    {
+        public float X {get;} public float Y {get;} public float Width {get;} public float Height {get;} public float Alpha {get;}
+        internal NoahGroundingProfile(float x,float y,float w,float h,float alpha){X=x;Y=y;Width=w;Height=h;Alpha=alpha;}
+    }
+    // A layered pose of the same formal pixels. Keep the preceding source22
+    // renderer intact for an honest current-Before, including its original UVs.
+    public static class TownNoahDepthFocus
+    {
+        public static NoahDepthFocusPose Pose(Noah25DTrialPose motion,float stride,float walking,float headFacing,float forward,float remaining)
+        {
+            walking=C(walking,0,1);headFacing=C(headFacing,-1,1);forward=C(forward,-1,1)*walking;
+            motion=new Noah25DTrialPose(C(motion.Hop,0,5),C(motion.Lean,-4.2f,4.2f),C(motion.Foot,-1,1),C(motion.Breath,-.01f,.01f),C(motion.Hand,-1,1),C(motion.Look,-1,1),C(motion.Travel,-2,2));
+            float phase=float.IsFinite(stride)?stride:0,sway=(float)Math.Cos(phase)*walking;
+            float nod=float.IsFinite(remaining)&&remaining>0&&remaining<1?(float)Math.Sin((1-remaining)*Math.PI)*2.4f:0;
+            return new NoahDepthFocusPose(motion,headFacing,forward,sway,nod,-motion.Look*12*(1-Math.Abs(forward)*.65f),-forward*4+sway*1.2f,C(motion.Lean+motion.Look*2.2f,-3.5f,3.5f));
+        }
+        public static NoahDepthVertex Vertex(float u,float v,float width,float height,NoahDepthFocusPose pose)
+        {
+            if(!pose.Prepared)pose=Pose(default,0,0,0,0,0);
+            u=C(u,0,1);v=C(v,0,1);width=C(width,0,512);height=C(height,0,512);
+            var m=pose.Motion;var offset=TownNoah25DTrial.VertexOffset(u,v,m);
+            var original=new NoahDepthVertex(width*(u-TownNoah25DTrial.FootCenterU)+offset.X,height*v+offset.Y,0,1);
+            float upperHead=S(u/.16f)*(1-S((u-.65f)/.05f))*S((v-.42f)/.11f);
+            // Keep the original mouth and chin on the same rigid head plane
+            // as the eyes. Plateau boundaries coincide with existing grid
+            // columns .30/.625 and row .44, so triangle interpolation cannot
+            // blend the muzzle back into the torso. The raised paw is outside.
+            float muzzle=S((u-.18f)/.12f)*(1-S((u-.625f)/.075f))*S((v-.36f)/.08f);
+            float head=Math.Max(upperHead,muzzle);
+            float torso=Island(u,v,.40f,.32f,.25f,.24f);
+            var body=Rotate(original,width*(.40f-.419f),height*.32f,-5+pose.Sway*1.2f,pose.BodyCosY,pose.BodySinY,pose.BodyCosX,pose.BodySinX);
+            var point=Lerp(original,body,torso);
+            var face=Rotate(original,width*(.36f-.419f),height*.53f,pose.HeadDepth,pose.HeadCosY,pose.HeadSinY,pose.HeadCosX,pose.HeadSinX);
+            face=new NoahDepthVertex(face.X+pose.HeadFacing*.7f,face.Y,face.Z,1);
+            point=Lerp(point,face,head);
+            float left=Island(u,v,.16f,.43f,.15f,.15f)*(1-S((v-.44f)/.05f));
+            float right=Island(u,v,.50f,.33f,.10f,.10f);
+            float paws=S((u-.12f)/.04f)*(1-S((u-.60f)/.05f)),foot=(1-S(v/.18f))*paws;
+            float side=C((u-.419f)/.095f,-1,1);
+            float z=point.Z-(left*(5+m.Foot*2)+right*(5-m.Foot*2))*(1-head)-side*m.Foot*1.4f*foot;
+            float nx=C((u-.36f)/.30f,-1,1);
+            float faceShade=.025f+.10f*S(Math.Abs(nx))+.04f*Math.Max(0,nx+pose.HeadFacing*.10f);
+            float bodyShade=.055f+.10f*S(Math.Abs((u-.4f)/.25f))+.04f*Math.Max(0,(u-.4f)/.25f+m.Look*.1f);
+            float light=C(1-head*faceShade-torso*(1-head)*bodyShade-(left+right)*(1-head)*.025f,.80f,1);
+            return new NoahDepthVertex(point.X,point.Y,z,light);
+        }
+        private static NoahDepthVertex Rotate(NoahDepthVertex point,float pivotX,float pivotY,float depth,double cy,double sy,double cx,double sx)
+        {
+            double x=point.X-pivotX,y=point.Y-pivotY,rx=x*cy,rz=-x*sy;
+            return new NoahDepthVertex((float)rx+pivotX,(float)(y*cx-rz*sx)+pivotY,(float)(y*sx+rz*cx)+depth,1);
+        }
+        private static NoahDepthVertex Lerp(NoahDepthVertex a,NoahDepthVertex b,float t)
+            =>new NoahDepthVertex(a.X+(b.X-a.X)*t,a.Y+(b.Y-a.Y)*t,a.Z+(b.Z-a.Z)*t,1);
+        public static NoahDepthVertex Project(NoahDepthVertex point,NoahDepthFocusPose pose,float sx,float sy,float sz)
+        {
+            if(!pose.Prepared)pose=Pose(default,0,0,0,0,0);
+            sx=C(sx,0,2);sy=C(sy,0,2);sz=C(sz,0,2);
+            double x=point.X*sx*pose.RootCosY+point.Z*sz*pose.RootSinY,z=-point.X*sx*pose.RootSinY+point.Z*sz*pose.RootCosY;
+            double y=point.Y*sy*pose.RootCosX-z*pose.RootSinX,depth=point.Y*sy*pose.RootSinX+z*pose.RootCosX;
+            return new NoahDepthVertex((float)(x*pose.RootCosZ-y*pose.RootSinZ),(float)(x*pose.RootSinZ+y*pose.RootCosZ),(float)depth,point.Light);
+        }
+        public static StreetCharacterOffset Support(float width,float height,NoahDepthFocusPose pose,float sx,float sy,float sz)
+        {
+            var left=Vertex(.303f,0,width,height,pose);var right=Vertex(.535f,0,width,height,pose);
+            var a=Project(left,pose,sx,sy,sz);var b=Project(right,pose,sx,sy,sz);
+            return a.Y<=b.Y?new StreetCharacterOffset(left.X*C(sx,0,2)-a.X,-a.Y):new StreetCharacterOffset(right.X*C(sx,0,2)-b.X,-b.Y);
+        }
+        public static NoahGroundingProfile Grounding(bool focus)=>focus?new NoahGroundingProfile(.04f,-.06f,.92f,.16f,.38f):new NoahGroundingProfile(.18f,-.06f,.64f,.12f,.28f);
+        public static float GroundOpacity(float radius,bool focus)
+        {
+            radius=Math.Abs(radius);float previousR=0,previousA=1;
+            for(int i=0;i<4;i++)
+            {
+                float r=i==0?.25f:i==1?.55f:i==2?.80f:1;
+                float a=focus?(i==0?.98f:i==1?.68f:i==2?.23f:0):(i==0?.90f:i==1?.50f:i==2?.15f:0);
+                if(radius<=r)return previousA+(a-previousA)*(radius-previousR)/(r-previousR);
+                previousR=r;previousA=a;
+            }
+            return 0;
+        }
+        public static float GroundAlpha(float x,float y,float width,float height,bool focus)
+        {
+            var p=Grounding(focus);if(width<=0||height<=0)return 0;
+            float nx=x/(p.Width*width*.5f),ny=(y-(p.Y+p.Height*.5f)*height)/(p.Height*height*.5f);
+            return GroundOpacity((float)Math.Sqrt(nx*nx+ny*ny),focus)*p.Alpha;
+        }
+        private static float Island(float u,float v,float x,float y,float w,float h){float a=(u-x)/w,b=(v-y)/h;return 1-S(a*a+b*b);}
+        private static float S(float x){x=C(x,0,1);return x*x*(3-2*x);}
+        private static float C(float x,float min,float max)=>float.IsFinite(x)?Math.Max(min,Math.Min(max,x)):0;
+    }
 }

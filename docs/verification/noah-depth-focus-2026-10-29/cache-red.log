@@ -1,0 +1,5 @@
+Mofumachi.Visual.Tests.NoahDepthFocusTests.DefaultCachedPoseStillProjectsAnIdentityFrame Failed
+  Expected: 3
+  But was:  0.0f
+
+NUnit in-process: total=8, passed=7, failed=1, skipped=0, inconclusive=0, duration=0.924s

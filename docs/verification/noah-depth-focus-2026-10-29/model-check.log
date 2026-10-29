@@ -1,0 +1,5 @@
+Frame158, simulated10.600s, world(0.14000,-0.10767), walking=True, depthDirection=1.000
+Frame195, simulated13.067s, world(0.14000,-0.24833), walking=True, depthDirection=-1.000
+Frame221, simulated14.800s, world(0.14000,-0.30000), walking=False, depthDirection=0.000
+Head/torso relative turn range=4.0203 UI units; shadow sample before=0.0098, focus=0.2613
+222-step-sampled model path and depth geometry checks passed; not Unity rendering or Pixel performance.

@@ -1,0 +1,5 @@
+Exception: 
+Line |
+  18 |  …  product code'){throw 'Wrong current rejected-candidate comparison.'}
+     |                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Wrong current rejected-candidate comparison.

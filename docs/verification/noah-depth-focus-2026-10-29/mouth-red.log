@@ -1,0 +1,7 @@
+Mofumachi.Visual.Tests.NoahDepthFocusTests.ActualMeshKeepsMouthAndChinRigidWithTheEyes Failed
+  Face changed at(0.37, 0.49)/-1/-1/-1/0
+  Expected: 8.5800008773803711d +/- 2.0000000000000002E-05d
+  But was:  8.966462697636425d
+  Off by:   -0.38646182025605391d
+
+NUnit in-process: total=1, passed=0, failed=1, skipped=0, inconclusive=0, duration=0.055s

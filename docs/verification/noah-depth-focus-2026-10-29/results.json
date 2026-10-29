@@ -1,0 +1,118 @@
+{
+  "date_jst": "2026-10-29",
+  "base_revision": "431c29b",
+  "before_native_source": "22f2831d834a4be380c69692f8dfbdb2cf912181",
+  "before_native_run": "noah-reprototype-20261029-123240-dd41010e",
+  "scope": "Noah-only depth focus; accepted motion timing retained",
+  "source_files": [
+    {
+      "path": "Assets/Mofumachi/Presentation/TownNoah25DTrial.cs",
+      "sha256_lf": "20b142ace1f00776fd2ea06255fc7ff842c9c70dc6573e91f4da48537acbb847"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownActor.cs",
+      "sha256_lf": "a27f4375f41d2572e16fbde5ec81d7db198749ef2a98fd923f3ab92c29668b6e"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/CharacterBodyGraphic.cs",
+      "sha256_lf": "28ca3d7233ec1f0559282ed698b3f04909a6b15ee900bc03649620cdbbace5d8"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs",
+      "sha256_lf": "bc4f7ce1cb8ee9c3451cbe4e27d742aff847c2e4845dabe390df56ecebcbfbbf"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/Noah25DTrialPresentationTests.cs",
+      "sha256_lf": "ea8913f8f8a834fce4182bd9128972f713e6e16223e97168fb21617fcf35db6e"
+    },
+    {
+      "path": "Tests/Presentation/NoahDepthFocusTests.cs",
+      "sha256_lf": "fded215965b4ce3ef7f71adb32e224e32257bd73ec1ef8ae57b49c36c5eee6b7"
+    },
+    {
+      "path": "scripts/noah-reprototype-review.ps1",
+      "sha256_lf": "30d2a9ff66a7783eab2bf1a7b87e3056a50975d7dd25a1def44daf7e0af8dc44"
+    },
+    {
+      "path": "scripts/tests/noah-reprototype.tests.ps1",
+      "sha256_lf": "6d59a8f831ed9c93e35bee41c4b0fd92a7e1110fbe43cbf209782cc834725980"
+    }
+  ],
+  "candidate_render_digest": "d3261a6ae1ec0f410ac155daeb93d81951a812476d03d463e4979dbd128ceda3",
+  "focused_cpu": {
+    "total": 25,
+    "passed": 25,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0,
+    "scope": "Noah25DTrialTests15 + NoahDepthFocusTests10, including interpolated mouth/chin rigidity; no full suite"
+  },
+  "api_compile": {
+    "assemblies": [
+      "Mofumachi.Presentation",
+      "Mofumachi.PlayModeTests"
+    ],
+    "warnings": 0,
+    "errors": 0,
+    "native_execution": false
+  },
+  "powershell": "Protocol2 positive synthetic proof222frames,18rejection mutations, exact one-method filter/launcher and bounded original archives passed; not native image evidence",
+  "baseline_math_source": "TownNoah25DTrial class is byte-equivalent to22f2831 after LF normalization",
+  "source_gates": {
+    "bindings": 24,
+    "original": 354,
+    "release": 502,
+    "north": 20,
+    "historical_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa"
+  },
+  "internal_numeric_evidence": {
+    "head_vs_torso_turn_range_ui_units": 4.0203,
+    "shadow_alpha_sample_before": 0.0098,
+    "shadow_alpha_sample_focus": 0.2613,
+    "sample_is_analytic_not_measured_pixel": true
+  },
+  "geometry_budget": {
+    "body_vertices": 720,
+    "shadow_vertices": 97,
+    "shadow_graphics": 1,
+    "new_textures": 0,
+    "new_material_instances": 0,
+    "new_particle_systems": 0,
+    "trig_cached_once_per_pose": true
+  },
+  "native_proof_to_run": {
+    "method_count": 1,
+    "protocol": 2,
+    "body_pairs": 8,
+    "shadow_only_pairs": 1,
+    "continuous_frames": 222,
+    "simulated_seconds": 14.8,
+    "fixed_step_seconds": 0.03333333333333333,
+    "sample_steps": 2,
+    "real_time_fps_evidence": false
+  },
+  "full_editmode_or_playmode_run": false,
+  "new_native_verified": false,
+  "new_visual_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "six_character_rollout_authorized": false,
+  "limitations": [
+    "Perceived improvement/identity/footing require new Unity images and user judgment.",
+    "Pixel FPS/heat/memory/tap latency unmeasured; no native Unity run or device access in cloud.",
+    "Existing conversation-panel/hat overlap retained; no frozen UI change."
+  ],
+  "final_source_review": {
+    "report": "final-source-review.md",
+    "initial_critical": 0,
+    "initial_important": 1,
+    "initial_minor": 0,
+    "fix": "Mouth/chin were blended with torso. Added central rigid-muzzle plateau aligned with existing mesh rows/columns, preserving hand/tail exclusion and720vertex budget.",
+    "red": "ActualMeshKeepsMouthAndChinRigidWithTheEyes: expected8.5800 distance, got8.96646;1/1failed.",
+    "green": "Same mesh-interpolation regression plus all related Noah tests25/25passed. API compile and immutable input gates refreshed.",
+    "remaining_known_material_findings": 0,
+    "independent_rereview_performed": false,
+    "declined_to_judge_ruling": "New native images, raster/crop/occlusion, perceived quality and Pixel/adoption/fullQA require actual new source evidence; no success inferred."
+  }
+}

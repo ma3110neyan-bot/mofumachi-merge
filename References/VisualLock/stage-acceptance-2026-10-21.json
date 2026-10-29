@@ -189,7 +189,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "noah_one_atlas_method_retired_authored_rig_proposal",
+  "current_stage": "noah_authored_material_and_left_parts_preview_pending_review",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -1038,5 +1038,18 @@
     "native_scope_image_review_complete": true,
     "native_review": "References/Review/noah-final-rig-2026-10-29-202030/native-review.json",
     "next_method_proposal": "docs/noah-authored-rig-proposal-2026-10-29.md"
+  },
+  "noah_authored_material_pass": {
+    "status": "material_and_left_part_preview_created_pending_identity_review",
+    "representative": "noah",
+    "independent_parts_direction": "left-three-quarter-only",
+    "independent_part_count": 8,
+    "game_integrated": false,
+    "unity_verified": false,
+    "qa_apk_generated": false,
+    "pixel_verified": false,
+    "adopted": false,
+    "six_character_rollout_authorized": false,
+    "candidate_record": "References/VisualLock/noah-authored-parts-candidate-2026-10-29.json"
   }
 }

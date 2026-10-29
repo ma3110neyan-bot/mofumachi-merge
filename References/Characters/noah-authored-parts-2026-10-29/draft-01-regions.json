@@ -1,0 +1,31 @@
+{
+  "alpha_threshold_for_measurement": 128,
+  "regions": [
+    [
+      22,
+      28,
+      517,
+      648
+    ],
+    [
+      577,
+      35,
+      1084,
+      649
+    ],
+    [
+      1108,
+      47,
+      1579,
+      649
+    ],
+    [
+      1645,
+      35,
+      2126,
+      647
+    ]
+  ],
+  "generated_png_sha256": "24b87b845c34e3689562c2fe8317fb9dcae8ef00bc2162540f0626727e44ad3d",
+  "original_atlas_sha256": "23d14025f146c429da01b6e3a74ef803254755f8d149f9eb53516aacaa30163d"
+}

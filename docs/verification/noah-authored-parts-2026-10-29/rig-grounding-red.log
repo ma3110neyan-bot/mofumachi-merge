@@ -1,0 +1,39 @@
+✔ rigid head preserves facial distances while body and limbs articulate independently (3.562837ms)
+✔ walking leaves one foot planted and neither foot penetrates the ground (3.282917ms)
+✔ settling activity to zero returns every part to the same neutral pose (0.259339ms)
+✔ nonfinite clocks and activity cannot send pieces off canvas (0.448513ms)
+✔ walk-to-stop blending has exact endpoints and keeps facial geometry rigid (0.363856ms)
+✖ smoothing across alternate walking steps cannot lift both feet off the ground (1.360913ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 17.231318
+
+✖ failing tests:
+
+test at scripts/tests/noah-authored-rig.test.cjs:46:1
+✖ smoothing across alternate walking steps cannot lift both feet off the ground (1.360913ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + -3.4865761309254424
+  - 0
+  
+      at TestContext.<anonymous> (/workspace/mofumachi-merge/scripts/tests/noah-authored-rig.test.cjs:48:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: -3.4865761309254424,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

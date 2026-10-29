@@ -1,0 +1,35 @@
+✔ rigid head preserves facial distances while body and limbs articulate independently (6.567715ms)
+✔ walking leaves one foot planted and neither foot penetrates the ground (2.421464ms)
+✔ settling activity to zero returns every part to the same neutral pose (0.402233ms)
+✔ nonfinite clocks and activity cannot send pieces off canvas (0.669204ms)
+✔ walk-to-stop blending has exact endpoints and keeps facial geometry rigid (0.498828ms)
+✔ smoothing across alternate walking steps cannot lift both feet off the ground (0.214031ms)
+✖ paw scale follows annotated whole-view feet while excess thigh stays behind the body (1.527342ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19.298586
+
+✖ failing tests:
+
+test at scripts/tests/noah-authored-rig.test.cjs:52:1
+✖ paw scale follows annotated whole-view feet while excess thigh stays behind the body (1.527342ms)
+  AssertionError [ERR_ASSERTION]: farLeg shrank the paw with its thigh: 53.93382352941176
+      at TestContext.<anonymous> (/workspace/mofumachi-merge/scripts/tests/noah-authored-rig.test.cjs:59:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

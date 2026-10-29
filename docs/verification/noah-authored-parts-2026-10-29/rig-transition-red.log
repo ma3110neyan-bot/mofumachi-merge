@@ -1,0 +1,26 @@
+✔ rigid head preserves facial distances while body and limbs articulate independently (2.828091ms)
+✔ walking leaves one foot planted and neither foot penetrates the ground (1.741121ms)
+✔ settling activity to zero returns every part to the same neutral pose (0.265408ms)
+✔ nonfinite clocks and activity cannot send pieces off canvas (0.410315ms)
+✖ walk-to-stop blending has exact endpoints and keeps facial geometry rigid (0.36663ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10.872947
+
+✖ failing tests:
+
+test at scripts/tests/noah-authored-rig.test.cjs:37:1
+✖ walk-to-stop blending has exact endpoints and keeps facial geometry rigid (0.36663ms)
+  TypeError: blend is not a function
+      at TestContext.<anonymous> (/workspace/mofumachi-merge/scripts/tests/noah-authored-rig.test.cjs:39:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

@@ -1,0 +1,142 @@
+{
+  "version": 1,
+  "scope": "Noah-only independent-parts material preview, not Unity or Pixel",
+  "direction": "left-three-quarter-only",
+  "adopted": false,
+  "sources": {
+    "parts": {
+      "file": "parts-left-draft-01.png",
+      "width": 1774,
+      "height": 887,
+      "sha256": "5797c1d1df8a090168e24c95d685e2c7599f03e63dbca6300e782c7c0f716764"
+    },
+    "torso": {
+      "file": "torso-left-draft-02.png",
+      "width": 1309,
+      "height": 1201,
+      "sha256": "76600bd4cbc43f07f0d2da19aea16e24003a10f690e6157791e21b4b8a04e83e"
+    }
+  },
+  "parts": [
+    {
+      "id": "tail",
+      "source": "parts",
+      "crop": [
+        910,
+        440,
+        429,
+        427
+      ],
+      "pivot": [
+        0.35,
+        0.9
+      ],
+      "scale": 0.85
+    },
+    {
+      "id": "pouch",
+      "source": "parts",
+      "crop": [
+        1440,
+        535,
+        239,
+        221
+      ],
+      "pivot": [
+        0.5,
+        0.2
+      ],
+      "scale": 0.25
+    },
+    {
+      "id": "farLeg",
+      "source": "parts",
+      "crop": [
+        109,
+        542,
+        211,
+        272
+      ],
+      "pivot": [
+        0.5,
+        0.9705882352941176
+      ],
+      "scale": 0.64
+    },
+    {
+      "id": "nearLeg",
+      "source": "parts",
+      "crop": [
+        567,
+        558,
+        189,
+        263
+      ],
+      "pivot": [
+        0.5,
+        0.9695817490494296
+      ],
+      "scale": 0.65
+    },
+    {
+      "id": "farArm",
+      "source": "parts",
+      "crop": [
+        999,
+        125,
+        290,
+        194
+      ],
+      "pivot": [
+        0.95,
+        0.55
+      ],
+      "scale": 0.45
+    },
+    {
+      "id": "body",
+      "source": "torso",
+      "crop": [
+        201,
+        221,
+        915,
+        828
+      ],
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.3079710144927536
+    },
+    {
+      "id": "nearArm",
+      "source": "parts",
+      "crop": [
+        1451,
+        150,
+        218,
+        205
+      ],
+      "pivot": [
+        0.7,
+        0.1
+      ],
+      "scale": 0.64
+    },
+    {
+      "id": "head",
+      "source": "parts",
+      "crop": [
+        25,
+        5,
+        504,
+        407
+      ],
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.77
+    }
+  ]
+}

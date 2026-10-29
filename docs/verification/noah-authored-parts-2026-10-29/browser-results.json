@@ -1,0 +1,17 @@
+{
+  "scope": "offline material/browser preview only",
+  "checks": [
+    "front shows the exact original canvas, not the generated front",
+    "three candidate direction controls render distinct materials",
+    "four material poses draw with a grounded foot",
+    "pause and resume controls change the actual review clock",
+    "390px review layout has no horizontal overflow; not device testing",
+    "no browser errors or external network requests"
+  ],
+  "browser_errors": [],
+  "external_requests": [],
+  "unity_verified": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "windows_file_open_verified": false
+}

@@ -1,0 +1,15 @@
+✔ rigid head preserves facial distances while body and limbs articulate independently (2.486621ms)
+✔ walking leaves one foot planted and neither foot penetrates the ground (2.262335ms)
+✔ settling activity to zero returns every part to the same neutral pose (0.34681ms)
+✔ nonfinite clocks and activity cannot send pieces off canvas (0.47313ms)
+✔ walk-to-stop blending has exact endpoints and keeps facial geometry rigid (0.305308ms)
+✔ smoothing across alternate walking steps cannot lift both feet off the ground (0.182914ms)
+✔ paw scale follows annotated whole-view feet while excess thigh stays behind the body (0.657237ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12.047307

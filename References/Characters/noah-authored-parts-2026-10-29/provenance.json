@@ -1,0 +1,74 @@
+{
+  "created_date_jst": "2026-10-29",
+  "scope": "Noah-only new-pose and independent-parts material candidates, not formal replacement",
+  "authoring_tool": "image_gen",
+  "reference": {
+    "path": "Assets/Mofumachi/Resources/Mofumachi/CharacterBodyAtlas.png",
+    "sha256": "23d14025f146c429da01b6e3a74ef803254755f8d149f9eb53516aacaa30163d",
+    "noah_source_top_left": [
+      1263,
+      14,
+      254,
+      323
+    ],
+    "original_overwritten": false
+  },
+  "prompts": [
+    {
+      "output": "turnaround-draft-01.png",
+      "prompt": "Create an UNAPPROVED character animation model-sheet draft, using ONLY Noah: the squirrel at the FAR RIGHT of the TOP ROW in the reference atlas (the normal open-eyed orange-brown squirrel with red hat/red jacket, blue-teal bow with a daisy, huge curled tail). The other 5 characters in the reference are NOT targets and MUST NOT appear. Preserve Noah's exact approved design and illustration style: same huge warm dark brown amber eyes and eye shape, round cream muzzle/cheeks and belly, orange-brown fur, short red coat with gold trim, turquoise bow and white/yellow daisy clasp, red wide-brim tilted hat with purple/pink flower on its left, small brown side bag, short plump body, pointed ears, broad bushy orange/cream curl of tail. Same cute soft watercolor/gouache rendering and thin warm line work, NOT 3D plastic, NOT a different squirrel, no new clothes or accessories.\nOutput a clean professional turnaround sprite sheet on a transparent background, ONE horizontal row of FOUR full-body views, each at exactly the same standing body scale and shared foot baseline, generous transparent spacing: (1) FRONT matching original normal face and body, (2) THREE QUARTER LEFT facing the viewer's left with the face and torso planes visibly turned, (3) THREE QUARTER RIGHT facing viewer's right with genuinely authored perspective rather than a horizontal flip, (4) BACK THREE QUARTER with turned head mostly away and rear of hat, jacket, and tail visible. The front sheet must keep the original big eye expression, same silhouette proportions; directional views must clearly change the depth of head/torso and far/near arms and feet without redesigning the face. Hands relaxed in the original gentle greeting stance, feet grounded, no dramatic movement. Keep asymmetric hat flower, little bag and tail anatomically consistent as the character turns. No floor, no scenery, no text, no labels, no framing, no shadows baked into the sprites. Transparent background required. This is a reference-based new-pose draft for review, not a final adopted asset.",
+      "status": "superseded; left-view bag moved hips"
+    },
+    {
+      "output": "turnaround-draft-02.png",
+      "prompt": "Correct the SECOND character view ONLY in the first supplied turnaround sheet; the second reference image is the approved original atlas (Noah is its FAR RIGHT/TOP ROW). This is an UNAPPROVED source-art draft for the SAME Noah, not a redesign.\nKeep exactly the four-view horizontal layout, transparent background, illustration quality, face/eyes, body proportions, original colors, red hat with purple flower, teal bow/daisy, red jacket, tail, and poses. Do not create or remove any character view. Preserve views1(front),3(three-quarter right),4(back) unchanged as far as possible.\nImportant asymmetric accessory fix: Noah's small brown bag is worn on NOAH'S ANATOMICAL RIGHT HIP. In original FRONT view it appears on the VIEWER'S LEFT. It must stay on that same anatomical hip for all views. In the SECOND view (Noah facing viewer's left), that hip is the FAR side: REMOVE the incorrect prominent brown bag on the image-right/near hip. Let the bag be mostly hidden on the far image-left side behind the raised paw and coat; a small far-side sliver is enough. Do NOT move the bag to the opposite hip to keep it visible. Keep the bag on the viewer-left hip of the THIRD(right-facing) view, and anatomically consistent in back view. Preserve the asymmetrical hat flower and tail orientation, no horizontal-flip shortcut.\nKeep the design extremely faithful to the approved top-right original reference: same original oval warm amber eyes and cream muzzle and red coat, compact rounded body and short feet. No new accessories, no changes to expression, no different fur markings. No shadows baked into sprites, no labels or scenery. Provide corrected raw PNG with ample transparent margins on all4 sides and a common foot baseline. Only a transparent background.",
+      "status": "directional material candidate only; generated front is unused; original atlas supplies front"
+    },
+    {
+      "output": "parts-left-draft-01.png",
+      "prompt": "Create a production-style SEPARATED PARTS SOURCE SHEET for ONE Noah pose, the SECOND character in reference image1 (Noah looking THREE QUARTER LEFT, bag correctly mostly hidden on far side). Reference image2 is the approved formal atlas; only its top-right squirrel Noah is relevant. This is an UNAPPROVED animation-material draft and must preserve Noah's exact identity, colors, costume, eyes and illustration style. NO new character or full3D. Do NOT draw a whole character in any cell.\nCanvas: exactly2048x1024, transparent, arranged as exactly FOUR columns by TWO rows of equally-sized512x512 cells. One complete detached component per cell, generous clear gutters, no text/grid lines/background/shadows. Every piece is from the SAME left-three-quarter pose at a CONSISTENT assembled full-body height of about600px; do not enlarge tiny paws to fill a cell. Keep watercolor/painterly lines and soft original colors.\nRow1, cell1: HEAD UNIT including BOTH original ears, orange/cream face, exact original large warm amber eyes, original red hat and purple flower; NO neck bow, torso, arms or tail. Make the head one rigid artwork, not split eyes/mouth. Preserve the corrected reference face, expression and perspective, no redesign.\nRow1, cell2: TORSO ONLY, red jacket with the original teal bow and white/yellow daisy attached, short cream belly, round hips. No head, NO arms/hands, NO legs/feet, no tail, no pouch. Paint anatomically concealed shoulder/neck fur and jacket behind overlap so articulation reveals no holes. Do not change the visible jacket design.\nRow1, cell3: FAR ARM with its small paw lifted in the original greeting, detached at shoulder, same left-facing perspective, original red sleeve, warm fur and cream fingers. Include sufficient shoulder overlap.\nRow1, cell4: NEAR ARM with its paw relaxed in the original position, detached at shoulder, same red sleeve/fur/fingers. Include shoulder overlap.\nRow2, cell1: FAR LOWER LEG and small cream foot as one piece, detached at upper thigh, no torso or duplicate limb.\nRow2, cell2: NEAR LOWER LEG and small cream foot, slightly different perspective, no torso or duplicate limb.\nRow2, cell3: Noah's COMPLETE broad bushy orange/cream CURLED TAIL, with root and curl, detached, same angle and rendering as corrected left-facing reference. No head/ears/body.\nRow2, cell4: only the original SMALL brown SIDE POUCH and short strap attachment, same anatomical right hip (far side for this pose), detached; no extra clothes/props.\nThe purpose is a genuine independent-parts 2D bone rig. Never bake an arm or feet into torso; never duplicate face/body in another cell; don't use an exploded complete character instead of the strict8cell partsheet. Distinguish back/near limbs and preserve exact sizes relative to one another. Clean transparent alpha, no white/black outlines, checkerboard, floor, labels, shadows or stray marks.",
+      "status": "independent part draft; raw torso has a hand remnant and is excluded from assembly"
+    },
+    {
+      "output": "torso-left-draft-02.png",
+      "prompt": "Create ONLY a corrected TORSO source component for Noah, matching the torso in TOP ROW, SECOND POSITION of reference1, the separated-parts sheet. Reference2 shows the desired SECOND left-three-quarter character pose. This is an unapproved detached body material, not a whole character or redesign.\nOutput ONE isolated torso on TRANSPARENT background. Keep the same compact proportions, original warm orange/cream fur, original SHORT RED JACKET and teal blue bow with its white/yellow daisy clasp, gold-edged jacket details, rounded cream belly and orange upper hips. Same watercolor lines and exact same pose, looking slightly towards viewer's LEFT. Body from hidden neck/shoulders to the top of thighs only.\nCRITICAL correction: remove ALL residual arms, hands, fingers and paws from the torso. The previous torso had a small cream hand remnant on the image-right chest beside the jacket and a baked-in sleeve/arm. This must be clean torso/coat fabric/fur ONLY. Red jacket shoulder caps/seams may be present but NO hanging red sleeves and NO limb/paw shapes. Paint the normally concealed shirt/fur cleanly behind where the independent arms overlap. Keep continuous torso edge so rotating independent limbs reveals no cutout hole. Do not add new buttons, belt, pockets or accessories. No head/face, ears, hat, tail, legs/feet, bag, scenery, text, shadow, white backdrop or grid. Don't make a headless complete squirrel with duplicate hands or feet. Clean transparent edges. Use reference styling and keep the body-to-bow proportions unchanged.",
+      "status": "cleaner torso used only in material assembly; shoulder/arm seam review pending"
+    }
+  ],
+  "positive_user_feedback": "User said 実にかわいらしいです。出来上がりが楽しみです。 on displayed material drafts. This is positive direction feedback, not final2.5D approval or rollout authorization.",
+  "formal_art_approved": false,
+  "formal_atlas_changed": false,
+  "product_renderer_changed": false,
+  "unity_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "six_character_rollout_authorized": false,
+  "files": {
+    "torso-left-draft-02.png": {
+      "bytes": 1021552,
+      "sha256": "76600bd4cbc43f07f0d2da19aea16e24003a10f690e6157791e21b4b8a04e83e"
+    },
+    "parts-left-draft-01.png": {
+      "bytes": 1053052,
+      "sha256": "5797c1d1df8a090168e24c95d685e2c7599f03e63dbca6300e782c7c0f716764"
+    },
+    "turnaround-draft-01.png": {
+      "bytes": 1807435,
+      "sha256": "24b87b845c34e3689562c2fe8317fb9dcae8ef00bc2162540f0626727e44ad3d"
+    },
+    "noah-material-review.html": {
+      "bytes": 8862522,
+      "sha256": "1593bb626e619a2bc39c829df521278cd016fc77d90e2c6a7f33e12a27f338cb"
+    },
+    "rig-model.cjs": {
+      "bytes": 2873,
+      "sha256": "12c1c33398a12844ed0b5ba2091af73cc86a0170427281cf252d44f696fa0ed2"
+    },
+    "turnaround-draft-02.png": {
+      "bytes": 1739254,
+      "sha256": "59a3dfb811b04c7295ce6686512fcb650e6025bfc33a3b7ba866e9bd5f6c6717"
+    }
+  },
+  "registration_review": "Initial tiny-foot finding corrected by restoring independent measured paw scale/spacing and hiding upper thigh behind torso. Material identity remains pending."
+}

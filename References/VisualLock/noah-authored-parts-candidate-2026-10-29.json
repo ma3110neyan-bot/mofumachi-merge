@@ -1,0 +1,90 @@
+{
+  "created_date_jst": "2026-10-29",
+  "scope": "Noah-only material and browser independent-parts phase",
+  "base_commit": "043ddebdadacbf9650311727ba7dd658e9cda9f6",
+  "representative": "noah",
+  "status": "material_and_left_part_preview_created_pending_identity_review",
+  "replaces_retired_one_atlas_method": false,
+  "retired_trial_remains_stopped": true,
+  "new_method": "authored directional views plus independent rigid-part bones",
+  "material_candidate_views": [
+    "left-three-quarter",
+    "right-three-quarter",
+    "back-three-quarter"
+  ],
+  "front_display": "exact original atlas, not generated front",
+  "independent_parts_direction": "left-three-quarter-only",
+  "independent_part_count": 8,
+  "formal_atlas_sha256": "23d14025f146c429da01b6e3a74ef803254755f8d149f9eb53516aacaa30163d",
+  "original_atlas_unchanged": true,
+  "product_assets_packages_projectsettings_unchanged": true,
+  "material_provenance": "References/Characters/noah-authored-parts-2026-10-29/provenance.json",
+  "review_document": "docs/noah-authored-parts-review-2026-10-29.md",
+  "preview_html": "References/Characters/noah-authored-parts-2026-10-29/noah-material-review.html",
+  "material_files": [
+    {
+      "path": "References/Characters/noah-authored-parts-2026-10-29/draft-01-regions.json",
+      "sha256": "0e922890aa1d4e407538bf95d1b7751646da05b8c1bbef50a9575fa317348d2f",
+      "bytes": 477
+    },
+    {
+      "path": "References/Characters/noah-authored-parts-2026-10-29/noah-material-review.html",
+      "sha256": "1593bb626e619a2bc39c829df521278cd016fc77d90e2c6a7f33e12a27f338cb",
+      "bytes": 8862522
+    },
+    {
+      "path": "References/Characters/noah-authored-parts-2026-10-29/parts-layout.json",
+      "sha256": "f89be157847f5677cddb588f4b349d7836a32b26e416349691e2f16ad757d077",
+      "bytes": 2266
+    },
+    {
+      "path": "References/Characters/noah-authored-parts-2026-10-29/parts-left-draft-01.png",
+      "sha256": "5797c1d1df8a090168e24c95d685e2c7599f03e63dbca6300e782c7c0f716764",
+      "bytes": 1053052
+    },
+    {
+      "path": "References/Characters/noah-authored-parts-2026-10-29/provenance.json",
+      "sha256": "c5abd2052584dc7e4d4e4afd0b9257696e8f3838c16f734ac1eb8c31359f27b6",
+      "bytes": 10962
+    },
+    {
+      "path": "References/Characters/noah-authored-parts-2026-10-29/rig-model.cjs",
+      "sha256": "12c1c33398a12844ed0b5ba2091af73cc86a0170427281cf252d44f696fa0ed2",
+      "bytes": 2873
+    },
+    {
+      "path": "References/Characters/noah-authored-parts-2026-10-29/torso-left-draft-02.png",
+      "sha256": "76600bd4cbc43f07f0d2da19aea16e24003a10f690e6157791e21b4b8a04e83e",
+      "bytes": 1021552
+    },
+    {
+      "path": "References/Characters/noah-authored-parts-2026-10-29/turnaround-draft-01.png",
+      "sha256": "24b87b845c34e3689562c2fe8317fb9dcae8ef00bc2162540f0626727e44ad3d",
+      "bytes": 1807435
+    },
+    {
+      "path": "References/Characters/noah-authored-parts-2026-10-29/turnaround-draft-02.png",
+      "sha256": "59a3dfb811b04c7295ce6686512fcb650e6025bfc33a3b7ba866e9bd5f6c6717",
+      "bytes": 1739254
+    }
+  ],
+  "user_material_direction_feedback": "positive; not formal approval or complete2.5D acceptance",
+  "full_directional_rig_complete": false,
+  "blink_expression_complete": false,
+  "game_integrated": false,
+  "unity_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "six_character_rollout_authorized": false,
+  "pixel_metrics": {
+    "fps": null,
+    "stutter": null,
+    "heat": null,
+    "tap_latency_ms": null,
+    "memory": null,
+    "crashes": null
+  },
+  "source_review": "docs/verification/noah-authored-parts-2026-10-29/final-review.md",
+  "paw_registration_corrected": true
+}

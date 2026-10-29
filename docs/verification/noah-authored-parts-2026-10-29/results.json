@@ -1,0 +1,44 @@
+{
+  "scope": "Noah-only material and browser independent-parts phase",
+  "pure_rig_tests": {
+    "total": 7,
+    "passed": 7,
+    "failed": 0
+  },
+  "red_green": [
+    "missing independent rig API",
+    "missing rigid transition API",
+    "both feet airborne during alternating-step smoothing",
+    "undersized independent paws versus whole-view reference"
+  ],
+  "browser_verification": "browser-results.json",
+  "browser_screenshots_are_game_images": false,
+  "product_unchanged_from": "043ddebdadacbf9650311727ba7dd658e9cda9f6",
+  "formal_atlas_sha256": "23d14025f146c429da01b6e3a74ef803254755f8d149f9eb53516aacaa30163d",
+  "unity_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "six_character_rollout_authorized": false,
+  "remaining": [
+    "formal material/part identity acceptance",
+    "front/right/back independent parts",
+    "blink/expression",
+    "Unity/input/Sorting/game integration",
+    "native capture",
+    "Pixel performance"
+  ],
+  "fresh_review": {
+    "completed": true,
+    "model": "gpt-6-astra/high",
+    "critical": 0,
+    "important": 1,
+    "minor": 1,
+    "important_fixed_in_one_pass": true,
+    "paw_scale_reproduction_red_green": true,
+    "fixed_browser_verified": true,
+    "independent_rereview": false,
+    "ready_for_material_review_only": true,
+    "adoption_or_integration_approved": false
+  }
+}

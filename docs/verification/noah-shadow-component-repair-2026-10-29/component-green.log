@@ -1,0 +1,2 @@
+Noah shadow declared component dependencies (real compiled Unity API metadata): UnityEngine.CanvasRenderer, UnityEngine.RectTransform
+PASS: Noah shadow declares CanvasRenderer through its actual dependency chain. Metadata check only; Unity object creation/lifecycle still pending.

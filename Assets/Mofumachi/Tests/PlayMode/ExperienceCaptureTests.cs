@@ -240,7 +240,10 @@ namespace Mofumachi.Tests
         }
         [UnityTest,Timeout(120000)] public IEnumerator NoahReprototypeContinuousSequencePreservesArtAndSavedState()
         {
-            yield return EnterHome();Assert.That(Flow.Game.SelectFavorite("noah"),Is.True);Flow.ShowHome();yield return null;
+            yield return EnterHome();
+            var initialNoah=Flow.GetComponentInChildren<TownLifeView>().Actors.Single(a=>a.CharacterId=="noah");
+            Assert.That(initialNoah.transform.Find("Noah soft ground shadow").GetComponent<CanvasRenderer>(),Is.Not.Null,"Noah's shadow must own its renderer before Home is disabled or rebuilt.");
+            Assert.That(Flow.Game.SelectFavorite("noah"),Is.True);Flow.ShowHome();yield return null;
             EnsurePortraitCamera();var field=Flow.GetComponentInChildren<TownLifeView>();field.enabled=false;field.StartInteraction();
             var noah=field.Actors.Single(a=>a.CharacterId=="noah");var friend=field.Actors.Single(a=>a.CharacterId=="momo");
             Assert.That(noah.Controlled&&noah.NoahReprototypeEnabled,Is.True);

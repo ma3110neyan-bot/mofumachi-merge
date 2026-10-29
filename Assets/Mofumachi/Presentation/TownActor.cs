@@ -257,6 +257,7 @@ namespace Mofumachi.Presentation
     // One unlit, noninteractive ellipse. Smooth alpha falloff replaces the
     // Noah-only hard rounded rectangles; the legacy shadows stay available
     // unchanged for the causal OFF comparison. No texture/material allocation.
+    [RequireComponent(typeof(CanvasRenderer))]
     internal sealed class NoahGroundShadowGraphic : UnityEngine.UI.MaskableGraphic
     {
         private static readonly float[] radii={.25f,.55f,.80f,1};

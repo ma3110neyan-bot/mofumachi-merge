@@ -1,0 +1,80 @@
+{
+  "date_jst": "2026-10-29",
+  "base_revision": "5083efa2b8b254dd3924b4997ddbc96bfec4c90f",
+  "scope": "Missing CanvasRenderer dependency on Noah-only soft shadow; no mesh, art or motion tuning",
+  "received_native_failure": "References/Review/noah-reprototype-2026-10-29-120718/receipt-and-diagnosis.json",
+  "received_native_counts": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "received_images": 0,
+  "source_files": [
+    {
+      "path": "Assets/Mofumachi/Presentation/TownActor.cs",
+      "sha256_lf": "371f66af06357ee3c7f73154d794ef48c249e4a345615d6deee927529f113e49"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs",
+      "sha256_lf": "e0f7061e71bd3891fce4688fc33246c63c08552e9c35dfdeffaf828d2faaed35"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/Noah25DTrialPresentationTests.cs",
+      "sha256_lf": "977ebf1d6095edd2aa28163a3abb9cb1d521c2e8550baa9701391bbe8b67abb1"
+    }
+  ],
+  "checks": {
+    "received_failure": "Real Unity one-method failure, unhandled MissingComponentException on Noah soft ground shadow during ShowHome/cleanup, before capture",
+    "component_contract_red": {
+      "exit_code": 1,
+      "requires": [
+        "UnityEngine.RectTransform"
+      ],
+      "kind": "Real compiled Presentation and Unity API metadata, not native object execution"
+    },
+    "component_contract_green": {
+      "exit_code": 0,
+      "requires": [
+        "UnityEngine.CanvasRenderer",
+        "UnityEngine.RectTransform"
+      ],
+      "kind": "Same metadata check after minimal production fix"
+    },
+    "unity_api_compile": {
+      "assemblies": [
+        "Mofumachi.Presentation",
+        "Mofumachi.PlayModeTests"
+      ],
+      "exit_code": 0,
+      "warnings": 0,
+      "errors": 0,
+      "kind": "API compile only; no Unity native execution"
+    },
+    "current_bindings": 24,
+    "original_base_inputs": 354,
+    "release_frozen_inputs": 502,
+    "north_frozen_inputs": 20,
+    "historical_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+    "candidate_render_digest": "dc6d6f94586429bf826fb1ca820bb53a50045b069babfc4c106abf6681f10a9f",
+    "original_art_core_scene_and_accepted_freezes_unchanged": true,
+    "new_math_or_full_tests_run": false,
+    "native_regression_assertions": "Existing one-method capture checks actual initial shadow renderer before Home re-entry; existing Noah display test checks renderer before reading shadow mesh. Compiled but not run on repaired native candidate.",
+    "native_failure_suppressed_or_gate_tolerance_expanded": false
+  },
+  "runtime_diff": "One RequireComponent(CanvasRenderer) attribute in TownActor.cs only",
+  "after_fix_native_verified": false,
+  "new_images_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "six_character_rollout_authorized": false,
+  "next_command": "scripts/capture-noah-reprototype.ps1",
+  "next_test_method_count": 1,
+  "limitations": [
+    "No repaired Unity object creation, lifecycle or visual sequence executed in cloud.",
+    "Old three reattached ZIPs match prior receipts exactly and provide no new-candidate success.",
+    "Pixel FPS, heat, memory and tap latency are unmeasured; existing saves/device were not touched."
+  ]
+}

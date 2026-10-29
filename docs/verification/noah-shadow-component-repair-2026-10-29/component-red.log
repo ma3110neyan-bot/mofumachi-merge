@@ -1,0 +1,2 @@
+Noah shadow declared component dependencies (real compiled Unity API metadata): UnityEngine.RectTransform
+FAIL: Noah shadow does not require CanvasRenderer; RectTransform alone cannot render or safely unclip the shadow.

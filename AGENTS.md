@@ -1,5 +1,11 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-10-29最新：ノア単体撮影の影コンポーネント修正
+
+最新run120718-65fcb65c／source5083efaは実Unity **0/1、画像0**。新影 `NoahGroundShadowGraphic` がCanvasRendererを持たず、Home再入場の無効化／マスク解除と終了処理でMissingComponentException。原本3点 `References/Review/noah-reprototype-2026-10-29-120718/`。旧205828／222202再添付3ZIPは既受領SHAと同一、新候補へ成功を流用しない。
+
+修正は影クラスのRequireComponent(CanvasRenderer)だけ。実行済み新native成功や見た目の合格とは呼ばない。コンパイル済み実Unity APIの依存宣言は修正前RED／修正後GREEN、関連2assemblyのAPIコンパイルと固定入力ゲートを確認。既存ノア撮影／表示テストへ生成直後のrenderer確認を追加し、例外を無視しない。原画／動き／他5名／街／北境界／噴水／Save等は維持。全件QA・新APK・Pixelは未実行、6名展開禁止。次は同じ `scripts/capture-noah-reprototype.ps1` の**1件だけ**を再撮影し、新ZIP／実画像を確認する。詳細 `docs/noah-shadow-component-repair-2026-10-29.md`。
+
 ## 2026-10-28最新：ノア不合格・1名だけ再試作
 
 ユーザーは旧ノアを**2.5D不合格**と明示した。旧run222202の1/1成功は比較撮影の成功だけで、採用に使わない。残り5名への展開は禁止。北境界・噴水・街・図鑑・BGM・Save／依頼／納品／報酬・Mergeは維持する。

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-29 03:08:45Z" end-time="2026-10-29 03:08:47Z" duration="2.175222">
+  <test-suite type="TestSuite" id="1287" name="もふまちメルジュ" fullname="もふまちメルジュ" runstate="Runnable" testcasecount="235" result="Failed" site="Child" start-time="2026-10-29 03:08:45Z" end-time="2026-10-29 03:08:47Z" duration="2.175222" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1568" name="Mofumachi.PlayModeTests.dll" fullname="C:/Users/User/Desktop/Mofumachi/mofumachi-merge/Library/ScriptAssemblies/Mofumachi.PlayModeTests.dll" runstate="Runnable" testcasecount="235" result="Failed" site="Child" start-time="2026-10-29 03:08:45Z" end-time="2026-10-29 03:08:47Z" duration="2.165115" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="20020" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1569" name="Mofumachi" fullname="Mofumachi" runstate="Runnable" testcasecount="235" result="Failed" site="Child" start-time="2026-10-29 03:08:45Z" end-time="2026-10-29 03:08:47Z" duration="2.162665" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1570" name="Tests" fullname="Mofumachi.Tests" runstate="Runnable" testcasecount="235" result="Failed" site="Child" start-time="2026-10-29 03:08:45Z" end-time="2026-10-29 03:08:47Z" duration="2.160581" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1333" name="ExperienceCaptureTests" fullname="Mofumachi.Tests.ExperienceCaptureTests" classname="Mofumachi.Tests.ExperienceCaptureTests" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2026-10-29 03:08:45Z" end-time="2026-10-29 03:08:47Z" duration="2.147980" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1334" name="NoahReprototypeContinuousSequencePreservesArtAndSavedState" fullname="Mofumachi.Tests.ExperienceCaptureTests.NoahReprototypeContinuousSequencePreservesArtAndSavedState" methodname="NoahReprototypeContinuousSequencePreservesArtAndSavedState" classname="Mofumachi.Tests.ExperienceCaptureTests" runstate="Runnable" seed="162931940" result="Failed" start-time="2026-10-29 03:08:45Z" end-time="2026-10-29 03:08:47Z" duration="2.133469" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[Unhandled log message: '[Exception] MissingComponentException: There is no 'CanvasRenderer' attached to the "Noah soft ground shadow" game object, but a script is trying to access it.
+You probably need to add a CanvasRenderer to the game object "Noah soft ground shadow". Or your script needs to check if the component is attached before using it.'. Use UnityEngine.TestTools.LogAssert.Expect
+TearDown : Unhandled log message: '[Exception] MissingComponentException: There is no 'CanvasRenderer' attached to the "Noah soft ground shadow" game object, but a script is trying to access it.
+You probably need to add a CanvasRenderer to the game object "Noah soft ground shadow". Or your script needs to check if the component is attached before using it.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) (at <93e6391e4688454a985ab5dc6ed6bd98>:0)
+UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) (at <93e6391e4688454a985ab5dc6ed6bd98>:0)
+UnityEngine.CanvasRenderer.DisableRectClipping () (at <46f45de80d174b0197ed66b3543ec385>:0)
+UnityEngine.UI.MaskableGraphic.SetClipRect (UnityEngine.Rect clipRect, System.Boolean validRect) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:150)
+UnityEngine.UI.RectMask2D.RemoveClippable (UnityEngine.UI.IClippable clippable) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/RectMask2D.cs:334)
+UnityEngine.UI.MaskableGraphic.UpdateClipParent () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:258)
+UnityEngine.UI.MaskableGraphic.OnDisable () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:176)
+UnityEngine.Object:DestroyImmediate(Object)
+Mofumachi.Tests.SliceUiTestFixture:Cleanup() (at Assets/Mofumachi/Tests/PlayMode/SliceUiTestFixture.cs:38)
+System.Reflection.MethodBase:Invoke(Object, Object[])
+NUnit.Framework.Internal.Reflect:InvokeMethod(MethodInfo, Object, Object[])
+NUnit.Framework.Internal.Reflect:InvokeMethod(MethodInfo, Object)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[MissingComponentException: There is no 'CanvasRenderer' attached to the "Noah soft ground shadow" game object, but a script is trying to access it.
+You probably need to add a CanvasRenderer to the game object "Noah soft ground shadow". Or your script needs to check if the component is attached before using it.
+UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) (at <93e6391e4688454a985ab5dc6ed6bd98>:0)
+UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) (at <93e6391e4688454a985ab5dc6ed6bd98>:0)
+UnityEngine.CanvasRenderer.DisableRectClipping () (at <46f45de80d174b0197ed66b3543ec385>:0)
+UnityEngine.UI.MaskableGraphic.SetClipRect (UnityEngine.Rect clipRect, System.Boolean validRect) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:150)
+UnityEngine.UI.RectMask2D.RemoveClippable (UnityEngine.UI.IClippable clippable) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/RectMask2D.cs:334)
+UnityEngine.UI.MaskableGraphic.UpdateClipParent () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:258)
+UnityEngine.UI.MaskableGraphic.OnDisable () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:176)
+UnityEngine.GameObject:SetActive(Boolean)
+Mofumachi.Presentation.UIFlowController:Render(String, Boolean, Boolean) (at Assets/Mofumachi/Presentation/UIFlowController.cs:396)
+Mofumachi.Presentation.UIFlowController:Navigate(String) (at Assets/Mofumachi/Presentation/UIFlowController.cs:226)
+Mofumachi.Presentation.UIFlowController:ShowHome() (at Assets/Mofumachi/Presentation/UIFlowController.cs:185)
+Mofumachi.Tests.<NoahReprototypeContinuousSequencePreservesArtAndSavedState>d__30:MoveNext() (at Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs:243)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr)
+
+MissingComponentException: There is no 'CanvasRenderer' attached to the "Noah soft ground shadow" game object, but a script is trying to access it.
+You probably need to add a CanvasRenderer to the game object "Noah soft ground shadow". Or your script needs to check if the component is attached before using it.
+UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) (at <93e6391e4688454a985ab5dc6ed6bd98>:0)
+UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) (at <93e6391e4688454a985ab5dc6ed6bd98>:0)
+UnityEngine.CanvasRenderer.DisableRectClipping () (at <46f45de80d174b0197ed66b3543ec385>:0)
+UnityEngine.UI.MaskableGraphic.SetClipRect (UnityEngine.Rect clipRect, System.Boolean validRect) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:150)
+UnityEngine.UI.RectMask2D.RemoveClippable (UnityEngine.UI.IClippable clippable) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/RectMask2D.cs:334)
+UnityEngine.UI.MaskableGraphic.UpdateClipParent () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:258)
+UnityEngine.UI.MaskableGraphic.OnDisable () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:176)
+UnityEngine.GameObject:SetActive(Boolean)
+Mofumachi.Presentation.UIFlowController:Render(String, Boolean, Boolean) (at Assets/Mofumachi/Presentation/UIFlowController.cs:396)
+Mofumachi.Presentation.UIFlowController:Navigate(String) (at Assets/Mofumachi/Presentation/UIFlowController.cs:226)
+Mofumachi.Presentation.UIFlowController:ShowHome() (at Assets/Mofumachi/Presentation/UIFlowController.cs:185)
+Mofumachi.Tests.<NoahReprototypeContinuousSequencePreservesArtAndSavedState>d__30:MoveNext() (at Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs:243)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr)
+
+MissingComponentException: There is no 'CanvasRenderer' attached to the "Noah soft ground shadow" game object, but a script is trying to access it.
+You probably need to add a CanvasRenderer to the game object "Noah soft ground shadow". Or your script needs to check if the component is attached before using it.
+UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) (at <93e6391e4688454a985ab5dc6ed6bd98>:0)
+UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) (at <93e6391e4688454a985ab5dc6ed6bd98>:0)
+UnityEngine.CanvasRenderer.DisableRectClipping () (at <46f45de80d174b0197ed66b3543ec385>:0)
+UnityEngine.UI.MaskableGraphic.SetClipRect (UnityEngine.Rect clipRect, System.Boolean validRect) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:150)
+UnityEngine.UI.RectMask2D.RemoveClippable (UnityEngine.UI.IClippable clippable) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/RectMask2D.cs:334)
+UnityEngine.UI.MaskableGraphic.UpdateClipParent () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:258)
+UnityEngine.UI.MaskableGraphic.RecalculateClipping () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:274)
+UnityEngine.UI.MaskUtilities.Notify2DMaskStateChanged (UnityEngine.Component mask) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskUtilities.cs:26)
+UnityEngine.UI.RectMask2D.OnDisable () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/RectMask2D.cs:151)
+UnityEngine.GameObject:SetActive(Boolean)
+Mofumachi.Presentation.UIFlowController:Render(String, Boolean, Boolean) (at Assets/Mofumachi/Presentation/UIFlowController.cs:396)
+Mofumachi.Presentation.UIFlowController:Navigate(String) (at Assets/Mofumachi/Presentation/UIFlowController.cs:226)
+Mofumachi.Presentation.UIFlowController:ShowHome() (at Assets/Mofumachi/Presentation/UIFlowController.cs:185)
+Mofumachi.Tests.<NoahReprototypeContinuousSequencePreservesArtAndSavedState>d__30:MoveNext() (at Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs:243)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr)
+
+MissingComponentException: There is no 'CanvasRenderer' attached to the "Noah soft ground shadow" game object, but a script is trying to access it.
+You probably need to add a CanvasRenderer to the game object "Noah soft ground shadow". Or your script needs to check if the component is attached before using it.
+UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) (at <93e6391e4688454a985ab5dc6ed6bd98>:0)
+UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) (at <93e6391e4688454a985ab5dc6ed6bd98>:0)
+UnityEngine.CanvasRenderer.DisableRectClipping () (at <46f45de80d174b0197ed66b3543ec385>:0)
+UnityEngine.UI.MaskableGraphic.SetClipRect (UnityEngine.Rect clipRect, System.Boolean validRect) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:150)
+UnityEngine.UI.RectMask2D.RemoveClippable (UnityEngine.UI.IClippable clippable) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/RectMask2D.cs:334)
+UnityEngine.UI.MaskableGraphic.UpdateClipParent () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:258)
+UnityEngine.UI.MaskableGraphic.RecalculateClipping () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:274)
+UnityEngine.UI.MaskUtilities.Notify2DMaskStateChanged (UnityEngine.Component mask) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskUtilities.cs:26)
+UnityEngine.UI.RectMask2D.OnDisable () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/RectMask2D.cs:151)
+UnityEngine.GameObject:SetActive(Boolean)
+Mofumachi.Presentation.UIFlowController:Render(String, Boolean, Boolean) (at Assets/Mofumachi/Presentation/UIFlowController.cs:396)
+Mofumachi.Presentation.UIFlowController:Navigate(String) (at Assets/Mofumachi/Presentation/UIFlowController.cs:226)
+Mofumachi.Presentation.UIFlowController:ShowHome() (at Assets/Mofumachi/Presentation/UIFlowController.cs:185)
+Mofumachi.Tests.<NoahReprototypeContinuousSequencePreservesArtAndSavedState>d__30:MoveNext() (at Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs:243)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr)
+
+MissingComponentException: There is no 'CanvasRenderer' attached to the "Noah soft ground shadow" game object, but a script is trying to access it.
+You probably need to add a CanvasRenderer to the game object "Noah soft ground shadow". Or your script needs to check if the component is attached before using it.
+UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) (at <93e6391e4688454a985ab5dc6ed6bd98>:0)
+UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) (at <93e6391e4688454a985ab5dc6ed6bd98>:0)
+UnityEngine.CanvasRenderer.DisableRectClipping () (at <46f45de80d174b0197ed66b3543ec385>:0)
+UnityEngine.UI.MaskableGraphic.SetClipRect (UnityEngine.Rect clipRect, System.Boolean validRect) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:150)
+UnityEngine.UI.RectMask2D.RemoveClippable (UnityEngine.UI.IClippable clippable) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/RectMask2D.cs:334)
+UnityEngine.UI.MaskableGraphic.UpdateClipParent () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:258)
+UnityEngine.UI.MaskableGraphic.OnDisable () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:176)
+UnityEngine.Object:DestroyImmediate(Object)
+Mofumachi.Tests.SliceUiTestFixture:Cleanup() (at Assets/Mofumachi/Tests/PlayMode/SliceUiTestFixture.cs:38)
+System.Reflection.MethodBase:Invoke(Object, Object[])
+NUnit.Framework.Internal.Reflect:InvokeMethod(MethodInfo, Object, Object[])
+NUnit.Framework.Internal.Reflect:InvokeMethod(MethodInfo, Object)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr)
+
+MissingComponentException: There is no 'CanvasRenderer' attached to the "Noah soft ground shadow" game object, but a script is trying to access it.
+You probably need to add a CanvasRenderer to the game object "Noah soft ground shadow". Or your script needs to check if the component is attached before using it.
+UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) (at <93e6391e4688454a985ab5dc6ed6bd98>:0)
+UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) (at <93e6391e4688454a985ab5dc6ed6bd98>:0)
+UnityEngine.CanvasRenderer.DisableRectClipping () (at <46f45de80d174b0197ed66b3543ec385>:0)
+UnityEngine.UI.MaskableGraphic.SetClipRect (UnityEngine.Rect clipRect, System.Boolean validRect) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:150)
+UnityEngine.UI.RectMask2D.RemoveClippable (UnityEngine.UI.IClippable clippable) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/RectMask2D.cs:334)
+UnityEngine.UI.MaskableGraphic.UpdateClipParent () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:258)
+UnityEngine.UI.MaskableGraphic.OnDisable () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:176)
+UnityEngine.Object:DestroyImmediate(Object)
+Mofumachi.Tests.SliceUiTestFixture:Cleanup() (at Assets/Mofumachi/Tests/PlayMode/SliceUiTestFixture.cs:38)
+System.Reflection.MethodBase:Invoke(Object, Object[])
+NUnit.Framework.Internal.Reflect:InvokeMethod(MethodInfo, Object, Object[])
+NUnit.Framework.Internal.Reflect:InvokeMethod(MethodInfo, Object)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr)
+
+MissingComponentException: There is no 'CanvasRenderer' attached to the "Noah soft ground shadow" game object, but a script is trying to access it.
+You probably need to add a CanvasRenderer to the game object "Noah soft ground shadow". Or your script needs to check if the component is attached before using it.
+UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) (at <93e6391e4688454a985ab5dc6ed6bd98>:0)
+UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) (at <93e6391e4688454a985ab5dc6ed6bd98>:0)
+UnityEngine.CanvasRenderer.DisableRectClipping () (at <46f45de80d174b0197ed66b3543ec385>:0)
+UnityEngine.UI.MaskableGraphic.SetClipRect (UnityEngine.Rect clipRect, System.Boolean validRect) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:150)
+UnityEngine.UI.RectMask2D.RemoveClippable (UnityEngine.UI.IClippable clippable) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/RectMask2D.cs:334)
+UnityEngine.UI.MaskableGraphic.UpdateClipParent () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:258)
+UnityEngine.UI.MaskableGraphic.RecalculateClipping () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:274)
+UnityEngine.UI.MaskUtilities.Notify2DMaskStateChanged (UnityEngine.Component mask) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskUtilities.cs:26)
+UnityEngine.UI.RectMask2D.OnDisable () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/RectMask2D.cs:151)
+UnityEngine.Object:DestroyImmediate(Object)
+Mofumachi.Tests.SliceUiTestFixture:Cleanup() (at Assets/Mofumachi/Tests/PlayMode/SliceUiTestFixture.cs:38)
+System.Reflection.MethodBase:Invoke(Object, Object[])
+NUnit.Framework.Internal.Reflect:InvokeMethod(MethodInfo, Object, Object[])
+NUnit.Framework.Internal.Reflect:InvokeMethod(MethodInfo, Object)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr)
+
+MissingComponentException: There is no 'CanvasRenderer' attached to the "Noah soft ground shadow" game object, but a script is trying to access it.
+You probably need to add a CanvasRenderer to the game object "Noah soft ground shadow". Or your script needs to check if the component is attached before using it.
+UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) (at <93e6391e4688454a985ab5dc6ed6bd98>:0)
+UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) (at <93e6391e4688454a985ab5dc6ed6bd98>:0)
+UnityEngine.CanvasRenderer.DisableRectClipping () (at <46f45de80d174b0197ed66b3543ec385>:0)
+UnityEngine.UI.MaskableGraphic.SetClipRect (UnityEngine.Rect clipRect, System.Boolean validRect) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:150)
+UnityEngine.UI.RectMask2D.RemoveClippable (UnityEngine.UI.IClippable clippable) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/RectMask2D.cs:334)
+UnityEngine.UI.MaskableGraphic.UpdateClipParent () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:258)
+UnityEngine.UI.MaskableGraphic.RecalculateClipping () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskableGraphic.cs:274)
+UnityEngine.UI.MaskUtilities.Notify2DMaskStateChanged (UnityEngine.Component mask) (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/MaskUtilities.cs:26)
+UnityEngine.UI.RectMask2D.OnDisable () (at ./Library/PackageCache/com.unity.ugui@0727b404f3a0/Runtime/UGUI/UI/Core/RectMask2D.cs:151)
+UnityEngine.Object:DestroyImmediate(Object)
+Mofumachi.Tests.SliceUiTestFixture:Cleanup() (at Assets/Mofumachi/Tests/PlayMode/SliceUiTestFixture.cs:38)
+System.Reflection.MethodBase:Invoke(Object, Object[])
+NUnit.Framework.Internal.Reflect:InvokeMethod(MethodInfo, Object, Object[])
+NUnit.Framework.Internal.Reflect:InvokeMethod(MethodInfo, Object)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr)
+
+Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

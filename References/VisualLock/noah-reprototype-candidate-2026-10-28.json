@@ -8,7 +8,7 @@
   "before_runtime_source": "43a27646fcf65174afb938fb78c0b93d7e0628ad",
   "before_render_digest": "73b1027987ca543d38df99459571cc0ae441512511a8c8c7f1b3fc58bc567b5b",
   "reviewed_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
-  "candidate_render_digest": "2c40fe78b7b5ce0cf13041b236aae405f2bdb92fd8f5289bdf6ca11893f6b8b3",
+  "candidate_render_digest": "dc6d6f94586429bf826fb1ca820bb53a50045b069babfc4c106abf6681f10a9f",
   "changes": [
     {
       "path": "Assets/Mofumachi/Presentation/TownContinuousWorldView.cs",
@@ -68,7 +68,7 @@
     {
       "path": "Assets/Mofumachi/Presentation/TownActor.cs",
       "before_sha256": "be3ecfae09a77ffbff6b0365c2584d67e0f446d689ab52137c40895196857be5",
-      "after_sha256": "d348ce0994211fd9685d975bf770b76eed508bf423ad6b1cd63e4c1d6141f0f4"
+      "after_sha256": "371f66af06357ee3c7f73154d794ef48c249e4a345615d6deee927529f113e49"
     },
     {
       "path": "Assets/Mofumachi/Presentation/CharacterBodyGraphic.cs",
@@ -122,7 +122,7 @@
     {
       "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs",
       "before_sha256": "3bdc727de2275daa8bd1fe45de9f9f8002380ceeb9c9cbda7944a964996bc6b7",
-      "after_sha256": "eb2e9ba5c8fadc35d6ee992dfcde55575d411a2cb3fcd8b1cfe4cf4be7639c7f"
+      "after_sha256": "e0f7061e71bd3891fce4688fc33246c63c08552e9c35dfdeffaf828d2faaed35"
     }
   ],
   "qa_apk_generated": false,
@@ -155,7 +155,7 @@
   "current_before_native_source": "bb3fb82b5b941dd29fb58d4d0dd1631af516a723",
   "current_before_native_run": "20261027-102109-3bbbf9fe",
   "comparison_scope": "Same-instant reconstructed rejected1d11629 renderer vs current Noah reprototype; natural After and retained natural Before. JPEG motion samples are separate from causal PNG pairs and not hardware FPS.",
-  "internal_verification": "docs/verification/noah-reprototype-2026-10-28/results.json",
+  "internal_verification": "docs/verification/noah-shadow-component-repair-2026-10-29/results.json",
   "previous_internal_verification": "docs/verification/north-noah-capture-scene-repair-2026-10-27/results.json",
   "previous_native_tests_console_success_report": "docs/verification/north-noah-qa-build-screen-report-2026-10-28.json",
   "previous_candidate_record": "References/VisualLock/noah-quality-candidate-2026-10-28.json",
@@ -186,10 +186,10 @@
   "native_visual_cleared": false,
   "fixed_native_pass_verified": false,
   "native_scope_image_review_complete": false,
-  "native_visual_status": "reprototype_implemented_pending_native_images",
+  "native_visual_status": "shadow_dependency_fixed_pending_single_native_capture",
   "previous_native_failure": "References/Review/full-playmode-2026-10-28-201053/receipt-and-diagnosis.json",
   "native_comparison_protocol_version": 3,
-  "native_scope_image_review_scope": "new Noah-only reprototype, no received native evidence yet",
+  "native_scope_image_review_scope": "run120718 failed before capture: no new images; waiting for repaired single-method capture",
   "native_diagnostic_verified": false,
   "native_capture_method_pass_verified": false,
   "ready_for_full_qa": false,
@@ -213,5 +213,16 @@
   "before_reprototype_native_run": "noah-pair-20261028-222202-ca3a3b66",
   "native_reprototype_protocol_version": 1,
   "minimal_native_capture_command": "scripts/capture-noah-reprototype.ps1",
-  "six_character_rollout_authorized": false
+  "six_character_rollout_authorized": false,
+  "latest_native_failure": "References/Review/noah-reprototype-2026-10-29-120718/receipt-and-diagnosis.json",
+  "latest_native_failure_source": "5083efa2b8b254dd3924b4997ddbc96bfec4c90f",
+  "latest_native_failure_counts": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "latest_native_failure_images": 0,
+  "previous_reprototype_internal_verification": "docs/verification/noah-reprototype-2026-10-28/results.json"
 }

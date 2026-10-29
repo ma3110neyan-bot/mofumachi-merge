@@ -1,0 +1,87 @@
+{
+  "received_date_jst": "2026-10-29",
+  "run": "noah-reprototype-20261029-120718-65fcb65c",
+  "archive": {
+    "uploaded_file_id": "file_0000000060fc8209903a922a9b6b221b",
+    "file": "noah-reprototype-20261029-120718-65fcb65c-01.zip",
+    "bytes": 17913,
+    "sha256": "8ea2d1b5bc7fc6b05e71a889a76362befd0c70a5f777da1850447c843ed9befc",
+    "entries": 3,
+    "zip_crc_verified": true
+  },
+  "files": [
+    {
+      "file": "playmode.log",
+      "bytes": 79951,
+      "sha256": "a016f99b9ef2894cabc75a464d1d3807ec2c69cc0e6e5235d667783da036c9c4"
+    },
+    {
+      "file": "playmode.xml",
+      "bytes": 23283,
+      "sha256": "6688f65d9fdb702d69369cdd7d2bb6c75a9b60b38a9127abd0b5ba8e7476c2b3"
+    },
+    {
+      "file": "source-info.json",
+      "bytes": 542,
+      "sha256": "4e5714bf3730f3bd2dfc179c66bf6ef88ceaed88d0953f2631bbff0a03fc6c4e"
+    }
+  ],
+  "source_revision": "5083efa2b8b254dd3924b4997ddbc96bfec4c90f",
+  "reported_product_fingerprint": "d726c4b44a81d707e253170a7dbfff3cfb6e1339e05f52f6e3c861fb13c972d0",
+  "fingerprint_scope": "Recorded from unchanged-source guard in received Windows run; raw platform-dependent checkout fingerprint not independently recomputed on Linux.",
+  "native_counts": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "method": "Mofumachi.Tests.ExperienceCaptureTests.NoahReprototypeContinuousSequencePreservesArtAndSavedState",
+  "duration_seconds": 2.133469,
+  "failure": {
+    "type": "MissingComponentException",
+    "object": "Noah soft ground shadow",
+    "missing_component": "UnityEngine.CanvasRenderer",
+    "first_trigger": "Flow.ShowHome re-entry disables old Home under RectMask2D; MaskableGraphic.OnDisable unclips through missing CanvasRenderer",
+    "source": "Assets/Mofumachi/Presentation/TownActor.cs",
+    "cause": "NoahGroundShadowGraphic directly derives MaskableGraphic, whose inherited dependency chain requires only RectTransform. UIWidgets.Node supplies RectTransform, not CanvasRenderer. The new class omitted the explicit CanvasRenderer dependency already used by CharacterBodyGraphic.",
+    "native_source_line": 243,
+    "native_stack": "ExperienceCaptureTests.cs:243 -> UIFlowController.ShowHome/Render -> GameObject.SetActive(false) -> MaskableGraphic.OnDisable/RectMask2D.RemoveClippable -> CanvasRenderer.DisableRectClipping",
+    "log_line_first_exception": 702,
+    "teardown_repeats_same_missing_component": true,
+    "license_or_compile_failure": false
+  },
+  "new_images_received": 0,
+  "repeated_history": [
+    {
+      "archive": "noah-pair-20261028-205828-8cdc5361.zip",
+      "bytes": 6695869,
+      "sha256": "7a17b370f94aa7527d3364b6239ccddcd86d862a1bd220e0885a3f7a0ac52e4e",
+      "same_bytes_as_previous_receipt": true,
+      "previous_receipt": "References/Review/noah-pair-2026-10-28-205828/receipt-and-diagnosis.json",
+      "new_native_or_visual_success": false
+    },
+    {
+      "archive": "noah-pair-20261028-222202-ca3a3b66-01.zip",
+      "bytes": 23569459,
+      "sha256": "181905f109a9d75f3a535a07e0f5f51418913bda4c5796a2c6c67baabe6377ac",
+      "same_bytes_as_previous_receipt": true,
+      "previous_receipt": "References/Review/noah-pair-2026-10-28-222202/receipt.json",
+      "new_native_or_visual_success": false
+    },
+    {
+      "archive": "noah-pair-20261028-222202-ca3a3b66-02.zip",
+      "bytes": 21856341,
+      "sha256": "a0cc0faf79051a6db6b1b2e6ca8bde8932535b02ed3f6545db8834430f57df27",
+      "same_bytes_as_previous_receipt": true,
+      "previous_receipt": "References/Review/noah-pair-2026-10-28-222202/receipt.json",
+      "new_native_or_visual_success": false
+    }
+  ],
+  "proposed_local_fix": "Declare RequireComponent(typeof(CanvasRenderer)) on NoahGroundShadowGraphic. Keep drawing mesh, art, movement and unrelated UI unchanged; do not suppress Unity logs.",
+  "after_fix_native_success_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "six_character_rollout_authorized": false
+}

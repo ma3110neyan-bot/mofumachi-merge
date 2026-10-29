@@ -36,6 +36,7 @@ namespace Mofumachi.Tests
             Assert.That(dimensional.colors32.Min(c=>c.r),Is.LessThan(237));
             Assert.That(dimensional.colors32.All(c=>c.r==c.g&&c.g==c.b&&c.a==255),Is.True,"Only neutral lighting, not recoloring or opacity loss.");
             var shadow=noah.transform.Find("Noah soft ground shadow").GetComponent<UnityEngine.UI.Graphic>();
+            Assert.That(shadow.GetComponent<CanvasRenderer>(),Is.Not.Null,"The soft shadow must keep its own renderer through trial toggles and Home lifecycle.");
             Assert.That(shadow.enabled&&!shadow.raycastTarget,Is.True);
             var shadowMesh=shadow.canvasRenderer.GetMesh();
             Assert.That(shadowMesh.vertexCount,Is.LessThanOrEqualTo(100));

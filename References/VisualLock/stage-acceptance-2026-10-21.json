@@ -970,6 +970,7 @@
     "pixel_verified": false,
     "adopted": false,
     "six_character_rollout_authorized": false,
-    "native_visual_status": "reprototype_implemented_pending_native_images"
+    "native_visual_status": "shadow_dependency_fixed_pending_single_native_capture",
+    "latest_native_failure": "References/Review/noah-reprototype-2026-10-29-120718/receipt-and-diagnosis.json"
   }
 }

@@ -39,4 +39,4 @@ powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\capture
 
 コンソールに出る今回の `Builds\Diagnostics\noah-final-rig-日時-ID-*.zip` **全パート**と、同じrun内の `pixel-current-*.zip`／`pixel-rig-*.zip` を共有する。APK本体を無理にZIPへ詰めない。画像原本・実測値を受領後に、静止差、向き、接地、原画の印象、負荷を分けて判定する。小さい差なら不合格で方式終了。合格前の6名展開・Merge・mainへ進まない。
 
-ビルド失敗時は今回runの `trial-build.log` も必要。全件QAを再実行せず、同じrunの証拠で原因を特定する。クラウド側にWindowsのUSB接続やAndroidビルド環境はないため、実機成功を代理で断言しない。
+ビルド失敗時の `trial-build.log` と生成済みAPKの識別JSONも今回のレビューZIPに含める。Pixelの起動失敗・画面待ち・表示モード不一致・PID取得失敗でも、可能なクラッシュ原文と未計測の値を残した結果ZIPを出してから停止する。復帰も失敗した場合は両方を表示し、元の失敗を上書きしない。全件QAを再実行せず、同じrunの証拠で原因を特定する。クラウド側にWindowsのUSB接続やAndroidビルド環境はないため、実機成功を代理で断言しない。

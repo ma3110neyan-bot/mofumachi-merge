@@ -1,0 +1,9 @@
+Exception: /workspace/mofumachi-merge/scripts/tests/noah-pixel-failure.tests.ps1:9
+Line |
+   9 |  … ure failure$'){throw "Original capture failure was masked: $Message"}
+     |                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Original capture failure was masked: The term
+     | 'Invoke-NoahTrialPairActions' is not recognized as a name of a cmdlet,
+     | function, script file, or executable program. Check the spelling of the
+     | name, or if a path was included, verify that the path is correct and try
+     | again.

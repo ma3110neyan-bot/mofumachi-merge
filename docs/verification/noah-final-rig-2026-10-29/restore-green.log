@@ -1,0 +1,3 @@
+Current renderer restoration failed: secondary restore failure
+Current renderer restoration failed: restore-only failure
+Noah restore: original failure retained; independent restore failure still stops.

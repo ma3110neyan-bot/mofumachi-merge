@@ -59,6 +59,28 @@
   },
   "adopted": false,
   "six_character_rollout_authorized": false,
-  "source_review": "pending one fresh reviewer",
-  "cpu_study_note": "Internal software raster only, not Unity or required Before/After evidence; cannot establish obvious dimensionality or device load."
+  "source_review": {
+    "fresh_review_count": 1,
+    "model": "gpt-6-astra/high",
+    "critical": 0,
+    "important_original": 1,
+    "minor_original": 1,
+    "minor_regraded_important": 1,
+    "fix_passes": 1,
+    "important_findings_addressed_with_focused_tests": true,
+    "independent_rereview_count": 0,
+    "visual_device_adoption_approved": false,
+    "record": "docs/verification/noah-final-rig-2026-10-29/final-source-review.md"
+  },
+  "cpu_study_note": "Internal software raster only, not Unity or required Before/After evidence; cannot establish obvious dimensionality or device load.",
+  "source_implementation_commit": "abdffda4ab374833d3719345667a285d4dde6297",
+  "review_fix_verification": {
+    "startup_launch_surface_mode_pid_red_green": true,
+    "unknown_crash_process_null": true,
+    "successful_synthetic_session_keeps_known_data": true,
+    "original_failure_retained_on_restore_failure_red_green": true,
+    "existing_helper_regression_passed": true,
+    "existing_surface_metrics_regression_passed": true,
+    "actual_device_contacted": false
+  }
 }

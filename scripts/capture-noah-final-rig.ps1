@@ -15,6 +15,12 @@ function Assert-NoahFinalTrialInputs([string]$Repository) {
     foreach($InputFile in $Record.trial_inputs){if($InputFile.path -notin $Expected -or $InputFile.sha256 -notmatch '^[a-f0-9]{64}$'){throw 'Unexpected trial input.'};$Expected=@($Expected | Where-Object {$_ -ne $InputFile.path});$Text=[IO.File]::ReadAllText((Join-Path $Repository $InputFile.path)).Replace("`r`n","`n");if((Get-VisualLockDigest ([Text.Encoding]::UTF8.GetBytes($Text))) -ne $InputFile.sha256){throw 'Trial builder changed after binding.'}}
     if($Expected.Count){throw 'Missing trial input binding.'}
 }
+function Invoke-NoahTrialPairActions([scriptblock]$CurrentAction,[scriptblock]$RigAction,[scriptblock]$RestoreAction) {
+    $CaptureFailure=$null;$RestoreFailure=$null
+    try{& $CurrentAction;& $RigAction}catch{$CaptureFailure=$_}
+    try{& $RestoreAction}catch{$RestoreFailure=$_;Write-Host ('Current renderer restoration failed: '+$_.Exception.Message)}
+    if($CaptureFailure){throw $CaptureFailure};if($RestoreFailure){throw $RestoreFailure}
+}
 if($MyInvocation.InvocationName -eq '.'){return}
 if($Pixel3a -and -not $BuildApks){throw '-Pixel3a requires -BuildApks so the exact current/rig APK pair is available.'}
 $Repository=Split-Path -Parent $PSScriptRoot;$Git=Find-SourceGit
@@ -51,10 +57,11 @@ Write-Host "Final-trial directory: $OutputDir"
 if($BuildApks){Write-Host 'Two experimental APKs generated. Use capture-noah-final-pixel.ps1 with this exact directory, current first then rig.'}
 Start-Process -FilePath (Join-Path $OutputDir 'screenshots/noah-reprototype/noah-reprototype.html')
 if($Pixel3a){
-    try {
+    Invoke-NoahTrialPairActions {
         & (Join-Path $PSScriptRoot 'capture-noah-final-pixel.ps1') -BuildDirectory $OutputDir -Mode current
+    } {
         & (Join-Path $PSScriptRoot 'capture-noah-final-pixel.ps1') -BuildDirectory $OutputDir -Mode rig
-    } finally {
+    } {
         # Return the device to the current renderer after this experiment.
         # install-r preserves the save; no trial adoption is implied.
         . (Join-Path $PSScriptRoot 'capture-noah-final-pixel.ps1')

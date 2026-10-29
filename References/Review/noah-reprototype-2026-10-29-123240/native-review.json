@@ -1,0 +1,188 @@
+{
+  "received_date_jst": "2026-10-29",
+  "run": "noah-reprototype-20261029-123240-dd41010e",
+  "source_revision": "22f2831d834a4be380c69692f8dfbdb2cf912181",
+  "product_fingerprint": "d2f77a109f417fe7e9a7dec96cc6c91e30f3c0f2f171e070b022d342191192d8",
+  "scope": "Six same-instant Noah causal pairs,144 continuous manual fixed-step samples, two display-only fountain sorting examples; not all characters/full game/Pixel",
+  "native_counts": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "method": "Mofumachi.Tests.ExperienceCaptureTests.NoahReprototypeContinuousSequencePreservesArtAndSavedState",
+  "native_capture_method_verified": true,
+  "previous_two_capture_failures_resolved": true,
+  "checks": {
+    "all_169_original_bytes_sha_preserved": true,
+    "all_164_images_hash_bytes_dimensions_and_full_decode_verified": true,
+    "png_count": 14,
+    "jpeg_count": 150,
+    "causal_pairs_independently_recomputed": [
+      {
+        "id": "38-noah-idle",
+        "changed_pixels": 13521,
+        "outside_allowed_pixels": 0,
+        "bbox_top_left": [
+          309,
+          746,
+          432,
+          902
+        ]
+      },
+      {
+        "id": "38-noah-walk",
+        "changed_pixels": 14854,
+        "outside_allowed_pixels": 0,
+        "bbox_top_left": [
+          215,
+          744,
+          338,
+          902
+        ]
+      },
+      {
+        "id": "38-noah-stop",
+        "changed_pixels": 14740,
+        "outside_allowed_pixels": 0,
+        "bbox_top_left": [
+          185,
+          745,
+          307,
+          902
+        ]
+      },
+      {
+        "id": "38-noah-turn",
+        "changed_pixels": 14318,
+        "outside_allowed_pixels": 0,
+        "bbox_top_left": [
+          199,
+          743,
+          322,
+          901
+        ]
+      },
+      {
+        "id": "38-noah-talk",
+        "changed_pixels": 12108,
+        "outside_allowed_pixels": 0,
+        "bbox_top_left": [
+          403,
+          754,
+          524,
+          882
+        ]
+      },
+      {
+        "id": "38-noah-reaction",
+        "changed_pixels": 12099,
+        "outside_allowed_pixels": 0,
+        "bbox_top_left": [
+          405,
+          754,
+          526,
+          882
+        ]
+      }
+    ],
+    "outside_allowed_pixels_all_pairs": 0,
+    "original_atlas_sha256": "23d14025f146c429da01b6e3a74ef803254755f8d149f9eb53516aacaa30163d",
+    "original_atlas_matches_checkout": true,
+    "source_and_proof_identities_match": true,
+    "strict_readonly_native_proof_gate_passed": true,
+    "natural_after_retained": true,
+    "caption_context_changes": [
+      {
+        "pair": "38-noah-idle",
+        "natural_visibility_changed": false,
+        "after_natural": true
+      },
+      {
+        "pair": "38-noah-walk",
+        "natural_visibility_changed": false,
+        "after_natural": true
+      },
+      {
+        "pair": "38-noah-stop",
+        "natural_visibility_changed": false,
+        "after_natural": true
+      },
+      {
+        "pair": "38-noah-turn",
+        "natural_visibility_changed": false,
+        "after_natural": true
+      },
+      {
+        "pair": "38-noah-talk",
+        "natural_visibility_changed": false,
+        "after_natural": true
+      },
+      {
+        "pair": "38-noah-reaction",
+        "natural_visibility_changed": false,
+        "after_natural": true
+      }
+    ],
+    "frozen_inputs": {
+      "current_bindings": 24,
+      "original_base_inputs": 354,
+      "release_inputs": 502,
+      "accepted_north_inputs": 20,
+      "current_render_digest": "3af093c39b3e39455b0c36e6e255c52cf9385d5e27b4d88aca620dcc6f71f45e",
+      "historical_render_digest": "dfb2cbc80e81c0d3967341f13426e2465913887f16f26763f696c36c7efe26fa",
+      "gate_passed": true
+    }
+  },
+  "sequence": {
+    "frames": 144,
+    "unique_image_sha256": 144,
+    "first_simulated_seconds": 0.06666667014360428,
+    "last_simulated_seconds": 9.600014686584473,
+    "step_seconds": 0.03333333507180214,
+    "sample_steps": 2,
+    "continuous_without_cut": true,
+    "actual_noah_speech_verified": true,
+    "speaker": "noah",
+    "partner": "momo",
+    "text": "こんにちは、モモ♪",
+    "model_phases_verified": [
+      "idle",
+      "left walk",
+      "stop",
+      "right turn and walk",
+      "settle",
+      "Noah conversation/reaction"
+    ],
+    "state_unchanged": true,
+    "store_writes_unchanged": true,
+    "real_time_fps_evidence": false
+  },
+  "visual_review": {
+    "method": "Original six paired PNG regions, full fountain PNGs and selected full motion crops; contact sheets of all144 native crops. Analysis crops are derivatives, not new native renders. No video playback/Pixel observation claimed.",
+    "identity": "No important new face, clothing, hue, body or tail identity damage observed in received Noah scope; unchanged formal atlas identity verified.",
+    "motion": "Left walk, stop, right reversal/walk, blink and actual Noah greeting/reaction are visible. This verifies motion exists, not real-time smoothness on Pixel.",
+    "grounding_hold": "Ground shadow is difficult to read at the normal town scale; the difference in grounded presence remains weak. Name card occupies the area immediately below the paws. No UI change made.",
+    "depth_hold": "New tonal shading and lean are visible, but face/body remain mostly frontal. In my review the difference does not yet clearly meet the user requirement of obvious dimensionality.",
+    "gesture": "Paw/greeting movement and closed-eye reaction are visible; restrained motion alone is not taken as 2.5D approval.",
+    "existing_ui_constraint": "Conversation panel overlaps the hat/ears in both Before and After; retained existing UI, not a new Noah regression.",
+    "sorting": "Actual sibling order flips correctly with declared world feet Y. These two placed examples have little direct overlap with fountain body; they do not prove full occlusion, walk route, or all wood/bench/building interactions.",
+    "other_characters_scope": "All six paired differences outside Noah projected bounds are zero. Momo is visible in this episode; not a separate visual acceptance of all other five residents.",
+    "status": "needs_more_grounding_and_depth_before_full_qa_candidate",
+    "ready_for_full_qa": false,
+    "user_approval_received": false,
+    "adopted": false
+  },
+  "full_editmode_or_playmode_verified": false,
+  "qa_apk_generated": false,
+  "pixel_verified": false,
+  "pixel_metrics": {
+    "fps": null,
+    "heat": null,
+    "memory": null,
+    "tap_latency": null
+  },
+  "six_character_rollout_authorized": false,
+  "work_this_turn": "Receipt, independent integrity/pixel checks, visual review and saved records only; no runtime/capture/QA code changes, no requested re-capture or rebuild for record-only updates."
+}

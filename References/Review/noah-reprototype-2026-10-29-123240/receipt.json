@@ -1,0 +1,1043 @@
+{
+  "archives": [
+    {
+      "file": "noah-reprototype-20261029-123240-dd41010e-01.zip",
+      "bytes": 24734593,
+      "sha256": "f79ed2e696c3ff7fac5476f112d12c4035086848edec5a4fae7e0a9afbb6316b",
+      "entries": 156,
+      "raw_bytes": 24968325,
+      "uploaded_file_id": "file_00000000d624820994f405f81fcda78c"
+    },
+    {
+      "file": "noah-reprototype-20261029-123240-dd41010e-02.zip",
+      "bytes": 15732560,
+      "sha256": "cb5797949815056b8680e485f4bbef9f650545dffbf01a904104b39979d08a72",
+      "entries": 13,
+      "raw_bytes": 16091140,
+      "uploaded_file_id": "file_000000006a2082098dc69f990238507a"
+    }
+  ],
+  "files": [
+    {
+      "file": "source-info.json",
+      "bytes": 403,
+      "sha256": "6ad1b3af8896e6fbdf8ff1cbb77dfdda72eb4980f80a6ded34cc7311d2746e92",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "playmode.xml",
+      "bytes": 3668,
+      "sha256": "4ebe3c7484acacf70bb7fa1af15176dfe1faf8904e974839539013ce0af43c52",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "playmode.log",
+      "bytes": 55836,
+      "sha256": "1a12009ecf428afb7f7d7692ea47efc3dbe4d7f0baf2f91632fd36e0c53fa6e1",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-fountain-back.png",
+      "bytes": 1676220,
+      "sha256": "a4a4db540da827cbe6d6f561c298041d1268c6cfcae5645f2a93e5ad6f6ef770",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-fountain-front.png",
+      "bytes": 1685875,
+      "sha256": "dd3cec6c8de0b22343665e67eac94852687e3c639edb502534d30fc00d092354",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-00.jpg",
+      "bytes": 87570,
+      "sha256": "52dee07cb604eb6fef80ec90ed86619ca0aede957de87e270062598d90ba0dad",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-01.jpg",
+      "bytes": 87739,
+      "sha256": "a63c0c654aaa3cfa7f8753bac57414459ae484673e4e8819449df5dece46712b",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-02.jpg",
+      "bytes": 87775,
+      "sha256": "98b731be463212899420078a21a71481ba89e04dca6b846c2933d4f8479b0c1b",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-03.jpg",
+      "bytes": 87799,
+      "sha256": "03efc2ce47c9559719aa24e1900499f3e1e51640d1ad6310e795fe42441a0c59",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-04.jpg",
+      "bytes": 87810,
+      "sha256": "3ef21dcd45432370fecb91c85e76f6a09a061d0d8fe2cecbf40cad37b9179a85",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-05.jpg",
+      "bytes": 87790,
+      "sha256": "43e82883d305f1f444f0a0eb3b1d879721cd427ce6f595b0c5fe4e3e9a2a6d61",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-06.jpg",
+      "bytes": 87782,
+      "sha256": "0453c47a550ff5c7c8a31794dfcae21f8e38752de110a06eda81de577b7a5d8c",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-07.jpg",
+      "bytes": 87794,
+      "sha256": "a8894243719903aca7e60a9012ecbc95013f746fc2c998933ca064997fbb0f37",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-08.jpg",
+      "bytes": 87777,
+      "sha256": "899dcfaf4dbf529e3334d759fa099e0903883b64cbc6a0d2b11b87cfdb476fd2",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-09.jpg",
+      "bytes": 87779,
+      "sha256": "fc560c6a1e5ee851cf51eea5829fb9e92c39fccfc3856cf040b2e5c945ac72e8",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-10.jpg",
+      "bytes": 87788,
+      "sha256": "4fabf1dc46f35bc15b648dcc9125889cc7342f2ede029098e017cbca1d59a0ae",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-100.jpg",
+      "bytes": 61100,
+      "sha256": "a012a1dd6d5e9a9657726f6e5afdc3ede99fb3413bada22483021c877d302385",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-101.jpg",
+      "bytes": 60946,
+      "sha256": "f737b138aee5cdccb3446cb2ceb4ebc6bf489966e82f6fb553547265eedfb943",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-102.jpg",
+      "bytes": 60979,
+      "sha256": "2353a4d4ce4a3d1eca5be3153b030b89ff80e35b84600721cb05e3a317562099",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-103.jpg",
+      "bytes": 61026,
+      "sha256": "fff1834dae6c54c95a8cab018bf436bf3007e436c87c14284cd656e7640233f5",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-104.jpg",
+      "bytes": 60936,
+      "sha256": "c44102ee08dc7eaece834acc4383aa06f60a661575de7214b124b2324dbe3ef1",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-105.jpg",
+      "bytes": 62385,
+      "sha256": "790aae3f8f0902d1c44a691ddd58e6689615273893a85f347ac88aaa082ca14c",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-106.jpg",
+      "bytes": 62380,
+      "sha256": "eb77266f9ac6d2112de5ab986b265da73104d9280054688674632b51f6edcd18",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-107.jpg",
+      "bytes": 62369,
+      "sha256": "b3beffd4c019a3e8400bb6a36c658e51b67ee983926746e709cf5f474630027e",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-108.jpg",
+      "bytes": 62418,
+      "sha256": "08d452d4a964a18e8007550b3ceb46ee3b9bd4670f83a6d294bd966731fc59a0",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-109.jpg",
+      "bytes": 63324,
+      "sha256": "ca7828e7e11834fc61d18caf141f0453d8c61542059737c4a4616f4164490f3f",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-11.jpg",
+      "bytes": 87773,
+      "sha256": "12fa3a14152652d8c0e2d0ff2dbc49cf18ede48ef05ba6d25515d167c5f9830b",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-110.jpg",
+      "bytes": 63375,
+      "sha256": "32fa7974e216516834931fedae1e2f7d5f9786e61afd6733511f169d6a0f4d43",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-111.jpg",
+      "bytes": 63339,
+      "sha256": "45c5e0896d5b5fcd1e5296688eab2c32ab9856d70e098bc9e4f57d82a3ec6531",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-112.jpg",
+      "bytes": 63357,
+      "sha256": "a3018018a5a4f252b3d99bd0361ffb5131881c2b9be66da6670d183c8a1dc84a",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-113.jpg",
+      "bytes": 63338,
+      "sha256": "bcb4e785cf16810d3938d26caf79d68d7db614ce5a91c073de02864c2db5dfab",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-114.jpg",
+      "bytes": 63345,
+      "sha256": "95d00814f51be5a9c8adfd7a5f697c2e7aea9ed401c1539408395aaca44a2001",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-115.jpg",
+      "bytes": 63354,
+      "sha256": "1ac5a9c05284f8882afd64de259ffbf2b292fe1440a22b34b8189e09a7cf0412",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-116.jpg",
+      "bytes": 63358,
+      "sha256": "3c1fea3104fbfb2a31d0b6fb4b90f0349c1b001ef70813952da7cc91fdc9d985",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-117.jpg",
+      "bytes": 63383,
+      "sha256": "d934f5963cc78a8c99af18b7fc4259faceed3d114ec811327aadfa5decc78463",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-118.jpg",
+      "bytes": 63377,
+      "sha256": "3478779ead6db9143b6fa46a2e1812030adac68e87c0c857ddc9197f5f217b51",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-119.jpg",
+      "bytes": 63374,
+      "sha256": "2746a85afad305db672b82f0a6201f1d94abd2e23123be88501dd4bb6a40943f",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-12.jpg",
+      "bytes": 87793,
+      "sha256": "8f88ab8ab160a4abab6d2a3765e02454cd32b355b81ca0ff14e1932eccff5c52",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-120.jpg",
+      "bytes": 63351,
+      "sha256": "c0e99e9dbe1470799ac7974b45f87a6818badd93dd72570284d489a7b61de499",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-121.jpg",
+      "bytes": 63347,
+      "sha256": "26dad50f2c3a4fd0e3e26bc1feeb493638f1407dd5ae219fb2f7045833839310",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-122.jpg",
+      "bytes": 63373,
+      "sha256": "fcdd93733f2128c33ca9d5966dde0febc859cc451832fe759b6c4ed3d2db3268",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-123.jpg",
+      "bytes": 63189,
+      "sha256": "1b064c4d5a0a7932b08b6134b8404b6499721dba045be00547580c4da8308d1f",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-124.jpg",
+      "bytes": 63395,
+      "sha256": "652439c05a24afbf4c813cc0748a061bf83c7253ef9afa3732c9cf7478315789",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-125.jpg",
+      "bytes": 63364,
+      "sha256": "0fb785a727790cc3931bd8d263f03e8ee1fcc09b9956732c24254aa9ef2c6453",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-126.jpg",
+      "bytes": 63133,
+      "sha256": "deeda1bfbb56ab46bd717af5aec3472053d4fe2693996831cf25478f0bd5b14e",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-127.jpg",
+      "bytes": 63374,
+      "sha256": "e5c020cf29e4d562a2f8a2b07b48dd8ec3bd0b81120f634d64a01d2597a72333",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-128.jpg",
+      "bytes": 63380,
+      "sha256": "8c94716b69e064361760457b0df20a52b3069caa6d9b356ee03c00a018293061",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-129.jpg",
+      "bytes": 63379,
+      "sha256": "ac16d6ed933013d66de8e61ae9e88b89637ea02d20b3fea7986be13ecf3f8854",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-13.jpg",
+      "bytes": 87734,
+      "sha256": "f97f1ae44841127e00b8abc50ec80335a94bf9b1cd927bc44967bb924a91e6bc",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-130.jpg",
+      "bytes": 63373,
+      "sha256": "308d0e4c64e5db78ad3443e23740f74d346144dd3e053e952d0d364d3c25c807",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-131.jpg",
+      "bytes": 63348,
+      "sha256": "0d316903d634e189898a109462f9399b78b643df3cf84e4c306187839dfb2c5b",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-132.jpg",
+      "bytes": 63356,
+      "sha256": "2a90f4e741d8355505af55771243078f9a0ed31b65131d3d1c0d11d366c8b878",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-133.jpg",
+      "bytes": 63354,
+      "sha256": "d531c66a50e430356097be75d8b81e6cc26ec674f6064387eeda90c11bdfdf84",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-134.jpg",
+      "bytes": 63333,
+      "sha256": "acac68ffdbf1f1623925cbab20a27aef2f11d066835a881fdb7a96f93c29f9fa",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-135.jpg",
+      "bytes": 63326,
+      "sha256": "a486d9be24568e8a1d3fd433d89c949302036a37b9debff4ca9b289a4dda2759",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-136.jpg",
+      "bytes": 63340,
+      "sha256": "a09f1b80992fa87bb8fed143a036088c28951072684a9ec3ff33c0338736b98a",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-137.jpg",
+      "bytes": 63110,
+      "sha256": "e8a34445a30f839d2d72fd552ddf045bfb40730a3cb8775b7f60b59e80cd7b2d",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-138.jpg",
+      "bytes": 63139,
+      "sha256": "628b18ef75661ccbf6753c85890c9c9c16c2915fc31367f9045428d9ef37bd69",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-139.jpg",
+      "bytes": 63108,
+      "sha256": "a354e87cc9f5f30fbcf1093909972e7ac0fbe4b280b18d81fe7a4e321312946c",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-14.jpg",
+      "bytes": 87801,
+      "sha256": "607413254edce53a3d9cf2021c958648df62cd9649f3c98385b890122e18c562",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-140.jpg",
+      "bytes": 63137,
+      "sha256": "643c5e4e6ab22d8cb8c8bc35e59f1f758bd3d1381d0d50cf92eb9f07cf88a991",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-141.jpg",
+      "bytes": 63148,
+      "sha256": "ac3d3337a744db63536e25553566e21021978ab7406421faf9b5578d4ed27162",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-142.jpg",
+      "bytes": 63167,
+      "sha256": "268ae3ddfcf612b2435bc00ece070c7e7a388ac6c4b009937eb0b526fe38fe03",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-143.jpg",
+      "bytes": 63141,
+      "sha256": "44b9fa1b700c6b71ba3361189dc14d6b5f30f7ff5c6a6f11a63aeeb86e495b1d",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-15.jpg",
+      "bytes": 87734,
+      "sha256": "28b4c2520c28fc9d86790e35a15cb61d975c807ca81fea57002b839da1f4877d",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-16.jpg",
+      "bytes": 87854,
+      "sha256": "ad61ea0a0eda246f321794ae50b16af7d64d72d1be1b86ca142fade655dd27ca",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-17.jpg",
+      "bytes": 87728,
+      "sha256": "0b8d3032d081deed9d3d41043344f56f66bdb46b7dca68c6c571eb01b33b6b7c",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-18.jpg",
+      "bytes": 87555,
+      "sha256": "ae632baea941b0e79872dd44a4d92959ee2fb4f3f3b1f68df72f2cb7acce3912",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-19.jpg",
+      "bytes": 87417,
+      "sha256": "bc99d666f0c3b99e3bff48d2a6cfdf624fb63d1cae740ad45f41b65e52391367",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-20.jpg",
+      "bytes": 87225,
+      "sha256": "f1d5c2d5d809aaf791160742071079f22264228bbe21d3283a45373fb8a21099",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-21.jpg",
+      "bytes": 87133,
+      "sha256": "195cdea1f8b55ef7c93f6565ccdba2dbdcff61354c2f32f831ad7f2bc02eb5be",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-22.jpg",
+      "bytes": 87080,
+      "sha256": "06a9c6f399463e9557a6766ac7ff743862648c88d62b3aea587969dd2184a5cb",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-23.jpg",
+      "bytes": 86754,
+      "sha256": "b9eae34c53669cf1a9cfa498daabf1190f9a6bae2942c9264bf4ebae3e7ba576",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-24.jpg",
+      "bytes": 86670,
+      "sha256": "783b60c6f92e4f8076500845826a5512695ca33b07e533d2e935461fa9ef0647",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-25.jpg",
+      "bytes": 86565,
+      "sha256": "ed21b3cb1ea89a12ff66750f239bc0aba91e8579c38fbc95b2321ca5aab9883a",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-26.jpg",
+      "bytes": 86576,
+      "sha256": "a73db02d12102a082cbfd68c9e5e82c1986dadce193a643dcfa7d43d8f4b4065",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-27.jpg",
+      "bytes": 86349,
+      "sha256": "ddc10974c52e9f612267ca6aeea74c6a5a7ea2d58812825971ff57b0a57e615a",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-28.jpg",
+      "bytes": 86228,
+      "sha256": "90c7ca1321c53dbfce36b7879a0f45f106f766bae47312e329b6284b804ecb2c",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-29.jpg",
+      "bytes": 86362,
+      "sha256": "66521af3e6a4d3c2ca37df8700f938edffd482334ee17a2c994f73f224d49ac5",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-30.jpg",
+      "bytes": 86273,
+      "sha256": "6f22492402f8f1ac5f538dd2e9b39c720633aa791d7683f73c3dbf52548492f7",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-31.jpg",
+      "bytes": 86043,
+      "sha256": "935c23caa1b9f58b5988d5139dfd0365c9981b219ec40aee1b4625bfb2300ef6",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-32.jpg",
+      "bytes": 86252,
+      "sha256": "ed1ff46d20c8b725608d036b985c9be25b9415bf77504ef73b90bd0dcb939084",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-33.jpg",
+      "bytes": 86265,
+      "sha256": "1573c51f3300ea58cec76b5883e6104cf8e30f0b65b03f51b685ea09c0716eab",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-34.jpg",
+      "bytes": 86148,
+      "sha256": "5141efb10b543061cfb56591cdaa6c766a2eab6d2f27c2d91cf158bae6a034a9",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-35.jpg",
+      "bytes": 86013,
+      "sha256": "9f83866f9914524d8d06722862a58942164c2413fce5766e527a7493734d6bf8",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-36.jpg",
+      "bytes": 85981,
+      "sha256": "719464557d770d37cc613a28c75ed09013aa780b0dae05d0ba10f719ea6a420a",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-37.jpg",
+      "bytes": 85998,
+      "sha256": "3349a2a246f1dcf9d4881a88e36c50aab676c0485400b740080f50f38dee59cb",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-38.jpg",
+      "bytes": 86166,
+      "sha256": "470921757ce0482f5e96ff8c2d0b8271c30314dc181b25b6b6bb03bbd975498d",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-39.jpg",
+      "bytes": 86147,
+      "sha256": "7e85a13364e7866119988869300adfde6c8f34e3358b467293bba8dc7552263a",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-40.jpg",
+      "bytes": 86191,
+      "sha256": "d4c75e74b1e785489525941c9e6735d825baa202a50dda5dba8dfe821b2ef933",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-41.jpg",
+      "bytes": 86174,
+      "sha256": "c1c1154eea48f3b7b3a19fb12d5a1fdbd1d059817f8fe9b1e4076a2529bb53b8",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-42.jpg",
+      "bytes": 86168,
+      "sha256": "68aeab76e0d9bffb30e924773e0ea95beffa7ce2d700678fa4afd9acfcb30783",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-43.jpg",
+      "bytes": 86212,
+      "sha256": "105d11d7c92479e396d257a61d22cb7d54e5c3399a6e6d8480a7d8fd6de753f3",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-44.jpg",
+      "bytes": 86180,
+      "sha256": "398ba96ba0b5c92f1067c1f6f35316c07a8fb78b033e0cca7497ef921d5cc5b8",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-45.jpg",
+      "bytes": 86208,
+      "sha256": "a03229af2922f3bfc75b0388b00f8bcea4768f3314ba99a0f961e7b4102cb636",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-46.jpg",
+      "bytes": 86211,
+      "sha256": "e93a9740ea70c82b55b75350f46a357b854542010b3953cf9046cea7a821f575",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-47.jpg",
+      "bytes": 86229,
+      "sha256": "89cbb04659d161ec9970bdb3c8a496ab8792e61d2558b2d84c2aca7de7b44f82",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-48.jpg",
+      "bytes": 86295,
+      "sha256": "04bf1a785031b2b2dad5a6f17b1f4c38b0367ab1b5771721edde64411ac3eb09",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-49.jpg",
+      "bytes": 86426,
+      "sha256": "f4cca615da43d11650ab886ab70a9855442dd6f717e00d59b3456492c5643941",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-50.jpg",
+      "bytes": 86363,
+      "sha256": "43840f335661e56003c08f50315e111c87a3dc126f24d42f349cc3ed90c4e1f8",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-51.jpg",
+      "bytes": 86447,
+      "sha256": "2b0a11c765446377d6bf76ce43783457146e681160cdd4e9a5ad59097f4c3230",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-52.jpg",
+      "bytes": 86448,
+      "sha256": "69b5f480853510c28d330b7a56324eaee928d13673cef212962b4366e52ddc45",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-53.jpg",
+      "bytes": 86609,
+      "sha256": "67613dca4b4884c69662b25424b7d6968ef7f560d8f433b2f7e4797aa8ef94f0",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-54.jpg",
+      "bytes": 86545,
+      "sha256": "ce6339a91a2353f3f84b4db1b957de56f77c5eac454c0f8ba84ea65713bd04dc",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-55.jpg",
+      "bytes": 86360,
+      "sha256": "72abba8cc7783457e763d296a6ff3ef1d2288764f0b753c961190bc94aec85df",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-56.jpg",
+      "bytes": 86608,
+      "sha256": "c64831deaf804070be652dc76eabf0720a82ba8802b9d87c8bc9cc5e0ee1b0d2",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-57.jpg",
+      "bytes": 86598,
+      "sha256": "aa1ae959c04b73ac29a8034b4672c5a151410ddba71f4b87ec38523b515140d7",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-58.jpg",
+      "bytes": 86706,
+      "sha256": "37af7ce97ec481fb0cd71c7f57045acbaec6eedb19dfcafa8a50b9bcbc590a3d",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-59.jpg",
+      "bytes": 86789,
+      "sha256": "46ba82a848289cc5a75b666b7af04b0ad0ac71cd982d824956ca11fe76e1e51c",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-60.jpg",
+      "bytes": 87182,
+      "sha256": "daf76c616a46122d616f381110bdc58b337c5f631f34ba6ecfd3fb43d15d6f35",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-61.jpg",
+      "bytes": 87064,
+      "sha256": "fc2846da6e47f26dc33e4f265cd471b4b8b5048d550055fc0da83044077355ad",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-62.jpg",
+      "bytes": 87284,
+      "sha256": "23e18f04599386ea50ea7012dd6e29820706ace950859337cfc18f011282956e",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-63.jpg",
+      "bytes": 87609,
+      "sha256": "dfd6035847849ac7c354cbe5652572cbd4db8e336df12b8f968dc110fe51575e",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-64.jpg",
+      "bytes": 87656,
+      "sha256": "864dd42d188c7343e599d8bf72b919bd5900e090bb02672a2bd9d0a15a104d90",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-65.jpg",
+      "bytes": 87636,
+      "sha256": "0507014aa3296f70e4152a51d5176575227c82ee4230cc7976cbbdc7ff794990",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-66.jpg",
+      "bytes": 87675,
+      "sha256": "28696b0210678a1be7c5e4c6d4b547747cbd58ee42d458335b9db8c5aeaa4524",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-67.jpg",
+      "bytes": 87716,
+      "sha256": "af063980816a69c654bc944f67a1974d78d8eca1945267e566b29e594f5dc87e",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-68.jpg",
+      "bytes": 87559,
+      "sha256": "e0e4c840ec08f7d6128f71e4d06b64e23f5a8a08c0b13fd9d68dbcaaefc0cbc4",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-69.jpg",
+      "bytes": 87580,
+      "sha256": "25b8137f67ff3c674d9c5010776983f329204b0055a5e99ec9ad036a0abef17d",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-70.jpg",
+      "bytes": 87624,
+      "sha256": "4795617c283897f264f18cb80167274def5acd0f36262190cbf9f511ffc65edf",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-71.jpg",
+      "bytes": 87661,
+      "sha256": "e80c51c3e051d2f80bc6bc7fbbbcc9bf404472ce1a469b74a4f6901cf3ba1cbc",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-72.jpg",
+      "bytes": 87553,
+      "sha256": "cbf810e2c7912c4d931b80456f4c3d5862e585eb7a6df70451db1d57e6fa3eb6",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-73.jpg",
+      "bytes": 87491,
+      "sha256": "805f389094a3f3ea6383d33bec31e00ceb725438a54ed5941abf8fb3165d6fcc",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-74.jpg",
+      "bytes": 87356,
+      "sha256": "65522979022e7693951519909fc6ab479d79b96130ae7c485de1d08b29828070",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-75.jpg",
+      "bytes": 87436,
+      "sha256": "f8fdb44883c0db5f7317b1403ef6245c13d23c72f8327bc56420f0569a468fbd",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-76.jpg",
+      "bytes": 87408,
+      "sha256": "b0a4d5275fc27be70ff76bdef9fdcc56792d8778ecb7cdc8bf4555c5f6fd9fea",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-77.jpg",
+      "bytes": 87320,
+      "sha256": "2a44c6d7939ddac6aaf01a7a5fbdf83a189c5a87b85107c29290145b5aca5ee9",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-78.jpg",
+      "bytes": 87057,
+      "sha256": "152f7a17c72a3b340fb135bb3391af76fa422180e16eadcaa35c79d89c200051",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-79.jpg",
+      "bytes": 86857,
+      "sha256": "5b9796b238dab0c99cc87c25b4a383482bfd221c353762c16e3ef2e9f31d0a8f",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-80.jpg",
+      "bytes": 86679,
+      "sha256": "21b65cb34bc53db7fa6a8f854fbcf807640eedaa2c34fb465606c461a9746b3e",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-81.jpg",
+      "bytes": 86825,
+      "sha256": "32c563e28c3cf05eb5f86372a02cb539ef5f5d223a54fdbc07ab77d592c27380",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-82.jpg",
+      "bytes": 86812,
+      "sha256": "47bf8eab35c87a9ed63815477eaf089479264e29911d666d9fff3db81b752ad2",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-83.jpg",
+      "bytes": 86659,
+      "sha256": "fff50c0fb0ad060ae950a5acb86b795e8397b4e86257f4080a5320645b317bf4",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-84.jpg",
+      "bytes": 86437,
+      "sha256": "584d7dd9e1fe71dcc915400196c7d2d08b3b024bb1dceafa0b26ae4bf5953440",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-85.jpg",
+      "bytes": 86215,
+      "sha256": "8000c220639c5516150325cb7babee6c25a7ea639791fea7054b27fef00b48cc",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-86.jpg",
+      "bytes": 87089,
+      "sha256": "cda8247ac277ff56b5bd09637dfeb18c0157fcac1c959fe834afeb095b440008",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-87.jpg",
+      "bytes": 87034,
+      "sha256": "ac6f6c59d830072af56fc6c38809524e55a1ae9adfda8c3b47bde605c33dfefe",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-88.jpg",
+      "bytes": 87001,
+      "sha256": "32bd54a16b344edf75155cd94500a741dde1ce5ef278bcecb99a8eaa93bcc67e",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-89.jpg",
+      "bytes": 86880,
+      "sha256": "e0fe23e7e70259fa7820aaf3c4a224542fd9f8388a3351e836ef4264e9a5c131",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-90.jpg",
+      "bytes": 86825,
+      "sha256": "7fff3f2409a60f6425aed45d2439385f1b0109c11f0ebf538db90177b7dd0aab",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-91.jpg",
+      "bytes": 86712,
+      "sha256": "ceee37d3158d7f7b000a36f5435c131f850e2b6d5fab8ba519f16e4d01e4b5a2",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-92.jpg",
+      "bytes": 86681,
+      "sha256": "d23e9ae10e6018d0630c392dc4a71b7d9d3ddae48e0e6dac89fbfe60991062c8",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-93.jpg",
+      "bytes": 87687,
+      "sha256": "b1c7c078f07aacb311de719cc30b97ea67dad7af05632724b813a053bb5cf55a",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-94.jpg",
+      "bytes": 87697,
+      "sha256": "8df2a9a386c7c79d342e6fe117c6bcd2309689bf2dbea722731d696d0c72ee6a",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-95.jpg",
+      "bytes": 86720,
+      "sha256": "d5683385345373b1185cc17f480d25fde71839e26af695f8cbddaa90493e4871",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-96.jpg",
+      "bytes": 62010,
+      "sha256": "3119e3cb8766835ab1c4f5bc91e9aec5f11adbeac5f528b8389ecba6cfa6c7db",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-97.jpg",
+      "bytes": 61085,
+      "sha256": "2507cb4cc93f6a079bd558d22c031a39abf4e371cb7ba28b4243336065e48205",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-98.jpg",
+      "bytes": 61103,
+      "sha256": "524461473bd88783c6cbf91ee5e1c703291df93d8be8f5450a27f3145a807365",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-frame-99.jpg",
+      "bytes": 61119,
+      "sha256": "f9beaf5f863750e251b432dae5142c8df378a04e5ccd694e7ff4df30926dcac3",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-idle-after.png",
+      "bytes": 1820220,
+      "sha256": "adc14d00811269435f1c0525c4d67093b74b78fa3075cbeef965dc49aa8de4cb",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-idle-before-left-after-right.jpg",
+      "bytes": 854898,
+      "sha256": "44fb00a73ca87d36c8eaf7627288cb2f8ad4cac8f8f062187e40c2e4759f0016",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-idle-before-reconstructed.png",
+      "bytes": 1820245,
+      "sha256": "7873edc276cb07ec1d2cb7233ce627e4656e5dcfec8acdb304fd490837f41535",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-reaction-after.png",
+      "bytes": 1569021,
+      "sha256": "94708873aed5cedcb6022fab7a6a53455158e0fc33565d015c5c2c24e044797c",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-reaction-before-left-after-right.jpg",
+      "bytes": 730837,
+      "sha256": "cf5ae0a16ccaf044936bb1b2c5135774a4026f1e8d09d1b469c917eae7c3a588",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-reaction-before-reconstructed.png",
+      "bytes": 1569137,
+      "sha256": "2312f51d7379d31a92660b31203ffcd1963145fc9b634124119c45624907eca3",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-stop-after.png",
+      "bytes": 1817056,
+      "sha256": "27f9a8f952ba686cd5fd760b5d05fdf485e45dd24da3d9f3fa0b0275d0783ace",
+      "part": "noah-reprototype-20261029-123240-dd41010e-01.zip"
+    },
+    {
+      "file": "38-noah-stop-before-left-after-right.jpg",
+      "bytes": 851963,
+      "sha256": "801b53e0c132a9da7355580a76e9734ad2d1cea7859b81ed31c84df37317485a",
+      "part": "noah-reprototype-20261029-123240-dd41010e-02.zip"
+    },
+    {
+      "file": "38-noah-stop-before-reconstructed.png",
+      "bytes": 1817460,
+      "sha256": "12674e59bdeb61ea3bc34878df7527ce5fee7e34559e931f0df954e4fbc6a3f0",
+      "part": "noah-reprototype-20261029-123240-dd41010e-02.zip"
+    },
+    {
+      "file": "38-noah-talk-after.png",
+      "bytes": 1568881,
+      "sha256": "1fbcac98cf6107c9be971e4ce2e42148b37062d73090021fde6dc290e2228046",
+      "part": "noah-reprototype-20261029-123240-dd41010e-02.zip"
+    },
+    {
+      "file": "38-noah-talk-before-left-after-right.jpg",
+      "bytes": 730612,
+      "sha256": "6eb0d0a0f8e8804de3ce34cd6cbdaf5c1724803f268db169daacf713537d2a19",
+      "part": "noah-reprototype-20261029-123240-dd41010e-02.zip"
+    },
+    {
+      "file": "38-noah-talk-before-reconstructed.png",
+      "bytes": 1569003,
+      "sha256": "00db1748c765a850f47da1005537c30766f9ea127c4eef15286cfc054a0ab4f4",
+      "part": "noah-reprototype-20261029-123240-dd41010e-02.zip"
+    },
+    {
+      "file": "38-noah-turn-after.png",
+      "bytes": 1904026,
+      "sha256": "ea3afb2c81022acb233c77f234c61f3e3132a7a2ec9b8829249b023295ffb8ab",
+      "part": "noah-reprototype-20261029-123240-dd41010e-02.zip"
+    },
+    {
+      "file": "38-noah-turn-before-left-after-right.jpg",
+      "bytes": 878499,
+      "sha256": "ee372bd0351fa626d2873b00505eb536ceb214a4ff2cca91104868c0696aff75",
+      "part": "noah-reprototype-20261029-123240-dd41010e-02.zip"
+    },
+    {
+      "file": "38-noah-turn-before-reconstructed.png",
+      "bytes": 1904005,
+      "sha256": "6ce959e634c4c8530fbdc9ca8adab49e87ffabcd4971eb3c1292eb47aa0fa858",
+      "part": "noah-reprototype-20261029-123240-dd41010e-02.zip"
+    },
+    {
+      "file": "38-noah-walk-after.png",
+      "bytes": 1904018,
+      "sha256": "8d7893b7f2650761c74e984619269f1bd8eb6e3be54aebf3ddcb9902278a039f",
+      "part": "noah-reprototype-20261029-123240-dd41010e-02.zip"
+    },
+    {
+      "file": "38-noah-walk-before-left-after-right.jpg",
+      "bytes": 878164,
+      "sha256": "d37183a3eae6b897057da2b211b9befe5dbe1e524a09c34244bc8feb884e66a0",
+      "part": "noah-reprototype-20261029-123240-dd41010e-02.zip"
+    },
+    {
+      "file": "38-noah-walk-before-reconstructed.png",
+      "bytes": 1904177,
+      "sha256": "042aa0777cf819a06d08d44e45935eade63ee8e303798d42bd3587250eef54bc",
+      "part": "noah-reprototype-20261029-123240-dd41010e-02.zip"
+    },
+    {
+      "file": "noah-reprototype.html",
+      "bytes": 51514,
+      "sha256": "0184f34d24a453c7e6d0d7379ef833185794feeb72a07876445befcfd7c060ed",
+      "part": "noah-reprototype-20261029-123240-dd41010e-02.zip"
+    },
+    {
+      "file": "noah-reprototype.json",
+      "bytes": 128818,
+      "sha256": "eb8d2bb733c6fbb243a1c86846a417d817e2cad79f6d75cec8d3c7f050f4550a",
+      "part": "noah-reprototype-20261029-123240-dd41010e-02.zip"
+    }
+  ],
+  "received_date_jst": "2026-10-29",
+  "source_revision": "22f2831d834a4be380c69692f8dfbdb2cf912181",
+  "reported_product_fingerprint": "d2f77a109f417fe7e9a7dec96cc6c91e30f3c0f2f171e070b022d342191192d8",
+  "source_unchanged_in_received_run": true,
+  "zip_crc_verified": true,
+  "original_file_count": 169,
+  "raw_byte_total": 41059465
+}

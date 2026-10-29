@@ -1,0 +1,77 @@
+{
+  "all_declared_images_verified": 164,
+  "png_count": 14,
+  "jpeg_count": 150,
+  "pairs_recomputed": [
+    {
+      "id": "38-noah-idle",
+      "changed_pixels": 13521,
+      "outside_allowed_pixels": 0,
+      "bbox_top_left": [
+        309,
+        746,
+        432,
+        902
+      ]
+    },
+    {
+      "id": "38-noah-walk",
+      "changed_pixels": 14854,
+      "outside_allowed_pixels": 0,
+      "bbox_top_left": [
+        215,
+        744,
+        338,
+        902
+      ]
+    },
+    {
+      "id": "38-noah-stop",
+      "changed_pixels": 14740,
+      "outside_allowed_pixels": 0,
+      "bbox_top_left": [
+        185,
+        745,
+        307,
+        902
+      ]
+    },
+    {
+      "id": "38-noah-turn",
+      "changed_pixels": 14318,
+      "outside_allowed_pixels": 0,
+      "bbox_top_left": [
+        199,
+        743,
+        322,
+        901
+      ]
+    },
+    {
+      "id": "38-noah-talk",
+      "changed_pixels": 12108,
+      "outside_allowed_pixels": 0,
+      "bbox_top_left": [
+        403,
+        754,
+        524,
+        882
+      ]
+    },
+    {
+      "id": "38-noah-reaction",
+      "changed_pixels": 12099,
+      "outside_allowed_pixels": 0,
+      "bbox_top_left": [
+        405,
+        754,
+        526,
+        882
+      ]
+    }
+  ],
+  "sequence_frames": 144,
+  "unique_sequence_frame_sha256": 144,
+  "source_revision": "22f2831d834a4be380c69692f8dfbdb2cf912181",
+  "product_fingerprint": "d2f77a109f417fe7e9a7dec96cc6c91e30f3c0f2f171e070b022d342191192d8"
+}

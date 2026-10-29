@@ -964,13 +964,26 @@
     "candidate_record": "References/VisualLock/noah-reprototype-candidate-2026-10-28.json",
     "implemented": true,
     "native_unity_verified": false,
-    "native_diagnostic_verified": false,
+    "native_diagnostic_verified": true,
     "native_visual_cleared": false,
     "qa_apk_generated": false,
     "pixel_verified": false,
     "adopted": false,
     "six_character_rollout_authorized": false,
-    "native_visual_status": "capture_fixture_fixed_pending_continuous_native_proof",
-    "latest_native_failure": "References/Review/noah-reprototype-2026-10-29-122017/receipt-and-diagnosis.json"
+    "native_visual_status": "needs_more_grounding_and_depth_before_full_qa_candidate",
+    "latest_native_failure": "References/Review/noah-reprototype-2026-10-29-122017/receipt-and-diagnosis.json",
+    "native_capture_method_pass_verified": true,
+    "native_scope_image_review_complete": true,
+    "latest_native_review": "References/Review/noah-reprototype-2026-10-29-123240/native-review.json",
+    "latest_native_diagnostic_source": "22f2831d834a4be380c69692f8dfbdb2cf912181",
+    "latest_native_diagnostic_counts": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    "latest_native_failure_resolved_in_single_method": true,
+    "ready_for_full_qa": false
   }
 }

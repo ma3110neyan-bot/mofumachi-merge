@@ -1,0 +1,159 @@
+{
+  "date_jst": "2026-10-30",
+  "user_approved": true,
+  "source": "explicit user instruction: ノアの2.5D化は合格・正式基準として固定",
+  "source_baseline": "7c98804a78f07546fb8176b320904e8af44f6542",
+  "device_screenshot_pdf_sha256": "65529a266a53989df36c5b93ac82d3fde4d15f26dc9be6af73a36a74c41b7a47",
+  "pdf_pages": 10,
+  "exact_device_binary_identity_received": false,
+  "measured_pixel_metrics": null,
+  "master_method": "direction-specific rigid independent parts, grounded foot motion, actor hierarchy Sorting; existing formal atlas front",
+  "frozen_files": [
+    {
+      "path": "Assets/Mofumachi/Presentation/NoahAuthoredMotion.cs",
+      "sha256": "aaa6134b4d34dbe63d0e5805c257addadfc03deccee4cd7603911da27d5909ca",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/NoahAuthoredGraphic.cs",
+      "sha256": "125edbfa8340555e3549242e2a7f3e4153f06706f5ec8bbd75124090ffce991d",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Editor/NoahAuthoredBuild.cs",
+      "sha256": "1dd1117ccd853f8560d5da72d5c95dbca1e0325188b15d3102bedb987b90ecbb",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.NoahAuthored.cs",
+      "sha256": "76739c6489d689b2b5b0ca4007488b63c0fa501fdda3e4ee5e1efc93e0611b7b",
+      "text_normalized": true
+    },
+    {
+      "path": "References/Characters/noah-authored-parts-2026-10-29/README.md",
+      "sha256": "814c7b7282cfbfd69374a613e4256d5bec0de7ff6f49befdbe8774aac56d8e63",
+      "text_normalized": true
+    },
+    {
+      "path": "References/Characters/noah-authored-parts-2026-10-29/draft-01-regions.json",
+      "sha256": "0e922890aa1d4e407538bf95d1b7751646da05b8c1bbef50a9575fa317348d2f",
+      "text_normalized": true
+    },
+    {
+      "path": "References/Characters/noah-authored-parts-2026-10-29/noah-material-review.html",
+      "sha256": "1593bb626e619a2bc39c829df521278cd016fc77d90e2c6a7f33e12a27f338cb",
+      "text_normalized": true
+    },
+    {
+      "path": "References/Characters/noah-authored-parts-2026-10-29/parts-layout.json",
+      "sha256": "f89be157847f5677cddb588f4b349d7836a32b26e416349691e2f16ad757d077",
+      "text_normalized": true
+    },
+    {
+      "path": "References/Characters/noah-authored-parts-2026-10-29/parts-left-draft-01.png",
+      "sha256": "5797c1d1df8a090168e24c95d685e2c7599f03e63dbca6300e782c7c0f716764",
+      "text_normalized": false
+    },
+    {
+      "path": "References/Characters/noah-authored-parts-2026-10-29/provenance.json",
+      "sha256": "c5abd2052584dc7e4d4e4afd0b9257696e8f3838c16f734ac1eb8c31359f27b6",
+      "text_normalized": true
+    },
+    {
+      "path": "References/Characters/noah-authored-parts-2026-10-29/rig-model.cjs",
+      "sha256": "12c1c33398a12844ed0b5ba2091af73cc86a0170427281cf252d44f696fa0ed2",
+      "text_normalized": true
+    },
+    {
+      "path": "References/Characters/noah-authored-parts-2026-10-29/torso-left-draft-02.png",
+      "sha256": "76600bd4cbc43f07f0d2da19aea16e24003a10f690e6157791e21b4b8a04e83e",
+      "text_normalized": false
+    },
+    {
+      "path": "References/Characters/noah-authored-parts-2026-10-29/turnaround-draft-01.png",
+      "sha256": "24b87b845c34e3689562c2fe8317fb9dcae8ef00bc2162540f0626727e44ad3d",
+      "text_normalized": false
+    },
+    {
+      "path": "References/Characters/noah-authored-parts-2026-10-29/turnaround-draft-02.png",
+      "sha256": "59a3dfb811b04c7295ce6686512fcb650e6025bfc33a3b7ba866e9bd5f6c6717",
+      "text_normalized": false
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/README.md",
+      "sha256": "c0f61a60f884cce30551d71fd21cd237960adf2e328ea4af04f646b76c9681c5",
+      "text_normalized": true
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/direction-review.cjs",
+      "sha256": "19f4fff3521e1c8b802369bdbfa5c9745d1a9d0680fae04d1591a5db89ba70f0",
+      "text_normalized": true
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/directions-layout.json",
+      "sha256": "de8bcaa96e89ba7f146323316b22f18e3ad5c9ef01eaaf1c838597f14205105e",
+      "text_normalized": true
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/noah-direction-review.html",
+      "sha256": "ecedd7b720484e386d81b00660dc50c392f9ab2e363280dc5fefc193d057b80e",
+      "text_normalized": true
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/parts-back-draft-01.png",
+      "sha256": "610313b7cde8680286f41edcc6492c54973c49b4be097491f0c8ca832c1b5ae8",
+      "text_normalized": false
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/parts-back-draft-02.png",
+      "sha256": "33fcdc54ce4f1f6631936ec82f4ad6e0a9ffee621db7a18d304d7235c801819a",
+      "text_normalized": false
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/parts-right-draft-01.png",
+      "sha256": "e9c2e22eac2b4d9f9256557e9c4064aba79cab540c5e984d99496c51b5b0b0c8",
+      "text_normalized": false
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/parts-right-draft-02.png",
+      "sha256": "2a2486cbef78ea53bd0f8a8076003ac3facb926ffc474f0a95994ce2c8c625e0",
+      "text_normalized": false
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/prompt-back-correction.txt",
+      "sha256": "03533649df558eb526e2894cf5ba570ea4614686b99aaa286795638d2772456f",
+      "text_normalized": true
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/prompts-right.txt",
+      "sha256": "91bce9b4b551d14a53d7ed3d39ae1fa5cb5d07ce70848755d9b96c5c4999582e",
+      "text_normalized": true
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/provenance.json",
+      "sha256": "25b411da3aa855d76d30ab1ddcae464fd643535b3f397dd5f5a1764efe37f9bb",
+      "text_normalized": true
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/review.template.html",
+      "sha256": "3aba449539e11c0acc3a035fd8482ea4c006a20300981f55b004ff0eb60a1060",
+      "text_normalized": true
+    }
+  ],
+  "remaining_rollout_authorized": [
+    "momo",
+    "lulu",
+    "pom",
+    "fio",
+    "miel"
+  ],
+  "rollout_sequence": [
+    "momo",
+    "lulu",
+    "pom",
+    "fio",
+    "miel"
+  ],
+  "automatic_greeting_change_implemented": false,
+  "future_greeting_candidate": "one automatic greeting per character per day; tap thereafter, separate later stage"
+}

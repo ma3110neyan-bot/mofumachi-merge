@@ -189,7 +189,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "noah_authored_game_preview_native_apk_pixel_pending",
+  "current_stage": "noah_master_user_accepted_momo_sequential_native_gate_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -1084,5 +1084,22 @@
     "adopted": false,
     "six_character_rollout_authorized": false,
     "normal_default_enabled": false
+  },
+  "noah_authored_user_acceptance_2026_10_30": {
+    "user_approved": true,
+    "master_fixed": true,
+    "approval_manifest": "References/VisualLock/noah-authored-approved-2026-10-30.json",
+    "remaining_rollout_authorized": [
+      "momo",
+      "lulu",
+      "pom",
+      "fio",
+      "miel"
+    ],
+    "current_character": "momo",
+    "other_four_started": false,
+    "momo_native_verified": false,
+    "pixel_metrics_received": false,
+    "automatic_greeting_policy_deferred": true
   }
 }

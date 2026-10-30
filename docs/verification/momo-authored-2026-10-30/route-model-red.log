@@ -1,0 +1,4 @@
+target(-0.22,-0.3), actual(-0.22,-0.3), facing Left, walking False
+target(0.27,-0.3), actual(0.25317198,-0.31485537), facing Front, walking True
+Unhandled exception. System.Exception: Route did not settle
+   at Program.Main(String[] args) in /workspace/runtime/momo-authored-oct30/model/Program.cs:line 3

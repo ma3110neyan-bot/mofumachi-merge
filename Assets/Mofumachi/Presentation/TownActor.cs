@@ -18,6 +18,31 @@ namespace Mofumachi.Presentation
         public TownPoint RenderPosition { get; private set; }
         public RectTransform VisualRoot { get; private set; }
         private bool noahTrialRequested=true;
+        // Additional characters advance individually; Noah's accepted branch below
+        // remains unchanged. No normal build automatically enables unfinished art.
+        private bool characterAuthoredRequested;
+        private CharacterAuthoredGraphic characterAuthored;
+        private NoahGroundShadowGraphic characterAuthoredShadow;
+        private NoahAuthoredDirection characterDirection=NoahAuthoredDirection.Left;
+        public bool CharacterAuthoredEnabled=>characterAuthoredRequested&&CharacterAuthoredGraphic.IsPreparedCharacter(CharacterId);
+        public NoahAuthoredDirection CharacterDirection=>characterDirection;
+        public bool SetCharacterAuthoredEnabled(bool enabled)
+        {
+            if(!CharacterAuthoredGraphic.IsPreparedCharacter(CharacterId))return false;
+            if(enabled&&characterAuthored==null)
+            {
+                var node=UIWidgets.Node("Character authored parts",VisualRoot,new Rect(0,0,1,1));node.pivot=new Vector2(.5f,0);
+                characterAuthored=node.gameObject.AddComponent<CharacterAuthoredGraphic>();
+                try{characterAuthored.Configure(CharacterId);}catch{DestroyImmediate(node.gameObject);characterAuthored=null;throw;}
+                characterAuthoredShadow=UIWidgets.Node("Character authored ground shadow",rect,new Rect(.18f,-.06f,.64f,.12f)).gameObject.AddComponent<NoahGroundShadowGraphic>();
+                characterAuthoredShadow.raycastTarget=false;characterAuthoredShadow.ConfigureGrounding(true);characterAuthoredShadow.transform.SetAsFirstSibling();
+            }
+            characterAuthoredRequested=enabled;
+            if(characterAuthored!=null)characterAuthored.enabled=enabled;
+            if(characterAuthoredShadow!=null)characterAuthoredShadow.enabled=enabled;
+            if(body!=null)body.enabled=!enabled;
+            ApplyVisibility();if(life!=null)Render(0,0);return true;
+        }
         public bool NoahTrialEnabled=>TownNoah25DTrial.IsEnabled(CharacterId,noahTrialRequested);
         private bool noahReprototypeRequested=true;
         public bool NoahReprototypeEnabled=>NoahTrialEnabled&&noahReprototypeRequested;
@@ -201,6 +226,7 @@ namespace Mofumachi.Presentation
             if(visibility!=null){visibility.alpha=RegionVisible?1-journeyFade:0;visibility.blocksRaycasts=interactive;visibility.interactable=interactive;}
             if(body!=null)body.raycastTarget=interactive;
             if(authored!=null)authored.raycastTarget=interactive;
+            if(characterAuthored!=null)characterAuthored.raycastTarget=interactive;
         }
         internal void Advance(float dt)
         {
@@ -255,6 +281,15 @@ namespace Mofumachi.Presentation
             float attention=.5f+.5f*Mathf.Sin(breath*.65f+resident*.617f);
             float rest=-2*benchBlend-1.3f*flowerBlend*attention;
             float scale=viewScale*DepthScale;
+            if(CharacterAuthoredEnabled)
+            {
+                if(moving)characterDirection=NoahAuthoredMotion.Direction(worldResident==null?Position.X-previous.X:worldResident.Position.X-worldResident.Previous.X,worldResident==null?Position.Y-previous.Y:worldResident.Position.Y-worldResident.Previous.Y,characterDirection);
+                bool front=characterDirection==NoahAuthoredDirection.Front;body.enabled=front;characterAuthored.enabled=!front;
+                VisualRoot.anchoredPosition=Vector2.zero;VisualRoot.localScale=Vector3.one*scale;VisualRoot.localRotation=Quaternion.identity;
+                if(front)body.Pose(0,0,0,TownCharacterMotion.Blink(breath,resident));
+                else characterAuthored.SetPose(breath,stride,amplitude,reactionRemaining>0?NoahAuthoredMode.Greet:life.IsActorSpeaking(this)?NoahAuthoredMode.Talk:moving?NoahAuthoredMode.Walk:NoahAuthoredMode.Idle,characterDirection,TownCharacterMotion.Blink(breath,resident));
+                UpdateShadows(0,scale);characterAuthoredShadow.rectTransform.localScale=Vector3.one*scale;return;
+            }
             if(NoahAuthoredEnabled)
             {
                 EnsureAuthoredGraphic();
@@ -307,6 +342,7 @@ namespace Mofumachi.Presentation
         {
             if(softShadow==null||contactShadow==null)return;height=Mathf.Clamp(height,0,12);
             softShadow.enabled=contactShadow.enabled=!NoahReprototypeEnabled;
+            if(CharacterAuthoredEnabled)softShadow.enabled=contactShadow.enabled=false;
             if(noahShadow!=null){noahShadow.enabled=NoahReprototypeEnabled;if(NoahFinalRigEnabled)noahShadow.ConfigureFinalRig();else noahShadow.ConfigureGrounding(NoahDepthFocusEnabled);noahShadow.rectTransform.localScale=Vector3.one*scale;}
             if(NoahTrialEnabled)
             {

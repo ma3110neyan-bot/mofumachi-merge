@@ -1,5 +1,15 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-10-30最新：ノア合格・マスター固定／残り5名は逐次横展開
+
+ユーザーは「ノアの2.5D化は合格・正式基準として固定」と明示。旧「ノア不合格・残り5名展開禁止」はこの最新承認で上書きする。ノアの方式と素材は変更しない。新承認manifest `References/VisualLock/noah-authored-approved-2026-10-30.json` にソース／素材SHAとPDF10画面を結び付ける。画像承認から未受領のAPKbinaryID・FPS・熱・メモリを推論しない。
+
+作業順はモモ→ルル→ポム→フィオ→ミエル。一名の簡易確認後に次へ進み、5名同時修正をしない。現在は**モモ単体の実装候補・実Unity未確認**。他4名は未着手。ノアのNoahAuthoredMotionを直接再利用し、正式atlas正面保持、左右斜め／後ろの7剛体パーツ、閉じ目素材、同じ影・actor親／入力／Sorting。モモだけの登録位置を合わせた。一般化を理由にノア本体を変更しない。
+
+途中はモモ関連だけ。`scripts/capture-character-authored.ps1 -Character momo` がWindowsで一時資源→新しいPlayMode1メソッド→所有物だけcleanup→画像／XML／ログのZIPを作り、全件・APK・Pixel更新・保存resetは実施しない。クラウドではAPIコンパイル／素材ブラウザー／純粋モデルまで。実Unityの原本確認でモモが通る前にルルへ進めない。手順 `docs/momo-authored-single-gate-2026-10-30.md`。5名すべて完了後に初めて全Edit／Play・6名同時・QA APK・Pixelを行う。
+
+街・北境界・噴水・Merge・Save・依頼／納品／報酬・図鑑・BGM・フォント・街Lv・UI全体は変更禁止。自動挨拶1日1回、その後タップ会話という案は次工程の記録だけで今回は実装しない。以下は履歴。
+
 ## 2026-10-30最新：本日のPixel用ノア単体・既定OFFのゲーム接続
 
 Windows起動でhelperを読み込む前の実行ポリシー停止に続き、固定入力チェックのCore/link.xmlで停止。新候補manifestがCore／PresentationのXML2点をバイナリ扱いしていたため、CRLF checkoutを誤拒否する回帰を再現し、2点のtext_normalizedだけtrueへ修正。552パス／期待SHAは不変。LF／CRLF許容・両XML実内容変更／PNG変更拒否の関連PS検査と実552点照合が成功。ゲーム本体・link.xml原本は変更なし、新Unity／APK／Pixelはまだ開始前。起動全体をRemoteSigned指定の子PowerShell内へ置き、最初の失敗で停止する手順をdocsへ反映。全件QAや保存resetは不要。

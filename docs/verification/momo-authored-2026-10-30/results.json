@@ -1,0 +1,814 @@
+{
+  "scope": "Momo-only source/API/browser candidate; not native or Pixel",
+  "source_base": "7c98804",
+  "noah_master_user_approved": true,
+  "noah_master_unchanged": true,
+  "protected_inputs_unchanged": 552,
+  "material_tests_passed": 2,
+  "browser": {
+    "scope": "Momo material/browser only",
+    "front_exact_original": true,
+    "three_directions_four_modes": true,
+    "closed_heads_rendered": true,
+    "samples": [
+      {
+        "character": "momo",
+        "direction": "left",
+        "mode": "idle",
+        "clock": -0.0,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": 54,
+            "y": 0
+          },
+          {
+            "x": -56,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "left",
+        "mode": "idle",
+        "clock": 0.5,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": 54,
+            "y": 0
+          },
+          {
+            "x": -56,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "left",
+        "mode": "idle",
+        "clock": 1,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": 54,
+            "y": 0
+          },
+          {
+            "x": -56,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "left",
+        "mode": "walk",
+        "clock": 1.5,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": 51.317135409997825,
+            "y": 0
+          },
+          {
+            "x": -53.317135409997825,
+            "y": -3.7560104260030447
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "left",
+        "mode": "walk",
+        "clock": 2,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": 52.56048341667467,
+            "y": 0
+          },
+          {
+            "x": -54.56048341667467,
+            "y": -2.015323216655457
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "left",
+        "mode": "walk",
+        "clock": 2.5,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": 58.56472625363814,
+            "y": -6.390616755093394
+          },
+          {
+            "x": -60.56472625363814,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "left",
+        "mode": "walk",
+        "clock": 3,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": 49.47210818996688,
+            "y": 0
+          },
+          {
+            "x": -51.47210818996688,
+            "y": -6.339048534046367
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "left",
+        "mode": "walk",
+        "clock": 3.5,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": 55.35452894153934,
+            "y": -1.8963405181550832
+          },
+          {
+            "x": -57.35452894153934,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "left",
+        "mode": "walk",
+        "clock": 4,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": 56.75713340620845,
+            "y": -3.859986768691834
+          },
+          {
+            "x": -58.75713340620845,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "left",
+        "mode": "idle",
+        "clock": 4.5,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": 54,
+            "y": 0
+          },
+          {
+            "x": -56,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "right",
+        "mode": "walk",
+        "clock": 5,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": -57.725565802396744,
+            "y": -5.215792123355442
+          },
+          {
+            "x": 59.725565802396744,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "right",
+        "mode": "walk",
+        "clock": 5.5,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": -54.08850962552707,
+            "y": -0.12391347573789505
+          },
+          {
+            "x": 56.08850962552707,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "right",
+        "mode": "walk",
+        "clock": 6,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": -50.15872669338167,
+            "y": 0
+          },
+          {
+            "x": 52.15872669338167,
+            "y": -5.377782629265668
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "right",
+        "mode": "walk",
+        "clock": 6.5,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": -58.93313796020243,
+            "y": -6.906393144283397
+          },
+          {
+            "x": 60.93313796020243,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "right",
+        "mode": "walk",
+        "clock": 7,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": -51.39224498956544,
+            "y": 0
+          },
+          {
+            "x": 53.39224498956544,
+            "y": -3.650857014608383
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "right",
+        "mode": "walk",
+        "clock": 7.5,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": -52.475946894488914,
+            "y": 0
+          },
+          {
+            "x": 54.475946894488914,
+            "y": -2.133674347715517
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "right",
+        "mode": "walk",
+        "clock": 8,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": -58.600130190983954,
+            "y": -6.440182267377534
+          },
+          {
+            "x": 60.600130190983954,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "right",
+        "mode": "walk",
+        "clock": 8.5,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": -49.510361596553544,
+            "y": 0
+          },
+          {
+            "x": 51.510361596553544,
+            "y": -6.2854937648250395
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "right",
+        "mode": "walk",
+        "clock": 9,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": -55.26911681381018,
+            "y": -1.7767635393342538
+          },
+          {
+            "x": 57.26911681381018,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "right",
+        "mode": "idle",
+        "clock": 9.5,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": -54,
+            "y": 0
+          },
+          {
+            "x": 56,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "back",
+        "mode": "walk",
+        "clock": 10,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": 49.030556730383125,
+            "y": 0
+          },
+          {
+            "x": -51.030556730383125,
+            "y": -6.957220577463627
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "back",
+        "mode": "walk",
+        "clock": 10.5,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": 57.66595160036646,
+            "y": -5.132332240513046
+          },
+          {
+            "x": -59.66595160036646,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "back",
+        "mode": "walk",
+        "clock": 11,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": 54.176991513668305,
+            "y": -0.24778811913562476
+          },
+          {
+            "x": -56.176991513668305,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "back",
+        "mode": "walk",
+        "clock": 11.5,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": 50.102669651920976,
+            "y": 0
+          },
+          {
+            "x": -52.102669651920976,
+            "y": -5.4562624873106325
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "back",
+        "mode": "walk",
+        "clock": 12,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": 58.91793872717172,
+            "y": -6.885114218040414
+          },
+          {
+            "x": -60.91793872717172,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "back",
+        "mode": "walk",
+        "clock": 12.5,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": 51.46817179445121,
+            "y": 0
+          },
+          {
+            "x": -53.46817179445121,
+            "y": -3.5445594877683115
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "back",
+        "mode": "walk",
+        "clock": 13,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": 52.39188798418734,
+            "y": 0
+          },
+          {
+            "x": -54.39188798418734,
+            "y": -2.2513568221377165
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "back",
+        "mode": "idle",
+        "clock": 13.5,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": 54,
+            "y": 0
+          },
+          {
+            "x": -56,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "right",
+        "mode": "greet",
+        "clock": 14,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": -54,
+            "y": 0
+          },
+          {
+            "x": 56,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "right",
+        "mode": "greet",
+        "clock": 14.5,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": -54,
+            "y": 0
+          },
+          {
+            "x": 56,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "right",
+        "mode": "greet",
+        "clock": 15,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": -54,
+            "y": 0
+          },
+          {
+            "x": 56,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "right",
+        "mode": "greet",
+        "clock": 15.5,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": -54,
+            "y": 0
+          },
+          {
+            "x": 56,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "right",
+        "mode": "talk",
+        "clock": 16,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": -54,
+            "y": 0
+          },
+          {
+            "x": 56,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "right",
+        "mode": "talk",
+        "clock": 16.5,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": -54,
+            "y": 0
+          },
+          {
+            "x": 56,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "right",
+        "mode": "talk",
+        "clock": 17,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": -54,
+            "y": 0
+          },
+          {
+            "x": 56,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "right",
+        "mode": "talk",
+        "clock": 17.5,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": -54,
+            "y": 0
+          },
+          {
+            "x": 56,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      },
+      {
+        "character": "momo",
+        "direction": "right",
+        "mode": "talk",
+        "clock": 18,
+        "paused": true,
+        "closed": false,
+        "feet": [
+          {
+            "x": -54,
+            "y": 0
+          },
+          {
+            "x": 56,
+            "y": 0
+          }
+        ],
+        "parts": 7,
+        "unityVerified": false,
+        "pixelVerified": false
+      }
+    ],
+    "errors": [],
+    "external_requests": [],
+    "unity_verified": false,
+    "pixel_verified": false,
+    "adopted": false
+  },
+  "api_presentation_compiled": true,
+  "api_editor_compiled": true,
+  "api_native_test_compiled": true,
+  "single_character_route_guards_passed": true,
+  "pure_model_movement_preflight_passed": true,
+  "native_unity_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "momo_adopted": false,
+  "other_four_started": false,
+  "fresh_source_review": {
+    "critical": 0,
+    "important": 2,
+    "minor": 0,
+    "fix_pass": "one source fix pass; pure route RED/GREEN and API checks; actual native assertions pending"
+  }
+}

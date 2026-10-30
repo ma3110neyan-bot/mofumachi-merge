@@ -1,16 +1,16 @@
 [CmdletBinding()]
-param([ValidateSet('momo','lulu')][string]$Character='momo',[string]$UnityEditorPath='')
+param([ValidateSet('momo','lulu','pom')][string]$Character='momo',[string]$UnityEditorPath='')
 $ErrorActionPreference='Stop'
 $RequestedCharacter=$Character;$RequestedEditor=$UnityEditorPath
 . (Join-Path $PSScriptRoot 'prepare-noah-pixel-preview.ps1')
 $Character=$RequestedCharacter;$UnityEditorPath=$RequestedEditor
-function Get-CharacterAuthoredIds { return @('momo','lulu') }
+function Get-CharacterAuthoredIds { return @('momo','lulu','pom') }
 function Get-CharacterAuthoredMethod([string]$Id){
-    if($Id -notin @(Get-CharacterAuthoredIds)){throw 'Character has not passed sequential preparation.'}
+    if($Id -cnotin @(Get-CharacterAuthoredIds)){throw 'Character has not passed sequential preparation.'}
     return 'Mofumachi.Tests.ExperienceCaptureTests.'+$Id.Substring(0,1).ToUpperInvariant()+$Id.Substring(1)+'AuthoredPartsPreserveIdentityInputAndState'
 }
 function Get-CharacterAuthoredArguments([string]$Repository,[string]$Directory,[string]$Id,[string]$Revision,[string]$Fingerprint){
-    if($Id -notin @(Get-CharacterAuthoredIds) -or -not $Repository -or -not $Directory -or $Revision -notmatch '^[a-f0-9]{40}$' -or $Fingerprint -notmatch '^[a-f0-9]{64}$'){throw 'Only prepared sequential characters are available.'}
+    if($Id -cnotin @(Get-CharacterAuthoredIds) -or -not $Repository -or -not $Directory -or $Revision -notmatch '^[a-f0-9]{40}$' -or $Fingerprint -notmatch '^[a-f0-9]{64}$'){throw 'Only prepared sequential characters are available.'}
     return @('-batchmode','-projectPath',$Repository,'-buildTarget','Android','-runTests','-testPlatform','PlayMode','-testFilter',(Get-CharacterAuthoredMethod $Id),'-testResults',(Join-Path $Directory 'playmode.xml'),'-logFile',(Join-Path $Directory 'playmode.log'),'-mofumachiScreenshots',(Join-Path $Directory 'screenshots'),'-mofumachiSourceRevision',$Revision,'-mofumachiProductFingerprint',$Fingerprint,'-mofumachiCharacterPreview')
 }
 function Assert-NoahAuthoredMasterFixed([string]$Repository){
@@ -43,7 +43,7 @@ function Assert-CharacterAuthoredProof([string]$Directory,[string]$Revision,[str
     if($Cases.Count -ne 1 -or $Cases[0].fullname -ne (Get-CharacterAuthoredMethod $Id) -or $Cases[0].result -ne 'Passed'){throw 'Exactly the new single passed character method is required.'}
     $Proof=Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $Directory ('screenshots/'+$Id+'-authored/proof.json')) | ConvertFrom-Json
     $Prepared=Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $Directory 'prepared.json') | ConvertFrom-Json
-    if($Proof.character -ne $Id -or $Prepared.characterId -ne $Id -or $Proof.gitRevision -ne $Revision -or $Proof.productFingerprint -ne $Fingerprint -or $Proof.input_sha256 -ne $Prepared.input_sha256 -or $Proof.input_sha256 -notmatch '^[a-f0-9]{64}$' -or $Proof.sorting_examples -ne 5 -or @($Proof.sorting_images).Count -ne 5 -or @($Proof.frames).Count -lt 8){throw 'Incomplete character source/material/capture identity.'}
+    if($Proof.character -cne $Id -or $Prepared.characterId -cne $Id -or $Proof.gitRevision -ne $Revision -or $Proof.productFingerprint -ne $Fingerprint -or $Proof.input_sha256 -ne $Prepared.input_sha256 -or $Proof.input_sha256 -notmatch '^[a-f0-9]{64}$' -or $Proof.sorting_examples -ne 5 -or @($Proof.sorting_images).Count -ne 5 -or @($Proof.frames).Count -lt 8){throw 'Incomplete character source/material/capture identity.'}
     foreach($Name in @('native_unity','tap_verified','conversation_verified','save_unchanged','greeting_authored','talk_authored','blink_authored')){if($Proof.$Name -isnot [bool] -or -not $Proof.$Name){throw "Unverified character result: $Name"}}
     foreach($Name in @('adopted','pixel_verified')){if($Proof.$Name -isnot [bool] -or $Proof.$Name){throw 'Single character capture cannot claim Pixel or adoption.'}}
     foreach($Name in @('Front','Left','Right','Back')){if($Name -notin $Proof.observed_directions){throw "Actual character walking direction missing: $Name"}}

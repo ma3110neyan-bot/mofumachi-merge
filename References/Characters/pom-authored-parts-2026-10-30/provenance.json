@@ -1,0 +1,45 @@
+{
+  "character": "pom",
+  "formal_source": "Assets/Mofumachi/Resources/Mofumachi/CharacterBodyAtlas.png",
+  "unity_verified": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "generations": [
+    {
+      "direction": "left",
+      "prompt": "Make a production bone-rig source sheet for POM, the small round GOLDEN BROWN BEAR in reference 1. Preserve its exact cute round face, small round ears, warm brown shiny eyes, cream muzzle and cream belly, warm honey fur, green round-brim leaf hat with pink-white blossom, GREEN LEAF SCARF/CAPE tied with a tiny yellow flower, single gold belly button, short brown paws. No new clothes, NO TUNIC OR SKIRT, NO POUCH. Reference 2 ONLY shows the sheet arrangement and polish, DO NOT COPY THE CAT. Hand-painted cute chibi look matching official bear. VIEW is three-quarter VIEWER'S LEFT, nose clearly to the LEFT of head center, near cheek larger on right, distant eye slightly smaller on left. All eight parts are INDEPENDENT, not full characters. Transparent background,1536x1024, TWO ROWS OF FOUR, at least40px transparent gutters and20px margins. TOP: 1) whole open-eye head with round ears and green flower hat, NO TORSO 2) headless/ARMLESS/LEGLESS furry round bear TORSO with cream belly, green leaf scarf/cape at shoulders, one gold button, NO ATTACHED PAWS OR FEET 3) far short honey-brown ARM/PAW shoulder at top, paw bottom 4) near short honey-brown ARM/PAW. BOTTOM:5) far short bear LEG with foot pointing LEFT and hidden hip at top 6) near bear LEG pointing LEFT 7) small round honey-brown bear TAIL, no white markings 8) EXACT SAME HEAD as slot1, same LEFT viewpoint, shape/hat/mouth, ONLY eyes gently closed for blink. Keep body truly separated from limbs and head. Fill hidden joints, no lettering, no outlines/gridlines, no shadows.",
+      "path": "/workspace/generated_images/exec-00fc1d31-a837-428e-9f42-4f7700e9688a.png"
+    },
+    {
+      "direction": "right",
+      "prompt": "Make a production bone-rig source sheet for POM, the small round GOLDEN BROWN BEAR in reference 1. Preserve its exact cute round face, small round ears, warm brown shiny eyes, cream muzzle and cream belly, warm honey fur, green round-brim leaf hat with pink-white blossom, GREEN LEAF SCARF/CAPE tied with a tiny yellow flower, single gold belly button, short brown paws. No new clothes, NO TUNIC OR SKIRT, NO POUCH. Reference 2 ONLY shows the sheet arrangement and polish, DO NOT COPY THE CAT. Hand-painted cute chibi look matching official bear. VIEW is three-quarter VIEWER'S RIGHT, nose clearly to the RIGHT of head center, near cheek larger on left, distant eye slightly smaller on right. All eight parts are INDEPENDENT, not full characters. Transparent background,1536x1024, TWO ROWS OF FOUR, at least40px transparent gutters and20px margins. TOP: 1) whole open-eye head with round ears and green flower hat, NO TORSO 2) headless/ARMLESS/LEGLESS furry round bear TORSO with cream belly, green leaf scarf/cape at shoulders, one gold button, NO ATTACHED PAWS OR FEET 3) far short honey-brown ARM/PAW shoulder at top, paw bottom 4) near short honey-brown ARM/PAW. BOTTOM:5) far short bear LEG with foot pointing RIGHT and hidden hip at top 6) near bear LEG pointing RIGHT 7) small round honey-brown bear TAIL, no white markings 8) EXACT SAME HEAD as slot1, same RIGHT viewpoint, shape/hat/mouth, ONLY eyes gently closed for blink. Keep body truly separated from limbs and head. Fill hidden joints, no lettering, no outlines/gridlines, no shadows.",
+      "path": "/workspace/generated_images/exec-fb3f2073-7825-43e9-b4b3-6fd78649fa7d.png"
+    },
+    {
+      "direction": "back",
+      "prompt": "Make a production bone-rig source sheet for POM, the small round GOLDEN BROWN BEAR in reference 1. Preserve its exact cute round face, small round ears, warm brown shiny eyes, cream muzzle and cream belly, warm honey fur, green round-brim leaf hat with pink-white blossom, GREEN LEAF SCARF/CAPE tied with a tiny yellow flower, single gold belly button, short brown paws. No new clothes, NO TUNIC OR SKIRT, NO POUCH. Reference 2 ONLY shows the sheet arrangement and polish, DO NOT COPY THE CAT. Hand-painted cute chibi look matching official bear. VIEW is DIRECTLY FROM BEHIND. No face, eyes, muzzle, cream belly, belly button or scarf knot showing. The back of the green leaf cape covers the upper back. All fur seen on rear is brown. All eight parts are INDEPENDENT, not full characters. Transparent background,1536x1024, TWO ROWS OF FOUR, at least40px transparent gutters and20px margins. TOP: 1) whole BACK OF HEAD with round ears and back of green hat, NO FACE, NO TORSO 2) headless/ARMLESS/LEGLESS furry round bear TORSO with BROWN BACK, green leaf cape back at shoulders, NO CREAM BELLY OR BUTTON, NO ATTACHED PAWS OR FEET 3) far short honey-brown ARM/PAW shoulder at top, paw bottom 4) near short honey-brown ARM/PAW. BOTTOM:5) far short bear LEG with foot seen from behind, no toe lines and hidden hip at top 6) near bear LEG seen from behind, no toe lines 7) small round honey-brown bear TAIL, no white markings 8) EXACT SAME REAR HEAD as slot1, no face. Keep body truly separated from limbs and head. Fill hidden joints, no lettering, no outlines/gridlines, no shadows.",
+      "path": "/workspace/generated_images/exec-2d4ca5b8-95cc-4721-92fd-29940495ec9e.png"
+    }
+  ],
+  "corrections": [
+    {
+      "direction": "right",
+      "source": "parts-right-touching-rejected.png",
+      "final": "parts-right.png",
+      "instruction": "Separate all eight Pom parts with at least 45px fully transparent empty gaps, especially top-left head and the top-second torso which are currently touching. Uniformly shrink and reposition the islands as needed to give safe gaps, retaining exact art. Keep two rows of four, same order, same right-facing bear design and open/closed heads, same green leaf hat, green scarf and cream belly. No new parts. All eight islands must be disconnected on the alpha channel. No shadow, transparent background."
+    },
+    {
+      "direction": "back",
+      "source": "parts-back-attached-legs-rejected.png",
+      "final": "parts-back.png",
+      "instruction": "Correct only the TOP SECOND SLOT: this is Pom's headless armless LEGLESS torso viewed from behind. Remove the two attached leg stubs/feet at its bottom. Give it a single smooth round honey-brown furry oval bottom, keeping green leaf cape at shoulders and brown back. No legs or paws attached. Leave the separate rear legs at bottom slots1 and2 untouched. Preserve all other seven parts unchanged, same two rows of four and transparent background; keep islands separated by large transparent gaps."
+    }
+  ],
+  "source_files": {
+    "parts-left.png": "b0e7ce92f3056dde55abcea5577ef11b8e94662d9e236858e9bbfaae5c613300",
+    "parts-right-touching-rejected.png": "3fe0b0b4d5958375ed51b937ae6179a09a6a9989ecae97ba40743c9a01f597f3",
+    "parts-back-attached-legs-rejected.png": "e50b5ed4a02fbd0d04f7b45d75c398526ef2037f7874cf85800076a694da5c50",
+    "parts-right.png": "36f0bed6c00d534dc3b474328a895e7b4e4e59ec92b1eeacd53601925d8ae5b6",
+    "parts-back.png": "c9253a0e150b2cacf6514013069d150c64153916445bc1101820fbc244d9ea04"
+  }
+}

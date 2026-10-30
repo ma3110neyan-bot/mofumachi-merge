@@ -1,0 +1,6 @@
+target(-0.22,-0.3), actual(-0.22,-0.3), facing Left, walking False
+target(0.27,-0.3), actual(0.27,-0.3), facing Left, walking False
+target(0.27,-0.02), actual(0.27,-0.02), facing Back, walking False
+target(0.27,-0.3), actual(0.27,-0.3), facing Left, walking False
+Conversation approach at(0.30402732,-0.3270734), facing Right, intentional stop
+Single-character pure model approach passed; not native rendering.

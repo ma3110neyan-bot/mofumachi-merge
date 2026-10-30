@@ -54,6 +54,7 @@ namespace Mofumachi.Tests
         }
         [UnityTest,Timeout(120000)] public IEnumerator MomoAuthoredPartsPreserveIdentityInputAndState()=>CaptureCharacterAuthored("momo");
         [UnityTest,Timeout(120000)] public IEnumerator LuluAuthoredPartsPreserveIdentityInputAndState()=>CaptureCharacterAuthored("lulu");
+        [UnityTest,Timeout(120000)] public IEnumerator PomAuthoredPartsPreserveIdentityInputAndState()=>CaptureCharacterAuthored("pom");
         private IEnumerator CaptureCharacterAuthored(string id)
         {
             if(!Environment.GetCommandLineArgs().Contains("-mofumachiCharacterPreview"))

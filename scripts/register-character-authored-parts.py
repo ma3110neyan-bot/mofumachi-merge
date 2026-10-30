@@ -13,7 +13,7 @@ from scipy import ndimage
 
 parser = argparse.ArgumentParser()
 parser.add_argument('character', choices=['lulu', 'pom', 'fio', 'miel'])
-parser.add_argument('--head-height', type=float, default=420)
+parser.add_argument('--head-height', type=float, default=340)
 parser.add_argument('--tail-height', type=float, default=200)
 args = parser.parse_args()
 root = Path(__file__).resolve().parents[1]
@@ -44,8 +44,8 @@ for direction in ['left','right','back']:
         head = name in ['head','closedHead']
         height = args.head_height if head else args.tail_height if name=='tail' else 230 if name=='body' else 125
         part = dict(id='head' if head else name,crop=[x,y,w,h],
-                    pivot=[.5,.85 if head else .9 if name=='tail' else .1 if name.endswith('Arm') else 1],
-                    scale=height/h,rotation=0,offset=[0,30] if head else [0,0])
+                    pivot=[.5,1 if head else .9 if name=='tail' else .1 if name.endswith('Arm') else 1],
+                    scale=height/h,rotation=0,offset=[0,15] if head else [0,0])
         if name=='farArm': part['rotation'] = -.7 if direction=='left' else .7 if direction=='right' else 0
         # An alpha gutter selects only this island if its bounding rectangle
         # includes a corner of a neighboring source island.

@@ -2,6 +2,8 @@
 
 ## 2026-10-30最新：本日のPixel用ノア単体・既定OFFのゲーム接続
 
+Windows起動でhelperを読み込む前の実行ポリシー停止に続き、固定入力チェックのCore/link.xmlで停止。新候補manifestがCore／PresentationのXML2点をバイナリ扱いしていたため、CRLF checkoutを誤拒否する回帰を再現し、2点のtext_normalizedだけtrueへ修正。552パス／期待SHAは不変。LF／CRLF許容・両XML実内容変更／PNG変更拒否の関連PS検査と実552点照合が成功。ゲーム本体・link.xml原本は変更なし、新Unity／APK／Pixelはまだ開始前。起動全体をRemoteSigned指定の子PowerShell内へ置き、最初の失敗で停止する手順をdocsへ反映。全件QAや保存resetは不要。
+
 ユーザーは確実さを優先しつつ本日中のPixel3a試験を希望。前のReferences限定工程から、ノアだけの明示的な実験版ゲーム接続へ進めた。通常版は既定OFF、他5名・正式原画・街・北境界・噴水・図鑑・BGM・Merge・Core／Saveは維持。素材の正式採用・6名展開ではない。
 
 最新素材HTMLのブラウザー6項目と修正後の尾の表示は確認済み。新しいNoahAuthoredMotion／Graphicを既存TownActor内へ接続し、24パーツをEditor生成の共有atlasへまとめ、表示は32頂点。正面は正式atlasで、正面の独立リグ・新方向のまばたき／表情は未完成。原画と同じ画素なのは正面であり、新方向は未承認の素材候補。

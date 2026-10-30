@@ -264,7 +264,7 @@
     {
       "path": "Assets/Mofumachi/Core/link.xml",
       "sha256": "85c68bcfc62b26725dbe7304ff8348b712c8e904af0d69535e99e59cfb8dabff",
-      "text_normalized": false
+      "text_normalized": true
     },
     {
       "path": "Assets/Mofumachi/Core/link.xml.meta",
@@ -1384,7 +1384,7 @@
     {
       "path": "Assets/Mofumachi/Presentation/link.xml",
       "sha256": "5b2252cff112e083b5100f19712f10449c94515a0f31c4b9bc9b914be631acab",
-      "text_normalized": false
+      "text_normalized": true
     },
     {
       "path": "Assets/Mofumachi/Presentation/link.xml.meta",

@@ -19,9 +19,24 @@
 Unity Editorを閉じ、既存featureブランチを更新してから実行する。未コミットの製品入力や、他runの試作Resourcesがある場合は削除せず停止する。
 
 ```powershell
-Set-Location -LiteralPath "C:\Users\User\Desktop\Mofumachi\mofumachi-merge"
-powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\prepare-noah-pixel-preview.ps1" -Install
+powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -Command {
+    $ErrorActionPreference = "Stop"
+    Set-Location -LiteralPath "C:\Users\User\Desktop\Mofumachi\mofumachi-merge"
+    . ".\scripts\build-android.ps1"
+    $mofuGit = Find-SourceGit
+    $mofuBranch = (& $mofuGit branch --show-current).Trim()
+    if ($mofuBranch -ne "feat/daily-world-pass-20261016") {
+        throw "現在のブランチは $mofuBranch です。この表示を送ってください。"
+    }
+    & $mofuGit pull --ff-only origin feat/daily-world-pass-20261016
+    if ($LASTEXITCODE -ne 0) { throw "更新に失敗したため停止します。" }
+    & ".\scripts\prepare-noah-pixel-preview.ps1" -Install
+}
 ```
+
+最初のhelper読み込みも上記の子PowerShell内で行うため、親の実行ポリシーがRestrictedでも恒久設定を変えずに開始できる。組織ポリシー等で拒否された場合は停止し、そのエラーを確認する。
+
+2026-10-30のWindows報告 `Frozen input changed: Assets/Mofumachi/Core/link.xml` に対応し、Core／Presentationの2つのlink.xmlをテキストとして改行正規化するよう定義を修正した。552保護対象のパス・期待SHAは変更していない。LF／CRLFだけの違いは許容し、XMLの内容変更や画像のバイト変更は引き続き拒否する。関連のPowerShell回帰検査で失敗を再現してから修正後成功を確認した。XML自体やゲーム本体は書き換えていない。実Unity・APK・Pixelの確認は引き続き未了。
 
 1. 保存済みの原画・街等の入力を確認する。Unityが書き換えるグラフィック／BuildProfileのローカルキャッシュは既存方針に従い勝手にresetしない。
 2. 一時atlasを準備し、**新しいノア単体のPlayMode1メソッドだけ**を実行する。公開GuidePoint→AdvanceFrameの14.8秒相当の固定標本、8組比較、タップの親への伝達、OFF復帰、他5名、保存不変、5つの背景順の表示用配置を確認する。固定標本をFPSと呼ばない。

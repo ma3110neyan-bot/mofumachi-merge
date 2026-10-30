@@ -1,0 +1,13 @@
+.F
+======================================================================
+FAIL: test_three_directions_have_separate_rigid_parts_and_blink_heads (__main__.AuthoredMaterials.test_three_directions_have_separate_rigid_parts_and_blink_heads)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/mofumachi-merge/scripts/tests/character-authored-materials.test.py", line 25, in test_three_directions_have_separate_rigid_parts_and_blink_heads
+    self.assertTrue((ART / 'layout.json').is_file(), 'This character needs its own registered parts before rollout.')
+AssertionError: False is not true : This character needs its own registered parts before rollout.
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.039s
+
+FAILED (failures=1)

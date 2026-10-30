@@ -1,0 +1,39 @@
+{
+  "character": "miel",
+  "formal_source": "Assets/Mofumachi/Resources/Mofumachi/CharacterBodyAtlas.png",
+  "generations": [
+    {
+      "direction": "left",
+      "prompt": "Create a production independent 2D bone-rig parts sheet for MIEL, the tiny WHITE WOOLLY SHEEP from first official reference. Preserve exact cute round face, dark warm BROWN eyes (NOT blue), scalloped white wool bangs, small floppy white ears with pink insides, lavender-purple flowers and green leaves as a head wreath, purple-blue shoulder cape with subtle floral print, small yellow bow and flower at neck, cream vest with two gold buttons, fluffy round white wool torso, brown hand hooves, small BROWN split feet hooves. NO HORNS, no hat, no pouch, no new clothes. Match first reference's polished hand-painted watercolor chibi style and proportions. Second reference is ONLY the sheet arrangement, DO NOT COPY FOX. Miel faces three-quarter LEFT, nose LEFT of head center, right/near cheek and eye larger, left/far eye smaller. Exactly EIGHT separate islands in TWO ROWS OF FOUR,1536x1024,transparent background,50px fully empty transparent gutters,20px outer margins; shrink parts uniformly to stay within cell if needed. TOP:1 entire open-eye head with wool/ears/flower wreath, no torso 2 headless ARM-LESS LEG-LESS woolly torso including cape and yellow neck bow, cream vest, round white wool bottom with no legs, hands or feet attached 3 far short white wool arm ending in brown hand hoof, rounded hidden shoulder at top 4 near matching wool arm/brown hand hoof. BOTTOM:5 far short white wool leg ending small dark brown split hoof pointing LEFT 6 near matching wool leg/hoof pointing LEFT 7 one SMALL white woolly sheep tail, a little wool puff not a huge curled tail 8 EXACT SAME LEFT-FACING head as slot1, same wool/flowers/ears/mouth/viewpoint/scale, only eyes softly CLOSED for blink. No whole character, no background, text or ground shadows. Keep every part disconnected and fill hidden joints.",
+      "path": "/workspace/generated_images/exec-1748aa7e-e4a2-40fb-a5bd-ac85b01eda11.png",
+      "sha256": "70b779c0e9fd3c5293431ff6783e19ab15339a76abdc00bbb7d9b86074ba148f"
+    },
+    {
+      "direction": "right",
+      "prompt": "Create a production independent 2D bone-rig parts sheet for MIEL, the tiny WHITE WOOLLY SHEEP from first official reference. Preserve exact cute round face, dark warm BROWN eyes (NOT blue), scalloped white wool bangs, small floppy white ears with pink insides, lavender-purple flowers and green leaves as a head wreath, purple-blue shoulder cape with subtle floral print, small yellow bow and flower at neck, cream vest with two gold buttons, fluffy round white wool torso, brown hand hooves, small BROWN split feet hooves. NO HORNS, no hat, no pouch, no new clothes. Match first reference's polished hand-painted watercolor chibi style and proportions. Second reference is ONLY the sheet arrangement, DO NOT COPY FOX. Miel faces three-quarter RIGHT, nose RIGHT of head center, left/near cheek and eye larger, right/far eye smaller. Exactly EIGHT separate islands in TWO ROWS OF FOUR,1536x1024,transparent background,50px fully empty transparent gutters,20px outer margins; shrink parts uniformly to stay within cell if needed. TOP:1 entire open-eye head with wool/ears/flower wreath, no torso 2 headless ARM-LESS LEG-LESS woolly torso including cape and yellow neck bow, cream vest, round white wool bottom with no legs, hands or feet attached 3 far short white wool arm ending in brown hand hoof, rounded hidden shoulder at top 4 near matching wool arm/brown hand hoof. BOTTOM:5 far short white wool leg ending small dark brown split hoof pointing RIGHT 6 near matching wool leg/hoof pointing RIGHT 7 one SMALL white woolly sheep tail, a little wool puff not a huge curled tail 8 EXACT SAME RIGHT-FACING head as slot1, same wool/flowers/ears/mouth/viewpoint/scale, only eyes softly CLOSED for blink. No whole character, no background, text or ground shadows. Keep every part disconnected and fill hidden joints.",
+      "path": "/workspace/generated_images/exec-1f86b562-9ce7-4950-8642-5a1a62d58538.png",
+      "sha256": "82734e8303e5171f00d2dddfdd9292c69e547f20312efdfdbcbf7e23795a4a7d"
+    },
+    {
+      "direction": "back",
+      "prompt": "Create a production independent 2D bone-rig parts sheet for MIEL, the tiny WHITE WOOLLY SHEEP from first official reference. Preserve exact cute round face, dark warm BROWN eyes (NOT blue), scalloped white wool bangs, small floppy white ears with pink insides, lavender-purple flowers and green leaves as a head wreath, purple-blue shoulder cape with subtle floral print, small yellow bow and flower at neck, cream vest with two gold buttons, fluffy round white wool torso, brown hand hooves, small BROWN split feet hooves. NO HORNS, no hat, no pouch, no new clothes. Match first reference's polished hand-painted watercolor chibi style and proportions. Second reference is ONLY the sheet arrangement, DO NOT COPY FOX. Miel is seen directly FROM THE BACK. No face, eyes, muzzle, front bow or front vest buttons showing. Rear of white wool head with flower wreath, back of purple cape and round white wool body, brown rear hooves. Exactly EIGHT separate islands in TWO ROWS OF FOUR,1536x1024,transparent background,50px fully empty transparent gutters,20px outer margins; shrink parts uniformly to stay within cell if needed. TOP:1 entire REAR head with wool/ears/flower wreath, NO FACE, no torso 2 headless ARM-LESS LEG-LESS woolly torso including BACK of purple cape, NO FRONT BOW OR BUTTONS, round white wool bottom with no legs, hands or feet attached 3 far short white wool arm ending in brown hand hoof, rounded hidden shoulder at top 4 near matching wool arm/brown hand hoof. BOTTOM:5 far short white wool leg ending small dark brown split rear hoof viewed from behind 6 near matching wool leg/rear hoof viewed from behind 7 one SMALL white woolly sheep tail, a little wool puff not a huge curled tail 8 EXACT SAME REAR head as slot1, no face. No whole character, no background, text or ground shadows. Keep every part disconnected and fill hidden joints.",
+      "path": "/workspace/generated_images/exec-203d9d7e-5b74-4b93-a405-91843b7317bc.png",
+      "sha256": "eece45424f37e5437e59f9b636eba6b2fed58988fcc0d549bb31ecc403c7d7b4"
+    }
+  ],
+  "unity_verified": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "corrections": [
+    {
+      "prompt": "Correct only the TOP ROW SECOND SLOT torso of this Miel sheep rig sheet. Its cream vest currently has THREE gold buttons spread across the chest. The official design has exactly TWO gold buttons in a VERTICAL LINE under the yellow neck bow. Remove the three spread buttons, and show two small gold buttons vertically aligned at chest center below the bow. Keep cream vest, yellow bow and small flower clasp, purple-blue floral cape and white round wool body identical. NO arms, feet or head attached. Preserve ALL SEVEN other islands completely, same left-facing heads and brown hooves and little wool tail. Same two rows of four, independent parts and transparent background.",
+      "path": "/workspace/generated_images/exec-29f3b4df-f33a-4773-9baf-7531e0fa6e33.png"
+    }
+  ],
+  "source_files": {
+    "parts-left.png": "bd4c773279b76723841121dd7a7ca371abbfba1c999d6bdd4de5853d666191c5",
+    "parts-right.png": "82734e8303e5171f00d2dddfdd9292c69e547f20312efdfdbcbf7e23795a4a7d",
+    "parts-back.png": "eece45424f37e5437e59f9b636eba6b2fed58988fcc0d549bb31ecc403c7d7b4",
+    "parts-left-buttons-rejected.png": "70b779c0e9fd3c5293431ff6783e19ab15339a76abdc00bbb7d9b86074ba148f"
+  }
+}

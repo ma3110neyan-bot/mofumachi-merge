@@ -11,7 +11,10 @@ namespace Mofumachi.Presentation
     [Serializable] public sealed class CharacterAuthoredView
     {public string direction;public CharacterAuthoredPart[] parts;public CharacterAuthoredPart closedHead;}
     [Serializable] public sealed class CharacterAuthoredConfig
-    {public int version=1;public string characterId,input_sha256;public float formalWidth,formalHeight;public CharacterAuthoredView[] views;}
+    {
+        public int version=1;public string characterId,input_sha256;public float formalWidth,formalHeight;public CharacterAuthoredView[] views;
+        public static bool IsPreparedCharacter(string id)=>id=="momo"||id=="lulu";
+    }
 
     // The accepted Noah motion and rigid part technique, with separate material
     // registration. Never changes the master, world coordinates, input or Sorting.
@@ -25,7 +28,7 @@ namespace Mofumachi.Presentation
         public NoahAuthoredMode CurrentMode{get;private set;}
         public bool EyesClosed=>eyesClosed;
         public override Texture mainTexture=>atlas;
-        public static bool IsPreparedCharacter(string id)=>id=="momo";
+        public static bool IsPreparedCharacter(string id)=>CharacterAuthoredConfig.IsPreparedCharacter(id);
         public void Configure(string id)
         {
             if(!IsPreparedCharacter(id))throw new InvalidOperationException("Character has not passed its sequential preparation gate: "+id);

@@ -4,7 +4,9 @@ Set-StrictMode -Version Latest
 function RejectCharacter([scriptblock]$Action){$Caught=$false;try{& $Action}catch{$Caught=$true};if(-not $Caught){throw 'Invalid sequential character input accepted.'}}
 $ArgsList=@(Get-CharacterAuthoredArguments 'repo with spaces' 'run with spaces' 'momo' ('a'*40) ('b'*64))
 if($ArgsList[[Array]::IndexOf($ArgsList,'-testFilter')+1] -ne 'Mofumachi.Tests.ExperienceCaptureTests.MomoAuthoredPartsPreserveIdentityInputAndState' -or '-mofumachiCharacterPreview' -notin $ArgsList -or '-quit' -in $ArgsList){throw 'Wrong single-character route.'}
-foreach($Id in @('noah','lulu','pom','fio','miel','../momo')){RejectCharacter {Get-CharacterAuthoredArguments 'repo' 'out' $Id ('a'*40) ('b'*64)}}
+$LuluArgs=@(Get-CharacterAuthoredArguments 'repo with spaces' 'run with spaces' 'lulu' ('a'*40) ('b'*64))
+if($LuluArgs[[Array]::IndexOf($LuluArgs,'-testFilter')+1] -ne 'Mofumachi.Tests.ExperienceCaptureTests.LuluAuthoredPartsPreserveIdentityInputAndState'){throw 'Lulu must use her own single native method.'}
+foreach($Id in @('noah','pom','fio','miel','../momo')){RejectCharacter {Get-CharacterAuthoredArguments 'repo' 'out' $Id ('a'*40) ('b'*64)}}
 $Root=Join-Path ([IO.Path]::GetTempPath()) ('mofu-character-route-'+[guid]::NewGuid().ToString('N'));New-Item -ItemType Directory -Path $Root | Out-Null
 try{
     $Folder=Join-Path $Root 'Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored';New-Item -ItemType Directory -Path $Folder -Force | Out-Null
@@ -39,6 +41,18 @@ try{
     $Bad=$Good | ConvertFrom-Json;$Bad.pairs[0].outside_allowed_pixels=1;$Bad | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $ProofPath -Encoding UTF8;RejectCharacter {Assert-CharacterAuthoredProof $Root ('a'*40) ('b'*64)}
     $Bad=$Good | ConvertFrom-Json;$Bad.pairs[0].other_five_unchanged=$false;$Bad | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $ProofPath -Encoding UTF8;RejectCharacter {Assert-CharacterAuthoredProof $Root ('a'*40) ('b'*64)}
     Set-Content -LiteralPath $ProofPath -Value $Good -Encoding UTF8
+    $LuluOutput=Join-Path $Root 'screenshots/lulu-authored';New-Item -ItemType Directory -Path $LuluOutput -Force | Out-Null
+    Copy-Item -LiteralPath $ImagePath -Destination (Join-Path $LuluOutput 'synthetic.png')
+    $LuluProof=$Good | ConvertFrom-Json;$LuluProof.character='lulu'
+    $LuluProof | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $LuluOutput 'proof.json') -Encoding UTF8
+    '<test-run><test-case fullname="Mofumachi.Tests.ExperienceCaptureTests.LuluAuthoredPartsPreserveIdentityInputAndState" result="Passed" /></test-run>' | Set-Content -LiteralPath (Join-Path $Root 'playmode.xml') -Encoding UTF8
+    @{characterId='lulu';input_sha256=('c'*64)} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $Root 'prepared.json') -Encoding UTF8
+    Assert-CharacterAuthoredProof $Root ('a'*40) ('b'*64) 'lulu'
+    RejectCharacter {Assert-CharacterAuthoredProof $Root ('a'*40) ('b'*64) 'momo'}
+    $LuluProof.character='momo';$LuluProof | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $LuluOutput 'proof.json') -Encoding UTF8
+    RejectCharacter {Assert-CharacterAuthoredProof $Root ('a'*40) ('b'*64) 'lulu'}
+    '<test-run><test-case fullname="Mofumachi.Tests.ExperienceCaptureTests.MomoAuthoredPartsPreserveIdentityInputAndState" result="Passed" /></test-run>' | Set-Content -LiteralPath (Join-Path $Root 'playmode.xml') -Encoding UTF8
+    @{characterId='momo';input_sha256=('c'*64)} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $Root 'prepared.json') -Encoding UTF8
     [IO.File]::AppendAllText($ImagePath,'tampered');RejectCharacter {Assert-CharacterAuthoredProof $Root ('a'*40) ('b'*64)}
-    Write-Host 'Single-character guards passed: exact Momo method, future/Noah characters rejected, owned cleanup, CRLF master protection, source identity. No Unity/APK/device.'
+    Write-Host 'Single-character guards passed: exact Momo/Lulu methods and mismatched proof rejection, future/Noah characters rejected, owned cleanup, CRLF master protection, source identity. No Unity/APK/device.'
 }finally{Remove-Item -LiteralPath $Root -Recurse -Force}

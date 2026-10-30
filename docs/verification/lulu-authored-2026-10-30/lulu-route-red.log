@@ -1,0 +1,5 @@
+Exception: /workspace/mofumachi-merge/scripts/capture-character-authored.ps1:8
+Line |
+   8 |  … 0-9]{64}$'){throw 'Only the current Momo sequential gate is available …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Only the current Momo sequential gate is available.

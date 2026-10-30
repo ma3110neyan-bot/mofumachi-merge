@@ -16,7 +16,7 @@ namespace Mofumachi.Tests
     {
         [Serializable] private sealed class CharacterPartProof
         {
-            public string character="momo",kind="single-character-native-parts",gitRevision,productFingerprint,input_sha256;
+            public string character,kind="single-character-native-parts",gitRevision,productFingerprint,input_sha256;
             public bool native_unity=true,pixel_verified=false,adopted=false,tap_verified,conversation_verified,save_unchanged,greeting_authored,talk_authored,blink_authored;
             public NativeImage blink_image;
             public string sequence_kind="actual public GuidePoint and AdvanceFrame, fixed simulation steps, not FPS";
@@ -52,29 +52,32 @@ namespace Mofumachi.Tests
             }
             finally{actor.SetCharacterAuthoredEnabled(true);if(before!=null)UnityEngine.Object.DestroyImmediate(before);if(after!=null)UnityEngine.Object.DestroyImmediate(after);}
         }
-        [UnityTest,Timeout(120000)] public IEnumerator MomoAuthoredPartsPreserveIdentityInputAndState()
+        [UnityTest,Timeout(120000)] public IEnumerator MomoAuthoredPartsPreserveIdentityInputAndState()=>CaptureCharacterAuthored("momo");
+        [UnityTest,Timeout(120000)] public IEnumerator LuluAuthoredPartsPreserveIdentityInputAndState()=>CaptureCharacterAuthored("lulu");
+        private IEnumerator CaptureCharacterAuthored(string id)
         {
             if(!Environment.GetCommandLineArgs().Contains("-mofumachiCharacterPreview"))
-            {Assert.That(Resources.Load<TextAsset>("Mofumachi/CharacterAuthored/momo/layout"),Is.Null);yield break;}
-            yield return EnterHome();Assert.That(Flow.Game.SelectFavorite("momo"),Is.True);Flow.ShowHome();yield return null;
+            {Assert.That(Resources.Load<TextAsset>("Mofumachi/CharacterAuthored/"+id+"/layout"),Is.Null);yield break;}
+            yield return EnterHome();Assert.That(Flow.Game.SelectFavorite(id),Is.True);Flow.ShowHome();yield return null;
             EnsurePortraitCamera();var field=Flow.GetComponentInChildren<TownLifeView>();field.StartInteraction();
-            var actor=field.Actors.Single(a=>a.CharacterId=="momo");var friend=field.Actors.Single(a=>a.CharacterId=="noah");
-            string output=Path.Combine(OutputDirectory(),"momo-authored");Directory.CreateDirectory(output);
-            var proof=new CharacterPartProof{gitRevision=EvidenceArgument("-mofumachiSourceRevision"),productFingerprint=EvidenceArgument("-mofumachiProductFingerprint")};
+            var actor=field.Actors.Single(a=>a.CharacterId==id);var friend=field.Actors.Single(a=>a.CharacterId=="noah");
+            string output=Path.Combine(OutputDirectory(),id+"-authored");Directory.CreateDirectory(output);
+            var proof=new CharacterPartProof{character=id,gitRevision=EvidenceArgument("-mofumachiSourceRevision"),productFingerprint=EvidenceArgument("-mofumachiProductFingerprint")};
             var saved=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
             const BindingFlags flags=BindingFlags.Instance|BindingFlags.NonPublic;
             var social=typeof(TownLifeView).GetField("nextSocial",flags);social.SetValue(field,float.PositiveInfinity);
             foreach(var r in field.World.Model.Residents.Where(r=>!r.Controlled))field.World.Model.Pause(r.Id,120);
-            field.World.Model.Restore("momo",CharacterAuthoredCaptureRoute.MomoStart,null);
+            field.World.Model.Restore(id,CharacterAuthoredCaptureRoute.MomoStart,null);
             field.World.Model.Restore("noah",CharacterAuthoredCaptureRoute.PartnerStart,null);
             field.World.Camera.Jump(new TownPoint(0,.15f));field.World.Refresh();
             var warm=Portrait();UnityEngine.Object.DestroyImmediate(warm);
             var old=actor.VisualRoot.GetComponent<CharacterBodyGraphic>();var vertices=old.canvasRenderer.GetMesh().vertices;var uv=old.canvasRenderer.GetMesh().uv;
             var parent=actor.transform.parent;int order=actor.transform.GetSiblingIndex();var at=actor.WorldPosition;
-            foreach(var a in field.Actors){Assert.That(a.SetCharacterAuthoredEnabled(true),Is.EqualTo(a==actor));Assert.That(a.CharacterAuthoredEnabled,Is.EqualTo(a==actor));}
+            Assert.That(actor.SetCharacterAuthoredEnabled(true),Is.True);
+            foreach(var a in field.Actors)Assert.That(a.CharacterAuthoredEnabled,Is.EqualTo(a==actor),"Only the requested character may be enabled in a single-character gate.");
             warm=Portrait();UnityEngine.Object.DestroyImmediate(warm);
             var graphic=actor.GetComponentInChildren<CharacterAuthoredGraphic>();Assert.That(graphic,Is.Not.Null);
-            Assert.That(graphic.CharacterId,Is.EqualTo("momo"));proof.input_sha256=graphic.InputDigest;
+            Assert.That(graphic.CharacterId,Is.EqualTo(id));proof.input_sha256=graphic.InputDigest;
             Assert.That(graphic.canvasRenderer.GetMesh().vertexCount,Is.EqualTo(28));
             Assert.That(graphic.transform.parent,Is.SameAs(actor.VisualRoot));Assert.That(actor.transform.parent,Is.SameAs(parent));
             Assert.That(actor.transform.GetSiblingIndex(),Is.EqualTo(order));Assert.That(actor.WorldPosition,Is.EqualTo(at));
@@ -153,7 +156,7 @@ namespace Mofumachi.Tests
                 foreach(var point in new[]{new TownPoint(.36f,.14f),new TownPoint(.36f,.46f),new TownPoint(-.40f,.48f),new TownPoint(-1.2f,-.25f),new TownPoint(1.2f,-.25f)})
                 {
                     // Explicit display placements for Sorting; not pathfinding evidence.
-                    field.World.Model.Restore("momo",point,null);typeof(TownActor).GetField("characterDirection",flags).SetValue(actor,NoahAuthoredDirection.Left);field.World.Camera.Jump(point);field.World.Refresh();
+                    field.World.Model.Restore(id,point,null);typeof(TownActor).GetField("characterDirection",flags).SetValue(actor,NoahAuthoredDirection.Left);field.World.Camera.Jump(point);field.World.Refresh();
                     warm=Portrait();try{proof.sorting_images.Add(SaveNativeImage(output,"sorting-"+proof.sorting_examples+".png",warm));}finally{UnityEngine.Object.DestroyImmediate(warm);}int actorOrder=actor.transform.GetSiblingIndex();
                     Assert.That(graphic.enabled,Is.True,"Sorting placements must show the new part renderer.");
                     foreach(var piece in field.GetComponent<TownSceneryView>().Pieces.Where(p=>p.Rect.gameObject.activeSelf))

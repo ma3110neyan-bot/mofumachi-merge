@@ -9,6 +9,8 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[2]
 CHARACTER = sys.argv.pop(1) if len(sys.argv) > 1 else 'momo'
 ART = ROOT / f'References/Characters/{CHARACTER}-authored-parts-2026-10-30'
+FRONT_CROPS = {'momo':[17,12,266,324], 'lulu':[284,12,230,324],
+               'pom':[524,20,221,316], 'fio':[771,5,237,331], 'miel':[1005,31,243,306]}
 
 class AuthoredMaterials(unittest.TestCase):
     def test_formal_front_and_accepted_noah_are_unchanged(self):
@@ -20,10 +22,11 @@ class AuthoredMaterials(unittest.TestCase):
                          '23d14025f146c429da01b6e3a74ef803254755f8d149f9eb53516aacaa30163d')
 
     def test_three_directions_have_separate_rigid_parts_and_blink_heads(self):
+        self.assertTrue((ART / 'layout.json').is_file(), 'This character needs its own registered parts before rollout.')
         layout = json.loads((ART / 'layout.json').read_text())
         self.assertEqual(layout['characterId'], CHARACTER)
         self.assertEqual(set(layout['views']), {'left', 'right', 'back'})
-        self.assertEqual(layout['front_crop'], [17, 12, 266, 324])
+        self.assertEqual(layout['front_crop'], FRONT_CROPS[CHARACTER])
         for direction, view in layout['views'].items():
             self.assertEqual({p['id'] for p in view['parts']}, {'head','body','farArm','nearArm','farLeg','nearLeg','tail'})
             self.assertEqual(len(view['parts']), 7)

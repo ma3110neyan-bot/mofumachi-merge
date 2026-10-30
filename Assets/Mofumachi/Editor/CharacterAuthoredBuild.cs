@@ -32,7 +32,7 @@ namespace Mofumachi.Editor
         public static void Prepare()
         {
             string run=Run(),id=Arg("-mofumachiCharacterId"),folder=Path.Combine(Root,ResourceFolder);
-            if(id!="momo")throw new BuildFailedException("Only Momo is at the current sequential gate. No other character was prepared.");
+            if(!CharacterAuthoredConfig.IsPreparedCharacter(id))throw new BuildFailedException("Character has not passed sequential preparation.");
             if(Directory.Exists(folder)||File.Exists(folder+".meta"))throw new BuildFailedException("Preserve existing character resources; inspect their owner.");
             if(Hash(File.ReadAllBytes(Path.Combine(Root,"Assets/Mofumachi/Resources/Mofumachi/CharacterBodyAtlas.png")))!="23d14025f146c429da01b6e3a74ef803254755f8d149f9eb53516aacaa30163d")throw new BuildFailedException("Formal atlas changed.");
             string art=Path.Combine(Root,"References","Characters",id+"-authored-parts-2026-10-30");byte[] raw=File.ReadAllBytes(Path.Combine(art,"layout.json"));

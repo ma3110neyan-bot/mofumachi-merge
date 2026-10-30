@@ -1,11 +1,12 @@
-"""Single Momo material/browser gate, never native/game/device acceptance."""
+"""One-character material/browser check, never native/game/device acceptance."""
 from pathlib import Path
 import json
 import sys
 from playwright.sync_api import sync_playwright
 root=Path(__file__).resolve().parents[2]
+character=sys.argv[2] if len(sys.argv)>2 else 'momo'
 out=Path(sys.argv[1]);out.mkdir(parents=True,exist_ok=True)
-html=root/'References/Characters/momo-authored-parts-2026-10-30/material-review.html'
+html=root/f'References/Characters/{character}-authored-parts-2026-10-30/material-review.html'
 errors=[];requests=[];samples=[]
 with sync_playwright() as p:
     browser=p.chromium.launch(executable_path='/usr/bin/chromium',headless=True,args=['--no-sandbox'])
@@ -34,6 +35,6 @@ with sync_playwright() as p:
         page.screenshot(path=str(out/'material-review-mobile.png'),full_page=True)
         assert not errors,errors;assert not requests,requests
     finally:browser.close()
-report={'scope':'Momo material/browser only','front_exact_original':True,'three_directions_four_modes':True,'closed_heads_rendered':True,'samples':samples,'errors':errors,'external_requests':requests,'unity_verified':False,'pixel_verified':False,'adopted':False}
+report={'scope':character+' material/browser only','front_exact_original':True,'three_directions_four_modes':True,'closed_heads_rendered':True,'samples':samples,'errors':errors,'external_requests':requests,'unity_verified':False,'pixel_verified':False,'adopted':False}
 (out/'browser-results.json').write_text(json.dumps(report,indent=2)+'\n')
-print('Momo material browser passed: exact formal front, 3 directions/4 modes, blink sources, 37 fixed-time samples, 390px layout, no script errors. Not Unity/Pixel.')
+print(character+' material browser passed: exact formal front, 3 directions/4 modes, blink sources, 37 fixed-time samples, 390px layout, no script errors. Not Unity/Pixel.')

@@ -6,7 +6,8 @@ import json
 import sys
 ROOT=Path(__file__).resolve().parents[1]
 character=sys.argv[1] if len(sys.argv)>1 else 'momo'
-if character!='momo': raise RuntimeError('Only Momo is at the current sequential gate.')
+names={'momo':'モモ','lulu':'ルル'}
+if character not in names: raise RuntimeError('Character not prepared at its sequential gate.')
 art=ROOT/f'References/Characters/{character}-authored-parts-2026-10-30'
 layout=json.loads((art/'layout.json').read_text())
 atlas=ROOT/'Assets/Mofumachi/Resources/Mofumachi/CharacterBodyAtlas.png'
@@ -17,6 +18,7 @@ for key,s in layout['sources'].items():
     if hashlib.sha256(p.read_bytes()).hexdigest()!=s['sha256']: raise RuntimeError('Material changed.')
     images[key]=p
 data={'layout':layout,'images':{k:'data:image/png;base64,'+base64.b64encode(p.read_bytes()).decode('ascii') for k,p in images.items()}}
-html=(art/'review.template.html').read_text().replace('__RIG__',(ROOT/'References/Characters/noah-authored-parts-2026-10-29/rig-model.cjs').read_text()).replace('__DIRECTIONS__',(ROOT/'References/Characters/noah-directional-parts-2026-10-30/direction-review.cjs').read_text()).replace('__DATA__',json.dumps(data,separators=(',',':')))
+template=ROOT/'References/Characters/momo-authored-parts-2026-10-30/review.template.html'
+html=template.read_text().replace('モモ',names[character]).replace("character:'momo'","character:"+json.dumps(character)).replace('__RIG__',(ROOT/'References/Characters/noah-authored-parts-2026-10-29/rig-model.cjs').read_text()).replace('__DIRECTIONS__',(ROOT/'References/Characters/noah-directional-parts-2026-10-30/direction-review.cjs').read_text()).replace('__DATA__',json.dumps(data,separators=(',',':')))
 (art/'material-review.html').write_text(html)
-print('Momo offline material review built. This is not Unity/Pixel evidence.')
+print(character+': offline material review built. Not Unity/Pixel evidence.')

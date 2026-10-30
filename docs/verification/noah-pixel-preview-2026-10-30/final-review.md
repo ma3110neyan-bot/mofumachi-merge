@@ -1,0 +1,9 @@
+# Noah opt-in game preview: scoped source review
+
+One fresh read-only review by gpt-6-astra/high, base4aeb60f plus the current opt-in preview delta. No nested agent/re-review. No full suites, Unity activation, browser/device/network commands or source mutations by the reviewer.
+
+Critical0 / Important1 / Minor0. Important: existing Portrait selected the disabled original CharacterBodyGraphic when authored mode displayed another Graphic, allowing null/empty/stale mesh validation. One fix pass selects the active authored Graphic for nonfront ON, original body for front/OFF, requires enabled+nonnull+nonempty geometry, and retains all vertex near/far assertions using that actual Graphic transform. Native sequence also checks active/inactive renderer state at each step. API compilation succeeds after this change. **Actual Unity regression RED→GREEN could not run in cloud; it is not claimed verified natively and remains the first gate before any APK.**
+
+Reviewer otherwise found source consistent with the intended experiment: crop Y conversion/diagonal masks, inherited hierarchy/input, native/packed-resource/source/APK attribution and cleanup ownership. Ready for attempting the explicitly experimental Windows native→APK→Pixel sequence after the fix and bookkeeping, never formal adoption.
+
+Declined / retained rulings: actual Unity/imported rendering, WindowsPowerShell5.1 execution, Android/APK success, Pixel installation/FPS/heat/memory/touch latency, visual identity/complete occlusion and formal adoption remain unverified. API compilation is not a Unity run; synthetic helper tests are not device results. Original art/static product inputs stay protected, but local editor settings caches are not forcibly reset. Other5/default product/Save/world rules are unchanged by the inspected opt-in delta, not reaccepted by this review. No main integration, whole-branch historical review, rollout or completion claim.

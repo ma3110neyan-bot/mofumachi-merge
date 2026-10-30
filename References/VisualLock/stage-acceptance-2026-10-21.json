@@ -189,7 +189,7 @@
       "scope": "received2848782; historical after East bench correction"
     }
   ],
-  "current_stage": "noah_directional_parts_material_final_visual_pending",
+  "current_stage": "noah_authored_game_preview_native_apk_pixel_pending",
   "east": {
     "design_direction_approved": true,
     "scope": "Bounded expansion of approved quality into existing florist/shop role; no new shop or art direction",
@@ -1072,5 +1072,17 @@
     "pixel_verified": false,
     "adopted": false,
     "six_character_rollout_authorized": false
+  },
+  "noah_authored_game_preview": {
+    "date_jst": "2026-10-30",
+    "candidate": "References/VisualLock/noah-authored-game-candidate-2026-10-30.json",
+    "game_connected": true,
+    "api_compiled": true,
+    "unity_native_verified": false,
+    "apk_generated": false,
+    "pixel_verified": false,
+    "adopted": false,
+    "six_character_rollout_authorized": false,
+    "normal_default_enabled": false
   }
 }

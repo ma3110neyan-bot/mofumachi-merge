@@ -13,7 +13,7 @@ namespace Mofumachi.Tests
 {
     // Runs in the normal native suite. Optional output is actual UGUI rendering
     // from an isolated fixture, never the developer's/Pixel player's saved town.
-    public sealed class ExperienceCaptureTests : SliceUiTestFixture
+    public sealed partial class ExperienceCaptureTests : SliceUiTestFixture
     {
         [Serializable] private sealed class NativeImage
         {public string file,sha256;public int bytes,width,height;}
@@ -904,9 +904,14 @@ namespace Mofumachi.Tests
                 }
                 Canvas.ForceUpdateCanvases();
                 beforeRender?.Invoke();Canvas.ForceUpdateCanvases();
-                foreach(var actor in Flow.GetComponentsInChildren<TownActor>().Where(a=>a.NoahReprototypeEnabled&&a.RegionVisible))
+                foreach(var actor in Flow.GetComponentsInChildren<TownActor>().Where(a=>(a.NoahReprototypeEnabled||a.NoahAuthoredEnabled)&&a.RegionVisible))
                 {
-                    var graphic=actor.GetComponentInChildren<CharacterBodyGraphic>();var mesh=graphic.canvasRenderer.GetMesh();
+                    Graphic graphic=actor.NoahAuthoredEnabled&&actor.AuthoredDirection!=NoahAuthoredDirection.Front
+                        ?actor.GetComponentInChildren<NoahAuthoredGraphic>():actor.GetComponentInChildren<CharacterBodyGraphic>();
+                    Assert.That(graphic,Is.Not.Null,"Capture must inspect the active character renderer.");
+                    Assert.That(graphic.enabled,Is.True,"Disabled/stale graphics are not visual evidence.");
+                    var mesh=graphic.canvasRenderer.GetMesh();Assert.That(mesh,Is.Not.Null);
+                    Assert.That(mesh.vertexCount,Is.GreaterThan(0),"Empty geometry cannot pass clipping checks.");
                     foreach(var vertex in mesh.vertices)
                     {
                         float depth=captureCamera.WorldToScreenPoint(graphic.transform.TransformPoint(vertex)).z;

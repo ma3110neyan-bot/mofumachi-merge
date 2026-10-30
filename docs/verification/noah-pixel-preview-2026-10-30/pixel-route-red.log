@@ -1,0 +1,6 @@
+.: /workspace/mofumachi-merge/scripts/tests/noah-authored-preview.tests.ps1:4
+Line |
+   4 |  . (Join-Path $PSScriptRoot '../test-noah-authored-pixel.ps1')
+     |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | The term
+     | '/workspace/mofumachi-merge/scripts/tests/../test-noah-authored-pixel.ps1' is not recognized as a name of a cmdlet, function, script file, or executable program. Check the spelling of the name, or if a path was included, verify that the path is correct and try again.

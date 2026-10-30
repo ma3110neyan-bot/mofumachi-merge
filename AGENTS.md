@@ -1,5 +1,15 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-10-30最新：本日のPixel用ノア単体・既定OFFのゲーム接続
+
+ユーザーは確実さを優先しつつ本日中のPixel3a試験を希望。前のReferences限定工程から、ノアだけの明示的な実験版ゲーム接続へ進めた。通常版は既定OFF、他5名・正式原画・街・北境界・噴水・図鑑・BGM・Merge・Core／Saveは維持。素材の正式採用・6名展開ではない。
+
+最新素材HTMLのブラウザー6項目と修正後の尾の表示は確認済み。新しいNoahAuthoredMotion／Graphicを既存TownActor内へ接続し、24パーツをEditor生成の共有atlasへまとめ、表示は32頂点。正面は正式atlasで、正面の独立リグ・新方向のまばたき／表情は未完成。原画と同じ画素なのは正面であり、新方向は未承認の素材候補。
+
+**ゲーム接続実装済み・実機未確認。** 関連動作4件成功、APIコンパイルは通常／Android試作／Editor／PlayModeTestsで成功。新しいネイティブ1メソッド・APK・Pixelはクラウドで未実行。新手順 `scripts/prepare-noah-pixel-preview.ps1 -Install` はWindowsで一時資源を準備→ノア単体検査→同ソースcurrent／authoredの2APK→所有物だけcleanup→install-r→実行モード確認→既定60秒のSurface/PSS/バッテリー温度等を取る。クラウドのAPI検証や合成ADBテストを実機成功に置換しない。552静的入力をSHA固定し、既存方針のEditorキャッシュを勝手にresetしない。
+
+最終コードレビュー0Critical／1Important：撮影helperが無効化した旧Graphicのmeshを読む点を、実際の表示中Graphicを選びenabled／非null／非空と全頂点clipを検査するよう修正。修正後APIコンパイル成功、実UnityのRED／GREENは未確認。旧退役リグ・全件QA・Fresh／uninstall／mainは禁止のまま。失敗時は今回のnoah-authored runだけを保存して確認する。手順／未完成部分 `docs/noah-pixel-preview-2026-10-30.md`。以下は前段階の履歴。
+
 ## 2026-10-30最新：ノア左右・後ろの分割素材／最終表示は保留
 
 昨日の左斜めに、右斜め・後ろの独立8パーツを追加。`References/Characters/noah-directional-parts-2026-10-30/`。初稿の左右向き／手の残りと、背中の白い腹模様／余分な手を各1回の素材修正で直し、原本と生成指示を保存。正式atlas・昨日の資料は上書きしない。顔や衣装等の正式な変更許可・採用・他5名展開ではない。

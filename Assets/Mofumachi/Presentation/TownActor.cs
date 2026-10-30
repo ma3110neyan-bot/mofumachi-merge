@@ -29,6 +29,30 @@ namespace Mofumachi.Presentation
         private bool noahFinalRigRequested=false;
 #endif
         public bool NoahFinalRigEnabled=>NoahDepthFocusEnabled&&TownNoahFinalRig.IsEnabled(CharacterId,noahFinalRigRequested);
+#if MOFUMACHI_NOAH_AUTHORED
+        private bool noahAuthoredRequested=true;
+#else
+        private bool noahAuthoredRequested=false;
+#endif
+        private NoahAuthoredGraphic authored;
+        private NoahAuthoredDirection authoredDirection=NoahAuthoredDirection.Left;
+        public bool NoahAuthoredEnabled=>CharacterId=="noah"&&noahAuthoredRequested;
+        public NoahAuthoredDirection AuthoredDirection=>authoredDirection;
+        public void SetNoahAuthoredEnabled(bool enabled)
+        {
+            if(CharacterId!="noah")return;
+            noahAuthoredRequested=enabled;
+            if(NoahAuthoredEnabled)EnsureAuthoredGraphic();
+            else {if(authored!=null)authored.enabled=false;if(body!=null){body.enabled=true;body.SetNoahTownTrial(NoahTrialEnabled);}}
+            if(life!=null)Render(0,0);
+        }
+        private void EnsureAuthoredGraphic()
+        {
+            if(authored!=null)return;
+            var node=UIWidgets.Node("Noah authored part trial",VisualRoot,new Rect(0,0,1,1));
+            node.pivot=new Vector2(.5f,0);authored=node.gameObject.AddComponent<NoahAuthoredGraphic>();authored.Configure();
+            if(body!=null)body.enabled=false;
+        }
         public void SetNoahFinalRigEnabled(bool enabled)
         {
             bool previous=NoahFinalRigEnabled;noahFinalRigRequested=enabled;if(previous==NoahFinalRigEnabled)return;
@@ -86,10 +110,12 @@ namespace Mofumachi.Presentation
             body.SetNoahReprototype(NoahReprototypeEnabled);
             body.SetNoahDepthFocus(NoahDepthFocusEnabled);
             body.SetNoahFinalRig(NoahFinalRigEnabled);
+            if(NoahAuthoredEnabled)EnsureAuthoredGraphic();
 #if UNITY_ANDROID && !UNITY_EDITOR
             // Device attribution only. Editor capture tests keep their strict
             // unexpected-log check; no logging exception is needed there.
             if(CharacterId=="noah")Debug.Log("MOFUMACHI_NOAH_TRIAL_MODE "+(NoahFinalRigEnabled?"rig":"current"));
+            if(CharacterId=="noah")Debug.Log("MOFUMACHI_NOAH_AUTHORED_MODE "+(NoahAuthoredEnabled?"authored":"current"));
 #endif
             softShadow=CreateShadow("Town actor soft shadow",new Rect(.12f,-.06f,.76f,.12f),.075f);
             contactShadow=CreateShadow("Town actor contact shadow",new Rect(.27f,-.032f,.46f,.064f),.19f);
@@ -174,6 +200,7 @@ namespace Mofumachi.Presentation
             bool interactive=RegionVisible&&journeyFade<=0;
             if(visibility!=null){visibility.alpha=RegionVisible?1-journeyFade:0;visibility.blocksRaycasts=interactive;visibility.interactable=interactive;}
             if(body!=null)body.raycastTarget=interactive;
+            if(authored!=null)authored.raycastTarget=interactive;
         }
         internal void Advance(float dt)
         {
@@ -228,6 +255,17 @@ namespace Mofumachi.Presentation
             float attention=.5f+.5f*Mathf.Sin(breath*.65f+resident*.617f);
             float rest=-2*benchBlend-1.3f*flowerBlend*attention;
             float scale=viewScale*DepthScale;
+            if(NoahAuthoredEnabled)
+            {
+                EnsureAuthoredGraphic();
+                if(moving)authoredDirection=NoahAuthoredMotion.Direction(worldResident==null?Position.X-previous.X:worldResident.Position.X-worldResident.Previous.X,worldResident==null?Position.Y-previous.Y:worldResident.Position.Y-worldResident.Previous.Y,authoredDirection);
+                bool front=authoredDirection==NoahAuthoredDirection.Front;
+                body.enabled=front;authored.enabled=!front;
+                VisualRoot.anchoredPosition=Vector2.zero;VisualRoot.localScale=Vector3.one*scale;VisualRoot.localRotation=Quaternion.identity;
+                if(front){body.SetNoahTownTrial(false);body.Pose(0,0,0,TownCharacterMotion.Blink(breath,resident));}
+                else authored.SetPose(breath,stride,amplitude,reactionRemaining>0?NoahAuthoredMode.Greet:life.IsActorSpeaking(this)?NoahAuthoredMode.Talk:moving?NoahAuthoredMode.Walk:NoahAuthoredMode.Idle,authoredDirection);
+                UpdateShadows(0,scale);return;
+            }
             if(NoahTrialEnabled)
             {
                 body.SetNoahFinalRig(NoahFinalRigEnabled);

@@ -23,6 +23,7 @@ namespace Mofumachi.Presentation
         public bool IsSpeaking=>bubble!=null;
         private RawImage background;private ScreenContext context;private TownActor[] actors;private RectTransform actorLayer;
         private GameObject bubble,entrance,outings;private TownActor speaker;private TownPlace destination;private float now,nextTalk,bubbleUntil,nextSocial;private int choiceIndex;
+        internal bool IsActorSpeaking(TownActor actor)=>bubble!=null&&speaker==actor;
         private readonly TownFrameClock clock=new TownFrameClock();
         private readonly Bounds[] residentBodyBounds=new Bounds[6];
         public void Bind(ScreenContext c,RawImage image)

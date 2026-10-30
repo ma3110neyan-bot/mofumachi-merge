@@ -1,0 +1,4 @@
+Observed actual filtered NUnit runner result from the earlier successful execution in this session:
+Passed! - Failed:0, Passed:4, Skipped:0, Total:4, Duration:20ms - Mofumachi.Visual.Tests.dll(net8.0).
+
+This is a transcription of the tool result, not a newly generated test-runner log or native Unity result. NoahAuthoredMotion.cs and its four tests were unchanged after that pass. The later attempt to repeat this run with a TRX logger was interrupted and produced no new result. No full test suite or actual device was run.

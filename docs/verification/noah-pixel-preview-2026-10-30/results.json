@@ -1,0 +1,42 @@
+{
+  "created_date_jst": "2026-10-30",
+  "scope": "Noah-only default-off experimental game preview",
+  "base_commit": "4aeb60f0a2135f9703ed87e2ad38f5b1edd2c65b",
+  "default_off": true,
+  "adopted": false,
+  "six_character_rollout_authorized": false,
+  "formal_art_changed": false,
+  "current_browser_verified": true,
+  "current_browser_html_sha256": "ecedd7b720484e386d81b00660dc50c392f9ab2e363280dc5fefc193d057b80e",
+  "game_connected": true,
+  "api_compiled": true,
+  "native_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "front_independent_rig_complete": false,
+  "new_direction_expression_complete": false,
+  "allowed_existing_edits": [
+    "Assets/Mofumachi/Presentation/TownActor.cs",
+    "Assets/Mofumachi/Presentation/TownLifeView.cs",
+    "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.cs"
+  ],
+  "pixel_metrics": null,
+  "editor_cache_policy": "Assets/Settings and ProjectSettings graphics/build-profile caches follow existing Source-InputPaths policy; do not reset local editor caches or pretend they are frozen artwork.",
+  "related_motion_tests": {
+    "observed_passed": 4,
+    "failed": 0,
+    "latest_repeat_interrupted": true,
+    "native_unity": false
+  },
+  "synthetic_route_guards_passed": true,
+  "native_capture_regression_verified": false,
+  "source_review": {
+    "critical": 0,
+    "important": 1,
+    "fixed_in_one_pass": true,
+    "native_regression_not_executed": true,
+    "path": "docs/verification/noah-pixel-preview-2026-10-30/final-review.md"
+  },
+  "verification_scope": "API compilation, observed4puremath tests, syntheticPSguards, materialbrowser; not native/APK/device",
+  "motion_source_sha256": "aaa6134b4d34dbe63d0e5805c257addadfc03deccee4cd7603911da27d5909ca"
+}

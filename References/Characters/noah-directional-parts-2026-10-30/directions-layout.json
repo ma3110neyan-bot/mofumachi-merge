@@ -1,0 +1,416 @@
+{
+  "version": 1,
+  "scope": "Noah unapproved browser material only",
+  "adopted": false,
+  "sources": {
+    "parts": {
+      "file": "../noah-authored-parts-2026-10-29/parts-left-draft-01.png",
+      "width": 1774,
+      "height": 887,
+      "sha256": "5797c1d1df8a090168e24c95d685e2c7599f03e63dbca6300e782c7c0f716764"
+    },
+    "torso": {
+      "file": "../noah-authored-parts-2026-10-29/torso-left-draft-02.png",
+      "width": 1309,
+      "height": 1201,
+      "sha256": "76600bd4cbc43f07f0d2da19aea16e24003a10f690e6157791e21b4b8a04e83e"
+    },
+    "right": {
+      "file": "parts-right-draft-02.png",
+      "width": 1774,
+      "height": 887,
+      "sha256": "2a2486cbef78ea53bd0f8a8076003ac3facb926ffc474f0a95994ce2c8c625e0"
+    },
+    "back": {
+      "file": "parts-back-draft-02.png",
+      "width": 1774,
+      "height": 887,
+      "sha256": "33fcdc54ce4f1f6631936ec82f4ad6e0a9ffee621db7a18d304d7235c801819a"
+    }
+  },
+  "views": {
+    "left": {
+      "parts": [
+        {
+          "id": "tail",
+          "source": "parts",
+          "crop": [
+            910,
+            440,
+            429,
+            427
+          ],
+          "pivot": [
+            0.35,
+            0.9
+          ],
+          "scale": 0.85
+        },
+        {
+          "id": "pouch",
+          "source": "parts",
+          "crop": [
+            1440,
+            535,
+            239,
+            221
+          ],
+          "pivot": [
+            0.5,
+            0.2
+          ],
+          "scale": 0.25
+        },
+        {
+          "id": "farLeg",
+          "source": "parts",
+          "crop": [
+            109,
+            542,
+            211,
+            272
+          ],
+          "pivot": [
+            0.5,
+            0.9705882352941176
+          ],
+          "scale": 0.64
+        },
+        {
+          "id": "nearLeg",
+          "source": "parts",
+          "crop": [
+            567,
+            558,
+            189,
+            263
+          ],
+          "pivot": [
+            0.5,
+            0.9695817490494296
+          ],
+          "scale": 0.65
+        },
+        {
+          "id": "farArm",
+          "source": "parts",
+          "crop": [
+            999,
+            125,
+            290,
+            194
+          ],
+          "pivot": [
+            0.95,
+            0.55
+          ],
+          "scale": 0.45
+        },
+        {
+          "id": "body",
+          "source": "torso",
+          "crop": [
+            201,
+            221,
+            915,
+            828
+          ],
+          "pivot": [
+            0.5,
+            1
+          ],
+          "scale": 0.3079710144927536
+        },
+        {
+          "id": "nearArm",
+          "source": "parts",
+          "crop": [
+            1451,
+            150,
+            218,
+            205
+          ],
+          "pivot": [
+            0.7,
+            0.1
+          ],
+          "scale": 0.64
+        },
+        {
+          "id": "head",
+          "source": "parts",
+          "crop": [
+            25,
+            5,
+            504,
+            407
+          ],
+          "pivot": [
+            0.5,
+            1
+          ],
+          "scale": 0.77
+        }
+      ]
+    },
+    "right": {
+      "parts": [
+        {
+          "id": "tail",
+          "source": "right",
+          "crop": [
+            933,
+            413,
+            485,
+            445
+          ],
+          "pivot": [
+            0.85,
+            0.9
+          ],
+          "scale": 0.65,
+          "clipSum": {
+            "min": 1420
+          }
+        },
+        {
+          "id": "farLeg",
+          "source": "right",
+          "crop": [
+            133,
+            539,
+            245,
+            292
+          ],
+          "pivot": [
+            0.5,
+            0.9726027397260274
+          ],
+          "scale": 0.58
+        },
+        {
+          "id": "nearLeg",
+          "source": "right",
+          "crop": [
+            575,
+            543,
+            245,
+            292
+          ],
+          "pivot": [
+            0.5,
+            0.9726027397260274
+          ],
+          "scale": 0.58
+        },
+        {
+          "id": "farArm",
+          "source": "right",
+          "crop": [
+            1029,
+            184,
+            321,
+            201
+          ],
+          "pivot": [
+            0.08,
+            0.55
+          ],
+          "scale": 0.45
+        },
+        {
+          "id": "body",
+          "source": "right",
+          "crop": [
+            571,
+            177,
+            423,
+            294
+          ],
+          "pivot": [
+            0.5,
+            1
+          ],
+          "scale": 0.84
+        },
+        {
+          "id": "pouch",
+          "source": "right",
+          "crop": [
+            1492,
+            573,
+            244,
+            228
+          ],
+          "pivot": [
+            0.5,
+            0.2
+          ],
+          "scale": 0.34
+        },
+        {
+          "id": "nearArm",
+          "source": "right",
+          "crop": [
+            1469,
+            188,
+            239,
+            228
+          ],
+          "pivot": [
+            0.25,
+            0.1
+          ],
+          "scale": 0.58
+        },
+        {
+          "id": "head",
+          "source": "right",
+          "crop": [
+            26,
+            16,
+            509,
+            428
+          ],
+          "pivot": [
+            0.5,
+            1
+          ],
+          "scale": 0.73
+        }
+      ]
+    },
+    "back": {
+      "parts": [
+        {
+          "id": "farLeg",
+          "source": "back",
+          "crop": [
+            109,
+            510,
+            246,
+            308
+          ],
+          "pivot": [
+            0.5,
+            0.974025974025974
+          ],
+          "scale": 0.58
+        },
+        {
+          "id": "nearLeg",
+          "source": "back",
+          "crop": [
+            589,
+            509,
+            248,
+            305
+          ],
+          "pivot": [
+            0.5,
+            0.9737704918032787
+          ],
+          "scale": 0.58
+        },
+        {
+          "id": "farArm",
+          "source": "back",
+          "crop": [
+            1128,
+            160,
+            243,
+            201
+          ],
+          "pivot": [
+            0.85,
+            0.05
+          ],
+          "scale": 0.5
+        },
+        {
+          "id": "tail",
+          "source": "back",
+          "crop": [
+            925,
+            385,
+            542,
+            477
+          ],
+          "pivot": [
+            0.85,
+            0.95
+          ],
+          "scale": 0.6,
+          "clipSum": {
+            "min": 1400
+          }
+        },
+        {
+          "id": "body",
+          "source": "back",
+          "crop": [
+            614,
+            127,
+            437,
+            325
+          ],
+          "pivot": [
+            0.5,
+            1
+          ],
+          "scale": 0.79,
+          "clipSum": {
+            "max": 1400
+          }
+        },
+        {
+          "id": "pouch",
+          "source": "back",
+          "crop": [
+            1507,
+            552,
+            197,
+            221
+          ],
+          "pivot": [
+            0.5,
+            0.2
+          ],
+          "scale": 0.32
+        },
+        {
+          "id": "nearArm",
+          "source": "back",
+          "crop": [
+            1451,
+            150,
+            278,
+            238
+          ],
+          "pivot": [
+            0.25,
+            0.1
+          ],
+          "scale": 0.53
+        },
+        {
+          "id": "head",
+          "source": "back",
+          "crop": [
+            38,
+            24,
+            513,
+            434
+          ],
+          "pivot": [
+            0.5,
+            1
+          ],
+          "scale": 0.72
+        }
+      ]
+    }
+  },
+  "front": "exact original atlas only; no independent front rig",
+  "source_clip_note": "source-space diagonal gutters exclude adjacent components whose rectangular bounds overlap; raw PNGs unchanged"
+}

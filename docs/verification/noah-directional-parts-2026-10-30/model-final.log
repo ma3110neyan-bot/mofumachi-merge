@@ -1,0 +1,13 @@
+✔ dead-zone keeps facing and vertical travel chooses away or front (0.843415ms)
+✔ continuous sample covers idle, left/right/away walking, stops and ends talking (2.060412ms)
+✔ three assembled directions use only rigid positive-determinant transforms and stay grounded (8.241637ms)
+✔ rear tail root stays behind torso and right pouch remains near side (0.601853ms)
+✔ assembled source rectangles remain inside the320px review viewport (0.769985ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18.31923

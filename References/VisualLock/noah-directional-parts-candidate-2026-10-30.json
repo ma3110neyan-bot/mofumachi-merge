@@ -1,0 +1,103 @@
+{
+  "created_date_jst": "2026-10-30",
+  "base_commit": "5ba48df9bef14275e006e9513d877f0d8e9ca7aa",
+  "scope": "Noah-only directional material/browser continuation",
+  "status": "material_and_three_direction_preview_created_final_visual_pending",
+  "new_independent_directions": [
+    "right",
+    "back"
+  ],
+  "reused_independent_direction": "left",
+  "parts_per_direction": 8,
+  "front": "exact formal atlas only; independent front not complete",
+  "formal_atlas_sha256": "23d14025f146c429da01b6e3a74ef803254755f8d149f9eb53516aacaa30163d",
+  "files": [
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/README.md",
+      "bytes": 1578,
+      "sha256": "c0f61a60f884cce30551d71fd21cd237960adf2e328ea4af04f646b76c9681c5"
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/direction-review.cjs",
+      "bytes": 2168,
+      "sha256": "19f4fff3521e1c8b802369bdbfa5c9745d1a9d0680fae04d1591a5db89ba70f0"
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/directions-layout.json",
+      "bytes": 7953,
+      "sha256": "de8bcaa96e89ba7f146323316b22f18e3ad5c9ef01eaaf1c838597f14205105e"
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/noah-direction-review.html",
+      "bytes": 12160212,
+      "sha256": "ecedd7b720484e386d81b00660dc50c392f9ab2e363280dc5fefc193d057b80e"
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/parts-back-draft-01.png",
+      "bytes": 1281810,
+      "sha256": "610313b7cde8680286f41edcc6492c54973c49b4be097491f0c8ca832c1b5ae8"
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/parts-back-draft-02.png",
+      "bytes": 1257740,
+      "sha256": "33fcdc54ce4f1f6631936ec82f4ad6e0a9ffee621db7a18d304d7235c801819a"
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/parts-right-draft-01.png",
+      "bytes": 1189278,
+      "sha256": "e9c2e22eac2b4d9f9256557e9c4064aba79cab540c5e984d99496c51b5b0b0c8"
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/parts-right-draft-02.png",
+      "bytes": 1211041,
+      "sha256": "2a2486cbef78ea53bd0f8a8076003ac3facb926ffc474f0a95994ce2c8c625e0"
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/prompt-back-correction.txt",
+      "bytes": 1332,
+      "sha256": "03533649df558eb526e2894cf5ba570ea4614686b99aaa286795638d2772456f"
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/prompts-right.txt",
+      "bytes": 4452,
+      "sha256": "91bce9b4b551d14a53d7ed3d39ae1fa5cb5d07ce70848755d9b96c5c4999582e"
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/provenance.json",
+      "bytes": 4937,
+      "sha256": "25b411da3aa855d76d30ab1ddcae464fd643535b3f397dd5f5a1764efe37f9bb"
+    },
+    {
+      "path": "References/Characters/noah-directional-parts-2026-10-30/review.template.html",
+      "bytes": 9712,
+      "sha256": "3aba449539e11c0acc3a035fd8482ea4c006a20300981f55b004ff0eb60a1060"
+    }
+  ],
+  "related_model_tests": {
+    "passed": 5,
+    "failed": 0
+  },
+  "browser_pre_final_checks": 6,
+  "browser_final_verified": false,
+  "browser_final_blocker": "execution interrupted after final rear-tail ordering change",
+  "pre_final_evidence": "docs/verification/noah-directional-parts-2026-10-30/pre-final-tail-order/",
+  "game_integrated": false,
+  "unity_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "six_character_rollout_authorized": false,
+  "full_direction_rig_complete": false,
+  "blink_expression_complete": false,
+  "protected_path_record": "docs/verification/noah-directional-parts-2026-10-30/protected-paths.json",
+  "current_review_html_sha256": "ecedd7b720484e386d81b00660dc50c392f9ab2e363280dc5fefc193d057b80e",
+  "fresh_review": {
+    "critical": 0,
+    "important": 0,
+    "minor": 2,
+    "rear_hand_wave_unfinished": true,
+    "ready_for_unfinished_material_handoff": true,
+    "adoption_approved": false,
+    "review": "docs/verification/noah-directional-parts-2026-10-30/final-review.md"
+  }
+}

@@ -1,0 +1,33 @@
+✔ dead-zone keeps facing and vertical travel chooses away or front (1.034603ms)
+✔ continuous sample covers idle, left/right/away walking, stops and ends talking (2.034233ms)
+✔ three assembled directions use only rigid positive-determinant transforms and stay grounded (6.070612ms)
+✖ rear tail root stays behind torso and right pouch remains near side (1.02615ms)
+✔ assembled source rectangles remain inside the320px review viewport (0.654412ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 16.590001
+
+✖ failing tests:
+
+test at scripts/tests/noah-direction-review.test.cjs:38:1
+✖ rear tail root stays behind torso and right pouch remains near side (1.02615ms)
+  AssertionError [ERR_ASSERTION]: tail root must be occluded by rear torso, not appear as an extra limb
+      at TestContext.<anonymous> (/workspace/mofumachi-merge/scripts/tests/noah-direction-review.test.cjs:41:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

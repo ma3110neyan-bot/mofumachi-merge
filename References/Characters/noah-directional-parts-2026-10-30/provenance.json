@@ -1,0 +1,72 @@
+{
+  "created_date_jst": "2026-10-30",
+  "scope": "Noah-only unapproved directional source art; not a formal replacement or game image",
+  "authoring_tool": "image_gen",
+  "formal_atlas": {
+    "path": "Assets/Mofumachi/Resources/Mofumachi/CharacterBodyAtlas.png",
+    "sha256": "23d14025f146c429da01b6e3a74ef803254755f8d149f9eb53516aacaa30163d",
+    "changed": false
+  },
+  "outputs": [
+    {
+      "file": "parts-right-draft-01.png",
+      "raw_source": "/workspace/generated_images/exec-471458e2-66b8-4150-887c-461d849b0840.png",
+      "status": "superseded: left-directed limbs/tail and torso hand remnant",
+      "prompt_record": "See prompts-right.txt; transcribed from prior turn's tool call",
+      "size": [
+        1774,
+        887
+      ],
+      "bytes": 1189278,
+      "sha256": "e9c2e22eac2b4d9f9256557e9c4064aba79cab540c5e984d99496c51b5b0b0c8"
+    },
+    {
+      "file": "parts-right-draft-02.png",
+      "raw_source": "/workspace/generated_images/exec-9b3693cf-afc9-41cd-82db-320b72ab8156.png",
+      "status": "candidate: one targeted correction, not adopted",
+      "prompt_record": "See prompts-right.txt; transcribed from prior turn's tool call",
+      "size": [
+        1774,
+        887
+      ],
+      "bytes": 1211041,
+      "sha256": "2a2486cbef78ea53bd0f8a8076003ac3facb926ffc474f0a95994ce2c8c625e0"
+    },
+    {
+      "file": "parts-back-draft-01.png",
+      "raw_source": "/workspace/generated_images/exec-1cdead54-74ed-4dd4-b3cb-23a6d2c8c235.png",
+      "status": "superseded: cream front belly patch on back, second paw on far arm",
+      "prompt": "Create an UNAPPROVED Noah-only BACK-THREE-QUARTER separated8part source sheet. Reference1 FOURTH/RIGHTMOST full-body view is the target direction: Noah walking AWAY, turned slightly to viewer's RIGHT, showing back of hat, head, red short jacket, huge curled tail on IMAGE LEFT. Reference2 approved atlas far-right TOP squirrel is identity master, not other5. Reference3 shows8-part layout/style for right-facing, not target pose.\nPreserve exact compact chubby squirrel proportions, warm orange/cream fur, red gold-trim hat with purple flower (visible at IMAGE RIGHT on rear brim), original ears, red short coat, small brown anatomicalRIGHT hip pouch. No new clothing/accessory, no3D, no face redesign. Back head has NO visible eyes/muzzle/mouth. Red coat rear only, no front bow/daisy/cream belly pasted onto back. Same soft watercolor art and warm thin outlines.\nTransparent landscape FOUR columns by TWO rows with generous gutters, ONE fully detached piece each, no labels/grid/floor/shadow/assembled character. Independently paint faithful concealed shoulder/hip joints for bone overlap. Do NOT bake other pieces into torso.\nTop row1 HEAD with hat/flower/ears/orange back-of-head ONLY, no body/tail/bow/arms;2 compact TORSO with rear short coat and round orange hips ONLY. NO arms/hands/feet/head/tail/pouch. Brown pouch STRAP may cross shoulder-to-right-hip anatomically correctly, but no pouch baked into body;3 FAR arm with rear red sleeve and small paw (partly hidden when assembled);4 NEAR arm with rear red sleeve/small paw, enough shoulder overlap and perspective.\nBottom row1 FAR short thigh/leg/rounded cream heel (back view, no front toes);2 NEAR short thigh/leg/cream heel;3 WHOLE large curled orange/cream tail, root at LOWER/INNER IMAGE RIGHT and broad curl fans IMAGE LEFT as in reference1 rear character;4 small brown anatomicalRIGHT pouch rear/side view, attachment only. Keep bag on viewerRIGHT of rear torso; never move hips for visibility.\nPart1head largest; torso shorter/round, feet short and plump relative to body, tail large but not enlarged over reference. Clean transparent alpha. All8isolated pieces and SAME rear perspective.",
+      "size": [
+        1774,
+        887
+      ],
+      "bytes": 1281810,
+      "sha256": "610313b7cde8680286f41edcc6492c54973c49b4be097491f0c8ca832c1b5ae8"
+    },
+    {
+      "file": "parts-back-draft-02.png",
+      "raw_source": "/workspace/generated_images/exec-937b0796-92fe-4db3-bf14-2efb302613e0.png",
+      "status": "candidate: one targeted correction, not adopted",
+      "size": [
+        1774,
+        887
+      ],
+      "bytes": 1257740,
+      "sha256": "33fcdc54ce4f1f6631936ec82f4ad6e0a9ffee621db7a18d304d7235c801819a",
+      "prompt_record": "prompt-back-correction.txt (transcribed verbatim from tool call)"
+    }
+  ],
+  "raw_pngs_copied_unedited": true,
+  "front": "Exact existing atlas; new directional front not used",
+  "left_source": "../noah-authored-parts-2026-10-29/",
+  "full_directional_rig_complete": false,
+  "blink_expression_complete": false,
+  "game_integrated": false,
+  "unity_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "six_character_rollout_authorized": false,
+  "current_visual_verification": "pre-final tail layering only; current final rear-tail order not browser recaptured after interrupted execution"
+}

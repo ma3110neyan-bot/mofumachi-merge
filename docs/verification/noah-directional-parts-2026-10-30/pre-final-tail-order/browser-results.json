@@ -1,0 +1,576 @@
+{
+  "scope": "offline Noah material/browser review only",
+  "checks": [
+    "front is exact original source, explicitly not an independent front rig",
+    "three directions render four rigid-part poses and grounded feet at two review sizes",
+    "37 fixed-time browser samples cover18seconds of idle/walk/stop/turn/away/greet/talk; not real-time FPS",
+    "actual browser clock runs and pauses",
+    "390px browser layout has no horizontal overflow; not Pixel testing",
+    "no JavaScript errors or external requests"
+  ],
+  "samples": [
+    {
+      "sample_seconds": 0.0,
+      "direction": "left",
+      "mode": "idle",
+      "feet": [
+        {
+          "x": 54,
+          "y": 0
+        },
+        {
+          "x": -56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 0.5,
+      "direction": "left",
+      "mode": "idle",
+      "feet": [
+        {
+          "x": 54,
+          "y": 0
+        },
+        {
+          "x": -56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 1.0,
+      "direction": "left",
+      "mode": "idle",
+      "feet": [
+        {
+          "x": 54,
+          "y": 0
+        },
+        {
+          "x": -56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 1.5,
+      "direction": "left",
+      "mode": "walk",
+      "feet": [
+        {
+          "x": 51.317135409997825,
+          "y": 0
+        },
+        {
+          "x": -53.317135409997825,
+          "y": -3.7560104260030447
+        }
+      ]
+    },
+    {
+      "sample_seconds": 2.0,
+      "direction": "left",
+      "mode": "walk",
+      "feet": [
+        {
+          "x": 52.56048341667467,
+          "y": 0
+        },
+        {
+          "x": -54.56048341667467,
+          "y": -2.015323216655457
+        }
+      ]
+    },
+    {
+      "sample_seconds": 2.5,
+      "direction": "left",
+      "mode": "walk",
+      "feet": [
+        {
+          "x": 58.56472625363814,
+          "y": -6.390616755093394
+        },
+        {
+          "x": -60.56472625363814,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 3.0,
+      "direction": "left",
+      "mode": "walk",
+      "feet": [
+        {
+          "x": 49.47210818996688,
+          "y": 0
+        },
+        {
+          "x": -51.47210818996688,
+          "y": -6.339048534046367
+        }
+      ]
+    },
+    {
+      "sample_seconds": 3.5,
+      "direction": "left",
+      "mode": "walk",
+      "feet": [
+        {
+          "x": 55.35452894153934,
+          "y": -1.8963405181550832
+        },
+        {
+          "x": -57.35452894153934,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 4.0,
+      "direction": "left",
+      "mode": "idle",
+      "feet": [
+        {
+          "x": 54,
+          "y": 0
+        },
+        {
+          "x": -56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 4.5,
+      "direction": "left",
+      "mode": "idle",
+      "feet": [
+        {
+          "x": 54,
+          "y": 0
+        },
+        {
+          "x": -56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 5.0,
+      "direction": "left",
+      "mode": "idle",
+      "feet": [
+        {
+          "x": 54,
+          "y": 0
+        },
+        {
+          "x": -56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 5.5,
+      "direction": "right",
+      "mode": "walk",
+      "feet": [
+        {
+          "x": -54.08850962552707,
+          "y": -0.12391347573789505
+        },
+        {
+          "x": 56.08850962552707,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 6.0,
+      "direction": "right",
+      "mode": "walk",
+      "feet": [
+        {
+          "x": -50.15872669338167,
+          "y": 0
+        },
+        {
+          "x": 52.15872669338167,
+          "y": -5.377782629265668
+        }
+      ]
+    },
+    {
+      "sample_seconds": 6.5,
+      "direction": "right",
+      "mode": "walk",
+      "feet": [
+        {
+          "x": -58.93313796020243,
+          "y": -6.906393144283397
+        },
+        {
+          "x": 60.93313796020243,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 7.0,
+      "direction": "right",
+      "mode": "walk",
+      "feet": [
+        {
+          "x": -51.39224498956544,
+          "y": 0
+        },
+        {
+          "x": 53.39224498956544,
+          "y": -3.650857014608383
+        }
+      ]
+    },
+    {
+      "sample_seconds": 7.5,
+      "direction": "right",
+      "mode": "walk",
+      "feet": [
+        {
+          "x": -52.475946894488914,
+          "y": 0
+        },
+        {
+          "x": 54.475946894488914,
+          "y": -2.133674347715517
+        }
+      ]
+    },
+    {
+      "sample_seconds": 8.0,
+      "direction": "right",
+      "mode": "idle",
+      "feet": [
+        {
+          "x": -54,
+          "y": 0
+        },
+        {
+          "x": 56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 8.5,
+      "direction": "right",
+      "mode": "idle",
+      "feet": [
+        {
+          "x": -54,
+          "y": 0
+        },
+        {
+          "x": 56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 9.0,
+      "direction": "right",
+      "mode": "idle",
+      "feet": [
+        {
+          "x": -54,
+          "y": 0
+        },
+        {
+          "x": 56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 9.5,
+      "direction": "back",
+      "mode": "walk",
+      "feet": [
+        {
+          "x": 56.830538184490905,
+          "y": -3.9627534582872626
+        },
+        {
+          "x": -58.830538184490905,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 10.0,
+      "direction": "back",
+      "mode": "walk",
+      "feet": [
+        {
+          "x": 49.030556730383125,
+          "y": 0
+        },
+        {
+          "x": -51.030556730383125,
+          "y": -6.957220577463627
+        }
+      ]
+    },
+    {
+      "sample_seconds": 10.5,
+      "direction": "back",
+      "mode": "walk",
+      "feet": [
+        {
+          "x": 57.66595160036646,
+          "y": -5.132332240513046
+        },
+        {
+          "x": -59.66595160036646,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 11.0,
+      "direction": "back",
+      "mode": "walk",
+      "feet": [
+        {
+          "x": 54.176991513668305,
+          "y": -0.24778811913562476
+        },
+        {
+          "x": -56.176991513668305,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 11.5,
+      "direction": "back",
+      "mode": "walk",
+      "feet": [
+        {
+          "x": 50.102669651920976,
+          "y": 0
+        },
+        {
+          "x": -52.102669651920976,
+          "y": -5.4562624873106325
+        }
+      ]
+    },
+    {
+      "sample_seconds": 12.0,
+      "direction": "back",
+      "mode": "idle",
+      "feet": [
+        {
+          "x": 54,
+          "y": 0
+        },
+        {
+          "x": -56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 12.5,
+      "direction": "back",
+      "mode": "idle",
+      "feet": [
+        {
+          "x": 54,
+          "y": 0
+        },
+        {
+          "x": -56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 13.0,
+      "direction": "back",
+      "mode": "idle",
+      "feet": [
+        {
+          "x": 54,
+          "y": 0
+        },
+        {
+          "x": -56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 13.5,
+      "direction": "right",
+      "mode": "greet",
+      "feet": [
+        {
+          "x": -54,
+          "y": 0
+        },
+        {
+          "x": 56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 14.0,
+      "direction": "right",
+      "mode": "greet",
+      "feet": [
+        {
+          "x": -54,
+          "y": 0
+        },
+        {
+          "x": 56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 14.5,
+      "direction": "right",
+      "mode": "greet",
+      "feet": [
+        {
+          "x": -54,
+          "y": 0
+        },
+        {
+          "x": 56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 15.0,
+      "direction": "right",
+      "mode": "greet",
+      "feet": [
+        {
+          "x": -54,
+          "y": 0
+        },
+        {
+          "x": 56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 15.5,
+      "direction": "right",
+      "mode": "talk",
+      "feet": [
+        {
+          "x": -54,
+          "y": 0
+        },
+        {
+          "x": 56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 16.0,
+      "direction": "right",
+      "mode": "talk",
+      "feet": [
+        {
+          "x": -54,
+          "y": 0
+        },
+        {
+          "x": 56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 16.5,
+      "direction": "right",
+      "mode": "talk",
+      "feet": [
+        {
+          "x": -54,
+          "y": 0
+        },
+        {
+          "x": 56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 17.0,
+      "direction": "right",
+      "mode": "talk",
+      "feet": [
+        {
+          "x": -54,
+          "y": 0
+        },
+        {
+          "x": 56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 17.5,
+      "direction": "right",
+      "mode": "talk",
+      "feet": [
+        {
+          "x": -54,
+          "y": 0
+        },
+        {
+          "x": 56,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "sample_seconds": 18.0,
+      "direction": "right",
+      "mode": "talk",
+      "feet": [
+        {
+          "x": -54,
+          "y": 0
+        },
+        {
+          "x": 56,
+          "y": 0
+        }
+      ]
+    }
+  ],
+  "browser_errors": [],
+  "external_requests": [],
+  "game_integrated": false,
+  "unity_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "windows_file_open_verified": false
+}

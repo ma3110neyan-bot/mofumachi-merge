@@ -1,0 +1,67 @@
+<!doctype html><html lang="ja"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ノア｜左右・後ろの分割接続試作</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f6f2e9;color:#463d38;font:16px/1.7 system-ui,sans-serif}main{max-width:1180px;padding:28px 18px;margin:auto}h1{font-size:25px;margin:0 0 14px}.notice{padding:14px 18px;background:#fff1cf;border-left:5px solid #b98336;border-radius:8px}.controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:16px 0}button,select{font:inherit;border:1px solid #cbbba7;border-radius:9px;padding:7px 12px;background:#fff;cursor:pointer}button[aria-pressed=true]{background:#d0eadc;border-color:#62957c}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}figure{margin:0;background:#fffdf9;border:1px solid #e3d9c9;border-radius:14px;overflow:hidden;text-align:center}figcaption{padding:10px;font-weight:650}canvas{display:block;width:100%;height:auto;background:linear-gradient(#fffdf9,#eee8dc)}small,.muted{color:#766c62}#errors{color:#963c35}#status{min-height:2em}p{margin:10px 0}@media(max-width:780px){.grid{grid-template-columns:1fr}main{padding:18px 12px}}
+</style><main>
+<h1>ノア｜左右・後ろの分割接続試作</h1>
+<div class="notice"><strong>未承認の素材・ブラウザー試作です。Unity実画面／Pixel 3aの結果ではありません。</strong><br>左右斜め・後ろの独立8パーツを比較します。正面は正式原画そのものです。正式採用・ゲーム組込み・まばたき／表情・正面分割は未完了です。</div>
+<p>顔を伸ばさず、方向ごとに描いた頭・胴・腕・脚・尾を動かす見本です。正式原画と同じ足元線・高さの目安で比較します。新しい方向の絵は原画そのものではなく、ノアらしさの判定が必要な素材候補です。</p>
+<div class="controls" id="facings"><button data-facing="front" aria-pressed="false">正面・正式原画</button><button data-facing="left" aria-pressed="true">左斜め</button><button data-facing="right" aria-pressed="false">右斜め</button><button data-facing="back" aria-pressed="false">後ろ</button><label>大きさ <select id="size"><option value="180">高さ180pxの目安</option><option value="320">高さ320px・拡大</option></select></label></div>
+<div class="controls" id="modes"><button data-mode="idle" aria-pressed="true">静止・呼吸</button><button data-mode="walk" aria-pressed="false">その場の歩行</button><button data-mode="talk" aria-pressed="false">会話の身振り</button><button data-mode="greet" aria-pressed="false">手振り</button><button id="sequence" aria-pressed="false">一連動作を見る</button><button id="pause">一時停止</button><label><input id="bones" type="checkbox">接続点</label></div>
+<div class="grid"><figure><figcaption>Before基準・正式原画</figcaption><canvas id="original" width="360" height="390"></canvas></figure><figure><figcaption>方向別の一体素材候補</figcaption><canvas id="whole" width="360" height="390"></canvas></figure><figure><figcaption id="rig-label">左斜め・独立パーツ候補</figcaption><canvas id="rig" width="360" height="390"></canvas></figure></div>
+<p id="status" role="status">素材を読み込んでいます…</p><p id="errors" role="alert"></p>
+<p class="muted">一連動作は約18秒の見本：静止→左歩行→停止→右歩行→停止→後ろ歩行→停止→挨拶→会話。移動はその場の歩行で、実ゲームの入力・経路・会話ではありません。方向変更時は二重の顔が出ないよう素材を切り替えます。方向間の絵のつながり・体型・衣装の最終判定は保留です。</p>
+<p class="muted">影は足元へ置いたブラウザー描画です。背景Sorting、タップ、FPS、発熱、メモリ、実機性能は未確認です。街・北境界・噴水・他5名・保存処理は変更していません。</p>
+<script>__RIG__</script><script>__DIRECTIONS__</script><script>
+'use strict';
+const DATA=__DATA__,images={},canvases=Object.fromEntries(['original','whole','rig'].map(id=>[id,document.getElementById(id)]));
+let facing='left',mode='idle',clock=0,last=null,paused=false,sequence=false,displayPose=NoahDirectionReview.poseForDirection(0,'idle','left');
+const labels={front:'正面・正式原画そのもの（分割未完了）',left:'左斜め・独立パーツ候補',right:'右斜め・独立パーツ候補',back:'後ろ・独立パーツ候補'};
+function clear(c){c.clearRect(0,0,360,390);c.save();c.strokeStyle='#b9a98f';c.setLineDash([5,5]);c.beginPath();c.moveTo(15,363);c.lineTo(345,363);c.stroke();c.restore();}
+function crop(c,img,box,height){const [x,y,w,h]=box,s=height/h;c.drawImage(img,x,y,w,h,180-w*s/2,363-height,w*s,height);}
+function clipPolygon(w,h,condition,x,y){
+ let points=[[0,0],[w,0],[w,h],[0,h]];
+ for(const [key,value] of Object.entries(condition)){
+  const bound=value-x-y,inside=p=>key==='min'?p[0]+p[1]>=bound:p[0]+p[1]<=bound,result=[];
+  for(let i=0;i<points.length;i++){
+   const a=points[i],b=points[(i+1)%points.length],ai=inside(a),bi=inside(b);
+   if(ai)result.push(a);
+   if(ai!==bi){const t=(bound-a[0]-a[1])/(b[0]+b[1]-a[0]-a[1]);result.push([a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t]);}
+  }points=result;
+ }return points;
+}
+function markButtons(){for(const b of document.querySelectorAll('[data-facing]'))b.setAttribute('aria-pressed',String(b.dataset.facing===facing));for(const b of document.querySelectorAll('[data-mode]'))b.setAttribute('aria-pressed',String(b.dataset.mode===mode));document.getElementById('sequence').setAttribute('aria-pressed',String(sequence));document.getElementById('pause').textContent=paused?'再生する':'一時停止';}
+function draw(){
+ const height=Number(document.getElementById('size').value);
+ for(const c of Object.values(canvases))clear(c.getContext('2d'));
+ crop(canvases.original.getContext('2d'),images.original,[1263,14,254,323],height);
+ if(facing==='front'){
+  for(const id of ['whole','rig'])crop(canvases[id].getContext('2d'),images.original,[1263,14,254,323],height);
+ }else{
+  crop(canvases.whole.getContext('2d'),images.whole,DATA.directions[facing],height);
+  const c=canvases.rig.getContext('2d'),s=height/600;c.save();c.translate(180,363);c.scale(s,s);
+  c.fillStyle='rgba(65,47,34,.32)';c.beginPath();c.ellipse(0,0,100,14,0,0,Math.PI*2);c.fill();
+  for(const part of DATA.layout.views[facing].parts){
+   c.save();c.transform(...displayPose.matrices[part.id]);c.scale(part.scale,part.scale);
+   const [x,y,w,h]=part.crop;c.translate(-part.pivot[0]*w,-part.pivot[1]*h);
+   if(part.clipSum){const points=clipPolygon(w,h,part.clipSum,x,y);c.beginPath();points.forEach((p,i)=>i?c.lineTo(...p):c.moveTo(...p));c.closePath();c.clip();}
+   c.drawImage(images[part.source],x,y,w,h,0,0,w,h);c.restore();
+  }
+  if(document.getElementById('bones').checked){c.fillStyle='#2688a7';for(const m of Object.values(displayPose.matrices)){c.beginPath();c.arc(m[4],m[5],5,0,Math.PI*2);c.fill();}}c.restore();
+ }
+ document.getElementById('rig-label').textContent=labels[facing];
+ document.getElementById('status').textContent=`${sequence?'一連動作':'個別確認'} ${clock.toFixed(1)}秒／${labels[facing]}／${{idle:'静止',walk:'その場の歩行',talk:'会話の身振り',greet:'挨拶'}[mode]}。素材試作・実機未確認。`;
+ window.directionReviewState={facing,mode,clock,paused,sequence,feet:displayPose.feet,partCount:facing==='front'?0:8,gameIntegrated:false,pixelVerified:false};
+}
+function applySequence(){const next=NoahDirectionReview.sampleSequence(clock);if(next.direction!==facing){facing=next.direction;displayPose=NoahDirectionReview.poseForDirection(clock,next.mode,facing);}mode=next.mode;markButtons();}
+function frame(now){const dt=last===null?0:Math.min((now-last)/1000,.05);last=now;if(!paused){clock+=dt;if(sequence){if(clock>18)clock=0;applySequence();}displayPose=NoahPartsRig.blend(displayPose,NoahDirectionReview.poseForDirection(clock,mode,facing),1-Math.exp(-dt*12));}draw();requestAnimationFrame(frame);}
+document.getElementById('facings').addEventListener('click',e=>{if(!e.target.dataset.facing)return;facing=e.target.dataset.facing;sequence=false;displayPose=NoahDirectionReview.poseForDirection(clock,mode,facing);markButtons();draw();});
+document.getElementById('modes').addEventListener('click',e=>{if(!e.target.dataset.mode)return;mode=e.target.dataset.mode;sequence=false;if(paused)displayPose=NoahDirectionReview.poseForDirection(clock,mode,facing);markButtons();draw();});
+document.getElementById('sequence').addEventListener('click',()=>{sequence=true;clock=0;paused=false;applySequence();markButtons();});
+document.getElementById('pause').addEventListener('click',()=>{paused=!paused;markButtons();});
+document.getElementById('size').addEventListener('change',draw);
+window.setNoahDirectionPose=(t,m='idle',d='left')=>{clock=t;mode=m;facing=d;paused=true;sequence=false;displayPose=NoahDirectionReview.poseForDirection(t,m,d);markButtons();draw();};
+window.setNoahDirectionSequence=t=>{clock=t;paused=true;sequence=true;applySequence();displayPose=NoahDirectionReview.poseForDirection(t,mode,facing);markButtons();draw();};
+Promise.all(Object.entries(DATA.images).map(([id,url])=>new Promise((ok,bad)=>{const im=new Image();im.onload=()=>{images[id]=im;ok();};im.onerror=()=>bad(Error('素材読込失敗: '+id));im.src=url;}))).then(()=>{markButtons();draw();window.directionReviewReady=true;requestAnimationFrame(frame);}).catch(error=>document.getElementById('errors').textContent=String(error));
+</script></main></html>

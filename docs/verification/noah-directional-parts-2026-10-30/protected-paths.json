@@ -1,0 +1,19 @@
+{
+  "base_commit": "5ba48df9bef14275e006e9513d877f0d8e9ca7aa",
+  "paths": [
+    "Assets",
+    "Packages",
+    "ProjectSettings",
+    "References/Characters/noah-authored-parts-2026-10-29"
+  ],
+  "tree_object_ids": {
+    "Assets": "6ec2abee9696c3ef30e158c9a8f4d2edf4e40d22",
+    "Packages": "019037de39f5219c0dd13b6250e7cfbf1422c672",
+    "ProjectSettings": "1bafa8c3496d3d60e087d3994b2f1d2c54076ed5",
+    "References/Characters/noah-authored-parts-2026-10-29": "2e70a5f3c8c9603e2cb3b046e183ce6376d43ef4"
+  },
+  "git_ls_tree_sha256": "488317eaec0b4c76a07bed125dd47382234fddc8f59609e8343d02e7e98684a8",
+  "reproduce": "git ls-tree -r 5ba48df -- Assets Packages ProjectSettings References/Characters/noah-authored-parts-2026-10-29 | sha256sum",
+  "tracked_diff_empty": true,
+  "untracked_in_protected_paths": false
+}

@@ -1,0 +1,41 @@
+{
+  "created_date_jst": "2026-10-30",
+  "base_commit": "5ba48df9bef14275e006e9513d877f0d8e9ca7aa",
+  "scope": "Noah-only directional material/browser continuation",
+  "status": "material_and_three_direction_preview_created_final_visual_pending",
+  "new_independent_directions": [
+    "right",
+    "back"
+  ],
+  "reused_independent_direction": "left",
+  "parts_per_direction": 8,
+  "front": "exact formal atlas only; independent front not complete",
+  "formal_atlas_sha256": "23d14025f146c429da01b6e3a74ef803254755f8d149f9eb53516aacaa30163d",
+  "related_model_tests": {
+    "passed": 5,
+    "failed": 0
+  },
+  "browser_pre_final_checks": 6,
+  "browser_final_verified": false,
+  "browser_final_blocker": "execution interrupted after final rear-tail ordering change",
+  "pre_final_evidence": "docs/verification/noah-directional-parts-2026-10-30/pre-final-tail-order/",
+  "game_integrated": false,
+  "unity_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "six_character_rollout_authorized": false,
+  "full_direction_rig_complete": false,
+  "blink_expression_complete": false,
+  "protected_path_record": "docs/verification/noah-directional-parts-2026-10-30/protected-paths.json",
+  "current_review_html_sha256": "ecedd7b720484e386d81b00660dc50c392f9ab2e363280dc5fefc193d057b80e",
+  "fresh_review": {
+    "critical": 0,
+    "important": 0,
+    "minor": 2,
+    "rear_hand_wave_unfinished": true,
+    "ready_for_unfinished_material_handoff": true,
+    "adoption_approved": false,
+    "review": "docs/verification/noah-directional-parts-2026-10-30/final-review.md"
+  }
+}

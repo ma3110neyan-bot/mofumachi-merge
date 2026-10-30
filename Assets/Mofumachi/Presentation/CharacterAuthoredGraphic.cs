@@ -13,7 +13,7 @@ namespace Mofumachi.Presentation
     [Serializable] public sealed class CharacterAuthoredConfig
     {
         public int version=1;public string characterId,input_sha256;public float formalWidth,formalHeight;public CharacterAuthoredView[] views;
-        public static bool IsPreparedCharacter(string id)=>id=="momo"||id=="lulu"||id=="pom";
+        public static bool IsPreparedCharacter(string id)=>id=="momo"||id=="lulu"||id=="pom"||id=="fio";
     }
 
     // The accepted Noah motion and rigid part technique, with separate material

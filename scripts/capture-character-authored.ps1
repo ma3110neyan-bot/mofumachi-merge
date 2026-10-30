@@ -1,10 +1,10 @@
 [CmdletBinding()]
-param([ValidateSet('momo','lulu','pom')][string]$Character='momo',[string]$UnityEditorPath='')
+param([ValidateSet('momo','lulu','pom','fio')][string]$Character='momo',[string]$UnityEditorPath='')
 $ErrorActionPreference='Stop'
 $RequestedCharacter=$Character;$RequestedEditor=$UnityEditorPath
 . (Join-Path $PSScriptRoot 'prepare-noah-pixel-preview.ps1')
 $Character=$RequestedCharacter;$UnityEditorPath=$RequestedEditor
-function Get-CharacterAuthoredIds { return @('momo','lulu','pom') }
+function Get-CharacterAuthoredIds { return @('momo','lulu','pom','fio') }
 function Get-CharacterAuthoredMethod([string]$Id){
     if($Id -cnotin @(Get-CharacterAuthoredIds)){throw 'Character has not passed sequential preparation.'}
     return 'Mofumachi.Tests.ExperienceCaptureTests.'+$Id.Substring(0,1).ToUpperInvariant()+$Id.Substring(1)+'AuthoredPartsPreserveIdentityInputAndState'

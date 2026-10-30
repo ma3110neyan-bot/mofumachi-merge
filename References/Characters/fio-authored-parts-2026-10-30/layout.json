@@ -1,0 +1,484 @@
+{
+  "version": 1,
+  "characterId": "fio",
+  "method": "unchanged NoahAuthoredMotion with rigid source registration",
+  "front_crop": [
+    771,
+    5,
+    237,
+    331
+  ],
+  "formalWidth": 237,
+  "formalHeight": 331,
+  "sources": {
+    "left": {
+      "file": "parts-left.png",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "24c31de2eadb6026940951eecff869e7bc1f3780571e4e97cbf0608256776117"
+    },
+    "right": {
+      "file": "parts-right.png",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "f9b5de56965f20b9ee015871fe7c4d9dcddc83d0111ff166e276a225824f8fa1"
+    },
+    "back": {
+      "file": "parts-back.png",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "4726eb6e5dfe820c4df48ce9a7b9ff4dd52fda869e96760afc706738edf30662"
+    }
+  },
+  "views": {
+    "left": {
+      "parts": [
+        {
+          "id": "tail",
+          "crop": [
+            696,
+            580,
+            354,
+            390
+          ],
+          "pivot": [
+            0.5,
+            0.9
+          ],
+          "scale": 0.6923076923076923,
+          "rotation": 0,
+          "offset": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "farLeg",
+          "crop": [
+            47,
+            647,
+            237,
+            299
+          ],
+          "pivot": [
+            0.5,
+            1
+          ],
+          "scale": 0.4180602006688963,
+          "rotation": 0,
+          "offset": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "nearLeg",
+          "crop": [
+            412,
+            643,
+            240,
+            314
+          ],
+          "pivot": [
+            0.5,
+            1
+          ],
+          "scale": 0.3980891719745223,
+          "rotation": 0,
+          "offset": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "farArm",
+          "crop": [
+            902,
+            213,
+            233,
+            258
+          ],
+          "pivot": [
+            0.5,
+            0.1
+          ],
+          "scale": 0.4844961240310077,
+          "rotation": -0.7,
+          "offset": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "body",
+          "crop": [
+            477,
+            193,
+            386,
+            285
+          ],
+          "pivot": [
+            0.5,
+            1
+          ],
+          "scale": 0.8070175438596491,
+          "rotation": 0,
+          "offset": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "nearArm",
+          "crop": [
+            1263,
+            213,
+            200,
+            268
+          ],
+          "pivot": [
+            0.5,
+            0.1
+          ],
+          "scale": 0.4664179104477612,
+          "rotation": 0,
+          "offset": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "head",
+          "crop": [
+            17,
+            23,
+            444,
+            485
+          ],
+          "pivot": [
+            0.5,
+            1
+          ],
+          "scale": 0.7010309278350515,
+          "rotation": 0,
+          "offset": [
+            0,
+            15
+          ]
+        }
+      ],
+      "closedHead": {
+        "id": "head",
+        "crop": [
+          1073,
+          495,
+          442,
+          485
+        ],
+        "pivot": [
+          0.5,
+          1
+        ],
+        "scale": 0.7010309278350515,
+        "rotation": 0,
+        "offset": [
+          0,
+          15
+        ]
+      }
+    },
+    "right": {
+      "parts": [
+        {
+          "id": "tail",
+          "crop": [
+            709,
+            600,
+            383,
+            371
+          ],
+          "pivot": [
+            0.5,
+            0.9
+          ],
+          "scale": 0.7277628032345014,
+          "rotation": 0,
+          "offset": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "farLeg",
+          "crop": [
+            52,
+            638,
+            236,
+            320
+          ],
+          "pivot": [
+            0.5,
+            1
+          ],
+          "scale": 0.390625,
+          "rotation": 0,
+          "offset": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "nearLeg",
+          "crop": [
+            410,
+            634,
+            246,
+            323
+          ],
+          "pivot": [
+            0.5,
+            1
+          ],
+          "scale": 0.38699690402476783,
+          "rotation": 0,
+          "offset": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "farArm",
+          "crop": [
+            971,
+            236,
+            212,
+            238
+          ],
+          "pivot": [
+            0.5,
+            0.1
+          ],
+          "scale": 0.5252100840336135,
+          "rotation": 0.7,
+          "offset": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "body",
+          "crop": [
+            547,
+            225,
+            406,
+            343
+          ],
+          "pivot": [
+            0.5,
+            1
+          ],
+          "scale": 0.6705539358600583,
+          "rotation": 0,
+          "offset": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "nearArm",
+          "crop": [
+            1285,
+            234,
+            218,
+            292
+          ],
+          "pivot": [
+            0.5,
+            0.1
+          ],
+          "scale": 0.4280821917808219,
+          "rotation": 0,
+          "offset": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "head",
+          "crop": [
+            31,
+            26,
+            497,
+            523
+          ],
+          "pivot": [
+            0.5,
+            1
+          ],
+          "scale": 0.6500956022944551,
+          "rotation": 0,
+          "offset": [
+            0,
+            15
+          ]
+        }
+      ],
+      "closedHead": {
+        "id": "head",
+        "crop": [
+          1099,
+          546,
+          416,
+          425
+        ],
+        "pivot": [
+          0.5,
+          1
+        ],
+        "scale": 0.8,
+        "rotation": 0,
+        "offset": [
+          0,
+          15
+        ]
+      }
+    },
+    "back": {
+      "parts": [
+        {
+          "id": "farArm",
+          "crop": [
+            930,
+            219,
+            195,
+            289
+          ],
+          "pivot": [
+            0.5,
+            0.1
+          ],
+          "scale": 0.43252595155709345,
+          "rotation": 0,
+          "offset": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "farLeg",
+          "crop": [
+            66,
+            639,
+            210,
+            309
+          ],
+          "pivot": [
+            0.5,
+            1
+          ],
+          "scale": 0.4045307443365696,
+          "rotation": 0,
+          "offset": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "nearLeg",
+          "crop": [
+            384,
+            642,
+            215,
+            310
+          ],
+          "pivot": [
+            0.5,
+            1
+          ],
+          "scale": 0.4032258064516129,
+          "rotation": 0,
+          "offset": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "body",
+          "crop": [
+            488,
+            234,
+            367,
+            304
+          ],
+          "pivot": [
+            0.5,
+            1
+          ],
+          "scale": 0.756578947368421,
+          "rotation": 0,
+          "offset": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "tail",
+          "crop": [
+            690,
+            597,
+            357,
+            379
+          ],
+          "pivot": [
+            0.5,
+            0.9
+          ],
+          "scale": 0.712401055408971,
+          "rotation": 0,
+          "offset": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "nearArm",
+          "crop": [
+            1272,
+            219,
+            201,
+            286
+          ],
+          "pivot": [
+            0.5,
+            0.1
+          ],
+          "scale": 0.4370629370629371,
+          "rotation": 0,
+          "offset": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "head",
+          "crop": [
+            20,
+            102,
+            432,
+            432
+          ],
+          "pivot": [
+            0.5,
+            1
+          ],
+          "scale": 0.7870370370370371,
+          "rotation": 0,
+          "offset": [
+            0,
+            15
+          ]
+        }
+      ]
+    }
+  }
+}

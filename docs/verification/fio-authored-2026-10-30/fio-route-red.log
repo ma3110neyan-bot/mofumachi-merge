@@ -1,0 +1,5 @@
+Exception: /workspace/mofumachi-merge/scripts/capture-character-authored.ps1:13
+Line |
+  13 |  … 0-9]{64}$'){throw 'Only prepared sequential characters are available. …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Only prepared sequential characters are available.

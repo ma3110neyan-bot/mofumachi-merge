@@ -6,7 +6,7 @@ import json
 import sys
 ROOT=Path(__file__).resolve().parents[1]
 character=sys.argv[1] if len(sys.argv)>1 else 'momo'
-names={'momo':'モモ','lulu':'ルル','pom':'ポム'}
+names={'momo':'モモ','lulu':'ルル','pom':'ポム','fio':'フィオ'}
 if character not in names: raise RuntimeError('Character not prepared at its sequential gate.')
 art=ROOT/f'References/Characters/{character}-authored-parts-2026-10-30'
 layout=json.loads((art/'layout.json').read_text())

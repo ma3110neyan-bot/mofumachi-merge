@@ -31,9 +31,24 @@ namespace Mofumachi.Editor
         private static string Hash(byte[] bytes){using(var h=SHA256.Create())return BitConverter.ToString(h.ComputeHash(bytes)).Replace("-","").ToLowerInvariant();}
         public static void Prepare()
         {
-            string run=Run(),id=Arg("-mofumachiCharacterId"),folder=Path.Combine(Root,ResourceFolder);
-            if(!CharacterAuthoredConfig.IsPreparedCharacter(id))throw new BuildFailedException("Character has not passed sequential preparation.");
+            string run=Run();RequireEmpty();PrepareCharacter(run,Arg("-mofumachiCharacterId"));
+        }
+        public static void PrepareAll()
+        {
+            string run=Run();RequireEmpty();
+            foreach(string id in new[]{"momo","lulu","pom","fio","miel"})PrepareCharacter(run,id);
+        }
+        private static void RequireEmpty()
+        {
+            string folder=Path.Combine(Root,ResourceFolder);
             if(Directory.Exists(folder)||File.Exists(folder+".meta"))throw new BuildFailedException("Preserve existing character resources; inspect their owner.");
+        }
+        private static void PrepareCharacter(string run,string id)
+        {
+            string folder=Path.Combine(Root,ResourceFolder);
+            if(!CharacterAuthoredConfig.IsPreparedCharacter(id))throw new BuildFailedException("Character has not passed sequential preparation.");
+            if(Directory.Exists(Path.Combine(folder,id)))throw new BuildFailedException("Preserve an existing prepared character.");
+            if(Directory.Exists(folder)&&(!File.Exists(Path.Combine(folder,".owner"))||File.ReadAllText(Path.Combine(folder,".owner"))!=run))throw new BuildFailedException("Character resources belong to another run.");
             if(Hash(File.ReadAllBytes(Path.Combine(Root,"Assets/Mofumachi/Resources/Mofumachi/CharacterBodyAtlas.png")))!="23d14025f146c429da01b6e3a74ef803254755f8d149f9eb53516aacaa30163d")throw new BuildFailedException("Formal atlas changed.");
             string art=Path.Combine(Root,"References","Characters",id+"-authored-parts-2026-10-30");byte[] raw=File.ReadAllBytes(Path.Combine(art,"layout.json"));
             var layout=JsonUtility.FromJson<Layout>(System.Text.Encoding.UTF8.GetString(raw));if(layout==null||layout.characterId!=id||layout.sources==null||layout.views==null)throw new BuildFailedException("Wrong character registration.");
@@ -82,7 +97,7 @@ namespace Mofumachi.Editor
                 AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
                 var importer=(TextureImporter)AssetImporter.GetAtPath(ResourceFolder+"/"+id+"/atlas.png");importer.textureType=TextureImporterType.Default;importer.alphaIsTransparency=true;importer.mipmapEnabled=false;importer.isReadable=false;importer.maxTextureSize=2048;importer.npotScale=TextureImporterNPOTScale.None;importer.filterMode=FilterMode.Bilinear;importer.wrapMode=TextureWrapMode.Clamp;
                 importer.SetPlatformTextureSettings(new TextureImporterPlatformSettings{name="Android",overridden=true,maxTextureSize=2048,format=TextureImporterFormat.ETC2_RGBA8});importer.SaveAndReimport();
-                File.WriteAllText(Path.Combine(run,"prepared.json"),JsonUtility.ToJson(output,true));
+                File.WriteAllText(Path.Combine(run,"prepared.json"),JsonUtility.ToJson(output,true));File.WriteAllText(Path.Combine(run,"prepared-"+id+".json"),JsonUtility.ToJson(output,true));
             }
             finally{foreach(var texture in owned)UnityEngine.Object.DestroyImmediate(texture);}
         }

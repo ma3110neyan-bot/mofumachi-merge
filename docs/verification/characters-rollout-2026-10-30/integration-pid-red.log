@@ -1,0 +1,5 @@
+Exception: /workspace/mofumachi-merge/scripts/tests/characters-rollout-route.tests.ps1:6
+Line |
+   6 |  … ght=$true};if(-not $Caught){throw 'Invalid rollout input accepted.'}}
+     |                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid rollout input accepted.

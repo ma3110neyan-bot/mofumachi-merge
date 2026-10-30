@@ -84,7 +84,7 @@ namespace Mofumachi.Tests
             Assert.That(graphic.canvasRenderer.GetMesh().vertexCount,Is.EqualTo(28));
             Assert.That(graphic.transform.parent,Is.SameAs(actor.VisualRoot));Assert.That(actor.transform.parent,Is.SameAs(parent));
             Assert.That(actor.transform.GetSiblingIndex(),Is.EqualTo(order));Assert.That(actor.WorldPosition,Is.EqualTo(at));
-            Assert.That(ExecuteEvents.ExecuteHierarchy(graphic.gameObject,new PointerEventData(EventSystem.current),ExecuteEvents.pointerClickHandler),Is.SameAs(actor.gameObject));proof.tap_verified=true;field.StartInteraction();
+            VerifyAuthoredScreenInput(field,actor,graphic);proof.tap_verified=true;field.StartInteraction();
             actor.SetCharacterAuthoredEnabled(false);warm=Portrait();UnityEngine.Object.DestroyImmediate(warm);
             Assert.That(old.enabled,Is.True);Assert.That(old.canvasRenderer.GetMesh().vertices.SequenceEqual(vertices),Is.True);Assert.That(old.canvasRenderer.GetMesh().uv.SequenceEqual(uv),Is.True);
             actor.SetCharacterAuthoredEnabled(true);

@@ -1,0 +1,16 @@
+Test run for /workspace/mofumachi-merge/Tests/Core/bin/Debug/net8.0/Mofumachi.Core.Tests.dll (.NETCoreApp,Version=v8.0)
+Microsoft (R) Test Execution Command Line Tool Version 17.10.0 (x64)
+Copyright (c) Microsoft Corporation.  All rights reserved.
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+System.Net.Sockets.SocketException (13): Permission denied
+   at System.Net.Sockets.Socket..ctor(AddressFamily addressFamily, SocketType socketType, ProtocolType protocolType)
+   at System.Net.Sockets.TcpListener..ctor(IPEndPoint localEP)
+   at Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.SocketServer.Start(String endPoint) in /_/src/Microsoft.TestPlatform.CommunicationUtilities/SocketServer.cs:line 63
+   at Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.TestRequestSender.InitializeCommunication() in /_/src/Microsoft.TestPlatform.CommunicationUtilities/TestRequestSender.cs:line 168
+   at Microsoft.VisualStudio.TestPlatform.CrossPlatEngine.Client.ProxyOperationManager.SetupChannel(IEnumerable`1 sources, String runSettings) in /_/src/Microsoft.TestPlatform.CrossPlatEngine/Client/ProxyOperationManager.cs:line 204
+   at Microsoft.VisualStudio.TestPlatform.CrossPlatEngine.Client.ProxyExecutionManager.InitializeTestRun(TestRunCriteria testRunCriteria, IInternalTestRunEventsHandler eventHandler) in /_/src/Microsoft.TestPlatform.CrossPlatEngine/Client/ProxyExecutionManager.cs:line 182
+Results File: /workspace/runtime/character-rollout-oct30/full-tests/core.trx
+
+Test Run Aborted.

@@ -25,10 +25,10 @@ function Assert-NoahAuthoredMasterFixed([string]$Repository){
     }
 }
 function Get-CharacterAuthoredSourceFingerprint([string]$Repository){
-    $Temp='Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored';$Entries=@(foreach($Relative in (@(Source-InputPaths)+@(foreach($Id in @(Get-CharacterAuthoredIds)){'References/Characters/'+$Id+'-authored-parts-2026-10-30'}))){
+    $Temp='Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored';$NoahTemp='Assets/Mofumachi/Resources/Mofumachi/NoahAuthoredTrial';$Entries=@(foreach($Relative in (@(Source-InputPaths)+@(foreach($Id in @(Get-CharacterAuthoredIds)){'References/Characters/'+$Id+'-authored-parts-2026-10-30'}))){
         $Path=Join-Path $Repository $Relative;if(-not(Test-Path -LiteralPath $Path)){continue}
         $Files=if(Test-Path -LiteralPath $Path -PathType Leaf){Get-Item -LiteralPath $Path -Force}else{Get-ChildItem -LiteralPath $Path -File -Recurse -Force}
-        foreach($File in $Files){$Name=$File.FullName.Substring($Repository.TrimEnd('/','\').Length+1).Replace('\','/');if($Name -eq ($Temp+'.meta') -or $Name.StartsWith($Temp+'/')){continue};$Name+':'+(Get-FileHash -LiteralPath $File.FullName -Algorithm SHA256).Hash}
+        foreach($File in $Files){$Name=$File.FullName.Substring($Repository.TrimEnd('/','\').Length+1).Replace('\','/');if($Name -eq ($Temp+'.meta') -or $Name.StartsWith($Temp+'/') -or $Name -eq ($NoahTemp+'.meta') -or $Name.StartsWith($NoahTemp+'/')){continue};$Name+':'+(Get-FileHash -LiteralPath $File.FullName -Algorithm SHA256).Hash}
     })
     $Hasher=[Security.Cryptography.SHA256]::Create();try{return ([BitConverter]::ToString($Hasher.ComputeHash([Text.Encoding]::UTF8.GetBytes((($Entries | Sort-Object) -join "`n"))))).Replace('-','').ToLowerInvariant()}finally{$Hasher.Dispose()}
 }

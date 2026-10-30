@@ -147,6 +147,12 @@ namespace Mofumachi.Presentation
             softShadow.transform.SetAsFirstSibling();contactShadow.transform.SetSiblingIndex(1);
             EnsureNoahShadow();
             visibility=gameObject.AddComponent<CanvasGroup>();
+#if MOFUMACHI_CHARACTERS_AUTHORED
+            if(CharacterAuthoredGraphic.IsPreparedCharacter(CharacterId))SetCharacterAuthoredEnabled(true);
+#endif
+#if UNITY_ANDROID && !UNITY_EDITOR
+            if(CharacterAuthoredGraphic.IsPreparedCharacter(CharacterId))Debug.Log("MOFUMACHI_CHARACTER_AUTHORED_MODE "+CharacterId+" "+(CharacterAuthoredEnabled?"authored":"current"));
+#endif
         }
         private RoundedPanelGraphic CreateShadow(string name,Rect bounds,float opacity)
         {

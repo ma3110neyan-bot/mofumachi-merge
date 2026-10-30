@@ -1,0 +1,140 @@
+{
+  "version": 1,
+  "user_authorized_implementation": true,
+  "individual_review_wait_waived": true,
+  "noah_master": "References/VisualLock/noah-authored-approved-2026-10-30.json",
+  "method": "fixed NoahAuthoredMotion and rigid directional parts",
+  "normal_default_off": true,
+  "candidate_apk_enables_all_five": true,
+  "full_unity_qa_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "characters": [
+    {
+      "characterId": "momo",
+      "source_prepared": true,
+      "unity_verified": false,
+      "pixel_verified": false,
+      "adopted": false,
+      "files": [
+        {
+          "path": "References/Characters/momo-authored-parts-2026-10-30/layout.json",
+          "sha256": "295ba9b25d77cdaff8d5fdbfb1079088503db8896fe0e1c7279de9e8915338ae"
+        },
+        {
+          "path": "References/Characters/momo-authored-parts-2026-10-30/parts-left.png",
+          "sha256": "7181112f82414e5cf9cfa367a612355a673a862b4a07b3aeaf5dcc6935e8e361"
+        },
+        {
+          "path": "References/Characters/momo-authored-parts-2026-10-30/parts-right.png",
+          "sha256": "6f452805c7f65d3957d2226bd536be880147f06edda9ab68d6a996d1cde3a7e4"
+        },
+        {
+          "path": "References/Characters/momo-authored-parts-2026-10-30/parts-back.png",
+          "sha256": "ef24f5b0ff5dca310a60b6ab7d64b6191b4a0a7777942cb2d6ca72b1d6e60fa4"
+        }
+      ]
+    },
+    {
+      "characterId": "lulu",
+      "source_prepared": true,
+      "unity_verified": false,
+      "pixel_verified": false,
+      "adopted": false,
+      "files": [
+        {
+          "path": "References/Characters/lulu-authored-parts-2026-10-30/layout.json",
+          "sha256": "848ec267dee8651379f649a7c15e2f1c1cddbdb2b34765073dd87a4377c424ef"
+        },
+        {
+          "path": "References/Characters/lulu-authored-parts-2026-10-30/parts-left.png",
+          "sha256": "d00335c433a6c124ccab064577ddc54befcf0a67abb8c0ae490f0c0f0884f7b4"
+        },
+        {
+          "path": "References/Characters/lulu-authored-parts-2026-10-30/parts-right.png",
+          "sha256": "19d280f5fcaff7cd26090e96c0e008a12e9f1ef83fbdc834f33f8e6620f07c83"
+        },
+        {
+          "path": "References/Characters/lulu-authored-parts-2026-10-30/parts-back.png",
+          "sha256": "1c0849eb5d382f63feb95742c0b2e4b6236ec4cb1e4a2f8d8a4504509666906e"
+        }
+      ]
+    },
+    {
+      "characterId": "pom",
+      "source_prepared": true,
+      "unity_verified": false,
+      "pixel_verified": false,
+      "adopted": false,
+      "files": [
+        {
+          "path": "References/Characters/pom-authored-parts-2026-10-30/layout.json",
+          "sha256": "be0fa044759c165dffe02da01a6ecb444b36ed0762d39240b7826badef0bde40"
+        },
+        {
+          "path": "References/Characters/pom-authored-parts-2026-10-30/parts-left.png",
+          "sha256": "b0e7ce92f3056dde55abcea5577ef11b8e94662d9e236858e9bbfaae5c613300"
+        },
+        {
+          "path": "References/Characters/pom-authored-parts-2026-10-30/parts-right.png",
+          "sha256": "36f0bed6c00d534dc3b474328a895e7b4e4e59ec92b1eeacd53601925d8ae5b6"
+        },
+        {
+          "path": "References/Characters/pom-authored-parts-2026-10-30/parts-back.png",
+          "sha256": "c9253a0e150b2cacf6514013069d150c64153916445bc1101820fbc244d9ea04"
+        }
+      ]
+    },
+    {
+      "characterId": "fio",
+      "source_prepared": true,
+      "unity_verified": false,
+      "pixel_verified": false,
+      "adopted": false,
+      "files": [
+        {
+          "path": "References/Characters/fio-authored-parts-2026-10-30/layout.json",
+          "sha256": "3dc5b9bb15c45acc2bbe47bb59eaee915a6c02255ecbfa579eb3369d8d4c7b3e"
+        },
+        {
+          "path": "References/Characters/fio-authored-parts-2026-10-30/parts-left.png",
+          "sha256": "24c31de2eadb6026940951eecff869e7bc1f3780571e4e97cbf0608256776117"
+        },
+        {
+          "path": "References/Characters/fio-authored-parts-2026-10-30/parts-right.png",
+          "sha256": "f9b5de56965f20b9ee015871fe7c4d9dcddc83d0111ff166e276a225824f8fa1"
+        },
+        {
+          "path": "References/Characters/fio-authored-parts-2026-10-30/parts-back.png",
+          "sha256": "4726eb6e5dfe820c4df48ce9a7b9ff4dd52fda869e96760afc706738edf30662"
+        }
+      ]
+    },
+    {
+      "characterId": "miel",
+      "source_prepared": true,
+      "unity_verified": false,
+      "pixel_verified": false,
+      "adopted": false,
+      "files": [
+        {
+          "path": "References/Characters/miel-authored-parts-2026-10-30/layout.json",
+          "sha256": "1467f54092bec91102e27d87a69ea8787fa11ddc4e031aa3354e7d4950075a05"
+        },
+        {
+          "path": "References/Characters/miel-authored-parts-2026-10-30/parts-left.png",
+          "sha256": "bd4c773279b76723841121dd7a7ca371abbfba1c999d6bdd4de5853d666191c5"
+        },
+        {
+          "path": "References/Characters/miel-authored-parts-2026-10-30/parts-right.png",
+          "sha256": "82734e8303e5171f00d2dddfdd9292c69e547f20312efdfdbcbf7e23795a4a7d"
+        },
+        {
+          "path": "References/Characters/miel-authored-parts-2026-10-30/parts-back.png",
+          "sha256": "eece45424f37e5437e59f9b636eba6b2fed58988fcc0d549bb31ecc403c7d7b4"
+        }
+      ]
+    }
+  ]
+}

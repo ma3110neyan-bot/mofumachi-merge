@@ -1,0 +1,32 @@
+{
+  "scope": "fresh source review; actual Unity/Windows/Android/Pixel not executed",
+  "reviewer": "five_characters_rollout_source_review_oct30",
+  "original_counts": {
+    "critical": 0,
+    "important": 1,
+    "minor": 1
+  },
+  "rulings": [
+    {
+      "issue": "Direct ExecuteHierarchy bypassed screen hit tests",
+      "severity": "important",
+      "resolution": "Shared native check now raycasts the foremost body hit, rejects CanvasGroup/raycastTarget/RectMask2D blocking, then asserts pointer ownership/release and walking selection. API compiled; actual native RED/GREEN unavailable and remains pending."
+    },
+    {
+      "issue": "Renderer time filter accepts another process",
+      "severity": "important (regraded from minor)",
+      "resolution": "Require fresh exact townQA PID in logcat and parser; wrongPID regression RED accepted foreign process -> GREEN rejected. Legacy mode and missing/stale messages rejected."
+    }
+  ],
+  "declined": [
+    "Unity rendering and six-character visibility",
+    "Actual native raycasting/masks/Sorting",
+    "Windows PowerShell5.1",
+    "Android builds",
+    "Pixel performance/save persistence",
+    "Directional/blink visual identity"
+  ],
+  "native_verified": false,
+  "pixel_verified": false,
+  "adopted": false
+}

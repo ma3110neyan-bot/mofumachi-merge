@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="6" result="Passed" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-31 04:40:06Z" end-time="2026-10-31 04:41:46Z" duration="99.2587488">
+  <test-suite type="TestSuite" id="1303" name="もふまちメルジュ" fullname="もふまちメルジュ" runstate="Runnable" testcasecount="249" result="Passed" start-time="2026-10-31 04:40:06Z" end-time="2026-10-31 04:41:46Z" duration="99.258749" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1600" name="Mofumachi.PlayModeTests.dll" fullname="C:/Users/User/Desktop/Mofumachi/mofumachi-merge/Library/ScriptAssemblies/Mofumachi.PlayModeTests.dll" runstate="Runnable" testcasecount="249" result="Passed" start-time="2026-10-31 04:40:06Z" end-time="2026-10-31 04:41:46Z" duration="99.248941" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="22096" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1601" name="Mofumachi" fullname="Mofumachi" runstate="Runnable" testcasecount="249" result="Passed" start-time="2026-10-31 04:40:06Z" end-time="2026-10-31 04:41:46Z" duration="99.246409" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1602" name="Tests" fullname="Mofumachi.Tests" runstate="Runnable" testcasecount="249" result="Passed" start-time="2026-10-31 04:40:07Z" end-time="2026-10-31 04:41:46Z" duration="99.237027" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1357" name="ExperienceCaptureTests" fullname="Mofumachi.Tests.ExperienceCaptureTests" classname="Mofumachi.Tests.ExperienceCaptureTests" runstate="Runnable" testcasecount="14" result="Passed" start-time="2026-10-31 04:40:07Z" end-time="2026-10-31 04:41:45Z" duration="98.021464" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1370" name="FountainShowRunsFromRealUpdatesWithinSixtySeconds" fullname="Mofumachi.Tests.ExperienceCaptureTests.FountainShowRunsFromRealUpdatesWithinSixtySeconds" methodname="FountainShowRunsFromRealUpdatesWithinSixtySeconds" classname="Mofumachi.Tests.ExperienceCaptureTests" runstate="Runnable" seed="942809185" result="Passed" start-time="2026-10-31 04:40:07Z" end-time="2026-10-31 04:41:09Z" duration="62.832568" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1365" name="PortraitAcceptsPrewarmedCullingButRejectsVisibleMissingGeometry" fullname="Mofumachi.Tests.ExperienceCaptureTests.PortraitAcceptsPrewarmedCullingButRejectsVisibleMissingGeometry" methodname="PortraitAcceptsPrewarmedCullingButRejectsVisibleMissingGeometry" classname="Mofumachi.Tests.ExperienceCaptureTests" runstate="Runnable" seed="1888407964" result="Passed" start-time="2026-10-31 04:41:09Z" end-time="2026-10-31 04:41:10Z" duration="0.388837" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1371" name="PortraitScreensRenderFromIsolatedStateWithoutWritingProgress" fullname="Mofumachi.Tests.ExperienceCaptureTests.PortraitScreensRenderFromIsolatedStateWithoutWritingProgress" methodname="PortraitScreensRenderFromIsolatedStateWithoutWritingProgress" classname="Mofumachi.Tests.ExperienceCaptureTests" runstate="Runnable" seed="1257345329" result="Passed" start-time="2026-10-31 04:41:10Z" end-time="2026-10-31 04:41:45Z" duration="34.780976" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1402" name="LayoutNoticeTests" fullname="Mofumachi.Tests.LayoutNoticeTests" classname="Mofumachi.Tests.LayoutNoticeTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-31 04:41:45Z" end-time="2026-10-31 04:41:45Z" duration="0.416378" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1405" name="PopulatedPortraitScreensKeepCharactersAndFeedbackAboveFixedActions" fullname="Mofumachi.Tests.LayoutNoticeTests.PopulatedPortraitScreensKeepCharactersAndFeedbackAboveFixedActions" methodname="PopulatedPortraitScreensKeepCharactersAndFeedbackAboveFixedActions" classname="Mofumachi.Tests.LayoutNoticeTests" runstate="Runnable" seed="765222937" result="Passed" start-time="2026-10-31 04:41:45Z" end-time="2026-10-31 04:41:45Z" duration="0.411691" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1465" name="Noah25DTrialPresentationTests" fullname="Mofumachi.Tests.Noah25DTrialPresentationTests" classname="Mofumachi.Tests.Noah25DTrialPresentationTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-31 04:41:45Z" end-time="2026-10-31 04:41:45Z" duration="0.351721" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1466" name="OnlyTownNoahOptsInAndTheCausalSwitchRestoresTheExactLegacyFrame" fullname="Mofumachi.Tests.Noah25DTrialPresentationTests.OnlyTownNoahOptsInAndTheCausalSwitchRestoresTheExactLegacyFrame" methodname="OnlyTownNoahOptsInAndTheCausalSwitchRestoresTheExactLegacyFrame" classname="Mofumachi.Tests.Noah25DTrialPresentationTests" runstate="Runnable" seed="2051720739" result="Passed" start-time="2026-10-31 04:41:45Z" end-time="2026-10-31 04:41:45Z" duration="0.347607" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1478" name="PopPresentationTests" fullname="Mofumachi.Tests.PopPresentationTests" classname="Mofumachi.Tests.PopPresentationTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-31 04:41:45Z" end-time="2026-10-31 04:41:46Z" duration="0.410299" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1479" name="FullBodyActorsFollowTheWorldMapOnShortAndTallScreens" fullname="Mofumachi.Tests.PopPresentationTests.FullBodyActorsFollowTheWorldMapOnShortAndTallScreens" methodname="FullBodyActorsFollowTheWorldMapOnShortAndTallScreens" classname="Mofumachi.Tests.PopPresentationTests" runstate="Runnable" seed="828984320" result="Passed" start-time="2026-10-31 04:41:45Z" end-time="2026-10-31 04:41:46Z" duration="0.407284" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

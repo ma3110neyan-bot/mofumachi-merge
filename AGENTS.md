@@ -1,5 +1,14 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-10-31最新：限定6件の原XML全成功確認／最終QA→Pixelへ
+
+run133851-5be71820の新review01（SHA9c1212bc633fdeb4dd24190797cafd32c1f7eab018fce4535f69625567c849dc）を受領。原本3点のCRC／SHAと、実Unity6000.6.4f1 XML6/6成功・failed／skip／inconclusive0、終了コード0、正確な6メソッド集合を確認。source94ca8c6／fingerprint778de54aはCLI・source-info一致。原本References/Review/characters-focused-2026-10-31-133851/。元source-infoのArchiveエラーは消さず、回復ZIP正常を別記。噴水実Updateショー30〜60秒ゲート／Portrait／mask有効無効／借用mesh寿命／画面内誤cullと空mesh拒否の新回帰が通過。小ZIPに画像やliveJSONはなく、新しい見た目・正確なfirst-show時刻・全件／6名／APK／Pixelの証明ではない。
+
+今回記録のみ。94ca以降も製品・nativeテスト・原画・合格ノア・街は同一で、ZIP用DLL修正だけが追加済み。次はdocs/characters-focused-qa-2026-10-31.md最新先頭の既存prepare-characters-pixel-preview -Install -Mode authored -Serial99RAY1BELH -MeasureSeconds600。一つのsourceで5単体を順番に確認→全件各1回→6名fixture→2APK→保存維持Pixelへ。全5名の実装候補と限定修正が通った段階の最終受入検査であり、失敗ごとの全件反復をしない。旧124623／限定runを完成BuildDirectoryとして使わない。
+
+Pixel接続・画面解除、Unityを閉じて実行。街表示後PowerShellでEnter、10分試遊と手動回答。既存ノア承認／他5名個別待ち解除／GitHub許可を維持、main／uninstall／resetなし。終端で今回の親reviewZIPを選択したExplorerを開く。Pixel結果はreviewZIP外のpixel-authored配下、負荷差の合格には同runbaseline比較も必要。実機前に改善完了・品質採用と断定しない。以下の圧縮回復待ちは完了した履歴。
+
+
 ## 2026-10-31最新：限定6件は画面上通過／ZIP用DLL不足だけ修正
 
 Windows画面のrun characters-qa-focus-20261031-133851-5be71820はTests passed6/6。その後のwriterで型IO.Compression.ZipArchiveModeが見つからず停止。今回再添付124623-review01はSHA2d02798e9febc35f00f1f3f93fc27556e5c50a31b053fc78f0a3f2c0f2d8a2c8で既受領と同一、新6件のXML原本ではない。画面上の成功と原本照合を区別し、まだ全QA／APK／Pixel成功にはしない。

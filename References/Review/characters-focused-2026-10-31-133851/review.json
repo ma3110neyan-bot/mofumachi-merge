@@ -1,0 +1,101 @@
+{
+  "archive_sha256": "9c1212bc633fdeb4dd24190797cafd32c1f7eab018fce4535f69625567c849dc",
+  "files": [
+    {
+      "file": "focused-playmode.log",
+      "bytes": 64264,
+      "sha256": "5b35074269f1e09cc3b75a6bc9ae425ba87701ed723c37a62194ed2cf81c9214"
+    },
+    {
+      "file": "focused-playmode.xml",
+      "bytes": 8868,
+      "sha256": "110ea6a7afad4e2083daed9b61c209233729610889717292c5022e2d2020d342"
+    },
+    {
+      "file": "source-info.json",
+      "bytes": 1360,
+      "sha256": "29d9108ed20113977f7313a9d4034a6ed1dfc591115f458ee710c01ab767b170"
+    }
+  ],
+  "run": {
+    "id": "2",
+    "testcasecount": "6",
+    "result": "Passed",
+    "total": "6",
+    "passed": "6",
+    "failed": "0",
+    "inconclusive": "0",
+    "skipped": "0",
+    "asserts": "0",
+    "engine-version": "3.5.0.0",
+    "clr-version": "4.0.30319.42000",
+    "start-time": "2026-10-31 04:40:06Z",
+    "end-time": "2026-10-31 04:41:46Z",
+    "duration": "99.2587488"
+  },
+  "cases": [
+    {
+      "fullname": "Mofumachi.Tests.ExperienceCaptureTests.FountainShowRunsFromRealUpdatesWithinSixtySeconds",
+      "result": "Passed",
+      "duration": "62.832568"
+    },
+    {
+      "fullname": "Mofumachi.Tests.ExperienceCaptureTests.PortraitAcceptsPrewarmedCullingButRejectsVisibleMissingGeometry",
+      "result": "Passed",
+      "duration": "0.388837"
+    },
+    {
+      "fullname": "Mofumachi.Tests.ExperienceCaptureTests.PortraitScreensRenderFromIsolatedStateWithoutWritingProgress",
+      "result": "Passed",
+      "duration": "34.780976"
+    },
+    {
+      "fullname": "Mofumachi.Tests.LayoutNoticeTests.PopulatedPortraitScreensKeepCharactersAndFeedbackAboveFixedActions",
+      "result": "Passed",
+      "duration": "0.411691"
+    },
+    {
+      "fullname": "Mofumachi.Tests.Noah25DTrialPresentationTests.OnlyTownNoahOptsInAndTheCausalSwitchRestoresTheExactLegacyFrame",
+      "result": "Passed",
+      "duration": "0.347607"
+    },
+    {
+      "fullname": "Mofumachi.Tests.PopPresentationTests.FullBodyActorsFollowTheWorldMapOnShortAndTallScreens",
+      "result": "Passed",
+      "duration": "0.407284"
+    }
+  ],
+  "source": {
+    "scope": "five-failed-cases-plus-culling-regression",
+    "gitRevision": "94ca8c6f95fa33d14dad184e4ace20f6dd65af54",
+    "productFingerprint": "778de54aa9d485027edee9154f721e9558b7d8bd116e839573f701e7d5350c34",
+    "expected_methods": [
+      "Mofumachi.Tests.ExperienceCaptureTests.FountainShowRunsFromRealUpdatesWithinSixtySeconds",
+      "Mofumachi.Tests.ExperienceCaptureTests.PortraitScreensRenderFromIsolatedStateWithoutWritingProgress",
+      "Mofumachi.Tests.LayoutNoticeTests.PopulatedPortraitScreensKeepCharactersAndFeedbackAboveFixedActions",
+      "Mofumachi.Tests.Noah25DTrialPresentationTests.OnlyTownNoahOptsInAndTheCausalSwitchRestoresTheExactLegacyFrame",
+      "Mofumachi.Tests.PopPresentationTests.FullBodyActorsFollowTheWorldMapOnShortAndTallScreens",
+      "Mofumachi.Tests.ExperienceCaptureTests.PortraitAcceptsPrewarmedCullingButRejectsVisibleMissingGeometry"
+    ],
+    "focused_native_verified": true,
+    "full_qa_verified": false,
+    "builds_generated": false,
+    "pixel_verified": false,
+    "adopted": false,
+    "source_unchanged": true,
+    "error": " Archive: 型 [IO.Compression.ZipArchiveMode] が見つかりません。"
+  },
+  "archive_file": "characters-qa-focus-20261031-133851-5be71820-review-01.zip",
+  "archive_crc_verified": true,
+  "exact_six_cases_verified": true,
+  "unity_version": "6000.6.4f1",
+  "unity_exit_code": 0,
+  "source_cli_matches_record": true,
+  "native_sources_identical_at_review_head": true,
+  "review_head": "ebde74b5d6a2ba2e3529a761433f77bb3469fbf9",
+  "archive_error_preserved": "Original source-info retains the earlier packaging-only failure. Recovered ZIP CRC and all originals verified.",
+  "scope_limit": "Six focused native PlayMode cases only; no latest character images, full suite, six-character fixture, APK binaries or Pixel metrics in this archive.",
+  "adopted": false,
+  "pixel_verified": false,
+  "next": "Existing prepare-characters-pixel-preview route: sequential five gates, full suites once, six-character fixture, exact-source APK pair, install-r and Pixel600s. No new product code."
+}

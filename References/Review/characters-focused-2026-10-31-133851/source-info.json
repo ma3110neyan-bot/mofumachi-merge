@@ -1,0 +1,20 @@
+﻿{
+    "scope":  "five-failed-cases-plus-culling-regression",
+    "gitRevision":  "94ca8c6f95fa33d14dad184e4ace20f6dd65af54",
+    "productFingerprint":  "778de54aa9d485027edee9154f721e9558b7d8bd116e839573f701e7d5350c34",
+    "expected_methods":  [
+                             "Mofumachi.Tests.ExperienceCaptureTests.FountainShowRunsFromRealUpdatesWithinSixtySeconds",
+                             "Mofumachi.Tests.ExperienceCaptureTests.PortraitScreensRenderFromIsolatedStateWithoutWritingProgress",
+                             "Mofumachi.Tests.LayoutNoticeTests.PopulatedPortraitScreensKeepCharactersAndFeedbackAboveFixedActions",
+                             "Mofumachi.Tests.Noah25DTrialPresentationTests.OnlyTownNoahOptsInAndTheCausalSwitchRestoresTheExactLegacyFrame",
+                             "Mofumachi.Tests.PopPresentationTests.FullBodyActorsFollowTheWorldMapOnShortAndTallScreens",
+                             "Mofumachi.Tests.ExperienceCaptureTests.PortraitAcceptsPrewarmedCullingButRejectsVisibleMissingGeometry"
+                         ],
+    "focused_native_verified":  true,
+    "full_qa_verified":  false,
+    "builds_generated":  false,
+    "pixel_verified":  false,
+    "adopted":  false,
+    "source_unchanged":  true,
+    "error":  " Archive: 型 [IO.Compression.ZipArchiveMode] が見つかりません。"
+}

@@ -1,5 +1,14 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-10-31最新：最終全件・6名・比較2APK成功／完了記録だけ復旧→Pixel
+
+新resume-check185823-dcff0179 ZIP（SHAdd194a2913f013405f6b229d7d1069251f6e37924295b8525c61f0624d271c4c）46原本を確認。ownerRun135626-6f4151d8／source7af0248／fingerprint2f2c786bは現在PCの値・5単体・全件・6名・APK両方で一致。5単体各1/1、全Edit144/144、全Play249/249、6名fixture1/1、すべてfailed／skip／inc0。5proof全flags・4方向・55比較対記録・素材digest、6名proof全員有効／Save／tapと6入力sealを照合。3全体ログ終了0、build.logも2回successと終了0。物理APKのWindows SHAはbaseline de07a9197e998d61d457b6333db0524afcbfb26fb1d0973505c47d1b07e79d77／authored d0b7ddc6858bf731cff25ab593f0ec3c9ac62fb08e47574174f872150a0d46c9でmetadata一致。原本References/Review/characters-final-2026-10-31-135626/。APK本体と最新PNGは未受領、画質／Pixel受入にはしない。
+
+source-info.jsonだけ未作成。18:58プロセスにUnity／java等と13:56親処理はなく、外側完了処理未完の原因詳細は未確定。待機方式変更やkillを推測実装しない。今は再検査・再ビルドせず、docs/characters-existing-apk-recovery-2026-10-31.mdの一度だけの復旧ブロックを使用。8記録＋2実APKを固定SHAで再照合、sourceFP／Noah master／552固定入力と5名の原画像をvalidatorで再照合し、欠けた完了レコードだけCreateNewで復元。既存source-infoは上書きせずReadPairで検査。pixel_verified／adoptedはfalse。最後に既存-BuildDirectory -Install authored Serial99RAY1BELH Measure600で保存維持Pixelへ。Resources／元記録／APKを削除・コミットしない。Git更新は試験に不要、今回のrepo更新は原本・説明だけで製品／テスト／scripts／素材／固定Noahは不変。
+
+復旧record schemaは実ReadPair＋合成異なる2ファイルで受理、error／source不一致／内容改変を拒否。PS構文成功。合成結果をAPK実機成功としない。Pixel表示後PCでEnter→10分試遊、結果は元runのpixel-authored配下。途中失敗は該当表示だけ共有し、全体を反復しない。個別プレビュー待ち解除・GitHub feature push許可・Noah承認を維持。以前の全件未確認・生成元不明・再ビルド案はこれで更新。以下は履歴。
+
+
 ## 2026-10-31最新：限定6件の原XML全成功確認／最終QA→Pixelへ
 
 run133851-5be71820の新review01（SHA9c1212bc633fdeb4dd24190797cafd32c1f7eab018fce4535f69625567c849dc）を受領。原本3点のCRC／SHAと、実Unity6000.6.4f1 XML6/6成功・failed／skip／inconclusive0、終了コード0、正確な6メソッド集合を確認。source94ca8c6／fingerprint778de54aはCLI・source-info一致。原本References/Review/characters-focused-2026-10-31-133851/。元source-infoのArchiveエラーは消さず、回復ZIP正常を別記。噴水実Updateショー30〜60秒ゲート／Portrait／mask有効無効／借用mesh寿命／画面内誤cullと空mesh拒否の新回帰が通過。小ZIPに画像やliveJSONはなく、新しい見た目・正確なfirst-show時刻・全件／6名／APK／Pixelの証明ではない。

@@ -1,0 +1,318 @@
+{
+  "archive": "characters-resume-check-20261031-185823-dcff0179.zip",
+  "archive_sha256": "dd194a2913f013405f6b229d7d1069251f6e37924295b8525c61f0624d271c4c",
+  "originals": [
+    {
+      "file": "apk-hashes.csv",
+      "bytes": 460,
+      "sha256": "db3568ba50d154469d9285cb3bf1e66bd389634def97c8112960fd7364829e6a"
+    },
+    {
+      "file": "build.log",
+      "bytes": 705633,
+      "sha256": "db190af9aab6380a3ed63f8ef0e7fe4ffcf4a72f9551b74412868c094e48af53"
+    },
+    {
+      "file": "characters-authored-build.json",
+      "bytes": 565,
+      "sha256": "38278ba9042387725a8f0ff8ddc5be7fecaf67a64ec0019ac4d20490b0328ce7"
+    },
+    {
+      "file": "characters-baseline-build.json",
+      "bytes": 565,
+      "sha256": "97165e9f6e4e2cbf5cd539948f9277a625a1b598d73da65c77fb203cf3560e38"
+    },
+    {
+      "file": "context.json",
+      "bytes": 916,
+      "sha256": "c6bc4a1188ba643bcf7c22570774c253f1b62889110ae43e217a9f0b4895d92f"
+    },
+    {
+      "file": "current-source.txt",
+      "bytes": 137,
+      "sha256": "5894b69f141bc8f0ff9282b011bcd02aa7f04df99cde1ddf0fa1adcd10cc54f3"
+    },
+    {
+      "file": "fio/playmode.xml",
+      "bytes": 3630,
+      "sha256": "6b32268511eec3d2f805cddf9a218a045dc16b415e2a3d7f90ca257b91ce1881"
+    },
+    {
+      "file": "fio/prepared.json",
+      "bytes": 18398,
+      "sha256": "0e3d2f9784ba77fef53957a2b8c5e7878f9b01bb09dede9fa15e38122b87ea2c"
+    },
+    {
+      "file": "fio/proof.json",
+      "bytes": 69542,
+      "sha256": "9a8d53d477f7845059108affb6e60c184607f50641a8d43993e530c8e360b17a"
+    },
+    {
+      "file": "fio/source-info.json",
+      "bytes": 426,
+      "sha256": "1f6fe10641bc508d55bbe2ca7ffd8c23e4c21b9747be2ed4cb6431047a86b30c"
+    },
+    {
+      "file": "full-editmode.log",
+      "bytes": 53440,
+      "sha256": "1e5ce825c9ab9d844045aebc1cb089459d0191cc5c8420032a4d20afca1df3cf"
+    },
+    {
+      "file": "full-editmode.xml",
+      "bytes": 108984,
+      "sha256": "61b6444166adedc585f4e2c896b9454dc446e07fb1dc58a6eb413b244c145e6a"
+    },
+    {
+      "file": "full-playmode.log",
+      "bytes": 326915,
+      "sha256": "5d7846ba35e122f96bfe7b03669f1b89543426aa12b151b27144781b8fd35cdf"
+    },
+    {
+      "file": "full-playmode.xml",
+      "bytes": 208490,
+      "sha256": "e13c6c0ce18304f68f0ef176ad634237656fd6eb2aa295806d77e9fe0f8b7b53"
+    },
+    {
+      "file": "git-status.txt",
+      "bytes": 7215,
+      "sha256": "956f574ac8573c9773ea90af47200b88c3d81c538cc455054b337b2cfb88dc6e"
+    },
+    {
+      "file": "lulu/playmode.xml",
+      "bytes": 3634,
+      "sha256": "6a5825867964eab5dcb7f7a7141ec1de39e785ea95949e0cd3a35afcb974701c"
+    },
+    {
+      "file": "lulu/prepared.json",
+      "bytes": 18404,
+      "sha256": "bfaef167ff9820a4ff6286337764a14ad916fc47b072e301abba405542f59d7a"
+    },
+    {
+      "file": "lulu/proof.json",
+      "bytes": 69543,
+      "sha256": "c6716a9cc304a9c411769100a8cfca2c10833faa9a8ed834fc7f092cc678ebd6"
+    },
+    {
+      "file": "lulu/source-info.json",
+      "bytes": 427,
+      "sha256": "aaf02f897bd50aac9a4898120d9f917dc3523a173d2c31dae31c9d9844537f42"
+    },
+    {
+      "file": "miel/playmode.xml",
+      "bytes": 3634,
+      "sha256": "dab533f49514b6550f089da206d0e0d547a8fd67a3f34b7e7967d1e9a5b29b7d"
+    },
+    {
+      "file": "miel/prepared.json",
+      "bytes": 18415,
+      "sha256": "e0cecbfe96f7bdd3b971a72b201b7c8c93bd76112104d6aa0470408fb51492ae"
+    },
+    {
+      "file": "miel/proof.json",
+      "bytes": 69543,
+      "sha256": "42d5cb7485dac899b2814a05b7f884c0fe11c035c5cc1eb076bbc1b36cdee74a"
+    },
+    {
+      "file": "miel/source-info.json",
+      "bytes": 427,
+      "sha256": "3095c92581b1ec39812146906c7db0407c7784719d0d4544d8c61eeab29cbb39"
+    },
+    {
+      "file": "momo/playmode.xml",
+      "bytes": 3632,
+      "sha256": "a15e5311e3bcb354b35eb8e95163426bb33d1c322dacffa7c2489e88ca90db2a"
+    },
+    {
+      "file": "momo/prepared.json",
+      "bytes": 18484,
+      "sha256": "ee7de4da25cdc416696a5b07116adf7fec4e560d547a64c4a34e97cf437da150"
+    },
+    {
+      "file": "momo/proof.json",
+      "bytes": 69543,
+      "sha256": "da23c5f2d13090fb6f8cc3e597de183c4878d1fcf2562fca1eeb972ec3187732"
+    },
+    {
+      "file": "momo/source-info.json",
+      "bytes": 427,
+      "sha256": "7c742eca3464ab9abf54d24b0fcdab70124b4564ac7dfe304cf0e316e9fc895c"
+    },
+    {
+      "file": "pom/playmode.xml",
+      "bytes": 3631,
+      "sha256": "bca8a11dc577f55795cce41a54c34c7f4173120923376b81e056225ec75a555b"
+    },
+    {
+      "file": "pom/prepared.json",
+      "bytes": 18404,
+      "sha256": "d4e50ae0d42d153e2e45c012bfcc4f7fa82240ee93c76dc3b00b98320116f65b"
+    },
+    {
+      "file": "pom/proof.json",
+      "bytes": 69542,
+      "sha256": "ca81d89064e1266f69dc9a1a318039b4bc2e239b1987388014178eb338e667fa"
+    },
+    {
+      "file": "pom/source-info.json",
+      "bytes": 426,
+      "sha256": "cafbb056d798dd5c162329e8529dab140576d2c0b8a1af54431353a4f9614b8a"
+    },
+    {
+      "file": "prepare-five.log",
+      "bytes": 60170,
+      "sha256": "56dba94c97b7230ca87e41a3e3e5148bdbf328674e29822290540291704b3aa4"
+    },
+    {
+      "file": "prepare-noah.log",
+      "bytes": 37773,
+      "sha256": "171030d94cce36974240ff4add42693bfdb7cc78e0d945228c8ba996148d635a"
+    },
+    {
+      "file": "prepared-fio.json",
+      "bytes": 18398,
+      "sha256": "0e3d2f9784ba77fef53957a2b8c5e7878f9b01bb09dede9fa15e38122b87ea2c"
+    },
+    {
+      "file": "prepared-lulu.json",
+      "bytes": 18404,
+      "sha256": "bfaef167ff9820a4ff6286337764a14ad916fc47b072e301abba405542f59d7a"
+    },
+    {
+      "file": "prepared-miel.json",
+      "bytes": 18415,
+      "sha256": "e0cecbfe96f7bdd3b971a72b201b7c8c93bd76112104d6aa0470408fb51492ae"
+    },
+    {
+      "file": "prepared-momo.json",
+      "bytes": 18484,
+      "sha256": "ee7de4da25cdc416696a5b07116adf7fec4e560d547a64c4a34e97cf437da150"
+    },
+    {
+      "file": "prepared-pom.json",
+      "bytes": 18404,
+      "sha256": "d4e50ae0d42d153e2e45c012bfcc4f7fa82240ee93c76dc3b00b98320116f65b"
+    },
+    {
+      "file": "prepared-six.json",
+      "bytes": 1183,
+      "sha256": "3adeb7871bb5d1ed83dd007a164fb95274494872b0b3c6bca55d6bc4e3ba6ddc"
+    },
+    {
+      "file": "prepared.json",
+      "bytes": 14977,
+      "sha256": "5647a6ee97450e55017280f9fca46b15fd01fb1ec354dd5caef5d1a2ce809afa"
+    },
+    {
+      "file": "processes.csv",
+      "bytes": 288,
+      "sha256": "19fa35ba28a4f39dd966dbcdbea5db6dee1ad4051a52899d0d2423cb19ef2f8c"
+    },
+    {
+      "file": "run-files.csv",
+      "bytes": 1372,
+      "sha256": "84438014f240d33f9c07b0af0b257f793f8ae02ca654c85292e23bcbc7c7fd86"
+    },
+    {
+      "file": "seal.log",
+      "bytes": 30327,
+      "sha256": "63cf41893fce4b0bb29ac9dddb1f1f076798294e4d35adbf4a907bdca0faf1fd"
+    },
+    {
+      "file": "six-playmode.log",
+      "bytes": 53236,
+      "sha256": "8ba074a05201d16897fa9731a5947adf34b9498291e4d39823f48d7cdd57af89"
+    },
+    {
+      "file": "six-playmode.xml",
+      "bytes": 3614,
+      "sha256": "09db4db4c8663a90bfc30e74592c9ee9da5f62b9df0adfa9798e6de5019eac3c"
+    },
+    {
+      "file": "six-proof.json",
+      "bytes": 2181,
+      "sha256": "94285f73288ad80019b7117f817532b720545cada7e4c6da912fd7b8bdd76c52"
+    }
+  ],
+  "gitRevision": "7af024864fc353a36ad886c034f1a2b22dda7648",
+  "productFingerprint": "2f2c786b2672cade0f4279d7fb3e1bb6053de1adcf56c89c6fbcae4706a9236d",
+  "native_results": [
+    {
+      "file": "fio/playmode.xml",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    {
+      "file": "full-editmode.xml",
+      "total": 144,
+      "passed": 144,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    {
+      "file": "full-playmode.xml",
+      "total": 249,
+      "passed": 249,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    {
+      "file": "lulu/playmode.xml",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    {
+      "file": "miel/playmode.xml",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    {
+      "file": "momo/playmode.xml",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    {
+      "file": "pom/playmode.xml",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    {
+      "file": "six-playmode.xml",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    }
+  ],
+  "single_proofs_all_verified": true,
+  "six_proof_verified": true,
+  "apk_hashes_from_windows": {
+    "characters-baseline.apk": "de07a9197e998d61d457b6333db0524afcbfb26fb1d0973505c47d1b07e79d77",
+    "characters-authored.apk": "d0b7ddc6858bf731cff25ab593f0ec3c9ac62fb08e47574174f872150a0d46c9"
+  },
+  "apk_binary_received": false,
+  "current_source_matches_build_context": true,
+  "build_unity_exit_code": 0,
+  "completion_record_received": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "scope_limit": "Metadata/XML/logs and on-device-PC hash report verified; no latest PNGs or actual APK bytes uploaded. Recovery command rechecks real APK hashes and all five image proofs locally before restoring a missing completion record. No new full tests or build.",
+  "recovery_command": "/workspace/runtime/recover-characters-completion-and-install.ps1"
+}

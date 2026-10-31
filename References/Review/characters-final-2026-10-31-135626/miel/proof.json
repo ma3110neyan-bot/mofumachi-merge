@@ -1,0 +1,1970 @@
+{
+    "character": "miel",
+    "kind": "single-character-native-parts",
+    "gitRevision": "7af024864fc353a36ad886c034f1a2b22dda7648",
+    "productFingerprint": "2f2c786b2672cade0f4279d7fb3e1bb6053de1adcf56c89c6fbcae4706a9236d",
+    "input_sha256": "7d31fbb711730aa8b2df579c81b7978db9604ffdf9be8425a5b5904cccb30cf6",
+    "native_unity": true,
+    "pixel_verified": false,
+    "adopted": false,
+    "tap_verified": true,
+    "conversation_verified": true,
+    "save_unchanged": true,
+    "greeting_authored": true,
+    "talk_authored": true,
+    "blink_authored": true,
+    "rear_blink_verified": true,
+    "blink_image": {
+        "file": "natural-blink.png",
+        "sha256": "1d267db57dc96ee572b9327bf202f83a50b8bcbd215d7f3e8571c55f1b9a0feb",
+        "bytes": 1910916,
+        "width": 720,
+        "height": 1280
+    },
+    "sequence_kind": "actual public GuidePoint and AdvanceFrame, fixed simulation steps, not FPS",
+    "observed_directions": [
+        "Back",
+        "Front",
+        "Left",
+        "Right"
+    ],
+    "sorting_examples": 5,
+    "pairs": [
+        {
+            "id": "01-idle",
+            "mode": "Left",
+            "comparison_kind": "original-vs-Noah-method-same-clock-caption-controlled-before",
+            "body_unchanged_for_shadow": false,
+            "level": 0,
+            "changed_pixels": 15953,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 273,
+            "allowed_y": 341,
+            "allowed_width": 173,
+            "allowed_height": 205,
+            "display_heading_only": false,
+            "display_heading_x": 0.0,
+            "display_heading_y": 0.0,
+            "camera_x": 0.14000000059604645,
+            "camera_y": 0.1199999749660492,
+            "water_clock": 0.13333334028720856,
+            "water_phase": 0.13333334028720856,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 17,
+            "store_writes": 4,
+            "state_sha256": "309ad0ac2b9382aaa85135779640225f98dc34ce68a19750be81e9c02956ad0a",
+            "world_model_sha256": "c6ece9a44d10ff14b9e10975fc985e6773c6494787ae3b3e477b2e33040dee55",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "01-idle-before.png",
+                "sha256": "b43892ae81212800119a16c2a3cb3429ce066ad2870e4a22ca3facdec65fc5f5",
+                "bytes": 1815420,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "01-idle-after.png",
+                "sha256": "cdb427b320925b09ac3f9f193a0c60e6a25addde4e86da01f2682a2357adc241",
+                "bytes": 1818819,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "",
+                "sha256": "",
+                "bytes": 0,
+                "width": 0,
+                "height": 0
+            },
+            "name_control": {
+                "mode": "candidate-resident-name-visibility-in-reconstructed-before-only",
+                "before_applied": true,
+                "after_natural": true,
+                "only_name_visibility_changed": true,
+                "natural_visibility_changed": false,
+                "natural_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": true
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "controlled_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": true
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "product_after": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": true
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "natural_before_image": {
+                    "file": "",
+                    "sha256": "",
+                    "bytes": 0,
+                    "width": 0,
+                    "height": 0
+                }
+            }
+        },
+        {
+            "id": "walk-0013",
+            "mode": "Left",
+            "comparison_kind": "original-vs-Noah-method-same-clock-caption-controlled-before",
+            "body_unchanged_for_shadow": false,
+            "level": 0,
+            "changed_pixels": 15907,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 337,
+            "allowed_y": 321,
+            "allowed_width": 174,
+            "allowed_height": 205,
+            "display_heading_only": false,
+            "display_heading_x": 0.0,
+            "display_heading_y": 0.0,
+            "camera_x": 0.0,
+            "camera_y": 0.15000000596046448,
+            "water_clock": 0.13333334028720856,
+            "water_phase": 0.13333334028720856,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 17,
+            "store_writes": 4,
+            "state_sha256": "309ad0ac2b9382aaa85135779640225f98dc34ce68a19750be81e9c02956ad0a",
+            "world_model_sha256": "1b88752e8f9b3acb15ec019d28d8d3fafa6f2946335bdf2f77920fdb04258850",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "walk-0013-before.png",
+                "sha256": "3587f737c9ecb3c2a67779a055e6daeb114857737059c0083b3d0afd8514f1eb",
+                "bytes": 1909146,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "walk-0013-after.png",
+                "sha256": "a02e843adb209a837c8df757cab0eb999a6f095a6afeb07ea06e218e25451b30",
+                "bytes": 1912074,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "",
+                "sha256": "",
+                "bytes": 0,
+                "width": 0,
+                "height": 0
+            },
+            "name_control": {
+                "mode": "candidate-resident-name-visibility-in-reconstructed-before-only",
+                "before_applied": true,
+                "after_natural": true,
+                "only_name_visibility_changed": true,
+                "natural_visibility_changed": false,
+                "natural_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": true
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "controlled_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": true
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "product_after": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": true
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "natural_before_image": {
+                    "file": "",
+                    "sha256": "",
+                    "bytes": 0,
+                    "width": 0,
+                    "height": 0
+                }
+            }
+        },
+        {
+            "id": "stop-0098",
+            "mode": "Left",
+            "comparison_kind": "original-vs-Noah-method-same-clock-caption-controlled-before",
+            "body_unchanged_for_shadow": false,
+            "level": 0,
+            "changed_pixels": 16352,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 130,
+            "allowed_y": 322,
+            "allowed_width": 173,
+            "allowed_height": 206,
+            "display_heading_only": false,
+            "display_heading_x": 0.0,
+            "display_heading_y": 0.0,
+            "camera_x": 0.0,
+            "camera_y": 0.15000000596046448,
+            "water_clock": 0.13333334028720856,
+            "water_phase": 0.13333334028720856,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 17,
+            "store_writes": 4,
+            "state_sha256": "309ad0ac2b9382aaa85135779640225f98dc34ce68a19750be81e9c02956ad0a",
+            "world_model_sha256": "f44f24eebbec3f5c00e66bd53baaaa3049dfa50ff3cd82e932ab59a1e9612149",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "stop-0098-before.png",
+                "sha256": "0e26050890dd2aba0e262aa416aa899ac566494350dc667a72d11ad1afa24108",
+                "bytes": 1711689,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "stop-0098-after.png",
+                "sha256": "026ad7fad554ceec595137a19d91c69e7f2a2e25e5cf3e68824fa0801baffd10",
+                "bytes": 1715475,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "",
+                "sha256": "",
+                "bytes": 0,
+                "width": 0,
+                "height": 0
+            },
+            "name_control": {
+                "mode": "candidate-resident-name-visibility-in-reconstructed-before-only",
+                "before_applied": true,
+                "after_natural": true,
+                "only_name_visibility_changed": true,
+                "natural_visibility_changed": false,
+                "natural_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": true
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "controlled_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": true
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "product_after": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": true
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "natural_before_image": {
+                    "file": "",
+                    "sha256": "",
+                    "bytes": 0,
+                    "width": 0,
+                    "height": 0
+                }
+            }
+        },
+        {
+            "id": "walk-0111",
+            "mode": "Right",
+            "comparison_kind": "original-vs-Noah-method-same-clock-caption-controlled-before",
+            "body_unchanged_for_shadow": false,
+            "level": 0,
+            "changed_pixels": 16577,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 159,
+            "allowed_y": 322,
+            "allowed_width": 173,
+            "allowed_height": 209,
+            "display_heading_only": false,
+            "display_heading_x": 0.0,
+            "display_heading_y": 0.0,
+            "camera_x": 0.0,
+            "camera_y": 0.15000000596046448,
+            "water_clock": 0.13333334028720856,
+            "water_phase": 0.13333334028720856,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 17,
+            "store_writes": 4,
+            "state_sha256": "309ad0ac2b9382aaa85135779640225f98dc34ce68a19750be81e9c02956ad0a",
+            "world_model_sha256": "55dba84d3fd1523cb103d259e74dc51813f63c1a47ee8aaadbb2ba41145885df",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "walk-0111-before.png",
+                "sha256": "5692e053bd7792962af3434144650bd45a47e3cbd0f3da0dad20bd58691b0dc1",
+                "bytes": 1798003,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "walk-0111-after.png",
+                "sha256": "ff949761701e99dc1be6edb06c24a6495e264d1ffa3a1af6d46207da83e12c8a",
+                "bytes": 1801615,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "",
+                "sha256": "",
+                "bytes": 0,
+                "width": 0,
+                "height": 0
+            },
+            "name_control": {
+                "mode": "candidate-resident-name-visibility-in-reconstructed-before-only",
+                "before_applied": true,
+                "after_natural": true,
+                "only_name_visibility_changed": true,
+                "natural_visibility_changed": false,
+                "natural_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": true
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "controlled_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": true
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "product_after": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": true
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "natural_before_image": {
+                    "file": "",
+                    "sha256": "",
+                    "bytes": 0,
+                    "width": 0,
+                    "height": 0
+                }
+            }
+        },
+        {
+            "id": "stop-0241",
+            "mode": "Left",
+            "comparison_kind": "original-vs-Noah-method-same-clock-caption-controlled-before",
+            "body_unchanged_for_shadow": false,
+            "level": 0,
+            "changed_pixels": 17087,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 451,
+            "allowed_y": 322,
+            "allowed_width": 174,
+            "allowed_height": 206,
+            "display_heading_only": false,
+            "display_heading_x": 0.0,
+            "display_heading_y": 0.0,
+            "camera_x": 0.0,
+            "camera_y": 0.15000000596046448,
+            "water_clock": 0.13333334028720856,
+            "water_phase": 0.13333334028720856,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 17,
+            "store_writes": 4,
+            "state_sha256": "309ad0ac2b9382aaa85135779640225f98dc34ce68a19750be81e9c02956ad0a",
+            "world_model_sha256": "33f9661e6f8e800795648578213fe0e25a4bd9c74d50564fb6899e7b5bf3f849",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "stop-0241-before.png",
+                "sha256": "8fe762ed21d5f50a8c8448ffbdf28d429442becf516fa91c5ca541e33105ebaf",
+                "bytes": 1728334,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "stop-0241-after.png",
+                "sha256": "ec2960cbe1fb9d6de5b38cb20c5dfb6aa27b518b7dc890af95761b7d5c07c7f1",
+                "bytes": 1731501,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "",
+                "sha256": "",
+                "bytes": 0,
+                "width": 0,
+                "height": 0
+            },
+            "name_control": {
+                "mode": "candidate-resident-name-visibility-in-reconstructed-before-only",
+                "before_applied": true,
+                "after_natural": true,
+                "only_name_visibility_changed": true,
+                "natural_visibility_changed": true,
+                "natural_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "controlled_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": false
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "product_after": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": false
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "natural_before_image": {
+                    "file": "stop-0241-ui-natural-before.png",
+                    "sha256": "bcd7a6faf12e3b2055a40bbc9c189b5b582eae88d19b8062ce005c18628ac541",
+                    "bytes": 1719804,
+                    "width": 720,
+                    "height": 1280
+                }
+            }
+        },
+        {
+            "id": "walk-0254",
+            "mode": "Left",
+            "comparison_kind": "original-vs-Noah-method-same-clock-caption-controlled-before",
+            "body_unchanged_for_shadow": false,
+            "level": 0,
+            "changed_pixels": 17592,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 470,
+            "allowed_y": 337,
+            "allowed_width": 180,
+            "allowed_height": 217,
+            "display_heading_only": false,
+            "display_heading_x": 0.0,
+            "display_heading_y": 0.0,
+            "camera_x": 0.0,
+            "camera_y": 0.15000000596046448,
+            "water_clock": 0.13333334028720856,
+            "water_phase": 0.13333334028720856,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 17,
+            "store_writes": 4,
+            "state_sha256": "309ad0ac2b9382aaa85135779640225f98dc34ce68a19750be81e9c02956ad0a",
+            "world_model_sha256": "0a9489ef7a1cc44774c885077ca2a58522ff043e9ec1f948782a5627635b6708",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "walk-0254-before.png",
+                "sha256": "b17b15a87aec5fbe959f67dc265f91c4c4281dc8e0396d5f3902ddfab5a2b3ec",
+                "bytes": 1804677,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "walk-0254-after.png",
+                "sha256": "bc7b40564ab9bf9cf149bc2801e0f7b80fe2fed1c9592a189973c1613b10a275",
+                "bytes": 1808639,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "",
+                "sha256": "",
+                "bytes": 0,
+                "width": 0,
+                "height": 0
+            },
+            "name_control": {
+                "mode": "candidate-resident-name-visibility-in-reconstructed-before-only",
+                "before_applied": true,
+                "after_natural": true,
+                "only_name_visibility_changed": true,
+                "natural_visibility_changed": false,
+                "natural_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "controlled_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "product_after": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "natural_before_image": {
+                    "file": "",
+                    "sha256": "",
+                    "bytes": 0,
+                    "width": 0,
+                    "height": 0
+                }
+            }
+        },
+        {
+            "id": "stop-0341",
+            "mode": "Back",
+            "comparison_kind": "original-vs-Noah-method-same-clock-caption-controlled-before",
+            "body_unchanged_for_shadow": false,
+            "level": 0,
+            "changed_pixels": 16276,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 451,
+            "allowed_y": 505,
+            "allowed_width": 172,
+            "allowed_height": 204,
+            "display_heading_only": false,
+            "display_heading_x": 0.0,
+            "display_heading_y": 0.0,
+            "camera_x": 0.0,
+            "camera_y": 0.15000000596046448,
+            "water_clock": 0.13333334028720856,
+            "water_phase": 0.13333334028720856,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 17,
+            "store_writes": 4,
+            "state_sha256": "309ad0ac2b9382aaa85135779640225f98dc34ce68a19750be81e9c02956ad0a",
+            "world_model_sha256": "3bf80aa0e2e959de4d9feb6964afbbec015b0ce84d955efee9f95be6a46005e6",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "stop-0341-before.png",
+                "sha256": "49e067ad23436c5eb92bfa598c249f095d278c747a2544678c96b82a4add92fa",
+                "bytes": 1719437,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "stop-0341-after.png",
+                "sha256": "bc19684f31759bc98c3d42f4f4f564d26db883dff8cf68dff36624a46cbea259",
+                "bytes": 1721969,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "",
+                "sha256": "",
+                "bytes": 0,
+                "width": 0,
+                "height": 0
+            },
+            "name_control": {
+                "mode": "candidate-resident-name-visibility-in-reconstructed-before-only",
+                "before_applied": true,
+                "after_natural": true,
+                "only_name_visibility_changed": true,
+                "natural_visibility_changed": false,
+                "natural_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "controlled_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "product_after": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "natural_before_image": {
+                    "file": "",
+                    "sha256": "",
+                    "bytes": 0,
+                    "width": 0,
+                    "height": 0
+                }
+            }
+        },
+        {
+            "id": "walk-0354",
+            "mode": "Front",
+            "comparison_kind": "original-vs-Noah-method-same-clock-caption-controlled-before",
+            "body_unchanged_for_shadow": false,
+            "level": 0,
+            "changed_pixels": 17334,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 438,
+            "allowed_y": 480,
+            "allowed_width": 178,
+            "allowed_height": 211,
+            "display_heading_only": false,
+            "display_heading_x": 0.0,
+            "display_heading_y": 0.0,
+            "camera_x": 0.0,
+            "camera_y": 0.15000000596046448,
+            "water_clock": 0.13333334028720856,
+            "water_phase": 0.13333334028720856,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 17,
+            "store_writes": 4,
+            "state_sha256": "309ad0ac2b9382aaa85135779640225f98dc34ce68a19750be81e9c02956ad0a",
+            "world_model_sha256": "9ac3a93df8b5f102e31578234a167380af8862ec1a6675279a829c726657225d",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "walk-0354-before.png",
+                "sha256": "f738212271db9eaad3987f4ed43fbaf81cec464baabb6b154d4b7d5fd31cd4b0",
+                "bytes": 1804595,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "walk-0354-after.png",
+                "sha256": "554b427df46cb9709882a60607d6b74962106ba359003e9dd52d962e0f5d0693",
+                "bytes": 1804397,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "",
+                "sha256": "",
+                "bytes": 0,
+                "width": 0,
+                "height": 0
+            },
+            "name_control": {
+                "mode": "candidate-resident-name-visibility-in-reconstructed-before-only",
+                "before_applied": true,
+                "after_natural": true,
+                "only_name_visibility_changed": true,
+                "natural_visibility_changed": false,
+                "natural_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "controlled_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "product_after": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "natural_before_image": {
+                    "file": "",
+                    "sha256": "",
+                    "bytes": 0,
+                    "width": 0,
+                    "height": 0
+                }
+            }
+        },
+        {
+            "id": "stop-0451",
+            "mode": "Left",
+            "comparison_kind": "original-vs-Noah-method-same-clock-caption-controlled-before",
+            "body_unchanged_for_shadow": false,
+            "level": 0,
+            "changed_pixels": 17103,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 451,
+            "allowed_y": 322,
+            "allowed_width": 174,
+            "allowed_height": 207,
+            "display_heading_only": false,
+            "display_heading_x": 0.0,
+            "display_heading_y": 0.0,
+            "camera_x": 0.0,
+            "camera_y": 0.15000000596046448,
+            "water_clock": 0.13333334028720856,
+            "water_phase": 0.13333334028720856,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 17,
+            "store_writes": 4,
+            "state_sha256": "309ad0ac2b9382aaa85135779640225f98dc34ce68a19750be81e9c02956ad0a",
+            "world_model_sha256": "5c368f98f3c755744c15f86f834bc12ecbb3601acce5dc4d760c1511d9f6df64",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "stop-0451-before.png",
+                "sha256": "ca11d980f3269766e5cc49d1227d9d41e011e2f0ca8ec3e3da3d095c3db43ef5",
+                "bytes": 1729297,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "stop-0451-after.png",
+                "sha256": "059de5dca6c85babe7fd83a34f8ccc85239e6a52d4ffc6f65a62e89281f517f5",
+                "bytes": 1732523,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "",
+                "sha256": "",
+                "bytes": 0,
+                "width": 0,
+                "height": 0
+            },
+            "name_control": {
+                "mode": "candidate-resident-name-visibility-in-reconstructed-before-only",
+                "before_applied": true,
+                "after_natural": true,
+                "only_name_visibility_changed": true,
+                "natural_visibility_changed": true,
+                "natural_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "controlled_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": false
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "product_after": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": false
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "natural_before_image": {
+                    "file": "stop-0451-ui-natural-before.png",
+                    "sha256": "d0c89e780ff2dd65711956fe8ae518beadba1543ce38e4de5c6298d66d4afd8c",
+                    "bytes": 1720800,
+                    "width": 720,
+                    "height": 1280
+                }
+            }
+        },
+        {
+            "id": "greeting",
+            "mode": "Right",
+            "comparison_kind": "original-vs-Noah-method-same-clock-caption-controlled-before",
+            "body_unchanged_for_shadow": false,
+            "level": 0,
+            "changed_pixels": 12436,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 275,
+            "allowed_y": 341,
+            "allowed_width": 172,
+            "allowed_height": 222,
+            "display_heading_only": false,
+            "display_heading_x": 0.0,
+            "display_heading_y": 0.0,
+            "camera_x": 0.30230313539505005,
+            "camera_y": 0.09356096386909485,
+            "water_clock": 0.13333334028720856,
+            "water_phase": 0.13333334028720856,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 17,
+            "store_writes": 4,
+            "state_sha256": "309ad0ac2b9382aaa85135779640225f98dc34ce68a19750be81e9c02956ad0a",
+            "world_model_sha256": "312a1b7afccb99e7eaa34db1907149c0fad7a9fb7637d313a7c0c8562c8a4f85",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "greeting-before.png",
+                "sha256": "35f822b065d7ae3c7b3f8e99d333ea1e7ab6bb810d233fe48c10a5e1f5eecd8d",
+                "bytes": 1555594,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "greeting-after.png",
+                "sha256": "61e9a66c7587e4c980445ea63fe1f4b742e7bc23acb9dcf592aa635b7c3dda88",
+                "bytes": 1558410,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "",
+                "sha256": "",
+                "bytes": 0,
+                "width": 0,
+                "height": 0
+            },
+            "name_control": {
+                "mode": "candidate-resident-name-visibility-in-reconstructed-before-only",
+                "before_applied": true,
+                "after_natural": true,
+                "only_name_visibility_changed": true,
+                "natural_visibility_changed": false,
+                "natural_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": true
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": false
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "controlled_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": true
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": false
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "product_after": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": true
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": false
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "natural_before_image": {
+                    "file": "",
+                    "sha256": "",
+                    "bytes": 0,
+                    "width": 0,
+                    "height": 0
+                }
+            }
+        },
+        {
+            "id": "conversation",
+            "mode": "Right",
+            "comparison_kind": "original-vs-Noah-method-same-clock-caption-controlled-before",
+            "body_unchanged_for_shadow": false,
+            "level": 0,
+            "changed_pixels": 12787,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 274,
+            "allowed_y": 341,
+            "allowed_width": 173,
+            "allowed_height": 206,
+            "display_heading_only": false,
+            "display_heading_x": 0.0,
+            "display_heading_y": 0.0,
+            "camera_x": 0.3040224611759186,
+            "camera_y": 0.09292838722467422,
+            "water_clock": 0.13333334028720856,
+            "water_phase": 0.13333334028720856,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 17,
+            "store_writes": 4,
+            "state_sha256": "309ad0ac2b9382aaa85135779640225f98dc34ce68a19750be81e9c02956ad0a",
+            "world_model_sha256": "2356c63e27d8c301a870eee7b02f34aeb764baf03f681ac539002f1e588a8c02",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "conversation-before.png",
+                "sha256": "acf7711508a3eec7bd16c73135f2987f60464e4c23d0f88c760c7c41b5a4ab67",
+                "bytes": 1555413,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "conversation-after.png",
+                "sha256": "54784f1427269e27b684230d30dbbf58924418032007cf778c0f57e6a6c9f67c",
+                "bytes": 1557426,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "",
+                "sha256": "",
+                "bytes": 0,
+                "width": 0,
+                "height": 0
+            },
+            "name_control": {
+                "mode": "candidate-resident-name-visibility-in-reconstructed-before-only",
+                "before_applied": true,
+                "after_natural": true,
+                "only_name_visibility_changed": true,
+                "natural_visibility_changed": false,
+                "natural_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": true
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": false
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "controlled_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": true
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": false
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "product_after": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": true
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": false
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "natural_before_image": {
+                    "file": "",
+                    "sha256": "",
+                    "bytes": 0,
+                    "width": 0,
+                    "height": 0
+                }
+            }
+        }
+    ],
+    "frames": [
+        {
+            "file": "frame-0001.jpg",
+            "sha256": "feed24a66eefcfd598d207493fb85e24965e626476dea37cc06a5d03924cb105",
+            "bytes": 373512,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0013.jpg",
+            "sha256": "91969c8622864995a939567908807600402aca4ab2454fd0d95ce02ed88e45a8",
+            "bytes": 373596,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0025.jpg",
+            "sha256": "2a2716bc7b7a892d12a2444ad7221bf5b10fae2ea02f2eedd9d9f1de3a95d0f9",
+            "bytes": 373946,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0037.jpg",
+            "sha256": "69c8269d5a35654cfa19e20b3439b38547fe1898e55a38fa384c5e576df94314",
+            "bytes": 374164,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0049.jpg",
+            "sha256": "fd8717299260b14d4a736c9a39c790ddb30a6fdafefeefe41fd26e508c6d05f7",
+            "bytes": 373741,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0061.jpg",
+            "sha256": "ca353357de5a20ad91e88ae0471be77db32ea600719fbf438cea439db5e2c926",
+            "bytes": 373451,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0073.jpg",
+            "sha256": "c4ae78bf9166bbf5c2a674f3200a072a9b44de9cdea68723f65d6fe326ea369c",
+            "bytes": 373321,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0085.jpg",
+            "sha256": "677f2dc29bb3893d79e458223923376c57163463681c23340f79503e176a9613",
+            "bytes": 373313,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0097.jpg",
+            "sha256": "7bb28459994c17af91c5cec6305bde8fcc6d29e03c45c012eb3b82aeda6ef8d9",
+            "bytes": 373209,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0099.jpg",
+            "sha256": "6fdfe34582dc41f6e3644d0ccd5c3a1c7c869fa530aaa23f4e592ce4e48c5c59",
+            "bytes": 359312,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0111.jpg",
+            "sha256": "a64a7cd4dd61d17f4bea69b0aff5dd4d69bab917d4438d0010a120c90ef8377a",
+            "bytes": 359583,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0123.jpg",
+            "sha256": "f75866f3fdf3b2d5a8a43677cbff36d3358da385f7afd61426ba2ab284c98cc6",
+            "bytes": 359619,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0135.jpg",
+            "sha256": "4b830763de9690b04b348908e89065bfe7443e9b1f853dfe0c636e2426cf8af5",
+            "bytes": 359816,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0147.jpg",
+            "sha256": "465164fc7006dda9e9756262ba641265e699a3c58b7894457c0b0c31ae6e3431",
+            "bytes": 360145,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0159.jpg",
+            "sha256": "c825afa666d3139b770203eb02d0800015638b2b6e18533bbce626d497857154",
+            "bytes": 360308,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0171.jpg",
+            "sha256": "38d7848bc67bc0eff78494f6967bbfe23a86c78ba9ce17a8a4bf410a149a9ea6",
+            "bytes": 360096,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0183.jpg",
+            "sha256": "f3b9524dbabd8345aa6211887d220764b8f051f247b2e7d572e9094a8fa1ef3f",
+            "bytes": 359959,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0195.jpg",
+            "sha256": "dfe7f48346fac05b58175409a741fa6a7528d37bbc6a30ad09b8b7f105a8fe31",
+            "bytes": 359674,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0207.jpg",
+            "sha256": "5cd19bd33c341c7cca9878525c1e42a39dd647df0d3c5589159a5e0275d6c9d8",
+            "bytes": 359247,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0219.jpg",
+            "sha256": "2e6b18838888eb01e27a876084052ca86adda6850b71d5e0fc1fb4d93cb4c953",
+            "bytes": 359713,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0231.jpg",
+            "sha256": "6fa3204006a8a8b9d8238a20e409358566002297bf2067b0f5dc908e9d3ec54e",
+            "bytes": 358701,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0242.jpg",
+            "sha256": "f66d892a14257ee9ee366101031d1fc210c5148975632bc48e9677030485cbf2",
+            "bytes": 359345,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0254.jpg",
+            "sha256": "56886afafaa7f22a2fc29660c38d58592710ff1a6a01535231fb893ed3aa15ba",
+            "bytes": 359502,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0266.jpg",
+            "sha256": "78036dfe2f17bc4812174d6e1d3d3ca41f1c5cd5eb8f46d9b0ffa9f2cd988050",
+            "bytes": 359164,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0278.jpg",
+            "sha256": "6afcd12d93a83fc76712668318cad1e25f88c57694f1c4645bbb22090a118647",
+            "bytes": 358796,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0290.jpg",
+            "sha256": "7b84870938df28709e31ca3156e160339851fda7702b5be71eb3e9649abbeef3",
+            "bytes": 357814,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0302.jpg",
+            "sha256": "d07414687556ab472e1b1e133ae2f98d78537312c4568ae88575a207ba4a4a42",
+            "bytes": 357695,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0314.jpg",
+            "sha256": "bf56a6131e37cc622e7b9a4b897d041bb3a2ec81d583f64ba425c456728fcc1e",
+            "bytes": 358307,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0326.jpg",
+            "sha256": "6f16474e719691771f2995091b15f34baf1ff19563bdbe876048692548db258e",
+            "bytes": 358708,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0338.jpg",
+            "sha256": "e40c87b3c0699d0ebec7ced7892b1fb1062ef7b647cd0af07214c76b66a29d82",
+            "bytes": 359022,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0342.jpg",
+            "sha256": "2446eaa161751adb264da01acc811b26e0d7e6e51f5423531b327948350761f8",
+            "bytes": 357590,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0354.jpg",
+            "sha256": "57579b01e3892a75cd14792f93072be7ea17518ade137e4b2c3449a7a08c62f6",
+            "bytes": 356939,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0366.jpg",
+            "sha256": "75956225d7c0d403657df2cb43714ff8e0efbce3b3f5ae5a9462020344b023b1",
+            "bytes": 357145,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0378.jpg",
+            "sha256": "a23c8b1fb6e2d6385bc59904cc3442cf43d7b188862bee32019569f5fe4de756",
+            "bytes": 356829,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0390.jpg",
+            "sha256": "f1195fbd089f49e1b950b798995b39aaaf92647417022dbe47d5731abfcad4b6",
+            "bytes": 356801,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0402.jpg",
+            "sha256": "9ddaaf4af23dc9a82b08e253a12900aa55715cdc401e76d071dca47c1a599998",
+            "bytes": 356881,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0414.jpg",
+            "sha256": "1d072531deb1daf56844e5eaabbff25a5c6f3dc2a34c827d593fbb183bdbd597",
+            "bytes": 357210,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0426.jpg",
+            "sha256": "acd8636fdc14c0cdd1f40e39ca0b24a6f51ce14e341ea1631e16f55865e546ab",
+            "bytes": 359936,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0438.jpg",
+            "sha256": "39d653b4d92ebba06eec004661fe3e7337c18eccb5c50f4c2184ff81ee166450",
+            "bytes": 359499,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "frame-0450.jpg",
+            "sha256": "3499e2a1c906e26938ec570cd96ea17f622d5ccc52803e255e85db4ef080e47d",
+            "bytes": 359828,
+            "width": 720,
+            "height": 1280
+        }
+    ],
+    "sorting_images": [
+        {
+            "file": "sorting-0.png",
+            "sha256": "fc1d73d729741130f79d3d12d202348253d1dd8343a20dbeadf073943fdd5f23",
+            "bytes": 1551009,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "sorting-1.png",
+            "sha256": "8e00fa1d308184c1b75f326f5bd34ca705f5fdf99e5c5aa34f7e9eb779050e98",
+            "bytes": 1559944,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "sorting-2.png",
+            "sha256": "974cb752087f2d96466e5644fd28cc17b994b8f47ed4b574c6626ce57774aa1c",
+            "bytes": 1550756,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "sorting-3.png",
+            "sha256": "cb93c43c69262d735eed98180014d8923802bef9041995bc08d17f434a69be46",
+            "bytes": 1642919,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "sorting-4.png",
+            "sha256": "7fb94e7b13e396590535cba5ffe34e94422b3033bbcc0c75d5e0dbb15c4130a4",
+            "bytes": 1642363,
+            "width": 720,
+            "height": 1280
+        }
+    ]
+}

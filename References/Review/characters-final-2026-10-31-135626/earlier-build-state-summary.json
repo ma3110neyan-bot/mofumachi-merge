@@ -1,0 +1,33 @@
+{
+  "archive_sha256": "4a50551e776279739cee2f37c89a40c8515028ac5bf90787426eb342e12bc043",
+  "original_json_bytes": 216069149,
+  "original_json_sha256": "df2582783d380c98455ce44528d1f7df66ab4a782594c3c0948521bcc07c1a6e",
+  "owner_character": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\characters-authored-20261031-135626-6f4151d8",
+  "owner_noah": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\characters-authored-20261031-135626-6f4151d8",
+  "stamp": "<missing>",
+  "source_info": "<missing>",
+  "unity_processes_at_report": [],
+  "apk_files": [
+    {
+      "name": "characters-authored.apk",
+      "bytes": 102184568
+    },
+    {
+      "name": "characters-baseline.apk",
+      "bytes": 102185643
+    }
+  ],
+  "present_records": [
+    "build.log",
+    "characters-authored-build.json",
+    "characters-baseline-build.json",
+    "context.json",
+    "full-editmode.xml",
+    "full-playmode.xml",
+    "six-playmode.xml",
+    "prepared-six.json"
+  ],
+  "scope": "File presence and diagnostic snapshot only. Actual test XML/identity/APK hashes not received; no completion/source-info reconstructed, no deletion/install performed.",
+  "oversized_json_cause_confirmed": "Windows PowerShell serialized Get-Content string provider/PSDrive/ImplementingType metadata recursively. Next collector copies raw records and exports scalar CSV; no ConvertTo-Json.",
+  "next": "Read-only archive of exact135626 run records, five referenced singles metadata, physical APK SHA256, current source fingerprint, processes. Existing output remains untouched. May be able to reuse pair after verification; do not rerun whole pipeline."
+}

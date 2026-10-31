@@ -1,0 +1,4 @@
+﻿"Name","ProcessId","ParentProcessId","is_collector","started_utc"
+"powershell.exe","22272","16504","False","2026-10-31T09:25:50.5806880Z"
+"powershell.exe","22248","16504","False","2026-10-31T09:58:16.5459920Z"
+"powershell.exe","19992","22248","True","2026-10-31T09:58:23.1441920Z"

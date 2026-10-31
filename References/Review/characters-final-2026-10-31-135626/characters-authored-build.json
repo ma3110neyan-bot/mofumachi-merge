@@ -1,0 +1,13 @@
+{
+    "mode": "authored",
+    "gitRevision": "7af024864fc353a36ad886c034f1a2b22dda7648",
+    "productFingerprint": "2f2c786b2672cade0f4279d7fb3e1bb6053de1adcf56c89c6fbcae4706a9236d",
+    "packed_resource_sha256": "78cd652e55904723a01dc9e33d380c570e031bf490cf01c354827020b375ff74",
+    "sha256": "d0b7ddc6858bf731cff25ab593f0ec3c9ac62fb08e47574174f872150a0d46c9",
+    "apk": "characters-authored.apk",
+    "package": "com.mofumachi.merge.qa.townlife",
+    "full_qa_verified": true,
+    "six_native_verified": true,
+    "pixel_verified": false,
+    "adopted": false
+}

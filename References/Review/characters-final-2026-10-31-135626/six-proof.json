@@ -1,0 +1,61 @@
+{
+    "gitRevision": "7af024864fc353a36ad886c034f1a2b22dda7648",
+    "productFingerprint": "2f2c786b2672cade0f4279d7fb3e1bb6053de1adcf56c89c6fbcae4706a9236d",
+    "packed_resource_sha256": "78cd652e55904723a01dc9e33d380c570e031bf490cf01c354827020b375ff74",
+    "inputs": [
+        {
+            "characterId": "momo",
+            "input_sha256": "ff44efd51a0d9519f9f633f5bd5514b94429e9eb48a43be8adb5bb863f290cbe"
+        },
+        {
+            "characterId": "lulu",
+            "input_sha256": "0f9fdb638b4e1e762dea5ad3cc97d596173215d5626a80c32182dc6378a96c06"
+        },
+        {
+            "characterId": "pom",
+            "input_sha256": "2d7cdcb154490d1950476d3c8959bcbb33268a08d3c8fcb8eb0093629371ce0d"
+        },
+        {
+            "characterId": "fio",
+            "input_sha256": "0cacbf71aa34fda2e9eee498d9ef3f6bd999f3c169d8a286b5d93e570141df28"
+        },
+        {
+            "characterId": "miel",
+            "input_sha256": "7d31fbb711730aa8b2df579c81b7978db9604ffdf9be8425a5b5904cccb30cf6"
+        },
+        {
+            "characterId": "noah",
+            "input_sha256": "9d649b824cb149a0b13e0444a7e2820947c21800e24460ce140d85bb9e881bbc"
+        }
+    ],
+    "native_unity": true,
+    "all_six_enabled": true,
+    "save_unchanged": true,
+    "tap_verified": true,
+    "pixel_verified": false,
+    "adopted": false,
+    "placements": "isolated six-character display fixture; individual walking is in separate native methods; not Pixel FPS",
+    "images": [
+        {
+            "file": "six-left.png",
+            "sha256": "3c946b2765e9ade980578d374db0ba15516359a5618c90835951931fc3982ad3",
+            "bytes": 1837236,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "six-right.png",
+            "sha256": "b004f7da09d7d35b4f9f49193771fd657ce2addd297d3b5620276c4e3f90e1e8",
+            "bytes": 1837427,
+            "width": 720,
+            "height": 1280
+        },
+        {
+            "file": "six-back.png",
+            "sha256": "85f29c3957b04735db5786b2c54a28ede94f0d4b57fdafc71b810a93ce252da3",
+            "bytes": 1829704,
+            "width": 720,
+            "height": 1280
+        }
+    ]
+}

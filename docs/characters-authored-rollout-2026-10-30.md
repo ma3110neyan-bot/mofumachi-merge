@@ -45,4 +45,4 @@ powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File ".\scripts\prepare
 
 ## 検査の限界
 
-クラウドではライセンス／Android／USBの不足によりUnity・APK・Pixelは未実行。通常／Android候補define／Editor／PlayModeのAPIコンパイルと、素材・接続・歩行モデル・PSのガードを確認した。dotnet全体テストの標準testhostはローカルsocketの権限で実行前に中断しており、成功とは数えない。Windows PowerShell5.1固有動作も未確認。最終合格は実UnityとPixelの実画像・操作・負荷結果による。
+クラウドではライセンス／Android／USBの不足によりUnity・APK・Pixelは未実行。通常／Android候補define／Editor／PlayModeのAPIコンパイルと、素材・接続・歩行モデル・PSのガードを確認した。標準testhostはローカルsocketの権限で開始前中断したが、2026-10-31に既存NUnitを同一プロセスで実行し、Core125/125・Presentation394/394の計519件が成功した。テスト本体や判定を変更せず、失敗を検出するsentinelも確認済み。これはUnity全件の成功ではない。証拠はdocs/verification/characters-rollout-2026-10-31/。Windows PowerShell5.1固有動作も未確認。最終合格は実UnityとPixelの実画像・操作・負荷結果による。

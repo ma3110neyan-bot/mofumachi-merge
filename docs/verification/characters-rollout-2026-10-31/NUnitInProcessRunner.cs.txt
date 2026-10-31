@@ -1,0 +1,41 @@
+using System;
+using System.IO;
+using System.Reflection;
+using System.Runtime.Loader;
+using System.Collections.Generic;
+using System.Text.Json;
+using NUnit.Framework;
+using NUnit.Framework.Api;
+using NUnit.Framework.Internal;
+
+public static class Program
+{
+    public static int Main(string[] args)
+    {
+        bool sentinel=args[0]=="--sentinel";
+        string input=sentinel?typeof(Program).Assembly.Location:Path.GetFullPath(args[0]);
+        string output=Path.GetFullPath(args[1]);Directory.CreateDirectory(output);
+        string folder=Path.GetDirectoryName(input);
+        AssemblyLoadContext.Default.Resolving+=(context,name)=>{
+            string path=Path.Combine(folder,name.Name+".dll");
+            return File.Exists(path)?context.LoadFromAssemblyPath(path):null;
+        };
+        var runner=new NUnitTestAssemblyRunner(new DefaultTestAssemblyBuilder());
+        var assembly=sentinel?typeof(Program).Assembly:AssemblyLoadContext.Default.LoadFromAssemblyPath(input);
+        runner.Load(assembly,new Dictionary<string,object>{{"NumberOfTestWorkers",0}});
+        int discovered=runner.CountTestCases(TestFilter.Empty);
+        var result=runner.Run(TestListener.NULL,TestFilter.Empty);
+        File.WriteAllText(Path.Combine(output,"nunit-results.xml"),result.ToXml(true).OuterXml);
+        var report=new {runner="NUnit 3.14 framework in-process; no testhost/socket",assembly=input,discovered,
+            result.TotalCount,result.PassCount,result.FailCount,result.SkipCount,result.InconclusiveCount,
+            result=result.ResultState.ToString(),sentinel,native_unity=false,pixel_verified=false};
+        File.WriteAllText(Path.Combine(output,"receipt.json"),JsonSerializer.Serialize(report,new JsonSerializerOptions{WriteIndented=true}));
+        Console.WriteLine(JsonSerializer.Serialize(report));
+        return discovered>0&&result.TotalCount==discovered&&result.PassCount==discovered&&result.FailCount==0&&result.SkipCount==0&&result.InconclusiveCount==0?0:1;
+    }
+}
+[TestFixture] public sealed class HarnessSentinel
+{
+    [Test] public void PassingSentinel(){Assert.That(2+2,Is.EqualTo(4));}
+    [Test] public void IntentionalFailureSentinel(){Assert.Fail("Intentional failure proves runner cannot report a failing suite as green.");}
+}

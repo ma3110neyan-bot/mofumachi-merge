@@ -1,0 +1,15 @@
+{
+  "runner": "NUnit 3.14 framework in-process; no testhost/socket",
+  "assembly": "/workspace/mofumachi-merge/Tests/Presentation/bin/Debug/net8.0/Mofumachi.Visual.Tests.dll",
+  "discovered": 394,
+  "TotalCount": 394,
+  "PassCount": 394,
+  "FailCount": 0,
+  "SkipCount": 0,
+  "InconclusiveCount": 0,
+  "result": "Passed",
+  "sentinel": false,
+  "native_unity": false,
+  "pixel_verified": false,
+  "assembly_sha256": "bc272c7f63581f27d39799b2bd8cd648d253057f10a22816442323317b0bbca1"
+}

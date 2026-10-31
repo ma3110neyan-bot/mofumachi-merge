@@ -1,0 +1,14 @@
+{
+  "runner": "NUnit 3.14 framework in-process; no testhost/socket",
+  "assembly": "/workspace/runtime/characters-release-oct31/inprocess-runner/bin/Debug/net8.0/Runner.dll",
+  "discovered": 2,
+  "TotalCount": 2,
+  "PassCount": 1,
+  "FailCount": 1,
+  "SkipCount": 0,
+  "InconclusiveCount": 0,
+  "result": "Failed(Child)",
+  "sentinel": true,
+  "native_unity": false,
+  "pixel_verified": false
+}

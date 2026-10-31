@@ -1,0 +1,4 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework><NuGetAudit>false</NuGetAudit></PropertyGroup>
+  <ItemGroup><Reference Include="nunit.framework"><HintPath>/workspace/toolchains/nuget/nunit/3.14.0/lib/netstandard2.0/nunit.framework.dll</HintPath></Reference></ItemGroup>
+</Project>

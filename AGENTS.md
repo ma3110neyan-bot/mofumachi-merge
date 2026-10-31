@@ -1,5 +1,11 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-10-31最新：全体純粋C#519件成功／GitHub反映確認は未完
+
+コードは7fda843のまま。標準testhostの通信socketが拒否されるため、既存NUnit3.14のNUnitTestAssemblyRunnerを同一プロセスで実行し、Core125/125・Presentation394/394の計519件が成功、失敗／skip／inconclusive0。runnerの2ケースsentinelは意図した失敗をexit1として検出。ゲーム／テスト本体の改変・テスト除外はない。通常／Android候補define／Editor／PlayMode APIも本日再コンパイル成功。証拠docs/verification/characters-rollout-2026-10-31/。これはUnity実行／APK／Pixelの結果ではない。
+
+GitHub作業ブランチは読み取りに成功した時点で8bc239cだった。その後のpush／再照合の実行承認は中断され、反映の成功は未確認。先に「pullで今回分が取れる」と案内しない。同じ通信承認待ちを繰り返さず、ユーザーへ承認画面が表示されているか一問で確認中。通信を許可された場合に同じfeatureへの通常pushとremoteHEAD照合を行い、その後に既存Windows手順を案内する。ノアの固定基準・街・北境界・噴水・Core／保存・Merge等を維持。追加の画像生成／方式変更やmain統合は不要。以下の標準dotnet中断は履歴。
+
 ## 2026-10-30最新：5名の実装候補完了／実Unity・Pixel受入は保留
 
 モモ8bc239c→ルルef6b482/417a7be→ポムdcb0c83→フィオaf7528e→ミエルab2faf9を一名ずつ素材登録・関連検査後に保存済み。固定ノア方式／正式atlas・552保護入力は維持。新方向は原画を参照した候補で、Unity／Pixelの見た目合格ではない。各7パーツ＋左右閉じ目、既存NoahAuthoredMotion／影／mask／Sorting。原本・不採用素材・指示・SHAを保存。個別確認待ちを復活させない。

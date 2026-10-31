@@ -1,5 +1,15 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-10-31最新：6名最終仕上げ候補／モモ・ミエル接地影だけ調整
+
+最新ユーザー指示は6名の最終小調整と正式固定。ノアmasterは不変、原画・動作・他4名・街・UI・保存は変更しない。モモ／ミエルだけ既存97頂点影の中心を約2UI下げ、幅／濃度を軽微調整。旧2.5D影への可逆設定と、同時刻5対の影範囲内比較を追加。6名fixtureは正面を含む4方向とサイズ／足元mesh・影を記録。BuildPairは追加証拠を必須にする。静止PDF20画面の原本・SHAをReferences/Review/characters-final-feedback-2026-10-31/に保存。これをFPSや新版APKの証拠にはしない。
+
+接地／既存motion14/14、通常／Android／PlayMode／Editor APIコンパイル、関連PS証拠ゲートと所有権／改変／追跡／リンク拒否・退避の合成検査が成功。実装済み・実機未確認。旧7af0248の全件／APK成功は今回へ引き継がない。正式固定／Pixel／採用falseを維持。
+
+次はdocs/characters-final-pass-2026-10-31.mdのRemoteSigned子PowerShell全体を1回だけ。scripts/prepare-characters-final-pass.ps1は、完了旧pair／同owner／packed SHA一致の未追跡生成素材だけをBuilds/Diagnostics/characters-preserved-*へ移動保存し、manifestに元パス・全SHA・移動済みパスを残す。削除／git clean／Save reset／uninstallなし。未知・改変等は停止。5単体を順番に確認→全件各1回→6名→比較2APK→Pixel baseline600秒→authored600秒、最後に今回候補を残す。終了時のfinal-review ZIPへ全件XML・6名4方向・影比較・実機原本をまとめてExplorer選択。実機6名同時の回答は実画面だけ、個別／Unity fixtureで代用せず未確認ならunknown。結果確認まで固定しない。失敗のたびに全件反復しない。
+
+安全な範囲内の途中確認は不要、GitHub feature push許可継続。次工程は別指示。以下は履歴。
+
 ## 2026-10-31最新：最終全件・6名・比較2APK成功／完了記録だけ復旧→Pixel
 
 新resume-check185823-dcff0179 ZIP（SHAdd194a2913f013405f6b229d7d1069251f6e37924295b8525c61f0624d271c4c）46原本を確認。ownerRun135626-6f4151d8／source7af0248／fingerprint2f2c786bは現在PCの値・5単体・全件・6名・APK両方で一致。5単体各1/1、全Edit144/144、全Play249/249、6名fixture1/1、すべてfailed／skip／inc0。5proof全flags・4方向・55比較対記録・素材digest、6名proof全員有効／Save／tapと6入力sealを照合。3全体ログ終了0、build.logも2回successと終了0。物理APKのWindows SHAはbaseline de07a9197e998d61d457b6333db0524afcbfb26fb1d0973505c47d1b07e79d77／authored d0b7ddc6858bf731cff25ab593f0ec3c9ac62fb08e47574174f872150a0d46c9でmetadata一致。原本References/Review/characters-final-2026-10-31-135626/。APK本体と最新PNGは未受領、画質／Pixel受入にはしない。

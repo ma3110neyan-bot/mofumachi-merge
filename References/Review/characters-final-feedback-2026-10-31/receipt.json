@@ -1,0 +1,22 @@
+{
+  "date_jst": "2026-10-31",
+  "user_instruction": "six-character final polish only; Momo/Miel small grounding changes allowed; Noah master fixed",
+  "files": [
+    {
+      "file": "pixel-feedback-192538.pdf",
+      "bytes": 4268411,
+      "sha256": "4b700470ad245ac4c0c9ec391adb6f453ad44c7d54f293ec6e8e81ea3ea83788",
+      "pages": 10
+    },
+    {
+      "file": "pixel-feedback-192752.pdf",
+      "bytes": 4423970,
+      "sha256": "be97522007db5e421a5e56deb24bab8a8b0f020c33d5505fb0cf6c6437e4e566",
+      "pages": 10
+    }
+  ],
+  "scope": "20 static game-feedback pages; not measured FPS/thermal/memory/tap/crash evidence; do not infer a final candidate APK identity",
+  "new_candidate_native_unity_verified": false,
+  "new_candidate_pixel_verified": false,
+  "formal_fixed": false
+}

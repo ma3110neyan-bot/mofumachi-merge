@@ -1,0 +1,70 @@
+{
+  "date_jst": "2026-10-31",
+  "status": "implemented-device-unverified",
+  "base_revision": "a9138950db28a726fbc56c1b1643e345a9bbc0d9",
+  "noah_master": "References/VisualLock/noah-authored-approved-2026-10-30.json",
+  "allowed_product_change": "Momo/Miel contact-shadow placement and opacity only",
+  "candidate_files": [
+    {
+      "path": "Assets/Mofumachi/Presentation/CharacterAuthoredGrounding.cs",
+      "sha256": "316550274736814c6d8ca51e4015ffc3e5340965e8915ebbd244eb28dc236001",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownActor.cs",
+      "sha256": "a247a16793fc1fba6fbb4d7d7acc966ed6dfe80c3d268291a0f11505d89f362e",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/CharacterAuthoredGraphic.cs",
+      "sha256": "2d58b0f4debd2804d94a693ddc0f6d297f618a1ab412a12a5f7851f2c5363b8b",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Editor/CharactersRolloutBuild.cs",
+      "sha256": "adafa9024a9e5014690f8c616c17942f63d010d13932d78006a5b272b95adc90",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.CharacterGrounding.cs",
+      "sha256": "450c3560708405951a14eed715ed1663466e5577a20eb8e6eff6e472d13f2088",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.CharacterAuthored.cs",
+      "sha256": "445439f55d765add38c67a827bbf2a61f742e80f7dc9af281f1bf813339889f4",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.CharactersSix.cs",
+      "sha256": "4d9f2982e49cc62d713cad845e71917f306f63104523963e48bb1cfeed23c4d6",
+      "text_normalized": true
+    }
+  ],
+  "pure_tests": {
+    "total": 14,
+    "passed": 14,
+    "failed": 0,
+    "skipped": 0,
+    "red_new_tests_failed": 10
+  },
+  "api_compilation_only": [
+    "normal Presentation",
+    "Android authored Presentation",
+    "PlayMode tests",
+    "Editor"
+  ],
+  "synthetic_tests": [
+    "contact-shadow evidence rejection",
+    "existing per-character route",
+    "existing rollout/pair/archive",
+    "reversible prepared inputs"
+  ],
+  "native_unity_verified": false,
+  "full_native_qa_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "formal_fixed": false,
+  "adopted": false,
+  "physical_six_on_screen": "pending actual device observation; isolated native fixture is not proof"
+}

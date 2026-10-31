@@ -1,5 +1,15 @@
 # モモ比較撮影：停止時の名札差分修正
 
+## 再実行111028の結果と追加修正
+
+source2135f5cの2ZIPでは、前回失敗したstop-0241を通過し、自然Beforeの名札画像も別保存された。今回の実Unityは成功0／失敗1／skip0で、walk-0354撮影後の正面mesh読取りがNullReferenceExceptionとなった。原本55点／49画像は `References/Review/momo-authored-2026-10-31-111028/` に保存し、全画像をデコードした。8比較対は出力されているが、完成proofは未出力であり、モモ合格とは扱わない。
+
+撮影helperのfinallyが候補ONを無条件で再適用していた。実際のTownActorのsetterは正面bodyを一度無効にし、UGUI Graphic.OnDisableがCanvasRendererをClearする。その後bodyは再び有効になるが、再描画前なので呼出し元のGetMeshがnullとなる。撮影済み候補がONならそのまま維持し、OFFの場合だけ復元するよう後処理を限定した。正面renderer／meshの有効・非null・非空を明示検査し、元の完全vertex一致は維持する。
+
+既存の失敗メソッドが再現検査となる。修正後のPlayMode APIコンパイルと関連PSガードは成功、固定ノアと552保護入力も不変。クラウドで新しい実UnityのRED→GREENは未確認。製品runtime／原画／ノア／街には手を加えていない。次も以下のモモ1件だけのコマンドを使い、全件QA／APK／Pixelを先に繰り返さない。
+
+## 最初の104717の結果
+
 受領した2ZIPは `momo-authored-20261031-104717-828afa35`、source `0efef45aacddd055f67cbe0b7ee4ade7d08b950e`。原XMLはモモ専用1件の失敗、成功0・skip0。停止画像 `stop-0241` の `outside_allowed_pixels` が期待0に対し5362で停止し、全件テスト／APK／Pixelへ進んでいない。
 
 自然Beforeでは右下のノア名札が表示され、自然Afterでは既存の名札回避により非表示となっていた。追加キャラ撮影には、既存ノア撮影で使う名札の比較条件統一が抜けていた。モモの身体範囲外にある名札の差が、身体以外の不正な変更として検出された。受領原本は変更せず `References/Review/momo-authored-2026-10-31-104717/` に保存した。全32画像は720×1280で正常にデコードできた。

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-31 02:11:18Z" end-time="2026-10-31 02:11:26Z" duration="7.878691">
+  <test-suite type="TestSuite" id="1294" name="もふまちメルジュ" fullname="もふまちメルジュ" runstate="Runnable" testcasecount="242" result="Failed" site="Child" start-time="2026-10-31 02:11:18Z" end-time="2026-10-31 02:11:26Z" duration="7.878691" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1582" name="Mofumachi.PlayModeTests.dll" fullname="C:/Users/User/Desktop/Mofumachi/mofumachi-merge/Library/ScriptAssemblies/Mofumachi.PlayModeTests.dll" runstate="Runnable" testcasecount="242" result="Failed" site="Child" start-time="2026-10-31 02:11:18Z" end-time="2026-10-31 02:11:26Z" duration="7.868182" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="22692" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1583" name="Mofumachi" fullname="Mofumachi" runstate="Runnable" testcasecount="242" result="Failed" site="Child" start-time="2026-10-31 02:11:18Z" end-time="2026-10-31 02:11:26Z" duration="7.865518" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1584" name="Tests" fullname="Mofumachi.Tests" runstate="Runnable" testcasecount="242" result="Failed" site="Child" start-time="2026-10-31 02:11:18Z" end-time="2026-10-31 02:11:26Z" duration="7.863099" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1340" name="ExperienceCaptureTests" fullname="Mofumachi.Tests.ExperienceCaptureTests" classname="Mofumachi.Tests.ExperienceCaptureTests" runstate="Runnable" testcasecount="13" result="Failed" site="Child" start-time="2026-10-31 02:11:18Z" end-time="2026-10-31 02:11:26Z" duration="7.850338" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1341" name="MomoAuthoredPartsPreserveIdentityInputAndState" fullname="Mofumachi.Tests.ExperienceCaptureTests.MomoAuthoredPartsPreserveIdentityInputAndState" methodname="MomoAuthoredPartsPreserveIdentityInputAndState" classname="Mofumachi.Tests.ExperienceCaptureTests" runstate="Runnable" seed="1386656340" result="Failed" label="Error" start-time="2026-10-31 02:11:18Z" end-time="2026-10-31 02:11:26Z" duration="7.834080" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.NullReferenceException : Object reference not set to an instance of an object]]></message>
+                <stack-trace><![CDATA[  at Mofumachi.Tests.ExperienceCaptureTests+<CaptureCharacterAuthored>d__7.MoveNext () [0x00914] in C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Assets\Mofumachi\Tests\PlayMode\ExperienceCaptureTests.CharacterAuthored.cs:145 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@80f691d4262b\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

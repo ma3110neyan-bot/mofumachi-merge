@@ -79,7 +79,15 @@ namespace Mofumachi.Tests
                 }
                 Assert.That(pair.changed_pixels,Is.GreaterThan(0));Assert.That(pair.outside_allowed_pixels,Is.Zero);return pair;
             }
-            finally{actor.SetCharacterAuthoredEnabled(true);if(before!=null)UnityEngine.Object.DestroyImmediate(before);if(after!=null)UnityEngine.Object.DestroyImmediate(after);if(naturalBefore!=null)UnityEngine.Object.DestroyImmediate(naturalBefore);}
+            finally
+            {
+                // After is already rendered in candidate mode. Reapplying the
+                // switch disables the front body and clears its CanvasRenderer
+                // mesh until the next canvas rebuild. Restore only on failure
+                // while still in legacy mode; leave the captured mesh intact.
+                if(!actor.CharacterAuthoredEnabled)actor.SetCharacterAuthoredEnabled(true);
+                if(before!=null)UnityEngine.Object.DestroyImmediate(before);if(after!=null)UnityEngine.Object.DestroyImmediate(after);if(naturalBefore!=null)UnityEngine.Object.DestroyImmediate(naturalBefore);
+            }
         }
         [UnityTest,Timeout(120000)] public IEnumerator MomoAuthoredPartsPreserveIdentityInputAndState()=>CaptureCharacterAuthored("momo");
         [UnityTest,Timeout(120000)] public IEnumerator LuluAuthoredPartsPreserveIdentityInputAndState()=>CaptureCharacterAuthored("lulu");
@@ -142,8 +150,12 @@ namespace Mofumachi.Tests
                         Pair("walk-"+step.ToString("0000"));
                         if(actor.CharacterDirection==NoahAuthoredDirection.Front)
                         {
-                            var actual=old.canvasRenderer.GetMesh().vertices;old.Pose(0,0,0,false);Canvas.ForceUpdateCanvases();
-                            Assert.That(old.canvasRenderer.GetMesh().vertices.SequenceEqual(actual),Is.True,"Authored front must use the master's undeformed original mesh.");field.RefreshWorldPresentation();
+                            Assert.That(old.enabled,Is.True,"The captured front must retain its active original renderer.");
+                            var capturedMesh=old.canvasRenderer.GetMesh();Assert.That(capturedMesh,Is.Not.Null,"Comparison cleanup must preserve the rendered front mesh.");
+                            Assert.That(capturedMesh.vertexCount,Is.GreaterThan(0));var actual=capturedMesh.vertices;
+                            old.Pose(0,0,0,false);Canvas.ForceUpdateCanvases();
+                            var referenceMesh=old.canvasRenderer.GetMesh();Assert.That(referenceMesh,Is.Not.Null);
+                            Assert.That(referenceMesh.vertices.SequenceEqual(actual),Is.True,"Authored front must use the master's undeformed original mesh.");field.RefreshWorldPresentation();
                         }
                     }
                     if(i%12==0)

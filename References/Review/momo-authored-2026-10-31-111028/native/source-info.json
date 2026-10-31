@@ -1,0 +1,12 @@
+﻿{
+    "scope":  "momo-only sequential native gate",
+    "gitRevision":  "2135f5caa02595cb54e4c774e5829ca8dfdc12e2",
+    "productFingerprint":  "3308fae59311e993ff37df090c50b08575ae9c13c59e0d459007a8582ca713f3",
+    "native_test_passed":  false,
+    "source_unchanged":  true,
+    "visual_review_pending":  true,
+    "apk_generated":  false,
+    "pixel_verified":  false,
+    "adopted":  false,
+    "error":  "Unity exit 2. Preserve this run: C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\momo-authored-20261031-111028-ee089f64"
+}

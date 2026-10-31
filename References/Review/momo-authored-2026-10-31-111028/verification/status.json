@@ -1,0 +1,18 @@
+{
+  "scope": "Capture fixture cleanup only; no product runtime or art changes",
+  "failing_native_result_preserved": true,
+  "source_root_cause": "Pair finally unconditionally re-enables authored mode; TownActor setter disables front body, Graphic.OnDisable clears CanvasRenderer mesh, then re-enables without canvas rebuild.",
+  "change": "Restore candidate mode in cleanup only when currently disabled; otherwise retain the captured mesh. Require enabled/non-null/non-empty front mesh before the existing exact vertex comparison.",
+  "playmode_api_compile": {
+    "warnings": 0,
+    "errors": 0
+  },
+  "single_character_powershell_guards_passed": true,
+  "noah_master_unchanged": true,
+  "protected_inputs_unchanged": 552,
+  "full_suites_rerun": false,
+  "corrected_native_unity_run": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "required_native_verification": "Existing single MomoAuthoredPartsPreserveIdentityInputAndState method, including front mesh equality, conversation and Sorting."
+}

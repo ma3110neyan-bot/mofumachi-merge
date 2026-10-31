@@ -1,5 +1,11 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-10-31最新：モモ正面検査の撮影後処理を修正／再確認待ち
+
+Windows run momo-authored-20261031-111028-ee089f64の2ZIP受領。source2135f5c、実Unityは1件失敗・成功0／skip0。前の名札比較stop-0241は通過し、自然Beforeも別保存された。今回の停止はwalk-0354の正面mesh読取りでNullReferenceException（旧145行）。比較helperのfinallyが候補ONを再適用し、正面bodyを一度OFFにしてUGUI meshを消去した後、再描画前に検査が読んでいた。原本55点／画像49枚を保存・全デコード、References/Review/momo-authored-2026-10-31-111028/。
+
+撮影helperの復元を「候補OFFのときだけON」へ限定し、撮影済み正面meshを維持する。正面の有効／非null／非空を明示検査し、元の完全vertex一致検査は維持。ゲーム本体／ノアmaster／原画／街・北境界・噴水／Core等は無変更。関連PS／PlayMode API／固定Noah＋552保護入力の照合は成功、修正後の実Unity／APK／Pixelは未確認。全件を再実行せず、次もcapture-character-authored.ps1 -Character momo一件だけ。以下の名札修正は通過済みの履歴で、再変更しない。
+
 ## 2026-10-31最新：モモ単体の比較撮影を修正／再確認待ち
 
 Windows run momo-authored-20261031-104717-828afa35の2ZIP受領。source0efef45、実Unityは1件失敗（stop-0241の範囲外5362画素）、APK／Pixelへ未到達。32画像を全デコードし、自然Beforeではノア名札が表示、Afterでは既存の名札回避で非表示となる差を確認。原本と判定はReferences/Review/momo-authored-2026-10-31-104717/。モモの画質／Pixel合格ではない。

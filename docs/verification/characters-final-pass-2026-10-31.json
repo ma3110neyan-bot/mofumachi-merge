@@ -66,5 +66,39 @@
   "pixel_verified": false,
   "formal_fixed": false,
   "adopted": false,
-  "physical_six_on_screen": "pending actual device observation; isolated native fixture is not proof"
+  "physical_six_on_screen": "pending actual device observation; isolated native fixture is not proof",
+  "fixed_input_guards": {
+    "approved_noah_files": 26,
+    "legacy_protected_files": 552,
+    "passed": true
+  },
+  "review": {
+    "range": "a913895..e0c9b80",
+    "critical": 0,
+    "important": 0,
+    "minor_deferred": [
+      {
+        "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.CharactersSix.cs",
+        "line": 67,
+        "finding": "Explicitly initialise proof.geometry beside images after seal deserialisation; avoid depending on pinned Unity missing-field initialiser behaviour. No demonstrated native failure; historical native evidence retains another field initialiser."
+      }
+    ],
+    "declined_to_judge": [
+      "new native rendering and fixture success",
+      "visual grounding quality",
+      "Pixel performance",
+      "physical six-character visibility",
+      "device save retention"
+    ]
+  },
+  "rulings": [
+    {
+      "decision": "Keep existing native/Pixel workflow; do not add a gameplay or runtime gathering automation for this small final polish. Physical six-on-screen must be independently observed; isolated Unity fixture is not a substitute.",
+      "cost_if_wrong": "Additional device observation or a separately bounded diagnostic will be needed before freeze."
+    },
+    {
+      "decision": "All reviewer-declined native/visual/Pixel/six/save judgments remain pending new Windows/Pixel evidence; API and synthetic successes cover only implementation checks.",
+      "cost_if_wrong": "Formal freeze is delayed until actual results arrive; no old success is attributed to this source."
+    }
+  ]
 }

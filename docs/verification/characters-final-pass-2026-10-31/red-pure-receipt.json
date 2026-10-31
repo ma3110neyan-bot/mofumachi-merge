@@ -1,0 +1,14 @@
+{
+  "runner": "NUnit 3.14 framework in-process; no testhost/socket",
+  "assembly": "/workspace/runtime/characters-final-pass-oct31/focused/bin/Debug/net8.0/Focused.dll",
+  "discovered": 14,
+  "TotalCount": 14,
+  "PassCount": 4,
+  "FailCount": 10,
+  "SkipCount": 0,
+  "InconclusiveCount": 0,
+  "result": "Failed(Child)",
+  "sentinel": false,
+  "native_unity": false,
+  "pixel_verified": false
+}

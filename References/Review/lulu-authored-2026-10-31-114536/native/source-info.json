@@ -1,0 +1,12 @@
+﻿{
+    "scope":  "lulu-only sequential native gate",
+    "gitRevision":  "4fa3a9ee75c827cc224df9e842932a14dcbb74bf",
+    "productFingerprint":  "396f8cf9911de81ac0f8fb5abc64a9c6826e8cb928e673d1bb9aaa609988b9eb",
+    "native_test_passed":  true,
+    "source_unchanged":  true,
+    "visual_review_pending":  true,
+    "apk_generated":  false,
+    "pixel_verified":  false,
+    "adopted":  false,
+    "error":  ""
+}

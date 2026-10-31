@@ -1,0 +1,24 @@
+{
+  "scope": "stopped-coordinator",
+  "archives": [
+    {
+      "file": "characters-authored-20261031-114313-ea1a4b7d-review-01.zip",
+      "sha256": "3ecd664e03ce0ddb1b65bbc7c3844657ba8a72fb701f45af9711ca53294bb18c",
+      "entries": 1
+    }
+  ],
+  "files": [
+    {
+      "file": "source-info.json",
+      "bytes": 963,
+      "sha256": "ba8056986befef49f7e06efd7fbc6cea035ea4402c0ada0ca0f7fbf20562e870"
+    }
+  ],
+  "source_revision": "4fa3a9ee75c827cc224df9e842932a14dcbb74bf",
+  "product_fingerprint": "396f8cf9911de81ac0f8fb5abc64a9c6826e8cb928e673d1bb9aaa609988b9eb",
+  "native_tests": null,
+  "decoded_images": 0,
+  "apk_binaries_received": false,
+  "pixel_verified": false,
+  "new_user_adoption": false
+}

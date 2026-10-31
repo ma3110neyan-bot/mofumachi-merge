@@ -1,0 +1,2 @@
+# Uploaded originals are immutable byte evidence, including their CRLF/BOM.
+native/** binary

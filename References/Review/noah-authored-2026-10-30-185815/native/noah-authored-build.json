@@ -1,0 +1,15 @@
+{
+    "scope": "experimental-noah-authored-not-release",
+    "mode": "authored",
+    "package": "com.mofumachi.merge.qa.townlife",
+    "gitRevision": "7c98804a78f07546fb8176b320904e8af44f6542",
+    "productFingerprint": "a9203cadc22a0a88325ce16f6cfdd1140b2db1c99fa6998bf2ddd85047142dc2",
+    "input_sha256": "9d649b824cb149a0b13e0444a7e2820947c21800e24460ce140d85bb9e881bbc",
+    "packed_resource_sha256": "1ff04845e2639f4ac95dcdeeed4a8188a3ca4e391361819204de1da9a6a7b5c5",
+    "sha256": "c6bdee812617302b356ea0332da81944ce23676c00c9fb32316aadcf63f6f37d",
+    "apk": "noah-authored.apk",
+    "native_capture_method_verified": true,
+    "full_qa_verified": false,
+    "pixel_verified": false,
+    "adopted": false
+}

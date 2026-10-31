@@ -1,0 +1,79 @@
+{
+  "character": "pom",
+  "git_revision": "cdf36e08e986ec8f0d597f67a33e6a66a6642a27",
+  "product_fingerprint": "7afd33903a9c24d22383957c923adf7418039c63c6e8d710b8e0a29be0ec3be2",
+  "decoded_images": 70,
+  "image_identities_verified": 70,
+  "pairs": [
+    {
+      "id": "01-idle",
+      "mode": "Left",
+      "changed_pixels": 14913,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "walk-0013",
+      "mode": "Left",
+      "changed_pixels": 14881,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "stop-0098",
+      "mode": "Left",
+      "changed_pixels": 15083,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "walk-0111",
+      "mode": "Right",
+      "changed_pixels": 15490,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "stop-0241",
+      "mode": "Left",
+      "changed_pixels": 15957,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "walk-0254",
+      "mode": "Left",
+      "changed_pixels": 17057,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "stop-0341",
+      "mode": "Back",
+      "changed_pixels": 15009,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "walk-0354",
+      "mode": "Front",
+      "changed_pixels": 15570,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "stop-0451",
+      "mode": "Left",
+      "changed_pixels": 15964,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "greeting",
+      "mode": "Right",
+      "changed_pixels": 11489,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "conversation",
+      "mode": "Right",
+      "changed_pixels": 11778,
+      "outside_allowed_pixels": 0
+    }
+  ],
+  "input_digest_matches_committed_windows_crlf": true,
+  "rear_blink_verified": true,
+  "pixel_verified": false,
+  "adopted": false
+}

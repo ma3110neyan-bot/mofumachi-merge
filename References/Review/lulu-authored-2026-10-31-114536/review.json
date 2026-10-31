@@ -1,0 +1,18 @@
+{
+  "scope": "historical-before-shared-rear-fix",
+  "proof_validator_revision": "4fa3a9ee75c827cc224df9e842932a14dcbb74bf",
+  "proof_validator_result": "passed without mutating original fields",
+  "rear_blink_native_verified": false,
+  "visual_review_owner": "primary agent; no independent visual reviewer",
+  "visual_review_scope": "11pairs+40fixed walking frames+blink+5staticSorting",
+  "verdict": "Historical native pass; not verification of the newer shared renderer",
+  "limitations": [
+    "Fixed simulation samples are not FPS or a real-time movie",
+    "Static Sorting placements do not cover every walking occlusion path",
+    "Existing speech UI partially overlaps head; no UI change",
+    "Grounding, collar/face transition continuity and simultaneous load need Pixel review"
+  ],
+  "product_changed_during_review": false,
+  "pixel_verified": false,
+  "adopted": false
+}

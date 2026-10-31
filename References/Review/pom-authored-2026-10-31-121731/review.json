@@ -1,0 +1,18 @@
+{
+  "scope": "latest-fixed-candidate",
+  "proof_validator_revision": "cdf36e08e986ec8f0d597f67a33e6a66a6642a27",
+  "proof_validator_result": "passed without mutating original fields",
+  "rear_blink_native_verified": true,
+  "visual_review_owner": "primary agent; no independent visual reviewer",
+  "visual_review_scope": "11pairs+40fixed walking frames+blink+5staticSorting",
+  "verdict": "Proceed to same-source five native gates and six-character QA; not final adoption",
+  "limitations": [
+    "Fixed simulation samples are not FPS or a real-time movie",
+    "Static Sorting placements do not cover every walking occlusion path",
+    "Existing speech UI partially overlaps head; no UI change",
+    "Grounding, collar/face transition continuity and simultaneous load need Pixel review"
+  ],
+  "product_changed_during_review": false,
+  "pixel_verified": false,
+  "adopted": false
+}

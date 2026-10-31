@@ -1,0 +1,54 @@
+{
+  "scope": "Historical accepted-method reference; not a new rollout/device result",
+  "source_revision": "7c98804a78f07546fb8176b320904e8af44f6542",
+  "decoded_images": 98,
+  "proof_image_references": 106,
+  "unique_proof_images": 98,
+  "paired_comparisons": [
+    {
+      "id": "authored-011",
+      "changed_pixels": 15169,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "authored-029",
+      "changed_pixels": 15182,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "authored-044",
+      "changed_pixels": 15182,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "authored-050",
+      "changed_pixels": 16538,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "authored-101",
+      "changed_pixels": 13788,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "authored-104",
+      "changed_pixels": 14021,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "authored-158",
+      "changed_pixels": 16484,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "authored-195",
+      "changed_pixels": 16313,
+      "outside_allowed_pixels": 0
+    }
+  ],
+  "reported_experimental_apk_pair_generated": true,
+  "apk_binaries_received": false,
+  "pixel_verified": false,
+  "raw_adopted_flag": false,
+  "later_user_noah_approval_remains_fixed": true
+}

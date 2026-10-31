@@ -1,0 +1,5 @@
+# Latest Pom — actual rear-blink regression passed
+
+All3 parts of `pom-authored-20261031-121731-30b7e04d` are preserved unchanged. Source `cdf36e08e986ec8f0d597f67a33e6a66a6642a27`, fingerprint `7afd33903a9c24d22383957c923adf7418039c63c6e8d710b8e0a29be0ec3be2`. Raw XML: **1 passed /0 failed /0 skipped /0 inconclusive**. The deterministic rear blink verifies28 vertices, unchanged geometry/UV and no unexpected rendering log; `rear_blink_verified` is true. Natural side blinking, input, four walking directions, greeting/conversation, static depth checks and save invariants also passed.
+
+All77 originals/70 images and11 pair differences were verified. Primary visual review found no obvious new blocker in the recorded states. This is a native single gate, not full QA, a six-character APK, device performance or final user adoption. Source and evidence details are in `receipt.json`, `independent-validation.json` and `review.json`. The broader handoff is `docs/characters-native-followup-2026-10-31.md`.

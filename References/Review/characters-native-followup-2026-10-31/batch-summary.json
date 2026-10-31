@@ -1,0 +1,94 @@
+{
+  "examined_archives": 13,
+  "original_files": 341,
+  "decoded_images": 308,
+  "runs": [
+    {
+      "directory": "pom-authored-2026-10-31-121731",
+      "scope": "latest-fixed-candidate",
+      "archives": 3,
+      "original_files": 77,
+      "images": 70,
+      "native_tests": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "source_revision": "cdf36e08e986ec8f0d597f67a33e6a66a6642a27"
+    },
+    {
+      "directory": "lulu-authored-2026-10-31-114536",
+      "scope": "historical-before-shared-rear-fix",
+      "archives": 3,
+      "original_files": 77,
+      "images": 70,
+      "native_tests": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "source_revision": "4fa3a9ee75c827cc224df9e842932a14dcbb74bf"
+    },
+    {
+      "directory": "momo-authored-2026-10-31-114346",
+      "scope": "historical-before-shared-rear-fix",
+      "archives": 3,
+      "original_files": 77,
+      "images": 70,
+      "native_tests": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "source_revision": "4fa3a9ee75c827cc224df9e842932a14dcbb74bf"
+    },
+    {
+      "directory": "characters-authored-2026-10-31-104645",
+      "scope": "stopped-coordinator",
+      "archives": 1,
+      "original_files": 1,
+      "images": 0,
+      "native_tests": null,
+      "source_revision": "0efef45aacddd055f67cbe0b7ee4ade7d08b950e"
+    },
+    {
+      "directory": "characters-authored-2026-10-31-114313",
+      "scope": "stopped-coordinator",
+      "archives": 1,
+      "original_files": 1,
+      "images": 0,
+      "native_tests": null,
+      "source_revision": "4fa3a9ee75c827cc224df9e842932a14dcbb74bf"
+    },
+    {
+      "directory": "noah-authored-2026-10-30-185815",
+      "scope": "historical-accepted-master-reference",
+      "archives": 2,
+      "original_files": 108,
+      "images": 98,
+      "native_tests": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "source_revision": "7c98804a78f07546fb8176b320904e8af44f6542"
+    }
+  ],
+  "named_older_repeat_uploads_not_reextracted": 24,
+  "historical_repeat_note": "Prior-run attachments remain covered by existing saved reviews; their newly uploaded bytes were not re-read and they were not used to grade the latest Pom result.",
+  "approved_noah_master_unchanged": true,
+  "latest_pom_native_passed": true,
+  "fio_native_received": false,
+  "miel_native_received": false,
+  "completed_six_character_build_received": false,
+  "pixel_verified": false,
+  "product_changes": false
+}

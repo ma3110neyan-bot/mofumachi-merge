@@ -1,0 +1,12 @@
+﻿{
+    "scope":  "pom-only sequential native gate",
+    "gitRevision":  "cdf36e08e986ec8f0d597f67a33e6a66a6642a27",
+    "productFingerprint":  "7afd33903a9c24d22383957c923adf7418039c63c6e8d710b8e0a29be0ec3be2",
+    "native_test_passed":  true,
+    "source_unchanged":  true,
+    "visual_review_pending":  true,
+    "apk_generated":  false,
+    "pixel_verified":  false,
+    "adopted":  false,
+    "error":  ""
+}

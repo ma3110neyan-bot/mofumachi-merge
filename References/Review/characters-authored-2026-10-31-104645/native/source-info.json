@@ -1,0 +1,15 @@
+﻿{
+    "gitRevision":  "0efef45aacddd055f67cbe0b7ee4ade7d08b950e",
+    "productFingerprint":  "64641e5024696b5719fe2f2863761711808b7785a4e26b7b76a39cdd6cff4a15",
+    "full_qa_verified":  false,
+    "single_native_verified":  false,
+    "six_native_verified":  false,
+    "builds_generated":  false,
+    "source_unchanged":  true,
+    "pixel_verified":  false,
+    "adopted":  false,
+    "singleRuns":  [
+
+                   ],
+    "error":  "Character gate stopped; share this run\u0027s ZIP/logs. Do not run full QA. Unity exit 2. Preserve this run: C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\momo-authored-20261031-104717-828afa35"
+}

@@ -1,0 +1,2239 @@
+{
+    "kind": "native-noah-authored-parts-preview",
+    "gitRevision": "7c98804a78f07546fb8176b320904e8af44f6542",
+    "productFingerprint": "a9203cadc22a0a88325ce16f6cfdd1140b2db1c99fa6998bf2ddd85047142dc2",
+    "input_sha256": "9d649b824cb149a0b13e0444a7e2820947c21800e24460ce140d85bb9e881bbc",
+    "packed_resource_sha256": "1ff04845e2639f4ac95dcdeeed4a8188a3ca4e391361819204de1da9a6a7b5c5",
+    "native_unity": true,
+    "pixel_verified": false,
+    "adopted": false,
+    "front_independent_rig_complete": false,
+    "new_direction_expression_complete": false,
+    "directional_frames": 8,
+    "sorting_display_only_examples": 5,
+    "actual_conversation_verified": true,
+    "tap_parent_route_verified": true,
+    "sequence_kind": "fixed-step actual public GuidePoint and AdvanceFrame; not real-time FPS",
+    "observed_directions": [
+        "Back",
+        "Front",
+        "Left",
+        "Right"
+    ],
+    "pairs": [
+        {
+            "id": "authored-011",
+            "mode": "Left",
+            "comparison_kind": "current-game-vs-independent-parts-at-same-clock",
+            "body_unchanged_for_shadow": false,
+            "level": 0,
+            "changed_pixels": 15169,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 274,
+            "allowed_y": 355,
+            "allowed_width": 172,
+            "allowed_height": 203,
+            "display_heading_only": false,
+            "display_heading_x": 0.0,
+            "display_heading_y": 0.0,
+            "camera_x": 0.0,
+            "camera_y": 0.15000000596046448,
+            "water_clock": 0.1666666716337204,
+            "water_phase": 0.1666666716337204,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 17,
+            "store_writes": 4,
+            "state_sha256": "aabf05d0d85fcd21364a79c8702e810ec40abd3e9b7d55c008c54d125857509b",
+            "world_model_sha256": "e64982619e0ba4ec1ef70819ab5525216bdd84691180ec7b298458f48b105dd8",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "authored-011-before-reconstructed.png",
+                "sha256": "ae40be7a5bf69229efc2a84cd7194ee46990ae52a3db853d0084bca94d760866",
+                "bytes": 1819969,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "authored-011-after.png",
+                "sha256": "ed9e1a29fd00ee7f733bc937f4e42066d27885634a3a834033d1d0927dc05bed",
+                "bytes": 1823470,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "authored-011-before-left-after-right.jpg",
+                "sha256": "65923d8bb4015b5f46ccfc3bd7f1c7e42e74b9164c0005cf1fc99137ef3e877c",
+                "bytes": 856071,
+                "width": 1440,
+                "height": 1280
+            },
+            "name_control": {
+                "mode": "candidate-resident-name-visibility-in-reconstructed-before-only",
+                "before_applied": true,
+                "after_natural": true,
+                "only_name_visibility_changed": true,
+                "natural_visibility_changed": false,
+                "natural_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": true
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "controlled_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": true
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "product_after": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": true
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "natural_before_image": {
+                    "file": "authored-011-before-reconstructed.png",
+                    "sha256": "ae40be7a5bf69229efc2a84cd7194ee46990ae52a3db853d0084bca94d760866",
+                    "bytes": 1819969,
+                    "width": 720,
+                    "height": 1280
+                }
+            }
+        },
+        {
+            "id": "authored-029",
+            "mode": "Left",
+            "comparison_kind": "current-game-vs-independent-parts-at-same-clock",
+            "body_unchanged_for_shadow": false,
+            "level": 0,
+            "changed_pixels": 15182,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 184,
+            "allowed_y": 355,
+            "allowed_width": 173,
+            "allowed_height": 206,
+            "display_heading_only": false,
+            "display_heading_x": 0.0,
+            "display_heading_y": 0.0,
+            "camera_x": 0.0,
+            "camera_y": 0.15000000596046448,
+            "water_clock": 0.1666666716337204,
+            "water_phase": 0.1666666716337204,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 17,
+            "store_writes": 4,
+            "state_sha256": "aabf05d0d85fcd21364a79c8702e810ec40abd3e9b7d55c008c54d125857509b",
+            "world_model_sha256": "f79ce03d2a9d0fe148179d0ab573c07015c1356e641f4168b07125cb23eb910e",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "authored-029-before-reconstructed.png",
+                "sha256": "b9bfab822b4c39a862ce68e6302d675a8ab5d906414ebaf381596b16c194b0e0",
+                "bytes": 1903771,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "authored-029-after.png",
+                "sha256": "2062cdbcb7b7573cef9fe9bf859c15e82e73daae58942ab56c472cd7cd9db5b1",
+                "bytes": 1907728,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "authored-029-before-left-after-right.jpg",
+                "sha256": "6f3533658b5307c91b6106375fbeb9bcfcd9d1937ff7e1fa8eb475613c387a40",
+                "bytes": 879512,
+                "width": 1440,
+                "height": 1280
+            },
+            "name_control": {
+                "mode": "candidate-resident-name-visibility-in-reconstructed-before-only",
+                "before_applied": true,
+                "after_natural": true,
+                "only_name_visibility_changed": true,
+                "natural_visibility_changed": false,
+                "natural_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": true
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "controlled_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": true
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "product_after": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": true
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "natural_before_image": {
+                    "file": "authored-029-before-reconstructed.png",
+                    "sha256": "b9bfab822b4c39a862ce68e6302d675a8ab5d906414ebaf381596b16c194b0e0",
+                    "bytes": 1903771,
+                    "width": 720,
+                    "height": 1280
+                }
+            }
+        },
+        {
+            "id": "authored-044",
+            "mode": "Left",
+            "comparison_kind": "current-game-vs-independent-parts-at-same-clock",
+            "body_unchanged_for_shadow": false,
+            "level": 0,
+            "changed_pixels": 15182,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 153,
+            "allowed_y": 354,
+            "allowed_width": 172,
+            "allowed_height": 206,
+            "display_heading_only": false,
+            "display_heading_x": 0.0,
+            "display_heading_y": 0.0,
+            "camera_x": 0.0,
+            "camera_y": 0.15000000596046448,
+            "water_clock": 0.1666666716337204,
+            "water_phase": 0.1666666716337204,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 17,
+            "store_writes": 4,
+            "state_sha256": "aabf05d0d85fcd21364a79c8702e810ec40abd3e9b7d55c008c54d125857509b",
+            "world_model_sha256": "6fd4172e2a0bbbf7946cb46fe3e90a80448689635c97d09f85ba4698532c5beb",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "authored-044-before-reconstructed.png",
+                "sha256": "190d8093b013b568422163b4eebeb52539f916de539e451d00f8d5afe60d2ebd",
+                "bytes": 1817089,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "authored-044-after.png",
+                "sha256": "3ea7c38742e137ff2779023edc42a9f9b89dab159e031fc058ba466dd29706d0",
+                "bytes": 1820860,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "authored-044-before-left-after-right.jpg",
+                "sha256": "85232223e89f6e676d10c22c180c1be542ecfbe5ef25449c6cf335a68facba45",
+                "bytes": 853309,
+                "width": 1440,
+                "height": 1280
+            },
+            "name_control": {
+                "mode": "candidate-resident-name-visibility-in-reconstructed-before-only",
+                "before_applied": true,
+                "after_natural": true,
+                "only_name_visibility_changed": true,
+                "natural_visibility_changed": false,
+                "natural_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": true
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "controlled_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": true
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "product_after": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": true
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "natural_before_image": {
+                    "file": "authored-044-before-reconstructed.png",
+                    "sha256": "190d8093b013b568422163b4eebeb52539f916de539e451d00f8d5afe60d2ebd",
+                    "bytes": 1817089,
+                    "width": 720,
+                    "height": 1280
+                }
+            }
+        },
+        {
+            "id": "authored-050",
+            "mode": "Right",
+            "comparison_kind": "current-game-vs-independent-parts-at-same-clock",
+            "body_unchanged_for_shadow": false,
+            "level": 0,
+            "changed_pixels": 16538,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 164,
+            "allowed_y": 356,
+            "allowed_width": 172,
+            "allowed_height": 205,
+            "display_heading_only": false,
+            "display_heading_x": 0.0,
+            "display_heading_y": 0.0,
+            "camera_x": 0.0,
+            "camera_y": 0.15000000596046448,
+            "water_clock": 0.1666666716337204,
+            "water_phase": 0.1666666716337204,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 17,
+            "store_writes": 4,
+            "state_sha256": "aabf05d0d85fcd21364a79c8702e810ec40abd3e9b7d55c008c54d125857509b",
+            "world_model_sha256": "767fd17b4c37a8f63b5ea3b2c4077d777c18b1bb7009151a0f9276a305a12dcc",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "authored-050-before-reconstructed.png",
+                "sha256": "2fce34a7c7084fbf924b3c6d4ced5a774c00fdf33fb1ce1733ebad67af8342d2",
+                "bytes": 1903742,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "authored-050-after.png",
+                "sha256": "f31a0752fd3b33ab85e159d26c8bb172967787ba99693a4ed75376af80f18dab",
+                "bytes": 1908306,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "authored-050-before-left-after-right.jpg",
+                "sha256": "fcc158c44c0014a86c7b94d86d85060ec45a7ff925a779dfa3b384f3405b295a",
+                "bytes": 880198,
+                "width": 1440,
+                "height": 1280
+            },
+            "name_control": {
+                "mode": "candidate-resident-name-visibility-in-reconstructed-before-only",
+                "before_applied": true,
+                "after_natural": true,
+                "only_name_visibility_changed": true,
+                "natural_visibility_changed": false,
+                "natural_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": true
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "controlled_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": true
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "product_after": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": true
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "natural_before_image": {
+                    "file": "authored-050-before-reconstructed.png",
+                    "sha256": "2fce34a7c7084fbf924b3c6d4ced5a774c00fdf33fb1ce1733ebad67af8342d2",
+                    "bytes": 1903742,
+                    "width": 720,
+                    "height": 1280
+                }
+            }
+        },
+        {
+            "id": "authored-101",
+            "mode": "Back",
+            "comparison_kind": "current-game-vs-independent-parts-at-same-clock",
+            "body_unchanged_for_shadow": false,
+            "level": 0,
+            "changed_pixels": 13788,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 366,
+            "allowed_y": 374,
+            "allowed_width": 171,
+            "allowed_height": 211,
+            "display_heading_only": false,
+            "display_heading_x": 0.0,
+            "display_heading_y": 0.0,
+            "camera_x": 0.0,
+            "camera_y": 0.15000000596046448,
+            "water_clock": 0.1666666716337204,
+            "water_phase": 0.1666666716337204,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 17,
+            "store_writes": 4,
+            "state_sha256": "aabf05d0d85fcd21364a79c8702e810ec40abd3e9b7d55c008c54d125857509b",
+            "world_model_sha256": "1063ca8469d7030f6244864d40c32c31acf8e66403ee8e8e55c7794242694418",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "authored-101-before-reconstructed.png",
+                "sha256": "68e09c0b6c911be6501410e36939a5448219466689d540c24de4ebe67ff853b4",
+                "bytes": 1576739,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "authored-101-after.png",
+                "sha256": "f40eb59ee301adbef355809e100d6179fd0da8af0a63f1741f3dae5969523704",
+                "bytes": 1581074,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "authored-101-before-left-after-right.jpg",
+                "sha256": "9f608971becbbdd88b70dd5b1a38b4106be1b09052eadbfe13f81be34e14a3f6",
+                "bytes": 732866,
+                "width": 1440,
+                "height": 1280
+            },
+            "name_control": {
+                "mode": "candidate-resident-name-visibility-in-reconstructed-before-only",
+                "before_applied": true,
+                "after_natural": true,
+                "only_name_visibility_changed": true,
+                "natural_visibility_changed": false,
+                "natural_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "controlled_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "product_after": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "natural_before_image": {
+                    "file": "authored-101-before-reconstructed.png",
+                    "sha256": "68e09c0b6c911be6501410e36939a5448219466689d540c24de4ebe67ff853b4",
+                    "bytes": 1576739,
+                    "width": 720,
+                    "height": 1280
+                }
+            }
+        },
+        {
+            "id": "authored-104",
+            "mode": "Back",
+            "comparison_kind": "current-game-vs-independent-parts-at-same-clock",
+            "body_unchanged_for_shadow": false,
+            "level": 0,
+            "changed_pixels": 14021,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 366,
+            "allowed_y": 374,
+            "allowed_width": 174,
+            "allowed_height": 212,
+            "display_heading_only": false,
+            "display_heading_x": 0.0,
+            "display_heading_y": 0.0,
+            "camera_x": 0.0,
+            "camera_y": 0.15000000596046448,
+            "water_clock": 0.1666666716337204,
+            "water_phase": 0.1666666716337204,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 17,
+            "store_writes": 4,
+            "state_sha256": "aabf05d0d85fcd21364a79c8702e810ec40abd3e9b7d55c008c54d125857509b",
+            "world_model_sha256": "f26948b06ed85c6b3daf25594c52f5afe7ea471544ad9c0a49fc9813f4429800",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "authored-104-before-reconstructed.png",
+                "sha256": "0ee3fc7682e48183be3380243d7df8dee22a5801ed74cfef6c34dc21d65d8912",
+                "bytes": 1576861,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "authored-104-after.png",
+                "sha256": "282ea8ef16ac5b91386da66cddf279b1f51abbd49099f919aed94afeda777a15",
+                "bytes": 1581343,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "authored-104-before-left-after-right.jpg",
+                "sha256": "c45e0a703f5826715278cd98e94e7d186e7b8f3a9dbec342eae7e246ddd234a2",
+                "bytes": 732720,
+                "width": 1440,
+                "height": 1280
+            },
+            "name_control": {
+                "mode": "candidate-resident-name-visibility-in-reconstructed-before-only",
+                "before_applied": true,
+                "after_natural": true,
+                "only_name_visibility_changed": true,
+                "natural_visibility_changed": false,
+                "natural_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "controlled_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "product_after": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "natural_before_image": {
+                    "file": "authored-104-before-reconstructed.png",
+                    "sha256": "0ee3fc7682e48183be3380243d7df8dee22a5801ed74cfef6c34dc21d65d8912",
+                    "bytes": 1576861,
+                    "width": 720,
+                    "height": 1280
+                }
+            }
+        },
+        {
+            "id": "authored-158",
+            "mode": "Back",
+            "comparison_kind": "current-game-vs-independent-parts-at-same-clock",
+            "body_unchanged_for_shadow": false,
+            "level": 0,
+            "changed_pixels": 16484,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 385,
+            "allowed_y": 416,
+            "allowed_width": 172,
+            "allowed_height": 206,
+            "display_heading_only": false,
+            "display_heading_x": 0.0,
+            "display_heading_y": 0.0,
+            "camera_x": 0.0,
+            "camera_y": 0.15000000596046448,
+            "water_clock": 0.1666666716337204,
+            "water_phase": 0.1666666716337204,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 17,
+            "store_writes": 4,
+            "state_sha256": "aabf05d0d85fcd21364a79c8702e810ec40abd3e9b7d55c008c54d125857509b",
+            "world_model_sha256": "4af6d5f12c4dddc8f377825e575595fa5c929a7007f1ffc829c9a16d8ce02391",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "authored-158-before-reconstructed.png",
+                "sha256": "6d35098372816fc63fde3f362c12084300b4f9a59afb4e10f54d11b6e30388bb",
+                "bytes": 1796525,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "authored-158-after.png",
+                "sha256": "84b1e3e6d7656041ec8647ad7e78d7908572568a7fbf25eba75429050dec1742",
+                "bytes": 1800378,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "authored-158-before-left-after-right.jpg",
+                "sha256": "6ad5916e002411fecb36f818e3dd8f95c3f188bee93b46bf50127eb5018b175c",
+                "bytes": 843330,
+                "width": 1440,
+                "height": 1280
+            },
+            "name_control": {
+                "mode": "candidate-resident-name-visibility-in-reconstructed-before-only",
+                "before_applied": true,
+                "after_natural": true,
+                "only_name_visibility_changed": true,
+                "natural_visibility_changed": false,
+                "natural_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "controlled_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "product_after": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "natural_before_image": {
+                    "file": "authored-158-before-reconstructed.png",
+                    "sha256": "6d35098372816fc63fde3f362c12084300b4f9a59afb4e10f54d11b6e30388bb",
+                    "bytes": 1796525,
+                    "width": 720,
+                    "height": 1280
+                }
+            }
+        },
+        {
+            "id": "authored-195",
+            "mode": "Front",
+            "comparison_kind": "current-game-vs-independent-parts-at-same-clock",
+            "body_unchanged_for_shadow": false,
+            "level": 0,
+            "changed_pixels": 16313,
+            "outside_allowed_pixels": 0,
+            "allowed_x": 350,
+            "allowed_y": 377,
+            "allowed_width": 172,
+            "allowed_height": 205,
+            "display_heading_only": false,
+            "display_heading_x": 0.0,
+            "display_heading_y": 0.0,
+            "camera_x": 0.0,
+            "camera_y": 0.15000000596046448,
+            "water_clock": 0.1666666716337204,
+            "water_phase": 0.1666666716337204,
+            "original_water_phase": 0.10000000149011612,
+            "unity_frame": 17,
+            "store_writes": 4,
+            "state_sha256": "aabf05d0d85fcd21364a79c8702e810ec40abd3e9b7d55c008c54d125857509b",
+            "world_model_sha256": "754ad691d9a491bfbda9b8bbb82dca88af8bdb3cfe64e8bb7b626c2c649e18ce",
+            "frame_unchanged": true,
+            "actors_unchanged": true,
+            "camera_unchanged": true,
+            "water_clock_unchanged": true,
+            "water_phase_unchanged": true,
+            "state_unchanged": true,
+            "store_writes_unchanged": true,
+            "world_model_unchanged": true,
+            "other_five_unchanged": true,
+            "before": {
+                "file": "authored-195-before-reconstructed.png",
+                "sha256": "9cff03690bf5a3552dc247d75396f990625c0b1e2ea2db5ba19cf2a99bdf0ad7",
+                "bytes": 1799318,
+                "width": 720,
+                "height": 1280
+            },
+            "after": {
+                "file": "authored-195-after.png",
+                "sha256": "96c1868f7bb3ef5435813f6f992a8c4ada3ea667c2fc83850ffc08b12dd5dd2a",
+                "bytes": 1799945,
+                "width": 720,
+                "height": 1280
+            },
+            "comparison": {
+                "file": "authored-195-before-left-after-right.jpg",
+                "sha256": "383dbabc585b8ec427e68c8e00b608f66823e8319fbebd57822cae32a09077bc",
+                "bytes": 845927,
+                "width": 1440,
+                "height": 1280
+            },
+            "name_control": {
+                "mode": "candidate-resident-name-visibility-in-reconstructed-before-only",
+                "before_applied": true,
+                "after_natural": true,
+                "only_name_visibility_changed": true,
+                "natural_visibility_changed": false,
+                "natural_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "controlled_before": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "product_after": [
+                    {
+                        "character_id": "fio",
+                        "active": false
+                    },
+                    {
+                        "character_id": "lulu",
+                        "active": false
+                    },
+                    {
+                        "character_id": "miel",
+                        "active": false
+                    },
+                    {
+                        "character_id": "momo",
+                        "active": false
+                    },
+                    {
+                        "character_id": "noah",
+                        "active": true
+                    },
+                    {
+                        "character_id": "pom",
+                        "active": false
+                    }
+                ],
+                "natural_before_image": {
+                    "file": "authored-195-before-reconstructed.png",
+                    "sha256": "9cff03690bf5a3552dc247d75396f990625c0b1e2ea2db5ba19cf2a99bdf0ad7",
+                    "bytes": 1799318,
+                    "width": 720,
+                    "height": 1280
+                }
+            }
+        }
+    ],
+    "frames": [
+        {
+            "index": 0,
+            "simulated_seconds": 0.06666667014360428,
+            "world_x": 0.0,
+            "world_y": -0.25,
+            "direction": "Left",
+            "image": {
+                "file": "sequence-000.jpg",
+                "sha256": "68831cd5e00c50db0d17b94e1a791291da046af341cd0c7269688e6ae05e7a81",
+                "bytes": 17660,
+                "width": 172,
+                "height": 203
+            }
+        },
+        {
+            "index": 3,
+            "simulated_seconds": 0.2666666805744171,
+            "world_x": 0.0,
+            "world_y": -0.25,
+            "direction": "Left",
+            "image": {
+                "file": "sequence-003.jpg",
+                "sha256": "a6bb9b4ac6a093c9bc2443505555083480b0829e5e14e33ef455dec4508e2143",
+                "bytes": 17682,
+                "width": 172,
+                "height": 203
+            }
+        },
+        {
+            "index": 6,
+            "simulated_seconds": 0.46666666865348816,
+            "world_x": 0.0,
+            "world_y": -0.25,
+            "direction": "Left",
+            "image": {
+                "file": "sequence-006.jpg",
+                "sha256": "ed62f99f4648fde5522b1621204b62b143eef1f1200e6185d873b4e6f6258df3",
+                "bytes": 17651,
+                "width": 172,
+                "height": 203
+            }
+        },
+        {
+            "index": 9,
+            "simulated_seconds": 0.6666666865348816,
+            "world_x": 0.0,
+            "world_y": -0.25,
+            "direction": "Left",
+            "image": {
+                "file": "sequence-009.jpg",
+                "sha256": "53d7acb4f4959e1969ed7280108d33cd2012f2b336a0baf4d0090567b8f65585",
+                "bytes": 17647,
+                "width": 172,
+                "height": 203
+            }
+        },
+        {
+            "index": 12,
+            "simulated_seconds": 0.8666666746139526,
+            "world_x": -0.002500000409781933,
+            "world_y": -0.25,
+            "direction": "Left",
+            "image": {
+                "file": "sequence-012.jpg",
+                "sha256": "3066e009fb1c3e1ad2b6c36fe1284f22948bc473ee41a233d49ba74b0e808351",
+                "bytes": 17622,
+                "width": 171,
+                "height": 203
+            }
+        },
+        {
+            "index": 15,
+            "simulated_seconds": 1.0666667222976685,
+            "world_x": -0.02433333732187748,
+            "world_y": -0.25,
+            "direction": "Left",
+            "image": {
+                "file": "sequence-015.jpg",
+                "sha256": "75eb9e014562c1db189937d6fed062b69053cad7fe7b6c52082dd609607fbb9f",
+                "bytes": 17568,
+                "width": 172,
+                "height": 203
+            }
+        },
+        {
+            "index": 18,
+            "simulated_seconds": 1.2666666507720947,
+            "world_x": -0.048333339393138885,
+            "world_y": -0.25,
+            "direction": "Left",
+            "image": {
+                "file": "sequence-018.jpg",
+                "sha256": "f5eb038497dfdc307a02e4931d3147503a6367eb58efe362b7ff5e230d33dfc5",
+                "bytes": 17632,
+                "width": 171,
+                "height": 203
+            }
+        },
+        {
+            "index": 21,
+            "simulated_seconds": 1.4666666984558105,
+            "world_x": -0.07233334332704544,
+            "world_y": -0.25,
+            "direction": "Left",
+            "image": {
+                "file": "sequence-021.jpg",
+                "sha256": "e83ccac15d6e50a74bbd8e071199b5429e616de81c9a3f12cd21f99605728b5a",
+                "bytes": 17462,
+                "width": 171,
+                "height": 203
+            }
+        },
+        {
+            "index": 24,
+            "simulated_seconds": 1.6666666269302368,
+            "world_x": -0.096333347260952,
+            "world_y": -0.25,
+            "direction": "Left",
+            "image": {
+                "file": "sequence-024.jpg",
+                "sha256": "46fabd4656d3f73cacbba653ef09aef39e8836ce25c938d2f4e25a780e80ed74",
+                "bytes": 17685,
+                "width": 172,
+                "height": 203
+            }
+        },
+        {
+            "index": 27,
+            "simulated_seconds": 1.8666666746139526,
+            "world_x": -0.12033335119485855,
+            "world_y": -0.25,
+            "direction": "Left",
+            "image": {
+                "file": "sequence-027.jpg",
+                "sha256": "5e0a3d3440fd65a934ec4e01f7b9f0ac906dfc985b76c2cd6f3955b1abaf57ee",
+                "bytes": 17788,
+                "width": 172,
+                "height": 203
+            }
+        },
+        {
+            "index": 30,
+            "simulated_seconds": 2.066666603088379,
+            "world_x": -0.14433331787586212,
+            "world_y": -0.25,
+            "direction": "Left",
+            "image": {
+                "file": "sequence-030.jpg",
+                "sha256": "f1dbffd00e878a92543f26000b988088113a80201298c4cd3eba81e9e699b64f",
+                "bytes": 18088,
+                "width": 171,
+                "height": 203
+            }
+        },
+        {
+            "index": 33,
+            "simulated_seconds": 2.2666666507720947,
+            "world_x": -0.1683332771062851,
+            "world_y": -0.25,
+            "direction": "Left",
+            "image": {
+                "file": "sequence-033.jpg",
+                "sha256": "ea96312a54a26e862b91a90d04ab1317f912635cf73db6fa94f9d40c9a48ebd6",
+                "bytes": 18235,
+                "width": 172,
+                "height": 203
+            }
+        },
+        {
+            "index": 36,
+            "simulated_seconds": 2.4666666984558105,
+            "world_x": -0.18433324992656708,
+            "world_y": -0.25,
+            "direction": "Left",
+            "image": {
+                "file": "sequence-036.jpg",
+                "sha256": "a7178b5fe5f2928ab0218da917ae581abe1f36550d57001ea44036ca98b85afd",
+                "bytes": 18531,
+                "width": 171,
+                "height": 203
+            }
+        },
+        {
+            "index": 39,
+            "simulated_seconds": 2.6666667461395264,
+            "world_x": -0.18433324992656708,
+            "world_y": -0.25,
+            "direction": "Left",
+            "image": {
+                "file": "sequence-039.jpg",
+                "sha256": "880122b0fccea15421a951f297636bee2dff2792e1c61031a2e3345270b5cd87",
+                "bytes": 18488,
+                "width": 171,
+                "height": 203
+            }
+        },
+        {
+            "index": 42,
+            "simulated_seconds": 2.866666555404663,
+            "world_x": -0.18433324992656708,
+            "world_y": -0.25,
+            "direction": "Left",
+            "image": {
+                "file": "sequence-042.jpg",
+                "sha256": "490f37c520dee612fe53cd1113e3bc151fdb9b66f220ab531ac14519d9fa3989",
+                "bytes": 18516,
+                "width": 171,
+                "height": 203
+            }
+        },
+        {
+            "index": 45,
+            "simulated_seconds": 3.066666603088379,
+            "world_x": -0.18433324992656708,
+            "world_y": -0.25,
+            "direction": "Left",
+            "image": {
+                "file": "sequence-045.jpg",
+                "sha256": "1458a40db92da045f532384f92cd9865a2a4190d7f9cf6e4ccd4dc88cb19216d",
+                "bytes": 18488,
+                "width": 171,
+                "height": 203
+            }
+        },
+        {
+            "index": 48,
+            "simulated_seconds": 3.2666666507720947,
+            "world_x": -0.18184387683868408,
+            "world_y": -0.24976973235607147,
+            "direction": "Right",
+            "image": {
+                "file": "sequence-048.jpg",
+                "sha256": "8e1f1a0a949250c170dc8d4c9678379c833ed8a310e8aea84fe47d05f0b1e28d",
+                "bytes": 18989,
+                "width": 172,
+                "height": 204
+            }
+        },
+        {
+            "index": 51,
+            "simulated_seconds": 3.4666666984558105,
+            "world_x": -0.16010338068008423,
+            "world_y": -0.24775879085063934,
+            "direction": "Right",
+            "image": {
+                "file": "sequence-051.jpg",
+                "sha256": "8ec6c110b8d7b7ed3cf99204c65a98c240c9ec247c7869b684ea008044d2a500",
+                "bytes": 18876,
+                "width": 172,
+                "height": 204
+            }
+        },
+        {
+            "index": 54,
+            "simulated_seconds": 3.6666667461395264,
+            "world_x": -0.13620543479919434,
+            "world_y": -0.2455482929944992,
+            "direction": "Right",
+            "image": {
+                "file": "sequence-054.jpg",
+                "sha256": "45b2848e929d551082f6a9b62ad5a846f5c4ab23d39ea6e748048853840cb0dd",
+                "bytes": 18577,
+                "width": 172,
+                "height": 203
+            }
+        },
+        {
+            "index": 57,
+            "simulated_seconds": 3.866666555404663,
+            "world_x": -0.11230745911598206,
+            "world_y": -0.24333779513835907,
+            "direction": "Right",
+            "image": {
+                "file": "sequence-057.jpg",
+                "sha256": "8d8c83c404a39c3a92346a122bd08d27cfdc2eb3f6df350bf63fe5ce7e2a2349",
+                "bytes": 18163,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 60,
+            "simulated_seconds": 4.066666603088379,
+            "world_x": -0.08840946853160858,
+            "world_y": -0.24112729728221893,
+            "direction": "Right",
+            "image": {
+                "file": "sequence-060.jpg",
+                "sha256": "bb4c63c81c37fb07b432be2f1eadbf6c19d760180c81a8b35d9698ff56f31944",
+                "bytes": 18115,
+                "width": 172,
+                "height": 204
+            }
+        },
+        {
+            "index": 63,
+            "simulated_seconds": 4.266666889190674,
+            "world_x": -0.06451147794723511,
+            "world_y": -0.2389167994260788,
+            "direction": "Right",
+            "image": {
+                "file": "sequence-063.jpg",
+                "sha256": "4cff4bebfdf15820a0c1f7b6567ab7eade90190d8ea31f34858269d998adb046",
+                "bytes": 17921,
+                "width": 172,
+                "height": 204
+            }
+        },
+        {
+            "index": 66,
+            "simulated_seconds": 4.4666666984558105,
+            "world_x": -0.04061348736286163,
+            "world_y": -0.23670630156993866,
+            "direction": "Right",
+            "image": {
+                "file": "sequence-066.jpg",
+                "sha256": "cc9a018a686f2827494825604421d967bde0436976ec1d5a1ed72d4904def399",
+                "bytes": 18238,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 69,
+            "simulated_seconds": 4.666666507720947,
+            "world_x": -0.01671549677848816,
+            "world_y": -0.23449580371379852,
+            "direction": "Right",
+            "image": {
+                "file": "sequence-069.jpg",
+                "sha256": "f3c613171f674fc13e548c4384be87e37bcc85931d6101f7df8f898772992397",
+                "bytes": 18062,
+                "width": 172,
+                "height": 204
+            }
+        },
+        {
+            "index": 72,
+            "simulated_seconds": 4.866666793823242,
+            "world_x": 0.0071824886836111546,
+            "world_y": -0.2322853058576584,
+            "direction": "Right",
+            "image": {
+                "file": "sequence-072.jpg",
+                "sha256": "327a2198e880ce4671c6509e00d819e0271d172ba7d9f20cbd961c841bb43fe5",
+                "bytes": 18255,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 75,
+            "simulated_seconds": 5.066666603088379,
+            "world_x": 0.031080476939678192,
+            "world_y": -0.23007480800151825,
+            "direction": "Right",
+            "image": {
+                "file": "sequence-075.jpg",
+                "sha256": "b4f079b550ad945e175fd7005b70152f49eb7c54876466a63b96f8ec47240c1e",
+                "bytes": 18110,
+                "width": 171,
+                "height": 203
+            }
+        },
+        {
+            "index": 78,
+            "simulated_seconds": 5.266666889190674,
+            "world_x": 0.054978467524051666,
+            "world_y": -0.2278643101453781,
+            "direction": "Right",
+            "image": {
+                "file": "sequence-078.jpg",
+                "sha256": "b66ffb842caff4aca207f2ba8c8a9ea527737b0f1b13bf6bfdd51c969f1071d4",
+                "bytes": 18426,
+                "width": 172,
+                "height": 204
+            }
+        },
+        {
+            "index": 81,
+            "simulated_seconds": 5.4666666984558105,
+            "world_x": 0.07887645810842514,
+            "world_y": -0.22565381228923798,
+            "direction": "Right",
+            "image": {
+                "file": "sequence-081.jpg",
+                "sha256": "db4f8bf9de0354994dae20ea2c6b391ffb271e6f81c1cd25fe4abe8b00fe4959",
+                "bytes": 18124,
+                "width": 171,
+                "height": 203
+            }
+        },
+        {
+            "index": 84,
+            "simulated_seconds": 5.666666507720947,
+            "world_x": 0.10284529626369476,
+            "world_y": -0.22502754628658295,
+            "direction": "Right",
+            "image": {
+                "file": "sequence-084.jpg",
+                "sha256": "ce0c39e76f45c29996a45b110a4e5fb169f037931af575c59140f152c71d58a4",
+                "bytes": 18382,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 87,
+            "simulated_seconds": 5.866666793823242,
+            "world_x": 0.12532632052898407,
+            "world_y": -0.22637303173542023,
+            "direction": "Right",
+            "image": {
+                "file": "sequence-087.jpg",
+                "sha256": "29d44c82f23d4adf24bc860f135e13e30b7391bc2418c9316380858410f56792",
+                "bytes": 18743,
+                "width": 172,
+                "height": 204
+            }
+        },
+        {
+            "index": 90,
+            "simulated_seconds": 6.066666603088379,
+            "world_x": 0.13583967089653015,
+            "world_y": -0.22521401941776276,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-090.jpg",
+                "sha256": "6f6f507267b75ef9ec29b03480f27f22eba3f60d18b9cd9adfe48008e6db3f6a",
+                "bytes": 17846,
+                "width": 172,
+                "height": 204
+            }
+        },
+        {
+            "index": 93,
+            "simulated_seconds": 6.266666889190674,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.2199999988079071,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-093.jpg",
+                "sha256": "9e6e671968266803447bce23e34b1bbaeb73f87994ad2ca6a841ebf325218140",
+                "bytes": 17804,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 96,
+            "simulated_seconds": 6.4666666984558105,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.2199999988079071,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-096.jpg",
+                "sha256": "0f383d3b45e1fe06493bb248efac53ffa6749d40b4faa74efb23d69b49f0b354",
+                "bytes": 13954,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 99,
+            "simulated_seconds": 6.666666507720947,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.2199999988079071,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-099.jpg",
+                "sha256": "b4cbe9fd627526301d28ece0aa5bf59a2a2ac6dc65fdb144ff24dadbfeb939cf",
+                "bytes": 13872,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 102,
+            "simulated_seconds": 6.866666793823242,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.2199999988079071,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-102.jpg",
+                "sha256": "8f66e81740211f0270a219e20657644eb1c03e6917c3420f0ab01188bd932e07",
+                "bytes": 13956,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 105,
+            "simulated_seconds": 7.066666603088379,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.2199999988079071,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-105.jpg",
+                "sha256": "3a58b881f015a5688411c01a8a421c34f556d4070fd7ae9ad1e115db4abe81f9",
+                "bytes": 13973,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 108,
+            "simulated_seconds": 7.266666889190674,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.2199999988079071,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-108.jpg",
+                "sha256": "7efa4038daa98c4344156ff167661f8866a70f001a1eaa77a16c2695b6feed2e",
+                "bytes": 13997,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 111,
+            "simulated_seconds": 7.4666666984558105,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.2199999988079071,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-111.jpg",
+                "sha256": "c2d8370ca453da60fb39753702b6279918d295a49497524cf3280f170dda0964",
+                "bytes": 14012,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 114,
+            "simulated_seconds": 7.666666507720947,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.2199999988079071,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-114.jpg",
+                "sha256": "8275a038636efe2ec99e1bae64310814be01fc6cb5582888624aeaef2ac9f62b",
+                "bytes": 14028,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 117,
+            "simulated_seconds": 7.866666793823242,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.2199999988079071,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-117.jpg",
+                "sha256": "b23a0d2c130c531d3f7962ab83aad7df622716fcfe918f01bab8328ff51d4b55",
+                "bytes": 14019,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 120,
+            "simulated_seconds": 8.066666603088379,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.2199999988079071,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-120.jpg",
+                "sha256": "a4df0505aed8506a6f61d619fda8e5e8ef6f4bac0a9809bba865ce75042149df",
+                "bytes": 13953,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 123,
+            "simulated_seconds": 8.266666412353516,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.2199999988079071,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-123.jpg",
+                "sha256": "18d5cc08efc01ad0cb3f88ffc8e6a804a43748a4b5cc5243a054736c1547dd92",
+                "bytes": 13937,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 126,
+            "simulated_seconds": 8.466666221618652,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.2199999988079071,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-126.jpg",
+                "sha256": "3811d449ee70448c408b7049f4be43108fe084c18bf27b29c07aeb5bcfe31d07",
+                "bytes": 13973,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 129,
+            "simulated_seconds": 8.666666984558105,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.2199999988079071,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-129.jpg",
+                "sha256": "14ff1b35911ea0a00683d5e0a2f2e46c3560176e5600e32d9cf945f18912dc92",
+                "bytes": 14086,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 132,
+            "simulated_seconds": 8.866666793823242,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.2199999988079071,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-132.jpg",
+                "sha256": "8cd8111189f4b6140c6722cfc7e3041a5d64c379a98542a5fe244f5b3ea402ef",
+                "bytes": 14026,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 135,
+            "simulated_seconds": 9.066666603088379,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.2199999988079071,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-135.jpg",
+                "sha256": "19da4ca435d63d280dd694ad4c22cf72f3c93685e67fd38b28067ac9b74973e7",
+                "bytes": 14063,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 138,
+            "simulated_seconds": 9.266666412353516,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.2199999988079071,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-138.jpg",
+                "sha256": "2f1c9bed9f0f421b8637375f140c30b4522833ebd5b9cb5556266c0143c0feb1",
+                "bytes": 14012,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 141,
+            "simulated_seconds": 9.466666221618652,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.2199999988079071,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-141.jpg",
+                "sha256": "4d9fe3d4d37dc984df20b22e18a19d3f37931b9b37511381767c7613bc3822d7",
+                "bytes": 14006,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 144,
+            "simulated_seconds": 9.666666984558105,
+            "world_x": 0.14209528267383575,
+            "world_y": -0.21863625943660736,
+            "direction": "Right",
+            "image": {
+                "file": "sequence-144.jpg",
+                "sha256": "1c2926080067a15e38fc0e0d8c14a5659ccedfddd2f5fdfd5308812e4787f665",
+                "bytes": 18737,
+                "width": 172,
+                "height": 204
+            }
+        },
+        {
+            "index": 147,
+            "simulated_seconds": 9.866666793823242,
+            "world_x": 0.15977229177951813,
+            "world_y": -0.2058352530002594,
+            "direction": "Right",
+            "image": {
+                "file": "sequence-147.jpg",
+                "sha256": "eeb8ec1e188aa7c2572f64accd751bbd03afb62da9aeb1d1c5db8dee4f59c9f8",
+                "bytes": 18748,
+                "width": 171,
+                "height": 203
+            }
+        },
+        {
+            "index": 150,
+            "simulated_seconds": 10.066666603088379,
+            "world_x": 0.17743325233459473,
+            "world_y": -0.1896112710237503,
+            "direction": "Right",
+            "image": {
+                "file": "sequence-150.jpg",
+                "sha256": "a7867a50ef232a8f91ec2b62501df3504cf2012c3bc214f48920bbefa6676137",
+                "bytes": 18863,
+                "width": 172,
+                "height": 204
+            }
+        },
+        {
+            "index": 153,
+            "simulated_seconds": 10.266666412353516,
+            "world_x": 0.17838945984840393,
+            "world_y": -0.17492322623729706,
+            "direction": "Left",
+            "image": {
+                "file": "sequence-153.jpg",
+                "sha256": "efae0da1d338d24fa17f2f87b1c9cf7279ddae2f23cbff7f3a0d6d2097b3a6b2",
+                "bytes": 17941,
+                "width": 171,
+                "height": 203
+            }
+        },
+        {
+            "index": 156,
+            "simulated_seconds": 10.466666221618652,
+            "world_x": 0.17725524306297302,
+            "world_y": -0.16536374390125275,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-156.jpg",
+                "sha256": "bb8e0981449069a508a6605e804b463f711b32c141eba84fa49a9855478bdef3",
+                "bytes": 17687,
+                "width": 172,
+                "height": 204
+            }
+        },
+        {
+            "index": 159,
+            "simulated_seconds": 10.666666984558105,
+            "world_x": 0.16638311743736267,
+            "world_y": -0.14830702543258667,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-159.jpg",
+                "sha256": "3f6f224613ed09380e46bd5d416720aa59bdd3602f7f6ad2ab1f0a7131c1c060",
+                "bytes": 17950,
+                "width": 172,
+                "height": 204
+            }
+        },
+        {
+            "index": 162,
+            "simulated_seconds": 10.866666793823242,
+            "world_x": 0.15773585438728333,
+            "world_y": -0.12591898441314697,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-162.jpg",
+                "sha256": "c15b9b6e0689e11d336b42ee19637f7293350873b4d04fc19c094b1f04f7dd3d",
+                "bytes": 17859,
+                "width": 171,
+                "height": 203
+            }
+        },
+        {
+            "index": 165,
+            "simulated_seconds": 11.066666603088379,
+            "world_x": 0.14908863604068756,
+            "world_y": -0.1035308986902237,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-165.jpg",
+                "sha256": "643f44f4c5374383562d2d82c8def1ed6b8053eaf76089a28d03ea129691b8d7",
+                "bytes": 18691,
+                "width": 171,
+                "height": 203
+            }
+        },
+        {
+            "index": 168,
+            "simulated_seconds": 11.266666412353516,
+            "world_x": 0.14319825172424316,
+            "world_y": -0.08828040957450867,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-168.jpg",
+                "sha256": "674ebe38fb49abe8d8f7e1701815be7079d9bdfa46081f95df569fd2afe08634",
+                "bytes": 19058,
+                "width": 171,
+                "height": 203
+            }
+        },
+        {
+            "index": 171,
+            "simulated_seconds": 11.466666221618652,
+            "world_x": 0.1405247300863266,
+            "world_y": -0.08135852217674255,
+            "direction": "Back",
+            "image": {
+                "file": "sequence-171.jpg",
+                "sha256": "c7503545ad3ceac25b5c831a04d18ede19c347a21438937fae3ddad3f9962bbd",
+                "bytes": 19168,
+                "width": 172,
+                "height": 203
+            }
+        },
+        {
+            "index": 174,
+            "simulated_seconds": 11.666666984558105,
+            "world_x": 0.13778004050254822,
+            "world_y": -0.08114969730377197,
+            "direction": "Left",
+            "image": {
+                "file": "sequence-174.jpg",
+                "sha256": "d457293570c65bb35dbeaed3c6ce8a1ec8cb8f2b79691da22d131f65c1a2865a",
+                "bytes": 19544,
+                "width": 171,
+                "height": 203
+            }
+        },
+        {
+            "index": 177,
+            "simulated_seconds": 11.866666793823242,
+            "world_x": 0.118771992623806,
+            "world_y": -0.09188047796487808,
+            "direction": "Left",
+            "image": {
+                "file": "sequence-177.jpg",
+                "sha256": "47c9be17af670f6e08dafb763560c9362771260ce3521934430575d4d8ed0bc6",
+                "bytes": 18459,
+                "width": 171,
+                "height": 203
+            }
+        },
+        {
+            "index": 180,
+            "simulated_seconds": 12.066666603088379,
+            "world_x": 0.09909433126449585,
+            "world_y": -0.1056017279624939,
+            "direction": "Left",
+            "image": {
+                "file": "sequence-180.jpg",
+                "sha256": "b17733ac93e62d769dc1e6cf35e0a84ad82896b87c522bda9f628b81ea3ee9e9",
+                "bytes": 18155,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 183,
+            "simulated_seconds": 12.266666412353516,
+            "world_x": 0.08906272798776627,
+            "world_y": -0.12357430905103683,
+            "direction": "Front",
+            "image": {
+                "file": "sequence-183.jpg",
+                "sha256": "811ac88063c1e609871da38246dd7ecd25be5ce9781830ed2eafe436c53d8b37",
+                "bytes": 16531,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 186,
+            "simulated_seconds": 12.466666221618652,
+            "world_x": 0.09572006016969681,
+            "world_y": -0.14663253724575043,
+            "direction": "Front",
+            "image": {
+                "file": "sequence-186.jpg",
+                "sha256": "5c2d6b3f3a9c99687d9d5e55c312caea67b698d46ef66330427cab84cc990ade",
+                "bytes": 16638,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 189,
+            "simulated_seconds": 12.666666984558105,
+            "world_x": 0.10237739235162735,
+            "world_y": -0.16969077289104462,
+            "direction": "Front",
+            "image": {
+                "file": "sequence-189.jpg",
+                "sha256": "bf341f3de34d4fe52eca67e818a6ae82dbd153957f7715b40c9225d503511d1b",
+                "bytes": 16755,
+                "width": 172,
+                "height": 204
+            }
+        },
+        {
+            "index": 192,
+            "simulated_seconds": 12.866666793823242,
+            "world_x": 0.10903472453355789,
+            "world_y": -0.1927490085363388,
+            "direction": "Front",
+            "image": {
+                "file": "sequence-192.jpg",
+                "sha256": "26b9d887a4536d400ba6e9065d5b4068c23f1a13adc59f5048788948194c5297",
+                "bytes": 16811,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 195,
+            "simulated_seconds": 13.066666603088379,
+            "world_x": 0.11569204926490784,
+            "world_y": -0.215807244181633,
+            "direction": "Front",
+            "image": {
+                "file": "sequence-195.jpg",
+                "sha256": "82a3fd8545594fe38763824d3e69fcfc35d4444eb7b607103a880610a2fbcbdd",
+                "bytes": 16727,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 198,
+            "simulated_seconds": 13.266666412353516,
+            "world_x": 0.12234937399625778,
+            "world_y": -0.23886547982692719,
+            "direction": "Front",
+            "image": {
+                "file": "sequence-198.jpg",
+                "sha256": "79e5d3a29d0a10dbd1add710058cdcc5e8720ad8551e922812b0c4ca9707242b",
+                "bytes": 16775,
+                "width": 172,
+                "height": 204
+            }
+        },
+        {
+            "index": 201,
+            "simulated_seconds": 13.466666221618652,
+            "world_x": 0.12900669872760773,
+            "world_y": -0.2619237005710602,
+            "direction": "Front",
+            "image": {
+                "file": "sequence-201.jpg",
+                "sha256": "7afc56f2d568842828fd3ad5f7b9fdf3b22621a90492eeacdbe1c5f078ae7aee",
+                "bytes": 16673,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 204,
+            "simulated_seconds": 13.666666984558105,
+            "world_x": 0.1353747397661209,
+            "world_y": -0.28397995233535767,
+            "direction": "Front",
+            "image": {
+                "file": "sequence-204.jpg",
+                "sha256": "952478280c55d6d264ee3a46ca1d880a9c6d9c0a5ee5d887f50ad41c108f9cc7",
+                "bytes": 16526,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 207,
+            "simulated_seconds": 13.866666793823242,
+            "world_x": 0.13839852809906006,
+            "world_y": -0.29445314407348633,
+            "direction": "Front",
+            "image": {
+                "file": "sequence-207.jpg",
+                "sha256": "f9a172db5ae8d1a344d7c8564462ab3d8ae36a300d5d780cda3b075b7cb60ed6",
+                "bytes": 16476,
+                "width": 171,
+                "height": 204
+            }
+        },
+        {
+            "index": 210,
+            "simulated_seconds": 14.066666603088379,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.30000001192092896,
+            "direction": "Front",
+            "image": {
+                "file": "sequence-210.jpg",
+                "sha256": "5b25f1c04136f66692c638a45919debebfec9c33a069281980060e6baed0fdb7",
+                "bytes": 16424,
+                "width": 172,
+                "height": 204
+            }
+        },
+        {
+            "index": 213,
+            "simulated_seconds": 14.266666412353516,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.30000001192092896,
+            "direction": "Front",
+            "image": {
+                "file": "sequence-213.jpg",
+                "sha256": "a294cb9e73654a4f332dae0fd7c8a69c315138802a005f754bc9331b885531e2",
+                "bytes": 16451,
+                "width": 172,
+                "height": 204
+            }
+        },
+        {
+            "index": 216,
+            "simulated_seconds": 14.466666221618652,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.30000001192092896,
+            "direction": "Front",
+            "image": {
+                "file": "sequence-216.jpg",
+                "sha256": "0d535f76f45dde89e9ff3cfe403971509199dc6b271a628ada15ba15a64032ff",
+                "bytes": 16208,
+                "width": 172,
+                "height": 204
+            }
+        },
+        {
+            "index": 219,
+            "simulated_seconds": 14.666666984558105,
+            "world_x": 0.14000000059604645,
+            "world_y": -0.30000001192092896,
+            "direction": "Front",
+            "image": {
+                "file": "sequence-219.jpg",
+                "sha256": "44582dbab3e78912d54ba5a1aa96b423ba6dd7b3d680281bf3e28b50166eebcb",
+                "bytes": 16173,
+                "width": 172,
+                "height": 204
+            }
+        }
+    ]
+}

@@ -1,5 +1,13 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-10-31最新：最新ポムの実Unity通過／モモ・ルル過去原本も確認
+
+最新Pom121731-30b7e04d、sourcecdf36e0の3ZIPは実Unity1/1成功・失敗／skip／inconclusive0。rear_blink_verified=trueで後ろ向き瞬きの28頂点・形状／UV・厳格ログ検査も通過。70画像・11対の範囲外0を全照合し、素材digestもWindows CRLF＋PNG SHAから再現。原本References/Review/pom-authored-2026-10-31-121731/。修正後の受入候補として進行可、Pixel／正式採用は保留。
+
+同梱Momo114346とLulu114536はsource4fa3a9eで各1/1通過、各70画像・11対を検証。当時のvalidator関数をGitから取得し、新rearフラグを捏造せず歴史的結果として照合した。新rendererの検証へ流用しない。ノア185815 source7c98804も過去の承認方式資料として原本保存・1/1／98画像・8対を照合。古いadopted:falseは改変せず、後のユーザー承認は維持する。今回13ZIP／341原本／308画像を確認、他24の過去名添付は既存記録のまま再展開しない。統合104645／114313のreviewは途中停止source-infoだけで、完成APKなし。
+
+今回は記録だけ、ゲーム／撮影／原画／Noah master／街等の変更なし。次は既存prepare-characters-pixel-preview.ps1 -Install -Mode authored -Serial99RAY1BELH -MeasureSeconds600。フィオ／ミエルを含む5単体が同一最新版で全て通った後、全件各1回→6名→2APK→保存維持Pixel。失敗時だけ対象へ戻す。修正cdfを含む最新版を取得し、停止済み親runを完成runとして再利用しない。手順docs/characters-native-followup-2026-10-31.md。個別プレビュー待ち解除・ノア固定・GitHub許可継続、実FPS／熱／メモリ／タップ・6名同時・実機最終採用はまだ未確認。以下は履歴。
+
 ## 2026-10-31最新：ポム後ろ向きの瞬き修正／ポム単体再確認待ち
 
 統合run114313-ea1a4b7dはコンソール上モモ・ルル各1/1通過後、ポム114725-622e5eddで停止。受領したポム3ZIPはsource4fa3a9e、実Unity0成功／1失敗／skip0。原本77点／画像70枚、11因果対の範囲外0を確認したが、描画中の空パーツID例外をLogAssertが検出しており不合格。後ろ向きclosedHeadがJSONの空オブジェクトとして非nullになり、瞬き時に誤選択していた。原本References/Review/pom-authored-2026-10-31-114725/。ルル原本の独立照合はまだ未了。

@@ -1,0 +1,66 @@
+{
+  "image_record_count": 85,
+  "unique_image_count": 85,
+  "grounding": [
+    {
+      "id": "grounding-idle",
+      "direction": "Left",
+      "changed": 917,
+      "outside": 0,
+      "bbox_top_left": [
+        303,
+        899,
+        417,
+        915
+      ]
+    },
+    {
+      "id": "grounding-walk-0013",
+      "direction": "Left",
+      "changed": 941,
+      "outside": 0,
+      "bbox_top_left": [
+        366,
+        920,
+        479,
+        935
+      ]
+    },
+    {
+      "id": "grounding-walk-0111",
+      "direction": "Right",
+      "changed": 949,
+      "outside": 0,
+      "bbox_top_left": [
+        188,
+        920,
+        302,
+        935
+      ]
+    },
+    {
+      "id": "grounding-walk-0255",
+      "direction": "Back",
+      "changed": 1871,
+      "outside": 0,
+      "bbox_top_left": [
+        498,
+        902,
+        612,
+        929
+      ]
+    },
+    {
+      "id": "grounding-walk-0354",
+      "direction": "Front",
+      "changed": 1259,
+      "outside": 0,
+      "bbox_top_left": [
+        467,
+        762,
+        574,
+        788
+      ]
+    }
+  ]
+}

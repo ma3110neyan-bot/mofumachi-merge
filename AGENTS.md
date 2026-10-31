@@ -1,5 +1,11 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-10-31最新：モモ224754の実Unity通過／次は同版ミエル1件
+
+最新Momo224754-9621f543の4ZIPをCRC/SHA照合、92原本／85画像。実Unity1/1成功・failed/skip/inconclusive0、終了0。source3c38d28／FP621ee8f4は原CLI・proof・source-info一致。grounding_verified true、影5対はLeft/Left/Right/Back/Front、Backは0255で取得。全85画像のSHA・bytes・寸法検証に加え、5影差分を独立再計算して範囲外0。11従来比較の全contextフラグ、実歩行4方向、40固定刻み標本、5Sorting、tap／conversation／greet／blink／rear／Save不変を現validatorで照合。FF44efd5素材digestは現3PNG＋Windows CRLF layoutから再現。原本7記録・ZIP／全entry SHA・検算結果はReferences/Review/momo-grounding-passed-2026-10-31-224754/。画像本体は4受領ZIP／runtime保持で、repoに含むとは主張しない。
+
+今回記録のみ、コード・検査・原画・Noah・街・Saveは3c38d28から変更しない。モモ単体のnative確認通過であり、全6名／新全件／新APK／Pixel／正式固定は保留。古い212944等は再添付履歴として今回成功へ混ぜない。次はdocs/momo-grounding-capture-repair-2026-10-31.md最新先頭の絶対パスRemoteSigned -File capture-character-authored.ps1 -Character miel -OpenReviewだけ。今はGit更新不要、ユーザーの同じ3c38d28でMiel最小確認。全件／他3名／APK／Pixelを繰り返さない。ミエルの新ZIP全パート後に最終工程へ。GitHub feature push許可と途中確認待ち解除は継続。以下は履歴。
+
 ## 2026-10-31最新：モモ最終影比較のBack欠落を検査側だけ修正／次はモモ1件
 
 受領212944-eaacbdb6の4ZIPはCRC/SHA正常、91原本／85画像。f30cab4／FPc0be19eaは親212911と一致。実Unity0/1成功・1失敗・skip0。失敗はCaptureCharacterAuthored:241のgrounding_pairs方向集合（実Left/Right/Front、Back不足）。実歩行の全4方向観測は先に通過しており、追加比較を各経路13コマ目へ固定した撮影側の欠落。原XML/log/source/prepared6記録と全SHAはReferences/Review/momo-grounding-failed-2026-10-31-212944/。旧時刻の再添付は今回成功へ流用しない。

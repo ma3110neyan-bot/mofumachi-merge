@@ -1,5 +1,15 @@
 # モモ接地影の比較撮影だけ修正（2026-10-31）
 
+追記：最新224754-9621f543の4ZIPは実Unity1/1成功・failed/skip/inconclusive0。3c38d28／FP621ee8f4でMomo proof／source-info／CLIが一致。85画像のSHA・サイズ・寸法を全検証し、影5対の差分を再計算して範囲外0。Backはgrounding-walk-0255で取得済み。原画3PNGとWindows CRLF登録JSONからinput SHA ff44efd5を再現。原本7記録・全SHA・差分結果はReferences/Review/momo-grounding-passed-2026-10-31-224754/。今回の撮影タイミング修正の実Unity通過を確認。モモ単体の技術確認であり、6名／新APK／Pixel／正式固定の成功にはしない。
+
+次は同じ3c38d28のままミエル1件だけ。今回はGit更新・全件・APK・Pixel不要。Unityを閉じ、次のコマンドを使う。
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File "C:\Users\User\Desktop\Mofumachi\mofumachi-merge\scripts\capture-character-authored.ps1" -Character miel -OpenReview
+```
+
+終了時に選択される今回のミエルZIPを全パート提出する。以下は212944失敗と修正時の履歴。
+
 最新4ZIP（momo-authored-20261031-212944-eaacbdb6）をCRC/SHA照合し、91原本／85画像を確認。実Unityは1件中0成功・1失敗・skip0。source f30cab4、fingerprint c0be19eaで親記録と一致。原XML・ログ・素材準備記録・source-infoはReferences/Review/momo-grounding-failed-2026-10-31-212944/に保存、全画像のSHAと4ZIPのSHAも記録した。古い時刻のMomo ZIPを今回版の成功として扱わない。
 
 失敗は最後のgrounding_pairsの4方向集合照合。旧撮影は各経路13コマ目に固定され、北へ進む経路の途中の横向きを撮っていた。実際の歩行で4方向が観測される検査は先に通過したが、影比較5対の方向はLeft/Right/Frontだけだった。ゲームの背面表示を変更して解決しない。

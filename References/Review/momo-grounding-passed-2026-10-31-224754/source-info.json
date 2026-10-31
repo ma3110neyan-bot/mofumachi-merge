@@ -1,0 +1,12 @@
+﻿{
+    "scope":  "momo-only sequential native gate",
+    "gitRevision":  "3c38d284c3e52585a0e2110f0d5701c5b0046c20",
+    "productFingerprint":  "621ee8f4db32844615bf5aab95f6ffc39f713bb7679fff0eac0db83d2a25a0d6",
+    "native_test_passed":  true,
+    "source_unchanged":  true,
+    "visual_review_pending":  true,
+    "apk_generated":  false,
+    "pixel_verified":  false,
+    "adopted":  false,
+    "error":  ""
+}

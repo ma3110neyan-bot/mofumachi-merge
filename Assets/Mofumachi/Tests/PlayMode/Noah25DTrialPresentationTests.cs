@@ -43,9 +43,11 @@ namespace Mofumachi.Tests
             Canvas.ForceUpdateCanvases();var exactCurrent=body.canvasRenderer.GetMesh();
             Assert.That(exactCurrent.vertices.SequenceEqual(currentVertices)&&exactCurrent.colors32.SequenceEqual(currentColors),Is.True,"OFF must restore f451068 at the same clock.");
             Assert.That(noah.VisualRoot.localToWorldMatrix,Is.EqualTo(currentRoot));
-            Assert.That(dimensional.vertices.Min(v=>v.z),Is.LessThan(-3));
-            Assert.That(dimensional.colors32.Min(c=>c.r),Is.LessThan(237));
-            Assert.That(dimensional.colors32.All(c=>c.r==c.g&&c.g==c.b&&c.a==255),Is.True,"Only neutral lighting, not recoloring or opacity loss.");
+            // CanvasRenderer owns its mesh and may destroy it on a rebuild.
+            // Compare the copied frame data, never a borrowed pre-toggle mesh.
+            Assert.That(currentVertices.Min(v=>v.z),Is.LessThan(-3));
+            Assert.That(currentColors.Min(c=>c.r),Is.LessThan(237));
+            Assert.That(currentColors.All(c=>c.r==c.g&&c.g==c.b&&c.a==255),Is.True,"Only neutral lighting, not recoloring or opacity loss.");
             var shadow=noah.transform.Find("Noah soft ground shadow").GetComponent<UnityEngine.UI.Graphic>();
             Assert.That(shadow.GetComponent<CanvasRenderer>(),Is.Not.Null,"The soft shadow must keep its own renderer through trial toggles and Home lifecycle.");
             Assert.That(shadow.enabled&&!shadow.raycastTarget,Is.True);
@@ -53,7 +55,7 @@ namespace Mofumachi.Tests
             Assert.That(shadowMesh.vertexCount,Is.LessThanOrEqualTo(100));
             Assert.That(shadowMesh.colors32.Any(c=>c.a==0)&&shadowMesh.colors32.Any(c=>c.a>40),Is.True,"Soft edge and dark contact must both exist.");
             Assert.That(noah.NoahDepthFocusEnabled,Is.True);
-            var focusVertices=dimensional.vertices;var focusColors=dimensional.colors32;
+            var focusVertices=currentVertices;var focusColors=currentColors;
             float strongWidth=shadow.rectTransform.rect.width,strongAlpha=shadow.color.a;
             noah.SetNoahDepthFocusEnabled(false);Canvas.ForceUpdateCanvases();
             Assert.That(body.canvasRenderer.GetMesh().vertexCount,Is.EqualTo(720),"Current22 Before must retain its existing original-art grid.");
@@ -61,7 +63,7 @@ namespace Mofumachi.Tests
             noah.SetNoahDepthFocusEnabled(true);Canvas.ForceUpdateCanvases();
             Assert.That(body.canvasRenderer.GetMesh().vertices.SequenceEqual(focusVertices),Is.True,"Depth-only comparison must restore the identical instant.");
             Assert.That(body.canvasRenderer.GetMesh().colors32.SequenceEqual(focusColors),Is.True);
-            var candidateUv=dimensional.uv;
+            var candidateUv=currentUv;
             noah.SetNoahReprototypeEnabled(false);Canvas.ForceUpdateCanvases();
             var rejected=body.canvasRenderer.GetMesh();
             Assert.That(rejected.vertexCount,Is.EqualTo(624),"Before retains the rejected renderer's original grid.");

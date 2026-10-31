@@ -1,0 +1,19 @@
+﻿{
+    "gitRevision":  "237b12a62075ab23a2751a94802ef3eae94bb5de",
+    "productFingerprint":  "7afd33903a9c24d22383957c923adf7418039c63c6e8d710b8e0a29be0ec3be2",
+    "full_qa_verified":  false,
+    "single_native_verified":  true,
+    "six_native_verified":  false,
+    "builds_generated":  false,
+    "source_unchanged":  true,
+    "pixel_verified":  false,
+    "adopted":  false,
+    "singleRuns":  [
+                       "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\momo-authored-20261031-124656-e644c415",
+                       "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\lulu-authored-20261031-124846-c77bc975",
+                       "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\pom-authored-20261031-125037-31241fc7",
+                       "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\fio-authored-20261031-125236-0dfb6e04",
+                       "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\miel-authored-20261031-125426-df371246"
+                   ],
+    "error":  "Unity exit 2. Preserve this run: C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\characters-authored-20261031-124623-4875bad5"
+}

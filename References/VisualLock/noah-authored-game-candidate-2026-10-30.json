@@ -2233,7 +2233,7 @@
     },
     {
       "path": "Assets/Mofumachi/Tests/PlayMode/LayoutNoticeTests.cs",
-      "sha256": "9492439cd0f97593d8d79081d6320d293cfcfe549d94104e492a2219ee3242b2",
+      "sha256": "622b54b5af6c964684cd99c1252ac75f3d6d5e41471e8d961c16b5d80dc62616",
       "text_normalized": true
     },
     {
@@ -2303,7 +2303,7 @@
     },
     {
       "path": "Assets/Mofumachi/Tests/PlayMode/Noah25DTrialPresentationTests.cs",
-      "sha256": "a04f03fff97ec94d5a02629817c4318ea0d9c526798be7716c27549132dd690b",
+      "sha256": "b260933d6e57aa31dadd5ad139e76e535d4198570f8459867451e03472d0d5d5",
       "text_normalized": true
     },
     {
@@ -2333,7 +2333,7 @@
     },
     {
       "path": "Assets/Mofumachi/Tests/PlayMode/PopPresentationTests.cs",
-      "sha256": "3f7861968641831e774a53dd4a8881f5d52d2300e70ee0a5690ffbca681151e7",
+      "sha256": "95d52319db7a5d101fbc874d9506f7c5e0c39e8ba35bde0a0949d51d010271e3",
       "text_normalized": true
     },
     {
@@ -2836,5 +2836,29 @@
       "path": "scripts/test-noah-authored-pixel.ps1",
       "sha256": "4ba7d4feeb78c93645d449ddc3773e96d076551cbe4189bc41e0411e6789a239"
     }
-  ]
+  ],
+  "qa_test_maintenance_2026_10_31": {
+    "basis_revision": "237b12a62075ab23a2751a94802ef3eae94bb5de",
+    "scope": "Three legacy PlayMode test files only; no runtime/art/approved Noah master changes. All other 549 protected hashes retained.",
+    "files": [
+      {
+        "path": "Assets/Mofumachi/Tests/PlayMode/LayoutNoticeTests.cs",
+        "previous_sha256": "9492439cd0f97593d8d79081d6320d293cfcfe549d94104e492a2219ee3242b2",
+        "sha256": "622b54b5af6c964684cd99c1252ac75f3d6d5e41471e8d961c16b5d80dc62616",
+        "reason": "Disabled legacy shadows unregister native clipping; enabled graphics still require clipping and positive coverage."
+      },
+      {
+        "path": "Assets/Mofumachi/Tests/PlayMode/Noah25DTrialPresentationTests.cs",
+        "previous_sha256": "a04f03fff97ec94d5a02629817c4318ea0d9c526798be7716c27549132dd690b",
+        "sha256": "b260933d6e57aa31dadd5ad139e76e535d4198570f8459867451e03472d0d5d5",
+        "reason": "Copy geometry/UV/colors before rebuilding; never reuse destroyed CanvasRenderer-owned Mesh handles."
+      },
+      {
+        "path": "Assets/Mofumachi/Tests/PlayMode/PopPresentationTests.cs",
+        "previous_sha256": "3f7861968641831e774a53dd4a8881f5d52d2300e70ee0a5690ffbca681151e7",
+        "sha256": "95d52319db7a5d101fbc874d9506f7c5e0c39e8ba35bde0a0949d51d010271e3",
+        "reason": "Same UGUI lifecycle assertion, preserving existing size/position/visibility/action-overlap checks."
+      }
+    ]
+  }
 }

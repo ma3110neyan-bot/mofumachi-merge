@@ -905,19 +905,7 @@ namespace Mofumachi.Tests
                 Canvas.ForceUpdateCanvases();
                 beforeRender?.Invoke();Canvas.ForceUpdateCanvases();
                 foreach(var actor in Flow.GetComponentsInChildren<TownActor>().Where(a=>(a.NoahReprototypeEnabled||a.NoahAuthoredEnabled)&&a.RegionVisible))
-                {
-                    Graphic graphic=actor.NoahAuthoredEnabled&&actor.AuthoredDirection!=NoahAuthoredDirection.Front
-                        ?actor.GetComponentInChildren<NoahAuthoredGraphic>():actor.GetComponentInChildren<CharacterBodyGraphic>();
-                    Assert.That(graphic,Is.Not.Null,"Capture must inspect the active character renderer.");
-                    Assert.That(graphic.enabled,Is.True,"Disabled/stale graphics are not visual evidence.");
-                    var mesh=graphic.canvasRenderer.GetMesh();Assert.That(mesh,Is.Not.Null);
-                    Assert.That(mesh.vertexCount,Is.GreaterThan(0),"Empty geometry cannot pass clipping checks.");
-                    foreach(var vertex in mesh.vertices)
-                    {
-                        float depth=captureCamera.WorldToScreenPoint(graphic.transform.TransformPoint(vertex)).z;
-                        Assert.That(depth,Is.GreaterThan(captureCamera.nearClipPlane).And.LessThan(captureCamera.farClipPlane),"The complete dimensional Noah must fit the actual capture camera, not be clipped into a misleading comparison.");
-                    }
-                }
+                    AssertPortraitActorGeometry(actor);
                 captureCamera.Render();RenderTexture.active=target;image=new Texture2D(720,1280,TextureFormat.RGB24,false);image.ReadPixels(new Rect(0,0,720,1280),0,0);image.Apply();return image;
             }
             catch{if(image!=null)UnityEngine.Object.DestroyImmediate(image);throw;}

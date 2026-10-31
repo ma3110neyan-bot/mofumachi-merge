@@ -46,12 +46,7 @@ namespace Mofumachi.Tests
                         Assert.That(body,Is.Not.Null,"Each town actor must have its own full-body graphic.");
                         Assert.That(body.rectTransform,Is.SameAs(actor.VisualRoot));
                         Assert.That(body.CharacterId,Is.EqualTo(actor.CharacterId));
-                        foreach(var graphic in actor.GetComponentsInChildren<MaskableGraphic>())
-                        {
-                            Assert.That(graphic.maskable,Is.True,graphic.name);
-                            Assert.That(graphic.GetComponentInParent<RectMask2D>(),Is.SameAs(mask));
-                            Assert.That(graphic.canvasRenderer.hasRectClipping,Is.True,"Town actors must use native rectangle clipping: "+graphic.name);
-                        }
+                        TownGraphicAssertions.NativeMasking(new[]{actor},mask);
                         // RegionVisible includes a 90-unit prewarm margin. A
                         // resident can enter smoothly from outside the field;
                         // only its native-mask-clipped portion is drawn.

@@ -1,5 +1,16 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-10-31最新：5単体＋Edit144通過／Play248中5失敗を検査側だけ限定修正
+
+統合run124623-4875bad5のreview01受領、source237b12a／fingerprint7afd3390。親source-infoは5単体成功、Edit144/144、Play248中243成功・5失敗、skip／inconclusive0。原本5点＋SHA／XML判定はReferences/Review/characters-native-2026-10-31-124623/。最新5単体の画像原本は今回未受領。6名fixture／APK／Pixel未到達、失敗runを完成runとして使わない。
+
+Layout／Popの2件は無効な旧影にclip有効を要求、Noah旧試作1件は再構築で破棄された借用Meshを再参照していた。テスト側を有効／無効の正しいUGUI登録状態＋有効数正の検査、切替前の配列snapshot参照へ修正。Portrait2件は先読みRegionVisible内だが完全mask外のGraphicがmesh未生成となる可能性を切り分け中。native複合mask＋paddingと実矩形から可視性を独立計算し、実cullとの一致を必須化。画面内の非null／非空mesh・全頂点clip検査は維持。実位置が原本ログにないため原因確定・修正成功はWindows待ち。新回帰は隔離中央配置で実mask外の空meshを許容し、画面内の誤cull／空meshは拒否。歩行やPixelの証拠ではない。
+
+ゲームPresentation／Editor／Core・原画／5名素材・合格Noah master26点は不変。未採用旧game-candidate manifestだけ旧テスト3点の期待SHAを履歴付き更新。他549固定入力・552パス構成は維持。承認master／元の街・噴水baselineを変更しない。PlayMode APIコンパイル成功、限定PS routeの件数／filter／重複／異常拒否、Noah固定＋現552、LF/CRLF＋XML/PNG改変拒否は成功。実Unity修正後は未確認、クラウドのAPI成功と混同しない。
+
+次はdocs/characters-focused-qa-2026-10-31.mdのRemoteSigned子PowerShellで更新→scripts/diagnose-characters-qa.ps1だけ。失敗5件＋回帰1件、全件／5単体／APK／install／resetは行わない。今回のcharacters-qa-focus-*-review-01.zipを選択したExplorerを開く。6件成功後に最終全件／6名／同ソースAPK／Pixelへ。既存GitHub通信・feature push許可と個別確認待ち解除は継続、追加許可を要求しない。以下は履歴。
+
+
 ## 2026-10-31最新：最新ポムの実Unity通過／モモ・ルル過去原本も確認
 
 最新Pom121731-30b7e04d、sourcecdf36e0の3ZIPは実Unity1/1成功・失敗／skip／inconclusive0。rear_blink_verified=trueで後ろ向き瞬きの28頂点・形状／UV・厳格ログ検査も通過。70画像・11対の範囲外0を全照合し、素材digestもWindows CRLF＋PNG SHAから再現。原本References/Review/pom-authored-2026-10-31-121731/。修正後の受入候補として進行可、Pixel／正式採用は保留。

@@ -92,8 +92,7 @@ namespace Mofumachi.Tests
                     Assert.That(mask.isActiveAndEnabled,Is.True);Assert.That(RectBounds(home,field).height,Is.EqualTo(home.rect.height).Within(.1f),"The street fills the safe view behind floating controls");
                     Assert.That(quest.parent.GetSiblingIndex(),Is.GreaterThan(field.GetSiblingIndex()),"The next-step action stays above the scenery in render and input order");
                     var hero=life.Actors.Single(a=>a.Controlled);Assert.That(RectBounds(home,hero.VisualRoot).Overlaps(RectBounds(home,quest)),Is.False,"The whole controlled character must remain clear of the floating next-step action");
-                    foreach(var actor in life.Actors)foreach(var graphic in actor.GetComponentsInChildren<MaskableGraphic>())
-                    {Assert.That(graphic.maskable,Is.True);Assert.That(graphic.GetComponentInParent<RectMask2D>(),Is.SameAs(mask));Assert.That(graphic.canvasRenderer.hasRectClipping,Is.True);}
+                    TownGraphicAssertions.NativeMasking(life.Actors,mask);
                     Object.DestroyImmediate(home.gameObject);Object.DestroyImmediate(background.gameObject);
                 }
             }

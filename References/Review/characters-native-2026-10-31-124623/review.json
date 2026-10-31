@@ -1,0 +1,99 @@
+{
+  "archive": {
+    "file": "characters-authored-20261031-124623-4875bad5-review-01.zip",
+    "sha256": "2d02798e9febc35f00f1f3f93fc27556e5c50a31b053fc78f0a3f2c0f2d8a2c8",
+    "entries": 5
+  },
+  "source": {
+    "gitRevision": "237b12a62075ab23a2751a94802ef3eae94bb5de",
+    "productFingerprint": "7afd33903a9c24d22383957c923adf7418039c63c6e8d710b8e0a29be0ec3be2",
+    "full_qa_verified": false,
+    "single_native_verified": true,
+    "six_native_verified": false,
+    "builds_generated": false,
+    "source_unchanged": true,
+    "pixel_verified": false,
+    "adopted": false,
+    "singleRuns": [
+      "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\momo-authored-20261031-124656-e644c415",
+      "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\lulu-authored-20261031-124846-c77bc975",
+      "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\pom-authored-20261031-125037-31241fc7",
+      "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\fio-authored-20261031-125236-0dfb6e04",
+      "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\miel-authored-20261031-125426-df371246"
+    ],
+    "error": "Unity exit 2. Preserve this run: C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\characters-authored-20261031-124623-4875bad5"
+  },
+  "originals": [
+    {
+      "file": "full-editmode.log",
+      "bytes": 53406,
+      "sha256": "5c63f18c6f77af4fe0d20b99ebc1add3c7fdd2cc4f1f31d3eb285279351bf783"
+    },
+    {
+      "file": "full-editmode.xml",
+      "bytes": 108991,
+      "sha256": "354acb2cba48272823c3a0183e59c2b01a64e4dc7655aec85cff4709ba246921"
+    },
+    {
+      "file": "full-playmode.log",
+      "bytes": 325799,
+      "sha256": "bfa336f4978ece071cafacbf4862ada737dfaed6be930db4c4770bba338d550f"
+    },
+    {
+      "file": "full-playmode.xml",
+      "bytes": 213824,
+      "sha256": "fe08b3118141bad95641f5693ba24efada132e7feb77061d5d1f6e24119efb1a"
+    },
+    {
+      "file": "source-info.json",
+      "bytes": 1314,
+      "sha256": "8467b4bc54b8db4c62ac7fe41671a765e43f2405589002918ce635d182061d71"
+    }
+  ],
+  "full_editmode": {
+    "total": 144,
+    "passed": 144,
+    "failed": 0
+  },
+  "full_playmode": {
+    "total": "248",
+    "passed": "243",
+    "failed": "5",
+    "skipped": "0",
+    "inconclusive": "0",
+    "duration": "339.868157"
+  },
+  "failed_cases": [
+    {
+      "fullname": "Mofumachi.Tests.ExperienceCaptureTests.FountainShowRunsFromRealUpdatesWithinSixtySeconds",
+      "message": "  Expected: not null\n  But was:  null\n",
+      "stack": "at Mofumachi.Tests.ExperienceCaptureTests.Portrait (System.Action beforeRender) [0x00343] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\ExperienceCaptureTests.cs:923\nat Mofumachi.Tests.ExperienceCaptureTests+<FountainShowRunsFromRealUpdatesWithinSixtySeconds>d__60.MoveNext () [0x003ce] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\ExperienceCaptureTests.cs:832\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    },
+    {
+      "fullname": "Mofumachi.Tests.ExperienceCaptureTests.PortraitScreensRenderFromIsolatedStateWithoutWritingProgress",
+      "message": "  Expected: not null\n  But was:  null\n",
+      "stack": "at Mofumachi.Tests.ExperienceCaptureTests.Portrait (System.Action beforeRender) [0x00343] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\ExperienceCaptureTests.cs:923\nat Mofumachi.Tests.ExperienceCaptureTests.Capture (System.String directory, System.String name, System.Nullable`1[T] expectedDistrict) [0x00028] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\ExperienceCaptureTests.cs:934\nat Mofumachi.Tests.ExperienceCaptureTests+<CaptureBoundaryComparisons>d__76.MoveNext () [0x00301] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\ExperienceCaptureTests.cs:1013\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    },
+    {
+      "fullname": "Mofumachi.Tests.LayoutNoticeTests.PopulatedPortraitScreensKeepCharactersAndFeedbackAboveFixedActions",
+      "message": "  Expected: True\n  But was:  False\n",
+      "stack": "at Mofumachi.Tests.LayoutNoticeTests+<PopulatedPortraitScreensKeepCharactersAndFeedbackAboveFixedActions>d__2.MoveNext () [0x0033e] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\LayoutNoticeTests.cs:96\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    },
+    {
+      "fullname": "Mofumachi.Tests.Noah25DTrialPresentationTests.OnlyTownNoahOptsInAndTheCausalSwitchRestoresTheExactLegacyFrame",
+      "message": "UnityEngine.MissingReferenceException : The object of type 'UnityEngine.Mesh' has been destroyed but you are still trying to access it.\nYour script should either check if it is null or you should not destroy the object.",
+      "stack": "  at UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) [0x00065] in <93e6391e4688454a985ab5dc6ed6bd98>:0 \n  at UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) [0x0000a] in <93e6391e4688454a985ab5dc6ed6bd98>:0 \n  at UnityEngine.Mesh.get_canAccess () [0x00006] in <93e6391e4688454a985ab5dc6ed6bd98>:0 \n  at UnityEngine.Mesh.GetAllocArrayFromChannel[T] (UnityEngine.Rendering.VertexAttribute channel, UnityEngine.Rendering.VertexAttributeFormat format, System.Int32 dim) [0x00000] in <93e6391e4688454a985ab5dc6ed6bd98>:0 \n  at UnityEngine.Mesh.GetAllocArrayFromChannel[T] (UnityEngine.Rendering.VertexAttribute channel) [0x00009] in <93e6391e4688454a985ab5dc6ed6bd98>:0 \n  at UnityEngine.Mesh.get_vertices () [0x00000] in <93e6391e4688454a985ab5dc6ed6bd98>:0 \n  at Mofumachi.Tests.Noah25DTrialPresentationTests+<OnlyTownNoahOptsInAndTheCausalSwitchRestoresTheExactLegacyFrame>d__4.MoveNext () [0x00463] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\Noah25DTrialPresentationTests.cs:46 \n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52 "
+    },
+    {
+      "fullname": "Mofumachi.Tests.PopPresentationTests.FullBodyActorsFollowTheWorldMapOnShortAndTallScreens",
+      "message": "  Town actors must use native rectangle clipping: Town actor soft shadow\n  Expected: True\n  But was:  False\n",
+      "stack": "at Mofumachi.Tests.PopPresentationTests+<FullBodyActorsFollowTheWorldMapOnShortAndTallScreens>d__1.MoveNext () [0x0042c] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\PopPresentationTests.cs:53\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    }
+  ],
+  "single_evidence_received": "Aggregate source-info and console only; five child image sets were not uploaded with this archive.",
+  "repair_scope": "Test code and diagnostic routing only; native verification of repairs pending Windows.",
+  "six_native_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false
+}

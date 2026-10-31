@@ -1,5 +1,11 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-10-31最新：ミエル233455も実Unity通過／単体仕上げ完了→最終工程1回
+
+最新Miel233455-20ab666cの4ZIPはCRC/SHA正常、92原本／85画像。実Unity1/1成功・failed/skip/inconclusive0、終了0。sourceae95891／FP621ee8f4はCLI・proof・source-info一致。Momo224754とFP一致、3c38..aeのAssets/scripts/Tests/原画/VisualLock差分なし。grounding_verified true、Left/Left/Right/Back/Frontの5影対で範囲外0を再計算。全85画像SHA/bytes/寸法、11従来対context、歩行4方向／40固定刻み標本／5Sorting／tap／talk／greet／blink／rear／Save不変をvalidator照合。現3PNG＋Windows CRLF layoutからinput7d31fbb7を再現。原本7記録・全SHA・検算はReferences/Review/miel-grounding-passed-2026-10-31-233455/。画像本体は4ZIP/runtime保持、repoに全画像を含むとは言わない。古い140423/125426は今回成功へ流用しない。
+
+今回は記録だけ。モモとミエルの最終小調整の単体確認が揃ったので、新コードを加えず既存最終工程へ。docs/characters-final-pass-2026-10-31.md最新先頭の絶対パスRemoteSigned -File prepare-characters-final-pass.ps1 -Install -Serial99RAY1BELH -MeasureSeconds600。今はGit更新不要。同じ一sourceに5単体を揃える→全件各1回→6名fixture→比較2APK→Pixel baseline600→authored600で今回版を残す。Pixelは解除・USB許可、街表示後PCでEnter。最新の6名同時／新全件／APK／Pixelはまだ未確認、formal_fixed/adopted false。失敗時はその新runだけ共有し、全件を自動反復しない。終了時のfinal-review全パートを提出。GitHub記録push許可継続、街/Noah/原画/Save変更なし。以下は履歴。
+
 ## 2026-10-31最新：モモ224754の実Unity通過／次は同版ミエル1件
 
 最新Momo224754-9621f543の4ZIPをCRC/SHA照合、92原本／85画像。実Unity1/1成功・failed/skip/inconclusive0、終了0。source3c38d28／FP621ee8f4は原CLI・proof・source-info一致。grounding_verified true、影5対はLeft/Left/Right/Back/Front、Backは0255で取得。全85画像のSHA・bytes・寸法検証に加え、5影差分を独立再計算して範囲外0。11従来比較の全contextフラグ、実歩行4方向、40固定刻み標本、5Sorting、tap／conversation／greet／blink／rear／Save不変を現validatorで照合。FF44efd5素材digestは現3PNG＋Windows CRLF layoutから再現。原本7記録・ZIP／全entry SHA・検算結果はReferences/Review/momo-grounding-passed-2026-10-31-224754/。画像本体は4受領ZIP／runtime保持で、repoに含むとは主張しない。

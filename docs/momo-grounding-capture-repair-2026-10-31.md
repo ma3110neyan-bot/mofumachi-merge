@@ -1,5 +1,7 @@
 # モモ接地影の比較撮影だけ修正（2026-10-31）
 
+最新追記：ミエル233455も実Unity1/1成功・failed/skip/inconclusive0。Momo224754と同じFP621ee8f4で、影5対／歩行4方向／範囲外0／原画digestを検証。追加の単体修正は不要。[最終工程](characters-final-pass-2026-10-31.md)へ進む。以下のミエル単体コマンドは完了済みの履歴。
+
 追記：最新224754-9621f543の4ZIPは実Unity1/1成功・failed/skip/inconclusive0。3c38d28／FP621ee8f4でMomo proof／source-info／CLIが一致。85画像のSHA・サイズ・寸法を全検証し、影5対の差分を再計算して範囲外0。Backはgrounding-walk-0255で取得済み。原画3PNGとWindows CRLF登録JSONからinput SHA ff44efd5を再現。原本7記録・全SHA・差分結果はReferences/Review/momo-grounding-passed-2026-10-31-224754/。今回の撮影タイミング修正の実Unity通過を確認。モモ単体の技術確認であり、6名／新APK／Pixel／正式固定の成功にはしない。
 
 次は同じ3c38d28のままミエル1件だけ。今回はGit更新・全件・APK・Pixel不要。Unityを閉じ、次のコマンドを使う。

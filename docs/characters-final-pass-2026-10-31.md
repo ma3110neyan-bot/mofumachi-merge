@@ -1,6 +1,14 @@
 # キャラ2.5D 最終確認候補（2026-10-31）
 
-追記：212944のモモは比較撮影の方向不足で停止。今は全体コマンドを繰り返さず、[モモ1件の修正版確認](momo-grounding-capture-repair-2026-10-31.md)だけ実行する。以下の全体手順はその確認後の工程。
+最新結果：モモ224754とミエル233455はともに実Unity1/1成功、failed/skip/inconclusive0。接地影各5比較の前後左右・範囲外0を独立検算済み。両者のproductFingerprintは621ee8f4で一致し、原画入力SHAも再現した。今回調整した2名の単体確認が揃ったため、既存の最終工程を1回通す。新コード変更はなく、今回はGit更新不要。Unityを閉じ、Pixel 3aを接続・ロック解除して次を実行する。
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File "C:\Users\User\Desktop\Mofumachi\mofumachi-merge\scripts\prepare-characters-final-pass.ps1" -Install -Serial "99RAY1BELH" -MeasureSeconds 600
+```
+
+同じ一つのsourceに5単体を揃える→全件EditMode/PlayMode各1回→6名同時fixture→QA比較2APK→Pixel比較版10分→今回版10分。最後は今回版を残す。街が表示されたらPCでEnter、試遊後の体感・保存質問に回答する。現在の6名同時／新全件／APK／Pixel結果はまだ未確認で、正式固定を先行させない。失敗時は新runとエラーを保存して停止し、全件を反復しない。
+
+終端でエクスプローラーが選択する今回の`*-final-review-review-*.zip`を全パート提出する。以下は既存手順と過去説明。古いモモ単体だけの停止指示は今回の成功で更新。
 
 実装済み・実機未確認。正式固定は、新版の最終Unity／APK／Pixel結果を確認した後に行う。
 

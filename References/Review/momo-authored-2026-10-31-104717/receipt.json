@@ -1,0 +1,283 @@
+{
+  "archives": [
+    {
+      "file": "momo-authored-20261031-104717-828afa35-01.zip",
+      "sha256": "16f19e88500299ec4153af76b3091e7e2fb323094bd50993d330c26efd3d74d0",
+      "entries": 35
+    },
+    {
+      "file": "momo-authored-20261031-104717-828afa35-02.zip",
+      "sha256": "31457f43b84f8288999151db3263fa780d50d4eae7045536a78e54a4c5c96efc",
+      "entries": 3
+    }
+  ],
+  "files": [
+    {
+      "file": "01-idle-after.png",
+      "bytes": 1818414,
+      "sha256": "170149375df23aab795c6bd88ac6dce2e77486b699ed2260520c070a5bc12816",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "01-idle-before.png",
+      "bytes": 1815077,
+      "sha256": "b791b49b92cb5f7a28e5d8c6539e2e9da30df8041e8e89428293251e1b76159e",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0001.jpg",
+      "bytes": 373193,
+      "sha256": "bfc443b367d8cfe786c51e24a04e056c76c4ad8e4de45276bbae05e82945adce",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0013.jpg",
+      "bytes": 373603,
+      "sha256": "8703626d9e0b910aa0279c8a5b2894ba875d3914ed1b8a3dc38103d1d0ce345c",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0025.jpg",
+      "bytes": 373833,
+      "sha256": "3a6f2d62b60a79f3dcee309cf2f0702fad432966fa270951a2b1f0d65425eb1e",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0037.jpg",
+      "bytes": 373835,
+      "sha256": "2ae7af172c167e2eaffc4b4f7f80028accc29628243fd7d24ab48747b3e510bf",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0049.jpg",
+      "bytes": 373474,
+      "sha256": "1a91110b9954f7de25933e9bc5b1661abfe92a467d7dec6696445951c9551f69",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0061.jpg",
+      "bytes": 373463,
+      "sha256": "f5e429c272d57ac836bad53ee8151276a3ec4a9b8c136990794ebcc2f8bd8f4c",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0073.jpg",
+      "bytes": 373237,
+      "sha256": "d49fef0feed9aeb415fb6d9d1a5c9b2f1ac55ad166f86032de37c67d762df99d",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0085.jpg",
+      "bytes": 373138,
+      "sha256": "408d45d5ca186fbd63aea60fb239e272dc61a19a0103103f8e1f0535915f5ce5",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0097.jpg",
+      "bytes": 373071,
+      "sha256": "abdfd2f1d14c23bb73e35db3610b0370bf70b9a2dd5ff82d9b023c29f5e7b304",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0099.jpg",
+      "bytes": 358886,
+      "sha256": "6ec513d4c53d64727f6d13ec361e4684ce17512e80792ac21f81daf6217c4785",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0111.jpg",
+      "bytes": 358837,
+      "sha256": "cb195fb1d12ae361602054149340361077c0a022d4295b4b32c81dd457826da6",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0123.jpg",
+      "bytes": 359087,
+      "sha256": "ee2929ed0dc03c2dc60af47e50dbcf7e8be4d0b82b7a08e77793e85a0f48579d",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0135.jpg",
+      "bytes": 359265,
+      "sha256": "4427e7d9e6cdc5ede02e7adc82f49eaffabbc1c69dae8606583e01d161b700ad",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0147.jpg",
+      "bytes": 359507,
+      "sha256": "4e015ccc6f880431d2f8d7d34bc05cf5909509f01848d3c93138b5087ce9258e",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0159.jpg",
+      "bytes": 359682,
+      "sha256": "1b20ce8ab902ec8e1d824640c30a276b1c4716a15c670c2c847e2ae33ddad4fe",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0171.jpg",
+      "bytes": 359409,
+      "sha256": "649344843ab3f6ceee96959c5308d84978cc506ccc094b63595fed50031aa70e",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0183.jpg",
+      "bytes": 359196,
+      "sha256": "fc7c45e363ed2eb218e3591ebb75779cbb4d71c08130c2f4a5f2842bf9dbe3db",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0195.jpg",
+      "bytes": 359171,
+      "sha256": "3e41fac17e1c2d1da30ddbf2e4fd00c3d6da90e15d05995657503a31b6211884",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0207.jpg",
+      "bytes": 358550,
+      "sha256": "88785e5226455e1b8eb3075b92149ec1e9e196297ef0e6a249cf556e87075134",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0219.jpg",
+      "bytes": 359057,
+      "sha256": "df45976245c5a440b367b989856349be2a1e084e7956fb64d257cb6b104e1df9",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0231.jpg",
+      "bytes": 357991,
+      "sha256": "e8af3cc5f67bb13071febccea2146c35e101bd5c6c4aa4aebb6114cc0fcc8c78",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "natural-blink.png",
+      "bytes": 1911109,
+      "sha256": "4b1e6b4d7741b5652a367d33beaa56b483b936b0160d8eaa8e7470a69e0eb84d",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "playmode.log",
+      "bytes": 53041,
+      "sha256": "73b874a355ed3002c5d1c89426a09f99ae42afe79e02bba2a6c57cd5759b2ed3"
+    },
+    {
+      "file": "playmode.xml",
+      "bytes": 5501,
+      "sha256": "9a32dc8ff661ec952dd12574c014b22f481fddaaa80dc3a658188f48e123fe0a"
+    },
+    {
+      "file": "prepare.log",
+      "bytes": 44310,
+      "sha256": "dd83312210226b2f65d6c5208d2823bfab49d313e15660a5920005911dc76269"
+    },
+    {
+      "file": "prepared-momo.json",
+      "bytes": 18484,
+      "sha256": "ee7de4da25cdc416696a5b07116adf7fec4e560d547a64c4a34e97cf437da150"
+    },
+    {
+      "file": "prepared.json",
+      "bytes": 18484,
+      "sha256": "ee7de4da25cdc416696a5b07116adf7fec4e560d547a64c4a34e97cf437da150"
+    },
+    {
+      "file": "source-info.json",
+      "bytes": 574,
+      "sha256": "7c9d02126b06467eb662ff8d134f60c1dd1786fba408e93362fa5e0f4a4121d5"
+    },
+    {
+      "file": "stop-0098-after.png",
+      "bytes": 1714557,
+      "sha256": "0b407eceecd09540ffb9f25725f10e03616842aa00663a0362c32386d0900c2e",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "stop-0098-before.png",
+      "bytes": 1711433,
+      "sha256": "abaca371a07f766679bedc98f6704b53df3b814f88936867ba0abe8a2382ba0b",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "stop-0241-after.png",
+      "bytes": 1731059,
+      "sha256": "25dca5d66fdc1cff1fb0394ea9860ca8cacf661eb2fca602bb32d72dac0839c1",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "stop-0241-before.png",
+      "bytes": 1719353,
+      "sha256": "9e7cca8c448a49de32184a2122eee0555c4ffa3e853f2239008ae4d7e59802be",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "walk-0013-after.png",
+      "bytes": 1911514,
+      "sha256": "cdfc5577b35b25cbbf94def09cc3b70f3203e2113711bbca8ff7b92d3ec21e3b",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "walk-0013-before.png",
+      "bytes": 1908611,
+      "sha256": "6afd3863f3d5f62c2ff97e199ed7254b430a71960e62feae861de05be6e91bff",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "walk-0111-after.png",
+      "bytes": 1800062,
+      "sha256": "eed36997cad74ced135435f3b480f41a5bc5f71e13df84d4de1c9648aaa65bb5",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "walk-0111-before.png",
+      "bytes": 1796914,
+      "sha256": "7cf952a7b5e0918e9e17709edbdabbf7c64682ed4444a92d3633536031b6b132",
+      "width": 720,
+      "height": 1280
+    }
+  ],
+  "source_revision": "0efef45aacddd055f67cbe0b7ee4ade7d08b950e",
+  "product_fingerprint": "64641e5024696b5719fe2f2863761711808b7785a4e26b7b76a39cdd6cff4a15",
+  "native_tests": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "skipped": 0
+  },
+  "failure": "stop-0241: outside_allowed_pixels expected0, actual5362",
+  "observed": "Before Noah name plate visible; After hidden by normal caption collision policy. Additional capture lacks the fixed Noah capture name-control step.",
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false
+}

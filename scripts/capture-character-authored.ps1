@@ -38,6 +38,23 @@ function Remove-OwnedCharacterResources([string]$Repository,[string]$Directory){
     if(-not(Test-Path -LiteralPath $Marker -PathType Leaf) -or -not [string]::Equals([IO.File]::ReadAllText($Marker),[IO.Path]::GetFullPath($Directory),[StringComparison]::OrdinalIgnoreCase)){throw 'Preserve character resources owned by another run.'}
     [IO.Directory]::Delete($Folder,$true);if(Test-Path -LiteralPath ($Folder+'.meta')){[IO.File]::Delete($Folder+'.meta')}
 }
+function Assert-CharacterCaptionControl($Control){
+    if(-not $Control -or $Control.mode -cne 'candidate-resident-name-visibility-in-reconstructed-before-only'){throw 'Before-only caption comparison identity required.'}
+    foreach($Flag in @('before_applied','after_natural','only_name_visibility_changed')){if($Control.$Flag -isnot [bool] -or -not $Control.$Flag){throw "Caption comparison invariant failed: $Flag"}}
+    $Maps=@{};$KnownIds=@('momo','lulu','pom','fio','miel','noah')
+    foreach($Group in @('natural_before','controlled_before','product_after')){
+        $Rows=@($Control.$Group);$Map=@{}
+        if($Rows.Count -ne 6){throw 'All six caption states required.'}
+        foreach($Row in $Rows){if($Row.character_id -cnotin $KnownIds -or $Map.ContainsKey($Row.character_id) -or $Row.active -isnot [bool]){throw 'Invalid/duplicate caption state.'};$Map[$Row.character_id]=$Row.active};$Maps[$Group]=$Map
+    }
+    $Changed=$false
+    foreach($Name in $KnownIds){
+        if($Maps.controlled_before[$Name] -ne $Maps.product_after[$Name]){throw 'Before captions differ from natural After.'}
+        if($Maps.natural_before[$Name] -ne $Maps.product_after[$Name]){$Changed=$true}
+    }
+    if($Control.natural_visibility_changed -isnot [bool] -or $Control.natural_visibility_changed -ne $Changed){throw 'Caption change record does not match actual states.'}
+    if($Changed -and -not $Control.natural_before_image){throw 'Preserve the unmodified natural Before image when captions change.'}
+}
 function Assert-CharacterAuthoredProof([string]$Directory,[string]$Revision,[string]$Fingerprint,[string]$Id='momo'){
     [xml]$Xml=Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $Directory 'playmode.xml');$Cases=@($Xml.SelectNodes('//test-case'))
     if($Cases.Count -ne 1 -or $Cases[0].fullname -ne (Get-CharacterAuthoredMethod $Id) -or $Cases[0].result -ne 'Passed'){throw 'Exactly the new single passed character method is required.'}
@@ -48,9 +65,9 @@ function Assert-CharacterAuthoredProof([string]$Directory,[string]$Revision,[str
     foreach($Name in @('adopted','pixel_verified')){if($Proof.$Name -isnot [bool] -or $Proof.$Name){throw 'Single character capture cannot claim Pixel or adoption.'}}
     foreach($Name in @('Front','Left','Right','Back')){if($Name -notin $Proof.observed_directions){throw "Actual character walking direction missing: $Name"}}
     if(@($Proof.pairs | Where-Object {$_.changed_pixels -gt 0}).Count -lt 6 -or @($Proof.pairs | Where-Object {$_.outside_allowed_pixels -ne 0}).Count -gt 0){throw 'Character causal image checks incomplete.'}
-    foreach($Pair in $Proof.pairs){foreach($Name in @('frame_unchanged','actors_unchanged','other_five_unchanged','camera_unchanged','water_clock_unchanged','water_phase_unchanged','state_unchanged','store_writes_unchanged','world_model_unchanged')){if($Pair.$Name -isnot [bool] -or -not $Pair.$Name){throw "Changed causal comparison context: $Name"}}}
+    foreach($Pair in $Proof.pairs){Assert-CharacterCaptionControl $Pair.name_control;foreach($Name in @('frame_unchanged','actors_unchanged','other_five_unchanged','camera_unchanged','water_clock_unchanged','water_phase_unchanged','state_unchanged','store_writes_unchanged','world_model_unchanged')){if($Pair.$Name -isnot [bool] -or -not $Pair.$Name){throw "Changed causal comparison context: $Name"}}}
     $Base=Join-Path $Directory ('screenshots/'+$Id+'-authored')
-    $Images=@($Proof.frames)+@($Proof.sorting_images)+@($Proof.blink_image)+@($Proof.pairs | ForEach-Object {$_.before;$_.after})
+    $Images=@($Proof.frames)+@($Proof.sorting_images)+@($Proof.blink_image)+@($Proof.pairs | ForEach-Object {$_.before;$_.after;if($_.name_control.natural_visibility_changed){$_.name_control.natural_before_image}})
     foreach($Image in $Images){
         if(-not $Image -or [IO.Path]::GetFileName($Image.file) -ne $Image.file -or $Image.width -ne 720 -or $Image.height -ne 1280 -or $Image.sha256 -notmatch '^[a-f0-9]{64}$'){throw 'Invalid native image identity.'}
         $Path=Join-Path $Base $Image.file

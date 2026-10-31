@@ -1,0 +1,5 @@
+Exception: /workspace/mofumachi-merge/scripts/capture-character-authored.ps1:72
+Line |
+  72 |  … 6 -notmatch '^[a-f0-9]{64}$'){throw 'Invalid native image identity.'}
+     |                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid native image identity.

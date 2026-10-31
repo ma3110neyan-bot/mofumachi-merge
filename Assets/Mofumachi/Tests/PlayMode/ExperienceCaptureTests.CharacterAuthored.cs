@@ -25,32 +25,61 @@ namespace Mofumachi.Tests
         }
         private NativePair CaptureAdditionalPair(string output,TownLifeView field,TownActor actor,string label)
         {
-            Texture2D before=null,after=null;
+            Texture2D before=null,after=null,naturalBefore=null;
             try
             {
-                actor.SetCharacterAuthoredEnabled(false);before=Portrait();var area=EvidenceRect(ActorEvidenceRect(actor));
+                // Match the fixed Noah comparison: keep natural candidate
+                // captions in After, and reconstruct only Before's captions.
+                // Preserve the untouched natural Before whenever they differ.
+                actor.SetCharacterAuthoredEnabled(true);var warm=Portrait();UnityEngine.Object.DestroyImmediate(warm);
+                var candidateNames=NameVisibility(field);
+                actor.SetCharacterAuthoredEnabled(false);naturalBefore=Portrait();
+                var naturalNames=NameVisibility(field);var naturalGraphics=GraphicStates();
+                before=Portrait(()=>ApplyNames(field,candidateNames));
+                var control=new NativeNameControl{natural_before=naturalNames,controlled_before=NameVisibility(field),
+                    before_applied=SameNames(candidateNames,NameVisibility(field)),natural_visibility_changed=!SameNames(naturalNames,candidateNames),
+                    only_name_visibility_changed=OnlyNameVisibilityChanged(field,naturalGraphics,GraphicStates())};
+                if(control.natural_visibility_changed)control.natural_before_image=SaveNativeImage(output,label+"-ui-natural-before.png",naturalBefore);
+                Assert.That(control.before_applied&&control.only_name_visibility_changed,Is.True,"Reconstructed Before may change only resident-name visibility.");
+                if(!control.natural_visibility_changed)Assert.That(before.GetPixels32().SequenceEqual(naturalBefore.GetPixels32()),Is.True);
+                var beforeBounds=ActorEvidenceRect(actor);var beforeGraphics=GraphicStates();
                 string state=StateCodec.Encode(Flow.Game.State),model=ModelEvidence(field),others=ActorEvidence(field,true,actor.CharacterId),actors=ActorEvidence(field,false);
                 var camera=field.World.Camera.Center;int frame=Time.frameCount,writes=Store.Writes;
                 var water=field.GetComponentInChildren<TownFountainWaterGraphic>();var ambient=field.GetComponentInChildren<TownAmbientGraphic>();float waterClock=water.ShowElapsed,waterPhase=water.Phase,ambientPhase=ambient.Phase;
                 actor.SetCharacterAuthoredEnabled(true);after=Portrait();
+                var afterBounds=ActorEvidenceRect(actor);
+                var area=EvidenceRect(Rect.MinMaxRect(Mathf.Min(beforeBounds.xMin,afterBounds.xMin),Mathf.Min(beforeBounds.yMin,afterBounds.yMin),Mathf.Max(beforeBounds.xMax,afterBounds.xMax),Mathf.Max(beforeBounds.yMax,afterBounds.yMax)));
+                control.product_after=NameVisibility(field);control.after_natural=SameNames(candidateNames,control.product_after);
+                Assert.That(control.after_natural,Is.True,"After must keep the natural product caption state.");
                 Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));Assert.That(ModelEvidence(field),Is.EqualTo(model));
                 Assert.That(ActorEvidence(field,true,actor.CharacterId),Is.EqualTo(others));Assert.That(field.World.Camera.Center,Is.EqualTo(camera));
                 Assert.That(Time.frameCount,Is.EqualTo(frame));Assert.That(Store.Writes,Is.EqualTo(writes));
                 var graphic=actor.GetComponentInChildren<CharacterAuthoredGraphic>();
                 if(graphic.enabled)foreach(var v in graphic.canvasRenderer.GetMesh().vertices)
                 {float z=captureCamera.WorldToScreenPoint(graphic.transform.TransformPoint(v)).z;Assert.That(z,Is.GreaterThan(captureCamera.nearClipPlane).And.LessThan(captureCamera.farClipPlane));}
-                var pair=new NativePair{id=label,mode=actor.CharacterDirection.ToString(),comparison_kind="original-vs-Noah-method-same-clock",unity_frame=frame,store_writes=writes,camera_x=camera.X,camera_y=camera.Y,
+                var pair=new NativePair{id=label,mode=actor.CharacterDirection.ToString(),comparison_kind="original-vs-Noah-method-same-clock-caption-controlled-before",name_control=control,unity_frame=frame,store_writes=writes,camera_x=camera.X,camera_y=camera.Y,
                     allowed_x=area.x,allowed_y=area.y,allowed_width=area.width,allowed_height=area.height,water_clock=waterClock,water_phase=waterPhase,original_water_phase=ambientPhase,
                     state_sha256=EvidenceSha(System.Text.Encoding.UTF8.GetBytes(state)),world_model_sha256=EvidenceSha(System.Text.Encoding.UTF8.GetBytes(model)),
                     frame_unchanged=Time.frameCount==frame,actors_unchanged=ActorEvidence(field,false)==actors,other_five_unchanged=ActorEvidence(field,true,actor.CharacterId)==others,camera_unchanged=field.World.Camera.Center.Equals(camera),
                     water_clock_unchanged=water.ShowElapsed==waterClock,water_phase_unchanged=water.Phase==waterPhase&&ambient.Phase==ambientPhase,state_unchanged=StateCodec.Encode(Flow.Game.State)==state,store_writes_unchanged=Store.Writes==writes,world_model_unchanged=ModelEvidence(field)==model};
                 Assert.That(new[]{pair.frame_unchanged,pair.actors_unchanged,pair.other_five_unchanged,pair.camera_unchanged,pair.water_clock_unchanged,pair.water_phase_unchanged,pair.state_unchanged,pair.store_writes_unchanged,pair.world_model_unchanged},Is.All.True);
+                int outsideMinX=720,outsideMinY=1280,outsideMaxX=-1,outsideMaxY=-1;
                 var a=before.GetPixels32();var b=after.GetPixels32();for(int i=0;i<a.Length;i++)if(!a[i].Equals(b[i]))
-                {pair.changed_pixels++;if(!area.Contains(new Vector2Int(i%720,i/720)))pair.outside_allowed_pixels++;}
+                {
+                    pair.changed_pixels++;int x=i%720,y=i/720;
+                    if(!area.Contains(new Vector2Int(x,y))){pair.outside_allowed_pixels++;outsideMinX=Mathf.Min(outsideMinX,x);outsideMinY=Mathf.Min(outsideMinY,y);outsideMaxX=Mathf.Max(outsideMaxX,x);outsideMaxY=Mathf.Max(outsideMaxY,y);}
+                }
                 pair.before=SaveNativeImage(output,label+"-before.png",before);pair.after=SaveNativeImage(output,label+"-after.png",after);
+                if(pair.outside_allowed_pixels>0)
+                {
+                    var failure=new NativePairFailure{source_revision=EvidenceArgument("-mofumachiSourceRevision"),product_fingerprint=EvidenceArgument("-mofumachiProductFingerprint"),
+                        before_scope=beforeBounds,after_scope=afterBounds,pair=pair,outside_x_min=outsideMinX,outside_y_min=outsideMinY,outside_x_max=outsideMaxX,outside_y_max=outsideMaxY,
+                        before_graphics=beforeGraphics,after_graphics=GraphicStates()};
+                    File.WriteAllText(Path.Combine(output,label+"-FAILED.json"),JsonUtility.ToJson(failure,true));
+                }
                 Assert.That(pair.changed_pixels,Is.GreaterThan(0));Assert.That(pair.outside_allowed_pixels,Is.Zero);return pair;
             }
-            finally{actor.SetCharacterAuthoredEnabled(true);if(before!=null)UnityEngine.Object.DestroyImmediate(before);if(after!=null)UnityEngine.Object.DestroyImmediate(after);}
+            finally{actor.SetCharacterAuthoredEnabled(true);if(before!=null)UnityEngine.Object.DestroyImmediate(before);if(after!=null)UnityEngine.Object.DestroyImmediate(after);if(naturalBefore!=null)UnityEngine.Object.DestroyImmediate(naturalBefore);}
         }
         [UnityTest,Timeout(120000)] public IEnumerator MomoAuthoredPartsPreserveIdentityInputAndState()=>CaptureCharacterAuthored("momo");
         [UnityTest,Timeout(120000)] public IEnumerator LuluAuthoredPartsPreserveIdentityInputAndState()=>CaptureCharacterAuthored("lulu");

@@ -30,13 +30,31 @@ try{
     $Output=Join-Path $Root 'screenshots/momo-authored';New-Item -ItemType Directory -Path $Output -Force | Out-Null
     $ImagePath=Join-Path $Output 'synthetic.png';[IO.File]::WriteAllText($ImagePath,'synthetic validator bytes, not native evidence')
     $Image=@{file='synthetic.png';sha256=(Get-FileHash -LiteralPath $ImagePath -Algorithm SHA256).Hash.ToLowerInvariant();bytes=(Get-Item -LiteralPath $ImagePath).Length;width=720;height=1280}
-    $Pair=@{changed_pixels=20;outside_allowed_pixels=0;before=$Image;after=$Image}
+    $NaturalNames=@('fio','lulu','miel','momo','noah','pom') | ForEach-Object {@{character_id=$_;active=$true}}
+    $CandidateNames=@('fio','lulu','miel','momo','noah','pom') | ForEach-Object {@{character_id=$_;active=($_ -ne 'noah')}}
+    $Control=@{mode='candidate-resident-name-visibility-in-reconstructed-before-only';before_applied=$true;after_natural=$true;only_name_visibility_changed=$true;natural_visibility_changed=$true;natural_before=$NaturalNames;controlled_before=$CandidateNames;product_after=$CandidateNames;natural_before_image=$Image}
+    $Pair=@{changed_pixels=20;outside_allowed_pixels=0;before=$Image;after=$Image;name_control=$Control}
     foreach($Flag in @('frame_unchanged','actors_unchanged','other_five_unchanged','camera_unchanged','water_clock_unchanged','water_phase_unchanged','state_unchanged','store_writes_unchanged','world_model_unchanged')){$Pair[$Flag]=$true}
     $Proof=@{character='momo';gitRevision=('a'*40);productFingerprint=('b'*64);input_sha256=('c'*64);native_unity=$true;tap_verified=$true;conversation_verified=$true;save_unchanged=$true;greeting_authored=$true;talk_authored=$true;blink_authored=$true;blink_image=$Image;adopted=$false;pixel_verified=$false;sorting_examples=5;sorting_images=@($Image)*5;frames=@($Image)*8;pairs=@($Pair)*6;observed_directions=@('Front','Left','Right','Back')}
     '<test-run><test-case fullname="Mofumachi.Tests.ExperienceCaptureTests.MomoAuthoredPartsPreserveIdentityInputAndState" result="Passed" /></test-run>' | Set-Content -LiteralPath (Join-Path $Root 'playmode.xml') -Encoding UTF8
     @{characterId='momo';input_sha256=('c'*64)} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $Root 'prepared.json') -Encoding UTF8
     $ProofPath=Join-Path $Output 'proof.json';$Good=$Proof | ConvertTo-Json -Depth 8;Set-Content -LiteralPath $ProofPath -Value $Good -Encoding UTF8
     Assert-CharacterAuthoredProof $Root ('a'*40) ('b'*64)
+    $Unchanged=$Good | ConvertFrom-Json
+    foreach($P in $Unchanged.pairs){$P.name_control.natural_before=$P.name_control.product_after;$P.name_control.natural_visibility_changed=$false;$P.name_control.natural_before_image=[pscustomobject]@{file='';sha256='';bytes=0;width=0;height=0}}
+    $Unchanged | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $ProofPath -Encoding UTF8
+    Assert-CharacterAuthoredProof $Root ('a'*40) ('b'*64)
+    Set-Content -LiteralPath $ProofPath -Value $Good -Encoding UTF8
+    foreach($Flag in @('before_applied','after_natural','only_name_visibility_changed')){
+        $Bad=$Good | ConvertFrom-Json;$Bad.pairs[0].name_control.$Flag=$false;$Bad | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $ProofPath -Encoding UTF8
+        RejectCharacter {Assert-CharacterAuthoredProof $Root ('a'*40) ('b'*64)}
+    }
+    $Bad=$Good | ConvertFrom-Json;$Bad.pairs[0].name_control=$null;$Bad | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $ProofPath -Encoding UTF8;RejectCharacter {Assert-CharacterAuthoredProof $Root ('a'*40) ('b'*64)}
+    $Bad=$Good | ConvertFrom-Json;$Bad.pairs[0].name_control.natural_before_image=$null;$Bad | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $ProofPath -Encoding UTF8;RejectCharacter {Assert-CharacterAuthoredProof $Root ('a'*40) ('b'*64)}
+    $Bad=$Good | ConvertFrom-Json;$Bad.pairs[0].name_control.controlled_before[0].active=$true;$Bad.pairs[0].name_control.product_after[0].active=$false;$Bad | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $ProofPath -Encoding UTF8;RejectCharacter {Assert-CharacterAuthoredProof $Root ('a'*40) ('b'*64)}
+    $Bad=$Good | ConvertFrom-Json;$Bad.pairs[0].name_control.product_after=$Bad.pairs[0].name_control.product_after[0..4];$Bad | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $ProofPath -Encoding UTF8;RejectCharacter {Assert-CharacterAuthoredProof $Root ('a'*40) ('b'*64)}
+    $Bad=$Good | ConvertFrom-Json;$Bad.pairs[0].name_control.natural_visibility_changed=$false;$Bad | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $ProofPath -Encoding UTF8;RejectCharacter {Assert-CharacterAuthoredProof $Root ('a'*40) ('b'*64)}
+    Set-Content -LiteralPath $ProofPath -Value $Good -Encoding UTF8
     foreach($Flag in @('tap_verified','conversation_verified','save_unchanged','greeting_authored','talk_authored','blink_authored','native_unity','adopted','pixel_verified')){
         $Bad=$Good | ConvertFrom-Json;$Bad.$Flag=-not $Bad.$Flag;$Bad | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $ProofPath -Encoding UTF8
         RejectCharacter {Assert-CharacterAuthoredProof $Root ('a'*40) ('b'*64)}

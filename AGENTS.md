@@ -1,5 +1,11 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-10-31最新：モモ単体の比較撮影を修正／再確認待ち
+
+Windows run momo-authored-20261031-104717-828afa35の2ZIP受領。source0efef45、実Unityは1件失敗（stop-0241の範囲外5362画素）、APK／Pixelへ未到達。32画像を全デコードし、自然Beforeではノア名札が表示、Afterでは既存の名札回避で非表示となる差を確認。原本と判定はReferences/Review/momo-authored-2026-10-31-104717/。モモの画質／Pixel合格ではない。
+
+追加5名の比較撮影だけを、固定ノア検査と同じ「製品Afterは自然なまま／比較Beforeだけ名札を揃える」処理へ修正。自然Beforeが異なる場合は別PNGと全6名フラグを保存し、名前以外のGraphic状態・同瞬間・他5名・水・カメラ・Save不変と対象投影外0を維持する。ノア本体／正式素材／街／北境界／噴水／Core等は無変更。PSの証拠検証とPlayMode APIコンパイルは成功、修正後の実Unityは未確認。次はcapture-character-authored.ps1 -Character momoだけを再実行し、全件QA／APK／Pixelを先に繰り返さない。手順docs/momo-caption-comparison-fix-2026-10-31.md。既存GitHub通信・feature push許可は継続。
+
 ## 2026-10-31最新：GitHub反映確認済み／次はWindows・Pixel試験
 
 ユーザーが「GitHub通信と作業ブランチへのpushを許可します」と明示し、実行承認が通った。既存featureへの通常pushが8bc239c→08e0883で成功し、git ls-remoteで完全SHA08e0883e925f1a378e4421756a8f1b466f057b84の一致を確認した。以下の「反映未確認／承認画面待ち」は履歴。追加の許可を再要求しない。コードは7fda843の5名候補、519件成功の記録を含む08e0883が配布済みで、実Unity／APK／Pixelはまだ未確認。

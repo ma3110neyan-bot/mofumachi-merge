@@ -1,0 +1,5 @@
+Exception: /workspace/mofumachi-merge/scripts/tests/character-authored-route.tests.ps1:4
+Line |
+   4 |  … (-not $Caught){throw 'Invalid sequential character input accepted.'}}
+     |                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid sequential character input accepted.

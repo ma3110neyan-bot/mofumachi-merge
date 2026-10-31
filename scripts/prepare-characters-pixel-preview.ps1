@@ -39,6 +39,9 @@ function Read-CharactersPair([string]$Directory){
     if($Pair.baseline.packed_resource_sha256 -cne $Pair.authored.packed_resource_sha256 -or $Pair.baseline.sha256 -ceq $Pair.authored.sha256){throw 'Distinct same-resource/source pair required.'};return $Pair
 }
 function Write-CharactersReviewArchives([string]$Directory){
+    # Desktop PowerShell may not load the enum/stream types through FileSystem.
+    # Focused QA has no earlier Compress-Archive call to load them incidentally.
+    Add-Type -AssemblyName System.IO.Compression
     Add-Type -AssemblyName System.IO.Compression.FileSystem
     $Files=@(Get-ChildItem -LiteralPath $Directory -Recurse -File | Where-Object {$_.Extension -ne '.apk' -and $_.FullName -notlike (Join-Path $Directory 'full-screenshots/*') -and $_.FullName -notlike (Join-Path $Directory 'pixel-*') } | Sort-Object FullName)
     $Batches=New-Object 'System.Collections.Generic.List[object]';$Batch=New-Object 'System.Collections.Generic.List[object]';$Bytes=0L

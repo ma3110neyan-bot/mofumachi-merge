@@ -1,5 +1,14 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-10-31最新：限定6件は画面上通過／ZIP用DLL不足だけ修正
+
+Windows画面のrun characters-qa-focus-20261031-133851-5be71820はTests passed6/6。その後のwriterで型IO.Compression.ZipArchiveModeが見つからず停止。今回再添付124623-review01はSHA2d02798e9febc35f00f1f3f93fc27556e5c50a31b053fc78f0a3f2c0f2d8a2c8で既受領と同一、新6件のXML原本ではない。画面上の成功と原本照合を区別し、まだ全QA／APK／Pixel成功にはしない。
+
+原因はWindows PowerShellでSystem.IO.Compression.FileSystemだけを明示ロードしていたこと。短い限定経路には、旧全体経路の先行Compress-ArchiveによるSystem.IO.Compression暗黙ロードがない。組込みArchive moduleと既存five-area-reviewの両DLLロードを照合し、共有Write-CharactersReviewArchivesへ不足したAdd-Type System.IO.Compressionの1行＋説明だけ追加。ゲーム／キャラ素材／合格ノア／描画／テストは変更しない。関連PS routeの実ZIP検査は修正前後ともPowerShell7で成功（Windows5の再現成功とは呼ばない）。Noah固定＋現552の照合成功。
+
+次はdocs/characters-focused-qa-2026-10-31.md追記先頭の圧縮回復コマンドだけ。DLL2つをロード→既存133851のXML6件照合→原本そのままZIP→新ZIPを選択するExplorer。Unity／6件／全件／単体／APK／Pixelを再実行しない。元source-infoのArchiveエラーを消さず保持。期待する添付はcharacters-qa-focus-20261031-133851-5be71820-review-01.zipだけで旧124623ではない。新XMLの原本確認後に最終全件／6名／APK／Pixelへ進む。既存feature push許可は継続、許可再質問なし。以下は履歴。
+
+
 ## 2026-10-31最新：5単体＋Edit144通過／Play248中5失敗を検査側だけ限定修正
 
 統合run124623-4875bad5のreview01受領、source237b12a／fingerprint7afd3390。親source-infoは5単体成功、Edit144/144、Play248中243成功・5失敗、skip／inconclusive0。原本5点＋SHA／XML判定はReferences/Review/characters-native-2026-10-31-124623/。最新5単体の画像原本は今回未受領。6名fixture／APK／Pixel未到達、失敗runを完成runとして使わない。

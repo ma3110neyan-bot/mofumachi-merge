@@ -1,5 +1,30 @@
 # 5名通過後の全件QA停止：検査コードの限定修正
 
+## 追記：限定6件は画面上で通過、ZIP作成だけ停止
+
+ユーザーのWindows画面に `characters-qa-focus-20261031-133851-5be71820`、`Tests passed: 6/6` を確認。その後 `Write-CharactersReviewArchives` で `[IO.Compression.ZipArchiveMode]` が見つからず停止。今回の再添付は旧124623のZIPとSHA256 `2d02798e9febc35f00f1f3f93fc27556e5c50a31b053fc78f0a3f2c0f2d8a2c8` が同一で、今回の6件のXML原本はまだ未受領。画面での通過とXMLの独立確認を区別する。
+
+原因はWindows PowerShellの依存DLLロード。`System.IO.Compression.FileSystem` だけでは `ZipArchiveMode` を含む `System.IO.Compression` が型解決時にロード済みとは限らない。元の全体経路では先行単体の `Compress-Archive` が両DLLをロードしていたが、限定検査はそこを通らない。Microsoft.PowerShell.Archiveの実装、既存 `five-area-review.ps1` も両DLLを明示ロードする。共有writerに不足した `Add-Type -AssemblyName System.IO.Compression` だけを追加した。製品／テスト／描画・合格ノアは変更しない。
+
+既存の限定runのXML／ログ／source-infoを保持し、圧縮だけを回復する。source-info内の過去の `Archive:` エラーは書き換えない。下記はXMLの6件を再照合してZIPを作るだけで、Unity／全件／単体／APK／Pixelを再実行しない。冒頭でDLLを直接ロードするため、現在の94ca8c6 checkoutでも回復できる。共有writer修正は次の通常pullでも取得する。
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -Command {
+    $ErrorActionPreference = "Stop"
+    Set-Location -LiteralPath "C:\Users\User\Desktop\Mofumachi\mofumachi-merge"
+    Add-Type -AssemblyName System.IO.Compression
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    . ".\scripts\diagnose-characters-qa.ps1"
+    $mofuRun = ".\Builds\Diagnostics\characters-qa-focus-20261031-133851-5be71820"
+    Assert-CharactersFocusedResults (Join-Path $mofuRun "focused-playmode.xml")
+    $mofuZips = @(Write-CharactersReviewArchives (Resolve-Path -LiteralPath $mofuRun).Path)
+    Write-Host ("添付ファイル: " + $mofuZips[0])
+    Start-Process explorer.exe -ArgumentList ('/select,"' + $mofuZips[0] + '"')
+}
+```
+
+既存のPSアーカイブ検査はPowerShell7環境で元コードも成功していたため、Windows5の再現結果として扱わない。修正後も実ZIPの階層／APK除外を含む同じ関連検査を確認する。Windows5での回復成功と新XMLの独立確認は、このコマンド後の添付待ち。以下の全6件実行手順は履歴であり、今回繰り返さない。
+
 受領原本 `characters-authored-20261031-124623-4875bad5-review-01.zip` は source `237b12a62075ab23a2751a94802ef3eae94bb5de`、fingerprint `7afd33903a9c24d22383957c923adf7418039c63c6e8d710b8e0a29be0ec3be2`。5単体通過の親記録、EditMode144/144、PlayMode248件中243成功・5失敗。skip／inconclusive0。6名fixture・APK・Pixelは未到達。原本5点とSHA／XML判定は `References/Review/characters-native-2026-10-31-124623/` に保存した。最新5単体の画像ZIPは今回未受領であり、フィオ／ミエルの見た目確認を主張しない。
 
 ## 切り分けと変更

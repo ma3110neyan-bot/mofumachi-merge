@@ -4,6 +4,34 @@ $ErrorActionPreference='Stop'
 $RolloutOptions=@{Editor=$UnityEditorPath;Install=[bool]$Install;Directory=$BuildDirectory;Mode=$Mode;Serial=$Serial;Seconds=$MeasureSeconds}
 . (Join-Path $PSScriptRoot 'capture-character-authored.ps1')
 . (Join-Path $PSScriptRoot 'test-noah-authored-pixel.ps1')
+function Copy-CharactersFailedSingleRecords([string]$Repository,[string]$Parent,[string]$Single,[string]$Revision,[string]$Fingerprint){
+    $Repository=[IO.Path]::GetFullPath($Repository).TrimEnd('/','\');$Diagnostics=Join-Path $Repository 'Builds/Diagnostics'
+    $Parent=[IO.Path]::GetFullPath($Parent);$Single=[IO.Path]::GetFullPath($Single)
+    if(-not [string]::Equals((Split-Path -Parent $Single),$Diagnostics,[StringComparison]::OrdinalIgnoreCase) -or -not [string]::Equals((Split-Path -Parent $Parent),$Diagnostics,[StringComparison]::OrdinalIgnoreCase) -or (Split-Path -Leaf $Single) -cnotmatch '^(momo|lulu|pom|fio|miel)-authored-[0-9]{8}-[0-9]{6}-[a-f0-9]{8}$' -or (Split-Path -Leaf $Parent) -cnotmatch '^characters-authored-[0-9]{8}-[0-9]{6}-[a-f0-9]{8}$'){throw 'Exact parent and failed single directories under diagnostics required.'}
+    $Id=(Split-Path -Leaf $Single).Split('-')[0]
+    $Files=@(foreach($Name in @('source-info.json','playmode.xml','playmode.log','prepare.log','prepared.json',('prepared-'+$Id+'.json'))){$File=Join-Path $Single $Name;if(Test-Path -LiteralPath $File -PathType Leaf){Get-Item -LiteralPath $File -Force}})
+    # Validate ancestry and each whitelisted record before reading or creating
+    # the destination. Never traverse a link to diagnose a different run.
+    foreach($Path in @($Parent,$Single)+@($Files.FullName)){
+        $At=$Path
+        while($At.Length -gt $Repository.Length){
+            if(Test-Path -LiteralPath $At){if((Get-Item -LiteralPath $At -Force).Attributes -band [IO.FileAttributes]::ReparsePoint){throw 'Linked failure diagnostics are preserved in place.'}}
+            $At=Split-Path -Parent $At
+        }
+    }
+    $Source=Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $Single 'source-info.json') | ConvertFrom-Json
+    if($Source.gitRevision -cne $Revision -or $Source.productFingerprint -cne $Fingerprint){throw 'Failed-single source identity differs from this parent attempt.'}
+    $Target=Join-Path $Parent 'failed-single';if(Test-Path -LiteralPath $Target){throw 'Preserve existing failed-single diagnostic copy.'}
+    New-Item -ItemType Directory -Path $Target | Out-Null
+    $Rows=@(foreach($File in $Files){
+        $Hash=(Get-FileHash -LiteralPath $File.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+        $Destination=Join-Path $Target $File.Name;Copy-Item -LiteralPath $File.FullName -Destination $Destination
+        if((Get-FileHash -LiteralPath $Destination -Algorithm SHA256).Hash -ine $Hash){throw 'Failed-single copied bytes differ.'}
+        @{file=$File.Name;bytes=$File.Length;sha256=$Hash}
+    })
+    @{original_single_run=$Single;gitRevision=$Revision;productFingerprint=$Fingerprint;passed=$false;adopted=$false;pixel_verified=$false;files=$Rows} | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $Target 'failure-context.json') -Encoding UTF8
+    return $Target
+}
 function Get-CharactersFullArguments([string]$Repository,[string]$Directory,[string]$Platform,[string]$Revision,[string]$Fingerprint){
     if($Platform -cnotin @('EditMode','PlayMode') -or $Revision -notmatch '^[a-f0-9]{40}$' -or $Fingerprint -notmatch '^[a-f0-9]{64}$'){throw 'Invalid full QA identity/platform.'}
     return @('-batchmode','-projectPath',$Repository,'-buildTarget','Android','-runTests','-testPlatform',$Platform,'-testResults',(Join-Path $Directory ('full-'+$Platform.ToLowerInvariant()+'.xml')),'-logFile',(Join-Path $Directory ('full-'+$Platform.ToLowerInvariant()+'.log')),'-mofumachiScreenshots',(Join-Path $Directory 'full-screenshots'),'-mofumachiSourceRevision',$Revision,'-mofumachiProductFingerprint',$Fingerprint)
@@ -99,15 +127,16 @@ $Editor=if($RolloutOptions.Editor){$RolloutOptions.Editor}else{Join-Path $env:Pr
 if(-not(Test-Path -LiteralPath $Editor -PathType Leaf) -or -not(Test-Path -LiteralPath (Join-Path (Split-Path -Parent $Editor) 'Data/PlaybackEngines/AndroidPlayer'))){throw 'Pinned Unity with Android support required.'}
 $Revision=Read-SourceRevision $Repository;$Fingerprint=Get-CharacterAuthoredSourceFingerprint $Repository
 $Run=Join-Path $Repository ('Builds/Diagnostics/characters-authored-'+(Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::NewGuid().ToString('N').Substring(0,8));New-Item -ItemType Directory -Path $Run | Out-Null
-$Record=[ordered]@{gitRevision=$Revision;productFingerprint=$Fingerprint;full_qa_verified=$false;single_native_verified=$false;six_native_verified=$false;builds_generated=$false;source_unchanged=$false;pixel_verified=$false;adopted=$false;singleRuns=@();error=''};$Failure=$null
+$Record=[ordered]@{gitRevision=$Revision;productFingerprint=$Fingerprint;full_qa_verified=$false;single_native_verified=$false;six_native_verified=$false;builds_generated=$false;source_unchanged=$false;pixel_verified=$false;adopted=$false;singleRuns=@();failedSingleRun='';error=''};$Failure=$null;$AttemptedCharacter=''
 Write-Host "Exact six-character run: $Run"
 try{
     foreach($Id in @(Get-CharacterAuthoredIds)){
+        $AttemptedCharacter=$Id
         $Before=@(Get-ChildItem -LiteralPath (Join-Path $Repository 'Builds/Diagnostics') -Directory | Select-Object -ExpandProperty FullName)
         & (Join-Path $PSScriptRoot 'capture-character-authored.ps1') -Character $Id -UnityEditorPath $Editor
         $New=@(Get-ChildItem -LiteralPath (Join-Path $Repository 'Builds/Diagnostics') -Directory | Where-Object {$_.Name.StartsWith($Id+'-authored-') -and $_.FullName -notin $Before})
         if($New.Count -ne 1){throw 'Exact new single-character directory not identified.'};$Single=$New[0].FullName
-        Assert-CharacterAuthoredProof $Single $Revision $Fingerprint $Id;$Record.singleRuns+=@($Single)
+        Assert-CharacterAuthoredProof $Single $Revision $Fingerprint $Id;$Record.singleRuns+=@($Single);$AttemptedCharacter=''
     };$Record.single_native_verified=$true
     foreach($Platform in @('EditMode','PlayMode')){
         Invoke-NoahAuthoredUnity $Editor (Get-CharactersFullArguments $Repository $Run $Platform $Revision $Fingerprint) $Run
@@ -122,7 +151,15 @@ try{
     Assert-TestRun (Join-Path $Run 'six-playmode.xml') 1 @('ExperienceCaptureTests');$Record.six_native_verified=$true
     Invoke-NoahAuthoredUnity $Editor ($Common+@('-executeMethod','Mofumachi.Editor.CharactersRolloutBuild.BuildPair','-logFile',(Join-Path $Run 'build.log'))) $Run
     $Record.builds_generated=$true
-}catch{$Failure=$_;$Record.error=$_.Exception.Message}
+}catch{
+    $Failure=$_;$Record.error=$_.Exception.Message
+    if($AttemptedCharacter){
+        try{
+            $Stopped=@(Get-ChildItem -LiteralPath (Join-Path $Repository 'Builds/Diagnostics') -Directory | Where-Object {$_.Name -cmatch ('^'+$AttemptedCharacter+'-authored-[0-9]{8}-[0-9]{6}-[a-f0-9]{8}$') -and $_.FullName -notin $Before})
+            if($Stopped.Count -eq 1){$Record.failedSingleRun=$Stopped[0].FullName;Copy-CharactersFailedSingleRecords $Repository $Run $Record.failedSingleRun $Revision $Fingerprint | Out-Null}
+        }catch{$Record.error+=' Diagnostic copy: '+$_.Exception.Message}
+    }
+}
 finally{
     try{Remove-OwnedCharacterResources $Repository $Run;Remove-OwnedNoahAuthoredResources $Repository $Run}catch{if(-not $Failure){$Failure=$_};$Record.error+=' Cleanup: '+$_.Exception.Message}
     try{if((Read-SourceRevision $Repository) -cne $Revision -or (Get-CharacterAuthoredSourceFingerprint $Repository) -cne $Fingerprint){throw 'Source changed; installation blocked.'};Assert-NoahAuthoredMasterFixed $Repository;Assert-NoahAuthoredFrozenInputs $Repository;$Record.source_unchanged=$true}catch{if(-not $Failure){$Failure=$_};$Record.error+=' '+$_.Exception.Message}

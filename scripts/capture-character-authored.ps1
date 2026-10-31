@@ -1,7 +1,7 @@
 [CmdletBinding()]
-param([ValidateSet('momo','lulu','pom','fio','miel')][string]$Character='momo',[string]$UnityEditorPath='')
+param([ValidateSet('momo','lulu','pom','fio','miel')][string]$Character='momo',[string]$UnityEditorPath='',[switch]$OpenReview)
 $ErrorActionPreference='Stop'
-$RequestedCharacter=$Character;$RequestedEditor=$UnityEditorPath
+$RequestedCharacter=$Character;$RequestedEditor=$UnityEditorPath;$RequestedOpenReview=[bool]$OpenReview
 . (Join-Path $PSScriptRoot 'prepare-noah-pixel-preview.ps1')
 $Character=$RequestedCharacter;$UnityEditorPath=$RequestedEditor
 function Get-CharacterAuthoredIds { return @('momo','lulu','pom','fio','miel') }
@@ -98,7 +98,7 @@ $Editor=if($UnityEditorPath){$UnityEditorPath}else{Join-Path $env:ProgramFiles '
 if(-not(Test-Path -LiteralPath $Editor -PathType Leaf)){throw 'Unity6000.6.4f1 required. No native test or install started.'}
 $Revision=Read-SourceRevision $Repository;$Fingerprint=Get-CharacterAuthoredSourceFingerprint $Repository
 $Run=Join-Path $Repository (('Builds/Diagnostics/'+$Character+'-authored-')+(Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::NewGuid().ToString('N').Substring(0,8));New-Item -ItemType Directory -Path $Run | Out-Null
-$Record=[ordered]@{scope=($Character+'-only sequential native gate');gitRevision=$Revision;productFingerprint=$Fingerprint;native_test_passed=$false;source_unchanged=$false;visual_review_pending=$true;apk_generated=$false;pixel_verified=$false;adopted=$false;error=''};$Failure=''
+$Record=[ordered]@{scope=($Character+'-only sequential native gate');gitRevision=$Revision;productFingerprint=$Fingerprint;native_test_passed=$false;source_unchanged=$false;visual_review_pending=$true;apk_generated=$false;pixel_verified=$false;adopted=$false;error=''};$Failure='';$FirstCharacterReviewZip=''
 Write-Host "Character-only run: $Run"
 try{
     Invoke-NoahAuthoredUnity $Editor @('-batchmode','-quit','-projectPath',$Repository,'-buildTarget','Android','-executeMethod','Mofumachi.Editor.CharacterAuthoredBuild.Prepare','-mofumachiCharacterDirectory',$Run,'-mofumachiCharacterId',$Character,'-logFile',(Join-Path $Run 'prepare.log')) $Run
@@ -110,8 +110,9 @@ finally{
     try{Remove-OwnedCharacterResources $Repository $Run}catch{if(-not $Failure){$Failure=$_.Exception.Message};$Record.error+=' Cleanup: '+$_.Exception.Message}
     try{if((Read-SourceRevision $Repository) -ne $Revision -or (Get-CharacterAuthoredSourceFingerprint $Repository) -ne $Fingerprint){throw 'Source changed during the single-character gate.'};Assert-NoahAuthoredMasterFixed $Repository;$Record.source_unchanged=$true}catch{if(-not $Failure){$Failure=$_.Exception.Message};$Record.error+=' '+$_.Exception.Message}
     $Record | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $Run 'source-info.json') -Encoding UTF8
-    try{foreach($Zip in @(Write-NoahAuthoredArchives $Run)){Write-Host "Character-only review ZIP: $Zip"}}catch{if(-not $Failure){$Failure=$_.Exception.Message};Write-Host "Archive error; originals preserved: $Run"}
+    try{foreach($Zip in @(Write-NoahAuthoredArchives $Run)){if(-not $FirstCharacterReviewZip){$FirstCharacterReviewZip=$Zip};Write-Host "Character-only review ZIP: $Zip"}}catch{if(-not $Failure){$Failure=$_.Exception.Message};Write-Host "Archive error; originals preserved: $Run"}
 }
 Write-Host 'One character method only. No full suites, APK, Pixel install, uninstall or save reset. Other characters remain unchanged.'
+if($RequestedOpenReview -and $FirstCharacterReviewZip -and $env:OS -eq 'Windows_NT'){Start-Process -FilePath explorer.exe -ArgumentList ('/select,"'+$FirstCharacterReviewZip+'"')}
 if($Failure){throw "Character gate stopped; share this run's ZIP/logs. Do not run full QA. $Failure"}
 Write-Host "Character native capture passed. Visual review still pending: $Run\screenshots\$Character-authored"

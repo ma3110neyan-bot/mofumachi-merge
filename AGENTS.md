@@ -1,5 +1,13 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-10-31最新：モモ最終影比較のBack欠落を検査側だけ修正／次はモモ1件
+
+受領212944-eaacbdb6の4ZIPはCRC/SHA正常、91原本／85画像。f30cab4／FPc0be19eaは親212911と一致。実Unity0/1成功・1失敗・skip0。失敗はCaptureCharacterAuthored:241のgrounding_pairs方向集合（実Left/Right/Front、Back不足）。実歩行の全4方向観測は先に通過しており、追加比較を各経路13コマ目へ固定した撮影側の欠落。原XML/log/source/prepared6記録と全SHAはReferences/Review/momo-grounding-failed-2026-10-31-212944/。旧時刻の再添付は今回成功へ流用しない。
+
+CharacterAuthoredCaptureRouteに検査専用の方向一致・実歩行・warmup・1回限りの採取条件を追加し、Momo/Mielの影比較だけ使用。5対／4方向／範囲外0／mesh不変ゲートは維持、方向を偽装しない。純粋実モデルMomo/Miel経路を含む17/17、旧frame13方式を戻すと3失敗→修正版17成功。PlayMode APIと純粋テストprojectビルド成功。Noah26／552固定検査成功。ゲームPresentation/Core/原画/街/ノア方式はf30cab4から不変。実装済み・修正版Unity／APK／Pixel未確認、正式固定は保留。
+
+親停止ZIPには同sourceの正確な新規子runのXML/log等を保持コピーするよう修正。別source／リンク／範囲外／衝突を拒否し、合成ZIP検査成功。capture-character-authored.ps1の任意-OpenReviewで今回のモモZIPをExplorer選択（全体からの通常呼出は開かない）。次はdocs/momo-grounding-capture-repair-2026-10-31.mdのRemoteSigned子PSで更新→-Character momo -OpenReviewだけ。全件／他単体／APK／Pixelを失敗のたびに反復しない。今回新モモの全パートのみ提出。GitHub feature push許可継続、保存消去／uninstall／mainなし。以下は履歴。
+
 ## 2026-10-31最新：6名最終仕上げ候補／モモ・ミエル接地影だけ調整
 
 最新ユーザー指示は6名の最終小調整と正式固定。ノアmasterは不変、原画・動作・他4名・街・UI・保存は変更しない。モモ／ミエルだけ既存97頂点影の中心を約2UI下げ、幅／濃度を軽微調整。旧2.5D影への可逆設定と、同時刻5対の影範囲内比較を追加。6名fixtureは正面を含む4方向とサイズ／足元mesh・影を記録。BuildPairは追加証拠を必須にする。静止PDF20画面の原本・SHAをReferences/Review/characters-final-feedback-2026-10-31/に保存。これをFPSや新版APKの証拠にはしない。

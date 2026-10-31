@@ -1,0 +1,14 @@
+{
+  "runner": "NUnit 3.14 framework in-process; no testhost/socket",
+  "assembly": "/workspace/runtime/momo-final-212944/focused/bin/Debug/net8.0/Focused.dll",
+  "discovered": 17,
+  "TotalCount": 17,
+  "PassCount": 17,
+  "FailCount": 0,
+  "SkipCount": 0,
+  "InconclusiveCount": 0,
+  "result": "Passed",
+  "sentinel": false,
+  "native_unity": false,
+  "pixel_verified": false
+}

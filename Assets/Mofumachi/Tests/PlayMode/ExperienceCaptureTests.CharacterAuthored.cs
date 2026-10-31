@@ -153,8 +153,9 @@ namespace Mofumachi.Tests
             Pair("01-idle");var directions=new HashSet<NoahAuthoredDirection>();int unityFrame=Time.frameCount;int step=0;
             foreach(var target in CharacterAuthoredCaptureRoute.Targets)
             {
+                var intended=NoahAuthoredMotion.Direction(target.X-actor.WorldPosition.X,target.Y-actor.WorldPosition.Y,actor.CharacterDirection);
                 field.StartInteraction();Assert.That(field.World.GuidePoint(target),Is.True);
-                bool walked=false;
+                bool walked=false,groundingSampled=false;
                 for(int i=0;i<180;i++)
                 {
                     foreach(var r in field.World.Model.Residents.Where(r=>!r.Controlled))field.World.Model.Pause(r.Id,4);
@@ -169,7 +170,6 @@ namespace Mofumachi.Tests
                     if(i==12)
                     {
                         Pair("walk-"+step.ToString("0000"));
-                        if(finalGrounding)proof.grounding_pairs.Add(CaptureFinalGrounding(output,field,actor,"grounding-walk-"+step.ToString("0000")));
                         if(actor.CharacterDirection==NoahAuthoredDirection.Front)
                         {
                             Assert.That(old.enabled,Is.True,"The captured front must retain its active original renderer.");
@@ -180,6 +180,11 @@ namespace Mofumachi.Tests
                             Assert.That(referenceMesh.vertices.SequenceEqual(actual),Is.True,"Authored front must use the master's undeformed original mesh.");field.RefreshWorldPresentation();
                         }
                     }
+                    if(finalGrounding&&CharacterAuthoredCaptureRoute.ShouldCaptureGrounding(i,field.World.Model.Hero.IsWalking,actor.CharacterDirection,intended,groundingSampled))
+                    {
+                        proof.grounding_pairs.Add(CaptureFinalGrounding(output,field,actor,"grounding-walk-"+step.ToString("0000")));
+                        groundingSampled=true;
+                    }
                     if(i%12==0)
                     {
                         warm=Portrait();try{proof.frames.Add(SaveNativeEncoding(output,"frame-"+step.ToString("0000")+".jpg",warm,warm.EncodeToJPG(86)));}
@@ -187,6 +192,7 @@ namespace Mofumachi.Tests
                     }
                     if(i>12&&!field.World.Model.Hero.IsWalking)break;
                 }
+                if(finalGrounding)Assert.That(groundingSampled,Is.True,"Capture a real walking pose in the intended route direction before ending the route.");
                 Assert.That(walked,Is.True,"The candidate must be evaluated through actual walking.");
                 Assert.That(field.World.Model.Hero.IsWalking,Is.False,"Route must finish rather than remain stuck.");
                 field.World.CancelHero();field.StartInteraction();Pair("stop-"+step.ToString("0000"));

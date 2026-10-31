@@ -11,6 +11,10 @@ namespace Mofumachi.Tests
         public static readonly TownPoint PartnerStart=new TownPoint(.43f,-.30f);
         public static readonly TownPoint[] Targets={new TownPoint(-.22f,-.30f),new TownPoint(.27f,-.30f),new TownPoint(.27f,-.02f),new TownPoint(.27f,-.30f)};
         public static readonly TownPoint ConversationTarget=new TownPoint(.34f,-.30f);
+        // Navigation can initially turn sideways on a northbound route.
+        // Observe the real walking pose; never manufacture a facing for capture.
+        public static bool ShouldCaptureGrounding(int routeFrame,bool walking,NoahAuthoredDirection actual,NoahAuthoredDirection intended,bool alreadyCaptured)
+            =>routeFrame>=12&&walking&&actual==intended&&!alreadyCaptured;
         public static bool ReadyForConversation(TownWorldWalkModel model)
         {
             var hero=model.Hero;var partner=model.Residents.Single(r=>r.Id=="noah");

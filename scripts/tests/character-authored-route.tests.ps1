@@ -35,7 +35,7 @@ try{
     $Control=@{mode='candidate-resident-name-visibility-in-reconstructed-before-only';before_applied=$true;after_natural=$true;only_name_visibility_changed=$true;natural_visibility_changed=$true;natural_before=$NaturalNames;controlled_before=$CandidateNames;product_after=$CandidateNames;natural_before_image=$Image}
     $Pair=@{changed_pixels=20;outside_allowed_pixels=0;before=$Image;after=$Image;name_control=$Control}
     foreach($Flag in @('frame_unchanged','actors_unchanged','other_five_unchanged','camera_unchanged','water_clock_unchanged','water_phase_unchanged','state_unchanged','store_writes_unchanged','world_model_unchanged')){$Pair[$Flag]=$true}
-    $Proof=@{character='momo';gitRevision=('a'*40);productFingerprint=('b'*64);input_sha256=('c'*64);native_unity=$true;tap_verified=$true;conversation_verified=$true;save_unchanged=$true;greeting_authored=$true;talk_authored=$true;blink_authored=$true;blink_image=$Image;adopted=$false;pixel_verified=$false;sorting_examples=5;sorting_images=@($Image)*5;frames=@($Image)*8;pairs=@($Pair)*6;observed_directions=@('Front','Left','Right','Back')}
+    $Proof=@{character='momo';gitRevision=('a'*40);productFingerprint=('b'*64);input_sha256=('c'*64);native_unity=$true;tap_verified=$true;conversation_verified=$true;save_unchanged=$true;greeting_authored=$true;talk_authored=$true;blink_authored=$true;rear_blink_verified=$true;blink_image=$Image;adopted=$false;pixel_verified=$false;sorting_examples=5;sorting_images=@($Image)*5;frames=@($Image)*8;pairs=@($Pair)*6;observed_directions=@('Front','Left','Right','Back')}
     '<test-run><test-case fullname="Mofumachi.Tests.ExperienceCaptureTests.MomoAuthoredPartsPreserveIdentityInputAndState" result="Passed" /></test-run>' | Set-Content -LiteralPath (Join-Path $Root 'playmode.xml') -Encoding UTF8
     @{characterId='momo';input_sha256=('c'*64)} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $Root 'prepared.json') -Encoding UTF8
     $ProofPath=Join-Path $Output 'proof.json';$Good=$Proof | ConvertTo-Json -Depth 8;Set-Content -LiteralPath $ProofPath -Value $Good -Encoding UTF8
@@ -55,7 +55,7 @@ try{
     $Bad=$Good | ConvertFrom-Json;$Bad.pairs[0].name_control.product_after=$Bad.pairs[0].name_control.product_after[0..4];$Bad | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $ProofPath -Encoding UTF8;RejectCharacter {Assert-CharacterAuthoredProof $Root ('a'*40) ('b'*64)}
     $Bad=$Good | ConvertFrom-Json;$Bad.pairs[0].name_control.natural_visibility_changed=$false;$Bad | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $ProofPath -Encoding UTF8;RejectCharacter {Assert-CharacterAuthoredProof $Root ('a'*40) ('b'*64)}
     Set-Content -LiteralPath $ProofPath -Value $Good -Encoding UTF8
-    foreach($Flag in @('tap_verified','conversation_verified','save_unchanged','greeting_authored','talk_authored','blink_authored','native_unity','adopted','pixel_verified')){
+    foreach($Flag in @('tap_verified','conversation_verified','save_unchanged','greeting_authored','talk_authored','blink_authored','rear_blink_verified','native_unity','adopted','pixel_verified')){
         $Bad=$Good | ConvertFrom-Json;$Bad.$Flag=-not $Bad.$Flag;$Bad | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $ProofPath -Encoding UTF8
         RejectCharacter {Assert-CharacterAuthoredProof $Root ('a'*40) ('b'*64)}
     }

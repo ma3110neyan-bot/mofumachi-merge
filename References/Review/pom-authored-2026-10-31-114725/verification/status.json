@@ -1,0 +1,26 @@
+{
+  "scope": "Additional-character rear blink part selection; unchanged approved Noah master and art",
+  "regression_old_logic": {
+    "total": 6,
+    "passed": 4,
+    "failed": 2
+  },
+  "regression_fixed_logic": {
+    "total": 6,
+    "passed": 6,
+    "failed": 0
+  },
+  "native_unity_execution": false,
+  "corrected_native_pending": true,
+  "normal_api_compile": true,
+  "android_candidate_api_compile": true,
+  "playmode_api_compile": true,
+  "single_character_and_rollout_powershell_guards_passed": true,
+  "failed_original_xml_rejected": true,
+  "noah_master_unchanged": true,
+  "protected_inputs_unchanged": 552,
+  "full_suites_rerun": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false
+}

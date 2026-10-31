@@ -1,0 +1,11 @@
+# Pom native gate — rear blink exception
+
+All3 user archives from `pom-authored-20261031-114725-622e5edd` were checked for CRC, safe paths and duplicate entries. `native/` preserves77 originals unchanged, including70 decoded720×1280 images. `receipt.json` records archive and file identities. Source `4fa3a9ee75c827cc224df9e842932a14dcbb74bf`, fingerprint `396f8cf9911de81ac0f8fb5abc64a9c6826e8cb928e673d1bb9aaa609988b9eb`.
+
+The authoritative XML is **0 passed / 1 failed / 0 skipped / 0 inconclusive**: unexpected `ArgumentException: Unknown Noah part: ` from `CharacterAuthoredGraphic.OnPopulateMesh`. The shared bone lookup's name does not identify Noah as the failing character. The additional renderer selected `back.closedHead` when the blink clock was closed. That unused optional field was serialized/deserialized as a non-null object with an empty id and zero dimensions. The null-only selection test therefore chose an invalid part. Rear views have no visible eyes and must retain the existing rear head.
+
+All11 saved image pairs still match their recorded changes and outside0; all70 hashes/bytes/dimensions are valid. A complete proof and image set do **not** override the failed XML or unexpected render logs. The actual failed XML was verified to be rejected by the proof gate. No error was whitelisted or ignored.
+
+The additional renderer now selects blink parts only for side views, through the tested `CharacterAuthoredView.PartFor` method. Six focused managed cases reproduced2 failures with the previous expression, then passed6/6 after the rear guard. NUnit raw results and assembly/source hashes are in `verification/`; these are not Unity drawing results. The native single-character method now always renders the same rear pose with blink off/on and checks28 vertices and identical geometry/UV. Natural visible eyelid evidence is captured only on side views. A new required `rear_blink_verified` flag records this deterministic check.
+
+Approved Noah files, all character artwork and552 protected inputs remain unchanged. No full suites were rerun. Corrected native Unity, APK and Pixel remain pending; retry only `capture-character-authored.ps1 -Character pom`. Earlier Momo/Lulu console successes remain historical results of their original source, not acceptance of the changed renderer.

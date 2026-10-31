@@ -9,7 +9,13 @@ namespace Mofumachi.Presentation
         public string id;public float width,height,scale,rotation;public Vector2 pivot,offset;public Rect uv;
     }
     [Serializable] public sealed class CharacterAuthoredView
-    {public string direction;public CharacterAuthoredPart[] parts;public CharacterAuthoredPart closedHead;}
+    {
+        public string direction;public CharacterAuthoredPart[] parts;public CharacterAuthoredPart closedHead;
+        public CharacterAuthoredPart PartFor(CharacterAuthoredPart open,bool blink)
+            // Rear views have no visible eyes. Unity may deserialize the absent
+            // optional head as a non-null empty object, so null alone is unsafe.
+            =>direction!="back"&&open.id=="head"&&blink&&closedHead!=null?closedHead:open;
+    }
     [Serializable] public sealed class CharacterAuthoredConfig
     {
         public int version=1;public string characterId,input_sha256;public float formalWidth,formalHeight;public CharacterAuthoredView[] views;
@@ -69,7 +75,7 @@ namespace Mofumachi.Presentation
             float height=Mathf.Min(r.width/config.formalWidth,r.height/config.formalHeight)*config.formalHeight,s=height/600f;
             foreach(var open in view.parts)
             {
-                var p=open.id=="head"&&eyesClosed&&view.closedHead!=null?view.closedHead:open;
+                var p=view.PartFor(open,eyesClosed);
                 var t=pose.Part(p.id).Child(p.offset.x,p.offset.y,p.rotation);int n=vh.currentVertCount;
                 void Vertex(float x,float y,float u,float v)
                 {

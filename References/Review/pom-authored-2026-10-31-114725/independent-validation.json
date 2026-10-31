@@ -1,0 +1,65 @@
+{
+  "decoded_images": 70,
+  "paired_differences": [
+    {
+      "id": "01-idle",
+      "changed_pixels": 14913,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "walk-0013",
+      "changed_pixels": 14881,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "stop-0098",
+      "changed_pixels": 15083,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "walk-0111",
+      "changed_pixels": 15490,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "stop-0241",
+      "changed_pixels": 15957,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "walk-0254",
+      "changed_pixels": 17057,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "stop-0341",
+      "changed_pixels": 15009,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "walk-0354",
+      "changed_pixels": 15570,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "stop-0451",
+      "changed_pixels": 15964,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "greeting",
+      "changed_pixels": 11489,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "id": "conversation",
+      "changed_pixels": 11778,
+      "outside_allowed_pixels": 0
+    }
+  ],
+  "all_image_hashes_verified": true,
+  "warning": "Complete image/proof output does not override the failed XML and unexpected rendering exceptions.",
+  "native_passed": false,
+  "apk_generated": false,
+  "pixel_verified": false
+}

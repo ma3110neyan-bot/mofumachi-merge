@@ -17,11 +17,28 @@ namespace Mofumachi.Tests
         [Serializable] private sealed class CharacterPartProof
         {
             public string character,kind="single-character-native-parts",gitRevision,productFingerprint,input_sha256;
-            public bool native_unity=true,pixel_verified=false,adopted=false,tap_verified,conversation_verified,save_unchanged,greeting_authored,talk_authored,blink_authored;
+            public bool native_unity=true,pixel_verified=false,adopted=false,tap_verified,conversation_verified,save_unchanged,greeting_authored,talk_authored,blink_authored,rear_blink_verified;
             public NativeImage blink_image;
             public string sequence_kind="actual public GuidePoint and AdvanceFrame, fixed simulation steps, not FPS";
             public string[] observed_directions;public int sorting_examples;
             public List<NativePair> pairs=new List<NativePair>();public List<NativeImage> frames=new List<NativeImage>(),sorting_images=new List<NativeImage>();
+        }
+        private void VerifyCharacterRearBlink(TownLifeView field,CharacterAuthoredGraphic graphic)
+        {
+            Assert.That(graphic.enabled,Is.True);
+            try
+            {
+                // Deterministic render regression, distinct from the natural
+                // blinking samples captured during actual walking below.
+                graphic.SetPose(.5f,.75f,1,NoahAuthoredMode.Walk,NoahAuthoredDirection.Back,false);Canvas.ForceUpdateCanvases();
+                var open=graphic.canvasRenderer.GetMesh();Assert.That(open,Is.Not.Null);Assert.That(open.vertexCount,Is.EqualTo(28));
+                var vertices=open.vertices;var uv=open.uv;
+                graphic.SetPose(.5f,.75f,1,NoahAuthoredMode.Walk,NoahAuthoredDirection.Back,true);Canvas.ForceUpdateCanvases();
+                var blink=graphic.canvasRenderer.GetMesh();Assert.That(blink,Is.Not.Null);Assert.That(blink.vertexCount,Is.EqualTo(28));
+                Assert.That(blink.vertices.SequenceEqual(vertices),Is.True,"A rear blink must retain the complete original rear geometry.");
+                Assert.That(blink.uv.SequenceEqual(uv),Is.True,"A rear blink must not select an eye/face sprite.");
+            }
+            finally{field.RefreshWorldPresentation();Canvas.ForceUpdateCanvases();}
         }
         private NativePair CaptureAdditionalPair(string output,TownLifeView field,TownActor actor,string label)
         {
@@ -121,6 +138,7 @@ namespace Mofumachi.Tests
             Assert.That(graphic.canvasRenderer.GetMesh().vertexCount,Is.EqualTo(28));
             Assert.That(graphic.transform.parent,Is.SameAs(actor.VisualRoot));Assert.That(actor.transform.parent,Is.SameAs(parent));
             Assert.That(actor.transform.GetSiblingIndex(),Is.EqualTo(order));Assert.That(actor.WorldPosition,Is.EqualTo(at));
+            VerifyCharacterRearBlink(field,graphic);proof.rear_blink_verified=true;
             VerifyAuthoredScreenInput(field,actor,graphic);proof.tap_verified=true;field.StartInteraction();
             actor.SetCharacterAuthoredEnabled(false);warm=Portrait();UnityEngine.Object.DestroyImmediate(warm);
             Assert.That(old.enabled,Is.True);Assert.That(old.canvasRenderer.GetMesh().vertices.SequenceEqual(vertices),Is.True);Assert.That(old.canvasRenderer.GetMesh().uv.SequenceEqual(uv),Is.True);
@@ -141,7 +159,7 @@ namespace Mofumachi.Tests
                     walked|=field.World.Model.Hero.IsWalking;directions.Add(actor.CharacterDirection);
                     Assert.That(old.enabled,Is.EqualTo(actor.CharacterDirection==NoahAuthoredDirection.Front));
                     Assert.That(graphic.enabled,Is.EqualTo(actor.CharacterDirection!=NoahAuthoredDirection.Front));
-                    if(graphic.enabled&&graphic.EyesClosed&&!proof.blink_authored)
+                    if(graphic.enabled&&actor.CharacterDirection!=NoahAuthoredDirection.Back&&graphic.EyesClosed&&!proof.blink_authored)
                     {
                         warm=Portrait();try{proof.blink_image=SaveNativeImage(output,"natural-blink.png",warm);proof.blink_authored=true;}finally{UnityEngine.Object.DestroyImmediate(warm);}
                     }

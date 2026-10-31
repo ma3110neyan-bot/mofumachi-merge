@@ -1,5 +1,11 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-10-31最新：ポム後ろ向きの瞬き修正／ポム単体再確認待ち
+
+統合run114313-ea1a4b7dはコンソール上モモ・ルル各1/1通過後、ポム114725-622e5eddで停止。受領したポム3ZIPはsource4fa3a9e、実Unity0成功／1失敗／skip0。原本77点／画像70枚、11因果対の範囲外0を確認したが、描画中の空パーツID例外をLogAssertが検出しており不合格。後ろ向きclosedHeadがJSONの空オブジェクトとして非nullになり、瞬き時に誤選択していた。原本References/Review/pom-authored-2026-10-31-114725/。ルル原本の独立照合はまだ未了。
+
+追加5名側のCharacterAuthoredGraphicで、後ろ向きは元の後頭部を維持する選択へ修正。左右閉じ目／手足・原画・ノアmaster・街等は維持。関連6ケース旧式2失敗→修正後6成功、通常／Android候補／PlayMode APIと関連PSガード成功、固定Noah＋552保護入力不変。ネイティブ単体に必須の後ろ向き瞬き形状／UV検査とrear_blink_verifiedを追加し、自然な閉じ目撮影は左右に限定。例外ログの無視・許容はしない。修正後Unity／APK／Pixelは未確認。次はcapture-character-authored.ps1 -Character pom一件だけ、全件／全体コマンドを失敗のたびに繰り返さない。手順docs/pom-rear-blink-fix-2026-10-31.md。過去通過記録は保持し、今回の共通renderer修正後の実績へ流用しない。以下は履歴。
+
 ## 2026-10-31最新：モモ単体の実Unity通過／次は既存6名QA手順
 
 run112329-63c14f20の3ZIP受領。source9ca0790、実Unityモモ1/1成功・failed0／skip0／inconclusive0。原本77点／画像70枚のSHA・bytes・720×1280・全デコード、11因果対の投影外0再計算、名札6名状態／自然Before2枚・自然After、素材digestのWindows CRLF照合を確認。40固定標本と11比較対・blink・Sorting5画像を主担当が確認し、確認範囲に新たな破綻なし。原本と判定References/Review/momo-authored-2026-10-31-112329/。正式採用・Pixel負荷の合格ではない。前の2件の撮影不備は今回の実メソッドで通過済み。

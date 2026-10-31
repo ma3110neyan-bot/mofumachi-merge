@@ -1,0 +1,14 @@
+{
+  "runner": "NUnit 3.14 framework in-process; no testhost/socket",
+  "assembly": "/workspace/runtime/pom-native-20261031-114725/regression/bin/Debug/net8.0/BlinkTests.dll",
+  "discovered": 6,
+  "TotalCount": 6,
+  "PassCount": 6,
+  "FailCount": 0,
+  "SkipCount": 0,
+  "InconclusiveCount": 0,
+  "result": "Passed",
+  "sentinel": false,
+  "native_unity": false,
+  "pixel_verified": false
+}

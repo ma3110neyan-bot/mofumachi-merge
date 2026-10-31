@@ -35,7 +35,7 @@ namespace Mofumachi.Presentation
                 characterAuthored=node.gameObject.AddComponent<CharacterAuthoredGraphic>();
                 try{characterAuthored.Configure(CharacterId);}catch{DestroyImmediate(node.gameObject);characterAuthored=null;throw;}
                 characterAuthoredShadow=UIWidgets.Node("Character authored ground shadow",rect,new Rect(.18f,-.06f,.64f,.12f)).gameObject.AddComponent<NoahGroundShadowGraphic>();
-                characterAuthoredShadow.raycastTarget=false;characterAuthoredShadow.ConfigureGrounding(true);characterAuthoredShadow.transform.SetAsFirstSibling();
+                characterAuthoredShadow.raycastTarget=false;characterAuthoredShadow.ConfigureCharacterGrounding(CharacterId);characterAuthoredShadow.transform.SetAsFirstSibling();
             }
             characterAuthoredRequested=enabled;
             if(characterAuthored!=null)characterAuthored.enabled=enabled;
@@ -394,6 +394,11 @@ namespace Mofumachi.Presentation
         internal void ConfigureGrounding(bool focus)
         {
             if(configured&&depthFocus==focus&&!finalRig)return;configured=true;depthFocus=focus;finalRig=false;ApplyGrounding(TownNoahDepthFocus.Grounding(focus));
+        }
+        internal void ConfigureCharacterGrounding(string characterId,bool refined=true)
+        {
+            configured=true;depthFocus=true;finalRig=false;
+            ApplyGrounding(CharacterAuthoredGrounding.For(characterId,refined));
         }
         internal void ConfigureFinalRig()
         {

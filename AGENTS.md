@@ -1,5 +1,11 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-10-31最新：モモ単体の実Unity通過／次は既存6名QA手順
+
+run112329-63c14f20の3ZIP受領。source9ca0790、実Unityモモ1/1成功・failed0／skip0／inconclusive0。原本77点／画像70枚のSHA・bytes・720×1280・全デコード、11因果対の投影外0再計算、名札6名状態／自然Before2枚・自然After、素材digestのWindows CRLF照合を確認。40固定標本と11比較対・blink・Sorting5画像を主担当が確認し、確認範囲に新たな破綻なし。原本と判定References/Review/momo-authored-2026-10-31-112329/。正式採用・Pixel負荷の合格ではない。前の2件の撮影不備は今回の実メソッドで通過済み。
+
+今回の受領は記録更新のみ、ゲーム／撮影／原画／固定ノア／街／北境界／噴水等の追加変更なし。次は既存prepare-characters-pixel-preview.ps1 -Install -Mode authored -Serial99RAY1BELH -MeasureSeconds600。5名の単体を順番に検証→全員通過後の全Edit／Play各1回→6名同時→比較2APK→保存維持Pixel更新。統合runの同ソース識別のためモモも含め5単体を行う。途中停止時は対象だけ、全件を無条件に反復しない。手順docs/momo-native-pass-2026-10-31.md、終了時Explorerを開く行も含む。ノア固定・個別プレビュー待ち解除・既存GitHub push許可を維持。静的Sorting5枚や固定40標本を全遮蔽経路／実FPSへ置換しない。接地感・滑らかさ・6名同時・Pixel負荷は今後確認。以下は履歴。
+
 ## 2026-10-31最新：モモ正面検査の撮影後処理を修正／再確認待ち
 
 Windows run momo-authored-20261031-111028-ee089f64の2ZIP受領。source2135f5c、実Unityは1件失敗・成功0／skip0。前の名札比較stop-0241は通過し、自然Beforeも別保存された。今回の停止はwalk-0354の正面mesh読取りでNullReferenceException（旧145行）。比較helperのfinallyが候補ONを再適用し、正面bodyを一度OFFにしてUGUI meshを消去した後、再描画前に検査が読んでいた。原本55点／画像49枚を保存・全デコード、References/Review/momo-authored-2026-10-31-111028/。

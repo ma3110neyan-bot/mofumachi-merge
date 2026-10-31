@@ -1,0 +1,91 @@
+{
+  "raw_files": 77,
+  "decoded_images": 70,
+  "image_hashes_and_dimensions_verified": 70,
+  "pairs": [
+    {
+      "id": "01-idle",
+      "mode": "Left",
+      "changed_pixels": 15298,
+      "outside_allowed_pixels": 0,
+      "caption_changed": false
+    },
+    {
+      "id": "walk-0013",
+      "mode": "Left",
+      "changed_pixels": 15330,
+      "outside_allowed_pixels": 0,
+      "caption_changed": false
+    },
+    {
+      "id": "stop-0098",
+      "mode": "Left",
+      "changed_pixels": 15469,
+      "outside_allowed_pixels": 0,
+      "caption_changed": false
+    },
+    {
+      "id": "walk-0111",
+      "mode": "Right",
+      "changed_pixels": 15473,
+      "outside_allowed_pixels": 0,
+      "caption_changed": false
+    },
+    {
+      "id": "stop-0241",
+      "mode": "Left",
+      "changed_pixels": 16315,
+      "outside_allowed_pixels": 0,
+      "caption_changed": true
+    },
+    {
+      "id": "walk-0254",
+      "mode": "Left",
+      "changed_pixels": 16997,
+      "outside_allowed_pixels": 0,
+      "caption_changed": false
+    },
+    {
+      "id": "stop-0341",
+      "mode": "Back",
+      "changed_pixels": 15575,
+      "outside_allowed_pixels": 0,
+      "caption_changed": false
+    },
+    {
+      "id": "walk-0354",
+      "mode": "Front",
+      "changed_pixels": 15735,
+      "outside_allowed_pixels": 0,
+      "caption_changed": false
+    },
+    {
+      "id": "stop-0451",
+      "mode": "Left",
+      "changed_pixels": 16312,
+      "outside_allowed_pixels": 0,
+      "caption_changed": true
+    },
+    {
+      "id": "greeting",
+      "mode": "Right",
+      "changed_pixels": 12881,
+      "outside_allowed_pixels": 0,
+      "caption_changed": false
+    },
+    {
+      "id": "conversation",
+      "mode": "Right",
+      "changed_pixels": 13216,
+      "outside_allowed_pixels": 0,
+      "caption_changed": false
+    }
+  ],
+  "input_sha256": "ff44efd51a0d9519f9f633f5bd5514b94429e9eb48a43be8adb5bb863f290cbe",
+  "local_layout_line_endings_matching_native": [
+    "CRLF"
+  ],
+  "natural_before_images": 2,
+  "pixel_verified": false,
+  "adopted": false
+}

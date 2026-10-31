@@ -1,0 +1,11 @@
+# Momo native gate — passed original and review
+
+All3 uploaded parts from `momo-authored-20261031-112329-63c14f20` are preserved as77 unchanged originals in `native/`. Archive CRC, safe paths and duplicate names were checked. `receipt.json` records archive/file SHA256, bytes and image dimensions. All70 images decoded at720×1280 and match their proof records.
+
+The raw XML contains exactly **1 passed / 0 failed / 0 skipped / 0 inconclusive**, method `MomoAuthoredPartsPreserveIdentityInputAndState`. Source `9ca07905da3b16835a9495fcd3176c74010fa2d7`, product fingerprint `396f8cf9911de81ac0f8fb5abc64a9c6826e8cb928e673d1bb9aaa609988b9eb`, input digest `ff44efd51a0d9519f9f633f5bd5514b94429e9eb48a43be8adb5bb863f290cbe`. The input digest was reproduced from the committed registration with Windows CRLF plus the exact3 source PNG digests.
+
+`independent-validation.json` records recomputed differences for all11 native pairs: every projected outside count is0. All6 caption states, both unmodified natural Before images and the natural After states passed the existing proof validator. The earlier caption and cleared-front-mesh failures are past their failing checkpoints in this successful native method; raw failed runs remain preserved separately.
+
+Primary-agent visual review covered all11 Before/After pairs, the40 fixed-simulation walking samples, blink and5 Sorting images. Left/right/rear directions are distinct from the formal front, and no obvious disassembled parts or new visual blocker was found in those states. Native assertions also passed screen-input/masking, original front vertex equality, four completed walks, greeting/conversation through approach, depth order and save non-mutation. **Proceed to remaining character gates and six-character QA; this is not user visual adoption.**
+
+The five depth images are static placements, not proof of every tree/fountain walking overlap. The existing speech bubble overlaps the hat in both comparison states. Perceived grounding and motion transitions need Pixel review. Forty fixed-step samples are not device FPS or a continuous real-time film. No full suites, new APK or Pixel installation ran here; performance and user acceptance remain unverified. This review changes records only.

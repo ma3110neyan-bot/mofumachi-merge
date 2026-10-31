@@ -1,0 +1,46 @@
+{
+  "verdict": "Momo single native gate passed; reviewed states may proceed to remaining native gates and six-character QA. Not user visual adoption.",
+  "reviewed_by": "primary agent; no separate visual reviewer",
+  "raw_files": 77,
+  "decoded_images": 70,
+  "paired_comparisons": 11,
+  "fixed_step_sequence_samples": 40,
+  "sorting_placements": 5,
+  "observed_directions": [
+    "Back",
+    "Front",
+    "Left",
+    "Right"
+  ],
+  "observed": [
+    "Original front retained; left/right three-quarter and rear parts visibly distinct",
+    "No obvious head/body/limb separation in reviewed native samples",
+    "Blink, greeting and speaking use new renderer",
+    "Foreground/background ordering visible with residents, flowers and bench at sampled states"
+  ],
+  "native_assertions": [
+    "Screen raycast, blocked/masked input and tap route",
+    "Front renderer retained with non-null/non-empty mesh and exact vertex equality",
+    "Walking to four targets finishes; conversation reached through approach",
+    "Five static depth placements compared against scenery/fountain sibling order",
+    "Same-clock pairs preserve other five actors, world, water, camera and save"
+  ],
+  "independent_checks": [
+    "All70 image SHA256/bytes/dimensions and decoding",
+    "All11 image differences and projected outside counts recomputed: outside0",
+    "All6 caption states and2 preserved natural Before images validated",
+    "Native Momo input digest matches committed registration with Windows CRLF and exact source PNG digests",
+    "Approved Noah master and552 protected input hashes unchanged"
+  ],
+  "limitations": [
+    "40 walking samples are fixed simulation steps, not live FPS or a continuous real-time movie",
+    "Five Sorting images are static placements; not proof of every tree/fountain occlusion path",
+    "Existing conversation bubble overlaps the hat in both comparison states; UI unchanged",
+    "Perceived grounding, transition smoothness, six simultaneous characters and other four native gates remain for next QA/Pixel verification",
+    "No APK or Pixel execution in this run; FPS, PSS, temperature, tap latency and crashes unmeasured"
+  ],
+  "product_changes_during_review": false,
+  "full_suites_rerun": false,
+  "pixel_verified": false,
+  "adopted": false
+}

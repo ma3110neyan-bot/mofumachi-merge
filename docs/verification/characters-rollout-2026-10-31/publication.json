@@ -1,0 +1,14 @@
+{
+  "repository": "ma3110neyan-bot/mofumachi-merge",
+  "branch": "feat/daily-world-pass-20261016",
+  "confirmed_published_commit": "08e0883e925f1a378e4421756a8f1b466f057b84",
+  "previous_remote_commit": "8bc239c2e0d8e62f9480daceb908cec4ac08198f",
+  "push_exit_code": 0,
+  "ls_remote_exit_code": 0,
+  "remote_sha_matched": true,
+  "user_explicitly_authorized_github_and_feature_push": true,
+  "native_unity_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false
+}

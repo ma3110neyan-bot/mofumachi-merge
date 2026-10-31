@@ -1,5 +1,11 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-10-31最新：GitHub反映確認済み／次はWindows・Pixel試験
+
+ユーザーが「GitHub通信と作業ブランチへのpushを許可します」と明示し、実行承認が通った。既存featureへの通常pushが8bc239c→08e0883で成功し、git ls-remoteで完全SHA08e0883e925f1a378e4421756a8f1b466f057b84の一致を確認した。以下の「反映未確認／承認画面待ち」は履歴。追加の許可を再要求しない。コードは7fda843の5名候補、519件成功の記録を含む08e0883が配布済みで、実Unity／APK／Pixelはまだ未確認。
+
+次はユーザーのWindowsでdocs/characters-authored-rollout-2026-10-30.mdのRemoteSigned子PowerShell全体コマンドを実行し、prepare-characters-pixel-preview.ps1 -Install -Mode authored -Serial99RAY1BELH -MeasureSeconds600。ノア基準の残り5名2.5D候補、街／北境界／噴水／Core等は維持。旧TownQa／ノア単独コマンドを今回の6名試験に使わない。途中停止時は該当runのZIPとログを受領し、対象の最小検査だけで直す。Pixel実測やユーザー見た目合格を推測しない。Save初期化／uninstall／mainなし。
+
 ## 2026-10-31最新：全体純粋C#519件成功／GitHub反映確認は未完
 
 コードは7fda843のまま。標準testhostの通信socketが拒否されるため、既存NUnit3.14のNUnitTestAssemblyRunnerを同一プロセスで実行し、Core125/125・Presentation394/394の計519件が成功、失敗／skip／inconclusive0。runnerの2ケースsentinelは意図した失敗をexit1として検出。ゲーム／テスト本体の改変・テスト除外はない。通常／Android候補define／Editor／PlayMode APIも本日再コンパイル成功。証拠docs/verification/characters-rollout-2026-10-31/。これはUnity実行／APK／Pixelの結果ではない。

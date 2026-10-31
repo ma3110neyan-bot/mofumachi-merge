@@ -55,6 +55,16 @@ function Assert-CharacterCaptionControl($Control){
     if($Control.natural_visibility_changed -isnot [bool] -or $Control.natural_visibility_changed -ne $Changed){throw 'Caption change record does not match actual states.'}
     if($Changed -and -not $Control.natural_before_image){throw 'Preserve the unmodified natural Before image when captions change.'}
 }
+function Assert-CharacterFinalGrounding($Proof,[string]$Id){
+    if($Id -cnotin @('momo','miel')){return}
+    if($Proof.grounding_verified -isnot [bool] -or -not $Proof.grounding_verified -or @($Proof.grounding_pairs).Count -ne 5){throw 'Final Momo/Miel contact-shadow comparisons are incomplete.'}
+    if(@($Proof.grounding_pairs.mode | Sort-Object -Unique).Count -ne 4){throw 'Four contact-shadow directions required.'}
+    foreach($Mode in @('Front','Back','Left','Right')){if($Mode -cnotin @($Proof.grounding_pairs.mode)){throw 'Contact-shadow direction missing.'}}
+    foreach($Pair in $Proof.grounding_pairs){
+        if($Pair.comparison_kind -cne 'accepted-2.5D-shadow-vs-final-shadow-same-instant' -or $Pair.changed_pixels -le 0 -or $Pair.outside_allowed_pixels -ne 0){throw 'Invalid final contact-shadow causal comparison.'}
+        foreach($Flag in @('frame_unchanged','actors_unchanged','other_five_unchanged','camera_unchanged','water_clock_unchanged','water_phase_unchanged','state_unchanged','store_writes_unchanged','world_model_unchanged')){if($Pair.$Flag -isnot [bool] -or -not $Pair.$Flag){throw "Contact-shadow context changed: $Flag"}}
+    }
+}
 function Assert-CharacterAuthoredProof([string]$Directory,[string]$Revision,[string]$Fingerprint,[string]$Id='momo'){
     [xml]$Xml=Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $Directory 'playmode.xml');$Cases=@($Xml.SelectNodes('//test-case'))
     if($Cases.Count -ne 1 -or $Cases[0].fullname -ne (Get-CharacterAuthoredMethod $Id) -or $Cases[0].result -ne 'Passed'){throw 'Exactly the new single passed character method is required.'}
@@ -66,8 +76,10 @@ function Assert-CharacterAuthoredProof([string]$Directory,[string]$Revision,[str
     foreach($Name in @('Front','Left','Right','Back')){if($Name -notin $Proof.observed_directions){throw "Actual character walking direction missing: $Name"}}
     if(@($Proof.pairs | Where-Object {$_.changed_pixels -gt 0}).Count -lt 6 -or @($Proof.pairs | Where-Object {$_.outside_allowed_pixels -ne 0}).Count -gt 0){throw 'Character causal image checks incomplete.'}
     foreach($Pair in $Proof.pairs){Assert-CharacterCaptionControl $Pair.name_control;foreach($Name in @('frame_unchanged','actors_unchanged','other_five_unchanged','camera_unchanged','water_clock_unchanged','water_phase_unchanged','state_unchanged','store_writes_unchanged','world_model_unchanged')){if($Pair.$Name -isnot [bool] -or -not $Pair.$Name){throw "Changed causal comparison context: $Name"}}}
+    Assert-CharacterFinalGrounding $Proof $Id
     $Base=Join-Path $Directory ('screenshots/'+$Id+'-authored')
     $Images=@($Proof.frames)+@($Proof.sorting_images)+@($Proof.blink_image)+@($Proof.pairs | ForEach-Object {$_.before;$_.after;if($_.name_control.natural_visibility_changed){$_.name_control.natural_before_image}})
+    if($Id -cin @('momo','miel')){$Images+=@($Proof.grounding_pairs | ForEach-Object {$_.before;$_.after})}
     foreach($Image in $Images){
         if(-not $Image -or [IO.Path]::GetFileName($Image.file) -ne $Image.file -or $Image.width -ne 720 -or $Image.height -ne 1280 -or $Image.sha256 -notmatch '^[a-f0-9]{64}$'){throw 'Invalid native image identity.'}
         $Path=Join-Path $Base $Image.file

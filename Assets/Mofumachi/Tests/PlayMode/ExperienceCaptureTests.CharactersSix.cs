@@ -15,11 +15,19 @@ namespace Mofumachi.Tests
     public sealed partial class ExperienceCaptureTests
     {
         [Serializable] private sealed class SixInput{public string characterId=null,input_sha256=null;}
+        [Serializable] private sealed class SixGeometry
+        {
+            public string character;public float foot_anchor_screen_y,mesh_bottom_local,mesh_height_local,scale;
+            public int body_vertices,shadow_vertices;public Rect shadow_anchors;
+        }
         [Serializable] private sealed class SixProof
         {
             public string gitRevision=null,productFingerprint=null,packed_resource_sha256=null;
             public SixInput[] inputs=null;public bool native_unity=true,all_six_enabled,save_unchanged,tap_verified,pixel_verified=false,adopted=false;
             public string placements="isolated six-character display fixture; individual walking is in separate native methods; not Pixel FPS";
+            public bool front_verified,geometry_verified;
+            public string geometry_kind="rendered mesh bounds and anchors; opaque contact/silhouette still require visual review";
+            public List<SixGeometry> geometry=new List<SixGeometry>();
             public List<NativeImage> images=new List<NativeImage>();
         }
         private void VerifyAuthoredScreenInput(TownLifeView field,TownActor actor,UnityEngine.UI.Graphic graphic)
@@ -75,7 +83,7 @@ namespace Mofumachi.Tests
                 if(actor.CharacterId=="noah")actor.SetNoahAuthoredEnabled(true);else Assert.That(actor.SetCharacterAuthoredEnabled(true),Is.True);
             }
             field.World.Camera.Jump(new TownPoint(0,.12f));field.World.Refresh();
-            foreach(var direction in new[]{NoahAuthoredDirection.Left,NoahAuthoredDirection.Right,NoahAuthoredDirection.Back})
+            foreach(var direction in new[]{NoahAuthoredDirection.Front,NoahAuthoredDirection.Left,NoahAuthoredDirection.Right,NoahAuthoredDirection.Back})
             {
                 foreach(var actor in actors)typeof(TownActor).GetField(actor.CharacterId=="noah"?"authoredDirection":"characterDirection",flags).SetValue(actor,direction);
                 field.RefreshWorldPresentation();var image=Portrait();
@@ -83,10 +91,23 @@ namespace Mofumachi.Tests
                 finally{UnityEngine.Object.DestroyImmediate(image);}
                 foreach(var actor in actors)
                 {
-                    var graphic=actor.CharacterId=="noah"?(UnityEngine.UI.Graphic)actor.GetComponentInChildren<NoahAuthoredGraphic>():actor.GetComponentInChildren<CharacterAuthoredGraphic>();
-                    Assert.That(graphic,Is.Not.Null);Assert.That(graphic.enabled,Is.True);Assert.That(graphic.transform.parent,Is.SameAs(actor.VisualRoot));
-                    Assert.That(graphic.canvasRenderer.GetMesh().vertexCount,Is.EqualTo(actor.CharacterId=="noah"?32:28));
-                    string digest=actor.CharacterId=="noah"?NoahAuthoredGraphic.InputDigest:((CharacterAuthoredGraphic)graphic).InputDigest;
+                    var parts=actor.CharacterId=="noah"?(UnityEngine.UI.Graphic)actor.GetComponentInChildren<NoahAuthoredGraphic>():actor.GetComponentInChildren<CharacterAuthoredGraphic>();
+                    bool front=direction==NoahAuthoredDirection.Front;
+                    var graphic=front?(UnityEngine.UI.Graphic)actor.VisualRoot.GetComponent<CharacterBodyGraphic>():parts;
+                    Assert.That(graphic,Is.Not.Null);Assert.That(graphic.enabled,Is.True);
+                    Assert.That(parts.enabled,Is.EqualTo(!front));
+                    if(!front){Assert.That(graphic.transform.parent,Is.SameAs(actor.VisualRoot));Assert.That(graphic.canvasRenderer.GetMesh().vertexCount,Is.EqualTo(actor.CharacterId=="noah"?32:28));}
+                    else
+                    {
+                        var mesh=graphic.canvasRenderer.GetMesh();Assert.That(mesh,Is.Not.Null);Assert.That(mesh.vertexCount,Is.GreaterThan(0));
+                        var vertices=mesh.vertices.Select(v=>actor.VisualRoot.InverseTransformPoint(graphic.transform.TransformPoint(v))).ToArray();
+                        var shadow=actor.transform.Find(actor.CharacterId=="noah"?"Noah soft ground shadow":"Character authored ground shadow").GetComponent<UnityEngine.UI.Graphic>();
+                        Assert.That(shadow.enabled,Is.True);Assert.That(shadow.raycastTarget,Is.False);Assert.That(shadow.canvasRenderer.GetMesh().vertexCount,Is.EqualTo(97));
+                        proof.geometry.Add(new SixGeometry{character=actor.CharacterId,foot_anchor_screen_y=captureCamera.WorldToScreenPoint(actor.VisualRoot.position).y,
+                            mesh_bottom_local=vertices.Min(v=>v.y),mesh_height_local=vertices.Max(v=>v.y)-vertices.Min(v=>v.y),scale=actor.VisualRoot.localScale.y,
+                            body_vertices=mesh.vertexCount,shadow_vertices=97,shadow_anchors=Rect.MinMaxRect(shadow.rectTransform.anchorMin.x,shadow.rectTransform.anchorMin.y,shadow.rectTransform.anchorMax.x,shadow.rectTransform.anchorMax.y)});
+                    }
+                    string digest=actor.CharacterId=="noah"?NoahAuthoredGraphic.InputDigest:((CharacterAuthoredGraphic)parts).InputDigest;
                     Assert.That(digest,Is.EqualTo(proof.inputs.Single(p=>p.characterId==actor.CharacterId).input_sha256));
                     Assert.That(actor.NoahAuthoredEnabled||actor.CharacterAuthoredEnabled,Is.True);
                     Assert.That(actor.RegionVisible,Is.True);
@@ -94,6 +115,11 @@ namespace Mofumachi.Tests
                     foreach(var corner in corners){var p=captureCamera.WorldToViewportPoint(corner);Assert.That(p.x,Is.InRange(0f,1f));Assert.That(p.y,Is.InRange(0f,1f));}
                 }
             }
+            Assert.That(proof.geometry.Count,Is.EqualTo(6));
+            Assert.That(proof.geometry.Max(g=>g.mesh_height_local)/proof.geometry.Min(g=>g.mesh_height_local),Is.LessThan(1.15f),"Front display heights must remain comparable without erasing individual design.");
+            foreach(var g in proof.geometry)Assert.That(Math.Abs(g.mesh_bottom_local),Is.LessThan(.5f),g.character+": front foot anchor");
+            for(int row=0;row<2;row++){var line=proof.geometry.Skip(row*3).Take(3);Assert.That(line.Max(g=>g.foot_anchor_screen_y)-line.Min(g=>g.foot_anchor_screen_y),Is.LessThan(1f),"Equal-world-Y actors must share a foot line.");}
+            proof.front_verified=true;proof.geometry_verified=true;
             var hero=actors.Single(a=>a.Controlled);var target=hero.GetComponentInChildren<CharacterAuthoredGraphic>();
             VerifyAuthoredScreenInput(field,hero,target);proof.tap_verified=true;
             Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(saved));Assert.That(Store.Writes,Is.EqualTo(writes));

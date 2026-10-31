@@ -15,7 +15,7 @@ namespace Mofumachi.Editor
         [Serializable] private sealed class Context{public string gitRevision=null,productFingerprint=null;public string[] singleRuns=null;}
         [Serializable] public sealed class Input{public string characterId,input_sha256;}
         [Serializable] public sealed class Seal{public string gitRevision,productFingerprint,packed_resource_sha256;public Input[] inputs;}
-        [Serializable] private sealed class Proof{public string character=null,gitRevision=null,productFingerprint=null,input_sha256=null,packed_resource_sha256=null;public bool native_unity=false,all_six_enabled=false,save_unchanged=false,tap_verified=false,conversation_verified=false,greeting_authored=false,talk_authored=false,blink_authored=false;}
+        [Serializable] private sealed class Proof{public string character=null,gitRevision=null,productFingerprint=null,input_sha256=null,packed_resource_sha256=null;public bool native_unity=false,all_six_enabled=false,save_unchanged=false,tap_verified=false,grounding_verified=false,front_verified=false,geometry_verified=false,conversation_verified=false,greeting_authored=false,talk_authored=false,blink_authored=false;}
         [Serializable] private sealed class BuildInfo{public string mode,gitRevision,productFingerprint,packed_resource_sha256,sha256,apk,package;public bool full_qa_verified=true,six_native_verified=true,pixel_verified=false,adopted=false;}
         private static readonly string[] Ids={"momo","lulu","pom","fio","miel","noah"};
         private static string Root=>Directory.GetParent(Application.dataPath).FullName;
@@ -69,11 +69,11 @@ namespace Mofumachi.Editor
                 if(!single.StartsWith(Path.Combine(Root,"Builds","Diagnostics")+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase))throw new BuildFailedException("Single gate outside diagnostics.");
                 Passed(Path.Combine(single,"playmode.xml"),1,"Mofumachi.Tests.ExperienceCaptureTests."+char.ToUpperInvariant(id[0])+id.Substring(1)+"AuthoredPartsPreserveIdentityInputAndState");
                 var p=JsonUtility.FromJson<Proof>(File.ReadAllText(Path.Combine(single,"screenshots",id+"-authored","proof.json")));
-                if(p.character!=id||p.gitRevision!=c.gitRevision||p.productFingerprint!=c.productFingerprint||p.input_sha256!=seal.inputs[i].input_sha256||!p.native_unity||!p.save_unchanged||!p.tap_verified||!p.conversation_verified||!p.greeting_authored||!p.talk_authored||!p.blink_authored)throw new BuildFailedException("Invalid single-character proof: "+id);
+                if(p.character!=id||p.gitRevision!=c.gitRevision||p.productFingerprint!=c.productFingerprint||p.input_sha256!=seal.inputs[i].input_sha256||((id=="momo"||id=="miel")&&!p.grounding_verified)||!p.native_unity||!p.save_unchanged||!p.tap_verified||!p.conversation_verified||!p.greeting_authored||!p.talk_authored||!p.blink_authored)throw new BuildFailedException("Invalid single-character proof: "+id);
             }
             Passed(Path.Combine(run,"six-playmode.xml"),1,"Mofumachi.Tests.ExperienceCaptureTests.SixAuthoredCharactersPreserveWorldAndInput");
             var six=JsonUtility.FromJson<Proof>(File.ReadAllText(Path.Combine(run,"screenshots","six-authored","six-proof.json")));
-            if(!six.native_unity||!six.all_six_enabled||!six.save_unchanged||!six.tap_verified||six.gitRevision!=c.gitRevision||six.productFingerprint!=c.productFingerprint||six.packed_resource_sha256!=seal.packed_resource_sha256)throw new BuildFailedException("Six-character native/source proof missing.");
+            if(!six.front_verified||!six.geometry_verified||!six.native_unity||!six.all_six_enabled||!six.save_unchanged||!six.tap_verified||six.gitRevision!=c.gitRevision||six.productFingerprint!=c.productFingerprint||six.packed_resource_sha256!=seal.packed_resource_sha256)throw new BuildFailedException("Six-character native/source proof missing.");
             string symbols=PlayerSettings.GetScriptingDefineSymbols(UnityEditor.Build.NamedBuildTarget.Android);
             if(symbols.Split(';').Any(s=>s=="MOFUMACHI_NOAH_AUTHORED"||s=="MOFUMACHI_CHARACTERS_AUTHORED"))throw new BuildFailedException("Do not persist candidate build defines.");
             AndroidBuild.ValidateContent();AndroidBuild.WithTownQaIdentity(()=>{Build(run,"baseline",c,seal,false);Build(run,"authored",c,seal,true);});

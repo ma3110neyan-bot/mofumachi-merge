@@ -19,6 +19,7 @@ namespace Mofumachi.Tests
             public string character,kind="single-character-native-parts",gitRevision,productFingerprint,input_sha256;
             public bool native_unity=true,pixel_verified=false,adopted=false,tap_verified,conversation_verified,save_unchanged,greeting_authored,talk_authored,blink_authored,rear_blink_verified;
             public NativeImage blink_image;
+            public bool grounding_verified;public List<NativePair> grounding_pairs=new List<NativePair>();
             public string sequence_kind="actual public GuidePoint and AdvanceFrame, fixed simulation steps, not FPS";
             public string[] observed_directions;public int sorting_examples;
             public List<NativePair> pairs=new List<NativePair>();public List<NativeImage> frames=new List<NativeImage>(),sorting_images=new List<NativeImage>();
@@ -147,6 +148,8 @@ namespace Mofumachi.Tests
             {
                 proof.pairs.Add(CaptureAdditionalPair(output,field,actor,label));
             }
+            bool finalGrounding=id=="momo"||id=="miel";
+            if(finalGrounding)proof.grounding_pairs.Add(CaptureFinalGrounding(output,field,actor,"grounding-idle"));
             Pair("01-idle");var directions=new HashSet<NoahAuthoredDirection>();int unityFrame=Time.frameCount;int step=0;
             foreach(var target in CharacterAuthoredCaptureRoute.Targets)
             {
@@ -166,6 +169,7 @@ namespace Mofumachi.Tests
                     if(i==12)
                     {
                         Pair("walk-"+step.ToString("0000"));
+                        if(finalGrounding)proof.grounding_pairs.Add(CaptureFinalGrounding(output,field,actor,"grounding-walk-"+step.ToString("0000")));
                         if(actor.CharacterDirection==NoahAuthoredDirection.Front)
                         {
                             Assert.That(old.enabled,Is.True,"The captured front must retain its active original renderer.");
@@ -231,6 +235,12 @@ namespace Mofumachi.Tests
             Assert.That(proof.pairs.All(p=>p.outside_allowed_pixels==0),Is.True);
             Assert.That(proof.pairs.Count(p=>p.changed_pixels>0),Is.GreaterThanOrEqualTo(6));
             Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(saved));Assert.That(Store.Writes,Is.EqualTo(writes));proof.save_unchanged=true;
+            if(finalGrounding)
+            {
+                Assert.That(proof.grounding_pairs.Count,Is.EqualTo(5));
+                Assert.That(proof.grounding_pairs.Select(p=>p.mode).Distinct(),Is.EquivalentTo(new[]{"Front","Back","Left","Right"}));
+                proof.grounding_verified=true;
+            }
             proof.observed_directions=directions.Select(d=>d.ToString()).OrderBy(d=>d).ToArray();
             File.WriteAllText(Path.Combine(output,"proof.json"),JsonUtility.ToJson(proof,true));LogAssert.NoUnexpectedReceived();
         }

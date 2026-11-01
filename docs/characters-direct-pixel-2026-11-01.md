@@ -1,5 +1,7 @@
 # 固定済み6キャラをテストなしでPixel 3aへ更新
 
+**最新の頭胴復旧では、[復旧用の限定手順](characters-head-recovery-2026-11-01.md)を使用します。** 前回の正式完了はPixel再発により撤回しました。下の直接ビルド入口自体は維持していますが、今回の推奨手順は新しい頭同期1件→この直接ビルドの順です。
+
 Unity Hubの操作、EditMode／PlayMode、単体撮影、全件テストは実行しません。ノアと5名の同じ原素材を準備し、既存の2.5Dフラグを指定したAPKを1本だけ作成し、同じ街QAへ上書き更新します。APK作成のためUnity6000.6.4f1本体は自動起動します。
 
 キャラ原画・描画・動作・正式Visual Lock53ファイルは無変更です。新しい入口は`scripts/prepare-characters-direct-pixel.ps1`とEditor専用`CharactersDirectPixelBuild.cs`のみで、通常の全件QAルートは変更していません。

@@ -1,0 +1,68 @@
+{
+  "kind": "CLR actual-source geometry regression; not native Unity or Pixel",
+  "reference_revision": "7c98804a78f07546fb8176b320904e8af44f6542",
+  "verification_order": "Noah RED→restore→GREEN, then five RED→restore→GREEN",
+  "characters": [
+    {
+      "id": "noah",
+      "frames": 720,
+      "red_vertex_mismatches": 2880,
+      "red_maximum_vertex_delta": 21.757599,
+      "green_vertex_mismatches": 0,
+      "green_maximum_vertex_delta": 0
+    },
+    {
+      "id": "momo",
+      "frames": 720,
+      "red_vertex_mismatches": 2880,
+      "red_maximum_vertex_delta": 32.95079,
+      "green_vertex_mismatches": 0,
+      "green_maximum_vertex_delta": 0
+    },
+    {
+      "id": "lulu",
+      "frames": 720,
+      "red_vertex_mismatches": 2880,
+      "red_maximum_vertex_delta": 18.944466,
+      "green_vertex_mismatches": 0,
+      "green_maximum_vertex_delta": 0
+    },
+    {
+      "id": "pom",
+      "frames": 720,
+      "red_vertex_mismatches": 2880,
+      "red_maximum_vertex_delta": 35.553886,
+      "green_vertex_mismatches": 0,
+      "green_maximum_vertex_delta": 0
+    },
+    {
+      "id": "fio",
+      "frames": 720,
+      "red_vertex_mismatches": 2880,
+      "red_maximum_vertex_delta": 32.40428,
+      "green_vertex_mismatches": 0,
+      "green_maximum_vertex_delta": 0
+    },
+    {
+      "id": "miel",
+      "frames": 720,
+      "red_vertex_mismatches": 2880,
+      "red_maximum_vertex_delta": 45.015945,
+      "green_vertex_mismatches": 0,
+      "green_maximum_vertex_delta": 0
+    }
+  ],
+  "api_compilation": {
+    "presentation": "0 warnings/errors",
+    "editor": "0 warnings/errors",
+    "playmode": "0 warnings/errors"
+  },
+  "scope": "Only two production renderers; original4 manifests and51 remaining frozen inputs byte/hash unchanged",
+  "native_verified": false,
+  "pixel_verified": false,
+  "formal_fixed": false,
+  "adopted": false,
+  "native_misalignments": null,
+  "native_unmet_characters": null,
+  "review": "Fresh approved_head_restore_review: no important production findings; PNG pose refresh issue addressed in test-only callback/assertions, API-checked but native-unexecuted."
+}

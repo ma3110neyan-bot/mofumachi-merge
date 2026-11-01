@@ -87,9 +87,11 @@ namespace Mofumachi.Presentation
             foreach(var open in view.parts)
             {
                 var p=view.PartFor(open,eyesClosed);
-                var t=p.id=="head"?view.neck.Resolve(bodyFrame,pose.Head.Rotation+p.rotation,p!=open):pose.Part(p.id).Child(p.offset.x,p.offset.y,p.rotation);
+                // Use Noah's approved current-pose frame for head and body alike;
+                // character differences remain the unchanged static registration.
+                var t=pose.Part(p.id).Child(p.offset.x,p.offset.y,p.rotation);
 #if UNITY_EDITOR
-                if(capturePreviousNeck&&p.id=="head")t=pose.AttachedHead(p.offset.x,p.offset.y,p.rotation,(.5f-p.pivot.x)*p.width*p.scale,(1-p.pivot.y)*p.height*p.scale);
+                if(capturePreviousNeck&&p.id=="head")t=view.neck.Resolve(bodyFrame,pose.Head.Rotation+p.rotation,p!=open);
                 if(captureLegacyPose&&p.id=="head"){var old=pose.Head;if(view.direction=="back"){var h=pose.Body.Child(-20,-238,pose.Head.Rotation-pose.Body.Rotation);old=new NoahPartTransform(0,h.Y,h.Rotation);}t=old.Child(p.offset.x,p.offset.y,p.rotation);}
 #endif
                 int n=vh.currentVertCount;

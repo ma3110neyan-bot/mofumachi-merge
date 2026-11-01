@@ -1,5 +1,17 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-11-01最新：Pixel再発で前回完了を撤回・成功版ノアの頭配置へ復旧
+
+最新指示は成功済みノアの復元と同構造の5名展開、Head/Body同期だけ。PDF222217／222414／222459の22画面原本をReferences/Review/character-head-restore-feedback-2026-11-01/に保存。静止画からAPK版／時間的遅延は推測しない。以前の正式完了・未達0名の判定は撤回し、現状態は「実装修正済み・実機再確認待ち」。旧XMLの成功は事実として原本保存するが復旧合格へ流用しない。
+
+承認ノアは7c98804a、動的TownActor→VisualRoot→単一Graphic、全パーツ共有pose.Partで頭別Root／Animator／Tweenなし。後の9099521の輪郭接点solverが頭だけを原配置から移動させた。ゼロ時点で右向きX20→-20.23、背面0→-34.69。前検査は自分で定義した輪郭点一致を証明し、合格ノア配置との差を検出できなかった。
+
+ノアのproduction headをpose.Partへ復元し、固定合格ソース＋実Graphicソースを動かすCLR検査720連続状態RED2880→GREEN0後にだけ、5名を同じpose.Part.Child元静的登録へ。各720状態で不一致0、合計4320。CLRの最小Unity代替面による座標検査であり、ネイティブ／Pixel0件とは呼ばない。Runtime変更は2Graphicのみ。Motion.Sample／ActorRoot／現方向判定／背面補正／原画／登録／影／会話／すれ違い／街／Save等不変。新方式・個別手補正なし。
+
+新native頭1メソッドは成功版Bodyローカル初期配置を独立oracleとし、ノア240連続frameを最初に完了→他5名、計1440＋432比較標本／36PNG。旧kindは拒否。Portrait beforeRenderでposeを再固定し閉じ目PNGの対応も確認。全件は回さない。53固定記録は履歴として不変、characters-head-recovery-2026-11-01.jsonが最新の限定訂正（formal_fixed/adopted/native/pixel false）。2Graphicのexact before/new SHAだけ許可、残り51と歴史26/552は保護継続。解除のための原画例外・manifest削除は禁止。
+
+次はdocs/characters-head-recovery-2026-11-01.mdのRemoteSigned子PS：更新→頭1件→成功時だけ既存direct-pixelでAPK／install-r。保存削除・uninstall・全件なし。新頭全ZIPと現Pixelを確認するまで正式完了にしない。Mergeは別指示待ち。GitHub feature通常push・途中確認省略の許可継続。以下は履歴。
+
 ## 2026-11-01最新：ユーザー指定でUnityテストなしのPixel直接プレビュー
 
 キャラ2.5Dの正式固定は維持。ユーザーが「Unity Hubのテストなしで直接Pixel3a確認」を明示したため、既存の全件必須prepare-characters-final-pass／prepare-characters-pixel-previewは今回使用しない。新scripts/prepare-characters-direct-pixel.ps1 -Install -Serial99RAY1BELHを使用。Hub操作なし、既存Noah準備→5名準備→専用Editor CharactersDirectPixelBuild.BuildのexecuteMethod3回だけ。Unity本体のAPKコンパイルは必要。全件／単体native／baseline／計測は起動しない。旧ゲート用の偽XML・成功フラグを作らない。

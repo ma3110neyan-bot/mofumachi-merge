@@ -6,9 +6,14 @@ if($Args[[Array]::IndexOf($Args,'-testFilter')+1] -cne 'Mofumachi.Tests.Experien
 RejectHead {Get-HeadSyncArguments 'r' 'd' '' ('b'*64) ('c'*64)}
 $Ids=@('fio','lulu','miel','momo','noah','pom');$States=[ordered]@{'front-idle'='Front';'front-to-left-start'='Left';'left-walk'='Left';'left-to-right-walk'='Right';'right-walk'='Right';'right-to-back-walk'='Back';'back-walk'='Back';'back-to-front-stop-before'='Front';'front-stop-after'='Front'}
 $Samples=@();foreach($Id in $Ids){foreach($State in $States.Keys){for($Tick=0;$Tick -lt 8;$Tick++){$Samples+=@{character=$Id;state=$State;direction=$States[$State];tick=$Tick;error=0;head_x=1;head_y=2;body_x=1;body_y=2;front_single_mesh=($States[$State] -ceq 'Front');blink=($States[$State] -cne 'Front' -and $Id -cne 'noah' -and $Tick -eq 7)}}}}
-$Good=@{kind='six-character-head-body-sync-only';gitRevision=('a'*40);productFingerprint=('b'*64);packed_resource_sha256=('c'*64);native_unity=$true;save_unchanged=$true;non_head_unchanged=$true;head_art_size_angle_unchanged=$true;full_qa_verified=$false;pixel_verified=$false;formal_fixed=$false;adopted=$false;misalignments=0;unmet_characters=0;characters=$Ids;samples=$Samples;images=@(1..36 | ForEach-Object {@{file="synthetic-$_.png"}})} | ConvertTo-Json -Depth 8
+$Order=@('noah','fio','lulu','miel','momo','pom');$Continuous=@()
+foreach($Id in $Order){for($Tick=0;$Tick -lt 240;$Tick++){
+    $Direction=if($Tick -lt 30){'Front'}elseif($Tick -lt 60){'Left'}elseif($Tick -lt 90){'Right'}elseif($Tick -lt 150){'Back'}elseif($Tick -lt 180){'Left'}else{@('Right','Back','Front','Left')[$Tick%4]}
+    $Continuous+=@{character=$Id;state='continuous';direction=$Direction;tick=$Tick;error=0;head_x=1;head_y=2;body_x=1;body_y=2;front_single_mesh=($Direction -ceq 'Front');blink=($Id -cne 'noah' -and $Direction -cne 'Front' -and $Tick%17 -eq 0)}
+}}
+$Good=@{kind='six-character-approved-head-body-restore';reference_revision='7c98804a78f07546fb8176b320904e8af44f6542';oracle='approved-noah-body-local-rest-frame';verification_order=$Order;continuous_samples=$Continuous;noah_first_verified=$true;continuous_verified=$true;gitRevision=('a'*40);productFingerprint=('b'*64);packed_resource_sha256=('c'*64);native_unity=$true;save_unchanged=$true;non_head_unchanged=$true;head_art_size_angle_unchanged=$true;full_qa_verified=$false;pixel_verified=$false;formal_fixed=$false;adopted=$false;misalignments=0;unmet_characters=0;characters=$Ids;samples=$Samples;images=@(1..36 | ForEach-Object {@{file="synthetic-$_.png"}})} | ConvertTo-Json -Depth 8
 $P=$Good | ConvertFrom-Json;Assert-HeadSyncProof $P ('a'*40) ('b'*64) ('c'*64)
-foreach($Case in @('missing','duplicate','foreign','direction','blink','drift','nan','identity','flag','art','unmet')){
+foreach($Case in @('missing','duplicate','foreign','direction','blink','drift','nan','identity','flag','art','unmet','continuous','order','reference','old-kind')){
     $P=$Good | ConvertFrom-Json
     switch($Case){
         missing {$P.samples=$P.samples[1..431]}
@@ -22,6 +27,10 @@ foreach($Case in @('missing','duplicate','foreign','direction','blink','drift','
         flag {$P.formal_fixed=$true}
         art {$P.head_art_size_angle_unchanged=$false}
         unmet {$P.unmet_characters=1}
+        continuous {$P.continuous_samples[65].head_x=3}
+        order {$P.verification_order=@('fio','noah','lulu','miel','momo','pom')}
+        reference {$P.reference_revision=('d'*40)}
+        old-kind {$P.kind='six-character-head-body-sync-only'}
     }
     RejectHead {Assert-HeadSyncProof $P ('a'*40) ('b'*64) ('c'*64)}
 }
@@ -43,4 +52,4 @@ try{
     $P.images[0].sha256=('d'*64);RejectHead {Assert-HeadSyncImages $Root $P}
 
 }finally{Remove-Item -LiteralPath $Root -Recurse -Force}
-Write-Host 'Head-only exact native method, all432 samples,6 identities, eye-material coverage and failed/foreign/adoption/drift rejection passed. Synthetic evidence only.'
+Write-Host 'Approved-rest oracle, Noah-first1440 continuous frames,432 comparison samples and old-proof/drift rejection passed. Synthetic evidence only.'

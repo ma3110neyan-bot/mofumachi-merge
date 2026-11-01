@@ -1,0 +1,17 @@
+{
+  "revision": "7c98804a78f07546fb8176b320904e8af44f6542",
+  "files": [
+    {
+      "path": "Assets/Mofumachi/Presentation/NoahAuthoredMotion.cs",
+      "original_sha256": "aaa6134b4d34dbe63d0e5805c257addadfc03deccee4cd7603911da27d5909ca",
+      "fixture_sha256": "3c77cf7164bf85e64326d696bd4f7d2055721f86e142d6f48abb5582bdb21b67",
+      "only_change": "namespace Mofumachi.Presentation to Mofumachi.ApprovedNoah for isolated test compilation"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/NoahAuthoredGraphic.cs",
+      "original_sha256": "125edbfa8340555e3549242e2a7f3e4153f06706f5ec8bbd75124090ffce991d",
+      "fixture_sha256": "49836712f268d75b8dcf6f1324ab5330c9573862b919fe973e74d84bdc7a5f11",
+      "only_change": "namespace Mofumachi.Presentation to Mofumachi.ApprovedNoah for isolated test compilation"
+    }
+  ]
+}

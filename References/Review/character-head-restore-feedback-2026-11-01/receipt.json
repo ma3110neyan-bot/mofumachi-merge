@@ -1,0 +1,28 @@
+{
+  "kind": "user-device-feedback-head-body-regression",
+  "approved_source_revision": "7c98804a78f07546fb8176b320904e8af44f6542",
+  "received_pages": 22,
+  "device_binary_identity": "not supplied in screenshots; do not infer exact APK SHA",
+  "frame_timing": "static PDFs cannot prove delay frequency",
+  "previous_formal_acceptance": "withdrawn by latest explicit user feedback; original records retained",
+  "files": [
+    {
+      "file": "pixel-222414.pdf",
+      "bytes": 2663126,
+      "sha256": "4bb0903e647eb934ae6215f9013794ce1d8a7848053172a6f4cf9aff95cf6127",
+      "pages": 6
+    },
+    {
+      "file": "pixel-222459.pdf",
+      "bytes": 2604804,
+      "sha256": "d5b1af74763919792e7b8f65e7e37ba89f7d63b97391496b3e84de210357bdd8",
+      "pages": 6
+    },
+    {
+      "file": "pixel-222217.pdf",
+      "bytes": 4277968,
+      "sha256": "95ac1edb1b3b458d552ca9960fc8592d55579213a482f58ab9410b5e3218cae8",
+      "pages": 10
+    }
+  ]
+}

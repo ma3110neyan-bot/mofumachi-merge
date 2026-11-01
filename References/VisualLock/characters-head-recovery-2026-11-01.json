@@ -1,0 +1,26 @@
+{
+  "kind": "approved-noah-head-body-restoration",
+  "change_authorized": true,
+  "formal_fixed": false,
+  "adopted": false,
+  "reference_revision": "7c98804a78f07546fb8176b320904e8af44f6542",
+  "final_snapshot_sha256": "c367144a9500a92efb6e1c4dc890abf810205fad9770372cb592d5e1aa19f6d5",
+  "supersedes_formal_acceptance": "Latest explicit user Pixel feedback withdraws the former head-only final acceptance; preserve all old raw evidence. No new completion until current native/device review.",
+  "scope": "Head translation only: approved shared pose.Part plus original static material registration. No art/motion/direction/shadow/interaction/Save changes.",
+  "clr_renderer_verified": true,
+  "clr_frames_per_character": 720,
+  "native_verified": false,
+  "pixel_verified": false,
+  "overrides": [
+    {
+      "path": "Assets/Mofumachi/Presentation/NoahAuthoredGraphic.cs",
+      "before_sha256": "fa3c63ba9992d1e5a0fc3b1f7ea838e42754a7f3c1970e0a67a7977a77d4859f",
+      "sha256": "5134a5f5f2850091acfd0d0daf03b9f363246927a06a52c74be3ef35b289d1df"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/CharacterAuthoredGraphic.cs",
+      "before_sha256": "3ef8ddf4a2dbe37683cd8c99ae5f8e83217c65126738781b8bcf0e6601736cbd",
+      "sha256": "426faf72936ed61921bee1cd130d24f88a660451b65408c9e5ed7452b96413c7"
+    }
+  ]
+}

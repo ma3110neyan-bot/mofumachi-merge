@@ -9,8 +9,8 @@ function Get-HeadSyncArguments([string]$Repository,[string]$Directory,[string]$R
 }
 function Assert-HeadSyncProof($Proof,[string]$Revision,[string]$Fingerprint,[string]$Packed) {
     if($Revision -notmatch '^[a-f0-9]{40}$' -or $Fingerprint -notmatch '^[a-f0-9]{64}$' -or $Packed -notmatch '^[a-f0-9]{64}$'){throw 'Head-sync expected identity is invalid.'}
-    if($Proof.kind -cne 'six-character-head-body-sync-only' -or $Proof.gitRevision -cne $Revision -or $Proof.productFingerprint -cne $Fingerprint -or $Proof.packed_resource_sha256 -cne $Packed){throw 'Head-sync proof/source identity mismatch.'}
-    foreach($Flag in @('native_unity','save_unchanged','non_head_unchanged','head_art_size_angle_unchanged')){if($Proof.$Flag -isnot [bool] -or -not $Proof.$Flag){throw "Head-sync invariant failed: $Flag"}}
+    if($Proof.kind -cne 'six-character-approved-head-body-restore' -or $Proof.reference_revision -cne '7c98804a78f07546fb8176b320904e8af44f6542' -or $Proof.oracle -cne 'approved-noah-body-local-rest-frame' -or $Proof.gitRevision -cne $Revision -or $Proof.productFingerprint -cne $Fingerprint -or $Proof.packed_resource_sha256 -cne $Packed){throw 'Head restore requires the approved rest-frame oracle and current source identity.'}
+    foreach($Flag in @('native_unity','save_unchanged','non_head_unchanged','head_art_size_angle_unchanged','noah_first_verified','continuous_verified')){if($Proof.$Flag -isnot [bool] -or -not $Proof.$Flag){throw "Head-sync invariant failed: $Flag"}}
     foreach($Flag in @('full_qa_verified','pixel_verified','formal_fixed','adopted')){if($Proof.$Flag -isnot [bool] -or $Proof.$Flag){throw 'Focused head proof cannot claim unrelated acceptance.'}}
     $Ids=@('fio','lulu','miel','momo','noah','pom')
     if(@($Proof.characters).Count -ne 6 -or @($Proof.characters | Select-Object -Unique).Count -ne 6 -or @(Compare-Object $Ids @($Proof.characters)).Count -or $Proof.misalignments -ne 0 -or $Proof.unmet_characters -ne 0){throw 'All six identities with zero head misalignments are required.'}
@@ -30,6 +30,18 @@ function Assert-HeadSyncProof($Proof,[string]$Revision,[string]$Fingerprint,[str
         }
     }
     foreach($Id in $Ids){foreach($State in $States.Keys){for($Tick=0;$Tick -lt 8;$Tick++){if(-not $Seen.ContainsKey($Id+':'+$State+':'+$Tick)){throw 'Head transition coverage incomplete.'}}}}
+    $Order=@('noah','fio','lulu','miel','momo','pom')
+    if(@($Proof.verification_order).Count -ne 6 -or (@($Proof.verification_order) -join ',') -cne ($Order -join ',') -or @($Proof.continuous_samples).Count -ne 1440){throw 'Noah must pass all continuous frames before the five other characters.'}
+    for($Index=0;$Index -lt 1440;$Index++){
+        $S=$Proof.continuous_samples[$Index];$Tick=$Index%240;$Id=$Order[[int][Math]::Floor($Index/240)]
+        $Direction=if($Tick -lt 30){'Front'}elseif($Tick -lt 60){'Left'}elseif($Tick -lt 90){'Right'}elseif($Tick -lt 150){'Back'}elseif($Tick -lt 180){'Left'}else{@('Right','Back','Front','Left')[$Tick%4]}
+        if($S.character -cne $Id -or $S.state -cne 'continuous' -or $S.tick -ne $Tick -or $S.direction -cne $Direction -or $S.front_single_mesh -isnot [bool] -or $S.front_single_mesh -ne ($Direction -ceq 'Front') -or $S.blink -isnot [bool] -or $S.blink -ne ($Id -cne 'noah' -and $Direction -cne 'Front' -and $Tick%17 -eq 0)){throw 'Continuous head/body direction, blink or frame order missing.'}
+        if([double]::IsNaN([double]$S.error) -or [double]::IsInfinity([double]$S.error) -or [double]$S.error -lt 0 -or [double]$S.error -gt .002){throw 'Continuous restored head frame failed.'}
+        if($Direction -cne 'Front'){
+            $Dx=[double]$S.head_x-[double]$S.body_x;$Dy=[double]$S.head_y-[double]$S.body_y;$Distance=[Math]::Sqrt($Dx*$Dx+$Dy*$Dy)
+            if([double]::IsNaN($Distance) -or [double]::IsInfinity($Distance) -or $Distance -gt .002 -or [Math]::Abs($Distance-[double]$S.error) -gt .0001){throw 'Continuous head position differs from the approved body-local rest frame.'}
+        }
+    }
 }
 function Assert-HeadSyncImages([string]$Directory,$Proof){
     $Expected=@();foreach($State in @('front-idle','front-to-left-start','left-walk','left-to-right-walk','right-walk','right-to-back-walk','back-walk','back-to-front-stop-before','front-stop-after')){foreach($Tick in @(0,7)){foreach($Kind in @('before','after')){$Expected+=($State+'-'+$Tick+'-'+$Kind+'.png')}}}
@@ -82,4 +94,4 @@ finally{
     if($FirstZip -and $env:OS -eq 'Windows_NT'){Start-Process -FilePath explorer.exe -ArgumentList ('/select,"'+$FirstZip+'"')}
 }
 if($Failure){throw $Failure}
-Write-Host 'Head-only native gate passed. Review all six new images before formal visual freeze.'
+Write-Host 'Approved-rest native gate passed: Noah first, then five;1440 continuous frames and432 comparison samples. Pixel review remains pending.'

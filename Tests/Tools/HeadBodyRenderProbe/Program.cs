@@ -80,3 +80,22 @@ for(int frame=0;frame<720;frame++)
 }
 Console.WriteLine($"{id}: frames={frames}, vertex mismatches={failures}, maximum_error={maximum}; {first}");
 if(failures>0)Environment.Exit(1);
+// Optional source-preview export. Positions come from the actual Graphic
+// methods above, at the existing TownLifeView actor rectangle (62x78).
+// The consumer must label its raster output as software/material preview.
+if(args.Length>2)
+{
+    MaskableGraphic.Bounds=new Rect(0,0,62,78);var exported=new List<object>();
+    foreach(var state in new[]{("idle",0f,0f,0f),("walk-a",1f,(float)Math.PI/2,1f),("walk-b",1.25f,(float)Math.PI*1.5f,1f)})
+    foreach(var direction in new[]{NoahAuthoredDirection.Left,NoahAuthoredDirection.Right,NoahAuthoredDirection.Back})
+    {
+        string name=direction==NoahAuthoredDirection.Left?"left":direction==NoahAuthoredDirection.Right?"right":"back";
+        var mode=state.Item4==0?NoahAuthoredMode.Idle:NoahAuthoredMode.Walk;
+        if(actualNoah!=null)actualNoah.SetPose(state.Item2,state.Item3,state.Item4,mode,direction);else actualFive.SetPose(state.Item2,state.Item3,state.Item4,mode,direction,false);
+        var mesh=(actualNoah as MaskableGraphic??actualFive).Render();
+        exported.Add(new{state=state.Item1,direction=name,seconds=state.Item2,phase=state.Item3,walking=state.Item4,
+            parts=Enumerable.Range(0,staticParts[name].Length).Select(n=>new{id=staticParts[name][n].GetProperty("id").GetString(),
+                vertices=mesh.Positions.Skip(n*4).Take(4).Select(v=>new[]{v.x,v.y}).ToArray()}).ToArray()});
+    }
+    File.WriteAllText(args[2],JsonSerializer.Serialize(new{kind="actual-Graphic-CLR-mesh-for-source-preview",native_unity=false,character=id,actor_width=62,actor_height=78,formalWidth,formalHeight,frames=exported},new JsonSerializerOptions{WriteIndented=true}));
+}

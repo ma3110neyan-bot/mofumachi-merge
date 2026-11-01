@@ -1,5 +1,11 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-11-01最新：ユーザー指定でUnityテストなしのPixel直接プレビュー
+
+キャラ2.5Dの正式固定は維持。ユーザーが「Unity Hubのテストなしで直接Pixel3a確認」を明示したため、既存の全件必須prepare-characters-final-pass／prepare-characters-pixel-previewは今回使用しない。新scripts/prepare-characters-direct-pixel.ps1 -Install -Serial99RAY1BELHを使用。Hub操作なし、既存Noah準備→5名準備→専用Editor CharactersDirectPixelBuild.BuildのexecuteMethod3回だけ。Unity本体のAPKコンパイルは必要。全件／単体native／baseline／計測は起動しない。旧ゲート用の偽XML・成功フラグを作らない。
+
+原画・runtime・既存ビルダー・固定53・歴史manifest2点・amendmentは無変更。共通の2つのauthored defineはextraScriptingDefinesに限定。街QA packageを既存install-rで更新、uninstall／pm clear／Save変更なし。USB認可・機種を先に検査し、正式53＋既存26/552と同run source／packed／APK SHA一致時だけインストール。失敗は新run原本保存・古いAPK代用なし。Windows手順docs/characters-direct-pixel-2026-11-01.md。関連PS合成ガード／Editor API／独立レビューを確認し、クラウドを実APK・Pixel成功へ置換しない。通常feature pushは既存許可を継続。Mergeには着手しない。以下は履歴。
+
 ## 2026-11-01最新：6名の頭胴同期を実Unityで確認・2.5D工程正式固定
 
 受領characters-head-sync205652-61f18a2eの3ZIPはCRC正常、49原本のSHA照合済み。実Unityの頭同期1メソッドは1/1成功、failed／skip／inc0。source801ac626／WindowsFP6b2d7e85／packed cfc7b00dは原CLI・source-info・proofで一致、source_unchanged true。6名各9状態72標本、計432標本で接続不合格0・未達0名。36画像を完全decode／SHA照合、全18Afterを目視、18比較対のキャラ領域外差分0。原本記録・代表4画像・全49SHAをReferences/Review/characters-head-sync-accepted-2026-11-01-205652/に保存。

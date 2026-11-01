@@ -6,7 +6,7 @@
 
 停止相手の近くで回避の左右候補が交互に合法化し、毎刻み反転する実座標バグを再現。同一経路点の逆行候補を抑止し、通れない場合は既存待機／再経路へ。住民回避済み経路には通常の横押しを重ねず、床／障害物／足元clearanceは維持。NPCも移動放棄前に1度detour。新目的地／経路点／Restore／Cancelで一時方向を解除、保存項目なし。変更コードの元SHAは旧manifest不変、既存9点amendmentのWorldModel新SHAのみ更新。
 
-新回帰9件はRED8失敗→GREEN9成功。既存頭接続／背面／接地等を含む関連純粋68/68。通常交差144条件は全到着・反転0、近接249条件は半秒3反転以上131→0・全到着。再経路後と次の経路点で2回向きを変える例は最新trace68/78/99に記録、Pixel自然さ合格へ置換しない。証拠docs/verification/character-stability-2026-11-01/。第三者レビューでnative6名foreachが表示順sortの背後配列を走査する欠陥を修正：ToArray固定＋6ID一致必須。新nativeは未実行、APIは成功。通常会話はタップのみ・自動挨拶なし（0回/日）。
+実装修正commit9b2d5cb／productFP0c2341b0。新回帰9件はRED8失敗→GREEN9成功。既存頭接続／背面／接地等を含む関連純粋68/68。通常交差144条件は全到着・反転0、近接249条件は半秒3反転以上131→0・全到着。再経路後と次の経路点で2回向きを変える例は最新trace68/78/99に記録、Pixel自然さ合格へ置換しない。証拠docs/verification/character-stability-2026-11-01/。第三者レビューでnative6名foreachが表示順sortの背後配列を走査する欠陥を修正：ToArray固定＋6ID一致必須。新nativeは未実行、APIは成功。通常会話はタップのみ・自動挨拶なし（0回/日）。
 
 次はdocs/characters-stability-2026-11-01.mdのRemoteSigned子PS全体。featureを更新→新diagnose-character-stabilityの厳密3メソッド（6名近接＋既存自動発話なし＋実tap連打）。成功した場合だけ既存prepare-characters-final-passへ続行し、6単体順番→全Edit/Play各1回→6名描画／動作座標→同候補APK／authored先行Pixel10分。生成資源は既存所有者検査で可逆退避しunknownファイルを削除しない。失敗時は新runのみ、全件自動反復なし。新Unity全件／APK／Pixelは保留、formal_fixed/adopted false。旧7成功・旧全件部分成功と合算しない。既存GitHub feature push許可と途中確認省略は継続。以下は履歴。
 

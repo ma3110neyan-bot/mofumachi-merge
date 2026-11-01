@@ -30,6 +30,8 @@ powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -Command {
     }
     & $mofuStabilityGit pull --ff-only origin feat/daily-world-pass-20261016
     if ($LASTEXITCODE -ne 0) { throw "更新に失敗しました。" }
+    & $mofuStabilityGit merge-base --is-ancestor "9b2d5cb3d21fcf829ff71a600b4bfa006ec35c87" HEAD
+    if ($LASTEXITCODE -ne 0) { throw "今回の安定化修正を取得できていません。" }
     & ".\scripts\diagnose-character-stability.ps1"
     & ".\scripts\prepare-characters-final-pass.ps1" -Install -Serial "99RAY1BELH" -MeasureSeconds 600
 }

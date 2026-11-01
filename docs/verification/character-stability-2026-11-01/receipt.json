@@ -24,5 +24,7 @@
   "full_native_verified": false,
   "pixel_verified": false,
   "formal_fixed": false,
-  "adopted": false
+  "adopted": false,
+  "candidate_code_revision": "9b2d5cb3d21fcf829ff71a600b4bfa006ec35c87",
+  "candidate_product_fingerprint": "0c2341b097468391eb4afc11869aba873730e4429585babed9b1daba1d89703e"
 }

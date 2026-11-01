@@ -36,7 +36,7 @@
 - [x] Run focused NUnit runner, retain RED XML showing the repeated displacement reversals.
 - [x] Reject a steering candidate that reverses the last accepted movement on the same waypoint; if no candidate is legal, keep position and let existing waiting/replanning act. Clear transient memory on new route/waypoint and restore/cancel.
 - [x] Run related model/pose/route tests and the original sweep; verify no bursts and no new arrival failures. Update only this path's exact amendment digest.
-- [ ] Commit tested fix and bounded evidence.
+- [x] Commit tested fix and bounded evidence.
 
 ### Task 2: Native acceptance evidence and handoff
 
@@ -47,8 +47,8 @@
 - [x] Add a focused native regression for the reproduced movement and preserve existing real tap/no-auto tests. Make native final crossing evidence assert reversal bursts as well as arrival/clearance.
 - [x] Compile normal/Android/Editor/native API, run scoped PowerShell guards and exact frozen-source checks. No cloud Unity/Pixel success claim.
 - [x] Fresh review of the complete bounded diff; fix important findings with regression tests.
-- [ ] Push the authorized feature branch and verify remote SHA. Document one focused native gate then existing final-pass command; failure shares only that run, never automatic full reruns.
-- [ ] Report local results and pending native full/Pixel criteria without declaring formal completion.
+- [x] Push the authorized feature branch and verify remote SHA. Document one focused native gate then existing final-pass command; failure shares only that run, never automatic full reruns.
+- [x] Report local results and pending native full/Pixel criteria without declaring formal completion.
 
 ## Execution ledger
 
@@ -66,3 +66,5 @@ Final review rulings: native rendering/head attachment and Pixel are unjudged by
 
 Ruling: retain approved feature checkout and established harness paths, no new worktree; user authorized direct continuation and feature push. Cost if wrong: changes share this checkout; clean starting state and bounded explicit commit allow rollback.
 Ruling: do not call pure/API/synthetic checks native or full success. Cloud has no usable Unity license or Pixel USB. Cost: final visual freeze remains pending genuine hardware evidence rather than being declared prematurely.
+
+Delivery: code9b2d5cb pushed normally to authorized feature and independently matched by ls-remote. Product fingerprint0c2341b097468391eb4afc11869aba873730e4429585babed9b1daba1d89703e. Handoff has a matching minimum-code ancestor guard and passed PowerShell parser validation. Final documentation update changes no product inputs.

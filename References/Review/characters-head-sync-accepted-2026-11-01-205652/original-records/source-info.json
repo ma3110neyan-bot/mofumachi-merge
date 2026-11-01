@@ -1,0 +1,16 @@
+﻿{
+    "scope":  "head-body-sync-only",
+    "gitRevision":  "801ac626324bf56ec3035a0071a6acf728be470c",
+    "productFingerprint":  "6b2d7e85132dc2c31312cbf7d4e450f8dd0a3c6cfa31237fab1ca1d0eef594e6",
+    "packed_resource_sha256":  "cfc7b00deae16784fb9a7827ca1dbde5326800aea7aac20a51bb3d73f645bbe4",
+    "preserved_inputs":  {
+
+                         },
+    "head_native_verified":  true,
+    "full_qa_verified":  false,
+    "pixel_verified":  false,
+    "formal_fixed":  false,
+    "adopted":  false,
+    "source_unchanged":  true,
+    "error":  ""
+}

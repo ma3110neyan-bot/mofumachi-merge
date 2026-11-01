@@ -1,0 +1,852 @@
+VBCSCompilerPreWarmer: watching VBCSCompiler (PID 16588)
+VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 16976)
+VBCSCompiler prewarm took 25.04 ms
+[Licensing::Module] Trying to connect to existing licensing client channel...
+[Licensing::IpcConnector] Channel LicenseClient-User doesn't exist
+Built from '6000.6/staging' branch; Version is '6000.6.4f1 (12bfff696524) revision 1228799'; Using compiler version '194234433'; Build Type 'Release'
+OS: 'Windows 11  (10.0.26300) Professional' Language: 'ja' Physical Memory: 16016 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+System  architecture: x64
+Process architecture: x64
+Date: 2026-11-01T11:57:33Z
+[Licensing::Module] Successfully launched the LicensingClient (PId: 21148)
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\6000.6.4f1\Editor\Unity.exe
+-batchmode
+-quit
+-projectPath
+C:\Users\User\Desktop\Mofumachi\mofumachi-merge
+-buildTarget
+Android
+-executeMethod
+Mofumachi.Editor.CharacterAuthoredBuild.PrepareAll
+-mofumachiCharacterDirectory
+C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Diagnostics\characters-head-sync-20261101-205652-61f18a2e
+-logFile
+C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Diagnostics\characters-head-sync-20261101-205652-61f18a2e\prepare-five.log
+Successfully changed project path to: C:\Users\User\Desktop\Mofumachi\mofumachi-merge
+C:/Users/User/Desktop/Mofumachi/mofumachi-merge
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-remapper-allocator-initial-capacity=32768"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-main-allocator-mimalloc-enabled=1"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+Logging is directed to a specific file, skipping project log.
+Player connection [14544]  Target information:
+
+Player connection [14544]  * "[IP] 192.168.11.11 [Port] 55504 [Flags] 2 [Guid] 3057287296 [EditorId] 3057287296 [Version] 1048832 [Id] WindowsEditor(7,Massa) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [14544] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [14544] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+[Package Manager] Connected to IPC stream "Upm-13320" after 0.3 seconds.
+[Licensing::Module] Licensing is not yet initialized.
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-User" at "2026-11-01T11:57:33.6973677Z"
+[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 21148, path: "C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client.exe")
+[Licensing::Module] LicensingClient has failed validation; ignoring
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.18.3+d7ffd15
+  Session Id:              76b00de940d74eddb011904a0cb25cd7
+  Correlation Id:          44cd50c8df3f7b7d1732a5ae139198a4
+  External correlation Id: 1737437262736476460
+  Machine Id:              s1ZBFAh08iD+xU7rS9eEdo0A/W0=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-User" (connect: 0.57s, validation: 0.06s, handshake: 0.03s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-User-notifications" at "2026-11-01T11:57:33.7877515Z"
+[Licensing::Module] Connected to LicensingClient (PId: 21148, launch time: 0.01, total connection time: 0.66s)
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: 15669776303905-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.01
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] Licensing Background thread has ended after 0.69s
+[Licensing::Module] Licensing is initialized (took 0.21s).
+[Licensing::Client] Successfully resolved entitlement details
+Library Redirect Path: Library/
+Launching Unity Data Store - C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/Tools/Unity.DataStore.exe 
+Unity Data Store artifact dir = Library/DataStore, working dir = C:/Users/User/Desktop/Mofumachi/mofumachi-mergeActive build profile path: `Assets/Settings/Build Profiles/Android™.asset`
+Unity Data Store running and initialised
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+[Licensing::Client] Successfully resolved entitlement details
+Targeting platform: Android
+Got setting from build profile YAML, name `m_BuildTarget`, value `13`
+Got setting from build profile YAML, name `m_Subtarget`, value `0`
+Refreshing native plugins compatible for Editor in 3.62 ms, found 0 plugins.
+[Physics::Module] Selected backend (deferred post-plugins).
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Initialize engine version: 6000.6.4f1 (12bfff696524)
+[EntityIdStore] init: VM path (explicit commit), pageSize=4096, blockCount=1048576, entitiesPerBlock=256, slots reserved=4294967296 bytes
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/User/Desktop/Mofumachi/mofumachi-merge/Assets
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+d3d12: failed to query info queue interface (0x80004002).
+Direct3D:
+    Version:         Direct3D 12 [level 12.1]
+    Renderer:        Intel(R) Iris(R) Xe Graphics (ID=0x9a49)
+    Vendor:          Intel
+    VRAM:            8008 MB
+    App VRAM Budget: 7351 MB
+    Driver:          32.0.101.7085
+    Unified Memory Architecture
+    Cache Coherent UMA
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/BCLExtensions/runtime/netstandard2.1'
+Mono path[2] = 'C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56320
+CodeReloadManager initialized
+ImportWorker Server TCP listen port: 0
+AcceleratorClientConnectionCallback - disconnected - :0
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+[Licensing::Client] Successfully resolved entitlement details
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll
+Registered in 0.006339 seconds.
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Native extension for iOS target not found
+Native extension for Android target not found
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Package Manager log level set to [2]
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
+Scripting: successfully reloaded assembly
+- Finished resetting the current domain, in  1.147 seconds
+Domain Reload Profiling: 1851ms
+	BeginReloadAssembly (147ms)
+		CreateAndSetChildDomain (4ms)
+	RebuildCommonClasses (6ms)
+	RebuildNativeTypeToScriptingClass (20ms)
+	initialDomainReloadingComplete (78ms)
+	LoadAllAssembliesAndSetupDomain (449ms)
+		LoadAssemblies (141ms)
+		TypeCache.Refresh (295ms)
+			TypeCache.ScanAssembly (272ms)
+		AnalyzeDomain (1ms)
+	FinalizeReload (1150ms)
+		SetupLoadedEditorAssemblies (0ms)
+			InitializePlatformSupportModulesInManaged (20ms)
+			BeforeProcessingInitializeOnLoad (182ms)
+			ProcessInitializeOnLoadAttributes (236ms)
+			ProcessInitializeOnLoadMethodAttributes (388ms)
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Client] Successfully resolved entitlement details
+Application.AssetDatabase Initial Refresh Start
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 79 packages:
+  Packages from [https://packages.unity.com]:
+    com.unity.2d.animation@16.0.1 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.2d.animation@899988b542b9)
+    com.unity.2d.aseprite@6.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.2d.aseprite@ab909e3e9b5f)
+    com.unity.2d.psdimporter@15.0.1 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.2d.psdimporter@e02a9153d8d9)
+    com.unity.2d.spriteshape@16.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.2d.spriteshape@42798c9d35d3)
+    com.unity.2d.tilemap.extras@9.0.1 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.2d.tilemap.extras@9446f3c60919)
+    com.unity.2d.tooling@4.0.1 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.2d.tooling@4e93af4036ee)
+    com.unity.collab-proxy@2.13.6 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.collab-proxy@4628d2ba6ea4)
+    com.unity.ide.rider@3.0.38 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.ide.rider@1f60b3138684)
+    com.unity.ide.visualstudio@2.0.26 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.ide.visualstudio@a99d56dec63f)
+    com.unity.inputsystem@1.20.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.inputsystem@7a4e1a2a8194)
+    com.unity.learn.iet-framework@6.0.7 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.learn.iet-framework@96330db47073)
+    com.unity.microsoft.gdk@1.7.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.microsoft.gdk@3b45a9994164)
+    com.unity.microsoft.gdk.tools@1.7.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.microsoft.gdk.tools@d61763b7f228)
+    com.unity.purchasing@5.4.4 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.purchasing@215c35b51cf4)
+    com.unity.visualscripting@1.9.12 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.visualscripting@4edfcc09512f)
+    com.unity.services.core@1.18.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.services.core@3464cb68d709)
+    com.unity.services.deployment@1.7.2 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.services.deployment@c07c64f9804b)
+    com.unity.microsoft.gdk.discovery@1.3.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.microsoft.gdk.discovery@9c2d1c88cf7f)
+    com.unity.settings-manager@2.1.1 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.settings-manager@0b8638c5ce86)
+    com.unity.2d.common@15.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.2d.common@b779c433ed47)
+    com.unity.searcher@4.9.5 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.searcher@a463122f2c00)
+    com.unity.profiling.core@1.0.3 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.profiling.core@8a49f7027d06)
+    com.unity.services.deployment.api@1.1.3 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.services.deployment.api@9becf6da0f1a)
+    com.unity.nuget.newtonsoft-json@3.2.2 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.nuget.newtonsoft-json@4dfd81071c64)
+    com.unity.nuget.mono-cecil@1.11.6 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff)
+  Built-in packages:
+    com.unity.2d.sprite@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.2d.sprite@752945c75a6f)
+    com.unity.2d.tilemap@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.2d.tilemap@f4c7bd71ac8a)
+    com.unity.render-pipelines.universal@17.6.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.render-pipelines.universal@b0678dfc9e21)
+    com.unity.test-framework@1.8.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.test-framework@80f691d4262b)
+    com.unity.timeline@6.6.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.timeline@c56d56b0070b)
+    com.unity.ugui@2.6.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.ugui@0727b404f3a0)
+    com.unity.modules.accessibility@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.accessibility)
+    com.unity.modules.adaptiveperformance@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.adaptiveperformance)
+    com.unity.modules.ai@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.ai)
+    com.unity.modules.androidjni@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.androidjni)
+    com.unity.modules.animation@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.animation)
+    com.unity.modules.assetbundle@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.assetbundle)
+    com.unity.modules.audio@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.audio)
+    com.unity.modules.cloth@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.cloth)
+    com.unity.modules.director@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.director)
+    com.unity.modules.imageconversion@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.imageconversion)
+    com.unity.modules.imgui@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.imgui)
+    com.unity.modules.jsonserialize@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.jsonserialize)
+    com.unity.modules.particlesystem@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.particlesystem)
+    com.unity.modules.physics@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.physics)
+    com.unity.modules.physics2d@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.physics2d)
+    com.unity.modules.physicscore2d@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.physicscore2d)
+    com.unity.modules.screencapture@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.screencapture)
+    com.unity.modules.terrain@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.terrain)
+    com.unity.modules.terrainphysics@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.terrainphysics)
+    com.unity.modules.tetgen@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.tetgen)
+    com.unity.modules.tilemap@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.tilemap)
+    com.unity.modules.timelinefoundation@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.timelinefoundation)
+    com.unity.modules.ui@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.ui)
+    com.unity.modules.uielements@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.uielements)
+    com.unity.modules.umbra@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.umbra)
+    com.unity.modules.unityanalytics@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.unityanalytics)
+    com.unity.modules.unitywebrequest@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.unitywebrequest)
+    com.unity.modules.unitywebrequestassetbundle@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.unitywebrequestassetbundle)
+    com.unity.modules.unitywebrequestaudio@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.unitywebrequestaudio)
+    com.unity.modules.unitywebrequesttexture@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.unitywebrequesttexture)
+    com.unity.modules.unitywebrequestwww@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.unitywebrequestwww)
+    com.unity.modules.vectorgraphics@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.vectorgraphics)
+    com.unity.modules.vehicles@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.vehicles)
+    com.unity.modules.video@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.video)
+    com.unity.modules.wind@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.wind)
+    com.unity.modules.xr@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.xr)
+    com.unity.modules.subsystems@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.subsystems)
+    com.unity.modules.hierarchycore@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.modules.hierarchycore)
+    com.unity.ext.nunit@2.1.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.ext.nunit@0198eae3b53e)
+    com.unity.render-pipelines.core@17.6.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.render-pipelines.core@285af6b8c83f)
+    com.unity.shadergraph@17.6.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.shadergraph@58bcb150677d)
+    com.unity.render-pipelines.universal-config@17.6.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.render-pipelines.universal-config@561422b74439)
+    com.unity.editorcoroutines@6.6.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.editorcoroutines@8cd72baa102a)
+    com.unity.mathematics@1.4.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.mathematics@8306a64d0cd6)
+    com.unity.collections@6.6.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.collections@10fff0607388)
+    com.unity.graph-authoring@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.graph-authoring@cfd2588851ee)
+    com.unity.burst@2.0.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.burst@626e66ab421b)
+    com.unity.test-framework.performance@6.6.0 (location: C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Library\PackageCache\com.unity.test-framework.performance@b6023decb532)
+[Subsystems] No new subsystems found in resolved package list.
+[Package Manager] Done registering packages in 0.04 seconds
+Starting: C:\Program Files\Unity\Hub\Editor\6000.6.4f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1300b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: C:/Users/User/Desktop/Mofumachi/mofumachi-merge
+DisplayProgressbar: Compiling Scripts
+ExitCode: 0 Duration: 0s659ms
+[1314/1750  0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+*** Tundra build success (0.61 seconds), 1 items updated, 1750 evaluated
+AssetDatabase: script compilation time: 1.516980s
+Begin MonoManager ReloadAssembly
+'Packages/com.unity.render-pipelines.core/Editor/Deprecated.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+'Packages/com.unity.render-pipelines.core/Editor/Deprecated.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+Refreshing native plugins compatible for Editor in 16.10 ms, found 6 plugins.
+Native extension for iOS target not found
+Native extension for Android target not found
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
+Scripting: successfully reloaded assembly
+- Finished resetting the current domain, in  2.168 seconds
+Domain Reload Profiling: 3967ms
+	BeginReloadAssembly (482ms)
+		DisableScriptedObjects (47ms)
+		CreateAndSetChildDomain (164ms)
+	RebuildCommonClasses (13ms)
+	RebuildNativeTypeToScriptingClass (27ms)
+	initialDomainReloadingComplete (102ms)
+	LoadAllAssembliesAndSetupDomain (1176ms)
+		LoadAssemblies (562ms)
+		TypeCache.Refresh (327ms)
+			TypeCache.ScanAssembly (301ms)
+		AnalyzeDomain (171ms)
+			BuildScriptInfoCaches (159ms)
+			ResolveRequiredComponents (10ms)
+	FinalizeReload (2169ms)
+		SetupLoadedEditorAssemblies (0ms)
+			LogAssemblyErrors (3ms)
+			InitializePlatformSupportModulesInManaged (16ms)
+			BeforeProcessingInitializeOnLoad (186ms)
+			ProcessInitializeOnLoadAttributes (587ms)
+			ProcessInitializeOnLoadMethodAttributes (944ms)
+			AfterProcessingInitializeOnLoad (8ms)
+		AwakeInstancesAfterBackupRestoration (34ms)
+Starting new worker id: 0 with log in C:/Users/User/Desktop/Mofumachi/mofumachi-merge/Logs/AssetImportWorkerHW0.log
+
+Asset Pipeline Refresh (id=39dd73d67e179bc4cb11de82707dbd6c): Total: 7.016 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=3163 ms
+		Asset DB Callback time: managed=226 ms, native=44 ms
+		Scripting: domain reloads=1, domain reload time=1907 ms, compile time=1519 ms, other=154 ms
+		Project Asset Count: scripts=2288, non-scripts=3572
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 0
+	InvokePackagesCallback: 47.127ms
+	ApplyChangesToAssetFolders: 1.571ms
+	Scan: 199.569ms
+	Collect global state as custom dependencies: 27.849ms
+	CategorizeScriptCompilationAssets: 104.373ms
+	ProcessAssetsWithTransientArtifactChanges: 144.299ms
+	CategorizeAssets: 91.350ms
+	CompileScripts: 1518.725ms
+	ImportOutOfDateAssets: 2247.261ms (2219.031ms without children)
+		UnloadImportedAssets: 4.500ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 1.420ms
+		ImportSchedulerStart: 22.260ms
+	PostProcessAllAssets: 226.931ms
+		MonoPostProcessAllAssets: 226.829ms
+			UniversalRenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 32.512ms
+			AssetPostprocessorProxy.OnPostprocessAllAssets 20.840ms
+			SyncVS.PostprocessSyncProject 5.966ms
+			SpeedTree9Postprocessor.OnPostprocessAllAssets 3.655ms
+			WindowAssetPostprocessingWatcher.OnPostprocessAllAssets 3.501ms
+			EditModeScopePostprocessor.OnPostprocessAllAssets 1.583ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 1.075ms
+			ShaderReflectionAssetPostProcessor.OnPostprocessAllAssets 1.036ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 0.534ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 0.408ms
+			AssetDatabaseCallbacks.OnPostprocessAllAssets 0.329ms
+			TerrainToolbarOverlayPostProcessor.OnPostprocessAllAssets 0.304ms
+			ProjectSettingsPostprocessor.OnPostprocessAllAssets 0.206ms
+	UnloadStreamsBegin: 2.745ms
+	PersistCurrentRevisions: 0.350ms
+	GenerateScriptTypeHashes: 2.094ms
+	GenerateScriptTypeSerializationHashes: 3.764ms
+	Untracked: 2359.652ms
+
+Application.AssetDatabase Initial Refresh End
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
+Scanning for USB devices : 8.097ms
+Initializing Unity extensions:
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-もふまちメルジュ
+Unloading 27 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 10030 unused Assets / (9.6 MB). Loaded Objects now: 10991.
+Memory consumption went from 487.5 MB to 477.9 MB.
+Total: 20.053200 ms (FindLiveObjects: 1.557500 ms CreateObjectMapping: 0.841100 ms MarkObjects: 13.888400 ms  DeleteObjects: 2.720700 ms)
+
+Importing 'GUID: ca9e0394eb4c2cf4494c24b395cd95ec - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored' with importer (DefaultImporter)
+Imported 'GUID: ca9e0394eb4c2cf4494c24b395cd95ec' -> (Import Result ID: '433d509ee0f10f8ca5198935dd5382e3') in 0.022 seconds [static dependencies only]. Details - ImportResultOutputID=2ac62d4ac7e9fb68b242046e72bbaf74 DependenciesID=2e2984d06ea2fe354d51802edea17091 StaticDependenciesID=d982977bfb4283ebb9a43577420f83f1 
+Importing 'GUID: 620740e86af9a6542b9d34783d3e4dc1 - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored/momo' with importer (DefaultImporter)
+Imported 'GUID: 620740e86af9a6542b9d34783d3e4dc1' -> (Import Result ID: '783208f6e53a0bf29904805650d3942d') in 0.013 seconds [static dependencies only]. Details - ImportResultOutputID=d7be38f9cc4780271f802fd22ee7cb9a DependenciesID=6d2ac3d37d361db49549f8f2b595dd28 StaticDependenciesID=6bbc86f30263a30cf2767e8dd68af6d5 
+Importing 'GUID: 3c492c2b73f1d164f9896697857be01a - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored/momo/atlas.png' with importer (TextureImporter)
+Worker ready: AssetImportWorkerHW0 0
+Imported 'GUID: 3c492c2b73f1d164f9896697857be01a' -> (Import Result ID: '6c6d4ec21f3122383ca7ff0c4d0500d5') in 2.760 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=ac76d7ea329c82f244a4f95f3cb6e841 DependenciesID=76a2a4c2e0f41998d869433880e17729 StaticDependenciesID=ac890f10d5d6d00c69f9d5310c4fd854 
+Importing 'GUID: bf7079704c9a4964d896a044fc10010a - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored/momo/layout.json' with importer (TextScriptImporter)
+Imported 'GUID: bf7079704c9a4964d896a044fc10010a' -> (Import Result ID: '62f53996908d2b3e70e02501394e8e46') in 0.019 seconds [static dependencies only]. Details - ImportResultOutputID=4a308e3991ab92652e0229d2abf1bf85 DependenciesID=564b87ce95c18b8ae3c3b5ddbe29830e StaticDependenciesID=609a5e73ba9115f7e8232e3e70fc9ee0 
+Refreshing native plugins compatible for Editor in 23.27 ms, found 6 plugins.
+
+Asset Pipeline Refresh (id=0d0dd5abe47ff574b82846c509b672fb): Total: 3.227 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=4 (actual=4, local cache=0, cache server=0)
+		Asset DB Process Time: managed=31 ms, native=2932 ms
+		Asset DB Callback time: managed=210 ms, native=51 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=2290, non-scripts=3574
+		Asset File Changes: new=4, changed=4, moved=0, deleted=0
+		Scan Filter Count: 0
+	ApplyChangesToAssetFolders: 0.181ms
+	Scan: 41.282ms
+	Collect global state as custom dependencies: 0.918ms
+	OnSourceAssetsModified: 0.953ms
+	ProcessAssetsWithTransientArtifactChanges: 0.138ms
+	CategorizeAssets: 51.439ms
+	ImportOutOfDateAssets: 2820.070ms (0.412ms without children)
+		ImportManagerImport: 2818.306ms (1.954ms without children)
+			UpdateCategorizedAssets: 0.086ms
+		UnloadImportedAssets: 0.137ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.918ms
+		ImportSchedulerStart: 0.254ms
+	PostProcessAllAssets: 236.310ms
+		XRBuildSystem.XRAssetImported 26.914ms
+		VersionControlSettings.HiddenFilePostprocess 0.153ms
+		MonoPostProcessAllAssets: 208.266ms
+			AssetPostprocessor.OnPostprocessAllAssets 137.254ms
+			StyleCatalogPostProcessor.OnPostprocessAllAssets 30.487ms
+			BuilderAssetPostprocessor.OnPostprocessAllAssets 11.516ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 5.097ms
+			TMPro_TexturePostProcessor.OnPostprocessAllAssets 3.021ms
+			AssetChangedListener.OnPostprocessAllAssets 1.935ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 1.660ms
+			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 1.581ms
+			TextAssetPostProcessor.OnPostprocessAllAssets 1.499ms
+			MaterialPostprocessor.OnPostprocessAllAssets 1.052ms
+			SyncVS.PostprocessSyncProject 0.944ms
+			AssetPostprocessorProxy.OnPostprocessAllAssets 0.777ms
+			SpriteEditorTexturePostprocessor.OnPostprocessAllAssets 0.649ms
+			UVCSAssetPostprocessor.OnPostprocessAllAssets 0.591ms
+			ArtifactBrowserPostProcessor.OnPostprocessAllAssets 0.591ms
+			InputActionJsonNameModifierAssetProcessor.OnPostprocessAllAssets 0.567ms
+			AssetEvents.OnPostprocessAllAssets 0.477ms
+			AssetProcessor.OnPostprocessAllAssets 0.471ms
+			AudioMixerPostprocessor.OnPostprocessAllAssets 0.455ms
+			GdkAssemblyAssetProcessor.OnPostprocessAllAssets 0.404ms
+			SpriteShapeAssetPostProcessor.OnPostprocessAllAssets 0.398ms
+			PostProcessor.OnPostprocessAllAssets 0.388ms
+			SpriteLibraryAssetPostprocessor.OnPostprocessAllAssets 0.275ms
+			ThemePostprocessor.OnPostprocessAllAssets 0.267ms
+			ConfigAssetsTracker.OnPostprocessAllAssets 0.236ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 0.205ms
+			SpeedTreePostProcessor.OnPostprocessAllAssets 0.199ms
+			SamplePostprocessor.OnPostprocessAllAssets 0.197ms
+			ScenarioDriftAssetsTracker.OnPostprocessAllAssets 0.187ms
+			PSDImportPostProcessor.OnPostprocessAllAssets 0.179ms
+			AssetReloadNotifier.OnPostprocessAllAssets 0.159ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.150ms
+			PSDImporterAssetPostProcessor.OnPostprocessAllAssets 0.117ms
+			AudioContainerPostProcessor.OnPostprocessAllAssets 0.100ms
+	PostAssetChangesProfiler: 24.946ms
+	GatherAllCurrentPrimaryImportResultRevisions: 0.355ms
+	UnloadStreamsBegin: 0.105ms
+	PersistCurrentRevisions: 0.418ms
+	Untracked: 32.169ms
+
+Importing 'GUID: 3c492c2b73f1d164f9896697857be01a - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored/momo/atlas.png' with importer (TextureImporter)
+Imported 'GUID: 3c492c2b73f1d164f9896697857be01a' -> (Import Result ID: 'ee5315d45048d0f32592326f962e3e8b') in 2.343 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=8932820ed4ff1ca15660c8031746b968 DependenciesID=d81e12f7b218ebdbd2430bb662aed913 StaticDependenciesID=338952133c082b19b3d789ab03e0e095 
+Refreshing native plugins compatible for Editor in 16.88 ms, found 6 plugins.
+
+Asset Pipeline Refresh (id=76345c351dde2f2449dc86436ede96fc): Total: 2.434 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=2405 ms
+		Asset DB Callback time: managed=7 ms, native=20 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=2290, non-scripts=3574
+		Asset File Changes: new=0, changed=1, moved=0, deleted=0
+		Scan Filter Count: 7
+	ApplyChangesToAssetFolders: 0.257ms
+	Scan: 23.857ms
+	Collect global state as custom dependencies: 0.690ms
+	OnSourceAssetsModified: 0.059ms
+	ProcessAssetsWithTransientArtifactChanges: 0.141ms
+	CategorizeAssets: 27.568ms
+	ImportOutOfDateAssets: 2345.651ms (0.369ms without children)
+		ImportManagerImport: 2343.818ms (0.464ms without children)
+		UnloadImportedAssets: 0.219ms
+		ReloadImportedAssets: 0.217ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.857ms
+		ImportSchedulerStart: 0.345ms
+	PostProcessAllAssets: 10.748ms
+		XRBuildSystem.XRAssetImported 3.481ms
+		MonoPostProcessAllAssets: 7.062ms
+			AssetPostprocessor.OnPostprocessAllAssets 4.255ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 1.240ms
+			SyncVS.PostprocessSyncProject 0.547ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.158ms
+			AssetChangedListener.OnPostprocessAllAssets 0.146ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 0.143ms
+	PostAssetChangesProfiler: 17.476ms
+	GatherAllCurrentPrimaryImportResultRevisions: 0.417ms
+	PersistCurrentRevisions: 0.355ms
+	Untracked: 6.800ms
+
+Importing 'GUID: 7f63a13dfb97ee04fb21d6e5e6519b5e - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored/lulu' with importer (DefaultImporter)
+Imported 'GUID: 7f63a13dfb97ee04fb21d6e5e6519b5e' -> (Import Result ID: '7dfd0ce0f85f0d1b5485a0dfd92b35fc') in 0.018 seconds [static dependencies only]. Details - ImportResultOutputID=afd9dfd6d58b9030a92987a45448b733 DependenciesID=3f0c1e7fb9b0f1eed71335be54ec1fee StaticDependenciesID=b121a5bf86fded7aa6cc2c3377f34f3a 
+Importing 'GUID: 47b73aac23f7dc742867a78d25448621 - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored/lulu/atlas.png' with importer (TextureImporter)
+Imported 'GUID: 47b73aac23f7dc742867a78d25448621' -> (Import Result ID: 'd100e4d204746cdc45d6dfd401ac6e55') in 2.681 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=89045e5edcf2071aeb1e6098448b1a43 DependenciesID=3c0b1c58148b163c42bb44410e78fedf StaticDependenciesID=7ff48777969b483e0e187414d3aab928 
+Importing 'GUID: 5c1bc48acf552b440b8deefbf7f34377 - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored/lulu/layout.json' with importer (TextScriptImporter)
+Imported 'GUID: 5c1bc48acf552b440b8deefbf7f34377' -> (Import Result ID: 'c1db1c7fbce7713e081ab37949170e95') in 0.014 seconds [static dependencies only]. Details - ImportResultOutputID=20b6e90f8b5825af5058b6c421549bab DependenciesID=c80833dd336fe02cef44519df12b637a StaticDependenciesID=644a3f3ca7022c963e5f8b979d4558f8 
+Refreshing native plugins compatible for Editor in 17.30 ms, found 6 plugins.
+
+Asset Pipeline Refresh (id=14b04236359476147836c3177e054393): Total: 2.828 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=3 (actual=3, local cache=0, cache server=0)
+		Asset DB Process Time: managed=5 ms, native=2796 ms
+		Asset DB Callback time: managed=5 ms, native=21 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=2291, non-scripts=3576
+		Asset File Changes: new=3, changed=3, moved=0, deleted=0
+		Scan Filter Count: 0
+	ApplyChangesToAssetFolders: 0.157ms
+	Scan: 20.653ms
+	Collect global state as custom dependencies: 0.469ms
+	OnSourceAssetsModified: 0.099ms
+	ProcessAssetsWithTransientArtifactChanges: 0.078ms
+	CategorizeAssets: 28.027ms
+	ImportOutOfDateAssets: 2717.151ms (0.372ms without children)
+		ImportManagerImport: 2715.315ms (0.875ms without children)
+			UpdateCategorizedAssets: 0.068ms
+		UnloadImportedAssets: 0.190ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.947ms
+		ImportSchedulerStart: 0.280ms
+	PostProcessAllAssets: 8.413ms
+		XRBuildSystem.XRAssetImported 3.263ms
+		VersionControlSettings.HiddenFilePostprocess 0.107ms
+		MonoPostProcessAllAssets: 4.723ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 1.932ms
+			SyncVS.PostprocessSyncProject 1.326ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 0.215ms
+			AssetPostprocessorProxy.OnPostprocessAllAssets 0.204ms
+			AssetPostprocessor.OnPostprocessAllAssets 0.136ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.100ms
+			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 0.071ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 0.062ms
+	PostAssetChangesProfiler: 18.223ms
+	GatherAllCurrentPrimaryImportResultRevisions: 0.496ms
+	PersistCurrentRevisions: 0.349ms
+	Untracked: 34.321ms
+
+Importing 'GUID: 47b73aac23f7dc742867a78d25448621 - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored/lulu/atlas.png' with importer (TextureImporter)
+Imported 'GUID: 47b73aac23f7dc742867a78d25448621' -> (Import Result ID: 'cdfa2713476d511bf72fc417188d0f20') in 2.262 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=0d3a0e27a95a8353adaf15d4563bcb8a DependenciesID=bb3d3b28dea509448c533ef32bd4a98f StaticDependenciesID=dfe2154c71d10496fa2cdb29ac8a6aa7 
+Refreshing native plugins compatible for Editor in 18.63 ms, found 6 plugins.
+
+Asset Pipeline Refresh (id=e9e8ccbd21c325a46b6bb2c967039dbc): Total: 2.365 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=2336 ms
+		Asset DB Callback time: managed=4 ms, native=23 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=2291, non-scripts=3576
+		Asset File Changes: new=0, changed=1, moved=0, deleted=0
+		Scan Filter Count: 7
+	ApplyChangesToAssetFolders: 0.187ms
+	Scan: 32.537ms
+	Collect global state as custom dependencies: 0.828ms
+	OnSourceAssetsModified: 0.113ms
+	ProcessAssetsWithTransientArtifactChanges: 0.146ms
+	CategorizeAssets: 30.039ms
+	ImportOutOfDateAssets: 2265.166ms (0.429ms without children)
+		ImportManagerImport: 2263.152ms (0.532ms without children)
+		UnloadImportedAssets: 0.238ms
+		ReloadImportedAssets: 0.233ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.940ms
+		ImportSchedulerStart: 0.362ms
+	PostProcessAllAssets: 8.555ms
+		XRBuildSystem.XRAssetImported 4.390ms
+		MonoPostProcessAllAssets: 3.969ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 2.000ms
+			SyncVS.PostprocessSyncProject 0.987ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 0.147ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.112ms
+			AssetPostprocessor.OnPostprocessAllAssets 0.068ms
+	PostAssetChangesProfiler: 19.338ms
+	GatherAllCurrentPrimaryImportResultRevisions: 0.334ms
+	PersistCurrentRevisions: 0.418ms
+	Untracked: 6.959ms
+
+Importing 'GUID: 160592b73d170f4478e5a01a09ffe381 - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored/pom' with importer (DefaultImporter)
+Imported 'GUID: 160592b73d170f4478e5a01a09ffe381' -> (Import Result ID: '7de36adc8592a1011de337bea5306fdb') in 0.018 seconds [static dependencies only]. Details - ImportResultOutputID=51fa45ec1b447ce4d04a1c2dc4720a24 DependenciesID=34385448e9009040a40a9aa0c2ca58c8 StaticDependenciesID=d639077f8e11b839299c270e848b48e7 
+Importing 'GUID: 5f82dc72fd39cb647851471456e17039 - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored/pom/atlas.png' with importer (TextureImporter)
+Imported 'GUID: 5f82dc72fd39cb647851471456e17039' -> (Import Result ID: 'eb91c7314316cfc1549c590d7bbbd3ea') in 2.742 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=96c82489001f028b10b8d0776cde39d6 DependenciesID=d1f3ad0f2a9d3e40e5dff2d1bfe6eae3 StaticDependenciesID=3f92dac3ef3d26e6326f870149457753 
+Importing 'GUID: f2ad808cf37766443adf71c8b89d6709 - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored/pom/layout.json' with importer (TextScriptImporter)
+Imported 'GUID: f2ad808cf37766443adf71c8b89d6709' -> (Import Result ID: 'e050bbfa53a1d6911fce5ac7fe3973fc') in 0.017 seconds [static dependencies only]. Details - ImportResultOutputID=634822399ad3ca9fb2994d05e03aa97e DependenciesID=f1b165173a983baefa23341bdc60f949 StaticDependenciesID=264acef219508b4b8b4e24bff446c867 
+Refreshing native plugins compatible for Editor in 15.83 ms, found 6 plugins.
+
+Asset Pipeline Refresh (id=a4780fcb9d90b64428c4a89178092ac7): Total: 2.882 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=3 (actual=3, local cache=0, cache server=0)
+		Asset DB Process Time: managed=4 ms, native=2853 ms
+		Asset DB Callback time: managed=4 ms, native=19 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=2292, non-scripts=3578
+		Asset File Changes: new=3, changed=3, moved=0, deleted=0
+		Scan Filter Count: 0
+	ApplyChangesToAssetFolders: 0.118ms
+	Scan: 15.846ms
+	Collect global state as custom dependencies: 0.400ms
+	OnSourceAssetsModified: 0.086ms
+	ProcessAssetsWithTransientArtifactChanges: 0.076ms
+	CategorizeAssets: 24.222ms
+	ImportOutOfDateAssets: 2780.802ms (0.414ms without children)
+		ImportManagerImport: 2779.011ms (0.917ms without children)
+			UpdateCategorizedAssets: 0.059ms
+		UnloadImportedAssets: 0.190ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.909ms
+		ImportSchedulerStart: 0.236ms
+	PostProcessAllAssets: 7.796ms
+		XRBuildSystem.XRAssetImported 3.495ms
+		VersionControlSettings.HiddenFilePostprocess 0.113ms
+		MonoPostProcessAllAssets: 3.894ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 1.605ms
+			SyncVS.PostprocessSyncProject 1.154ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 0.220ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.093ms
+			AssetPostprocessor.OnPostprocessAllAssets 0.076ms
+	PostAssetChangesProfiler: 16.836ms
+	GatherAllCurrentPrimaryImportResultRevisions: 0.325ms
+	PersistCurrentRevisions: 0.467ms
+	Untracked: 35.306ms
+
+Importing 'GUID: 5f82dc72fd39cb647851471456e17039 - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored/pom/atlas.png' with importer (TextureImporter)
+Imported 'GUID: 5f82dc72fd39cb647851471456e17039' -> (Import Result ID: '4e9ca1f025ff68395584e645cd51cb4e') in 2.215 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=a5f4371f8dc33e14624631f3a128d247 DependenciesID=e88d4f151104e64ec75cf8150e56f1d4 StaticDependenciesID=8ec3fde7ebbec58acfd546ea28c494ef 
+Refreshing native plugins compatible for Editor in 16.27 ms, found 6 plugins.
+
+Asset Pipeline Refresh (id=b937d8865a8014b4c835aaad2d2eafff): Total: 2.321 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=2295 ms
+		Asset DB Callback time: managed=4 ms, native=20 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=2292, non-scripts=3578
+		Asset File Changes: new=0, changed=1, moved=0, deleted=0
+		Scan Filter Count: 7
+	ApplyChangesToAssetFolders: 0.277ms
+	Scan: 38.633ms
+	Collect global state as custom dependencies: 0.791ms
+	OnSourceAssetsModified: 0.056ms
+	ProcessAssetsWithTransientArtifactChanges: 0.142ms
+	CategorizeAssets: 30.181ms
+	ImportOutOfDateAssets: 2218.381ms (0.596ms without children)
+		ImportManagerImport: 2215.762ms (0.498ms without children)
+		UnloadImportedAssets: 0.308ms
+		ReloadImportedAssets: 0.214ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 1.282ms
+		ImportSchedulerStart: 0.380ms
+	PostProcessAllAssets: 7.386ms
+		XRBuildSystem.XRAssetImported 3.418ms
+		MonoPostProcessAllAssets: 3.792ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 1.577ms
+			SyncVS.PostprocessSyncProject 1.218ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 0.140ms
+			AssetPostprocessor.OnPostprocessAllAssets 0.111ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.104ms
+			ArtifactBrowserPostProcessor.OnPostprocessAllAssets 0.082ms
+	PostAssetChangesProfiler: 16.965ms
+	GatherAllCurrentPrimaryImportResultRevisions: 0.337ms
+	PersistCurrentRevisions: 0.359ms
+	Untracked: 7.034ms
+
+Importing 'GUID: cbdf33699a11923418e6c68ab2e64c1c - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored/fio' with importer (DefaultImporter)
+Imported 'GUID: cbdf33699a11923418e6c68ab2e64c1c' -> (Import Result ID: '13b5bc51071f85a52b097fade45629d1') in 0.012 seconds [static dependencies only]. Details - ImportResultOutputID=01d0820b137375b8493296944f57b24e DependenciesID=c91607a7a36b0abf6ec7f47e3307a6ae StaticDependenciesID=8729aa9dc007d6f1082290190c621360 
+Importing 'GUID: 8315a0058c8cccc4c917f75536fafb07 - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored/fio/atlas.png' with importer (TextureImporter)
+Imported 'GUID: 8315a0058c8cccc4c917f75536fafb07' -> (Import Result ID: '03d0c2e93075e0de58b17bba31e91295') in 2.524 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=f9e569229b6afb21fe7b4ec31804b998 DependenciesID=6eed022c412a60f065f04cd0317dae10 StaticDependenciesID=8e2cbc50008caabfc9c4c69e96068211 
+Importing 'GUID: 194b7efe98232a24c876d72cfdc3df64 - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored/fio/layout.json' with importer (TextScriptImporter)
+Imported 'GUID: 194b7efe98232a24c876d72cfdc3df64' -> (Import Result ID: 'aefd3647722921f185c6594b65bc6afe') in 0.023 seconds [static dependencies only]. Details - ImportResultOutputID=5f1730aa66d3f9e0a2f7c5b4169f0645 DependenciesID=04f3aef11709d8ace7067c8e1a5161d6 StaticDependenciesID=c8f4a20ff3bc2949db6c715b7556605a 
+Refreshing native plugins compatible for Editor in 16.28 ms, found 6 plugins.
+
+Asset Pipeline Refresh (id=f1ed09a66e2b5964385f7da635d66ebe): Total: 2.661 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=3 (actual=3, local cache=0, cache server=0)
+		Asset DB Process Time: managed=4 ms, native=2627 ms
+		Asset DB Callback time: managed=7 ms, native=22 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=2293, non-scripts=3580
+		Asset File Changes: new=3, changed=3, moved=0, deleted=0
+		Scan Filter Count: 0
+	ApplyChangesToAssetFolders: 0.124ms
+	Scan: 16.801ms
+	Collect global state as custom dependencies: 0.493ms
+	OnSourceAssetsModified: 0.068ms
+	ProcessAssetsWithTransientArtifactChanges: 0.069ms
+	CategorizeAssets: 19.692ms
+	ImportOutOfDateAssets: 2563.479ms (0.420ms without children)
+		ImportManagerImport: 2561.796ms (0.961ms without children)
+			UpdateCategorizedAssets: 0.065ms
+		UnloadImportedAssets: 0.171ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.856ms
+		ImportSchedulerStart: 0.197ms
+	PostProcessAllAssets: 12.863ms
+		XRBuildSystem.XRAssetImported 5.125ms
+		VersionControlSettings.HiddenFilePostprocess 0.260ms
+		SpriteAtlasDatabase.OnAssetPostprocessCallback 0.095ms
+		MonoPostProcessAllAssets: 6.868ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 3.114ms
+			SyncVS.PostprocessSyncProject 1.735ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 0.388ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.180ms
+			AssetPostprocessor.OnPostprocessAllAssets 0.138ms
+			AssetPostprocessorProxy.OnPostprocessAllAssets 0.069ms
+			PostProcessor.OnPostprocessAllAssets 0.069ms
+			TMPro_TexturePostProcessor.OnPostprocessAllAssets 0.060ms
+			InputActionJsonNameModifierAssetProcessor.OnPostprocessAllAssets 0.057ms
+			AssetChangedListener.OnPostprocessAllAssets 0.055ms
+	PostAssetChangesProfiler: 17.177ms
+	GatherAllCurrentPrimaryImportResultRevisions: 0.395ms
+	PersistCurrentRevisions: 0.503ms
+	Untracked: 29.591ms
+
+Importing 'GUID: 8315a0058c8cccc4c917f75536fafb07 - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored/fio/atlas.png' with importer (TextureImporter)
+Imported 'GUID: 8315a0058c8cccc4c917f75536fafb07' -> (Import Result ID: '99d4acb65832369468f5cdaac264a9fa') in 2.170 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=915b692be972d6a00bed6a1450e4de39 DependenciesID=f7149e332e19468b4ec1dc8119e7b737 StaticDependenciesID=c48ce7b4f0b6e59a49bc48a8bf99e349 
+Refreshing native plugins compatible for Editor in 16.49 ms, found 6 plugins.
+
+Asset Pipeline Refresh (id=ec23f30017df2f64cb4ddb02ac8a5aaf): Total: 2.264 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=2239 ms
+		Asset DB Callback time: managed=4 ms, native=20 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=2293, non-scripts=3580
+		Asset File Changes: new=0, changed=1, moved=0, deleted=0
+		Scan Filter Count: 7
+	ApplyChangesToAssetFolders: 0.181ms
+	Scan: 30.271ms
+	Collect global state as custom dependencies: 0.675ms
+	OnSourceAssetsModified: 0.051ms
+	ProcessAssetsWithTransientArtifactChanges: 0.159ms
+	CategorizeAssets: 27.600ms
+	ImportOutOfDateAssets: 2173.301ms (0.316ms without children)
+		ImportManagerImport: 2171.529ms (0.452ms without children)
+		UnloadImportedAssets: 0.245ms
+		ReloadImportedAssets: 0.214ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.871ms
+		ImportSchedulerStart: 0.298ms
+	PostProcessAllAssets: 7.106ms
+		XRBuildSystem.XRAssetImported 3.409ms
+		MonoPostProcessAllAssets: 3.526ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 1.666ms
+			SyncVS.PostprocessSyncProject 0.879ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 0.131ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.106ms
+			AssetPostprocessor.OnPostprocessAllAssets 0.066ms
+			ArtifactBrowserPostProcessor.OnPostprocessAllAssets 0.063ms
+	PostAssetChangesProfiler: 17.130ms
+	GatherAllCurrentPrimaryImportResultRevisions: 0.310ms
+	PersistCurrentRevisions: 0.361ms
+	Untracked: 6.475ms
+
+Importing 'GUID: 814200ecad6a9fa4882292480fc174e6 - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored/miel' with importer (DefaultImporter)
+Imported 'GUID: 814200ecad6a9fa4882292480fc174e6' -> (Import Result ID: 'ef6fffaf844040ef862e7561c3b3f4d7') in 0.015 seconds [static dependencies only]. Details - ImportResultOutputID=fb11d45ffeea0fc3a7d8c8c53e06079b DependenciesID=0ca4805604ebc9d4f96526629b019bcc StaticDependenciesID=910836ad5a0fd70b3bd9a5367e9ff36f 
+Importing 'GUID: 4f8343793035d8f40ba6f22bbb2d5e1c - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored/miel/atlas.png' with importer (TextureImporter)
+Imported 'GUID: 4f8343793035d8f40ba6f22bbb2d5e1c' -> (Import Result ID: '5def5ad6042fd6184e5eaf2206bd22f0') in 2.459 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=396ea41ab584b28681000b7cbffca067 DependenciesID=b5b253b659205207695b744ce813929b StaticDependenciesID=d68b173f67eb1eca68c73662e80f7b40 
+Importing 'GUID: a2761f074b1e318428b8e9331b109db8 - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored/miel/layout.json' with importer (TextScriptImporter)
+Imported 'GUID: a2761f074b1e318428b8e9331b109db8' -> (Import Result ID: 'cb8f4653d22942ad9c4822eaec984b83') in 0.016 seconds [static dependencies only]. Details - ImportResultOutputID=6026634113d864585af0b03224f6081e DependenciesID=8802dc2851b9ebecbcd355d3f880d39d StaticDependenciesID=2ee72aa2e674424b9d7c1e5792816de1 
+Refreshing native plugins compatible for Editor in 15.87 ms, found 6 plugins.
+
+Asset Pipeline Refresh (id=ffa6d0d3ae554504b85000238d035266): Total: 2.586 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=3 (actual=3, local cache=0, cache server=0)
+		Asset DB Process Time: managed=4 ms, native=2557 ms
+		Asset DB Callback time: managed=4 ms, native=19 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=2294, non-scripts=3582
+		Asset File Changes: new=3, changed=3, moved=0, deleted=0
+		Scan Filter Count: 0
+	ApplyChangesToAssetFolders: 0.138ms
+	Scan: 13.521ms
+	Collect global state as custom dependencies: 0.328ms
+	OnSourceAssetsModified: 0.060ms
+	ProcessAssetsWithTransientArtifactChanges: 0.071ms
+	CategorizeAssets: 21.176ms
+	ImportOutOfDateAssets: 2493.191ms (0.357ms without children)
+		ImportManagerImport: 2491.571ms (0.822ms without children)
+			UpdateCategorizedAssets: 0.050ms
+		UnloadImportedAssets: 0.179ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.802ms
+		ImportSchedulerStart: 0.242ms
+	PostProcessAllAssets: 7.431ms
+		XRBuildSystem.XRAssetImported 3.262ms
+		VersionControlSettings.HiddenFilePostprocess 0.168ms
+		MonoPostProcessAllAssets: 3.657ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 1.509ms
+			SyncVS.PostprocessSyncProject 0.817ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 0.258ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.124ms
+			AssetPostprocessor.OnPostprocessAllAssets 0.096ms
+			TMPro_TexturePostProcessor.OnPostprocessAllAssets 0.051ms
+	PostAssetChangesProfiler: 16.904ms
+	GatherAllCurrentPrimaryImportResultRevisions: 0.420ms
+	PersistCurrentRevisions: 0.368ms
+	Untracked: 32.277ms
+
+Importing 'GUID: 4f8343793035d8f40ba6f22bbb2d5e1c - Path: Assets/Mofumachi/Resources/Mofumachi/CharacterAuthored/miel/atlas.png' with importer (TextureImporter)
+Imported 'GUID: 4f8343793035d8f40ba6f22bbb2d5e1c' -> (Import Result ID: 'bf407b71fef7bb61064154b40c5ce2bf') in 2.141 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=acaf2da9d6d8a9edf9b3fae1415a134a DependenciesID=b1e908cf33294caebd7d0ac58feee894 StaticDependenciesID=a07dc342a61454249e1713b4b22b2b4a 
+Refreshing native plugins compatible for Editor in 17.13 ms, found 6 plugins.
+
+Asset Pipeline Refresh (id=9496caf42fa4b7042a523cad1a6774aa): Total: 2.246 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=2220 ms
+		Asset DB Callback time: managed=4 ms, native=20 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=2294, non-scripts=3582
+		Asset File Changes: new=0, changed=1, moved=0, deleted=0
+		Scan Filter Count: 7
+	ApplyChangesToAssetFolders: 0.185ms
+	Scan: 37.441ms
+	Collect global state as custom dependencies: 0.709ms
+	OnSourceAssetsModified: 0.087ms
+	ProcessAssetsWithTransientArtifactChanges: 0.178ms
+	CategorizeAssets: 30.522ms
+	ImportOutOfDateAssets: 2143.798ms (0.412ms without children)
+		ImportManagerImport: 2141.977ms (0.525ms without children)
+		UnloadImportedAssets: 0.224ms
+		ReloadImportedAssets: 0.224ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.845ms
+		ImportSchedulerStart: 0.300ms
+	PostProcessAllAssets: 7.278ms
+		XRBuildSystem.XRAssetImported 3.391ms
+		MonoPostProcessAllAssets: 3.705ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 1.752ms
+			SyncVS.PostprocessSyncProject 0.920ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 0.142ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.111ms
+			AssetPostprocessorProxy.OnPostprocessAllAssets 0.066ms
+			AssetPostprocessor.OnPostprocessAllAssets 0.065ms
+	PostAssetChangesProfiler: 17.765ms
+	GatherAllCurrentPrimaryImportResultRevisions: 0.313ms
+	PersistCurrentRevisions: 0.383ms
+	Untracked: 7.328ms
+
+Batchmode quit successfully invoked - shutting down!
+Killing ADB server in 2.0713454 seconds.
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input Polling Thread exited.
+Input System module state changed to: Shutdown.
+[Licensing::IpcConnector] LicenseClient-User-notifications channel disconnected successfully.
+[Licensing::IpcConnector] LicenseClient-User channel disconnected successfully.
+Lingering sessions upon destruction of worker manager
+Unity Data Store service was successfully shut down
+UDS shutting down local client system
+AcceleratorClientConnectionCallback - disconnected - :0
+Cleanup mono
+CodeReloadManager destroyed
+Exiting batchmode successfully now!
+[ExitDontLaunchBugReporter] Exiting without the bug reporter. Application will exit with return code 0

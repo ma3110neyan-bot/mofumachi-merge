@@ -1,0 +1,45 @@
+{
+  "characters": [
+    {
+      "character": "momo",
+      "contacts": 8,
+      "input_sha256": "ff44efd51a0d9519f9f633f5bd5514b94429e9eb48a43be8adb5bb863f290cbe",
+      "source_layout_newlines": [
+        "CRLF"
+      ]
+    },
+    {
+      "character": "lulu",
+      "contacts": 8,
+      "input_sha256": "0f9fdb638b4e1e762dea5ad3cc97d596173215d5626a80c32182dc6378a96c06",
+      "source_layout_newlines": [
+        "CRLF"
+      ]
+    },
+    {
+      "character": "pom",
+      "contacts": 8,
+      "input_sha256": "2d7cdcb154490d1950476d3c8959bcbb33268a08d3c8fcb8eb0093629371ce0d",
+      "source_layout_newlines": [
+        "CRLF"
+      ]
+    },
+    {
+      "character": "fio",
+      "contacts": 8,
+      "input_sha256": "0cacbf71aa34fda2e9eee498d9ef3f6bd999f3c169d8a286b5d93e570141df28",
+      "source_layout_newlines": [
+        "CRLF"
+      ]
+    },
+    {
+      "character": "miel",
+      "contacts": 8,
+      "input_sha256": "7d31fbb711730aa8b2df579c81b7978db9604ffdf9be8425a5b5904cccb30cf6",
+      "source_layout_newlines": [
+        "CRLF"
+      ]
+    }
+  ],
+  "noah_diagnostic_note": "The shared prepared.json is overwritten by the final Miel preparation. Noah material was verified by its own prepare log/source gates, actual Noah rendered identity and48 split-mesh contact samples; no separate archived Noah layout is claimed."
+}

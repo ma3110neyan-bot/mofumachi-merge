@@ -44,8 +44,8 @@
 
 - [x] Native method checks all6 identities from a frozen array, actual mesh head/body contact, non-head vertices unchanged in Before/After, front/rear/turn/start/stop/blink. Save frames and head-sync counters.
 - [x] Strict exact-one XML/proof checks; new run archives and Explorer on success/failure. No APK/install or full-suite rerun in the head-only capture; flags remain false for full QA and acceptance.
-- [ ] Fresh review, fix important findings, verify API/guards, normal feature push and remote SHA.
-- [ ] Report true per-character results; formal freeze waits for the native six-person zero-failure evidence. Do not start Merge modifications.
+- [x] Fresh review, fix important findings, verify API/guards, normal feature push and remote SHA (implementation9099521, handoff801ac62).
+- [x] Verify received native six-person zero-failure evidence and record formal freeze. Do not start Merge modifications.
 
 ## Ledger
 
@@ -64,3 +64,5 @@ Fresh review: one Important finding—median X plus extreme Y can be transparent
 Verification completed locally: final focused16/16; actual46 source-alpha contours checked opaque; normal/Android/Editor renderer/PlayMode/Editor builder/pure project API compilation all0 warnings/errors; exact10 amendments and original26/552 guard valid. Head proof/one-method/image guards pass with synthetic data clearly labelled. No new Unity, APK, Pixel or full tests run. Formal acceptance remains pending the one-method Windows capture.
 
 Implementation commit909952102dfee843c149c912ef6456d1c38d9690. Final native head acceptance still pending;16 local passing tests are not substituted for the missing native proof.
+
+Final receipt205652-61f18a2e: all3 uploaded ZIPs CRC-valid;49 entry hashes checked. Native exact method1/1, source801ac626, WindowsFP6b2d7e85 and packed cfc7b00d match CLI/proof/source-info. All6 IDs have72 samples over9 states,432 total; misalignments0, unmet0. All36 PNGs decoded/hashed, all18 After images visually reviewed,18 pair differences outside character board0. No full-suite/APK/Pixel claim. Latest user's conditional head-only acceptance is satisfied; formal_fixed/adopted true is recorded separately in characters-25d-final-2026-11-01.json, preserving raw false flags.53 current renderer/motion/builder/art inputs frozen with LF-normalized text hashes and binary image hashes. Final guard positive/negative regression and historical26/552 guards pass. Runtime C# and source art unchanged during acceptance. Merge remains a separately instructed task.

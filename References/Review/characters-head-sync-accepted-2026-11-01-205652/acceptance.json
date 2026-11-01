@@ -1,0 +1,36 @@
+{
+  "accepted": true,
+  "accepted_scope": "Existing six-character rigid directional visual implementation; no redesign or further character changes. Merge remains a separately instructed task.",
+  "native": {
+    "scope": "head-body-sync-only",
+    "gitRevision": "801ac626324bf56ec3035a0071a6acf728be470c",
+    "productFingerprint": "6b2d7e85132dc2c31312cbf7d4e450f8dd0a3c6cfa31237fab1ca1d0eef594e6",
+    "packed_resource_sha256": "cfc7b00deae16784fb9a7827ca1dbde5326800aea7aac20a51bb3d73f645bbe4",
+    "preserved_inputs": {},
+    "head_native_verified": true,
+    "full_qa_verified": false,
+    "pixel_verified": false,
+    "formal_fixed": false,
+    "adopted": false,
+    "source_unchanged": true,
+    "error": ""
+  },
+  "methods_passed": 1,
+  "characters": [
+    "fio",
+    "lulu",
+    "miel",
+    "momo",
+    "noah",
+    "pom"
+  ],
+  "samples": 432,
+  "images": 36,
+  "misalignments": 0,
+  "unmet_characters": 0,
+  "all_images_sha_size_decoded": true,
+  "all_after_views_visually_reviewed": true,
+  "original_image_archive_location": "All36 byte-original images remain in the three uploaded ZIPs and the runtime original folder; four representative originals are included here. The archived HTML requires extraction of the full ZIP image set.",
+  "full_qa_verified": false,
+  "pixel_verified": false
+}

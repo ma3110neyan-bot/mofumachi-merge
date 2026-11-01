@@ -1,0 +1,321 @@
+{
+  "archives": [
+    {
+      "file": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "bytes": 24309563,
+      "sha256": "9dc6928ebf1076939884a52b68ac6c6634e4d21f2aadd4484575eb661fd8fc9a",
+      "crc_valid": true,
+      "entries": 24
+    },
+    {
+      "file": "characters-head-sync-20261101-205652-61f18a2e-review-02.zip",
+      "bytes": 24464056,
+      "sha256": "14b580a0cc1b0d192af2acff8c3b8a56b98519cdc3074f625b6ca4d4e4afcdea",
+      "crc_valid": true,
+      "entries": 16
+    },
+    {
+      "file": "characters-head-sync-20261101-205652-61f18a2e-review-03.zip",
+      "bytes": 13948633,
+      "sha256": "5908253bb9d39b0cf023eb5d9cca92193835d0ba627afcc500cc881d7d426f8a",
+      "crc_valid": true,
+      "entries": 9
+    }
+  ],
+  "entries": [
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "head-sync-playmode.log",
+      "bytes": 53177,
+      "sha256": "83e51d67e55d8be4145dee6aa98a0bae40a427a5e93d755b639453da02de1b8c"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "head-sync-playmode.xml",
+      "bytes": 3608,
+      "sha256": "554e22277b988e0d59470be422a8895583f72647d3186da881dbf1f8b3059b65"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "prepared.json",
+      "bytes": 22620,
+      "sha256": "241abe5e5db270c93c9c9a96cdcc937c4782f3aff5bbfe5b183eca92b8f2f1bb"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "prepared-fio.json",
+      "bytes": 22612,
+      "sha256": "faa5439f12dc21c167af7ea49993a485211212e546d7b221cd80499dde331f49"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "prepared-lulu.json",
+      "bytes": 22616,
+      "sha256": "b58b9633348b137255c7e897f205102d4ab2b6603f1d85dfbed96aa5f20b30a2"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "prepared-miel.json",
+      "bytes": 22620,
+      "sha256": "241abe5e5db270c93c9c9a96cdcc937c4782f3aff5bbfe5b183eca92b8f2f1bb"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "prepared-momo.json",
+      "bytes": 22690,
+      "sha256": "94532f3e9b2ad9e679e30983f58b43315f0adfa5f745e2801db5979cb1c61c3f"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "prepared-pom.json",
+      "bytes": 22614,
+      "sha256": "5047f811bd4e763370b229f95af3df40d695f7c6331410004807f5b010236890"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "prepare-five.log",
+      "bytes": 60580,
+      "sha256": "dbf5e2b2dd8418de4383099be551bb24960e4dd9177ce2ce8c872da2223fdde6"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "prepare-noah.log",
+      "bytes": 43730,
+      "sha256": "1fa59f1e1127fc760b65f8056b03edddd2f4b1c1cff12d2d4410a95d1fe6242f"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "screenshots/head-sync/back-to-front-stop-before-0-after.png",
+      "bytes": 1729773,
+      "sha256": "529e6fb50d99ac4ee8cecfb4e41b21e963d7606fd19df1c1468c2c6531f60d3a"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "screenshots/head-sync/back-to-front-stop-before-0-before.png",
+      "bytes": 1729773,
+      "sha256": "529e6fb50d99ac4ee8cecfb4e41b21e963d7606fd19df1c1468c2c6531f60d3a"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "screenshots/head-sync/back-to-front-stop-before-7-after.png",
+      "bytes": 1729773,
+      "sha256": "529e6fb50d99ac4ee8cecfb4e41b21e963d7606fd19df1c1468c2c6531f60d3a"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "screenshots/head-sync/back-to-front-stop-before-7-before.png",
+      "bytes": 1729773,
+      "sha256": "529e6fb50d99ac4ee8cecfb4e41b21e963d7606fd19df1c1468c2c6531f60d3a"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "screenshots/head-sync/back-walk-0-after.png",
+      "bytes": 1739380,
+      "sha256": "4167d2c8028934b242dd93a58dc27a6eaabd369dfbd2e5172a3d9ff41dc1ba96"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "screenshots/head-sync/back-walk-0-before.png",
+      "bytes": 1738834,
+      "sha256": "7f3c276e4dee6f305663a2946a9af8fd0712dcdc017c02bba0a6f34d71204b45"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "screenshots/head-sync/back-walk-7-after.png",
+      "bytes": 1739054,
+      "sha256": "a93f5d65def0f6cba495d38379a1e75fd8f0e4e429f0255e79bc16083a3717c0"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "screenshots/head-sync/back-walk-7-before.png",
+      "bytes": 1738835,
+      "sha256": "e34973c5dae8e7b6596e9c1f6d0279a523a332077e9673b7a6c174b77d4876b7"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "screenshots/head-sync/front-idle-0-after.png",
+      "bytes": 1729227,
+      "sha256": "e3257a31adf75e9923183cb4200883ab09cb65ace7f5b7b6b6ff78ab5f119fee"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "screenshots/head-sync/front-idle-0-before.png",
+      "bytes": 1729227,
+      "sha256": "e3257a31adf75e9923183cb4200883ab09cb65ace7f5b7b6b6ff78ab5f119fee"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "screenshots/head-sync/front-idle-7-after.png",
+      "bytes": 1729773,
+      "sha256": "529e6fb50d99ac4ee8cecfb4e41b21e963d7606fd19df1c1468c2c6531f60d3a"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "screenshots/head-sync/front-idle-7-before.png",
+      "bytes": 1729773,
+      "sha256": "529e6fb50d99ac4ee8cecfb4e41b21e963d7606fd19df1c1468c2c6531f60d3a"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "screenshots/head-sync/front-stop-after-0-after.png",
+      "bytes": 1729773,
+      "sha256": "529e6fb50d99ac4ee8cecfb4e41b21e963d7606fd19df1c1468c2c6531f60d3a"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-01.zip",
+      "path": "screenshots/head-sync/front-stop-after-0-before.png",
+      "bytes": 1729773,
+      "sha256": "529e6fb50d99ac4ee8cecfb4e41b21e963d7606fd19df1c1468c2c6531f60d3a"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-02.zip",
+      "path": "screenshots/head-sync/front-stop-after-7-after.png",
+      "bytes": 1729773,
+      "sha256": "529e6fb50d99ac4ee8cecfb4e41b21e963d7606fd19df1c1468c2c6531f60d3a"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-02.zip",
+      "path": "screenshots/head-sync/front-stop-after-7-before.png",
+      "bytes": 1729773,
+      "sha256": "529e6fb50d99ac4ee8cecfb4e41b21e963d7606fd19df1c1468c2c6531f60d3a"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-02.zip",
+      "path": "screenshots/head-sync/front-to-left-start-0-after.png",
+      "bytes": 1747156,
+      "sha256": "f715a977689b2311281354ae3f9c952d6d1f00cbb972df83c16ea6f77cfb15d1"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-02.zip",
+      "path": "screenshots/head-sync/front-to-left-start-0-before.png",
+      "bytes": 1746418,
+      "sha256": "99fe1ac77ac4f4db82ffab09a05b6948b7f8edba4bc18cba2e4b89fcc8bf678c"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-02.zip",
+      "path": "screenshots/head-sync/front-to-left-start-7-after.png",
+      "bytes": 1747124,
+      "sha256": "a1bf239a3b74fc40ae5dac623dfa189cd3b63eb06ce155f21e2dfcce7fa7e722"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-02.zip",
+      "path": "screenshots/head-sync/front-to-left-start-7-before.png",
+      "bytes": 1746416,
+      "sha256": "ce4087c8911df256add38dcaa5b6434e4519f201e1a8e618158dcc5d0316af52"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-02.zip",
+      "path": "screenshots/head-sync/head-sync-proof.json",
+      "bytes": 183689,
+      "sha256": "ecbc83a68b4a54a304fb87e0f8539d9a978c7b28da930e2b5d83974266ed7693"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-02.zip",
+      "path": "screenshots/head-sync/head-sync-review.html",
+      "bytes": 106486,
+      "sha256": "5480b86f71f6b9eb9552e6c482540203ccf61c2d47339467fed8556ea2503531"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-02.zip",
+      "path": "screenshots/head-sync/left-to-right-walk-0-after.png",
+      "bytes": 1746261,
+      "sha256": "99aa8a73243e710c89d15552e4aacb22a83583d5f35f0d1baad6adc9f8607599"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-02.zip",
+      "path": "screenshots/head-sync/left-to-right-walk-0-before.png",
+      "bytes": 1747233,
+      "sha256": "abe4aea0009aff651d9e5449984ed7a2f2a34f2e380da5cfe73e31b8095c341d"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-02.zip",
+      "path": "screenshots/head-sync/left-to-right-walk-7-after.png",
+      "bytes": 1746243,
+      "sha256": "05d2dbaf5c22b52d372beca26e4405c16c0d099b62ad7eaf1dfd22aa1158c96e"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-02.zip",
+      "path": "screenshots/head-sync/left-to-right-walk-7-before.png",
+      "bytes": 1747118,
+      "sha256": "320d67d476f92678a9ae1ed1cab59bf733f57d4de5a96eef7d189d3c0fad11f4"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-02.zip",
+      "path": "screenshots/head-sync/left-walk-0-after.png",
+      "bytes": 1747100,
+      "sha256": "efe04f877153c6912e724c49bdda0e1515a0fecfeaa0718b610d6c4134868545"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-02.zip",
+      "path": "screenshots/head-sync/left-walk-0-before.png",
+      "bytes": 1746396,
+      "sha256": "ef99e91f3f9c732c5b704513e1c1245e4db772a9012c1c1a0297c77a0a5398d6"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-02.zip",
+      "path": "screenshots/head-sync/left-walk-7-after.png",
+      "bytes": 1747026,
+      "sha256": "020cb58ceb98d4dff75e2ba1a0b6c14248ef867a1c4c873e210dcfb12970d6fb"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-02.zip",
+      "path": "screenshots/head-sync/left-walk-7-before.png",
+      "bytes": 1746407,
+      "sha256": "b10b301ad0f381bc011f9fc07c8a107441a734bc026ca1066e16be01b401ff59"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-03.zip",
+      "path": "screenshots/head-sync/right-to-back-walk-0-after.png",
+      "bytes": 1739388,
+      "sha256": "a23915a87d79294c1fb065c3dd0958e6a7d6588b05f12a8d7a8d34cb80d47d5c"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-03.zip",
+      "path": "screenshots/head-sync/right-to-back-walk-0-before.png",
+      "bytes": 1739204,
+      "sha256": "22ef7bff640758a98c762b0388ef7e5932630b54ce3d6f2c175b237a18ee4676"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-03.zip",
+      "path": "screenshots/head-sync/right-to-back-walk-7-after.png",
+      "bytes": 1738851,
+      "sha256": "3450144a639d94be0e1fd96dec1f41f6a149bf7ff1f1a884b64ba65582ced2fc"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-03.zip",
+      "path": "screenshots/head-sync/right-to-back-walk-7-before.png",
+      "bytes": 1738764,
+      "sha256": "56ec639e4663f0c0875e2e50f2625fc57d2fb70cd3395b45f902262929f527db"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-03.zip",
+      "path": "screenshots/head-sync/right-walk-0-after.png",
+      "bytes": 1746112,
+      "sha256": "6c7c10312bcc8b8ba24bc7e7c9cb45f8cf2ce7599d338ac62acb77fc2bf20ff5"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-03.zip",
+      "path": "screenshots/head-sync/right-walk-0-before.png",
+      "bytes": 1747696,
+      "sha256": "12cd3f48ac8b9e99b4b728bc1272a49dd7b2cf92403184907e2701dfdc4094b0"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-03.zip",
+      "path": "screenshots/head-sync/right-walk-7-after.png",
+      "bytes": 1746601,
+      "sha256": "129441b7fb5aa47de6488852372493e53a50cc191b8c2d9338f2041e7e89b05e"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-03.zip",
+      "path": "screenshots/head-sync/right-walk-7-before.png",
+      "bytes": 1747054,
+      "sha256": "404bd018509f715af6e761b5568ad5d440ad1f875b54bd1f89e77f72233ab8ed"
+    },
+    {
+      "archive": "characters-head-sync-20261101-205652-61f18a2e-review-03.zip",
+      "path": "source-info.json",
+      "bytes": 570,
+      "sha256": "5acd7615aa0cc098774abded1f906b5ad9134d871abfe4d3a5d35b56d40c5ddd"
+    }
+  ]
+}

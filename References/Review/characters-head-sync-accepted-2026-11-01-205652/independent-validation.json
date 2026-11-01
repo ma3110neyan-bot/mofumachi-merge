@@ -1,0 +1,229 @@
+{
+  "characters": {
+    "fio": {
+      "samples": 72,
+      "states": 9,
+      "max_mesh_error": 1.1444091796875e-05,
+      "failures": 0
+    },
+    "lulu": {
+      "samples": 72,
+      "states": 9,
+      "max_mesh_error": 1.1533152220199417e-05,
+      "failures": 0
+    },
+    "miel": {
+      "samples": 72,
+      "states": 9,
+      "max_mesh_error": 1.1483759478370949e-05,
+      "failures": 0
+    },
+    "momo": {
+      "samples": 72,
+      "states": 9,
+      "max_mesh_error": 7.855247860646275e-06,
+      "failures": 0
+    },
+    "noah": {
+      "samples": 72,
+      "states": 9,
+      "max_mesh_error": 1.1466421753321694e-05,
+      "failures": 0
+    },
+    "pom": {
+      "samples": 72,
+      "states": 9,
+      "max_mesh_error": 7.975671659422984e-06,
+      "failures": 0
+    }
+  },
+  "pairs": [
+    {
+      "state": "front-idle",
+      "tick": 0,
+      "changed_pixels": 0,
+      "outside_character_board": 0,
+      "bbox": []
+    },
+    {
+      "state": "front-idle",
+      "tick": 7,
+      "changed_pixels": 0,
+      "outside_character_board": 0,
+      "bbox": []
+    },
+    {
+      "state": "front-to-left-start",
+      "tick": 0,
+      "changed_pixels": 44913,
+      "outside_character_board": 0,
+      "bbox": [
+        99,
+        643,
+        621,
+        922
+      ]
+    },
+    {
+      "state": "front-to-left-start",
+      "tick": 7,
+      "changed_pixels": 44888,
+      "outside_character_board": 0,
+      "bbox": [
+        100,
+        642,
+        622,
+        923
+      ]
+    },
+    {
+      "state": "left-walk",
+      "tick": 0,
+      "changed_pixels": 44903,
+      "outside_character_board": 0,
+      "bbox": [
+        100,
+        642,
+        623,
+        922
+      ]
+    },
+    {
+      "state": "left-walk",
+      "tick": 7,
+      "changed_pixels": 44930,
+      "outside_character_board": 0,
+      "bbox": [
+        99,
+        643,
+        621,
+        923
+      ]
+    },
+    {
+      "state": "left-to-right-walk",
+      "tick": 0,
+      "changed_pixels": 47527,
+      "outside_character_board": 0,
+      "bbox": [
+        98,
+        643,
+        617,
+        923
+      ]
+    },
+    {
+      "state": "left-to-right-walk",
+      "tick": 7,
+      "changed_pixels": 47484,
+      "outside_character_board": 0,
+      "bbox": [
+        100,
+        643,
+        619,
+        923
+      ]
+    },
+    {
+      "state": "right-walk",
+      "tick": 0,
+      "changed_pixels": 47528,
+      "outside_character_board": 0,
+      "bbox": [
+        99,
+        643,
+        617,
+        922
+      ]
+    },
+    {
+      "state": "right-walk",
+      "tick": 7,
+      "changed_pixels": 47502,
+      "outside_character_board": 0,
+      "bbox": [
+        101,
+        642,
+        620,
+        922
+      ]
+    },
+    {
+      "state": "right-to-back-walk",
+      "tick": 0,
+      "changed_pixels": 44552,
+      "outside_character_board": 0,
+      "bbox": [
+        103,
+        642,
+        612,
+        923
+      ]
+    },
+    {
+      "state": "right-to-back-walk",
+      "tick": 7,
+      "changed_pixels": 44475,
+      "outside_character_board": 0,
+      "bbox": [
+        101,
+        642,
+        610,
+        922
+      ]
+    },
+    {
+      "state": "back-walk",
+      "tick": 0,
+      "changed_pixels": 44453,
+      "outside_character_board": 0,
+      "bbox": [
+        103,
+        643,
+        612,
+        922
+      ]
+    },
+    {
+      "state": "back-walk",
+      "tick": 7,
+      "changed_pixels": 44455,
+      "outside_character_board": 0,
+      "bbox": [
+        101,
+        641,
+        610,
+        922
+      ]
+    },
+    {
+      "state": "back-to-front-stop-before",
+      "tick": 0,
+      "changed_pixels": 0,
+      "outside_character_board": 0,
+      "bbox": []
+    },
+    {
+      "state": "back-to-front-stop-before",
+      "tick": 7,
+      "changed_pixels": 0,
+      "outside_character_board": 0,
+      "bbox": []
+    },
+    {
+      "state": "front-stop-after",
+      "tick": 0,
+      "changed_pixels": 0,
+      "outside_character_board": 0,
+      "bbox": []
+    },
+    {
+      "state": "front-stop-after",
+      "tick": 7,
+      "changed_pixels": 0,
+      "outside_character_board": 0,
+      "bbox": []
+    }
+  ],
+  "kind": "independent decoded-image and coordinate checks; not Pixel"
+}

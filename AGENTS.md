@@ -1,5 +1,13 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-11-01最新：6名の頭胴同期を実Unityで確認・2.5D工程正式固定
+
+受領characters-head-sync205652-61f18a2eの3ZIPはCRC正常、49原本のSHA照合済み。実Unityの頭同期1メソッドは1/1成功、failed／skip／inc0。source801ac626／WindowsFP6b2d7e85／packed cfc7b00dは原CLI・source-info・proofで一致、source_unchanged true。6名各9状態72標本、計432標本で接続不合格0・未達0名。36画像を完全decode／SHA照合、全18Afterを目視、18比較対のキャラ領域外差分0。原本記録・代表4画像・全49SHAをReferences/Review/characters-head-sync-accepted-2026-11-01-205652/に保存。
+
+最新ユーザーの「6名の頭胴同期を満たしたら正式完了・固定」という条件により、キャラ2.5D工程を正式完了。References/VisualLock/characters-25d-final-2026-11-01.jsonが今回の正式記録（formal_fixed/adopted true）。原画・登録JSON・共通描画／動作・ビルダー等53ファイルを固定し、既存scope検査から照合する。元の歴史manifest2点・amendment・生の撮影proofのfalseフラグは改変しない。固定を通すためのmanifest削除・SHA書換えは禁止。新しいキャラ方式・大改造をしない。Merge改修は次の別指示まで着手しない。
+
+今回は証拠受入・固定ガード・文書だけで、801ac626のゲームC#／正式原画は無変更。新全件テスト・APK・Pixel測定を実施したとは報告しない（当該証拠full_qa_verified/pixel_verified false）。以前の全件／Pixel保留は履歴として保持し、最新の頭同期限定合格に追加条件として課さない。通常GitHub feature push許可は継続。詳細docs/characters-25d-complete-2026-11-01.md。以下は履歴。
+
 ## 2026-11-01最新：頭胴体同期だけ／旧全件・Pixel工程を反復しない
 
 最新ユーザー指示は頭と胴体のずれ・離れだけ。原画／顔／目／色／衣装／体型／サイズ、既存モーション値、向き方式／速度／影／背面／会話／すれ違い／街／UI／CoreSave等は変更しない。Mergeは次の別指示まで着手しない。新実装は既存剛体メッシュの首接続だけで、新2.5D方式ではない。

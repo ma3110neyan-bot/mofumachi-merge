@@ -1,0 +1,17 @@
+{
+  "kind": "bounded diagnostic probes, not NUnit full-suite success",
+  "old_model_level1": {
+    "completed_destinations": 98,
+    "limit_seconds": 30,
+    "exit_code": 2
+  },
+  "candidate_level6": {
+    "completed_destinations": 289,
+    "limit_seconds": 120,
+    "exit_code": 2
+  },
+  "not_comparable_as_performance_delta": true,
+  "full_perimeter_completion_verified": false,
+  "native_unity": false,
+  "pixel_verified": false
+}

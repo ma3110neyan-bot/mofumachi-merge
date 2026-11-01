@@ -27,10 +27,10 @@ try{
         $Manual.six_on_same_screen=Read-Host 'Six characters visible together on the actual Pixel town screen: yes / no / unknown (individual views or Unity fixture do not count)'
         $Manual.grounding_momo_miel=Read-Host 'Momo/Miel feet and lateral movement: grounded / floating / unknown'
         $Manual.size_feet=Read-Host 'Six-character sizes/foot positions: natural / inconsistent / unknown'
-        $Manual.head_body_alignment=Read-Host '頭・胴・足のつながり（歩行・停止・会話・方向転換）: natural / issue / unknown'
+        $Manual.head_body_alignment=Read-Host 'Head/body/feet stay attached while walking, stopping, talking and turning: natural / issue / unknown'
         $Manual.directions_walk_stop=Read-Host 'Front/back/left/right, walking/turning/stopping: natural / issue / unknown'
-        $Manual.passing_stability=Read-Host 'すれ違い時の高速ブレ・震え・往復揺れ: none / issue / unknown'
-        $Manual.tap_conversation=Read-Host '自動会話なし・タップだけで会話・同じ会話の連打で重複しない: yes / issue / unknown'
+        $Manual.passing_stability=Read-Host 'Rapid jitter, shaking or back-and-forth motion while passing: none / issue / unknown'
+        $Manual.tap_conversation=Read-Host 'No automatic speech; character taps speak; repeat taps preserve the same bubble: yes / issue / unknown'
         $Manual.sorting=Read-Host 'Occlusion near fountain, trees, benches, buildings, flowers: natural / issue / unknown'
         $Manual.save_after_restart=Read-Host 'After closing and reopening the same app, progress retained: yes / no / unknown'
     }

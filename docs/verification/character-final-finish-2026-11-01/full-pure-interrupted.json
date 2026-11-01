@@ -1,0 +1,31 @@
+{
+  "kind": "one full pure-C# suite attempt; interrupted, not passed",
+  "result": "Interrupted",
+  "observed_process_elapsed": "over 84 minutes before interruption",
+  "exit_code": 130,
+  "nunit_results_xml_available": false,
+  "pass_count": null,
+  "fail_count": null,
+  "skip_count": null,
+  "active_test": "Mofumachi.Tests.FinalFieldRecoveryTests.EveryFloorPerimeterAndObstacleApronCanBeEnteredAndWalkedBack(Int32)",
+  "stack_source": "/workspace/runtime/characters-final-finish-nov01/full-suite-stack.crashreport.json",
+  "stack_sha256": "35966d18cb61e4e9a955609bd0192df345b3640f3db180e5a6874ccb1e2c5561",
+  "managed_stack": [
+    "Mofumachi.Core.TownPoint.get_Y()",
+    "Mofumachi.Presentation.TownWalkableArea.Contains(Mofumachi.Core.TownPoint)",
+    "Mofumachi.Presentation.TownWalkableArea.CanTravel(Mofumachi.Core.TownPoint, Mofumachi.Core.TownPoint)",
+    "Mofumachi.Presentation.TownAreaNavigation.ClosestNode(Mofumachi.Core.TownPoint, System.Collections.Generic.IReadOnlyList`1<Mofumachi.Core.TownPoint>, Mofumachi.Core.TownPoint)",
+    "Mofumachi.Presentation.TownAreaNavigation.FindRoute(Mofumachi.Core.TownPoint, Mofumachi.Core.TownPoint, System.Collections.Generic.IReadOnlyList`1<Mofumachi.Core.TownPoint>)",
+    "Mofumachi.Presentation.TownWorldWalkModel.Guide(Mofumachi.Presentation.TownWorldResident, Mofumachi.Core.TownPoint, System.String, Boolean, Boolean)",
+    "Mofumachi.Presentation.TownWorldWalkModel.Step(Single)",
+    "Mofumachi.Tests.FinalFieldRecoveryTests.EveryFloorPerimeterAndObstacleApronCanBeEnteredAndWalkedBack(Int32)",
+    "DynamicClass.InvokeStub_FinalFieldRecoveryTests.EveryFloorPerimeterAndObstacleApronCanBeEnteredAndWalkedBack(System.Object, System.Span`1<System.Object>)",
+    "System.Reflection.MethodBaseInvoker.InvokeWithOneArg(System.Object, System.Reflection.BindingFlags, System.Reflection.Binder, System.Object[], System.Globalization.CultureInfo)",
+    "NUnit.Framework.Internal.Reflect.InvokeMethod(System.Reflection.MethodInfo, System.Object, System.Object[])",
+    "NUnit.Framework.Internal.MethodWrapper.Invoke(System.Object, System.Object[])"
+  ],
+  "native_unity": false,
+  "pixel_verified": false,
+  "formal_fixed": false,
+  "note": "No complete NUnit result was produced. Do not report all pure tests as passed. Related58/58 are a separate completed run. Bounded route probes are diagnostic partial results only."
+}

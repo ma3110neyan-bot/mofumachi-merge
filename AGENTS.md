@@ -10,6 +10,8 @@ PDF11画面の原本とSHAはReferences/Review/character-finish-feedback-2026-11
 
 最終手順 docs/character-final-finish-2026-11-01.md：更新→prepare-characters-final-pass -Install Serial99RAY1BELH Seconds600。ノアnative1件を先に通す→同sourceの5単体を順番→全件Edit/Play各1回→6名比較・すれ違い・タップ→同source QA APK→現在の6名authoredをPixelへ。Before/AfterはEditor専用の旧頭配置で同素材・同ポーズ、すれ違い標本は実モデル固定刻みでFPSとは分離。全件反復／保存消去／uninstall／mainなし。新Unity実描画・全件・APK・Pixelは未確認。結果確認後だけ正式固定。途中確認を挟まず安全な範囲を実装し、GitHub feature push許可を維持。以下は履歴。
 
+Nov1最終レビュー3重要を一括修正：旧meshの同状態照合を実タップより先に実施、hero操作後の6名fixtureカメラを戻して可視入力範囲を全員確認、同話者の実Down/Upでは会話を保ちDrag開始時だけ閉じる。即時／0.6秒後の実ポインター列を回帰と6名撮影で検査。重点純粋58/58、関連API・PS検査通過。ただし純粋C#全体1回はFinalFieldRecoveryTests.EveryFloorPerimeterAndObstacleApronCanBeEnteredAndWalkedBackの経路計算が長時間化し中断、全体成功XMLなし。スタックと旧新モデルの時間制限付き部分経路比較を保存、全完走の代用にしない。Unity／Pixel未確認も継続。レビュー軽微1件（履歴digestの独立pinなし）は留保、今回の履歴2manifest／原画はGit基準と原本一致を別照合。詳細docs/verification/character-final-finish-2026-11-01/。新全件反復を自動実行しない。
+
 ## 2026-10-31最新：ミエル233455も実Unity通過／単体仕上げ完了→最終工程1回
 
 最新Miel233455-20ab666cの4ZIPはCRC/SHA正常、92原本／85画像。実Unity1/1成功・failed/skip/inconclusive0、終了0。sourceae95891／FP621ee8f4はCLI・proof・source-info一致。Momo224754とFP一致、3c38..aeのAssets/scripts/Tests/原画/VisualLock差分なし。grounding_verified true、Left/Left/Right/Back/Frontの5影対で範囲外0を再計算。全85画像SHA/bytes/寸法、11従来対context、歩行4方向／40固定刻み標本／5Sorting／tap／talk／greet／blink／rear／Save不変をvalidator照合。現3PNG＋Windows CRLF layoutからinput7d31fbb7を再現。原本7記録・全SHA・検算はReferences/Review/miel-grounding-passed-2026-10-31-233455/。画像本体は4ZIP/runtime保持、repoに全画像を含むとは言わない。古い140423/125426は今回成功へ流用しない。

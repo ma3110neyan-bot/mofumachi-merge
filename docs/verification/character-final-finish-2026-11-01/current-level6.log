@@ -1,0 +1,580 @@
+START goal=0 target=-1.8000001,-0.76
+goal=0 target=-1.8000001,-0.76 frame=479 arrived=True seconds=0.65
+START goal=1 target=0,-0.25
+goal=1 target=0,-0.25 frame=480 arrived=True seconds=0.30
+START goal=2 target=-1.72,-0.88
+goal=2 target=-1.72,-0.88 frame=477 arrived=True seconds=0.29
+START goal=3 target=0,-0.25
+goal=3 target=0,-0.25 frame=467 arrived=True seconds=0.34
+START goal=4 target=-1.6400001,-1
+goal=4 target=-1.6400001,-1 frame=464 arrived=True seconds=0.39
+START goal=5 target=0,-0.25
+goal=5 target=0,-0.25 frame=463 arrived=True seconds=0.37
+START goal=6 target=-1.2,-1
+goal=6 target=-1.2,-1 frame=363 arrived=True seconds=0.20
+START goal=7 target=0,-0.25
+goal=7 target=0,-0.25 frame=363 arrived=True seconds=0.33
+START goal=8 target=-0.76000005,-1
+goal=8 target=-0.76000005,-1 frame=284 arrived=True seconds=0.25
+START goal=9 target=0,-0.25
+goal=9 target=0,-0.25 frame=283 arrived=True seconds=0.28
+START goal=10 target=-0.68000007,-0.88
+goal=10 target=-0.68000007,-0.88 frame=248 arrived=True seconds=0.16
+START goal=11 target=0,-0.25
+goal=11 target=0,-0.25 frame=248 arrived=True seconds=0.16
+START goal=12 target=-0.6,-0.76
+goal=12 target=-0.6,-0.76 frame=215 arrived=True seconds=0.14
+START goal=13 target=0,-0.25
+goal=13 target=0,-0.25 frame=216 arrived=True seconds=0.14
+START goal=14 target=-0.6,0
+goal=14 target=-0.6,0 frame=317 arrived=True seconds=0.28
+START goal=15 target=0,-0.25
+goal=15 target=0,-0.25 frame=212 arrived=True seconds=0.22
+START goal=16 target=-0.64515,0.76
+goal=16 target=-0.64515,0.76 frame=324 arrived=True seconds=0.22
+START goal=17 target=0,-0.25
+goal=17 target=0,-0.25 frame=314 arrived=True seconds=0.41
+START goal=18 target=-0.68000007,0.88
+goal=18 target=-0.68000007,0.88 frame=345 arrived=True seconds=0.21
+START goal=19 target=0,-0.25
+goal=19 target=0,-0.25 frame=344 arrived=True seconds=0.34
+START goal=20 target=-0.76000005,1
+goal=20 target=-0.76000005,1 frame=379 arrived=True seconds=0.45
+START goal=21 target=0,-0.25
+goal=21 target=0,-0.25 frame=378 arrived=True seconds=0.30
+START goal=22 target=-1.2,1
+goal=22 target=-1.2,1 frame=458 arrived=True seconds=0.36
+START goal=23 target=0,-0.25
+goal=23 target=0,-0.25 frame=445 arrived=True seconds=0.33
+START goal=24 target=-1.6400001,1
+goal=24 target=-1.6400001,1 frame=531 arrived=True seconds=0.37
+START goal=25 target=0,-0.25
+goal=25 target=0,-0.25 frame=529 arrived=True seconds=0.68
+START goal=26 target=-1.72,0.88
+goal=26 target=-1.72,0.88 frame=539 arrived=True seconds=0.33
+START goal=27 target=0,-0.25
+goal=27 target=0,-0.25 frame=541 arrived=True seconds=0.43
+START goal=28 target=-1.8000001,0.69984996
+goal=28 target=-1.8000001,0.69984996 frame=558 arrived=True seconds=0.44
+START goal=29 target=0,-0.25
+goal=29 target=0,-0.25 frame=558 arrived=True seconds=0.49
+START goal=30 target=-1.8000001,0
+goal=30 target=-1.8000001,0 frame=464 arrived=True seconds=0.56
+START goal=31 target=0,-0.25
+goal=31 target=0,-0.25 frame=464 arrived=True seconds=0.29
+START goal=32 target=-0.6,-0.76
+goal=32 target=-0.6,-0.76 frame=215 arrived=True seconds=0.24
+START goal=33 target=0,-0.25
+goal=33 target=0,-0.25 frame=216 arrived=True seconds=0.17
+START goal=34 target=-0.52,-0.84984994
+goal=34 target=-0.52,-0.84984994 frame=218 arrived=True seconds=0.47
+START goal=35 target=0,-0.25
+goal=35 target=0,-0.25 frame=217 arrived=True seconds=0.18
+START goal=36 target=-0.44,-1
+goal=36 target=-0.44,-1 frame=243 arrived=True seconds=0.32
+START goal=37 target=0,-0.25
+goal=37 target=0,-0.25 frame=241 arrived=True seconds=0.21
+START goal=38 target=0,-1
+goal=38 target=0,-1 frame=196 arrived=True seconds=0.21
+START goal=39 target=0,-0.25
+goal=39 target=0,-0.25 frame=196 arrived=True seconds=0.11
+START goal=40 target=0.44,-1
+goal=40 target=0.44,-1 frame=233 arrived=True seconds=0.26
+START goal=41 target=0,-0.25
+goal=41 target=0,-0.25 frame=235 arrived=True seconds=0.27
+START goal=42 target=0.52,-0.84984994
+goal=42 target=0.52,-0.84984994 frame=209 arrived=True seconds=0.25
+START goal=43 target=0,-0.25
+goal=43 target=0,-0.25 frame=209 arrived=True seconds=0.27
+START goal=44 target=0.6,-0.76
+goal=44 target=0.6,-0.76 frame=207 arrived=True seconds=0.29
+START goal=45 target=0,-0.25
+goal=45 target=0,-0.25 frame=207 arrived=True seconds=0.19
+START goal=46 target=0.6,0
+goal=46 target=0.6,0 frame=171 arrived=True seconds=0.15
+START goal=47 target=0,-0.25
+goal=47 target=0,-0.25 frame=171 arrived=True seconds=0.23
+START goal=48 target=0.6,0.73985
+goal=48 target=0.6,0.73985 frame=304 arrived=True seconds=0.24
+START goal=49 target=0,-0.25
+goal=49 target=0,-0.25 frame=377 arrived=True seconds=0.32
+START goal=50 target=0.52,0.88
+goal=50 target=0.52,0.88 frame=385 arrived=True seconds=0.33
+START goal=51 target=0,-0.25
+goal=51 target=0,-0.25 frame=579 arrived=True seconds=0.73
+START goal=52 target=0.44,1
+goal=52 target=0.44,1 frame=371 arrived=True seconds=0.46
+START goal=53 target=0,-0.25
+goal=53 target=0,-0.25 frame=369 arrived=True seconds=0.37
+START goal=54 target=0,1
+goal=54 target=0,1 frame=367 arrived=True seconds=0.37
+START goal=55 target=0,-0.25
+goal=55 target=0,-0.25 frame=348 arrived=True seconds=0.37
+START goal=56 target=-0.44,1
+goal=56 target=-0.44,1 frame=387 arrived=True seconds=0.37
+START goal=57 target=0,-0.25
+goal=57 target=0,-0.25 frame=382 arrived=True seconds=0.35
+START goal=58 target=-0.52,0.88
+goal=58 target=-0.52,0.88 frame=390 arrived=True seconds=0.51
+START goal=59 target=0,-0.25
+goal=59 target=0,-0.25 frame=387 arrived=True seconds=0.37
+START goal=60 target=-0.64515,0.76
+goal=60 target=-0.64515,0.76 frame=314 arrived=True seconds=0.24
+START goal=61 target=0,-0.25
+goal=61 target=0,-0.25 frame=367 arrived=True seconds=0.34
+START goal=62 target=-0.6,0
+goal=62 target=-0.6,0 frame=190 arrived=True seconds=0.13
+START goal=63 target=0,-0.25
+goal=63 target=0,-0.25 frame=186 arrived=True seconds=0.12
+START goal=64 target=0.6,-0.76
+goal=64 target=0.6,-0.76 frame=207 arrived=True seconds=0.38
+START goal=65 target=0,-0.25
+goal=65 target=0,-0.25 frame=207 arrived=True seconds=0.18
+START goal=66 target=0.68000007,-0.88
+goal=66 target=0.68000007,-0.88 frame=243 arrived=True seconds=0.40
+START goal=67 target=0,-0.25
+goal=67 target=0,-0.25 frame=243 arrived=True seconds=0.32
+START goal=68 target=0.76000005,-1
+goal=68 target=0.76000005,-1 frame=279 arrived=True seconds=0.30
+START goal=69 target=0,-0.25
+goal=69 target=0,-0.25 frame=279 arrived=True seconds=0.45
+START goal=70 target=1.2,-1
+goal=70 target=1.2,-1 frame=363 arrived=True seconds=0.41
+START goal=71 target=0,-0.25
+goal=71 target=0,-0.25 frame=363 arrived=True seconds=0.57
+START goal=72 target=1.6400001,-1
+goal=72 target=1.6400001,-1 frame=464 arrived=True seconds=0.52
+START goal=73 target=0,-0.25
+goal=73 target=0,-0.25 frame=464 arrived=True seconds=0.64
+START goal=74 target=1.72,-0.88
+goal=74 target=1.72,-0.88 frame=479 arrived=True seconds=0.66
+START goal=75 target=0,-0.25
+goal=75 target=0,-0.25 frame=481 arrived=True seconds=0.60
+START goal=76 target=1.8000001,-0.76
+goal=76 target=1.8000001,-0.76 frame=487 arrived=True seconds=0.52
+START goal=77 target=0,-0.25
+goal=77 target=0,-0.25 frame=522 arrived=True seconds=0.72
+START goal=78 target=1.8000001,0
+goal=78 target=1.8000001,0 frame=874 arrived=True seconds=0.94
+START goal=79 target=0,-0.25
+goal=79 target=0,-0.25 frame=529 arrived=True seconds=0.48
+START goal=80 target=1.8000001,0.69984996
+goal=80 target=1.8000001,0.69984996 frame=586 arrived=True seconds=0.64
+START goal=81 target=0,-0.25
+goal=81 target=0,-0.25 frame=559 arrived=True seconds=0.70
+START goal=82 target=1.72,0.88
+goal=82 target=1.72,0.88 frame=595 arrived=True seconds=0.90
+START goal=83 target=0,-0.25
+goal=83 target=0,-0.25 frame=555 arrived=True seconds=0.73
+START goal=84 target=1.6400001,1
+goal=84 target=1.6400001,1 frame=528 arrived=True seconds=0.81
+START goal=85 target=0,-0.25
+goal=85 target=0,-0.25 frame=528 arrived=True seconds=0.67
+START goal=86 target=1.2,1
+goal=86 target=1.2,1 frame=442 arrived=True seconds=0.64
+START goal=87 target=0,-0.25
+goal=87 target=0,-0.25 frame=442 arrived=True seconds=0.73
+START goal=88 target=0.76000005,1
+goal=88 target=0.76000005,1 frame=378 arrived=True seconds=0.55
+START goal=89 target=0,-0.25
+goal=89 target=0,-0.25 frame=378 arrived=True seconds=0.41
+START goal=90 target=0.68000007,0.88
+goal=90 target=0.68000007,0.88 frame=343 arrived=True seconds=0.42
+START goal=91 target=0,-0.25
+goal=91 target=0,-0.25 frame=346 arrived=True seconds=0.57
+START goal=92 target=0.6,0.73985
+goal=92 target=0.6,0.73985 frame=306 arrived=True seconds=0.37
+START goal=93 target=0,-0.25
+goal=93 target=0,-0.25 frame=304 arrived=True seconds=0.38
+START goal=94 target=0.6,0
+goal=94 target=0.6,0 frame=171 arrived=True seconds=0.41
+START goal=95 target=0,-0.25
+goal=95 target=0,-0.25 frame=171 arrived=True seconds=0.12
+START goal=96 target=-0.6,1.24
+goal=96 target=-0.6,1.24 frame=451 arrived=True seconds=0.57
+START goal=97 target=0,-0.25
+goal=97 target=0,-0.25 frame=448 arrived=True seconds=1.35
+START goal=98 target=-0.52,1.12
+goal=98 target=-0.52,1.12 frame=417 arrived=True seconds=0.45
+START goal=99 target=0,-0.25
+goal=99 target=0,-0.25 frame=416 arrived=True seconds=0.43
+START goal=100 target=-0.44,1
+goal=100 target=-0.44,1 frame=395 arrived=True seconds=0.49
+START goal=101 target=0,-0.25
+goal=101 target=0,-0.25 frame=382 arrived=True seconds=0.37
+START goal=102 target=0,1
+goal=102 target=0,1 frame=348 arrived=True seconds=0.27
+START goal=103 target=0,-0.25
+goal=103 target=0,-0.25 frame=348 arrived=True seconds=0.25
+START goal=104 target=0.44,1
+goal=104 target=0.44,1 frame=375 arrived=True seconds=0.25
+START goal=105 target=0,-0.25
+goal=105 target=0,-0.25 frame=371 arrived=True seconds=0.25
+START goal=106 target=0.52,1.12
+goal=106 target=0.52,1.12 frame=530 arrived=True seconds=0.65
+START goal=107 target=0,-0.25
+goal=107 target=0,-0.25 frame=400 arrived=True seconds=0.41
+START goal=108 target=0.6,1.24
+goal=108 target=0.6,1.24 frame=435 arrived=True seconds=0.39
+START goal=109 target=0,-0.25
+goal=109 target=0,-0.25 frame=434 arrived=True seconds=0.61
+START goal=110 target=0.6,2
+goal=110 target=0.6,2 frame=605 arrived=True seconds=0.52
+START goal=111 target=0,-0.25
+goal=111 target=0,-0.25 frame=604 arrived=True seconds=0.67
+START goal=112 target=0.6,2.69985
+goal=112 target=0.6,2.69985 frame=789 arrived=True seconds=0.70
+START goal=113 target=0,-0.25
+goal=113 target=0,-0.25 frame=787 arrived=True seconds=0.69
+START goal=114 target=0.52,2.88
+goal=114 target=0.52,2.88 frame=1499 arrived=True seconds=1.54
+START goal=115 target=0,-0.25
+goal=115 target=0,-0.25 frame=910 arrived=True seconds=0.87
+START goal=116 target=0.44,3
+goal=116 target=0.44,3 frame=877 arrived=True seconds=0.77
+START goal=117 target=0,-0.25
+goal=117 target=0,-0.25 frame=877 arrived=True seconds=1.01
+START goal=118 target=0,3
+goal=118 target=0,3 frame=867 arrived=True seconds=0.92
+START goal=119 target=0,-0.25
+goal=119 target=0,-0.25 frame=859 arrived=True seconds=0.81
+START goal=120 target=-0.44,3
+goal=120 target=-0.44,3 frame=861 arrived=True seconds=0.93
+START goal=121 target=0,-0.25
+goal=121 target=0,-0.25 frame=862 arrived=True seconds=0.90
+START goal=122 target=-0.52,2.88
+goal=122 target=-0.52,2.88 frame=824 arrived=True seconds=0.83
+START goal=123 target=0,-0.25
+goal=123 target=0,-0.25 frame=863 arrived=True seconds=0.74
+START goal=124 target=-0.6,2.76
+goal=124 target=-0.6,2.76 frame=820 arrived=True seconds=0.79
+START goal=125 target=0,-0.25
+goal=125 target=0,-0.25 frame=827 arrived=True seconds=1.17
+START goal=126 target=-0.6,2
+goal=126 target=-0.6,2 frame=644 arrived=True seconds=0.58
+START goal=127 target=0,-0.25
+goal=127 target=0,-0.25 frame=612 arrived=True seconds=1.97
+START goal=128 target=-0.6,-2.76
+goal=128 target=-0.6,-2.76 frame=657 arrived=True seconds=0.68
+START goal=129 target=0,-0.25
+goal=129 target=0,-0.25 frame=659 arrived=True seconds=0.79
+START goal=130 target=-0.52,-2.88
+goal=130 target=-0.52,-2.88 frame=680 arrived=True seconds=0.58
+START goal=131 target=0,-0.25
+goal=131 target=0,-0.25 frame=697 arrived=True seconds=0.77
+START goal=132 target=-0.44,-3
+goal=132 target=-0.44,-3 frame=830 arrived=True seconds=1.09
+START goal=133 target=0,-0.25
+goal=133 target=0,-0.25 frame=705 arrived=True seconds=0.79
+START goal=134 target=0,-3
+goal=134 target=0,-3 frame=724 arrived=True seconds=0.81
+START goal=135 target=0,-0.25
+goal=135 target=0,-0.25 frame=727 arrived=True seconds=0.80
+START goal=136 target=0.44,-3
+goal=136 target=0.44,-3 frame=743 arrived=True seconds=0.88
+START goal=137 target=0,-0.25
+goal=137 target=0,-0.25 frame=707 arrived=True seconds=0.75
+START goal=138 target=0.52,-2.88
+goal=138 target=0.52,-2.88 frame=701 arrived=True seconds=0.94
+START goal=139 target=0,-0.25
+goal=139 target=0,-0.25 frame=842 arrived=True seconds=0.98
+START goal=140 target=0.6,-2.76
+goal=140 target=0.6,-2.76 frame=666 arrived=True seconds=0.71
+START goal=141 target=0,-0.25
+goal=141 target=0,-0.25 frame=655 arrived=True seconds=0.63
+START goal=142 target=0.6,-2
+goal=142 target=0.6,-2 frame=471 arrived=True seconds=0.51
+START goal=143 target=0,-0.25
+goal=143 target=0,-0.25 frame=471 arrived=True seconds=0.52
+START goal=144 target=0.6,-1.24
+goal=144 target=0.6,-1.24 frame=300 arrived=True seconds=0.34
+START goal=145 target=0,-0.25
+goal=145 target=0,-0.25 frame=301 arrived=True seconds=0.24
+START goal=146 target=0.52,-1.12
+goal=146 target=0.52,-1.12 frame=265 arrived=True seconds=0.30
+START goal=147 target=0,-0.25
+goal=147 target=0,-0.25 frame=356 arrived=True seconds=0.51
+START goal=148 target=0.44,-1
+goal=148 target=0.44,-1 frame=244 arrived=True seconds=0.30
+START goal=149 target=0,-0.25
+goal=149 target=0,-0.25 frame=268 arrived=True seconds=0.20
+START goal=150 target=0,-1
+goal=150 target=0,-1 frame=196 arrived=True seconds=0.10
+START goal=151 target=0,-0.25
+goal=151 target=0,-0.25 frame=196 arrived=True seconds=0.25
+START goal=152 target=-0.44,-1
+goal=152 target=-0.44,-1 frame=411 arrived=True seconds=0.41
+START goal=153 target=0,-0.25
+goal=153 target=0,-0.25 frame=279 arrived=True seconds=0.37
+START goal=154 target=-0.52,-1.12
+goal=154 target=-0.52,-1.12 frame=278 arrived=True seconds=0.22
+START goal=155 target=0,-0.25
+goal=155 target=0,-0.25 frame=271 arrived=True seconds=0.20
+START goal=156 target=-0.6,-1.2801499
+goal=156 target=-0.6,-1.2801499 frame=373 arrived=True seconds=0.40
+START goal=157 target=0,-0.25
+goal=157 target=0,-0.25 frame=373 arrived=True seconds=0.36
+START goal=158 target=-0.6,-2
+goal=158 target=-0.6,-2 frame=481 arrived=True seconds=0.44
+START goal=159 target=0,-0.25
+goal=159 target=0,-0.25 frame=522 arrived=True seconds=0.66
+START goal=160 target=-0.72,0.60985
+goal=160 target=-0.72,0.60985 frame=295 arrived=True seconds=0.37
+START goal=161 target=0,-0.25
+goal=161 target=0,-0.25 frame=289 arrived=True seconds=0.16
+START goal=162 target=-0.080000006,0.62
+goal=162 target=-0.080000006,0.62 frame=253 arrived=True seconds=0.30
+START goal=163 target=0,-0.25
+goal=163 target=0,-0.25 frame=253 arrived=True seconds=0.19
+START goal=164 target=0.17999998,0.7
+goal=164 target=0.17999998,0.7 frame=270 arrived=True seconds=0.39
+START goal=165 target=0,-0.25
+goal=165 target=0,-0.25 frame=271 arrived=True seconds=0.37
+START goal=166 target=0.72,0.7
+goal=166 target=0.72,0.7 frame=307 arrived=True seconds=0.34
+START goal=167 target=0,-0.25
+goal=167 target=0,-0.25 frame=307 arrived=True seconds=1.16
+START goal=168 target=-1.34855,0.6663594
+goal=168 target=-1.34855,0.6663594 frame=444 arrived=True seconds=0.34
+START goal=169 target=0,-0.25
+goal=169 target=0,-0.25 frame=446 arrived=True seconds=0.33
+START goal=170 target=1.3350778,0.6701443
+goal=170 target=1.3350778,0.6701443 frame=446 arrived=True seconds=0.76
+START goal=171 target=0,-0.25
+goal=171 target=0,-0.25 frame=442 arrived=True seconds=0.49
+START goal=172 target=0.12,2.66
+goal=172 target=0.12,2.66 frame=816 arrived=True seconds=1.01
+START goal=173 target=0,-0.25
+goal=173 target=0,-0.25 frame=790 arrived=True seconds=0.66
+START goal=174 target=-0.115,-1.3199999
+goal=174 target=-0.115,-1.3199999 frame=278 arrived=True seconds=0.31
+START goal=175 target=0,-0.25
+goal=175 target=0,-0.25 frame=278 arrived=True seconds=0.23
+START goal=176 target=-0.6,2.24
+goal=176 target=-0.6,2.24 frame=676 arrived=True seconds=0.67
+START goal=177 target=0,-0.25
+goal=177 target=0,-0.25 frame=732 arrived=True seconds=0.64
+START goal=178 target=-0.29,2.24
+goal=178 target=-0.29,2.24 frame=664 arrived=True seconds=0.61
+START goal=179 target=0,-0.25
+goal=179 target=0,-0.25 frame=656 arrived=True seconds=0.53
+START goal=180 target=-1.7049999,-0.76000005
+goal=180 target=-1.7049999,-0.76000005 frame=455 arrived=True seconds=0.49
+START goal=181 target=0,-0.25
+goal=181 target=0,-0.25 frame=456 arrived=True seconds=0.46
+START goal=182 target=-1.27985,-0.76000005
+goal=182 target=-1.27985,-0.76000005 frame=354 arrived=True seconds=0.34
+START goal=183 target=0,-0.25
+goal=183 target=0,-0.25 frame=354 arrived=True seconds=0.50
+START goal=184 target=1.315,-0.88
+goal=184 target=1.315,-0.88 frame=378 arrived=True seconds=0.68
+START goal=185 target=0,-0.25
+goal=185 target=0,-0.25 frame=379 arrived=True seconds=0.49
+START goal=186 target=1.7215385,-0.8776924
+goal=186 target=1.7215385,-0.8776924 frame=480 arrived=True seconds=0.87
+START goal=187 target=0,-0.25
+goal=187 target=0,-0.25 frame=481 arrived=True seconds=0.77
+START goal=188 target=-0.665,-0.76000005
+goal=188 target=-0.665,-0.76000005 frame=220 arrived=True seconds=0.18
+START goal=189 target=0,-0.25
+goal=189 target=0,-0.25 frame=220 arrived=True seconds=0.36
+START goal=190 target=-0.25875202,-0.771775
+goal=190 target=-0.25875202,-0.771775 frame=172 arrived=True seconds=0.15
+START goal=191 target=0,-0.25
+goal=191 target=0,-0.25 frame=173 arrived=True seconds=0.21
+START goal=192 target=0.285,1.2
+goal=192 target=0.285,1.2 frame=401 arrived=True seconds=0.43
+START goal=193 target=0,-0.25
+goal=193 target=0,-0.25 frame=413 arrived=True seconds=0.62
+START goal=194 target=0.6,1.24
+goal=194 target=0.6,1.24 frame=436 arrived=True seconds=0.49
+START goal=195 target=0,-0.25
+goal=195 target=0,-0.25 frame=434 arrived=True seconds=0.48
+START goal=196 target=-0.47,-2.83
+goal=196 target=-0.47,-2.83 frame=665 arrived=True seconds=0.74
+START goal=197 target=0,-0.25
+goal=197 target=0,-0.25 frame=694 arrived=True seconds=0.56
+START goal=198 target=-0.009999998,-2.83
+goal=198 target=-0.009999998,-2.83 frame=1038 arrived=True seconds=0.86
+START goal=199 target=0,-0.25
+goal=199 target=0,-0.25 frame=676 arrived=True seconds=0.42
+START goal=200 target=-0.555,0.27
+goal=200 target=-0.555,0.27 frame=200 arrived=True seconds=0.35
+START goal=201 target=0,-0.25
+goal=201 target=0,-0.25 frame=199 arrived=True seconds=0.14
+START goal=202 target=-0.2538157,0.26945633
+goal=202 target=-0.2538157,0.26945633 frame=153 arrived=True seconds=0.12
+START goal=203 target=0,-0.25
+goal=203 target=0,-0.25 frame=153 arrived=True seconds=0.28
+START goal=204 target=0.2538157,0.26945636
+goal=204 target=0.2538157,0.26945636 frame=154 arrived=True seconds=0.22
+START goal=205 target=0,-0.25
+goal=205 target=0,-0.25 frame=153 arrived=True seconds=0.30
+START goal=206 target=0.555,0.27
+goal=206 target=0.555,0.27 frame=199 arrived=True seconds=0.11
+START goal=207 target=0,-0.25
+goal=207 target=0,-0.25 frame=215 arrived=True seconds=0.11
+START goal=208 target=-0.5525,0.31
+goal=208 target=-0.5525,0.31 frame=207 arrived=True seconds=0.21
+START goal=209 target=0,-0.25
+goal=209 target=0,-0.25 frame=216 arrived=True seconds=0.29
+START goal=210 target=-0.38750002,0.30985
+goal=210 target=-0.38750002,0.30985 frame=246 arrived=True seconds=0.15
+START goal=211 target=0,-0.25
+goal=211 target=0,-0.25 frame=179 arrived=True seconds=0.27
+START goal=212 target=0.38750002,0.30985
+goal=212 target=0.38750002,0.30985 frame=179 arrived=True seconds=0.10
+START goal=213 target=0,-0.25
+goal=213 target=0,-0.25 frame=179 arrived=True seconds=0.10
+START goal=214 target=0.5525,0.31
+goal=214 target=0.5525,0.31 frame=205 arrived=True seconds=0.28
+START goal=215 target=0,-0.25
+goal=215 target=0,-0.25 frame=205 arrived=True seconds=0.11
+START goal=216 target=-0.62,-0.12
+goal=216 target=-0.62,-0.12 frame=167 arrived=True seconds=0.08
+START goal=217 target=0,-0.25
+goal=217 target=0,-0.25 frame=167 arrived=True seconds=0.26
+START goal=218 target=-0.3,-0.12
+goal=218 target=-0.3,-0.12 frame=90 arrived=True seconds=0.14
+START goal=219 target=0,-0.25
+goal=219 target=0,-0.25 frame=90 arrived=True seconds=0.05
+START goal=220 target=0.295,-0.02
+goal=220 target=0.295,-0.02 frame=102 arrived=True seconds=0.13
+START goal=221 target=0,-0.25
+goal=221 target=0,-0.25 frame=102 arrived=True seconds=0.07
+START goal=222 target=0.64500004,-0.019849999
+goal=222 target=0.64500004,-0.019849999 frame=181 arrived=True seconds=0.25
+START goal=223 target=0,-0.25
+goal=223 target=0,-0.25 frame=183 arrived=True seconds=0.18
+START goal=224 target=-0.625,0.51
+goal=224 target=-0.625,0.51 frame=254 arrived=True seconds=0.14
+START goal=225 target=0,-0.25
+goal=225 target=0,-0.25 frame=274 arrived=True seconds=0.21
+START goal=226 target=-0.335,0.51
+goal=226 target=-0.335,0.51 frame=443 arrived=True seconds=0.58
+START goal=227 target=0,-0.25
+goal=227 target=0,-0.25 frame=221 arrived=True seconds=0.24
+START goal=228 target=0.335,0.51
+goal=228 target=0.335,0.51 frame=217 arrived=True seconds=0.27
+START goal=229 target=0,-0.25
+goal=229 target=0,-0.25 frame=217 arrived=True seconds=0.18
+START goal=230 target=0.625,0.51
+goal=230 target=0.625,0.51 frame=254 arrived=True seconds=0.23
+START goal=231 target=0,-0.25
+goal=231 target=0,-0.25 frame=254 arrived=True seconds=0.21
+START goal=232 target=0.23999998,-0.77000004
+goal=232 target=0.23999998,-0.77000004 frame=152 arrived=True seconds=0.12
+START goal=233 target=0,-0.25
+goal=233 target=0,-0.25 frame=152 arrived=True seconds=0.08
+START goal=234 target=0.66,-0.77000004
+goal=234 target=0.66,-0.77000004 frame=219 arrived=True seconds=0.41
+START goal=235 target=0,-0.25
+goal=235 target=0,-0.25 frame=219 arrived=True seconds=0.23
+START goal=236 target=-0.7215385,-0.9423077
+goal=236 target=-0.7215385,-0.9423077 frame=267 arrived=True seconds=0.27
+START goal=237 target=0,-0.25
+goal=237 target=0,-0.25 frame=266 arrived=True seconds=0.19
+START goal=238 target=-0.26000002,-0.97
+goal=238 target=-0.26000002,-0.97 frame=202 arrived=True seconds=0.27
+START goal=239 target=0,-0.25
+goal=239 target=0,-0.25 frame=279 arrived=True seconds=0.23
+START goal=240 target=0.28,-1.02
+goal=240 target=0.28,-1.02 frame=213 arrived=True seconds=0.11
+START goal=241 target=0,-0.25
+goal=241 target=0,-0.25 frame=213 arrived=True seconds=0.17
+START goal=242 target=0.73230773,-0.9584615
+goal=242 target=0.73230773,-0.9584615 frame=267 arrived=True seconds=0.54
+START goal=243 target=0,-0.25
+goal=243 target=0,-0.25 frame=267 arrived=True seconds=0.33
+START goal=244 target=-0.785,-0.099999994
+goal=244 target=-0.785,-0.099999994 frame=208 arrived=True seconds=0.10
+START goal=245 target=0,-0.25
+goal=245 target=0,-0.25 frame=208 arrived=True seconds=0.10
+START goal=246 target=-0.455,-0.099999994
+goal=246 target=-0.455,-0.099999994 frame=128 arrived=True seconds=0.04
+START goal=247 target=0,-0.25
+goal=247 target=0,-0.25 frame=128 arrived=True seconds=0.06
+START goal=248 target=-0.85892266,-0.74216425
+goal=248 target=-0.85892266,-0.74216425 frame=258 arrived=True seconds=0.17
+START goal=249 target=0,-0.25
+goal=249 target=0,-0.25 frame=275 arrived=True seconds=0.36
+START goal=250 target=-0.50999993,-0.65985
+goal=250 target=-0.50999993,-0.65985 frame=172 arrived=True seconds=0.09
+START goal=251 target=0,-0.25
+goal=251 target=0,-0.25 frame=172 arrived=True seconds=0.20
+START goal=252 target=-0.7625,-0.57
+goal=252 target=-0.7625,-0.57 frame=220 arrived=True seconds=0.34
+START goal=253 target=0,-0.25
+goal=253 target=0,-0.25 frame=220 arrived=True seconds=0.15
+START goal=254 target=-0.6375,-0.57
+goal=254 target=-0.6375,-0.57 frame=187 arrived=True seconds=0.25
+START goal=255 target=0,-0.25
+goal=255 target=0,-0.25 frame=187 arrived=True seconds=0.17
+START goal=256 target=-0.5492308,0.83615386
+goal=256 target=-0.5492308,0.83615386 frame=396 arrived=True seconds=0.51
+START goal=257 target=0,-0.25
+goal=257 target=0,-0.25 frame=391 arrived=True seconds=0.47
+START goal=258 target=-0.28,0.87
+goal=258 target=-0.28,0.87 frame=331 arrived=True seconds=0.57
+START goal=259 target=0,-0.25
+goal=259 target=0,-0.25 frame=330 arrived=True seconds=0.27
+START goal=260 target=-0.54,-1.2801499
+goal=260 target=-0.54,-1.2801499 frame=358 arrived=True seconds=0.48
+START goal=261 target=0,-0.25
+goal=261 target=0,-0.25 frame=358 arrived=True seconds=0.37
+START goal=262 target=-0.23999995,-1.2801499
+goal=262 target=-0.23999995,-1.2801499 frame=283 arrived=True seconds=0.24
+START goal=263 target=0,-0.25
+goal=263 target=0,-0.25 frame=284 arrived=True seconds=0.40
+START goal=264 target=-0.4225,0.90985
+goal=264 target=-0.4225,0.90985 frame=368 arrived=True seconds=0.41
+START goal=265 target=0,-0.25
+goal=265 target=0,-0.25 frame=366 arrived=True seconds=0.37
+START goal=266 target=-0.2975,0.90999997
+goal=266 target=-0.2975,0.90999997 frame=340 arrived=True seconds=0.51
+START goal=267 target=0,-0.25
+goal=267 target=0,-0.25 frame=340 arrived=True seconds=0.44
+START goal=268 target=0.455,-0.099999994
+goal=268 target=0.455,-0.099999994 frame=128 arrived=True seconds=0.16
+START goal=269 target=0,-0.25
+goal=269 target=0,-0.25 frame=128 arrived=True seconds=0.07
+START goal=270 target=0.785,-0.099999994
+goal=270 target=0.785,-0.099999994 frame=208 arrived=True seconds=0.22
+START goal=271 target=0,-0.25
+goal=271 target=0,-0.25 frame=208 arrived=True seconds=0.12
+START goal=272 target=0.50999993,-0.67985
+goal=272 target=0.50999993,-0.67985 frame=175 arrived=True seconds=0.09
+START goal=273 target=0,-0.25
+goal=273 target=0,-0.25 frame=250 arrived=True seconds=0.13
+START goal=274 target=0.89000005,-0.68
+goal=274 target=0.89000005,-0.68 frame=275 arrived=True seconds=0.24
+START goal=275 target=0,-0.25
+goal=275 target=0,-0.25 frame=263 arrived=True seconds=0.31
+START goal=276 target=0.6375,-0.57
+goal=276 target=0.6375,-0.57 frame=192 arrived=True seconds=0.14
+START goal=277 target=0,-0.25
+goal=277 target=0,-0.25 frame=194 arrived=True seconds=0.14
+START goal=278 target=0.7625,-0.57
+goal=278 target=0.7625,-0.57 frame=224 arrived=True seconds=0.44
+START goal=279 target=0,-0.25
+goal=279 target=0,-0.25 frame=225 arrived=True seconds=0.30
+START goal=280 target=0.28,0.87
+goal=280 target=0.28,0.87 frame=311 arrived=True seconds=0.33
+START goal=281 target=0,-0.25
+goal=281 target=0,-0.25 frame=312 arrived=True seconds=0.39
+START goal=282 target=0.65076923,0.83615386
+goal=282 target=0.65076923,0.83615386 frame=331 arrived=True seconds=0.50
+START goal=283 target=0,-0.25
+goal=283 target=0,-0.25 frame=331 arrived=True seconds=0.41
+START goal=284 target=0.23999998,-1.24
+goal=284 target=0.23999998,-1.24 frame=263 arrived=True seconds=0.35
+START goal=285 target=0,-0.25
+goal=285 target=0,-0.25 frame=263 arrived=True seconds=0.26
+START goal=286 target=0.54,-1.24
+goal=286 target=0.54,-1.24 frame=291 arrived=True seconds=0.42
+START goal=287 target=0,-0.25
+goal=287 target=0,-0.25 frame=291 arrived=True seconds=0.27
+START goal=288 target=0.2975,0.90999997
+goal=288 target=0.2975,0.90999997 frame=330 arrived=True seconds=0.24
+START goal=289 target=0,-0.25
+BUDGET goal=289 target=0,-0.25 frame=300 pos=0.02759047,-0.19462809 elapsed=0.33

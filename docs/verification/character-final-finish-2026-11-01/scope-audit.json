@@ -1,0 +1,24 @@
+{
+  "base": "fb172fea17210bf212bfcd0545de7debd7f8521f",
+  "presentation_candidate": "27bbe8b954f79403d77c3fb2a50839a789643ed0",
+  "art_core_scene_scope_diff": [],
+  "historical_locks": [
+    {
+      "path": "References/VisualLock/noah-authored-approved-2026-10-30.json",
+      "sha256": "70b57f7d974a70a1f47ecbbd2e09d7b4750fdf29b5f3e3d18c0d8ee21610c3f3",
+      "byte_identical_to_base": true
+    },
+    {
+      "path": "References/VisualLock/noah-authored-game-candidate-2026-10-30.json",
+      "sha256": "a78fb82c78c0ecb30ea308e3bcc191f0de54c4429ea5127e1f0e13800980459a",
+      "byte_identical_to_base": true
+    }
+  ],
+  "scoped_code_overrides": 5,
+  "native_unity": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "formal_fixed": false,
+  "adopted": false,
+  "note": "New candidate rendering and hardware acceptance are pending the exact Windows run. Full pure-suite result recorded separately when complete."
+}

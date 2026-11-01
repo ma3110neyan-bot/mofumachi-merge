@@ -6,6 +6,8 @@
 
 重点の純粋C#検査58/58成功。通常・Android・Editor描画・PlayMode・EditorのAPIコンパイル成功。最終レビューで見つかった撮影2点と実ポインター連打1点を修正し、実押下→離す→クリックの回帰検査を追加した。APIコンパイルをUnity実描画成功とは扱わない。検査原本とレビュー判断は `docs/verification/character-final-finish-2026-11-01/`。
 
+全体の純粋C#検査は1回実行したが、`FinalFieldRecoveryTests.EveryFloorPerimeterAndObstacleApronCanBeEnteredAndWalkedBack` の経路計算で長時間化し、中断・未完了。NUnitの全件成功XMLはない。スタック原本から実行位置を確認し、旧モデルと今回モデルの外周往復を時間制限付きで切り出した。到着を続ける経路はあるが、全完走や後退なしをこの部分結果だけで認定しない。無関係な全件の自動反復、経路／街の大改修は行わない。この保留と、Windows側でまだ実施していない全件EditMode／PlayModeは別の検査である。
+
 |対象|修正|重点検査|
 |---|---|---|
 |頭／胴体|背面の頭を胴体の首接続点へ追従。頭の傾きは顎の接点を中心にし、正面は正式通常原画＋既存まばたきを維持|各方向・歩行／停止／会話／挨拶で接点と頭の剛性を検査|
@@ -60,6 +62,6 @@ powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -Command {
 
 終端で開く今回のfinal-review-review ZIPを全パート添付する。失敗時は、その新runのZIP／エラーだけを確認し、全件を自動反復しない。保存消去・uninstall・main統合なし。
 
-残る確認は、新版のUnity実画面、Pixelでの自然さと負荷、結果を受けた正式固定の3点。合格前のformal_fixed/adoptedはfalse。
+残る確認は、長時間化した全体経路検査、新版Unityの全件・6名実画像、Pixelでの自然さと負荷の3点。結果が揃う前のformal_fixed/adoptedはfalse。
 
 判断：同じ会話が表示中なら連打を無視し、閉じた後の再タップは許可する。1日制限の保存項目は増やさない。Pixelは今回版を先に入れ、旧版との負荷差の改善は未判定。レビューの軽微な留保として、履歴manifestとamendmentを同時編集する改変に対する独立署名はない。今回はGit基準との差分とSHAで原本不変を確認し、改変不能な証明とは呼ばない。詳細は上記review.md。

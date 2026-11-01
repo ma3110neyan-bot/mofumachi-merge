@@ -25,7 +25,7 @@ namespace Mofumachi.Tests
             public string gitRevision=null,productFingerprint=null,packed_resource_sha256=null;
             public SixInput[] inputs=null;public bool native_unity=true,all_six_enabled,save_unchanged,tap_verified,pixel_verified=false,adopted=false;
             public string placements="isolated six-character display fixture; individual walking is in separate native methods; not Pixel FPS";
-            public bool front_verified,geometry_verified,attachment_comparison_verified,passing_verified,tap_only_verified;
+            public bool front_verified,geometry_verified,attachment_comparison_verified,passing_verified,contact_stability_verified,tap_only_verified;
             public string geometry_kind="rendered mesh bounds and anchors; opaque contact/silhouette still require visual review";
             public List<SixGeometry> geometry=new List<SixGeometry>();public List<NativePair> finish_pairs=new List<NativePair>();
             public List<NativeImage> images=new List<NativeImage>();

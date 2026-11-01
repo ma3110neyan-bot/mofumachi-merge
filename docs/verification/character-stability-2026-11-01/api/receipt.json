@@ -1,0 +1,38 @@
+[
+  {
+    "kind": "normal",
+    "project": "/workspace/runtime/noah-pixel-preview-oct30/compile/Mofumachi.Presentation.csproj",
+    "exit": 0,
+    "output": "\nBuild succeeded.\n    0 Warning(s)\n    0 Error(s)\n\nTime Elapsed 00:00:02.46\n",
+    "native_unity": false
+  },
+  {
+    "kind": "android",
+    "project": "/workspace/runtime/noah-pixel-preview-oct30/compile/AndroidCharacters/Mofumachi.Presentation.csproj",
+    "exit": 0,
+    "output": "\nBuild succeeded.\n    0 Warning(s)\n    0 Error(s)\n\nTime Elapsed 00:00:02.21\n",
+    "native_unity": false
+  },
+  {
+    "kind": "editor-renderer",
+    "project": "/workspace/runtime/characters-final-finish-nov01/editor-api/EditorPresentation.csproj",
+    "exit": 0,
+    "output": "\nBuild succeeded.\n    0 Warning(s)\n    0 Error(s)\n\nTime Elapsed 00:00:02.31\n",
+    "native_unity": false
+  },
+  {
+    "kind": "playmode",
+    "project": "/workspace/runtime/noah-pixel-preview-oct30/compile/PlayModeTests/Mofumachi.PlayModeTests.csproj",
+    "exit": 0,
+    "output": "\nBuild succeeded.\n    0 Warning(s)\n    0 Error(s)\n\nTime Elapsed 00:00:02.26\n",
+    "native_unity": false,
+    "review_fix_recompiled": true
+  },
+  {
+    "kind": "editor-build",
+    "project": "/workspace/runtime/noah-pixel-preview-oct30/compile/Editor/Mofumachi.Editor.csproj",
+    "exit": 0,
+    "output": "\nBuild succeeded.\n    0 Warning(s)\n    0 Error(s)\n\nTime Elapsed 00:00:01.47\n",
+    "native_unity": false
+  }
+]

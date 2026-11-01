@@ -1,0 +1,21 @@
+{
+  "date_jst": "2026-11-01",
+  "files": [
+    {
+      "file": "pixel-feedback-153459.pdf",
+      "bytes": 4418416,
+      "sha256": "ef15458e9bd8623c4999c7afec2234160a161f55be5d7004761a0f57ec0d7afc",
+      "pages": 10
+    },
+    {
+      "file": "pixel-feedback-153333.pdf",
+      "bytes": 3995178,
+      "sha256": "484cb522a484e65156b2164a1a1f8ae4a90111fd4a056fc309745da282243960",
+      "pages": 10
+    }
+  ],
+  "scope": "User static gameplay feedback,20 pages; preserve current appearance. Cannot infer APK identity, movement timing, FPS, temperature or native full-suite status.",
+  "automatic_greetings": "disabled; zero/day",
+  "formal_fixed": false,
+  "adopted": false
+}

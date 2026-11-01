@@ -1,0 +1,14 @@
+character-stability-focused.tests.ps1
+Tests passed: 3/3
+Three exact stability methods and incomplete/duplicate/foreign/failure/skip rejection passed. Synthetic XML only.
+character-finish-focused-qa.tests.ps1
+Tests passed: 7/7
+Seven exact final-finish methods and incomplete/duplicate/foreign/failure/skip rejection passed. Synthetic XML only.
+character-finish-scope.tests.ps1
+Exact authorized-code amendments accepted; art, history tampering, false adoption and unrelated paths rejected. Synthetic scope checks only.
+characters-preserve-inputs.tests.ps1
+Previous inputs preserved at: /tmp/mofu-preserve-tests-febbf1df6a614319be755bf86ab08c8f/success/Builds/Diagnostics/characters-preserved-20261101-070309-425b5c96
+Prepared-input preservation passed: owner, completed pair, packed hash, tracked/unknown/link refusal, exact-byte reversible backup. Synthetic inputs only.
+character-authored-route.tests.ps1
+Single-character guards passed: prepared character methods and mismatched proof rejection, future/Noah characters rejected, owned cleanup, CRLF master protection, source identity. No Unity/APK/device.
+Actual Noah26 and frozen552 validated with exact amendment.

@@ -1,6 +1,6 @@
 {
   "date_jst": "2026-11-01",
-  "request": "Explicit latest user instruction: ノアで最終調整、残り5名へ横展開。頭胴体・背面・すれ違い・タップ会話だけを仕上げる。",
+  "request": "Latest explicit user instruction: preserve current six-character appearance; stabilize close-contact movement and retain tap-only conversation. No redesign.",
   "change_authorized": true,
   "formal_fixed": false,
   "adopted": false,
@@ -32,7 +32,8 @@
       "group": "legacy",
       "path": "Assets/Mofumachi/Presentation/TownWorldWalkModel.cs",
       "before_sha256": "cbb0e7d0deb41f322cb6c2e0f1ee9005677639a99da68f8a4de13c6a2a6f3452",
-      "sha256": "38d7bd994f4ae7af1f4d945ff5062805f7906a1c9d467286863f808a0f9257c9"
+      "sha256": "f87623bb12e5cf52eb9578766d29b4181b792ff91eefcfb9e73fd4d8c101a109",
+      "reason": "Nov1 stabilization: prevent alternating collision sidesteps; follow resident-aware detours without double soft avoidance; one detour before NPC abandons a blocked visit. No art/Save changes."
     },
     {
       "group": "legacy",

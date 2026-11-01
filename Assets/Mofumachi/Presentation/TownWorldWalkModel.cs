@@ -16,6 +16,7 @@ namespace Mofumachi.Presentation
         public TownDistrictId District=>TownDistrictLayout.At(Position);
         internal bool CrossedDistrict;
         internal IReadOnlyList<TownPoint> Route=Array.Empty<TownPoint>();internal int Waypoint;internal float Waiting,NoProgress,BestRemaining,Avoidance;internal bool AvoidingResidents;
+        internal TownPoint SteeringDirection,SteeringTarget;
         public float PauseRemaining {get;internal set;}
         internal TownWorldResident(string id,bool controlled,TownPoint p){Id=id;Controlled=controlled;Position=Previous=Target=p;}
     }
@@ -61,7 +62,7 @@ namespace Mofumachi.Presentation
             var occupied=avoidResidents?residents.Where(a=>a!=actor).Select(a=>a.Position).ToArray():null;
             var route=navigation.FindRoute(actor.Position,target,occupied);if(route.Count==0)return false;
             if(restart){actor.Avoidance=0;actor.CrossedDistrict=false;actor.DistanceWalked=0;}actor.Target=target;actor.PlaceId=place;actor.Rest=0;actor.PauseRemaining=0;
-            actor.Route=route;actor.AvoidingResidents=avoidResidents;actor.Waypoint=0;actor.Waiting=actor.NoProgress=0;actor.BestRemaining=Remaining(actor);actor.IsWalking=TownWorldLayout.Distance(actor.Position,target)>.0001f;return true;
+            actor.Route=route;actor.SteeringDirection=default;actor.AvoidingResidents=avoidResidents;if(avoidResidents)actor.Avoidance=0;actor.Waypoint=0;actor.Waiting=actor.NoProgress=0;actor.BestRemaining=Remaining(actor);actor.IsWalking=TownWorldLayout.Distance(actor.Position,target)>.0001f;return true;
         }
         public bool TryGuidePoint(TownPoint point)
         {
@@ -101,11 +102,11 @@ namespace Mofumachi.Presentation
         {if(!float.IsFinite(seconds)||seconds<=0)return;var actor=residents.FirstOrDefault(a=>a.Id==id);if(actor!=null){actor.PauseRemaining=Math.Max(actor.PauseRemaining,Math.Min(4,seconds));actor.Speed=0;}}
         public void Face(string id,TownPoint other)
         {var actor=residents.FirstOrDefault(a=>a.Id==id);if(actor!=null&&TownWorldLayout.Finite(other)&&Math.Abs(other.X-actor.Position.X)>.002f)actor.Facing=Math.Sign(other.X-actor.Position.X);}
-        public void CancelHero(){IsFollowingFinger=finishingFinger=false;Hero.IsWalking=false;Hero.Speed=0;Hero.Target=Hero.Position;Hero.Avoidance=0;Hero.Route=Array.Empty<TownPoint>();}
+        public void CancelHero(){IsFollowingFinger=finishingFinger=false;Hero.IsWalking=false;Hero.Speed=0;Hero.Target=Hero.Position;Hero.Avoidance=0;Hero.SteeringDirection=default;Hero.Route=Array.Empty<TownPoint>();}
         public void Restore(string id,TownPoint p,string place=null)
         {
             var actor=residents.FirstOrDefault(a=>a.Id==id);if(actor==null||!Area.TryClamp(p,out var point,.12f))return;
-            actor.Avoidance=0;actor.Position=actor.Previous=actor.Target=point;actor.PlaceId=place;actor.IsWalking=false;actor.Speed=0;actor.Rest=2;actor.PauseRemaining=0;actor.Route=Array.Empty<TownPoint>();
+            actor.Avoidance=0;actor.SteeringDirection=default;actor.Position=actor.Previous=actor.Target=point;actor.PlaceId=place;actor.IsWalking=false;actor.Speed=0;actor.Rest=2;actor.PauseRemaining=0;actor.Route=Array.Empty<TownPoint>();
         }
         public void FastTravel(TownRegionId region)
         {
@@ -150,7 +151,14 @@ namespace Mofumachi.Presentation
                 if(TownWorldLayout.Distance(next,waypoint)<.001f&&actor.Waypoint<actor.Route.Count-1)actor.Waypoint++;
                 if(TownWorldLayout.Distance(next,actor.Target)<.001f)
                 {actor.Position=actor.Target;actor.IsWalking=false;actor.Speed=0;actor.Rest=actor.PlaceId?.Contains("bench")==true?4:2;Complete(actor);}
-                else if(!actor.Controlled&&actor.Waiting>1.5f){actor.IsWalking=false;actor.Rest=.2f;actor.PlaceId=null;}
+                else if(!actor.Controlled&&actor.Waiting>1.5f)
+                {
+                    // A stationary neighbour needs one planned detour before
+                    // this visit is abandoned. Failed/blocked detours still
+                    // use the existing short rest and next destination.
+                    if(actor.AvoidingResidents||!Guide(actor,actor.Target,actor.PlaceId,false,true))
+                    {actor.IsWalking=false;actor.Rest=.2f;actor.PlaceId=null;}
+                }
                 else
                 {
                     float remaining=Remaining(actor);
@@ -171,10 +179,15 @@ namespace Mofumachi.Presentation
         private TownPoint Steer(TownWorldResident actor,TownPoint target,float budget,float seconds)
         {
             if(budget<=0)return actor.Position;
+            if(TownWorldLayout.Distance(actor.SteeringTarget,target)>.0001f)actor.SteeringDirection=default;
+            actor.SteeringTarget=target;
             float dx=target.X-actor.Position.X,dy=(target.Y-actor.Position.Y)*TownWorldLayout.ImageAspect;
             float length=(float)Math.Sqrt(dx*dx+dy*dy);if(length<.000001f)return actor.Position;dx/=length;dy/=length;
             float sideways=0;
-            foreach(var other in residents)if(other!=actor)
+            // A resident-aware route already supplies its passing side and
+            // clearance. A second soft sideways force would steer away from
+            // its short waypoints and then back again. Hard checks below stay.
+            foreach(var other in residents)if(!actor.AvoidingResidents&&other!=actor)
             {
                 float x=other.Position.X-actor.Position.X,y=(other.Position.Y-actor.Position.Y)*TownWorldLayout.ImageAspect;
                 float along=x*dx+y*dy,across=x*dy-y*dx;
@@ -192,6 +205,11 @@ namespace Mofumachi.Presentation
             {
                 var heading=option==0?new TownPoint(dx+dy*sideways,(dy-dx*sideways)/TownWorldLayout.ImageAspect):option==1?new TownPoint(dx,dy/TownWorldLayout.ImageAspect):option==2?new TownPoint(dy,-dx/TownWorldLayout.ImageAspect):new TownPoint(-dy,dx/TownWorldLayout.ImageAspect);
                 float h=TownWorldLayout.Distance(default,heading);if(h<.00001f)continue;
+                // Opposite fallback sidesteps at the same waypoint can each
+                // become legal on alternate ticks at a neighbour's clearance
+                // edge. Keep movement continuous; when blocked, wait for the
+                // existing recovery/replan rather than oscillate in place.
+                if(heading.X*actor.SteeringDirection.X+heading.Y*actor.SteeringDirection.Y<-.0001f*h)continue;
                 var next=new TownPoint(actor.Position.X+heading.X/h*budget,actor.Position.Y+heading.Y/h*budget);
                 if(TownWorldLayout.Distance(actor.Position,target)<=budget+.000001f&&sideways==0)next=target;
                 if(!Area.CanTravel(actor.Position,next)||!Area.CanTravel(next,target))continue;bool clear=true;
@@ -200,7 +218,7 @@ namespace Mofumachi.Presentation
                     float before=TownWalkableArea.Distance(actor.Position,other.Position),after=TownWalkableArea.Distance(next,other.Position);
                     if(after<Math.Min(.067f,before)-.00001f){clear=false;break;}
                 }
-                if(clear)return next;
+                if(clear){actor.SteeringDirection=new TownPoint(heading.X/h,heading.Y/h);return next;}
             }
             return actor.Position;
         }

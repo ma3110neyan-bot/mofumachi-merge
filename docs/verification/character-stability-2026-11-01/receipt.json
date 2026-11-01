@@ -1,0 +1,28 @@
+{
+  "base_revision": "10dbbf95d75885d1531c4164870c833728369b53",
+  "before_model_sha256": "38d7bd994f4ae7af1f4d945ff5062805f7906a1c9d467286863f808a0f9257c9",
+  "after_model_sha256": "f87623bb12e5cf52eb9578766d29b4181b792ff91eefcfb9e73fd4d8c101a109",
+  "related_nunit": {
+    "passed": 68,
+    "failed": 0,
+    "native_unity": false
+  },
+  "contact_sweep": {
+    "cases": 249,
+    "before_rapid_bursts_ge3": 131,
+    "after_rapid_bursts_ge3": 0,
+    "after_arrivals": 249,
+    "after_max_reversals_in_16_ticks": 2,
+    "minimum_foot_distance": 0.066989146
+  },
+  "head_on_sweep": {
+    "cases": 144,
+    "arrived": 144,
+    "reversals": 0
+  },
+  "remaining_turns": "Latest samples68,78,99: two turns in a16-tick window are after stationary recovery and then a new route waypoint, not alternating every frame. Rendered naturalness still requires native/Pixel review.",
+  "full_native_verified": false,
+  "pixel_verified": false,
+  "formal_fixed": false,
+  "adopted": false
+}

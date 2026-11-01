@@ -1,5 +1,15 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-11-01最新：見た目維持・近接回避の実座標ブレを局所安定化
+
+最新ユーザー指示は現在の6名の見た目を維持し、不安定動作だけ修正。PDF2点20画面の原本・SHAはReferences/Review/character-stability-feedback-2026-11-01/。静止画からAPK版／FPS／ブレ周期を推測しない。新方式・原画／登録JSON・サイズ・街／CoreSave等は無変更。
+
+停止相手の近くで回避の左右候補が交互に合法化し、毎刻み反転する実座標バグを再現。同一経路点の逆行候補を抑止し、通れない場合は既存待機／再経路へ。住民回避済み経路には通常の横押しを重ねず、床／障害物／足元clearanceは維持。NPCも移動放棄前に1度detour。新目的地／経路点／Restore／Cancelで一時方向を解除、保存項目なし。変更コードの元SHAは旧manifest不変、既存9点amendmentのWorldModel新SHAのみ更新。
+
+新回帰9件はRED8失敗→GREEN9成功。既存頭接続／背面／接地等を含む関連純粋68/68。通常交差144条件は全到着・反転0、近接249条件は半秒3反転以上131→0・全到着。再経路後と次の経路点で2回向きを変える例は最新trace68/78/99に記録、Pixel自然さ合格へ置換しない。証拠docs/verification/character-stability-2026-11-01/。第三者レビューでnative6名foreachが表示順sortの背後配列を走査する欠陥を修正：ToArray固定＋6ID一致必須。新nativeは未実行、APIは成功。通常会話はタップのみ・自動挨拶なし（0回/日）。
+
+次はdocs/characters-stability-2026-11-01.mdのRemoteSigned子PS全体。featureを更新→新diagnose-character-stabilityの厳密3メソッド（6名近接＋既存自動発話なし＋実tap連打）。成功した場合だけ既存prepare-characters-final-passへ続行し、6単体順番→全Edit/Play各1回→6名描画／動作座標→同候補APK／authored先行Pixel10分。生成資源は既存所有者検査で可逆退避しunknownファイルを削除しない。失敗時は新runのみ、全件自動反復なし。新Unity全件／APK／Pixelは保留、formal_fixed/adopted false。旧7成功・旧全件部分成功と合算しない。既存GitHub feature push許可と途中確認省略は継続。以下は履歴。
+
 ## 2026-11-01最新：限定7件の実Unity全成功→現在版で最終受入1回
 
 受領characters-finish-focus123101-bda3c51f…review01はCRC/SHA正常、原本3点。実UnityPlayMode7/7成功・failed／skip／inc0、終了0。前回5失敗＋NearbyResidentsStaySilentUntilAnExplicitTap／HeroPressReleaseRepeatsPreserveSpeechUntilDraggingの厳密7集合と原CLI filterを現validatorで照合。source7931c06／FPa8b5349eはCLI・source-info一致、source_unchanged true・error空。原本References/Review/characters-finish-focused-passed-2026-11-01-123101/。修正後native確認が通ったが、250全件／6名描画／APK／Pixel証拠ではない。

@@ -1,0 +1,27 @@
+using System;using System.Linq;using System.Reflection;using System.Collections.Generic;using System.Text.Json;using System.Diagnostics;using System.IO;using Mofumachi.Core;using Mofumachi.Presentation;
+class Program {
+record Row(int Tick,string Id,float X,float Y,float Dx,float Dy,float TargetX,float TargetY,int Reverse,int Replans,int Waypoint,float Avoidance);
+record Result(int Case,float Cx,float Cy,int Degrees,float Offset,float Length,bool Stationary,int Frames,bool Arrived,int Reverse,int Bursts,int Replans,float MaxAngle,float MinDistance);
+static void Main(){var timer=Stopwatch.StartNew();var results=new List<Result>();int cid=0;var guide=typeof(TownWorldWalkModel).GetMethod("Guide",BindingFlags.Instance|BindingFlags.NonPublic);var route=typeof(TownWorldResident).GetField("Route",BindingFlags.Instance|BindingFlags.NonPublic);var wp=typeof(TownWorldResident).GetField("Waypoint",BindingFlags.Instance|BindingFlags.NonPublic);var av=typeof(TownWorldResident).GetField("Avoidance",BindingFlags.Instance|BindingFlags.NonPublic);
+foreach(bool stationary in new[]{true,false})foreach(var center in new[]{new TownPoint(0,-.3f),new TownPoint(.2f,.05f),new TownPoint(-.3f,-.1f),new TownPoint(.3f,.3f),new TownPoint(-.3f,.3f)})foreach(int degrees in Enumerable.Range(0,12).Select(i=>i*30))foreach(float offset in new[]{-.08f,-.04f,0,.04f,.08f})foreach(float len in new[]{.04f,.16f}) {
+if(timer.Elapsed.TotalSeconds>40)goto Done;
+int caseId=cid++;var m=new TownWorldWalkModel(1,"momo");var a=m.Hero;var b=m.Residents.Single(r=>r.Id=="lulu");float angle=degrees*MathF.PI/180,dx=MathF.Cos(angle),dy=MathF.Sin(angle);
+TownPoint P(float along,float across)=>new(center.X+dx*along-dy*across,center.Y+dy*along+dx*across);
+var startA=P(-.20f,offset);var startB=P(0,0);var goalA=P(len,offset);var goalB=P(-.20f,-offset);
+if(!m.Area.Contains(startA)||!m.Area.Contains(startB)||!m.Area.Contains(goalA)||!m.Area.Contains(goalB)||!m.Area.CanTravel(startA,goalA)||!m.Area.CanTravel(startB,goalB))continue;
+m.Restore(a.Id,startA);m.Restore(b.Id,startB);foreach(var r in m.Residents.Where(r=>r!=a&&r!=b))m.Restore(r.Id,new TownPoint(-1.8f,-.4f));
+if(!(bool)guide.Invoke(m,new object[]{a,goalA,null,true,false}))continue;
+if(!stationary&&!(bool)guide.Invoke(m,new object[]{b,goalB,null,true,false}))continue;
+float px=0,py=0,max=0,min=10;int reverses=0,bursts=0,replans=0,i=0;var window=new Queue<int>();var rows=new List<Row>();object previousRoute=route.GetValue(a);
+for(;i<600&&a.IsWalking;i++){
+foreach(var r in m.Residents.Where(r=>r!=a&&r!=b||!r.IsWalking))m.Pause(r.Id,4);m.Step(1f/30);float x=a.Position.X-a.Previous.X,y=a.Position.Y-a.Previous.Y,n=MathF.Sqrt(x*x+y*y),prev=MathF.Sqrt(px*px+py*py);int reverse=0;
+if(n>.00001f&&prev>.00001f&&a.IsWalking){float dot=Math.Clamp((x*px+y*py)/(n*prev),-1,1);max=Math.Max(max,MathF.Acos(dot)*180/MathF.PI);if(dot<-.1f){reverse=1;reverses++;window.Enqueue(i);}while(window.Count>0&&i-window.Peek()>15)window.Dequeue();bursts=Math.Max(bursts,window.Count);}
+if(n>.00001f){px=x;py=y;}
+min=Math.Min(min,TownWalkableArea.Distance(a.Position,b.Position));var nowRoute=route.GetValue(a);if(!ReferenceEquals(previousRoute,nowRoute)){replans++;previousRoute=nowRoute;}
+rows.Add(new(i,a.Id,a.Position.X,a.Position.Y,x,y,a.Target.X,a.Target.Y,reverse,replans,(int)wp.GetValue(a),(float)av.GetValue(a)));
+}
+var result=new Result(caseId,center.X,center.Y,degrees,offset,len,stationary,i,!a.IsWalking,reverses,bursts,replans,max,min);results.Add(result);
+if(bursts>=3)File.WriteAllText("trace-contact-"+caseId+".json",JsonSerializer.Serialize(rows));
+}
+Done:File.WriteAllText("results-contact-before.json",JsonSerializer.Serialize(results));foreach(var r in results.OrderByDescending(r=>r.Bursts).ThenByDescending(r=>r.Reverse).Take(12))Console.WriteLine(JsonSerializer.Serialize(r));Console.WriteLine($"cases={results.Count} seconds={timer.Elapsed.TotalSeconds:F2}");}
+}

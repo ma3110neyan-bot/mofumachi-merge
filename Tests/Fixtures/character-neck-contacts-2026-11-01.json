@@ -1,0 +1,902 @@
+[
+  {
+    "id": "noah",
+    "direction": "left",
+    "head": {
+      "x": -10.395,
+      "y": -6.545,
+      "width": 504,
+      "height": 407,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.77,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/noah-left-head.alpha.gz",
+      "alpha_sha256": "31eac2f7092928645fcfeee4ffccb62bb0dbc0942d8cff4e95fe82736faea9d2"
+    },
+    "body": {
+      "x": -28.02536231884058,
+      "y": -244.68297101449275,
+      "width": 915,
+      "height": 828,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.3079710144927536,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/noah-left-body.alpha.gz",
+      "alpha_sha256": "84316346438f961fbad9de1d5afe65d27da2477ce1016e9dfb9693a8400ce2a9"
+    }
+  },
+  {
+    "id": "noah",
+    "direction": "right",
+    "head": {
+      "x": 5.109999999999999,
+      "y": -3.285,
+      "width": 509,
+      "height": 428,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.73,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/noah-right-head.alpha.gz",
+      "alpha_sha256": "63873ae7bd538a43dbb0292100fad7418e9a3209cd2c958121fcfe830632518e"
+    },
+    "body": {
+      "x": -15.12,
+      "y": -231.42,
+      "width": 423,
+      "height": 294,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.84,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/noah-right-body.alpha.gz",
+      "alpha_sha256": "1b8a7d5ef7baa255c301f508cc465907a9507164ff3f3e5008053f9982850b3e"
+    }
+  },
+  {
+    "id": "noah",
+    "direction": "back",
+    "head": {
+      "x": 0.72,
+      "y": -3.2399999999999998,
+      "width": 513,
+      "height": 434,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.72,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/noah-back-head.alpha.gz",
+      "alpha_sha256": "9e6570c706f8d5f1ccc47096415139a522be0761e11d5fad106e1eb1d5d08afd"
+    },
+    "body": {
+      "x": -33.97,
+      "y": -243.715,
+      "width": 437,
+      "height": 325,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.79,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/noah-back-body.alpha.gz",
+      "alpha_sha256": "15d2f43a8f0b55e299c1d495e0542c364a822f75abf54c7b8de7db2bf7fb9a08"
+    }
+  },
+  {
+    "id": "momo",
+    "direction": "left",
+    "head": {
+      "x": -25.80508474576271,
+      "y": 10.944915254237298,
+      "width": 531,
+      "height": 472,
+      "pivot": [
+        0.5,
+        0.85
+      ],
+      "scale": 0.8898305084745762,
+      "offset": [
+        0,
+        30
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/momo-left-head.alpha.gz",
+      "alpha_sha256": "6637bc194181b9fd4925c386091a1ee47f756897f9469a4a4b61991af23e7cb4"
+    },
+    "body": {
+      "x": 10.298507462686567,
+      "y": -226.91044776119404,
+      "width": 429,
+      "height": 335,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.6865671641791045,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/momo-left-body.alpha.gz",
+      "alpha_sha256": "39a52805cd32d6083132dd0737dc336da556505cd06243e3a5bd5396d1b029be"
+    },
+    "closedHead": {
+      "width": 531,
+      "height": 472,
+      "pivot": [
+        0.5,
+        0.85
+      ],
+      "scale": 0.8898305084745762,
+      "offset": [
+        0,
+        30
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/momo-left-closedHead.alpha.gz",
+      "alpha_sha256": "139443d6a3d9ad389ddbe7c8a33c0251fa2218914aeb297450db2ac859c5e079",
+      "x": -30.25423728813559,
+      "y": 10.944915254237298
+    }
+  },
+  {
+    "id": "momo",
+    "direction": "right",
+    "head": {
+      "x": 9.506172839506172,
+      "y": -2.246913580246884,
+      "width": 513,
+      "height": 486,
+      "pivot": [
+        0.5,
+        0.85
+      ],
+      "scale": 0.8641975308641975,
+      "offset": [
+        0,
+        30
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/momo-right-head.alpha.gz",
+      "alpha_sha256": "f41b4499a51d47cba4139d15f3f4443a218a0c78772a7d8a4d3fb9f0750b7474"
+    },
+    "body": {
+      "x": -20.48850574712644,
+      "y": -225.70402298850576,
+      "width": 415,
+      "height": 348,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.6609195402298851,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/momo-right-body.alpha.gz",
+      "alpha_sha256": "2b293132af97144aa83595b5cfdb0a8115d3bdf188f0a737183bf08e653c0583"
+    },
+    "closedHead": {
+      "width": 494,
+      "height": 457,
+      "pivot": [
+        0.5,
+        0.85
+      ],
+      "scale": 0.9190371991247265,
+      "offset": [
+        0,
+        30
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/momo-right-closedHead.alpha.gz",
+      "alpha_sha256": "13488d689c300f7ae33fa9dc5ac05a2a090aaafe03e2f7045652935b4134323d",
+      "x": 10.568927789934355,
+      "y": 1.8840262582056997
+    }
+  },
+  {
+    "id": "momo",
+    "direction": "back",
+    "head": {
+      "x": -5.701357466063348,
+      "y": 24.515837104072407,
+      "width": 513,
+      "height": 442,
+      "pivot": [
+        0.5,
+        0.85
+      ],
+      "scale": 0.9502262443438914,
+      "offset": [
+        0,
+        30
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/momo-back-head.alpha.gz",
+      "alpha_sha256": "2d86f61c930c27b1c86f00ee8d0b6adefbdda836ea3ca83e50337995e4e510b5"
+    },
+    "body": {
+      "x": 4.707602339181287,
+      "y": -226.97368421052633,
+      "width": 441,
+      "height": 342,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.672514619883041,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/momo-back-body.alpha.gz",
+      "alpha_sha256": "58e9cdee5748e6a26cac5081d17fb943c3a2eea4f2b2182fb0b68791a9a1be91"
+    }
+  },
+  {
+    "id": "lulu",
+    "direction": "left",
+    "head": {
+      "x": 7.931034482758621,
+      "y": -3.793103448275862,
+      "width": 548,
+      "height": 493,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.6896551724137931,
+      "offset": [
+        0,
+        15
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/lulu-left-head.alpha.gz",
+      "alpha_sha256": "2360c33616a81ca863822124828d7758e12e02ae7578284c7432a914b20d73a0"
+    },
+    "body": {
+      "x": -7.252252252252252,
+      "y": -226.89189189189187,
+      "width": 460,
+      "height": 333,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.6906906906906907,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/lulu-left-body.alpha.gz",
+      "alpha_sha256": "309fe850f06af0d960bacf75b9fc770ef299202f03fee9efb243880179422628"
+    },
+    "closedHead": {
+      "width": 527,
+      "height": 471,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.721868365180467,
+      "offset": [
+        0,
+        15
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/lulu-left-closedHead.alpha.gz",
+      "alpha_sha256": "b396d3756bd4b5282c7e8e9e01937a765493d4d574e7b03ca3ebe301f4319526",
+      "x": 7.21868365180467,
+      "y": -3.2484076433121016
+    }
+  },
+  {
+    "id": "lulu",
+    "direction": "right",
+    "head": {
+      "x": -13.600000000000001,
+      "y": -3.6,
+      "width": 483,
+      "height": 425,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.8,
+      "offset": [
+        0,
+        15
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/lulu-right-head.alpha.gz",
+      "alpha_sha256": "df940b4528c05aea0493027e1b5e9d2cecc4f3caca802a3e530d2bb78fbf37ab"
+    },
+    "body": {
+      "x": -3.2857142857142856,
+      "y": -226.7142857142857,
+      "width": 430,
+      "height": 315,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.7301587301587301,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/lulu-right-body.alpha.gz",
+      "alpha_sha256": "0bfe1ab4cbc727c2372e9dd7407370afa628d69dc11557cfe0a86e58c4ba48b1"
+    },
+    "closedHead": {
+      "width": 488,
+      "height": 424,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.8018867924528302,
+      "offset": [
+        0,
+        15
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/lulu-right-closedHead.alpha.gz",
+      "alpha_sha256": "61bfa1402def10a53a59055b035904f82ae51ed0e815fe7edaf30a0e797f218f",
+      "x": 11.627358490566039,
+      "y": -3.608490566037736
+    }
+  },
+  {
+    "id": "lulu",
+    "direction": "back",
+    "head": {
+      "x": -21.834862385321102,
+      "y": -4.2889908256880735,
+      "width": 475,
+      "height": 436,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.7798165137614679,
+      "offset": [
+        0,
+        15
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/lulu-back-head.alpha.gz",
+      "alpha_sha256": "b894212776bb7f0018d5d1837b8b31030d65afb9b51159d0dae3ff9910a4b149"
+    },
+    "body": {
+      "x": -1.3649851632047478,
+      "y": -226.92878338278933,
+      "width": 439,
+      "height": 337,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.6824925816023739,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/lulu-back-body.alpha.gz",
+      "alpha_sha256": "bc45240db5ccef0e2f6091b79bc319f900854c710c40e0643848b8e8e8c9d44a"
+    }
+  },
+  {
+    "id": "pom",
+    "direction": "left",
+    "head": {
+      "x": -15.56338028169014,
+      "y": -3.591549295774648,
+      "width": 498,
+      "height": 426,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.7981220657276995,
+      "offset": [
+        0,
+        15
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/pom-left-head.alpha.gz",
+      "alpha_sha256": "7635a36f6cb1076a2df6a39833a3954440763a657fbb54ed02651248983ce415"
+    },
+    "body": {
+      "x": 30.230352303523034,
+      "y": -223.4552845528455,
+      "width": 522,
+      "height": 369,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.6233062330623306,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/pom-left-body.alpha.gz",
+      "alpha_sha256": "8cdb8a1e0c5a93eca490154094ea5ed584ed1d6303c6479cf35afffcde077e25"
+    },
+    "closedHead": {
+      "width": 494,
+      "height": 425,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.8,
+      "offset": [
+        0,
+        15
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/pom-left-closedHead.alpha.gz",
+      "alpha_sha256": "6d22fae11ec99330d54d9c03fc01ba9d128c4b13a90e0dfc33b79b9a64a4bbcc",
+      "x": -17.2,
+      "y": -4.4
+    }
+  },
+  {
+    "id": "pom",
+    "direction": "right",
+    "head": {
+      "x": 14.8,
+      "y": -4.4,
+      "width": 488,
+      "height": 425,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.8,
+      "offset": [
+        0,
+        15
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/pom-right-head.alpha.gz",
+      "alpha_sha256": "3bed789bc3aa318273cbe5c470ea26cf1f1f072e14b437b4119a7617b26bba68"
+    },
+    "body": {
+      "x": 2.5842696629213484,
+      "y": -226.44662921348316,
+      "width": 521,
+      "height": 356,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.6460674157303371,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/pom-right-body.alpha.gz",
+      "alpha_sha256": "e89ef311ce994925a1b1e314f1bfa6179ef20fc9fecc14968e48f6609158725e"
+    },
+    "closedHead": {
+      "width": 489,
+      "height": 432,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.7870370370370371,
+      "offset": [
+        0,
+        15
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/pom-right-closedHead.alpha.gz",
+      "alpha_sha256": "ef9c2886555446d86cbc06811d74b6e11739a34ef7c18e10f549c8fdbcc619bc",
+      "x": 20.462962962962965,
+      "y": -3.541666666666667
+    }
+  },
+  {
+    "id": "pom",
+    "direction": "back",
+    "head": {
+      "x": -3.140877598152425,
+      "y": -3.533487297921478,
+      "width": 493,
+      "height": 433,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.7852193995381063,
+      "offset": [
+        0,
+        30
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/pom-back-head.alpha.gz",
+      "alpha_sha256": "a253814b8ab749c725afe8752fed96ea00e41af59edf4fe03319d1ddd2fb9eff"
+    },
+    "body": {
+      "x": -32.420212765957444,
+      "y": -217.46010638297872,
+      "width": 537,
+      "height": 376,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.6117021276595744,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/pom-back-body.alpha.gz",
+      "alpha_sha256": "9ea3c3ee4cb83e9aba4117dcb5e42716751adb799d0274ddbf4ff300d72f4dc5"
+    }
+  },
+  {
+    "id": "fio",
+    "direction": "left",
+    "head": {
+      "x": 10.164948453608247,
+      "y": -3.154639175257732,
+      "width": 444,
+      "height": 485,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.7010309278350515,
+      "offset": [
+        0,
+        15
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/fio-left-head.alpha.gz",
+      "alpha_sha256": "85d4c04834c83c89d49ab8366163553aff425677ae090e9a49d64102b65f5361"
+    },
+    "body": {
+      "x": -0.40350877192982454,
+      "y": -226.36842105263156,
+      "width": 386,
+      "height": 285,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.8070175438596491,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/fio-left-body.alpha.gz",
+      "alpha_sha256": "e95243f5bfe630e7c6b7c3dd0707104940df72638d9618a9587de7a32c9c8c39"
+    },
+    "closedHead": {
+      "width": 442,
+      "height": 485,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.7010309278350515,
+      "offset": [
+        0,
+        15
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/fio-left-closedHead.alpha.gz",
+      "alpha_sha256": "9d2fa45295b82e8a020eff604d93e584d5a3623ace6e45bdb77ed11b92dacc9c",
+      "x": 6.659793814432989,
+      "y": -3.154639175257732
+    }
+  },
+  {
+    "id": "fio",
+    "direction": "right",
+    "head": {
+      "x": 14.302103250478012,
+      "y": -2.9254302103250476,
+      "width": 497,
+      "height": 523,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.6500956022944551,
+      "offset": [
+        0,
+        15
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/fio-right-head.alpha.gz",
+      "alpha_sha256": "36c509fb29871364d8f5f59d810849dc0e1870dffa548e3b3d773680cb43408e"
+    },
+    "body": {
+      "x": -23.80466472303207,
+      "y": -226.31195335276968,
+      "width": 406,
+      "height": 343,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.6705539358600583,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/fio-right-body.alpha.gz",
+      "alpha_sha256": "0b76bfe1746d0c79b953c96aa5c18e0ead01405ddc012c8f87b81c16c6618415"
+    },
+    "closedHead": {
+      "width": 416,
+      "height": 425,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.8,
+      "offset": [
+        0,
+        15
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/fio-right-closedHead.alpha.gz",
+      "alpha_sha256": "1a4b0161dcaf082ef875b65cbb44348a2149049b9cc598288eaaf8a7dd114bfb",
+      "x": 14.8,
+      "y": -4.4
+    }
+  },
+  {
+    "id": "fio",
+    "direction": "back",
+    "head": {
+      "x": -0.39351851851851855,
+      "y": -3.541666666666667,
+      "width": 432,
+      "height": 432,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.7870370370370371,
+      "offset": [
+        0,
+        15
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/fio-back-head.alpha.gz",
+      "alpha_sha256": "1243c32e93562cc4eefcc282fb9b468f276aeb86cdda43f7c597aea85a96fa7e"
+    },
+    "body": {
+      "x": -0.756578947368421,
+      "y": -226.59539473684208,
+      "width": 367,
+      "height": 304,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.756578947368421,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/fio-back-body.alpha.gz",
+      "alpha_sha256": "aed3b9ec1fe51a9bfa1c4e17e8e16030c7b529a7b90ed1f00e84b416dce9be58"
+    }
+  },
+  {
+    "id": "miel",
+    "direction": "left",
+    "head": {
+      "x": 35.56122448979592,
+      "y": -8.239795918367346,
+      "width": 511,
+      "height": 392,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.8673469387755102,
+      "offset": [
+        0,
+        30
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/miel-left-head.alpha.gz",
+      "alpha_sha256": "f0c8211f7c4f2c538d48b0beadcdc24d450cdfeae339a88f462cf6783f1719ae"
+    },
+    "body": {
+      "x": -11.338028169014084,
+      "y": -227.08450704225353,
+      "width": 478,
+      "height": 355,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.647887323943662,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/miel-left-body.alpha.gz",
+      "alpha_sha256": "74c505fa00050b3109cfee42202d2bb0ba413bb404035d27a7ef542a14ecd92c"
+    },
+    "closedHead": {
+      "width": 520,
+      "height": 398,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.8542713567839196,
+      "offset": [
+        0,
+        30
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/miel-left-closedHead.alpha.gz",
+      "alpha_sha256": "33f6ebaf8e32d1bf72d255e77c06c0f137756572ad461b442d49d852768c6a83",
+      "x": 38.015075376884425,
+      "y": -7.261306532663317
+    }
+  },
+  {
+    "id": "miel",
+    "direction": "right",
+    "head": {
+      "x": 36.33906633906634,
+      "y": -5.42997542997543,
+      "width": 528,
+      "height": 407,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.8353808353808354,
+      "offset": [
+        0,
+        30
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/miel-right-head.alpha.gz",
+      "alpha_sha256": "52b5d48f8b4c672c089fd74c9c80efe479e71b666836c4d48aae2c3cadc7fc3e"
+    },
+    "body": {
+      "x": -31.332335329341316,
+      "y": -224.83532934131736,
+      "width": 462,
+      "height": 334,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.688622754491018,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/miel-right-body.alpha.gz",
+      "alpha_sha256": "fa99053550867123fb22d5cebc519401286bd3697f9acd87e525997ac2b833a8"
+    },
+    "closedHead": {
+      "width": 521,
+      "height": 399,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.8521303258145363,
+      "offset": [
+        0,
+        30
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/miel-right-closedHead.alpha.gz",
+      "alpha_sha256": "31ce595d35508ce7c395f828d0bcb51028981068bc82c511df6d8c67bd1b02e1",
+      "x": 34.08521303258145,
+      "y": -4.68671679197995
+    }
+  },
+  {
+    "id": "miel",
+    "direction": "back",
+    "head": {
+      "x": 7.064935064935065,
+      "y": -3.974025974025974,
+      "width": 481,
+      "height": 385,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.8831168831168831,
+      "offset": [
+        0,
+        30
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/miel-back-head.alpha.gz",
+      "alpha_sha256": "3350a9525a3ccb0fab5f43211246cc6dba4f445c77f5b3349a0a7c26064b3ecc"
+    },
+    "body": {
+      "x": -28.163265306122447,
+      "y": -220.9475218658892,
+      "width": 465,
+      "height": 343,
+      "pivot": [
+        0.5,
+        1
+      ],
+      "scale": 0.6705539358600583,
+      "offset": [
+        0,
+        0
+      ],
+      "rotation": 0,
+      "alpha_file": "neck-alpha/miel-back-body.alpha.gz",
+      "alpha_sha256": "1849358190327f5431a7ebf5423914f1533489844e69675994d1a1592ea34df9"
+    }
+  }
+]

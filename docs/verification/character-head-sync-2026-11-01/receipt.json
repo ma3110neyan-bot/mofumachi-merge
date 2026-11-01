@@ -1,0 +1,38 @@
+{
+  "base_revision": "f2b31339d106744f96d21786bb5256d141dcc4e8",
+  "scope": "head/body sync only",
+  "source_contacts": 46,
+  "character_ids": [
+    "noah",
+    "momo",
+    "lulu",
+    "pom",
+    "fio",
+    "miel"
+  ],
+  "math_tests": {
+    "passed": 16,
+    "failed": 0,
+    "kind": "in-process NUnit; not native Unity"
+  },
+  "review_regression": {
+    "before_source_tests_failed": 6,
+    "after_source_tests_failed": 0
+  },
+  "native_head_verified": false,
+  "formal_fixed": false,
+  "adopted": false,
+  "original_motion_unchanged": true,
+  "original_art_unchanged": true,
+  "resolver_sha256": "4b9ead417c5797ee95856c8b5c3a2c58a218b8fe238a09853def41d395ac4634",
+  "expected_native": {
+    "methods": 1,
+    "samples": 432,
+    "images": 36,
+    "states": 9,
+    "ticks_per_state": 8,
+    "characters": 6
+  },
+  "pending": "Actual new head-only Unity meshes/images; no full-suite rerun required by this head-only request.",
+  "before_contact_kind": "Validated opaque source contacts and prior C# transforms; not a native image measurement."
+}

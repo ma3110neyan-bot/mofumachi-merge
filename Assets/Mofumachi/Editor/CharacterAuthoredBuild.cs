@@ -82,7 +82,9 @@ namespace Mofumachi.Editor
                             }
                         }
                         var chip=new Texture2D(w,h,TextureFormat.RGBA32,false);owned.Add(chip);chip.SetPixels(pixels);chip.Apply();chips.Add(chip);
-                        var registered=new CharacterAuthoredPart{id=p.id,width=w,height=h,pivot=new Vector2(p.pivot[0],p.pivot[1]),offset=new Vector2(p.offset[0],p.offset[1]),scale=p.scale,rotation=p.rotation};registrations.Add(registered);return registered;
+                        var registered=new CharacterAuthoredPart{id=p.id,width=w,height=h,pivot=new Vector2(p.pivot[0],p.pivot[1]),offset=new Vector2(p.offset[0],p.offset[1]),scale=p.scale,rotation=p.rotation};
+                        if(p.id=="head"||p.id=="body"){registered.neckJoint=CharacterNeckRegistration.Find(pixels,w,h,registered.pivot,p.scale,p.id=="head");registered.hasNeckJoint=true;}
+                        registrations.Add(registered);return registered;
                     }
                     var view=new CharacterAuthoredView{direction=pair.Item1,parts=new CharacterAuthoredPart[7]};output.views[viewIndex++]=view;
                     for(int i=0;i<7;i++)view.parts[i]=Register(pair.Item3.parts[i]);

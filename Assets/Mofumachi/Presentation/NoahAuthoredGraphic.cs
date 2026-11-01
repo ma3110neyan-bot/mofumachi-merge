@@ -4,9 +4,9 @@ using UnityEngine.UI;
 namespace Mofumachi.Presentation
 {
     [Serializable] public sealed class NoahAuthoredPart
-    {public string id;public float width,height,scale;public Vector2 pivot;public Rect uv;}
+    {public string id;public float width,height,scale;public Vector2 pivot,neckJoint;public bool hasNeckJoint;public Rect uv;}
     [Serializable] public sealed class NoahAuthoredView
-    {public string direction;public NoahAuthoredPart[] parts;}
+    {public string direction;public NoahAuthoredPart[] parts;[NonSerialized] public CharacterNeckBinding neck;}
     [Serializable] public sealed class NoahAuthoredRigConfig
     {public int version=1;public string input_sha256;public NoahAuthoredView[] views;}
 
@@ -21,6 +21,7 @@ namespace Mofumachi.Presentation
         public string DirectionName=>view?.direction??"unconfigured";
 #if UNITY_EDITOR
         private bool captureLegacyPose=false;
+        private bool capturePreviousNeck=false;
 #endif
         public override Texture mainTexture=>texture;
         public static string InputDigest=>config?.input_sha256;
@@ -41,6 +42,9 @@ namespace Mofumachi.Presentation
                         default(NoahAuthoredPose).Part(p.id);
                         if(!float.IsFinite(p.width)||!float.IsFinite(p.height)||!float.IsFinite(p.scale)||p.width<=0||p.height<=0||p.scale<=0||p.uv.width<=0||p.uv.height<=0)throw new InvalidOperationException("Invalid Noah part registration.");
                     }
+                    NoahAuthoredPart body=null,head=null;foreach(var p in v.parts){if(p.id=="body")body=p;else if(p.id=="head")head=p;}
+                    if(body==null||head==null||!body.hasNeckJoint||!head.hasNeckJoint)throw new InvalidOperationException("Rebuild resources with body-neck contacts.");
+                    v.neck=new CharacterNeckBinding{version=1,bodyX=body.neckJoint.x,bodyY=body.neckJoint.y,headX=head.neckJoint.x,headY=head.neckJoint.y};v.neck.Validate();
                 }
             }
             SetPose(0,0,0,NoahAuthoredMode.Idle,NoahAuthoredDirection.Left);SetAllDirty();
@@ -59,8 +63,9 @@ namespace Mofumachi.Presentation
             var r=GetPixelAdjustedRect();float height=Mathf.Min(r.width/254f,r.height/323f)*323f,s=height/600f;
             foreach(var p in view.parts)
             {
-                var t=p.id=="head"?pose.AttachedHead(0,0,0,(.5f-p.pivot.x)*p.width*p.scale,(1-p.pivot.y)*p.height*p.scale):pose.Part(p.id);
+                var t=p.id=="head"?view.neck.Resolve(pose.Body,pose.Head.Rotation,false):pose.Part(p.id);
 #if UNITY_EDITOR
+                if(capturePreviousNeck&&p.id=="head")t=pose.AttachedHead(0,0,0,(.5f-p.pivot.x)*p.width*p.scale,(1-p.pivot.y)*p.height*p.scale);
                 if(captureLegacyPose&&p.id=="head"){t=pose.Head;if(view.direction=="back"){var h=pose.Body.Child(-20,-238,pose.Head.Rotation-pose.Body.Rotation);t=new NoahPartTransform(0,h.Y,h.Rotation);}}
 #endif
                 int n=vh.currentVertCount;

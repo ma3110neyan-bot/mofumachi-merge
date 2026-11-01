@@ -1,0 +1,58 @@
+{
+  "date_jst": "2026-11-01",
+  "scope": "Head/body-only feedback. Earlier native3/3 concerns passing/tap only; no head or APK/Pixel acceptance inferred.",
+  "files": [
+    {
+      "file": "pixel-feedback-183629.pdf",
+      "bytes": 6136000,
+      "sha256": "02efa127b17df50fd7bda706ed33de4cddc9c51e9245168e30b772ab01aea4e6"
+    },
+    {
+      "file": "pixel-feedback-183822.pdf",
+      "bytes": 4156095,
+      "sha256": "3d84b584a4535112b89a78a3bca6571cf3903c9bf0f5380336d4d6aed164230d"
+    },
+    {
+      "file": "source-info.json",
+      "bytes": 953,
+      "sha256": "4d67b6145a52fa6042d9a81f7781b8577fb0552bb11b225487acabed5a18721a"
+    },
+    {
+      "file": "stability-focused-playmode.log",
+      "bytes": 62828,
+      "sha256": "0e2165c90b24a3fb0200882dd6030f58455a966d66f75bd5d1f4b65e12ca931a"
+    },
+    {
+      "file": "stability-focused-playmode.xml",
+      "bytes": 5461,
+      "sha256": "2baccf2e2ece717ee37c7ec9eb9e9d4d197a5f6deb0cb0244b4d0283175e15aa"
+    }
+  ],
+  "native_prior": {
+    "scope": "six-resident-stationary-passing-and-tap-only-regressions",
+    "gitRevision": "f2b31339d106744f96d21786bb5256d141dcc4e8",
+    "productFingerprint": "40a725a3d1c8b37de5456995911e2f125c27e2d845d023f2e5d1e9717ab62f39",
+    "preserved_inputs": {},
+    "expected_methods": [
+      "Mofumachi.Tests.CharacterStabilityTests.SixResidentsPassAStationaryNeighbourWithoutJitterOrSpeech",
+      "Mofumachi.Tests.TownHabitTests.NearbyResidentsStaySilentUntilAnExplicitTap",
+      "Mofumachi.Tests.TownHabitTests.HeroPressReleaseRepeatsPreserveSpeechUntilDragging"
+    ],
+    "focused_native_verified": true,
+    "full_qa_verified": false,
+    "builds_generated": false,
+    "pixel_verified": false,
+    "formal_fixed": false,
+    "adopted": false,
+    "source_unchanged": true,
+    "error": ""
+  },
+  "formal_fixed": false,
+  "adopted": false,
+  "original_archive": {
+    "file": "characters-stability-focus-20261101-170937-0af3fae7079c4da7be9f97635efd12c6-review-01.zip",
+    "bytes": 16266,
+    "sha256": "6c5c41947576bd600588cbfdc5666b6a0a494f8276c7f53240fa5d12664ccd31",
+    "crc_valid": true
+  }
+}

@@ -1,6 +1,6 @@
 {
   "date_jst": "2026-11-01",
-  "request": "Latest explicit user instruction: preserve current six-character appearance; stabilize close-contact movement and retain tap-only conversation. No redesign.",
+  "request": "Latest explicit instruction: head/body synchronization only across all six; preserve all art, motion, size, shadows, turning, passing, conversation, town and Save. No full-suite rerun.",
   "change_authorized": true,
   "formal_fixed": false,
   "adopted": false,
@@ -20,7 +20,7 @@
       "group": "noah",
       "path": "Assets/Mofumachi/Presentation/NoahAuthoredGraphic.cs",
       "before_sha256": "125edbfa8340555e3549242e2a7f3e4153f06706f5ec8bbd75124090ffce991d",
-      "sha256": "1dc3a00e5b86dca8265a54af399260be46d7cdff35dd4de7e0a133e0e265550e"
+      "sha256": "fa3c63ba9992d1e5a0fc3b1f7ea838e42754a7f3c1970e0a67a7977a77d4859f"
     },
     {
       "group": "noah",
@@ -68,6 +68,13 @@
       "before_sha256": "6bff9613ce15f749c378e7e1e2b0ae90efe2dbafd9a465c81f1075abc6a34d79",
       "sha256": "fe9de8486cb7e2f9cac74e53eda89bc6e20f179b2f8c410e55b5c0bb0927ef3a",
       "reason": "Update legacy native checks to the explicit Nov1 tap-only speech and unobstructed-name rules; original art and product code unchanged in this follow-up."
+    },
+    {
+      "group": "noah",
+      "path": "Assets/Mofumachi/Editor/NoahAuthoredBuild.cs",
+      "before_sha256": "1dd1117ccd853f8560d5da72d5c95dbca1e0325188b15d3102bedb987b90ecbb",
+      "sha256": "27f36d0b4a9cc26589fd637ca07ab328071faba4eb5bb5966aaf57d99d9d6fe0",
+      "reason": "Explicit Nov1 head/body-only instruction: derive neck contacts from unchanged cropped source alpha during preparation. No source art/motion changes."
     }
   ],
   "test_contract_followup": "113430 native failure follow-up: five test files updated, four newly listed. Historical manifests, art and production presentation code are unchanged."

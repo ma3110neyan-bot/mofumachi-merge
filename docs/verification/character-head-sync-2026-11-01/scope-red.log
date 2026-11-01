@@ -1,0 +1,5 @@
+Exception: /workspace/mofumachi-merge/scripts/character-finish-scope.ps1:22
+Line |
+  22 |  … h '^[a-f0-9]{64}$'){throw 'Art or unrelated path cannot be amended.'}
+     |                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Art or unrelated path cannot be amended.

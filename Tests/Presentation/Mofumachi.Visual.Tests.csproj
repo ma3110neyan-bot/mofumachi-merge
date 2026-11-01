@@ -18,6 +18,9 @@
     <Compile Include="../../Assets/Mofumachi/Presentation/TownStreetSelection.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownStreetSelection.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownNoah25DTrial.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownNoah25DTrial.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/NoahAuthoredMotion.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/NoahAuthoredMotion.cs')" />
+    <Compile Include="../../Assets/Mofumachi/Presentation/CharacterNeckAttachment.cs" />
+    <None Include="../Fixtures/character-neck-contacts-2026-11-01.json" Link="character-neck-contacts-2026-11-01.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../Fixtures/neck-alpha/*.gz" Link="neck-alpha/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownCharacterMotion.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownCharacterMotion.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/MusicSelection.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/MusicSelection.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/MusicRoleSelection.cs" />

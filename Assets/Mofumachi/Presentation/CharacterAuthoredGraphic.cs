@@ -6,11 +6,13 @@ namespace Mofumachi.Presentation
 {
     [Serializable] public sealed class CharacterAuthoredPart
     {
-        public string id;public float width,height,scale,rotation;public Vector2 pivot,offset;public Rect uv;
+        public string id;public float width,height,scale,rotation;public Vector2 pivot,offset,neckJoint;public bool hasNeckJoint;public Rect uv;
     }
     [Serializable] public sealed class CharacterAuthoredView
     {
         public string direction;public CharacterAuthoredPart[] parts;public CharacterAuthoredPart closedHead;
+        [NonSerialized] public CharacterNeckBinding neck;
+        [NonSerialized] public CharacterAuthoredPart bodyRegistration;
         public CharacterAuthoredPart PartFor(CharacterAuthoredPart open,bool blink)
             // Rear views have no visible eyes. Unity may deserialize the absent
             // optional head as a non-null empty object, so null alone is unsafe.
@@ -35,6 +37,7 @@ namespace Mofumachi.Presentation
         public bool EyesClosed=>eyesClosed;
 #if UNITY_EDITOR
         private bool captureLegacyPose=false;
+        private bool capturePreviousNeck=false;
 #endif
         public override Texture mainTexture=>atlas;
         public static bool IsPreparedCharacter(string id)=>CharacterAuthoredConfig.IsPreparedCharacter(id);
@@ -61,6 +64,10 @@ namespace Mofumachi.Presentation
                 var ids=new HashSet<string>();foreach(var p in v.parts){ValidatePart(p);if(!ids.Add(p.id))throw new InvalidOperationException("Duplicate part.");}
                 foreach(var part in new[]{"head","body","farArm","nearArm","farLeg","nearLeg","tail"})if(!ids.Contains(part))throw new InvalidOperationException("Missing part: "+part);
                 if(v.direction!="back"){ValidatePart(v.closedHead);if(v.closedHead.id!="head")throw new InvalidOperationException("Closed eyelids must retain the head bone.");}
+                CharacterAuthoredPart head=null;foreach(var p in v.parts){if(p.id=="body")v.bodyRegistration=p;else if(p.id=="head")head=p;}
+                if(!v.bodyRegistration.hasNeckJoint||!head.hasNeckJoint||v.direction!="back"&&!v.closedHead.hasNeckJoint)throw new InvalidOperationException("Rebuild resources with body-neck contacts.");
+                v.neck=new CharacterNeckBinding{version=1,bodyX=v.bodyRegistration.neckJoint.x,bodyY=v.bodyRegistration.neckJoint.y,headX=head.neckJoint.x,headY=head.neckJoint.y,
+                    hasClosedHead=v.direction!="back",closedHeadX=v.closedHead?.neckJoint.x??0,closedHeadY=v.closedHead?.neckJoint.y??0};v.neck.Validate();
             }
         }
         public void SetPose(float seconds,float phase,float walking,NoahAuthoredMode mode,NoahAuthoredDirection direction,bool blink)
@@ -76,11 +83,13 @@ namespace Mofumachi.Presentation
         {
             vh.Clear();if(view==null||atlas==null)return;var r=GetPixelAdjustedRect();
             float height=Mathf.Min(r.width/config.formalWidth,r.height/config.formalHeight)*config.formalHeight,s=height/600f;
+            var bodyFrame=pose.Body.Child(view.bodyRegistration.offset.x,view.bodyRegistration.offset.y,view.bodyRegistration.rotation);
             foreach(var open in view.parts)
             {
                 var p=view.PartFor(open,eyesClosed);
-                var t=p.id=="head"?pose.AttachedHead(p.offset.x,p.offset.y,p.rotation,(.5f-p.pivot.x)*p.width*p.scale,(1-p.pivot.y)*p.height*p.scale):pose.Part(p.id).Child(p.offset.x,p.offset.y,p.rotation);
+                var t=p.id=="head"?view.neck.Resolve(bodyFrame,pose.Head.Rotation+p.rotation,p!=open):pose.Part(p.id).Child(p.offset.x,p.offset.y,p.rotation);
 #if UNITY_EDITOR
+                if(capturePreviousNeck&&p.id=="head")t=pose.AttachedHead(p.offset.x,p.offset.y,p.rotation,(.5f-p.pivot.x)*p.width*p.scale,(1-p.pivot.y)*p.height*p.scale);
                 if(captureLegacyPose&&p.id=="head"){var old=pose.Head;if(view.direction=="back"){var h=pose.Body.Child(-20,-238,pose.Head.Rotation-pose.Body.Rotation);old=new NoahPartTransform(0,h.Y,h.Rotation);}t=old.Child(p.offset.x,p.offset.y,p.rotation);}
 #endif
                 int n=vh.currentVertCount;

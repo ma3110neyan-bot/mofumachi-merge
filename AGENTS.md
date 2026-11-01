@@ -1,5 +1,17 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-11-01最新：頭胴体同期だけ／旧全件・Pixel工程を反復しない
+
+最新ユーザー指示は頭と胴体のずれ・離れだけ。原画／顔／目／色／衣装／体型／サイズ、既存モーション値、向き方式／速度／影／背面／会話／すれ違い／街／UI／CoreSave等は変更しない。Mergeは次の別指示まで着手しない。新実装は既存剛体メッシュの首接続だけで、新2.5D方式ではない。
+
+受領stability-focus170937の3原本はCRC正常・実Unity3/3成功、sourcef2b3133／WindowsFP40a725a3はCLI一致、source_unchanged true。ただし近接／tapの旧検査であり頭同期の証拠ではない。PDF2点24画面（Merge画面を含む）はReferences/Review/character-head-sync-feedback-2026-11-01/に原本・SHA保存。APKの版や負荷は静止画から推定しない。
+
+両Graphicは元から同一メッシュ・同一pose更新で、別Animatorの遅れではなかった。旧矩形端の接続基準が実際の顎／襟と異なるため、原素材の不透明な首画素中心を準備時に抽出、同フレームの胴体座標から頭を解決。現在の頭の角度／サイズ／UVを維持し、個別手補正・Tween・前フレーム参照・runtimeテクスチャ読取りなし。レビューで透明な中央値の危険を指摘され、46原素材alphaの6名回帰RED6→GREEN6。共有接続検査等を含む頭関連16/16成功。API6種0警告／0エラー。原画／Motion.Sample／Actor／WorldModel／Lifeと歴史manifest2点はbyte不変。NoahBuilderの2行の登録追加だけ明示SHA例外へ追加（既存9＋1＝10）。原画例外は不可。
+
+次はdocs/characters-head-sync-2026-11-01.mdのRemoteSigned子PSで更新→capture-character-head-sync.ps1だけ。6名同素材一時準備→頭同期の実Unity1メソッド、9状態×8刻み×6名432メッシュ、Before/After36画像。頭以外の頂点／全UV／頭辺ベクトル不変、正面1枚絵・左右・背面・開始／歩行／停止／方向切替・閉じ目を検査。所有者検査で旧生成物を退避、今回所有物だけcleanup、終了時Explorerで新characters-head-sync…review全ZIP。全件／APK／Pixel／Saveリセットはこの工程で実行しない。旧prepare-characters-final-passを頭同期撮影へ流用しない。
+
+新native描画は未確認であり、計算16成功を「6名の実描画ずれ0／未達0」へ置換しない。新1件XML／source-info／432標本／36画像を照合し、6名の現画像で0件を確認後に、この最新の頭限定基準で正式固定する。旧全件／Pixel保留は履歴として保持し、今回の合格へ流用も追加全件の要求もしない。formal_fixed/adopted falseを現在は維持。既存GitHub feature通常pushと安全範囲の途中確認省略の許可を継続。以下は履歴。
+
 ## 2026-11-01最新：見た目維持・近接回避の実座標ブレを局所安定化
 
 最新ユーザー指示は現在の6名の見た目を維持し、不安定動作だけ修正。PDF2点20画面の原本・SHAはReferences/Review/character-stability-feedback-2026-11-01/。静止画からAPK版／FPS／ブレ周期を推測しない。新方式・原画／登録JSON・サイズ・街／CoreSave等は無変更。

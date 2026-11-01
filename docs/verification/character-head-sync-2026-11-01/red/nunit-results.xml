@@ -1,0 +1,65 @@
+<test-suite type="Assembly" id="1009" name="Neck.dll" fullname="/workspace/runtime/character-head-sync-nov01/focused/bin/Debug/net8.0/Neck.dll" runstate="Runnable" testcasecount="7" result="Failed" site="Child" start-time="2026-11-01T10:09:12.3974298Z" end-time="2026-11-01T10:09:12.4568459Z" duration="0.059371" total="7" passed="0" failed="7" warnings="0" inconclusive="0" skipped="0" asserts="7"><properties><property name="_PID" value="152630" /><property name="_APPDOMAIN" value="Runner" /></properties><failure><message><![CDATA[One or more child tests had errors]]></message></failure><test-suite type="TestSuite" id="1010" name="Mofumachi" fullname="Mofumachi" runstate="Runnable" testcasecount="7" result="Failed" site="Child" start-time="2026-11-01T10:09:12.4010706Z" end-time="2026-11-01T10:09:12.4568434Z" duration="0.055773" total="7" passed="0" failed="7" warnings="0" inconclusive="0" skipped="0" asserts="7"><failure><message><![CDATA[One or more child tests had errors]]></message></failure><test-suite type="TestSuite" id="1011" name="Tests" fullname="Mofumachi.Tests" runstate="Runnable" testcasecount="7" result="Failed" site="Child" start-time="2026-11-01T10:09:12.4014408Z" end-time="2026-11-01T10:09:12.4568370Z" duration="0.055396" total="7" passed="0" failed="7" warnings="0" inconclusive="0" skipped="0" asserts="7"><failure><message><![CDATA[One or more child tests had errors]]></message></failure><test-suite type="TestFixture" id="1000" name="CharacterNeckSyncTests" fullname="Mofumachi.Tests.CharacterNeckSyncTests" classname="Mofumachi.Tests.CharacterNeckSyncTests" runstate="Runnable" testcasecount="7" result="Failed" site="Child" start-time="2026-11-01T10:09:12.4015176Z" end-time="2026-11-01T10:09:12.4568324Z" duration="0.055315" total="7" passed="0" failed="7" warnings="0" inconclusive="0" skipped="0" asserts="7"><failure><message><![CDATA[One or more child tests had errors]]></message></failure><test-suite type="ParameterizedMethod" id="1007" name="AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops" fullname="Mofumachi.Tests.CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops" classname="Mofumachi.Tests.CharacterNeckSyncTests" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2026-11-01T10:09:12.4031247Z" end-time="2026-11-01T10:09:12.4556310Z" duration="0.052506" total="6" passed="0" failed="6" warnings="0" inconclusive="0" skipped="0" asserts="6"><failure><message><![CDATA[One or more child tests had errors]]></message></failure><test-case id="1001" name="AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(&quot;noah&quot;)" fullname="Mofumachi.Tests.CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(&quot;noah&quot;)" methodname="AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops" classname="Mofumachi.Tests.CharacterNeckSyncTests" runstate="Runnable" seed="767233576" result="Failed" start-time="2026-11-01T10:09:12.4032790Z" end-time="2026-11-01T10:09:12.4510428Z" duration="0.047814" asserts="1"><failure><message><![CDATA[  A shared body-neck binding is required, not a rectangular head-bottom anchor.
+  Expected: not null
+  But was:  null
+]]></message><stack-trace><![CDATA[   at Mofumachi.Tests.CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(String id) in /workspace/mofumachi-merge/Tests/Presentation/CharacterNeckSyncTests.cs:line 15
+]]></stack-trace></failure><assertions><assertion result="Failed"><message><![CDATA[  A shared body-neck binding is required, not a rectangular head-bottom anchor.
+  Expected: not null
+  But was:  null
+]]></message><stack-trace><![CDATA[   at Mofumachi.Tests.CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(String id) in /workspace/mofumachi-merge/Tests/Presentation/CharacterNeckSyncTests.cs:line 15
+]]></stack-trace></assertion></assertions></test-case><test-case id="1002" name="AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(&quot;momo&quot;)" fullname="Mofumachi.Tests.CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(&quot;momo&quot;)" methodname="AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops" classname="Mofumachi.Tests.CharacterNeckSyncTests" runstate="Runnable" seed="400618633" result="Failed" start-time="2026-11-01T10:09:12.4521972Z" end-time="2026-11-01T10:09:12.4532099Z" duration="0.001013" asserts="1"><failure><message><![CDATA[  A shared body-neck binding is required, not a rectangular head-bottom anchor.
+  Expected: not null
+  But was:  null
+]]></message><stack-trace><![CDATA[   at Mofumachi.Tests.CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(String id) in /workspace/mofumachi-merge/Tests/Presentation/CharacterNeckSyncTests.cs:line 15
+   at InvokeStub_CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(Object, Span`1)
+]]></stack-trace></failure><assertions><assertion result="Failed"><message><![CDATA[  A shared body-neck binding is required, not a rectangular head-bottom anchor.
+  Expected: not null
+  But was:  null
+]]></message><stack-trace><![CDATA[   at Mofumachi.Tests.CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(String id) in /workspace/mofumachi-merge/Tests/Presentation/CharacterNeckSyncTests.cs:line 15
+   at InvokeStub_CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(Object, Span`1)
+]]></stack-trace></assertion></assertions></test-case><test-case id="1003" name="AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(&quot;lulu&quot;)" fullname="Mofumachi.Tests.CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(&quot;lulu&quot;)" methodname="AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops" classname="Mofumachi.Tests.CharacterNeckSyncTests" runstate="Runnable" seed="397072264" result="Failed" start-time="2026-11-01T10:09:12.4532471Z" end-time="2026-11-01T10:09:12.4535708Z" duration="0.000324" asserts="1"><failure><message><![CDATA[  A shared body-neck binding is required, not a rectangular head-bottom anchor.
+  Expected: not null
+  But was:  null
+]]></message><stack-trace><![CDATA[   at Mofumachi.Tests.CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(String id) in /workspace/mofumachi-merge/Tests/Presentation/CharacterNeckSyncTests.cs:line 15
+   at InvokeStub_CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(Object, Span`1)
+]]></stack-trace></failure><assertions><assertion result="Failed"><message><![CDATA[  A shared body-neck binding is required, not a rectangular head-bottom anchor.
+  Expected: not null
+  But was:  null
+]]></message><stack-trace><![CDATA[   at Mofumachi.Tests.CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(String id) in /workspace/mofumachi-merge/Tests/Presentation/CharacterNeckSyncTests.cs:line 15
+   at InvokeStub_CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(Object, Span`1)
+]]></stack-trace></assertion></assertions></test-case><test-case id="1004" name="AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(&quot;pom&quot;)" fullname="Mofumachi.Tests.CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(&quot;pom&quot;)" methodname="AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops" classname="Mofumachi.Tests.CharacterNeckSyncTests" runstate="Runnable" seed="1202634363" result="Failed" start-time="2026-11-01T10:09:12.4535969Z" end-time="2026-11-01T10:09:12.4539514Z" duration="0.000355" asserts="1"><failure><message><![CDATA[  A shared body-neck binding is required, not a rectangular head-bottom anchor.
+  Expected: not null
+  But was:  null
+]]></message><stack-trace><![CDATA[   at Mofumachi.Tests.CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(String id) in /workspace/mofumachi-merge/Tests/Presentation/CharacterNeckSyncTests.cs:line 15
+   at InvokeStub_CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(Object, Span`1)
+]]></stack-trace></failure><assertions><assertion result="Failed"><message><![CDATA[  A shared body-neck binding is required, not a rectangular head-bottom anchor.
+  Expected: not null
+  But was:  null
+]]></message><stack-trace><![CDATA[   at Mofumachi.Tests.CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(String id) in /workspace/mofumachi-merge/Tests/Presentation/CharacterNeckSyncTests.cs:line 15
+   at InvokeStub_CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(Object, Span`1)
+]]></stack-trace></assertion></assertions></test-case><test-case id="1005" name="AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(&quot;fio&quot;)" fullname="Mofumachi.Tests.CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(&quot;fio&quot;)" methodname="AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops" classname="Mofumachi.Tests.CharacterNeckSyncTests" runstate="Runnable" seed="1262161196" result="Failed" start-time="2026-11-01T10:09:12.4539763Z" end-time="2026-11-01T10:09:12.4543032Z" duration="0.000327" asserts="1"><failure><message><![CDATA[  A shared body-neck binding is required, not a rectangular head-bottom anchor.
+  Expected: not null
+  But was:  null
+]]></message><stack-trace><![CDATA[   at Mofumachi.Tests.CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(String id) in /workspace/mofumachi-merge/Tests/Presentation/CharacterNeckSyncTests.cs:line 15
+   at InvokeStub_CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(Object, Span`1)
+]]></stack-trace></failure><assertions><assertion result="Failed"><message><![CDATA[  A shared body-neck binding is required, not a rectangular head-bottom anchor.
+  Expected: not null
+  But was:  null
+]]></message><stack-trace><![CDATA[   at Mofumachi.Tests.CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(String id) in /workspace/mofumachi-merge/Tests/Presentation/CharacterNeckSyncTests.cs:line 15
+   at InvokeStub_CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(Object, Span`1)
+]]></stack-trace></assertion></assertions></test-case><test-case id="1006" name="AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(&quot;miel&quot;)" fullname="Mofumachi.Tests.CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(&quot;miel&quot;)" methodname="AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops" classname="Mofumachi.Tests.CharacterNeckSyncTests" runstate="Runnable" seed="1343133356" result="Failed" start-time="2026-11-01T10:09:12.4543262Z" end-time="2026-11-01T10:09:12.4546308Z" duration="0.000305" asserts="1"><failure><message><![CDATA[  A shared body-neck binding is required, not a rectangular head-bottom anchor.
+  Expected: not null
+  But was:  null
+]]></message><stack-trace><![CDATA[   at Mofumachi.Tests.CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(String id) in /workspace/mofumachi-merge/Tests/Presentation/CharacterNeckSyncTests.cs:line 15
+   at InvokeStub_CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(Object, Span`1)
+]]></stack-trace></failure><assertions><assertion result="Failed"><message><![CDATA[  A shared body-neck binding is required, not a rectangular head-bottom anchor.
+  Expected: not null
+  But was:  null
+]]></message><stack-trace><![CDATA[   at Mofumachi.Tests.CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(String id) in /workspace/mofumachi-merge/Tests/Presentation/CharacterNeckSyncTests.cs:line 15
+   at InvokeStub_CharacterNeckSyncTests.AnatomicalNeckStaysInTheBodyFrameThroughTurnsAndStops(Object, Span`1)
+]]></stack-trace></assertion></assertions></test-case></test-suite><test-case id="1008" name="BlinkCropUsesItsOwnJointWithTheSameBodySocket" fullname="Mofumachi.Tests.CharacterNeckSyncTests.BlinkCropUsesItsOwnJointWithTheSameBodySocket" methodname="BlinkCropUsesItsOwnJointWithTheSameBodySocket" classname="Mofumachi.Tests.CharacterNeckSyncTests" runstate="Runnable" seed="1838667012" result="Failed" start-time="2026-11-01T10:09:12.4559461Z" end-time="2026-11-01T10:09:12.4567926Z" duration="0.000847" asserts="1"><failure><message><![CDATA[  Expected: not null
+  But was:  null
+]]></message><stack-trace><![CDATA[   at Mofumachi.Tests.CharacterNeckSyncTests.BlinkCropUsesItsOwnJointWithTheSameBodySocket() in /workspace/mofumachi-merge/Tests/Presentation/CharacterNeckSyncTests.cs:line 40
+]]></stack-trace></failure><assertions><assertion result="Failed"><message><![CDATA[  Expected: not null
+  But was:  null
+]]></message><stack-trace><![CDATA[   at Mofumachi.Tests.CharacterNeckSyncTests.BlinkCropUsesItsOwnJointWithTheSameBodySocket() in /workspace/mofumachi-merge/Tests/Presentation/CharacterNeckSyncTests.cs:line 40
+]]></stack-trace></assertion></assertions></test-case></test-suite></test-suite></test-suite></test-suite>

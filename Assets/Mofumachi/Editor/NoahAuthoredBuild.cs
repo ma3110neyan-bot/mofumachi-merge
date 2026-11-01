@@ -79,7 +79,9 @@ namespace Mofumachi.Editor
                         if(p.clipSum!=null)for(int row=0;row<h;row++)for(int col=0;col<w;col++)
                         {int sum=x+col+y+h-1-row;if(p.clipSum.min>0&&sum<p.clipSum.min||p.clipSum.max>0&&sum>p.clipSum.max)pixels[row*w+col]=Color.clear;}
                         var chip=new Texture2D(w,h,TextureFormat.RGBA32,false);owned.Add(chip);chip.SetPixels(pixels);chip.Apply();chips.Add(chip);
-                        var part=new NoahAuthoredPart{id=p.id,width=w,height=h,pivot=new Vector2(p.pivot[0],p.pivot[1]),scale=p.scale};view.parts[i]=part;registered.Add(part);
+                        var part=new NoahAuthoredPart{id=p.id,width=w,height=h,pivot=new Vector2(p.pivot[0],p.pivot[1]),scale=p.scale};
+                        if(p.id=="head"||p.id=="body"){part.neckJoint=CharacterNeckRegistration.Find(pixels,w,h,part.pivot,p.scale,p.id=="head");part.hasNeckJoint=true;}
+                        view.parts[i]=part;registered.Add(part);
                     }
                 }
                 var atlas=new Texture2D(2,2,TextureFormat.RGBA32,false);owned.Add(atlas);var uv=atlas.PackTextures(chips.ToArray(),4,2048,false);

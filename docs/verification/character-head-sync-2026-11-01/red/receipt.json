@@ -1,0 +1,14 @@
+{
+  "runner": "NUnit 3.14 framework in-process; no testhost/socket",
+  "assembly": "/workspace/runtime/character-head-sync-nov01/focused/bin/Debug/net8.0/Neck.dll",
+  "discovered": 7,
+  "TotalCount": 7,
+  "PassCount": 0,
+  "FailCount": 7,
+  "SkipCount": 0,
+  "InconclusiveCount": 0,
+  "result": "Failed(Child)",
+  "sentinel": false,
+  "native_unity": false,
+  "pixel_verified": false
+}

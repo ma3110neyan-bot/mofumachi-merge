@@ -1,0 +1,21 @@
+﻿{
+    "scope":  "six-resident-stationary-passing-and-tap-only-regressions",
+    "gitRevision":  "f2b31339d106744f96d21786bb5256d141dcc4e8",
+    "productFingerprint":  "40a725a3d1c8b37de5456995911e2f125c27e2d845d023f2e5d1e9717ab62f39",
+    "preserved_inputs":  {
+
+                         },
+    "expected_methods":  [
+                             "Mofumachi.Tests.CharacterStabilityTests.SixResidentsPassAStationaryNeighbourWithoutJitterOrSpeech",
+                             "Mofumachi.Tests.TownHabitTests.NearbyResidentsStaySilentUntilAnExplicitTap",
+                             "Mofumachi.Tests.TownHabitTests.HeroPressReleaseRepeatsPreserveSpeechUntilDragging"
+                         ],
+    "focused_native_verified":  true,
+    "full_qa_verified":  false,
+    "builds_generated":  false,
+    "pixel_verified":  false,
+    "formal_fixed":  false,
+    "adopted":  false,
+    "source_unchanged":  true,
+    "error":  ""
+}

@@ -6,7 +6,7 @@ function RejectScope([scriptblock]$Action){$Caught=$false;try{& $Action | Out-Nu
 $Root=Join-Path ([IO.Path]::GetTempPath()) ('mofu-finish-scope-'+[guid]::NewGuid().ToString('N'));$Dir=Join-Path $Root 'References/VisualLock';New-Item -ItemType Directory -Path $Dir -Force | Out-Null
 try{
     $Master=Join-Path $Dir 'noah-authored-approved-2026-10-30.json';$Legacy=Join-Path $Dir 'noah-authored-game-candidate-2026-10-30.json'
-    @{frozen_files=@(@{path='Assets/Mofumachi/Presentation/NoahAuthoredMotion.cs';sha256=('a'*64);text_normalized=$true},@{path='References/Characters/original.png';sha256=('c'*64);text_normalized=$false})} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $Master -Encoding UTF8
+    @{frozen_files=@(@{path='Assets/Mofumachi/Presentation/NoahAuthoredMotion.cs';sha256=('a'*64);text_normalized=$true},@{path='Assets/Mofumachi/Editor/NoahAuthoredBuild.cs';sha256=('f'*64);text_normalized=$true},@{path='References/Characters/original.png';sha256=('c'*64);text_normalized=$false})} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $Master -Encoding UTF8
     $LatestTests=@('TownLifeTests.cs','TownMotionPresentationTests.cs','TownRegionLifeTests.cs','VisualLockPresentationTests.cs')
     $LegacyRows=@(@{path='Assets/Mofumachi/Presentation/TownWorldWalkModel.cs';sha256=('d'*64);text_normalized=$true})
     foreach($Name in $LatestTests){$LegacyRows+=@{path=('Assets/Mofumachi/Tests/PlayMode/'+$Name);sha256=('1'*64);text_normalized=$true}}
@@ -20,6 +20,10 @@ try{
     $TestOnly | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $Path -Encoding UTF8
     $Map=Read-CharacterFinishOverrides $Root 'legacy'
     foreach($Name in $LatestTests){if($Map['Assets/Mofumachi/Tests/PlayMode/'+$Name] -cne ('2'*64)){throw 'Latest tap/name contract test amendment missing.'}}
+    $HeadBuilder=$Good | ConvertFrom-Json
+    $HeadBuilder.overrides=@(@{group='noah';path='Assets/Mofumachi/Editor/NoahAuthoredBuild.cs';before_sha256=('f'*64);sha256=('3'*64)})
+    $HeadBuilder | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $Path -Encoding UTF8
+    $Map=Read-CharacterFinishOverrides $Root 'noah';if($Map['Assets/Mofumachi/Editor/NoahAuthoredBuild.cs'] -cne ('3'*64)){throw 'Head-only generated neck registration code amendment missing.'}
     foreach($Case in @('art','product','before','manifest','adopted','fixed','duplicate','path','unauthorised')){
         $Bad=$Good | ConvertFrom-Json
         switch($Case){

@@ -1,0 +1,56 @@
+{
+  "archive": {
+    "zip": "characters-finish-focus-20261101-123101-bda3c51fdc3e46478d772217ba16873c-review-01.zip",
+    "bytes": 16687,
+    "sha256": "c82f86c3a191dbf7d88a18e12d2b46b73f6cc1f0b82ece343ce01ca0729a1e59"
+  },
+  "archive_crc_valid": true,
+  "original_records": [
+    {
+      "file": "finish-focused-playmode.log",
+      "bytes": 63891,
+      "sha256": "461f1fa9fbea375cbae21a10d260ec13d5013e09cac722db165feff6208bce95"
+    },
+    {
+      "file": "finish-focused-playmode.xml",
+      "bytes": 9630,
+      "sha256": "590d7627dd30b59476588722e5a999b06f9726dcf68a86429c1844aa97b87772"
+    },
+    {
+      "file": "source-info.json",
+      "bytes": 1322,
+      "sha256": "e03d36f2c97c2c5b355307749033cf279d0ec6d2171277a7822cc55b91f37d32"
+    }
+  ],
+  "gitRevision": "7931c064ae9e00a5f7ade8e83fa569b2b0d54bda",
+  "productFingerprint": "a8b5349e6488263668ae4337b9d50e4322cf7837a118a6fcae3805fb40dc1d13",
+  "expected_methods": [
+    "Mofumachi.Tests.TownHabitTests.NamesBubblesAndFacilitiesStayInsideSafeArea",
+    "Mofumachi.Tests.TownLifeTests.NpcsVisitSeveralStreetStopsWithoutChangingProgress",
+    "Mofumachi.Tests.TownMotionPresentationTests.StationaryDragAndLifecycleStopGait",
+    "Mofumachi.Tests.TownRegionLifeTests.TwoResidentsMeetAndResumeInVisibleRegion",
+    "Mofumachi.Tests.VisualLockPresentationTests.CloseResidentLabelsNeverCoverAnotherCharactersBody",
+    "Mofumachi.Tests.TownHabitTests.NearbyResidentsStaySilentUntilAnExplicitTap",
+    "Mofumachi.Tests.TownHabitTests.HeroPressReleaseRepeatsPreserveSpeechUntilDragging"
+  ],
+  "native_playmode": {
+    "total": 7,
+    "passed": 7,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0,
+    "exit_code": 0
+  },
+  "exact_method_set_verified": true,
+  "cli_source_and_filter_verified": true,
+  "current_validator_passed": true,
+  "source_unchanged": true,
+  "scope": "five previous failed cases plus two tap/repeat regressions; not full QA or six-character rendering",
+  "images_received": 0,
+  "full_qa_verified": false,
+  "six_native_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "formal_fixed": false,
+  "adopted": false
+}

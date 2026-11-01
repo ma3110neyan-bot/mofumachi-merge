@@ -1,0 +1,22 @@
+﻿{
+    "scope":  "five-failed-plus-two-tap-repeat-regressions",
+    "gitRevision":  "7931c064ae9e00a5f7ade8e83fa569b2b0d54bda",
+    "productFingerprint":  "a8b5349e6488263668ae4337b9d50e4322cf7837a118a6fcae3805fb40dc1d13",
+    "expected_methods":  [
+                             "Mofumachi.Tests.TownHabitTests.NamesBubblesAndFacilitiesStayInsideSafeArea",
+                             "Mofumachi.Tests.TownLifeTests.NpcsVisitSeveralStreetStopsWithoutChangingProgress",
+                             "Mofumachi.Tests.TownMotionPresentationTests.StationaryDragAndLifecycleStopGait",
+                             "Mofumachi.Tests.TownRegionLifeTests.TwoResidentsMeetAndResumeInVisibleRegion",
+                             "Mofumachi.Tests.VisualLockPresentationTests.CloseResidentLabelsNeverCoverAnotherCharactersBody",
+                             "Mofumachi.Tests.TownHabitTests.NearbyResidentsStaySilentUntilAnExplicitTap",
+                             "Mofumachi.Tests.TownHabitTests.HeroPressReleaseRepeatsPreserveSpeechUntilDragging"
+                         ],
+    "focused_native_verified":  true,
+    "full_qa_verified":  false,
+    "builds_generated":  false,
+    "pixel_verified":  false,
+    "formal_fixed":  false,
+    "adopted":  false,
+    "source_unchanged":  true,
+    "error":  ""
+}

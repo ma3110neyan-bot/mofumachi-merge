@@ -1,5 +1,13 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-11-01最新：限定7件の実Unity全成功→現在版で最終受入1回
+
+受領characters-finish-focus123101-bda3c51f…review01はCRC/SHA正常、原本3点。実UnityPlayMode7/7成功・failed／skip／inc0、終了0。前回5失敗＋NearbyResidentsStaySilentUntilAnExplicitTap／HeroPressReleaseRepeatsPreserveSpeechUntilDraggingの厳密7集合と原CLI filterを現validatorで照合。source7931c06／FPa8b5349eはCLI・source-info一致、source_unchanged true・error空。原本References/Review/characters-finish-focused-passed-2026-11-01-123101/。修正後native確認が通ったが、250全件／6名描画／APK／Pixel証拠ではない。
+
+今回は記録のみ。製品・テスト・scripts・原画・lock・設定は7931c06から不変。次はdocs/characters-final-followup-2026-11-01.mdの絶対パスRemoteSigned -File prepare-characters-final-pass -Install -Serial99RAY1BELH -MeasureSeconds600を1回。Git更新不要。ノア→5単体を順番→全Edit/Play各1回→6名12接続比較／すれ違い／tap→同source QA APK→authored先行Pixel10分。過去Edit144・Play245・限定7を足して全件成功にはしない。途中失敗は該当新runのみ共有し、全体を自動反復しない。
+
+6名の頭胴接続・背面・接地・すれ違い・タップ・会話枠・Sorting・熱／カクつき／メモリ／保存を確認。Pixel街表示後PCでEnter、実機同時6名は見られなければunknown。元pure-C#長時間経路保留は継続、formal_fixed/adopted false。最後の新final-review全ZIP後に正式固定を判断。既存GitHub feature push許可・途中確認待ち解除を維持。以下は履歴。
+
 ## 2026-11-01最新：最終Edit144通過・Play245/250の旧検査5件を整合→限定7件
 
 受領characters-authored113430-8e907640-review01はCRC正常、25entry全SHA・8原本・17画像header確認。source4c1384d／FP0eed7901は全Edit／PlayとNoah CLI一致。原XMLはEdit144/144成功、Play250中245成功・5失敗、Noah1/1、全skip／inc0、終了0/2/0。原本References/Review/characters-full-failed-2026-11-01-113430/。part01に親source-info／5単体原本はなく独立確認済みとしない。APK／Pixel未到達。

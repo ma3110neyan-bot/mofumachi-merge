@@ -1,5 +1,7 @@
 # 最終PlayModeの5件を限定確認
 
+最新追記：123101-bda3c51fの原XMLは限定7/7成功、failed／skip／inconclusive0、終了0。厳密7メソッド集合とCLI・source-infoのsource7931c06／FPa8b5349eを照合した。修正後の実Unity確認は通過。次は [現在版の最終確認](characters-final-followup-2026-11-01.md)。以下は113430失敗時の診断・限定実行の履歴。
+
 run `characters-authored-20261101-113430-8e907640` のreview-01を確認。source4c1384d／fingerprint0eed7901は全件ログとノアログで一致。原XMLはEditMode144/144成功、PlayMode250件中245成功・5失敗、ノア単体1/1成功。いずれもskip／inconclusive0。APK／Pixelへ進む前に停止した。
 
 今回part01には全件XML／logとNoahの準備記録等8点、画像17枚の一部がある。CRC、全25entry SHA、XML件数と終了コードを照合。原本は `References/Review/characters-full-failed-2026-11-01-113430/`。親source-infoと5単体の原本は今回partにないので、それらを独立確認済みとはしない。失敗5件の調査に必要な原XMLは揃っている。

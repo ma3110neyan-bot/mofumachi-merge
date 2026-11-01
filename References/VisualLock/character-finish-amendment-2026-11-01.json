@@ -38,7 +38,36 @@
       "group": "legacy",
       "path": "Assets/Mofumachi/Tests/PlayMode/TownHabitTests.cs",
       "before_sha256": "51a5cb25415ccdad1060c10d8a42381f73d9875c55be315e07633366c195f320",
-      "sha256": "35de8a35477710a484885dcfaa6f01e70ba3bcbc21038f928379f0d9bab44842"
+      "sha256": "c128ab592118e531d2e9207e3b623ef2f7762ec671455dddb45c9632c07d066a"
+    },
+    {
+      "group": "legacy",
+      "path": "Assets/Mofumachi/Tests/PlayMode/TownLifeTests.cs",
+      "before_sha256": "faec773597ebe070ab63665015fdc24824792452785a6760289db2fe058db3ad",
+      "sha256": "524e42f90045eeb0ed30c076eaff1ec5c36b2aadfb39096550a5a7d40b059bbd",
+      "reason": "Update legacy native checks to the explicit Nov1 tap-only speech and unobstructed-name rules; original art and product code unchanged in this follow-up."
+    },
+    {
+      "group": "legacy",
+      "path": "Assets/Mofumachi/Tests/PlayMode/TownMotionPresentationTests.cs",
+      "before_sha256": "94692702cb53503763567ecdae8f99b214e42336ac8981af39863ba37f08d131",
+      "sha256": "370d6dc6304794ee8baa623d64e5f5428ce71236786399c49aa44c82c64af78b",
+      "reason": "Update legacy native checks to the explicit Nov1 tap-only speech and unobstructed-name rules; original art and product code unchanged in this follow-up."
+    },
+    {
+      "group": "legacy",
+      "path": "Assets/Mofumachi/Tests/PlayMode/TownRegionLifeTests.cs",
+      "before_sha256": "8c8bc43865f6d30650d75b00f2d9a3a0deefbf7dbf201fa1967323d3467be622",
+      "sha256": "7519e84d88a67df39981c23b663f8074aee984433d823237aa1cb67260dd0886",
+      "reason": "Update legacy native checks to the explicit Nov1 tap-only speech and unobstructed-name rules; original art and product code unchanged in this follow-up."
+    },
+    {
+      "group": "legacy",
+      "path": "Assets/Mofumachi/Tests/PlayMode/VisualLockPresentationTests.cs",
+      "before_sha256": "6bff9613ce15f749c378e7e1e2b0ae90efe2dbafd9a465c81f1075abc6a34d79",
+      "sha256": "fe9de8486cb7e2f9cac74e53eda89bc6e20f179b2f8c410e55b5c0bb0927ef3a",
+      "reason": "Update legacy native checks to the explicit Nov1 tap-only speech and unobstructed-name rules; original art and product code unchanged in this follow-up."
     }
-  ]
+  ],
+  "test_contract_followup": "113430 native failure follow-up: five test files updated, four newly listed. Historical manifests, art and production presentation code are unchanged."
 }

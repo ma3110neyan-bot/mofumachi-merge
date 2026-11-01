@@ -1,0 +1,45 @@
+{
+  "base_revision": "4c1384dd430f276898de53dd792ef218cbdcfe2a",
+  "native_red_evidence": "full-playmode.xml: five failed cases; full-editmode.xml:144/144 passed",
+  "modified_native_tests": [
+    {
+      "file": "Assets/Mofumachi/Tests/PlayMode/TownHabitTests.cs",
+      "sha256_lf": "c128ab592118e531d2e9207e3b623ef2f7762ec671455dddb45c9632c07d066a"
+    },
+    {
+      "file": "Assets/Mofumachi/Tests/PlayMode/TownLifeTests.cs",
+      "sha256_lf": "524e42f90045eeb0ed30c076eaff1ec5c36b2aadfb39096550a5a7d40b059bbd"
+    },
+    {
+      "file": "Assets/Mofumachi/Tests/PlayMode/TownMotionPresentationTests.cs",
+      "sha256_lf": "370d6dc6304794ee8baa623d64e5f5428ce71236786399c49aa44c82c64af78b"
+    },
+    {
+      "file": "Assets/Mofumachi/Tests/PlayMode/TownRegionLifeTests.cs",
+      "sha256_lf": "7519e84d88a67df39981c23b663f8074aee984433d823237aa1cb67260dd0886"
+    },
+    {
+      "file": "Assets/Mofumachi/Tests/PlayMode/VisualLockPresentationTests.cs",
+      "sha256_lf": "fe9de8486cb7e2f9cac74e53eda89bc6e20f179b2f8c410e55b5c0bb0927ef3a"
+    }
+  ],
+  "production_core_art_scene_original_manifest_changes": [],
+  "protected_code_amendments": 9,
+  "newly_amended_legacy_test_files": 4,
+  "api_compile": {
+    "result": "Build succeeded",
+    "warnings": 0,
+    "errors": 0,
+    "elapsed_seconds": 2.58,
+    "native_execution": false
+  },
+  "synthetic_focused_filter_checks": "seven exact names; missing/extra/duplicate/foreign/failed/skipped rejected; received250-case XML rejected",
+  "scope_checks": "exact newly authorized test paths accepted; art/arbitrary game code/manifest tampering/false adoption rejected",
+  "historical26_552_current_hash_checks": true,
+  "native_focused_7_verified": false,
+  "full_suites_rerun_in_this_fix": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "formal_fixed": false,
+  "adopted": false
+}

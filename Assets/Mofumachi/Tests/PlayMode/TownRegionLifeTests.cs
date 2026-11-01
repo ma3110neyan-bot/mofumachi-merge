@@ -59,10 +59,14 @@ namespace Mofumachi.Tests
             // Direct model fixture setup leaves TownActor.RegionId cached
             // until the normal world step applies it. A render-only refresh
             // updates projection, not that logical actor state.
-            life.World.LookAt(TownDistrictId.West);life.AdvanceFrame(1f/30);life.RefreshWorldPresentation();Canvas.ForceUpdateCanvases();
-            var actors=life.Actors.Where(a=>!a.Controlled&&a.RegionId==TownRegionId.West).ToArray();Assert.That(actors.Select(a=>a.CharacterId),Is.EquivalentTo(ids));Assert.That(actors.All(a=>a.RegionVisible),Is.True);bool greeted=false;
-            for(int i=0;i<3600&&!greeted;i++){life.AdvanceFrame(1f/30);greeted=Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"&&t.text.Contains("こんにちは"));}
-            Assert.That(greeted,Is.True);actors=life.Actors.Where(a=>life.World.Model.Residents.Single(r=>r.Id==a.CharacterId).PauseRemaining>0).ToArray();Assert.That(actors.Length,Is.EqualTo(2),"Inspect the two actors of the actual encounter");var paused=actors.Select(a=>a.WorldPosition).ToArray();Advance(life,.5f);
+            life.World.LookAt(TownDistrictId.West);life.World.Camera.Jump(new TownPoint(-1.2f,-.15f));life.World.Refresh();life.AdvanceFrame(1f/30);life.RefreshWorldPresentation();Canvas.ForceUpdateCanvases();
+            var actors=life.Actors.Where(a=>!a.Controlled&&a.RegionId==TownRegionId.West).ToArray();Assert.That(actors.Select(a=>a.CharacterId),Is.EquivalentTo(ids));Assert.That(actors.All(a=>a.RegionVisible),Is.True);
+            Advance(life,.5f);Assert.That(life.IsSpeaking,Is.False,"Nearby residents remain silent before a tap.");
+            Assert.That(actors.All(a=>life.World.Model.Residents.Single(r=>r.Id==a.CharacterId).PauseRemaining==0),Is.True,"Fixture setup must not manufacture greeting pauses.");
+            var tapped=actors[0];var partner=actors[1];tapped.OnPointerClick(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current));
+            Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"&&t.text.Contains("こんにちは")&&t.text.Contains(CharacterCatalog.Find(partner.CharacterId).Name)),Is.True,"The explicit tap must greet the nearby partner.");
+            Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Speaker name"&&t.text==CharacterCatalog.Find(tapped.CharacterId).Name),Is.True);
+            actors=life.Actors.Where(a=>life.World.Model.Residents.Single(r=>r.Id==a.CharacterId).PauseRemaining>0).ToArray();Assert.That(actors.Length,Is.EqualTo(2),"Inspect the two actors paused by the actual tap");var paused=actors.Select(a=>a.WorldPosition).ToArray();Advance(life,.5f);
             foreach(var actor in actors)Assert.That(life.World.Model.Residents.Single(r=>r.Id==actor.CharacterId).PauseRemaining,Is.GreaterThan(0));
             for(int i=0;i<actors.Length;i++)Assert.That(TownWorldLayout.Distance(paused[i],actors[i].WorldPosition),Is.LessThan(.0001f));
             Advance(life,20);Assert.That(actors.Where((a,i)=>TownWorldLayout.Distance(paused[i],a.WorldPosition)>.001f).Any(),Is.True);LogAssert.NoUnexpectedReceived();

@@ -1,0 +1,330 @@
+{
+  "archive": {
+    "file": "characters-authored-20261101-113430-8e907640-review-01.zip",
+    "bytes": 23499144,
+    "sha256": "a4f38a51893923b2129011bdbe4b33619e71257b7a4229b96735e9a2534ad936",
+    "crc_valid": true
+  },
+  "entries": [
+    {
+      "name": "full-editmode.log",
+      "bytes": 53472,
+      "sha256": "ccb01fa1cd38f4efa2c772c91e61ca53169e96449ec167802824472aacb5952b"
+    },
+    {
+      "name": "full-editmode.xml",
+      "bytes": 108996,
+      "sha256": "5a6ec06f35eee9dbdde4afefc30c5776a626e9afb359763052ce129364a10cc0"
+    },
+    {
+      "name": "full-playmode.log",
+      "bytes": 328502,
+      "sha256": "b1ea5e6294dc0d06edd2a24a15686c770ff5435eb73399adfb4042cc8dd3302f"
+    },
+    {
+      "name": "full-playmode.xml",
+      "bytes": 213918,
+      "sha256": "96cf2f582231225632f3793c618dab0bf9c135234f7cbe3e18a1f8205c838ed5"
+    },
+    {
+      "name": "noah-finish/playmode.log",
+      "bytes": 53146,
+      "sha256": "31696dd3e575c93a6d39a469beb48be230c95146e6dea3d0f157c4736cb732ba"
+    },
+    {
+      "name": "noah-finish/playmode.xml",
+      "bytes": 3601,
+      "sha256": "69040882af4802132a8faf1350259f0e429b40a50013ef15b0e484d1ee456c4d"
+    },
+    {
+      "name": "noah-finish/prepare.log",
+      "bytes": 38618,
+      "sha256": "b4415e6351f16c21c0639ec021cf06fa3786d4d2291242798437cbe16cfa2aa0"
+    },
+    {
+      "name": "noah-finish/prepared.json",
+      "bytes": 14977,
+      "sha256": "5647a6ee97450e55017280f9fca46b15fd01fb1ec354dd5caef5d1a2ce809afa"
+    },
+    {
+      "name": "noah-finish/screenshots/noah-authored/authored-011-after.png",
+      "bytes": 1722123,
+      "sha256": "b59cf3408b8f3b0d23f5c4f0f04ad248e5bb1e8a30c05493c7091e892ffbf852"
+    },
+    {
+      "name": "noah-finish/screenshots/noah-authored/authored-011-before-left-after-right.jpg",
+      "bytes": 824838,
+      "sha256": "0c4d0bf3d59f11dd5a21ff183269633cbae2e8e8e6f4524f1311c859e4242c64"
+    },
+    {
+      "name": "noah-finish/screenshots/noah-authored/authored-011-before-reconstructed.png",
+      "bytes": 1718578,
+      "sha256": "d6d205febbb0ea1511cff06a1cd560349d8c64fbc664eaef8c65605f8ad8e10b"
+    },
+    {
+      "name": "noah-finish/screenshots/noah-authored/authored-029-after.png",
+      "bytes": 1814585,
+      "sha256": "567beddc4a3d3c44098507bde5357a63bcfe3ffdc97706ac4604e73792df7545"
+    },
+    {
+      "name": "noah-finish/screenshots/noah-authored/authored-029-before-left-after-right.jpg",
+      "bytes": 850157,
+      "sha256": "da2956628a5b57d686e681b4989bb9b7e95b9eb35678f8cf176bdde19d2186b3"
+    },
+    {
+      "name": "noah-finish/screenshots/noah-authored/authored-029-before-reconstructed.png",
+      "bytes": 1810450,
+      "sha256": "9c13954e627c83a39af10841ec686783c27c838386356c42feb44477f0060df9"
+    },
+    {
+      "name": "noah-finish/screenshots/noah-authored/authored-044-after.png",
+      "bytes": 1719446,
+      "sha256": "25acc454d75101296c3c83a32e433c2b029af26407d21c66afb0a9dd515a8124"
+    },
+    {
+      "name": "noah-finish/screenshots/noah-authored/authored-044-before-left-after-right.jpg",
+      "bytes": 822308,
+      "sha256": "fc1987a3965df7ca2b9354b8c8457d469aeaea4ae7689293cfae3d5163f1e01c"
+    },
+    {
+      "name": "noah-finish/screenshots/noah-authored/authored-044-before-reconstructed.png",
+      "bytes": 1715352,
+      "sha256": "5c2a77b235eac492c68806a249f68892d6b3454c50efdf88bebeaaa5cd660993"
+    },
+    {
+      "name": "noah-finish/screenshots/noah-authored/authored-050-after.png",
+      "bytes": 1815095,
+      "sha256": "29bdbb0bfb44f0bfb082d46025e4f67d6c9e61008bf15ab67bbc9c9671fa1d9e"
+    },
+    {
+      "name": "noah-finish/screenshots/noah-authored/authored-050-before-left-after-right.jpg",
+      "bytes": 850961,
+      "sha256": "af054435531e48c17b4e7974f2f552774b7c30d2799be223186ff6bfe2db8ee7"
+    },
+    {
+      "name": "noah-finish/screenshots/noah-authored/authored-050-before-reconstructed.png",
+      "bytes": 1810357,
+      "sha256": "3c989b6d0cfca4fbb4b647d69772ebaabd5fddcd232971d893dd3523a531eb04"
+    },
+    {
+      "name": "noah-finish/screenshots/noah-authored/authored-101-after.png",
+      "bytes": 1588743,
+      "sha256": "870eecca553a8ac015c17deb26d277faa47ae653e9ffc81ef8ce012269b759da"
+    },
+    {
+      "name": "noah-finish/screenshots/noah-authored/authored-101-before-left-after-right.jpg",
+      "bytes": 737008,
+      "sha256": "d16a7a24c50a20449a4c474ec6b0fc6e69d3238c7ff8188c12e9f73aefc785ac"
+    },
+    {
+      "name": "noah-finish/screenshots/noah-authored/authored-101-before-reconstructed.png",
+      "bytes": 1582294,
+      "sha256": "b181f59e0aab37e08f4989bc51495b18ea83322bcd0e106ecd5f9fd71f343c51"
+    },
+    {
+      "name": "noah-finish/screenshots/noah-authored/authored-104-after.png",
+      "bytes": 1589019,
+      "sha256": "4bc261b5c7bd2b37de804b5dbf2c0402432213112c138629848240ea331deea9"
+    },
+    {
+      "name": "noah-finish/screenshots/noah-authored/authored-104-before-left-after-right.jpg",
+      "bytes": 737164,
+      "sha256": "33bf6eba8b4d1a5f68861124d6f97b88104207af23ebfa32255f350fab635aad"
+    }
+  ],
+  "original_records": [
+    {
+      "name": "full-editmode.log",
+      "bytes": 53472,
+      "sha256": "ccb01fa1cd38f4efa2c772c91e61ca53169e96449ec167802824472aacb5952b"
+    },
+    {
+      "name": "full-editmode.xml",
+      "bytes": 108996,
+      "sha256": "5a6ec06f35eee9dbdde4afefc30c5776a626e9afb359763052ce129364a10cc0"
+    },
+    {
+      "name": "full-playmode.log",
+      "bytes": 328502,
+      "sha256": "b1ea5e6294dc0d06edd2a24a15686c770ff5435eb73399adfb4042cc8dd3302f"
+    },
+    {
+      "name": "full-playmode.xml",
+      "bytes": 213918,
+      "sha256": "96cf2f582231225632f3793c618dab0bf9c135234f7cbe3e18a1f8205c838ed5"
+    },
+    {
+      "name": "noah-finish/playmode.log",
+      "bytes": 53146,
+      "sha256": "31696dd3e575c93a6d39a469beb48be230c95146e6dea3d0f157c4736cb732ba"
+    },
+    {
+      "name": "noah-finish/playmode.xml",
+      "bytes": 3601,
+      "sha256": "69040882af4802132a8faf1350259f0e429b40a50013ef15b0e484d1ee456c4d"
+    },
+    {
+      "name": "noah-finish/prepare.log",
+      "bytes": 38618,
+      "sha256": "b4415e6351f16c21c0639ec021cf06fa3786d4d2291242798437cbe16cfa2aa0"
+    },
+    {
+      "name": "noah-finish/prepared.json",
+      "bytes": 14977,
+      "sha256": "5647a6ee97450e55017280f9fca46b15fd01fb1ec354dd5caef5d1a2ce809afa"
+    }
+  ],
+  "gitRevision": "4c1384dd430f276898de53dd792ef218cbdcfe2a",
+  "productFingerprint": "0eed7901edd16c15738515add72877a9d2d655859e3243476d4e011134547532",
+  "results": {
+    "full-editmode": {
+      "total": 144,
+      "passed": 144,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0,
+      "exit_code": 0
+    },
+    "full-playmode": {
+      "total": 250,
+      "passed": 245,
+      "failed": 5,
+      "skipped": 0,
+      "inconclusive": 0,
+      "exit_code": 2
+    },
+    "noah-finish/playmode": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0,
+      "exit_code": 0
+    }
+  },
+  "failures": [
+    {
+      "method": "Mofumachi.Tests.TownHabitTests.NamesBubblesAndFacilitiesStayInsideSafeArea",
+      "message": "System.InvalidOperationException : Sequence contains no matching element",
+      "stack": "  at System.Linq.Enumerable.Single[TSource] (System.Collections.Generic.IEnumerable`1[T] source, System.Func`2[T,TResult] predicate) [0x00070] in <f1b392d8fe224ca2b1f9fab1000b77eb>:0 \n  at Mofumachi.Tests.TownHabitTests+<NamesBubblesAndFacilitiesStayInsideSafeArea>d__5.MoveNext () [0x00077] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\TownHabitTests.cs:79 \n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52 "
+    },
+    {
+      "method": "Mofumachi.Tests.TownLifeTests.NpcsVisitSeveralStreetStopsWithoutChangingProgress",
+      "message": "  Observe the greeting immediately when arrival completes\n  Expected: True\n  But was:  False\n",
+      "stack": "at Mofumachi.Tests.TownLifeTests+<NpcsVisitSeveralStreetStopsWithoutChangingProgress>d__7.MoveNext () [0x00915] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\TownLifeTests.cs:133\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    },
+    {
+      "method": "Mofumachi.Tests.TownMotionPresentationTests.StationaryDragAndLifecycleStopGait",
+      "message": "System.NullReferenceException : Object reference not set to an instance of an object",
+      "stack": "  at Mofumachi.Tests.TownMotionPresentationTests+<StationaryDragAndLifecycleStopGait>d__1.MoveNext () [0x000db] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\TownMotionPresentationTests.cs:29 \n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52 "
+    },
+    {
+      "method": "Mofumachi.Tests.TownRegionLifeTests.TwoResidentsMeetAndResumeInVisibleRegion",
+      "message": "  Expected: True\n  But was:  False\n",
+      "stack": "at Mofumachi.Tests.TownRegionLifeTests+<TwoResidentsMeetAndResumeInVisibleRegion>d__4.MoveNext () [0x003d5] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\TownRegionLifeTests.cs:65\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    },
+    {
+      "method": "Mofumachi.Tests.VisualLockPresentationTests.CloseResidentLabelsNeverCoverAnotherCharactersBody",
+      "message": "  Expected: True\n  But was:  False\n",
+      "stack": "at Mofumachi.Tests.VisualLockPresentationTests+<CloseResidentLabelsNeverCoverAnotherCharactersBody>d__0.MoveNext () [0x0017b] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\VisualLockPresentationTests.cs:38\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    }
+  ],
+  "partial_archive": true,
+  "single_character_original_records_received": false,
+  "parent_source_info_received": false,
+  "images_available": [
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-011-after.png",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-011-before-left-after-right.jpg",
+      "width": 1440,
+      "height": 1280
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-011-before-reconstructed.png",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-029-after.png",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-029-before-left-after-right.jpg",
+      "width": 1440,
+      "height": 1280
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-029-before-reconstructed.png",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-044-after.png",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-044-before-left-after-right.jpg",
+      "width": 1440,
+      "height": 1280
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-044-before-reconstructed.png",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-050-after.png",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-050-before-left-after-right.jpg",
+      "width": 1440,
+      "height": 1280
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-050-before-reconstructed.png",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-101-after.png",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-101-before-left-after-right.jpg",
+      "width": 1440,
+      "height": 1280
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-101-before-reconstructed.png",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-104-after.png",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-104-before-left-after-right.jpg",
+      "width": 1440,
+      "height": 1280
+    }
+  ],
+  "images_in_repository": false,
+  "archive_location": "/workspace/attachments/6d5d1e5c-1ba8-46b1-9014-a85fd70943d3/characters-authored-20261101-113430-8e907640-review-01.zip",
+  "full_qa_verified": false,
+  "six_native_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "formal_fixed": false,
+  "adopted": false
+}

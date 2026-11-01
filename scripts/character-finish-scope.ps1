@@ -15,7 +15,8 @@ function Read-CharacterFinishOverrides([string]$Repository,[ValidateSet('noah','
         $Records[$Key]=if($Key -eq 'noah'){@($Record.frozen_files)}else{@($Record.protected_files)}
     }
     # Latest user request authorises implementation corrections, never source art.
-    $Allowed=@('Assets/Mofumachi/Presentation/NoahAuthoredMotion.cs','Assets/Mofumachi/Presentation/NoahAuthoredGraphic.cs','Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.NoahAuthored.cs','Assets/Mofumachi/Presentation/TownWorldWalkModel.cs','Assets/Mofumachi/Tests/PlayMode/TownHabitTests.cs')
+    $Allowed=@('Assets/Mofumachi/Presentation/NoahAuthoredMotion.cs','Assets/Mofumachi/Presentation/NoahAuthoredGraphic.cs','Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.NoahAuthored.cs','Assets/Mofumachi/Presentation/TownWorldWalkModel.cs','Assets/Mofumachi/Tests/PlayMode/TownHabitTests.cs',
+        'Assets/Mofumachi/Tests/PlayMode/TownLifeTests.cs','Assets/Mofumachi/Tests/PlayMode/TownMotionPresentationTests.cs','Assets/Mofumachi/Tests/PlayMode/TownRegionLifeTests.cs','Assets/Mofumachi/Tests/PlayMode/VisualLockPresentationTests.cs')
     $Seen=@{}
     foreach($Row in @($Change.overrides)){
         if($Row.group -cnotin @('noah','legacy') -or $Row.path -cnotin $Allowed -or $Row.sha256 -cnotmatch '^[a-f0-9]{64}$'){throw 'Art or unrelated path cannot be amended.'}

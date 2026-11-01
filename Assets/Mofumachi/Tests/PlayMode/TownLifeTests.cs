@@ -123,14 +123,17 @@ namespace Mofumachi.Tests
                     Assert.That(((RectTransform)visit.transform).rect.height,Is.GreaterThanOrEqualTo(48),visit.name);
                 choices.Single(b=>b.name==destination.Button).onClick.Invoke();Assert.That(life.Regions.HasHeroJourney,Is.True);
                 // IsGuided pauses at a regional gate/fade. Wait for the whole
-                // journey, and observe its greeting on the actual arrival frame.
+                // journey; arrival stays silent until the character is tapped.
                 for(int i=0;i<2400&&life.Regions.HasHeroJourney;i++)life.AdvanceFrame(1f/30);
                 Assert.That(life.Regions.HasHeroJourney,Is.False,"The outing must finish within its bounded journey budget");
                 Assert.That(hero.IsGuided,Is.False);Assert.That(hero.Movement.OwnedPointerId,Is.Null);Assert.That(life.NearbyFacility,Is.Null,"A rest stop does not enter a facility.");
                 Assert.That(TownRegionCatalog.TryFindPlace(destination.Place,life.TownLevel,out var target,out _),Is.True);
                 Assert.That(hero.RegionId,Is.EqualTo(target.Region),destination.Place);
                 Assert.That(Vector2.Distance(new Vector2(hero.WorldPosition.X,hero.WorldPosition.Y),new Vector2(TownWorldMap.Place(destination.Place).X,TownWorldMap.Place(destination.Place).Y)),Is.LessThan(.001f),destination.Place);
-                Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"),Is.True,"Observe the greeting immediately when arrival completes");
+                Assert.That(life.IsSpeaking,Is.False,"Arrival cannot start automatic speech.");
+                hero.OnPointerClick(new PointerEventData(EventSystem.current));
+                Assert.That(life.IsSpeaking,Is.True,"An explicit character tap after arrival must speak.");
+                Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Speaker name"&&t.text==CharacterCatalog.Find(hero.CharacterId).Name),Is.True);
             }
             Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(before));Assert.That(Store.Writes,Is.EqualTo(writes));
             hero.React();Flow.SendMessage("OnApplicationPause",true);Assert.That(Flow.GetComponentsInChildren<Button>().Any(b=>b.name.StartsWith("Visit ")),Is.False);

@@ -1,5 +1,13 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-11-01最新：最終Edit144通過・Play245/250の旧検査5件を整合→限定7件
+
+受領characters-authored113430-8e907640-review01はCRC正常、25entry全SHA・8原本・17画像header確認。source4c1384d／FP0eed7901は全Edit／PlayとNoah CLI一致。原XMLはEdit144/144成功、Play250中245成功・5失敗、Noah1/1、全skip／inc0、終了0/2/0。原本References/Review/characters-full-failed-2026-11-01-113430/。part01に親source-info／5単体原本はなく独立確認済みとしない。APK／Pixel未到達。
+
+原因は新タップ／名前表示ルールと旧検査の不整合：NamesBubblesはresize後も残る連打窓を無視して即時同NPCを再タップ、NpcsVisitは到着時自動発話を要求、StationaryDragは非表示名札を通常検索してnull、TwoResidentsは自動遭遇会話待ち、CloseResidentLabelsはNPC名の常時表示を要求。テスト5件のみ新契約へ更新し、表示前の正しい状態／明示入力／本人名／2名の実Pause／名前の位置・非遮蔽・静止時の正表示／保存・経路・ライフサイクル検査を保持。ゲームPresentation/Core／原画／街／元manifest2点は不変。旧テスト4パスだけ元SHA→新SHAの明示例外へ追加、既存5＋4＝9点。原画／任意ゲームコードは不可、formal_fixed/adopted false。
+
+修正版PlayMode API0警告／0エラー。新filterの7件／欠落・重複・別名・余分・失敗・skip拒否／今回250XML拒否、scope許可・原画拒否、Noah26／552照合、既存関連PSガードが通過。合成／APIを実Unity7件通過に置換しない。次はdocs/characters-final-focused-qa-2026-11-01.mdのRemoteSigned子PSで更新→新scripts/diagnose-character-finish-qa.ps1だけ。失敗5件＋NearbyResidentsStaySilentUntilAnExplicitTap＋HeroPressReleaseRepeatsPreserveSpeechUntilDraggingの7メソッド厳密集合。旧diagnose-characters-qa.ps1の6件とは別。全件／単体撮影／APK／Pixel／resetなし。最後に新characters-finish-focus…review01を選択するExplorer。実7件結果後だけ最終工程へ。GitHub feature pushと安全範囲の途中確認省略を維持。以下は履歴。
+
 ## 2026-11-01最新：モモ111715実Unity通過・既存の最終工程へ
 
 最新momo-authored111715-505e7b09の4ZIPはCRC/SHA正常、89原本／82画像。実Unity1/1成功・failed／skip／inc0、終了0。source34a9748／FP0eed7901はCLI・proof・source-info一致。11比較対＋接地影5対を独立再計算し、変更画素数一致／範囲外0。全82画像のSHA・bytes・寸法、39固定刻み標本、5Sorting、全4方向／rear-blink／自然瞬き／tap／talk／greet／Save不変を現validatorで確認。inputff44efd5は現3PNG＋Windows CRLF layoutで再現。7原本と全SHA／検算はReferences/Review/momo-final-capture-passed-2026-11-01-111715/。画像本体は4ZIP/runtime保持。過去日付の再添付を今回へ流用しない。

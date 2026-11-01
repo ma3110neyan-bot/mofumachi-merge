@@ -35,10 +35,12 @@ namespace Mofumachi.Tests
             // Refresh also belongs to the real manual-pointer path, which
             // returns before social interactions and facility simulation.
             town.World.Model.Restore(hero.CharacterId,new TownPoint(0,-.65f));town.AdvanceFrame(1f/30);
-            Assert.That(friend.transform.Find("Town actor name panel").gameObject.activeSelf,Is.True);
+            Assert.That(hero.transform.Find("Town actor name panel").gameObject.activeSelf,Is.True,"The clear, stationary hero label remains visible.");
+            Assert.That(friend.transform.Find("Town actor name panel").gameObject.activeSelf,Is.False,"NPC names stay withdrawn under the tap-only town presentation.");
             var pointer=new PointerEventData(EventSystem.current){pointerId=72};hero.OnPointerDown(pointer);hero.OnBeginDrag(pointer);
             Assert.That(town.IsManuallyDragging,Is.True);
             town.World.Model.Restore(hero.CharacterId,new TownPoint(0,-.25f));town.AdvanceFrame(1f/30);Canvas.ForceUpdateCanvases();
+            Assert.That(town.Actors.All(a=>!a.transform.Find("Town actor name panel").gameObject.activeSelf),Is.True,"Dragging must withdraw name cards before they obstruct bodies.");
             AssertNamesClear();hero.OnPointerUp(pointer);
             LogAssert.NoUnexpectedReceived();
         }

@@ -75,7 +75,12 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();foreach(int height in new[]{592,640,808})
             {
-                var npc=FrameTownNpc(height);var life=Flow.GetComponentInChildren<TownLifeView>();npc.React();Canvas.ForceUpdateCanvases();
+                var npc=FrameTownNpc(height);var life=Flow.GetComponentInChildren<TownLifeView>();life.StartInteraction();
+                // Resizing dismisses the previous bubble but keeps the real
+                // short-repeat gate. Model a separate tap for each viewport.
+                for(int tick=0;tick<15;tick++){foreach(var resident in life.World.Model.Residents)life.World.Model.Pause(resident.Id,4);life.AdvanceFrame(1f/30);}
+                npc.OnPointerClick(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current));
+                Assert.That(life.IsSpeaking,Is.True,"Explicit tap after resize must speak at height "+height);Canvas.ForceUpdateCanvases();
                 var bubble=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town bubble");Assert.That(bubble.preferredHeight,Is.LessThanOrEqualTo(bubble.rectTransform.rect.height+1));Assert.That(bubble.fontSize,Is.GreaterThanOrEqualTo(14));
                 var doors=life.GetComponentsInChildren<Button>(true).Where(b=>b.name.StartsWith("Facility entrance ")).ToArray();Assert.That(doors.Length,Is.EqualTo(3));
                 foreach(var button in doors)Assert.That(((RectTransform)button.transform).rect.height,Is.GreaterThanOrEqualTo(48));

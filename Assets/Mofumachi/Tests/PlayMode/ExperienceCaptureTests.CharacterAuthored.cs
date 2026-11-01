@@ -123,7 +123,6 @@ namespace Mofumachi.Tests
             var proof=new CharacterPartProof{character=id,gitRevision=EvidenceArgument("-mofumachiSourceRevision"),productFingerprint=EvidenceArgument("-mofumachiProductFingerprint")};
             var saved=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
             const BindingFlags flags=BindingFlags.Instance|BindingFlags.NonPublic;
-            var social=typeof(TownLifeView).GetField("nextSocial",flags);social.SetValue(field,float.PositiveInfinity);
             foreach(var r in field.World.Model.Residents.Where(r=>!r.Controlled))field.World.Model.Pause(r.Id,120);
             field.World.Model.Restore(id,CharacterAuthoredCaptureRoute.MomoStart,null);
             field.World.Model.Restore("noah",CharacterAuthoredCaptureRoute.PartnerStart,null);
@@ -209,7 +208,7 @@ namespace Mofumachi.Tests
             }
             Assert.That(approached,Is.True,"Reach the partner by actual lateral walking before intentionally stopping for conversation.");
             field.World.CancelHero();field.StartInteraction();Assert.That(actor.CharacterDirection,Is.EqualTo(NoahAuthoredDirection.Right));
-            social.SetValue(field,0f);Assert.That(field.TryBeginConversation(actor,friend),Is.True);proof.conversation_verified=true;
+            actor.OnPointerClick(new PointerEventData(EventSystem.current));Assert.That(field.IsSpeaking,Is.True);proof.conversation_verified=true;
             for(int i=0;i<34;i++)
             {
                 foreach(var r in field.World.Model.Residents.Where(r=>!r.Controlled))field.World.Model.Pause(r.Id,4);

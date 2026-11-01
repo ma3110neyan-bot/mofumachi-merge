@@ -24,6 +24,7 @@ namespace Mofumachi.Presentation
         private CharacterAuthoredGraphic characterAuthored;
         private NoahGroundShadowGraphic characterAuthoredShadow;
         private NoahAuthoredDirection characterDirection=NoahAuthoredDirection.Left;
+        private readonly TownCharacterFacing authoredFacing=new TownCharacterFacing();
         public bool CharacterAuthoredEnabled=>characterAuthoredRequested&&CharacterAuthoredGraphic.IsPreparedCharacter(CharacterId);
         public NoahAuthoredDirection CharacterDirection=>characterDirection;
         public bool SetCharacterAuthoredEnabled(bool enabled)
@@ -278,7 +279,7 @@ namespace Mofumachi.Presentation
             breath+=dt;reactionRemaining=Mathf.Max(0,reactionRemaining-dt);
             int resident=CharacterCatalog.Find(CharacterId).PortraitIndex;
             bool restingSmile=IsResting&&Mathf.Sin(breath*.8f+resident*.617f)>.88f;
-            var expression=reactionRemaining>0?(surprised&&reactionRemaining>.43f?CharacterExpression.Surprise:CharacterExpression.Smile):(restingSmile?CharacterExpression.Smile:CharacterExpression.Normal);
+            var expression=CharacterAuthoredEnabled||NoahAuthoredEnabled?CharacterExpression.Normal:reactionRemaining>0?(surprised&&reactionRemaining>.43f?CharacterExpression.Surprise:CharacterExpression.Smile):(restingSmile?CharacterExpression.Smile:CharacterExpression.Normal);
             if(body.Expression!=expression)body.Bind(CharacterId,expression);
             var reaction=TownCharacterMotion.Reaction(reactionRemaining,.65f,surprised);
             var pose=TownCharacterMotion.Sample(stride,amplitude,facing,IsResting?1:0,breath,resident);
@@ -289,7 +290,7 @@ namespace Mofumachi.Presentation
             float scale=viewScale*DepthScale;
             if(CharacterAuthoredEnabled)
             {
-                if(moving)characterDirection=NoahAuthoredMotion.Direction(worldResident==null?Position.X-previous.X:worldResident.Position.X-worldResident.Previous.X,worldResident==null?Position.Y-previous.Y:worldResident.Position.Y-worldResident.Previous.Y,characterDirection);
+                if(moving)characterDirection=authoredFacing.Update(characterDirection,worldResident==null?Position.X-previous.X:worldResident.Position.X-worldResident.Previous.X,worldResident==null?Position.Y-previous.Y:worldResident.Position.Y-worldResident.Previous.Y,dt);
                 bool front=characterDirection==NoahAuthoredDirection.Front;body.enabled=front;characterAuthored.enabled=!front;
                 VisualRoot.anchoredPosition=Vector2.zero;VisualRoot.localScale=Vector3.one*scale;VisualRoot.localRotation=Quaternion.identity;
                 if(front)body.Pose(0,0,0,TownCharacterMotion.Blink(breath,resident));
@@ -299,7 +300,7 @@ namespace Mofumachi.Presentation
             if(NoahAuthoredEnabled)
             {
                 EnsureAuthoredGraphic();
-                if(moving)authoredDirection=NoahAuthoredMotion.Direction(worldResident==null?Position.X-previous.X:worldResident.Position.X-worldResident.Previous.X,worldResident==null?Position.Y-previous.Y:worldResident.Position.Y-worldResident.Previous.Y,authoredDirection);
+                if(moving)authoredDirection=authoredFacing.Update(authoredDirection,worldResident==null?Position.X-previous.X:worldResident.Position.X-worldResident.Previous.X,worldResident==null?Position.Y-previous.Y:worldResident.Position.Y-worldResident.Previous.Y,dt);
                 bool front=authoredDirection==NoahAuthoredDirection.Front;
                 body.enabled=front;authored.enabled=!front;
                 VisualRoot.anchoredPosition=Vector2.zero;VisualRoot.localScale=Vector3.one*scale;VisualRoot.localRotation=Quaternion.identity;
@@ -367,7 +368,7 @@ namespace Mofumachi.Presentation
         internal void FreezeMovement()
         {previous=Position;RenderPosition=Position;moving=false;movementIntensity=0;if(life!=null)rect.anchoredPosition=worldResident==null?life.Local(Position):life.World.Local(worldResident.Position);}
         internal void ResetVisual()
-        {IsGuided=false;FreezeMovement();stride=amplitude=breath=reactionRemaining=speedBlend=socialRemaining=facing=facingTarget=benchBlend=flowerBlend=noahHeadFacing=noahForward=noahForwardTarget=0;surprised=false;float scale=viewScale*DepthScale;if(VisualRoot!=null){VisualRoot.anchoredPosition=Vector2.zero;VisualRoot.localScale=new Vector3(scale,scale,1);VisualRoot.localRotation=Quaternion.identity;}UpdateShadows(0,scale);if(body!=null){if(body.Expression!=CharacterExpression.Normal)body.Bind(CharacterId);body.Pose(0,0,0,false);}}
+        {authoredFacing.Reset();IsGuided=false;FreezeMovement();stride=amplitude=breath=reactionRemaining=speedBlend=socialRemaining=facing=facingTarget=benchBlend=flowerBlend=noahHeadFacing=noahForward=noahForwardTarget=0;surprised=false;float scale=viewScale*DepthScale;if(VisualRoot!=null){VisualRoot.anchoredPosition=Vector2.zero;VisualRoot.localScale=new Vector3(scale,scale,1);VisualRoot.localRotation=Quaternion.identity;}UpdateShadows(0,scale);if(body!=null){if(body.Expression!=CharacterExpression.Normal)body.Bind(CharacterId);body.Pose(0,0,0,false);}}
         public void React(){if(life==null||!life.CanInteract||!RegionVisible||journeyFade>0||life.IsManuallyDragging||life.NearbyFacility!=null)return;if(worldResident!=null&&!Controlled)life.World.Model.Pause(CharacterId,2);surprised=false;reactionRemaining=ReactionSeconds;life.React(this);}
         internal void SetViewScale(float scale){viewScale=float.IsFinite(scale)?Mathf.Clamp(scale,1,1.15f):1;}
         internal void Surprise(){surprised=true;reactionRemaining=ReactionSeconds;}
@@ -381,7 +382,12 @@ namespace Mofumachi.Presentation
         public void OnPointerUp(PointerEventData e)=>Release(e);
         private void Release(PointerEventData e)
         {if(!Controlled||Movement.OwnedPointerId!=e.pointerId)return;Movement.ReleasePointer(e.pointerId);if(worldResident!=null&&dragged)life.World.ReleasePointer();FreezeMovement();life.ActorReleased(this);if(dragged)e.eligibleForClick=false;}
-        public void OnPointerClick(PointerEventData e){if(!dragged){if(Controlled&&life.CanInteract)life.GetComponent<TownStreetWalkView>()?.Arm();else React();}}
+        public void OnPointerClick(PointerEventData e)
+        {
+            if(dragged||life==null||!life.CanInteract||life.IsCurrentSpeaker(this))return;
+            if(Controlled)life.GetComponent<TownStreetWalkView>()?.Arm();
+            life.TapCharacter(this);
+        }
         private void OnDisable(){Movement?.CancelInput();ResetVisual();dragged=false;}
     }
     // One unlit, noninteractive ellipse. Smooth alpha falloff replaces the

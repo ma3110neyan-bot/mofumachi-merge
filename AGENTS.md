@@ -1,5 +1,15 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-11-01最新：頭接続／背面／すれ違い／タップ会話の仕上げ
+
+最新ユーザー指示が優先。ノア先行の最終調整と同じ方法の5名適用、自動会話停止を許可。以前の「ノア方式を一切変更しない」「会話は別工程」は今回範囲で更新。分割原画と剛体パーツ方式を維持し、原画／登録JSON／街／Core保存／Merge／フォントは変更しない。頭の接続点、北移動の安定方向、既存回避量の補間、明示タップ会話だけを仕上げる。ノアの頭接続計算を先にRED→GREEN後、残り5名へ共通適用した。
+
+PDF11画面の原本とSHAはReferences/Review/character-finish-feedback-2026-11-01/。静止画からAPKモード／高速ブレ周期／Pixel負荷を断定しない。旧最終手順が比較用2Dを先に入れていたため、今回のPixel手順はauthoredを最初に表示し、現在版のPID・mode・APK SHAを既存検査で確認する。
+
+旧ノア承認26点と旧552manifestは書き換えない。character-finish-amendment-2026-11-01.jsonに最新指示で許可された既存コード5点の元SHA→新SHAだけを記録。共通検査は元manifestのSHAも照合し、原画／登録JSON等のoverrideを拒否する。formal_fixed/adoptedはfalse。過去のモモ・ミエル1/1を今回の新描画成功へ引き継がない。
+
+最終手順 docs/character-final-finish-2026-11-01.md：更新→prepare-characters-final-pass -Install Serial99RAY1BELH Seconds600。ノアnative1件を先に通す→同sourceの5単体を順番→全件Edit/Play各1回→6名比較・すれ違い・タップ→同source QA APK→現在の6名authoredをPixelへ。Before/AfterはEditor専用の旧頭配置で同素材・同ポーズ、すれ違い標本は実モデル固定刻みでFPSとは分離。全件反復／保存消去／uninstall／mainなし。新Unity実描画・全件・APK・Pixelは未確認。結果確認後だけ正式固定。途中確認を挟まず安全な範囲を実装し、GitHub feature push許可を維持。以下は履歴。
+
 ## 2026-10-31最新：ミエル233455も実Unity通過／単体仕上げ完了→最終工程1回
 
 最新Miel233455-20ab666cの4ZIPはCRC/SHA正常、92原本／85画像。実Unity1/1成功・failed/skip/inconclusive0、終了0。sourceae95891／FP621ee8f4はCLI・proof・source-info一致。Momo224754とFP一致、3c38..aeのAssets/scripts/Tests/原画/VisualLock差分なし。grounding_verified true、Left/Left/Right/Back/Frontの5影対で範囲外0を再計算。全85画像SHA/bytes/寸法、11従来対context、歩行4方向／40固定刻み標本／5Sorting／tap／talk／greet／blink／rear／Save不変をvalidator照合。現3PNG＋Windows CRLF layoutからinput7d31fbb7を再現。原本7記録・全SHA・検算はReferences/Review/miel-grounding-passed-2026-10-31-233455/。画像本体は4ZIP/runtime保持、repoに全画像を含むとは言わない。古い140423/125426は今回成功へ流用しない。

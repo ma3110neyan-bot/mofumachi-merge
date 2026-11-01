@@ -19,6 +19,9 @@ namespace Mofumachi.Presentation
         private static NoahAuthoredRigConfig config;
         private NoahAuthoredView view;private NoahAuthoredPose pose;
         public string DirectionName=>view?.direction??"unconfigured";
+#if UNITY_EDITOR
+        private bool captureLegacyPose=false;
+#endif
         public override Texture mainTexture=>texture;
         public static string InputDigest=>config?.input_sha256;
         public void Configure()
@@ -56,7 +59,11 @@ namespace Mofumachi.Presentation
             var r=GetPixelAdjustedRect();float height=Mathf.Min(r.width/254f,r.height/323f)*323f,s=height/600f;
             foreach(var p in view.parts)
             {
-                var t=pose.Part(p.id);int n=vh.currentVertCount;
+                var t=p.id=="head"?pose.AttachedHead(0,0,0,(.5f-p.pivot.x)*p.width*p.scale,(1-p.pivot.y)*p.height*p.scale):pose.Part(p.id);
+#if UNITY_EDITOR
+                if(captureLegacyPose&&p.id=="head"){t=pose.Head;if(view.direction=="back"){var h=pose.Body.Child(-20,-238,pose.Head.Rotation-pose.Body.Rotation);t=new NoahPartTransform(0,h.Y,h.Rotation);}}
+#endif
+                int n=vh.currentVertCount;
                 void Vertex(float x,float y,float u,float v)
                 {
                     t.Point((x-p.pivot.x*p.width)*p.scale,(y-p.pivot.y*p.height)*p.scale,out float px,out float py);

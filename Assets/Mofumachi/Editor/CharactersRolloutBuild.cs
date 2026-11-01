@@ -12,10 +12,10 @@ namespace Mofumachi.Editor
 {
     public static class CharactersRolloutBuild
     {
-        [Serializable] private sealed class Context{public string gitRevision=null,productFingerprint=null;public string[] singleRuns=null;}
+        [Serializable] private sealed class Context{public string gitRevision=null,productFingerprint=null,noahRun=null;public string[] singleRuns=null;}
         [Serializable] public sealed class Input{public string characterId,input_sha256;}
         [Serializable] public sealed class Seal{public string gitRevision,productFingerprint,packed_resource_sha256;public Input[] inputs;}
-        [Serializable] private sealed class Proof{public string character=null,gitRevision=null,productFingerprint=null,input_sha256=null,packed_resource_sha256=null;public bool native_unity=false,all_six_enabled=false,save_unchanged=false,tap_verified=false,grounding_verified=false,front_verified=false,geometry_verified=false,conversation_verified=false,greeting_authored=false,talk_authored=false,blink_authored=false;}
+        [Serializable] private sealed class Proof{public string character=null,gitRevision=null,productFingerprint=null,input_sha256=null,packed_resource_sha256=null;public bool native_unity=false,all_six_enabled=false,save_unchanged=false,tap_verified=false,attachment_comparison_verified=false,passing_verified=false,tap_only_verified=false,grounding_verified=false,front_verified=false,geometry_verified=false,conversation_verified=false,greeting_authored=false,talk_authored=false,blink_authored=false;}
         [Serializable] private sealed class BuildInfo{public string mode,gitRevision,productFingerprint,packed_resource_sha256,sha256,apk,package;public bool full_qa_verified=true,six_native_verified=true,pixel_verified=false,adopted=false;}
         private static readonly string[] Ids={"momo","lulu","pom","fio","miel","noah"};
         private static string Root=>Directory.GetParent(Application.dataPath).FullName;
@@ -62,6 +62,8 @@ namespace Mofumachi.Editor
             string run=Run();var c=ReadContext(run);var seal=JsonUtility.FromJson<Seal>(File.ReadAllText(Path.Combine(run,"prepared-six.json")));
             if(Application.unityVersion!="6000.6.4f1"||EditorUserBuildSettings.activeBuildTarget!=BuildTarget.Android||!BuildPipeline.IsBuildTargetSupported(BuildTargetGroup.Android,BuildTarget.Android))throw new BuildFailedException("Pinned Unity/Android support required.");
             if(seal.gitRevision!=c.gitRevision||seal.productFingerprint!=c.productFingerprint||seal.packed_resource_sha256!=Packed(run))throw new BuildFailedException("Prepared/source identity changed.");
+            if(string.IsNullOrEmpty(c.noahRun)||!Path.GetFullPath(c.noahRun).StartsWith(Path.Combine(Root,"Builds","Diagnostics")+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase))throw new BuildFailedException("Exact Noah final native directory required.");
+            Passed(Path.Combine(c.noahRun,"playmode.xml"),1,"Mofumachi.Tests.ExperienceCaptureTests.NoahAuthoredPartsPreviewPreservesState");
             Passed(Path.Combine(run,"full-editmode.xml"),144);Passed(Path.Combine(run,"full-playmode.xml"),240);
             for(int i=0;i<5;i++)
             {
@@ -73,7 +75,7 @@ namespace Mofumachi.Editor
             }
             Passed(Path.Combine(run,"six-playmode.xml"),1,"Mofumachi.Tests.ExperienceCaptureTests.SixAuthoredCharactersPreserveWorldAndInput");
             var six=JsonUtility.FromJson<Proof>(File.ReadAllText(Path.Combine(run,"screenshots","six-authored","six-proof.json")));
-            if(!six.front_verified||!six.geometry_verified||!six.native_unity||!six.all_six_enabled||!six.save_unchanged||!six.tap_verified||six.gitRevision!=c.gitRevision||six.productFingerprint!=c.productFingerprint||six.packed_resource_sha256!=seal.packed_resource_sha256)throw new BuildFailedException("Six-character native/source proof missing.");
+            if(!six.attachment_comparison_verified||!six.passing_verified||!six.tap_only_verified||!six.front_verified||!six.geometry_verified||!six.native_unity||!six.all_six_enabled||!six.save_unchanged||!six.tap_verified||six.gitRevision!=c.gitRevision||six.productFingerprint!=c.productFingerprint||six.packed_resource_sha256!=seal.packed_resource_sha256)throw new BuildFailedException("Six-character native/source proof missing.");
             string symbols=PlayerSettings.GetScriptingDefineSymbols(UnityEditor.Build.NamedBuildTarget.Android);
             if(symbols.Split(';').Any(s=>s=="MOFUMACHI_NOAH_AUTHORED"||s=="MOFUMACHI_CHARACTERS_AUTHORED"))throw new BuildFailedException("Do not persist candidate build defines.");
             AndroidBuild.ValidateContent();AndroidBuild.WithTownQaIdentity(()=>{Build(run,"baseline",c,seal,false);Build(run,"authored",c,seal,true);});

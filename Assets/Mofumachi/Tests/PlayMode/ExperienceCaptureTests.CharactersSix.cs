@@ -25,9 +25,9 @@ namespace Mofumachi.Tests
             public string gitRevision=null,productFingerprint=null,packed_resource_sha256=null;
             public SixInput[] inputs=null;public bool native_unity=true,all_six_enabled,save_unchanged,tap_verified,pixel_verified=false,adopted=false;
             public string placements="isolated six-character display fixture; individual walking is in separate native methods; not Pixel FPS";
-            public bool front_verified,geometry_verified;
+            public bool front_verified,geometry_verified,attachment_comparison_verified,passing_verified,tap_only_verified;
             public string geometry_kind="rendered mesh bounds and anchors; opaque contact/silhouette still require visual review";
-            public List<SixGeometry> geometry=new List<SixGeometry>();
+            public List<SixGeometry> geometry=new List<SixGeometry>();public List<NativePair> finish_pairs=new List<NativePair>();
             public List<NativeImage> images=new List<NativeImage>();
         }
         private void VerifyAuthoredScreenInput(TownLifeView field,TownActor actor,UnityEngine.UI.Graphic graphic)
@@ -65,7 +65,7 @@ namespace Mofumachi.Tests
             if(!Environment.GetCommandLineArgs().Contains("-mofumachiCharactersSixPreview"))yield break;
             string run=EvidenceArgument("-mofumachiCharactersDirectory");
             var proof=JsonUtility.FromJson<SixProof>(File.ReadAllText(Path.Combine(run,"prepared-six.json")));
-            proof.images=new List<NativeImage>();
+            proof.images=new List<NativeImage>();proof.geometry=new List<SixGeometry>();proof.finish_pairs=new List<NativePair>();
             Assert.That(proof.gitRevision,Is.EqualTo(EvidenceArgument("-mofumachiSourceRevision")));
             Assert.That(proof.productFingerprint,Is.EqualTo(EvidenceArgument("-mofumachiProductFingerprint")));
             Assert.That(proof.inputs.Select(p=>p.characterId),Is.EquivalentTo(new[]{"momo","lulu","pom","fio","miel","noah"}));
@@ -73,7 +73,6 @@ namespace Mofumachi.Tests
             EnsurePortraitCamera();var field=Flow.GetComponentInChildren<TownLifeView>();field.StartInteraction();
             string saved=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
             const BindingFlags flags=BindingFlags.Instance|BindingFlags.NonPublic;
-            typeof(TownLifeView).GetField("nextSocial",flags).SetValue(field,float.PositiveInfinity);
             string output=Path.Combine(OutputDirectory(),"six-authored");Directory.CreateDirectory(output);
             var actors=field.Actors.OrderBy(a=>Array.IndexOf(new[]{"momo","lulu","pom","fio","miel","noah"},a.CharacterId)).ToArray();
             Assert.That(actors.Length,Is.EqualTo(6));
@@ -122,6 +121,7 @@ namespace Mofumachi.Tests
             proof.front_verified=true;proof.geometry_verified=true;
             var hero=actors.Single(a=>a.Controlled);var target=hero.GetComponentInChildren<CharacterAuthoredGraphic>();
             VerifyAuthoredScreenInput(field,hero,target);proof.tap_verified=true;
+            CaptureCharacterFinish(output,field,actors,proof);
             Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(saved));Assert.That(Store.Writes,Is.EqualTo(writes));
             proof.native_unity=true;proof.all_six_enabled=true;proof.save_unchanged=true;
             File.WriteAllText(Path.Combine(output,"six-proof.json"),JsonUtility.ToJson(proof,true));LogAssert.NoUnexpectedReceived();

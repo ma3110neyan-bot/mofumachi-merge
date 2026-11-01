@@ -16,12 +16,13 @@ function Get-CharacterAuthoredArguments([string]$Repository,[string]$Directory,[
 function Assert-NoahAuthoredMasterFixed([string]$Repository){
     $Record=Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $Repository 'References/VisualLock/noah-authored-approved-2026-10-30.json') | ConvertFrom-Json
     if($Record.user_approved -isnot [bool] -or -not $Record.user_approved -or @($Record.frozen_files).Count -eq 0){throw 'Approved Noah master identity required.'}
+    $Overrides=Read-CharacterFinishOverrides $Repository 'noah'
     foreach($File in $Record.frozen_files){
         $Path=Join-Path $Repository $File.path
         if(-not(Test-Path -LiteralPath $Path -PathType Leaf)){throw "Noah master missing: $($File.path)"}
         $Bytes=if($File.text_normalized){[Text.Encoding]::UTF8.GetBytes([IO.File]::ReadAllText($Path).Replace("`r`n","`n"))}else{[IO.File]::ReadAllBytes($Path)}
         $Hasher=[Security.Cryptography.SHA256]::Create();try{$Hash=([BitConverter]::ToString($Hasher.ComputeHash($Bytes))).Replace('-','').ToLowerInvariant()}finally{$Hasher.Dispose()}
-        if($Hash -ne $File.sha256){throw "Noah master changed: $($File.path)"}
+        if($Hash -cne $(if($Overrides.ContainsKey($File.path)){$Overrides[$File.path]}else{$File.sha256})){throw "Noah master changed: $($File.path)"}
     }
 }
 function Get-CharacterAuthoredSourceFingerprint([string]$Repository){

@@ -17,7 +17,7 @@ namespace Mofumachi.Tests
             for(int i=0;i<240;i++)life.AdvanceFrame(1f/30);
             Assert.That(npcs.Where((a,i)=>!a.Position.Equals(original[i])).Any(),Is.True);Assert.That(npcs.Select(a=>a.DestinationId).Distinct().Count(),Is.EqualTo(npcs.Length));LogAssert.NoUnexpectedReceived();
         }
-        [UnityTest] public IEnumerator NearbyConversationBelongsToItsActorsAndDoesNotSave()
+        [UnityTest] public IEnumerator NearbyResidentsStaySilentUntilAnExplicitTap()
         {
             yield return EnterHome();
             // Encounter visibility must use the Pixel 3a portrait viewport, not the Editor's Game view size.
@@ -25,10 +25,15 @@ namespace Mofumachi.Tests
             Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(360,740),new Rect(0,24,360,684));Canvas.ForceUpdateCanvases();
             var life=Flow.GetComponentInChildren<TownLifeView>();Assert.That(life.Regions.LookAtRegion(TownRegionId.West),Is.True);Canvas.ForceUpdateCanvases();var actors=Flow.GetComponentsInChildren<TownActor>();int writes=Store.Writes;string state=StateCodec.Encode(Flow.Game.State);
             Assert.That(life.TryBeginConversation(actors[0],actors[0]),Is.False);Assert.That(life.TryBeginConversation(null,actors[0]),Is.False);
-            // Wait for an actual encounter; never relocate actors off their streets for a test.
-            for(int i=0;i<3600&&!Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"&&t.text.Contains("こんにちは"));i++)life.AdvanceFrame(1f/30);
-            Assert.That(Flow.GetComponentsInChildren<Text>().Any(t=>t.name=="Town bubble"&&t.text.Contains("こんにちは")),Is.True,"An actual street encounter must occur");
-            Assert.That(Flow.GetComponentsInChildren<Text>().Count(t=>t.name=="Town bubble"),Is.LessThanOrEqualTo(1));Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));LogAssert.NoUnexpectedReceived();
+            for(int i=0;i<900;i++)life.AdvanceFrame(1f/30);
+            Assert.That(life.IsSpeaking,Is.False,"Crossings and idle residents cannot open unsolicited speech.");
+            var npc=FrameTownNpc(740);life=Flow.GetComponentInChildren<TownLifeView>();
+            npc.OnPointerClick(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current));
+            Assert.That(life.IsSpeaking,Is.True);var first=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town bubble");
+            npc.OnPointerClick(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current));
+            Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town bubble"),Is.SameAs(first));
+            Assert.That(first.GetComponentInParent<CanvasGroup>().blocksRaycasts,Is.False);
+            Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator GrowthRestoresExpandedStopsFromSavedLevel()
         {

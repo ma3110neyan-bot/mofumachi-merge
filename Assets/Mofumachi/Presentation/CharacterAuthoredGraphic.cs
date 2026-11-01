@@ -33,6 +33,9 @@ namespace Mofumachi.Presentation
         public string InputDigest=>config?.input_sha256;
         public NoahAuthoredMode CurrentMode{get;private set;}
         public bool EyesClosed=>eyesClosed;
+#if UNITY_EDITOR
+        private bool captureLegacyPose=false;
+#endif
         public override Texture mainTexture=>atlas;
         public static bool IsPreparedCharacter(string id)=>CharacterAuthoredConfig.IsPreparedCharacter(id);
         public void Configure(string id)
@@ -76,7 +79,11 @@ namespace Mofumachi.Presentation
             foreach(var open in view.parts)
             {
                 var p=view.PartFor(open,eyesClosed);
-                var t=pose.Part(p.id).Child(p.offset.x,p.offset.y,p.rotation);int n=vh.currentVertCount;
+                var t=p.id=="head"?pose.AttachedHead(p.offset.x,p.offset.y,p.rotation,(.5f-p.pivot.x)*p.width*p.scale,(1-p.pivot.y)*p.height*p.scale):pose.Part(p.id).Child(p.offset.x,p.offset.y,p.rotation);
+#if UNITY_EDITOR
+                if(captureLegacyPose&&p.id=="head"){var old=pose.Head;if(view.direction=="back"){var h=pose.Body.Child(-20,-238,pose.Head.Rotation-pose.Body.Rotation);old=new NoahPartTransform(0,h.Y,h.Rotation);}t=old.Child(p.offset.x,p.offset.y,p.rotation);}
+#endif
+                int n=vh.currentVertCount;
                 void Vertex(float x,float y,float u,float v)
                 {
                     t.Point((x-p.pivot.x*p.width)*p.scale,(y-p.pivot.y*p.height)*p.scale,out float px,out float py);

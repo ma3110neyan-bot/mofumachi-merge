@@ -2,6 +2,7 @@
 param([string]$UnityEditorPath='',[switch]$Install,[string]$Serial='99RAY1BELH',[ValidateRange(0,600)][int]$MeasureSeconds=60)
 $ErrorActionPreference='Stop'
 . (Join-Path $PSScriptRoot 'build-android.ps1')
+. (Join-Path $PSScriptRoot 'character-finish-scope.ps1')
 function Get-NoahAuthoredArguments([string]$Repository,[string]$Directory,[string]$Revision,[string]$Fingerprint) {
     if(-not $Repository -or -not $Directory -or $Revision -notmatch '^[a-f0-9]{40}$' -or $Fingerprint -notmatch '^[a-f0-9]{64}$'){throw 'Exact Noah source identity required.'}
     return @('-batchmode','-projectPath',$Repository,'-buildTarget','Android','-runTests','-testPlatform','PlayMode','-testFilter','Mofumachi.Tests.ExperienceCaptureTests.NoahAuthoredPartsPreviewPreservesState','-testResults',(Join-Path $Directory 'playmode.xml'),'-logFile',(Join-Path $Directory 'playmode.log'),'-mofumachiScreenshots',(Join-Path $Directory 'screenshots'),'-mofumachiSourceRevision',$Revision,'-mofumachiProductFingerprint',$Fingerprint,'-mofumachiNoahAuthoredPreview')
@@ -45,12 +46,13 @@ function Get-NoahAuthoredSourceFingerprint([string]$Repository) {
 function Assert-NoahAuthoredFrozenInputs([string]$Repository) {
     $Record=Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $Repository 'References/VisualLock/noah-authored-game-candidate-2026-10-30.json') | ConvertFrom-Json
     if($Record.adopted -isnot [bool] -or $Record.adopted -or $Record.six_character_rollout_authorized -isnot [bool] -or $Record.six_character_rollout_authorized -or $Record.default_off -isnot [bool] -or -not $Record.default_off -or @($Record.protected_files).Count -lt 100){throw 'Wrong/unprotected authored trial scope.'}
+    $Overrides=Read-CharacterFinishOverrides $Repository 'legacy'
     foreach($File in $Record.protected_files){
         $Path=Join-Path $Repository $File.path
         if(-not(Test-Path -LiteralPath $Path -PathType Leaf)){throw "Protected input missing: $($File.path)"}
         $Bytes=if($File.text_normalized){[Text.Encoding]::UTF8.GetBytes([IO.File]::ReadAllText($Path).Replace("`r`n","`n"))}else{[IO.File]::ReadAllBytes($Path)}
         $Hasher=[Security.Cryptography.SHA256]::Create();try{$Hash=([BitConverter]::ToString($Hasher.ComputeHash($Bytes))).Replace('-','').ToLowerInvariant()}finally{$Hasher.Dispose()}
-        if($Hash -ne $File.sha256){throw "Frozen input changed: $($File.path)"}
+        if($Hash -cne $(if($Overrides.ContainsKey($File.path)){$Overrides[$File.path]}else{$File.sha256})){throw "Frozen input changed: $($File.path)"}
     }
 }
 function Invoke-NoahAuthoredUnity([string]$Editor,[string[]]$EditorArguments,[string]$Directory) {

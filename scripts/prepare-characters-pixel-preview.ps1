@@ -127,9 +127,18 @@ $Editor=if($RolloutOptions.Editor){$RolloutOptions.Editor}else{Join-Path $env:Pr
 if(-not(Test-Path -LiteralPath $Editor -PathType Leaf) -or -not(Test-Path -LiteralPath (Join-Path (Split-Path -Parent $Editor) 'Data/PlaybackEngines/AndroidPlayer'))){throw 'Pinned Unity with Android support required.'}
 $Revision=Read-SourceRevision $Repository;$Fingerprint=Get-CharacterAuthoredSourceFingerprint $Repository
 $Run=Join-Path $Repository ('Builds/Diagnostics/characters-authored-'+(Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::NewGuid().ToString('N').Substring(0,8));New-Item -ItemType Directory -Path $Run | Out-Null
-$Record=[ordered]@{gitRevision=$Revision;productFingerprint=$Fingerprint;full_qa_verified=$false;single_native_verified=$false;six_native_verified=$false;builds_generated=$false;source_unchanged=$false;pixel_verified=$false;adopted=$false;singleRuns=@();failedSingleRun='';error=''};$Failure=$null;$AttemptedCharacter=''
+$Record=[ordered]@{gitRevision=$Revision;productFingerprint=$Fingerprint;full_qa_verified=$false;single_native_verified=$false;six_native_verified=$false;builds_generated=$false;source_unchanged=$false;pixel_verified=$false;adopted=$false;singleRuns=@();failedSingleRun='';noah_native_verified=$false;noahRun='';error=''};$Failure=$null;$AttemptedCharacter=''
 Write-Host "Exact six-character run: $Run"
 try{
+    $Record.noahRun=Join-Path $Run 'noah-finish';New-Item -ItemType Directory -Path $Record.noahRun | Out-Null
+    try{
+        Invoke-NoahAuthoredUnity $Editor @('-batchmode','-quit','-projectPath',$Repository,'-buildTarget','Android','-executeMethod','Mofumachi.Editor.NoahAuthoredBuild.Prepare','-mofumachiNoahAuthoredDirectory',$Record.noahRun,'-logFile',(Join-Path $Record.noahRun 'prepare.log')) $Run
+        Invoke-NoahAuthoredUnity $Editor (Get-NoahAuthoredArguments $Repository $Record.noahRun $Revision $Fingerprint) $Run
+        Assert-TestRun (Join-Path $Record.noahRun 'playmode.xml') 1 @('ExperienceCaptureTests')
+        $Noah=Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $Record.noahRun 'screenshots/noah-authored/proof.json') | ConvertFrom-Json
+        if($Noah.gitRevision -cne $Revision -or $Noah.productFingerprint -cne $Fingerprint -or -not $Noah.native_unity -or -not $Noah.actual_conversation_verified){throw 'Noah final native proof incomplete.'}
+        $Record.noah_native_verified=$true
+    }finally{Remove-OwnedNoahAuthoredResources $Repository $Record.noahRun}
     foreach($Id in @(Get-CharacterAuthoredIds)){
         $AttemptedCharacter=$Id
         $Before=@(Get-ChildItem -LiteralPath (Join-Path $Repository 'Builds/Diagnostics') -Directory | Select-Object -ExpandProperty FullName)
@@ -142,7 +151,7 @@ try{
         Invoke-NoahAuthoredUnity $Editor (Get-CharactersFullArguments $Repository $Run $Platform $Revision $Fingerprint) $Run
         Assert-TestRun (Join-Path $Run ('full-'+$Platform.ToLowerInvariant()+'.xml')) $(if($Platform -eq 'EditMode'){144}else{240}) @()
     };$Record.full_qa_verified=$true
-    @{gitRevision=$Revision;productFingerprint=$Fingerprint;singleRuns=$Record.singleRuns} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $Run 'context.json') -Encoding UTF8
+    @{gitRevision=$Revision;productFingerprint=$Fingerprint;singleRuns=$Record.singleRuns;noahRun=$Record.noahRun} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $Run 'context.json') -Encoding UTF8
     $Common=@('-batchmode','-quit','-projectPath',$Repository,'-buildTarget','Android','-mofumachiCharactersDirectory',$Run)
     Invoke-NoahAuthoredUnity $Editor ($Common+@('-executeMethod','Mofumachi.Editor.CharacterAuthoredBuild.PrepareAll','-mofumachiCharacterDirectory',$Run,'-logFile',(Join-Path $Run 'prepare-five.log'))) $Run
     Invoke-NoahAuthoredUnity $Editor ($Common+@('-executeMethod','Mofumachi.Editor.NoahAuthoredBuild.Prepare','-mofumachiNoahAuthoredDirectory',$Run,'-logFile',(Join-Path $Run 'prepare-noah.log'))) $Run

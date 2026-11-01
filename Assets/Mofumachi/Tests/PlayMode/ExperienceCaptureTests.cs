@@ -47,7 +47,7 @@ namespace Mofumachi.Tests
         {
             public string setup="fresh-isolated-Home-scene-after-completed-route-proof";
             public bool isolated_start_verified;
-            public string kind="native-fixed-step-town-AdvanceFrame",greet_trigger="public TryBeginConversation or normal AdvanceFrame auto; verified Noah/Momo greeting",conversation_mode="mutual-noah-momo-greeting";
+            public string kind="native-fixed-step-town-AdvanceFrame",greet_trigger="explicit character pointer tap; verified Noah/Momo greeting",conversation_mode="mutual-noah-momo-greeting";
             public string conversation_speaker_id,conversation_partner_id,conversation_text;
             public bool manual_advance=true,state_unchanged,store_writes_unchanged,actual_conversation_verified;
             public float step_seconds=1f/30,noah_reaction_seconds,momo_reaction_seconds,noah_facing,momo_facing;public int sample_step_count=3,source_width=720,source_height=1280,crop_x,crop_y,crop_width,crop_height;
@@ -262,13 +262,12 @@ namespace Mofumachi.Tests
             string repo=Directory.GetParent(Application.dataPath).FullName;
             proof.original_atlas_sha256=EvidenceSha(File.ReadAllBytes(Path.Combine(repo,"Assets/Mofumachi/Resources/Mofumachi/CharacterBodyAtlas.png")));
             var sequence=proof.sequence;sequence.setup="fresh-isolated-Home-scene-Noah-only";sequence.kind="native-continuous-fixed-step-Noah-reprototype";sequence.sample_step_count=2;
-            sequence.greet_trigger="public TryBeginConversation(noah,momo); automatic social timer held only in isolated fixture";sequence.conversation_mode="speaker-noah-to-momo";
+            sequence.greet_trigger="explicit Noah pointer tap; no automatic town speech";sequence.conversation_mode="speaker-noah-to-momo";
             const System.Reflection.BindingFlags flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
-            var socialField=typeof(TownLifeView).GetField("nextSocial",flags);var speakerField=typeof(TownLifeView).GetField("speaker",flags);
+            var speakerField=typeof(TownLifeView).GetField("speaker",flags);
             var simulationTimeField=typeof(TownLifeView).GetField("now",flags);
             var facingField=typeof(TownActor).GetField("facing",flags);var reactionField=typeof(TownActor).GetField("reactionRemaining",flags);
             var headField=typeof(TownActor).GetField("noahHeadFacing",flags);var forwardField=typeof(TownActor).GetField("noahForward",flags);
-            socialField.SetValue(field,float.PositiveInfinity); // No shipping cooldown change; choose an actual Noah-first interaction in this fixture.
             foreach(var r in field.World.Model.Residents.Where(r=>!r.Controlled))field.World.Model.Pause(r.Id,4);
             var npcPositions=field.World.Model.Residents.Where(r=>!r.Controlled).Select(r=>r.Position).ToArray();
             string saved=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;float elapsed=0;
@@ -323,8 +322,8 @@ namespace Mofumachi.Tests
                 if(index==48)Assert.That(field.World.GuidePoint(new TownPoint(friend.WorldPosition.X-.20f,friend.WorldPosition.Y)),Is.True);
                 if(index==96)
                 {
-                    Assert.That(field.World.Model.Hero.IsWalking,Is.False,"The actual walk must arrive before speaking");field.StartInteraction();socialField.SetValue(field,0f);
-                    Assert.That(field.TryBeginConversation(noah,friend),Is.True,"Noah must start the real public conversation, not a forced smile or fake bubble");
+                    Assert.That(field.World.Model.Hero.IsWalking,Is.False,"The actual walk must arrive before speaking");field.StartInteraction();
+                    noah.OnPointerClick(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current));Assert.That(field.IsSpeaking,Is.True,"Only the actual character tap starts speech.");
                     Assert.That(speakerField.GetValue(field),Is.SameAs(noah));
                     sequence.actual_conversation_verified=true;sequence.conversation_speaker_id="noah";sequence.conversation_partner_id="momo";
                     sequence.conversation_text=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town bubble").text;
@@ -491,10 +490,10 @@ namespace Mofumachi.Tests
                     var target=new TownPoint(friend.WorldPosition.X-.20f,friend.WorldPosition.Y);
                     Assert.That(field.World.GuidePoint(target),Is.True);int budget=0;while(field.World.Model.Hero.IsWalking&&budget++<6000)Step();Assert.That(field.World.Model.Hero.IsWalking,Is.False);
                     // Arrival may have started social dialogue already. Clear
-                    // it, then verify a new mutual greeting, including the real
-                    // automatic path if it wins the normal social cooldown.
+                    // it, then verify a new mutual greeting, using the explicit
+                    // pointer entry with the real nearby peer reaction.
                     field.StartInteraction();budget=0;
-                    while(!VerifiedGreeting()&&budget++<360){field.TryBeginConversation(noah,friend);if(!VerifiedGreeting())Step();}
+                    while(!VerifiedGreeting()&&budget++<360){noah.OnPointerClick(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current));if(!VerifiedGreeting())Step();}
                     Assert.That(VerifiedGreeting(),Is.True,"A solo ambient bubble is not evidence of Noah/Momo greeting");
                     var speaker=(TownActor)speakerField.GetValue(field);sequence.actual_conversation_verified=true;sequence.conversation_speaker_id=speaker.CharacterId;sequence.conversation_partner_id=speaker==noah?"momo":"noah";
                     sequence.conversation_text=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town bubble").text;

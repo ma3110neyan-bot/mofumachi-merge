@@ -15,15 +15,14 @@ $FinalRun=$null;$FinalArchive=$null
 try{
     # Candidate is ready for final acceptance. Existing pipeline runs all five
     # singles sequentially, full suites once, six fixture, then the same-source
-    # pair. Its first physical run is the baseline; authored is installed last.
-    & (Join-Path $PSScriptRoot 'prepare-characters-pixel-preview.ps1') -UnityEditorPath $FinalPassOptions.Editor -Install:$FinalPassOptions.Install -Mode baseline -Serial $FinalPassOptions.Serial -MeasureSeconds $FinalPassOptions.Seconds
+    # pair. The current authored candidate is always shown on the device first.
+    & (Join-Path $PSScriptRoot 'prepare-characters-pixel-preview.ps1') -UnityEditorPath $FinalPassOptions.Editor -Install:$FinalPassOptions.Install -Mode authored -Serial $FinalPassOptions.Serial -MeasureSeconds $FinalPassOptions.Seconds
     $New=@(Get-ChildItem -LiteralPath $Diagnostics -Directory | Where-Object {$_.Name -cmatch '^characters-authored-[0-9]{8}-[0-9]{6}-[a-f0-9]{8}$' -and $_.FullName -notin $Previous})
     if($New.Count -ne 1){throw 'Exact new final-pass parent directory not identified.'}
     $FinalRun=$New[0].FullName;$Pair=Read-CharactersPair $FinalRun
     $Source=Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $FinalRun 'source-info.json') | ConvertFrom-Json
     $Manual=[ordered]@{six_on_same_screen='unknown';grounding_momo_miel='unknown';size_feet='unknown';directions_walk_stop='unknown';sorting='unknown';save_after_restart='unknown'}
     if($FinalPassOptions.Install){
-        Invoke-CharactersPixel $FinalRun 'authored' $FinalPassOptions.Serial $FinalPassOptions.Seconds
         Write-Host 'Final authored app is installed. These answers record observations; unknown is allowed and keeps acceptance pending.'
         $Manual.six_on_same_screen=Read-Host 'Six characters visible together on the actual Pixel town screen: yes / no / unknown (individual views or Unity fixture do not count)'
         $Manual.grounding_momo_miel=Read-Host 'Momo/Miel feet and lateral movement: grounded / floating / unknown'
@@ -33,8 +32,9 @@ try{
         $Manual.save_after_restart=Read-Host 'After closing and reopening the same app, progress retained: yes / no / unknown'
     }
     $Bundle=$FinalRun+'-final-review';New-Item -ItemType Directory -Path $Bundle | Out-Null
-    $Record=[ordered]@{kind='six-character-final-pass-candidate';gitRevision=$Source.gitRevision;productFingerprint=$Source.productFingerprint;original_run=$FinalRun;preserved_inputs=$Preserved;full_qa_verified=$Source.full_qa_verified;six_native_verified=$Source.six_native_verified;manual=$Manual;device_runs=@();pixel_verified=$false;formal_fixed=$false;adopted=$false;scope='Momo/Miel contact shadows only; Noah master and original art unchanged';archive_scope='Original final suite records, six rendered views, Momo/Miel shadow comparisons and device data. Other single-character full image archives remain in their original runs.'}
+    $Record=[ordered]@{kind='six-character-final-pass-candidate';gitRevision=$Source.gitRevision;productFingerprint=$Source.productFingerprint;original_run=$FinalRun;preserved_inputs=$Preserved;full_qa_verified=$Source.full_qa_verified;six_native_verified=$Source.six_native_verified;manual=$Manual;device_runs=@();pixel_verified=$false;formal_fixed=$false;adopted=$false;scope='six-character final finish: attached head, stable facing/passing, tap-only speech; original art unchanged';device_comparison='authored candidate first; no baseline performance comparison claimed';archive_scope='Original final suite records, six rendered views, Momo/Miel shadow comparisons and device data. Other single-character full image archives remain in their original runs.'}
     foreach($Name in @('source-info.json','context.json','prepared-six.json','characters-baseline-build.json','characters-authored-build.json','full-editmode.xml','full-playmode.xml','six-playmode.xml')){Copy-Item -LiteralPath (Join-Path $FinalRun $Name) -Destination $Bundle}
+    Copy-Item -LiteralPath $Source.noahRun -Destination (Join-Path $Bundle 'noah-finish') -Recurse
     Copy-Item -LiteralPath (Join-Path $FinalRun 'screenshots/six-authored') -Destination $Bundle -Recurse
     foreach($Single in $Source.singleRuns){
         $ProofFiles=@(Get-ChildItem -LiteralPath (Join-Path $Single 'screenshots') -Filter proof.json -Recurse)
@@ -45,7 +45,7 @@ try{
         Copy-Item -LiteralPath $ProofFiles[0].FullName -Destination $Target
         if($Proof.character -cin @('momo','miel')){Get-ChildItem -LiteralPath $ProofFiles[0].DirectoryName -Filter 'grounding-*' -File | Copy-Item -Destination $Target}
     }
-    foreach($Kind in @('baseline','authored')){
+    foreach($Kind in @('authored')){
         $DeviceDirs=@(Get-ChildItem -LiteralPath $FinalRun -Directory -Filter ('pixel-'+$Kind+'-*'))
         if($FinalPassOptions.Install -and $DeviceDirs.Count -ne 1){throw 'Exact new device evidence directory required.'}
         foreach($DeviceDir in $DeviceDirs){

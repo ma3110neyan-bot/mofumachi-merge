@@ -15,7 +15,7 @@ namespace Mofumachi.Presentation
         public TownRegionId Region=>TownWorldLayout.RegionAt(Position);
         public TownDistrictId District=>TownDistrictLayout.At(Position);
         internal bool CrossedDistrict;
-        internal IReadOnlyList<TownPoint> Route=Array.Empty<TownPoint>();internal int Waypoint;internal float Waiting,NoProgress,BestRemaining;internal bool AvoidingResidents;
+        internal IReadOnlyList<TownPoint> Route=Array.Empty<TownPoint>();internal int Waypoint;internal float Waiting,NoProgress,BestRemaining,Avoidance;internal bool AvoidingResidents;
         public float PauseRemaining {get;internal set;}
         internal TownWorldResident(string id,bool controlled,TownPoint p){Id=id;Controlled=controlled;Position=Previous=Target=p;}
     }
@@ -60,7 +60,7 @@ namespace Mofumachi.Presentation
             if(!Area.TryClamp(target,out target,.09f))return false;
             var occupied=avoidResidents?residents.Where(a=>a!=actor).Select(a=>a.Position).ToArray():null;
             var route=navigation.FindRoute(actor.Position,target,occupied);if(route.Count==0)return false;
-            if(restart){actor.CrossedDistrict=false;actor.DistanceWalked=0;}actor.Target=target;actor.PlaceId=place;actor.Rest=0;actor.PauseRemaining=0;
+            if(restart){actor.Avoidance=0;actor.CrossedDistrict=false;actor.DistanceWalked=0;}actor.Target=target;actor.PlaceId=place;actor.Rest=0;actor.PauseRemaining=0;
             actor.Route=route;actor.AvoidingResidents=avoidResidents;actor.Waypoint=0;actor.Waiting=actor.NoProgress=0;actor.BestRemaining=Remaining(actor);actor.IsWalking=TownWorldLayout.Distance(actor.Position,target)>.0001f;return true;
         }
         public bool TryGuidePoint(TownPoint point)
@@ -101,11 +101,11 @@ namespace Mofumachi.Presentation
         {if(!float.IsFinite(seconds)||seconds<=0)return;var actor=residents.FirstOrDefault(a=>a.Id==id);if(actor!=null){actor.PauseRemaining=Math.Max(actor.PauseRemaining,Math.Min(4,seconds));actor.Speed=0;}}
         public void Face(string id,TownPoint other)
         {var actor=residents.FirstOrDefault(a=>a.Id==id);if(actor!=null&&TownWorldLayout.Finite(other)&&Math.Abs(other.X-actor.Position.X)>.002f)actor.Facing=Math.Sign(other.X-actor.Position.X);}
-        public void CancelHero(){IsFollowingFinger=finishingFinger=false;Hero.IsWalking=false;Hero.Speed=0;Hero.Target=Hero.Position;Hero.Route=Array.Empty<TownPoint>();}
+        public void CancelHero(){IsFollowingFinger=finishingFinger=false;Hero.IsWalking=false;Hero.Speed=0;Hero.Target=Hero.Position;Hero.Avoidance=0;Hero.Route=Array.Empty<TownPoint>();}
         public void Restore(string id,TownPoint p,string place=null)
         {
             var actor=residents.FirstOrDefault(a=>a.Id==id);if(actor==null||!Area.TryClamp(p,out var point,.12f))return;
-            actor.Position=actor.Previous=actor.Target=point;actor.PlaceId=place;actor.IsWalking=false;actor.Speed=0;actor.Rest=2;actor.PauseRemaining=0;actor.Route=Array.Empty<TownPoint>();
+            actor.Avoidance=0;actor.Position=actor.Previous=actor.Target=point;actor.PlaceId=place;actor.IsWalking=false;actor.Speed=0;actor.Rest=2;actor.PauseRemaining=0;actor.Route=Array.Empty<TownPoint>();
         }
         public void FastTravel(TownRegionId region)
         {
@@ -142,7 +142,7 @@ namespace Mofumachi.Presentation
                 {if(!Guide(actor,actor.Target,actor.PlaceId,false))continue;waypoint=actor.Route[0];}
                 float distance=TownWorldLayout.Distance(actor.Position,waypoint),top=actor.Controlled?.12f:.047f;
                 actor.Speed=Math.Min(top,actor.Speed+top*dt/.16f);float speed=actor.Speed*Math.Max(.3f,Math.Min(1,TownWorldLayout.Distance(actor.Position,actor.Target)/.025f));
-                float budget=Math.Min(distance,speed*dt);var next=Steer(actor,waypoint,budget);
+                float budget=Math.Min(distance,speed*dt);var next=Steer(actor,waypoint,budget,dt);
                 float moved=TownWorldLayout.Distance(actor.Position,next);actor.Waiting=moved<.000001f?actor.Waiting+dt:0;
                 if(moved>.000001f){float x=next.X-actor.Position.X;if(Math.Abs(x)>.000001f)actor.Facing=Math.Sign(x);actor.Stride=(actor.Stride+moved*140)%(float)(Math.PI*2);}
                 if(TownDistrictLayout.At(next)!=actor.District)actor.CrossedDistrict=true;
@@ -168,7 +168,7 @@ namespace Mofumachi.Presentation
         }
         private static float Remaining(TownWorldResident actor)
         {float length=0;var previous=actor.Position;for(int i=actor.Waypoint;i<actor.Route.Count;i++){length+=TownWorldLayout.Distance(previous,actor.Route[i]);previous=actor.Route[i];}return length;}
-        private TownPoint Steer(TownWorldResident actor,TownPoint target,float budget)
+        private TownPoint Steer(TownWorldResident actor,TownPoint target,float budget,float seconds)
         {
             if(budget<=0)return actor.Position;
             float dx=target.X-actor.Position.X,dy=(target.Y-actor.Position.Y)*TownWorldLayout.ImageAspect;
@@ -183,6 +183,11 @@ namespace Mofumachi.Presentation
                 // conversations; widening that hard radius strands short visits.
                 if(along>-.018f&&along<.26f&&Math.Abs(across)<.15f)sideways=Math.Max(sideways,(.26f-Math.Max(0,along))/.26f*2f);
             }
+            // The same passing side/clearance, with a short continuous onset
+            // and release rather than a one-tick heading snap at the threshold.
+            actor.Avoidance+=(sideways-actor.Avoidance)*(seconds/(.16f+seconds));
+            if(actor.Avoidance<.0001f&&sideways==0)actor.Avoidance=0;
+            sideways=actor.Avoidance;
             for(int option=0;option<4;option++)
             {
                 var heading=option==0?new TownPoint(dx+dy*sideways,(dy-dx*sideways)/TownWorldLayout.ImageAspect):option==1?new TownPoint(dx,dy/TownWorldLayout.ImageAspect):option==2?new TownPoint(dy,-dx/TownWorldLayout.ImageAspect):new TownPoint(-dy,dx/TownWorldLayout.ImageAspect);

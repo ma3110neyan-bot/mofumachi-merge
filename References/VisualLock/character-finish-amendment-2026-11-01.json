@@ -1,0 +1,44 @@
+{
+  "date_jst": "2026-11-01",
+  "request": "Explicit latest user instruction: ノアで最終調整、残り5名へ横展開。頭胴体・背面・すれ違い・タップ会話だけを仕上げる。",
+  "change_authorized": true,
+  "formal_fixed": false,
+  "adopted": false,
+  "method": "existing rigid directional source parts; original source art/registration untouched",
+  "historical_manifest_sha256": {
+    "noah": "70b57f7d974a70a1f47ecbbd2e09d7b4750fdf29b5f3e3d18c0d8ee21610c3f3",
+    "legacy": "a78fb82c78c0ecb30ea308e3bcc191f0de54c4429ea5127e1f0e13800980459a"
+  },
+  "overrides": [
+    {
+      "group": "noah",
+      "path": "Assets/Mofumachi/Presentation/NoahAuthoredMotion.cs",
+      "before_sha256": "aaa6134b4d34dbe63d0e5805c257addadfc03deccee4cd7603911da27d5909ca",
+      "sha256": "26997e939170043d23d30db9a30246078e0de3ea49848826cc717b0d48d11128"
+    },
+    {
+      "group": "noah",
+      "path": "Assets/Mofumachi/Presentation/NoahAuthoredGraphic.cs",
+      "before_sha256": "125edbfa8340555e3549242e2a7f3e4153f06706f5ec8bbd75124090ffce991d",
+      "sha256": "1dc3a00e5b86dca8265a54af399260be46d7cdff35dd4de7e0a133e0e265550e"
+    },
+    {
+      "group": "noah",
+      "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.NoahAuthored.cs",
+      "before_sha256": "76739c6489d689b2b5b0ca4007488b63c0fa501fdda3e4ee5e1efc93e0611b7b",
+      "sha256": "eef55de8e9fcbfde6af58e088ac82229e14cb7d501d0adc8f677d16248cd0c95"
+    },
+    {
+      "group": "legacy",
+      "path": "Assets/Mofumachi/Presentation/TownWorldWalkModel.cs",
+      "before_sha256": "cbb0e7d0deb41f322cb6c2e0f1ee9005677639a99da68f8a4de13c6a2a6f3452",
+      "sha256": "38d7bd994f4ae7af1f4d945ff5062805f7906a1c9d467286863f808a0f9257c9"
+    },
+    {
+      "group": "legacy",
+      "path": "Assets/Mofumachi/Tests/PlayMode/TownHabitTests.cs",
+      "before_sha256": "51a5cb25415ccdad1060c10d8a42381f73d9875c55be315e07633366c195f320",
+      "sha256": "e1c0e1f2c07b243a6801f1fb0d9c3594c745078311cb33d3c17b8b0b43b69bae"
+    }
+  ]
+}

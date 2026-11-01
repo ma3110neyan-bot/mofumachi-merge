@@ -17,6 +17,15 @@ namespace Mofumachi.Presentation
     public struct NoahAuthoredPose
     {
         public NoahPartTransform Body,Head,FarArm,NearArm,FarLeg,NearLeg,Tail,Pouch;
+        // Rotate the unchanged head around its registered chin contact. This
+        // keeps that contact fixed in the body's local frame during nods.
+        public NoahPartTransform AttachedHead(float offsetX,float offsetY,float rotation,float jointX,float jointY)
+        {
+            var raw=Head.Child(offsetX,offsetY,rotation);
+            var socket=new NoahPartTransform(Head.X,Head.Y,Body.Rotation).Child(offsetX,offsetY,rotation);
+            raw.Point(jointX,jointY,out float ax,out float ay);socket.Point(jointX,jointY,out float bx,out float by);
+            return new NoahPartTransform(raw.X+bx-ax,raw.Y+by-ay,raw.Rotation);
+        }
         public NoahPartTransform Part(string id)
         {
             switch(id){case "body":return Body;case "head":return Head;case "farArm":return FarArm;
@@ -57,7 +66,7 @@ namespace Mofumachi.Presentation
             }
             else if(direction==NoahAuthoredDirection.Back)
             {
-                p.Head=new NoahPartTransform(0,p.Head.Y,p.Head.Rotation);p.Pouch=body.Child(95,-110);
+                p.Head=body.Child(0,-238,p.Head.Rotation-body.Rotation);p.Pouch=body.Child(95,-110);
                 p.FarArm=body.Child(-110,-180,step*.15f*w+wave*.22f);
                 p.NearArm=body.Child(110,-185,-step*.12f*w-wave*.22f);
                 p.Tail=new NoahPartTransform(-15,p.Tail.Y,p.Tail.Rotation);

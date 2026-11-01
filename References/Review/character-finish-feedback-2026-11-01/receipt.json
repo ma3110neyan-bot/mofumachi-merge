@@ -1,0 +1,15 @@
+{
+  "date_jst": "2026-11-01",
+  "file": "pixel-feedback-011353.pdf",
+  "bytes": 4154723,
+  "sha256": "3743e4de4f06ca4555270f24f8a76a44058f6cc73fbb1bc03ebc7475c2ddee73",
+  "pages": 11,
+  "scope": "User static gameplay feedback. No installed APK hash/mode, frame-period or Pixel performance inference.",
+  "requested_fix": [
+    "head/body attachment",
+    "rear facing",
+    "passing jitter",
+    "tap-only town speech"
+  ],
+  "formal_fixed": false
+}

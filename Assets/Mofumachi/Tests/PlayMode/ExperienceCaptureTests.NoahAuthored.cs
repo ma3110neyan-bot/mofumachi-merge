@@ -43,7 +43,6 @@ namespace Mofumachi.Tests
             var proof=new AuthoredProof{gitRevision=EvidenceArgument("-mofumachiSourceRevision"),productFingerprint=EvidenceArgument("-mofumachiProductFingerprint"),packed_resource_sha256=packed};
             string saved=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
             const BindingFlags flags=BindingFlags.Instance|BindingFlags.NonPublic;
-            var social=typeof(TownLifeView).GetField("nextSocial",flags);social.SetValue(field,float.PositiveInfinity);
             foreach(var r in field.World.Model.Residents.Where(r=>!r.Controlled))field.World.Model.Pause(r.Id,20);
             field.World.Camera.Jump(new TownPoint(0,.15f));field.World.Refresh();
             var warm=Portrait();UnityEngine.Object.DestroyImmediate(warm);
@@ -66,8 +65,8 @@ namespace Mofumachi.Tests
                 if(index==48)Assert.That(field.World.GuidePoint(new TownPoint(friend.WorldPosition.X-.20f,friend.WorldPosition.Y)),Is.True);
                 if(index==96)
                 {
-                    Assert.That(field.World.Model.Hero.IsWalking,Is.False);field.StartInteraction();social.SetValue(field,0f);
-                    Assert.That(field.TryBeginConversation(noah,friend),Is.True);proof.actual_conversation_verified=true;
+                    Assert.That(field.World.Model.Hero.IsWalking,Is.False);field.StartInteraction();
+                    noah.OnPointerClick(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current));Assert.That(field.IsSpeaking,Is.True);proof.actual_conversation_verified=true;
                 }
                 if(index==144){field.StartInteraction();Assert.That(field.World.GuidePoint(new TownPoint(.14f,-.08f)),Is.True);}
                 if(index==174){field.StartInteraction();Assert.That(field.World.GuidePoint(new TownPoint(.14f,-.30f)),Is.True);}

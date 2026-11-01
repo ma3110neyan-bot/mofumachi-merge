@@ -22,10 +22,13 @@ namespace Mofumachi.Presentation
         public bool IsManuallyDragging=>actors!=null&&actors.Any(a=>a.Controlled&&a.Movement.OwnedPointerId.HasValue&&(World?.IsReady==true||!a.IsGuided));
         public bool IsSpeaking=>bubble!=null;
         private RawImage background;private ScreenContext context;private TownActor[] actors;private RectTransform actorLayer;
-        private GameObject bubble,entrance,outings;private TownActor speaker;private TownPlace destination;private float now,nextTalk,bubbleUntil,nextSocial;private int choiceIndex;
+        private GameObject bubble,entrance,outings;private TownActor speaker;private TownPlace destination;private float now,nextTalk,bubbleUntil;private int choiceIndex;
         internal bool IsActorSpeaking(TownActor actor)=>bubble!=null&&speaker==actor;
         private readonly TownFrameClock clock=new TownFrameClock();
         private readonly Bounds[] residentBodyBounds=new Bounds[6];
+        private readonly TownCharacterTapGate tapGate=new TownCharacterTapGate();
+        private readonly Vector3[] bubbleCorners=new Vector3[4];
+        internal bool IsCurrentSpeaker(TownActor actor)=>bubble!=null&&speaker==actor;
         public void Bind(ScreenContext c,RawImage image)
         {
             context=c;background=image;actorLayer=(RectTransform)transform;actorLayer.gameObject.AddComponent<RectMask2D>();
@@ -44,7 +47,7 @@ namespace Mofumachi.Presentation
             }
 
             Actors=Array.AsReadOnly(actors);Regions=gameObject.AddComponent<TownRegionSession>();Regions.Bind(c,this,Actors);
-            nextTalk=4.5f;nextSocial=3;
+            nextTalk=4.5f;
         }
         public bool GuideToFacility(string id)
         {
@@ -94,23 +97,9 @@ namespace Mofumachi.Presentation
                 if(other.Controlled||CharacterCatalog.Find(other.CharacterId).PortraitIndex<CharacterCatalog.Find(actor.CharacterId).PortraitIndex)return .45f;
             }return 1;
         }
-        public bool TryBeginConversation(TownActor first,TownActor second)
-        {
-            if(!CanInteract||!AmbientConversationAllowed()||first==null||second==null||first==second||first.RegionId!=second.RegionId||!first.RegionVisible||!second.RegionVisible||first.IsRegionFading||second.IsRegionFading||now<nextSocial||IsManuallyDragging||GetComponent<TownViewportView>()?.IsDragging==true||outings!=null||NearbyFacility!=null||!WithinConversationRange(first,second)||!Visible(first)||!Visible(second))return false;
-            first.FaceTowards(second.Position);second.FaceTowards(first.Position);first.Greet();second.Greet();nextSocial=now+8;
-            ShowBubble(CharacterCatalog.Find(first.CharacterId).Name+"：こんにちは、"+CharacterCatalog.Find(second.CharacterId).Name+"♪",first);return true;
-        }
-        private bool AmbientConversationAllowed()
-        {
-            bool walking=World?.IsReady==true?World.Model.Hero.IsWalking:actors.Any(a=>a.Controlled&&a.IsGuided);
-            return GetComponent<TownFacilityView>()?.Entry.CanStartAmbientConversation(walking)??!walking;
-        }
-        private bool WithinConversationRange(TownActor first,TownActor second)
-        {
-            if(World?.IsReady!=true)return Distance(first.Position,second.Position)<=.09f;
-            float width=Mathf.Min(((RectTransform)first.transform).rect.width,((RectTransform)second.transform).rect.width);
-            return TownWorldLayout.WithinConversationRange(first.WorldPosition,second.WorldPosition,actorLayer.rect.width,width);
-        }
+        // Proximity no longer starts speech. Retained for older callers that
+        // probe eligibility; only an explicit character tap enters town talk.
+        public bool TryBeginConversation(TownActor first,TownActor second)=>false;
         private void ShowOutings()
         {
             Regions?.CancelHeroJourney();GetComponent<TownStreetWalkView>()?.CancelSelection();GetComponent<TownViewportView>()?.CancelGesture();
@@ -139,11 +128,6 @@ namespace Mofumachi.Presentation
             Array.Sort(actors,(a,b)=>{int depth=World?.IsReady==true?b.WorldPosition.Y.CompareTo(a.WorldPosition.Y):b.RenderPosition.Y.CompareTo(a.RenderPosition.Y);return depth!=0?depth:CharacterCatalog.Find(a.CharacterId).PortraitIndex.CompareTo(CharacterCatalog.Find(b.CharacterId).PortraitIndex);});if(World?.IsReady==true)World.SortResidents(actors);else foreach(var a in actors)a.transform.SetAsLastSibling();
             if(bubble!=null&&now>=bubbleUntil)HideBubble();
             if(IsManuallyDragging){HideBubble();RefreshResidentNames();return;}
-            if(now>=nextSocial)for(int i=0;i<actors.Length;i++)for(int j=i+1;j<actors.Length;j++)if(TryBeginConversation(actors[i],actors[j]))break;
-            if(AmbientConversationAllowed()&&bubble==null&&outings==null&&NearbyFacility==null&&now>=nextTalk)
-            {
-                var actor=actors.FirstOrDefault(a=>!a.Controlled&&a.IsResting&&Visible(a));if(actor!=null)ShowBubble(CharacterCatalog.Find(actor.CharacterId).Name+"："+StreetLine(actor),actor);nextTalk=now+6;
-            }
             RefreshResidentNames();
             PositionBubble();GetComponent<TownFacilityView>()?.Advance(seconds);
         }
@@ -156,7 +140,7 @@ namespace Mofumachi.Presentation
             for(int i=0;i<actors.Length;i++)
             {
                 var actor=actors[i];var label=actor.transform.Find("Town actor name panel");if(label==null)continue;
-                bool visible=actor.RegionVisible&&(actor.Controlled||actor==speaker||actor.IsResting&&Visible(actor));
+                bool visible=actor.RegionVisible&&actor.Controlled&&!actor.IsGuided&&!IsSpeaking&&!IsManuallyDragging;
                 if(visible)
                 {
                     var bounds=RectTransformUtility.CalculateRelativeRectTransformBounds(actorLayer,label);
@@ -193,7 +177,7 @@ namespace Mofumachi.Presentation
             string facility=World?.IsReady==true?
                 (TownWalkableArea.Distance(actor.WorldPosition,TownWorldMap.Place("quest"))<.034f?"quest":TownWalkableArea.Distance(actor.WorldPosition,TownWorldMap.Place("shop"))<.034f?"shop":null):
                 actor.RegionId!=TownRegionId.Central?null:Distance(actor.Position,RequestEntrance)<.034f?"quest":Distance(actor.Position,ShopEntrance)<.034f?"shop":null;
-            if(facility==null){if(destination!=null&&(World?.IsReady==true?TownWalkableArea.Distance(actor.WorldPosition,TownWorldMap.Place(destination.Id)):Distance(actor.Position,destination.Position))<.034f){actor.Surprise();ShowBubble(destination.Dialogue,actor);destination=null;}return;}
+            if(facility==null){if(destination!=null&&(World?.IsReady==true?TownWalkableArea.Distance(actor.WorldPosition,TownWorldMap.Place(destination.Id)):Distance(actor.Position,destination.Position))<.034f){destination=null;}return;}
             NearbyFacility=facility;HideBubble();actor.Surprise();
             // A tapped doorway already owns walking and opening. A second
             // confirmation here hides the arriving character on short screens.
@@ -207,7 +191,29 @@ namespace Mofumachi.Presentation
             });UIWidgets.Bottom((RectTransform)b.transform,48,68,48,48);entrance=b.gameObject;
         }
         internal void React(TownActor a)
-        {if(!CanInteract||IsManuallyDragging||NearbyFacility!=null)return;context.Flow.PlayCue(AudioCue.Character);if(a.Controlled)ShowOutings();else{HideOutings();bool recorded=context.Flow.TalkToCharacter(a.CharacterId);ShowBubble(recorded?CharacterCatalog.Find(a.CharacterId).Name+"："+StreetLine(a):context.Flow.Daily.LastError,a);}}
+        {
+            // Explicit outings APIs remain available to existing navigation.
+            if(!CanInteract||IsManuallyDragging||NearbyFacility!=null)return;
+            if(a.Controlled)ShowOutings();else TapCharacter(a);
+        }
+        internal bool TapCharacter(TownActor a)
+        {
+            if(!CanInteract||a==null||!a.RegionVisible||a.IsRegionFading||IsManuallyDragging||NearbyFacility!=null||!Visible(a))return false;
+            if(!tapGate.TryOpen(a.CharacterId,now,IsCurrentSpeaker(a)))return false;
+            HideOutings();context.Flow.PlayCue(AudioCue.Character);
+            bool recorded=context.Flow.TalkToCharacter(a.CharacterId);
+            var friend=actors.FirstOrDefault(other=>other!=a&&other.RegionId==a.RegionId&&other.RegionVisible&&!other.IsRegionFading&&Visible(other)&&WithinTapRange(a,other));
+            string line=StreetLine(a);
+            if(friend!=null){a.FaceTowards(friend.Position);friend.FaceTowards(a.Position);friend.Greet();line="こんにちは、"+CharacterCatalog.Find(friend.CharacterId).Name+"♪";}
+            a.Greet();ShowBubble(recorded?CharacterCatalog.Find(a.CharacterId).Name+"："+line:context.Flow.Daily.LastError,a);
+            return true;
+        }
+        private bool WithinTapRange(TownActor first,TownActor second)
+        {
+            if(World?.IsReady!=true)return Distance(first.Position,second.Position)<=.09f;
+            float width=Mathf.Min(((RectTransform)first.transform).rect.width,((RectTransform)second.transform).rect.width);
+            return TownWorldLayout.WithinConversationRange(first.WorldPosition,second.WorldPosition,actorLayer.rect.width,width);
+        }
         private string StreetLine(TownActor actor)
         {string reunion=QuestStoryPresentation.ReunionFor(actor.CharacterId,context.Game.State.completedQuestIds);var visits=context.Flow.Daily.Data.Characters.First(c=>c.Id==actor.CharacterId).Meetings;return reunion.Length>0&&visits%3==1?reunion:TownCharacterDialogue.For(actor.CharacterId,visits);}
         private void ShowBubble(string text,TownActor a)
@@ -216,12 +222,29 @@ namespace Mofumachi.Presentation
             string who=CharacterCatalog.Find(a.CharacterId).Name;if(text.StartsWith(who+"：",StringComparison.Ordinal))text=text.Substring(who.Length+1);
             var name=context.Widgets.Panel("Speaker name plate",p,new Rect(.05f,.70f,.36f,.24f),UIWidgets.RosePaper);name.radius=8;name.gloss=.05f;
             context.Widgets.StoryHeading("Speaker name",who,name.rectTransform,new Rect(.04f,0,.92f,1),14);
-            context.Widgets.NarrativeLabel("Town bubble",text,p,new Rect(.07f,.09f,.86f,.58f),15);bubble=p.gameObject;bubbleUntil=now+4;PositionBubble();
+            context.Widgets.NarrativeLabel("Town bubble",text,p,new Rect(.07f,.09f,.86f,.58f),15);bubble=p.gameObject;bubble.AddComponent<CanvasGroup>().blocksRaycasts=false;bubbleUntil=now+4;PositionBubble();
         }
         private void PositionBubble()
         {
-            if(bubble==null||speaker==null)return;var root=(RectTransform)transform.parent;var p=(RectTransform)bubble.transform;var world=actorLayer.TransformPoint(World?.IsReady==true?World.Local(speaker.WorldPosition):Local(speaker.RenderPosition));var target=(Vector2)root.InverseTransformPoint(world)+Vector2.up*122;
-            var r=root.rect;float half=p.rect.width/2;target.x=Mathf.Clamp(target.x,r.xMin+half+14,r.xMax-half-14);target.y=Mathf.Clamp(target.y,r.yMin+178+p.rect.height/2,r.yMax-142-p.rect.height/2);p.anchoredPosition=target;
+            if(bubble==null||speaker==null)return;var root=(RectTransform)transform.parent;var p=(RectTransform)bubble.transform;
+            var world=actorLayer.TransformPoint(World?.IsReady==true?World.Local(speaker.WorldPosition):Local(speaker.RenderPosition));var anchor=(Vector2)root.InverseTransformPoint(world);
+            var bounds=root.rect;float half=p.rect.width/2,best=float.PositiveInfinity;Vector2 selected=p.anchoredPosition;
+            for(int option=0;option<4;option++)
+            {
+                var offset=option==0?new Vector2(0,122):option==1?new Vector2(-170,122):option==2?new Vector2(170,122):new Vector2(0,230);
+                var candidate=anchor+offset;
+                candidate.x=Mathf.Clamp(candidate.x,bounds.xMin+half+14,bounds.xMax-half-14);
+                candidate.y=Mathf.Clamp(candidate.y,bounds.yMin+178+p.rect.height/2,bounds.yMax-142-p.rect.height/2);
+                var box=new Rect(candidate-p.rect.size/2,p.rect.size);float overlap=0;
+                foreach(var actor in actors)if(actor.RegionVisible)
+                {
+                    actor.VisualRoot.GetWorldCorners(bubbleCorners);Vector2 low=new Vector2(float.PositiveInfinity,float.PositiveInfinity),high=-low;
+                    foreach(var corner in bubbleCorners){var q=(Vector2)root.InverseTransformPoint(corner);low=Vector2.Min(low,q);high=Vector2.Max(high,q);}
+                    overlap+=Mathf.Max(0,Mathf.Min(box.xMax,high.x+5)-Mathf.Max(box.xMin,low.x-5))*Mathf.Max(0,Mathf.Min(box.yMax,high.y+5)-Mathf.Max(box.yMin,low.y-5));
+                }
+                if(overlap<best){best=overlap;selected=candidate;}if(best==0)break;
+            }
+            p.anchoredPosition=selected;
         }
         public void SetViewScale(float scale){if(actors!=null)foreach(var a in actors)a.SetViewScale(scale);}
         public void RefreshViewport()

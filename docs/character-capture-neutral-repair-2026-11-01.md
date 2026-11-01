@@ -1,5 +1,7 @@
 # モモ単体の通常状態比較を修正
 
+最新追記：修正版の111715-505e7b09は実Unity1/1成功。82画像・11比較対・接地影5対を照合し、範囲外変更0。限定確認は通過したため、次は [最終確認の手順](characters-final-followup-2026-11-01.md)。以下は110035失敗時の診断と限定実行の履歴。
+
 受領run：`characters-authored-20261101-110035-1f327185`、停止子run：`momo-authored-20261101-110311-d580ec24`。source `12d52e394ba025e28b946c9f3fe500ca2d9ebc2d`、fingerprint `05e99ce4bc462fac4c67f92fcfbe7fbfddcf8f282a3ab385074772fa71a045d8`。
 
 今回のreview-01 ZIPはCRC正常。原XMLではノア1/1成功・終了0、モモ0/1成功・1失敗・終了2、両方skip／inconclusive0。モモの失敗は `ExperienceCaptureTests.CharacterAuthored.cs:144` の復元mesh照合。全件／APK／Pixelへ進む前の停止である。

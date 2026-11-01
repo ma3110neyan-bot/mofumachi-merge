@@ -1,0 +1,15 @@
+# Momo native capture review
+
+Latest four archives: `momo-authored-20261101-111715-505e7b09-01..04.zip`. CRC valid, 89 unique entries, seven original metadata records and 82 images. Archive and entry SHA256 values are in receipt.json. Images remain in the uploaded archives and local runtime directory; they are not all committed here.
+
+The original Unity XML reports exactly one executed case, MomoAuthoredPartsPreserveIdentityInputAndState: passed1, failed0, skipped0, inconclusive0. Unity log exit0. Discovery count250 is not an executed full-suite result. The received revision34a9748 and fingerprint0eed7901 match the CLI, source-info and proof. The previous neutral-restoration failure is passed by this actual native run.
+
+All 82 image digests, lengths and decoded dimensions match their proof references. This includes five1440x1280 comparison JPEGs and77 images at720x1280. Eleven original2D/parts pairs and five contact-shadow pairs were independently compared pixel by pixel. Changed counts match the proof, every outside-allowed count is0, and all same-frame/world/camera/water/state/store/other-five context flags are true. The contact samples cover Left, Left, Right, Back and Front. Current PowerShell proof validation also passed without altering the proof.
+
+The original three source PNG SHA values match the current registration. The exact input digestff44efd51a0d9519f9f633f5bd5514b94429e9eb48a43be8adb5bb863f290cbe is reproduced with the Windows CRLF layout. Native flags verify rear blink, natural blink, actual walking in all four directions, greeting, conversation, screen raycast/mask/input routing and main-save invariance. There are39 fixed-step frames and five display-only Sorting placements. These are not real-time FPS or Pixel measurements.
+
+Visual inspection: reviewed original idle Before, idle After, northbound rear walk, southbound front walk, rear stop, natural blink, greeting, conversation and Sorting0/1/2. The rear is independently drawn and the viewed head/body parts remain connected. In the normal greeting/conversation views, the face remains visible. In the display-only Sorting placements, the retained speech panel/tail touches or overlaps the top of the hat; these placements occur after moving an already speaking actor and camera explicitly. Keep speech placement in the final six-character/Pixel review; this run does not establish that every viewport state is unobstructed.
+
+Disposition: the Momo single-character technical gate passes. Its 11 Before/After pairs compare original2D with authored parts, not old/new shared neck placement. The dedicated12-pair six-character neck comparison, six-character passing/tap test, current full Unity suites, APK and Pixel results have not been received. No formal adoption/freeze or all-six visual acceptance is claimed. Earlier uploaded dates are historical and were not substituted for this run.
+
+No implementation changes made in this review. Product inputs and all original art remain unchanged from34a9748. Proceed to the existing final acceptance pipeline on the user's current code; no Git update is needed for this metadata-only review.

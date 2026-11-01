@@ -1,0 +1,715 @@
+{
+  "gitRevision": "34a974880adaf04fede83b85281be08a5fb46949",
+  "productFingerprint": "0eed7901edd16c15738515add72877a9d2d655859e3243476d4e011134547532",
+  "input_sha256": "ff44efd51a0d9519f9f633f5bd5514b94429e9eb48a43be8adb5bb863f290cbe",
+  "layout_line_ending_verified": [
+    "CRLF"
+  ],
+  "xml": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0,
+    "exit_code": 0
+  },
+  "native_images": 82,
+  "proof_referenced_images": 82,
+  "comparison_jpegs": 5,
+  "frames": 39,
+  "sorting_images": 5,
+  "comparisons": [
+    {
+      "kind": "pairs",
+      "id": "01-idle",
+      "direction": "Left",
+      "changed_pixels": 15107,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "kind": "pairs",
+      "id": "walk-0013",
+      "direction": "Left",
+      "changed_pixels": 16012,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "kind": "pairs",
+      "id": "stop-0098",
+      "direction": "Left",
+      "changed_pixels": 15238,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "kind": "pairs",
+      "id": "walk-0111",
+      "direction": "Right",
+      "changed_pixels": 16180,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "kind": "pairs",
+      "id": "stop-0242",
+      "direction": "Left",
+      "changed_pixels": 16189,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "kind": "pairs",
+      "id": "walk-0255",
+      "direction": "Back",
+      "changed_pixels": 16845,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "kind": "pairs",
+      "id": "stop-0338",
+      "direction": "Back",
+      "changed_pixels": 15456,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "kind": "pairs",
+      "id": "walk-0351",
+      "direction": "Front",
+      "changed_pixels": 15322,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "kind": "pairs",
+      "id": "stop-0449",
+      "direction": "Left",
+      "changed_pixels": 16119,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "kind": "pairs",
+      "id": "greeting",
+      "direction": "Right",
+      "changed_pixels": 16928,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "kind": "pairs",
+      "id": "conversation",
+      "direction": "Right",
+      "changed_pixels": 15915,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "kind": "grounding_pairs",
+      "id": "grounding-idle",
+      "direction": "Left",
+      "changed_pixels": 922,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "kind": "grounding_pairs",
+      "id": "grounding-walk-0013",
+      "direction": "Left",
+      "changed_pixels": 1872,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "kind": "grounding_pairs",
+      "id": "grounding-walk-0111",
+      "direction": "Right",
+      "changed_pixels": 1882,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "kind": "grounding_pairs",
+      "id": "grounding-walk-0255",
+      "direction": "Back",
+      "changed_pixels": 1882,
+      "outside_allowed_pixels": 0
+    },
+    {
+      "kind": "grounding_pairs",
+      "id": "grounding-walk-0351",
+      "direction": "Front",
+      "changed_pixels": 1223,
+      "outside_allowed_pixels": 0
+    }
+  ],
+  "images": [
+    {
+      "file": "frame-0073.jpg",
+      "bytes": 374744,
+      "sha256": "3998fd2239d884a4153d34c882852621896671c35ad395c7d18acc12552d7cde",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "stop-0242-before.png",
+      "bytes": 1727946,
+      "sha256": "dd9bc9b4161bc8f3e2ae0bf86b96b7a90862713cb0a874371cd422c36df51725",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "conversation-after.png",
+      "bytes": 1556552,
+      "sha256": "4e389f74bc0eec9a2f323356c7a40da211a21452563342763e1d25195fee9637",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "grounding-walk-0351-before-reconstructed.png",
+      "bytes": 1813631,
+      "sha256": "c21711c357e5a0c9d71c8ba37d5f89ed7d3fb434df25551eba3f8965a90fa2f4",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0171.jpg",
+      "bytes": 360714,
+      "sha256": "31f6018f0b07848376d3862e0d7de2a8e55b0834a09560eafbd12c9128a6eabb",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "walk-0111-after.png",
+      "bytes": 1817876,
+      "sha256": "1b170cf8f97994bf76a229dc3df81f9c8a26c2f44da656a233f225678e8f9fb4",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0147.jpg",
+      "bytes": 360951,
+      "sha256": "531f9ba4e57cbb3d4787105fa293c028e9efc4d1d03bfa229a6b6b839c0ac8a9",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "walk-0111-before.png",
+      "bytes": 1814828,
+      "sha256": "2925a29cfb9065b44fb46122790d14b27a449dc2527d717ba4bf2d173032baf6",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0279.jpg",
+      "bytes": 358443,
+      "sha256": "afc35b1a50af3ddc273a4d30d44bca3b2f848998c7802945654d9afa36d81365",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0111.jpg",
+      "bytes": 360237,
+      "sha256": "27cf86adef5114bab1478324743b3a2d00ae8a4629ae670b7ab3b480b2c7dc4d",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "walk-0351-before.png",
+      "bytes": 1813467,
+      "sha256": "4a2684187da58f5c072493ac4bd07e1d0a71b7aba21f6ef041a8527e07fd8fb9",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "sorting-4.png",
+      "bytes": 1650520,
+      "sha256": "39fec23604676e4a0a156c0cc6579f1000f2db2ac9361c9ca68e7c06f1a1861f",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "grounding-walk-0111-before-reconstructed.png",
+      "bytes": 1817917,
+      "sha256": "6466fd9e9d4ed457644421a425a78a7da944a3bc388070d7de989161c4456444",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "stop-0098-before.png",
+      "bytes": 1720419,
+      "sha256": "c1a3d8c4cb9d3abd400e303213f405a11ff2ffa38719b18f5dc1e94a2fd7d9a4",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "grounding-walk-0013-after.png",
+      "bytes": 1929572,
+      "sha256": "23b0a3a3e888d8d092d21475c7183555df48929bed19b4a85e1f8ced666cb34a",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "stop-0098-after.png",
+      "bytes": 1723319,
+      "sha256": "10bd9673686f9f8b1afcd02c27753c513c5dd5f460d8edcd68bc687b1d9f342b",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0123.jpg",
+      "bytes": 360471,
+      "sha256": "0716de031385876101d446e7a9568ae7c78f3c061dbf3f7daf00eb7c44138399",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "sorting-1.png",
+      "bytes": 1559741,
+      "sha256": "c8c5153cc107178ca99b9907835fa4b5b308ab7b52d78ddf30704c3fc1fea91c",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0037.jpg",
+      "bytes": 375242,
+      "sha256": "770bed312961a05a7901f5e51d99d1e5c3c69d8b62b5a1f3f1219d34c783b439",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "01-idle-before.png",
+      "bytes": 1830585,
+      "sha256": "4920d799f0c4859c8bf6f0a3ccdf1b3d876b8ff09547761d51f444dc109febc7",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "stop-0338-before.png",
+      "bytes": 1728120,
+      "sha256": "e1d59a474c2ffc5a0dc6174ba1113c1f3fd0519624ab1d3c5d987410a1d02d0d",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0231.jpg",
+      "bytes": 358981,
+      "sha256": "6857a00dba76319bf3f062d85338b1075203c2b59444b0500d87c8ffd0cfa5ae",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "walk-0013-before.png",
+      "bytes": 1926570,
+      "sha256": "9dec7737221cf3fe2a5704b7c46d9b5ea021064a77730b3309c11956ac9fcb25",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "greeting-before.png",
+      "bytes": 1553586,
+      "sha256": "7add2130103a44d8e1d98d7a8558ff45c5f70d5284a01e41d1b6cf094c3f2d48",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "walk-0255-after.png",
+      "bytes": 1814684,
+      "sha256": "1f245cbb6b014141f8969c0bc74b5e7cd98572b67b65653c4bbe3088d0b545e6",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "stop-0242-after.png",
+      "bytes": 1731082,
+      "sha256": "3d43afb152bb8a6bd912967a780c15c22922d9650270ce80d1ef1e8b83c9171e",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0099.jpg",
+      "bytes": 360556,
+      "sha256": "d1dc75aff642b473ba167d7583aef2b88e77fe493f14fe7617b36eaba05698d7",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "stop-0449-after.png",
+      "bytes": 1731661,
+      "sha256": "e25c852c83408b62889127ed597f217ddaa73ae077ecf9bd390deb4d8e9d9dc0",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "walk-0013-after.png",
+      "bytes": 1929572,
+      "sha256": "23b0a3a3e888d8d092d21475c7183555df48929bed19b4a85e1f8ced666cb34a",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0207.jpg",
+      "bytes": 360129,
+      "sha256": "1593ea739fb1ab6e3ba36ff85885b66a3593cfe019a1ebed888c86781019240f",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0423.jpg",
+      "bytes": 360433,
+      "sha256": "2a8966cbaf10e058452a3d891fcd179b7cd3ec7ab982c16f158a301b7014d262",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0061.jpg",
+      "bytes": 374884,
+      "sha256": "ca44865d5295d9c5e9d5433f49e36ff92b9534c4fd27413c8b7eed4619c85da2",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "stop-0449-before.png",
+      "bytes": 1728651,
+      "sha256": "83cd89ee122f03adc2e7c9fd981462484c7841e6ab1a0b25ed007fb77b15dcd9",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "stop-0338-after.png",
+      "bytes": 1729201,
+      "sha256": "32ebdc4e37870247a95fced1e29c651de66a54e4b2093a0566906559fb21755d",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0243.jpg",
+      "bytes": 359822,
+      "sha256": "0391bbd82bd9881fc495d7acfd0534558e9ed18c8d20ceb9e8e9b113918408f7",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0219.jpg",
+      "bytes": 359871,
+      "sha256": "2a96c51e14071399952b9cf2e11e731ce070fffe8be8c38dc2175cb9906fd82d",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "grounding-walk-0255-before-reconstructed.png",
+      "bytes": 1814652,
+      "sha256": "acbdf550dfc5847ef04b6d42e4ad91601ba477ddad97b9e40082d31d628eb42e",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "grounding-walk-0255-before-left-after-right.jpg",
+      "bytes": 853160,
+      "sha256": "7a8ef0cb0b803f1e392671d96496628be797221327f55b34c92808e8ebff9417",
+      "width": 1440,
+      "height": 1280
+    },
+    {
+      "file": "frame-0399.jpg",
+      "bytes": 358798,
+      "sha256": "fee9a926b8a1c2b7ba574103d9f817208d60bd45d9bf3f5262d539fc651daac7",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "grounding-walk-0255-after.png",
+      "bytes": 1814684,
+      "sha256": "1f245cbb6b014141f8969c0bc74b5e7cd98572b67b65653c4bbe3088d0b545e6",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "grounding-walk-0351-after.png",
+      "bytes": 1813643,
+      "sha256": "ec89582eaf7b68e537bf5bc921adcc03275bff19f84faf637fe6d49f5b694b1d",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0183.jpg",
+      "bytes": 360524,
+      "sha256": "9875247c07150dfe5c2f9e230e8883e56e2ee0780b71398a1b07bc2334221bb7",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "sorting-2.png",
+      "bytes": 1550185,
+      "sha256": "c4d2671593bdd841a3b041582e0664b33a79e0beb4900b920831e212d0b395ab",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0049.jpg",
+      "bytes": 374816,
+      "sha256": "c7879ca75151501ea980636e7758f125d3eee4014c374efd5de596412268daba",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "walk-0351-after.png",
+      "bytes": 1813643,
+      "sha256": "ec89582eaf7b68e537bf5bc921adcc03275bff19f84faf637fe6d49f5b694b1d",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0375.jpg",
+      "bytes": 358094,
+      "sha256": "2597da6d8ee7e33d0ce50d1962dcce1069428660b8dd42aa304598ddc678e5ad",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0339.jpg",
+      "bytes": 359651,
+      "sha256": "84e8d52afabcce4cf2904f7f9428f49d07aa61f8e54ee26fc7c793e3ea39ce06",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0135.jpg",
+      "bytes": 360677,
+      "sha256": "b69acc585f23d98a63d019b5cd990b8b16a079b22ff50bb4d15e5188f476ccd2",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "grounding-walk-0351-before-left-after-right.jpg",
+      "bytes": 853816,
+      "sha256": "2a27d7291364bd3c1d8ea2a9506c9e174503f5deb5ee9995df5842290e4e4db2",
+      "width": 1440,
+      "height": 1280
+    },
+    {
+      "file": "grounding-walk-0013-before-reconstructed.png",
+      "bytes": 1929538,
+      "sha256": "a7282ad856546f4dd1f4d216ef3e8bc905f26ca55ccb070d2901fae4e4237052",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0435.jpg",
+      "bytes": 359880,
+      "sha256": "79770490f72534a4ff691a54ef2aed37ea56334521167a9a52858cc621bfdde2",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "conversation-before.png",
+      "bytes": 1554233,
+      "sha256": "fdbebaefeda064035dde71cbb44430dad4fbd98b1a6eb78fd99318f4ab77b259",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "grounding-idle-before-left-after-right.jpg",
+      "bytes": 862282,
+      "sha256": "7992e991215795bbb97fdd6f21be10efe3fa2d5ee022e73248c1ef795fa14117",
+      "width": 1440,
+      "height": 1280
+    },
+    {
+      "file": "grounding-walk-0111-after.png",
+      "bytes": 1817876,
+      "sha256": "1b170cf8f97994bf76a229dc3df81f9c8a26c2f44da656a233f225678e8f9fb4",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0351.jpg",
+      "bytes": 358693,
+      "sha256": "467110ab79cb4ace15c855457833657443230f19b532635e9c9cded6c8da042a",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0387.jpg",
+      "bytes": 358196,
+      "sha256": "3da1dca3f228eafb41cc38851653d285a2ea4ab6cf1febcc9d7a79829449e1d3",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0159.jpg",
+      "bytes": 360962,
+      "sha256": "a665c83ed34d083774b438c03cff9ff7fcaaf9782ac7a510ab217ac749921f33",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "sorting-3.png",
+      "bytes": 1650582,
+      "sha256": "52ffc90c15b0d64c8be9c8505e4fe9c0687a051bef40a4094615224592a59232",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0085.jpg",
+      "bytes": 374567,
+      "sha256": "ae9291297443d2b10482d0c0263bf0d417464953493b3fdf726fd392c40eeea3",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "grounding-walk-0013-before-left-after-right.jpg",
+      "bytes": 891444,
+      "sha256": "b16635bc7fd990c9deb4ddd056defb525e9005f119cc5216894f15200d3a404a",
+      "width": 1440,
+      "height": 1280
+    },
+    {
+      "file": "frame-0013.jpg",
+      "bytes": 375028,
+      "sha256": "ee6624f5863dc8c7255fd9476e883b898765fda1d55955cf55dbb93dcb2899c5",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0025.jpg",
+      "bytes": 375114,
+      "sha256": "81cbe7fd926f2c303150d30f85f0eef817ae0bce52a83f2f0458884bc0626df7",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "walk-0255-before.png",
+      "bytes": 1813353,
+      "sha256": "83905cf1e729ac77265de00e6d399f1a308e359ac315715f6d06ae965802fda7",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "01-idle-after.png",
+      "bytes": 1834009,
+      "sha256": "1f5c0d74914d38441237d5c7873055a7ebde6fbbb2c821b01ff08ac409e7b9bc",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0363.jpg",
+      "bytes": 358252,
+      "sha256": "87da6030b8786e44bcd203210700b424144700bf23cbe726f11325f7f958f2cf",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "grounding-idle-after.png",
+      "bytes": 1834009,
+      "sha256": "1f5c0d74914d38441237d5c7873055a7ebde6fbbb2c821b01ff08ac409e7b9bc",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "natural-blink.png",
+      "bytes": 1928862,
+      "sha256": "34ce7b2d6e3d6e416ca9d2295eba878dc25262bc0a4a758ae432268efcd07cd8",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0411.jpg",
+      "bytes": 359202,
+      "sha256": "ceb7aaba398141259a3501248926cf56695534f587ced4de05f5ea9a8baae44d",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "sorting-0.png",
+      "bytes": 1552661,
+      "sha256": "447996d6410eb9509bf6abc1ae348dbaa1878f3eb1e9c40caab1e7280bceb9bc",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0327.jpg",
+      "bytes": 358853,
+      "sha256": "0043a4e61d2b70ba35d120ad9a6b33fa573c48bd8d4ea8e21de303fc792523a7",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0315.jpg",
+      "bytes": 358485,
+      "sha256": "1131aafc51123d6c0bddc506c56bdca4e9490bf00ed406eb8e812d90b191840d",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "grounding-idle-before-reconstructed.png",
+      "bytes": 1834041,
+      "sha256": "958ed900673034d3351727150f1b247abe84114b3c13bb6f34ca0a35b2d83e50",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0447.jpg",
+      "bytes": 359418,
+      "sha256": "b81fb49f87a20b51be041543b4f2ac5dd8c37669f5af8b593b1b3fc0d8a2ed68",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0255.jpg",
+      "bytes": 358534,
+      "sha256": "8aedd1d77135a842c7f1684b4d1b4a738f6dbf4803380a58a68d5bb1faf36b34",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0303.jpg",
+      "bytes": 358645,
+      "sha256": "1757dfe655e7a0e290c5b0b48356076d48d32cd0b3becff74972511931b881cc",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0195.jpg",
+      "bytes": 360522,
+      "sha256": "2c3099cdfc7e392468cb21a90fa436045f5ddcd2de1473ea099acbd52e820087",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0291.jpg",
+      "bytes": 358405,
+      "sha256": "f38784bca94eb66d0746c1fc5fd890d1f0105cb6bff40e3016309f47edb8ac4a",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "grounding-walk-0111-before-left-after-right.jpg",
+      "bytes": 857245,
+      "sha256": "d866d675e262e422dc9f1108678bb58b1e2b2e4943b932e4ccc82492350b7fb6",
+      "width": 1440,
+      "height": 1280
+    },
+    {
+      "file": "frame-0267.jpg",
+      "bytes": 358409,
+      "sha256": "53314869286b38f25466069d9fbf04f0b75bccf5e5fd69debb305843ffb9bbd6",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "greeting-after.png",
+      "bytes": 1557180,
+      "sha256": "b5e63ed15833699dd7ba225d3b2368535d6018d0387c05868e6121a1c977e630",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0001.jpg",
+      "bytes": 374546,
+      "sha256": "1b332aefeae24ae20e013cb003179d69ebce4a0b17a5aa5bdca6477c1633cf14",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "frame-0097.jpg",
+      "bytes": 374589,
+      "sha256": "d4befc97ee7233eab4c6e88436c961cc355d63818b445d5924f51f666b0068f1",
+      "width": 720,
+      "height": 1280
+    }
+  ],
+  "native_runtime_test_passed": true,
+  "pixel_verified": false,
+  "formal_fixed": false,
+  "adopted": false
+}

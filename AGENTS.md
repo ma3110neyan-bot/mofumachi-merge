@@ -1,5 +1,13 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-11-01最新：モモ111715実Unity通過・既存の最終工程へ
+
+最新momo-authored111715-505e7b09の4ZIPはCRC/SHA正常、89原本／82画像。実Unity1/1成功・failed／skip／inc0、終了0。source34a9748／FP0eed7901はCLI・proof・source-info一致。11比較対＋接地影5対を独立再計算し、変更画素数一致／範囲外0。全82画像のSHA・bytes・寸法、39固定刻み標本、5Sorting、全4方向／rear-blink／自然瞬き／tap／talk／greet／Save不変を現validatorで確認。inputff44efd5は現3PNG＋Windows CRLF layoutで再現。7原本と全SHA／検算はReferences/Review/momo-final-capture-passed-2026-11-01-111715/。画像本体は4ZIP/runtime保持。過去日付の再添付を今回へ流用しない。
+
+今回は記録のみで製品・テスト・scripts・原画・VisualLockは34a9748から不変。次はdocs/characters-final-followup-2026-11-01.mdの絶対パスRemoteSigned -File prepare-characters-final-pass -Install -Serial99RAY1BELH -MeasureSeconds600。Git更新不要。ノア→5単体順番→全件Edit/Play各1回→6名12接続対／すれ違い／tap→同source QA APK→authored先行Pixel10分。今回のモモ検査は単体技術ゲートであり、12組の6名旧新頭配置・6名同時／新全件／APK／Pixel成功ではない。Sorting専用配置では会話枠／尾が帽子上部へ触れる例あり、通常会話では顔は見えている。最終6名・実機で枠の位置も確認し、今回の静止画だけで全状態の非重複を認定しない。
+
+クラウド純粋全体の長時間経路ケース保留は維持し、今回全件を反復しない。Pixel同時6名は見られなければunknown、formal_fixed/adopted false。終端の新final-review全ZIPを確認後に正式固定を判断。既存GitHub feature push許可・途中承認待ち解除を維持。以下は履歴。
+
 ## 2026-11-01最新：ノアnative1/1通過・モモの通常mesh照合順序だけ修正
 
 受領characters-authored110035-1f327185-review01はCRC/SHA正常、28entry。source12d52e3／FP05e99ce4は両CLIとモモsource-infoで一致。ノアXML1/1成功・終了0、モモXML0/1成功・1失敗・終了2、両skip／inc0。失敗はCharacterAuthored.cs:144。実ScreenInputが新タップ会話→Greetを起こした後で、旧bodyの通常snapshotと挨拶状態のmesh／UVを同一比較していた。前回Noah側の修正を5名共通撮影へ反映し漏れたことが原因。原本11記録＋28entry SHA／17画像decode検証はReferences/Review/characters-failed-momo-2026-11-01-110035/。part01だけでNoah proof／親source-infoは未受領なので全品質証拠とはしない。

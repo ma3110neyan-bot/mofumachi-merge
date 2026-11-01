@@ -373,11 +373,11 @@ namespace Mofumachi.Presentation
         internal void SetViewScale(float scale){viewScale=float.IsFinite(scale)?Mathf.Clamp(scale,1,1.15f):1;}
         internal void Surprise(){surprised=true;reactionRemaining=ReactionSeconds;}
         public void OnPointerDown(PointerEventData e)
-        {if(!Controlled||!life.CanInteract||!RegionVisible||Movement.OwnedPointerId.HasValue&&(worldResident!=null||!IsGuided))return;life.StartInteraction();if(IsGuided){Movement.CancelInput();IsGuided=false;FreezeMovement();}if(Movement.TryBeginDrag(e.pointerId))dragged=false;}
+        {if(!Controlled||!life.CanInteract||!RegionVisible||Movement.OwnedPointerId.HasValue&&(worldResident!=null||!IsGuided))return;if(!life.IsCurrentSpeaker(this))life.StartInteraction();if(IsGuided){Movement.CancelInput();IsGuided=false;FreezeMovement();}if(Movement.TryBeginDrag(e.pointerId))dragged=false;}
         public void OnBeginDrag(PointerEventData e)
-        {if(!Controlled||!life.CanInteract)return;if(!Movement.OwnedPointerId.HasValue)OnPointerDown(e);if(Movement.OwnedPointerId==e.pointerId){dragged=true;e.eligibleForClick=false;}}
+        {if(!Controlled||!life.CanInteract)return;if(!Movement.OwnedPointerId.HasValue)OnPointerDown(e);if(Movement.OwnedPointerId==e.pointerId){life.StartInteraction();dragged=true;e.eligibleForClick=false;}}
         public void OnDrag(PointerEventData e)
-        {if(Controlled&&life.CanInteract&&Movement.OwnedPointerId==e.pointerId){dragged=true;if(worldResident!=null)life.World.FollowPointer(e.position,e.pressEventCamera);else Movement.SetTarget(e.pointerId,life.Source(e.position,e.pressEventCamera));}}
+        {if(Controlled&&life.CanInteract&&Movement.OwnedPointerId==e.pointerId){if(!dragged)life.StartInteraction();dragged=true;if(worldResident!=null)life.World.FollowPointer(e.position,e.pressEventCamera);else Movement.SetTarget(e.pointerId,life.Source(e.position,e.pressEventCamera));}}
         public void OnEndDrag(PointerEventData e)=>Release(e);
         public void OnPointerUp(PointerEventData e)=>Release(e);
         private void Release(PointerEventData e)

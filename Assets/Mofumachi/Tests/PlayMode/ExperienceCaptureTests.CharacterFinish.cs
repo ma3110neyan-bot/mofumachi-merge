@@ -20,6 +20,17 @@ namespace Mofumachi.Tests
             var snapshot=field.World.Capture();var frames=new List<FinishFrame>();
             var parts=actors.Select(a=>a.CharacterId=="noah"?(Graphic)a.GetComponentInChildren<NoahAuthoredGraphic>():a.GetComponentInChildren<CharacterAuthoredGraphic>()).ToArray();
             var legacy=parts.Select(p=>p.GetType().GetField("captureLegacyPose",flags)).ToArray();foreach(var f in legacy)Assert.That(f,Is.Not.Null);
+            void FrameAll()
+            {
+                field.World.Camera.Jump(new TownPoint(0,.12f));field.World.Refresh();field.RefreshWorldPresentation();Canvas.ForceUpdateCanvases();
+                var layer=(RectTransform)actors[0].transform.parent;
+                foreach(var actor in actors)
+                {
+                    var point=field.World.Local(actor.WorldPosition);
+                    Assert.That(point.x,Is.InRange(layer.rect.xMin+38,layer.rect.xMax-38),actor.CharacterId+": six-character framing must retain tappable actors.");
+                    Assert.That(point.y,Is.InRange(layer.rect.yMin+24,layer.rect.yMax-86));
+                }
+            }
             void Pose(NoahAuthoredMode mode,NoahAuthoredDirection direction,bool before)
             {
                 for(int i=0;i<actors.Length;i++)
@@ -31,6 +42,7 @@ namespace Mofumachi.Tests
             }
             try
             {
+                FrameAll();
                 foreach(var direction in new[]{NoahAuthoredDirection.Left,NoahAuthoredDirection.Right,NoahAuthoredDirection.Back})
                 {
                     foreach(var actor in actors)typeof(TownActor).GetField(actor.CharacterId=="noah"?"authoredDirection":"characterDirection",flags).SetValue(actor,direction);
@@ -53,16 +65,22 @@ namespace Mofumachi.Tests
                 proof.attachment_comparison_verified=true;
                 field.StartInteraction();
                 for(int tick=0;tick<15;tick++){foreach(var waiting in field.World.Model.Residents)field.World.Model.Pause(waiting.Id,4);field.AdvanceFrame(1f/30);}
-                field.RefreshWorldPresentation();
+                FrameAll();
                 // The real event raycast/drag checks run separately above; these
                 // explicit pointer clicks cover every identity and duplicate gate.
                 foreach(var actor in actors)
                 {
-                    field.StartInteraction();actor.OnPointerClick(new PointerEventData(EventSystem.current));
+                    field.StartInteraction();FrameAll();
+                    var pointer=new PointerEventData(EventSystem.current){pointerId=71};
+                    actor.OnPointerDown(pointer);actor.OnPointerUp(pointer);actor.OnPointerClick(pointer);FrameAll();
                     Assert.That(field.IsSpeaking,Is.True,actor.CharacterId+": tap must speak");
                     var text=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Speaker name");Assert.That(text.text,Is.EqualTo(CharacterCatalog.Find(actor.CharacterId).Name));
-                    var bubble=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town bubble");actor.OnPointerClick(new PointerEventData(EventSystem.current));
+                    var bubble=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town bubble");
+                    actor.OnPointerDown(pointer);actor.OnPointerUp(pointer);actor.OnPointerClick(pointer);FrameAll();
                     Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town bubble"),Is.SameAs(bubble));
+                    for(int tick=0;tick<18;tick++){foreach(var waiting in field.World.Model.Residents)field.World.Model.Pause(waiting.Id,4);field.AdvanceFrame(1f/30);}
+                    actor.OnPointerDown(pointer);actor.OnPointerUp(pointer);actor.OnPointerClick(pointer);FrameAll();
+                    Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town bubble"),Is.SameAs(bubble),"Repeated full pointer input must preserve visible speech beyond the cooldown.");
                     Assert.That(bubble.GetComponentInParent<CanvasGroup>().blocksRaycasts,Is.False);
                     var image=Portrait();try{proof.images.Add(SaveNativeImage(output,"finish-tap-"+actor.CharacterId+".png",image));}finally{UnityEngine.Object.DestroyImmediate(image);}
                 }

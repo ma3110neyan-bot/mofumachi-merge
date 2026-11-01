@@ -26,7 +26,7 @@
       "group": "noah",
       "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.NoahAuthored.cs",
       "before_sha256": "76739c6489d689b2b5b0ca4007488b63c0fa501fdda3e4ee5e1efc93e0611b7b",
-      "sha256": "eef55de8e9fcbfde6af58e088ac82229e14cb7d501d0adc8f677d16248cd0c95"
+      "sha256": "83be627e3ea75f27dbbb216272851ee6182caa6c7374b978dde2f935feff6a97"
     },
     {
       "group": "legacy",
@@ -38,7 +38,7 @@
       "group": "legacy",
       "path": "Assets/Mofumachi/Tests/PlayMode/TownHabitTests.cs",
       "before_sha256": "51a5cb25415ccdad1060c10d8a42381f73d9875c55be315e07633366c195f320",
-      "sha256": "e1c0e1f2c07b243a6801f1fb0d9c3594c745078311cb33d3c17b8b0b43b69bae"
+      "sha256": "35de8a35477710a484885dcfaa6f01e70ba3bcbc21038f928379f0d9bab44842"
     }
   ]
 }

@@ -21,13 +21,16 @@ try{
     if($New.Count -ne 1){throw 'Exact new final-pass parent directory not identified.'}
     $FinalRun=$New[0].FullName;$Pair=Read-CharactersPair $FinalRun
     $Source=Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $FinalRun 'source-info.json') | ConvertFrom-Json
-    $Manual=[ordered]@{six_on_same_screen='unknown';grounding_momo_miel='unknown';size_feet='unknown';directions_walk_stop='unknown';sorting='unknown';save_after_restart='unknown'}
+    $Manual=[ordered]@{six_on_same_screen='unknown';grounding_momo_miel='unknown';size_feet='unknown';head_body_alignment='unknown';directions_walk_stop='unknown';passing_stability='unknown';tap_conversation='unknown';sorting='unknown';save_after_restart='unknown'}
     if($FinalPassOptions.Install){
         Write-Host 'Final authored app is installed. These answers record observations; unknown is allowed and keeps acceptance pending.'
         $Manual.six_on_same_screen=Read-Host 'Six characters visible together on the actual Pixel town screen: yes / no / unknown (individual views or Unity fixture do not count)'
         $Manual.grounding_momo_miel=Read-Host 'Momo/Miel feet and lateral movement: grounded / floating / unknown'
         $Manual.size_feet=Read-Host 'Six-character sizes/foot positions: natural / inconsistent / unknown'
+        $Manual.head_body_alignment=Read-Host '頭・胴・足のつながり（歩行・停止・会話・方向転換）: natural / issue / unknown'
         $Manual.directions_walk_stop=Read-Host 'Front/back/left/right, walking/turning/stopping: natural / issue / unknown'
+        $Manual.passing_stability=Read-Host 'すれ違い時の高速ブレ・震え・往復揺れ: none / issue / unknown'
+        $Manual.tap_conversation=Read-Host '自動会話なし・タップだけで会話・同じ会話の連打で重複しない: yes / issue / unknown'
         $Manual.sorting=Read-Host 'Occlusion near fountain, trees, benches, buildings, flowers: natural / issue / unknown'
         $Manual.save_after_restart=Read-Host 'After closing and reopening the same app, progress retained: yes / no / unknown'
     }

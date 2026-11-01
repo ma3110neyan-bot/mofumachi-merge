@@ -35,6 +35,26 @@ namespace Mofumachi.Tests
             Assert.That(first.GetComponentInParent<CanvasGroup>().blocksRaycasts,Is.False);
             Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));LogAssert.NoUnexpectedReceived();
         }
+        [UnityTest] public IEnumerator HeroPressReleaseRepeatsPreserveSpeechUntilDragging()
+        {
+            yield return EnterHome();var life=FrameTownPortrait();var hero=life.Actors.Single(a=>a.Controlled);
+            life.Regions.ReturnToHero();life.World.Camera.Jump(new TownPoint(hero.WorldPosition.X,hero.WorldPosition.Y+.18f));life.World.Refresh();
+            foreach(var resident in life.World.Model.Residents)life.World.Model.Pause(resident.Id,20);
+            int meetings=Flow.Daily.Data.Characters.Single(c=>c.Id==hero.CharacterId).Meetings;
+            void Tap()
+            {
+                var pointer=new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current){pointerId=71};
+                hero.OnPointerDown(pointer);hero.OnPointerUp(pointer);hero.OnPointerClick(pointer);
+            }
+            Tap();Assert.That(life.IsSpeaking,Is.True);var bubble=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town bubble");
+            Tap();Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town bubble"),Is.SameAs(bubble),"An immediate full pointer sequence must preserve speech.");
+            for(int tick=0;tick<18;tick++)life.AdvanceFrame(1f/30);
+            Tap();Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Town bubble"),Is.SameAs(bubble),"Visible speech survives repeated taps beyond the short cooldown.");
+            Assert.That(Flow.Daily.Data.Characters.Single(c=>c.Id==hero.CharacterId).Meetings,Is.EqualTo(meetings+1));
+            var drag=new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current){pointerId=72};
+            hero.OnPointerDown(drag);hero.OnBeginDrag(drag);Assert.That(life.IsSpeaking,Is.False,"A true drag dismisses speech.");
+            hero.OnPointerUp(drag);hero.OnPointerClick(drag);Assert.That(life.IsSpeaking,Is.False);LogAssert.NoUnexpectedReceived();
+        }
         [UnityTest] public IEnumerator GrowthRestoresExpandedStopsFromSavedLevel()
         {
             yield return EnterHome();var state=Flow.Game.State.Clone();state.townGrowthLevel=6;Store.Save(state);Flow.Initialize(Store);Flow.ShowHome();var life=Flow.GetComponentInChildren<TownLifeView>();

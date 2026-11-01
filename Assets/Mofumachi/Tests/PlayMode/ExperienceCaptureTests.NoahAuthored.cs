@@ -53,10 +53,12 @@ namespace Mofumachi.Tests
             var graphic=noah.GetComponentInChildren<NoahAuthoredGraphic>();Assert.That(graphic,Is.Not.Null);proof.input_sha256=NoahAuthoredGraphic.InputDigest;
             Assert.That(graphic.canvasRenderer.GetMesh().vertexCount,Is.EqualTo(32));Assert.That(graphic.transform.parent,Is.SameAs(noah.VisualRoot));
             Assert.That(noah.transform.parent,Is.SameAs(root));Assert.That(noah.transform.GetSiblingIndex(),Is.EqualTo(order));Assert.That(noah.WorldPosition,Is.EqualTo(at));
-            Assert.That(ExecuteEvents.ExecuteHierarchy(graphic.gameObject,new PointerEventData(EventSystem.current),ExecuteEvents.pointerClickHandler),Is.SameAs(noah.gameObject));proof.tap_parent_route_verified=true;field.StartInteraction();
             noah.SetNoahAuthoredEnabled(false);image=Portrait();UnityEngine.Object.DestroyImmediate(image);
             Assert.That(oldBody.enabled,Is.True);Assert.That(oldBody.canvasRenderer.GetMesh().vertices.SequenceEqual(oldVertices),Is.True);Assert.That(oldBody.canvasRenderer.GetMesh().uv.SequenceEqual(oldUv),Is.True);
-            noah.SetNoahAuthoredEnabled(true);var directions=new HashSet<NoahAuthoredDirection>();
+            // Verify the untouched restoration before a real tap starts a greeting reaction.
+            noah.SetNoahAuthoredEnabled(true);
+            Assert.That(ExecuteEvents.ExecuteHierarchy(graphic.gameObject,new PointerEventData(EventSystem.current),ExecuteEvents.pointerClickHandler),Is.SameAs(noah.gameObject));proof.tap_parent_route_verified=true;field.StartInteraction();
+            var directions=new HashSet<NoahAuthoredDirection>();
             int unityFrame=Time.frameCount;
             for(int index=0;index<222;index++)
             {

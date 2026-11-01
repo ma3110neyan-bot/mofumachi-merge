@@ -139,9 +139,12 @@ namespace Mofumachi.Tests
             Assert.That(graphic.transform.parent,Is.SameAs(actor.VisualRoot));Assert.That(actor.transform.parent,Is.SameAs(parent));
             Assert.That(actor.transform.GetSiblingIndex(),Is.EqualTo(order));Assert.That(actor.WorldPosition,Is.EqualTo(at));
             VerifyCharacterRearBlink(field,graphic);proof.rear_blink_verified=true;
-            VerifyAuthoredScreenInput(field,actor,graphic);proof.tap_verified=true;field.StartInteraction();
+            // Restore and compare the neutral body before any pointer click can
+            // start a real greeting. Input belongs to the conversation phase.
             actor.SetCharacterAuthoredEnabled(false);warm=Portrait();UnityEngine.Object.DestroyImmediate(warm);
-            Assert.That(old.enabled,Is.True);Assert.That(old.canvasRenderer.GetMesh().vertices.SequenceEqual(vertices),Is.True);Assert.That(old.canvasRenderer.GetMesh().uv.SequenceEqual(uv),Is.True);
+            Assert.That(old.enabled,Is.True,id+": restored original body must be enabled.");
+            Assert.That(old.canvasRenderer.GetMesh().vertices.SequenceEqual(vertices),Is.True,id+": restore neutral vertices before greeting input.");
+            Assert.That(old.canvasRenderer.GetMesh().uv.SequenceEqual(uv),Is.True,id+": restore neutral UVs before greeting input.");
             actor.SetCharacterAuthoredEnabled(true);
             void Pair(string label)
             {
@@ -208,7 +211,8 @@ namespace Mofumachi.Tests
             }
             Assert.That(approached,Is.True,"Reach the partner by actual lateral walking before intentionally stopping for conversation.");
             field.World.CancelHero();field.StartInteraction();Assert.That(actor.CharacterDirection,Is.EqualTo(NoahAuthoredDirection.Right));
-            actor.OnPointerClick(new PointerEventData(EventSystem.current));Assert.That(field.IsSpeaking,Is.True);proof.conversation_verified=true;
+            VerifyAuthoredScreenInput(field,actor,graphic);proof.tap_verified=true;
+            Assert.That(field.IsSpeaking,Is.True,"The verified full pointer sequence must open the real conversation.");proof.conversation_verified=true;
             for(int i=0;i<34;i++)
             {
                 foreach(var r in field.World.Model.Residents.Where(r=>!r.Controlled))field.World.Model.Pause(r.Id,4);

@@ -1,0 +1,26 @@
+{
+  "base_revision": "12d52e394ba025e28b946c9f3fe500ca2d9ebc2d",
+  "fixed_file": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.CharacterAuthored.cs",
+  "fixed_file_sha256_lf": "d35e95b01de235aecc6b6d24ca50005220c165d47b227ec921be433b7bfed3c6",
+  "production_art_lock_script_diff": [],
+  "api_compile": {
+    "project": "/workspace/runtime/noah-pixel-preview-oct30/compile/PlayModeTests/Mofumachi.PlayModeTests.csproj",
+    "result": "Build succeeded",
+    "warnings": 0,
+    "errors": 0,
+    "elapsed_seconds": 2.7,
+    "native_runtime_execution": false
+  },
+  "scope_guards": {
+    "noah_26": true,
+    "legacy_552_with_authorized_nov01_amendment": true
+  },
+  "red_evidence": "failed-single/playmode.xml (received12d52e3; Momo0/1 at CharacterAuthored.cs:144)",
+  "native_fixed_candidate_verified": false,
+  "full_tests_rerun": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "formal_fixed": false,
+  "adopted": false,
+  "correction": "Compare the original neutral mesh before tap events; exercise full screen input at the conversation phase without removing any mesh or input invariant."
+}

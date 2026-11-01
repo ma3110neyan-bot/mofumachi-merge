@@ -1,0 +1,238 @@
+{
+  "archive": {
+    "file": "characters-authored-20261101-110035-1f327185-review-01.zip",
+    "sha256": "26d353254450766c286cb2c94178fd816d92dbff9c9fa963c99394e44f7d78de",
+    "bytes": 23469433,
+    "crc_valid": true,
+    "entries": 28
+  },
+  "gitRevision": "12d52e394ba025e28b946c9f3fe500ca2d9ebc2d",
+  "productFingerprint": "05e99ce4bc462fac4c67f92fcfbe7fbfddcf8f282a3ab385074772fa71a045d8",
+  "tests": {
+    "failed-single": {
+      "method": "MomoAuthoredPartsPreserveIdentityInputAndState",
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "inconclusive": 0,
+      "exit_code": 2
+    },
+    "noah-finish": {
+      "method": "NoahAuthoredPartsPreviewPreservesState",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0,
+      "exit_code": 0
+    }
+  },
+  "failure_context_hashes_valid": true,
+  "record_files": [
+    {
+      "file": "failed-single/failure-context.json",
+      "sha256": "30b4473f41b8776dc6af8f9a9c2118fcce6650170bccd8d790b29251197b166b",
+      "bytes": 1826
+    },
+    {
+      "file": "failed-single/playmode.log",
+      "sha256": "bea09f59f434355626fdfb512ac943186d4db2744a64255f1e0462b4eddd374b",
+      "bytes": 53106
+    },
+    {
+      "file": "failed-single/playmode.xml",
+      "sha256": "40e70d832163efe1fa192b84137fa5c5787702cdd72c69e3f090d0f2bc28cdfa",
+      "bytes": 4911
+    },
+    {
+      "file": "failed-single/prepare.log",
+      "sha256": "019960d8b642b106ef6ea98a7c1d1fa8e3ee9e161ef12eefcfbe042c425f6a32",
+      "bytes": 38843
+    },
+    {
+      "file": "failed-single/prepared-momo.json",
+      "sha256": "ee7de4da25cdc416696a5b07116adf7fec4e560d547a64c4a34e97cf437da150",
+      "bytes": 18484
+    },
+    {
+      "file": "failed-single/prepared.json",
+      "sha256": "ee7de4da25cdc416696a5b07116adf7fec4e560d547a64c4a34e97cf437da150",
+      "bytes": 18484
+    },
+    {
+      "file": "failed-single/source-info.json",
+      "sha256": "49be39495601c5898fccc9955887543244b32d0d7f34203d986f9198b5e9c33c",
+      "bytes": 574
+    },
+    {
+      "file": "noah-finish/playmode.log",
+      "sha256": "aacdb42db1728f3519336cf7ea9b4cf6dd4ba56f85380a434d50cf1478f3c5a3",
+      "bytes": 53185
+    },
+    {
+      "file": "noah-finish/playmode.xml",
+      "sha256": "70dad0b2994ba6d7b454a285fc57613020aa984da38597351008d290c41e4b74",
+      "bytes": 3603
+    },
+    {
+      "file": "noah-finish/prepare.log",
+      "sha256": "8ae6b50c7239928dec139203178e2e73a22a32dd70c196bf39d38b04e763784e",
+      "bytes": 43630
+    },
+    {
+      "file": "noah-finish/prepared.json",
+      "sha256": "5647a6ee97450e55017280f9fca46b15fd01fb1ec354dd5caef5d1a2ce809afa",
+      "bytes": 14977
+    }
+  ],
+  "available_images": [
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-011-after.png",
+      "sha256": "720d8003e018ea74346ffea8cb7cb02cc8d6a3f781675cabc31c8ef5924815f2",
+      "bytes": 1722084,
+      "width": 720,
+      "height": 1280,
+      "format": "PNG"
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-011-before-left-after-right.jpg",
+      "sha256": "05a573fa6afcfd4f51938f98fc6b46913ab383e6292e5cf9ff0229fb75bf002f",
+      "bytes": 824868,
+      "width": 1440,
+      "height": 1280,
+      "format": "JPEG"
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-011-before-reconstructed.png",
+      "sha256": "523b36c5fc71a4121b70bb307e9910569c136de368c8abf9c7bb1f8c5fdec2d6",
+      "bytes": 1718525,
+      "width": 720,
+      "height": 1280,
+      "format": "PNG"
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-029-after.png",
+      "sha256": "edbb8b9ad15a8e872b2ccefb5958dfea21e0d0b53b147ca1849021d8abae46c6",
+      "bytes": 1814520,
+      "width": 720,
+      "height": 1280,
+      "format": "PNG"
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-029-before-left-after-right.jpg",
+      "sha256": "27d199b09587aa151b7501e42f298f9bb79afd2ab650a3cdc2282ce8db744a7f",
+      "bytes": 850302,
+      "width": 1440,
+      "height": 1280,
+      "format": "JPEG"
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-029-before-reconstructed.png",
+      "sha256": "0d813f5704fb5f69ba09d5cb5b11d8d5c069459795f21a010eb87720e1a669b5",
+      "bytes": 1810399,
+      "width": 720,
+      "height": 1280,
+      "format": "PNG"
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-044-after.png",
+      "sha256": "cea006284796963ef285d0ab5f217f1a33d59debba96b098ae8479715d553f3f",
+      "bytes": 1719396,
+      "width": 720,
+      "height": 1280,
+      "format": "PNG"
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-044-before-left-after-right.jpg",
+      "sha256": "1e753c51cb97bda7ec5b95102c21ce64623b97c3c054c6f20d7a920ce25a3eea",
+      "bytes": 822266,
+      "width": 1440,
+      "height": 1280,
+      "format": "JPEG"
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-044-before-reconstructed.png",
+      "sha256": "36d69c8b9a1b7b45288e7687c577801bc5c38c81ea458e16036ed37effefe974",
+      "bytes": 1715278,
+      "width": 720,
+      "height": 1280,
+      "format": "PNG"
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-050-after.png",
+      "sha256": "2613c0e8f2611d8a658ae33573fdc05f5ea0a54ee286cfba92cee7ce943a359f",
+      "bytes": 1815020,
+      "width": 720,
+      "height": 1280,
+      "format": "PNG"
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-050-before-left-after-right.jpg",
+      "sha256": "af9363ada8fc1a56428c1c7f3348010e8123390acf0bf1cc70d502c0888425be",
+      "bytes": 851005,
+      "width": 1440,
+      "height": 1280,
+      "format": "JPEG"
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-050-before-reconstructed.png",
+      "sha256": "968ea777def307e74d75f604db0488d0c23f460063538a4c3dbfb4fc2c8f6974",
+      "bytes": 1810288,
+      "width": 720,
+      "height": 1280,
+      "format": "PNG"
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-101-after.png",
+      "sha256": "e7852e29eeeaad2154317a672f66da5a8eb17e737eb76352380fe3396f6fb926",
+      "bytes": 1588675,
+      "width": 720,
+      "height": 1280,
+      "format": "PNG"
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-101-before-left-after-right.jpg",
+      "sha256": "5a7ce79a78d2841046e7e631d81b05e1d4b27d0aaacdc35b2c7ffb88acf7f1ac",
+      "bytes": 737029,
+      "width": 1440,
+      "height": 1280,
+      "format": "JPEG"
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-101-before-reconstructed.png",
+      "sha256": "61353ae6055893f06dfc9cfb5c64f0d3849d8659bb7677f0d8416754acc7ad1b",
+      "bytes": 1582215,
+      "width": 720,
+      "height": 1280,
+      "format": "PNG"
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-104-after.png",
+      "sha256": "7860006fb70f908e58fbae4c07a8252226f91ebdd127443226c6accdda76a027",
+      "bytes": 1588951,
+      "width": 720,
+      "height": 1280,
+      "format": "PNG"
+    },
+    {
+      "file": "noah-finish/screenshots/noah-authored/authored-104-before-left-after-right.jpg",
+      "sha256": "9019eb725f8e6c4fd92d3ab8c2034a647d8a93e5980aa493a6a6fdbccc906748",
+      "bytes": 737166,
+      "width": 1440,
+      "height": 1280,
+      "format": "JPEG"
+    }
+  ],
+  "partial_archive": true,
+  "complete_noah_proof_received": false,
+  "parent_source_info_received": false,
+  "images_stored_in_repository": false,
+  "archive_and_images_location": "/workspace/attachments/682501c0-80ac-4366-a68a-b4acdda8d741/characters-authored-20261101-110035-1f327185-review-01.zip",
+  "momo_failure_location": "ExperienceCaptureTests.CharacterAuthored.cs:144 (received source12d52e3)",
+  "native_fixed_candidate_verified": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "adopted": false,
+  "formal_fixed": false
+}

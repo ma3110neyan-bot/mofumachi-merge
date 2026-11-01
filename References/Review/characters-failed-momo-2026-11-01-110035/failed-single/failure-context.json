@@ -1,0 +1,40 @@
+﻿{
+    "passed":  false,
+    "pixel_verified":  false,
+    "productFingerprint":  "05e99ce4bc462fac4c67f92fcfbe7fbfddcf8f282a3ab385074772fa71a045d8",
+    "files":  [
+                  {
+                      "sha256":  "49be39495601c5898fccc9955887543244b32d0d7f34203d986f9198b5e9c33c",
+                      "file":  "source-info.json",
+                      "bytes":  574
+                  },
+                  {
+                      "sha256":  "40e70d832163efe1fa192b84137fa5c5787702cdd72c69e3f090d0f2bc28cdfa",
+                      "file":  "playmode.xml",
+                      "bytes":  4911
+                  },
+                  {
+                      "sha256":  "bea09f59f434355626fdfb512ac943186d4db2744a64255f1e0462b4eddd374b",
+                      "file":  "playmode.log",
+                      "bytes":  53106
+                  },
+                  {
+                      "sha256":  "019960d8b642b106ef6ea98a7c1d1fa8e3ee9e161ef12eefcfbe042c425f6a32",
+                      "file":  "prepare.log",
+                      "bytes":  38843
+                  },
+                  {
+                      "sha256":  "ee7de4da25cdc416696a5b07116adf7fec4e560d547a64c4a34e97cf437da150",
+                      "file":  "prepared.json",
+                      "bytes":  18484
+                  },
+                  {
+                      "sha256":  "ee7de4da25cdc416696a5b07116adf7fec4e560d547a64c4a34e97cf437da150",
+                      "file":  "prepared-momo.json",
+                      "bytes":  18484
+                  }
+              ],
+    "original_single_run":  "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\momo-authored-20261101-110311-d580ec24",
+    "gitRevision":  "12d52e394ba025e28b946c9f3fe500ca2d9ebc2d",
+    "adopted":  false
+}

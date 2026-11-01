@@ -1,5 +1,13 @@
 # もふまちメルジュ：今後の開発方針
 
+## 2026-11-01最新：ノアnative1/1通過・モモの通常mesh照合順序だけ修正
+
+受領characters-authored110035-1f327185-review01はCRC/SHA正常、28entry。source12d52e3／FP05e99ce4は両CLIとモモsource-infoで一致。ノアXML1/1成功・終了0、モモXML0/1成功・1失敗・終了2、両skip／inc0。失敗はCharacterAuthored.cs:144。実ScreenInputが新タップ会話→Greetを起こした後で、旧bodyの通常snapshotと挨拶状態のmesh／UVを同一比較していた。前回Noah側の修正を5名共通撮影へ反映し漏れたことが原因。原本11記録＋28entry SHA／17画像decode検証はReferences/Review/characters-failed-momo-2026-11-01-110035/。part01だけでNoah proof／親source-infoは未受領なので全品質証拠とはしない。
+
+修正はExperienceCaptureTests.CharacterAuthored.csのみ。通常body enabled／全頂点／全UVの照合を入力前に実施、画面raycast／遮断／mask／親Down-Up-Click検査を実歩行で接近した会話段階へ移し、その入力で会話が開くことを必須にする。初期Idle／歩行へ挨拶を混ぜず、比較や入力検査を省略しない。ゲーム表示・動作・原画・街・Noah方式・Save・manifestは12d52e3から不変。修正版PlayMode API0警告／0エラー、26／552保護入力検査通過。新Unity成功／Pixel／正式固定は未確認。
+
+次はdocs/character-capture-neutral-repair-2026-11-01.mdのRemoteSigned子PSで作業ブランチ更新→capture-character-authored -Character momo -OpenReviewだけ。全件／Noah／他4名／APK／Pixelをこの失敗のたびに反復しない。終端の新日時モモZIP全パートを確認後に最終工程へ戻る。GitHub feature pushと途中確認待ち解除の許可を維持。以下は履歴。
+
 ## 2026-11-01最新：頭接続／背面／すれ違い／タップ会話の仕上げ
 
 最新ユーザー指示が優先。ノア先行の最終調整と同じ方法の5名適用、自動会話停止を許可。以前の「ノア方式を一切変更しない」「会話は別工程」は今回範囲で更新。分割原画と剛体パーツ方式を維持し、原画／登録JSON／街／Core保存／Merge／フォントは変更しない。頭の接続点、北移動の安定方向、既存回避量の補間、明示タップ会話だけを仕上げる。ノアの頭接続計算を先にRED→GREEN後、残り5名へ共通適用した。

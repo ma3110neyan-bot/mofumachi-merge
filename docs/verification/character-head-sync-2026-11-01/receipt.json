@@ -34,5 +34,7 @@
     "characters": 6
   },
   "pending": "Actual new head-only Unity meshes/images; no full-suite rerun required by this head-only request.",
-  "before_contact_kind": "Validated opaque source contacts and prior C# transforms; not a native image measurement."
+  "before_contact_kind": "Validated opaque source contacts and prior C# transforms; not a native image measurement.",
+  "candidate_code_revision": "909952102dfee843c149c912ef6456d1c38d9690",
+  "cloud_product_fingerprint": "330cea94ed934222decda86b0679223b72ca943335f6445b62adecadfa3604e4"
 }

@@ -10,7 +10,7 @@
 
 次はdocs/characters-head-sync-2026-11-01.mdのRemoteSigned子PSで更新→capture-character-head-sync.ps1だけ。6名同素材一時準備→頭同期の実Unity1メソッド、9状態×8刻み×6名432メッシュ、Before/After36画像。頭以外の頂点／全UV／頭辺ベクトル不変、正面1枚絵・左右・背面・開始／歩行／停止／方向切替・閉じ目を検査。所有者検査で旧生成物を退避、今回所有物だけcleanup、終了時Explorerで新characters-head-sync…review全ZIP。全件／APK／Pixel／Saveリセットはこの工程で実行しない。旧prepare-characters-final-passを頭同期撮影へ流用しない。
 
-新native描画は未確認であり、計算16成功を「6名の実描画ずれ0／未達0」へ置換しない。新1件XML／source-info／432標本／36画像を照合し、6名の現画像で0件を確認後に、この最新の頭限定基準で正式固定する。旧全件／Pixel保留は履歴として保持し、今回の合格へ流用も追加全件の要求もしない。formal_fixed/adopted falseを現在は維持。既存GitHub feature通常pushと安全範囲の途中確認省略の許可を継続。以下は履歴。
+実装commit9099521／cloudFP330cea94。新native描画は未確認であり、計算16成功を「6名の実描画ずれ0／未達0」へ置換しない。新1件XML／source-info／432標本／36画像を照合し、6名の現画像で0件を確認後に、この最新の頭限定基準で正式固定する。旧全件／Pixel保留は履歴として保持し、今回の合格へ流用も追加全件の要求もしない。formal_fixed/adopted falseを現在は維持。既存GitHub feature通常pushと安全範囲の途中確認省略の許可を継続。以下は履歴。
 
 ## 2026-11-01最新：見た目維持・近接回避の実座標ブレを局所安定化
 

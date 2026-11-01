@@ -24,6 +24,8 @@ powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -Command {
     }
     & $mofuHeadGit pull --ff-only origin feat/daily-world-pass-20261016
     if ($LASTEXITCODE -ne 0) { throw "更新に失敗しました。" }
+    & $mofuHeadGit merge-base --is-ancestor "909952102dfee843c149c912ef6456d1c38d9690" HEAD
+    if ($LASTEXITCODE -ne 0) { throw "今回の頭同期修正を取得できていません。" }
     & ".\scripts\capture-character-head-sync.ps1"
 }
 ```

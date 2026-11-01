@@ -34,7 +34,7 @@
 - [x] Capture the current renderer's mismatched actual neck contacts with source-alpha fixtures for18 directional views.
 - [x] Write focused RED tests for shared body/head contact through idle, start, walk, stop and all directional transitions; closed-eye registration and invalid source cases.
 - [x] Add one pure resolver/registration path and use it for both renderers. Keep original Sample and non-head transforms untouched.
-- [ ] Run head-only tests, source-alpha contact checks, relevant API compiles and exact protected-input guards; preserve evidence and commit.
+- [x] Run head-only tests, source-alpha contact checks, relevant API compiles and exact protected-input guards; preserve evidence and commit.
 
 ### Task 2: Focused native verification and delivery
 
@@ -62,3 +62,5 @@ Task1 progress: actual prior C# renderer neck offsets captured for18 source view
 Fresh review: one Important finding—median X plus extreme Y can be transparent. Reproduced against46 unchanged cropped/masked alpha inputs: all6 new source tests RED, original10 math tests green. Corrected selection to an actually opaque contour pixel centre; reviewer-requested regression suite16/16 green. Registration includes both open and closed heads, no per-character hand corrections. Re-evaluate source contacts with the validated opaque fixtures; earlier hypothetical contacts are not acceptance evidence.
 
 Verification completed locally: final focused16/16; actual46 source-alpha contours checked opaque; normal/Android/Editor renderer/PlayMode/Editor builder/pure project API compilation all0 warnings/errors; exact10 amendments and original26/552 guard valid. Head proof/one-method/image guards pass with synthetic data clearly labelled. No new Unity, APK, Pixel or full tests run. Formal acceptance remains pending the one-method Windows capture.
+
+Implementation commit909952102dfee843c149c912ef6456d1c38d9690. Final native head acceptance still pending;16 local passing tests are not substituted for the missing native proof.

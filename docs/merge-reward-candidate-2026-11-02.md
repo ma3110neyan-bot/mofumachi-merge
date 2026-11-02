@@ -24,7 +24,7 @@ Core、UIFlowController、ItemGraphic、公式ItemAtlas、フォント、キャ�
 
 Beforeの復元点：`checkpoint/merge-before-reward-20261102` = `af659256b481aae0697cea7ccfbf5531c6a62c08`。元ファイルSHAはpreflight記録に保存。
 
-新しいUnity撮影は未実行。以前の画像を今回のAfterとして提出しない。重点撮影では同じ隔離保存データを維持し、旧表示をEditor内で再構成したBeforeと、候補AfterをJPEGで11枚保存する。PlayerにはBefore切替を持たせない。通常2種の縦長比率、小さい320×536相当、パン依頼、複数条件、所持品だけで納品可能、満杯を含む。実ユーザーのセーブは使用しない。JPEGはUnityで全デコードし、保存状態・保存回数・画像SHAを記録する。
+原本保存後に新しいUnity撮影を試行したが、クラウドのXサーバー不足で起動停止（終了1）。描画なしの起動診断でも`No valid Unity Editor license found`で終了198。新しいJPEG／テストXMLは0件。記録は`docs/verification/merge-reward-original-capture-2026-11-02.json`、原ログは記載のBuilds/Diagnostics配下。以前の画像を今回のAfterとして提出しない。Windowsの重点撮影では同じ隔離保存データを維持し、旧表示をEditor内で再構成したBeforeと、候補AfterをJPEGで11枚保存する。PlayerにはBefore切替を持たせない。通常2種の縦長比率、小さい320×536相当、パン依頼、複数条件、所持品だけで納品可能、満杯を含む。実ユーザーのセーブは使用しない。JPEGはUnityで全デコードし、保存状態・保存回数・画像SHAを記録する。
 
 原本が配置済みなら`merge-reward.html`に原本・Before・Afterを並べる。未配置なら明記する。Visual Lockとの差分として確定しているのは、既存の公式アイテム／フォントを維持し、見本のジェムではなく実Coinsを表示する点。花や枠・全体の再現度の合否は、実描画と原本の比較が残っている。
 
@@ -35,7 +35,8 @@ Beforeの復元点：`checkpoint/merge-before-reward-20261102` = `af659256b481aa
 - Merge限定scope／手順の合成検査：成功。旧キャラ限定scopeの2組も成功。
 - 実リポジトリの正式キャラ・旧Noah・凍結入力ガード：成功。BuildQuest不変とCore／原画の保護を確認。
 - 独立レビュー：演出中の依頼ボタン有効化と旧表示テストの不整合を修正。再点検の重要指摘0件。
-- Unity実描画／全件EditMode・PlayMode／QA APK：未実施。このクラウド環境には利用可能なUnityライセンスがない。
+- Unity実描画：起動を試行したが失敗。利用可能なXサーバー／Unityライセンスがなく、新規描画0件。Androidビルドモジュールもない。
+- 原本とのVisual Gate、今回の実Unity Merge重点確認、全件EditMode・PlayMode、QA APK：前段未達のため実施していない。a18e598時点の86件はCLRの計算検査であり、この後段の実Unity合格へ転用しない。
 - Pixel 3a：未実施。USB実機はこの環境にない。表示崩れ・負荷・発熱・操作感は未判定。
 
 ## Windowsの重点撮影

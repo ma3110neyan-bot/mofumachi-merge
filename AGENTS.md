@@ -8,6 +8,8 @@ Core、UIFlowController、ItemGraphic、正式ItemAtlas、フォント、キャ�
 
 最新順序は原本保存→SHA記録→Unity実描画→Visual Gate→Merge重点→合格後のみ全件Edit/Play各1回→QA APK→Pixel。a18e598の製品UI／Core／画像等は変更しない。prepare-merge-reward-preview.ps1に-CaptureOnlyを追加し、初回は撮影1件だけでVisual Gateより後の検査を先行しない。原本との明確な未達がある場合だけUIの該当箇所を局所修正。合格後の-Finalのみ全件QA／同一ソース素材のAPK。-Installは-Final後だけ、既存QAへinstall-r、uninstall/保存初期化なし。クラウドのUnityライセンス／Android対応／USB Pixelは不足しているため、実行結果を確認し未達を明記する。CLR/API/合成検査をUnity/Pixel成功・正式固定へ置換しない。途中承認不要、GitHub feature通常push許可は継続。以下は履歴。
 
+原本保存後のクラウド撮影試行：Builds/Diagnostics/merge-reward-capture-cloud-20261102-144446。描画起動はX displayなしで終了1、nographicsのライセンス起動診断はNo valid Unity Editor license foundで終了198。JPEG/XML0件、Visual Gate／重点／全件／APK／Pixelは未実施。概要はdocs/verification/merge-reward-original-capture-2026-11-02.json。Windows向けの撮影のみコマンドはdocs/merge-reward-candidate-2026-11-02.md。製品ファイルはa18e598と差分0。
+
 # 2026-11-02最新：フィオ左右のみ微調整→確認なしで6名Pixelへ
 
 ユーザーはフィオ右の頭右ずれ、左の頭左ずれだけを若干修正し、ほかは修正なし・敏速に進行するよう明示。修正後の画像確認は不要、そのまま全キャラをPixel3aで模擬テストすると指示。過去の「フィオ固定」を今回の2方向限定修正の拒否理由にしない。新規の画像承認や頭native/全件テストの前提を追加しない。

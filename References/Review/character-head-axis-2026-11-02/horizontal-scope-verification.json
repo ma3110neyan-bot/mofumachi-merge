@@ -1,0 +1,208 @@
+{
+  "kind": "seven-horizontal-head-placements-only",
+  "native_unity": false,
+  "baseline": "fffcfe54b8a7b267710f12bb5363e1f4d7f16ea3",
+  "fio_all_directions_exactly_unchanged": true,
+  "other_eleven_views_exactly_unchanged": true,
+  "all_y_registrations_unchanged": true,
+  "all_head_edges_and_non_head_parts_unchanged": true,
+  "changed_placements": [
+    {
+      "character": "noah",
+      "direction": "left",
+      "before": [
+        -20.0,
+        -219.0
+      ],
+      "after": [
+        16.401,
+        -219.0
+      ],
+      "axis_reference": {
+        "units": "original masked crop pixels; individual cheek and torso contour cross-section; guide only, not native visual acceptance",
+        "head_row": 285,
+        "head_left": 30,
+        "head_right": 431,
+        "head_center_x": 230.5,
+        "body_row": 414,
+        "body_left": 98,
+        "body_right": 816,
+        "body_center_x": 457.0,
+        "previous_axis_difference_model_units": -36.401,
+        "candidate_axis_difference_model_units": -1.4e-05
+      }
+    },
+    {
+      "character": "momo",
+      "direction": "left",
+      "before": [
+        -20.0,
+        -206.5
+      ],
+      "after": [
+        11.505,
+        -206.5
+      ],
+      "axis_reference": {
+        "units": "original masked crop pixels; individual cheek and torso contour cross-section; guide only, not native visual acceptance",
+        "head_row": 330,
+        "head_left": 22,
+        "head_right": 487,
+        "head_center_x": 254.5,
+        "body_row": 201,
+        "body_left": 15,
+        "body_right": 419,
+        "body_center_x": 217.0,
+        "previous_axis_difference_model_units": -31.505,
+        "candidate_axis_difference_model_units": 0.000446
+      }
+    },
+    {
+      "character": "momo",
+      "direction": "right",
+      "before": [
+        20.0,
+        -201.5
+      ],
+      "after": [
+        -12.378,
+        -201.5
+      ],
+      "axis_reference": {
+        "units": "original masked crop pixels; individual cheek and torso contour cross-section; guide only, not native visual acceptance",
+        "head_row": 340,
+        "head_left": 44,
+        "head_right": 503,
+        "head_center_x": 273.5,
+        "body_row": 244,
+        "body_left": 13,
+        "body_right": 409,
+        "body_center_x": 211.0,
+        "previous_axis_difference_model_units": 32.378,
+        "candidate_axis_difference_model_units": 0.00014
+      }
+    },
+    {
+      "character": "lulu",
+      "direction": "left",
+      "before": [
+        -20.0,
+        -197.5
+      ],
+      "after": [
+        8.953,
+        -197.5
+      ],
+      "axis_reference": {
+        "units": "original masked crop pixels; individual cheek and torso contour cross-section; guide only, not native visual acceptance",
+        "head_row": 345,
+        "head_left": 8,
+        "head_right": 490,
+        "head_center_x": 249.0,
+        "body_row": 233,
+        "body_left": 23,
+        "body_right": 413,
+        "body_center_x": 218.0,
+        "previous_axis_difference_model_units": -28.953,
+        "candidate_axis_difference_model_units": -9.1e-05
+      }
+    },
+    {
+      "character": "pom",
+      "direction": "left",
+      "before": [
+        -20.0,
+        -197.5
+      ],
+      "after": [
+        22.146,
+        -197.5
+      ],
+      "axis_reference": {
+        "units": "original masked crop pixels; individual cheek and torso contour cross-section; guide only, not native visual acceptance",
+        "head_row": 298,
+        "head_left": 19,
+        "head_right": 436,
+        "head_center_x": 227.5,
+        "body_row": 258,
+        "body_left": 26,
+        "body_right": 512,
+        "body_center_x": 269.0,
+        "previous_axis_difference_model_units": -42.146,
+        "candidate_axis_difference_model_units": -7.4e-05
+      }
+    },
+    {
+      "character": "pom",
+      "direction": "right",
+      "before": [
+        20.0,
+        -199.0
+      ],
+      "after": [
+        -1.908,
+        -199.0
+      ],
+      "axis_reference": {
+        "units": "original masked crop pixels; individual cheek and torso contour cross-section; guide only, not native visual acceptance",
+        "head_row": 340,
+        "head_left": 40,
+        "head_right": 456,
+        "head_center_x": 248.0,
+        "body_row": 249,
+        "body_left": 18,
+        "body_right": 507,
+        "body_center_x": 262.5,
+        "previous_axis_difference_model_units": 21.908,
+        "candidate_axis_difference_model_units": -0.000135
+      }
+    },
+    {
+      "character": "miel",
+      "direction": "left",
+      "before": [
+        -20.0,
+        -202.5
+      ],
+      "after": [
+        7.482,
+        -202.5
+      ],
+      "axis_reference": {
+        "units": "original masked crop pixels; individual cheek and torso contour cross-section; guide only, not native visual acceptance",
+        "head_row": 274,
+        "head_left": 6,
+        "head_right": 487,
+        "head_center_x": 246.5,
+        "body_row": 248,
+        "body_left": 58,
+        "body_right": 419,
+        "body_center_x": 238.5,
+        "previous_axis_difference_model_units": -27.482,
+        "candidate_axis_difference_model_units": -0.000179
+      }
+    }
+  ],
+  "geometry_model_frames_per_character": 1774,
+  "vertex_mismatches_per_character": {
+    "noah": 0,
+    "momo": 0,
+    "lulu": 0,
+    "pom": 0,
+    "fio": 0,
+    "miel": 0
+  },
+  "visual_acceptance": {
+    "fio": "previous source preview accepted by user; unchanged",
+    "noah": "PENDING",
+    "momo": "PENDING",
+    "lulu": "PENDING",
+    "pom": "PENDING",
+    "miel": "PENDING"
+  },
+  "checks": {
+    "unchanged_views": 33,
+    "changed_views": 21,
+    "unchanged_non_head_parts": 366
+  }
+}

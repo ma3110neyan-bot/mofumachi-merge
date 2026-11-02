@@ -8,15 +8,15 @@ namespace Mofumachi.Presentation
     {
         public static NoahPartTransform Resolve(string character,string direction,NoahPartTransform body,float headAngle)
         {
-            float x=direction=="left"?-20:direction=="right"?20:0,y;
+            float x,y;
             switch(character)
             {
-                case "noah":y=direction=="left"?-219.0f:direction=="right"?-216.5f:-224.0f;break;
-                case "momo":y=direction=="left"?-206.5f:direction=="right"?-201.5f:-218.0f;break;
-                case "lulu":y=direction=="left"?-197.5f:direction=="right"?-194.0f:-193.0f;break;
-                case "pom":y=direction=="left"?-197.5f:direction=="right"?-199.0f:-207.5f;break;
-                case "fio":y=direction=="left"?-196.0f:direction=="right"?-197.0f:-206.5f;break;
-                case "miel":y=direction=="left"?-202.5f:direction=="right"?-196.0f:-199.0f;break;
+                case "noah":x=direction=="left"?16.401f:direction=="right"?20f:0f;y=direction=="left"?-219f:direction=="right"?-216.5f:-224f;break;
+                case "momo":x=direction=="left"?11.505f:direction=="right"?-12.378f:0f;y=direction=="left"?-206.5f:direction=="right"?-201.5f:-218f;break;
+                case "lulu":x=direction=="left"?8.953f:direction=="right"?20f:0f;y=direction=="left"?-197.5f:direction=="right"?-194f:-193f;break;
+                case "pom":x=direction=="left"?22.146f:direction=="right"?-1.908f:0f;y=direction=="left"?-197.5f:direction=="right"?-199f:-207.5f;break;
+                case "fio":x=direction=="left"?-20f:direction=="right"?20f:0f;y=direction=="left"?-196f:direction=="right"?-197f:-206.5f;break;
+                case "miel":x=direction=="left"?7.482f:direction=="right"?20f:0f;y=direction=="left"?-202.5f:direction=="right"?-196f:-199f;break;
                 default:throw new ArgumentException("Unregistered character: "+character);
             }
             if(direction!="left"&&direction!="right"&&direction!="back")throw new ArgumentException("Split head direction required: "+direction);

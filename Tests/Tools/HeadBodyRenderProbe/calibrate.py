@@ -10,6 +10,8 @@ spec=importlib.util.spec_from_file_location('preview',ROOT/'scripts/render-head-
 preview=importlib.util.module_from_spec(spec);spec.loader.exec_module(preview)
 REFERENCE=ROOT/'Tests/Fixtures/character-head-calibration-2026-11-02.json'
 record=json.loads(REFERENCE.read_text())
+if 'horizontal_review' in record:
+    raise SystemExit('Refusing to replace individually reviewed horizontal axes with the earlier collar-only calibration.')
 atlas=preview.load_original(ROOT/'Assets/Mofumachi/Resources/Mofumachi/CharacterBodyAtlas.png')
 bounds=[[17,12,266,324],[284,12,230,324],[524,20,221,316],[771,5,237,331],[1005,31,243,306],[1263,14,254,323]]
 characters={name:preview.Character(name,ROOT/'References/Review/character-head-restore-preview-2026-11-02/mesh-data',atlas,bounds) for name in preview.NAMES}

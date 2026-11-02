@@ -9,11 +9,12 @@ namespace Mofumachi.Tests
 {
     public sealed class ExperienceMergeTests : SliceUiTestFixture
     {
-        [UnityTest] public IEnumerator FlatIvoryBoardAndSquareCellsKeepThirtyIndependentTargets()
+        [UnityTest] public IEnumerator FlatIvoryBoardAndRoundedCellsKeepThirtyIndependentTargets()
         {
             yield return EnterHome();Flow.ShowMerge();yield return null;Canvas.ForceUpdateCanvases();
-            var frame=Flow.GetComponentsInChildren<PerspectiveBoardGraphic>().Single(g=>g.name=="Merge storybook board");
-            Assert.That(frame.mainTexture,Is.SameAs(Resources.Load<Texture2D>("Mofumachi/MergeBoardFrame")));Assert.That(frame.raycastTarget,Is.False);
+            var old=Flow.GetComponentsInChildren<PerspectiveBoardGraphic>().Single(g=>g.name=="Merge storybook board");Assert.That(old.enabled,Is.False);
+            var frame=Flow.GetComponentsInChildren<DecorativeFrameGraphic>().Single(g=>g.transform.parent.name=="Merge tray");
+            Assert.That(frame.mainTexture,Is.SameAs(Resources.Load<Texture2D>("Mofumachi/UIPanelFrame")));Assert.That(frame.raycastTarget,Is.False);
             var panel=frame.rectTransform.rect;var panelVertices=frame.canvasRenderer.GetMesh().vertices;
             Assert.That(panelVertices.Min(v=>v.y),Is.GreaterThanOrEqualTo(panel.yMin-.01f),"The panel has no thick platform below it");
             Assert.That(panelVertices.Max(v=>v.y),Is.LessThanOrEqualTo(panel.yMax+.01f));
@@ -26,7 +27,7 @@ namespace Mofumachi.Tests
                 var surface=cell.GetComponentInChildren<MergeCellSurfaceGraphic>();var rect=surface.rectTransform.rect;var vertices=surface.canvasRenderer.GetMesh().vertices;
                 foreach(float x in new[]{rect.xMin+rect.width*.08f,rect.xMax-rect.width*.08f})
                 foreach(float y in new[]{rect.yMin+rect.height*.08f,rect.yMax-rect.height*.08f})
-                    Assert.That(vertices.Min(v=>Vector2.Distance(v,new Vector2(x,y))),Is.LessThan(rect.width*.05f),"Rounded squares keep visible corners");
+                    Assert.That(vertices.Min(v=>Vector2.Distance(v,new Vector2(x,y))),Is.LessThan(rect.width*.05f),"Rounded cells keep visible corners");
             }
             Assert.That(Flow.GetComponentsInChildren<ItemGraphic>().Where(g=>g.name=="Requirement art tea"||g.name=="Frame item art").All(g=>!g.raycastTarget),Is.True);
             Assert.That(Flow.Game.State.mergeBoard.Count,Is.EqualTo(2));LogAssert.NoUnexpectedReceived();
@@ -39,10 +40,12 @@ namespace Mofumachi.Tests
             Flow.ShowMerge();yield return null;Canvas.ForceUpdateCanvases();
             var cells=Flow.GetComponentsInChildren<MergeBoardView>();
             var first=cells.Single(c=>c.name=="Cell 0").GetComponentInChildren<ItemGraphic>().rectTransform.rect.size;
+            var firstCell=((RectTransform)cells.Single(c=>c.name=="Cell 0").transform).rect;
             foreach(var cell in cells)
             {
                 var rect=(RectTransform)cell.transform;
-                Assert.That(rect.rect.width,Is.EqualTo(rect.rect.height).Within(.001f));
+                Assert.That(rect.rect.width,Is.EqualTo(firstCell.width).Within(.001f));Assert.That(rect.rect.height,Is.EqualTo(firstCell.height).Within(.001f));
+                Assert.That(rect.rect.width,Is.GreaterThanOrEqualTo(48));Assert.That(rect.rect.height,Is.GreaterThanOrEqualTo(48));
                 Assert.That(cell.GetComponentInChildren<ItemGraphic>().rectTransform.rect.size.x,Is.EqualTo(first.x).Within(.001f));
                 Assert.That(cell.GetComponentInChildren<ItemGraphic>().rectTransform.rect.size.y,Is.EqualTo(first.y).Within(.001f));
             }

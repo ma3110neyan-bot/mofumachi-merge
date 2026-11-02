@@ -15,14 +15,16 @@ namespace Mofumachi.Tests
         [Test] public void InvalidIndexDoesNotAliasAnotherBoardCell()
         {Assert.Throws<System.ArgumentOutOfRangeException>(()=>MergePerspective.Cell(-1,300,322));Assert.Throws<System.ArgumentOutOfRangeException>(()=>MergePerspective.Cell(30,300,322));}
         [TestCase(256,308)] [TestCase(300,322)] [TestCase(328,390)] [TestCase(680,640)]
-        public void AllSixRowsUseAlignedEqualSquaresAndConstantItemScale(float width,float height)
+        public void AllSixRowsFillTheFlatBoardWithEqualRoundedCellsAndConstantItemScale(float width,float height)
         {
             var first=MergePerspective.Cell(0,width,height);
             foreach(int i in Enumerable.Range(0,30))
             {
                 var cell=MergePerspective.Cell(i,width,height);
                 Assert.That(cell.Width,Is.EqualTo(first.Width).Within(.001f),"Every row has the same item space");
-                Assert.That(cell.Height,Is.EqualTo(cell.Width).Within(.001f),"Cells must remain square on tall and wide screens");
+                Assert.That(cell.Height,Is.EqualTo(first.Height).Within(.001f),"Every row retains the same height without perspective");
+                Assert.That(cell.Width,Is.EqualTo((width-16)/5).Within(.001f));
+                Assert.That(cell.Height,Is.EqualTo((height-20)/6).Within(.001f));
                 Assert.That(cell.X,Is.EqualTo(first.X+(i%5)*(first.Width+4)).Within(.001f));
                 Assert.That(cell.Y,Is.EqualTo(first.Y-(i/5)*(first.Height+4)).Within(.001f),"Indexes run left to right, then downward");
                 Assert.That(MergePerspective.ArtScale(i),Is.EqualTo(1),"Items retain their size in every row");

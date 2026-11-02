@@ -1,0 +1,172 @@
+{
+  "kind": "merge-reward-preflight-baseline",
+  "date_jst": "2026-11-02",
+  "revision": "af659256b481aae0697cea7ccfbf5531c6a62c08",
+  "checkpoint_branch": "checkpoint/merge-before-reward-20261102",
+  "reference_path": "References/Merge/merge_visual_lock_reward.png",
+  "reference_present": false,
+  "implementation_started": false,
+  "planned_existing_ui_files": [
+    {
+      "path": "Assets/Mofumachi/Presentation/QuestMergeScreens.cs",
+      "sha256": "c787a0f8d4482ca651aaafd3651a95411c749a008687dd680c1cf1499c3679e8",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergePresentation.cs",
+      "sha256": "f48bda4d13d2565cb5db56e1f4ce642f2e398c8b7ad6a07715ecc4d415683c31",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeCellSurfaceGraphic.cs",
+      "sha256": "0de1ee9b2e178b98227bf0b77a32db40c7a5aa1c5b8e4f867255565ecff8b728",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeEffectsView.cs",
+      "sha256": "a55da9108223087f30424b98dfeba2de185cfd29924ea9fbdbcebfa1f1a89662",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeSparkleGraphic.cs",
+      "sha256": "578416913dca3de3a98a8a381725ce76cfff3855311f45a70b1235cb01292c90",
+      "text_normalized": true
+    }
+  ],
+  "protected_core_geometry_input_and_formal_item_files": [
+    {
+      "path": "Assets/Mofumachi/Core/ChapterCatalog.cs",
+      "sha256": "a8efcc06c0434c928c06cc3a6a6387b0398e0dd254616661c6cc39b467b9cc58",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/ChapterProgress.cs",
+      "sha256": "b8425d3a6f5a01dd94cd6b841cbf5fa71c5b9c5234270b65dac84cfe40d9d715",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/CharacterCatalog.cs",
+      "sha256": "3ed579e4d12a1f26dab0bef7d0091c1bed60e0d939e0660faf2cf65d8e8c6c77",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/GameState.cs",
+      "sha256": "1ba5ac4f3d6a016c1871395d0018770a97ab12b36a489df783bde1983e5a50f6",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/GameStateManager.cs",
+      "sha256": "973696e9d052345dbabee5e545b52a564f900df45341046c66eea6f4a1dc85f6",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/IStateStore.cs",
+      "sha256": "f85bb9b7d64f0ca8d058f34a5fcd62e1bcde9868a9bd3ab1fba68ddd5e683642",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/ItemCatalog.cs",
+      "sha256": "51663fc69622675cdd34cb61786c335f45d9613fac9d01d4be3b2fc749f1569f",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/MergeBoard.cs",
+      "sha256": "c8cce212aab65f2802585d3897a583987933c5cd04121dd99d5e6f3655710923",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/QuestCatalog.cs",
+      "sha256": "b6c69bed962d0f1777adbb40a7ea55abbbb9aa97de714fa15a3fc90164711bfa",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/QuestDefinition.cs",
+      "sha256": "9f54e030aaf85eb73d3cd54e3e3b503371fe4fcbb53516e3be846452d452bec0",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/QuestManager.cs",
+      "sha256": "ae79279f4d85db4bd5d7649416839bac0910b5b359e62c1ea3abb8ae16529cff",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/RewardService.cs",
+      "sha256": "dce245219309e7fa9f0c6ba07b12d8def36767bc02338412f2ec3a06f85357ff",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/SaveService.cs",
+      "sha256": "44a3131818203443aba51874570c0c9c7b2ff48b52b53c03e3a3c4750b6f29e7",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownFrameClock.cs",
+      "sha256": "f6a46fd570f666b4b5b9db7921b7f228287dd705d3702d97557c86bb08bc3a10",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownGrowthService.cs",
+      "sha256": "7efa6de4811aece728dd4cc854a50c2af586437dce68768c290fbc70a9c1434c",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownMovement.cs",
+      "sha256": "065e14c8ee34b65778324be2225b66e4f15209343b113a16f6b18690ad7e65d3",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownNavigation.cs",
+      "sha256": "148d0ff5c863688c26136db5d4d39894f39b9024341f4df7190061d13ec12c7a",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownPlaceCatalog.cs",
+      "sha256": "c7db248efbd20b1b0cb28919ac12f15bd43a214d91cfff60b75348587186ff86",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownRegionJourney.cs",
+      "sha256": "5b6982a464104879dd7eaac1420d473cb3cced7e4f966fd19f5513d92e4e6706",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownRegionTypes.cs",
+      "sha256": "a2ce0584c0066f528ea85a382ae1a9b9bb821077adeed35fe5256053e77fe3ca",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownRegionCatalog.cs",
+      "sha256": "6c77a73311df3d9db7dffbf8ecd0ad38da53ae6620c55595774f320a2c2d87d1",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Core/TownViewport.cs",
+      "sha256": "6fc022de94781a63f1b517ba7df4e0ee3f342277d8ac8df99393ff27069a3277",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergePerspective.cs",
+      "sha256": "693bde0f750a550ebcfbdc63035e898e28f022d8e4da9b943e7927f493070193",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeBoardView.cs",
+      "sha256": "3e2e71144926ae5d9a5d87a5cf0605bd45f77fe5c67be8395b83440721444584",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/ItemAtlas.png",
+      "sha256": "7cbceaa1b5dd73d07ed916178bd45ee7b026908a4e6386a021f41d1df344bb2d",
+      "text_normalized": false
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/ItemAtlas.png.meta",
+      "sha256": "f95bef8047ed433d6db0f082ad6cad6b83bd366ec21cd98aabac081d4e45db9a",
+      "text_normalized": true
+    }
+  ],
+  "native_before_captured": false,
+  "native_tests_run": false,
+  "full_qa_run": false,
+  "pixel3a_verified": false
+}

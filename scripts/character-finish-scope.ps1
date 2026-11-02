@@ -92,5 +92,8 @@ function Read-CharacterFinishOverrides([string]$Repository,[ValidateSet('noah','
     }
     $Recovery=Read-CharacterHeadRecovery $Repository
     foreach($Path in $Recovery.Keys){if(@($Records[$Group] | Where-Object {$_.path -ceq $Path}).Count -eq 1){$Result[$Path]=$Recovery[$Path]}}
+    . (Join-Path $PSScriptRoot 'merge-reward-scope.ps1')
+    $Merge=Read-MergeRewardOverrides $Repository
+    if($Group -ceq 'legacy'){foreach($Path in $Merge.Keys){$Result[$Path]=$Merge[$Path]}}
     return $Result
 }

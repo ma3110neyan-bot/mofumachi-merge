@@ -91,7 +91,7 @@ namespace Mofumachi.Presentation
                 // original items readable. Selection/candidates override it.
                 var porcelain=(i/5+i%5)%2==0?new Color(1,.933f,.837f):new Color(.887f,.963f,.916f);
                 surface.color=c.Game.Board.IsLocked(i)?new Color(1,.90f,.60f):index==c.Flow.SelectedCell?new Color(1,.68f,.80f):match?new Color(.66f,.92f,.76f):item==null?porcelain:Color.Lerp(porcelain,Color.white,.52f);
-                UIWidgets.Node("Cell porcelain dish",(RectTransform)b.transform,new Rect(0,0,1,1)).gameObject.AddComponent<MergeCellSurfaceGraphic>().Bind(surface.color);
+                UIWidgets.Node("Cell porcelain dish",(RectTransform)b.transform,new Rect(0,0,1,1)).gameObject.AddComponent<MergeCellSurfaceGraphic>().Bind(surface.color,item==null&&!c.Game.Board.IsLocked(i)?i:-1);
                 // Keep one alpha byte for the raycast rectangle; a fully culled
                 // transparent mesh can be skipped by Unity's GraphicRaycaster.
                 surface.color=new Color(1,1,1,1f/255);surface.decorated=false;
@@ -142,8 +142,8 @@ namespace Mofumachi.Presentation
                 w.Item("Frame item art",id,1,r,new Rect(.025f,.12f,.30f,.76f)).SetPolished(true);
             }
             var menu=w.Button("Merge actions","生成枠\n整理",toolbar,new Rect(0,0,0,1),c.Flow.OpenMergeActions,true);var mr=(RectTransform)menu.transform;mr.pivot=new Vector2(0,.5f);mr.anchoredPosition=new Vector2(198,0);mr.sizeDelta=new Vector2(48,0);menu.GetComponentInChildren<Text>().fontSize=12;menu.GetComponent<RoundedPanelGraphic>().color=UIWidgets.Cream;
-            bool preview=quest!=null&&!accepted;
-            var delivery=w.Button("Deliver",finale?"街で\n続きを見る":preview?"依頼を見る":"納品する",toolbar,new Rect(0,0,1,1),()=>{if(finale)c.Flow.ShowHome();else if(preview)c.Flow.ShowQuest();else c.Flow.Deliver();});((RectTransform)delivery.transform).offsetMin=new Vector2(250,0);delivery.GetComponentInChildren<Text>().fontSize=14;delivery.interactable=finale||preview||deliverable;
+            bool preview=MergeRewardPresentation.CaptureBefore?quest!=null&&!accepted:MergeRewardPresentation.ReviewBeforeDelivery(quest!=null,accepted,deliverable);
+            var delivery=w.Button("Deliver",finale?"街で\n続きを見る":preview?"依頼を見る":"納品する",toolbar,new Rect(0,0,1,1),()=>{if(finale)c.Flow.ShowHome();else if(preview)c.Flow.ShowQuest();else c.Flow.Deliver();});((RectTransform)delivery.transform).offsetMin=new Vector2(250,0);delivery.GetComponentInChildren<Text>().fontSize=14;delivery.interactable=c.Flow.CanInteractBoard&&(finale||preview||deliverable);
             w.Feedback(root,c,ScreenId.Merge);
             var text=root.Find("Feedback").GetComponent<Text>();text.fontSize=14;text.lineSpacing=1f;
             string obsoleteHint=finale?UIStrings.DeliveryHint(c.Game):null;
@@ -153,6 +153,7 @@ namespace Mofumachi.Presentation
             if(feedbackSurface==null)feedbackSurface=w.Panel("Feedback surface",root,new Rect(0,0,1,1),new Color(1,.988f,.945f,.97f)).rectTransform;
             if(feedbackSurface.GetSiblingIndex()>text.transform.GetSiblingIndex())feedbackSurface.SetSiblingIndex(text.transform.GetSiblingIndex());
             w.Nav(root,c,ScreenId.Merge,58);
+            if(!MergeRewardPresentation.CaptureBefore)root.gameObject.AddComponent<MergeRewardView>().Initialize(c);
             root.gameObject.AddComponent<ProductionFrameLayout>().Bind(tray,toolbar,text,feedbackSurface,c.Game.State.mergeBoard.Count>=30?UIStrings.BoardFull:finale?MergePresentation.PlayHint:UIStrings.DeliveryHint(c.Game),obsoleteHint,UIStrings.DeliveryHint(c.Game));
         }
     }
@@ -201,6 +202,7 @@ namespace Mofumachi.Presentation
             bool showSelection=!compactMessage;
             root.Find("Merge progress/Merge selected item").gameObject.SetActive(showSelection);
             root.Find("Merge progress/Merge selected hint").gameObject.SetActive(showSelection);
+            root.GetComponent<MergeRewardView>()?.Resize(layout,feedback);
         }
         private void ResizeToolbar(MergeScreenLayout layout)
         {

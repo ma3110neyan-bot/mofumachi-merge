@@ -49,7 +49,9 @@ namespace Mofumachi.Tests
             Assert.That(Flow.SelectedCell,Is.EqualTo(0));
             Store.Fail=true;Assert.That(Flow.DropItem(0,1),Is.False);Assert.That(Flow.Game.Board.At(0).level,Is.EqualTo(1));Assert.That(Flow.Game.Board.IsLocked(1),Is.False);
             Assert.That(Flow.SelectedCell,Is.EqualTo(0));
-            Store.Fail=false;Assert.That(Flow.AcceptQuest(),Is.True);var deliver=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Deliver");Assert.That(deliver.interactable,Is.False);
+            Store.Fail=false;Assert.That(Flow.AcceptQuest(),Is.True);var review=Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Deliver");
+            Assert.That(review.interactable,Is.True);Assert.That(review.GetComponentInChildren<Text>().text,Is.EqualTo("依頼を見る"));
+            Assert.That(Flow.Game.Quests.CheckDelivery(),Is.False,"Reviewing an incomplete request must not make it deliverable");
         }
         [UnityTest] public IEnumerator DragShowsOnlyValidPartnersAndHoverThenCleansUpWithoutExtraSaves()
         {

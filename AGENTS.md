@@ -1,3 +1,13 @@
+# 2026-11-02最新：MergeごほうびUI候補／D参照画像を目視確認、原本PNG保存は未確認
+
+ユーザー正式指示はMerge UI/グラフィックのみ。キャラ2.5Dはfix only。新Merge指示により旧「Merge別指示待ち」は解除。正式参照先は `References/Merge/merge_visual_lock_reward.png` に固定。添付941×1672のD案を目視確認済み。ただしinline画像の原本バイト／ファイルIDがなく、同PNGはまだリポジトリに存在しない。生成・再構成した別画像を原本として置かない。パス合意だけで配置済みと報告しない。
+
+復元点 checkpoint/merge-before-reward-20261102 = af659256b481aae0697cea7ccfbf5531c6a62c08。preflight元SHAはdocs/verification/merge-reward-before-2026-11-02.jsonに不変保存。計画はdocs/superpowers/plans/2026-11-02-merge-reward-ui.md。現在Mergeローカルのピンク金リボン・クリーム/ミントセル・淡い空セル模様・現在の依頼・実Coins・必要生成強調・大きな依頼/納品導線・短い花びらを実装。セルはDの長方形に合わせる表示変更だけ、30個5×6・48以上・既存ドラッグ/UV/ロックを維持。見本のジェム10は説明用なので追加せず、既存QuestのCoinsを表示。
+
+Core、UIFlowController、ItemGraphic、正式ItemAtlas、フォント、キャラ、街、Save、依頼/納品/報酬ロジックは不変。BuildQuestも不変。元26/552/53と既存キャラ訂正記録は書換禁止。新Merge限定訂正recordは既存UI4本＋対応する既存テスト2本＋新helper/view4ファイルの正確なSHAだけを許可。キャラやCoreへ例外を拡大しない。
+
+作業途中はMerge関連のみ。prepare-merge-reward-preview.ps1の通常実行はMerge重点検査と実Unityの同条件Before/After JPEG撮影だけ。-Finalを付けた候補段階のみ全件Edit/Play各1回→同一ソースと素材の新QA APK。-Installは-Final後だけ、既存QAへinstall-r、uninstall/保存初期化なし。原本PNG未配置ではFinalを通さない。実UnityライセンスとUSB Pixelはクラウドにない。CLR/API/合成検査をUnity/Pixel成功・正式固定へ置換しない。実装済み・実機未確認。途中承認不要で範囲内は継続、GitHub feature通常pushの既存許可は継続。以下は履歴。
+
 # 2026-11-02最新：フィオ左右のみ微調整→確認なしで6名Pixelへ
 
 ユーザーはフィオ右の頭右ずれ、左の頭左ずれだけを若干修正し、ほかは修正なし・敏速に進行するよう明示。修正後の画像確認は不要、そのまま全キャラをPixel3aで模擬テストすると指示。過去の「フィオ固定」を今回の2方向限定修正の拒否理由にしない。新規の画像承認や頭native/全件テストの前提を追加しない。

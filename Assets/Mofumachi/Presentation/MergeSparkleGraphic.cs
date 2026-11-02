@@ -50,13 +50,14 @@ namespace Mofumachi.Presentation
                 float angle=(i*45+15)*Mathf.Deg2Rad;
                 var p=r.center+new Vector2(Mathf.Cos(angle)*r.width,Mathf.Sin(angle)*r.height)*(.2f+.2f*t);
                 Color tint=i%3==0?new Color(1,.78f,.85f,alpha):i%3==1?new Color(.8f,1,1,alpha):new Color(1,.96f,.68f,alpha);
-                Star(vh,p,(i%2==0?2.7f:1.9f)*(1-.55f*t),tint);
+                if(i%3==0&&!MergeRewardPresentation.CaptureBefore)MergeCellSurfaceGraphic.Motif(vh,p,3.2f*(1-.3f*t),2,alpha);
+                else Star(vh,p,(i%2==0?2.7f:1.9f)*(1-.55f*t),tint);
             }
         }
         private static void Outline(VertexHelper vh,Rect bounds,float thickness,Color tint)
         {
             var r=new Rect(bounds.x+.75f,bounds.y+.75f,bounds.width-1.5f,bounds.height-1.5f);
-            float radius=Mathf.Min(r.width,r.height)*.11f;int start=vh.currentVertCount,count=0;
+            float radius=Mathf.Min(r.width,r.height)*(MergeRewardPresentation.CaptureBefore?.11f:.14f);int start=vh.currentVertCount,count=0;
             for(int corner=0;corner<4;corner++)
             {
                 var center=new Vector2(corner==0||corner==3?r.xMax-radius:r.xMin+radius,corner<2?r.yMax-radius:r.yMin+radius);

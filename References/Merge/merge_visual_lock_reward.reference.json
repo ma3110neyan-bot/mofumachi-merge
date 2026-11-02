@@ -1,0 +1,10 @@
+{
+  "kind": "inline-visual-lock-reference-receipt",
+  "reference_path": "References/Merge/merge_visual_lock_reward.png",
+  "visual_seen": true,
+  "inline_description": "D案 ごほうびマージ, floral village sky, rose/gold ribbon, cream/mint5×6 board, pink required generator, reward progress, large request button and3-tab navigation",
+  "original_png_saved": false,
+  "original_sha256": null,
+  "reason": "Inline image is visible to vision but no Sediment/file ID or local original file has been exposed. Do not generate a substitute PNG under the original reference name.",
+  "actual_reward_source": "QuestDefinition.Coins, no new gem reward"
+}

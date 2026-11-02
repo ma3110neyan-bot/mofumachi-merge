@@ -50,6 +50,7 @@
     <Compile Include="../../Assets/Mofumachi/Presentation/TownAreaNavigation.cs" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownWorldWalkModel.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownWorldWalkModel.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/MergePresentation.cs" />
+    <Compile Include="../../Assets/Mofumachi/Presentation/MergeRewardPresentation.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/MergeRewardPresentation.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/MergePerspective.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/MergePerspective.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownDailyProgress.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownDailyProgress.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownDailyStore.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownDailyStore.cs')" />

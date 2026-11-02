@@ -22,7 +22,7 @@
   "additions": [
     {
       "path": "Assets/Mofumachi/Presentation/CharacterHeadBodyCalibration.cs",
-      "sha256": "85832a674e6299f09a34f27dffa30e7031cca61a45b2a0d0b83da54258feadf2"
+      "sha256": "11686bbe827d5e59efef8c3428f157d7f6a4255fbd01fa269843203c9bf4d4b1"
     },
     {
       "path": "Assets/Mofumachi/Presentation/CharacterHeadBodyCalibration.cs.meta",
@@ -30,8 +30,8 @@
     },
     {
       "path": "Tests/Fixtures/character-head-calibration-2026-11-02.json",
-      "sha256": "8cd83e773ceda6092ebd82ba8a4eacdedf6c0ff6f83787ed0bea8fdaed96d305"
+      "sha256": "beeb10c0919e01c2ea3bf8b76c35345dba915db632af9594714868eaedcbffa4"
     }
   ],
-  "latest_feedback_scope": "User Nov2: preserve Fio and all unflagged views; correct only the seven flagged head horizontal placements. No Y/size/art/motion changes."
+  "latest_feedback_scope": "Latest user request: only Fio Left/Right horizontal micro adjustment,8 model units inward each (about1.04 actor pixels). Other characters, directions and all Y values unchanged. Skip image approval and proceed to direct six-character Pixel3a preview."
 }

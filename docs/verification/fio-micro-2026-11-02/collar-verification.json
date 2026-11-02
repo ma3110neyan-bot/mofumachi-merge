@@ -1,0 +1,24 @@
+{
+  "kind": "original-collar-pixels-on-production-CLR-mesh",
+  "native_unity": false,
+  "visual_accepted": false,
+  "reference_sha256": "beeb10c0919e01c2ea3bf8b76c35345dba915db632af9594714868eaedcbffa4",
+  "characters": [
+    {
+      "character": "fio",
+      "mesh_frames_checked": 1308,
+      "collar_failures": 0,
+      "minimum_collar_alpha": 0.9696626678438756,
+      "maximum_garment_occlusion": 0.0,
+      "native_verified": false,
+      "result": "PASS"
+    }
+  ],
+  "original_inputs": {
+    "Assets/Mofumachi/Resources/Mofumachi/CharacterBodyAtlas.png": "23d14025f146c429da01b6e3a74ef803254755f8d149f9eb53516aacaa30163d",
+    "References/Characters/fio-authored-parts-2026-10-30/layout.json": "3dc5b9bb15c45acc2bbe47bb59eaee915a6c02255ecbfa579eb3369d8d4c7b3e",
+    "References/Characters/fio-authored-parts-2026-10-30/parts-left.png": "24c31de2eadb6026940951eecff869e7bc1f3780571e4e97cbf0608256776117",
+    "References/Characters/fio-authored-parts-2026-10-30/parts-right.png": "f9b5de56965f20b9ee015871fe7c4d9dcddc83d0111ff166e276a225824f8fa1",
+    "References/Characters/fio-authored-parts-2026-10-30/parts-back.png": "4726eb6e5dfe820c4df48ce9a7b9ff4dd52fda869e96760afc706738edf30662"
+  }
+}

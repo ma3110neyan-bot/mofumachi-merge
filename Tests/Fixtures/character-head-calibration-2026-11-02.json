@@ -752,7 +752,7 @@
         ]
       ],
       "head_local": [
-        -20.0,
+        -12,
         -196.0
       ],
       "body_local": [
@@ -765,7 +765,7 @@
         -223
       ],
       "correction": [
-        0.0,
+        8,
         27.0
       ],
       "coverage_angles": [
@@ -778,6 +778,10 @@
         0.02,
         0.04,
         0.05
+      ],
+      "before_fio_micro_adjustment": [
+        -20.0,
+        -196.0
       ]
     },
     {
@@ -804,7 +808,7 @@
         ]
       ],
       "head_local": [
-        20.0,
+        12,
         -197.0
       ],
       "body_local": [
@@ -817,7 +821,7 @@
         -223
       ],
       "correction": [
-        0.0,
+        -8,
         26.0
       ],
       "coverage_angles": [
@@ -830,6 +834,10 @@
         0.02,
         0.04,
         0.05
+      ],
+      "before_fio_micro_adjustment": [
+        20.0,
+        -197.0
       ]
     },
     {
@@ -1069,5 +1077,14 @@
       "miel": "FAIL: left head axis left"
     },
     "scope": "Seven horizontal head registrations only. Preserve all Y values, other eleven views, art, size, angles and common synchronization."
+  },
+  "fio_micro_adjustment": {
+    "baseline": "2b85598f9903e459a6f6119f3f04c2b4a91379c9",
+    "request": "Only Fio Left head slightly right, Right head slightly left; no other changes. No image approval required before direct six-character Pixel3a preview.",
+    "delta_model_units": {
+      "left": 8,
+      "right": -8
+    },
+    "pixel3a_verified": false
   }
 }

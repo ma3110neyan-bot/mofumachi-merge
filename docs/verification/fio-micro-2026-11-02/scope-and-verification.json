@@ -1,0 +1,27 @@
+{
+  "scope": "Only Fio left/right head X micro adjustment",
+  "baseline": "2b85598f9903e459a6f6119f3f04c2b4a91379c9",
+  "head_x": {
+    "left": {
+      "before": -20,
+      "after": -12
+    },
+    "right": {
+      "before": 20,
+      "after": 12
+    }
+  },
+  "all_head_y_unchanged": true,
+  "other_sixteen_directional_registrations_unchanged": true,
+  "non_head_geometry_and_head_size_angle_uv_unchanged": true,
+  "related_fio_model_frames": 1774,
+  "vertex_mismatches": 0,
+  "baseline_red_vertex_mismatches": 3488,
+  "presentation_api_compile": "0 warnings/0 errors",
+  "direct_pixel_route_guards": "PASS (synthetic route checks; no Unity/device execution)",
+  "native_unity_verified": false,
+  "apk_generated": false,
+  "pixel3a_verified": false,
+  "formal_fixed": false,
+  "user_next_step": "User requested no image approval; directly build/install all six characters on Pixel3a using existing direct route."
+}

@@ -15,7 +15,7 @@ namespace Mofumachi.Presentation
                 case "momo":x=direction=="left"?11.505f:direction=="right"?-12.378f:0f;y=direction=="left"?-206.5f:direction=="right"?-201.5f:-218f;break;
                 case "lulu":x=direction=="left"?8.953f:direction=="right"?20f:0f;y=direction=="left"?-197.5f:direction=="right"?-194f:-193f;break;
                 case "pom":x=direction=="left"?22.146f:direction=="right"?-1.908f:0f;y=direction=="left"?-197.5f:direction=="right"?-199f:-207.5f;break;
-                case "fio":x=direction=="left"?-20f:direction=="right"?20f:0f;y=direction=="left"?-196f:direction=="right"?-197f:-206.5f;break;
+                case "fio":x=direction=="left"?-12f:direction=="right"?12f:0f;y=direction=="left"?-196f:direction=="right"?-197f:-206.5f;break;
                 case "miel":x=direction=="left"?7.482f:direction=="right"?20f:0f;y=direction=="left"?-202.5f:direction=="right"?-196f:-199f;break;
                 default:throw new ArgumentException("Unregistered character: "+character);
             }

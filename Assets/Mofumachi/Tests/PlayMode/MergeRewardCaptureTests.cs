@@ -100,7 +100,6 @@ namespace Mofumachi.Tests
         {
             var proof=new Proof{source_revision=Argument("-mofumachiSourceRevision"),product_fingerprint=Argument("-mofumachiProductFingerprint"),packed_resource_sha256=Argument("-mofumachiPackedResourceSha")};
             string output=MergeCaptureArtifacts.RequireOutput(Environment.GetCommandLineArgs());proof.output_directory=output;
-            Debug.Log("MOFUMACHI_MERGE_CAPTURE_OUTPUT "+output);
             string reference=Path.Combine(Application.dataPath,"../",proof.reference_path);
             if(File.Exists(reference))
             {
@@ -131,7 +130,6 @@ namespace Mofumachi.Tests
                 var saved=JsonUtility.FromJson<Proof>(File.ReadAllText(proofPath));Assert.That(saved,Is.Not.Null);
                 Assert.That(saved.disk_verified,Is.True);Assert.That(saved.output_directory,Is.EqualTo(output));Assert.That(saved.image_count,Is.EqualTo(11));
                 MergeCaptureArtifacts.VerifyWritten(output,saved.images.ToDictionary(i=>i.file,i=>i.sha256,StringComparer.Ordinal));
-                Debug.Log("MOFUMACHI_MERGE_CAPTURE_DISK_VERIFIED 11 JPEG + JSON: "+output);
                 LogAssert.NoUnexpectedReceived();
             }
             finally{MergeRewardPresentation.CaptureBefore=false;}

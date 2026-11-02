@@ -1,3 +1,15 @@
+# 2026-11-02最新：キャラ×向き別のHead位置補正候補／実Unityは未確認
+
+最新ユーザー指示はHead/Body位置ズレだけ。添付一覧は配置見本で、一覧や原画を編集しない。移動・Direction/Flip/Rootのロジックは共通、Head/Bodyの静的な登録値は個別でよいと明示許可。旧「個別値の調整不可」を追加承認の理由にしない。原画／顔／色／衣装／体型／表情／サイズ／速度／影／背面デザイン／向き方式／会話／すれ違い／街／UI／Merge／Save等は維持。現Unityの6名個別PASS前は完了・固定・未達0名にしない。
+
+同じGraphic内の共有Rootは元から存在する。5名のHead offsetを独立した首振り角度側で回す点と、個別素材の襟・顎の登録不足を修正。新CharacterHeadBodyCalibrationがBodyの現在座標系から頭の静的な位置を求め、元のHead角度をそのまま返す。既存2GraphicのHead枝だけ変更。キャラ×左右背面18値を個別に設定し、正面は正式一枚絵のまま。原素材の襟開口と残す衣装マーカーをFixtureに記録し、輪郭極点solverを復活させていない。画像側の座標補正・新原画・別Animator/WorldRoot方式なし。
+
+CLR実Graphic1774モデルframe/名で頂点不一致0、頭以外・全UV・頭サイズ/角度不変。前版ノアを同じ期待値で検査して5232頂点不一致→候補0。原素材alphaを実出力quadへ写す独立検査は各1308分割frameで襟被覆/衣装非被覆の不合格0。これは計算検査だけ。References/Review/character-head-calibration-2026-11-02/には8JPEG（6名別4方向×静止/歩行2位相/首元拡大、全員4方向、BeforeAfter）・実CLR頂点・SHA・検査要約。全画像は明示的に素材/コード再現であり、実Unity/Pixel画像に置換しない。旧画像と原本は不変。
+
+新nativeはcapture-character-head-calibration.ps1：正面3秒→左3秒→右3秒→背面3秒→正面→停止→再歩行＋毎frame方向切替、各1054姿勢をノア→モモ→ルル→ポム→フィオ→ミエルで個別測定。街/Sceneをロードせず単体Canvasだけ。Stop時Root固定を記録、rapid区間は毎frame撮影、キャラ単体480×600のJPEG計972枚と連続HTML。全画像をUnity LoadImageとWindows GDI+で全decode検査。旧432/1440証拠は拒否。XMLは新1メソッドのみ、個別technical PASSとvisual PENDINGを分ける。実際の街移動/Pixel/FPSの証拠とは呼ばない。実Unityライセンス未接続・Pixelなしのため今回nativeは未実行、6名実描画判定は保留。全件テスト・APK・install・Mergeは実行していない。
+
+元53・歴史26/552・旧訂正manifestは不変。追加characters-head-calibration-2026-11-02.jsonが前訂正SHA、2Rendererの正確なbefore/new SHA、新resolver/meta/期待値の3追加を限定照合。formal/adopted/native/pixelはfalse。原画や一般コードの例外を広げない。関連PS5組、Presentation/Editor/PlayModeTestsのAPIコンパイル成功。独立レビューの停止中Root移動・rapid撮影alias・JPEGヘッダだけ受入の3点は関連RED→GREENで修正。Windows GDI+実行とnative描画はクラウドでは未確認。手順docs/characters-head-calibration-2026-11-02.md。通常feature pushの既存許可は継続。6名現native目視PASS後に必要な全体テストを1回だけ、正式固定後にのみ次工程へ。以下は履歴。
+
 # もふまちメルジュ：今後の開発方針
 
 ## 2026-11-02最新：Pixel移行前にJPEG確認・再現画像で残る首元の隙間を確認

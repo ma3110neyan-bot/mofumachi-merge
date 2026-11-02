@@ -7,9 +7,31 @@ function Get-CharactersLockSnapshotHash($Rows){
     [Array]::Sort($Lines,[StringComparer]::Ordinal);$Hasher=[Security.Cryptography.SHA256]::Create()
     try{return ([BitConverter]::ToString($Hasher.ComputeHash([Text.Encoding]::UTF8.GetBytes(($Lines -join "`n"))))).Replace('-','').ToLowerInvariant()}finally{$Hasher.Dispose()}
 }
+function Read-CharacterHeadCalibration([string]$Repository,$Previous){
+    $Folder=Join-Path $Repository 'References/VisualLock';$Path=Join-Path $Folder 'characters-head-calibration-2026-11-02.json'
+    if(-not(Test-Path -LiteralPath $Path -PathType Leaf)){return $Previous}
+    $C=Get-Content -Raw -Encoding UTF8 -LiteralPath $Path | ConvertFrom-Json
+    if($C.kind -cne 'individual-head-body-calibration' -or $C.change_authorized -isnot [bool] -or -not $C.change_authorized){throw 'Invalid individual head calibration authorization.'}
+    foreach($Flag in @('formal_fixed','adopted','native_verified','pixel_verified')){if($C.$Flag -isnot [bool] -or $C.$Flag){throw 'Pending calibration cannot claim formal/native acceptance.'}}
+    if((Get-FinishTextHash (Join-Path $Folder 'characters-head-recovery-2026-11-01.json')) -cne $C.previous_recovery_sha256){throw 'Preserve the previous restoration record.'}
+    $Allowed=@('Assets/Mofumachi/Presentation/NoahAuthoredGraphic.cs','Assets/Mofumachi/Presentation/CharacterAuthoredGraphic.cs');$Seen=@{}
+    if(@($C.overrides).Count -ne 2){throw 'Head calibration only amends the two head renderers.'}
+    foreach($Row in @($C.overrides)){
+        if($Row.path -cnotin $Allowed -or $Seen.ContainsKey($Row.path) -or -not $Previous.ContainsKey($Row.path) -or $Row.before_sha256 -cne $Previous[$Row.path] -or $Row.sha256 -cnotmatch '^[a-f0-9]{64}$'){throw 'Head calibration cannot unlock art, motion or unrelated paths.'}
+        $Seen[$Row.path]=$true;$Previous[$Row.path]=$Row.sha256
+    }
+    $Added=@('Assets/Mofumachi/Presentation/CharacterHeadBodyCalibration.cs','Assets/Mofumachi/Presentation/CharacterHeadBodyCalibration.cs.meta','Tests/Fixtures/character-head-calibration-2026-11-02.json');$Seen=@{}
+    if(@($C.additions).Count -ne 3){throw 'Exact common resolver, meta and individual reference required.'}
+    foreach($Row in @($C.additions)){
+        if($Row.path -cnotin $Added -or $Seen.ContainsKey($Row.path) -or $Row.sha256 -cnotmatch '^[a-f0-9]{64}$'){throw 'Invalid head calibration addition.'};$Seen[$Row.path]=$true
+        $File=Join-Path $Repository $Row.path
+        if(-not(Test-Path -LiteralPath $File -PathType Leaf) -or ((Get-Item -LiteralPath $File -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) -or (Get-FinishTextHash $File) -cne $Row.sha256){throw "Individual head calibration changed: $($Row.path)"}
+    }
+    return $Previous
+}
 function Read-CharacterHeadRecovery([string]$Repository){
     $Folder=Join-Path $Repository 'References/VisualLock';$Path=Join-Path $Folder 'characters-head-recovery-2026-11-01.json';$Result=@{}
-    if(-not(Test-Path -LiteralPath $Path -PathType Leaf)){return $Result}
+    if(-not(Test-Path -LiteralPath $Path -PathType Leaf)){if(Test-Path -LiteralPath (Join-Path $Folder 'characters-head-calibration-2026-11-02.json')){throw 'Head calibration requires the previous recovery record.'};return $Result}
     $Change=Get-Content -Raw -Encoding UTF8 -LiteralPath $Path | ConvertFrom-Json
     if($Change.kind -cne 'approved-noah-head-body-restoration' -or $Change.reference_revision -cne '7c98804a78f07546fb8176b320904e8af44f6542' -or $Change.change_authorized -isnot [bool] -or -not $Change.change_authorized -or $Change.formal_fixed -isnot [bool] -or $Change.formal_fixed -or $Change.adopted -isnot [bool] -or $Change.adopted){throw 'Head restoration is authorized correction, not new formal acceptance.'}
     $Lock=Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $Folder 'characters-25d-final-2026-11-01.json') | ConvertFrom-Json
@@ -22,7 +44,7 @@ function Read-CharacterHeadRecovery([string]$Repository){
         if($Before.Count -ne 1 -or $Row.before_sha256 -cne $Before[0].sha256 -or $Before[0].text_normalized -isnot [bool] -or -not $Before[0].text_normalized){throw 'Head recovery does not name the exact former renderer hash.'}
         $Result[$Row.path]=$Row.sha256
     }
-    return $Result
+    return Read-CharacterHeadCalibration $Repository $Result
 }
 function Assert-CharactersVisualLock([string]$Repository){
     $Path=Join-Path $Repository 'References/VisualLock/characters-25d-final-2026-11-01.json'

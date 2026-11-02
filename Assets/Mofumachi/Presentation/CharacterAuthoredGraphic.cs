@@ -87,11 +87,11 @@ namespace Mofumachi.Presentation
             foreach(var open in view.parts)
             {
                 var p=view.PartFor(open,eyesClosed);
-                // Use Noah's approved current-pose frame for head and body alike;
-                // character differences remain the unchanged static registration.
-                var t=pose.Part(p.id).Child(p.offset.x,p.offset.y,p.rotation);
+                // Per-character directional registration is applied in Body space.
+                // Head angle and all non-head vertices retain the original motion.
+                var t=p.id=="head"?CharacterHeadBodyCalibration.Resolve(config.characterId,view.direction,bodyFrame,pose.Head.Rotation+p.rotation):pose.Part(p.id).Child(p.offset.x,p.offset.y,p.rotation);
 #if UNITY_EDITOR
-                if(capturePreviousNeck&&p.id=="head")t=view.neck.Resolve(bodyFrame,pose.Head.Rotation+p.rotation,p!=open);
+                if(capturePreviousNeck&&p.id=="head")t=pose.Head.Child(p.offset.x,p.offset.y,p.rotation);
                 if(captureLegacyPose&&p.id=="head"){var old=pose.Head;if(view.direction=="back"){var h=pose.Body.Child(-20,-238,pose.Head.Rotation-pose.Body.Rotation);old=new NoahPartTransform(0,h.Y,h.Rotation);}t=old.Child(p.offset.x,p.offset.y,p.rotation);}
 #endif
                 int n=vh.currentVertCount;

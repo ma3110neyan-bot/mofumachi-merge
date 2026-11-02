@@ -6,6 +6,7 @@
     <Compile Include="../../Fixtures/approved-noah-7c98804a/NoahAuthoredGraphic.cs.txt"/>
     <Compile Include="../../../Assets/Mofumachi/Presentation/NoahAuthoredMotion.cs"/>
     <Compile Include="../../../Assets/Mofumachi/Presentation/CharacterNeckAttachment.cs"/>
+    <Compile Include="../../../Assets/Mofumachi/Presentation/CharacterHeadBodyCalibration.cs" Condition="Exists('../../../Assets/Mofumachi/Presentation/CharacterHeadBodyCalibration.cs')"/>
     <Compile Include="../../../Assets/Mofumachi/Presentation/NoahAuthoredGraphic.cs"/>
     <Compile Include="../../../Assets/Mofumachi/Presentation/CharacterAuthoredGraphic.cs"/>
   </ItemGroup>

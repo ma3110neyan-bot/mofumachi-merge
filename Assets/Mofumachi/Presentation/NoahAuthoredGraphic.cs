@@ -63,11 +63,10 @@ namespace Mofumachi.Presentation
             var r=GetPixelAdjustedRect();float height=Mathf.Min(r.width/254f,r.height/323f)*323f,s=height/600f;
             foreach(var p in view.parts)
             {
-                // Restore the approved authored rest placement. Every part is
-                // resolved from the same current pose; no separate head root.
-                var t=pose.Part(p.id);
+                // Keep the head attached to the same current body frame.
+                var t=p.id=="head"?CharacterHeadBodyCalibration.Resolve("noah",view.direction,pose.Body,pose.Head.Rotation):pose.Part(p.id);
 #if UNITY_EDITOR
-                if(capturePreviousNeck&&p.id=="head")t=view.neck.Resolve(pose.Body,pose.Head.Rotation,false);
+                if(capturePreviousNeck&&p.id=="head")t=pose.Head;
                 if(captureLegacyPose&&p.id=="head"){t=pose.Head;if(view.direction=="back"){var h=pose.Body.Child(-20,-238,pose.Head.Rotation-pose.Body.Rotation);t=new NoahPartTransform(0,h.Y,h.Rotation);}}
 #endif
                 int n=vh.currentVertCount;

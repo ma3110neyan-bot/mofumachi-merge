@@ -1,0 +1,942 @@
+{
+  "kind": "individual-head-body-calibration-reference",
+  "reference": "User inline 2.5D正解見本, Nov2; placement only. Existing original art/back designs retained.",
+  "source_baseline": "9be23ab9b9f3a482a4483895ae9ce23285a7ed41",
+  "front": "Unchanged complete formal sprite; no head/body split or offset.",
+  "native_verified": false,
+  "visual_accepted": false,
+  "rows": [
+    {
+      "character": "noah",
+      "direction": "left",
+      "collar_cover": [
+        [
+          440,
+          85
+        ],
+        [
+          460,
+          85
+        ],
+        [
+          480,
+          83
+        ]
+      ],
+      "garment_clear": [
+        [
+          385,
+          115
+        ],
+        [
+          520,
+          108
+        ]
+      ],
+      "head_local": [
+        -20.0,
+        -219.0
+      ],
+      "body_local": [
+        0,
+        0
+      ],
+      "landmark_units": "original body crop pixels, top-left origin; manually annotated collar opening/skin and visible garment marker",
+      "original_head_local": [
+        -20,
+        -238
+      ],
+      "correction": [
+        0.0,
+        19.0
+      ],
+      "coverage_angles": [
+        -0.05,
+        -0.04,
+        -0.02,
+        -0.006,
+        0.0,
+        0.006,
+        0.02,
+        0.04,
+        0.05
+      ]
+    },
+    {
+      "character": "noah",
+      "direction": "right",
+      "collar_cover": [
+        [
+          235,
+          30
+        ]
+      ],
+      "garment_clear": [
+        [
+          266,
+          53
+        ]
+      ],
+      "head_local": [
+        20.0,
+        -216.5
+      ],
+      "body_local": [
+        0,
+        0
+      ],
+      "landmark_units": "original body crop pixels, top-left origin; manually annotated collar opening/skin and visible garment marker",
+      "original_head_local": [
+        20,
+        -238
+      ],
+      "correction": [
+        0.0,
+        21.5
+      ],
+      "coverage_angles": [
+        -0.05,
+        -0.04,
+        -0.02,
+        -0.006,
+        0.0,
+        0.006,
+        0.02,
+        0.04,
+        0.05
+      ]
+    },
+    {
+      "character": "noah",
+      "direction": "back",
+      "collar_cover": [
+        [
+          208,
+          34
+        ],
+        [
+          220,
+          34
+        ],
+        [
+          232,
+          34
+        ]
+      ],
+      "garment_clear": [
+        [
+          220,
+          100
+        ]
+      ],
+      "head_local": [
+        0.0,
+        -224.0
+      ],
+      "body_local": [
+        0,
+        0
+      ],
+      "landmark_units": "original body crop pixels, top-left origin; manually annotated collar opening/skin and visible garment marker",
+      "original_head_local": [
+        0,
+        -238
+      ],
+      "correction": [
+        0.0,
+        14.0
+      ],
+      "coverage_angles": [
+        -0.05,
+        -0.04,
+        -0.02,
+        -0.006,
+        0.0,
+        0.006,
+        0.02,
+        0.04,
+        0.05
+      ]
+    },
+    {
+      "character": "momo",
+      "direction": "left",
+      "collar_cover": [
+        [
+          205,
+          30
+        ],
+        [
+          225,
+          30
+        ],
+        [
+          240,
+          28
+        ]
+      ],
+      "garment_clear": [
+        [
+          160,
+          65
+        ]
+      ],
+      "head_local": [
+        -20.0,
+        -206.5
+      ],
+      "body_local": [
+        0,
+        0
+      ],
+      "landmark_units": "original body crop pixels, top-left origin; manually annotated collar opening/skin and visible garment marker",
+      "original_head_local": [
+        -20,
+        -208
+      ],
+      "correction": [
+        0.0,
+        1.5
+      ],
+      "coverage_angles": [
+        -0.05,
+        -0.04,
+        -0.02,
+        -0.006,
+        0.0,
+        0.006,
+        0.02,
+        0.04,
+        0.05
+      ]
+    },
+    {
+      "character": "momo",
+      "direction": "right",
+      "collar_cover": [
+        [
+          195,
+          28
+        ],
+        [
+          215,
+          31
+        ],
+        [
+          230,
+          31
+        ]
+      ],
+      "garment_clear": [
+        [
+          230,
+          65
+        ]
+      ],
+      "head_local": [
+        20.0,
+        -201.5
+      ],
+      "body_local": [
+        0,
+        0
+      ],
+      "landmark_units": "original body crop pixels, top-left origin; manually annotated collar opening/skin and visible garment marker",
+      "original_head_local": [
+        20,
+        -208
+      ],
+      "correction": [
+        0.0,
+        6.5
+      ],
+      "coverage_angles": [
+        -0.05,
+        -0.04,
+        -0.02,
+        -0.006,
+        0.0,
+        0.006,
+        0.02,
+        0.04,
+        0.05
+      ]
+    },
+    {
+      "character": "momo",
+      "direction": "back",
+      "collar_cover": [
+        [
+          205,
+          24
+        ],
+        [
+          220,
+          25
+        ],
+        [
+          235,
+          24
+        ]
+      ],
+      "garment_clear": [
+        [
+          220,
+          56
+        ]
+      ],
+      "head_local": [
+        0.0,
+        -218.0
+      ],
+      "body_local": [
+        0,
+        0
+      ],
+      "landmark_units": "original body crop pixels, top-left origin; manually annotated collar opening/skin and visible garment marker",
+      "original_head_local": [
+        0,
+        -208
+      ],
+      "correction": [
+        0.0,
+        -10.0
+      ],
+      "coverage_angles": [
+        -0.05,
+        -0.04,
+        -0.02,
+        -0.006,
+        0.0,
+        0.006,
+        0.02,
+        0.04,
+        0.05
+      ]
+    },
+    {
+      "character": "lulu",
+      "direction": "left",
+      "collar_cover": [
+        [
+          215,
+          35
+        ],
+        [
+          230,
+          36
+        ],
+        [
+          245,
+          34
+        ]
+      ],
+      "garment_clear": [
+        [
+          185,
+          75
+        ]
+      ],
+      "head_local": [
+        -20.0,
+        -197.5
+      ],
+      "body_local": [
+        0,
+        0
+      ],
+      "landmark_units": "original body crop pixels, top-left origin; manually annotated collar opening/skin and visible garment marker",
+      "original_head_local": [
+        -20,
+        -223
+      ],
+      "correction": [
+        0.0,
+        25.5
+      ],
+      "coverage_angles": [
+        -0.05,
+        -0.04,
+        -0.02,
+        -0.006,
+        0.0,
+        0.006,
+        0.02,
+        0.04,
+        0.05
+      ]
+    },
+    {
+      "character": "lulu",
+      "direction": "right",
+      "collar_cover": [
+        [
+          202,
+          35
+        ],
+        [
+          217,
+          37
+        ],
+        [
+          232,
+          36
+        ]
+      ],
+      "garment_clear": [
+        [
+          270,
+          77
+        ]
+      ],
+      "head_local": [
+        20.0,
+        -194.0
+      ],
+      "body_local": [
+        0,
+        0
+      ],
+      "landmark_units": "original body crop pixels, top-left origin; manually annotated collar opening/skin and visible garment marker",
+      "original_head_local": [
+        20,
+        -223
+      ],
+      "correction": [
+        0.0,
+        29.0
+      ],
+      "coverage_angles": [
+        -0.05,
+        -0.04,
+        -0.02,
+        -0.006,
+        0.0,
+        0.006,
+        0.02,
+        0.04,
+        0.05
+      ]
+    },
+    {
+      "character": "lulu",
+      "direction": "back",
+      "collar_cover": [
+        [
+          205,
+          39
+        ],
+        [
+          220,
+          40
+        ],
+        [
+          235,
+          39
+        ]
+      ],
+      "garment_clear": [
+        [
+          220,
+          91
+        ]
+      ],
+      "head_local": [
+        0.0,
+        -193.0
+      ],
+      "body_local": [
+        0,
+        0
+      ],
+      "landmark_units": "original body crop pixels, top-left origin; manually annotated collar opening/skin and visible garment marker",
+      "original_head_local": [
+        0,
+        -223
+      ],
+      "correction": [
+        0.0,
+        30.0
+      ],
+      "coverage_angles": [
+        -0.05,
+        -0.04,
+        -0.02,
+        -0.006,
+        0.0,
+        0.006,
+        0.02,
+        0.04,
+        0.05
+      ]
+    },
+    {
+      "character": "pom",
+      "direction": "left",
+      "collar_cover": [
+        [
+          248,
+          31
+        ],
+        [
+          263,
+          34
+        ],
+        [
+          278,
+          32
+        ]
+      ],
+      "garment_clear": [
+        [
+          228,
+          72
+        ]
+      ],
+      "head_local": [
+        -20.0,
+        -197.5
+      ],
+      "body_local": [
+        0,
+        0
+      ],
+      "landmark_units": "original body crop pixels, top-left origin; manually annotated collar opening/skin and visible garment marker",
+      "original_head_local": [
+        -20,
+        -223
+      ],
+      "correction": [
+        0.0,
+        25.5
+      ],
+      "coverage_angles": [
+        -0.05,
+        -0.04,
+        -0.02,
+        -0.006,
+        0.0,
+        0.006,
+        0.02,
+        0.04,
+        0.05
+      ]
+    },
+    {
+      "character": "pom",
+      "direction": "right",
+      "collar_cover": [
+        [
+          247,
+          31
+        ],
+        [
+          262,
+          33
+        ],
+        [
+          277,
+          31
+        ]
+      ],
+      "garment_clear": [
+        [
+          288,
+          75
+        ]
+      ],
+      "head_local": [
+        20.0,
+        -199.0
+      ],
+      "body_local": [
+        0,
+        0
+      ],
+      "landmark_units": "original body crop pixels, top-left origin; manually annotated collar opening/skin and visible garment marker",
+      "original_head_local": [
+        20,
+        -223
+      ],
+      "correction": [
+        0.0,
+        24.0
+      ],
+      "coverage_angles": [
+        -0.05,
+        -0.04,
+        -0.02,
+        -0.006,
+        0.0,
+        0.006,
+        0.02,
+        0.04,
+        0.05
+      ]
+    },
+    {
+      "character": "pom",
+      "direction": "back",
+      "collar_cover": [
+        [
+          253,
+          26
+        ],
+        [
+          268,
+          28
+        ],
+        [
+          283,
+          26
+        ]
+      ],
+      "garment_clear": [
+        [
+          268,
+          85
+        ]
+      ],
+      "head_local": [
+        0.0,
+        -207.5
+      ],
+      "body_local": [
+        0,
+        0
+      ],
+      "landmark_units": "original body crop pixels, top-left origin; manually annotated collar opening/skin and visible garment marker",
+      "original_head_local": [
+        0,
+        -208
+      ],
+      "correction": [
+        0.0,
+        0.5
+      ],
+      "coverage_angles": [
+        -0.05,
+        -0.04,
+        -0.02,
+        -0.006,
+        0.0,
+        0.006,
+        0.02,
+        0.04,
+        0.05
+      ]
+    },
+    {
+      "character": "fio",
+      "direction": "left",
+      "collar_cover": [
+        [
+          180,
+          28
+        ],
+        [
+          194,
+          30
+        ],
+        [
+          208,
+          28
+        ]
+      ],
+      "garment_clear": [
+        [
+          175,
+          67
+        ]
+      ],
+      "head_local": [
+        -20.0,
+        -196.0
+      ],
+      "body_local": [
+        0,
+        0
+      ],
+      "landmark_units": "original body crop pixels, top-left origin; manually annotated collar opening/skin and visible garment marker",
+      "original_head_local": [
+        -20,
+        -223
+      ],
+      "correction": [
+        0.0,
+        27.0
+      ],
+      "coverage_angles": [
+        -0.05,
+        -0.04,
+        -0.02,
+        -0.006,
+        0.0,
+        0.006,
+        0.02,
+        0.04,
+        0.05
+      ]
+    },
+    {
+      "character": "fio",
+      "direction": "right",
+      "collar_cover": [
+        [
+          190,
+          27
+        ],
+        [
+          204,
+          31
+        ],
+        [
+          218,
+          30
+        ]
+      ],
+      "garment_clear": [
+        [
+          258,
+          70
+        ]
+      ],
+      "head_local": [
+        20.0,
+        -197.0
+      ],
+      "body_local": [
+        0,
+        0
+      ],
+      "landmark_units": "original body crop pixels, top-left origin; manually annotated collar opening/skin and visible garment marker",
+      "original_head_local": [
+        20,
+        -223
+      ],
+      "correction": [
+        0.0,
+        26.0
+      ],
+      "coverage_angles": [
+        -0.05,
+        -0.04,
+        -0.02,
+        -0.006,
+        0.0,
+        0.006,
+        0.02,
+        0.04,
+        0.05
+      ]
+    },
+    {
+      "character": "fio",
+      "direction": "back",
+      "collar_cover": [
+        [
+          169,
+          21
+        ],
+        [
+          183,
+          23
+        ],
+        [
+          197,
+          21
+        ]
+      ],
+      "garment_clear": [
+        [
+          183,
+          62
+        ]
+      ],
+      "head_local": [
+        0.0,
+        -206.5
+      ],
+      "body_local": [
+        0,
+        0
+      ],
+      "landmark_units": "original body crop pixels, top-left origin; manually annotated collar opening/skin and visible garment marker",
+      "original_head_local": [
+        0,
+        -223
+      ],
+      "correction": [
+        0.0,
+        16.5
+      ],
+      "coverage_angles": [
+        -0.05,
+        -0.04,
+        -0.02,
+        -0.006,
+        0.0,
+        0.006,
+        0.02,
+        0.04,
+        0.05
+      ]
+    },
+    {
+      "character": "miel",
+      "direction": "left",
+      "collar_cover": [
+        [
+          224,
+          18
+        ],
+        [
+          239,
+          20
+        ],
+        [
+          254,
+          18
+        ]
+      ],
+      "garment_clear": [
+        [
+          230,
+          55
+        ]
+      ],
+      "head_local": [
+        -20.0,
+        -202.5
+      ],
+      "body_local": [
+        0,
+        0
+      ],
+      "landmark_units": "original body crop pixels, top-left origin; manually annotated collar opening/skin and visible garment marker",
+      "original_head_local": [
+        -20,
+        -208
+      ],
+      "correction": [
+        0.0,
+        5.5
+      ],
+      "coverage_angles": [
+        -0.05,
+        -0.04,
+        -0.02,
+        -0.006,
+        0.0,
+        0.006,
+        0.02,
+        0.04,
+        0.05
+      ]
+    },
+    {
+      "character": "miel",
+      "direction": "right",
+      "collar_cover": [
+        [
+          216,
+          22
+        ],
+        [
+          231,
+          23
+        ],
+        [
+          246,
+          22
+        ]
+      ],
+      "garment_clear": [
+        [
+          239,
+          56
+        ]
+      ],
+      "head_local": [
+        20.0,
+        -196.0
+      ],
+      "body_local": [
+        0,
+        0
+      ],
+      "landmark_units": "original body crop pixels, top-left origin; manually annotated collar opening/skin and visible garment marker",
+      "original_head_local": [
+        20,
+        -208
+      ],
+      "correction": [
+        0.0,
+        12.0
+      ],
+      "coverage_angles": [
+        -0.05,
+        -0.04,
+        -0.02,
+        -0.006,
+        0.0,
+        0.006,
+        0.02,
+        0.04,
+        0.05
+      ]
+    },
+    {
+      "character": "miel",
+      "direction": "back",
+      "collar_cover": [
+        [
+          217,
+          30
+        ],
+        [
+          232,
+          32
+        ],
+        [
+          247,
+          30
+        ]
+      ],
+      "garment_clear": [
+        [
+          232,
+          95
+        ]
+      ],
+      "head_local": [
+        0.0,
+        -199.0
+      ],
+      "body_local": [
+        0,
+        0
+      ],
+      "landmark_units": "original body crop pixels, top-left origin; manually annotated collar opening/skin and visible garment marker",
+      "original_head_local": [
+        0,
+        -208
+      ],
+      "correction": [
+        0.0,
+        9.0
+      ],
+      "coverage_angles": [
+        -0.05,
+        -0.04,
+        -0.02,
+        -0.006,
+        0.0,
+        0.006,
+        0.02,
+        0.04,
+        0.05
+      ]
+    }
+  ]
+}

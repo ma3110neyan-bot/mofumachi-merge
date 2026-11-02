@@ -162,6 +162,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--meshes", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--before-meshes", type=Path)
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     atlas_path = ROOT / "Assets/Mofumachi/Resources/Mofumachi/CharacterBodyAtlas.png"
@@ -171,7 +172,12 @@ def main():
     bounds = [list(map(int, values)) for values in re.findall(r"new Rect\((\d+),(\d+),(\d+),(\d+)\)", segment)[:6]]
     assert len(bounds) == 6
     runtime_files = ["Assets/Mofumachi/Presentation/NoahAuthoredGraphic.cs", "Assets/Mofumachi/Presentation/CharacterAuthoredGraphic.cs", "Assets/Mofumachi/Presentation/NoahAuthoredMotion.cs", "Assets/Mofumachi/Presentation/CharacterBodyGraphic.cs"]
+    if (ROOT / "Assets/Mofumachi/Presentation/CharacterHeadBodyCalibration.cs").exists():
+        runtime_files.append("Assets/Mofumachi/Presentation/CharacterHeadBodyCalibration.cs")
     runtime_revision = subprocess.check_output(["git", "log", "-1", "--format=%H", "--", *runtime_files], cwd=ROOT, text=True).strip()
+    runtime_digest = hashlib.sha256("\n".join(p+":"+digest(ROOT/p) for p in runtime_files).encode()).hexdigest()
+    dirty = subprocess.check_output(["git", "status", "--porcelain", "--", *runtime_files], cwd=ROOT, text=True).strip()
+    revision_label = "候補 " + runtime_digest[:12] if dirty else runtime_revision[:7]
     output_rows = []
     characters = []
     for name in NAMES:
@@ -179,9 +185,9 @@ def main():
         characters.append(character)
         image = Image.new("RGB", (1980, 2020), "#fffaf7")
         draw = ImageDraw.Draw(image)
-        text(draw, (30, 15), f"{NAMES[name]}｜頭・胴体 復旧版の確認", 44, True)
+        text(draw, (30, 15), f"{NAMES[name]}｜頭・胴体の位置確認", 44, True)
         text(draw, (30, 78), "素材・コード再現プレビュー（Unity／Pixel実画面ではありません）", 28, True, "#a44931")
-        text(draw, (30, 123), f"描画コード {runtime_revision[:7]} ／正式素材は無変更／街・影は表示していません", 25)
+        text(draw, (30, 123), f"描画コード {revision_label} ／正式素材は無変更／街・影は表示していません", 25)
         for col, (_, label) in enumerate(DIRECTIONS):
             text(draw, (30 + col * 480 + 175, 173), label, 30, True)
         y = 220
@@ -205,7 +211,7 @@ def main():
     draw = ImageDraw.Draw(overview)
     text(draw, (30, 15), "6名・前後左右｜頭と胴体の配置確認", 42, True)
     text(draw, (30, 76), "素材・コード再現プレビュー（Unity／Pixel実画面ではありません）", 27, True, "#a44931")
-    text(draw, (30, 117), f"描画コード {runtime_revision[:7]} ／静止・同じ表示倍率／詳細JPEGには歩行2位相と首元拡大を収録", 23)
+    text(draw, (30, 117), f"描画コード {revision_label} ／静止・同じ表示倍率／詳細JPEGには歩行2位相と首元拡大を収録", 23)
     for col, (_, label) in enumerate(DIRECTIONS):
         text(draw, (190 + col * 400 + 145, 161), label, 29, True)
     for row, character in enumerate(characters):
@@ -217,15 +223,36 @@ def main():
     path = args.output / "all-six-directions.jpg"
     save_jpeg(overview, path)
     output_rows.insert(0, {"file": path.name, "bytes": path.stat().st_size, "sha256": digest(path), "width": overview.width, "height": overview.height})
-    receipt = {"kind": "software-source-preview-jpegs", "date_jst": "2026-11-02", "runtime_revision": runtime_revision,
+    before_mesh_files = {}
+    if args.before_meshes:
+        comparison = Image.new("RGB", (1910, 2240), "#fffaf7")
+        d = ImageDraw.Draw(comparison)
+        text(d, (25, 15), "頭・胴体の位置補正 Before / After", 40, True)
+        text(d, (25, 76), "原素材と実描画コードの再現画像です。Unity／Pixelの実画面・合格証拠ではありません。", 25, True, "#a44931")
+        for col, direction in enumerate(("左", "右", "背面")):
+            text(d, (180+col*600, 124), direction+" Before", 25, True)
+            text(d, (480+col*600, 124), direction+" After", 25, True)
+        for row, current in enumerate(characters):
+            before = Character(current.name, args.before_meshes, atlas, bounds)
+            before_mesh_files[before.mesh_path.name] = digest(before.mesh_path)
+            y = 180+row*330
+            text(d, (12, y+140), NAMES[current.name], 24, True)
+            for col, direction in enumerate(("left", "right", "back")):
+                for version, character in enumerate((before, current)):
+                    comparison.paste(white_composite(character.render(direction, size=(300,320), scale=3.5, baseline=300)), (110+col*600+version*300,y))
+        text(d, (25, 2180), "頭の位置以外の素材・サイズ・角度・胴体と手足は同一。正面は正式一枚絵のままです。", 25)
+        path = args.output / "all-six-before-after.jpg"
+        save_jpeg(comparison, path)
+        output_rows.append({"file":path.name,"bytes":path.stat().st_size,"sha256":digest(path),"width":comparison.width,"height":comparison.height})
+    receipt = {"kind": "software-source-preview-jpegs", "date_jst": "2026-11-02", "runtime_revision": runtime_revision, "working_tree_runtime_digest": runtime_digest, "working_tree_candidate": bool(dirty),
                "native_unity": False, "pixel_verified": False, "adopted": False,
                "geometry": "actual production Graphic methods via minimal CLR geometry API; actor62x78; no placement correction in rasterizer",
                "front": "unchanged formal atlas crop from CharacterBodyGraphic.Bounds; front poses remain the formal single sprite",
                "raster": "original RGBA crops and original builder masks; per-part affine mapping, original draw order; no repainted or generated art",
                "limitations": ["Not Unity/Pixel images", "No atlas packing/compression/masking UI/shadow/Sorting reconstruction", "Static poses cannot verify frame timing or turn lag"],
-               "visual_status": "Not accepted: the generated source preview visibly shows head-to-collar gaps in Lulu left/right. Geometry agreement is not visual contact acceptance.",
+               "visual_status": "Pending native continuous visual review; source-rendered images and coordinates cannot establish Unity/Pixel acceptance.",
                "runtime_files": {f: hashlib.sha256((ROOT / f).read_text().replace("\r\n", "\n").encode()).hexdigest() for f in runtime_files},
-               "source_files": INPUTS, "mesh_files": {c.mesh_path.name: digest(c.mesh_path) for c in characters}, "images": output_rows}
+               "source_files": INPUTS, "mesh_files": {c.mesh_path.name: digest(c.mesh_path) for c in characters}, "before_mesh_files":before_mesh_files,"images": output_rows}
     (args.output / "preview-source.json").write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\n")
     print(f"Created {len(output_rows)} JPEGs; original source SHA verified; software preview only.")
 

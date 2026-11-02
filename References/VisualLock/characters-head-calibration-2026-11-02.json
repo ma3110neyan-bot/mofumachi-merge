@@ -1,0 +1,36 @@
+{
+  "kind": "individual-head-body-calibration",
+  "change_authorized": true,
+  "formal_fixed": false,
+  "adopted": false,
+  "native_verified": false,
+  "pixel_verified": false,
+  "previous_recovery_sha256": "8ddeb86176708d19b86b34652e2028a94936d7c0160740168d62bcabfae0e9aa",
+  "scope": "Only head placement through the existing body frame; independent per-character and per-direction static pivots. Original art/motion/back/speed/shadow/UI unchanged.",
+  "overrides": [
+    {
+      "path": "Assets/Mofumachi/Presentation/NoahAuthoredGraphic.cs",
+      "before_sha256": "5134a5f5f2850091acfd0d0daf03b9f363246927a06a52c74be3ef35b289d1df",
+      "sha256": "dec94414fee72770165265b968ea9354087ea927ab14bd4d7286d76b307a09cc"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/CharacterAuthoredGraphic.cs",
+      "before_sha256": "426faf72936ed61921bee1cd130d24f88a660451b65408c9e5ed7452b96413c7",
+      "sha256": "df3eea7371bf99ff600ff2a4b603bdf294ebde1a17dcde2efef7468bbc52dee4"
+    }
+  ],
+  "additions": [
+    {
+      "path": "Assets/Mofumachi/Presentation/CharacterHeadBodyCalibration.cs",
+      "sha256": "32c51b0d1def4a6db63693cc003ca4c54077b7421cb9fc1a26df744358e0c8aa"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/CharacterHeadBodyCalibration.cs.meta",
+      "sha256": "0b581b51ec58ea95b425501d6f7ce5d4d1e09e41105f0696fbc927601ba45b56"
+    },
+    {
+      "path": "Tests/Fixtures/character-head-calibration-2026-11-02.json",
+      "sha256": "4c7095e0d8c7dee79cf00f5326140965225e41982a56f50ab5f8b04bec3c9761"
+    }
+  ]
+}

@@ -1,12 +1,12 @@
-# 2026-11-02最新：MergeごほうびUI候補／D参照画像を目視確認、原本PNG保存は未確認
+# 2026-11-02最新：Merge原本PNG保存済み／a18e598の製品実装を維持
 
-ユーザー正式指示はMerge UI/グラフィックのみ。キャラ2.5Dはfix only。新Merge指示により旧「Merge別指示待ち」は解除。正式参照先は `References/Merge/merge_visual_lock_reward.png` に固定。添付941×1672のD案を目視確認済み。ただしinline画像の原本バイト／ファイルIDがなく、同PNGはまだリポジトリに存在しない。生成・再構成した別画像を原本として置かない。パス合意だけで配置済みと報告しない。
+ユーザー正式指示はMerge UI/グラフィックのみ。キャラ2.5Dはfix only。正式参照先は `References/Merge/merge_visual_lock_reward.png` に固定。今回ZIPの実添付を受領し、941×1672 RGB、2,216,784 bytesの原本を再エンコードせず保存。ZIP内バイト一致・全デコード済み。SHA256=827825aac8943b32b29f143f1a98d6142e5cbbcce80de39b7f999a3374d6e6f3。隣のreceiptへZIPのSHA・原本SHA・寸法を記録。生成・再構成した別画像で代用しない。参照原本の正式固定と、製品UIのVisual Gate／Pixel合格は別。
 
 復元点 checkpoint/merge-before-reward-20261102 = af659256b481aae0697cea7ccfbf5531c6a62c08。preflight元SHAはdocs/verification/merge-reward-before-2026-11-02.jsonに不変保存。計画はdocs/superpowers/plans/2026-11-02-merge-reward-ui.md。現在Mergeローカルのピンク金リボン・クリーム/ミントセル・淡い空セル模様・現在の依頼・実Coins・必要生成強調・大きな依頼/納品導線・短い花びらを実装。セルはDの長方形に合わせる表示変更だけ、30個5×6・48以上・既存ドラッグ/UV/ロックを維持。見本のジェム10は説明用なので追加せず、既存QuestのCoinsを表示。
 
 Core、UIFlowController、ItemGraphic、正式ItemAtlas、フォント、キャラ、街、Save、依頼/納品/報酬ロジックは不変。BuildQuestも不変。元26/552/53と既存キャラ訂正記録は書換禁止。新Merge限定訂正recordは既存UI4本＋対応する既存テスト2本＋新helper/view4ファイルの正確なSHAだけを許可。キャラやCoreへ例外を拡大しない。
 
-作業途中はMerge関連のみ。prepare-merge-reward-preview.ps1の通常実行はMerge重点検査と実Unityの同条件Before/After JPEG撮影だけ。-Finalを付けた候補段階のみ全件Edit/Play各1回→同一ソースと素材の新QA APK。-Installは-Final後だけ、既存QAへinstall-r、uninstall/保存初期化なし。原本PNG未配置ではFinalを通さない。実UnityライセンスとUSB Pixelはクラウドにない。CLR/API/合成検査をUnity/Pixel成功・正式固定へ置換しない。実装済み・実機未確認。途中承認不要で範囲内は継続、GitHub feature通常pushの既存許可は継続。以下は履歴。
+最新順序は原本保存→SHA記録→Unity実描画→Visual Gate→Merge重点→合格後のみ全件Edit/Play各1回→QA APK→Pixel。a18e598の製品UI／Core／画像等は変更しない。prepare-merge-reward-preview.ps1に-CaptureOnlyを追加し、初回は撮影1件だけでVisual Gateより後の検査を先行しない。原本との明確な未達がある場合だけUIの該当箇所を局所修正。合格後の-Finalのみ全件QA／同一ソース素材のAPK。-Installは-Final後だけ、既存QAへinstall-r、uninstall/保存初期化なし。クラウドのUnityライセンス／Android対応／USB Pixelは不足しているため、実行結果を確認し未達を明記する。CLR/API/合成検査をUnity/Pixel成功・正式固定へ置換しない。途中承認不要、GitHub feature通常push許可は継続。以下は履歴。
 
 # 2026-11-02最新：フィオ左右のみ微調整→確認なしで6名Pixelへ
 

@@ -5,6 +5,11 @@ function Read-MergeRewardOverrides([string]$Repository){
     $Change=Get-Content -Raw -Encoding UTF8 -LiteralPath $Manifest | ConvertFrom-Json
     if($Change.kind -cne 'merge-reward-ui-candidate' -or $Change.change_authorized -isnot [bool] -or -not $Change.change_authorized){throw 'Merge UI authorization missing.'}
     foreach($Flag in @('formal_fixed','adopted','native_verified','pixel_verified')){if($Change.$Flag -isnot [bool] -or $Change.$Flag){throw 'Pending Merge UI record cannot claim formal/native/device acceptance.'}}
+    $Reference=Join-Path $Repository 'References/Merge/merge_visual_lock_reward.png'
+    $Saved=$Change.PSObject.Properties['original_png_saved']
+    if((Test-Path -LiteralPath $Reference) -or ($null -ne $Saved -and $Saved.Value)){
+        if($null -eq $Saved -or $Saved.Value -isnot [bool] -or -not $Saved.Value -or $Change.reference_sha256 -cnotmatch '^[a-f0-9]{64}$' -or -not(Test-Path -LiteralPath $Reference -PathType Leaf) -or ((Get-Item -LiteralPath $Reference -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) -or (Get-FileHash -LiteralPath $Reference -Algorithm SHA256).Hash -ine $Change.reference_sha256){throw 'Formal Merge reference missing, changed or incorrectly recorded.'}
+    }
     $Historical=Join-Path $Repository 'References/VisualLock/noah-authored-game-candidate-2026-10-30.json'
     $Before=Join-Path $Repository 'docs/verification/merge-reward-before-2026-11-02.json'
     if((Get-FinishTextHash $Historical) -cne $Change.historical_manifest_sha256 -or (Get-FinishTextHash $Before) -cne $Change.before_snapshot_sha256){throw 'Preserve the historical lock and Merge preflight snapshot.'}

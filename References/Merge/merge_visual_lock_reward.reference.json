@@ -1,10 +1,19 @@
 {
-  "kind": "inline-visual-lock-reference-receipt",
+  "kind": "uploaded-original-visual-lock-reference",
   "reference_path": "References/Merge/merge_visual_lock_reward.png",
   "visual_seen": true,
   "inline_description": "D案 ごほうびマージ, floral village sky, rose/gold ribbon, cream/mint5×6 board, pink required generator, reward progress, large request button and3-tab navigation",
-  "original_png_saved": false,
-  "original_sha256": null,
-  "reason": "Inline image is visible to vision but no Sediment/file ID or local original file has been exposed. Do not generate a substitute PNG under the original reference name.",
-  "actual_reward_source": "QuestDefinition.Coins, no new gem reward"
+  "original_png_saved": true,
+  "original_sha256": "827825aac8943b32b29f143f1a98d6142e5cbbcce80de39b7f999a3374d6e6f3",
+  "reason": "User uploaded original in ZIP; extracted PNG bytes preserved exactly, fully decoded for verification without re-encoding.",
+  "actual_reward_source": "QuestDefinition.Coins, no new gem reward",
+  "formal_reference": true,
+  "original_bytes": 2216784,
+  "original_width": 941,
+  "original_height": 1672,
+  "original_mode": "RGB",
+  "archive_file": "20261102_merge_visual_lock_reward.zip",
+  "archive_sha256": "0918e58e8c52ab62ad30cabd52bda656cbf9cc63b27c8306301294637df8bb23",
+  "archive_entry": "merge_visual_lock_reward.png",
+  "byte_identical_to_zip_entry": true
 }

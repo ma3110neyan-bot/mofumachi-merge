@@ -54,9 +54,12 @@ Source scope must retain all Core,ItemAtlas/fonts,characters/town and historical
 - [x] Narrow UI override against former protected552, exact source-before/new hashes and protected Core/art/fonts. Exactly two related test expectations also amended; old busy-state test retained.
 - [x] Prepare candidate-only full Edit/Play once, exact same-candidate APK build/install route; no character acceptance reruns or save clearing.
 - [x] One fresh-context final review and bounded corrections: disabled review action during merge lock, updated obsolete square/old-frame assertions. Recheck important issues0.
-- [ ] Original PNG saved, native Visual Gate, full native QA/APK and Pixel. Blocked by missing raw inline image bytes and native license/USB environment; no success claimed.
-- [ ] Authorized feature push after final verification.
+- [x] Original PNG saved byte-identically from uploaded20261102 ZIP, SHA256 recorded. Product code remains a18e598.
+- [x] Authorized feature push of a18e598 verified on remote.
+- [ ] Native Visual Gate, full native QA/APK and Pixel. Native license/Android module/USB environment remain unavailable; no success claimed.
 
 ## Ledger
 
 Preflight checkpoint/merge-before-reward-20261102=af659256b481aae0697cea7ccfbf5531c6a62c08, UI and protected SHA record saved. User subsequently supplied visible D image; visually inspected. Current PNG file remains unavailable as raw download, so original persistence is not claimed. User's explicit no-confirmation instruction supersedes skill approval menus. Existing rounded-square tests are a previous UI shape preference, not a Core rule: D uses wider rectangles; update presentation expectation but retain30/min48/no overlaps/index/gap/art-scale invariants. Use current font; glyph「捗」is absent, so visible copy uses existing「あと」「現在の依頼」「ごほうび」instead of changing fonts. Original input/FX/generation/quest services remain untouched.
+
+Continuation: original ZIP now received, original PNG saved and hashed. Above preflight missing-file statement is historical. Ruling: add capture-only orchestration before Visual Gate, because the latest explicit user sequence places Merge focused tests after visual comparison. Only workflow/scope metadata and docs change; a18e598 product files remain byte-identical. Capture-only routing and original-reference SHA protection each observed RED→GREEN in synthetic PowerShell tests. Neither synthetic gate represents Unity rendering or device acceptance.

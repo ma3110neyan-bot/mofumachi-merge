@@ -4,6 +4,11 @@ function RejectPreview([scriptblock]$Action){$Caught=$false;try{& $Action | Out-
 $Root=Join-Path ([IO.Path]::GetTempPath()) ('mofu-merge-preview-'+[guid]::NewGuid().ToString('N'));New-Item -ItemType Directory -Path (Join-Path $Root 'screenshots') -Force | Out-Null
 try{
     $Rev='a'*40;$Fp='b'*64;$Packed='c'*64
+    $Capture=@(Get-MergeRewardArguments 'repo' $Root $Rev $Fp $Packed 'capture')
+    $FilterIndex=[Array]::IndexOf($Capture,'-testFilter')
+    if($FilterIndex -lt 0 -or $Capture[$FilterIndex+1] -cne 'Mofumachi.Tests.MergeRewardCaptureTests' -or $Capture -notcontains '-mofumachiMergeReward'){
+        throw 'Capture must precede Visual Gate without starting other Merge or full suites.'
+    }
     $A=@(Get-MergeRewardArguments 'repo' $Root $Rev $Fp $Packed 'focus')
     if($A -contains '-quit' -or $A -contains '-executeMethod' -or $A -notcontains '-testFilter' -or $A -notcontains '-mofumachiMergeReward' -or ($A -join ' ') -match 'Head|NoahAuthoredPartsPreview|SixAuthored'){throw 'Focus escaped Merge-only tests.'}
     foreach($Platform in @('EditMode','PlayMode')){

@@ -2,7 +2,7 @@
 
 状態：**実装済み・実機未確認。正式完了／採用は未判定。**
 
-ユーザーのD画像を目視確認し、正式参照先を `References/Merge/merge_visual_lock_reward.png` に固定。原本PNGの元バイトはまだ取得できず、ファイル保存は未完了。別の画像を原本として置いていない。
+ユーザーのD画像を目視確認し、正式参照先を `References/Merge/merge_visual_lock_reward.png` に固定。ユーザー添付`20261102_merge_visual_lock_reward.zip`から原本PNGを再エンコードせず保存済み。941×1672、RGB、2,216,784 bytes。ZIP内と保存先はバイト一致。SHA256は`827825aac8943b32b29f143f1a98d6142e5cbbcce80de39b7f999a3374d6e6f3`。受領記録は参照先隣の`.reference.json`。別の画像を原本として置いていない。`a18e598`の製品実装は変更していない。
 
 ## 変更ファイル
 
@@ -40,7 +40,7 @@ Beforeの復元点：`checkpoint/merge-before-reward-20261102` = `af659256b481aa
 
 ## Windowsの重点撮影
 
-Unity Editorを閉じ、次をPowerShellへまとめて貼り付ける。通常実行はMerge関連だけ。APK作成やインストールは行わない。終了時に結果フォルダが開く。
+Unity Editorを閉じ、次をPowerShellへまとめて貼り付ける。`-CaptureOnly`は同条件JPEG撮影の1メソッドだけで、Visual Gateより後のMerge重点テスト・全件テスト・APK・インストールを先行実行しない。終了時に結果フォルダが開く。
 
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -Command {
@@ -53,18 +53,18 @@ powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -Command {
     }
     & $mergeGit pull --ff-only origin feat/daily-world-pass-20261016
     if ($LASTEXITCODE -ne 0) { throw "更新に失敗したため停止します。" }
-    & ".\scripts\prepare-merge-reward-preview.ps1"
+    & ".\scripts\prepare-merge-reward-preview.ps1" -CaptureOnly
 }
 ```
 
 失敗時は再実行を重ねず、開いた新しい`Builds/Diagnostics/merge-reward-*`のログ・XML・JSONを共有する。過去のAPKで代用しない。
 
-原本PNG保存と候補のVisual Gate確認後のみ、同スクリプトに`-Final -Install -Serial "99RAY1BELH"`を付ける。Merge重点確認→全件EditMode／PlayMode各1回→同じ候補のQA APK→既存QAアプリへinstall-rの順。既存キャラ素材の準備は行うが、途中にキャラ単体テストを挟まない。uninstall／セーブ初期化なし。子APKビルダーはテストを実行しないため、その記録のtests_run=falseを変更せず、親runの実XMLと同一ソース／素材SHAで照合する。インストール成功だけではPixel合格にしない。
+候補のVisual Gate確認後のみ、`-CaptureOnly`を外し`-Final -Install -Serial "99RAY1BELH"`を付ける。Merge重点確認→合格後に全件EditMode／PlayMode各1回→同じ候補のQA APK→既存QAアプリへinstall-rの順。既存キャラ素材の準備は行うが、途中にキャラ単体テストを挟まない。uninstall／セーブ初期化なし。子APKビルダーはテストを実行しないため、その記録のtests_run=falseを変更せず、親runの実XMLと同一ソース／素材SHAで照合する。インストール成功だけではPixel合格にしない。
 
 ## 残課題
 
-1. 原本PNGを固定パスへ保存しSHAを記録する。
-2. Windows Unityで同条件JPEG・Merge重点確認、原本とのVisual Gate、その後1回の全件QA／APK。
+1. Unityで同条件JPEGを取得し、保存済み原本とのVisual Gateを確認する。
+2. 合格後にMerge重点確認、その後1回の全件QA／APK。
 3. Pixel 3aで表示・タップ／ドラッグ・生成・Merge・納品・カクつき／発熱を確認する。
 
 次の改善候補：今回はなし。今回のMerge範囲と既存ロジック維持を優先する。

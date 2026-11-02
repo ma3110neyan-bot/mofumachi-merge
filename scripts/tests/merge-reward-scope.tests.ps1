@@ -14,9 +14,10 @@ try{
     $Overrides=@(foreach($Row in $Rows){@{path=$Row.path;before_sha256=$Row.sha256;sha256=(Put $Row.path 'new')}})
     $Added=@(foreach($Name in @('MergeRewardPresentation.cs','MergeRewardPresentation.cs.meta','MergeRewardView.cs','MergeRewardView.cs.meta')){$Path='Assets/Mofumachi/Presentation/'+$Name;@{path=$Path;sha256=(Put $Path 'new')}})
     $Path=Join-Path $Root 'References/VisualLock/merge-reward-ui-2026-11-02.json'
-    $Good=@{kind='merge-reward-ui-candidate';change_authorized=$true;formal_fixed=$false;adopted=$false;native_verified=$false;pixel_verified=$false;historical_manifest_sha256=$History;before_snapshot_sha256=$Before;overrides=$Overrides;additions=$Added}|ConvertTo-Json -Depth 8
+    $Reference=Put 'References/Merge/merge_visual_lock_reward.png' 'synthetic-original'
+    $Good=@{kind='merge-reward-ui-candidate';change_authorized=$true;formal_fixed=$false;adopted=$false;native_verified=$false;pixel_verified=$false;original_png_saved=$true;reference_sha256=$Reference;historical_manifest_sha256=$History;before_snapshot_sha256=$Before;overrides=$Overrides;additions=$Added}|ConvertTo-Json -Depth 8
     [IO.File]::WriteAllText($Path,$Good);$Result=Read-MergeRewardOverrides $Root; if($Result.Count -ne 6){throw 'Exactly four UI files and two related tests expected.'}
-    foreach($Case in @('core','art','character','before','duplicate','native','fixed','history','baseline','missing','helper','protected')){
+    foreach($Case in @('core','art','character','before','duplicate','native','fixed','history','baseline','missing','helper','reference','reference-claim','protected')){
         $Bad=$Good|ConvertFrom-Json
         switch($Case){
             core {$Bad.overrides[0].path='Assets/Mofumachi/Core/MergeBoard.cs'}
@@ -30,6 +31,8 @@ try{
             baseline {$Bad.before_snapshot_sha256=('d'*64)}
             missing {$Bad.additions=$Bad.additions[1..3]}
             helper {$Bad.additions[0].sha256=('d'*64)}
+            reference {$Bad.reference_sha256=('d'*64)}
+            reference-claim {$Bad.original_png_saved=$false}
             protected {$null=Put 'Assets/Mofumachi/Core/MergeBoard.cs' 'changed'}
         }
         [IO.File]::WriteAllText($Path,($Bad|ConvertTo-Json -Depth 8));Reject {Read-MergeRewardOverrides $Root}

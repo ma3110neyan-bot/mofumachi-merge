@@ -1,13 +1,13 @@
 [CmdletBinding()]
-param([string]$UnityEditorPath='',[switch]$Final,[switch]$Install,[string]$Serial='99RAY1BELH')
+param([string]$UnityEditorPath='',[switch]$CaptureOnly,[switch]$Final,[switch]$Install,[string]$Serial='99RAY1BELH')
 $ErrorActionPreference='Stop'
-$MergeOptions=@{Editor=$UnityEditorPath;Final=[bool]$Final;Install=[bool]$Install;Serial=$Serial}
+$MergeOptions=@{Editor=$UnityEditorPath;CaptureOnly=[bool]$CaptureOnly;Final=[bool]$Final;Install=[bool]$Install;Serial=$Serial}
 . (Join-Path $PSScriptRoot 'prepare-characters-direct-pixel.ps1')
-function Get-MergeRewardArguments([string]$Repository,[string]$Directory,[string]$Revision,[string]$Fingerprint,[string]$Packed,[ValidateSet('focus','EditMode','PlayMode')][string]$Stage){
+function Get-MergeRewardArguments([string]$Repository,[string]$Directory,[string]$Revision,[string]$Fingerprint,[string]$Packed,[ValidateSet('capture','focus','EditMode','PlayMode')][string]$Stage){
     if($Revision -cnotmatch '^[a-f0-9]{40}$' -or $Fingerprint -cnotmatch '^[a-f0-9]{64}$' -or $Packed -cnotmatch '^[a-f0-9]{64}$'){throw 'Exact Merge source/resource identity required.'}
-    $A=@('-batchmode','-projectPath',$Repository,'-buildTarget','Android','-runTests','-testPlatform',$(if($Stage -eq 'focus'){'PlayMode'}else{$Stage}),'-testResults',(Join-Path $Directory ($Stage+'.xml')),'-logFile',(Join-Path $Directory ($Stage+'.log')),'-mofumachiSourceRevision',$Revision,'-mofumachiProductFingerprint',$Fingerprint,'-mofumachiPackedResourceSha',$Packed)
-    if($Stage -eq 'focus'){
-        $Suites=@('MergeRewardCaptureTests','MergeRewardUiTests','MergeInteractionTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','QualityPassMergeTests','ExperienceMergeTests')
+    $A=@('-batchmode','-projectPath',$Repository,'-buildTarget','Android','-runTests','-testPlatform',$(if($Stage -in @('capture','focus')){'PlayMode'}else{$Stage}),'-testResults',(Join-Path $Directory ($Stage+'.xml')),'-logFile',(Join-Path $Directory ($Stage+'.log')),'-mofumachiSourceRevision',$Revision,'-mofumachiProductFingerprint',$Fingerprint,'-mofumachiPackedResourceSha',$Packed)
+    if($Stage -in @('capture','focus')){
+        $Suites=if($Stage -eq 'capture'){@('MergeRewardCaptureTests')}else{@('MergeRewardCaptureTests','MergeRewardUiTests','MergeInteractionTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','QualityPassMergeTests','ExperienceMergeTests')}
         $A+=@('-testFilter',(($Suites | ForEach-Object {'Mofumachi.Tests.'+$_}) -join ';'),'-mofumachiMergeReward',(Join-Path $Directory 'screenshots'))
     }
     return $A
@@ -40,6 +40,7 @@ function Assert-MergeRewardApk([string]$Directory,[string]$Revision,[string]$Fin
     return $I
 }
 if($MyInvocation.InvocationName -eq '.'){return}
+if($MergeOptions.CaptureOnly -and ($MergeOptions.Final -or $MergeOptions.Install)){throw 'CaptureOnly stops before Visual Gate; no full QA or APK installation.'}
 if($MergeOptions.Install -and -not $MergeOptions.Final){throw 'Installation requires the candidate-only -Final full QA run.'}
 $Repo=(Resolve-Path -LiteralPath (Split-Path -Parent $PSScriptRoot)).Path;$Git=Find-SourceGit
 $Editor=if($MergeOptions.Editor){$MergeOptions.Editor}else{Join-Path $env:ProgramFiles 'Unity/Hub/Editor/6000.6.4f1/Editor/Unity.exe'}
@@ -51,14 +52,15 @@ $Preserved=Move-PreviousCharacterInputs $Repo $Git
 Assert-CleanProductSource $Repo $Git;Assert-CharactersVisualLock $Repo;Assert-NoahAuthoredMasterFixed $Repo;Assert-NoahAuthoredFrozenInputs $Repo
 $Revision=Read-SourceRevision $Repo;$Fingerprint=Get-CharacterAuthoredSourceFingerprint $Repo
 $Run=Join-Path $Repo ('Builds/Diagnostics/merge-reward-'+(Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::NewGuid().ToString('N').Substring(0,8));New-Item -ItemType Directory -Path $Run | Out-Null
-$Record=[ordered]@{scope='merge-reward-ui-candidate';gitRevision=$Revision;productFingerprint=$Fingerprint;packed_resource_sha256='';preserved_inputs=$Preserved;focus_verified=$false;full_qa_verified=$false;build_generated=$false;pixel_verified=$false;formal_fixed=$false;adopted=$false;source_unchanged=$false;error=''}
+$Record=[ordered]@{scope='merge-reward-ui-candidate';gitRevision=$Revision;productFingerprint=$Fingerprint;packed_resource_sha256='';preserved_inputs=$Preserved;capture_verified=$false;focus_verified=$false;full_qa_verified=$false;build_generated=$false;pixel_verified=$false;formal_fixed=$false;adopted=$false;source_unchanged=$false;error=''}
 $Failure=$null;$Apk=$null;Write-Host "Merge-only candidate run: $Run"
 try{
     foreach($Step in @('prepare-noah','prepare-five')){Invoke-NoahAuthoredUnity $Editor (Get-CharactersDirectArguments $Repo $Run $Step) $Run}
     $Record.packed_resource_sha256=Get-PreparedCharactersDigest $Repo
-    Invoke-NoahAuthoredUnity $Editor (Get-MergeRewardArguments $Repo $Run $Revision $Fingerprint $Record.packed_resource_sha256 'focus') $Run
-    Assert-TestRun (Join-Path $Run 'focus.xml') 5 @('MergeRewardCaptureTests','MergeRewardUiTests','MergeInteractionTests','ProductionFrameUiTests')
-    $Proof=Assert-MergeRewardProof $Run $Revision $Fingerprint $Record.packed_resource_sha256;$Record.focus_verified=$true
+    $Stage=if($MergeOptions.CaptureOnly){'capture'}else{'focus'}
+    Invoke-NoahAuthoredUnity $Editor (Get-MergeRewardArguments $Repo $Run $Revision $Fingerprint $Record.packed_resource_sha256 $Stage) $Run
+    Assert-TestRun (Join-Path $Run ($Stage+'.xml')) $(if($MergeOptions.CaptureOnly){1}else{5}) $(if($MergeOptions.CaptureOnly){@('MergeRewardCaptureTests')}else{@('MergeRewardCaptureTests','MergeRewardUiTests','MergeInteractionTests','ProductionFrameUiTests')})
+    $Proof=Assert-MergeRewardProof $Run $Revision $Fingerprint $Record.packed_resource_sha256;$Record.capture_verified=$true;$Record.focus_verified=-not $MergeOptions.CaptureOnly
     $ReferenceHtml='<p>原本PNG未配置。Visual Lock比較は未完了です。</p>'
     if(Test-Path -LiteralPath $Reference -PathType Leaf){
         if(-not $Proof.original_png_saved -or (Get-FileHash -LiteralPath $Reference -Algorithm SHA256).Hash -ine $Proof.reference_sha256){throw 'Reference differs from native capture.'}

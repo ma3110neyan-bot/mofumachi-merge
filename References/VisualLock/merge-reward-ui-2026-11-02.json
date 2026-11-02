@@ -7,7 +7,7 @@
   "pixel_verified": false,
   "reference_path": "References/Merge/merge_visual_lock_reward.png",
   "reference_visually_seen": true,
-  "original_png_saved": false,
+  "original_png_saved": true,
   "historical_manifest_sha256": "a78fb82c78c0ecb30ea308e3bcc191f0de54c4429ea5127e1f0e13800980459a",
   "before_snapshot_sha256": "e687e48ae75468f9179d9ad4104aa4c1517626f620b1d203965c188e2b6c9596",
   "overrides": [
@@ -59,5 +59,6 @@
       "path": "Assets/Mofumachi/Presentation/MergeRewardView.cs.meta",
       "sha256": "4a740e291e3060f50c9398acae01ce1034c0a3e5dea86d5a0b5b0fe19017e7ff"
     }
-  ]
+  ],
+  "reference_sha256": "827825aac8943b32b29f143f1a98d6142e5cbbcce80de39b7f999a3374d6e6f3"
 }

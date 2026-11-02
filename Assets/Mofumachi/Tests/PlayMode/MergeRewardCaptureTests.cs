@@ -21,6 +21,7 @@ namespace Mofumachi.Tests
         {
             public string kind="merge-reward-native-candidate",source_revision,product_fingerprint,packed_resource_sha256;
             public string reference_path="References/Merge/merge_visual_lock_reward.png",reference_sha256="";
+            public string output_directory;public int image_count;public bool disk_verified;
             public bool native_unity=true,original_png_saved,formal_fixed=false,adopted=false,pixel_verified=false;
             public List<Shot> images=new List<Shot>();
         }
@@ -75,13 +76,14 @@ namespace Mofumachi.Tests
             var image=Portrait(width,height);Texture2D decoded=null;
             try
             {
-                byte[] bytes=image.EncodeToJPG(92);decoded=new Texture2D(2,2);
-                Assert.That(decoded.LoadImage(bytes),Is.True);Assert.That(decoded.width,Is.EqualTo(width));Assert.That(decoded.height,Is.EqualTo(height));
+                byte[] bytes=image.EncodeToJPG(92);
                 var colors=Enumerable.Range(0,10).SelectMany(x=>Enumerable.Range(0,16).Select(y=>(Color32)image.GetPixel(20+x*(width-40)/10,20+y*(height-40)/16))).Distinct().Count();
                 Assert.That(colors,Is.GreaterThan(12),"Reject empty/clear captures");
                 Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));Assert.That(Store.Writes,Is.EqualTo(writes));
                 string name=scenario+"-"+width+"x"+height+(before?"-before-reconstructed":"-after")+".jpg";
-                if(output.Length>0)File.WriteAllBytes(Path.Combine(output,name),bytes);
+                string file=Path.Combine(output,name);File.WriteAllBytes(file,bytes);
+                byte[] written=File.ReadAllBytes(file);Assert.That(written,Is.EqualTo(bytes),"The actual output JPEG must equal the encoded capture");
+                decoded=new Texture2D(2,2);Assert.That(decoded.LoadImage(written),Is.True);Assert.That(decoded.width,Is.EqualTo(width));Assert.That(decoded.height,Is.EqualTo(height));
                 return new Shot{file=name,sha256=Sha(bytes),scenario=scenario,width=width,height=height,before_reconstructed=before,state_sha256=Sha(System.Text.Encoding.UTF8.GetBytes(state)),state_unchanged=true,writes_unchanged=true};
             }
             finally{if(decoded!=null)UnityEngine.Object.DestroyImmediate(decoded);UnityEngine.Object.DestroyImmediate(image);}
@@ -97,7 +99,8 @@ namespace Mofumachi.Tests
         [UnityTest] public IEnumerator MergeRewardCandidateScreens()
         {
             var proof=new Proof{source_revision=Argument("-mofumachiSourceRevision"),product_fingerprint=Argument("-mofumachiProductFingerprint"),packed_resource_sha256=Argument("-mofumachiPackedResourceSha")};
-            string output=Argument("-mofumachiMergeReward");if(output.Length>0){output=Path.GetFullPath(output);Directory.CreateDirectory(output);}
+            string output=MergeCaptureArtifacts.RequireOutput(Environment.GetCommandLineArgs());proof.output_directory=output;
+            Debug.Log("MOFUMACHI_MERGE_CAPTURE_OUTPUT "+output);
             string reference=Path.Combine(Application.dataPath,"../",proof.reference_path);
             if(File.Exists(reference))
             {
@@ -121,7 +124,14 @@ namespace Mofumachi.Tests
                 Fixture(0,true);proof.images.Add(Capture(output,"inventory-ready",720,1480,false));
                 Fixture(0,false,true);proof.images.Add(Capture(output,"full-board",720,1280,false));
                 Assert.That(proof.images.Count,Is.EqualTo(11));
-                if(output.Length>0)File.WriteAllText(Path.Combine(output,"merge-reward-native.json"),JsonUtility.ToJson(proof,true));
+                proof.image_count=proof.images.Count;
+                string proofPath=Path.Combine(output,"merge-reward-native.json");File.WriteAllText(proofPath,JsonUtility.ToJson(proof,true));
+                MergeCaptureArtifacts.VerifyWritten(output,proof.images.ToDictionary(i=>i.file,i=>i.sha256,StringComparer.Ordinal));
+                proof.disk_verified=true;File.WriteAllText(proofPath,JsonUtility.ToJson(proof,true));
+                var saved=JsonUtility.FromJson<Proof>(File.ReadAllText(proofPath));Assert.That(saved,Is.Not.Null);
+                Assert.That(saved.disk_verified,Is.True);Assert.That(saved.output_directory,Is.EqualTo(output));Assert.That(saved.image_count,Is.EqualTo(11));
+                MergeCaptureArtifacts.VerifyWritten(output,saved.images.ToDictionary(i=>i.file,i=>i.sha256,StringComparer.Ordinal));
+                Debug.Log("MOFUMACHI_MERGE_CAPTURE_DISK_VERIFIED 11 JPEG + JSON: "+output);
                 LogAssert.NoUnexpectedReceived();
             }
             finally{MergeRewardPresentation.CaptureBefore=false;}

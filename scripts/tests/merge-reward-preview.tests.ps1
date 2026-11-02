@@ -6,7 +6,7 @@ try{
     $Rev='a'*40;$Fp='b'*64;$Packed='c'*64
     $Capture=@(Get-MergeRewardArguments 'repo' $Root $Rev $Fp $Packed 'capture')
     $FilterIndex=[Array]::IndexOf($Capture,'-testFilter')
-    if($FilterIndex -lt 0 -or $Capture[$FilterIndex+1] -cne 'Mofumachi.Tests.MergeRewardCaptureTests' -or $Capture -notcontains '-mofumachiMergeReward'){
+    if($FilterIndex -lt 0 -or $Capture[$FilterIndex+1] -cne 'Mofumachi.Tests.MergeRewardCaptureTests.MergeRewardCandidateScreens' -or $Capture -notcontains '-mofumachiMergeReward'){
         throw 'Capture must precede Visual Gate without starting other Merge or full suites.'
     }
     $A=@(Get-MergeRewardArguments 'repo' $Root $Rev $Fp $Packed 'focus')
@@ -14,12 +14,13 @@ try{
     foreach($Platform in @('EditMode','PlayMode')){
         $A=@(Get-MergeRewardArguments 'repo' $Root $Rev $Fp $Packed $Platform)
         if($A -contains '-testFilter' -or $A -contains '-quit' -or $A -contains '-executeMethod'){throw 'Full candidate stage must use the unfiltered platform suite once.'}
+        if($Platform -eq 'PlayMode' -and $A -notcontains (Join-Path $Root 'full-playmode-capture')){throw 'Full PlayMode capture requires separate disk output.'}
     }
     $Files=@('initial-720x1480-before-reconstructed.jpg','initial-720x1480-after.jpg','initial-720x1280-before-reconstructed.jpg','initial-720x1280-after.jpg','initial-640x1072-before-reconstructed.jpg','initial-640x1072-after.jpg','bread-request-720x1480-before-reconstructed.jpg','bread-request-720x1480-after.jpg','multi-requirement-720x1480-after.jpg','inventory-ready-720x1480-after.jpg','full-board-720x1280-after.jpg')
     # Synthetic files validate routing/hash rejection only; never image/native acceptance.
     $Images=@(foreach($Name in $Files){$File=Join-Path $Root ('screenshots/'+$Name);[IO.File]::WriteAllText($File,'synthetic');$Name -cmatch '^(.+)-([0-9]+)x([0-9]+)-(before-reconstructed|after).jpg$'|Out-Null;@{file=$Name;scenario=$Matches[1];width=[int]$Matches[2];height=[int]$Matches[3];before_reconstructed=$Name.EndsWith('-before-reconstructed.jpg');sha256=(Get-FileHash $File -Algorithm SHA256).Hash.ToLowerInvariant();state_sha256=('d'*64);state_unchanged=$true;writes_unchanged=$true}})
     $Path=Join-Path $Root 'screenshots/merge-reward-native.json'
-    $Good=@{kind='merge-reward-native-candidate';source_revision=$Rev;product_fingerprint=$Fp;packed_resource_sha256=$Packed;native_unity=$true;formal_fixed=$false;adopted=$false;pixel_verified=$false;images=$Images}|ConvertTo-Json -Depth 8
+    $Good=@{kind='merge-reward-native-candidate';source_revision=$Rev;product_fingerprint=$Fp;packed_resource_sha256=$Packed;native_unity=$true;formal_fixed=$false;adopted=$false;pixel_verified=$false;disk_verified=$true;output_directory=(Join-Path $Root 'screenshots');image_count=11;images=$Images}|ConvertTo-Json -Depth 8
     [IO.File]::WriteAllText($Path,$Good);$null=Assert-MergeRewardProof $Root $Rev $Fp $Packed
     foreach($Case in @('identity','missing','duplicate','native','pixel','state','writes','label','paired-state','bytes')){
         $Bad=$Good|ConvertFrom-Json

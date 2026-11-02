@@ -8,7 +8,12 @@ function Get-MergeRewardArguments([string]$Repository,[string]$Directory,[string
     $A=@('-batchmode','-projectPath',$Repository,'-buildTarget','Android','-runTests','-testPlatform',$(if($Stage -in @('capture','focus')){'PlayMode'}else{$Stage}),'-testResults',(Join-Path $Directory ($Stage+'.xml')),'-logFile',(Join-Path $Directory ($Stage+'.log')),'-mofumachiSourceRevision',$Revision,'-mofumachiProductFingerprint',$Fingerprint,'-mofumachiPackedResourceSha',$Packed)
     if($Stage -in @('capture','focus')){
         $Suites=if($Stage -eq 'capture'){@('MergeRewardCaptureTests')}else{@('MergeRewardCaptureTests','MergeRewardUiTests','MergeInteractionTests','MergePolishTests','MergeProgressionUiTests','MergeGuidanceTests','ProductionFrameUiTests','QualityPassMergeTests','ExperienceMergeTests')}
-        $A+=@('-testFilter',(($Suites | ForEach-Object {'Mofumachi.Tests.'+$_}) -join ';'),'-mofumachiMergeReward',(Join-Path $Directory 'screenshots'))
+        $Filter=if($Stage -eq 'capture'){'Mofumachi.Tests.MergeRewardCaptureTests.MergeRewardCandidateScreens'}else{($Suites | ForEach-Object {'Mofumachi.Tests.'+$_}) -join ';'}
+        $A+=@('-testFilter',$Filter,'-mofumachiMergeReward',([IO.Path]::GetFullPath((Join-Path $Directory 'screenshots'))))
+    }elseif($Stage -eq 'PlayMode'){
+        # The capture test now always requires disk output. A full run has its
+        # own directory so its capture cannot reuse/overwrite focused evidence.
+        $A+=@('-mofumachiMergeReward',([IO.Path]::GetFullPath((Join-Path $Directory 'full-playmode-capture'))))
     }
     return $A
 }
@@ -16,12 +21,16 @@ function Assert-MergeRewardProof([string]$Directory,[string]$Revision,[string]$F
     $P=Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $Directory 'screenshots/merge-reward-native.json') | ConvertFrom-Json
     if($P.kind -cne 'merge-reward-native-candidate' -or $P.source_revision -cne $Revision -or $P.product_fingerprint -cne $Fingerprint -or $P.packed_resource_sha256 -cne $Packed -or $P.native_unity -isnot [bool] -or -not $P.native_unity){throw 'Current Merge native identity missing.'}
     foreach($Flag in @('formal_fixed','adopted','pixel_verified')){if($P.$Flag -isnot [bool] -or $P.$Flag){throw 'Native Merge capture cannot claim user/device acceptance.'}}
+    $Shots=[IO.Path]::GetFullPath((Join-Path $Directory 'screenshots')).TrimEnd('/','\')
+    if($P.disk_verified -isnot [bool] -or -not $P.disk_verified -or $P.image_count -ne 11 -or [string]::IsNullOrWhiteSpace($P.output_directory) -or -not [IO.Path]::IsPathRooted($P.output_directory) -or -not [string]::Equals([IO.Path]::GetFullPath($P.output_directory).TrimEnd('/','\'),$Shots,[StringComparison]::OrdinalIgnoreCase)){throw 'Capture proof must verify eleven files in this exact screenshots directory.'}
     $Expected=@('initial-720x1480-before-reconstructed.jpg','initial-720x1480-after.jpg','initial-720x1280-before-reconstructed.jpg','initial-720x1280-after.jpg','initial-640x1072-before-reconstructed.jpg','initial-640x1072-after.jpg','bread-request-720x1480-before-reconstructed.jpg','bread-request-720x1480-after.jpg','multi-requirement-720x1480-after.jpg','inventory-ready-720x1480-after.jpg','full-board-720x1280-after.jpg')
     if(@($P.images).Count -ne 11 -or @($P.images.file | Select-Object -Unique).Count -ne 11 -or @(Compare-Object $Expected @($P.images.file)).Count){throw 'Merge native image coverage incomplete.'}
+    $Actual=@(Get-ChildItem -LiteralPath $Shots -File | Where-Object {$_.Extension -ieq '.jpg'})
+    if($Actual.Count -ne 11 -or @(Compare-Object $Expected @($Actual.Name)).Count){throw 'Exactly eleven JPEG files must exist on disk.'}
     foreach($Image in @($P.images)){
         if($Image.state_unchanged -isnot [bool] -or -not $Image.state_unchanged -or $Image.writes_unchanged -isnot [bool] -or -not $Image.writes_unchanged -or $Image.state_sha256 -cnotmatch '^[a-f0-9]{64}$'){throw 'Merge rendering changed isolated state/save writes.'}
         $File=Join-Path $Directory ('screenshots/'+$Image.file)
-        if(-not(Test-Path -LiteralPath $File -PathType Leaf) -or ((Get-Item -LiteralPath $File -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) -or $Image.sha256 -cnotmatch '^[a-f0-9]{64}$' -or (Get-FileHash -LiteralPath $File -Algorithm SHA256).Hash -ine $Image.sha256){throw 'Merge native image missing/changed.'}
+        if(-not(Test-Path -LiteralPath $File -PathType Leaf) -or (Get-Item -LiteralPath $File).Length -eq 0 -or ((Get-Item -LiteralPath $File -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) -or $Image.sha256 -cnotmatch '^[a-f0-9]{64}$' -or (Get-FileHash -LiteralPath $File -Algorithm SHA256).Hash -ine $Image.sha256){throw 'Merge native image missing/empty/changed.'}
         if($Image.before_reconstructed -isnot [bool] -or $Image.before_reconstructed -ne $Image.file.EndsWith('-before-reconstructed.jpg')){throw 'Merge Before/After label differs.'}
         if($Image.before_reconstructed){
             $Partner=@($P.images | Where-Object {$_.scenario -ceq $Image.scenario -and $_.width -eq $Image.width -and $_.height -eq $Image.height})
@@ -29,6 +38,40 @@ function Assert-MergeRewardProof([string]$Directory,[string]$Revision,[string]$F
         }
     }
     return $P
+}
+function Write-MergeRewardViewer([string]$Directory,[string]$Reference,$Proof){
+    $ReferenceHtml='<p>原本PNG未配置。Visual Lock比較は未完了です。</p>'
+    if(Test-Path -LiteralPath $Reference -PathType Leaf){
+        if(-not $Proof.original_png_saved -or (Get-FileHash -LiteralPath $Reference -Algorithm SHA256).Hash -ine $Proof.reference_sha256){throw 'Reference differs from native capture.'}
+        Copy-Item -LiteralPath $Reference -Destination (Join-Path $Directory 'screenshots/merge_visual_lock_reward.png');$ReferenceHtml='<img alt="正式Visual Lock" src="merge_visual_lock_reward.png">'
+    }
+    $Links=(@($Proof.images) | ForEach-Object {'<li><a href="'+$_.file+'">'+$_.file+'</a></li>'}) -join "`n"
+    @"
+<!doctype html><meta charset="utf-8"><title>Merge ごほうび候補</title><style>body{font:16px sans-serif;background:#fff6ed;color:#5c3535}section{display:flex;gap:12px}img{width:min(31vw,360px);height:auto;object-fit:contain;align-self:flex-start}p{max-width:1000px}</style><h1>Merge・同条件の実Unity描画</h1><p>隔離テストデータです。Beforeは旧UIを現在ソースで再構成。ユーザーの保存データ・Pixel画面ではありません。正式採用は未判定です。原本・Before・Afterを比較してください。</p><section>$ReferenceHtml<img alt="Before再構成" src="bread-request-720x1480-before-reconstructed.jpg"><img alt="After候補" src="bread-request-720x1480-after.jpg"></section><p>既存仕様の40 Coinsを表示。見本のジェム報酬は追加していません。</p><h2>全11枚</h2><ul>$Links</ul><a href="merge-reward-native.json">撮影証跡JSON</a>
+"@ | Set-Content -LiteralPath (Join-Path $Directory 'screenshots/merge-reward.html') -Encoding UTF8
+}
+function Assert-MergeRewardArtifacts([string]$Directory,[string]$Revision,[string]$Fingerprint,[string]$Packed){
+    $Proof=Assert-MergeRewardProof $Directory $Revision $Fingerprint $Packed
+    $Shots=[IO.Path]::GetFullPath((Join-Path $Directory 'screenshots'));$Html=Join-Path $Shots 'merge-reward.html'
+    if(-not(Test-Path -LiteralPath $Html -PathType Leaf) -or (Get-Item -LiteralPath $Html).Length -eq 0){throw 'Capture HTML was not generated.'}
+    $Text=Get-Content -Raw -Encoding UTF8 -LiteralPath $Html
+    if($Text -notmatch '(?i)<!doctype html>'){throw 'Capture HTML is invalid.'}
+    foreach($Image in @($Proof.images)){if(-not $Text.Contains($Image.file)){throw 'Capture HTML is missing image links.'}}
+    $Names=@($Proof.images.file)+@('merge-reward-native.json','merge-reward.html')
+    if($Proof.original_png_saved){
+        $Reference=Join-Path $Shots 'merge_visual_lock_reward.png'
+        if(-not(Test-Path -LiteralPath $Reference -PathType Leaf) -or (Get-FileHash -LiteralPath $Reference -Algorithm SHA256).Hash -ine $Proof.reference_sha256){throw 'Viewer original reference missing/changed.'}
+        $Names+=@('merge_visual_lock_reward.png')
+    }
+    return @(foreach($Name in $Names){$File=Join-Path $Shots $Name;@{path=('screenshots/'+$Name);bytes=(Get-Item -LiteralPath $File).Length;sha256=(Get-FileHash -LiteralPath $File -Algorithm SHA256).Hash.ToLowerInvariant()}})
+}
+function Confirm-MergeRewardCapture($Record,[string]$Directory,[string]$Revision,[string]$Fingerprint,[string]$Packed){
+    # Reset before every validation, including final validation after cleanup.
+    $Record.capture_verified=$false;$Record.image_count=0;$Record.artifacts=@()
+    $Record.artifact_directory=[IO.Path]::GetFullPath((Join-Path $Directory 'screenshots'))
+    if($Record.source_unchanged -isnot [bool] -or -not $Record.source_unchanged -or $Record.error){throw 'Capture source/cleanup checks failed.'}
+    $Artifacts=@(Assert-MergeRewardArtifacts $Directory $Revision $Fingerprint $Packed)
+    $Record.artifacts=$Artifacts;$Record.image_count=11;$Record.capture_verified=$true
 }
 function Assert-MergeRewardApk([string]$Directory,[string]$Revision,[string]$Fingerprint,[string]$Packed){
     $I=Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $Directory 'characters-authored-build.json') | ConvertFrom-Json
@@ -52,23 +95,17 @@ $Preserved=Move-PreviousCharacterInputs $Repo $Git
 Assert-CleanProductSource $Repo $Git;Assert-CharactersVisualLock $Repo;Assert-NoahAuthoredMasterFixed $Repo;Assert-NoahAuthoredFrozenInputs $Repo
 $Revision=Read-SourceRevision $Repo;$Fingerprint=Get-CharacterAuthoredSourceFingerprint $Repo
 $Run=Join-Path $Repo ('Builds/Diagnostics/merge-reward-'+(Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::NewGuid().ToString('N').Substring(0,8));New-Item -ItemType Directory -Path $Run | Out-Null
-$Record=[ordered]@{scope='merge-reward-ui-candidate';gitRevision=$Revision;productFingerprint=$Fingerprint;packed_resource_sha256='';preserved_inputs=$Preserved;capture_verified=$false;focus_verified=$false;full_qa_verified=$false;build_generated=$false;pixel_verified=$false;formal_fixed=$false;adopted=$false;source_unchanged=$false;error=''}
-$Failure=$null;$Apk=$null;Write-Host "Merge-only candidate run: $Run"
+$Record=[ordered]@{scope='merge-reward-ui-candidate';gitRevision=$Revision;productFingerprint=$Fingerprint;packed_resource_sha256='';preserved_inputs=$Preserved;artifact_directory=([IO.Path]::GetFullPath((Join-Path $Run 'screenshots')));image_count=0;artifacts=@();capture_verified=$false;focus_verified=$false;full_qa_verified=$false;build_generated=$false;pixel_verified=$false;formal_fixed=$false;adopted=$false;source_unchanged=$false;error=''}
+$Failure=$null;$Apk=$null;$CaptureReady=$false;Write-Host "Merge-only candidate run: $Run";Write-Host "Exact capture output: $($Record.artifact_directory)"
 try{
     foreach($Step in @('prepare-noah','prepare-five')){Invoke-NoahAuthoredUnity $Editor (Get-CharactersDirectArguments $Repo $Run $Step) $Run}
     $Record.packed_resource_sha256=Get-PreparedCharactersDigest $Repo
     $Stage=if($MergeOptions.CaptureOnly){'capture'}else{'focus'}
     Invoke-NoahAuthoredUnity $Editor (Get-MergeRewardArguments $Repo $Run $Revision $Fingerprint $Record.packed_resource_sha256 $Stage) $Run
     Assert-TestRun (Join-Path $Run ($Stage+'.xml')) $(if($MergeOptions.CaptureOnly){1}else{5}) $(if($MergeOptions.CaptureOnly){@('MergeRewardCaptureTests')}else{@('MergeRewardCaptureTests','MergeRewardUiTests','MergeInteractionTests','ProductionFrameUiTests')})
-    $Proof=Assert-MergeRewardProof $Run $Revision $Fingerprint $Record.packed_resource_sha256;$Record.capture_verified=$true;$Record.focus_verified=-not $MergeOptions.CaptureOnly
-    $ReferenceHtml='<p>原本PNG未配置。Visual Lock比較は未完了です。</p>'
-    if(Test-Path -LiteralPath $Reference -PathType Leaf){
-        if(-not $Proof.original_png_saved -or (Get-FileHash -LiteralPath $Reference -Algorithm SHA256).Hash -ine $Proof.reference_sha256){throw 'Reference differs from native capture.'}
-        Copy-Item -LiteralPath $Reference -Destination (Join-Path $Run 'screenshots/merge_visual_lock_reward.png');$ReferenceHtml='<img alt="正式Visual Lock" src="merge_visual_lock_reward.png">'
-    }
-    @"
-<!doctype html><meta charset="utf-8"><title>Merge ごほうび候補</title><style>body{font:16px sans-serif;background:#fff6ed;color:#5c3535}section{display:flex;gap:12px}img{width:min(31vw,360px);height:auto;object-fit:contain;align-self:flex-start}p{max-width:1000px}</style><h1>Merge・同条件の実Unity描画</h1><p>隔離テストデータです。Beforeは旧UIを現在ソースで再構成。ユーザーの保存データ・Pixel画面ではありません。正式採用は未判定です。原本・Before・Afterを比較してください。</p><section>$ReferenceHtml<img alt="Before再構成" src="bread-request-720x1480-before-reconstructed.jpg"><img alt="After候補" src="bread-request-720x1480-after.jpg"></section><p>既存仕様の40 Coinsを表示。見本のジェム報酬は追加していません。</p>
-"@ | Set-Content -LiteralPath (Join-Path $Run 'screenshots/merge-reward.html') -Encoding UTF8
+    $Proof=Assert-MergeRewardProof $Run $Revision $Fingerprint $Record.packed_resource_sha256
+    Write-MergeRewardViewer $Run $Reference $Proof
+    $null=Assert-MergeRewardArtifacts $Run $Revision $Fingerprint $Record.packed_resource_sha256;$CaptureReady=$true
     if($MergeOptions.Final){
         foreach($Platform in @('EditMode','PlayMode')){
             Invoke-NoahAuthoredUnity $Editor (Get-MergeRewardArguments $Repo $Run $Revision $Fingerprint $Record.packed_resource_sha256 $Platform) $Run
@@ -88,9 +125,16 @@ finally{
         if((Read-SourceRevision $Repo) -cne $Revision -or (Get-CharacterAuthoredSourceFingerprint $Repo) -cne $Fingerprint){throw 'Merge source changed during the run.'}
         Assert-CharactersVisualLock $Repo;Assert-NoahAuthoredMasterFixed $Repo;Assert-NoahAuthoredFrozenInputs $Repo;$Record.source_unchanged=$true
     }catch{if(-not $Failure){$Failure=$_};$Record.error+=' '+$_.Exception.Message}
+    if(-not $Failure -and $CaptureReady){
+        try{Confirm-MergeRewardCapture $Record $Run $Revision $Fingerprint $Record.packed_resource_sha256;$Record.focus_verified=-not $MergeOptions.CaptureOnly}
+        catch{$Failure=$_;$Record.error+=' '+$_.Exception.Message}
+    }
     $Record|ConvertTo-Json -Depth 8|Set-Content -LiteralPath (Join-Path $Run 'merge-reward-source-info.json') -Encoding UTF8
     Write-Host "Original results preserved: $Run"
-    if($env:OS -eq 'Windows_NT'){Start-Process -FilePath explorer.exe -ArgumentList ('"'+$Run+'"')}
+    if($env:OS -eq 'Windows_NT'){
+        if($Record.capture_verified){Start-Process -FilePath explorer.exe -ArgumentList ('/select,"'+(Join-Path $Record.artifact_directory 'merge-reward.html')+'"')}
+        else{Start-Process -FilePath explorer.exe -ArgumentList ('"'+$Run+'"')}
+    }
 }
 if($Failure){throw $Failure}
 if($MergeOptions.Install){

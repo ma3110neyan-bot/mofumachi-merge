@@ -34,7 +34,9 @@ function Copy-CharactersFailedSingleRecords([string]$Repository,[string]$Parent,
 }
 function Get-CharactersFullArguments([string]$Repository,[string]$Directory,[string]$Platform,[string]$Revision,[string]$Fingerprint){
     if($Platform -cnotin @('EditMode','PlayMode') -or $Revision -notmatch '^[a-f0-9]{40}$' -or $Fingerprint -notmatch '^[a-f0-9]{64}$'){throw 'Invalid full QA identity/platform.'}
-    return @('-batchmode','-projectPath',$Repository,'-buildTarget','Android','-runTests','-testPlatform',$Platform,'-testResults',(Join-Path $Directory ('full-'+$Platform.ToLowerInvariant()+'.xml')),'-logFile',(Join-Path $Directory ('full-'+$Platform.ToLowerInvariant()+'.log')),'-mofumachiScreenshots',(Join-Path $Directory 'full-screenshots'),'-mofumachiSourceRevision',$Revision,'-mofumachiProductFingerprint',$Fingerprint)
+    $Arguments=@('-batchmode','-projectPath',$Repository,'-buildTarget','Android','-runTests','-testPlatform',$Platform,'-testResults',(Join-Path $Directory ('full-'+$Platform.ToLowerInvariant()+'.xml')),'-logFile',(Join-Path $Directory ('full-'+$Platform.ToLowerInvariant()+'.log')),'-mofumachiScreenshots',(Join-Path $Directory 'full-screenshots'),'-mofumachiSourceRevision',$Revision,'-mofumachiProductFingerprint',$Fingerprint)
+    if($Platform -ceq 'PlayMode'){$Arguments+=@('-mofumachiMergeReward',(Join-Path $Directory 'full-merge-capture'))}
+    return $Arguments
 }
 function Get-CharactersSixArguments([string]$Repository,[string]$Directory,[string]$Revision,[string]$Fingerprint){
     if($Revision -notmatch '^[a-f0-9]{40}$' -or $Fingerprint -notmatch '^[a-f0-9]{64}$'){throw 'Invalid six-character identity.'}

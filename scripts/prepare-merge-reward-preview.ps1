@@ -1,4 +1,4 @@
-[CmdletBinding()]
+﻿[CmdletBinding()]
 param([string]$UnityEditorPath='',[switch]$CaptureOnly,[switch]$Final,[switch]$Install,[string]$Serial='99RAY1BELH',[ValidateRange(5,600)][int]$MeasureSeconds=180)
 $ErrorActionPreference='Stop'
 $MergeOptions=@{Editor=$UnityEditorPath;CaptureOnly=[bool]$CaptureOnly;Final=[bool]$Final;Install=[bool]$Install;Serial=$Serial;Seconds=$MeasureSeconds}

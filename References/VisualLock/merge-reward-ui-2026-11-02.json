@@ -14,7 +14,7 @@
     {
       "path": "Assets/Mofumachi/Presentation/QuestMergeScreens.cs",
       "before_sha256": "c787a0f8d4482ca651aaafd3651a95411c749a008687dd680c1cf1499c3679e8",
-      "sha256": "afdd3a4673bbd06b439d8adfff54de804eb968e591ec71072b8469f1f1294707"
+      "sha256": "03562d7356cf378ebb75e2be56830030041095d66238df56bcbe3b9e873dfbcb"
     },
     {
       "path": "Assets/Mofumachi/Presentation/MergePerspective.cs",
@@ -24,7 +24,7 @@
     {
       "path": "Assets/Mofumachi/Presentation/MergeCellSurfaceGraphic.cs",
       "before_sha256": "0de1ee9b2e178b98227bf0b77a32db40c7a5aa1c5b8e4f867255565ecff8b728",
-      "sha256": "a43dc1f96c4f7aa1a9788124d5a811c65d881090f220a6123f086bedc5467919"
+      "sha256": "cbc1fdc9edb358f4639c92f7a4654f581dbad3c03130f479325373b000f176fb"
     },
     {
       "path": "Assets/Mofumachi/Presentation/MergeSparkleGraphic.cs",
@@ -53,12 +53,27 @@
     },
     {
       "path": "Assets/Mofumachi/Presentation/MergeRewardView.cs",
-      "sha256": "f421192315dee41cbaebb298fa0fb7ea482a9d8f508093999569da3d9609927e"
+      "sha256": "2587acdc006f31babdcd736d5bd8e2738de443a9216539450b01ca6428c9fe26"
     },
     {
       "path": "Assets/Mofumachi/Presentation/MergeRewardView.cs.meta",
       "sha256": "4a740e291e3060f50c9398acae01ce1034c0a3e5dea86d5a0b5b0fe19017e7ff"
     }
   ],
-  "reference_sha256": "827825aac8943b32b29f143f1a98d6142e5cbbcce80de39b7f999a3374d6e6f3"
+  "reference_sha256": "827825aac8943b32b29f143f1a98d6142e5cbbcce80de39b7f999a3374d6e6f3",
+  "local_finish": {
+    "authorized_by": "User Merge最終仕上げ指示, 2026-11-03 JST",
+    "base_implementation": "a18e59814894316341e7e3db6c47b19b6bdee24e",
+    "previous_source_revision": "94c7f6e70bef36701526b9a6fee9c435251a562b",
+    "previous_candidate_manifest_sha256": "6ed13ae5f781e16402a052832b9b4c271f3e0cc44235472ff48dec7d6c11d5c5",
+    "changed_product_files": [
+      "Assets/Mofumachi/Presentation/QuestMergeScreens.cs",
+      "Assets/Mofumachi/Presentation/MergeCellSurfaceGraphic.cs",
+      "Assets/Mofumachi/Presentation/MergeRewardView.cs"
+    ],
+    "visual_gate_verified": false,
+    "native_verified": false,
+    "full_qa_verified": false,
+    "pixel_verified": false
+  }
 }

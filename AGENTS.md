@@ -1,3 +1,11 @@
+# 2026-11-03最新：Merge最終仕上げは表示3ファイルだけ局所修正／新Visual Gate待ち
+
+最新ユーザー指示により、a18e598を基礎にしたMergeの見た目だけの局所調整を許可。旧「製品全ファイル不変」は、この3ファイルの表示調整に限り更新する。QuestMergeScreensはBuildMergeのヘッダー1行だけ（製品の既定をピンク「ごほうびMerge」、旧青はEditorのBefore再構成専用）。MergeRewardViewは依頼帯・実Coins・主依頼ボタン／補助整理の強弱・複数条件の余白だけ。MergeCellSurfaceGraphicは空きセル模様alpha .27→.16だけ。盤面座標／5×6／正式画像／Core／Merge・生成ルール／Save／Quest条件／納品／報酬計算／キャラ／街／BGM／共通UI・フォントは無変更。
+
+原本PNGは固定・SHA不変。既存11枚はユーザーが確認済みと明示したが、ここに実JPEGは届いていないため著者が目視したとは言わない。計画docs/superpowers/plans/2026-11-03-merge-local-finish.md。基準前の復元点checkpoint/merge-before-final-polish-20261103=94c7f6e。候補SHA記録は許可3ファイルだけ更新、前manifest SHAとbaseを残しnative/visual/full/pixel flagsはfalse。今回の新しい見た目が未承認の間は全件・QA APK・Pixelへ進めない。既存の-CaptureOnlyで新11JPEG/JSON/HTMLを生成しVisual Gateまでで停止する。撮影の実ファイル必須検査と診断ログ2行削除は維持。旧26/552/53・原画保護を弱めない。
+
+以下は履歴。
+
 # 2026-11-02最新：Merge原本PNG保存済み／a18e598の製品実装を維持
 
 ユーザー正式指示はMerge UI/グラフィックのみ。キャラ2.5Dはfix only。正式参照先は `References/Merge/merge_visual_lock_reward.png` に固定。今回ZIPの実添付を受領し、941×1672 RGB、2,216,784 bytesの原本を再エンコードせず保存。ZIP内バイト一致・全デコード済み。SHA256=827825aac8943b32b29f143f1a98d6142e5cbbcce80de39b7f999a3374d6e6f3。隣のreceiptへZIPのSHA・原本SHA・寸法を記録。生成・再構成した別画像で代用しない。参照原本の正式固定と、製品UIのVisual Gate／Pixel合格は別。

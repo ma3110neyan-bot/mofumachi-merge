@@ -21,7 +21,7 @@ namespace Mofumachi.Presentation
             var face=new Rect(rim.x+1.25f,rim.y+1.25f,rim.width-2.5f,rim.height-2.5f);
             Fill(vh,face,radius-1,paper,Color.Lerp(paper,Color.white,.20f));
             Fill(vh,new Rect(face.x+radius,face.yMax-1,face.width-radius*2,.7f),.35f,new Color(1,1,1,.6f),new Color(1,1,1,.6f));
-            if(motif>=0&&!before)Motif(vh,r.center,unit*.18f,(motif/5+motif%5)%4);
+            if(motif>=0&&!before)Motif(vh,r.center,unit*.18f,(motif/5+motif%5)%4,.16f);
         }
         internal static void Motif(VertexHelper vh,Vector2 c,float size,int kind,float alpha=.27f)
         {

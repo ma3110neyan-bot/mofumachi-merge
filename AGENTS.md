@@ -1,3 +1,13 @@
+# 2026-11-03最新：現行MergeのVisual合格／表示fix only・リリース候補確認へ
+
+最新ユーザーが現デザインのVisual Gate合格を明示。af084ecの表示を正式候補として固定し、UI再設計・装飾追加は行わない。今回以降は明確な表示崩れ／操作不具合の局所fixのみ。References/VisualLock/merge-reward-visual-approved-2026-11-03.jsonにユーザー承認・元PNG・表示6ソースのSHAを別記録。旧pending implementation recordのnative/full/deviceフラグは書き換えず、Visual合格と実行結果を区別する。
+
+次工程はMerge重点→全EditMode1回→全PlayMode1回→同一QA APK→Pixel3a。prepare-merge-reward-preview.ps1 -Final -Install -Serial99RAY1BELH -MeasureSeconds180をWindowsで1回実行。開始／終了時に承認済み表示SHA照合。失敗は停止・原本保持し自動再試行なし。Pixelのみ失敗なら正確な同runをtest-merge-reward-pixel.ps1 -BuildDirectoryで継続し、全件／ビルドは再実行しない。元XML3本・11画像等の実ファイル・同一APK SHAを再検証してinstall-r、SurfaceFlinger／PSS／温度／crash原ログを収集。計測・インストールだけでpixel_verified／release_acceptedをtrueにしない。
+
+今回の製品コード／正式素材／Core／Save／街／キャラ／BGM差分0。クラウドのライセンス・Android・USB不足は既知であり、同じ失敗起動や代替全件テストを繰り返さない。実Unity重点・全件・APK・PixelはWindows結果待ちと明記。手順docs/merge-reward-release-candidate-2026-11-03.md。既存GitHub feature push許可は継続。新しい承認待ちは不要。
+
+以下は履歴。
+
 # 2026-11-03最新：ピンク版正式基準・上部final fix only／青版は比較撮影からも廃止
 
 最新ユーザーはピンク「ごほうびMerge」を正式基準とし、青「Merge」は今後出さないと明示。今回の候補は上部の細い帯・独立コインをAfterから削除し、「達成ごほうび＋実Coins」へ意味を統一。単一依頼の名称／個数を同じ左端へ整列、複数条件のカード間余白だけ微調整。主ボタンはピンクを維持し、光沢と角装飾を少し弱める。空きセル・盤面・下部ナビ・生成／納品の基本構成、Core／Save／ルール／正式素材／街／キャラ／他画面は変更しない。

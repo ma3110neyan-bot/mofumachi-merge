@@ -1,8 +1,20 @@
 [CmdletBinding()]
-param([string]$UnityEditorPath='',[switch]$CaptureOnly,[switch]$Final,[switch]$Install,[string]$Serial='99RAY1BELH')
+param([string]$UnityEditorPath='',[switch]$CaptureOnly,[switch]$Final,[switch]$Install,[string]$Serial='99RAY1BELH',[ValidateRange(5,600)][int]$MeasureSeconds=180)
 $ErrorActionPreference='Stop'
-$MergeOptions=@{Editor=$UnityEditorPath;CaptureOnly=[bool]$CaptureOnly;Final=[bool]$Final;Install=[bool]$Install;Serial=$Serial}
+$MergeOptions=@{Editor=$UnityEditorPath;CaptureOnly=[bool]$CaptureOnly;Final=[bool]$Final;Install=[bool]$Install;Serial=$Serial;Seconds=$MeasureSeconds}
 . (Join-Path $PSScriptRoot 'prepare-characters-direct-pixel.ps1')
+function Assert-MergeRewardVisualApproval([string]$Repository){
+    $A=Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $Repository 'References/VisualLock/merge-reward-visual-approved-2026-11-03.json') | ConvertFrom-Json
+    if($A.kind -cne 'merge-reward-visual-approved-candidate' -or $A.visual_gate_approved_by_user -isnot [bool] -or -not $A.visual_gate_approved_by_user -or $A.ui_policy -cne 'fix-only' -or $A.source_revision -cnotmatch '^[a-f0-9]{40}$'){throw 'User-approved fix-only Merge candidate required.'}
+    $Names=@('QuestMergeScreens.cs','MergeRewardPresentation.cs','MergeRewardView.cs','MergePerspective.cs','MergeCellSurfaceGraphic.cs','MergeSparkleGraphic.cs')|ForEach-Object {'Assets/Mofumachi/Presentation/'+$_}
+    if(@($A.files).Count -ne 6 -or @($A.files.path|Select-Object -Unique).Count -ne 6 -or @(Compare-Object $Names @($A.files.path)).Count){throw 'Exact approved Merge presentation files required.'}
+    foreach($Row in @($A.files)){
+        $File=Join-Path $Repository $Row.path
+        if($Row.sha256 -cnotmatch '^[a-f0-9]{64}$' -or -not(Test-Path -LiteralPath $File -PathType Leaf) -or (Get-FinishTextHash $File) -cne $Row.sha256){throw "Approved Merge design changed: $($Row.path)"}
+    }
+    if($A.reference_path -cne 'References/Merge/merge_visual_lock_reward.png' -or $A.reference_sha256 -cnotmatch '^[a-f0-9]{64}$' -or (Get-FileHash -LiteralPath (Join-Path $Repository $A.reference_path) -Algorithm SHA256).Hash -ine $A.reference_sha256){throw 'Approved Merge original reference changed.'}
+    return $A
+}
 function Get-MergeRewardArguments([string]$Repository,[string]$Directory,[string]$Revision,[string]$Fingerprint,[string]$Packed,[ValidateSet('capture','focus','EditMode','PlayMode')][string]$Stage){
     if($Revision -cnotmatch '^[a-f0-9]{40}$' -or $Fingerprint -cnotmatch '^[a-f0-9]{64}$' -or $Packed -cnotmatch '^[a-f0-9]{64}$'){throw 'Exact Merge source/resource identity required.'}
     $A=@('-batchmode','-projectPath',$Repository,'-buildTarget','Android','-runTests','-testPlatform',$(if($Stage -in @('capture','focus')){'PlayMode'}else{$Stage}),'-testResults',(Join-Path $Directory ($Stage+'.xml')),'-logFile',(Join-Path $Directory ($Stage+'.log')),'-mofumachiSourceRevision',$Revision,'-mofumachiProductFingerprint',$Fingerprint,'-mofumachiPackedResourceSha',$Packed)
@@ -47,7 +59,7 @@ function Write-MergeRewardViewer([string]$Directory,[string]$Reference,$Proof){
     }
     $Links=(@($Proof.images) | ForEach-Object {'<li><a href="'+$_.file+'">'+$_.file+'</a></li>'}) -join "`n"
     @"
-<!doctype html><meta charset="utf-8"><title>Merge ごほうび候補</title><style>body{font:16px sans-serif;background:#fff6ed;color:#5c3535}section{display:flex;gap:12px}img{width:min(31vw,360px);height:auto;object-fit:contain;align-self:flex-start}p{max-width:1000px}</style><h1>Merge・同条件の実Unity描画</h1><p>隔離テストデータです。Beforeは採用済みピンク版（c7329cc）の再構成、Afterは今回の局所修正です。青い旧版は新規出力しません。ユーザーの保存データ・Pixel画面ではありません。ピンク版を正式基準とし、今回の局所修正はVisual確認待ちです。原本・Before・Afterを比較してください。</p><section>$ReferenceHtml<img alt="採用済みピンク版Before" src="bread-request-720x1480-before-reconstructed.jpg"><img alt="After候補" src="bread-request-720x1480-after.jpg"></section><p>既存仕様の40 Coinsを表示。見本のジェム報酬は追加していません。</p><h2>全11枚</h2><ul>$Links</ul><a href="merge-reward-native.json">撮影証跡JSON</a>
+<!doctype html><meta charset="utf-8"><title>Merge ごほうび候補</title><style>body{font:16px sans-serif;background:#fff6ed;color:#5c3535}section{display:flex;gap:12px}img{width:min(31vw,360px);height:auto;object-fit:contain;align-self:flex-start}p{max-width:1000px}</style><h1>Merge・同条件の実Unity描画</h1><p>隔離テストデータです。Beforeは採用済みピンク版（c7329cc）の再構成、AfterはVisual合格済みの正式候補です。青い旧版は新規出力しません。ユーザーの保存データ・Pixel画面ではありません。現在の見た目はfix onlyで固定し、実行テスト・APK・実機確認は別に記録します。</p><section>$ReferenceHtml<img alt="採用済みピンク版Before" src="bread-request-720x1480-before-reconstructed.jpg"><img alt="After候補" src="bread-request-720x1480-after.jpg"></section><p>既存仕様の40 Coinsを表示。見本のジェム報酬は追加していません。</p><h2>全11枚</h2><ul>$Links</ul><a href="merge-reward-native.json">撮影証跡JSON</a>
 "@ | Set-Content -LiteralPath (Join-Path $Directory 'screenshots/merge-reward.html') -Encoding UTF8
 }
 function Assert-MergeRewardArtifacts([string]$Directory,[string]$Revision,[string]$Fingerprint,[string]$Packed){
@@ -91,11 +103,12 @@ if(-not(Test-Path -LiteralPath $Editor -PathType Leaf) -or -not(Test-Path -Liter
 if(Get-Process -Name Unity -ErrorAction SilentlyContinue){throw 'Close Unity Editor before this isolated run.'}
 $Reference=Join-Path $Repo 'References/Merge/merge_visual_lock_reward.png'
 if($MergeOptions.Final -and -not(Test-Path -LiteralPath $Reference -PathType Leaf)){throw 'Original Visual Lock PNG must exist at References/Merge/merge_visual_lock_reward.png before final QA. Focus capture remains available.'}
+$Approval=Assert-MergeRewardVisualApproval $Repo
 $Preserved=Move-PreviousCharacterInputs $Repo $Git
 Assert-CleanProductSource $Repo $Git;Assert-CharactersVisualLock $Repo;Assert-NoahAuthoredMasterFixed $Repo;Assert-NoahAuthoredFrozenInputs $Repo
 $Revision=Read-SourceRevision $Repo;$Fingerprint=Get-CharacterAuthoredSourceFingerprint $Repo
 $Run=Join-Path $Repo ('Builds/Diagnostics/merge-reward-'+(Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::NewGuid().ToString('N').Substring(0,8));New-Item -ItemType Directory -Path $Run | Out-Null
-$Record=[ordered]@{scope='merge-reward-ui-candidate';gitRevision=$Revision;productFingerprint=$Fingerprint;packed_resource_sha256='';preserved_inputs=$Preserved;artifact_directory=([IO.Path]::GetFullPath((Join-Path $Run 'screenshots')));image_count=0;artifacts=@();capture_verified=$false;focus_verified=$false;full_qa_verified=$false;build_generated=$false;pixel_verified=$false;formal_fixed=$false;adopted=$false;source_unchanged=$false;error=''}
+$Record=[ordered]@{scope='merge-reward-ui-candidate';gitRevision=$Revision;productFingerprint=$Fingerprint;packed_resource_sha256='';visual_gate_approved_by_user=$true;approved_design_revision=$Approval.source_revision;ui_policy='fix-only';preserved_inputs=$Preserved;artifact_directory=([IO.Path]::GetFullPath((Join-Path $Run 'screenshots')));image_count=0;artifacts=@();qa_artifacts=@();capture_verified=$false;focus_verified=$false;full_qa_verified=$false;build_generated=$false;pixel_verified=$false;formal_fixed=$false;adopted=$false;source_unchanged=$false;error=''}
 $Failure=$null;$Apk=$null;$CaptureReady=$false;Write-Host "Merge-only candidate run: $Run";Write-Host "Exact capture output: $($Record.artifact_directory)"
 try{
     foreach($Step in @('prepare-noah','prepare-five')){Invoke-NoahAuthoredUnity $Editor (Get-CharactersDirectArguments $Repo $Run $Step) $Run}
@@ -113,6 +126,7 @@ try{
             Assert-TestRun (Join-Path $Run ($Platform+'.xml')) $(if($Platform -eq 'EditMode'){144}else{240}) $Required
         }
         $Record.full_qa_verified=$true
+        $Record.qa_artifacts=@(foreach($Name in @('focus.xml','EditMode.xml','PlayMode.xml')){@{path=$Name;sha256=(Get-FileHash -LiteralPath (Join-Path $Run $Name) -Algorithm SHA256).Hash.ToLowerInvariant()}})
         @{gitRevision=$Revision;productFingerprint=$Fingerprint;packed_resource_sha256=$Record.packed_resource_sha256}|ConvertTo-Json|Set-Content -LiteralPath (Join-Path $Run 'direct-context.json') -Encoding UTF8
         Invoke-NoahAuthoredUnity $Editor (Get-CharactersDirectArguments $Repo $Run 'build') $Run
         $Apk=Assert-MergeRewardApk $Run $Revision $Fingerprint $Record.packed_resource_sha256;$Record.build_generated=$true
@@ -124,6 +138,7 @@ finally{
     try{
         if((Read-SourceRevision $Repo) -cne $Revision -or (Get-CharacterAuthoredSourceFingerprint $Repo) -cne $Fingerprint){throw 'Merge source changed during the run.'}
         Assert-CharactersVisualLock $Repo;Assert-NoahAuthoredMasterFixed $Repo;Assert-NoahAuthoredFrozenInputs $Repo;$Record.source_unchanged=$true
+        $null=Assert-MergeRewardVisualApproval $Repo
     }catch{if(-not $Failure){$Failure=$_};$Record.error+=' '+$_.Exception.Message}
     if(-not $Failure -and $CaptureReady){
         try{Confirm-MergeRewardCapture $Record $Run $Revision $Fingerprint $Record.packed_resource_sha256;$Record.focus_verified=-not $MergeOptions.CaptureOnly}
@@ -138,10 +153,7 @@ finally{
 }
 if($Failure){throw $Failure}
 if($MergeOptions.Install){
-    $Sdk=Join-Path (Split-Path -Parent $Editor) 'Data/PlaybackEngines/AndroidPlayer/SDK'
-    $Adb=Join-Path $Sdk 'platform-tools/adb.exe';$Aapt=Join-Path $Sdk 'build-tools/36.0.0/aapt2.exe'
-    $Serial=Select-AuthorizedDevice (Invoke-CheckedNative $Adb @('devices')) $MergeOptions.Serial
-    if((Invoke-CheckedNative $Adb @('-s',$Serial,'shell','getprop','ro.product.model')).Trim() -cne 'Pixel 3a'){throw 'Connect the selected Pixel 3a.'}
-    Invoke-PixelInstall (Join-Path $Run $Apk.apk) $Adb $Serial $Apk.package $Aapt -ExpectedSha256 $Apk.sha256
+    & (Join-Path $PSScriptRoot 'test-merge-reward-pixel.ps1') -BuildDirectory $Run -UnityEditorPath $Editor -Serial $MergeOptions.Serial -MeasureSeconds $MergeOptions.Seconds
 }
-Write-Host 'Merge candidate evidence ready. Visual adoption and Pixel acceptance remain separate. No uninstall or save reset.'
+Write-Host 'Approved Merge candidate evidence ready. Native QA and Pixel acceptance are recorded separately. No uninstall or save reset.'
+return $Run

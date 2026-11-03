@@ -1,5 +1,7 @@
 # Merge ごほうびUI 実装候補
 
+2026-11-03更新：ユーザーが現行af084ecのVisual Gateを合格と判定。表示は正式候補・fix only。以後の実行手順と未取得結果は[リリース候補確認](merge-reward-release-candidate-2026-11-03.md)を参照。以下は原本保存時点の履歴であり、現在のVisual承認を取り消すものではない。
+
 状態：**実装済み・実機未確認。正式完了／採用は未判定。**
 
 ユーザーのD画像を目視確認し、正式参照先を `References/Merge/merge_visual_lock_reward.png` に固定。ユーザー添付`20261102_merge_visual_lock_reward.zip`から原本PNGを再エンコードせず保存済み。941×1672、RGB、2,216,784 bytes。ZIP内と保存先はバイト一致。SHA256は`827825aac8943b32b29f143f1a98d6142e5cbbcce80de39b7f999a3374d6e6f3`。受領記録は参照先隣の`.reference.json`。別の画像を原本として置いていない。`a18e598`の製品実装は変更していない。

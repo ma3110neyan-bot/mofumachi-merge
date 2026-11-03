@@ -1,0 +1,51 @@
+{
+  "kind": "merge-reward-visual-approved-candidate",
+  "source_revision": "af084ecda712d7aaaf3b4b581496a44f1192f97c",
+  "approved_on": "2026-11-03",
+  "timezone": "Asia/Tokyo",
+  "approved_by": "User: Merge画面のVisual確認は合格です。現デザインを正式候補として固定してください。",
+  "visual_gate_approved_by_user": true,
+  "ui_policy": "fix-only",
+  "reference_path": "References/Merge/merge_visual_lock_reward.png",
+  "reference_sha256": "827825aac8943b32b29f143f1a98d6142e5cbbcce80de39b7f999a3374d6e6f3",
+  "files": [
+    {
+      "path": "Assets/Mofumachi/Presentation/QuestMergeScreens.cs",
+      "sha256": "c49c08f3401ce170f29447d66f2869e8386f89f851a792fa5b1f295539361035",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeRewardPresentation.cs",
+      "sha256": "3d80f5749cb8162d206c744aaafc4a79e74ad5afd57d20a96194388477a9135d",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeRewardView.cs",
+      "sha256": "7f2c9aaafb78a0f9a4cc93f31d54cbfc9f939ddd6e2c9c1cfa96e426d850a240",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergePerspective.cs",
+      "sha256": "90894c00c6546c3d4fb0e85a2461ffc12b0504a2bf9d0ffe654618d14764ff39",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeCellSurfaceGraphic.cs",
+      "sha256": "cbc1fdc9edb358f4639c92f7a4654f581dbad3c03130f479325373b000f176fb",
+      "text_normalized": true
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeSparkleGraphic.cs",
+      "sha256": "c433a908da69dd25d1bf675d9f76d4ae8f1db8e1a3d9e18925615e757dcda354",
+      "text_normalized": true
+    }
+  ],
+  "release_validation": {
+    "merge_focus": "pending",
+    "full_editmode": "pending",
+    "full_playmode": "pending",
+    "qa_apk": "pending",
+    "pixel3a": "pending"
+  },
+  "note": "User visual approval fixes this candidate appearance; it does not assert native full QA, APK generation or physical-device acceptance. Historical pending implementation records remain unchanged."
+}

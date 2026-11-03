@@ -50,3 +50,14 @@ Ruling: these are reversible local styling adjustments; don't invent constant-mi
 Results: MergeRewardPresentationTests14/14 passed, scope synthetic check and actual original/Core/art/geometry/character guards passed; Presentation API compiled without warnings/errors. Native assertions are prepared, not run; new local Visual Gate remains pending. Read-only review found no Important/Critical issue. Exact diff check proves QuestMergeScreens has one header substitution only; callbacks/board/layout/BuildQuest are byte-identical.
 
 PlayModeTests API compilation also passed with zero warnings/errors. Protected-source check passed for all board mapping/input/FX/timing/services/assets/history; actual new native rendering and Visual Gate are still pending.
+
+
+## Final fix-only continuation — accepted pink direction
+
+User now formally accepts pink and explicitly rejects all future blue output. After removes the thin headerband and isolated Coin; real Coins remain in a meaningful「達成ごほうび」label. Single requirement names/counts share a left-aligned column, multi spacing grows slightly, primary corner flowers/gloss are quieter. Empty cells, board, lower nav/generation/delivery structure and all rules/assets/Core/Save/world stay fixed.
+
+Ruling: merely hiding blue in the viewer would leave prohibited blue captures. Retire the old CaptureBefore getter permanently; keep its guarded legacy branches inert to avoid editing board/FX code. Editor-only CapturePinkBaseline reconstructs the already accepted c7329cc pink Before; player ignores this flag. Existing11-image disk contract remains intact. This costs one extra diagnostic mode in the existing helper, with native tests asserting both modes pink/same board/no writes and a host test asserting release ignores it. No new generated images or alternative design.
+
+Product files: MergeRewardView.cs, MergeRewardPresentation.cs and the BuildMerge header line only. Related capture/UI tests, viewer explanation, pending SHA record and this ledger/AGENTS carry the change. New native assertions are prepared, not executed in this unlicensed cloud. New local Visual Gate is pending. No full suites/APK/Pixel authorized before acceptance.
+
+Final fix verification: MergeRewardPresentationTests15/15 passed; capture artifact/preview script fixtures passed; both API builds passed0warnings0errors; actual source/asset/reference guards passed. Independent bounded review found no Important/Critical issue. Native pink-before/pink-after layout assertions are prepared, not run; final fix visual acceptance remains pending.

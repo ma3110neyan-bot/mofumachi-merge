@@ -7,14 +7,17 @@ namespace Mofumachi.Presentation
     // Read-only copy/layout for the approved reward screen. No game rules or saves.
     public static class MergeRewardPresentation
     {
-        // Only native editor evidence can reconstruct the preceding UI. Players
-        // always use the candidate; this switch is never saved or shipped writable.
-        public static bool CaptureBefore
+        // Retire the blue/square legacy reconstruction in every build. Retained
+        // as a read-only compatibility getter for the original rendering guards.
+        public static bool CaptureBefore=>false;
+        // Native comparisons reconstruct only the accepted pink c7329cc view.
+        // Diagnostic state cannot change a player and is never saved.
+        public static bool CapturePinkBaseline
         {
 #if UNITY_EDITOR
             get;set;
 #else
-            get=>false;
+            get=>false;set{}
 #endif
         }
         public static string Coins(QuestDefinition quest)=>quest==null?"":quest.Coins+" Coins";

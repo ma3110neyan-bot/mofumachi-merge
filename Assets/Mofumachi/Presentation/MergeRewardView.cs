@@ -10,17 +10,20 @@ namespace Mofumachi.Presentation
     {
         private Text caption,coins;
         private RectTransform reward,currentBand,currentCoin;
-        private bool hasQuest;
+        private bool hasQuest,pinkBaseline;
         public static readonly Color Cream=new Color(1,.958f,.883f),Mint=new Color(.84f,.956f,.90f),Rose=new Color(1,.69f,.79f);
         public void Initialize(ScreenContext c)
         {
-            var root=(RectTransform)transform;var w=c.Widgets;var quest=QuestCatalog.NextFor(c.Game.State);hasQuest=quest!=null;
+            var root=(RectTransform)transform;var w=c.Widgets;var quest=QuestCatalog.NextFor(c.Game.State);hasQuest=quest!=null;pinkBaseline=MergeRewardPresentation.CapturePinkBaseline;
             var progress=root.Find("Merge progress") as RectTransform;
             var progressPaper=progress.GetComponent<RoundedPanelGraphic>();progressPaper.color=new Color(1,.968f,.951f);progressPaper.gloss=.12f;
-            var band=w.Panel("Current reward band",progress,new Rect(0,0,1,1),new Color(1,.85f,.89f,.92f));band.radius=6;band.decorated=false;currentBand=band.rectTransform;
-            currentCoin=w.Icon("Current reward coin",UIIcon.Coin,progress,new Rect(0,0,1,1)).rectTransform;
+            if(pinkBaseline)
+            {
+                var band=w.Panel("Current reward band",progress,new Rect(0,0,1,1),new Color(1,.85f,.89f,.92f));band.radius=6;band.decorated=false;currentBand=band.rectTransform;
+                currentCoin=w.Icon("Current reward coin",UIIcon.Coin,progress,new Rect(0,0,1,1)).rectTransform;
+            }
             caption=w.Heading("Current request caption","現在の依頼",progress,new Rect(0,0,1,1),11);
-            coins=w.Heading("Merge reward coins",hasQuest?"ごほうび "+MergeRewardPresentation.Coins(quest):"",progress,new Rect(0,0,1,1),11);
+            coins=w.Heading("Merge reward coins",hasQuest?(pinkBaseline?"ごほうび ":"達成ごほうび　")+MergeRewardPresentation.Coins(quest):"",progress,new Rect(0,0,1,1),11);
             caption.alignment=TextAnchor.MiddleLeft;coins.alignment=TextAnchor.MiddleRight;
             var title=root.Find("Header/Page title ribbon") as RectTransform;
             if(title!=null)
@@ -49,7 +52,7 @@ namespace Mofumachi.Presentation
                 r.GetComponent<RoundedPanelGraphic>().color=MergeRewardPresentation.Needs(rows,item.Id)?Rose:Cream;
                 w.Frame(r,13,false);
             }
-            var review=toolbar.Find("Deliver") as RectTransform;var primary=review.GetComponent<RoundedPanelGraphic>();primary.color=new Color(1,.60f,.73f);primary.radius=22;primary.borderWidth=2;primary.gloss=.46f;w.Frame(review,16);
+            var review=toolbar.Find("Deliver") as RectTransform;var primary=review.GetComponent<RoundedPanelGraphic>();primary.color=new Color(1,.60f,.73f);primary.radius=22;primary.borderWidth=pinkBaseline?2:1.8f;primary.gloss=pinkBaseline?.46f:.34f;w.Frame(review,16,pinkBaseline);
             var manage=toolbar.Find("Merge actions") as RectTransform;var secondary=manage.GetComponent<RoundedPanelGraphic>();secondary.color=Cream;secondary.borderWidth=.8f;secondary.gloss=.08f;secondary.shadowDepth=1;
             w.Frame(manage,13,false).color=new Color(1,1,1,.5f);
             var nav=root.Find("Navigation");
@@ -72,25 +75,28 @@ namespace Mofumachi.Presentation
             if(caption==null)return;var root=(RectTransform)transform;var progress=root.Find("Merge progress") as RectTransform;
             float extra=MergeRewardPresentation.CaptionSpace(root.rect.height,layout);
             UIWidgets.Top(progress,12,layout.ProgressTop,12,layout.ProgressHeight+extra);
-            var goal=progress.Find("Merge goal content") as RectTransform;goal.offsetMax=new Vector2(-4,-2-extra);
+            var goal=progress.Find("Merge goal content") as RectTransform;goal.offsetMin=new Vector2(pinkBaseline?4:6,layout.DetailsHeight);goal.offsetMax=new Vector2(pinkBaseline?-4:-6,-2-extra);
             var cards=goal.GetComponentsInChildren<Button>(true).Where(b=>b.name.StartsWith("Requirement ")).ToArray();bool multiple=cards.Length>1;
-            foreach(var card in cards){var r=(RectTransform)card.transform;r.offsetMin=new Vector2(multiple?2:0,0);r.offsetMax=new Vector2(multiple?-2:0,0);}
-            UIWidgets.Top(currentBand,4,1,4,extra>0?14:12);
-            UIWidgets.Top(currentCoin,progress.rect.width*.43f,1,progress.rect.width*.57f-12,extra>0?14:12);
+            foreach(var card in cards){var r=(RectTransform)card.transform;float inset=multiple?(pinkBaseline?2:3):0;r.offsetMin=new Vector2(inset,0);r.offsetMax=new Vector2(-inset,0);}
+            if(pinkBaseline){UIWidgets.Top(currentBand,4,1,4,extra>0?14:12);UIWidgets.Top(currentCoin,progress.rect.width*.43f,1,progress.rect.width*.57f-12,extra>0?14:12);}
             UIWidgets.Top(caption.rectTransform,10,1,progress.rect.width*.60f,extra>0?14:12);
-            UIWidgets.Top(coins.rectTransform,progress.rect.width*.43f+15,1,10,extra>0?14:12);
+            UIWidgets.Top(coins.rectTransform,pinkBaseline?progress.rect.width*.43f+15:progress.rect.width*.42f,1,pinkBaseline?10:12,extra>0?14:12);
             bool show=goal.gameObject.activeSelf;caption.gameObject.SetActive(show);coins.gameObject.SetActive(show&&hasQuest);
-            currentBand.gameObject.SetActive(show&&hasQuest);currentCoin.gameObject.SetActive(show&&hasQuest);
+            if(pinkBaseline){currentBand.gameObject.SetActive(show&&hasQuest);currentCoin.gameObject.SetActive(show&&hasQuest);}
             foreach(var name in goal.GetComponentsInChildren<Text>(true).Where(t=>t.name.StartsWith("Requirement name ")))
             {
                 name.fontSize=extra>0&&!multiple?14:12;
                 name.rectTransform.offsetMax=new Vector2(0,extra>0?0:(multiple?-11:-12));
                 name.rectTransform.offsetMin=new Vector2(0,extra>0?(multiple?-20:-24):(multiple?-29:-30));
+                if(!pinkBaseline){name.alignment=TextAnchor.MiddleLeft;name.rectTransform.anchorMin=new Vector2(multiple?.30f:.33f,1);}
             }
             foreach(var art in goal.GetComponentsInChildren<ItemGraphic>(true))
             {art.rectTransform.anchorMin=new Vector2(multiple?.04f:.025f,multiple?.43f:.03f);art.rectTransform.anchorMax=new Vector2(.28f,extra>0?.97f:(multiple?.70f:.71f));}
             foreach(var count in goal.GetComponentsInChildren<Text>(true).Where(t=>t.name.StartsWith("Requirement count ")))
-            {count.rectTransform.anchorMin=new Vector2(multiple?.035f:.025f,.01f);count.rectTransform.anchorMax=new Vector2(multiple?.965f:.975f,multiple?.38f:(extra>0?.44f:.37f));}
+            {
+                count.rectTransform.anchorMin=new Vector2(multiple?.035f:(pinkBaseline?.025f:.33f),.01f);count.rectTransform.anchorMax=new Vector2(multiple?.965f:(pinkBaseline?.975f:.98f),multiple?.38f:(extra>0?.44f:.37f));
+                if(!pinkBaseline&&!multiple)count.alignment=TextAnchor.MiddleLeft;
+            }
             var tray=root.Find("Merge tray") as RectTransform;tray.offsetMax=new Vector2(-10,-layout.TrayTop-extra);
             UIWidgets.Bottom(reward,12,72,12,46);
             reward.gameObject.SetActive(layout.TwoToolbarRows&&hasQuest&&!feedback.gameObject.activeSelf);

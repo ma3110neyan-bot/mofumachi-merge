@@ -14,7 +14,7 @@
     {
       "path": "Assets/Mofumachi/Presentation/QuestMergeScreens.cs",
       "before_sha256": "c787a0f8d4482ca651aaafd3651a95411c749a008687dd680c1cf1499c3679e8",
-      "sha256": "03562d7356cf378ebb75e2be56830030041095d66238df56bcbe3b9e873dfbcb"
+      "sha256": "c49c08f3401ce170f29447d66f2869e8386f89f851a792fa5b1f295539361035"
     },
     {
       "path": "Assets/Mofumachi/Presentation/MergePerspective.cs",
@@ -45,7 +45,7 @@
   "additions": [
     {
       "path": "Assets/Mofumachi/Presentation/MergeRewardPresentation.cs",
-      "sha256": "b1ecd474d63789a90ca0abfa7af1d4a94c3ef5e36522f84259cfcd323b7df6c3"
+      "sha256": "3d80f5749cb8162d206c744aaafc4a79e74ad5afd57d20a96194388477a9135d"
     },
     {
       "path": "Assets/Mofumachi/Presentation/MergeRewardPresentation.cs.meta",
@@ -53,7 +53,7 @@
     },
     {
       "path": "Assets/Mofumachi/Presentation/MergeRewardView.cs",
-      "sha256": "2587acdc006f31babdcd736d5bd8e2738de443a9216539450b01ca6428c9fe26"
+      "sha256": "7f2c9aaafb78a0f9a4cc93f31d54cbfc9f939ddd6e2c9c1cfa96e426d850a240"
     },
     {
       "path": "Assets/Mofumachi/Presentation/MergeRewardView.cs.meta",
@@ -73,6 +73,22 @@
     ],
     "visual_gate_verified": false,
     "native_verified": false,
+    "full_qa_verified": false,
+    "pixel_verified": false
+  },
+  "accepted_design": "pink-reward-merge",
+  "accepted_design_by_user": true,
+  "pink_final_fix": {
+    "base_revision": "c7329ccb9caa676d3d934a2d9659bf8ece3bd84e",
+    "previous_manifest_sha256": "ddf7af114e250a80ee03ec39efa9432ef93f4536bef77eff3ae8a6e4821a7e29",
+    "changed_product_files": [
+      "Assets/Mofumachi/Presentation/MergeRewardPresentation.cs",
+      "Assets/Mofumachi/Presentation/MergeRewardView.cs",
+      "Assets/Mofumachi/Presentation/QuestMergeScreens.cs"
+    ],
+    "blue_capture_retired": true,
+    "native_verified": false,
+    "visual_gate_verified": false,
     "full_qa_verified": false,
     "pixel_verified": false
   }

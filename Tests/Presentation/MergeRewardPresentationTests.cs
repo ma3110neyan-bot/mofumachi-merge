@@ -7,6 +7,12 @@ namespace Mofumachi.Tests
 {
     public sealed class MergeRewardPresentationTests
     {
+        [Test] public void PlayerModelCannotEnableBlueOrDiagnosticBaselinePresentation()
+        {
+            MergeRewardPresentation.CapturePinkBaseline=true;
+            try{Assert.That(MergeRewardPresentation.CaptureBefore,Is.False);Assert.That(MergeRewardPresentation.CapturePinkBaseline,Is.False);}
+            finally{MergeRewardPresentation.CapturePinkBaseline=false;}
+        }
         [Test] public void RewardShowsTheActualCatalogCoinsWithoutCreatingGemRewards()
         {
             foreach(var quest in QuestCatalog.All)Assert.That(MergeRewardPresentation.Coins(quest),Is.EqualTo(quest.Coins+" Coins"));

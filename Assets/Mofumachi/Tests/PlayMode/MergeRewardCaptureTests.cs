@@ -22,6 +22,7 @@ namespace Mofumachi.Tests
             public string kind="merge-reward-native-candidate",source_revision,product_fingerprint,packed_resource_sha256;
             public string reference_path="References/Merge/merge_visual_lock_reward.png",reference_sha256="";
             public string output_directory;public int image_count;public bool disk_verified;
+            public string comparison_kind="accepted-pink-baseline-vs-local-fix",baseline_revision="c7329ccb9caa676d3d934a2d9659bf8ece3bd84e";
             public bool native_unity=true,original_png_saved,formal_fixed=false,adopted=false,pixel_verified=false;
             public List<Shot> images=new List<Shot>();
         }
@@ -31,7 +32,7 @@ namespace Mofumachi.Tests
         private static string Sha(byte[] bytes){using(var h=System.Security.Cryptography.SHA256.Create())return BitConverter.ToString(h.ComputeHash(bytes)).Replace("-","").ToLowerInvariant();}
         [TearDown] public void ReleaseCapture()
         {
-            MergeRewardPresentation.CaptureBefore=false;
+            MergeRewardPresentation.CapturePinkBaseline=false;
             if(canvas!=null)canvas.worldCamera=null;
             if(camera!=null){camera.targetTexture=null;UnityEngine.Object.DestroyImmediate(camera.gameObject);}
             if(target!=null){target.Release();UnityEngine.Object.DestroyImmediate(target);}
@@ -69,7 +70,7 @@ namespace Mofumachi.Tests
         }
         private Shot Capture(string output,string scenario,int width,int height,bool before)
         {
-            MergeRewardPresentation.CaptureBefore=before;
+            MergeRewardPresentation.CapturePinkBaseline=before;
             // Render only: calling ShowMerge here would add navigation saves to the comparison.
             string state=StateCodec.Encode(Flow.Game.State);int writes=Store.Writes;
             Render.Invoke(Flow,new object[]{"merge",false,false});
@@ -132,7 +133,7 @@ namespace Mofumachi.Tests
                 MergeCaptureArtifacts.VerifyWritten(output,saved.images.ToDictionary(i=>i.file,i=>i.sha256,StringComparer.Ordinal));
                 LogAssert.NoUnexpectedReceived();
             }
-            finally{MergeRewardPresentation.CaptureBefore=false;}
+            finally{MergeRewardPresentation.CapturePinkBaseline=false;}
         }
     }
 }

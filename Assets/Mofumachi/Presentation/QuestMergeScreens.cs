@@ -43,7 +43,7 @@ namespace Mofumachi.Presentation
         }
         public static void BuildMerge(RectTransform root,ScreenContext c,bool animateSelection=false)
         {
-            var w=c.Widgets;w.Header(root,c,MergeRewardPresentation.CaptureBefore?UIStrings.MergeTitle:"ごほうびMerge",MergeRewardPresentation.CaptureBefore?UIWidgets.Sky:new Color(.96f,.36f,.54f),48);
+            var w=c.Widgets;w.Header(root,c,"ごほうびMerge",new Color(.96f,.36f,.54f),48);
             var progress=w.OrnatePanel("Merge progress",root,new Rect(0,0,1,1),UIWidgets.Cream,12).rectTransform;UIWidgets.Top(progress,12,62,12,72);
             var goal=UIWidgets.Node("Merge goal content",progress,new Rect(0,0,1,1));goal.offsetMin=new Vector2(4,20);goal.offsetMax=new Vector2(-4,-2);
             var selectedItem=c.Game.Board.At(c.Flow.SelectedCell);

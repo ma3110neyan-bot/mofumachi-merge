@@ -18,7 +18,14 @@ namespace Mofumachi.Tests
             var page=Flow.GetComponentInChildren<MergeRewardView>();Assert.That(page,Is.Not.Null);
             var title=page.transform.Find("Header/Page title ribbon");Assert.That(title.GetComponent<RibbonGraphic>().color.r,Is.GreaterThan(.9f));
             Assert.That(title.GetComponent<RibbonGraphic>().color.g,Is.LessThan(.6f));Assert.That(title.Find("Page title").GetComponent<Text>().text,Is.EqualTo("ごほうびMerge"));
-            Assert.That(page.transform.Find("Merge progress/Current reward band").GetComponent<Graphic>().raycastTarget,Is.False);
+            Assert.That(page.transform.Find("Merge progress/Current reward band"),Is.Null);
+            Assert.That(page.transform.Find("Merge progress/Current reward coin"),Is.Null);
+            Assert.That(page.GetComponentsInChildren<Text>().Single(t=>t.name=="Merge reward coins").text,Is.EqualTo("達成ごほうび　"+QuestDefinition.First.Coins+" Coins"));
+            var singleName=page.GetComponentsInChildren<Text>().Single(t=>t.name=="Requirement name tea");
+            var singleCount=page.GetComponentsInChildren<Text>().Single(t=>t.name=="Requirement count tea");
+            Assert.That(singleName.rectTransform.anchorMin.x,Is.EqualTo(singleCount.rectTransform.anchorMin.x));
+            Assert.That(singleName.rectTransform.anchorMax.x,Is.EqualTo(singleCount.rectTransform.anchorMax.x));
+            Assert.That(singleName.alignment,Is.EqualTo(TextAnchor.MiddleLeft));Assert.That(singleCount.alignment,Is.EqualTo(TextAnchor.MiddleLeft));
             Assert.That(page.GetComponentsInChildren<Text>().Single(t=>t.name=="Current request caption").text,Is.EqualTo("現在の依頼"));
             Assert.That(page.GetComponentsInChildren<Text>(true).Single(t=>t.name=="Reward amount").text,Is.EqualTo(QuestDefinition.First.Coins+" Coins"));
             Assert.That(page.GetComponentsInChildren<ItemGraphic>().Single(a=>a.name=="Requirement art tea").mainTexture,Is.SameAs(Resources.Load<Texture2D>("Mofumachi/ItemAtlas")));
@@ -94,6 +101,28 @@ namespace Mofumachi.Tests
                 }
             }
             finally{UnityEngine.Object.DestroyImmediate(fixture);}
+            Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));LogAssert.NoUnexpectedReceived();
+        }
+        [UnityTest] public IEnumerator BothComparisonModesKeepTheAcceptedPinkHeaderAndBoard()
+        {
+            yield return EnterHome();Flow.ShowMerge();yield return null;
+            int writes=Store.Writes;string state=StateCodec.Encode(Flow.Game.State);Vector2 first=Vector2.zero;
+            var render=typeof(UIFlowController).GetMethod("Render",BindingFlags.Instance|BindingFlags.NonPublic);
+            try
+            {
+                foreach(bool baseline in new[]{true,false})
+                {
+                    MergeRewardPresentation.CapturePinkBaseline=baseline;Assert.That(MergeRewardPresentation.CaptureBefore,Is.False);
+                    render.Invoke(Flow,new object[]{"merge",false,false});Canvas.ForceUpdateCanvases();
+                    var page=Flow.GetComponentInChildren<MergeRewardView>();Assert.That(page,Is.Not.Null);
+                    var title=page.transform.Find("Header/Page title ribbon");Assert.That(title.Find("Page title").GetComponent<Text>().text,Is.EqualTo("ごほうびMerge"));
+                    Assert.That(title.GetComponent<RibbonGraphic>().color.g,Is.LessThan(.6f));
+                    var size=((RectTransform)page.transform.Find("Merge tray/Merge board/Cell 0")).rect.size;
+                    if(baseline)first=size;else Assert.That(size,Is.EqualTo(first));
+                    Assert.That(Flow.Game.State.mergeBoard.Count,Is.EqualTo(2));
+                }
+            }
+            finally{MergeRewardPresentation.CapturePinkBaseline=false;}
             Assert.That(Store.Writes,Is.EqualTo(writes));Assert.That(StateCodec.Encode(Flow.Game.State),Is.EqualTo(state));LogAssert.NoUnexpectedReceived();
         }
     }

@@ -1,0 +1,95 @@
+{
+  "kind": "received-native-merge-focus-failure",
+  "run_directory": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\merge-reward-20261103-105456-4aec62dd",
+  "source_revision": "ce8ee192531dfc18475379c256a5840d428e11dc",
+  "product_fingerprint": "2f6889c553eed58189f9e0a25cad4d6358365e32e87be520f62fa75d2b885d30",
+  "packed_resource_sha256": "644b4bd7bf1ad8cc96a4813f207b0e50bdb1f22184b6046403df2fa942a5b43b",
+  "cli_identity_matches_source_record": true,
+  "native_tests": {
+    "total": 53,
+    "passed": 52,
+    "failed": 1,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "failure": {
+    "test": "Mofumachi.Tests.MergePolishTests.ConsecutiveMergesReuseOneSmallEffectLayerAndRestartKeepsProgress",
+    "message": "  One short burst of eight stars and a soft glow.\n  Expected: in range (1,120)\n  But was:  313\n",
+    "stack_trace": "at Mofumachi.Tests.MergePolishTests+<ConsecutiveMergesReuseOneSmallEffectLayerAndRestartKeepsProgress>d__7.MoveNext () [0x001fa] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\MergePolishTests.cs:109\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+  },
+  "capture_test_passed": true,
+  "capture_artifacts_received": false,
+  "parent_capture_verified": false,
+  "source_unchanged": true,
+  "full_qa_verified": false,
+  "build_generated": false,
+  "pixel_verified": false,
+  "received_files": [
+    {
+      "name": "prepare-noah.log",
+      "bytes": 38380,
+      "sha256": "079261d895d15b239986dce29f9fc4bfd06296d1830ae9335cd56f9074e58c7f",
+      "original_retained_in_repository": false
+    },
+    {
+      "name": "prepare-five.log",
+      "bytes": 60529,
+      "sha256": "0512cba1cfc81c1ab0c2c234b056c5afa2513551126e4d495aa1e19c216f53c3",
+      "original_retained_in_repository": false
+    },
+    {
+      "name": "focus.xml",
+      "bytes": 45954,
+      "sha256": "980b9f87ca1abd37a4118bf85fa7cc2230a9e7d74536d25a68d7c39321564e32",
+      "original_retained_in_repository": true
+    },
+    {
+      "name": "focus.log",
+      "bytes": 103245,
+      "sha256": "fc960553c087cc6a2210935a23a0ee1b0951528ac265f3b4b1e81794f51ef37f",
+      "original_retained_in_repository": false
+    },
+    {
+      "name": "merge-reward-source-info.json",
+      "bytes": 1211,
+      "sha256": "5137c14a8579b14a66a9ad51b78691c5257c0e44dd4badac727b4afec49abfcd",
+      "original_retained_in_repository": true
+    },
+    {
+      "name": "prepared.json",
+      "bytes": 22620,
+      "sha256": "241abe5e5db270c93c9c9a96cdcc937c4782f3aff5bbfe5b183eca92b8f2f1bb",
+      "original_retained_in_repository": false
+    },
+    {
+      "name": "prepared-momo.json",
+      "bytes": 22690,
+      "sha256": "94532f3e9b2ad9e679e30983f58b43315f0adfa5f745e2801db5979cb1c61c3f",
+      "original_retained_in_repository": false
+    },
+    {
+      "name": "prepared-lulu.json",
+      "bytes": 22616,
+      "sha256": "b58b9633348b137255c7e897f205102d4ab2b6603f1d85dfbed96aa5f20b30a2",
+      "original_retained_in_repository": false
+    },
+    {
+      "name": "prepared-pom.json",
+      "bytes": 22614,
+      "sha256": "5047f811bd4e763370b229f95af3df40d695f7c6331410004807f5b010236890",
+      "original_retained_in_repository": false
+    },
+    {
+      "name": "prepared-fio.json",
+      "bytes": 22612,
+      "sha256": "faa5439f12dc21c167af7ea49993a485211212e546d7b221cd80499dde331f49",
+      "original_retained_in_repository": false
+    },
+    {
+      "name": "prepared-miel.json",
+      "bytes": 22620,
+      "sha256": "241abe5e5db270c93c9c9a96cdcc937c4782f3aff5bbfe5b183eca92b8f2f1bb",
+      "original_retained_in_repository": false
+    }
+  ]
+}

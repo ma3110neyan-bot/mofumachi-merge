@@ -2,9 +2,11 @@
 
 ユーザーが現行ピンク「ごほうびMerge」のVisual Gateを合格と判定。表示の正式候補は`af084ecda712d7aaaf3b4b581496a44f1192f97c`で固定し、以後fix only。今回の変更にゲーム製品コード・素材の差分はない。承認記録は`References/VisualLock/merge-reward-visual-approved-2026-11-03.json`。元PNGと表示6ソースのSHAを起動前・終了後に照合する。
 
-**現在の状態：ユーザーVisual合格。実Unityの重点／全件、QA APK、Pixel結果は未取得。** クラウドには有効なUnityライセンス・Androidモジュール・USB実機がないため、以下をWindowsで実行する。合成検査を実UnityやPixel合格へ置き換えない。古い候補manifestの未検証フラグは履歴として保持する。
+**現在の状態：ユーザーVisual合格。Windows初回重点は53件中52成功・1失敗。全件EditMode／PlayMode・QA APK・Pixelは未到達。** 失敗は旧演出テストの120頂点上限（承認済み現行は最大313）。製品を変えずテストのみ訂正し、native再実行結果を待つ。クラウドには有効なUnityライセンス・Androidモジュール・USB実機がないため、以下をWindowsで実行する。合成検査を実UnityやPixel合格へ置き換えない。古い候補manifestの未検証フラグは履歴として保持する。
 
 ## 一度だけ実行
+
+今回の更新後に新runを1回実行する。前回は重点段階で停止したため、全件EditMode／PlayModeは今回それぞれ初回となる。旧run `merge-reward-20261103-105456-4aec62dd`のファイルや結果フラグは変更しない。
 
 Unity Editorを閉じ、Pixel3aをUSB接続し、画面ロック解除・USBデバッグを許可する。PowerShellへ次をまとめて貼り付ける。Unity Hubでの操作は不要。
 

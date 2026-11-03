@@ -40,6 +40,11 @@
       "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceMergeTests.cs",
       "before_sha256": "fa0b1e1271cf537c0c29e50d10b882cfc643d6ffc5ae67fa54d370ce70c6d6ce",
       "sha256": "7ca156bee21913b77ecf6e6e2cd2fe42b428dbcc39767cb06cc2ab5a0ef4603e"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/MergePolishTests.cs",
+      "before_sha256": "0e720cacac0dc726d907825342d7d7e40571fde16b519584d9f51283aaef0283",
+      "sha256": "94154ac84cdb0927ccc64dc3bbd61a7c85d49c59070caf53422cc20c0dc25382"
     }
   ],
   "additions": [
@@ -91,5 +96,14 @@
     "visual_gate_verified": false,
     "full_qa_verified": false,
     "pixel_verified": false
+  },
+  "focused_test_correction": {
+    "failed_source_revision": "ce8ee192531dfc18475379c256a5840d428e11dc",
+    "failed_run": "merge-reward-20261103-105456-4aec62dd",
+    "previous_candidate_manifest_sha256": "dff67e21fbdafecea96dea91dbbfbbc7e364029630867689ef85d2656abe80db",
+    "test_file": "Assets/Mofumachi/Tests/PlayMode/MergePolishTests.cs",
+    "reason": "Pre-reward 120-vertex expectation did not cover the approved five-star/three-flower mesh. Verify exact composition,313-vertex maximum, lifetime and index bounds; preserve production files.",
+    "native_rerun_verified": false,
+    "failed_xml_sha256": "980b9f87ca1abd37a4118bf85fa7cc2230a9e7d74536d25a68d7c39321564e32"
   }
 }

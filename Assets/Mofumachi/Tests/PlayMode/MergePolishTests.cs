@@ -104,9 +104,25 @@ namespace Mofumachi.Tests
             var fixture=UIWidgets.Node("Sparkle mesh budget fixture",(RectTransform)Flow.GetComponentInChildren<Canvas>().transform,new Rect(.5f,.5f,0,0));fixture.sizeDelta=new Vector2(48,48);
             try
             {
-                var sparkle=fixture.gameObject.AddComponent<MergeSparkleGraphic>();sparkle.SetBurstFrame(.13f);
-                yield return null;Canvas.ForceUpdateCanvases();var mesh=sparkle.canvasRenderer.GetMesh();
-                Assert.That(mesh,Is.Not.Null);Assert.That(mesh.vertexCount,Is.InRange(1,120),"One short burst of eight stars and a soft glow.");
+                var sparkle=fixture.gameObject.AddComponent<MergeSparkleGraphic>();
+                // Approved reward burst: five stars (9 vertices each), three
+                // flowers (six 13-vertex ovals each), and at most two 17-vertex glows.
+                const int burstVertices=5*9+3*6*13,glowVertices=17,maxBurstVertices=313;
+                foreach(float sample in new[]{0f,.04f,.079f,.08f,.09f,.13f,.15f,.2f,.35f,.49f,.5f,.6f})
+                {
+                    sparkle.SetBurstFrame(sample);yield return null;Canvas.ForceUpdateCanvases();
+                    var mesh=sparkle.canvasRenderer.GetMesh();string context="Reward burst at "+sample+"s";
+                    bool impact=MergeVisualTiming.ImpactAlpha(sample)>0,burst=MergeVisualTiming.SparkleAlpha(sample)>0;
+                    int expected=(impact?glowVertices:0)+(burst?burstVertices+glowVertices:0);
+                    if(expected==0){Assert.That(mesh==null||mesh.vertexCount==0,Is.True,context+" must have no active geometry.");continue;}
+                    Assert.That(mesh,Is.Not.Null,context);
+                    Assert.That(mesh.vertexCount,Is.EqualTo(expected),context+" must keep the approved composition.");
+                    Assert.That(mesh.vertexCount,Is.LessThanOrEqualTo(maxBurstVertices),context+" exceeds the bounded single burst.");
+                    Assert.That(mesh.triangles.Length,Is.EqualTo(3*((impact?16:0)+(burst?5*8+3*6*12+16:0))),context);
+                    Assert.That(mesh.triangles.All(i=>i>=0&&i<mesh.vertexCount),Is.True,context+" has invalid indices.");
+                }
+                Assert.That(sparkle.raycastTarget,Is.False);
+                Assert.That(fixture.GetComponentsInChildren<ParticleSystem>(true),Is.Empty,"The approved burst remains one UGUI mesh, without particle objects.");
             }finally{Object.DestroyImmediate(fixture.gameObject);}
             Assert.That(first.GetComponentsInChildren<ItemGraphic>(true).Length,Is.EqualTo(3));
             yield return new WaitForSecondsRealtime(.27f);Assert.That(Flow.DropItem(1,2),Is.True);

@@ -1,3 +1,15 @@
+# 2026-11-03最新：Merge重点53件中1件失敗／旧演出テストのみ訂正
+
+受領Windows run merge-reward-20261103-105456-4aec62ddはsource ce8ee19／FP2f6889c5、CLI・親JSON一致。準備2工程終了0。実PlayMode重点53件中52成功・1失敗、skip／inconclusive0。唯一の失敗はMergePolishTests.ConsecutiveMergesReuseOneSmallEffectLayerAndRestartKeepsProgressの旧120頂点上限。現行の承認済み演出は5stars45＋3flowers234＋2glows34＝313頂点、288三角形で、実エラーの313と一致。撮影テスト1/1・報酬UI6/6は成功。親は失敗時にcapture_verified=falseを正しく維持、HTML／成果物SHAの最終確認前に停止。全件Edit／Play／APK／Pixelは未到達。
+
+今回の製品コード／承認済み表示／公式素材／Core／Save／街／キャラ／BGM差分0。旧判定テストだけ、12時点の正確な構成・313以下・三角形数／index・終了後0・入力非干渉／Particleなしへ訂正し、既存の同一effect再利用／保存／再起動検査は維持。Merge限定ガードは既存4UI＋2testにMergePolishTests1本の正確なhistorical/current SHAだけ追加し、無関係なテスト／Core／原画は許可しない。元26/552/53やユーザー承認済み表示SHAは変更しない。
+
+実描画REDを原本XMLと親JSONでReferences/Review/merge-reward-focus-failed-2026-11-03-105456/へ保存、受領11ファイルSHAを記録。ジオメトリのみの互換probeで旧120判定の失敗を再現→現行313で12時点通過、APIコンパイル0警告0エラー・関連PS／実ガード通過。これはUnity実行やPixel性能合格ではない。独立レビューの重要／重大指摘0。修正済みnativeテストの再実行結果は未取得。
+
+次は更新後のprepare-merge-reward-preview.ps1 -Final -Install -Serial99RAY1BELH -MeasureSeconds180をWindowsで1回。修正重点→初回全Edit1回→初回全Play1回→同一APK→Pixelの既存順序を維持。全件は前回まだ1度も始まっていない。旧runを上書き／改ざんせず新runで検査する。途中確認不要、feature通常push許可は継続。
+
+以下は履歴。
+
 # 2026-11-03最新：現行MergeのVisual合格／表示fix only・リリース候補確認へ
 
 最新ユーザーが現デザインのVisual Gate合格を明示。af084ecの表示を正式候補として固定し、UI再設計・装飾追加は行わない。今回以降は明確な表示崩れ／操作不具合の局所fixのみ。References/VisualLock/merge-reward-visual-approved-2026-11-03.jsonにユーザー承認・元PNG・表示6ソースのSHAを別記録。旧pending implementation recordのnative/full/deviceフラグは書き換えず、Visual合格と実行結果を区別する。

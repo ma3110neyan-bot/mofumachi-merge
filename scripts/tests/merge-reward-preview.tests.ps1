@@ -15,6 +15,7 @@ try{
         $A=@(Get-MergeRewardArguments 'repo' $Root $Rev $Fp $Packed $Platform)
         if($A -contains '-testFilter' -or $A -contains '-quit' -or $A -contains '-executeMethod'){throw 'Full candidate stage must use the unfiltered platform suite once.'}
         if($Platform -eq 'PlayMode' -and $A -notcontains (Join-Path $Root 'full-playmode-capture')){throw 'Full PlayMode capture requires separate disk output.'}
+        if($Platform -eq 'PlayMode' -and $A -notcontains '-mofumachiMergePreparedQa'){throw 'Full Merge QA must identify its deliberately prepared character resources.'}
     }
     $Files=@('initial-720x1480-before-reconstructed.jpg','initial-720x1480-after.jpg','initial-720x1280-before-reconstructed.jpg','initial-720x1280-after.jpg','initial-640x1072-before-reconstructed.jpg','initial-640x1072-after.jpg','bread-request-720x1480-before-reconstructed.jpg','bread-request-720x1480-after.jpg','multi-requirement-720x1480-after.jpg','inventory-ready-720x1480-after.jpg','full-board-720x1280-after.jpg')
     # Synthetic files validate routing/hash rejection only; never image/native acceptance.

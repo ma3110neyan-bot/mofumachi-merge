@@ -170,8 +170,20 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();Flow.ShowMerge();Canvas.ForceUpdateCanvases();var grid=Flow.GetComponentInChildren<MergeGridLayout>();grid.ResizeNow();
             var cells=grid.GetComponentsInChildren<MergeBoardView>();Assert.That(cells.Length,Is.EqualTo(30));var back=(RectTransform)grid.transform.Find("Cell 0");var front=(RectTransform)grid.transform.Find("Cell 25");
-            Assert.That(back.rect.width,Is.EqualTo(front.rect.width).Within(.001f));foreach(var cell in cells){var r=((RectTransform)cell.transform).rect;Assert.That(r.width,Is.GreaterThanOrEqualTo(48));Assert.That(r.height,Is.EqualTo(r.width).Within(.001f));}var area=((RectTransform)grid.transform).rect;for(int i=0;i<30;i++){var actual=(RectTransform)grid.transform.Find("Cell "+i);var projected=MergePerspective.Cell(i,area.width,area.height);Assert.That(actual.anchoredPosition.x,Is.EqualTo(projected.X).Within(.001f));Assert.That(actual.anchoredPosition.y,Is.EqualTo(projected.Y).Within(.001f));Assert.That(actual.rect.width,Is.EqualTo(projected.Width).Within(.001f));}
-            Assert.That(Flow.GetComponentInChildren<PerspectiveBoardGraphic>(),Is.Not.Null);LogAssert.NoUnexpectedReceived();
+            Assert.That(back.rect.width,Is.EqualTo(front.rect.width).Within(.001f));
+            var area=((RectTransform)grid.transform).rect;var targets=new Rect[30];
+            for(int i=0;i<30;i++)
+            {
+                var actual=(RectTransform)grid.transform.Find("Cell "+i);var projected=MergePerspective.Cell(i,area.width,area.height);
+                Assert.That(actual.rect.width,Is.GreaterThanOrEqualTo(48));Assert.That(actual.rect.height,Is.GreaterThanOrEqualTo(48));
+                Assert.That(actual.anchoredPosition.x,Is.EqualTo(projected.X).Within(.001f));Assert.That(actual.anchoredPosition.y,Is.EqualTo(projected.Y).Within(.001f));
+                Assert.That(actual.rect.width,Is.EqualTo(projected.Width).Within(.001f));Assert.That(actual.rect.height,Is.EqualTo(projected.Height).Within(.001f));
+                Assert.That(actual.rect.width,Is.EqualTo((area.width-16)/5).Within(.001f));Assert.That(actual.rect.height,Is.EqualTo((area.height-20)/6).Within(.001f));
+                targets[i]=new Rect(actual.anchoredPosition,actual.rect.size);
+                for(int j=0;j<i;j++)Assert.That(targets[i].Overlaps(targets[j]),Is.False,"Flat hit rectangles overlap: "+i+" / "+j);
+            }
+            var paper=grid.transform.parent.Find("Reward board paper").GetComponent<RoundedPanelGraphic>();Assert.That(paper.enabled,Is.True);Assert.That(paper.raycastTarget,Is.False);
+            Assert.That(Flow.GetComponentInChildren<PerspectiveBoardGraphic>().enabled,Is.False,"The approved paper replaces the legacy frame.");LogAssert.NoUnexpectedReceived();
         }
     }
 }

@@ -94,9 +94,11 @@ namespace Mofumachi.Tests
         {
             yield return EnterHome();Flow.ShowMerge();yield return null;Canvas.ForceUpdateCanvases();
             var grid=Flow.GetComponentInChildren<MergeGridLayout>();grid.ResizeNow();Canvas.ForceUpdateCanvases();
-            var board=Flow.GetComponentInChildren<PerspectiveBoardGraphic>();var mesh=board.canvasRenderer.GetMesh();float top=board.rectTransform.rect.yMax;
+            var board=grid.transform.parent.Find("Reward board paper").GetComponent<RoundedPanelGraphic>();Assert.That(board.enabled,Is.True);Assert.That(board.raycastTarget,Is.False);
+            var mesh=board.canvasRenderer.GetMesh();Assert.That(mesh,Is.Not.Null);float top=board.rectTransform.rect.yMax;
             var back=mesh.vertices.Where(v=>v.y>=top-.01f).ToArray();Assert.That(back.Max(v=>v.x)-back.Min(v=>v.x),Is.GreaterThan(board.rectTransform.rect.width*.88f));
-            Assert.That(board.GetComponentInParent<RoundedPanelGraphic>().color.a,Is.Zero,"Only the thin ivory panel draws the board surface");
+            Assert.That(grid.transform.parent.GetComponent<RoundedPanelGraphic>().color.a,Is.Zero,"The input tray must not cover the approved reward paper.");
+            Assert.That(Flow.GetComponentInChildren<PerspectiveBoardGraphic>().enabled,Is.False,"The legacy frame stays disabled.");
             using(var viewport=new FixedViewport(Flow))
             foreach(int height in new[]{592,640,740,808})
             {

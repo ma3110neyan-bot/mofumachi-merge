@@ -15,8 +15,8 @@ function Read-MergeRewardOverrides([string]$Repository){
     if((Get-FinishTextHash $Historical) -cne $Change.historical_manifest_sha256 -or (Get-FinishTextHash $Before) -cne $Change.before_snapshot_sha256){throw 'Preserve the historical lock and Merge preflight snapshot.'}
     $Old=Get-Content -Raw -Encoding UTF8 -LiteralPath $Historical | ConvertFrom-Json
     $Allowed=@('QuestMergeScreens.cs','MergePerspective.cs','MergeCellSurfaceGraphic.cs','MergeSparkleGraphic.cs') | ForEach-Object {'Assets/Mofumachi/Presentation/'+$_}
-    $Allowed+=@('Assets/Mofumachi/Tests/PlayMode/MergeInteractionTests.cs','Assets/Mofumachi/Tests/PlayMode/ExperienceMergeTests.cs','Assets/Mofumachi/Tests/PlayMode/MergePolishTests.cs')
-    if(@($Change.overrides).Count -ne 7){throw 'Only four named Merge UI files and their three existing presentation tests may change.'}
+    $Allowed+=@('Assets/Mofumachi/Tests/PlayMode/MergeInteractionTests.cs','Assets/Mofumachi/Tests/PlayMode/ExperienceMergeTests.cs','Assets/Mofumachi/Tests/PlayMode/MergePolishTests.cs','Assets/Mofumachi/Tests/PlayMode/DailyWorldTests.cs','Assets/Mofumachi/Tests/PlayMode/MajorPolishTests.cs')
+    if(@($Change.overrides).Count -ne 9){throw 'Only four named Merge UI files and their five existing presentation tests may change.'}
     foreach($Row in @($Change.overrides)){
         $Prior=@($Old.protected_files | Where-Object {$_.path -ceq $Row.path})
         if($Row.path -cnotin $Allowed -or $Result.ContainsKey($Row.path) -or $Prior.Count -ne 1 -or $Row.before_sha256 -cne $Prior[0].sha256 -or $Row.sha256 -cnotmatch '^[a-f0-9]{64}$'){throw 'Merge amendment cannot unlock Core, art, characters or unrelated UI.'}

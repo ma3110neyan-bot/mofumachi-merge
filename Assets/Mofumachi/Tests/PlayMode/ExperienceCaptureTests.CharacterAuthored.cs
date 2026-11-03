@@ -112,10 +112,45 @@ namespace Mofumachi.Tests
         [UnityTest,Timeout(120000)] public IEnumerator PomAuthoredPartsPreserveIdentityInputAndState()=>CaptureCharacterAuthored("pom");
         [UnityTest,Timeout(120000)] public IEnumerator FioAuthoredPartsPreserveIdentityInputAndState()=>CaptureCharacterAuthored("fio");
         [UnityTest,Timeout(120000)] public IEnumerator MielAuthoredPartsPreserveIdentityInputAndState()=>CaptureCharacterAuthored("miel");
+        private static bool AssertMergePreparedCharacterResources(string id)
+        {
+            if(!Environment.GetCommandLineArgs().Contains("-mofumachiMergePreparedQa"))return false;
+            // Full Merge QA deliberately prepares the accepted characters before
+            // testing. Keep the unprepared-QA absence guard outside this context.
+            Assert.That(Path.IsPathRooted(EvidenceArgument("-mofumachiMergeReward")),Is.True);
+            string expected=EvidenceArgument("-mofumachiPackedResourceSha");Assert.That(expected,Does.Match("^[a-f0-9]{64}$"));
+            string resources=Path.Combine(Application.dataPath,"Mofumachi/Resources/Mofumachi");
+            var rows=new List<string>();
+            foreach(string folderName in new[]{"CharacterAuthored","NoahAuthoredTrial"})
+            {
+                string folder=Path.Combine(resources,folderName);Assert.That(Directory.Exists(folder),Is.True);
+                foreach(string file in Directory.GetFiles(folder,"*",SearchOption.AllDirectories).Where(p=>Path.GetFileName(p)!=".owner"))
+                    rows.Add("Assets/Mofumachi/Resources/Mofumachi/"+folderName+"/"+file.Substring(folder.Length+1).Replace('\\','/')+":"+EvidenceSha(File.ReadAllBytes(file)));
+            }
+            Assert.That(EvidenceSha(System.Text.Encoding.UTF8.GetBytes(string.Join("\n",rows.OrderBy(s=>s,StringComparer.Ordinal)))),Is.EqualTo(expected),"Loaded QA inputs must match the prepared resource receipt.");
+            string resource=id=="noah"?"Mofumachi/NoahAuthoredTrial":"Mofumachi/CharacterAuthored/"+id;
+            var layout=Resources.Load<TextAsset>(resource+"/layout");Assert.That(layout,Is.Not.Null);Assert.That(Resources.Load<Texture2D>(resource+"/atlas"),Is.Not.Null);
+            var fixture=new GameObject("Prepared Merge QA "+id,typeof(RectTransform));
+            try
+            {
+                if(id=="noah")
+                {
+                    var config=JsonUtility.FromJson<NoahAuthoredRigConfig>(layout.text);Assert.That(config.input_sha256,Does.Match("^[a-f0-9]{64}$"));
+                    fixture.AddComponent<NoahAuthoredGraphic>().Configure();Assert.That(NoahAuthoredGraphic.InputDigest,Is.EqualTo(config.input_sha256));
+                }
+                else
+                {
+                    var config=JsonUtility.FromJson<CharacterAuthoredConfig>(layout.text);Assert.That(config.characterId,Is.EqualTo(id));Assert.That(config.input_sha256,Does.Match("^[a-f0-9]{64}$"));
+                    var graphic=fixture.AddComponent<CharacterAuthoredGraphic>();graphic.Configure(id);Assert.That(graphic.CharacterId,Is.EqualTo(id));Assert.That(graphic.InputDigest,Is.EqualTo(config.input_sha256));
+                }
+            }
+            finally{UnityEngine.Object.DestroyImmediate(fixture);}
+            LogAssert.NoUnexpectedReceived();return true;
+        }
         private IEnumerator CaptureCharacterAuthored(string id)
         {
             if(!Environment.GetCommandLineArgs().Contains("-mofumachiCharacterPreview"))
-            {Assert.That(Resources.Load<TextAsset>("Mofumachi/CharacterAuthored/"+id+"/layout"),Is.Null);yield break;}
+            {if(!AssertMergePreparedCharacterResources(id))Assert.That(Resources.Load<TextAsset>("Mofumachi/CharacterAuthored/"+id+"/layout"),Is.Null);yield break;}
             yield return EnterHome();Assert.That(Flow.Game.SelectFavorite(id),Is.True);Flow.ShowHome();yield return null;
             EnsurePortraitCamera();var field=Flow.GetComponentInChildren<TownLifeView>();field.StartInteraction();
             var actor=field.Actors.Single(a=>a.CharacterId==id);var friend=field.Actors.Single(a=>a.CharacterId=="noah");

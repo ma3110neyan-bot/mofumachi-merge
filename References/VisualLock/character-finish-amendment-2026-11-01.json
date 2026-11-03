@@ -26,7 +26,9 @@
       "group": "noah",
       "path": "Assets/Mofumachi/Tests/PlayMode/ExperienceCaptureTests.NoahAuthored.cs",
       "before_sha256": "76739c6489d689b2b5b0ca4007488b63c0fa501fdda3e4ee5e1efc93e0611b7b",
-      "sha256": "83be627e3ea75f27dbbb216272851ee6182caa6c7374b978dde2f935feff6a97"
+      "sha256": "de3839ab73f966b23ed7c517c3fc5e179ff975269fbf4d30470242ee63954556",
+      "previous_sha256": "83be627e3ea75f27dbbb216272851ee6182caa6c7374b978dde2f935feff6a97",
+      "reason": "Merge full-QA test-only context: validate intentionally prepared accepted inputs instead of asserting absence. Preserve normal unprepared guard and all character product/art bytes."
     },
     {
       "group": "legacy",

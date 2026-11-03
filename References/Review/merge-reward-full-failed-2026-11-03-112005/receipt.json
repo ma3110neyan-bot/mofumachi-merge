@@ -1,0 +1,191 @@
+{
+  "kind": "received-merge-full-qa-failure",
+  "source_revision": "c2297d0d3bb0ccceb7291887fb868e8a821a25e0",
+  "product_fingerprint": "456988d064261544df0a86aa7791914484d6a7179888aa4a9abd6a1515872d0c",
+  "packed_resource_sha256": "dbb8167f142d311c7cd55f53504400c072e414faf82373c4f6b913c03926a690",
+  "cli_identity_matches_source_record": true,
+  "source_unchanged": true,
+  "native_results": {
+    "focus": {
+      "total": 53,
+      "passed": 53,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    "EditMode": {
+      "total": 144,
+      "passed": 144,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    "PlayMode": {
+      "total": 260,
+      "passed": 252,
+      "failed": 8,
+      "skipped": 0,
+      "inconclusive": 0
+    }
+  },
+  "failures": [
+    {
+      "method": "Mofumachi.Tests.DailyWorldTests.FlatCellsHaveStableIndexesAndRealNonOverlappingHitRects",
+      "message": "  Expected: 61.5999947f +/- 0.00100000005f\n  But was:  65.3333359f\n",
+      "stack_trace": "at Mofumachi.Tests.DailyWorldTests+<FlatCellsHaveStableIndexesAndRealNonOverlappingHitRects>d__13.MoveNext () [0x00119] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\DailyWorldTests.cs:173\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    },
+    {
+      "method": "Mofumachi.Tests.ExperienceCaptureTests.FioAuthoredPartsPreserveIdentityInputAndState",
+      "message": "  Expected: null\n  But was:  <{\n    \"version\": 1,\n    \"characterId\": \"fio\",\n    \"input_sha256\": \"0cacbf71aa34fda2e9eee498d9ef3f6bd999f3c169d8a286b5d93e570141df28\",\n    \"formalWidth\": 237.0,\n    \"formalHeight\": 331.0,\n    \"views\": [\n        {\n            \"direction\": \"left\",\n            \"parts\": [\n                {\n                    \"id\": \"tail\",\n                    \"width\": 354.0,\n                    \"height\": 390.0,\n                    \"scale\"",
+      "stack_trace": "at Mofumachi.Tests.ExperienceCaptureTests+<CaptureCharacterAuthored>d__8.MoveNext () [0x00067] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\ExperienceCaptureTests.CharacterAuthored.cs:118\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    },
+    {
+      "method": "Mofumachi.Tests.ExperienceCaptureTests.LuluAuthoredPartsPreserveIdentityInputAndState",
+      "message": "  Expected: null\n  But was:  <{\n    \"version\": 1,\n    \"characterId\": \"lulu\",\n    \"input_sha256\": \"0f9fdb638b4e1e762dea5ad3cc97d596173215d5626a80c32182dc6378a96c06\",\n    \"formalWidth\": 230.0,\n    \"formalHeight\": 324.0,\n    \"views\": [\n        {\n            \"direction\": \"left\",\n            \"parts\": [\n                {\n                    \"id\": \"tail\",\n                    \"width\": 313.0,\n                    \"height\": 394.0,\n                    \"scale",
+      "stack_trace": "at Mofumachi.Tests.ExperienceCaptureTests+<CaptureCharacterAuthored>d__8.MoveNext () [0x00067] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\ExperienceCaptureTests.CharacterAuthored.cs:118\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    },
+    {
+      "method": "Mofumachi.Tests.ExperienceCaptureTests.MielAuthoredPartsPreserveIdentityInputAndState",
+      "message": "  Expected: null\n  But was:  <{\n    \"version\": 1,\n    \"characterId\": \"miel\",\n    \"input_sha256\": \"7d31fbb711730aa8b2df579c81b7978db9604ffdf9be8425a5b5904cccb30cf6\",\n    \"formalWidth\": 243.0,\n    \"formalHeight\": 306.0,\n    \"views\": [\n        {\n            \"direction\": \"left\",\n            \"parts\": [\n                {\n                    \"id\": \"tail\",\n                    \"width\": 198.0,\n                    \"height\": 180.0,\n                    \"scale",
+      "stack_trace": "at Mofumachi.Tests.ExperienceCaptureTests+<CaptureCharacterAuthored>d__8.MoveNext () [0x00067] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\ExperienceCaptureTests.CharacterAuthored.cs:118\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    },
+    {
+      "method": "Mofumachi.Tests.ExperienceCaptureTests.MomoAuthoredPartsPreserveIdentityInputAndState",
+      "message": "  Expected: null\n  But was:  <{\n    \"version\": 1,\n    \"characterId\": \"momo\",\n    \"input_sha256\": \"ff44efd51a0d9519f9f633f5bd5514b94429e9eb48a43be8adb5bb863f290cbe\",\n    \"formalWidth\": 266.0,\n    \"formalHeight\": 324.0,\n    \"views\": [\n        {\n            \"direction\": \"left\",\n            \"parts\": [\n                {\n                    \"id\": \"tail\",\n                    \"width\": 205.0,\n                    \"height\": 197.0,\n                    \"scale",
+      "stack_trace": "at Mofumachi.Tests.ExperienceCaptureTests+<CaptureCharacterAuthored>d__8.MoveNext () [0x00067] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\ExperienceCaptureTests.CharacterAuthored.cs:118\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    },
+    {
+      "method": "Mofumachi.Tests.ExperienceCaptureTests.NoahAuthoredPartsPreviewPreservesState",
+      "message": "  Normal QA must not retain experimental source resources.\n  Expected: null\n  But was:  <{\n    \"version\": 1,\n    \"input_sha256\": \"9d649b824cb149a0b13e0444a7e2820947c21800e24460ce140d85bb9e881bbc\",\n    \"views\": [\n        {\n            \"direction\": \"left\",\n            \"parts\": [\n                {\n                    \"id\": \"tail\",\n                    \"width\": 429.0,\n                    \"height\": 427.0,\n                    \"scale\": 0.8500000238418579",
+      "stack_trace": "at Mofumachi.Tests.ExperienceCaptureTests+<NoahAuthoredPartsPreviewPreservesState>d__35.MoveNext () [0x00056] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\ExperienceCaptureTests.NoahAuthored.cs:30\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    },
+    {
+      "method": "Mofumachi.Tests.ExperienceCaptureTests.PomAuthoredPartsPreserveIdentityInputAndState",
+      "message": "  Expected: null\n  But was:  <{\n    \"version\": 1,\n    \"characterId\": \"pom\",\n    \"input_sha256\": \"2d7cdcb154490d1950476d3c8959bcbb33268a08d3c8fcb8eb0093629371ce0d\",\n    \"formalWidth\": 221.0,\n    \"formalHeight\": 316.0,\n    \"views\": [\n        {\n            \"direction\": \"left\",\n            \"parts\": [\n                {\n                    \"id\": \"tail\",\n                    \"width\": 210.0,\n                    \"height\": 196.0,\n                    \"scale\"",
+      "stack_trace": "at Mofumachi.Tests.ExperienceCaptureTests+<CaptureCharacterAuthored>d__8.MoveNext () [0x00067] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\ExperienceCaptureTests.CharacterAuthored.cs:118\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\n"
+    },
+    {
+      "method": "Mofumachi.Tests.MajorPolishTests.FlatBoardKeepsAlignedEdgesAndAllThirtyCellsActuallyReceiveRaycasts",
+      "message": "System.NullReferenceException : Object reference not set to an instance of an object",
+      "stack_trace": "  at Mofumachi.Tests.MajorPolishTests+<FlatBoardKeepsAlignedEdgesAndAllThirtyCellsActuallyReceiveRaycasts>d__5.MoveNext () [0x000c4] in C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Assets\\Mofumachi\\Tests\\PlayMode\\MajorPolishTests.cs:98 \n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@80f691d4262b\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52 "
+    }
+  ],
+  "files": [
+    {
+      "path": "focus.xml",
+      "bytes": 44592,
+      "sha256": "2d0224b71627455957ad402e588c77ac6a9eefbeed57673a43356557ea952219"
+    },
+    {
+      "path": "EditMode.xml",
+      "bytes": 108994,
+      "sha256": "e7f6b27f0013cff661a34b8ee40ad17e44cce35f83509f1602d4c11eaf7746d7"
+    },
+    {
+      "path": "PlayMode.xml",
+      "bytes": 360411,
+      "sha256": "9bbff8aeaf574153fdbed270eec125b48e9a3361a9d573c02e4509432cd90100"
+    },
+    {
+      "path": "merge-reward-source-info.json",
+      "bytes": 1211,
+      "sha256": "547b719324bac3894ee01492c0b2e00d31170709c8288847fa5010c7cb7cce75"
+    }
+  ],
+  "received_files": [
+    {
+      "path": "EditMode.log",
+      "bytes": 51314,
+      "sha256": "a00f6c9e77da41a8e56cbc4e95f569326cb309ff72a00e35a303e0644d97d3ff",
+      "retained_in_repository": false
+    },
+    {
+      "path": "prepare-noah.log",
+      "bytes": 39108,
+      "sha256": "d4d9af6fb0b521716042331d101ca95be2e8bfc41c50f6bc7e53b2a1e43c7c24",
+      "retained_in_repository": false
+    },
+    {
+      "path": "focus.log",
+      "bytes": 104364,
+      "sha256": "01f5958ffef48df1f5629117a06a1ece15a6c1061fc2a4e243ad19c2ee0cb89c",
+      "retained_in_repository": false
+    },
+    {
+      "path": "prepare-five.log",
+      "bytes": 60432,
+      "sha256": "5b24e6d11c8ead995b7ce8ad078877a85deeafdb9ce2f89e4e1c77a99f892381",
+      "retained_in_repository": false
+    },
+    {
+      "path": "focus.xml",
+      "bytes": 44592,
+      "sha256": "2d0224b71627455957ad402e588c77ac6a9eefbeed57673a43356557ea952219",
+      "retained_in_repository": true
+    },
+    {
+      "path": "merge-reward-source-info.json",
+      "bytes": 1211,
+      "sha256": "547b719324bac3894ee01492c0b2e00d31170709c8288847fa5010c7cb7cce75",
+      "retained_in_repository": true
+    },
+    {
+      "path": "PlayMode.log",
+      "bytes": 337391,
+      "sha256": "813f858900a2b922715e75de47f04871d710e5836f5cd35f6035087ee548a2f8",
+      "retained_in_repository": false
+    },
+    {
+      "path": "PlayMode.xml",
+      "bytes": 360411,
+      "sha256": "9bbff8aeaf574153fdbed270eec125b48e9a3361a9d573c02e4509432cd90100",
+      "retained_in_repository": true
+    },
+    {
+      "path": "prepared.json",
+      "bytes": 22620,
+      "sha256": "241abe5e5db270c93c9c9a96cdcc937c4782f3aff5bbfe5b183eca92b8f2f1bb",
+      "retained_in_repository": false
+    },
+    {
+      "path": "prepared-fio.json",
+      "bytes": 22612,
+      "sha256": "faa5439f12dc21c167af7ea49993a485211212e546d7b221cd80499dde331f49",
+      "retained_in_repository": false
+    },
+    {
+      "path": "prepared-lulu.json",
+      "bytes": 22616,
+      "sha256": "b58b9633348b137255c7e897f205102d4ab2b6603f1d85dfbed96aa5f20b30a2",
+      "retained_in_repository": false
+    },
+    {
+      "path": "prepared-momo.json",
+      "bytes": 22690,
+      "sha256": "94532f3e9b2ad9e679e30983f58b43315f0adfa5f745e2801db5979cb1c61c3f",
+      "retained_in_repository": false
+    },
+    {
+      "path": "prepared-miel.json",
+      "bytes": 22620,
+      "sha256": "241abe5e5db270c93c9c9a96cdcc937c4782f3aff5bbfe5b183eca92b8f2f1bb",
+      "retained_in_repository": false
+    },
+    {
+      "path": "prepared-pom.json",
+      "bytes": 22614,
+      "sha256": "5047f811bd4e763370b229f95af3df40d695f7c6331410004807f5b010236890",
+      "retained_in_repository": false
+    },
+    {
+      "path": "EditMode.xml",
+      "bytes": 108994,
+      "sha256": "e7f6b27f0013cff661a34b8ee40ad17e44cce35f83509f1602d4c11eaf7746d7",
+      "retained_in_repository": true
+    }
+  ],
+  "full_qa_verified": false,
+  "build_generated": false,
+  "pixel_verified": false,
+  "capture_artifacts_received": false
+}

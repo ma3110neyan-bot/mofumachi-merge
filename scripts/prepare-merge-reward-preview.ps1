@@ -25,7 +25,7 @@ function Get-MergeRewardArguments([string]$Repository,[string]$Directory,[string
     }elseif($Stage -eq 'PlayMode'){
         # The capture test now always requires disk output. A full run has its
         # own directory so its capture cannot reuse/overwrite focused evidence.
-        $A+=@('-mofumachiMergeReward',([IO.Path]::GetFullPath((Join-Path $Directory 'full-playmode-capture'))))
+        $A+=@('-mofumachiMergeReward',([IO.Path]::GetFullPath((Join-Path $Directory 'full-playmode-capture'))),'-mofumachiMergePreparedQa')
     }
     return $A
 }

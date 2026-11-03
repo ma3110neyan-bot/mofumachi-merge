@@ -1,0 +1,4 @@
+# Preserve uploaded originals byte-for-byte, including CRLF and BOM.
+*.xml binary
+merge-reward-source-info.json binary
+receipt.json text eol=lf

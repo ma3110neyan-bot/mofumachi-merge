@@ -45,6 +45,16 @@
       "path": "Assets/Mofumachi/Tests/PlayMode/MergePolishTests.cs",
       "before_sha256": "0e720cacac0dc726d907825342d7d7e40571fde16b519584d9f51283aaef0283",
       "sha256": "94154ac84cdb0927ccc64dc3bbd61a7c85d49c59070caf53422cc20c0dc25382"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/DailyWorldTests.cs",
+      "before_sha256": "2894cd9b6d142e345a27f3c956a37f6e480610a4ab2ac4dd296c5a57d6638718",
+      "sha256": "8ac662a3b99e66b6337c21b83e232ded24b4dc328de3b422474049fb639127e4"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/MajorPolishTests.cs",
+      "before_sha256": "a2792af30c816c3f17808dd502c1269f293dcd56ce37a0420c52caec50ffcc1e",
+      "sha256": "0abc3a5458647d8c40f8a5bbc44da12a99c730692918cb9398f1a14ffd2ce9f7"
     }
   ],
   "additions": [
@@ -105,5 +115,12 @@
     "reason": "Pre-reward 120-vertex expectation did not cover the approved five-star/three-flower mesh. Verify exact composition,313-vertex maximum, lifetime and index bounds; preserve production files.",
     "native_rerun_verified": false,
     "failed_xml_sha256": "980b9f87ca1abd37a4118bf85fa7cc2230a9e7d74536d25a68d7c39321564e32"
+  },
+  "full_qa_test_correction": {
+    "failed_source_revision": "c2297d0d3bb0ccceb7291887fb868e8a821a25e0",
+    "failed_run": "merge-reward-20261103-112005-85e3d93b",
+    "previous_candidate_manifest_sha256": "10f73302d50269664f2ed95ca179df65ba2c1e2ecc21250adc6025025b02f022",
+    "reason": "Test-only compatibility: rectangular5x6 cells, active reward paper, deliberate prepared character inputs. No production edits.",
+    "native_rerun_verified": false
   }
 }

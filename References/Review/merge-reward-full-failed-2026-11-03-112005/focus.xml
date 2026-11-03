@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="53" result="Passed" total="53" passed="53" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-03 02:21:48Z" end-time="2026-11-03 02:22:16Z" duration="27.6962998">
+  <test-suite type="TestSuite" id="1317" name="もふまちメルジュ" fullname="もふまちメルジュ" runstate="Runnable" testcasecount="260" result="Passed" start-time="2026-11-03 02:21:48Z" end-time="2026-11-03 02:22:16Z" duration="27.696300" total="53" passed="53" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1628" name="Mofumachi.PlayModeTests.dll" fullname="C:/Users/User/Desktop/Mofumachi/mofumachi-merge/Library/ScriptAssemblies/Mofumachi.PlayModeTests.dll" runstate="Runnable" testcasecount="260" result="Passed" start-time="2026-11-03 02:21:48Z" end-time="2026-11-03 02:22:16Z" duration="27.677424" total="53" passed="53" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="24168" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1629" name="Mofumachi" fullname="Mofumachi" runstate="Runnable" testcasecount="260" result="Passed" start-time="2026-11-03 02:21:48Z" end-time="2026-11-03 02:22:16Z" duration="27.673568" total="53" passed="53" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1630" name="Tests" fullname="Mofumachi.Tests" runstate="Runnable" testcasecount="260" result="Passed" start-time="2026-11-03 02:21:48Z" end-time="2026-11-03 02:22:16Z" duration="27.670127" total="53" passed="53" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1394" name="ExperienceMergeTests" fullname="Mofumachi.Tests.ExperienceMergeTests" classname="Mofumachi.Tests.ExperienceMergeTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-03 02:21:48Z" end-time="2026-11-03 02:21:51Z" duration="2.970756" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1397" name="CommittedMergeLeavesATactileLandingWithoutExtendingInputLock" fullname="Mofumachi.Tests.ExperienceMergeTests.CommittedMergeLeavesATactileLandingWithoutExtendingInputLock" methodname="CommittedMergeLeavesATactileLandingWithoutExtendingInputLock" classname="Mofumachi.Tests.ExperienceMergeTests" runstate="Runnable" seed="826686340" result="Passed" start-time="2026-11-03 02:21:48Z" end-time="2026-11-03 02:21:51Z" duration="2.397276" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1395" name="FlatIvoryBoardAndRoundedCellsKeepThirtyIndependentTargets" fullname="Mofumachi.Tests.ExperienceMergeTests.FlatIvoryBoardAndRoundedCellsKeepThirtyIndependentTargets" methodname="FlatIvoryBoardAndRoundedCellsKeepThirtyIndependentTargets" classname="Mofumachi.Tests.ExperienceMergeTests" runstate="Runnable" seed="332676709" result="Passed" start-time="2026-11-03 02:21:51Z" end-time="2026-11-03 02:21:51Z" duration="0.275501" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1396" name="ItemsUseTheSameSizeInAllSixRows" fullname="Mofumachi.Tests.ExperienceMergeTests.ItemsUseTheSameSizeInAllSixRows" methodname="ItemsUseTheSameSizeInAllSixRows" classname="Mofumachi.Tests.ExperienceMergeTests" runstate="Runnable" seed="2095575432" result="Passed" start-time="2026-11-03 02:21:51Z" end-time="2026-11-03 02:21:51Z" duration="0.281181" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1467" name="MergeGuidanceTests" fullname="Mofumachi.Tests.MergeGuidanceTests" classname="Mofumachi.Tests.MergeGuidanceTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-11-03 02:21:51Z" end-time="2026-11-03 02:21:51Z" duration="0.045877" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1469" name="BreadQuestSuggestsBreadWithoutNewSaveField" fullname="Mofumachi.Tests.MergeGuidanceTests.BreadQuestSuggestsBreadWithoutNewSaveField" methodname="BreadQuestSuggestsBreadWithoutNewSaveField" classname="Mofumachi.Tests.MergeGuidanceTests" runstate="Runnable" seed="2092915949" result="Passed" start-time="2026-11-03 02:21:51Z" end-time="2026-11-03 02:21:51Z" duration="0.002312" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1468" name="DiagnosticsOnlyEnablesDevelopmentPlayers" fullname="Mofumachi.Tests.MergeGuidanceTests.DiagnosticsOnlyEnablesDevelopmentPlayers" methodname="DiagnosticsOnlyEnablesDevelopmentPlayers" classname="Mofumachi.Tests.MergeGuidanceTests" runstate="Runnable" seed="227909155" result="Passed" start-time="2026-11-03 02:21:51Z" end-time="2026-11-03 02:21:51Z" duration="0.000345" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1472" name="DifferentKindsExplainTheMismatch" fullname="Mofumachi.Tests.MergeGuidanceTests.DifferentKindsExplainTheMismatch" methodname="DifferentKindsExplainTheMismatch" classname="Mofumachi.Tests.MergeGuidanceTests" runstate="Runnable" seed="1525539437" result="Passed" start-time="2026-11-03 02:21:51Z" end-time="2026-11-03 02:21:51Z" duration="0.000842" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1473" name="DifferentLevelsExplainTheMismatch" fullname="Mofumachi.Tests.MergeGuidanceTests.DifferentLevelsExplainTheMismatch" methodname="DifferentLevelsExplainTheMismatch" classname="Mofumachi.Tests.MergeGuidanceTests" runstate="Runnable" seed="1677676874" result="Passed" start-time="2026-11-03 02:21:51Z" end-time="2026-11-03 02:21:51Z" duration="0.000269" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1474" name="HighestLevelIsExplained" fullname="Mofumachi.Tests.MergeGuidanceTests.HighestLevelIsExplained" methodname="HighestLevelIsExplained" classname="Mofumachi.Tests.MergeGuidanceTests" runstate="Runnable" seed="692766329" result="Passed" start-time="2026-11-03 02:21:51Z" end-time="2026-11-03 02:21:51Z" duration="0.000335" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1470" name="MixedQuestSuggestsTheMissingRequirement" fullname="Mofumachi.Tests.MergeGuidanceTests.MixedQuestSuggestsTheMissingRequirement" methodname="MixedQuestSuggestsTheMissingRequirement" classname="Mofumachi.Tests.MergeGuidanceTests" runstate="Runnable" seed="1360919562" result="Passed" start-time="2026-11-03 02:21:51Z" end-time="2026-11-03 02:21:51Z" duration="0.011644" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1477" name="RequirementSummaryShowsRealExcessCount" fullname="Mofumachi.Tests.MergeGuidanceTests.RequirementSummaryShowsRealExcessCount" methodname="RequirementSummaryShowsRealExcessCount" classname="Mofumachi.Tests.MergeGuidanceTests" runstate="Runnable" seed="497393176" result="Passed" start-time="2026-11-03 02:21:51Z" end-time="2026-11-03 02:21:51Z" duration="0.023086" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1476" name="UnacceptedQuestGuidesToAcceptance" fullname="Mofumachi.Tests.MergeGuidanceTests.UnacceptedQuestGuidesToAcceptance" methodname="UnacceptedQuestGuidesToAcceptance" classname="Mofumachi.Tests.MergeGuidanceTests" runstate="Runnable" seed="927155272" result="Passed" start-time="2026-11-03 02:21:51Z" end-time="2026-11-03 02:21:51Z" duration="0.000396" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1471" name="UnknownQuestDoesNotInventARequiredKind" fullname="Mofumachi.Tests.MergeGuidanceTests.UnknownQuestDoesNotInventARequiredKind" methodname="UnknownQuestDoesNotInventARequiredKind" classname="Mofumachi.Tests.MergeGuidanceTests" runstate="Runnable" seed="340550701" result="Passed" start-time="2026-11-03 02:21:51Z" end-time="2026-11-03 02:21:51Z" duration="0.000344" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1475" name="ValidPairHasNoRefusal" fullname="Mofumachi.Tests.MergeGuidanceTests.ValidPairHasNoRefusal" methodname="ValidPairHasNoRefusal" classname="Mofumachi.Tests.MergeGuidanceTests" runstate="Runnable" seed="1298490704" result="Passed" start-time="2026-11-03 02:21:51Z" end-time="2026-11-03 02:21:51Z" duration="0.000404" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1434" name="MergeInteractionTests" fullname="Mofumachi.Tests.MergeInteractionTests" classname="Mofumachi.Tests.MergeInteractionTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-11-03 02:21:51Z" end-time="2026-11-03 02:21:53Z" duration="1.813928" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1438" name="DifferentMaxLevelAndLockedItemsRefuseWithoutMutation" fullname="Mofumachi.Tests.MergeInteractionTests.DifferentMaxLevelAndLockedItemsRefuseWithoutMutation" methodname="DifferentMaxLevelAndLockedItemsRefuseWithoutMutation" classname="Mofumachi.Tests.MergeInteractionTests" runstate="Runnable" seed="202214452" result="Passed" start-time="2026-11-03 02:21:51Z" end-time="2026-11-03 02:21:51Z" duration="0.291513" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1437" name="DragShowsOnlyValidPartnersAndHoverThenCleansUpWithoutExtraSaves" fullname="Mofumachi.Tests.MergeInteractionTests.DragShowsOnlyValidPartnersAndHoverThenCleansUpWithoutExtraSaves" methodname="DragShowsOnlyValidPartnersAndHoverThenCleansUpWithoutExtraSaves" classname="Mofumachi.Tests.MergeInteractionTests" runstate="Runnable" seed="1106280869" result="Passed" start-time="2026-11-03 02:21:51Z" end-time="2026-11-03 02:21:52Z" duration="0.268807" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1436" name="OutsideDropAndSaveFailureDoNotConsumeItems" fullname="Mofumachi.Tests.MergeInteractionTests.OutsideDropAndSaveFailureDoNotConsumeItems" methodname="OutsideDropAndSaveFailureDoNotConsumeItems" classname="Mofumachi.Tests.MergeInteractionTests" runstate="Runnable" seed="735465200" result="Passed" start-time="2026-11-03 02:21:52Z" end-time="2026-11-03 02:21:52Z" duration="0.340448" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1435" name="PointerDragAndTwoTapsProduceOneMerge" fullname="Mofumachi.Tests.MergeInteractionTests.PointerDragAndTwoTapsProduceOneMerge" methodname="PointerDragAndTwoTapsProduceOneMerge" classname="Mofumachi.Tests.MergeInteractionTests" runstate="Runnable" seed="432992352" result="Passed" start-time="2026-11-03 02:21:52Z" end-time="2026-11-03 02:21:53Z" duration="0.655818" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1439" name="ShortPortraitBoardStaysSquareAndOperable" fullname="Mofumachi.Tests.MergeInteractionTests.ShortPortraitBoardStaysSquareAndOperable" methodname="ShortPortraitBoardStaysSquareAndOperable" classname="Mofumachi.Tests.MergeInteractionTests" runstate="Runnable" seed="1609537510" result="Passed" start-time="2026-11-03 02:21:53Z" end-time="2026-11-03 02:21:53Z" duration="0.254516" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1440" name="MergePolishTests" fullname="Mofumachi.Tests.MergePolishTests" classname="Mofumachi.Tests.MergePolishTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-11-03 02:21:53Z" end-time="2026-11-03 02:21:59Z" duration="6.376215" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1446" name="ConsecutiveMergesReuseOneSmallEffectLayerAndRestartKeepsProgress" fullname="Mofumachi.Tests.MergePolishTests.ConsecutiveMergesReuseOneSmallEffectLayerAndRestartKeepsProgress" methodname="ConsecutiveMergesReuseOneSmallEffectLayerAndRestartKeepsProgress" classname="Mofumachi.Tests.MergePolishTests" runstate="Runnable" seed="630165703" result="Passed" start-time="2026-11-03 02:21:53Z" end-time="2026-11-03 02:21:54Z" duration="1.315655" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1444" name="FailedAndRejectedMergesDoNotShowSuccessOrConsumeItems" fullname="Mofumachi.Tests.MergePolishTests.FailedAndRejectedMergesDoNotShowSuccessOrConsumeItems" methodname="FailedAndRejectedMergesDoNotShowSuccessOrConsumeItems" classname="Mofumachi.Tests.MergePolishTests" runstate="Runnable" seed="1897620219" result="Passed" start-time="2026-11-03 02:21:54Z" end-time="2026-11-03 02:21:55Z" duration="0.640246" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1447" name="LayoutCancelsVisualsAndBusyDeliveryPreservesSavedMergeUntilUnlock" fullname="Mofumachi.Tests.MergePolishTests.LayoutCancelsVisualsAndBusyDeliveryPreservesSavedMergeUntilUnlock" methodname="LayoutCancelsVisualsAndBusyDeliveryPreservesSavedMergeUntilUnlock" classname="Mofumachi.Tests.MergePolishTests" runstate="Runnable" seed="959715083" result="Passed" start-time="2026-11-03 02:21:55Z" end-time="2026-11-03 02:21:56Z" duration="0.914801" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1445" name="PauseAndSettingsCancelVisualsAndKeepTheSavedMerge" fullname="Mofumachi.Tests.MergePolishTests.PauseAndSettingsCancelVisualsAndKeepTheSavedMerge" methodname="PauseAndSettingsCancelVisualsAndKeepTheSavedMerge" classname="Mofumachi.Tests.MergePolishTests" runstate="Runnable" seed="235415104" result="Passed" start-time="2026-11-03 02:21:56Z" end-time="2026-11-03 02:21:56Z" duration="0.540008" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1443" name="SavedMergeUnlocksBeforeTheLightTailAndNeverReplaysOnReentry" fullname="Mofumachi.Tests.MergePolishTests.SavedMergeUnlocksBeforeTheLightTailAndNeverReplaysOnReentry" methodname="SavedMergeUnlocksBeforeTheLightTailAndNeverReplaysOnReentry" classname="Mofumachi.Tests.MergePolishTests" runstate="Runnable" seed="370549630" result="Passed" start-time="2026-11-03 02:21:56Z" end-time="2026-11-03 02:21:57Z" duration="0.912901" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1442" name="SelectionScalesOnlyTheItemAndDoesNotSave" fullname="Mofumachi.Tests.MergePolishTests.SelectionScalesOnlyTheItemAndDoesNotSave" methodname="SelectionScalesOnlyTheItemAndDoesNotSave" classname="Mofumachi.Tests.MergePolishTests" runstate="Runnable" seed="1797926884" result="Passed" start-time="2026-11-03 02:21:57Z" end-time="2026-11-03 02:21:58Z" duration="0.663040" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1448" name="ShortAndTallLayoutsKeepLevelTextAndSelectedArtInsideCells" fullname="Mofumachi.Tests.MergePolishTests.ShortAndTallLayoutsKeepLevelTextAndSelectedArtInsideCells" methodname="ShortAndTallLayoutsKeepLevelTextAndSelectedArtInsideCells" classname="Mofumachi.Tests.MergePolishTests" runstate="Runnable" seed="1816885002" result="Passed" start-time="2026-11-03 02:21:58Z" end-time="2026-11-03 02:21:59Z" duration="1.106389" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1441" name="StaticPolishKeepsBoardAndUsesSharedArtWithoutInterceptingInput" fullname="Mofumachi.Tests.MergePolishTests.StaticPolishKeepsBoardAndUsesSharedArtWithoutInterceptingInput" methodname="StaticPolishKeepsBoardAndUsesSharedArtWithoutInterceptingInput" classname="Mofumachi.Tests.MergePolishTests" runstate="Runnable" seed="719022249" result="Passed" start-time="2026-11-03 02:21:59Z" end-time="2026-11-03 02:21:59Z" duration="0.270619" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1449" name="MergeProgressionUiTests" fullname="Mofumachi.Tests.MergeProgressionUiTests" classname="Mofumachi.Tests.MergeProgressionUiTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-11-03 02:21:59Z" end-time="2026-11-03 02:22:07Z" duration="7.962152" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1451" name="ChangingKindClearsOldSelectionAndNextTapsMergeBread" fullname="Mofumachi.Tests.MergeProgressionUiTests.ChangingKindClearsOldSelectionAndNextTapsMergeBread" methodname="ChangingKindClearsOldSelectionAndNextTapsMergeBread" classname="Mofumachi.Tests.MergeProgressionUiTests" runstate="Runnable" seed="1683147339" result="Passed" start-time="2026-11-03 02:21:59Z" end-time="2026-11-03 02:22:00Z" duration="0.493242" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1454" name="FailedDiscardAndProductionKeepBoardAndCannotReportSuccess" fullname="Mofumachi.Tests.MergeProgressionUiTests.FailedDiscardAndProductionKeepBoardAndCannotReportSuccess" methodname="FailedDiscardAndProductionKeepBoardAndCannotReportSuccess" classname="Mofumachi.Tests.MergeProgressionUiTests" runstate="Runnable" seed="1366011946" result="Passed" start-time="2026-11-03 02:22:00Z" end-time="2026-11-03 02:22:00Z" duration="0.345384" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1450" name="FullBoardCanBeOrganizedIntoBreadDeliveryUsingVisibleButtons" fullname="Mofumachi.Tests.MergeProgressionUiTests.FullBoardCanBeOrganizedIntoBreadDeliveryUsingVisibleButtons" methodname="FullBoardCanBeOrganizedIntoBreadDeliveryUsingVisibleButtons" classname="Mofumachi.Tests.MergeProgressionUiTests" runstate="Runnable" seed="1244794808" result="Passed" start-time="2026-11-03 02:22:00Z" end-time="2026-11-03 02:22:03Z" duration="2.905530" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1456" name="InputSystemTouchDragAndTapReachBreadCellsThroughEventSystem" fullname="Mofumachi.Tests.MergeProgressionUiTests.InputSystemTouchDragAndTapReachBreadCellsThroughEventSystem" methodname="InputSystemTouchDragAndTapReachBreadCellsThroughEventSystem" classname="Mofumachi.Tests.MergeProgressionUiTests" runstate="Runnable" seed="597142535" result="Passed" start-time="2026-11-03 02:22:03Z" end-time="2026-11-03 02:22:04Z" duration="1.232023" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1452" name="MismatchedTapReselectsAndSameCellTapClearsWithoutMutation" fullname="Mofumachi.Tests.MergeProgressionUiTests.MismatchedTapReselectsAndSameCellTapClearsWithoutMutation" methodname="MismatchedTapReselectsAndSameCellTapClearsWithoutMutation" classname="Mofumachi.Tests.MergeProgressionUiTests" runstate="Runnable" seed="919433195" result="Passed" start-time="2026-11-03 02:22:04Z" end-time="2026-11-03 02:22:05Z" duration="0.355059" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1459" name="PackedFramesAndUnacceptedQuestHaveExplicitNextActions" fullname="Mofumachi.Tests.MergeProgressionUiTests.PackedFramesAndUnacceptedQuestHaveExplicitNextActions" methodname="PackedFramesAndUnacceptedQuestHaveExplicitNextActions" classname="Mofumachi.Tests.MergeProgressionUiTests" runstate="Runnable" seed="506141702" result="Passed" start-time="2026-11-03 02:22:05Z" end-time="2026-11-03 02:22:05Z" duration="0.392644" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1457" name="RequiredArtCountsAndShortageAgreeWithInventory" fullname="Mofumachi.Tests.MergeProgressionUiTests.RequiredArtCountsAndShortageAgreeWithInventory" methodname="RequiredArtCountsAndShortageAgreeWithInventory" classname="Mofumachi.Tests.MergeProgressionUiTests" runstate="Runnable" seed="162296582" result="Passed" start-time="2026-11-03 02:22:05Z" end-time="2026-11-03 02:22:06Z" duration="0.603728" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1458" name="RequirementGuidesBreadWithoutGeneratingOrSaving" fullname="Mofumachi.Tests.MergeProgressionUiTests.RequirementGuidesBreadWithoutGeneratingOrSaving" methodname="RequirementGuidesBreadWithoutGeneratingOrSaving" classname="Mofumachi.Tests.MergeProgressionUiTests" runstate="Runnable" seed="1225150402" result="Passed" start-time="2026-11-03 02:22:06Z" end-time="2026-11-03 02:22:06Z" duration="0.320513" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1460" name="ShortPortraitKeepsOneProductionRowAndReadableControls" fullname="Mofumachi.Tests.MergeProgressionUiTests.ShortPortraitKeepsOneProductionRowAndReadableControls" methodname="ShortPortraitKeepsOneProductionRowAndReadableControls" classname="Mofumachi.Tests.MergeProgressionUiTests" runstate="Runnable" seed="1008290239" result="Passed" start-time="2026-11-03 02:22:06Z" end-time="2026-11-03 02:22:06Z" duration="0.361286" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1453" name="UnacceptedRequestRoutesToAcceptanceAndResumeSuggestsBread" fullname="Mofumachi.Tests.MergeProgressionUiTests.UnacceptedRequestRoutesToAcceptanceAndResumeSuggestsBread" methodname="UnacceptedRequestRoutesToAcceptanceAndResumeSuggestsBread" classname="Mofumachi.Tests.MergeProgressionUiTests" runstate="Runnable" seed="1875952150" result="Passed" start-time="2026-11-03 02:22:06Z" end-time="2026-11-03 02:22:07Z" duration="0.595276" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1455" name="UnknownSavedItemCanBeDiscardedThroughConfirmation" fullname="Mofumachi.Tests.MergeProgressionUiTests.UnknownSavedItemCanBeDiscardedThroughConfirmation" methodname="UnknownSavedItemCanBeDiscardedThroughConfirmation" classname="Mofumachi.Tests.MergeProgressionUiTests" runstate="Runnable" seed="155894292" result="Passed" start-time="2026-11-03 02:22:07Z" end-time="2026-11-03 02:22:07Z" duration="0.343238" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1478" name="MergeRewardCaptureTests" fullname="Mofumachi.Tests.MergeRewardCaptureTests" classname="Mofumachi.Tests.MergeRewardCaptureTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-03 02:22:07Z" end-time="2026-11-03 02:22:10Z" duration="3.147439" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1479" name="MergeRewardCandidateScreens" fullname="Mofumachi.Tests.MergeRewardCaptureTests.MergeRewardCandidateScreens" methodname="MergeRewardCandidateScreens" classname="Mofumachi.Tests.MergeRewardCaptureTests" runstate="Runnable" seed="173506570" result="Passed" start-time="2026-11-03 02:22:07Z" end-time="2026-11-03 02:22:10Z" duration="3.145716" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1480" name="MergeRewardUiTests" fullname="Mofumachi.Tests.MergeRewardUiTests" classname="Mofumachi.Tests.MergeRewardUiTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-03 02:22:10Z" end-time="2026-11-03 02:22:13Z" duration="2.155748" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1482" name="AcceptedIncompleteRequestStillHasALargeReviewAction" fullname="Mofumachi.Tests.MergeRewardUiTests.AcceptedIncompleteRequestStillHasALargeReviewAction" methodname="AcceptedIncompleteRequestStillHasALargeReviewAction" classname="Mofumachi.Tests.MergeRewardUiTests" runstate="Runnable" seed="1687393556" result="Passed" start-time="2026-11-03 02:22:11Z" end-time="2026-11-03 02:22:11Z" duration="0.324317" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1486" name="BothComparisonModesKeepTheAcceptedPinkHeaderAndBoard" fullname="Mofumachi.Tests.MergeRewardUiTests.BothComparisonModesKeepTheAcceptedPinkHeaderAndBoard" methodname="BothComparisonModesKeepTheAcceptedPinkHeaderAndBoard" classname="Mofumachi.Tests.MergeRewardUiTests" runstate="Runnable" seed="618996781" result="Passed" start-time="2026-11-03 02:22:11Z" end-time="2026-11-03 02:22:11Z" duration="0.308454" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1483" name="CompletedRequestUsesExistingDeliveryAndExistingRewardOnly" fullname="Mofumachi.Tests.MergeRewardUiTests.CompletedRequestUsesExistingDeliveryAndExistingRewardOnly" methodname="CompletedRequestUsesExistingDeliveryAndExistingRewardOnly" classname="Mofumachi.Tests.MergeRewardUiTests" runstate="Runnable" seed="1617632896" result="Passed" start-time="2026-11-03 02:22:11Z" end-time="2026-11-03 02:22:12Z" duration="0.655569" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1481" name="CurrentQuestUsesOfficialArtAndActualCoinsWithoutSaving" fullname="Mofumachi.Tests.MergeRewardUiTests.CurrentQuestUsesOfficialArtAndActualCoinsWithoutSaving" methodname="CurrentQuestUsesOfficialArtAndActualCoinsWithoutSaving" classname="Mofumachi.Tests.MergeRewardUiTests" runstate="Runnable" seed="1078268031" result="Passed" start-time="2026-11-03 02:22:12Z" end-time="2026-11-03 02:22:12Z" duration="0.261875" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1484" name="EmptyMotifsNeverCoverSavedItemsOrReceiveInput" fullname="Mofumachi.Tests.MergeRewardUiTests.EmptyMotifsNeverCoverSavedItemsOrReceiveInput" methodname="EmptyMotifsNeverCoverSavedItemsOrReceiveInput" classname="Mofumachi.Tests.MergeRewardUiTests" runstate="Runnable" seed="618928435" result="Passed" start-time="2026-11-03 02:22:12Z" end-time="2026-11-03 02:22:12Z" duration="0.267138" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1485" name="MultipleRequirementsKeepSeparateArtNamesAndCountsWithoutSaving" fullname="Mofumachi.Tests.MergeRewardUiTests.MultipleRequirementsKeepSeparateArtNamesAndCountsWithoutSaving" methodname="MultipleRequirementsKeepSeparateArtNamesAndCountsWithoutSaving" classname="Mofumachi.Tests.MergeRewardUiTests" runstate="Runnable" seed="703626957" result="Passed" start-time="2026-11-03 02:22:12Z" end-time="2026-11-03 02:22:13Z" duration="0.322368" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1461" name="ProductionFrameUiTests" fullname="Mofumachi.Tests.ProductionFrameUiTests" classname="Mofumachi.Tests.ProductionFrameUiTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-11-03 02:22:13Z" end-time="2026-11-03 02:22:14Z" duration="1.723365" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1464" name="AllFramesStayPackedAfterReloadAndReplacementResumesProduction" fullname="Mofumachi.Tests.ProductionFrameUiTests.AllFramesStayPackedAfterReloadAndReplacementResumesProduction" methodname="AllFramesStayPackedAfterReloadAndReplacementResumesProduction" classname="Mofumachi.Tests.ProductionFrameUiTests" runstate="Runnable" seed="1483926198" result="Passed" start-time="2026-11-03 02:22:13Z" end-time="2026-11-03 02:22:13Z" duration="0.437138" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1463" name="FailedPackingRestoresEveryFrameAndCancelKeepsSavedState" fullname="Mofumachi.Tests.ProductionFrameUiTests.FailedPackingRestoresEveryFrameAndCancelKeepsSavedState" methodname="FailedPackingRestoresEveryFrameAndCancelKeepsSavedState" classname="Mofumachi.Tests.ProductionFrameUiTests" runstate="Runnable" seed="1923864781" result="Passed" start-time="2026-11-03 02:22:13Z" end-time="2026-11-03 02:22:13Z" duration="0.312176" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1466" name="MergeLabelAndAdaptiveFramesKeepTheLockedBoardLayout" fullname="Mofumachi.Tests.ProductionFrameUiTests.MergeLabelAndAdaptiveFramesKeepTheLockedBoardLayout" methodname="MergeLabelAndAdaptiveFramesKeepTheLockedBoardLayout" classname="Mofumachi.Tests.ProductionFrameUiTests" runstate="Runnable" seed="228411851" result="Passed" start-time="2026-11-03 02:22:13Z" end-time="2026-11-03 02:22:14Z" duration="0.333740" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1462" name="MultipleFramesPackOnceWithoutDeletingBoardItems" fullname="Mofumachi.Tests.ProductionFrameUiTests.MultipleFramesPackOnceWithoutDeletingBoardItems" methodname="MultipleFramesPackOnceWithoutDeletingBoardItems" classname="Mofumachi.Tests.ProductionFrameUiTests" runstate="Runnable" seed="2003302344" result="Passed" start-time="2026-11-03 02:22:14Z" end-time="2026-11-03 02:22:14Z" duration="0.319382" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1465" name="PauseClearsOnlyTransientFrameSelection" fullname="Mofumachi.Tests.ProductionFrameUiTests.PauseClearsOnlyTransientFrameSelection" methodname="PauseClearsOnlyTransientFrameSelection" classname="Mofumachi.Tests.ProductionFrameUiTests" runstate="Runnable" seed="160304985" result="Passed" start-time="2026-11-03 02:22:14Z" end-time="2026-11-03 02:22:14Z" duration="0.316022" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1509" name="QualityPassMergeTests" fullname="Mofumachi.Tests.QualityPassMergeTests" classname="Mofumachi.Tests.QualityPassMergeTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-03 02:22:14Z" end-time="2026-11-03 02:22:16Z" duration="1.424422" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1511" name="CompletedStoryKeepsSparseSavedItemsAndShowsLiveDailyPurpose" fullname="Mofumachi.Tests.QualityPassMergeTests.CompletedStoryKeepsSparseSavedItemsAndShowsLiveDailyPurpose" methodname="CompletedStoryKeepsSparseSavedItemsAndShowsLiveDailyPurpose" classname="Mofumachi.Tests.QualityPassMergeTests" runstate="Runnable" seed="509373743" result="Passed" start-time="2026-11-03 02:22:14Z" end-time="2026-11-03 02:22:15Z" duration="0.375075" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1512" name="PortraitCompositionKeepsItemDetailsAndAllActionsReadable" fullname="Mofumachi.Tests.QualityPassMergeTests.PortraitCompositionKeepsItemDetailsAndAllActionsReadable" methodname="PortraitCompositionKeepsItemDetailsAndAllActionsReadable" classname="Mofumachi.Tests.QualityPassMergeTests" runstate="Runnable" seed="1520470740" result="Passed" start-time="2026-11-03 02:22:15Z" end-time="2026-11-03 02:22:15Z" duration="0.495798" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1510" name="SelectedItemNameAndLevelRemainVisibleAboveTheBoard" fullname="Mofumachi.Tests.QualityPassMergeTests.SelectedItemNameAndLevelRemainVisibleAboveTheBoard" methodname="SelectedItemNameAndLevelRemainVisibleAboveTheBoard" classname="Mofumachi.Tests.QualityPassMergeTests" runstate="Runnable" seed="2030571024" result="Passed" start-time="2026-11-03 02:22:15Z" end-time="2026-11-03 02:22:16Z" duration="0.296849" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1513" name="ThirtyRoundedSquaresKeepRectangularInputAndReadableLevelBadges" fullname="Mofumachi.Tests.QualityPassMergeTests.ThirtyRoundedSquaresKeepRectangularInputAndReadableLevelBadges" methodname="ThirtyRoundedSquaresKeepRectangularInputAndReadableLevelBadges" classname="Mofumachi.Tests.QualityPassMergeTests" runstate="Runnable" seed="705466546" result="Passed" start-time="2026-11-03 02:22:16Z" end-time="2026-11-03 02:22:16Z" duration="0.252944" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

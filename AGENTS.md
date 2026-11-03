@@ -1,3 +1,15 @@
+# 2026-11-03最新：Merge重点／Edit合格・Play8件だけ局所検査
+
+受領run merge-reward-20261103-112005-85e3d93bはsource c2297d0／FP456988d0。重点53/53、Edit144/144成功、Play252/260・8失敗、skip／inc0。前回の演出テストはnativeで合格。原本3XML／親JSONと受領15ファイルSHAをReferences/Review/merge-reward-full-failed-2026-11-03-112005/に保存。CLI3工程と親identity一致、source_unchanged true。全件結果をPassedへ変更しない。APK／Pixelは未到達。
+
+失敗は旧正方形条件と無効旧フレームメッシュの検査2件、意図して準備した6名素材へ「存在しない」とする検査6件。今回変更はDailyWorldTests／MajorPolishTests／ExperienceCaptureTestsのCharacterAuthored・NoahAuthoredの4テストファイルと関連手順だけ。現行長方形5×6・48以上・全30非重複／4高の全セルRaycastを検査。明示-mofumachiMergePreparedQaの時だけ実ファイルpacked SHA・ID／素材／設定を検査し、通常の混入拒否と単体Preview本体は維持。製品UI・Core・Save・原画・キャラ動作・街等の差分0。Noahの既存test許可SHAとMerge2testの正確なSHAだけ更新、元26/552/53や承認済み表示6SHAは不変。
+
+現在-Final再実行は禁止。scripts/diagnose-merge-reward-failed-eight.ps1 -OriginalDirectory（上記112005の正確なrun）で原本SHA／製品入力同一性を確認し、8件だけnative再検査。準備2工程、テスト1呼出のみ。全件／長時間キャラ撮影／APK／インストール／Save初期化は行わない。新review01ZIPをExplorer選択。手順docs/merge-reward-failed-eight-2026-11-03.md。8件の実結果を受領後、残りの候補確認へ続行し、元のPlay252/260と新結果を分ける。
+
+追加の113431-4927c40cは画像で終了2のみ確認、失敗内訳のXML未受領のため同一原因と断定しない。レビューagentは利用制限で実行できず、独立レビュー成功を主張しない。API0警告0エラー／関連契約・実ガードは確認し、修正後native8件は未実行と明記する。途中の仕様確認・再承認は不要、既存feature通常push許可は継続。
+
+以下は履歴。
+
 # 2026-11-03最新：Merge重点53件中1件失敗／旧演出テストのみ訂正
 
 受領Windows run merge-reward-20261103-105456-4aec62ddはsource ce8ee19／FP2f6889c5、CLI・親JSON一致。準備2工程終了0。実PlayMode重点53件中52成功・1失敗、skip／inconclusive0。唯一の失敗はMergePolishTests.ConsecutiveMergesReuseOneSmallEffectLayerAndRestartKeepsProgressの旧120頂点上限。現行の承認済み演出は5stars45＋3flowers234＋2glows34＝313頂点、288三角形で、実エラーの313と一致。撮影テスト1/1・報酬UI6/6は成功。親は失敗時にcapture_verified=falseを正しく維持、HTML／成果物SHAの最終確認前に停止。全件Edit／Play／APK／Pixelは未到達。

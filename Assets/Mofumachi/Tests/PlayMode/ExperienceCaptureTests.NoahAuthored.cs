@@ -27,7 +27,7 @@ namespace Mofumachi.Tests
         [UnityTest,Timeout(120000)] public IEnumerator NoahAuthoredPartsPreviewPreservesState()
         {
             if(!Environment.GetCommandLineArgs().Contains("-mofumachiNoahAuthoredPreview"))
-            {Assert.That(Resources.Load<TextAsset>("Mofumachi/NoahAuthoredTrial/layout"),Is.Null,"Normal QA must not retain experimental source resources.");yield break;}
+            {if(!AssertMergePreparedCharacterResources("noah"))Assert.That(Resources.Load<TextAsset>("Mofumachi/NoahAuthoredTrial/layout"),Is.Null,"Unprepared QA must not retain authored source resources.");yield break;}
             string PackedDigest()
             {
                 string folder=Path.GetFullPath(Path.Combine(Application.dataPath,"Mofumachi/Resources/Mofumachi/NoahAuthoredTrial"));

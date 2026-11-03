@@ -1,5 +1,7 @@
 # Merge正式候補：Visual合格後のリリース候補確認
 
+最新：全件初回まで進み、重点53/53・Edit144/144・Play252/260となった。現在は`-Final`を再実行せず、[失敗8件だけの確認](merge-reward-failed-eight-2026-11-03.md)へ進む。以下の一括実行手順は初回の履歴として保持する。
+
 ユーザーが現行ピンク「ごほうびMerge」のVisual Gateを合格と判定。表示の正式候補は`af084ecda712d7aaaf3b4b581496a44f1192f97c`で固定し、以後fix only。今回の変更にゲーム製品コード・素材の差分はない。承認記録は`References/VisualLock/merge-reward-visual-approved-2026-11-03.json`。元PNGと表示6ソースのSHAを起動前・終了後に照合する。
 
 **現在の状態：ユーザーVisual合格。Windows初回重点は53件中52成功・1失敗。全件EditMode／PlayMode・QA APK・Pixelは未到達。** 失敗は旧演出テストの120頂点上限（承認済み現行は最大313）。製品を変えずテストのみ訂正し、native再実行結果を待つ。クラウドには有効なUnityライセンス・Androidモジュール・USB実機がないため、以下をWindowsで実行する。合成検査を実UnityやPixel合格へ置き換えない。古い候補manifestの未検証フラグは履歴として保持する。

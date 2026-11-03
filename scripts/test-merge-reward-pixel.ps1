@@ -1,7 +1,7 @@
 [CmdletBinding()]
-param([string]$BuildDirectory,[string]$UnityEditorPath='',[string]$Serial='99RAY1BELH',[ValidateRange(5,600)][int]$MeasureSeconds=180)
+param([string]$BuildDirectory,[string]$UnityEditorPath='',[string]$Serial='99RAY1BELH',[ValidateRange(5,600)][int]$MeasureSeconds=180,[switch]$NonStreaming)
 $ErrorActionPreference='Stop'
-$MergePixelOptions=@{Directory=$BuildDirectory;Editor=$UnityEditorPath;Serial=$Serial;Seconds=$MeasureSeconds}
+$MergePixelOptions=@{Directory=$BuildDirectory;Editor=$UnityEditorPath;Serial=$Serial;Seconds=$MeasureSeconds;NonStreaming=[bool]$NonStreaming}
 . (Join-Path $PSScriptRoot 'prepare-merge-reward-preview.ps1')
 . (Join-Path $PSScriptRoot 'merge-reward-reviewed-evidence.ps1')
 function Read-MergeRewardCompletedRun([string]$Directory,$Approval){
@@ -27,6 +27,11 @@ function Read-MergeRewardCompletedRun([string]$Directory,$Approval){
     $Apk=Assert-MergeRewardApk $Directory $S.gitRevision $S.productFingerprint $S.packed_resource_sha256
     return [pscustomobject]@{source=$S;apk=$Apk}
 }
+function Write-MergeCrashEvidence($Record,[string]$Raw,[string]$Path){
+    $Record.crash_log_captured=$false;[IO.File]::WriteAllText($Path,$Raw)
+    if($Raw -match '(?im)^\s*- waiting for (?:any )?device -\s*$|^\s*error:.*(?:device.*(?:offline|not found|unauthorized)|no devices/emulators)'){throw 'ADB returned a device/transport status instead of a readable crash buffer.'}
+    $Record.crash_log_captured=$true
+}
 if($MyInvocation.InvocationName -eq '.'){return}
 if(-not $MergePixelOptions.Directory){throw 'Pass the exact completed Merge -Final run using -BuildDirectory. This continuation never runs Unity tests or builds.'}
 $PixelRun=(Resolve-Path -LiteralPath $MergePixelOptions.Directory).Path
@@ -40,14 +45,23 @@ $PixelSerial=Select-AuthorizedDevice (Invoke-CheckedNative $PixelAdb @('devices'
 if((Invoke-CheckedNative $PixelAdb @('-s',$PixelSerial,'shell','getprop','ro.product.model')).Trim() -cne 'Pixel 3a'){throw 'Connect the selected Pixel 3a, unlock it and allow USB debugging.'}
 $PixelOutput=Join-Path $PixelRun ('pixel-'+(Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::NewGuid().ToString('N').Substring(0,8))
 New-Item -ItemType Directory -Path $PixelOutput|Out-Null
-$PixelRecord=[ordered]@{scope='merge-reward-pixel-evidence';gitRevision=$Completed.source.gitRevision;productFingerprint=$Completed.source.productFingerprint;apk_sha256=$Completed.apk.sha256;package=$Completed.apk.package;serial=$PixelSerial;started_utc=[DateTimeOffset]::UtcNow.ToString('o');measurements_complete=$false;pixel_verified=$false;release_accepted=$false;manual_visual='pending';manual_input='pending';manual_stutter='pending';manual_heat='pending';manual_crash='pending';pid_start='';pid_end='';same_process=$false;crash_log_captured=$false;surface_metrics=$null;error=''}
+$PixelRecord=[ordered]@{scope='merge-reward-pixel-evidence';gitRevision=$Completed.source.gitRevision;productFingerprint=$Completed.source.productFingerprint;apk_sha256=$Completed.apk.sha256;package=$Completed.apk.package;serial=$PixelSerial;started_utc=[DateTimeOffset]::UtcNow.ToString('o');install_mode=$(if($MergePixelOptions.NonStreaming){'non-streaming-update'}else{'default-update'});stage='preinstall-diagnostics';measurements_complete=$false;pixel_verified=$false;release_accepted=$false;manual_visual='pending';manual_input='pending';manual_stutter='pending';manual_heat='pending';manual_crash='pending';pid_start='';pid_end='';same_process=$false;crash_log_captured=$false;surface_metrics=$null;error=''}
 $PixelFailure=$null
 try{
-    Invoke-PixelInstall (Join-Path $PixelRun $Completed.apk.apk) $PixelAdb $PixelSerial $Completed.apk.package $PixelAapt -ExpectedSha256 $Completed.apk.sha256
+    $State=(Invoke-CheckedNative $PixelAdb @('-s',$PixelSerial,'get-state')).Trim();[IO.File]::WriteAllText((Join-Path $PixelOutput 'device-before.txt'),$State)
+    if($State -cne 'device'){throw 'Pixel is not online. Reconnect/unlock it and allow USB debugging; do not rebuild or reset data.'}
+    [IO.File]::WriteAllText((Join-Path $PixelOutput 'adb-version.txt'),(Invoke-CheckedNative $PixelAdb @('version')))
+    [IO.File]::WriteAllText((Join-Path $PixelOutput 'devices-before.txt'),(Invoke-CheckedNative $PixelAdb @('devices','-l')))
+    [IO.File]::WriteAllText((Join-Path $PixelOutput 'storage-before.txt'),(Invoke-CheckedNative $PixelAdb @('-s',$PixelSerial,'shell','df','-k','/data')))
+    [IO.File]::WriteAllText((Join-Path $PixelOutput 'package-before.txt'),(Invoke-CheckedNative $PixelAdb @('-s',$PixelSerial,'shell','dumpsys','package',$Completed.apk.package)))
+    $PixelRecord.stage='install-or-launch'
+    Invoke-PixelInstall (Join-Path $PixelRun $Completed.apk.apk) $PixelAdb $PixelSerial $Completed.apk.package $PixelAapt -ExpectedSha256 $Completed.apk.sha256 -NonStreaming:$MergePixelOptions.NonStreaming
+    $PixelRecord.stage='awaiting-merge-screen'
     Write-Host 'On Pixel open Merge. Check generation (tea/bread/flower), selection, drag, Merge/Lv.UP, request/delivery, full board and invalid Merge where available. Preserve existing progress.'
     $null=Read-Host 'When the Merge board is visible, press Enter here; then keep playing during measurement'
     $PixelRecord.pid_start=(Invoke-CheckedNative $PixelAdb @('-s',$PixelSerial,'shell','pidof',$Completed.apk.package)).Trim()
     if($PixelRecord.pid_start -notmatch '^\d+$'){throw 'One running QA process required.'}
+    $PixelRecord.stage='measuring'
     & (Join-Path $PSScriptRoot 'capture-pixel-visual-check.ps1') -Label After -Seconds $MergePixelOptions.Seconds -Serial $PixelSerial -Adb $PixelAdb -OutputDirectory (Join-Path $PixelOutput 'surface')
     $PixelRecord.surface_metrics=Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $PixelOutput 'surface/pixel-evidence.json')|ConvertFrom-Json
     if($PixelRecord.surface_metrics.installed_apk_sha256 -cne $Completed.apk.sha256 -or -not $PixelRecord.surface_metrics.measurements_complete){throw 'Installed APK identity or measurements differ from the tested Merge build.'}
@@ -55,11 +69,14 @@ try{
     $PixelRecord.same_process=$PixelRecord.pid_end -ceq $PixelRecord.pid_start
     if(-not $PixelRecord.same_process){throw 'QA process restarted during measurement; inspect crash logs.'}
     $PixelRecord.measurements_complete=$true
+    $PixelRecord.stage='measurement-complete'
 }catch{$PixelFailure=$_;$PixelRecord.error=$_.Exception.Message}
 finally{
     try{
+        $State=(Invoke-CheckedNative $PixelAdb @('-s',$PixelSerial,'get-state')).Trim();[IO.File]::WriteAllText((Join-Path $PixelOutput 'device-after.txt'),$State)
+        if($State -cne 'device'){throw 'Pixel is offline; no readable crash buffer was captured.'}
         $Raw=Invoke-CheckedNative $PixelAdb @('-s',$PixelSerial,'logcat','-b','crash','-d','-v','epoch','-t','2000')
-        [IO.File]::WriteAllText((Join-Path $PixelOutput 'crash-buffer.txt'),$Raw);$PixelRecord.crash_log_captured=$true
+        Write-MergeCrashEvidence $PixelRecord $Raw (Join-Path $PixelOutput 'crash-buffer.txt')
     }catch{if(-not $PixelFailure){$PixelFailure=$_};$PixelRecord.measurements_complete=$false;$PixelRecord.error+=' Crash log: '+$_.Exception.Message}
     $PixelRecord|ConvertTo-Json -Depth 12|Set-Content -LiteralPath (Join-Path $PixelOutput 'merge-reward-pixel.json') -Encoding UTF8
     try{Compress-Archive -Path (Join-Path $PixelOutput '*') -DestinationPath ($PixelOutput+'.zip');Write-Host ('Pixel evidence ZIP: '+$PixelOutput+'.zip');if($env:OS -eq 'Windows_NT'){Start-Process -FilePath explorer.exe -ArgumentList ('/select,"'+$PixelOutput+'.zip"')}}catch{Write-Host ('Archive/open failed; original evidence preserved: '+$PixelOutput)}

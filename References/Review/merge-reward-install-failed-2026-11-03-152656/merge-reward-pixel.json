@@ -1,0 +1,23 @@
+﻿{
+    "scope":  "merge-reward-pixel-evidence",
+    "gitRevision":  "a8795c21c92233d2fde8071e131f31daf69d5bfe",
+    "productFingerprint":  "a71c1c69836e16ade6ccc7b353f81bb159c7db708194bb0e27cfe59f6721fe3f",
+    "apk_sha256":  "39c4f014e3bea8c17dd454655d247a80e5c6432e94df209528d90ee1f851e9ca",
+    "package":  "com.mofumachi.merge.qa.townlife",
+    "serial":  "99RAY1BELH",
+    "started_utc":  "2026-11-03T06:26:56.6685066+00:00",
+    "measurements_complete":  false,
+    "pixel_verified":  false,
+    "release_accepted":  false,
+    "manual_visual":  "pending",
+    "manual_input":  "pending",
+    "manual_stutter":  "pending",
+    "manual_heat":  "pending",
+    "manual_crash":  "pending",
+    "pid_start":  "",
+    "pid_end":  "",
+    "same_process":  false,
+    "crash_log_captured":  true,
+    "surface_metrics":  null,
+    "error":  "Command failed (1): C:\\Program Files\\Unity\\Hub\\Editor\\6000.6.4f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\SDK\\platform-tools\\adb.exe -s 99RAY1BELH install -r C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\merge-reward-reviewed-pixel-20261103-152132-db7ec19a\\characters-authored.apk\nPerforming Streamed Install\nadb.exe: failed to install C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\merge-reward-reviewed-pixel-20261103-152132-db7ec19a\\characters-authored.apk: "
+}

@@ -1,3 +1,13 @@
+# 2026-11-03最新：APK後のADB install停止／同一APKの転送診断だけ
+
+受領pixel152656-75832264.zipはCRC正常・2raw。sourcea8795c2、APK SHA39c4f014e3bea8c17dd454655d247a80e5c6432e94df209528d90ee1f851e9ca。親runはmerge-reward-reviewed-pixel-20261103-152132-db7ec19a。streaming install-r終了1、Android詳細理由なし。PID／計測なし、アプリ起動前停止。crash-bufferはwaiting for deviceのみで旧crash_log_captured=trueは成功扱い不可。原本をReferences/Review/merge-reward-install-failed-2026-11-03-152656へ保持しreceiptで区別。build-review ZIPは未受領。
+
+根本原因は未確定。次はAPKを作り直さず、test-merge-reward-pixel.ps1 -BuildDirectory（上記152132の正確なrun）-NonStreaming -Serial99RAY1BELH -MeasureSeconds180を1回。install-r --no-streamingの明示選択だけ変え、ADB版／接続状態／/data空き／QAパッケージを読取り記録。Save保持・同一APK SHA・既存QA証跡の検査は維持。全件／準備素材検査／APK生成なし、uninstall／pm clear／downgrade／自動反復なし。再失敗は新ZIPで原因診断へ。
+
+今回変更は検証／転送スクリプトのみ。デフォルトinstaller挙動・SDKパス・製品UI／Core／Save／原画／キャラ／街／BGMは無変更。待機／offline応答をクラッシュバッファ成功にせず、空だが正常読取りのバッファは許可する。Pixel未起動・性能未確認を維持。手順docs/merge-reward-install-retry-2026-11-03.md。既存feature通常push／更新インストール許可は継続。
+
+以下は履歴。
+
 # 2026-11-03最新：修正8件native合格／全件再実行なしでAPK・Pixelへ
 
 受領merge-reward-repair8-20261103-141127-b59f61a2-review01はCRC正常、15entrySHAとCLI／source-info一致。source9a45507／FP8c11a1d4／packed8922587b、実8/8成功・fail／skip／inc0、準備2工程exit0、元4原本SHA一致。原本7点と受領receiptはReferences/Review/merge-reward-repair-eight-passed-2026-11-03-141127/。確認済み範囲は重点53/53、Edit144/144、元Play252/260＋別実行の修正8/8。元Failed XMLを書換えず、全件260/260の再実行成功と表現しない。

@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([string]$Apk,[string]$Adb="$env:ProgramFiles\Unity\Hub\Editor\6000.6.4f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\platform-tools\adb.exe",[string]$Serial,[ValidateSet('com.mofumachi.merge','com.mofumachi.merge.qa','com.mofumachi.merge.qa.townlife','com.mofumachi.merge.qa.growthcheck')][string]$PackageName='com.mofumachi.merge',[switch]$FreshTownQa,[string]$ExpectedSha256)
+param([string]$Apk,[string]$Adb="$env:ProgramFiles\Unity\Hub\Editor\6000.6.4f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\platform-tools\adb.exe",[string]$Serial,[ValidateSet('com.mofumachi.merge','com.mofumachi.merge.qa','com.mofumachi.merge.qa.townlife','com.mofumachi.merge.qa.growthcheck')][string]$PackageName='com.mofumachi.merge',[switch]$FreshTownQa,[string]$ExpectedSha256,[switch]$NonStreaming)
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
 function Invoke-CheckedNative([string]$Executable,[string[]]$NativeArguments) {
@@ -25,10 +25,11 @@ function Select-AuthorizedDevice([string]$Output,[string]$Requested) {
     if($Devices.Count -ne 1){throw 'Connect one device, or select its serial with -Serial.'}
     if($Devices[0].state -ne 'device'){throw 'Unlock Pixel and allow USB debugging.'};return $Devices[0].serial
 }
-function Invoke-PixelInstall([string]$ApkPath,[string]$AdbPath,[string]$RequestedSerial,[string]$ExpectedPackage,[string]$AaptPath,[switch]$FreshTownQa,[string]$ExpectedSha256) {
+function Invoke-PixelInstall([string]$ApkPath,[string]$AdbPath,[string]$RequestedSerial,[string]$ExpectedPackage,[string]$AaptPath,[switch]$FreshTownQa,[string]$ExpectedSha256,[switch]$NonStreaming) {
     # The user explicitly authorized a fresh test of this QA app on this Pixel.
     # Default/update mode never uninstalls or clears any data.
     if($FreshTownQa -and ($ExpectedPackage -ne 'com.mofumachi.merge.qa.townlife' -or $RequestedSerial -ne '99RAY1BELH')){throw 'Fresh mode is limited to the authorized town QA package on Pixel99RAY1BELH.'}
+    if($FreshTownQa -and $NonStreaming){throw 'Non-streaming retry is update-only; never combine with a fresh/reset install.'}
     foreach($Path in @($ApkPath,$AdbPath,$AaptPath)){if(-not(Test-Path -LiteralPath $Path -PathType Leaf)){throw "File missing: $Path"}}
     $ApkPath=(Resolve-Path -LiteralPath $ApkPath).Path
     if($FreshTownQa -or $ExpectedSha256) {
@@ -51,7 +52,10 @@ function Invoke-PixelInstall([string]$ApkPath,[string]$AdbPath,[string]$Requeste
             if($Uninstall -notmatch '(?m)^Success\s*$'){throw "Town QA uninstall failed; stop before installing or clearing anything.`n$Uninstall"}
         }
         $Install=Invoke-CheckedNative $AdbPath @('-s',$Chosen,'install',$ApkPath)
-    } else {$Install=Invoke-CheckedNative $AdbPath @('-s',$Chosen,'install','-r',$ApkPath)}
+    } else {
+        $InstallArguments=@('-s',$Chosen,'install','-r');if($NonStreaming){$InstallArguments+=@('--no-streaming')}
+        $Install=Invoke-CheckedNative $AdbPath ($InstallArguments+@($ApkPath))
+    }
     if($Install -notmatch '(?m)^Success\s*$'){throw "APK install failed. Stop here; do not retry by deleting other apps.`n$Install"}
     if($FreshTownQa) {
         # Android backup may restore the just-installed QA package. Clear only
@@ -61,7 +65,7 @@ function Invoke-PixelInstall([string]$ApkPath,[string]$AdbPath,[string]$Requeste
     }
     Invoke-CheckedNative $AdbPath @('-s',$Chosen,'shell','monkey','-p',$ExpectedPackage,'-c','android.intent.category.LAUNCHER','1') | Write-Host
     if($FreshTownQa){Write-Host "Fresh town QA installed/reset on $Chosen. Verify unselected character, TownLv0,0Coins,and two teaLv1 items; device acceptance remains pending."}
-    else {Write-Host "Installed $ExpectedPackage on $Chosen (API $($Api.Trim())) using install-r. Verify saved progress after restart."}
+    else {$Transfer=if($NonStreaming){'install-r --no-streaming'}else{'install-r'};Write-Host "Installed $ExpectedPackage on $Chosen (API $($Api.Trim())) using $Transfer. Verify saved progress after restart."}
     Write-Host "Restart check: & `"$AdbPath`" -s $Chosen shell am force-stop $ExpectedPackage"
     Write-Host "Then reopen the same app on Pixel. APK SHA256: $((Get-FileHash -LiteralPath $ApkPath -Algorithm SHA256).Hash)"
 }
@@ -69,4 +73,4 @@ if($MyInvocation.InvocationName -eq '.'){return}
 if(-not $Apk){throw 'Specify the newly built APK using -Apk.'}
 $Sdk=Split-Path (Split-Path $Adb -Parent) -Parent
 $Aapt2=Join-Path $Sdk 'build-tools\36.0.0\aapt2.exe'
-Invoke-PixelInstall $Apk $Adb $Serial $PackageName $Aapt2 -FreshTownQa:$FreshTownQa -ExpectedSha256 $ExpectedSha256
+Invoke-PixelInstall $Apk $Adb $Serial $PackageName $Aapt2 -FreshTownQa:$FreshTownQa -ExpectedSha256 $ExpectedSha256 -NonStreaming:$NonStreaming

@@ -1,5 +1,7 @@
 # Merge QA APK・Pixel3aへ継続
 
+最新：APK生成後のinstall-rで停止したPixel ZIPを受領。現在はこのAPK生成コマンドを繰り返さず、[同じAPKのインストール再確認](merge-reward-install-retry-2026-11-03.md)を使う。以下は生成時の手順として保持する。
+
 受領`merge-reward-repair8-20261103-141127-b59f61a2-review-01.zip`はCRC正常、15ファイルのSHAを確認。実Unityの8件は8/8成功、failed／skip／inconclusive0。CLIとsource-infoのsource9a45507／FP8c11a1d4／packed8922587bが一致し、元の4原本のSHAも一致する。今回のraw XML・ログ・ソースJSONと受領記録は`References/Review/merge-reward-repair-eight-passed-2026-11-03-141127/`に保存。
 
 確認がそろった内容は重点53/53、Edit144/144、元のPlay252/260＋失敗8件の再確認8/8。元のPlay XMLは失敗記録のまま保持する。260/260の全件再実行が成功したとは記録しない。製品入力のGitツリーが元全件時点／修正時点／今回APKで同一であること、nativeテストソースが修正時点と同一であることを検査して引き継ぐ。Merge UI・ロジック・Save・正式素材・キャラ・街の変更はない。

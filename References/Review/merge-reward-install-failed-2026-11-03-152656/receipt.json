@@ -1,0 +1,28 @@
+{
+  "kind": "received-pixel-install-failure",
+  "source_revision": "a8795c21c92233d2fde8071e131f31daf69d5bfe",
+  "product_fingerprint": "a71c1c69836e16ade6ccc7b353f81bb159c7db708194bb0e27cfe59f6721fe3f",
+  "apk_sha256": "39c4f014e3bea8c17dd454655d247a80e5c6432e94df209528d90ee1f851e9ca",
+  "package": "com.mofumachi.merge.qa.townlife",
+  "serial": "99RAY1BELH",
+  "failure_stage": "adb install-r streaming before app launch",
+  "measurements_complete": false,
+  "usable_crash_buffer": false,
+  "reported_crash_log_captured": true,
+  "root_cause_confirmed": false,
+  "build_review_received": false,
+  "note": "A waiting-for-device transport status was stored as crash evidence; it is not a crash buffer. Streaming install returned exit1 without Android failure details. Keep original flags/bytes unchanged.",
+  "archive_sha256": "860fbf2ec4f34fcdbb505befe3fda8791ee77da1ef0b53235d089137d6408f8f",
+  "files": [
+    {
+      "path": "crash-buffer.txt",
+      "bytes": 22,
+      "sha256": "5b373e3746b615c0801e7132ef9f4e02f393e4ca646dc8549162a995a0bf0db3"
+    },
+    {
+      "path": "merge-reward-pixel.json",
+      "bytes": 1404,
+      "sha256": "414f9dbb6d8403127876c096693403e38d05c00a4d3957be34e9e4162d66c9d7"
+    }
+  ]
+}

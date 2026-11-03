@@ -1,0 +1,32 @@
+{
+  "required_characters": 572,
+  "fonts": [
+    {
+      "resource": "UIFontAccent",
+      "family": "Mofumachi Accent",
+      "source_family": "Hachi Maru Pop Regular",
+      "source_sha256": "78408910c8f1a2f174a279cbc1484b48b71780039eba3fe1be2bfcc5d4df3f98",
+      "source_url": "https://raw.githubusercontent.com/google/fonts/main/ofl/hachimarupop/HachiMaruPop-Regular.ttf",
+      "subset_sha256": "6453ffe8fd3cba1700d809e4f2d04b7265876017e4c75379df5ffad5576b73bf",
+      "license": "SIL Open Font License 1.1"
+    },
+    {
+      "resource": "UIFontReading",
+      "family": "Mofumachi Reading",
+      "source_family": "Zen Maru Gothic Medium",
+      "source_sha256": "3cfdb98a13571ede17fcc769f5093a97c38b80a7b9b2ab754a26b4d822092b3b",
+      "source_url": "https://raw.githubusercontent.com/google/fonts/main/ofl/zenmarugothic/ZenMaruGothic-Medium.ttf",
+      "subset_sha256": "c75d8126215f9598e4b9e747d73b36e518be3ae519da9a233c5181fa4c375b01",
+      "license": "SIL Open Font License 1.1"
+    },
+    {
+      "resource": "UIFontReadingBold",
+      "family": "Mofumachi Reading Bold",
+      "source_family": "Zen Maru Gothic Bold",
+      "source_sha256": "fe24426b9c8b5523a0146a8235c8674eccf0493af354a53ec895c3596d9eb745",
+      "source_url": "https://raw.githubusercontent.com/google/fonts/main/ofl/zenmarugothic/ZenMaruGothic-Bold.ttf",
+      "subset_sha256": "25dc87771120497abb2e7a239f50d41f353cf2997a94bf38da5ab3fa8fdf8682",
+      "license": "SIL Open Font License 1.1"
+    }
+  ]
+}

@@ -1,3 +1,15 @@
+# 2026-11-03最新：リリース前UX4項目だけ／新候補の実機結果は未取得
+
+ユーザーはPixel3a起動を報告し、次にフォント・今日のお花の受領可視化・街Lv1〜6進行監査・ロゴ色監査だけを指示。過去の転送失敗の継続を今の主作業としない。キャラ2.5D・街・Core・SaveData構造・依頼条件・納品報酬・正式アイテム・BGM・製品ロゴPNGは不変。基点035944bから復元可能。
+
+フォントは旧4資産を一括置換せず、Hachi Maru PopとZen Maru Gothic Medium/Boldの用途別3サブセットを追加。明示UI名へ適用、大見出し・短い大ボタン／会話はHachi、小文字・本文・数値はZen。既存枠でHachiが収まらない場合はZenへ戻す。今日のお花は既存social-journal-v1.jsonのDecorationDaysへ受取日が保存され翌日も保持される。Today内の同じ枠に累計・最新日・受領結果を表示するだけで新しい保存先やコレクションは作らない。
+
+本番の街Lvは納品1件＝1段階。最短Lv3は追加生成4・合成3・納品3。加速の根拠はなく数値変更ゼロ、Lv7追加なし。時間は未実測と計算例を区別し、短い6依頼＋日々の交流として評価。ロゴは原本の外側メ・ュ暖色／中間ル・ジ寒色、配色の明示意図は未確認。A/B生成色見本のみ提出、B（下段水色統一）推奨。厳密な原画形状保証付きの採用素材とせず、本体PNGは変更しない。
+
+docs/release-ux-audit-2026-11-03.mdとdocs/release-ux-windows-2026-11-03.mdを参照。関連C#24件・572文字字形とSHA・APIコンパイル・限定PSガード／証跡fixture確認済み。これは新候補のUnity実行・全件・APK・Pixel合格ではない。Windowsはprepare-release-ux-preview.ps1（重点8件のみ）、候補最終確認は同スクリプト-Final -Installで重点→既存Merge重点→全Edit1回→全Play1回→新APK1個→保存保持のPixel更新。旧版のXML／APK／Pixelを流用しない。失敗は止め、該当箇所だけ直す。歴史的26/552/53・Merge表示6SHAは維持、今回の3UI＋関連3テストだけ新しい厳密なUX例外で許可。GitHub通信・feature通常pushの既存許可は継続。
+
+以下は履歴。
+
 # 2026-11-03最新：APK後のADB install停止／同一APKの転送診断だけ
 
 受領pixel152656-75832264.zipはCRC正常・2raw。sourcea8795c2、APK SHA39c4f014e3bea8c17dd454655d247a80e5c6432e94df209528d90ee1f851e9ca。親runはmerge-reward-reviewed-pixel-20261103-152132-db7ec19a。streaming install-r終了1、Android詳細理由なし。PID／計測なし、アプリ起動前停止。crash-bufferはwaiting for deviceのみで旧crash_log_captured=trueは成功扱い不可。原本をReferences/Review/merge-reward-install-failed-2026-11-03-152656へ保持しreceiptで区別。build-review ZIPは未受領。

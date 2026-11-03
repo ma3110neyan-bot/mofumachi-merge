@@ -1,0 +1,67 @@
+{
+  "kind": "release-ux-host-verification",
+  "baseline_revision": "035944bca6c007f14061d9326cb3e2cfba4f4ad6",
+  "status": "implemented-native-and-device-unverified",
+  "focused_host_tests": {
+    "passed": 24,
+    "failed": 0,
+    "skipped": 0,
+    "filter": "ReleaseUxTests|TownDailyTests|FinalTownGrowthTests"
+  },
+  "font_required_characters": 572,
+  "font_subsets": 3,
+  "font_coverage_and_sha_verified": true,
+  "unity_api_compile": {
+    "Presentation": "passed; zero warnings/errors",
+    "PlayModeTests": "passed; zero warnings/errors",
+    "native_execution": false
+  },
+  "related_powershell_fixtures": [
+    "release-ux-scope.tests.ps1",
+    "merge-reward-preview.tests.ps1",
+    "merge-capture-artifacts.tests.ps1"
+  ],
+  "independent_review": {
+    "important_findings": 1,
+    "fixed": "UX candidate wording in both focused and final viewers; RED->GREEN fixture",
+    "deferred_minor_findings": 0
+  },
+  "native_verified": false,
+  "full_editmode_run": false,
+  "full_playmode_run": false,
+  "apk_generated": false,
+  "pixel_verified": false,
+  "product_core_changed": false,
+  "save_schema_changed": false,
+  "progression_values_changed": false,
+  "level_cap_changed": false,
+  "product_logo_changed": false,
+  "legacy_font_assets_changed": false,
+  "logo_comparison_kind": "generated-color-study-only; not adopted; original geometry not guaranteed in study",
+  "files": [
+    {
+      "path": "Assets/Mofumachi/Presentation/ReleaseFontPolicy.cs",
+      "sha256": "71329b1e6d0e58960da2ffc8702c35470c8ff42ea2a2a26a95dadbcbbb64d208"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/ReleaseTypography.cs",
+      "sha256": "195096be22fa1df8aba57a21674cafaed1c320ba1314da39b58deb977f93d941"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/DailyFlowerPresentation.cs",
+      "sha256": "70a0441157f1be0d59b25bdaa9517c1389176e1cdb67e50d79db5c409f6a54a7"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFontAccent.ttf",
+      "sha256": "6453ffe8fd3cba1700d809e4f2d04b7265876017e4c75379df5ffad5576b73bf"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFontReading.ttf",
+      "sha256": "c75d8126215f9598e4b9e747d73b36e518be3ae519da9a233c5181fa4c375b01"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFontReadingBold.ttf",
+      "sha256": "25dc87771120497abb2e7a239f50d41f353cf2997a94bf38da5ab3fa8fdf8682"
+    }
+  ]
+}

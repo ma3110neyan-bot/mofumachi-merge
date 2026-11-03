@@ -35,11 +35,11 @@ namespace Mofumachi.Presentation
                 w.NarrativeLabel("Today goal hint "+i,hints[i],rect,new Rect(.04f,.03f,.92f,.40f),11);
                 w.Heading("Today goal count "+i,Mathf.Min(counts[i],goals[i])+"/"+goals[i],rect,new Rect(.81f,.47f,.16f,.46f),13);
             }
-            var claim=w.Button("Claim today flower",daily.Data.Claimed?"今日のお花を集めたよ♪\n集めたお花 "+daily.Data.DecorationDays.Count+"こ":"今日のお花を受け取る",pinnedFlower?card:content,new Rect(0,0,1,1),c.Flow.ClaimDaily);
+            var claim=w.Button("Claim today flower",daily.Data.Claimed?"今日のお花を受け取りました♪\n集めたお花 "+daily.Data.DecorationDays.Count+"こ":"今日のお花を受け取る",pinnedFlower?card:content,new Rect(0,0,1,1),c.Flow.ClaimDaily);
             if(pinnedFlower)UIWidgets.Bottom((RectTransform)claim.transform,22,76,22,48);else UIWidgets.Top((RectTransform)claim.transform,8,394,8,48);claim.interactable=daily.ReadyToClaim;
             if(daily.Data.Claimed)claim.GetComponentInChildren<Text>().fontSize=14;
-            string discovery=daily.NewDiscoveryCount>0?"NEW · 仲間の図鑑に新しい発見♪":daily.NextGoal;
-            var message=w.NarrativeLabel("Today next discovery",daily.LastError.Length>0?daily.LastError:"集めたお花 "+daily.Data.DecorationDays.Count+"こ\n"+discovery,content,new Rect(0,0,1,1),13);UIWidgets.Top(message.rectTransform,8,pinnedFlower?334:450,8,58);
+            var message=w.NarrativeLabel("Today next discovery",daily.LastError.Length>0?daily.LastError:DailyFlowerPresentation.Receipt(daily.Data),content,new Rect(0,0,1,1),12);UIWidgets.Top(message.rectTransform,8,pinnedFlower?334:450,8,58);
+            message.lineSpacing=1.05f;
             var goal=TownNextGoal.For(c.Game.State);
             var promise=w.StoryPanel("Today town promise",content,new Rect(0,0,1,1)).rectTransform;UIWidgets.Top(promise,8,pinnedFlower?402:518,8,64);
             w.StoryLabel("Today town next",goal.IsFinale?"明日も、仲間の新しい一面に会おう♪":goal.Title+"\n"+goal.Detail,promise,new Rect(.04f,.05f,.92f,.90f),13);

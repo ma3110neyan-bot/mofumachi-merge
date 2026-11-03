@@ -420,6 +420,7 @@ namespace Mofumachi.Presentation
                     if(LastDelivery==null){Render("home");return;}
                     RewardGrowthScreens.BuildGrowth(root,context,LastDelivery);break;
             }
+            ReleaseTypography.ApplyTo(page.transform);
             if(appPaused)
             {
                 foreach(var reveal in page.GetComponentsInChildren<SoftReveal>())reveal.enabled=false;
@@ -473,6 +474,7 @@ namespace Mofumachi.Presentation
             if(page!=null)foreach(var town in page.GetComponentsInChildren<TownLifeView>())town.CancelInteraction();
             CloseUtilityModal();build(layout.SafeRoot,context);
             modal=layout.SafeRoot.GetChild(layout.SafeRoot.childCount-1).gameObject;modalKind=kind;
+            ReleaseTypography.ApplyTo(modal.transform);
         }
         private void CloseUtilityModal()
         {

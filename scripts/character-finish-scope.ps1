@@ -95,5 +95,8 @@ function Read-CharacterFinishOverrides([string]$Repository,[ValidateSet('noah','
     . (Join-Path $PSScriptRoot 'merge-reward-scope.ps1')
     $Merge=Read-MergeRewardOverrides $Repository
     if($Group -ceq 'legacy'){foreach($Path in $Merge.Keys){$Result[$Path]=$Merge[$Path]}}
+    . (Join-Path $PSScriptRoot 'release-ux-scope.ps1')
+    $Ux=Read-ReleaseUxOverrides $Repository
+    if($Group -ceq 'legacy'){foreach($Path in $Ux.Keys){$Result[$Path]=$Ux[$Path]}}
     return $Result
 }

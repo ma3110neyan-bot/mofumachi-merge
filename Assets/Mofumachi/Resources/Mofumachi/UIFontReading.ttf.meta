@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f63160a0873e4886a510c10dd10992cf
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  fontNames:
+  - Mofumachi Reading
+  includeFontData: 1
+  use2xBehaviour: 0
+  userData:
+  assetBundleName:
+  assetBundleVariant:

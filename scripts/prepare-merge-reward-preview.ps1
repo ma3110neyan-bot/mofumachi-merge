@@ -51,15 +51,16 @@ function Assert-MergeRewardProof([string]$Directory,[string]$Revision,[string]$F
     }
     return $P
 }
-function Write-MergeRewardViewer([string]$Directory,[string]$Reference,$Proof){
+function Write-MergeRewardViewer([string]$Directory,[string]$Reference,$Proof,[switch]$ReleaseUx){
     $ReferenceHtml='<p>原本PNG未配置。Visual Lock比較は未完了です。</p>'
     if(Test-Path -LiteralPath $Reference -PathType Leaf){
         if(-not $Proof.original_png_saved -or (Get-FileHash -LiteralPath $Reference -Algorithm SHA256).Hash -ine $Proof.reference_sha256){throw 'Reference differs from native capture.'}
         Copy-Item -LiteralPath $Reference -Destination (Join-Path $Directory 'screenshots/merge_visual_lock_reward.png');$ReferenceHtml='<img alt="正式Visual Lock" src="merge_visual_lock_reward.png">'
     }
     $Links=(@($Proof.images) | ForEach-Object {'<li><a href="'+$_.file+'">'+$_.file+'</a></li>'}) -join "`n"
+    $AfterStatus=if($ReleaseUx){'Afterは今回の用途別フォント候補です。配色と構成は前回合格版を維持しています。今回のフォント表示は未承認です。'}else{'AfterはVisual合格済みの正式候補です。'}
     @"
-<!doctype html><meta charset="utf-8"><title>Merge ごほうび候補</title><style>body{font:16px sans-serif;background:#fff6ed;color:#5c3535}section{display:flex;gap:12px}img{width:min(31vw,360px);height:auto;object-fit:contain;align-self:flex-start}p{max-width:1000px}</style><h1>Merge・同条件の実Unity描画</h1><p>隔離テストデータです。Beforeは採用済みピンク版（c7329cc）の再構成、AfterはVisual合格済みの正式候補です。青い旧版は新規出力しません。ユーザーの保存データ・Pixel画面ではありません。現在の見た目はfix onlyで固定し、実行テスト・APK・実機確認は別に記録します。</p><section>$ReferenceHtml<img alt="採用済みピンク版Before" src="bread-request-720x1480-before-reconstructed.jpg"><img alt="After候補" src="bread-request-720x1480-after.jpg"></section><p>既存仕様の40 Coinsを表示。見本のジェム報酬は追加していません。</p><h2>全11枚</h2><ul>$Links</ul><a href="merge-reward-native.json">撮影証跡JSON</a>
+<!doctype html><meta charset="utf-8"><title>Merge ごほうび候補</title><style>body{font:16px sans-serif;background:#fff6ed;color:#5c3535}section{display:flex;gap:12px}img{width:min(31vw,360px);height:auto;object-fit:contain;align-self:flex-start}p{max-width:1000px}</style><h1>Merge・同条件の実Unity描画</h1><p>隔離テストデータです。Beforeは採用済みピンク版（c7329cc）の再構成です。$AfterStatus 青い旧版は新規出力しません。ユーザーの保存データ・Pixel画面ではありません。Mergeの形・配色はfix onlyを維持し、実行テスト・APK・実機確認は別に記録します。</p><section>$ReferenceHtml<img alt="採用済みピンク版Before" src="bread-request-720x1480-before-reconstructed.jpg"><img alt="After候補" src="bread-request-720x1480-after.jpg"></section><p>既存仕様の40 Coinsを表示。見本のジェム報酬は追加していません。</p><h2>全11枚</h2><ul>$Links</ul><a href="merge-reward-native.json">撮影証跡JSON</a>
 "@ | Set-Content -LiteralPath (Join-Path $Directory 'screenshots/merge-reward.html') -Encoding UTF8
 }
 function Assert-MergeRewardArtifacts([string]$Directory,[string]$Revision,[string]$Fingerprint,[string]$Packed){
@@ -117,7 +118,7 @@ try{
     Invoke-NoahAuthoredUnity $Editor (Get-MergeRewardArguments $Repo $Run $Revision $Fingerprint $Record.packed_resource_sha256 $Stage) $Run
     Assert-TestRun (Join-Path $Run ($Stage+'.xml')) $(if($MergeOptions.CaptureOnly){1}else{5}) $(if($MergeOptions.CaptureOnly){@('MergeRewardCaptureTests')}else{@('MergeRewardCaptureTests','MergeRewardUiTests','MergeInteractionTests','ProductionFrameUiTests')})
     $Proof=Assert-MergeRewardProof $Run $Revision $Fingerprint $Record.packed_resource_sha256
-    Write-MergeRewardViewer $Run $Reference $Proof
+    Write-MergeRewardViewer $Run $Reference $Proof -ReleaseUx:(Test-Path -LiteralPath (Join-Path $Repo 'References/VisualLock/release-ux-2026-11-03.json') -PathType Leaf)
     $null=Assert-MergeRewardArtifacts $Run $Revision $Fingerprint $Record.packed_resource_sha256;$CaptureReady=$true
     if($MergeOptions.Final){
         foreach($Platform in @('EditMode','PlayMode')){

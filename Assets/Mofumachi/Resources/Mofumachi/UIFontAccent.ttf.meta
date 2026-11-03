@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 12994f4d5e874abea1ada7d515b2e8f8
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  fontNames:
+  - Mofumachi Accent
+  includeFontData: 1
+  use2xBehaviour: 0
+  userData:
+  assetBundleName:
+  assetBundleVariant:

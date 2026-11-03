@@ -1,0 +1,103 @@
+{
+  "kind": "release-ux-font-and-flower-only",
+  "change_authorized": true,
+  "baseline_revision": "035944bca6c007f14061d9326cb3e2cfba4f4ad6",
+  "formal_fixed": false,
+  "adopted": false,
+  "native_verified": false,
+  "pixel_verified": false,
+  "overrides": [
+    {
+      "path": "Assets/Mofumachi/Presentation/UIFlowController.cs",
+      "before_sha256": "f9e24228a7ce20dadb800d4380820694442e4bf6539026a232e7ed49bae3a106",
+      "sha256": "91e36f9359297fc51cef3281cb3fa52df974bf4f098f22ddd64b50a174e11e65"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/UIWidgets.cs",
+      "before_sha256": "0edd18d32869f76ef94e3c4260ffd4e724c378db53baadce28b66cfe2d39f676",
+      "sha256": "c0461745cf47c3b0c32d5ebfbc99191ab63d7a06de8bbd435ec3f583919d4753"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/TownTodayView.cs",
+      "before_sha256": "918324afbd608cb06f74e5f4af6b4d25a88efef470d0695ba101a9892c1580c3",
+      "sha256": "355ba1d7c5c54857d43ca2ab8b20d9515a50c1d3f80fabad331fcfe55c56dbb9"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/StoryTypographyTests.cs",
+      "before_sha256": "4f7f8f51936fde3906dca031bc0db7c87ba02ee7aa5ad3e48ce6dc539cc396fc",
+      "sha256": "66665ad6abac3dca90f49f16b23b910ec0f2e34374aa2fcf37c8d1ff354327b2"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/QualityPassMergeTests.cs",
+      "before_sha256": "78c1f2f655c6ba705117deeced077d44bd1c0f6cd0fdbc5adb2a1683a4eb1b5a",
+      "sha256": "5892c9bb7084923c1e393d2f160ca0a3148096284441fe9a307bbb4e241d477f"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/LayoutNoticeTests.cs",
+      "before_sha256": "622b54b5af6c964684cd99c1252ac75f3d6d5e41471e8d961c16b5d80dc62616",
+      "sha256": "c4f84a9a8b154eec6756ee1768dae217cf2fc3fe9c7adc7c6be99f343a19257e"
+    }
+  ],
+  "additions": [
+    {
+      "path": "Assets/Mofumachi/Presentation/ReleaseFontPolicy.cs",
+      "text_normalized": true,
+      "sha256": "71329b1e6d0e58960da2ffc8702c35470c8ff42ea2a2a26a95dadbcbbb64d208"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/ReleaseFontPolicy.cs.meta",
+      "text_normalized": true,
+      "sha256": "986a6ce2ef7b43aed17cbc784ed00f82132d9239484eb29ee192e58f7b1a6d57"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/ReleaseTypography.cs",
+      "text_normalized": true,
+      "sha256": "195096be22fa1df8aba57a21674cafaed1c320ba1314da39b58deb977f93d941"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/ReleaseTypography.cs.meta",
+      "text_normalized": true,
+      "sha256": "9ccce0e9010ad9dd7b6323eec747e46abaae5da79b4d024875d5d04531acdb32"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/DailyFlowerPresentation.cs",
+      "text_normalized": true,
+      "sha256": "70a0441157f1be0d59b25bdaa9517c1389176e1cdb67e50d79db5c409f6a54a7"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/DailyFlowerPresentation.cs.meta",
+      "text_normalized": true,
+      "sha256": "9fd8f54bd4f02b5240f58307cf181a3bf678388569fd850126a3c3507a46e389"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFontReading.ttf",
+      "text_normalized": false,
+      "sha256": "c75d8126215f9598e4b9e747d73b36e518be3ae519da9a233c5181fa4c375b01"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFontReading.ttf.meta",
+      "text_normalized": true,
+      "sha256": "49ba8df89fee00fa6e53518ce9b42255ad21e662e716bcc93f71c294327624e7"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFontReadingBold.ttf",
+      "text_normalized": false,
+      "sha256": "25dc87771120497abb2e7a239f50d41f353cf2997a94bf38da5ab3fa8fdf8682"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFontReadingBold.ttf.meta",
+      "text_normalized": true,
+      "sha256": "58d906243b6e3305119ee4ce9ee5ddf1fd9880ae4c92d0853f375895cb3ae92c"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFontAccent.ttf",
+      "text_normalized": false,
+      "sha256": "6453ffe8fd3cba1700d809e4f2d04b7265876017e4c75379df5ffad5576b73bf"
+    },
+    {
+      "path": "Assets/Mofumachi/Resources/Mofumachi/UIFontAccent.ttf.meta",
+      "text_normalized": true,
+      "sha256": "d6fd93db61ba96456fb1f00fd01abc02842bd36ef4fce03676c96fbf9edba27d"
+    }
+  ]
+}

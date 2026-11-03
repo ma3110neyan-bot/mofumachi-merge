@@ -53,6 +53,8 @@
     <Compile Include="../../Assets/Mofumachi/Presentation/MergeRewardPresentation.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/MergeRewardPresentation.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/MergePerspective.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/MergePerspective.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownDailyProgress.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownDailyProgress.cs')" />
+    <Compile Include="../../Assets/Mofumachi/Presentation/ReleaseFontPolicy.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/ReleaseFontPolicy.cs')" />
+    <Compile Include="../../Assets/Mofumachi/Presentation/DailyFlowerPresentation.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/DailyFlowerPresentation.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownDailyStore.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownDailyStore.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownCharacterBook.cs" Condition="Exists('../../Assets/Mofumachi/Presentation/TownCharacterBook.cs')" />
     <Compile Include="../../Assets/Mofumachi/Presentation/TownCharacterDialogue.cs" />

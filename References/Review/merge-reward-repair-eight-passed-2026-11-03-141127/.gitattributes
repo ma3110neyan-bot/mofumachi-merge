@@ -1,0 +1,5 @@
+*.xml binary
+*.log binary
+source-info.json binary
+original/*.json binary
+receipt.json text eol=lf

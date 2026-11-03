@@ -1,5 +1,7 @@
 # Merge全件結果から失敗8件だけを確認
 
+最新：8件の実Unity再確認は8/8成功。現在はこの8件診断を繰り返さず、[QA APK・Pixel継続手順](merge-reward-reviewed-pixel-2026-11-03.md)へ進む。以下は診断時の履歴。
+
 実Unity受領結果（run `merge-reward-20261103-112005-85e3d93b`、source `c2297d0`）は重点53/53、EditMode144/144、PlayMode252/260、失敗8・skip0。前回修正した演出テストも合格している。原本3XML・親JSONと受領15ファイルのSHAは`References/Review/merge-reward-full-failed-2026-11-03-112005/`に保存。元の失敗結果を書き換えない。
 
 今回修正したのは製品を変更しないテスト条件だけ。

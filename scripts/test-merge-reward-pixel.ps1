@@ -3,8 +3,10 @@ param([string]$BuildDirectory,[string]$UnityEditorPath='',[string]$Serial='99RAY
 $ErrorActionPreference='Stop'
 $MergePixelOptions=@{Directory=$BuildDirectory;Editor=$UnityEditorPath;Serial=$Serial;Seconds=$MeasureSeconds}
 . (Join-Path $PSScriptRoot 'prepare-merge-reward-preview.ps1')
+. (Join-Path $PSScriptRoot 'merge-reward-reviewed-evidence.ps1')
 function Read-MergeRewardCompletedRun([string]$Directory,$Approval){
     $S=Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $Directory 'merge-reward-source-info.json')|ConvertFrom-Json
+    if($S.scope -ceq 'merge-reward-reviewed-qa-build'){return Read-MergeReviewedBuild $Directory (Resolve-Path -LiteralPath (Split-Path -Parent $PSScriptRoot)).Path $Approval}
     if($S.scope -cne 'merge-reward-ui-candidate' -or $S.error -or $S.gitRevision -cnotmatch '^[a-f0-9]{40}$' -or $S.productFingerprint -cnotmatch '^[a-f0-9]{64}$' -or $S.packed_resource_sha256 -cnotmatch '^[a-f0-9]{64}$' -or $S.approved_design_revision -cne $Approval.source_revision){throw 'Completed approved Merge run identity required.'}
     foreach($Flag in @('capture_verified','focus_verified','full_qa_verified','build_generated','source_unchanged','visual_gate_approved_by_user')){if($S.$Flag -isnot [bool] -or -not $S.$Flag){throw "Merge run not ready for Pixel: $Flag"}}
     $Names=@('focus.xml','EditMode.xml','PlayMode.xml')
@@ -60,7 +62,7 @@ finally{
         [IO.File]::WriteAllText((Join-Path $PixelOutput 'crash-buffer.txt'),$Raw);$PixelRecord.crash_log_captured=$true
     }catch{if(-not $PixelFailure){$PixelFailure=$_};$PixelRecord.measurements_complete=$false;$PixelRecord.error+=' Crash log: '+$_.Exception.Message}
     $PixelRecord|ConvertTo-Json -Depth 12|Set-Content -LiteralPath (Join-Path $PixelOutput 'merge-reward-pixel.json') -Encoding UTF8
-    try{Compress-Archive -Path (Join-Path $PixelOutput '*') -DestinationPath ($PixelOutput+'.zip');Write-Host ('Pixel evidence ZIP: '+$PixelOutput+'.zip')}catch{Write-Host ('Archive failed; original evidence preserved: '+$PixelOutput)}
+    try{Compress-Archive -Path (Join-Path $PixelOutput '*') -DestinationPath ($PixelOutput+'.zip');Write-Host ('Pixel evidence ZIP: '+$PixelOutput+'.zip');if($env:OS -eq 'Windows_NT'){Start-Process -FilePath explorer.exe -ArgumentList ('/select,"'+$PixelOutput+'.zip"')}}catch{Write-Host ('Archive/open failed; original evidence preserved: '+$PixelOutput)}
     Write-Host ('Completed QA run preserved (do not repeat full suites): '+$PixelRun)
 }
 if($PixelFailure){throw $PixelFailure}

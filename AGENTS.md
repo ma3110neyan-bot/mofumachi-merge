@@ -1,3 +1,15 @@
+# 2026-11-03最新：修正8件native合格／全件再実行なしでAPK・Pixelへ
+
+受領merge-reward-repair8-20261103-141127-b59f61a2-review01はCRC正常、15entrySHAとCLI／source-info一致。source9a45507／FP8c11a1d4／packed8922587b、実8/8成功・fail／skip／inc0、準備2工程exit0、元4原本SHA一致。原本7点と受領receiptはReferences/Review/merge-reward-repair-eight-passed-2026-11-03-141127/。確認済み範囲は重点53/53、Edit144/144、元Play252/260＋別実行の修正8/8。元Failed XMLを書換えず、全件260/260の再実行成功と表現しない。
+
+現在-Finalや8件診断を繰り返さない。新prepare-merge-reward-reviewed-pixel.ps1 -RepairDirectory（上記141127の正確なrun）-Install -Serial99RAY1BELH -MeasureSeconds180。原本／修正証跡SHA、original／repair／buildの製品Gitツリー同一・nativeテストツリー同一、承認済み表示SHAを検査。再生成素材は6件の準備入力nativeだけを実行し、通過した同一packed bytesで既存子ビルダーを呼ぶ。元とrepairのpackedは異なるため過去生成物との同一性を推測せず、新6件XML/logと新APKへ正確に結ぶ。全Edit／Play・長時間キャラ撮影・JPEG再撮影なし。
+
+親recordはscope merge-reward-reviewed-qa-build／qa_coverage_verifiedと内訳を持ち、full_qa_verified／full_playmode_rerunはfalse。子builderのtests_run=falseは保持。新素材6件SHAとソース／APK対応をPixel readerでも再検証し、install-r・既存の実Surface計測のみ。build-review01とpixelZIPは同じ新run内、終了時ExplorerでPixelZIP選択。実機だけ失敗なら同runのtest-merge-reward-pixel.ps1で継続しビルドを反復しない。
+
+今回製品Assets／ProjectSettings／Packages／原画／表示6SHAは無変更。最終レビューの新素材バインド指摘は、欠損native証拠／別packedを拒否するRED→GREENと現データ6件ゲートで修正。APK／Pixel成功は未取得なので未確認を維持。Windows手順docs/merge-reward-reviewed-pixel-2026-11-03.md。既存GitHub通常feature pushと実機更新許可は継続、再承認不要。
+
+以下は履歴。
+
 # 2026-11-03最新：Merge重点／Edit合格・Play8件だけ局所検査
 
 受領run merge-reward-20261103-112005-85e3d93bはsource c2297d0／FP456988d0。重点53/53、Edit144/144成功、Play252/260・8失敗、skip／inc0。前回の演出テストはnativeで合格。原本3XML／親JSONと受領15ファイルSHAをReferences/Review/merge-reward-full-failed-2026-11-03-112005/に保存。CLI3工程と親identity一致、source_unchanged true。全件結果をPassedへ変更しない。APK／Pixelは未到達。

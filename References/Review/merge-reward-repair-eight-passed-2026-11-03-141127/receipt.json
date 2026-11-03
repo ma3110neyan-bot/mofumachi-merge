@@ -1,0 +1,151 @@
+{
+  "kind": "received-merge-repair-eight-passed",
+  "source_revision": "9a45507758f32c80a75e6f14237aed7cbd54870d",
+  "product_fingerprint": "8c11a1d4276e1b82f8d62ba62a302a43004a7677ce0e3e342d3bf82f0e826d50",
+  "packed_resource_sha256": "8922587bec2f3b07697fff7de6ac8961237a111e6df48c0f171c836e4c5a6cb9",
+  "original_revision": "c2297d0d3bb0ccceb7291887fb868e8a821a25e0",
+  "native_result": {
+    "total": 8,
+    "passed": 8,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "cli_identity_matches_source_record": true,
+  "original_evidence_hashes_match": true,
+  "archive_sha256": "8aa005b6a7f168179d7153111f6e519998cf732a4af74f2f5126eb83fa6c0d16",
+  "files": [
+    {
+      "path": "source-info.json",
+      "bytes": 3920,
+      "sha256": "1fcc5ea809fbe3eb00df39fd92a25a58f29637ff96145f54aac03074e787bdf9"
+    },
+    {
+      "path": "failed-eight.xml",
+      "bytes": 9934,
+      "sha256": "53e49bbbed9ecea5ba81d78489a75cdd1c1ce4209cbe3a25b9abbd9ee0e866a7"
+    },
+    {
+      "path": "failed-eight.log",
+      "bytes": 55605,
+      "sha256": "ebd3db85d66a2a9c988a4f69131a024c5321bbcc2355d857e0dc7ea9447ce256"
+    },
+    {
+      "path": "original/focus.xml",
+      "bytes": 44592,
+      "sha256": "2d0224b71627455957ad402e588c77ac6a9eefbeed57673a43356557ea952219"
+    },
+    {
+      "path": "original/EditMode.xml",
+      "bytes": 108994,
+      "sha256": "e7f6b27f0013cff661a34b8ee40ad17e44cce35f83509f1602d4c11eaf7746d7"
+    },
+    {
+      "path": "original/PlayMode.xml",
+      "bytes": 360411,
+      "sha256": "9bbff8aeaf574153fdbed270eec125b48e9a3361a9d573c02e4509432cd90100"
+    },
+    {
+      "path": "original/merge-reward-source-info.json",
+      "bytes": 1211,
+      "sha256": "547b719324bac3894ee01492c0b2e00d31170709c8288847fa5010c7cb7cce75"
+    }
+  ],
+  "received_files": [
+    {
+      "path": "original/EditMode.xml",
+      "bytes": 108994,
+      "sha256": "e7f6b27f0013cff661a34b8ee40ad17e44cce35f83509f1602d4c11eaf7746d7",
+      "retained_in_repository": true
+    },
+    {
+      "path": "original/focus.xml",
+      "bytes": 44592,
+      "sha256": "2d0224b71627455957ad402e588c77ac6a9eefbeed57673a43356557ea952219",
+      "retained_in_repository": true
+    },
+    {
+      "path": "original/merge-reward-source-info.json",
+      "bytes": 1211,
+      "sha256": "547b719324bac3894ee01492c0b2e00d31170709c8288847fa5010c7cb7cce75",
+      "retained_in_repository": true
+    },
+    {
+      "path": "original/PlayMode.xml",
+      "bytes": 360411,
+      "sha256": "9bbff8aeaf574153fdbed270eec125b48e9a3361a9d573c02e4509432cd90100",
+      "retained_in_repository": true
+    },
+    {
+      "path": "failed-eight.log",
+      "bytes": 55605,
+      "sha256": "ebd3db85d66a2a9c988a4f69131a024c5321bbcc2355d857e0dc7ea9447ce256",
+      "retained_in_repository": true
+    },
+    {
+      "path": "failed-eight.xml",
+      "bytes": 9934,
+      "sha256": "53e49bbbed9ecea5ba81d78489a75cdd1c1ce4209cbe3a25b9abbd9ee0e866a7",
+      "retained_in_repository": true
+    },
+    {
+      "path": "prepare-five.log",
+      "bytes": 60464,
+      "sha256": "2311b06307d44d15a3fb02ece980be3ff76e0220e06354b20f80fbec99e39fac",
+      "retained_in_repository": false
+    },
+    {
+      "path": "prepare-noah.log",
+      "bytes": 39359,
+      "sha256": "d9fcc720eb6570b83c8cb93d248975b4074529b9a05429900d184bd6babd4e09",
+      "retained_in_repository": false
+    },
+    {
+      "path": "prepared-fio.json",
+      "bytes": 22612,
+      "sha256": "faa5439f12dc21c167af7ea49993a485211212e546d7b221cd80499dde331f49",
+      "retained_in_repository": false
+    },
+    {
+      "path": "prepared-lulu.json",
+      "bytes": 22616,
+      "sha256": "b58b9633348b137255c7e897f205102d4ab2b6603f1d85dfbed96aa5f20b30a2",
+      "retained_in_repository": false
+    },
+    {
+      "path": "prepared-miel.json",
+      "bytes": 22620,
+      "sha256": "241abe5e5db270c93c9c9a96cdcc937c4782f3aff5bbfe5b183eca92b8f2f1bb",
+      "retained_in_repository": false
+    },
+    {
+      "path": "prepared-momo.json",
+      "bytes": 22690,
+      "sha256": "94532f3e9b2ad9e679e30983f58b43315f0adfa5f745e2801db5979cb1c61c3f",
+      "retained_in_repository": false
+    },
+    {
+      "path": "prepared-pom.json",
+      "bytes": 22614,
+      "sha256": "5047f811bd4e763370b229f95af3df40d695f7c6331410004807f5b010236890",
+      "retained_in_repository": false
+    },
+    {
+      "path": "prepared.json",
+      "bytes": 22620,
+      "sha256": "241abe5e5db270c93c9c9a96cdcc937c4782f3aff5bbfe5b183eca92b8f2f1bb",
+      "retained_in_repository": false
+    },
+    {
+      "path": "source-info.json",
+      "bytes": 3920,
+      "sha256": "1fcc5ea809fbe3eb00df39fd92a25a58f29637ff96145f54aac03074e787bdf9",
+      "retained_in_repository": true
+    }
+  ],
+  "full_playmode_original_passed": 252,
+  "full_playmode_original_failed": 8,
+  "full_playmode_rerun": false,
+  "apk_generated": false,
+  "pixel_verified": false
+}

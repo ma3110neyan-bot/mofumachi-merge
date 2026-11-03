@@ -1,0 +1,29 @@
+﻿{
+    "scope":  "merge-reward-ui-candidate",
+    "gitRevision":  "c2297d0d3bb0ccceb7291887fb868e8a821a25e0",
+    "productFingerprint":  "456988d064261544df0a86aa7791914484d6a7179888aa4a9abd6a1515872d0c",
+    "packed_resource_sha256":  "dbb8167f142d311c7cd55f53504400c072e414faf82373c4f6b913c03926a690",
+    "visual_gate_approved_by_user":  true,
+    "approved_design_revision":  "af084ecda712d7aaaf3b4b581496a44f1192f97c",
+    "ui_policy":  "fix-only",
+    "preserved_inputs":  {
+
+                         },
+    "artifact_directory":  "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\merge-reward-20261103-112005-85e3d93b\\screenshots",
+    "image_count":  0,
+    "artifacts":  [
+
+                  ],
+    "qa_artifacts":  [
+
+                     ],
+    "capture_verified":  false,
+    "focus_verified":  false,
+    "full_qa_verified":  false,
+    "build_generated":  false,
+    "pixel_verified":  false,
+    "formal_fixed":  false,
+    "adopted":  false,
+    "source_unchanged":  true,
+    "error":  "Unity exit 2. Preserve this run: C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\merge-reward-20261103-112005-85e3d93b"
+}

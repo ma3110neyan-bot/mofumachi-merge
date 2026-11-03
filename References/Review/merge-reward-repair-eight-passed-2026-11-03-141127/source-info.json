@@ -1,0 +1,55 @@
+﻿{
+    "scope":  "merge-reward-failed-eight-repair",
+    "gitRevision":  "9a45507758f32c80a75e6f14237aed7cbd54870d",
+    "productFingerprint":  "8c11a1d4276e1b82f8d62ba62a302a43004a7677ce0e3e342d3bf82f0e826d50",
+    "packed_resource_sha256":  "8922587bec2f3b07697fff7de6ac8961237a111e6df48c0f171c836e4c5a6cb9",
+    "original_directory":  "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\merge-reward-20261103-112005-85e3d93b",
+    "original_evidence":  {
+                              "original_playmode_failed":  8,
+                              "original_revision":  "c2297d0d3bb0ccceb7291887fb868e8a821a25e0",
+                              "original_playmode_passed":  252,
+                              "original_fingerprint":  "456988d064261544df0a86aa7791914484d6a7179888aa4a9abd6a1515872d0c",
+                              "original_files":  [
+                                                     {
+                                                         "path":  "focus.xml",
+                                                         "bytes":  44592,
+                                                         "sha256":  "2d0224b71627455957ad402e588c77ac6a9eefbeed57673a43356557ea952219"
+                                                     },
+                                                     {
+                                                         "path":  "EditMode.xml",
+                                                         "bytes":  108994,
+                                                         "sha256":  "e7f6b27f0013cff661a34b8ee40ad17e44cce35f83509f1602d4c11eaf7746d7"
+                                                     },
+                                                     {
+                                                         "path":  "PlayMode.xml",
+                                                         "bytes":  360411,
+                                                         "sha256":  "9bbff8aeaf574153fdbed270eec125b48e9a3361a9d573c02e4509432cd90100"
+                                                     },
+                                                     {
+                                                         "path":  "merge-reward-source-info.json",
+                                                         "bytes":  1211,
+                                                         "sha256":  "547b719324bac3894ee01492c0b2e00d31170709c8288847fa5010c7cb7cce75"
+                                                     }
+                                                 ]
+                          },
+    "production_inputs_unchanged":  true,
+    "expected_methods":  [
+                             "Mofumachi.Tests.DailyWorldTests.FlatCellsHaveStableIndexesAndRealNonOverlappingHitRects",
+                             "Mofumachi.Tests.MajorPolishTests.FlatBoardKeepsAlignedEdgesAndAllThirtyCellsActuallyReceiveRaycasts",
+                             "Mofumachi.Tests.ExperienceCaptureTests.NoahAuthoredPartsPreviewPreservesState",
+                             "Mofumachi.Tests.ExperienceCaptureTests.MomoAuthoredPartsPreserveIdentityInputAndState",
+                             "Mofumachi.Tests.ExperienceCaptureTests.LuluAuthoredPartsPreserveIdentityInputAndState",
+                             "Mofumachi.Tests.ExperienceCaptureTests.PomAuthoredPartsPreserveIdentityInputAndState",
+                             "Mofumachi.Tests.ExperienceCaptureTests.FioAuthoredPartsPreserveIdentityInputAndState",
+                             "Mofumachi.Tests.ExperienceCaptureTests.MielAuthoredPartsPreserveIdentityInputAndState"
+                         ],
+    "preserved_inputs":  {
+
+                         },
+    "focused_native_verified":  true,
+    "full_qa_verified":  false,
+    "build_generated":  false,
+    "pixel_verified":  false,
+    "source_unchanged":  true,
+    "error":  ""
+}

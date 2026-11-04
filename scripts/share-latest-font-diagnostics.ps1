@@ -2,7 +2,8 @@
 [CmdletBinding()]
 param()
 
-# Copy existing diagnostics only. No Unity, capture, archive or Git invocation.
+# Publish existing diagnostics only. Never invoke Unity, capture or game tools.
+$ShareRelative = 'References/Review/inbox/latest'
 Set-StrictMode -Version 2.0
 $ErrorActionPreference = 'Stop'
 $MaxFileBytes = 4MB
@@ -76,6 +77,125 @@ function Test-TextBytes([string]$Path) {
     } catch { return $false }
 }
 
+function Find-ShareGit {
+    foreach ($Name in @('git.exe','git')) {
+        $Command = Get-Command $Name -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
+        if ($Command) { return $Command.Source }
+    }
+    if ($env:LOCALAPPDATA) {
+        $Bundled = Get-ChildItem -Path (Join-Path $env:LOCALAPPDATA 'GitHubDesktop/app-*/resources/app/git/cmd/git.exe') -File -ErrorAction SilentlyContinue |
+            Sort-Object LastWriteTimeUtc -Descending | Select-Object -First 1
+        if ($Bundled) { return $Bundled.FullName }
+    }
+    throw 'Git was not found. Install Git for Windows or GitHub Desktop. Nothing was staged.'
+}
+
+function Invoke-ShareGit([string[]]$GitArguments, [switch]$AllowFailure, [switch]$WithoutLocalHooks) {
+    $Options = @('-C',$Repo,'--literal-pathspecs','-c','core.quotepath=false','-c','push.followTags=false')
+    if ($WithoutLocalHooks) { $Options += @('-c',('core.hooksPath=' + $ShareHooks)) }
+    # Windows PowerShell 5.1 treats redirected native stderr as ErrorRecord objects.
+    # Git progress on stderr is not a failure: use the native exit code instead.
+    $SavedPreference = $ErrorActionPreference
+    $SavedConsoleEncoding = [Console]::OutputEncoding
+    $SavedOutputEncoding = $OutputEncoding
+    $SavedTerminalPrompt = [Environment]::GetEnvironmentVariable('GIT_TERMINAL_PROMPT')
+    try {
+        # Git emits UTF-8 paths; PS5.1 otherwise decodes them as the OEM code page.
+        [Console]::OutputEncoding = [Text.UTF8Encoding]::new($false)
+        $OutputEncoding = [Console]::OutputEncoding
+        [Environment]::SetEnvironmentVariable('GIT_TERMINAL_PROMPT','0')
+        $ErrorActionPreference = 'Continue'
+        $Lines = @(& $GitExe @Options @GitArguments 2>&1 | ForEach-Object { $_.ToString() })
+        $Code = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $SavedPreference
+        [Console]::OutputEncoding = $SavedConsoleEncoding
+        $OutputEncoding = $SavedOutputEncoding
+        [Environment]::SetEnvironmentVariable('GIT_TERMINAL_PROMPT',$SavedTerminalPrompt)
+    }
+    if ($Code -ne 0 -and -not $AllowFailure) {
+        throw ("Git failed (exit {0}): git {1}`n{2}`nStopped; no automatic retry." -f $Code,($GitArguments -join ' '),($Lines -join "`n"))
+    }
+    return [pscustomobject]@{Code=$Code;Lines=$Lines}
+}
+
+function Get-ShareGitText([string[]]$GitArguments) {
+    return ((Invoke-ShareGit -GitArguments $GitArguments).Lines -join "`n").Trim()
+}
+
+function Assert-InboxCommit([string]$Revision) {
+    $Parents = (Get-ShareGitText @('rev-list','--parents','-n','1',$Revision)) -split ' '
+    if ($Parents.Count -gt 2) { throw 'An unpushed merge commit exists. It will not be published by this tool.' }
+    $Result = Invoke-ShareGit -GitArguments @('diff-tree','--root','--no-commit-id','--name-only','-r','-z',$Revision)
+    $Paths = @(($Result.Lines -join "`n").Split([char]0) | Where-Object { $_.Length -gt 0 })
+    if ($Paths.Count -eq 0) { throw 'An empty unpushed commit exists. It will not be published by this tool.' }
+    foreach ($Path in $Paths) {
+        if (-not $Path.StartsWith(($ShareRelative + '/'),[StringComparison]::Ordinal)) {
+            throw "Unpushed changes outside the diagnostics inbox exist: $Path. Nothing will be pushed."
+        }
+    }
+}
+
+function Initialize-SharePublication {
+    foreach ($Name in @('GIT_DIR','GIT_WORK_TREE','GIT_COMMON_DIR','GIT_INDEX_FILE','GIT_OBJECT_DIRECTORY','GIT_ALTERNATE_OBJECT_DIRECTORIES')) {
+        if ([Environment]::GetEnvironmentVariable($Name)) { throw "Custom $Name is set. Publication stopped without changing it." }
+    }
+    $Top = Get-ShareGitText @('rev-parse','--show-toplevel')
+    if ([IO.Path]::GetFullPath($Top).TrimEnd([char[]]'\/') -ine $Repo.TrimEnd([char[]]'\/')) {
+        throw 'The script directory is not the Git repository root. Nothing was staged.'
+    }
+    $BranchResult = Invoke-ShareGit -GitArguments @('symbolic-ref','--quiet','--short','HEAD') -AllowFailure
+    if ($BranchResult.Code -ne 0) { throw 'Detached HEAD: run this launcher in a repository checked out on its feature branch. No branch was switched.' }
+    $Branch = ($BranchResult.Lines -join "`n").Trim()
+    if ($Branch -notmatch '^(feat|feature)/') { throw "Expected a feature branch; current branch is $Branch. No branch was switched." }
+    foreach ($State in @('MERGE_HEAD','CHERRY_PICK_HEAD','REVERT_HEAD','rebase-merge','rebase-apply')) {
+        $StatePath = Get-ShareGitText @('rev-parse','--git-path',$State)
+        if (-not [IO.Path]::IsPathRooted($StatePath)) { $StatePath = Join-Path $Repo $StatePath }
+        if (Test-Path -LiteralPath $StatePath) { throw "A Git operation is in progress ($State). Existing changes are preserved." }
+    }
+    if (Get-ShareGitText @('ls-files','--unmerged')) { throw 'Unmerged index entries exist. Existing changes are preserved.' }
+    $Head = Get-ShareGitText @('rev-parse','HEAD')
+    $null = Invoke-ShareGit -GitArguments @('fetch','--no-tags','--no-recurse-submodules','origin',('refs/heads/' + $Branch))
+    $RemoteHead = Get-ShareGitText @('rev-parse','FETCH_HEAD')
+    if ($RemoteHead -ne $Head) {
+        $Ancestor = Invoke-ShareGit -GitArguments @('merge-base','--is-ancestor',$RemoteHead,$Head) -AllowFailure
+        if ($Ancestor.Code -ne 0) { throw 'The remote feature branch is newer or diverged. No merge, reset or retry was performed; existing changes are preserved.' }
+        $Pending = Get-ShareGitText @('rev-list',($RemoteHead + '..' + $Head))
+        foreach ($Revision in ($Pending -split "`n")) { Assert-InboxCommit $Revision }
+    }
+    return [pscustomobject]@{Branch=$Branch;Head=$Head}
+}
+
+function Publish-DiagnosticsInbox($Context, [string]$Latest, [string]$RunName) {
+    if ((Get-ShareGitText @('rev-parse','HEAD')) -ne $Context.Head -or
+        (Get-ShareGitText @('symbolic-ref','--quiet','--short','HEAD')) -ne $Context.Branch) {
+        throw 'HEAD or branch changed while copying. Nothing was staged or pushed.'
+    }
+    # Force-add only this literal directory so ignored .log files are included.
+    $null = Invoke-ShareGit -GitArguments @('add','--force','--',$ShareRelative) -WithoutLocalHooks
+    foreach ($File in Get-ChildItem -LiteralPath $Latest -Recurse -File -Force) {
+        $Relative = $ShareRelative + '/' + $File.FullName.Substring($Latest.Length + 1).Replace('\','/')
+        $Raw = Get-ShareGitText @('hash-object','--no-filters','--',$File.FullName)
+        $Staged = Get-ShareGitText @('rev-parse','--verify',(':' + $Relative))
+        if ($Raw -ne $Staged) { throw "Git transformed diagnostic bytes: $Relative. No commit or push was performed." }
+    }
+    $Diff = Invoke-ShareGit -GitArguments @('diff','--cached','--quiet','--exit-code','--',$ShareRelative) -AllowFailure
+    if ($Diff.Code -eq 1) {
+        # --only excludes all unrelated staged entries while preserving them.
+        $null = Invoke-ShareGit -GitArguments @('commit','--only','--no-gpg-sign','-m',('chore: share font diagnostics ' + $RunName),'--',$ShareRelative) -WithoutLocalHooks
+    } elseif ($Diff.Code -ne 0) { throw 'Cannot inspect staged diagnostics. No commit or push was performed.' }
+    $Revision = Get-ShareGitText @('rev-parse','HEAD')
+    if ($Revision -ne $Context.Head) {
+        if ((Get-ShareGitText @('rev-parse',($Revision + '^'))) -ne $Context.Head) { throw 'Unexpected commit parent. Nothing was pushed.' }
+        Assert-InboxCommit $Revision
+    }
+    if ((Get-ShareGitText @('symbolic-ref','--quiet','--short','HEAD')) -ne $Context.Branch) { throw 'Feature branch changed. Nothing was pushed.' }
+    # Exact SHA and branch, no force, no tags, no retries. Server hooks still apply.
+    $null = Invoke-ShareGit -GitArguments @('push','--porcelain','--no-verify','origin',($Revision + ':refs/heads/' + $Context.Branch))
+    Write-Host ("Published diagnostics to origin/{0} at {1}" -f $Context.Branch,$Revision)
+}
+
+function Invoke-FontDiagnosticShare {
 $Repo = [IO.Path]::GetFullPath((Split-Path -Parent $PSScriptRoot))
 $Diagnostics = Join-Path $Repo 'Builds/Diagnostics'
 Assert-UnlinkedPath $Diagnostics
@@ -94,6 +214,9 @@ $Files = @(Get-RunTextFiles $Run.FullName $Skipped | Sort-Object -Property @{Exp
     else { 2 }
 }},FullName)
 if ($Files.Count -eq 0) { throw 'Latest run has no eligible diagnostic text. Existing inbox is unchanged.' }
+
+$GitExe = Find-ShareGit
+$Publication = Initialize-SharePublication
 
 $Inbox = Join-Path $Repo 'References/Review/inbox'
 $Latest = Join-Path $Inbox 'latest'
@@ -147,8 +270,11 @@ try {
     foreach ($File in $Copied) { $Info.Add(('{0} | {1} | {2}' -f $File.Relative,$File.Bytes,$File.Sha256)) }
     $Info.Add('Skipped eligible paths (if any):')
     foreach ($Line in $Skipped) { $Info.Add($Line) }
-    $Info.Add('Local copy only. Commit and push this inbox separately to publish it to GitHub.')
+    $Info.Add('Publication target: origin/refs/heads/' + $Publication.Branch)
+    $Info.Add('Source repository HEAD: ' + $Publication.Head)
     [IO.File]::WriteAllLines((Join-Path $Stage 'run-info.txt'),$Info.ToArray(),[Text.UTF8Encoding]::new($true))
+    # Preserve raw evidence bytes even with core.autocrlf or parent attributes.
+    [IO.File]::WriteAllText((Join-Path $Stage '.gitattributes'),"* -text -filter -ident -working-tree-encoding`n",[Text.UTF8Encoding]::new($false))
     Assert-UnlinkedPath $Latest
     if (Test-Path -LiteralPath $Latest) {
         Assert-UnlinkedTree $Latest
@@ -168,4 +294,10 @@ try {
 }
 Write-Host ("Copied {0} diagnostic text files ({1} bytes) from {2} to {3}" -f $Copied.Count,$TotalBytes,$Run.Name,$Latest)
 if ($Skipped.Count) { Write-Warning 'Some paths were skipped; see run-info.txt for reasons.' }
-Write-Host 'Copy only. Commit and push References/Review/inbox/latest separately to publish.'
+Publish-DiagnosticsInbox $Publication $Latest $Run.Name
+}
+
+$ShareHooks = Join-Path ([IO.Path]::GetTempPath()) ('font-share-hooks-' + [guid]::NewGuid().ToString('N'))
+$null = [IO.Directory]::CreateDirectory($ShareHooks)
+try { Invoke-FontDiagnosticShare }
+finally { if (Test-Path -LiteralPath $ShareHooks) { [IO.Directory]::Delete($ShareHooks,$true) } }

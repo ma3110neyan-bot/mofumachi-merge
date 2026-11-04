@@ -64,6 +64,14 @@ namespace Mofumachi.Tests
         public void OnlyTheObservedNarrowSettingsDescriptionCanUseTheTwelvePointFloor(string name,int floor)
         {Assert.That(ReleaseFontPolicy.DescriptionMinimumSize(name),Is.EqualTo(floor));}
 
+        [TestCase("Page title","キャラクター図鑑",16)]
+        [TestCase("Page title","ごほうびMerge",0)]
+        [TestCase("Page title","設定",0)]
+        [TestCase("Quest title","キャラクター図鑑",0)]
+        [TestCase("Unknown future label","キャラクター図鑑",0)]
+        public void OnlyTheBookPageTitleCanUseTheHeadingFontFloor(string name,string copy,int floor)
+        {Assert.That(ReleaseFontPolicy.TitleMinimumSize(name,copy),Is.EqualTo(floor));}
+
         [Test] public void FlowerReceiptUsesExistingDatesAndDoesNotMutateTheJournal()
         {
             var daily=new TownDailyService(new MemoryTownDailyStore(),new DateTime(2026,11,3));

@@ -40,8 +40,9 @@ namespace Mofumachi.Tests
             CheckStep("numeric fallback probe",HachiFontCapture.VerifyMeasuredFallback,failures);
             CheckStep("compact Merge header probe",HachiFontCapture.VerifyCompactHeaders,failures);
             CheckStep("settings description probe",HachiFontCapture.VerifyDescriptionFit,failures);
+            CheckStep("narrow book title probe",HachiFontCapture.VerifyNarrowBookTitle,failures);
             var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;
-            foreach(var size in new[]{new Vector2(320,592),new Vector2(360,640),new Vector2(360,740)})
+            foreach(var size in new[]{new Vector2(320,536),new Vector2(320,592),new Vector2(360,640),new Vector2(360,740)})
             {
                 ((RectTransform)canvas.transform).sizeDelta=size;
                 Flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(size,new Rect(0,24,size.x,size.y-48));

@@ -89,6 +89,21 @@ namespace Mofumachi.Tests
             }
             finally{UnityEngine.Object.DestroyImmediate(node);}
         }
+        public static void VerifyNarrowBookTitle()
+        {
+            var node=new GameObject("Page title",typeof(RectTransform),typeof(Text));
+            try
+            {
+                var text=node.GetComponent<Text>();text.text="キャラクター図鑑";text.fontSize=18;text.lineSpacing=1.28f;text.color=new Color(.3f,.2f,.25f);text.rectTransform.anchoredPosition=new Vector2(7,9);text.rectTransform.sizeDelta=new Vector2(142.68f,37.7568f);
+                ReleaseTypography.Apply(text);Canvas.ForceUpdateCanvases();
+                Assert.That(text.preferredHeight,Is.LessThanOrEqualTo(38.2568f));Assert.That(text.fontSize,Is.InRange(16,17));Assert.That(text.font,Is.EqualTo(Resources.Load<Font>("Mofumachi/UIFontAccent")));
+                text.rectTransform.sizeDelta=new Vector2(161.7f,37.7568f);Canvas.ForceUpdateCanvases();Assert.That(text.fontSize,Is.EqualTo(18));
+                text.rectTransform.sizeDelta=new Vector2(142.68f,37.7568f);Canvas.ForceUpdateCanvases();ReleaseTypography.Apply(text);
+                Assert.That(text.preferredHeight,Is.LessThanOrEqualTo(38.2568f));Assert.That(text.GetComponents<HachiFontFit>().Length,Is.EqualTo(1));Assert.That(text.GetComponent<HachiFontFit>().NominalSize,Is.EqualTo(18));
+                Assert.That(text.font,Is.EqualTo(Resources.Load<Font>("Mofumachi/UIFontAccent")));Assert.That(text.rectTransform.sizeDelta,Is.EqualTo(new Vector2(142.68f,37.7568f)));Assert.That(text.rectTransform.anchoredPosition,Is.EqualTo(new Vector2(7,9)));Assert.That(text.color,Is.EqualTo(new Color(.3f,.2f,.25f)));Assert.That(text.lineSpacing,Is.EqualTo(1.28f));
+            }
+            finally{UnityEngine.Object.DestroyImmediate(node);}
+        }
         private static void Verify(string directory,Proof proof)
         {
             if(proof.images.Count!=12||Directory.GetFiles(directory,"*.png").Length!=12)throw new IOException("Twelve actual font-only PNGs required.");

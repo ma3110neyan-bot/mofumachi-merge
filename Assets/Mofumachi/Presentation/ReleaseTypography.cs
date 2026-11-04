@@ -17,7 +17,7 @@ namespace Mofumachi.Presentation
             if(MergeTypography.TryApply(text))return;
             var role=ReleaseFontPolicy.For(text.name,text.fontSize,text.text);
             if(role==ReleaseFontRole.Unchanged)return;
-            if(role==ReleaseFontRole.Accent){ApplyHachi(text,role);return;}
+            if(role==ReleaseFontRole.Accent&&ReleaseFontPolicy.TitleMinimumSize(text.name,text.text)==0){ApplyHachi(text,role);return;}
             var fit=text.GetComponent<HachiFontFit>();if(fit==null)fit=text.gameObject.AddComponent<HachiFontFit>();fit.ApplyNow();
         }
         public static bool Fits(Text text)
@@ -67,7 +67,7 @@ namespace Mofumachi.Presentation
                 var role=ReleaseFontPolicy.For(text.name,text.fontSize,text.text);if(role==ReleaseFontRole.Unchanged)return;
                 if(text.fontSize!=appliedSize)NominalSize=text.fontSize;
                 text.fontSize=NominalSize;ReleaseTypography.ApplyHachi(text,role);
-                int floor=ReleaseFontPolicy.DescriptionMinimumSize(text.name);
+                int floor=Mathf.Max(ReleaseFontPolicy.DescriptionMinimumSize(text.name),ReleaseFontPolicy.TitleMinimumSize(text.name,text.text));
                 while(floor>0&&text.fontSize>floor&&!ReleaseTypography.Fits(text)){text.fontSize--;ReleaseTypography.ApplyHachi(text,role);}
                 appliedSize=text.fontSize;
             }

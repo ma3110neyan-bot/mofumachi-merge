@@ -1,0 +1,44 @@
+{
+  "kind": "font-only-book-title-cloud-verification",
+  "baseline_revision": "1ae54b5ff0a9a3012d1c7ed785774de8e7549b7f",
+  "font_manifest_sha256": "b8b32231255bd06e21ddaf60ae0879d84a250f7dd0943a22ddb96ffe750591c9",
+  "native_before_fix": {
+    "run": "font-only-20261104-192108-59fa8b94",
+    "passed": 1,
+    "failed": 1,
+    "capture_verified": false,
+    "image_count": 0
+  },
+  "remaining_native_preflight_failure": "320x592 book Page title only",
+  "title_scope": {
+    "name": "Page title",
+    "copy": "キャラクター図鑑",
+    "nominal_size": 18,
+    "minimum_size": 16,
+    "font": "Hachi Maru Pop",
+    "native_available_width": 142.68,
+    "ttf_advance_at_18": 144,
+    "ttf_advance_at_17": 136
+  },
+  "rectangles_colors_copy_and_book_logic_unchanged": true,
+  "host_related": {
+    "passed": 53,
+    "failed": 0,
+    "skipped": 0
+  },
+  "api_compile": {
+    "editor_presentation": true,
+    "editor_playmode_tests": true,
+    "non_editor_presentation": true,
+    "warnings": 0,
+    "errors": 0
+  },
+  "scope_artifact_contracts_passed": true,
+  "required_glyphs_verified": 572,
+  "expected_images": 12,
+  "native_after_fix_run": false,
+  "visual_approved": false,
+  "full_tests_run": false,
+  "apk_generated": false,
+  "pixel_run": false
+}

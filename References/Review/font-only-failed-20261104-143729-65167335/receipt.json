@@ -1,0 +1,77 @@
+{
+  "kind": "received-font-only-failure",
+  "run": "font-only-20261104-143729-65167335",
+  "source_revision": "94a954079c40f01fe94db269dd6f824abfeb148a",
+  "product_fingerprint": "d006035245782be04e107d84e21daa6493b23f4d2595542dc293878fbcf4df62",
+  "packed_resource_sha256": "8374d92c69cd88ed033e4eb04511c55f1acb30befdac29f26943e94a2ea53ae9",
+  "native_tests": {
+    "passed": 1,
+    "failed": 1,
+    "skipped": 0
+  },
+  "actual_failure": "Current request caption: preferred height 16; fixed rectangle height 12; allowed test height 13",
+  "capture_verified": false,
+  "accepted_image_count": 0,
+  "received_files": [
+    {
+      "file": "prepare-five.log",
+      "sha256": "3c9f15f1db505ef8295c363301a35a6332f3c1f966241601a9636accd66864bf",
+      "bytes": 59387
+    },
+    {
+      "file": "prepared-pom.json",
+      "sha256": "5047f811bd4e763370b229f95af3df40d695f7c6331410004807f5b010236890",
+      "bytes": 22614
+    },
+    {
+      "file": "capture.log",
+      "sha256": "7d7fdfd5340366b3912326ee7a4d8a99914c7f83d83aed1412af2e7780b5f0e9",
+      "bytes": 53638
+    },
+    {
+      "file": "prepare-noah.log",
+      "sha256": "07f1dc4607755480322399dd1cd630893bccad7168163534d158e29aa14fde1b",
+      "bytes": 3254599
+    },
+    {
+      "file": "prepared.json",
+      "sha256": "241abe5e5db270c93c9c9a96cdcc937c4782f3aff5bbfe5b183eca92b8f2f1bb",
+      "bytes": 22620
+    },
+    {
+      "file": "capture.xml",
+      "sha256": "fce12703639b4daa79ee5bdd7ef710f951a955e32ac3d656099b5911166263e0",
+      "bytes": 6285
+    },
+    {
+      "file": "font-only-source-info.json",
+      "sha256": "2b72281933324c0359b314580df07c0cd8f3828eb93e98b4c7173ebbf955baf9",
+      "bytes": 792
+    },
+    {
+      "file": "prepared-fio.json",
+      "sha256": "faa5439f12dc21c167af7ea49993a485211212e546d7b221cd80499dde331f49",
+      "bytes": 22612
+    },
+    {
+      "file": "prepared-lulu.json",
+      "sha256": "b58b9633348b137255c7e897f205102d4ab2b6603f1d85dfbed96aa5f20b30a2",
+      "bytes": 22616
+    },
+    {
+      "file": "prepared-momo.json",
+      "sha256": "94532f3e9b2ad9e679e30983f58b43315f0adfa5f745e2801db5979cb1c61c3f",
+      "bytes": 22690
+    },
+    {
+      "file": "prepared-miel.json",
+      "sha256": "241abe5e5db270c93c9c9a96cdcc937c4782f3aff5bbfe5b183eca92b8f2f1bb",
+      "bytes": 22620
+    }
+  ],
+  "original_archive": {
+    "file": "received-originals.zip",
+    "sha256": "41f2a16b11464728509467d2a1713506c0c68f5b193744b528d5e0e02ed62d82",
+    "files": 11
+  }
+}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Mofumachi.Presentation;
 using NUnit.Framework;
@@ -13,13 +14,17 @@ namespace Mofumachi.Tests
         private void CheckText()
         {
             Canvas.ForceUpdateCanvases();Canvas.ForceUpdateCanvases();Canvas.ForceUpdateCanvases();
+            var failures=new List<string>();
             foreach(var text in Flow.GetComponentsInChildren<Text>().Where(t=>!string.IsNullOrEmpty(t.text)&&ReleaseFontPolicy.For(t.name,t.fontSize,t.text)!=ReleaseFontRole.Unchanged))
             {
+                try{
                 HachiFontCapture.AssertTypeface(text);
                 Assert.That(text.resizeTextForBestFit,Is.False,text.name+": never shrink whole UI");
                 foreach(char glyph in text.text.Where(c=>!char.IsWhiteSpace(c)).Distinct())Assert.That(text.font.HasCharacter(glyph),Is.True,text.name+": missing "+glyph);
                 Assert.That(text.preferredHeight,Is.LessThanOrEqualTo(text.rectTransform.rect.height+1),text.name+": text must fit its existing bounds");
+                }catch(AssertionException error){failures.Add(text.name+": "+error.Message);}
             }
+            Assert.That(failures,Is.Empty,string.Join("\n",failures));
         }
         [UnityTest] public IEnumerator ScopedFontsFitTitleTownMergeBookSettingsAndTodayAtPhoneSizes()
         {
@@ -27,6 +32,7 @@ namespace Mofumachi.Tests
             Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Start label").font,Is.EqualTo(Resources.Load<Font>("Mofumachi/UIFontAccent")));
             yield return EnterHome();
             HachiFontCapture.VerifyMeasuredFallback();
+            HachiFontCapture.VerifyCompactHeaders();
             var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;
             foreach(var size in new[]{new Vector2(320,592),new Vector2(360,640),new Vector2(360,740)})
             {

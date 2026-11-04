@@ -23,6 +23,10 @@ namespace Mofumachi.Presentation
         public static bool TryApply(Text text)
         {
             if(text.GetComponentInParent<MergeRewardView>()==null||MergeRewardPresentation.CapturePinkBaseline)return false;
+            if(ReleaseFontPolicy.CompactMinimumSize(text.name)>0)
+            {
+                var fit=text.GetComponent<MergeCompactFontFit>();if(fit==null)fit=text.gameObject.AddComponent<MergeCompactFontFit>();fit.ApplyNow();return true;
+            }
             if(text.name=="Item level")
             {
                 ReleaseTypography.ApplyHachi(text,ReleaseFontRole.ReadingBold);
@@ -59,6 +63,30 @@ namespace Mofumachi.Presentation
         }
     }
     public sealed class MergeFontEdge:Outline { }
+    public sealed class MergeCompactFontFit:MonoBehaviour
+    {
+        private Text text;private int appliedSize;private bool dirty=true,applying;
+        public int NominalSize {get;private set;}
+        private void OnEnable(){text=GetComponent<Text>();if(NominalSize<=0||text.fontSize!=appliedSize)NominalSize=text.fontSize;appliedSize=text.fontSize;text.RegisterDirtyLayoutCallback(MarkDirty);Canvas.preWillRenderCanvases+=Fit;dirty=true;}
+        private void OnDisable(){if(text!=null)text.UnregisterDirtyLayoutCallback(MarkDirty);Canvas.preWillRenderCanvases-=Fit;}
+        private void OnRectTransformDimensionsChange(){dirty=true;Fit();}
+        private void MarkDirty(){dirty=true;}
+        public void ApplyNow(){dirty=true;Fit();}
+        private void Fit()
+        {
+            if(!dirty||text==null||applying)return;applying=true;
+            try
+            {
+                if(text.fontSize!=appliedSize)NominalSize=text.fontSize;
+                text.fontSize=NominalSize;var role=ReleaseFontPolicy.For(text.name,text.fontSize,text.text);ReleaseTypography.ApplyHachi(text,role);
+                int floor=ReleaseFontPolicy.CompactMinimumSize(text.name);
+                // Only these two fixed auxiliary rows: both full-size faces overflow.
+                while(floor>0&&text.fontSize>floor&&!ReleaseTypography.Fits(text)){text.fontSize--;ReleaseTypography.ApplyHachi(text,role);}
+                appliedSize=text.fontSize;
+            }
+            finally{applying=false;dirty=false;}
+        }
+    }
     public sealed class MergeLevelFontFit:MonoBehaviour
     {
         private Text text;private bool dirty=true,applying;

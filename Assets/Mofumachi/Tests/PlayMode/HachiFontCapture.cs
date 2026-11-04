@@ -15,7 +15,7 @@ namespace Mofumachi.Tests
     // Optional actual-Unity output from the existing isolated font test. No new test registration.
     public static class HachiFontCapture
     {
-        [Serializable] private sealed class FontRow {public string name,font,resource,style,reason;public int size;public bool hachi_fits;}
+        [Serializable] private sealed class FontRow {public string name,font,resource,style,reason;public int size,nominal_size;public bool hachi_fits;}
         [Serializable] private sealed class Shot {public string file,sha256,screen,state_sha256,geometry_sha256;public int width,height;public List<FontRow> fonts=new List<FontRow>();}
         [Serializable] private sealed class Proof
         {
@@ -53,6 +53,26 @@ namespace Mofumachi.Tests
                 Assert.That(node.GetComponents<HachiFontFit>().Length,Is.EqualTo(1));Assert.That(text.fontSize,Is.EqualTo(12));Assert.That(text.rectTransform.anchoredPosition,Is.EqualTo(new Vector2(7,9)));Assert.That(text.color,Is.EqualTo(new Color(.3f,.2f,.25f)));
             }
             finally{UnityEngine.Object.DestroyImmediate(node);}
+        }
+        public static void VerifyCompactHeaders()
+        {
+            var root=new GameObject("Compact Merge header regression",typeof(RectTransform),typeof(MergeRewardView));
+            try
+            {
+                foreach(string name in new[]{"Current request caption","Merge reward coins"})
+                {
+                    var node=new GameObject(name,typeof(RectTransform),typeof(Text));node.transform.SetParent(root.transform,false);
+                    var text=node.GetComponent<Text>();text.text=name=="Current request caption"?"現在の依頼":"達成ごほうび 30 Coins";text.fontSize=11;text.color=new Color(.3f,.2f,.25f);text.rectTransform.anchoredPosition=new Vector2(7,9);text.rectTransform.sizeDelta=new Vector2(200,12);
+                    ReleaseTypography.Apply(text);Canvas.ForceUpdateCanvases();
+                    Assert.That(text.preferredHeight,Is.LessThanOrEqualTo(12.5f),name+": native failure was 16 in a 12px row");
+                    Assert.That(text.fontSize,Is.InRange(8,10));Assert.That(text.font,Is.EqualTo(Resources.Load<Font>("Mofumachi/UIFontAccent")));
+                    text.rectTransform.sizeDelta=new Vector2(200,24);Canvas.ForceUpdateCanvases();Assert.That(text.fontSize,Is.EqualTo(11),"Restore authored size when it fits");
+                    text.rectTransform.sizeDelta=new Vector2(200,12);Canvas.ForceUpdateCanvases();ReleaseTypography.Apply(text);
+                    Assert.That(text.preferredHeight,Is.LessThanOrEqualTo(12.5f));Assert.That(text.GetComponents<MergeCompactFontFit>().Length,Is.EqualTo(1));Assert.That(text.GetComponent<MergeCompactFontFit>().NominalSize,Is.EqualTo(11));
+                    Assert.That(text.rectTransform.sizeDelta,Is.EqualTo(new Vector2(200,12)));Assert.That(text.rectTransform.anchoredPosition,Is.EqualTo(new Vector2(7,9)));Assert.That(text.color,Is.EqualTo(new Color(.3f,.2f,.25f)));
+                }
+            }
+            finally{UnityEngine.Object.DestroyImmediate(root);}
         }
         private static void Verify(string directory,Proof proof)
         {
@@ -100,7 +120,7 @@ namespace Mofumachi.Tests
                         {
                             AssertTypeface(text);Assert.That(text.preferredHeight,Is.LessThanOrEqualTo(text.rectTransform.rect.height+.5f),text.name+": existing bounds");
                             foreach(char c in text.text.Where(c=>!char.IsWhiteSpace(c)).Distinct())Assert.That(text.font.HasCharacter(c),Is.True,text.name+": missing glyph");
-                            var hachi=Resources.Load<Font>("Mofumachi/UIFontAccent");row.fonts.Add(new FontRow{name=text.name,font=text.font.name,resource=text.font==hachi?"UIFontAccent":text.font==Resources.Load<Font>("Mofumachi/UIFontReadingBold")?"UIFontReadingBold":"UIFontReading",style=text.fontStyle.ToString(),size=text.fontSize,hachi_fits=text.font==hachi,reason=text.font==hachi?"Hachi primary":"Hachi measured overflow; Zen fallback"});
+                            var hachi=Resources.Load<Font>("Mofumachi/UIFontAccent");var compact=text.GetComponent<MergeCompactFontFit>();row.fonts.Add(new FontRow{name=text.name,font=text.font.name,resource=text.font==hachi?"UIFontAccent":text.font==Resources.Load<Font>("Mofumachi/UIFontReadingBold")?"UIFontReadingBold":"UIFontReading",style=text.fontStyle.ToString(),size=text.fontSize,nominal_size=compact==null?text.fontSize:compact.NominalSize,hachi_fits=text.font==hachi,reason=text.font==hachi?"Hachi primary":"Hachi measured overflow; Zen fallback"});
                         }
                         Canvas.ForceUpdateCanvases();Canvas.ForceUpdateCanvases();
                         foreach(var text in flow.GetComponentsInChildren<Text>().Where(t=>!string.IsNullOrEmpty(t.text)&&!t.canvasRenderer.cull&&ReleaseFontPolicy.For(t.name,t.fontSize,t.text)!=ReleaseFontRole.Unchanged))Assert.That(text.canvasRenderer.GetMesh().vertexCount,Is.GreaterThan(0),text.name+": actual glyph mesh");

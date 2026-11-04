@@ -46,6 +46,15 @@ namespace Mofumachi.Tests
             Assert.That(ReleaseFontPolicy.Resource(ReleaseFontRole.Unchanged,true),Is.Null);
         }
 
+        [TestCase("Current request caption",8)]
+        [TestCase("Merge reward coins",8)]
+        [TestCase("Page title",0)]
+        [TestCase("Coins value",0)]
+        [TestCase("Town bubble",0)]
+        [TestCase("Unknown future label",0)]
+        public void OnlyTheTwoFixedMergeHeaderRowsCanUseTheCompactFontFloor(string name,int floor)
+        {Assert.That(ReleaseFontPolicy.CompactMinimumSize(name),Is.EqualTo(floor));}
+
         [Test] public void FlowerReceiptUsesExistingDatesAndDoesNotMutateTheJournal()
         {
             var daily=new TownDailyService(new MemoryTownDailyStore(),new DateTime(2026,11,3));

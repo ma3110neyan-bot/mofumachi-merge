@@ -1,0 +1,40 @@
+{
+  "kind": "font-only-header-fix-verification",
+  "baseline_revision": "94a954079c40f01fe94db269dd6f824abfeb148a",
+  "font_only_manifest_sha256": "123e05425bab7f5ebfdb383e6abc04edff8a546c3797fad84eb64a46e25d76b9",
+  "native_before_fix": {
+    "run": "font-only-20261104-143729-65167335",
+    "passed": 1,
+    "failed": 1,
+    "images": 0,
+    "capture_verified": false
+  },
+  "fix_scope": [
+    "Current request caption",
+    "Merge reward coins"
+  ],
+  "ui_rectangles_changed": false,
+  "font_floor": 8,
+  "host_related": {
+    "passed": 42,
+    "failed": 0,
+    "skipped": 0
+  },
+  "api_compile": {
+    "presentation": true,
+    "playmode_tests": true,
+    "non_editor_presentation": true,
+    "warnings": 0,
+    "errors": 0
+  },
+  "scope_artifact_contracts_passed": true,
+  "fonts_and_graphics_unchanged": true,
+  "required_glyphs_verified": 572,
+  "native_after_fix_run": false,
+  "visual_approved": false,
+  "full_tests_run": false,
+  "apk_generated": false,
+  "pixel_run": false,
+  "nominal_size_restoration_implemented": true,
+  "native_compact_header_regression_added": true
+}

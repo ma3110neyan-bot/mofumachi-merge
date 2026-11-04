@@ -41,15 +41,15 @@ namespace Mofumachi.Presentation
             foreach(float x in new[]{0f,.6f}){var line=Node("Gold line",r,new Rect(x,.47f,.4f,.06f)).gameObject.AddComponent<Image>();line.color=new Color(.9f,.72f,.39f,.65f);line.raycastTarget=false;}
             Icon("Divider flower",UIIcon.Flower,r,new Rect(.44f,0,.12f,1)); }
         public Text Label(string name,string text,RectTransform parent,Rect anchors,int fontSize)
-        { var t=Node(name,parent,anchors).gameObject.AddComponent<Text>(); t.font=font; t.text=text; t.fontSize=fontSize; t.color=Ink; t.alignment=TextAnchor.MiddleCenter; t.raycastTarget=false; t.horizontalOverflow=HorizontalWrapMode.Wrap; t.verticalOverflow=VerticalWrapMode.Truncate; return t; }
+        { var t=Node(name,parent,anchors).gameObject.AddComponent<Text>(); t.font=font; t.text=text; t.fontSize=fontSize; t.color=Ink; t.alignment=TextAnchor.MiddleCenter; t.raycastTarget=false; t.horizontalOverflow=HorizontalWrapMode.Wrap; t.verticalOverflow=VerticalWrapMode.Truncate; ReleaseTypography.Apply(t); return t; }
         public Text Heading(string name,string text,RectTransform parent,Rect anchors,int fontSize)
-        { var t=Label(name,text,parent,anchors,fontSize);t.font=bold;var shadow=t.gameObject.AddComponent<Shadow>();shadow.effectColor=new Color(.84f,.65f,.33f,.35f);shadow.effectDistance=new Vector2(0,-.6f);return t; }
+        { var t=Label(name,text,parent,anchors,fontSize);t.font=bold;var shadow=t.gameObject.AddComponent<Shadow>();shadow.effectColor=new Color(.84f,.65f,.33f,.35f);shadow.effectDistance=new Vector2(0,-.6f);ReleaseTypography.Apply(t);return t; }
         public Text StoryLabel(string name,string text,RectTransform parent,Rect anchors,int fontSize)
-        { var t=Label(name,text,parent,anchors,fontSize);t.font=story;t.lineSpacing=1.28f;t.color=StoryInk;ReleaseTypography.ApplyConversation(t);return t; }
+        { var t=Label(name,text,parent,anchors,fontSize);t.font=story;t.lineSpacing=1.28f;t.color=StoryInk;ReleaseTypography.ApplyConversation(t);ReleaseTypography.Apply(t);return t; }
         public Text StoryHeading(string name,string text,RectTransform parent,Rect anchors,int fontSize)
         { return StoryLabel(name,text,parent,anchors,fontSize); }
         public Text NarrativeLabel(string name,string text,RectTransform parent,Rect anchors,int fontSize)
-        {var t=Label(name,text,parent,anchors,fontSize);t.font=bodyFont;t.lineSpacing=1.28f;t.color=StoryInk;ReleaseTypography.ApplyConversation(t);return t;}
+        {var t=Label(name,text,parent,anchors,fontSize);t.font=bodyFont;t.lineSpacing=1.28f;t.color=StoryInk;ReleaseTypography.ApplyConversation(t);ReleaseTypography.Apply(t);return t;}
         public Text StoryRibbon(string name,string text,RectTransform parent,Rect anchors,int fontSize,Color? tint=null)
         { var r=Node(name+" ribbon",parent,anchors);var g=r.gameObject.AddComponent<RibbonGraphic>();g.color=tint??RosePaper;g.raycastTarget=false;return StoryHeading(name,text,r,new Rect(.09f,.04f,.82f,.92f),fontSize); }
         public void Flowers(RectTransform panel)

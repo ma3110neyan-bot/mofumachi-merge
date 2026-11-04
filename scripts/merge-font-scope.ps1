@@ -1,4 +1,5 @@
 # Exact typography amendment; historical UX, Merge layout and character locks remain intact.
+. (Join-Path $PSScriptRoot 'font-only-scope.ps1')
 function Read-MergeFontTypographyOverride([string]$Repository,[string]$Path,[string]$ParentHash){
     $File=Join-Path $Repository 'References/VisualLock/merge-font-visual-2026-11-04.json'
     if(-not(Test-Path -LiteralPath $File -PathType Leaf)){return $ParentHash}
@@ -20,10 +21,10 @@ function Read-MergeFontTypographyOverride([string]$Repository,[string]$Path,[str
     foreach($Row in @($C.additions)){
         if($Row.path -cnotin $Added -or $Seen.ContainsKey($Row.path) -or $Row.sha256 -cnotmatch '^[a-f0-9]{64}$'){throw 'Unrelated font addition refused.'};$Seen[$Row.path]=$true
         $Actual=Join-Path $Repository $Row.path
-        if(-not(Test-Path -LiteralPath $Actual -PathType Leaf) -or ((Get-Item -LiteralPath $Actual -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) -or (Get-FinishTextHash $Actual) -cne $Row.sha256){throw 'Font helper missing/changed.'}
+        if(-not(Test-Path -LiteralPath $Actual -PathType Leaf) -or ((Get-Item -LiteralPath $Actual -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) -or (Get-FinishTextHash $Actual) -cne (Read-FontOnlyExpected $Repository $Row.path $Row.sha256)){throw 'Font helper missing/changed.'}
     }
     $Actual=Join-Path $Repository $Rows[0].path
-    if(-not(Test-Path -LiteralPath $Actual -PathType Leaf) -or ((Get-Item -LiteralPath $Actual -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) -or (Get-FinishTextHash $Actual) -cne $Rows[0].sha256){throw 'Font entry point changed.'}
-    if($Path -ceq $Rows[0].path){if($ParentHash -cne $Rows[0].before_sha256){throw 'Typography amendment parent differs.'};return $Rows[0].sha256}
-    return $ParentHash
+    if(-not(Test-Path -LiteralPath $Actual -PathType Leaf) -or ((Get-Item -LiteralPath $Actual -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) -or (Get-FinishTextHash $Actual) -cne (Read-FontOnlyExpected $Repository $Rows[0].path $Rows[0].sha256)){throw 'Font entry point changed.'}
+    if($Path -ceq $Rows[0].path){if($ParentHash -cne $Rows[0].before_sha256){throw 'Typography amendment parent differs.'};return (Read-FontOnlyExpected $Repository $Path $Rows[0].sha256)}
+    return (Read-FontOnlyExpected $Repository $Path $ParentHash)
 }

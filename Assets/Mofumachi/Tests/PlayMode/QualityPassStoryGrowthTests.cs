@@ -10,14 +10,14 @@ namespace Mofumachi.Tests
 {
     public sealed class QualityPassStoryGrowthTests : SliceUiTestFixture
     {
-        [UnityTest] public IEnumerator BodyUsesKleeWhileButtonsCountsAndLevelsKeepUiFonts()
+        [UnityTest] public IEnumerator HachiIsPrimaryAndInformationUsesOnlyMeasuredFallbacks()
         {
             yield return EnterHome();Flow.ShowQuest();Canvas.ForceUpdateCanvases();
             var body=Resources.Load<Font>("Mofumachi/UIFontBody");Assert.That(body,Is.Not.Null);
             var instruction=Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Quest instruction");
-            Assert.That(instruction.font,Is.EqualTo(body));Assert.That(instruction.text,Is.EqualTo(QuestStoryPresentation.For("tea-01").Before));
-            Assert.That(Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Accept quest").GetComponentInChildren<Text>().font,Is.EqualTo(Resources.Load<Font>("Mofumachi/UIFontBold")));
-            Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Required count 0").font,Is.EqualTo(Resources.Load<Font>("Mofumachi/UIFont")));
+            HachiFontCapture.AssertTypeface(instruction);Assert.That(instruction.text,Is.EqualTo(QuestStoryPresentation.For("tea-01").Before));
+            HachiFontCapture.AssertTypeface(Flow.GetComponentsInChildren<Button>().Single(b=>b.name=="Accept quest").GetComponentInChildren<Text>());
+            HachiFontCapture.AssertTypeface(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Required count 0"));
             foreach(int height in new[]{592,640,808})
             {
                 var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;((RectTransform)canvas.transform).sizeDelta=new Vector2(360,height);

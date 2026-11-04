@@ -19,7 +19,14 @@ try{
         $Font=Get-Content -LiteralPath (Join-Path $Repo $FontRelative) -Raw -Encoding UTF8|ConvertFrom-Json
         foreach($Row in @($Font.additions)){$Target=Join-Path $Root $Row.path;New-Item -ItemType Directory -Path (Split-Path -Parent $Target) -Force|Out-Null;Copy-Item -LiteralPath (Join-Path $Repo $Row.path) -Destination $Target}
     }
-    if((Read-ReleaseUxOverrides $Root).Count -ne 6){throw 'Six exact font/receipt/test overrides required.'}
+    $FontOnlyRelative='References/VisualLock/font-only-2026-11-04.json';$ExpectedCount=6
+    if(Test-Path -LiteralPath (Join-Path $Repo $FontOnlyRelative)){
+        Copy-Item -LiteralPath (Join-Path $Repo $FontOnlyRelative) -Destination (Join-Path $Root $FontOnlyRelative)
+        $FontOnly=Get-Content -LiteralPath (Join-Path $Repo $FontOnlyRelative) -Raw -Encoding UTF8|ConvertFrom-Json
+        foreach($Row in @($FontOnly.overrides)+@($FontOnly.additions)){$Target=Join-Path $Root $Row.path;New-Item -ItemType Directory -Path (Split-Path -Parent $Target) -Force|Out-Null;Copy-Item -LiteralPath (Join-Path $Repo $Row.path) -Destination $Target}
+        $ExpectedCount=@(@($C.overrides.path)+@($FontOnly.overrides.path)|Select-Object -Unique).Count
+    }
+    if((Read-ReleaseUxOverrides $Root).Count -ne $ExpectedCount){throw 'Exact parent plus font-only overrides required.'}
     foreach($Case in @('core','art','character','duplicate','baseline','native','pixel','fixed','missing-font','hash')){
         $Bad=$Good|ConvertFrom-Json
         switch($Case){

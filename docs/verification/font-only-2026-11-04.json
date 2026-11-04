@@ -1,0 +1,35 @@
+{
+  "kind": "font-only-cloud-verification",
+  "date_jst": "2026-11-04",
+  "baseline_revision": "7d95057c852ce63720ccd43cf382408c7a6dcc41",
+  "font_only_manifest_sha256": "f8d14c88f195dfb30907074062952c3ca819350d1d52d63d275b32fd076472f5",
+  "host_related": {
+    "passed": 36,
+    "failed": 0,
+    "skipped": 0,
+    "filter": "ReleaseUxTests|MergeFontProfileTests"
+  },
+  "api_compile": {
+    "editor_presentation": true,
+    "editor_playmode_tests": true,
+    "non_editor_presentation": true,
+    "warnings": 0,
+    "errors": 0
+  },
+  "powershell_fixtures": {
+    "font_only_artifacts_scope_arguments_package": true,
+    "legacy_ux_scope": true,
+    "synthetic_not_unity": true
+  },
+  "protected_source_guards_passed": true,
+  "fonts_unchanged": true,
+  "required_glyphs": 572,
+  "native_unity_run": false,
+  "native_images_generated": 0,
+  "visual_approved": false,
+  "full_editmode_run": false,
+  "full_playmode_run": false,
+  "apk_generated": false,
+  "pixel_run": false,
+  "review": "author scope review; native visual review pending"
+}

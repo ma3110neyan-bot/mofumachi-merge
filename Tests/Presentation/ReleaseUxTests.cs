@@ -12,15 +12,38 @@ namespace Mofumachi.Tests
         [TestCase("Coins value",13,"1,234",ReleaseFontRole.ReadingBold)]
         [TestCase("Requirement count bread",12,"0 / 1 あと1個",ReleaseFontRole.ReadingBold)]
         [TestCase("Today greeting",13,"今日は一緒におさんぽしよう♪",ReleaseFontRole.Reading)]
-        [TestCase("Town menu label",11,"メニュー",ReleaseFontRole.ReadingBold)]
+        [TestCase("Town menu label",11,"メニュー",ReleaseFontRole.Accent)]
+        [TestCase("Town actor name",11,"モモ",ReleaseFontRole.Accent)]
+        [TestCase("Speaker name",14,"ノア",ReleaseFontRole.Accent)]
+        [TestCase("Nav label",12,"依頼",ReleaseFontRole.Accent)]
+        [TestCase("Generate frame tea label",12,"お茶を作る",ReleaseFontRole.Accent)]
+        [TestCase("Merge actions label",12,"生成枠整理",ReleaseFontRole.Accent)]
+        [TestCase("Town region name",13,"中央の噴水広場",ReleaseFontRole.Accent)]
+        [TestCase("Walking partner book label",13,"図鑑",ReleaseFontRole.Accent)]
         [TestCase("Unknown future label",18,"新しい画面",ReleaseFontRole.Unchanged)]
-        public void TypographyIsSemanticAndNeverAUniversalHachiReplacement(string name,int size,string copy,ReleaseFontRole expected)
+        public void SmallMenusAndNamesKeepHachiAndUnknownSurfacesStayUnchanged(string name,int size,string copy,ReleaseFontRole expected)
         {Assert.That(ReleaseFontPolicy.For(name,size,copy),Is.EqualTo(expected));}
 
-        [Test] public void LongOrNumericButtonsUseReadableAuxiliaryFont()
+        [Test] public void AButtonDoesNotLoseHachiBecauseItContainsDigitsOrMoreThanEighteenCharacters()
         {
-            Assert.That(ReleaseFontPolicy.For("Start label",18,"長い説明文をボタン全体に表示する場合は読みやすさを優先する"),Is.EqualTo(ReleaseFontRole.ReadingBold));
-            Assert.That(ReleaseFontPolicy.For("Claim today flower label",14,"今日のお花を受け取りました♪\n集めたお花 12こ"),Is.EqualTo(ReleaseFontRole.ReadingBold));
+            Assert.That(ReleaseFontPolicy.For("Start label",18,"長い説明文をボタン全体に表示する場合は読みやすさを優先する"),Is.EqualTo(ReleaseFontRole.Accent));
+            Assert.That(ReleaseFontPolicy.For("Claim today flower label",14,"今日のお花を受け取りました♪\n集めたお花 12こ"),Is.EqualTo(ReleaseFontRole.Accent));
+        }
+
+        [TestCase("Coins value",13,"330", "UIFontReadingBold")]
+        [TestCase("Requirement count bread",12,"0 / 1 あと1個", "UIFontReadingBold")]
+        [TestCase("Town bubble",15,"今日はどこへ行こう？", "UIFontReading")]
+        public void InformationTriesHachiAndFallsBackOnlyWhenItDoesNotFit(string name,int size,string copy,string fallback)
+        {
+            var role=ReleaseFontPolicy.For(name,size,copy);
+            Assert.That(ReleaseFontPolicy.Resource(role,true),Is.EqualTo("UIFontAccent"));
+            Assert.That(ReleaseFontPolicy.Resource(role,false),Is.EqualTo(fallback));
+        }
+
+        [Test] public void ShortMenusDoNotSilentlySwapToAnotherTypeface()
+        {
+            Assert.That(ReleaseFontPolicy.Resource(ReleaseFontRole.Accent,false),Is.EqualTo("UIFontAccent"));
+            Assert.That(ReleaseFontPolicy.Resource(ReleaseFontRole.Unchanged,true),Is.Null);
         }
 
         [Test] public void FlowerReceiptUsesExistingDatesAndDoesNotMutateTheJournal()

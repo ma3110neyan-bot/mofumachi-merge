@@ -12,9 +12,10 @@ namespace Mofumachi.Tests
     {
         private void CheckText()
         {
-            Canvas.ForceUpdateCanvases();
+            Canvas.ForceUpdateCanvases();Canvas.ForceUpdateCanvases();Canvas.ForceUpdateCanvases();
             foreach(var text in Flow.GetComponentsInChildren<Text>().Where(t=>!string.IsNullOrEmpty(t.text)&&ReleaseFontPolicy.For(t.name,t.fontSize,t.text)!=ReleaseFontRole.Unchanged))
             {
+                HachiFontCapture.AssertTypeface(text);
                 Assert.That(text.resizeTextForBestFit,Is.False,text.name+": never shrink whole UI");
                 foreach(char glyph in text.text.Where(c=>!char.IsWhiteSpace(c)).Distinct())Assert.That(text.font.HasCharacter(glyph),Is.True,text.name+": missing "+glyph);
                 Assert.That(text.preferredHeight,Is.LessThanOrEqualTo(text.rectTransform.rect.height+1),text.name+": text must fit its existing bounds");
@@ -25,6 +26,7 @@ namespace Mofumachi.Tests
             yield return LoadTitle();CheckText();
             Assert.That(Flow.GetComponentsInChildren<Text>().Single(t=>t.name=="Start label").font,Is.EqualTo(Resources.Load<Font>("Mofumachi/UIFontAccent")));
             yield return EnterHome();
+            HachiFontCapture.VerifyMeasuredFallback();
             var canvas=Flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.WorldSpace;
             foreach(var size in new[]{new Vector2(320,592),new Vector2(360,640),new Vector2(360,740)})
             {
@@ -33,6 +35,8 @@ namespace Mofumachi.Tests
                 Flow.ShowHome();CheckText();Flow.ShowMerge();CheckText();Flow.ShowQuest();CheckText();Flow.ShowSettings();CheckText();
                 Flow.ShowHome();Flow.OpenCharacterBook("momo");CheckText();Flow.ShowHome();Flow.ShowToday();CheckText();Flow.CloseToday();
             }
+            string output=HachiFontCapture.Argument("-mofumachiFontOnly");
+            if(output!=null)yield return HachiFontCapture.Run(Flow,output,()=>Store.Writes);
             LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator ReceiptShowsActualDateCountAndClaimResultWithoutMainSaveWrites()

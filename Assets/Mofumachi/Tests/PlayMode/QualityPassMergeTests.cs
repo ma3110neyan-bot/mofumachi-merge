@@ -129,7 +129,7 @@ namespace Mofumachi.Tests
             foreach(var dish in dishes){Assert.That(dish.raycastTarget,Is.False);Assert.That(dish.canvasRenderer.GetMesh().vertexCount,Is.GreaterThan(100));}
             Assert.That(Flow.GetComponentsInChildren<MergeBoardView>().Length,Is.EqualTo(30));
             foreach(var level in Flow.GetComponentsInChildren<Text>().Where(t=>t.name=="Item level"))
-            {Assert.That(level.font,Is.EqualTo(Resources.Load<Font>("Mofumachi/UIFontReadingBold")));Assert.That(level.rectTransform.rect.height,Is.GreaterThanOrEqualTo(level.preferredHeight-1));}
+            {HachiFontCapture.AssertTypeface(level);Assert.That(level.rectTransform.rect.height,Is.GreaterThanOrEqualTo(level.preferredHeight-1));}
             LogAssert.NoUnexpectedReceived();
         }
     }

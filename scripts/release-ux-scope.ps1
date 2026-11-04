@@ -1,4 +1,5 @@
 # Additive, exact UX permission. Original character/Merge manifests remain immutable.
+. (Join-Path $PSScriptRoot 'font-only-scope.ps1')
 function Read-ReleaseUxOverrides([string]$Repository){
     $Result=@{};$File=Join-Path $Repository 'References/VisualLock/release-ux-2026-11-03.json'
     if(-not(Test-Path -LiteralPath $File -PathType Leaf)){return $Result}
@@ -17,8 +18,9 @@ function Read-ReleaseUxOverrides([string]$Repository){
     foreach($Row in @($C.overrides)){
         if(-not $Allowed.ContainsKey($Row.path) -or $Result.ContainsKey($Row.path) -or $Row.before_sha256 -cne $Allowed[$Row.path] -or $Row.sha256 -cnotmatch '^[a-f0-9]{64}$'){throw 'UX cannot unlock Core, art, motion or unrelated files.'}
         $Path=Join-Path $Repository $Row.path
-        if(-not(Test-Path -LiteralPath $Path -PathType Leaf) -or ((Get-Item -LiteralPath $Path -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) -or (Get-FinishTextHash $Path) -cne $Row.sha256){throw "UX source changed: $($Row.path)"}
-        $Result[$Row.path]=$Row.sha256
+        $Expected=Read-FontOnlyExpected $Repository $Row.path $Row.sha256
+        if(-not(Test-Path -LiteralPath $Path -PathType Leaf) -or ((Get-Item -LiteralPath $Path -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) -or (Get-FinishTextHash $Path) -cne $Expected){throw "UX source changed: $($Row.path)"}
+        $Result[$Row.path]=$Expected
     }
     $Added=@(
         'Assets/Mofumachi/Presentation/ReleaseFontPolicy.cs'
@@ -44,5 +46,7 @@ function Read-ReleaseUxOverrides([string]$Repository){
         $Expected=Read-MergeFontTypographyOverride $Repository $Row.path $Row.sha256
         if($Hash -cne $Expected){throw "UX addition changed: $($Row.path)"}
     }
+    $FontOnly=Read-FontOnlyAmendment $Repository
+    if($null -ne $FontOnly){foreach($Row in @($FontOnly.overrides)){$Result[$Row.path]=$Row.sha256}}
     return $Result
 }

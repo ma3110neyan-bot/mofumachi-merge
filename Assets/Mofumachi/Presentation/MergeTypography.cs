@@ -5,7 +5,7 @@ namespace Mofumachi.Presentation
     // Merge-only font candidate. Existing colors, geometry and information faces stay intact.
     public static class MergeTypography
     {
-        private static Font hachi,kiwi,level;
+        private static Font hachi,kiwi;
         public static MergeFontVariant Variant
         {
             get
@@ -25,8 +25,7 @@ namespace Mofumachi.Presentation
             if(text.GetComponentInParent<MergeRewardView>()==null||MergeRewardPresentation.CapturePinkBaseline)return false;
             if(text.name=="Item level")
             {
-                if(level==null)level=Resources.Load<Font>("Mofumachi/UIFontReadingBold");
-                if(level==null)return false;text.font=level;
+                ReleaseTypography.ApplyHachi(text,ReleaseFontRole.ReadingBold);
                 if(text.GetComponent<MergeLevelFontFit>()==null)text.gameObject.AddComponent<MergeLevelFontFit>();
                 FitLevel(text);
                 return true;
@@ -52,19 +51,21 @@ namespace Mofumachi.Presentation
         }
         internal static void FitLevel(Text text)
         {
+            ReleaseTypography.ApplyHachi(text,ReleaseFontRole.ReadingBold);
             // The existing narrow badge can be shorter than a 9px line.
             // Keep its rectangle fixed and use 8px only when 9px clips.
             while(text.fontSize>8&&text.rectTransform.rect.height>0&&text.preferredHeight>text.rectTransform.rect.height+.05f)text.fontSize--;
+            ReleaseTypography.ApplyHachi(text,ReleaseFontRole.ReadingBold);
         }
     }
     public sealed class MergeFontEdge:Outline { }
     public sealed class MergeLevelFontFit:MonoBehaviour
     {
-        private Text text;private bool dirty=true;
-        private void OnEnable(){text=GetComponent<Text>();text.RegisterDirtyLayoutCallback(MarkDirty);Canvas.willRenderCanvases+=Fit;dirty=true;}
-        private void OnDisable(){if(text!=null)text.UnregisterDirtyLayoutCallback(MarkDirty);Canvas.willRenderCanvases-=Fit;}
-        private void OnRectTransformDimensionsChange(){dirty=true;}
+        private Text text;private bool dirty=true,applying;
+        private void OnEnable(){text=GetComponent<Text>();text.RegisterDirtyLayoutCallback(MarkDirty);Canvas.preWillRenderCanvases+=Fit;dirty=true;}
+        private void OnDisable(){if(text!=null)text.UnregisterDirtyLayoutCallback(MarkDirty);Canvas.preWillRenderCanvases-=Fit;}
+        private void OnRectTransformDimensionsChange(){dirty=true;Fit();}
         private void MarkDirty(){dirty=true;}
-        private void Fit(){if(!dirty||text==null)return;MergeTypography.FitLevel(text);dirty=false;}
+        private void Fit(){if(!dirty||text==null||applying)return;applying=true;try{MergeTypography.FitLevel(text);}finally{applying=false;dirty=false;}}
     }
 }

@@ -1,0 +1,81 @@
+{
+  "kind": "received-font-only-empty-brand-mesh",
+  "run": "font-only-20261104-195143-c2ae77d1",
+  "source_revision": "0614cfe89c393d54921b1db73fbd6ab465bfeb7d",
+  "product_fingerprint": "a99707dd5ca386462298238237cfc9bab7759b44d0939a6cf230ca3d9c8e2ef1",
+  "packed_resource_sha256": "0860dc24b78321430cc60169ebcb0299c38282f32cd9cd0d4e15107ba319baf1",
+  "native_tests": {
+    "passed": 1,
+    "failed": 1,
+    "skipped": 0
+  },
+  "failure": "HachiFontCapture.Run: Merge brand actual glyph mesh expected >0, was 0",
+  "all_four_viewport_preflight_checks_passed": true,
+  "source_unchanged": true,
+  "capture_verified": false,
+  "accepted_image_count": 0,
+  "actual_partial_png_count": null,
+  "inline_conversation_screenshot_received": true,
+  "received_files": [
+    {
+      "file": "capture.log",
+      "sha256": "c0948365ed62ae0e2537430b7b6972942ff919512d8549f4bbcdb062874ac27f",
+      "bytes": 53659
+    },
+    {
+      "file": "prepare-noah.log",
+      "sha256": "82b0884634742d8e46a99c6ac104bf7ec80e1e7d6713f70a717b7c9a80b51fc1",
+      "bytes": 40875
+    },
+    {
+      "file": "font-only-source-info.json",
+      "sha256": "aa91a7cc968a81e8d6d8f1ea8ba6ee41cbf474c27c35e998c6a50532e6154e2e",
+      "bytes": 792
+    },
+    {
+      "file": "prepare-five.log",
+      "sha256": "9ee57b3055ef8579e85ad1f1637764e6a5c25ed566d8eb992a8cde84f223643a",
+      "bytes": 59101
+    },
+    {
+      "file": "prepared.json",
+      "sha256": "241abe5e5db270c93c9c9a96cdcc937c4782f3aff5bbfe5b183eca92b8f2f1bb",
+      "bytes": 22620
+    },
+    {
+      "file": "capture.xml",
+      "sha256": "ab356d5f9a77ea2410803fa82eaa01a585dab639e7c104de44caf05e3d1a499d",
+      "bytes": 6004
+    },
+    {
+      "file": "prepared-lulu.json",
+      "sha256": "b58b9633348b137255c7e897f205102d4ab2b6603f1d85dfbed96aa5f20b30a2",
+      "bytes": 22616
+    },
+    {
+      "file": "prepared-miel.json",
+      "sha256": "241abe5e5db270c93c9c9a96cdcc937c4782f3aff5bbfe5b183eca92b8f2f1bb",
+      "bytes": 22620
+    },
+    {
+      "file": "prepared-momo.json",
+      "sha256": "94532f3e9b2ad9e679e30983f58b43315f0adfa5f745e2801db5979cb1c61c3f",
+      "bytes": 22690
+    },
+    {
+      "file": "prepared-pom.json",
+      "sha256": "5047f811bd4e763370b229f95af3df40d695f7c6331410004807f5b010236890",
+      "bytes": 22614
+    },
+    {
+      "file": "prepared-fio.json",
+      "sha256": "faa5439f12dc21c167af7ea49993a485211212e546d7b221cd80499dde331f49",
+      "bytes": 22612
+    }
+  ],
+  "original_archive": {
+    "file": "received-originals.zip",
+    "sha256": "8f1b924586b94f2d3b80614d209e77fb4abebbacfeaeec2feff7db7489771e4f",
+    "files": 11
+  }
+}

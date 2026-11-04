@@ -40,7 +40,7 @@ namespace Mofumachi.Presentation
             if(role==ReleaseFontRole.Unchanged)return null;
             return role==ReleaseFontRole.Accent||hachiFits?"UIFontAccent":role==ReleaseFontRole.ReadingBold?"UIFontReadingBold":"UIFontReading";
         }
-        public static int CompactMinimumSize(string name)=>name=="Current request caption"||name=="Merge reward coins"?8:0;
+        public static int CompactMinimumSize(string name)=>name=="Current request caption"||name=="Merge reward coins"||name=="Merge brand"?8:0;
         public static int DescriptionMinimumSize(string name)=>name=="Settings description"?12:0;
         public static int TitleMinimumSize(string name,string copy)=>name=="Page title"&&copy=="キャラクター図鑑"?16:0;
     }

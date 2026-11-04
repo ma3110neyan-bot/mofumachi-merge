@@ -1,0 +1,47 @@
+{
+  "kind": "font-only-brand-fit-cloud-verification",
+  "baseline_revision": "0614cfe89c393d54921b1db73fbd6ab465bfeb7d",
+  "font_manifest_sha256": "c08b5e943930f3d6cc04546c3e8df1b9844f40c9e9bc3d0ef2916161fc422972",
+  "native_before_fix": {
+    "run": "font-only-20261104-195143-c2ae77d1",
+    "passed": 1,
+    "failed": 1,
+    "skipped": 0,
+    "capture_verified": false,
+    "accepted_image_count": 0,
+    "partial_png_count": null
+  },
+  "native_failure": "Merge brand: actual glyph mesh expected >0, was 0",
+  "four_viewport_preflight_passed": true,
+  "font_metrics": {
+    "unchanged_brand_row_height": 12.6336,
+    "nominal_font_size": 9,
+    "nominal_hhea_line_height": 13.032,
+    "minimum_font_size": 8,
+    "minimum_hhea_line_height": 11.584
+  },
+  "product_scope": [
+    "Assets/Mofumachi/Presentation/ReleaseFontPolicy.cs",
+    "Assets/Mofumachi/Presentation/ReleaseTypography.cs"
+  ],
+  "rectangles_colors_copy_and_game_logic_unchanged": true,
+  "host_related": {
+    "passed": 54,
+    "failed": 0,
+    "skipped": 0
+  },
+  "api_compile": {
+    "editor_presentation": true,
+    "editor_playmode_tests": true,
+    "warnings": 0,
+    "errors": 0
+  },
+  "scope_artifact_contracts_passed": true,
+  "required_glyphs_verified": 572,
+  "expected_images": 12,
+  "native_after_fix_run": false,
+  "visual_approved": false,
+  "full_tests_run": false,
+  "apk_generated": false,
+  "pixel_run": false
+}

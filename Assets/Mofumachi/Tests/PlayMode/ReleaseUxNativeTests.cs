@@ -22,6 +22,7 @@ namespace Mofumachi.Tests
                 Assert.That(text.resizeTextForBestFit,Is.False,text.name+": never shrink whole UI");
                 foreach(char glyph in text.text.Where(c=>!char.IsWhiteSpace(c)).Distinct())Assert.That(text.font.HasCharacter(glyph),Is.True,text.name+": missing "+glyph);
                 Assert.That(text.preferredHeight,Is.LessThanOrEqualTo(text.rectTransform.rect.height+1),text.name+": text must fit its existing bounds");
+                HachiFontCapture.AssertGeneratedGlyphs(text);
                 }catch(AssertionException error){failures.Add(text.name+" [font="+text.font.name+", size="+text.fontSize+", rect="+text.rectTransform.rect+"]: "+error.Message);}
             }
             Assert.That(failures,Is.Empty,string.Join("\n",failures));

@@ -23,7 +23,10 @@ namespace Mofumachi.Presentation
         public static bool Fits(Text text)
         {
             var rect=text.rectTransform.rect;
-            return rect.width<=0||rect.height<=0||text.preferredHeight<=rect.height+.5f&&(text.horizontalOverflow==HorizontalWrapMode.Wrap||text.preferredWidth<=rect.width+.5f);
+            // The 12.63px Merge brand row cannot render a 13px first line.
+            // A rounding allowance here would accept an entirely truncated label.
+            float heightAllowance=text.name=="Merge brand"?0:.5f;
+            return rect.width<=0||rect.height<=0||text.preferredHeight<=rect.height+heightAllowance&&(text.horizontalOverflow==HorizontalWrapMode.Wrap||text.preferredWidth<=rect.width+.5f);
         }
         internal static void ApplyHachi(Text text,ReleaseFontRole role)
         {

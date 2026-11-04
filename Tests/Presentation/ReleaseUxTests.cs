@@ -48,11 +48,12 @@ namespace Mofumachi.Tests
 
         [TestCase("Current request caption",8)]
         [TestCase("Merge reward coins",8)]
+        [TestCase("Merge brand",8)]
         [TestCase("Page title",0)]
         [TestCase("Coins value",0)]
         [TestCase("Town bubble",0)]
         [TestCase("Unknown future label",0)]
-        public void OnlyTheTwoFixedMergeHeaderRowsCanUseTheCompactFontFloor(string name,int floor)
+        public void OnlyTheThreeFixedMergeHeaderTextsCanUseTheCompactFontFloor(string name,int floor)
         {Assert.That(ReleaseFontPolicy.CompactMinimumSize(name),Is.EqualTo(floor));}
 
         [TestCase("Settings description",12)]

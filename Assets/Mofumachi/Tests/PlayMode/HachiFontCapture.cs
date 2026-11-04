@@ -74,9 +74,24 @@ namespace Mofumachi.Tests
             }
             finally{UnityEngine.Object.DestroyImmediate(root);}
         }
+        public static void VerifyDescriptionFit()
+        {
+            var node=new GameObject("Settings description",typeof(RectTransform),typeof(Text));
+            try
+            {
+                var text=node.GetComponent<Text>();text.text="下へスクロールすると、BGMを選べます♪";text.fontSize=14;text.lineSpacing=1.28f;text.color=new Color(.3f,.2f,.25f);text.rectTransform.anchoredPosition=new Vector2(7,9);text.rectTransform.sizeDelta=new Vector2(256,40);
+                ReleaseTypography.Apply(text);Canvas.ForceUpdateCanvases();
+                Assert.That(text.preferredHeight,Is.LessThanOrEqualTo(40.5f));Assert.That(text.fontSize,Is.InRange(12,14));
+                text.rectTransform.sizeDelta=new Vector2(296,40);Canvas.ForceUpdateCanvases();Assert.That(text.fontSize,Is.EqualTo(14));
+                text.rectTransform.sizeDelta=new Vector2(256,40);Canvas.ForceUpdateCanvases();ReleaseTypography.Apply(text);
+                Assert.That(text.preferredHeight,Is.LessThanOrEqualTo(40.5f));Assert.That(text.GetComponents<HachiFontFit>().Length,Is.EqualTo(1));Assert.That(text.GetComponent<HachiFontFit>().NominalSize,Is.EqualTo(14));
+                Assert.That(text.rectTransform.sizeDelta,Is.EqualTo(new Vector2(256,40)));Assert.That(text.rectTransform.anchoredPosition,Is.EqualTo(new Vector2(7,9)));Assert.That(text.color,Is.EqualTo(new Color(.3f,.2f,.25f)));Assert.That(text.lineSpacing,Is.EqualTo(1.28f));
+            }
+            finally{UnityEngine.Object.DestroyImmediate(node);}
+        }
         private static void Verify(string directory,Proof proof)
         {
-            if(proof.images.Count!=10||Directory.GetFiles(directory,"*.png").Length!=10)throw new IOException("Ten actual font-only PNGs required.");
+            if(proof.images.Count!=12||Directory.GetFiles(directory,"*.png").Length!=12)throw new IOException("Twelve actual font-only PNGs required.");
             foreach(var row in proof.images){string path=Path.Combine(directory,row.file);if(!File.Exists(path)||new FileInfo(path).Length==0||Sha(File.ReadAllBytes(path))!=row.sha256)throw new IOException("Font PNG missing/changed.");}
             foreach(string name in new[]{"font-only-native.json","font-only.html"})if(!File.Exists(Path.Combine(directory,name))||new FileInfo(Path.Combine(directory,name)).Length==0)throw new IOException("Font proof/viewer missing.");
         }
@@ -95,9 +110,9 @@ namespace Mofumachi.Tests
                 foreach(var size in new[]{new Vector2Int(720,1480),new Vector2Int(640,1072)})
                 {
                     if(target!=null){camera.targetTexture=null;target.Release();UnityEngine.Object.DestroyImmediate(target);}target=new RenderTexture(size.x,size.y,24);target.Create();camera.targetTexture=target;camera.orthographicSize=size.y/4f;camera.aspect=size.x/(float)size.y;
-                    foreach(string screen in new[]{"town","conversation","merge","quest","book"})
+                    foreach(string screen in new[]{"town","conversation","merge","quest","book","settings"})
                     {
-                        if(screen=="merge")flow.ShowMerge();else if(screen=="quest")flow.ShowQuest();else if(screen=="book"){flow.ShowHome();flow.OpenCharacterBook("momo");}else flow.ShowHome();
+                        if(screen=="merge")flow.ShowMerge();else if(screen=="quest")flow.ShowQuest();else if(screen=="settings")flow.ShowSettings();else if(screen=="book"){flow.ShowHome();flow.OpenCharacterBook("momo");}else flow.ShowHome();
                         yield return null;
                         canvas=flow.GetComponentInChildren<Canvas>();canvas.GetComponent<CanvasScaler>().enabled=false;canvas.renderMode=RenderMode.ScreenSpaceCamera;canvas.worldCamera=camera;canvas.planeDistance=30;canvas.scaleFactor=2;
                         flow.GetComponentInChildren<ResponsiveUILayout>().ApplyViewport(new Vector2(size.x,size.y),new Rect(0,0,size.x,size.y));
@@ -120,7 +135,7 @@ namespace Mofumachi.Tests
                         {
                             AssertTypeface(text);Assert.That(text.preferredHeight,Is.LessThanOrEqualTo(text.rectTransform.rect.height+.5f),text.name+": existing bounds");
                             foreach(char c in text.text.Where(c=>!char.IsWhiteSpace(c)).Distinct())Assert.That(text.font.HasCharacter(c),Is.True,text.name+": missing glyph");
-                            var hachi=Resources.Load<Font>("Mofumachi/UIFontAccent");var compact=text.GetComponent<MergeCompactFontFit>();row.fonts.Add(new FontRow{name=text.name,font=text.font.name,resource=text.font==hachi?"UIFontAccent":text.font==Resources.Load<Font>("Mofumachi/UIFontReadingBold")?"UIFontReadingBold":"UIFontReading",style=text.fontStyle.ToString(),size=text.fontSize,nominal_size=compact==null?text.fontSize:compact.NominalSize,hachi_fits=text.font==hachi,reason=text.font==hachi?"Hachi primary":"Hachi measured overflow; Zen fallback"});
+                            var hachi=Resources.Load<Font>("Mofumachi/UIFontAccent");var compact=text.GetComponent<MergeCompactFontFit>();row.fonts.Add(new FontRow{name=text.name,font=text.font.name,resource=text.font==hachi?"UIFontAccent":text.font==Resources.Load<Font>("Mofumachi/UIFontReadingBold")?"UIFontReadingBold":"UIFontReading",style=text.fontStyle.ToString(),size=text.fontSize,nominal_size=compact!=null?compact.NominalSize:text.GetComponent<HachiFontFit>()!=null?text.GetComponent<HachiFontFit>().NominalSize:text.fontSize,hachi_fits=text.font==hachi,reason=text.font==hachi?"Hachi primary":"Hachi measured overflow; Zen fallback"});
                         }
                         Canvas.ForceUpdateCanvases();Canvas.ForceUpdateCanvases();
                         foreach(var text in flow.GetComponentsInChildren<Text>().Where(t=>!string.IsNullOrEmpty(t.text)&&!t.canvasRenderer.cull&&ReleaseFontPolicy.For(t.name,t.fontSize,t.text)!=ReleaseFontRole.Unchanged))Assert.That(text.canvasRenderer.GetMesh().vertexCount,Is.GreaterThan(0),text.name+": actual glyph mesh");
@@ -130,7 +145,7 @@ namespace Mofumachi.Tests
                         Assert.That(State(flow),Is.EqualTo(state));Assert.That(writes(),Is.EqualTo(saves));proof.images.Add(row);
                     }
                 }
-                proof.image_count=10;
+                proof.image_count=12;
                 var html=new StringBuilder("<!doctype html><meta charset='utf-8'><title>Font-only actual Unity</title><style>body{font:16px sans-serif;background:#fff7ef;color:#523047}img{width:min(90vw,360px);height:auto}figure{display:inline-block;vertical-align:top;margin:8px}</style><h1>フォントのみ：実Unity代表画面</h1><p>Hachi優先／収まらない情報のみZen。A/B/C素材比較ではありません。Visual確認待ち。実機確認ではありません。</p>");
                 foreach(var row in proof.images)html.Append("<figure><figcaption>").Append(row.file).Append("</figcaption><a href='").Append(row.file).Append("'><img src='").Append(row.file).Append("'></a></figure>");
                 File.WriteAllText(Path.Combine(directory,"font-only.html"),html.ToString());string json=Path.Combine(directory,"font-only-native.json");File.WriteAllText(json,JsonUtility.ToJson(proof,true));Verify(directory,proof);proof.disk_verified=true;File.WriteAllText(json,JsonUtility.ToJson(proof,true));Verify(directory,JsonUtility.FromJson<Proof>(File.ReadAllText(json)));

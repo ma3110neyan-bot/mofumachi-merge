@@ -21,12 +21,12 @@
     {
       "path": "Assets/Mofumachi/Presentation/ReleaseFontPolicy.cs",
       "before_sha256": "71329b1e6d0e58960da2ffc8702c35470c8ff42ea2a2a26a95dadbcbbb64d208",
-      "sha256": "d473a3fe7c0839228198a1f77900f194d8966c0157d2ed898b79c2b171544f93"
+      "sha256": "ef093bd6c543535e1c7dd8c3f4f3b96555628c3964d0b0fe6741f3fe03c3e067"
     },
     {
       "path": "Assets/Mofumachi/Presentation/ReleaseTypography.cs",
       "before_sha256": "8d0592ba172938676ecf01da2403b91360b50a7f49da9f9afb731ce1bbc7d156",
-      "sha256": "de00ffd2eecc936bdc8ae418223e20ae187b3ab38edb7fb03517d3e779724293"
+      "sha256": "eabe944a5f1271b4b3554c13a6c9f590edbc95087192646d89fd7e2c42aae113"
     },
     {
       "path": "Assets/Mofumachi/Presentation/MergeTypography.cs",
@@ -41,7 +41,7 @@
     {
       "path": "Assets/Mofumachi/Tests/PlayMode/ReleaseUxNativeTests.cs",
       "before_sha256": "604e46af0b3c6a1501b002aaa253fbff427e56042d3579a02b379a5e07756e21",
-      "sha256": "c0a9d38f098c49ff1e3381608207421b7df3e775c6bf81e8b479ec1300180177"
+      "sha256": "8412b891cbd553391dd90a8e3f7e1f516f613cf14250e541530c8ef6ab7997f6"
     },
     {
       "path": "Assets/Mofumachi/Tests/PlayMode/StoryTypographyTests.cs",
@@ -67,7 +67,7 @@
   "additions": [
     {
       "path": "Assets/Mofumachi/Tests/PlayMode/HachiFontCapture.cs",
-      "sha256": "d4e2586b31c0f574b88298253a5a98c3f6f105274c7103d7f43a4a2188eca593"
+      "sha256": "27735d98ff7671452d5d5f64f5ab0fb491c5e8b8ae803c7e913ba1ce64a53f7c"
     },
     {
       "path": "Assets/Mofumachi/Tests/PlayMode/HachiFontCapture.cs.meta",

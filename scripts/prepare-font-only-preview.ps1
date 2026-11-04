@@ -54,5 +54,5 @@ finally{
     Write-Host "Font-only evidence preserved: $Run"
 }
 if($Failure){throw $Failure}
-Write-Host 'Ten actual Unity PNGs ready for Visual review. No ABC, full tests, APK, install or Pixel run.'
+Write-Host 'Twelve actual Unity PNGs ready for Visual review. No ABC, full tests, APK, install or Pixel run.'
 return $Run

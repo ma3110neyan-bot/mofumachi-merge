@@ -55,6 +55,15 @@ namespace Mofumachi.Tests
         public void OnlyTheTwoFixedMergeHeaderRowsCanUseTheCompactFontFloor(string name,int floor)
         {Assert.That(ReleaseFontPolicy.CompactMinimumSize(name),Is.EqualTo(floor));}
 
+        [TestCase("Settings description",12)]
+        [TestCase("Town bubble",0)]
+        [TestCase("Coins value",0)]
+        [TestCase("Page title",0)]
+        [TestCase("Current request caption",0)]
+        [TestCase("Unknown future label",0)]
+        public void OnlyTheObservedNarrowSettingsDescriptionCanUseTheTwelvePointFloor(string name,int floor)
+        {Assert.That(ReleaseFontPolicy.DescriptionMinimumSize(name),Is.EqualTo(floor));}
+
         [Test] public void FlowerReceiptUsesExistingDatesAndDoesNotMutateTheJournal()
         {
             var daily=new TownDailyService(new MemoryTownDailyStore(),new DateTime(2026,11,3));

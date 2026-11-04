@@ -41,5 +41,6 @@ namespace Mofumachi.Presentation
             return role==ReleaseFontRole.Accent||hachiFits?"UIFontAccent":role==ReleaseFontRole.ReadingBold?"UIFontReadingBold":"UIFontReading";
         }
         public static int CompactMinimumSize(string name)=>name=="Current request caption"||name=="Merge reward coins"?8:0;
+        public static int DescriptionMinimumSize(string name)=>name=="Settings description"?12:0;
     }
 }

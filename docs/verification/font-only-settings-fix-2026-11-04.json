@@ -1,0 +1,35 @@
+{
+  "kind": "font-only-settings-cloud-verification",
+  "baseline_revision": "eaa257f30676362eb7ebb8a001c0b47dd46d0412",
+  "font_manifest_sha256": "91b621df79b61f6cad5bdce7fa1dc2193a0a7a0ba94a9b7f202cfb44b45a2e0b",
+  "native_before_fix": {
+    "run": "font-only-20261104-184959-07a44cbc",
+    "passed": 1,
+    "failed": 1,
+    "capture_verified": false,
+    "image_count": 0
+  },
+  "scope": "Settings description only; measured overflow, nominal 14, floor 12",
+  "ui_layout_colors_copy_and_audio_logic_unchanged": true,
+  "host_related": {
+    "passed": 48,
+    "failed": 0,
+    "skipped": 0
+  },
+  "api_editor_compile": {
+    "presentation": true,
+    "playmode_tests": true,
+    "warnings": 0,
+    "errors": 0
+  },
+  "artifact_scope_fixture_passed": true,
+  "glyphs_verified": 572,
+  "expected_images": 12,
+  "expected_package_entries": 15,
+  "native_after_fix_run": false,
+  "visual_approved": false,
+  "full_tests_run": false,
+  "apk_generated": false,
+  "pixel_run": false,
+  "api_non_editor_presentation_compile": true
+}

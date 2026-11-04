@@ -17,8 +17,8 @@ namespace Mofumachi.Presentation
             if(MergeTypography.TryApply(text))return;
             var role=ReleaseFontPolicy.For(text.name,text.fontSize,text.text);
             if(role==ReleaseFontRole.Unchanged)return;
-            ApplyHachi(text,role);
-            if(role!=ReleaseFontRole.Accent&&text.GetComponent<HachiFontFit>()==null)text.gameObject.AddComponent<HachiFontFit>();
+            if(role==ReleaseFontRole.Accent){ApplyHachi(text,role);return;}
+            var fit=text.GetComponent<HachiFontFit>();if(fit==null)fit=text.gameObject.AddComponent<HachiFontFit>();fit.ApplyNow();
         }
         public static bool Fits(Text text)
         {
@@ -52,12 +52,27 @@ namespace Mofumachi.Presentation
     }
     public sealed class HachiFontFit:MonoBehaviour
     {
-        private Text text;private bool dirty=true,applying;
-        private void OnEnable(){text=GetComponent<Text>();text.RegisterDirtyLayoutCallback(MarkDirty);Canvas.preWillRenderCanvases+=Fit;dirty=true;}
+        private Text text;private int appliedSize;private bool dirty=true,applying;
+        public int NominalSize {get;private set;}
+        private void OnEnable(){text=GetComponent<Text>();if(NominalSize<=0||text.fontSize!=appliedSize)NominalSize=text.fontSize;appliedSize=text.fontSize;text.RegisterDirtyLayoutCallback(MarkDirty);Canvas.preWillRenderCanvases+=Fit;dirty=true;}
         private void OnDisable(){if(text!=null)text.UnregisterDirtyLayoutCallback(MarkDirty);Canvas.preWillRenderCanvases-=Fit;}
         private void OnRectTransformDimensionsChange(){dirty=true;Fit();}
         private void MarkDirty(){dirty=true;}
-        private void Fit(){if(!dirty||text==null||applying)return;applying=true;try{ReleaseTypography.ApplyHachi(text,ReleaseFontPolicy.For(text.name,text.fontSize,text.text));}finally{applying=false;dirty=false;}}
+        public void ApplyNow(){if(text==null){text=GetComponent<Text>();NominalSize=text.fontSize;appliedSize=text.fontSize;}dirty=true;Fit();}
+        private void Fit()
+        {
+            if(!dirty||text==null||applying)return;applying=true;
+            try
+            {
+                var role=ReleaseFontPolicy.For(text.name,text.fontSize,text.text);if(role==ReleaseFontRole.Unchanged)return;
+                if(text.fontSize!=appliedSize)NominalSize=text.fontSize;
+                text.fontSize=NominalSize;ReleaseTypography.ApplyHachi(text,role);
+                int floor=ReleaseFontPolicy.DescriptionMinimumSize(text.name);
+                while(floor>0&&text.fontSize>floor&&!ReleaseTypography.Fits(text)){text.fontSize--;ReleaseTypography.ApplyHachi(text,role);}
+                appliedSize=text.fontSize;
+            }
+            finally{applying=false;dirty=false;}
+        }
     }
     // A single dirty pass after UGUI layout, also on viewport/safe-area resize.
     // No per-frame text traversal and no font-driven layout/position changes.

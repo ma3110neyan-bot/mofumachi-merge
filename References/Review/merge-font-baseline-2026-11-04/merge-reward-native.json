@@ -1,0 +1,141 @@
+{
+    "kind": "merge-reward-native-candidate",
+    "source_revision": "c84e5d9fa1c7d6aaf1305940794250509fa35f8f",
+    "product_fingerprint": "86e557c3f220760b4dab183310de6ef6d89a5980559edc578f2efd78b648ac66",
+    "packed_resource_sha256": "4935330b30b404ad9914bc766a1c10da635293f1bf25aeddfcad1d626598bfc4",
+    "reference_path": "References/Merge/merge_visual_lock_reward.png",
+    "reference_sha256": "827825aac8943b32b29f143f1a98d6142e5cbbcce80de39b7f999a3374d6e6f3",
+    "output_directory": "C:\\Users\\User\\Desktop\\Mofumachi\\capture-a434f15c\\Builds\\Diagnostics\\merge-reward-20261104-100705-875327b6\\screenshots",
+    "image_count": 11,
+    "disk_verified": true,
+    "comparison_kind": "accepted-pink-baseline-vs-local-fix",
+    "baseline_revision": "c7329ccb9caa676d3d934a2d9659bf8ece3bd84e",
+    "native_unity": true,
+    "original_png_saved": true,
+    "formal_fixed": false,
+    "adopted": false,
+    "pixel_verified": false,
+    "images": [
+        {
+            "file": "initial-720x1480-before-reconstructed.jpg",
+            "sha256": "6494afdb141ff9f483e7fffb62c67a26be724065fb5fcfcacb76e0d157b1261b",
+            "state_sha256": "32a43d99410740d394132695e89831d4df99f4333ddeda6936596b99792c379a",
+            "scenario": "initial",
+            "width": 720,
+            "height": 1480,
+            "before_reconstructed": true,
+            "state_unchanged": true,
+            "writes_unchanged": true
+        },
+        {
+            "file": "initial-720x1480-after.jpg",
+            "sha256": "476a735e22ba9d0b022c8e143814a6d0b418a70f9261c913adcd0fd8d2d14b25",
+            "state_sha256": "32a43d99410740d394132695e89831d4df99f4333ddeda6936596b99792c379a",
+            "scenario": "initial",
+            "width": 720,
+            "height": 1480,
+            "before_reconstructed": false,
+            "state_unchanged": true,
+            "writes_unchanged": true
+        },
+        {
+            "file": "initial-720x1280-before-reconstructed.jpg",
+            "sha256": "359032463200b9a5f8d03355e02deb6960bb2635b4015d78bdd71c8fa3d0427c",
+            "state_sha256": "32a43d99410740d394132695e89831d4df99f4333ddeda6936596b99792c379a",
+            "scenario": "initial",
+            "width": 720,
+            "height": 1280,
+            "before_reconstructed": true,
+            "state_unchanged": true,
+            "writes_unchanged": true
+        },
+        {
+            "file": "initial-720x1280-after.jpg",
+            "sha256": "356482ebf9150dd5adb8a9d0a83ecd41d453caea0fc96bd741ce114e2698a2c5",
+            "state_sha256": "32a43d99410740d394132695e89831d4df99f4333ddeda6936596b99792c379a",
+            "scenario": "initial",
+            "width": 720,
+            "height": 1280,
+            "before_reconstructed": false,
+            "state_unchanged": true,
+            "writes_unchanged": true
+        },
+        {
+            "file": "initial-640x1072-before-reconstructed.jpg",
+            "sha256": "d9050c6ac2ba3dec18e76139fc927ceb6d22a550a681af2e6ea7183bd09b6a71",
+            "state_sha256": "32a43d99410740d394132695e89831d4df99f4333ddeda6936596b99792c379a",
+            "scenario": "initial",
+            "width": 640,
+            "height": 1072,
+            "before_reconstructed": true,
+            "state_unchanged": true,
+            "writes_unchanged": true
+        },
+        {
+            "file": "initial-640x1072-after.jpg",
+            "sha256": "17bb648ad71862981c31bdcc5df58ecfe9f4fd245408065f06e7cfc9cb04c505",
+            "state_sha256": "32a43d99410740d394132695e89831d4df99f4333ddeda6936596b99792c379a",
+            "scenario": "initial",
+            "width": 640,
+            "height": 1072,
+            "before_reconstructed": false,
+            "state_unchanged": true,
+            "writes_unchanged": true
+        },
+        {
+            "file": "bread-request-720x1480-before-reconstructed.jpg",
+            "sha256": "86de832826cbd46148b9b342135696402844a10a998b2b9b71bf9206e932b8f9",
+            "state_sha256": "9d75c04a3f888d3b9265f7f702f98430da882ea3d70cf6520937e61454af6be8",
+            "scenario": "bread-request",
+            "width": 720,
+            "height": 1480,
+            "before_reconstructed": true,
+            "state_unchanged": true,
+            "writes_unchanged": true
+        },
+        {
+            "file": "bread-request-720x1480-after.jpg",
+            "sha256": "ba2514387ebc36a9833bbf83d2068e171ae126311998bd6f286ac08734675000",
+            "state_sha256": "9d75c04a3f888d3b9265f7f702f98430da882ea3d70cf6520937e61454af6be8",
+            "scenario": "bread-request",
+            "width": 720,
+            "height": 1480,
+            "before_reconstructed": false,
+            "state_unchanged": true,
+            "writes_unchanged": true
+        },
+        {
+            "file": "multi-requirement-720x1480-after.jpg",
+            "sha256": "3ada21ec46ec85138738b46914c33dbb4e8aaf1dec01b8458d473d16f1a1a646",
+            "state_sha256": "d94257957227fd1b33c9602aedadd0cf04b621169d00b52d3bda864530805048",
+            "scenario": "multi-requirement",
+            "width": 720,
+            "height": 1480,
+            "before_reconstructed": false,
+            "state_unchanged": true,
+            "writes_unchanged": true
+        },
+        {
+            "file": "inventory-ready-720x1480-after.jpg",
+            "sha256": "133ecf77a9ef7334348c3eb1759968b1de33388d87f7f94e7870f750ffbde67e",
+            "state_sha256": "f7e2029788bd641e9d4eeb8d9ec326fa8b0db720580e915670c0d6ad015d1e4d",
+            "scenario": "inventory-ready",
+            "width": 720,
+            "height": 1480,
+            "before_reconstructed": false,
+            "state_unchanged": true,
+            "writes_unchanged": true
+        },
+        {
+            "file": "full-board-720x1280-after.jpg",
+            "sha256": "61713c762fc6e85272be15c53fd42f409a01029c66d5a82efe52d80ef13e2afd",
+            "state_sha256": "6c1baa66c02a7c988ca5f012e22ee212035d1b12cf5f6d82c70d80771d50034d",
+            "scenario": "full-board",
+            "width": 720,
+            "height": 1280,
+            "before_reconstructed": false,
+            "state_unchanged": true,
+            "writes_unchanged": true
+        }
+    ]
+}

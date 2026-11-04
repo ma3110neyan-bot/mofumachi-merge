@@ -63,6 +63,8 @@ namespace Mofumachi.Tests
             Canvas.ForceUpdateCanvases();
             var cells=Flow.GetComponentsInChildren<MergeBoardView>();Assert.That(cells.Length,Is.EqualTo(30));
             foreach(var cell in cells){var r=((RectTransform)cell.transform).rect;Assert.That(r.width,Is.GreaterThanOrEqualTo(48));Assert.That(r.height,Is.GreaterThanOrEqualTo(48));}
+            // Commit font geometry after any bounded badge-fit update from layout.
+            Canvas.ForceUpdateCanvases();
             var previous=RenderTexture.active;Texture2D image=null;
             try{camera.Render();RenderTexture.active=target;image=new Texture2D(width,height,TextureFormat.RGB24,false);image.ReadPixels(new Rect(0,0,width,height),0,0);image.Apply();return image;}
             catch{if(image!=null)UnityEngine.Object.DestroyImmediate(image);throw;}
@@ -131,6 +133,13 @@ namespace Mofumachi.Tests
                 var saved=JsonUtility.FromJson<Proof>(File.ReadAllText(proofPath));Assert.That(saved,Is.Not.Null);
                 Assert.That(saved.disk_verified,Is.True);Assert.That(saved.output_directory,Is.EqualTo(output));Assert.That(saved.image_count,Is.EqualTo(11));
                 MergeCaptureArtifacts.VerifyWritten(output,saved.images.ToDictionary(i=>i.file,i=>i.sha256,StringComparer.Ordinal));
+                string fonts=Argument("-mofumachiMergeFontComparison");
+                if(fonts.Length>0)
+                {
+                    Fixture(1);
+                    MergeFontComparisonCapture.Write(Flow,fonts,proof.source_revision,proof.product_fingerprint,proof.packed_resource_sha256,
+                        (width,height)=>{Render.Invoke(Flow,new object[]{"merge",false,false});return Portrait(width,height);},()=>Store.Writes);
+                }
                 LogAssert.NoUnexpectedReceived();
             }
             finally{MergeRewardPresentation.CapturePinkBaseline=false;}

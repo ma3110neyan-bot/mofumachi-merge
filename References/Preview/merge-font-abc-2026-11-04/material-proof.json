@@ -1,0 +1,50 @@
+{
+  "kind": "font-material-not-unity",
+  "native_unity": false,
+  "native_verified": false,
+  "renderer": "Pillow/FreeType; synthetic bold/outline approximation",
+  "images": [
+    {
+      "file": "A-720x1480-material.png",
+      "width": 720,
+      "height": 1480,
+      "variant": "A",
+      "sha256": "636c45505c4e13f82f5236c62943c4f35f624d68025dc3ba01c83c4e048b9ce8"
+    },
+    {
+      "file": "B-720x1480-material.png",
+      "width": 720,
+      "height": 1480,
+      "variant": "B",
+      "sha256": "5e7b4d276be17bf3c4ce42991724571c2f81b6124785dc3385dcd2fe1bb80e06"
+    },
+    {
+      "file": "C-720x1480-material.png",
+      "width": 720,
+      "height": 1480,
+      "variant": "C",
+      "sha256": "be03793005fa691245e30134788eb91e1605eaaf2da3feae716fdd5be74b7fa3"
+    },
+    {
+      "file": "A-640x1072-material.png",
+      "width": 640,
+      "height": 1072,
+      "variant": "A",
+      "sha256": "056ba9678d023532b510b846f6010fa679c7cc4fccf5b761a63b1fd81dcc80af"
+    },
+    {
+      "file": "B-640x1072-material.png",
+      "width": 640,
+      "height": 1072,
+      "variant": "B",
+      "sha256": "ae0586d4e0de57a1adb136c0abbec1514c0acbe3559569660bba22287138a2ee"
+    },
+    {
+      "file": "C-640x1072-material.png",
+      "width": 640,
+      "height": 1072,
+      "variant": "C",
+      "sha256": "6574c3f263eb34c9dd2a8deb4d38bfa59682e209e43a43eb3928b86f4ba59686"
+    }
+  ]
+}

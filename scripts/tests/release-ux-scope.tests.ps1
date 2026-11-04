@@ -13,6 +13,12 @@ try{
     }
     $Manifest=Join-Path $Root $Relative;New-Item -ItemType Directory -Path (Split-Path -Parent $Manifest) -Force|Out-Null
     [IO.File]::WriteAllText($Manifest,$Good)
+    $FontRelative='References/VisualLock/merge-font-visual-2026-11-04.json'
+    if(Test-Path -LiteralPath (Join-Path $Repo $FontRelative)){
+        Copy-Item -LiteralPath (Join-Path $Repo $FontRelative) -Destination (Join-Path $Root $FontRelative)
+        $Font=Get-Content -LiteralPath (Join-Path $Repo $FontRelative) -Raw -Encoding UTF8|ConvertFrom-Json
+        foreach($Row in @($Font.additions)){$Target=Join-Path $Root $Row.path;New-Item -ItemType Directory -Path (Split-Path -Parent $Target) -Force|Out-Null;Copy-Item -LiteralPath (Join-Path $Repo $Row.path) -Destination $Target}
+    }
     if((Read-ReleaseUxOverrides $Root).Count -ne 6){throw 'Six exact font/receipt/test overrides required.'}
     foreach($Case in @('core','art','character','duplicate','baseline','native','pixel','fixed','missing-font','hash')){
         $Bad=$Good|ConvertFrom-Json

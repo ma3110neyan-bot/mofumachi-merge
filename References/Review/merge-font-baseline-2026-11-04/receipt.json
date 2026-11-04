@@ -1,0 +1,16 @@
+{
+  "kind": "received-native-merge-font-baseline",
+  "source_revision": "c84e5d9fa1c7d6aaf1305940794250509fa35f8f",
+  "received_jpeg_binaries": false,
+  "independent_jpeg_sha_verified": false,
+  "files": [
+    {
+      "path": "merge-reward-native.json",
+      "sha256": "ad74668f428abf00b1c9a2d3a10534fc87a886ec93d7e64e37021c323626cc9d"
+    },
+    {
+      "path": "merge-reward.html",
+      "sha256": "de8826186d9789a3f7e4dfce5008d545c26f4c17100dfd590d01dc4af85eacee"
+    }
+  ]
+}

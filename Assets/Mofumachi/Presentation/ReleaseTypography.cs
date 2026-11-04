@@ -14,6 +14,7 @@ namespace Mofumachi.Presentation
         {foreach(var text in root.GetComponentsInChildren<Text>(true)){if(text.name=="Town bubble"||text.name=="Speaker name")ApplyConversation(text);else Apply(text);}}
         public static void Apply(Text text)
         {
+            if(MergeTypography.TryApply(text))return;
             var role=ReleaseFontPolicy.For(text.name,text.fontSize,text.text);
             if(role==ReleaseFontRole.Unchanged)return;
             if(accent==null)accent=Resources.Load<Font>("Mofumachi/UIFontAccent");

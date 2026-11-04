@@ -1,8 +1,9 @@
 ﻿[CmdletBinding()]
-param([string]$UnityEditorPath='',[switch]$CaptureOnly,[switch]$Final,[switch]$Install,[string]$Serial='99RAY1BELH',[ValidateRange(5,600)][int]$MeasureSeconds=180)
+param([string]$UnityEditorPath='',[switch]$CaptureOnly,[switch]$FontComparison,[switch]$Final,[switch]$Install,[string]$Serial='99RAY1BELH',[ValidateRange(5,600)][int]$MeasureSeconds=180)
 $ErrorActionPreference='Stop'
-$MergeOptions=@{Editor=$UnityEditorPath;CaptureOnly=[bool]$CaptureOnly;Final=[bool]$Final;Install=[bool]$Install;Serial=$Serial;Seconds=$MeasureSeconds}
+$MergeOptions=@{Editor=$UnityEditorPath;CaptureOnly=[bool]$CaptureOnly;FontComparison=[bool]$FontComparison;Final=[bool]$Final;Install=[bool]$Install;Serial=$Serial;Seconds=$MeasureSeconds}
 . (Join-Path $PSScriptRoot 'prepare-characters-direct-pixel.ps1')
+. (Join-Path $PSScriptRoot 'merge-font-artifacts.ps1')
 function Assert-MergeRewardVisualApproval([string]$Repository){
     $A=Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $Repository 'References/VisualLock/merge-reward-visual-approved-2026-11-03.json') | ConvertFrom-Json
     if($A.kind -cne 'merge-reward-visual-approved-candidate' -or $A.visual_gate_approved_by_user -isnot [bool] -or -not $A.visual_gate_approved_by_user -or $A.ui_policy -cne 'fix-only' -or $A.source_revision -cnotmatch '^[a-f0-9]{40}$'){throw 'User-approved fix-only Merge candidate required.'}
@@ -15,7 +16,7 @@ function Assert-MergeRewardVisualApproval([string]$Repository){
     if($A.reference_path -cne 'References/Merge/merge_visual_lock_reward.png' -or $A.reference_sha256 -cnotmatch '^[a-f0-9]{64}$' -or (Get-FileHash -LiteralPath (Join-Path $Repository $A.reference_path) -Algorithm SHA256).Hash -ine $A.reference_sha256){throw 'Approved Merge original reference changed.'}
     return $A
 }
-function Get-MergeRewardArguments([string]$Repository,[string]$Directory,[string]$Revision,[string]$Fingerprint,[string]$Packed,[ValidateSet('capture','focus','EditMode','PlayMode')][string]$Stage){
+function Get-MergeRewardArguments([string]$Repository,[string]$Directory,[string]$Revision,[string]$Fingerprint,[string]$Packed,[ValidateSet('capture','focus','EditMode','PlayMode')][string]$Stage,[switch]$FontComparison){
     if($Revision -cnotmatch '^[a-f0-9]{40}$' -or $Fingerprint -cnotmatch '^[a-f0-9]{64}$' -or $Packed -cnotmatch '^[a-f0-9]{64}$'){throw 'Exact Merge source/resource identity required.'}
     $A=@('-batchmode','-projectPath',$Repository,'-buildTarget','Android','-runTests','-testPlatform',$(if($Stage -in @('capture','focus')){'PlayMode'}else{$Stage}),'-testResults',(Join-Path $Directory ($Stage+'.xml')),'-logFile',(Join-Path $Directory ($Stage+'.log')),'-mofumachiSourceRevision',$Revision,'-mofumachiProductFingerprint',$Fingerprint,'-mofumachiPackedResourceSha',$Packed)
     if($Stage -in @('capture','focus')){
@@ -27,6 +28,7 @@ function Get-MergeRewardArguments([string]$Repository,[string]$Directory,[string
         # own directory so its capture cannot reuse/overwrite focused evidence.
         $A+=@('-mofumachiMergeReward',([IO.Path]::GetFullPath((Join-Path $Directory 'full-playmode-capture'))),'-mofumachiMergePreparedQa')
     }
+    if($FontComparison){if($Stage -cne 'capture'){throw 'Font comparison is CaptureOnly, before Visual Gate.'};$A+=@('-mofumachiMergeFontComparison',([IO.Path]::GetFullPath((Join-Path $Directory 'screenshots/font-comparison'))))}
     return $A
 }
 function Assert-MergeRewardProof([string]$Directory,[string]$Revision,[string]$Fingerprint,[string]$Packed){
@@ -78,12 +80,14 @@ function Assert-MergeRewardArtifacts([string]$Directory,[string]$Revision,[strin
     }
     return @(foreach($Name in $Names){$File=Join-Path $Shots $Name;@{path=('screenshots/'+$Name);bytes=(Get-Item -LiteralPath $File).Length;sha256=(Get-FileHash -LiteralPath $File -Algorithm SHA256).Hash.ToLowerInvariant()}})
 }
-function Confirm-MergeRewardCapture($Record,[string]$Directory,[string]$Revision,[string]$Fingerprint,[string]$Packed){
+function Confirm-MergeRewardCapture($Record,[string]$Directory,[string]$Revision,[string]$Fingerprint,[string]$Packed,[switch]$FontComparison){
     # Reset before every validation, including final validation after cleanup.
     $Record.capture_verified=$false;$Record.image_count=0;$Record.artifacts=@()
+    if($FontComparison){$Record.font_comparison_verified=$false;$Record.font_comparison_artifacts=@()}
     $Record.artifact_directory=[IO.Path]::GetFullPath((Join-Path $Directory 'screenshots'))
     if($Record.source_unchanged -isnot [bool] -or -not $Record.source_unchanged -or $Record.error){throw 'Capture source/cleanup checks failed.'}
     $Artifacts=@(Assert-MergeRewardArtifacts $Directory $Revision $Fingerprint $Packed)
+    if($FontComparison){$Record.font_comparison_artifacts=@(Assert-MergeFontArtifacts $Directory $Revision $Fingerprint $Packed);$Record.font_comparison_verified=$true}
     $Record.artifacts=$Artifacts;$Record.image_count=11;$Record.capture_verified=$true
 }
 function Assert-MergeRewardApk([string]$Directory,[string]$Revision,[string]$Fingerprint,[string]$Packed){
@@ -96,6 +100,7 @@ function Assert-MergeRewardApk([string]$Directory,[string]$Revision,[string]$Fin
     return $I
 }
 if($MyInvocation.InvocationName -eq '.'){return}
+if($MergeOptions.FontComparison -and -not $MergeOptions.CaptureOnly){throw 'Use -CaptureOnly -FontComparison; no full QA, APK or install.'}
 if($MergeOptions.CaptureOnly -and ($MergeOptions.Final -or $MergeOptions.Install)){throw 'CaptureOnly stops before Visual Gate; no full QA or APK installation.'}
 if($MergeOptions.Install -and -not $MergeOptions.Final){throw 'Installation requires the candidate-only -Final full QA run.'}
 $Repo=(Resolve-Path -LiteralPath (Split-Path -Parent $PSScriptRoot)).Path;$Git=Find-SourceGit
@@ -109,13 +114,13 @@ $Preserved=Move-PreviousCharacterInputs $Repo $Git
 Assert-CleanProductSource $Repo $Git;Assert-CharactersVisualLock $Repo;Assert-NoahAuthoredMasterFixed $Repo;Assert-NoahAuthoredFrozenInputs $Repo
 $Revision=Read-SourceRevision $Repo;$Fingerprint=Get-CharacterAuthoredSourceFingerprint $Repo
 $Run=Join-Path $Repo ('Builds/Diagnostics/merge-reward-'+(Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::NewGuid().ToString('N').Substring(0,8));New-Item -ItemType Directory -Path $Run | Out-Null
-$Record=[ordered]@{scope='merge-reward-ui-candidate';gitRevision=$Revision;productFingerprint=$Fingerprint;packed_resource_sha256='';visual_gate_approved_by_user=$true;approved_design_revision=$Approval.source_revision;ui_policy='fix-only';preserved_inputs=$Preserved;artifact_directory=([IO.Path]::GetFullPath((Join-Path $Run 'screenshots')));image_count=0;artifacts=@();qa_artifacts=@();capture_verified=$false;focus_verified=$false;full_qa_verified=$false;build_generated=$false;pixel_verified=$false;formal_fixed=$false;adopted=$false;source_unchanged=$false;error=''}
+$Record=[ordered]@{scope='merge-reward-ui-candidate';gitRevision=$Revision;productFingerprint=$Fingerprint;packed_resource_sha256='';visual_gate_approved_by_user=$true;approved_design_revision=$Approval.source_revision;ui_policy='fix-only';preserved_inputs=$Preserved;artifact_directory=([IO.Path]::GetFullPath((Join-Path $Run 'screenshots')));image_count=0;artifacts=@();font_comparison_verified=$false;font_comparison_artifacts=@();qa_artifacts=@();capture_verified=$false;focus_verified=$false;full_qa_verified=$false;build_generated=$false;pixel_verified=$false;formal_fixed=$false;adopted=$false;source_unchanged=$false;error=''}
 $Failure=$null;$Apk=$null;$CaptureReady=$false;Write-Host "Merge-only candidate run: $Run";Write-Host "Exact capture output: $($Record.artifact_directory)"
 try{
     foreach($Step in @('prepare-noah','prepare-five')){Invoke-NoahAuthoredUnity $Editor (Get-CharactersDirectArguments $Repo $Run $Step) $Run}
     $Record.packed_resource_sha256=Get-PreparedCharactersDigest $Repo
     $Stage=if($MergeOptions.CaptureOnly){'capture'}else{'focus'}
-    Invoke-NoahAuthoredUnity $Editor (Get-MergeRewardArguments $Repo $Run $Revision $Fingerprint $Record.packed_resource_sha256 $Stage) $Run
+    Invoke-NoahAuthoredUnity $Editor (Get-MergeRewardArguments $Repo $Run $Revision $Fingerprint $Record.packed_resource_sha256 $Stage -FontComparison:$MergeOptions.FontComparison) $Run
     Assert-TestRun (Join-Path $Run ($Stage+'.xml')) $(if($MergeOptions.CaptureOnly){1}else{5}) $(if($MergeOptions.CaptureOnly){@('MergeRewardCaptureTests')}else{@('MergeRewardCaptureTests','MergeRewardUiTests','MergeInteractionTests','ProductionFrameUiTests')})
     $Proof=Assert-MergeRewardProof $Run $Revision $Fingerprint $Record.packed_resource_sha256
     Write-MergeRewardViewer $Run $Reference $Proof -ReleaseUx:(Test-Path -LiteralPath (Join-Path $Repo 'References/VisualLock/release-ux-2026-11-03.json') -PathType Leaf)
@@ -142,13 +147,14 @@ finally{
         $null=Assert-MergeRewardVisualApproval $Repo
     }catch{if(-not $Failure){$Failure=$_};$Record.error+=' '+$_.Exception.Message}
     if(-not $Failure -and $CaptureReady){
-        try{Confirm-MergeRewardCapture $Record $Run $Revision $Fingerprint $Record.packed_resource_sha256;$Record.focus_verified=-not $MergeOptions.CaptureOnly}
+        try{Confirm-MergeRewardCapture $Record $Run $Revision $Fingerprint $Record.packed_resource_sha256 -FontComparison:$MergeOptions.FontComparison;$Record.focus_verified=-not $MergeOptions.CaptureOnly}
         catch{$Failure=$_;$Record.error+=' '+$_.Exception.Message}
     }
     $Record|ConvertTo-Json -Depth 8|Set-Content -LiteralPath (Join-Path $Run 'merge-reward-source-info.json') -Encoding UTF8
     Write-Host "Original results preserved: $Run"
     if($env:OS -eq 'Windows_NT'){
-        if($Record.capture_verified){Start-Process -FilePath explorer.exe -ArgumentList ('/select,"'+(Join-Path $Record.artifact_directory 'merge-reward.html')+'"')}
+        if($Record.font_comparison_verified){Start-Process -FilePath explorer.exe -ArgumentList ('/select,"'+(Join-Path $Record.artifact_directory 'font-comparison/merge-font.html')+'"')}
+        elseif($Record.capture_verified){Start-Process -FilePath explorer.exe -ArgumentList ('/select,"'+(Join-Path $Record.artifact_directory 'merge-reward.html')+'"')}
         else{Start-Process -FilePath explorer.exe -ArgumentList ('"'+$Run+'"')}
     }
 }

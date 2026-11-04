@@ -35,12 +35,14 @@ function Read-ReleaseUxOverrides([string]$Repository){
         'Assets/Mofumachi/Resources/Mofumachi/UIFontAccent.ttf.meta'
     );$Seen=@{}
     if(@($C.additions).Count -ne $Added.Count){throw 'UX role font/helper additions differ.'}
+    . (Join-Path $PSScriptRoot 'merge-font-scope.ps1')
     foreach($Row in @($C.additions)){
         if($Row.path -cnotin $Added -or $Seen.ContainsKey($Row.path) -or $Row.text_normalized -isnot [bool] -or $Row.sha256 -cnotmatch '^[a-f0-9]{64}$' -or $Row.text_normalized -ne (-not $Row.path.EndsWith('.ttf'))){throw 'Unrelated UX addition refused.'};$Seen[$Row.path]=$true
         $Path=Join-Path $Repository $Row.path
         if(-not(Test-Path -LiteralPath $Path -PathType Leaf) -or ((Get-Item -LiteralPath $Path -Force).Attributes -band [IO.FileAttributes]::ReparsePoint)){throw 'UX addition missing or linked.'}
         $Hash=if($Row.text_normalized){Get-FinishTextHash $Path}else{(Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant()}
-        if($Hash -cne $Row.sha256){throw "UX addition changed: $($Row.path)"}
+        $Expected=Read-MergeFontTypographyOverride $Repository $Row.path $Row.sha256
+        if($Hash -cne $Expected){throw "UX addition changed: $($Row.path)"}
     }
     return $Result
 }

@@ -1,0 +1,44 @@
+{
+  "kind": "merge-font-visual-candidate",
+  "change_authorized": true,
+  "baseline_revision": "c84e5d9fa1c7d6aaf1305940794250509fa35f8f",
+  "parent_manifest_sha256": "117fdd6aed6b7d32a5e221fdcee0d6fb08085312eeebdbf7ced0b98c6efd7772",
+  "formal_fixed": false,
+  "adopted": false,
+  "native_verified": false,
+  "pixel_verified": false,
+  "default_candidate": "B",
+  "overrides": [
+    {
+      "path": "Assets/Mofumachi/Presentation/ReleaseTypography.cs",
+      "before_sha256": "195096be22fa1df8aba57a21674cafaed1c320ba1314da39b58deb977f93d941",
+      "sha256": "8d0592ba172938676ecf01da2403b91360b50a7f49da9f9afb731ce1bbc7d156"
+    }
+  ],
+  "additions": [
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeFontProfile.cs",
+      "sha256": "3e7935f615f93b8f290aa540637a65df3408588109ca2fff6a59722b55aad606"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeFontProfile.cs.meta",
+      "sha256": "6edde5311ceaadf562cbf12cb62337bc0ebb2c486c77c6590a08542cf69cc490"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeTypography.cs",
+      "sha256": "1fd979f6c12662abe2eb9f7a2f2094eecbaaf23c315410db824d54b34a4b0ce3"
+    },
+    {
+      "path": "Assets/Mofumachi/Presentation/MergeTypography.cs.meta",
+      "sha256": "9d4f394ed2bddf0771fe465c95ed5bce5e8e38061ca0972907490e184d1f28da"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/MergeFontComparisonCapture.cs",
+      "sha256": "4255822ff8af6ac1eff281f606f8306954f6b237e1a5b134a1ce69071f40670c"
+    },
+    {
+      "path": "Assets/Mofumachi/Tests/PlayMode/MergeFontComparisonCapture.cs.meta",
+      "sha256": "54cd31925f62464cfc06437053ad5f73203882e16371bc0bfadd46b692aea318"
+    }
+  ]
+}

@@ -21,6 +21,9 @@ try{
     Write-MergeRewardViewer $Root (Join-Path $Root 'missing-reference.png') (Assert-MergeRewardProof $Root $Rev $Fp $Packed)
     Confirm-MergeRewardCapture $Record $Root $Rev $Fp $Packed
     if(-not $Record.capture_verified -or $Record.image_count -ne 11 -or $Record.artifacts.Count -ne 13 -or $Record.artifact_directory -cne $Shots){throw 'Only complete disk evidence may be accepted.'}
+    $Record.font_comparison_verified=$true;$Record.font_comparison_artifacts=@()
+    RejectCapture {Confirm-MergeRewardCapture $Record $Root $Rev $Fp $Packed -FontComparison}
+    if($Record.capture_verified -or $Record.font_comparison_verified){throw 'Requested font comparison was missing but capture stayed verified.'}
     foreach($Case in @('one-jpeg','all-jpegs','json','html','empty-html','empty-jpeg','html-links','source-failed','source-error','zero-artifacts')){
         $null=ResetCaptureFixture
         Write-MergeRewardViewer $Root (Join-Path $Root 'missing-reference.png') (Assert-MergeRewardProof $Root $Rev $Fp $Packed)

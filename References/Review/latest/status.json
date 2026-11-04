@@ -1,9 +1,9 @@
 {
   "branch": "feat/daily-world-pass-20261016",
-  "commit": "ab62a64bc3ccb849df9a2aa5ed497996db44ee6f",
+  "commit": "1d86ddddae7737ebed3dfcab90ec55feb2dcc028",
   "commit_scope": "reviewed_work_commit_excluding_review_metadata_only_commits",
   "product_commit": "193ab6eeb216d9f457096d9f3df305704f2f962e",
-  "updated_at_utc": "2026-11-04T13:31:59+00:00",
+  "updated_at_utc": "2026-11-04T13:47:34+00:00",
   "scope": "current_font_only_candidate_and_latest_failed_run_investigation",
   "success": false,
   "tests_passed": false,
@@ -11,9 +11,9 @@
   "pixel_verified": false,
   "formal_fixed": false,
   "adopted": false,
-  "state": "no_local_font_only_run_directory",
+  "state": "diagnostics_copy_script_ready_awaiting_windows_inbox",
   "sharing_setup_complete": true,
-  "tests_status": "not_run_for_current_request",
+  "tests_status": "copy_script_12_fixture_checks_passed; native_font_tests_not_run",
   "latest_run_received": false,
   "investigated_run": null,
   "root_cause_confirmed": false,
@@ -28,6 +28,17 @@
   "game_code_changed": false,
   "full_tests_run": false,
   "apk_generated": false,
-  "next_action": "Stopped: /workspace/mofumachi-merge/Builds/Diagnostics is readable but contains zero font-only-* run directories. No run can be selected or root cause identified from this environment. No ZIP wait, rerun, code change or test.",
-  "sharing_base_url": "https://github.com/ma3110neyan-bot/mofumachi-merge/tree/feat/daily-world-pass-20261016/References/Review/latest"
+  "next_action": "On the Windows repository containing the failed run, run scripts/share-latest-font-diagnostics.ps1 once; commit/push only References/Review/inbox/latest to publish. Then inspect only that run and report the seven root-cause items, without capture, Unity, application changes or native tests.",
+  "sharing_base_url": "https://github.com/ma3110neyan-bot/mofumachi-merge/tree/feat/daily-world-pass-20261016/References/Review/latest",
+  "diagnostics_copy_script": {
+    "path": "scripts/share-latest-font-diagnostics.ps1",
+    "fixture_checks_passed": 12,
+    "fixture_checks_failed": 0,
+    "verification_host": "PowerShell 7.4.6 on Linux; temporary real files only",
+    "windows_powershell_51_executed": false,
+    "max_file_bytes": 4194304,
+    "max_total_bytes": 16777216,
+    "max_files": 64,
+    "automatically_commits_or_pushes": false
+  }
 }

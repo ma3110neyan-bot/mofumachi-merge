@@ -4,11 +4,11 @@
   "commit_scope": "implementation_candidate_excluding_followup_review_metadata_commit",
   "product_commit": "2b81174496a5b4703bad0516645829893d4297b9",
   "base_commit": "0a448d2d3a084c7c581122536ebe1d7533a98b2d",
-  "updated_at_jst": "2026-11-05T21:42:30+09:00",
-  "updated_at_utc": "2026-11-05T12:42:30+00:00",
-  "scope": "savedata_v4_stage1_only",
+  "updated_at_jst": "2026-11-05T23:01:14+09:00",
+  "updated_at_utc": "2026-11-05T14:01:14+00:00",
+  "scope": "savedata_v4_stage1_existing_implementation_confirmation",
   "status": "修正済み・未確認",
-  "state": "savedata_v4_stage1_candidate_stopped_at_existing_safety_guard",
+  "state": "savedata_v4_implementation_exists_direct_validation_pending",
   "success": false,
   "tests_passed": false,
   "capture_verified": false,
@@ -86,7 +86,7 @@
     "unity_start_attempts": 0,
     "substitute_unit_test_runs": 0,
     "api_compilation_runs": 0,
-    "reason": "Stopped at the single existing source guard refusal. Also no display/Xvfb; Unity license unconfirmed and license-store access denied. Unity was not started.",
+    "reason": "No rerun in this request: prior safety-guard refusal and insufficient/unconfirmed Unity environment remain. Code/test presence was checked read-only.",
     "intended_editmode_fixtures": [
       "Mofumachi.Tests.SaveServiceTests",
       "Mofumachi.Tests.PreferencesTests",
@@ -121,7 +121,8 @@
         "already_mismatched_at_base": true
       }
     ],
-    "analysis_only_no_guard_rerun": true
+    "analysis_only_no_guard_rerun": true,
+    "reexecuted_this_request": false
   },
   "first_failure": {
     "kind": "existing_source_safety_guard",
@@ -129,7 +130,8 @@
     "file": "Assets/Mofumachi/Presentation/TownActor.cs",
     "guard_source": "scripts/visual-lock.ps1:89",
     "already_present_before_task": true,
-    "save_v4_core_guard_verification_reached": false
+    "save_v4_core_guard_verification_reached": false,
+    "source": "previous saved guard result; not a new failure"
   },
   "environment_preflight": {
     "unity_started": false,
@@ -137,7 +139,8 @@
     "license_status": "unconfirmed; read of /root/.local/share/unity3d/Unity denied; not retried",
     "license_environment_configured": false,
     "display_configured": false,
-    "xvfb_present": false
+    "xvfb_present": false,
+    "source": "previous saved preflight; not re-executed in this request"
   },
   "static_review": {
     "independent_reviews": 1,
@@ -162,8 +165,8 @@
   "font_workflow_resumed": false,
   "next_stage_safe": false,
   "next_stage_verdict": "NO",
-  "next_stage_reason": "Source guard blocked before checking the SaveData changes; direct migration tests and UI load-block behavior remain unexecuted.",
-  "minimum_next_action": "Read-only reconcile the current approved candidate/guard entry with the obsolete Noah record. Preserve TownActor and formal lock originals. Then establish a bounded check for the eight SaveData-stage files and run only the direct SaveData tests once in a licensed environment. Do not proceed to stage2.",
+  "next_stage_reason": "Existing implementation is present, but the recorded guard refusal is unresolved and direct migration tests remain unexecuted.",
+  "minimum_next_action": "Stop after sharing this confirmation. Separately resolve which existing approved guard entry applies, preserving TownActor and lock originals; then verify only direct SaveData targets once in a licensed environment. No stage2 work.",
   "sharing_setup_complete": true,
   "automatically_commits_or_pushes": true,
   "sharing_base_url": "https://github.com/ma3110neyan-bot/mofumachi-merge/tree/feat/daily-world-pass-20261016/References/Review/latest",
@@ -224,5 +227,44 @@
       "cloud_unity_launched": false,
       "windows_native_run_received": false
     }
-  }
+  },
+  "implementation_commit": "2b81174496a5b4703bad0516645829893d4297b9",
+  "operation_this_request": "read_only_source_commit_and_saved_results_confirmation",
+  "implementation_presence_confirmed": true,
+  "current_source_matches_implementation": true,
+  "checked_local_head": "5ce5dc0ec7c21be8b58b701a584fa4e136b4cd42",
+  "checked_local_head_scope": "HEAD at start of this confirmation, before this metadata-only update",
+  "existing_uncommitted_or_staged_changes_at_start": false,
+  "reimplementation_performed": false,
+  "game_code_changed_this_request": false,
+  "changed_files_this_request": [
+    "References/Review/latest/summary.md",
+    "References/Review/latest/status.json"
+  ],
+  "tests_invoked_this_request": 0,
+  "unity_started_this_request": false,
+  "guard_invoked_this_request": 0,
+  "environment_probe_repeated_this_request": false,
+  "test_results_source": "previous recorded non-execution; no new tests or guard retry",
+  "presence_checks": {
+    "save_version_4": true,
+    "economy_storage_fields": true,
+    "v1_v2_v3_migration_code": true,
+    "pre_v4_protection_code": true,
+    "blocked_load_and_write_code": true,
+    "related_tests_added_or_updated": true,
+    "implementation_commit_exists": true,
+    "scope": "source and commit presence only, not runtime correctness"
+  },
+  "unconfirmed_items": [
+    "v1/v2/v3 actual disk migration and preservation",
+    "v4 reload without point regrant including zero balance",
+    "CopyFrom and failed-save rollback execution",
+    "pre-v4 creation, SHA and preservation execution",
+    "invalid/partial/unknown-version write blocking execution",
+    "blocked-load feedback in Unity",
+    "native EditMode/PlayMode execution",
+    "API compilation",
+    "successful source safety verification"
+  ]
 }

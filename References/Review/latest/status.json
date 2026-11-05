@@ -1,14 +1,12 @@
 {
   "branch": "feat/daily-world-pass-20261016",
   "commit": "2b81174496a5b4703bad0516645829893d4297b9",
-  "commit_scope": "implementation_candidate_excluding_followup_review_metadata_commit",
+  "commit_scope": "SaveData implementation under verification; launcher and review commits are separate",
   "product_commit": "2b81174496a5b4703bad0516645829893d4297b9",
   "base_commit": "0a448d2d3a084c7c581122536ebe1d7533a98b2d",
-  "updated_at_jst": "2026-11-05T23:01:14+09:00",
-  "updated_at_utc": "2026-11-05T14:01:14+00:00",
-  "scope": "savedata_v4_stage1_existing_implementation_confirmation",
+  "scope": "savedata_v4_stage1_guard_aligned_windows_verification_ready",
   "status": "修正済み・未確認",
-  "state": "savedata_v4_implementation_exists_direct_validation_pending",
+  "state": "savedata_v4_guard_aligned_awaiting_windows_one_shot_results",
   "success": false,
   "tests_passed": false,
   "capture_verified": false,
@@ -82,57 +80,51 @@
   },
   "tests_execution": {
     "status": "not_run",
-    "native_invocations": 0,
+    "result": "NotRun",
+    "native_unity_tests": 0,
     "unity_start_attempts": 0,
-    "substitute_unit_test_runs": 0,
-    "api_compilation_runs": 0,
-    "reason": "No rerun in this request: prior safety-guard refusal and insufficient/unconfirmed Unity environment remain. Code/test presence was checked read-only.",
-    "intended_editmode_fixtures": [
-      "Mofumachi.Tests.SaveServiceTests",
-      "Mofumachi.Tests.PreferencesTests",
-      "Mofumachi.Tests.CharacterPreferenceTests"
-    ],
-    "playmode_change": "MergeProgressionUiTests: existing saveVersion expectation only, 3 to 4; not run",
-    "first_unity_or_test_error": null
+    "automatic_retries": 0,
+    "reason": "Existing recorded cloud license/environment insufficiency; no repeated environment probing. Await dedicated Windows run."
   },
   "safety_guard": {
-    "guard": "Assert-OriginalBaseForCandidate",
-    "guard_attempts": 1,
-    "passed": false,
-    "first_error": "Display differs from the authorized correction candidate.",
-    "throw_source": "scripts/visual-lock.ps1:89",
-    "record": "References/VisualLock/noah-final-rig-candidate-2026-10-29.json",
-    "scope": "town_noah_quality_2026_10_28",
-    "first_mismatched_input": {
-      "path": "Assets/Mofumachi/Presentation/TownActor.cs",
-      "expected_sha256": "10dc0c0a8f041bc511ef13c0d89bb773ef6e8a0fc564f39325e20a8a0c68c57e",
-      "candidate_sha256": "1591e855b186f5e232600f24cc7ab72c70523eee6975b2b62d0002632e8905b2",
-      "base_sha256": "1591e855b186f5e232600f24cc7ab72c70523eee6975b2b62d0002632e8905b2",
-      "changed_by_this_task": false,
-      "already_mismatched_at_base": true
-    },
-    "mismatched_inputs": [
-      {
-        "path": "Assets/Mofumachi/Presentation/TownActor.cs",
-        "expected_sha256": "10dc0c0a8f041bc511ef13c0d89bb773ef6e8a0fc564f39325e20a8a0c68c57e",
-        "candidate_sha256": "1591e855b186f5e232600f24cc7ab72c70523eee6975b2b62d0002632e8905b2",
-        "base_sha256": "1591e855b186f5e232600f24cc7ab72c70523eee6975b2b62d0002632e8905b2",
-        "changed_by_this_task": false,
-        "already_mismatched_at_base": true
-      }
+    "root_cause": "The previously selected general visual-candidate gate resolves stage-acceptance.base_polish to a retired Noah trial. It is not a SaveData unit-test gate.",
+    "trace": [
+      "scripts/build-android.ps1:258 (full acceptance entrypoint)",
+      "scripts/visual-lock.ps1:186-187 (Assert-OriginalBaseForCandidate)",
+      "scripts/visual-lock.ps1:34-41 (Get-BasePolishPatch reads base_polish)",
+      "References/VisualLock/stage-acceptance-2026-10-21.json -> References/VisualLock/noah-final-rig-candidate-2026-10-29.json",
+      "scripts/visual-lock.ps1:89 (old trial SHA mismatch)"
     ],
-    "analysis_only_no_guard_rerun": true,
-    "reexecuted_this_request": false
+    "retired_scope": "town_noah_quality_2026_10_28",
+    "retired_candidate_status": "rejected_visual_retired",
+    "old_expected_town_actor_sha256": "10dc0c0a8f041bc511ef13c0d89bb773ef6e8a0fc564f39325e20a8a0c68c57e",
+    "current_town_actor_sha256": "1591e855b186f5e232600f24cc7ab72c70523eee6975b2b62d0002632e8905b2",
+    "unchanged_before_and_after_savedata_implementation": true,
+    "selected_existing_guard": "Assert-CharactersVisualLock",
+    "selected_guard_source": "scripts/character-finish-scope.ps1:49",
+    "selected_guard_records": [
+      "References/VisualLock/characters-25d-final-2026-11-01.json",
+      "References/VisualLock/characters-head-recovery-2026-11-01.json",
+      "References/VisualLock/characters-head-calibration-2026-11-02.json"
+    ],
+    "scope": "Current frozen character inputs with existing bounded head amendments; does not authorize SaveData changes or release acceptance",
+    "current_character_record_town_actor_sha_matches": true,
+    "read_only_check": {
+      "executions_in_this_workflow": 1,
+      "exit_code": 0,
+      "result": "Passed",
+      "platform": "PowerShell 7.4.6 / Linux",
+      "unity_started": false,
+      "repeated_after_latest_instruction": false
+    },
+    "old_failed_guard_reexecuted": false,
+    "modified": false,
+    "disabled": false,
+    "new_exception": false,
+    "general_visual_acceptance_fixed": false,
+    "conclusion": "Existing current-character guard plus pinned source and the existing filtered EditMode runner form the direct-test entrypoint. The old visual/build gate remains unchanged; this grants no APK/visual-release approval."
   },
-  "first_failure": {
-    "kind": "existing_source_safety_guard",
-    "message": "Display differs from the authorized correction candidate.",
-    "file": "Assets/Mofumachi/Presentation/TownActor.cs",
-    "guard_source": "scripts/visual-lock.ps1:89",
-    "already_present_before_task": true,
-    "save_v4_core_guard_verification_reached": false,
-    "source": "previous saved guard result; not a new failure"
-  },
+  "first_failure": null,
   "environment_preflight": {
     "unity_started": false,
     "native_tests_invoked": 0,
@@ -165,8 +157,8 @@
   "font_workflow_resumed": false,
   "next_stage_safe": false,
   "next_stage_verdict": "NO",
-  "next_stage_reason": "Existing implementation is present, but the recorded guard refusal is unresolved and direct migration tests remain unexecuted.",
-  "minimum_next_action": "Stop after sharing this confirmation. Separately resolve which existing approved guard entry applies, preserving TownActor and lock originals; then verify only direct SaveData targets once in a licensed environment. No stage2 work.",
+  "next_stage_reason": "Windows実UnityでのSaveData直接関連テスト結果が未取得。",
+  "minimum_next_action": "Windowsのscripts/verify-savedata-v4-windows.cmdを1回だけダブルクリック。結果受領後に同一commitとXML/JSONを照合する。第2工程は開始しない。",
   "sharing_setup_complete": true,
   "automatically_commits_or_pushes": true,
   "sharing_base_url": "https://github.com/ma3110neyan-bot/mofumachi-merge/tree/feat/daily-world-pass-20261016/References/Review/latest",
@@ -229,42 +221,215 @@
     }
   },
   "implementation_commit": "2b81174496a5b4703bad0516645829893d4297b9",
-  "operation_this_request": "read_only_source_commit_and_saved_results_confirmation",
+  "operation_this_request": "reuse existing guard diagnosis and passing check; finish dedicated Windows verification launcher",
   "implementation_presence_confirmed": true,
   "current_source_matches_implementation": true,
-  "checked_local_head": "5ce5dc0ec7c21be8b58b701a584fa4e136b4cd42",
-  "checked_local_head_scope": "HEAD at start of this confirmation, before this metadata-only update",
   "existing_uncommitted_or_staged_changes_at_start": false,
   "reimplementation_performed": false,
   "game_code_changed_this_request": false,
   "changed_files_this_request": [
+    "scripts/verify-savedata-v4-windows.ps1",
+    "scripts/verify-savedata-v4-windows.cmd",
     "References/Review/latest/summary.md",
     "References/Review/latest/status.json"
   ],
   "tests_invoked_this_request": 0,
   "unity_started_this_request": false,
-  "guard_invoked_this_request": 0,
   "environment_probe_repeated_this_request": false,
-  "test_results_source": "previous recorded non-execution; no new tests or guard retry",
-  "presence_checks": {
-    "save_version_4": true,
-    "economy_storage_fields": true,
-    "v1_v2_v3_migration_code": true,
-    "pre_v4_protection_code": true,
-    "blocked_load_and_write_code": true,
-    "related_tests_added_or_updated": true,
-    "implementation_commit_exists": true,
-    "scope": "source and commit presence only, not runtime correctness"
-  },
+  "test_results_source": "Windows execution not received; source inventory and launcher static checks only",
   "unconfirmed_items": [
-    "v1/v2/v3 actual disk migration and preservation",
-    "v4 reload without point regrant including zero balance",
-    "CopyFrom and failed-save rollback execution",
-    "pre-v4 creation, SHA and preservation execution",
-    "invalid/partial/unknown-version write blocking execution",
-    "blocked-load feedback in Unity",
-    "native EditMode/PlayMode execution",
-    "API compilation",
-    "successful source safety verification"
+    "Windows実UnityでのSaveData直接関連確認（下記14必須項目）の結果"
+  ],
+  "previous_safety_guard": {
+    "guard": "Assert-OriginalBaseForCandidate",
+    "guard_attempts": 1,
+    "passed": false,
+    "first_error": "Display differs from the authorized correction candidate.",
+    "throw_source": "scripts/visual-lock.ps1:89",
+    "record": "References/VisualLock/noah-final-rig-candidate-2026-10-29.json",
+    "scope": "town_noah_quality_2026_10_28",
+    "first_mismatched_input": {
+      "path": "Assets/Mofumachi/Presentation/TownActor.cs",
+      "expected_sha256": "10dc0c0a8f041bc511ef13c0d89bb773ef6e8a0fc564f39325e20a8a0c68c57e",
+      "candidate_sha256": "1591e855b186f5e232600f24cc7ab72c70523eee6975b2b62d0002632e8905b2",
+      "base_sha256": "1591e855b186f5e232600f24cc7ab72c70523eee6975b2b62d0002632e8905b2",
+      "changed_by_this_task": false,
+      "already_mismatched_at_base": true
+    },
+    "mismatched_inputs": [
+      {
+        "path": "Assets/Mofumachi/Presentation/TownActor.cs",
+        "expected_sha256": "10dc0c0a8f041bc511ef13c0d89bb773ef6e8a0fc564f39325e20a8a0c68c57e",
+        "candidate_sha256": "1591e855b186f5e232600f24cc7ab72c70523eee6975b2b62d0002632e8905b2",
+        "base_sha256": "1591e855b186f5e232600f24cc7ab72c70523eee6975b2b62d0002632e8905b2",
+        "changed_by_this_task": false,
+        "already_mismatched_at_base": true
+      }
+    ],
+    "analysis_only_no_guard_rerun": true,
+    "reexecuted_this_request": false
+  },
+  "historical_first_failure": {
+    "kind": "existing_source_safety_guard",
+    "message": "Display differs from the authorized correction candidate.",
+    "file": "Assets/Mofumachi/Presentation/TownActor.cs",
+    "guard_source": "scripts/visual-lock.ps1:89",
+    "already_present_before_task": true,
+    "save_v4_core_guard_verification_reached": false,
+    "source": "previous saved guard result; not a new failure"
+  },
+  "updated_date_jst": "2026-11-06",
+  "stage1_state": "Guard整合確認済み・Windows実行待ち",
+  "stage1_complete": false,
+  "stage2_safe": false,
+  "primary_blocker": "Windows実Unityでの対象3fixture・63ケースの検証結果待ち",
+  "visual_lock_original_changed": false,
+  "guard_changed": false,
+  "guard_disabled": false,
+  "guard_weakened": false,
+  "new_guard_exception_added": false,
+  "automatic_retries": 0,
+  "guard_alignment_confirmed": true,
+  "first_unity_error": null,
+  "test_entrypoint": {
+    "runner": "Existing Unity Test Framework command-line EditMode runner",
+    "existing_source": "scripts/build-android.ps1:302 (runner arguments only; do not invoke the full build pipeline)",
+    "assembly": "Mofumachi.EditModeTests",
+    "assembly_definition": "Assets/Mofumachi/Tests/EditMode/Mofumachi.EditModeTests.asmdef",
+    "assembly_references": [
+      "Mofumachi.Core"
+    ],
+    "build_target": "Android",
+    "fixtures": {
+      "Mofumachi.Tests.SaveServiceTests": 33,
+      "Mofumachi.Tests.PreferencesTests": 23,
+      "Mofumachi.Tests.CharacterPreferenceTests": 7
+    },
+    "expected_cases": 63,
+    "count_basis": "Static Test/TestCase attributes at pinned implementation, not an executed count",
+    "playmode_executed": false,
+    "playmode_reason": "Migration, serialization and rollback are covered by these Core EditMode fixtures; no second Unity invocation or UI/visual scope in this run",
+    "no_all_tests": true,
+    "no_apk": true,
+    "no_pixel": true,
+    "no_capture": true
+  },
+  "windows_launcher": {
+    "commit": "ae909aea406d3424b449e41329d149a608a790ee",
+    "cmd": "scripts/verify-savedata-v4-windows.cmd",
+    "ps1": "scripts/verify-savedata-v4-windows.ps1",
+    "product_commit": "2b81174496a5b4703bad0516645829893d4297b9",
+    "os": "Windows 11",
+    "powershell": "Windows PowerShell 5.1",
+    "unity": "6000.6.4f1",
+    "user_action": "Double-click CMD once",
+    "isolation": "New detached worktree pinned to implementation; original branch/index/files and player saves untouched",
+    "unity_invocations_max": 1,
+    "automatic_retries": 0,
+    "guard": "Existing Assert-CharactersVisualLock before Unity",
+    "one_shot_receipt": "Builds/Diagnostics/savedata-v4-2b81174496a5b4703bad0516645829893d4297b9.attempted (exclusive create; never automatically removed)",
+    "output": "Builds/Diagnostics/savedata-v4-yyyyMMdd-HHmmss-xxxxxxxx/",
+    "outputs": [
+      "editmode.xml",
+      "unity.log",
+      "stdout.log",
+      "stderr.log",
+      "source-info.json",
+      "source-revision.txt",
+      "unity-arguments.txt"
+    ],
+    "failure_output": "first-error.log (first causal Unity compiler/test error; preflight failures separately labeled)",
+    "machine_fields": [
+      "success",
+      "result",
+      "tests_passed",
+      "verification_items",
+      "stage1_complete",
+      "stage2_safe",
+      "first_failure",
+      "gitRevision",
+      "test_invocations",
+      "automatic_retries"
+    ],
+    "windows_execution_verified": false,
+    "powershell_51_runtime_verified": false,
+    "automatically_commits_or_pushes": false,
+    "encoding": "PS1 UTF-8 with BOM; CMD ASCII CRLF",
+    "static_check": {
+      "syntax_errors": 0,
+      "parser": "PowerShell 7.4.6",
+      "argument_filter": "Only the three exact fixture prefixes, EditMode and named assembly",
+      "case_inventory": 63,
+      "required_proofs": 14,
+      "unity_start_call_sites": 1,
+      "unsupported_ps7_syntax_detected": false,
+      "scope": "Static syntax/API/argument/encoding inspection; no claim of Windows runtime verification"
+    },
+    "sha256": {
+      "scripts/verify-savedata-v4-windows.ps1": "d7fcd9a79798b3302ea52cc141af963dc50e799cc952d1055065344b1f1411cf",
+      "scripts/verify-savedata-v4-windows.cmd": "13bdf2a33446a855f24201f181e7cc6ca291e74ad65ccc885e347e2f42b8ff91"
+    }
+  },
+  "required_verification_items": {
+    "new_v4_24p": {
+      "result": "NotRun",
+      "verified": false
+    },
+    "v1_to_v4": {
+      "result": "NotRun",
+      "verified": false
+    },
+    "v2_to_v4": {
+      "result": "NotRun",
+      "verified": false
+    },
+    "v3_to_v4": {
+      "result": "NotRun",
+      "verified": false
+    },
+    "existing_fields_preserved": {
+      "result": "NotRun",
+      "verified": false
+    },
+    "initial_24p_once": {
+      "result": "NotRun",
+      "verified": false
+    },
+    "v4_reload_no_regrant": {
+      "result": "NotRun",
+      "verified": false
+    },
+    "zero_balance_no_reinitialize": {
+      "result": "NotRun",
+      "verified": false
+    },
+    "pre_v4_raw_bytes_preserved": {
+      "result": "NotRun",
+      "verified": false
+    },
+    "existing_pre_v4_not_overwritten": {
+      "result": "NotRun",
+      "verified": false
+    },
+    "invalid_v4_not_repaired": {
+      "result": "NotRun",
+      "verified": false
+    },
+    "unsupported_version_blocked": {
+      "result": "NotRun",
+      "verified": false
+    },
+    "migration_failure_no_new_save": {
+      "result": "NotRun",
+      "verified": false
+    },
+    "copyfrom_and_rollback": {
+      "result": "NotRun",
+      "verified": false
+    }
+  },
+  "tooling_notes": [
+    "An earlier static argument inspection passed a Windows C: path to Linux and stopped at Join-Path. Existing local paths were then used for argument-only inspection, with no launcher/product change for that environment mismatch and no Unity/test retry.",
+    "CMD CRLF is intentional; Git whitespace inspection used cr-at-eol for that file without changing repository configuration or any Safety Guard."
   ]
 }

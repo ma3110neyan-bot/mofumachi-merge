@@ -1,86 +1,92 @@
-# 最新レビュー：SaveData v4の既存実装を確認／第1工程の直接検証は未完了
+# SaveData v4第1工程：Guard整合確認済み・Windows実行待ち
 
-- 現在ブランチ：`feat/daily-world-pass-20261016`
-- 実装commit SHA：`2b81174496a5b4703bad0516645829893d4297b9`。既存コミットの存在と変更8ファイルを確認。
-- 今回の確認開始HEAD：`5ce5dc0ec7c21be8b58b701a584fa4e136b4cd42`（前回の共有記録コミット）。この後の共有更新コミットとは区別する。
-- 今回の目的：第1工程が既に実装されているかを確認し、重複実装を避ける。
-- 今回の実施：現行コード・コミット・保存済み結果の読み取りのみ。Assetsは実装commitと完全一致し、その後のゲームコード差分も未コミット差分もなかった。**再実装・ゲームコード変更・テスト・ガードの再実行は行っていない。**
-- Save version：**4**。GameStateの経済保存13項目、v1/v2/v3→v4補完・初期化、pre-v4原本保護、書込停止、関連テストの追加・更新をコード上で確認。
-- 状態：**修正済み・未確認**。存在確認は完了。実移行・保存失敗・原本一致・起動停止の実行確認は未完了であり、第1工程の完了条件には達していない。
-- テスト結果：前回も今回もUnity起動・関連テスト実行は0回。追加済みのテストソースを合格結果として扱わない。前回のガード拒否は1回、今回のガード実行は0回。
-- 最初の失敗：前回の既存Safety Guardの `Display differs from the authorized correction candidate.` を引き継ぐ。旧ノア候補が要求するTownActor.csのSHAと現行値の不一致で、実装前から存在し、このファイルは今回も前回も変更していない。SaveData差分の検証へは未到達。
-- 環境：前回保存済みの確認では描画環境なし、ライセンスは権限上未確認。今回は同じ環境調査・失敗操作を繰り返していない。新しいUnityエラーやtest failureは観測していない。
-- 共有：この確認の変更はsummary.md／status.jsonだけ。前回のerror.logはそのまま保持し、既存共有記録commitも履歴に含めて最新記録を公開する。
-- 次にやること：ガードの参照候補・検証入口の整合を別途確認し、実行可能な環境で保存関連対象だけを1回検証する必要がある。今回その対応は行わず、共有後に停止する。
+更新日：2026-11-06（日本時間）。状態：**修正済み・未確認**。
 
-## 実施済み確認の結果
+- branch：`feat/daily-world-pass-20261016`
+- 検証対象の実装commit：`2b81174496a5b4703bad0516645829893d4297b9`。SaveData v4は再実装していない。
+- Windows検証ランチャーcommit：`ae909aea406d3424b449e41329d149a608a790ee`（初版`3b20fbd`を含む）。共有文書commitとは区別する。
+- 今回の目的：正しい既存検証入口を確定し、第1工程の直接検証を1回だけ行う準備を完了する。
+- 実施：Guardの参照・scope確認、現行の既存キャラGuardの読取チェック1回合格、専用Windowsランチャー作成、構文／API／文字コード／引数の静的確認。
+- Unity起動：0回。SaveData直接テスト：**未実行（NotRun）**。自動再試行：0回。実行結果をPassed/Failedと推測しない。
+- SaveData v4第1工程完了：**false**。第2工程へ進める：**false**。
+- 主要ブロッカーは1つ：**Windows実Unityでの対象3fixture・63ケースの検証結果が未取得。**
 
-| 確認項目 | 結果 | 証拠の範囲 |
-| --- | --- | --- |
-| Save version 4 | 存在確認 | GameState.CurrentSaveVersion=4 |
-| 経済保存項目 | 存在確認 | EconomyStateに残高、累計、初期化済み、各日付、会話ID、通常/追加回数、おたすけ済み、花付与日、散策消込、依頼経路 |
-| v1/v2/v3→v4 | 処理の存在確認 | 元versionを保存して旧版補完後にEconomyStateを初期化。実データ実行は未確認 |
-| pre-v4保護 | 処理の存在確認 | save.pre-v4.jsonの排他作成、生バイト長・SHA照合、v4側SHAとの照合。実際のファイル生成は未確認 |
-| 移行失敗の停止 | 処理の存在確認 | LoadBlocked/MigrationBlocked、State=null、通常初期化停止、保存拒否。実行は未確認 |
-| 関連テスト | 追加・更新済み | 既存テスト4ファイル。未実行 |
-| 実装済みcommit | 存在確認 | 上記2b81174。現行Assetsと同一 |
+## Guard問題の結論
 
-以下の実装説明と最初の失敗は、既存実装・保存済み結果の記録を引き継ぐ。今回新たに実装・実行した結果ではない。
+以前選択した`Assert-OriginalBaseForCandidate`は、SaveData専用のGuardではなく旧Visual候補／製品受入れ用の入口だった。
 
-## 実装候補の変更内容
+1. `scripts/build-android.ps1:258`の全体入口は無条件にこのGuardを呼ぶ。前工程でもこの関数を直接選択していた。
+2. `scripts/visual-lock.ps1:187`→`Get-BasePolishPatch`（34〜41行）は、`stage-acceptance-2026-10-21.json`の`base_polish`を読む。
+3. この参照は`noah-final-rig-candidate-2026-10-29.json`に残り、scopeは`town_noah_quality_2026_10_28`、記録自体のstatusは`rejected_visual_retired`／`trial_discontinued=true`。
+4. 89行のSHA検査で旧TownActor候補と不一致になった。SaveDataテストからこのVisual Guardを呼ぶ依存はない。全体ビルド入口を使うと旧候補検査が先に走る。
 
-saveVersion=4、保存専用EconomyState、初期24P・累計0・初期化済み・未取得履歴・新旧依頼経路を追加。v1/v2の欠損補完は元版と項目存在を区別し、存在する音量・パートナー等を保持する。v4の0Pは再初期化しない。Clone/CopyFrom/Validate/シリアライズへ新状態を含める。未知の既存データもExtensionDataで保持する構成。
-
-正常な旧主セーブだけからsave.pre-v4.jsonを排他作成し、生バイトの長さ・SHAを照合。SHAをv4にも保存し、後日の原本不整合も検出する構成。退避・移行・検証・未対応版・必須経済情報欠損・途中状態は明示LoadBlocked/MigrationBlockedへ進め、初期GameStateで代用しない。停止したインスタンスの保存を拒否する。
-
-UIFlowControllerへの変更は、主読込を社会記録初期化より先に行い、停止時は通常セッションを開始せず既存Feedbackを使う読込ゲートだけ。正常時の画面配置・色・盤面・ボタン・素材・フォント・BGMを変更していない。この停止時表示の実Unity確認は未実行。
-
-保護済みpre-v4がある状態のResetSaveは停止し、保護データを新規開始へ黙って置換しない。生原本の自動削除・上書きはしない。これは保護のための実装判断で、通常の移行なし新規セーブの既存reset対象3ファイルは維持。
-
-## 変更ファイル（実装候補8ファイル）
-
-- `Assets/Mofumachi/Core/GameState.cs`
-- `Assets/Mofumachi/Core/IStateStore.cs`
-- `Assets/Mofumachi/Core/SaveService.cs`
-- `Assets/Mofumachi/Presentation/UIFlowController.cs`
-- `Assets/Mofumachi/Tests/EditMode/CharacterPreferenceTests.cs`
-- `Assets/Mofumachi/Tests/EditMode/PreferencesTests.cs`
-- `Assets/Mofumachi/Tests/EditMode/SaveServiceTests.cs`
-- `Assets/Mofumachi/Tests/PlayMode/MergeProgressionUiTests.cs`
-
-製品4ファイル＋直接関連テスト4ファイル。PlayMode側は既存のsaveVersion期待値1か所を3→4としただけ。QuestCatalog、TownGrowthService、MergeBoard、GameStateManagerの生成・消費、日次報酬、正式素材、Visual Lock原本、スクリプトは変更していない。ゲーム設計の変更はないためdocs/game-design/latest.mdも変更していない。
-
-## 最初のガード失敗
-
-```text
-Display differs from the authorized correction candidate.
-```
-
-- ガード：`Assert-OriginalBaseForCandidate` → `Get-BasePolishPatch`
-- 拒否位置：`scripts/visual-lock.ps1:89`
-- 参照記録：`References/VisualLock/noah-final-rig-candidate-2026-10-29.json`
-- 最初の不一致：`Assets/Mofumachi/Presentation/TownActor.cs`
-- 記録の期待SHA：`10dc0c0a8f041bc511ef13c0d89bb773ef6e8a0fc564f39325e20a8a0c68c57e`
-- 今回候補SHA：`1591e855b186f5e232600f24cc7ab72c70523eee6975b2b62d0002632e8905b2`
-- 作業開始時SHA：`1591e855b186f5e232600f24cc7ab72c70523eee6975b2b62d0002632e8905b2`（今回候補と同一）
-
-SHA照合は保存済みエラーの原因特定のための読み取りで、ガードを再実行していない。既存の承認候補／入口との整合を先に確認することが最小対応。旧記録のSHAを現在値へ書き換えて回避する案、TownActorを戻す案は採らない。詳細はerror.log／status.jsonへ記録。
-
-## テストと環境
-
-SaveServiceTestsへ新規v4、旧3版、全旧項目、生バイト退避、再読込0P、CopyFrom/失敗rollback、既存退避、退避失敗、commit途中、不正v4、未対応version、街Lv異常、退避改変、未知項目保持の対象を追加。PreferencesTests/CharacterPreferenceTestsはv4期待と明示停止の仕様に対応させた。これらは**ソースを用意しただけで未実行**。
-
-| 確認 | 結果 |
+| TownActorの記録 | LF正規化SHA256 |
 | --- | --- |
-| 静的レビュー | 1回。欠損/不正値区別と停止時Feedbackの2指摘をガード確認前に対応。実行合格の代用にしない |
-| 文書・ソース差分確認 | 実施。今回対象外のロジック・素材・原本への差分なし |
-| 既存Source Safety Guard | 1回失敗。再試行0回 |
-| SaveData直接関連EditMode | 未実行。ガード停止後は開始しない |
-| 保存再開の既存PlayMode期待・読込停止画面 | 未実行 |
-| APIコンパイル | 未実行 |
-| Unity起動 | 0回 |
-| 全件・APK・Pixel・capture・フォント工程 | 未実行 |
+| 旧Noah候補 | `10dc0c0a8f041bc511ef13c0d89bb773ef6e8a0fc564f39325e20a8a0c68c57e` |
+| 現行キャラ固定記録／現行／SaveData実装前後 | `1591e855b186f5e232600f24cc7ab72c70523eee6975b2b62d0002632e8905b2` |
 
-描画DISPLAY/WAYLAND設定なし、Xvfbなし。Unityライセンス関連環境変数は未設定。標準保存先 `/root/.local/share/unity3d/Unity` の参照は権限拒否のためライセンスの有無を確定できず、同じ参照を再試行していない。この環境不足を新しいゲーム不具合・Unity失敗ログとして扱わない。新しいUnityエラー／test failureは観測していない。
+現在の`characters-25d-final-2026-11-01.json`は後者を固定しており、既存の`Assert-CharactersVisualLock`（`scripts/character-finish-scope.ps1:49`）が現行固定記録と既存head recovery/calibrationの限定記録を検証する。Coreを凍結する旧Noah実験やフォント専用のscopeをSaveDataへ流用しない。
 
-**第2工程「もふポイント管理基盤」へ進んで安全か：NO。** ガード整合と第1工程の直接関連確認が未完了。実装候補のpushを完了・採用・実機合格と扱わない。第2工程へ自動で進まない。
+**この既存Guardの読取チェックは同作業内で1回、exit 0／Passed。** 最新の指示後に繰り返していない。旧失敗Guardは再実行していない。
+
+Guard変更：**NO**。Guard無効化／弱体化：**NO**。新しい例外追加：**NO**。Visual Lock原本変更：**NO**。TownActor／ゲームコード変更：**NO**。
+
+旧Visual／全体ビルド入口そのものは未修正のまま保持する。今回確定したのはSaveData直接テストの入口であり、Visual承認・APK受入れが通るという意味ではない。
+
+## 正しい既存検証入口
+
+**既存Unity Test FrameworkのEditModeコマンドライン実行**を使用する。既存の呼出し例は`build-android.ps1:302`。全体ビルドスクリプトは実行せず、以下を明示する。
+
+- assembly：`Mofumachi.EditModeTests`。既存asmdefはEditor専用で、参照は`Mofumachi.Core`のみ。
+- fixture：`Mofumachi.Tests.SaveServiceTests`（33）、`Mofumachi.Tests.PreferencesTests`（23）、`Mofumachi.Tests.CharacterPreferenceTests`（7）。
+- 合計63は固定ソースのTest/TestCase属性数。まだ実行された件数ではない。
+- `-testFilter`は上記3クラスの完全な名前空間prefixを正規表現で限定。全件実行へフォールバックしない。
+- Android target／EditMode／`-nographics`。Unity起動は最大1回、再試行0回。
+- PlayModeは今回実行しない。移行・保存・CopyFrom/rollbackは上記Core fixtureで対象に含まれ、UI／Visual確認や2回目のUnity起動を増やさない。
+
+## Windowsで行う操作
+
+**最新のリポジトリにある`scripts/verify-savedata-v4-windows.cmd`を1回ダブルクリック。**
+
+Windows 11、Windows PowerShell 5.1、Unity Hub既定場所のUnity 6000.6.4f1＋Android Build Support、既存Windowsライセンスを使用。起動中のUnityがある場合は事前条件で停止する。
+
+ランチャーは`2b81174496a5b4703bad0516645829893d4297b9`固定の新規detached worktreeを兄弟フォルダへ作り、元ブランチ・index・未コミット変更・プレイヤーセーブを変更しない。既存Git hookは維持する。固定worktreeで既存キャラGuardと入力一致を確認し、対象テストを1回だけ起動する。フォント用ランチャー／preview処理には依存しない。
+
+`Builds/Diagnostics/savedata-v4-yyyyMMdd-HHmmss-xxxxxxxx/`へ保存：
+
+- `editmode.xml`、`unity.log`、`stdout.log`、`stderr.log`
+- `source-info.json`、`source-revision.txt`、`unity-arguments.txt`
+- 失敗時のみ`first-error.log`。コンパイル／起動エラーまたは最初のtest failure全文・stackを抽出し、exit codeだけを根本原因扱いしない。未抽出なら未確定と記録する。
+
+`source-info.json`はsuccess/result、14項目別のverification_itemsと対応test-case名、stage1_complete、stage2_safe、最初の失敗、固定SHA、起動回数・再試行回数を持つ。入力不一致、63件不足、skip/inconclusive、未合格、必須証拠欠損では合格にしない。事前条件の失敗もBlockedとしてJSONへ保存する。
+
+同commitの起動記録`.attempted`は排他作成し、自動削除・上書きをしない。2回目のダブルクリックは停止する。隔離worktreeとDiagnosticsも自動削除しない。
+
+## 必須項目と固定テストの対応
+
+現時点の全項目は**未実行**。成功時のみJSONへPassedと実際のtest-case名を記録する。
+
+| 必須確認 | SaveServiceTestsの対象 |
+| --- | --- |
+| 新規v4＝24P | NewV4HasUnclaimedEconomyAnd24Points |
+| v1／v2／v3→v4 | LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes(1)/(2)/(3) |
+| 既存項目保持・初回24Pは1回だけ | LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes、V4ZeroBalanceIsNotInitializedAgain |
+| v4再読込で再付与なし・0Pでも再初期化なし | V4ZeroBalanceIsNotInitializedAgain |
+| pre-v4生原本保持 | LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes |
+| 既存pre-v4を上書きしない | ExistingPreV4IsNeverOverwrittenOrRetried |
+| 不正v4を自動修復しない | InvalidV4BlocksEvenWhenHealthyBackupExists、MissingRequiredV4EconomyMemberCannotFallbackOrRepair |
+| 未対応versionで停止 | UnknownVersionIsNotLoaded |
+| 移行失敗で新規Saveへ置換しない | FailedCommitKeepsLegacySourceProtectionAndCandidate、ProtectionCreationFailureDoesNotTouchLegacyPrimary |
+| CopyFrom／rollback | CopyAndFailedMutationRestoreCompleteEconomyWithoutAliasing |
+
+PreferencesTests／CharacterPreferenceTestsも同じ1回に含め、音設定・キャラ設定の移行保持／保存失敗を確認する。
+
+## 確認範囲と次の判定
+
+PS1はUTF-8 BOM、CMDはASCII CRLF。PowerShell 5.1対応の構文・.NET APIを静的確認し、PowerShell 7.4.6で構文エラー0件・限定引数・63ケース／14証拠定義・Unity起動箇所1か所を確認した。**Windows PowerShell 5.1やUnityを実際に実行した証拠ではない。** クラウド環境／ライセンス調査は繰り返していない。
+
+以前の旧Guard失敗は履歴としてerror.logに保持。今回新しいUnity/test failureはない。途中の静的引数確認でLinuxにC:ドライブがないエラーが出た点はstatus.jsonのtooling_notesへ分離した。既存ローカルパスでの引数確認のみ行い、ゲームコード修正やUnity再試行はしていない。
+
+今回の変更は専用ランチャー2ファイルとsummary/statusのみ。ゲーム／SaveData／テストソース／正式素材／フォント／Visual Lock原本／既存Guardは変更していない。
+
+**第2工程「もふポイント管理基盤」へ進んで安全か：NO。** 主要ブロッカーはWindows実Unityの対象テスト結果が未取得であること。結果が63/63で、14項目・原本保護・失敗停止・入力固定の確認を満たした場合のみ、第1工程「SaveData v4移行基盤：完了」へ更新する。全ゲーム完成・実機リリース合格とは扱わず、現在は第2工程へ進まない。

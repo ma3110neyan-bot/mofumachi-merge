@@ -38,6 +38,65 @@ function Assert-UnlinkedTree([string]$Path) {
     }
 }
 
+function Test-FailedFontRun([IO.DirectoryInfo]$Run) {
+    $InfoPath = Join-Path $Run.FullName 'font-only-source-info.json'
+    if (Test-Path -LiteralPath $InfoPath -PathType Leaf) {
+        $File = Get-Item -LiteralPath $InfoPath -Force
+        if (-not ($File.Attributes -band [IO.FileAttributes]::ReparsePoint) -and $File.Length -le $MaxFileBytes) {
+            try {
+                $Info = [IO.File]::ReadAllText($InfoPath) | ConvertFrom-Json
+                $Failure = $Info.PSObject.Properties['error']
+                if ($Failure -and -not [string]::IsNullOrWhiteSpace([string]$Failure.Value)) { return $true }
+                $Verified = $Info.PSObject.Properties['capture_verified']
+                if ($Verified -and $Verified.Value -is [bool]) { return -not $Verified.Value }
+            } catch { Write-Warning "Cannot classify run from JSON: $InfoPath" }
+        }
+    }
+    foreach ($File in Get-ChildItem -LiteralPath $Run.FullName -File -Force) {
+        if (($File.Attributes -band [IO.FileAttributes]::ReparsePoint) -or $File.Length -gt $MaxFileBytes) { continue }
+        if ($File.Name -ieq 'capture.xml') {
+            $Text = [IO.File]::ReadAllText($File.FullName)
+            if ($Text -match '(?is)<test-run\b[^>]*\bresult\s*=\s*[\x22\x27]Failed(?:\([^)]*\))?[\x22\x27]') { return $true }
+        } elseif ($File.Extension -in @('.log','.txt','.stdout','.stderr','.out','.err') -or $File.Name -in @('stdout','stderr')) {
+            $Text = [IO.File]::ReadAllText($File.FullName)
+            if ($Text -match '(?im)error\s+CS\d{4}\b|Scripts have compiler errors|ScriptCompilation[^\r\n]*failed|Test run completed[^\r\n]*code\s+[1-9]\d*|No valid Unity Editor license found|^Unhandled Exception') { return $true }
+        }
+    }
+    return $false
+}
+
+function Find-LatestFailedFontRun([string]$Repository) {
+    $Repository = [IO.Path]::GetFullPath($Repository)
+    $Boundary = [IO.Directory]::GetParent($Repository)
+    if ($null -eq $Boundary -or $null -eq $Boundary.Parent) { throw 'Refusing to search from a filesystem root.' }
+    Assert-UnlinkedPath $Repository
+    $Worktrees = New-Object 'System.Collections.Generic.List[IO.DirectoryInfo]'
+    $Worktrees.Add((Get-Item -LiteralPath $Repository -Force))
+    foreach ($Work in Get-ChildItem -LiteralPath $Boundary.FullName -Directory -Force) {
+        if ($Work.FullName -ine $Repository -and -not ($Work.Attributes -band [IO.FileAttributes]::ReparsePoint)) { $Worktrees.Add($Work) }
+    }
+    $Candidates = New-Object 'System.Collections.Generic.List[object]'
+    foreach ($Work in $Worktrees) {
+        $Builds = Join-Path $Work.FullName 'Builds'
+        $Diagnostics = Join-Path $Builds 'Diagnostics'
+        $Linked = $false
+        foreach ($Part in @($Builds,$Diagnostics)) {
+            if ((Test-Path -LiteralPath $Part) -and ((Get-Item -LiteralPath $Part -Force).Attributes -band [IO.FileAttributes]::ReparsePoint)) { $Linked = $true; break }
+        }
+        if ($Linked -or -not (Test-Path -LiteralPath $Diagnostics -PathType Container)) { continue }
+        Assert-UnlinkedPath $Diagnostics
+        foreach ($Run in Get-ChildItem -LiteralPath $Diagnostics -Directory -Filter 'font-only-*' -Force) {
+            if ($Run.Attributes -band [IO.FileAttributes]::ReparsePoint) { continue }
+            $Candidates.Add([pscustomobject]@{SourceWorktree=$Work.FullName;Run=$Run;SearchBoundary=$Boundary.FullName})
+        }
+    }
+    $Ordered = @($Candidates | Sort-Object -Property @{Expression={$_.Run.LastWriteTimeUtc};Descending=$true},@{Expression={$_.Run.FullName};Descending=$true})
+    foreach ($Candidate in $Ordered) {
+        if (Test-FailedFontRun $Candidate.Run) { return $Candidate }
+    }
+    throw "No failed font-only-* run found within $($Boundary.FullName) (current repository and immediate siblings only). Nothing was shared."
+}
+
 function Get-RunTextFiles([string]$Path, [Collections.Generic.List[string]]$Skipped) {
     $Pending = New-Object 'System.Collections.Generic.Stack[string]'
     $Pending.Push($Path)
@@ -197,15 +256,8 @@ function Publish-DiagnosticsInbox($Context, [string]$Latest, [string]$RunName) {
 
 function Invoke-FontDiagnosticShare {
 $Repo = [IO.Path]::GetFullPath((Split-Path -Parent $PSScriptRoot))
-$Diagnostics = Join-Path $Repo 'Builds/Diagnostics'
-Assert-UnlinkedPath $Diagnostics
-if (-not (Test-Path -LiteralPath $Diagnostics -PathType Container)) {
-    throw "Diagnostics directory not found: $Diagnostics. No capture will be started."
-}
-$Runs = @(Get-ChildItem -LiteralPath $Diagnostics -Directory -Filter 'font-only-*' -Force |
-    Sort-Object -Property @{Expression='LastWriteTimeUtc';Descending=$true},@{Expression='Name';Descending=$true})
-if ($Runs.Count -eq 0) { throw "No font-only-* run found in $Diagnostics. Existing inbox is unchanged." }
-$Run = $Runs[0]
+$Selection = Find-LatestFailedFontRun $Repo
+$Run = $Selection.Run
 Assert-UnlinkedPath $Run.FullName
 $Skipped = New-Object 'System.Collections.Generic.List[string]'
 $Files = @(Get-RunTextFiles $Run.FullName $Skipped | Sort-Object -Property @{Expression={
@@ -263,6 +315,10 @@ try {
     $Info = New-Object 'System.Collections.Generic.List[string]'
     $Info.Add('Source run folder: ' + $Run.Name)
     $Info.Add('Source Windows path: ' + $Run.FullName)
+    $Info.Add('Source repository/worktree: ' + $Selection.SourceWorktree)
+    $Info.Add('Source run full path: ' + $Run.FullName)
+    $Info.Add('Selected run name: ' + $Run.Name)
+    $Info.Add('Search boundary: ' + $Selection.SearchBoundary)
     $Info.Add('Source folder modified UTC: ' + $Run.LastWriteTimeUtc.ToString('o'))
     $Info.Add('Copied UTC: ' + [DateTime]::UtcNow.ToString('o'))
     $Info.Add('Limits: 4 MiB per file; 16 MiB total; 64 files. No truncation.')
@@ -271,7 +327,7 @@ try {
     $Info.Add('Skipped eligible paths (if any):')
     foreach ($Line in $Skipped) { $Info.Add($Line) }
     $Info.Add('Publication target: origin/refs/heads/' + $Publication.Branch)
-    $Info.Add('Source repository HEAD: ' + $Publication.Head)
+    $Info.Add('Publishing repository HEAD: ' + $Publication.Head)
     [IO.File]::WriteAllLines((Join-Path $Stage 'run-info.txt'),$Info.ToArray(),[Text.UTF8Encoding]::new($true))
     # Preserve raw evidence bytes even with core.autocrlf or parent attributes.
     [IO.File]::WriteAllText((Join-Path $Stage '.gitattributes'),"* -text -filter -ident -working-tree-encoding`n",[Text.UTF8Encoding]::new($false))

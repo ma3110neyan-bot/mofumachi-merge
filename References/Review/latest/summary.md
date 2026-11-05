@@ -11,6 +11,10 @@
 - SaveData v4第1工程完了：**false**。第2工程へ進める：**false**。
 - 主要ブロッカーは1つ：**Windows実Unityでの対象3fixture・63ケースの検証結果が未取得。**
 
+## 公開状態
+
+専用ランチャーと今回共有記録はローカルでコミット済み。**今回のpushは未完了**。通常環境のプロキシ接続失敗（exit 128）後、追加ネットワーク権限の承認処理がユーザーにより中断され、成功receiptは得られていない。force push・追加のpush試行・Unity再試行は行わない。この通信状態をSaveData不具合やUnityエラーとして扱わない。
+
 ## Guard問題の結論
 
 以前選択した`Assert-OriginalBaseForCandidate`は、SaveData専用のGuardではなく旧Visual候補／製品受入れ用の入口だった。

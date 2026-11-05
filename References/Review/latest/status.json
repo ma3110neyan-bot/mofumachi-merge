@@ -431,5 +431,14 @@
   "tooling_notes": [
     "An earlier static argument inspection passed a Windows C: path to Linux and stopped at Join-Path. Existing local paths were then used for argument-only inspection, with no launcher/product change for that environment mismatch and no Unity/test retry.",
     "CMD CRLF is intentional; Git whitespace inspection used cr-at-eol for that file without changing repository configuration or any Safety Guard."
-  ]
+  ],
+  "publication": {
+    "status": "not_pushed",
+    "local_review_commit_before_publication_note": "e74a8ed2adcd99bac619c3e03742d5ddc824d4ab",
+    "reason": "Default sandbox proxy connection failed; elevated network permission request was aborted by user. No successful push receipt was obtained.",
+    "normal_push_attempt_exit_code": 128,
+    "force_push": false,
+    "unity_or_test_retry_performed": false,
+    "affects": "Publication of launcher and latest review only; not a Unity/SaveData test failure"
+  }
 }

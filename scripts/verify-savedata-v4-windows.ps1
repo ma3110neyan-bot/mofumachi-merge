@@ -6,6 +6,22 @@ $ErrorActionPreference = 'Stop'
 $SaveCheckSource = '2b81174496a5b4703bad0516645829893d4297b9'
 $SaveCheckFixtures = @('SaveServiceTests', 'PreferencesTests', 'CharacterPreferenceTests')
 $SaveCheckCounts = @{ SaveServiceTests = 33; PreferencesTests = 23; CharacterPreferenceTests = 7 }
+$SaveCheckProofs = [ordered]@{
+    new_v4_24p = @('NewV4HasUnclaimedEconomyAnd24Points')
+    v1_to_v4 = @('LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes(1)')
+    v2_to_v4 = @('LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes(2)')
+    v3_to_v4 = @('LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes(3)')
+    existing_fields_preserved = @('LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes')
+    initial_24p_once = @('LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes', 'V4ZeroBalanceIsNotInitializedAgain')
+    v4_reload_no_regrant = @('V4ZeroBalanceIsNotInitializedAgain')
+    zero_balance_no_reinitialize = @('V4ZeroBalanceIsNotInitializedAgain')
+    pre_v4_raw_bytes_preserved = @('LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes')
+    existing_pre_v4_not_overwritten = @('ExistingPreV4IsNeverOverwrittenOrRetried')
+    invalid_v4_not_repaired = @('InvalidV4BlocksEvenWhenHealthyBackupExists', 'MissingRequiredV4EconomyMemberCannotFallbackOrRepair')
+    unsupported_version_blocked = @('UnknownVersionIsNotLoaded')
+    migration_failure_no_new_save = @('FailedCommitKeepsLegacySourceProtectionAndCandidate', 'ProtectionCreationFailureDoesNotTouchLegacyPrimary')
+    copyfrom_and_rollback = @('CopyAndFailedMutationRestoreCompleteEconomyWithoutAliasing')
+}
 
 function Find-SaveCheckGit {
     foreach ($Name in @('git.exe', 'git')) {
@@ -76,6 +92,7 @@ function Assert-SaveCheckResults([string]$Path) {
         $Names = @($Matched | ForEach-Object { $_.GetAttribute('fullname') } | Select-Object -Unique)
         if ($Names.Count -ne $Matched.Count) { throw ('Duplicate results: ' + $Name) }
     }
+    return $Doc
 }
 function Get-SaveCheckFirstError([string]$Run) {
     # Prefer a causal compiler/startup error over an exit-code or wrapper message.
@@ -116,18 +133,6 @@ function Quote-SaveCheckArgument([string]$Value) {
 if ($MyInvocation.InvocationName -eq '.') { return }
 if ($env:OS -ne 'Windows_NT') { throw 'Windows 11 / Windows PowerShell 5.1 is required. Unity was not started.' }
 $Repo = [IO.Path]::GetFullPath((Split-Path -Parent $PSScriptRoot))
-$Git = Find-SaveCheckGit
-foreach ($Name in @('GIT_DIR', 'GIT_WORK_TREE', 'GIT_COMMON_DIR', 'GIT_INDEX_FILE')) {
-    if ([Environment]::GetEnvironmentVariable($Name)) { throw ('Custom ' + $Name + ' is set; original repository preserved.') }
-}
-if ((Invoke-SaveCheckGit @('rev-parse', '--show-toplevel')).Replace('/', '\').TrimEnd('\') -ine $Repo.Replace('/', '\').TrimEnd('\')) { throw 'Launcher must be inside its repository scripts folder.' }
-if ((Invoke-SaveCheckGit @('branch', '--show-current')) -cne 'feat/daily-world-pass-20261016') { throw 'Unexpected feature branch. No checkout or synchronization was attempted.' }
-$null = Invoke-SaveCheckGit @('cat-file', '-e', ($SaveCheckSource + '^{commit}'))
-$Editor = Join-Path $env:ProgramFiles 'Unity/Hub/Editor/6000.6.4f1/Editor/Unity.exe'
-if (-not (Test-Path -LiteralPath $Editor -PathType Leaf)) { throw 'Unity 6000.6.4f1 is required at the Unity Hub default location.' }
-if ((Get-Item -LiteralPath $Editor).VersionInfo.ProductVersion -notmatch '(?<![0-9])6000\.6\.4f1(?![0-9])') { throw 'Unexpected Unity executable version.' }
-if (-not (Test-Path -LiteralPath (Join-Path (Split-Path -Parent $Editor) 'Data/PlaybackEngines/AndroidPlayer') -PathType Container)) { throw 'Android Build Support is required. Unity was not started.' }
-if (Get-Process -Name Unity -ErrorAction SilentlyContinue) { throw 'Close Unity Editor before starting this one-shot check.' }
 $Diagnostics = Join-Path $Repo 'Builds/Diagnostics'
 $Attempt = Join-Path $Diagnostics ('savedata-v4-' + $SaveCheckSource + '.attempted')
 if (Test-Path -LiteralPath $Attempt) { throw ('This source already has a recorded Unity attempt. Do not retry; preserve ' + $Attempt) }
@@ -146,10 +151,26 @@ $Record = [ordered]@{
     guard_modified = $false; visual_lock_original_modified = $false
     unity_started = $false; unity_exit_code = $null; test_invocations = 0; automatic_retries = 0
     tests_passed = $false; source_unchanged = $false; success = $false; error = ''
+    result = 'NotRun'; stage1_complete = $false; stage2_safe = $false; first_failure = $null
+    verification_items = [ordered]@{}
     playmode_executed = $false; capture_verified = $false; build_generated = $false; pixel_verified = $false
 }
+foreach ($Key in $SaveCheckProofs.Keys) { $Record.verification_items[$Key] = @{ result = 'NotRun'; required_methods = $SaveCheckProofs[$Key]; cases = @() } }
 $Failure = $null
 try {
+    $Record | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $RecordPath -Encoding UTF8
+    $Git = Find-SaveCheckGit
+    foreach ($Name in @('GIT_DIR', 'GIT_WORK_TREE', 'GIT_COMMON_DIR', 'GIT_INDEX_FILE')) {
+        if ([Environment]::GetEnvironmentVariable($Name)) { throw ('Custom ' + $Name + ' is set; original repository preserved.') }
+    }
+    if ((Invoke-SaveCheckGit @('rev-parse', '--show-toplevel')).Replace('/', '\').TrimEnd('\') -ine $Repo.Replace('/', '\').TrimEnd('\')) { throw 'Launcher must be inside its repository scripts folder.' }
+    if ((Invoke-SaveCheckGit @('branch', '--show-current')) -cne 'feat/daily-world-pass-20261016') { throw 'Unexpected feature branch. No checkout or synchronization was attempted.' }
+    $null = Invoke-SaveCheckGit @('cat-file', '-e', ($SaveCheckSource + '^{commit}'))
+    $Editor = Join-Path $env:ProgramFiles 'Unity/Hub/Editor/6000.6.4f1/Editor/Unity.exe'
+    if (-not (Test-Path -LiteralPath $Editor -PathType Leaf)) { throw 'Unity 6000.6.4f1 is required at the Unity Hub default location.' }
+    if ((Get-Item -LiteralPath $Editor).VersionInfo.ProductVersion -notmatch '(?<![0-9])6000\.6\.4f1(?![0-9])') { throw 'Unexpected Unity executable version.' }
+    if (-not (Test-Path -LiteralPath (Join-Path (Split-Path -Parent $Editor) 'Data/PlaybackEngines/AndroidPlayer') -PathType Container)) { throw 'Android Build Support is required. Unity was not started.' }
+    if (Get-Process -Name Unity -ErrorAction SilentlyContinue) { throw 'Close Unity Editor before starting this one-shot check.' }
     [IO.File]::WriteAllText((Join-Path $Run 'source-revision.txt'), $SaveCheckSource + "`r`n", $Utf8)
     # A detached worktree preserves the caller's branch, index, files and existing saves.
     # Existing Git hooks are honored. No hooks/guards are disabled or altered.
@@ -168,6 +189,7 @@ try {
     $Receipt = [IO.File]::Open($Attempt, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
     try { $Bytes = $Utf8.GetBytes($Run + "`r`n"); $Receipt.Write($Bytes, 0, $Bytes.Length); $Receipt.Flush() } finally { $Receipt.Dispose() }
     $Record.test_invocations = 1
+    $Record.result = 'Running'
     $Record | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $RecordPath -Encoding UTF8
     Write-Host 'SaveData v4 only: 3 EditMode fixtures, 63 cases, ONE Unity invocation. First import may take several minutes.'
     Write-Host ('Preserved results: ' + $Run)
@@ -192,19 +214,34 @@ try {
     [IO.File]::WriteAllText((Join-Path $Run 'stderr.log'), $Stderr.Result, $Utf8)
     $Record.unity_exit_code = $Process.ExitCode
     if ($Process.ExitCode -ne 0) { throw ('Unity exit ' + $Process.ExitCode + '. No retry will be performed.') }
-    Assert-SaveCheckResults (Join-Path $Run 'editmode.xml')
+    $Results = Assert-SaveCheckResults (Join-Path $Run 'editmode.xml')
     # Unity configuration rewrites stay inside the isolated worktree and are recorded separately.
     $SourcePaths = @('Assets/Mofumachi', 'Assets/Scenes', 'Packages', 'References/VisualLock')
     $Changes = Invoke-SaveCheckGit (@('-C', $Project, 'status', '--porcelain=v1', '--untracked-files=all', '--') + $SourcePaths)
     if ($Changes) { throw ('Pinned product/lock inputs changed in the isolated worktree: ' + $Changes) }
     $Record.source_unchanged = $true
     $Record.unity_configuration_changes = Invoke-SaveCheckGit @('-C', $Project, 'status', '--porcelain=v1', '--', 'ProjectSettings', 'Assets/Settings')
+    foreach ($Key in $SaveCheckProofs.Keys) {
+        $Evidence = @()
+        foreach ($Method in $SaveCheckProofs[$Key]) {
+            $Prefix = 'Mofumachi.Tests.SaveServiceTests.' + $Method
+            $Matched = @($Results.SelectNodes('//test-case') | Where-Object { $_.GetAttribute('fullname').StartsWith($Prefix, [StringComparison]::Ordinal) })
+            if (-not $Matched.Count) { throw ('Missing required verification evidence: ' + $Key) }
+            $Evidence += @($Matched | ForEach-Object { $_.GetAttribute('fullname') })
+        }
+        $Record.verification_items[$Key] = @{ result = 'Passed'; required_methods = $SaveCheckProofs[$Key]; cases = $Evidence }
+    }
     $Record.tests_passed = $true
     $Record.success = $true
+    $Record.result = 'Passed'
+    $Record.stage1_complete = $true
+    $Record.stage2_safe = $true
 } catch {
     $Failure = $_
     $Record.error = $_.Exception.Message
-    [IO.File]::WriteAllText((Join-Path $Run 'first-error.log'), (Get-SaveCheckFirstError $Run), $Utf8)
+    $Record.result = $(if ($Record.unity_started) { 'Failed' } else { 'Blocked' })
+    $Record.first_failure = $(if ($Record.unity_started) { Get-SaveCheckFirstError $Run } else { 'Launcher preflight; Unity not started: ' + $Record.error })
+    [IO.File]::WriteAllText((Join-Path $Run 'first-error.log'), $Record.first_failure, $Utf8)
 } finally {
     $Record | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $RecordPath -Encoding UTF8
 }

@@ -1,24 +1,22 @@
 # 最新レビュー共有：Windows診断共有機構
 
 - 現在ブランチ：`feat/daily-world-pass-20261016`
-- 最新の確認対象作業commit SHA：`7c2082e4b0bb8a90e198203f6365032a014afd71`
+- 最新の確認対象作業commit SHA：`d0ccd9ac23f143ef0bd823aaaecfdd3489bb584f`
 - フォント製品候補commit SHA：`193ab6eeb216d9f457096d9f3df305704f2f962e`（変更なし）
-- 今回の目的：Windows PowerShell 5.1向けの、最新Diagnostics取得から共有先限定commit・featureブランチへのpushまでを1回で行う機構を確定・公開する。
-- 実施内容：前回の中断時にローカルだけに残っていた上記作業コミットをGitHubへpushし、CMD追加・PS1更新・CMD用改行設定の公開を確認。共有statusを今回の完成状態へ更新。元コードは前回の関連22ケース通過時と同一で、再開後の静的確認と重点3ケースも成功。
-- 成功／失敗：共有機構の実装・静的確認・一時Gitリポジトリでの検証は成功。`state=diagnostics_sharing_mechanism_complete`、`automatically_commits_or_pushes=true`。`success=true`と`tests_passed=true`の対象は共有機構のみであり、ゲームやフォント候補の合格ではない。
-- 根本原因：Unity exit 2は引き続き未確定。実Windowsの最新Diagnosticsは今回取得・公開していない。PowerShellの61行目や過去runの原因を流用しない。
-- 修正内容：PS1に共有先限定のGit操作を追加し、ダブルクリック用CMDと、そのCMDだけをCRLFにする属性を追加した。ゲーム本体・フォント・UI・Merge・SaveData・Core・正式素材・キャラ・街・BGM・Diagnostics原本は変更していない。
-- 次にやること：今回は機構と共有記録の公開で停止。実際の共有実行が別途許可された際の操作は、失敗runがあるfeatureブランチのWindowsリポジトリで `scripts/share-latest-font-diagnostics.cmd` をダブルクリックするだけ。Unity・captureの再実行は不要。
+- 今回の目的：Windowsで現リポジトリだけを検索して安全停止した問題を局所修正し、兄弟worktreeの最新失敗runをパス入力なしで検出する。
+- 実施内容：実行元リポジトリを先に確認し、その親フォルダ直下の兄弟作業フォルダも列挙。各Builds/Diagnostics/font-only-*を対象に、更新日時が最も新しい失敗runを全候補から1件だけ選ぶ。Windows例のfont-afc3c3d1も含む。親フォルダの外や深い孫プロジェクトを再帰検索せず、リンク先もたどらない。
+- 成功／失敗：一時フォルダで検索ロジックのみ12ケース成功。スクリプト本体・コピー処理・Git共有処理は今回実行していない。既存Git安全処理6関数は修正前後で同一。共有機構の実装状態は完成を維持し、実Windowsの共有成功を主張しない。
+- 根本原因：共有検索が実行元のBuilds/Diagnosticsに固定され、兄弟のfont-afc3c3d1等を検索していなかったこと。Unity exit 2自体の根本原因は引き続き未確定で、今回調査・再実行していない。
+- 修正内容：実装変更はshare-latest-font-diagnostics.ps1の検索・失敗判定と取得元の記録だけ。run-info.txtへSource repository/worktree、Source run full path、Selected run nameを追加し、元のSource repository HEAD表記をPublishing repository HEADへ明確化。取得元と公開先を混同しない。CMD・既存Git制限・ゲーム・Diagnostics原本は変更していない。
+- 次にやること：この修正と共有記録をpushして停止。実Windows Diagnostics共有はまだ実行しない。後日許可された際も同じCMDで動作し、毎回のパス入力やファイル移動は不要。
 
-## 追加・変更ファイル
+## 今回の変更ファイル
 
-| ファイル | 内容 |
-| --- | --- |
-| `scripts/share-latest-font-diagnostics.ps1` | 最新runの小容量テキストコピー、共有先だけのadd／commit、同じfeatureブランチへのpush |
-| `scripts/share-latest-font-diagnostics.cmd` | Windows標準のpowershell.exeを呼ぶダブルクリック起動。失敗理由を表示して停止 |
-| `scripts/.gitattributes` | 上記CMDだけをCRLFでチェックアウトする指定 |
-| `References/Review/latest/summary.md` | 今回の公開・静的確認結果 |
-| `References/Review/latest/status.json` | 機械判定の完成状態、対象SHA、自動commit/push有効化、未実施事項 |
+- `scripts/share-latest-font-diagnostics.ps1`：兄弟worktree検索と最新失敗runの選択、取得元の明示。
+- `References/Review/latest/summary.md`：局所修正と検索検証の結果。
+- `References/Review/latest/status.json`：対象SHAと検索範囲・未実施事項。
+
+CMDとscripts/.gitattributesは前回のまま。Windowsの通常配置では検索上限は `C:\Users\User\Desktop\Mofumachi` で、その直下の各作業フォルダのBuilds/Diagnosticsだけを対象とする。
 
 ## Windows PowerShell 5.1静的確認
 
@@ -42,7 +40,7 @@
 - 共有先専用の属性とGit blob照合により、CRLF／UTF-16等のログ原バイトがGitによって変換されることを防ぐ。元run名・元パス・コピー時刻・ファイル一覧・SHAを記録する。
 - push対象は確認済みcommit SHAと現在のfeatureブランチのみ。force push・reset・stash削除・自動merge・自動再試行は実装していない。
 - 共有外の未pushコミット、リモート進行・分岐、detached HEAD、Git操作途中等は安全に停止する。Git失敗時は原因を表示し、1回で停止。ローカルhookによる別ファイル変更もこの処理内で防ぐ。
-- 関連22ケースは一時ファイル／一時Gitリポジトリ／ローカルbare remoteで確認済み。再開後は未コミット変更保持、日本語パスとCP932、push拒否時に1回で停止する重点3ケースを再確認。Windows本番共有・Unity・ゲームのテストではない。
+- Git共有の22ケースと重点3ケースは前回の確認結果。今回は指定どおり検索のみ12ケースを実行し、コピー・Git共有の再実行はしていない。検索ケースはローカルDiagnostics不在で兄弟から取得、ローカル優先ではなく全体の最新失敗を選択、新しい成功runの除外、親外・深い階層の除外、XML／compilerエラーの失敗判定、未確認runの除外、0件停止、リンク除外、元ハッシュ／更新日時不変。仮のログを実証跡として保存しない。
 
 `commit`は確認対象の作業コミットで、共有情報だけの更新コミットとは区別する。`capture_verified`／`pixel_verified`／`formal_fixed`／`adopted`はフォント候補について未確認のfalseを維持。error.log・visual-review.md・images/は今回変更せず、実ログや画像を作成・流用しない。
 

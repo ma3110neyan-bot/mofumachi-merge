@@ -1,45 +1,39 @@
-# 最新レビュー：Unity exit 2 原因特定・修正案のみ
+# 最新レビュー：最小修正適用・実Unity確認は未実施
 
 - 現在ブランチ：`feat/daily-world-pass-20261016`
-- 最新の確認対象共有commit SHA：`9f408badda76e3647d0c53213f6efb472751c17f`
-- run／製品ソースSHA：`font-only-20261104-204729-31fcbc90`／`193ab6eeb216d9f457096d9f3df305704f2f962e`
-- 今回の目的：このrunだけから最初の原因と指定7項目を確定し、修正せず停止する。
-- 実施内容：共有run-infoの11ファイルのバイト数・SHA256を原本と照合。capture.logのCLIと親JSONのsource／fingerprint／packed SHAも一致。別runは使用せず、このrunが記録するソースSHAの該当箇所を読み取り照合した。
-- 成功／失敗：原因特定は完了。保存済みNative結果は2件中1件成功・1件失敗、skip／inconclusive0。`capture_verified=false`、検証済み画像数0。今回、テストは実行していない。
-- 根本原因：Hachiの必要高14.5を高さ14.0の固定欄へ、収容判定の許容差+0.5で誤って受け入れたこと。文字生成0頂点のassert失敗によりUnity Test Runnerがexit2となった。
-- 修正内容：なし。今回の変更はこのsummary、status.json、error.logの3ファイルのみ。ゲーム・フォント・UI・テスト・Visual Lock・共有スクリプト・受領原本は変更していない。
-- 次にやること：以下の修正案を提示して停止。PowerShell／Unity／captureの再実行、コード修正、追加テスト、APK、Pixelへ進まない。
+- 最新の確認対象作業commit SHA／製品候補SHA：`75cd7c0ef234934a17aa623860937d894a1d875c`
+- 今回の目的：承認済みのheightAllowanceだけを修正し、指定Native2テストを1回、両方成功時のみ最小スクリーンショットへ進む。
+- 実施内容：ReleaseTypography.FitsのheightAllowanceを指定式へ変更し、既存SHA安全記録の該当値だけ更新。差分とSHAを読み取り照合し、実装2ファイルをpush済み。
+- 成功／失敗：実装変更とSHA照合は完了。実Unityテストは**未実施**。このクラウドには有効なライセンス設定を確認できず、DISPLAY／WAYLAND_DISPLAYが未設定、Xvfbもないため、既知の失敗起動を繰り返さず実行前に停止した。`success=false`／`tests_passed=false`は未確認を示す。新しいNativeテスト失敗を観測した状態ではない。
+- 根本原因：修正前run `font-only-20261104-204729-31fcbc90`で特定した、高さ14に必要高14.5を+0.5許容で受け入れる問題。今回はその承認済み修正だけを適用。旧runの1成功／1失敗を修正後の結果へ流用しない。
+- 修正内容：以下の2ファイルのみを実装コミットへ収録。Hachi採用・UGUI Bold・枠・配置・色・キャラ・アイテム・街・Mergeロジック・SaveData・BGM・0頂点assert・PowerShell終了検知は不変。
+- 次にやること：共有記録をpushして停止。ライセンスと描画環境のあるUnityで指定2件だけを1回実行する確認は残っている。2件とも成功した実結果がないため、スクリーンショットは取得していない。全件テスト・APK・Pixelには進まない。
 
-## 指定7項目
+## 実装差分（合計2ファイル）
 
-1. **最初のUnity側エラー全文**（capture.xmlの唯一の失敗test-caseのfailure/message）：
-
-```text
-  Current request caption: generated glyphs [font=UIFontAccent, size=10, rect=(x:-62.20, y:-7.00, width:124.40, height:14.00), preferredHeight=14.5]
-  Expected: greater than 0
-  But was:  0
-```
-
-2. **発生ファイル**：`Assets/Mofumachi/Tests/PlayMode/HachiFontCapture.cs`。
-3. **行番号**：50（AssertGeneratedGlyphsの頂点数assert）、161（Runからの呼び出し）。これは不具合の検出箇所。収容判定の原因箇所は `Assets/Mofumachi/Presentation/ReleaseTypography.cs:28` と29。
-4. **フォント変更との関係**：対象は「現在の依頼」の `Current request caption`、`UIFontAccent`＝Hachi、UGUI Bold、サイズ10。ログで枠高14.00・必要高14.5・生成頂点0を確認。同じソースのHachi TTFにはこの短文の全字形が存在し、フォントメトリクス上もサイズ10の行高は14.48。`ReleaseTypography.Fits`はMerge brand以外に0.5の高さ余裕を加えるため、`14.5 <= 14.0 + 0.5`がtrueとなる。既存MergeCompactFontFitはここで縮小を止め、Truncateの14高枠で文字生成できない状態が残る。フォント自体の一括置換やUI再設計を必要とする問題ではない。
-5. **最小修正箇所**：`ReleaseTypography.cs`の`Fits`にあるheightAllowance決定1箇所。既存の小さいMergeヘッダー文字に限定し、許容差を0へ揃える。`MergeTypography.cs:84`の既存縮小ループと下限8は変更しない。
-6. **修正対象ファイル数**：製品コードは **1ファイル**。ただし現行SHA安全ガードを維持して適用するには、`References/VisualLock/font-only-2026-11-04.json`のReleaseTypography行のSHA更新も必要なので **適用時は合計2ファイル（製品1＋安全記録1）**。テストやassertを緩める変更は不要。今回の報告3ファイルとは区別する。
-7. **推奨修正案**：既存 `ReleaseFontPolicy.CompactMinimumSize(text.name) > 0` の3ラベル（Current request caption／Merge reward coins／Merge brand）だけを厳密な高さ判定にする。以下は未適用の案：
+1. `Assets/Mofumachi/Presentation/ReleaseTypography.cs`：heightAllowanceの式だけ。
 
 ```csharp
 float heightAllowance =
     ReleaseFontPolicy.CompactMinimumSize(text.name) > 0 ? 0f : .5f;
 ```
 
-Hachi優先・軽いBold・既存のフォント下限を維持し、必要時だけ既存ループで収まるサイズへ下げる。固定サイズ10を強制しない。枠・配置・色・正式素材・Mergeロジック・SaveData等を変えない。修正後の実描画結果は未確認。`HachiFontCapture.cs`の0頂点Fail条件とPowerShellの終了検知は正常なため変更しない。
+2. `References/VisualLock/font-only-2026-11-04.json`：ReleaseTypographyの既存SHA欄だけ。新SHA256は `75e0a7cd549ad9193d217ab2cff703beed5bec64b635053e94cc3a1d8a7cc645`。before_sha256、他ソースSHA、親manifest、各合格フラグは変更していない。
 
-## このrunで確認できる補足
+今回の結果記録として、指定された既存共有先のsummary.md／status.jsonだけを別コミットで更新する。error.log・visual-review.md・images/・受領原本は変更しない。
 
-- `StoryTypographyTests.StoryRolesAndNoticeFitPortraitSizes`はPassed。
-- prepare-noah.log／prepare-five.logはともに終了0。capture.log:273のScriptAssembliesも終了0、275でbuild success。その後678で「One or more tests failed」によりexit2。
-- capture.log:101にライセンス更新警告があるが、108でライセンス更新成功、110で初期化完了となり、実際にテストまで進んでいる。今回の終了2を発生させた失敗は上記assert。
-- capture.log自身がCLIの-logFile出力。共有フォルダには別名のEditor／stdout／stderrファイルはない。存在しないファイルを作る処理や再実行は行わない。
-- 親JSONのimage_count=0は検証済み枚数。共有対象はテキストだけであり、途中PNGの実枚数や見た目を確認したとは扱わない。
-- `success=false`／`tests_passed=false`はこの保存済み失敗runの状態。`analysis_complete=true`は今回の読み取り調査完了。共有機構の自動commit/push有効状態は維持する。
-- [最小ログ抜粋と完全なstack trace](error.log)／[機械判定用status.json](status.json)
+## 指定テストと実行状況
+
+| 対象 | 今回の状態 |
+| --- | --- |
+| `ReleaseUxNativeTests.ScopedFontsFitTitleTownMergeBookSettingsAndTodayAtPhoneSizes` | 未実行：Unity実行環境の前提不足 |
+| `StoryTypographyTests.StoryRolesAndNoticeFitPortraitSizes` | 未実行：同上 |
+| 実Unityスクリーンショット | 未取得：両テスト成功条件が未達 |
+
+Unity起動0回、Nativeテスト呼び出し0回、自動再試行0回。代わりのhostテスト・APIコンパイル・全件テストも実行していない。実Unity／Pixel合格や実画像取得を主張しない。
+
+環境確認はファイル・環境変数の存在を読み取っただけで、Unityを起動していない。ライセンス用環境変数は未設定、標準保存先にULFはなく、Unity設定内でライセンス関連名に一致したのはAudit.logだけ。描画サーバもない。この状態から、過去のNo valid Unity Editor license失敗を今回の新規テストエラーとして作り直さない。
+
+`error.log`は修正前193ab6eのrun204729で受領したassert原文を保持している。修正後75cd7c0のテスト結果ではない。最新状態はstatus.jsonの`minimal_fix_applied_native_validation_blocked`を参照。
+
+- [機械判定用status.json](status.json)

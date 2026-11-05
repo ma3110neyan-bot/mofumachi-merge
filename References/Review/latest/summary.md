@@ -1,39 +1,38 @@
-# 最新レビュー：最小修正適用・実Unity確認は未実施
+# 最新レビュー：Windows用フォント確認ランチャー準備完了／実Unityは未実行
 
 - 現在ブランチ：`feat/daily-world-pass-20261016`
-- 最新の確認対象作業commit SHA／製品候補SHA：`75cd7c0ef234934a17aa623860937d894a1d875c`
-- 今回の目的：承認済みのheightAllowanceだけを修正し、指定Native2テストを1回、両方成功時のみ最小スクリーンショットへ進む。
-- 実施内容：ReleaseTypography.FitsのheightAllowanceを指定式へ変更し、既存SHA安全記録の該当値だけ更新。差分とSHAを読み取り照合し、実装2ファイルをpush済み。
-- 成功／失敗：実装変更とSHA照合は完了。実Unityテストは**未実施**。このクラウドには有効なライセンス設定を確認できず、DISPLAY／WAYLAND_DISPLAYが未設定、Xvfbもないため、既知の失敗起動を繰り返さず実行前に停止した。`success=false`／`tests_passed=false`は未確認を示す。新しいNativeテスト失敗を観測した状態ではない。
-- 根本原因：修正前run `font-only-20261104-204729-31fcbc90`で特定した、高さ14に必要高14.5を+0.5許容で受け入れる問題。今回はその承認済み修正だけを適用。旧runの1成功／1失敗を修正後の結果へ流用しない。
-- 修正内容：以下の2ファイルのみを実装コミットへ収録。Hachi採用・UGUI Bold・枠・配置・色・キャラ・アイテム・街・Mergeロジック・SaveData・BGM・0頂点assert・PowerShell終了検知は不変。
-- 次にやること：共有記録をpushして停止。ライセンスと描画環境のあるUnityで指定2件だけを1回実行する確認は残っている。2件とも成功した実結果がないため、スクリーンショットは取得していない。全件テスト・APK・Pixelには進まない。
+- 最新の確認対象作業commit SHA：`bee1265411b237463ba7a65f699c66e6bef92616`（共有記録だけの後続commitとは区別）
+- 製品commit：`75cd7c0ef234934a17aa623860937d894a1d875c`。既存のheightAllowance最小修正を維持。
+- 今回の目的：Windows 11／Windows PowerShell 5.1から、指定の実Unity2テストだけをダブルクリック1回で確認できるようにする。
+- 実施内容：専用CMD、PS1、両テスト成功後だけ動く撮影用callbackを追加。CMDのCRLF属性を追加。作業commitはpush済み。
+- 成功／失敗：ランチャーの作成・限定的な静的／補助検証は完了。Windows実行・実Unityテスト・画像取得は**未実施**。`success=false`／`tests_passed=false`は製品の実確認が未完了であることを示す。ランチャー準備完了は`launcher_preparation_success=true`で区別。
+- 根本原因：既知の修正前run `font-only-20261104-204729-31fcbc90`では、高さ14に必要高14.5を+0.5許容で受け入れ、文字頂点0となった。製品修正は75cd7c0で適用済み。今回、新たなUnity側エラーは観測していない。
+- 修正内容：確認ツールだけ。製品、既存テスト、フォント素材、Visual Lock安全記録、UI、Merge、SaveDataには今回の差分なし。
+- 次にやること：Windowsで `scripts/verify-font-fix-windows.cmd` をダブルクリック。クラウドからUnityは起動せず、この準備作業で停止する。
 
-## 実装差分（合計2ファイル）
+## ランチャーの動作
 
-1. `Assets/Mofumachi/Presentation/ReleaseTypography.cs`：heightAllowanceの式だけ。
+既存作業フォルダ・未コミット差分を残し、製品75cd7c0に固定した別worktreeを作る。Windows既存ライセンスを使い、Unity Hub標準配置の `6000.6.4f1` をAndroid targetで1回だけ起動する。旧preview／素材準備／全件テストの処理は呼ばない。
 
-```csharp
-float heightAllowance =
-    ReleaseFontPolicy.CompactMinimumSize(text.name) > 0 ? 0f : .5f;
-```
+指定対象は以下の2件だけ。
 
-2. `References/VisualLock/font-only-2026-11-04.json`：ReleaseTypographyの既存SHA欄だけ。新SHA256は `75e0a7cd549ad9193d217ab2cff703beed5bec64b635053e94cc3a1d8a7cc645`。before_sha256、他ソースSHA、親manifest、各合格フラグは変更していない。
+- `Mofumachi.Tests.ReleaseUxNativeTests.ScopedFontsFitTitleTownMergeBookSettingsAndTodayAtPhoneSizes`
+- `Mofumachi.Tests.StoryTypographyTests.StoryRolesAndNoticeFitPortraitSizes`
 
-今回の結果記録として、指定された既存共有先のsummary.md／status.jsonだけを別コミットで更新する。error.log・visual-review.md・images/・受領原本は変更しない。
+撮影callbackは新しいテストを登録せず、別worktreeの既存PlayModeテストassemblyへ補助ファイルとして配置する。両テストがPassedした後だけ、同じUnity起動内で実UIを描画する。Mergeと会話を720×1480、640×1072の各サイズで撮影する計4 PNG。撮影用状態はメモリ内に限定し、既存ユーザーSaveを使用・変更しない。画像、寸法、SHA256、sourceの一致まで確認した場合だけ`capture_verified=true`になる。
 
-## 指定テストと実行状況
+結果は元リポジトリの専用 `Builds/Diagnostics/font-only-<日時>-<識別子>/` へ保存する。最低限 `capture.xml`、`capture.log`、`source-revision.txt`、`font-only-source-info.json`。成功時は `images/` と `capture-native.json` を追加。失敗時は最初のテスト失敗メッセージ／stackまたはUnity側エラーを `first-error.log` へ保存し、再試行しない。元worktreeと診断資料は保持する。APK・全件テスト・Pixel・インストールへ進む処理はない。
 
-| 対象 | 今回の状態 |
-| --- | --- |
-| `ReleaseUxNativeTests.ScopedFontsFitTitleTownMergeBookSettingsAndTodayAtPhoneSizes` | 未実行：Unity実行環境の前提不足 |
-| `StoryTypographyTests.StoryRolesAndNoticeFitPortraitSizes` | 未実行：同上 |
-| 実Unityスクリーンショット | 未取得：両テスト成功条件が未達 |
+## 今回実施した確認と限界
 
-Unity起動0回、Nativeテスト呼び出し0回、自動再試行0回。代わりのhostテスト・APIコンパイル・全件テストも実行していない。実Unity／Pixel合格や実画像取得を主張しない。
+- PowerShellの構文解析エラー0件。ASCIIのみのPS1、Windows PowerShell用CMD、CMDのCRLFを確認。Windows PowerShell 5.1実機実行は未実施。
+- 補助関数だけの合成入力確認：指定2件／Android引数、XMLの件数・名前・Passed判定、不正結果4種類の拒否、最初のNUnit／compilerエラー保持を確認。Unityは起動していない。
+- 撮影の成功条件を判定する純粋関数9ケースを確認。失敗・skip・重複・不足・追加・別テスト・run失敗時は撮影不可。
+- 追加callbackだけをUnity 6000.6.4f1のAPI参照でコンパイルし、警告0／エラー0。Unity実行や実描画の検証ではない。
+- 製品commitとの `Assets/`・`ProjectSettings/`・`Packages/` 差分なし。全件テスト・APK・Pixel・新規Diagnostics共有なし。
 
-環境確認はファイル・環境変数の存在を読み取っただけで、Unityを起動していない。ライセンス用環境変数は未設定、標準保存先にULFはなく、Unity設定内でライセンス関連名に一致したのはAudit.logだけ。描画サーバもない。この状態から、過去のNo valid Unity Editor license失敗を今回の新規テストエラーとして作り直さない。
+実Unity起動0回、Nativeテスト呼び出し0回、新しい実画像0枚。フォント修正の実表示、両テスト成功、Pixelでの可読性、Visual採用は未確認のまま。
 
-`error.log`は修正前193ab6eのrun204729で受領したassert原文を保持している。修正後75cd7c0のテスト結果ではない。最新状態はstatus.jsonの`minimal_fix_applied_native_validation_blocked`を参照。
+`error.log`は修正前193ab6eの受領run204729のassert原文を保持している。今回の新規失敗や75cd7c0の結果ではない。`visual-review.md`・`images/`・受領原本は変更していない。
 
 - [機械判定用status.json](status.json)

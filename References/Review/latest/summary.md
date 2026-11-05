@@ -1,23 +1,49 @@
-# 最新レビュー共有
+# 最新レビュー共有：Windows診断共有機構
 
 - 現在ブランチ：`feat/daily-world-pass-20261016`
-- 最新の確認対象作業commit SHA：`1d86ddddae7737ebed3dfcab90ec55feb2dcc028`
+- 最新の確認対象作業commit SHA：`7c2082e4b0bb8a90e198203f6365032a014afd71`
 - フォント製品候補commit SHA：`193ab6eeb216d9f457096d9f3df305704f2f962e`（変更なし）
-- 今回の目的：Windowsにある最新font-only診断runの小容量テキストを、1つのコピー専用スクリプトでGitHub共有用フォルダへ揃える。Unity exit 2の根本原因調査につなぐ。
-- 実施内容：`scripts/share-latest-font-diagnostics.ps1`を追加してpush。スクリプト自身があるリポジトリの`Builds/Diagnostics/`直下で更新日時が最新の`font-only-*`を1件選択し、存在する小容量テキストだけを`References/Review/inbox/latest/`へコピーする。capture.log／capture.xml／font-only-source-info.jsonを優先し、Editor／stdout／stderr／compiler等のログも対象。下位パスと元バイト列を保持する。run-info.txtに元run名・元パス・コピーUTC日時・ファイル一覧・サイズ・SHA256・除外理由を記録する。
-- 成功／失敗：コピー専用処理の関連12ケース成功、構文解析エラー0。確認はPowerShell 7.4.6/Linuxの一時フォルダのみ。Windows PowerShell 5.1での実行・実Windows診断ログの共有はまだ未確認。Unity側の調査・フォント候補確認は未完了なので`success=false`、`tests_passed=false`を維持する。これはコピー関連12ケースが失敗したという意味ではない。
-- 根本原因：未確定。クラウドの`/workspace/mofumachi-merge/Builds/Diagnostics/`にはfont-only runがなく、Windows側の最新runは未取得。PowerShellの61行目や過去runの原因を今回の原因として扱わない。
-- 修正内容：実装追加は上記コピー専用PS1の1ファイルのみ。既存共有summary/statusを最新化。ゲーム本体・フォント・UI・Merge・SaveData・Core・正式素材・キャラ・街・BGMは変更していない。元Diagnosticsも変更・削除していない。
-- 次にやること：失敗runがあるWindowsリポジトリへスクリプトを反映し、1回実行する。スクリプトはGit操作を行わないため、生成されたinbox/latestの公開にはWindows側で別途commit/pushが必要。公開後はその1runだけを読み取り、指定7項目を記録・pushして修正案の提示で停止する。Unity／capture再実行・ゲーム修正・全件テスト・APK・Pixelには進まない。
+- 今回の目的：Windows PowerShell 5.1向けの、最新Diagnostics取得から共有先限定commit・featureブランチへのpushまでを1回で行う機構を確定・公開する。
+- 実施内容：前回の中断時にローカルだけに残っていた上記作業コミットをGitHubへpushし、CMD追加・PS1更新・CMD用改行設定の公開を確認。共有statusを今回の完成状態へ更新。元コードは前回の関連22ケース通過時と同一で、再開後の静的確認と重点3ケースも成功。
+- 成功／失敗：共有機構の実装・静的確認・一時Gitリポジトリでの検証は成功。`state=diagnostics_sharing_mechanism_complete`、`automatically_commits_or_pushes=true`。`success=true`と`tests_passed=true`の対象は共有機構のみであり、ゲームやフォント候補の合格ではない。
+- 根本原因：Unity exit 2は引き続き未確定。実Windowsの最新Diagnosticsは今回取得・公開していない。PowerShellの61行目や過去runの原因を流用しない。
+- 修正内容：PS1に共有先限定のGit操作を追加し、ダブルクリック用CMDと、そのCMDだけをCRLFにする属性を追加した。ゲーム本体・フォント・UI・Merge・SaveData・Core・正式素材・キャラ・街・BGM・Diagnostics原本は変更していない。
+- 次にやること：今回は機構と共有記録の公開で停止。実際の共有実行が別途許可された際の操作は、失敗runがあるfeatureブランチのWindowsリポジトリで `scripts/share-latest-font-diagnostics.cmd` をダブルクリックするだけ。Unity・captureの再実行は不要。
 
-コピー上限は1ファイル4MiB／合計16MiB／64件。画像・APK・ZIP・Library／Temp／Build等を除外し、リンクをたどらない。上限超過やバイナリは切り詰めず除外して理由を記録する。コピー元とコピー先のSHAを検証してから共有先を置き換える。元run不在・対象テキスト0件・コピー失敗の場合は以前の共有先を維持する。
+## 追加・変更ファイル
 
-関連12ケース：最新日時の選択、元SHA／更新日時不変、旧共有ファイル置換、任意ファイル欠損、入れ子・日本語／角括弧パス・UTF-16ログ、画像／バイナリ／Build関連除外、ファイル／合計容量・件数上限、対象run不在、対象テキスト不在、リンク元／リンク先の拒否、JSON未生成の失敗runも選択。実Unityやゲームのテストではない。スクリプトはASCIIのみで、UTF-8日本語PS1をCP932として読む問題を持ち込まない。
+| ファイル | 内容 |
+| --- | --- |
+| `scripts/share-latest-font-diagnostics.ps1` | 最新runの小容量テキストコピー、共有先だけのadd／commit、同じfeatureブランチへのpush |
+| `scripts/share-latest-font-diagnostics.cmd` | Windows標準のpowershell.exeを呼ぶダブルクリック起動。失敗理由を表示して停止 |
+| `scripts/.gitattributes` | 上記CMDだけをCRLFでチェックアウトする指定 |
+| `References/Review/latest/summary.md` | 今回の公開・静的確認結果 |
+| `References/Review/latest/status.json` | 機械判定の完成状態、対象SHA、自動commit/push有効化、未実施事項 |
 
-指定7項目はまだ未判定：最初のUnity側エラー全文、発生ファイル、行番号、フォント変更との関係、最小修正箇所、修正対象ファイル数、推奨修正案。error.logは空のまま維持し、仮のエラーやコピー用fixtureを本物の証跡として保存しない。画像・visual-review.mdは変更していない。
+## Windows PowerShell 5.1静的確認
 
-`commit`はこの報告の確認対象作業コミット。共有情報だけの更新コミットとは区別する。`capture_verified`／`pixel_verified`／`formal_fixed`／`adopted`は現在のフォント候補の確認状態で、すべてfalseのまま。過去のMerge Visual Lockを取り消すものではない。
+| 対象 | 確認結果 |
+| --- | --- |
+| UTF-8／BOM／CP932 | PS1・CMDはASCIIのみ。BOMなしでもCP932との解釈差がない。他の日本語PS1のBOMは変更しない |
+| `::new()` | PowerShell 5.0以降の構文。使用Encodingコンストラクタを.NET Framework 4.8参照メタデータで照合 |
+| Generic Collection | List／Stackと必要メソッドを.NET Framework 4.8参照で確認 |
+| `Get-FileHash` | PowerShell 4.0以降の標準機能。SHA256を明示 |
+| `Sort-Object` | 5.1で利用できる計算プロパティ・降順指定を使用 |
+| Windowsパス | .NET FrameworkのパスAPIとLiteralPathを使用。空白・角括弧・日本語パスを検証。Core専用GetRelativePath等は不使用 |
+| Git出力の文字コード | Git呼び出し中だけUTF-8へ揃え、Console／OutputEncodingをfinallyで復元。CP932条件で日本語リポジトリの誤読を再現し、修正後成功を確認 |
+| Gitのstderr | 5.1のNativeCommandError表現を考慮し、stderrの有無でなくネイティブ終了コードで成功を判定 |
+| CMD | ASCII・CRLF。System32のWindowsPowerShell/v1.0/powershell.exeをRemoteSignedで起動。戻り値を保持して表示を残す |
+
+これは静的互換性確認であり、Windows 11／Windows PowerShell 5.1で実行済みという意味ではない。今回、実Windowsでの共有操作は未実施。
+
+## Gitの範囲と停止条件
+
+- add対象は `References/Review/inbox/latest/` だけ。commitも `--only` と同じパスを指定し、他のステージ済み・未ステージ変更を保持する。ignoredのログも対象ディレクトリ内だけでaddする。
+- 共有先専用の属性とGit blob照合により、CRLF／UTF-16等のログ原バイトがGitによって変換されることを防ぐ。元run名・元パス・コピー時刻・ファイル一覧・SHAを記録する。
+- push対象は確認済みcommit SHAと現在のfeatureブランチのみ。force push・reset・stash削除・自動merge・自動再試行は実装していない。
+- 共有外の未pushコミット、リモート進行・分岐、detached HEAD、Git操作途中等は安全に停止する。Git失敗時は原因を表示し、1回で停止。ローカルhookによる別ファイル変更もこの処理内で防ぐ。
+- 関連22ケースは一時ファイル／一時Gitリポジトリ／ローカルbare remoteで確認済み。再開後は未コミット変更保持、日本語パスとCP932、push拒否時に1回で停止する重点3ケースを再確認。Windows本番共有・Unity・ゲームのテストではない。
+
+`commit`は確認対象の作業コミットで、共有情報だけの更新コミットとは区別する。`capture_verified`／`pixel_verified`／`formal_fixed`／`adopted`はフォント候補について未確認のfalseを維持。error.log・visual-review.md・images/は今回変更せず、実ログや画像を作成・流用しない。
 
 - [機械判定用status.json](status.json)
-- [根本エラー抜粋](error.log)
-- [Visual確認情報](visual-review.md)

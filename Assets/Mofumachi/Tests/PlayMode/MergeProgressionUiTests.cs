@@ -111,7 +111,7 @@ namespace Mofumachi.Tests
             yield return Click("Merge actions");yield return Click("Produce tea");Assert.That(Flow.ProductionItemId,Is.EqualTo("tea"));
             Flow.Initialize(Store);yield return SceneManager.LoadSceneAsync("GameScene");yield return null;Flow.ShowMerge();
             Assert.That(Flow.ProductionItemId,Is.EqualTo("bread"));Assert.That(Flow.Game.State.activeQuestId,Is.EqualTo("bread-01"));
-            Assert.That(Flow.Game.State.saveVersion,Is.EqualTo(3));LogAssert.NoUnexpectedReceived();
+            Assert.That(Flow.Game.State.saveVersion,Is.EqualTo(4));LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator FailedDiscardAndProductionKeepBoardAndCannotReportSuccess()
         {

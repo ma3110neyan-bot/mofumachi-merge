@@ -44,7 +44,8 @@ namespace Mofumachi.Presentation
         public string PreviewFavoriteId { get; private set; } = "momo";
         private string selectionReturnView = "home";
         public bool IsAppPaused => appPaused;
-        private bool CanPlay => !appPaused && Game.State.purchaseNoticeAcknowledged && CharacterCatalog.IsKnown(Game.State.favoriteCharacterId) && !IsModalOpen && !transitioning;
+        public bool IsLoadBlocked { get; private set; }
+        private bool CanPlay => !IsLoadBlocked && Game != null && !appPaused && Game.State.purchaseNoticeAcknowledged && CharacterCatalog.IsKnown(Game.State.favoriteCharacterId) && !IsModalOpen && !transitioning;
 
         private GameObject page;
         private Font font;
@@ -70,13 +71,16 @@ namespace Mofumachi.Presentation
         private void Awake()
         {
             if (session == null) Initialize(new SaveService(Application.persistentDataPath),new FileTownDailyStore(Application.persistentDataPath));
-            ProductionItemId=UIStrings.SuggestedProduction(Game);
+            if (!IsLoadBlocked) ProductionItemId=UIStrings.SuggestedProduction(Game);
             font = Resources.Load<Font>("Mofumachi/UIFont");
             characters = Resources.Load<Texture2D>("Mofumachi/CharacterMaster");
             if (font == null || characters == null)
                 throw new System.InvalidOperationException("Mofumachi UI resources are missing.");
-            audioManager = AudioManager.GetOrCreate();
-            audioManager.ApplySettings(Game.State.bgmEnabled, Game.State.seEnabled,Game.State.bgmVolume,Game.State.seVolume);
+            if(!IsLoadBlocked)
+            {
+                audioManager = AudioManager.GetOrCreate();
+                audioManager.ApplySettings(Game.State.bgmEnabled, Game.State.seEnabled,Game.State.bgmVolume,Game.State.seVolume);
+            }
             var canvas = new GameObject("Mofumachi Canvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             canvas.transform.SetParent(transform, false);
             canvas.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
@@ -96,9 +100,11 @@ namespace Mofumachi.Presentation
                 events.GetComponent<InputSystemUIInputModule>().AssignDefaultActions();
             }
             UpdateSafeArea();
+            if(IsLoadBlocked)ShowLoadBlockedFeedback();
         }
         private void Start()
         {
+            if (IsLoadBlocked) return;
             PreviewFavoriteId = CharacterCatalog.IsKnown(Game.State.favoriteCharacterId) ? Game.State.favoriteCharacterId : "momo";
             Render(SceneManager.GetActiveScene().name == "TitleScene" || !Game.State.purchaseNoticeAcknowledged ? "title" :
                 CharacterCatalog.IsKnown(Game.State.favoriteCharacterId) ? "home" : "characterSelection");
@@ -108,11 +114,28 @@ namespace Mofumachi.Presentation
             HomeRegionSnapshot=null;HomeWorldSnapshot=null;
             discardHomeRegionSnapshot=true;
             ClearFrameSelection();
-            socialSession=new TownDailyService(socialStore??new MemoryTownDailyStore(),System.DateTime.Now);
+            IsLoadBlocked=true;enabled=false;
             var loaded = store.Load();
+            if(loaded.IsBlocked)
+            {
+                notice=loaded.Reason;
+                if(layout!=null)ShowLoadBlockedFeedback();
+                session=null;socialSession=null;
+                Debug.LogError(notice);
+                return;
+            }
+            socialSession=new TownDailyService(socialStore??new MemoryTownDailyStore(),System.DateTime.Now);
             session = new GameStateManager(loaded.State, store);
+            IsLoadBlocked=false;enabled=true;
             ProductionItemId=UIStrings.SuggestedProduction(Game);selected=-1;feedback.Remove(ScreenId.Merge);
             notice = loaded.Reason;feedback[ScreenId.Title]=loaded.Reason;
+        }
+        private void ShowLoadBlockedFeedback()
+        {
+            // Reuse the existing error surface, never create a playable fallback state.
+            foreach(Transform child in layout.SafeRoot)child.gameObject.SetActive(false);
+            feedback[ScreenId.Title]="保存先を確認してください。";
+            widgets.Feedback(layout.SafeRoot,context,ScreenId.Title);
         }
         private void Update() { UpdateSafeArea(); if(Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame) GoBack(); }
         private void UpdateSafeArea()
@@ -125,7 +148,7 @@ namespace Mofumachi.Presentation
         }
         public void BeginGame()
         {
-            if (transitioning || IsModalOpen) return;
+            if (IsLoadBlocked || transitioning || IsModalOpen) return;
             if (!Game.State.purchaseNoticeAcknowledged) { OpenNotice(); return; }
             if (!Persist()) { Render("title"); return; }
             transitioning=true; SceneManager.LoadScene("GameScene");

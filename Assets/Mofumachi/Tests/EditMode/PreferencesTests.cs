@@ -24,7 +24,7 @@ namespace Mofumachi.Tests
         {
             var s = StateCodec.Decode(V1);
             StateCodec.Validate(s);
-            Assert.That(s.saveVersion, Is.EqualTo(3));
+            Assert.That(s.saveVersion, Is.EqualTo(4));
             Assert.That(s.coins, Is.EqualTo(30)); Assert.That(s.gems, Is.EqualTo(7));
             Assert.That(s.stamina, Is.EqualTo(12)); Assert.That(s.playerLevel, Is.EqualTo(4));
             Assert.That(s.townGrowthLevel, Is.EqualTo(1)); Assert.That(s.activeQuestId, Is.EqualTo("tea-01"));
@@ -108,7 +108,7 @@ namespace Mofumachi.Tests
 
         [TestCase("-0.01")] [TestCase("1.01")] [TestCase("\"NaN\"")]
         [TestCase("\"INF\"")] [TestCase("\"-INF\"")]
-        public void InvalidV2VolumeUsesHealthyBackup(string value)
+        public void InvalidV4VolumeBlocksWithoutFallingBackToV1(string value)
         {
             var disk = new SaveService(directory); disk.Save(GameState.CreateInitial());
             File.WriteAllText(disk.BackupPath, V1);
@@ -117,12 +117,12 @@ namespace Mofumachi.Tests
             Assert.That(invalid, Is.Not.EqualTo(before), "The corrupt fixture must actually change the JSON.");
             File.WriteAllText(disk.PrimaryPath, invalid);
             var loaded = disk.Load();
-            Assert.That(loaded.Recovered, Is.True); Assert.That(loaded.State.coins, Is.EqualTo(30));
-            Assert.That(loaded.State.saveVersion, Is.EqualTo(3)); Assert.That(loaded.State.bgmVolume, Is.EqualTo(.75f));
+            Assert.That(loaded.IsBlocked, Is.True); Assert.That(loaded.State, Is.Null);
+            Assert.That(File.ReadAllText(disk.PrimaryPath), Is.EqualTo(invalid));
         }
 
         [TestCase("bgmVolume", "0.75")] [TestCase("seVolume", "0.65")]
-        public void MissingV2VolumeUsesHealthyV1Backup(string member, string value)
+        public void MissingV4VolumeBlocksWithoutFallingBackToV1(string member, string value)
         {
             var disk = new SaveService(directory); disk.Save(GameState.CreateInitial());
             File.WriteAllText(disk.BackupPath, V1);
@@ -131,7 +131,8 @@ namespace Mofumachi.Tests
             Assert.That(incomplete, Is.Not.EqualTo(before));
             File.WriteAllText(disk.PrimaryPath, incomplete);
             var loaded = disk.Load();
-            Assert.That(loaded.Recovered, Is.True); Assert.That(loaded.State.coins, Is.EqualTo(30));
+            Assert.That(loaded.IsBlocked, Is.True); Assert.That(loaded.State, Is.Null);
+            Assert.That(File.ReadAllText(disk.PrimaryPath), Is.EqualTo(incomplete));
         }
 
         [TestCase("coins", "0")] [TestCase("gems", "0")]
@@ -145,7 +146,8 @@ namespace Mofumachi.Tests
             Assert.That(incomplete, Is.Not.EqualTo(before));
             File.WriteAllText(disk.PrimaryPath, incomplete);
             var loaded = disk.Load();
-            Assert.That(loaded.Recovered, Is.True); Assert.That(loaded.State.coins, Is.EqualTo(30));
+            Assert.That(loaded.IsBlocked, Is.True); Assert.That(loaded.State, Is.Null);
+            Assert.That(File.ReadAllText(disk.PrimaryPath), Is.EqualTo(incomplete));
         }
 
         [Test] public void V1MigrationRetainsActiveQuestAndCanWriteValidV2()

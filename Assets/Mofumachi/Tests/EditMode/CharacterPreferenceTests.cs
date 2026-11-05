@@ -24,7 +24,7 @@ namespace Mofumachi.Tests
                 .Replace("\"purchaseNoticeAcknowledged\":true,", "");
             var state = StateCodec.Decode(json);
             StateCodec.Validate(state);
-            Assert.That(state.saveVersion, Is.EqualTo(3));
+            Assert.That(state.saveVersion, Is.EqualTo(4));
             Assert.That(state.favoriteCharacterId, Is.Empty);
             Assert.That(state.coins, Is.EqualTo(30)); Assert.That(state.townGrowthLevel, Is.EqualTo(1));
             Assert.That(state.activeQuestId, Is.EqualTo("tea-01"));
@@ -63,7 +63,7 @@ namespace Mofumachi.Tests
         }
 
         [TestCase(null)] [TestCase("unknown")] [TestCase("missing")]
-        public void V3RejectsMissingOrUnknownFavoriteAndKeepsBackup(string favorite)
+        public void V4RejectsMissingOrUnknownFavoriteWithoutReplacingPrimary(string favorite)
         {
             string directory = Path.Combine(Path.GetTempPath(), "mofumachi-favorite-" + Guid.NewGuid());
             try
@@ -75,8 +75,8 @@ namespace Mofumachi.Tests
                     json.Replace("\"favoriteCharacterId\":\"momo\"", "\"favoriteCharacterId\":" + (favorite == null ? "null" : "\"" + favorite + "\""));
                 Assert.That(invalid, Is.Not.EqualTo(json)); File.WriteAllText(disk.PrimaryPath, invalid);
                 var loaded = disk.Load();
-                Assert.That(loaded.Recovered, Is.True); Assert.That(loaded.State.favoriteCharacterId, Is.EqualTo("lulu"));
-                Assert.That(loaded.State.coins, Is.EqualTo(30));
+                Assert.That(loaded.IsBlocked, Is.True); Assert.That(loaded.State, Is.Null);
+                Assert.That(File.ReadAllText(disk.PrimaryPath), Is.EqualTo(invalid));
             }
             finally { if (Directory.Exists(directory)) Directory.Delete(directory, true); }
         }

@@ -1,0 +1,22 @@
+Run: font-only-20261104-204729-31fcbc90
+Source revision: 193ab6eeb216d9f457096d9f3df305704f2f962e
+Source: References/Review/inbox/latest/capture.xml
+Failed test: Mofumachi.Tests.ReleaseUxNativeTests.ScopedFontsFitTitleTownMergeBookSettingsAndTodayAtPhoneSizes
+
+First causal Unity test error (full failure/message):
+  Current request caption: generated glyphs [font=UIFontAccent, size=10, rect=(x:-62.20, y:-7.00, width:124.40, height:14.00), preferredHeight=14.5]
+  Expected: greater than 0
+  But was:  0
+
+Stack trace (full failure/stack-trace):
+at Mofumachi.Tests.HachiFontCapture.AssertGeneratedGlyphs (UnityEngine.UI.Text text) [0x0002c] in C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Assets\Mofumachi\Tests\PlayMode\HachiFontCapture.cs:50
+at Mofumachi.Tests.HachiFontCapture+<Run>d__14.MoveNext () [0x007ed] in C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Assets\Mofumachi\Tests\PlayMode\HachiFontCapture.cs:161
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@80f691d4262b\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+
+Minimal surrounding context from this run's capture.log:
+line 273: ExitCode: 0 Duration: 0s607ms
+line 275: *** Tundra build success (0.57 seconds), 1 items updated, 1750 evaluated
+line 678: Test run completed. Exiting with code 2 (Failed). One or more tests failed.
+
+Result: total=2, passed=1, failed=1, skipped=0, inconclusive=0.
+StoryTypographyTests.StoryRolesAndNoticeFitPortraitSizes: Passed.

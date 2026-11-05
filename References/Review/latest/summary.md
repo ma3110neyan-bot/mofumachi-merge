@@ -1,47 +1,45 @@
-# 最新レビュー共有：Windows診断共有機構
+# 最新レビュー：Unity exit 2 原因特定・修正案のみ
 
 - 現在ブランチ：`feat/daily-world-pass-20261016`
-- 最新の確認対象作業commit SHA：`d0ccd9ac23f143ef0bd823aaaecfdd3489bb584f`
-- フォント製品候補commit SHA：`193ab6eeb216d9f457096d9f3df305704f2f962e`（変更なし）
-- 今回の目的：Windowsで現リポジトリだけを検索して安全停止した問題を局所修正し、兄弟worktreeの最新失敗runをパス入力なしで検出する。
-- 実施内容：実行元リポジトリを先に確認し、その親フォルダ直下の兄弟作業フォルダも列挙。各Builds/Diagnostics/font-only-*を対象に、更新日時が最も新しい失敗runを全候補から1件だけ選ぶ。Windows例のfont-afc3c3d1も含む。親フォルダの外や深い孫プロジェクトを再帰検索せず、リンク先もたどらない。
-- 成功／失敗：一時フォルダで検索ロジックのみ12ケース成功。スクリプト本体・コピー処理・Git共有処理は今回実行していない。既存Git安全処理6関数は修正前後で同一。共有機構の実装状態は完成を維持し、実Windowsの共有成功を主張しない。
-- 根本原因：共有検索が実行元のBuilds/Diagnosticsに固定され、兄弟のfont-afc3c3d1等を検索していなかったこと。Unity exit 2自体の根本原因は引き続き未確定で、今回調査・再実行していない。
-- 修正内容：実装変更はshare-latest-font-diagnostics.ps1の検索・失敗判定と取得元の記録だけ。run-info.txtへSource repository/worktree、Source run full path、Selected run nameを追加し、元のSource repository HEAD表記をPublishing repository HEADへ明確化。取得元と公開先を混同しない。CMD・既存Git制限・ゲーム・Diagnostics原本は変更していない。
-- 次にやること：この修正と共有記録をpushして停止。実Windows Diagnostics共有はまだ実行しない。後日許可された際も同じCMDで動作し、毎回のパス入力やファイル移動は不要。
+- 最新の確認対象共有commit SHA：`9f408badda76e3647d0c53213f6efb472751c17f`
+- run／製品ソースSHA：`font-only-20261104-204729-31fcbc90`／`193ab6eeb216d9f457096d9f3df305704f2f962e`
+- 今回の目的：このrunだけから最初の原因と指定7項目を確定し、修正せず停止する。
+- 実施内容：共有run-infoの11ファイルのバイト数・SHA256を原本と照合。capture.logのCLIと親JSONのsource／fingerprint／packed SHAも一致。別runは使用せず、このrunが記録するソースSHAの該当箇所を読み取り照合した。
+- 成功／失敗：原因特定は完了。保存済みNative結果は2件中1件成功・1件失敗、skip／inconclusive0。`capture_verified=false`、検証済み画像数0。今回、テストは実行していない。
+- 根本原因：Hachiの必要高14.5を高さ14.0の固定欄へ、収容判定の許容差+0.5で誤って受け入れたこと。文字生成0頂点のassert失敗によりUnity Test Runnerがexit2となった。
+- 修正内容：なし。今回の変更はこのsummary、status.json、error.logの3ファイルのみ。ゲーム・フォント・UI・テスト・Visual Lock・共有スクリプト・受領原本は変更していない。
+- 次にやること：以下の修正案を提示して停止。PowerShell／Unity／captureの再実行、コード修正、追加テスト、APK、Pixelへ進まない。
 
-## 今回の変更ファイル
+## 指定7項目
 
-- `scripts/share-latest-font-diagnostics.ps1`：兄弟worktree検索と最新失敗runの選択、取得元の明示。
-- `References/Review/latest/summary.md`：局所修正と検索検証の結果。
-- `References/Review/latest/status.json`：対象SHAと検索範囲・未実施事項。
+1. **最初のUnity側エラー全文**（capture.xmlの唯一の失敗test-caseのfailure/message）：
 
-CMDとscripts/.gitattributesは前回のまま。Windowsの通常配置では検索上限は `C:\Users\User\Desktop\Mofumachi` で、その直下の各作業フォルダのBuilds/Diagnosticsだけを対象とする。
+```text
+  Current request caption: generated glyphs [font=UIFontAccent, size=10, rect=(x:-62.20, y:-7.00, width:124.40, height:14.00), preferredHeight=14.5]
+  Expected: greater than 0
+  But was:  0
+```
 
-## Windows PowerShell 5.1静的確認
+2. **発生ファイル**：`Assets/Mofumachi/Tests/PlayMode/HachiFontCapture.cs`。
+3. **行番号**：50（AssertGeneratedGlyphsの頂点数assert）、161（Runからの呼び出し）。これは不具合の検出箇所。収容判定の原因箇所は `Assets/Mofumachi/Presentation/ReleaseTypography.cs:28` と29。
+4. **フォント変更との関係**：対象は「現在の依頼」の `Current request caption`、`UIFontAccent`＝Hachi、UGUI Bold、サイズ10。ログで枠高14.00・必要高14.5・生成頂点0を確認。同じソースのHachi TTFにはこの短文の全字形が存在し、フォントメトリクス上もサイズ10の行高は14.48。`ReleaseTypography.Fits`はMerge brand以外に0.5の高さ余裕を加えるため、`14.5 <= 14.0 + 0.5`がtrueとなる。既存MergeCompactFontFitはここで縮小を止め、Truncateの14高枠で文字生成できない状態が残る。フォント自体の一括置換やUI再設計を必要とする問題ではない。
+5. **最小修正箇所**：`ReleaseTypography.cs`の`Fits`にあるheightAllowance決定1箇所。既存の小さいMergeヘッダー文字に限定し、許容差を0へ揃える。`MergeTypography.cs:84`の既存縮小ループと下限8は変更しない。
+6. **修正対象ファイル数**：製品コードは **1ファイル**。ただし現行SHA安全ガードを維持して適用するには、`References/VisualLock/font-only-2026-11-04.json`のReleaseTypography行のSHA更新も必要なので **適用時は合計2ファイル（製品1＋安全記録1）**。テストやassertを緩める変更は不要。今回の報告3ファイルとは区別する。
+7. **推奨修正案**：既存 `ReleaseFontPolicy.CompactMinimumSize(text.name) > 0` の3ラベル（Current request caption／Merge reward coins／Merge brand）だけを厳密な高さ判定にする。以下は未適用の案：
 
-| 対象 | 確認結果 |
-| --- | --- |
-| UTF-8／BOM／CP932 | PS1・CMDはASCIIのみ。BOMなしでもCP932との解釈差がない。他の日本語PS1のBOMは変更しない |
-| `::new()` | PowerShell 5.0以降の構文。使用Encodingコンストラクタを.NET Framework 4.8参照メタデータで照合 |
-| Generic Collection | List／Stackと必要メソッドを.NET Framework 4.8参照で確認 |
-| `Get-FileHash` | PowerShell 4.0以降の標準機能。SHA256を明示 |
-| `Sort-Object` | 5.1で利用できる計算プロパティ・降順指定を使用 |
-| Windowsパス | .NET FrameworkのパスAPIとLiteralPathを使用。空白・角括弧・日本語パスを検証。Core専用GetRelativePath等は不使用 |
-| Git出力の文字コード | Git呼び出し中だけUTF-8へ揃え、Console／OutputEncodingをfinallyで復元。CP932条件で日本語リポジトリの誤読を再現し、修正後成功を確認 |
-| Gitのstderr | 5.1のNativeCommandError表現を考慮し、stderrの有無でなくネイティブ終了コードで成功を判定 |
-| CMD | ASCII・CRLF。System32のWindowsPowerShell/v1.0/powershell.exeをRemoteSignedで起動。戻り値を保持して表示を残す |
+```csharp
+float heightAllowance =
+    ReleaseFontPolicy.CompactMinimumSize(text.name) > 0 ? 0f : .5f;
+```
 
-これは静的互換性確認であり、Windows 11／Windows PowerShell 5.1で実行済みという意味ではない。今回、実Windowsでの共有操作は未実施。
+Hachi優先・軽いBold・既存のフォント下限を維持し、必要時だけ既存ループで収まるサイズへ下げる。固定サイズ10を強制しない。枠・配置・色・正式素材・Mergeロジック・SaveData等を変えない。修正後の実描画結果は未確認。`HachiFontCapture.cs`の0頂点Fail条件とPowerShellの終了検知は正常なため変更しない。
 
-## Gitの範囲と停止条件
+## このrunで確認できる補足
 
-- add対象は `References/Review/inbox/latest/` だけ。commitも `--only` と同じパスを指定し、他のステージ済み・未ステージ変更を保持する。ignoredのログも対象ディレクトリ内だけでaddする。
-- 共有先専用の属性とGit blob照合により、CRLF／UTF-16等のログ原バイトがGitによって変換されることを防ぐ。元run名・元パス・コピー時刻・ファイル一覧・SHAを記録する。
-- push対象は確認済みcommit SHAと現在のfeatureブランチのみ。force push・reset・stash削除・自動merge・自動再試行は実装していない。
-- 共有外の未pushコミット、リモート進行・分岐、detached HEAD、Git操作途中等は安全に停止する。Git失敗時は原因を表示し、1回で停止。ローカルhookによる別ファイル変更もこの処理内で防ぐ。
-- Git共有の22ケースと重点3ケースは前回の確認結果。今回は指定どおり検索のみ12ケースを実行し、コピー・Git共有の再実行はしていない。検索ケースはローカルDiagnostics不在で兄弟から取得、ローカル優先ではなく全体の最新失敗を選択、新しい成功runの除外、親外・深い階層の除外、XML／compilerエラーの失敗判定、未確認runの除外、0件停止、リンク除外、元ハッシュ／更新日時不変。仮のログを実証跡として保存しない。
-
-`commit`は確認対象の作業コミットで、共有情報だけの更新コミットとは区別する。`capture_verified`／`pixel_verified`／`formal_fixed`／`adopted`はフォント候補について未確認のfalseを維持。error.log・visual-review.md・images/は今回変更せず、実ログや画像を作成・流用しない。
-
-- [機械判定用status.json](status.json)
+- `StoryTypographyTests.StoryRolesAndNoticeFitPortraitSizes`はPassed。
+- prepare-noah.log／prepare-five.logはともに終了0。capture.log:273のScriptAssembliesも終了0、275でbuild success。その後678で「One or more tests failed」によりexit2。
+- capture.log:101にライセンス更新警告があるが、108でライセンス更新成功、110で初期化完了となり、実際にテストまで進んでいる。今回の終了2を発生させた失敗は上記assert。
+- capture.log自身がCLIの-logFile出力。共有フォルダには別名のEditor／stdout／stderrファイルはない。存在しないファイルを作る処理や再実行は行わない。
+- 親JSONのimage_count=0は検証済み枚数。共有対象はテキストだけであり、途中PNGの実枚数や見た目を確認したとは扱わない。
+- `success=false`／`tests_passed=false`はこの保存済み失敗runの状態。`analysis_complete=true`は今回の読み取り調査完了。共有機構の自動commit/push有効状態は維持する。
+- [最小ログ抜粋と完全なstack trace](error.log)／[機械判定用status.json](status.json)

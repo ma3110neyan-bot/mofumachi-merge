@@ -1,0 +1,20 @@
+﻿{
+    "scope":  "font-only-native-capture",
+    "gitRevision":  "193ab6eeb216d9f457096d9f3df305704f2f962e",
+    "productFingerprint":  "d9b7ad6c138c46f8f20c8ae05964a8bb26d8390517b445d4aae022413d3c5020",
+    "packed_resource_sha256":  "9a380a11dc0b88474a57c50acfd4f20cdb333528475623b456d275f91126adde",
+    "preserved_inputs":  {
+
+                         },
+    "source_unchanged":  true,
+    "capture_verified":  false,
+    "image_count":  0,
+    "artifacts":  [
+
+                  ],
+    "full_qa_verified":  false,
+    "build_generated":  false,
+    "pixel_verified":  false,
+    "visual_approved":  false,
+    "error":  "Unity exit 2. Preserve this run: C:\\Users\\User\\Desktop\\Mofumachi\\font-afc3c3d1\\Builds\\Diagnostics\\font-only-20261104-204729-31fcbc90"
+}

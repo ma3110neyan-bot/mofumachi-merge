@@ -1,0 +1,554 @@
+VBCSCompilerPreWarmer: watching VBCSCompiler (PID 20968)
+VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 20616)
+VBCSCompiler prewarm took 52.15 ms
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Built from '6000.6/staging' branch; Version is '6000.6.4f1 (12bfff696524) revision 1228799'; Using compiler version '194234433'; Build Type 'Release'
+[Licensing::IpcConnector] Channel LicenseClient-User doesn't exist
+OS: 'Windows 11  (10.0.26300) Professional' Language: 'ja' Physical Memory: 16016 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+System  architecture: x64
+Process architecture: x64
+Date: 2026-11-04T11:47:30Z
+[Licensing::Module] Successfully launched the LicensingClient (PId: 9536)
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\6000.6.4f1\Editor\Unity.exe
+-batchmode
+-quit
+-projectPath
+C:\Users\User\Desktop\Mofumachi\font-afc3c3d1
+-buildTarget
+Android
+-executeMethod
+Mofumachi.Editor.NoahAuthoredBuild.Prepare
+-logFile
+C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Builds\Diagnostics\font-only-20261104-204729-31fcbc90\prepare-noah.log
+-mofumachiNoahAuthoredDirectory
+C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Builds\Diagnostics\font-only-20261104-204729-31fcbc90
+Successfully changed project path to: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1
+C:/Users/User/Desktop/Mofumachi/font-afc3c3d1
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-remapper-allocator-initial-capacity=32768"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-main-allocator-mimalloc-enabled=1"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+Logging is directed to a specific file, skipping project log.
+Player connection [4684]  Target information:
+
+Player connection [4684]  * "[IP] 192.168.11.11 [Port] 55504 [Flags] 2 [Guid] 461851862 [EditorId] 461851862 [Version] 1048832 [Id] WindowsEditor(7,Massa) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [4684] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [4684] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+[Package Manager] Connected to IPC stream "Upm-23252" after 0.3 seconds.
+[Licensing::Module] Licensing is not yet initialized.
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-User" at "2026-11-04T11:47:34.7664089Z"
+[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 9536, path: "C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client.exe")
+[Licensing::Module] LicensingClient has failed validation; ignoring
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.18.3+d7ffd15
+  Session Id:              0815fcc6a9ab44eab4b04614fb4e47ce
+  Correlation Id:          a8ff6b2cb6f5539a3a44d4375cc3c606
+  External correlation Id: 4816357661221266815
+  Machine Id:              s1ZBFAh08iD+xU7rS9eEdo0A/W0=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-User" (connect: 4.37s, validation: 0.33s, handshake: 0.14s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-User-notifications" at "2026-11-04T11:47:35.2305463Z"
+[Licensing::Module] Connected to LicensingClient (PId: 9536, launch time: 0.03, total connection time: 4.83s)
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: 15669776303905-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.01
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] Licensing Background thread has ended after 4.90s
+[Licensing::Module] Licensing is initialized (took 2.72s).
+[Licensing::Client] Successfully resolved entitlement details
+Library Redirect Path: Library/
+Launching Unity Data Store - C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/Tools/Unity.DataStore.exe 
+Unity Data Store artifact dir = Library/DataStore, working dir = C:/Users/User/Desktop/Mofumachi/font-afc3c3d1Unity Data Store running and initialised
+[Licensing::Client] Successfully resolved entitlement details
+Targeting platform: Android
+Refreshing native plugins compatible for Editor in 2.09 ms, found 0 plugins.
+[Physics::Module] Selected backend (deferred post-plugins).
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Initialize engine version: 6000.6.4f1 (12bfff696524)
+[EntityIdStore] init: VM path (explicit commit), pageSize=4096, blockCount=1048576, entitiesPerBlock=256, slots reserved=4294967296 bytes
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/User/Desktop/Mofumachi/font-afc3c3d1/Assets
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+d3d12: failed to query info queue interface (0x80004002).
+Direct3D:
+    Version:         Direct3D 12 [level 12.1]
+    Renderer:        Intel(R) Iris(R) Xe Graphics (ID=0x9a49)
+    Vendor:          Intel
+    VRAM:            8008 MB
+    App VRAM Budget: 7351 MB
+    Driver:          32.0.101.7085
+    Unified Memory Architecture
+    Cache Coherent UMA
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/BCLExtensions/runtime/netstandard2.1'
+Mono path[2] = 'C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56252
+CodeReloadManager initialized
+ImportWorker Server TCP listen port: 0
+AcceleratorClientConnectionCallback - disconnected - :0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+[Licensing::Client] Successfully resolved entitlement details
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.6.4f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll
+Registered in 1.508428 seconds.
+Native extension for iOS target not found
+Native extension for Android target not found
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Package Manager log level set to [2]
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:False
+Scripting: successfully reloaded assembly
+- Finished resetting the current domain, in  2.834 seconds
+Domain Reload Profiling: 8858ms
+	BeginReloadAssembly (484ms)
+		CreateAndSetChildDomain (38ms)
+	RebuildCommonClasses (5ms)
+	RebuildNativeTypeToScriptingClass (409ms)
+	initialDomainReloadingComplete (1904ms)
+	LoadAllAssembliesAndSetupDomain (3221ms)
+		LoadAssemblies (467ms)
+		TypeCache.Refresh (3076ms)
+			TypeCache.ScanAssembly (2644ms)
+		AnalyzeDomain (1ms)
+	FinalizeReload (2835ms)
+		SetupLoadedEditorAssemblies (0ms)
+			InitializePlatformSupportModulesInManaged (61ms)
+			BeforeProcessingInitializeOnLoad (129ms)
+			ProcessInitializeOnLoadAttributes (108ms)
+			ProcessInitializeOnLoadMethodAttributes (1488ms)
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Client] Successfully resolved entitlement details
+Application.AssetDatabase Initial Refresh Start
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 79 packages:
+  Packages from [https://packages.unity.com]:
+    com.unity.2d.animation@16.0.1 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.2d.animation@899988b542b9)
+    com.unity.2d.aseprite@6.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.2d.aseprite@ab909e3e9b5f)
+    com.unity.2d.psdimporter@15.0.1 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.2d.psdimporter@e02a9153d8d9)
+    com.unity.2d.spriteshape@16.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.2d.spriteshape@42798c9d35d3)
+    com.unity.2d.tilemap.extras@9.0.1 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.2d.tilemap.extras@9446f3c60919)
+    com.unity.2d.tooling@4.0.1 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.2d.tooling@4e93af4036ee)
+    com.unity.collab-proxy@2.13.6 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.collab-proxy@4628d2ba6ea4)
+    com.unity.ide.rider@3.0.38 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.ide.rider@1f60b3138684)
+    com.unity.ide.visualstudio@2.0.26 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.ide.visualstudio@a99d56dec63f)
+    com.unity.inputsystem@1.20.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.inputsystem@7a4e1a2a8194)
+    com.unity.learn.iet-framework@6.0.7 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.learn.iet-framework@96330db47073)
+    com.unity.microsoft.gdk@1.7.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.microsoft.gdk@3b45a9994164)
+    com.unity.microsoft.gdk.tools@1.7.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.microsoft.gdk.tools@d61763b7f228)
+    com.unity.purchasing@5.4.4 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.purchasing@215c35b51cf4)
+    com.unity.visualscripting@1.9.12 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.visualscripting@4edfcc09512f)
+    com.unity.services.core@1.18.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.services.core@3464cb68d709)
+    com.unity.services.deployment@1.7.2 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.services.deployment@c07c64f9804b)
+    com.unity.microsoft.gdk.discovery@1.3.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.microsoft.gdk.discovery@9c2d1c88cf7f)
+    com.unity.settings-manager@2.1.1 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.settings-manager@0b8638c5ce86)
+    com.unity.2d.common@15.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.2d.common@b779c433ed47)
+    com.unity.searcher@4.9.5 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.searcher@a463122f2c00)
+    com.unity.profiling.core@1.0.3 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.profiling.core@8a49f7027d06)
+    com.unity.services.deployment.api@1.1.3 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.services.deployment.api@9becf6da0f1a)
+    com.unity.nuget.newtonsoft-json@3.2.2 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.nuget.newtonsoft-json@4dfd81071c64)
+    com.unity.nuget.mono-cecil@1.11.6 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff)
+  Built-in packages:
+    com.unity.2d.sprite@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.2d.sprite@752945c75a6f)
+    com.unity.2d.tilemap@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.2d.tilemap@f4c7bd71ac8a)
+    com.unity.render-pipelines.universal@17.6.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.render-pipelines.universal@b0678dfc9e21)
+    com.unity.test-framework@1.8.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.test-framework@80f691d4262b)
+    com.unity.timeline@6.6.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.timeline@c56d56b0070b)
+    com.unity.ugui@2.6.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.ugui@0727b404f3a0)
+    com.unity.modules.accessibility@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.accessibility)
+    com.unity.modules.adaptiveperformance@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.adaptiveperformance)
+    com.unity.modules.ai@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.ai)
+    com.unity.modules.androidjni@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.androidjni)
+    com.unity.modules.animation@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.animation)
+    com.unity.modules.assetbundle@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.assetbundle)
+    com.unity.modules.audio@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.audio)
+    com.unity.modules.cloth@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.cloth)
+    com.unity.modules.director@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.director)
+    com.unity.modules.imageconversion@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.imageconversion)
+    com.unity.modules.imgui@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.imgui)
+    com.unity.modules.jsonserialize@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.jsonserialize)
+    com.unity.modules.particlesystem@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.particlesystem)
+    com.unity.modules.physics@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.physics)
+    com.unity.modules.physics2d@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.physics2d)
+    com.unity.modules.physicscore2d@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.physicscore2d)
+    com.unity.modules.screencapture@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.screencapture)
+    com.unity.modules.terrain@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.terrain)
+    com.unity.modules.terrainphysics@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.terrainphysics)
+    com.unity.modules.tetgen@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.tetgen)
+    com.unity.modules.tilemap@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.tilemap)
+    com.unity.modules.timelinefoundation@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.timelinefoundation)
+    com.unity.modules.ui@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.ui)
+    com.unity.modules.uielements@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.uielements)
+    com.unity.modules.umbra@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.umbra)
+    com.unity.modules.unityanalytics@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.unityanalytics)
+    com.unity.modules.unitywebrequest@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.unitywebrequest)
+    com.unity.modules.unitywebrequestassetbundle@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.unitywebrequestassetbundle)
+    com.unity.modules.unitywebrequestaudio@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.unitywebrequestaudio)
+    com.unity.modules.unitywebrequesttexture@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.unitywebrequesttexture)
+    com.unity.modules.unitywebrequestwww@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.unitywebrequestwww)
+    com.unity.modules.vectorgraphics@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.vectorgraphics)
+    com.unity.modules.vehicles@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.vehicles)
+    com.unity.modules.video@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.video)
+    com.unity.modules.wind@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.wind)
+    com.unity.modules.xr@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.xr)
+    com.unity.modules.subsystems@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.subsystems)
+    com.unity.modules.hierarchycore@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.modules.hierarchycore)
+    com.unity.ext.nunit@2.1.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.ext.nunit@0198eae3b53e)
+    com.unity.render-pipelines.core@17.6.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.render-pipelines.core@285af6b8c83f)
+    com.unity.shadergraph@17.6.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.shadergraph@58bcb150677d)
+    com.unity.render-pipelines.universal-config@17.6.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.render-pipelines.universal-config@561422b74439)
+    com.unity.editorcoroutines@6.6.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.editorcoroutines@8cd72baa102a)
+    com.unity.mathematics@1.4.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.mathematics@8306a64d0cd6)
+    com.unity.collections@6.6.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.collections@10fff0607388)
+    com.unity.graph-authoring@1.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.graph-authoring@cfd2588851ee)
+    com.unity.burst@2.0.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.burst@626e66ab421b)
+    com.unity.test-framework.performance@6.6.0 (location: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Library\PackageCache\com.unity.test-framework.performance@b6023decb532)
+[Subsystems] No new subsystems found in resolved package list.
+[Package Manager] Done registering packages in 0.02 seconds
+[ScriptCompilation] Requested script compilation because: AssetDatabase observed changes in script compilation related files
+Starting: C:\Program Files\Unity\Hub\Editor\6000.6.4f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1300b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: C:/Users/User/Desktop/Mofumachi/font-afc3c3d1
+DisplayProgressbar: Compiling Scripts
+ExitCode: 0 Duration: 5s326ms
+[1310/1750  0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+[1734/1750  1s] Csc Library/Bee/artifacts/1300b0aE.dag/Mofumachi.Presentation.dll (+2 others)
+Assets\Mofumachi\Presentation\MergeInputDiagnostics.cs(13,50): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.
+[1737/1750  0s] ILPostProcess Library/Bee/artifacts/1300b0aE.dag/post-processed/Mofumachi.Presentation.dll (+pdb)
+Processing assembly Library/Bee/artifacts/1300b0aE.dag/Mofumachi.Presentation.dll, with 156 defines and 313 references
+
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+
+1 processor(s) skipped this assembly
+
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+[1738/1750  0s] CopyFiles Library/ScriptAssemblies/Mofumachi.Presentation.pdb
+[1739/1750  0s] ILPostProcess Library/Bee/artifacts/1300b0aE.dag/post-processed/Mofumachi.BuildTests.dll (+pdb)
+Processing assembly Library/Bee/artifacts/1300b0aE.dag/Mofumachi.BuildTests.dll, with 154 defines and 310 references
+
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+
+1 processor(s) skipped this assembly
+
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+[1742/1750  0s] ILPostProcess Library/Bee/artifacts/1300b0aE.dag/post-processed/Mofumachi.Editor.dll (+pdb)
+Processing assembly Library/Bee/artifacts/1300b0aE.dag/Mofumachi.Editor.dll, with 154 defines and 324 references
+
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+
+1 processor(s) skipped this assembly
+
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+[1744/1750  0s] CopyFiles Library/ScriptAssemblies/Mofumachi.Presentation.dll
+[1746/1750  2s] Csc Library/Bee/artifacts/1300b0aE.dag/Mofumachi.PlayModeTests.dll (+2 others)
+[1747/1750  0s] ILPostProcess Library/Bee/artifacts/1300b0aE.dag/post-processed/Mofumachi.PlayModeTests.dll (+pdb)
+Processing assembly Library/Bee/artifacts/1300b0aE.dag/Mofumachi.PlayModeTests.dll, with 156 defines and 296 references
+
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+
+1 processor(s) skipped this assembly
+
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+[1748/1750  0s] CopyFiles Library/ScriptAssemblies/Mofumachi.PlayModeTests.pdb
+[1749/1750  0s] CopyFiles Library/ScriptAssemblies/Mofumachi.PlayModeTests.dll
+*** Tundra build success (5.29 seconds), 11 items updated, 1750 evaluated
+Assets\Mofumachi\Presentation\MergeInputDiagnostics.cs(13,50): warning UAC0009: DEVELOPMENT_BUILD preprocessor directive has been deprecated. Please use one of the managed code variant directives (such as DEBUG, UNITY_ENABLE_CHECKS or UNITY_INCLUDE_INSTRUMENTATION) if different code paths are desired for different managed code variants. Checking for development build is possible at runtime using Debug.isDebugBuild. See the Conditional Compilation manual page for more details.
+Total cache size 266880058
+Total cache size after purge 266880058, took 00:00:00.4878203
+AssetDatabase: script compilation time: 7.248465s
+Begin MonoManager ReloadAssembly
+'Packages/com.unity.render-pipelines.core/Editor/Deprecated.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+'Packages/com.unity.render-pipelines.core/Editor/Deprecated.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+Refreshing native plugins compatible for Editor in 727.42 ms, found 6 plugins.
+Native extension for iOS target not found
+Native extension for Android target not found
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
+Scripting: successfully reloaded assembly
+- Finished resetting the current domain, in  1.721 seconds
+Domain Reload Profiling: 7762ms
+	BeginReloadAssembly (408ms)
+		DisableScriptedObjects (99ms)
+		CreateAndSetChildDomain (61ms)
+	RebuildCommonClasses (15ms)
+	RebuildNativeTypeToScriptingClass (24ms)
+	initialDomainReloadingComplete (97ms)
+	LoadAllAssembliesAndSetupDomain (5496ms)
+		LoadAssemblies (4266ms)
+		TypeCache.Refresh (983ms)
+			TypeCache.ScanAssembly (961ms)
+		AnalyzeDomain (159ms)
+			BuildScriptInfoCaches (148ms)
+			ResolveRequiredComponents (9ms)
+	FinalizeReload (1722ms)
+		SetupLoadedEditorAssemblies (0ms)
+			LogAssemblyErrors (3ms)
+			InitializePlatformSupportModulesInManaged (10ms)
+			BeforeProcessingInitializeOnLoad (122ms)
+			ProcessInitializeOnLoadAttributes (430ms)
+			ProcessInitializeOnLoadMethodAttributes (839ms)
+			AfterProcessingInitializeOnLoad (7ms)
+		AwakeInstancesAfterBackupRestoration (34ms)
+Starting new worker id: 0 with log in C:/Users/User/Desktop/Mofumachi/font-afc3c3d1/Logs/AssetImportWorkerHW0.log
+Refreshing native plugins compatible for Editor in 15.56 ms, found 6 plugins.
+
+Asset Pipeline Refresh (id=6b977442c310495418adc0ccca717ccf): Total: 37.021 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=23114 ms
+		Asset DB Callback time: managed=320 ms, native=79 ms
+		Scripting: domain reloads=1, domain reload time=6158 ms, compile time=7250 ms, other=98 ms
+		Project Asset Count: scripts=2287, non-scripts=3574
+		Asset File Changes: new=0, changed=4, moved=0, deleted=19
+		Scan Filter Count: 0
+	InvokePackagesCallback: 53.283ms
+	ApplyChangesToAssetFolders: 1.034ms
+	Scan: 227.296ms
+	Collect global state as custom dependencies: 24.965ms
+	OnSourceAssetsModified: 0.806ms
+	CategorizeScriptCompilationAssets: 3775.725ms
+	ProcessAssetsWithTransientArtifactChanges: 119.648ms
+	CategorizeAssets: 83.352ms
+	CompileScripts: 7249.985ms
+	ImportOutOfDateAssets: 2508.831ms (2490.896ms without children)
+		UnloadImportedAssets: 4.412ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 1.237ms
+		ImportSchedulerStart: 12.243ms
+	PostProcessAllAssets: 325.481ms
+		XRBuildSystem.XRAssetImported 3.679ms
+		VCAutoAddAssetPostprocess 1.489ms
+		AssemblyValidation.PostprocessAllAssets 0.084ms
+		PostProcessCallbackCreateDeferredMaterials 0.078ms
+		LocalizationDatabase.AssetDatabasePostprocessCallback 0.066ms
+		MonoPostProcessAllAssets: 318.122ms
+			StyleCatalogPostProcessor.OnPostprocessAllAssets 40.197ms
+			AssetPostprocessor.OnPostprocessAllAssets 36.868ms
+			AssetPostprocessorProxy.OnPostprocessAllAssets 21.026ms
+			UniversalRenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 19.314ms
+			BuilderAssetPostprocessor.OnPostprocessAllAssets 8.571ms
+			SyncVS.PostprocessSyncProject 5.511ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 4.459ms
+			WindowAssetPostprocessingWatcher.OnPostprocessAllAssets 3.222ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 3.035ms
+			SpeedTree9Postprocessor.OnPostprocessAllAssets 2.272ms
+			AssetChangedListener.OnPostprocessAllAssets 2.108ms
+			MaterialPostprocessor.OnPostprocessAllAssets 1.997ms
+			EditModeScopePostprocessor.OnPostprocessAllAssets 1.514ms
+			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 1.480ms
+			ShaderReflectionAssetPostProcessor.OnPostprocessAllAssets 0.917ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.903ms
+			ArtifactBrowserPostProcessor.OnPostprocessAllAssets 0.807ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 0.800ms
+			SpriteEditorTexturePostprocessor.OnPostprocessAllAssets 0.660ms
+			TextAssetPostProcessor.OnPostprocessAllAssets 0.620ms
+			InputActionJsonNameModifierAssetProcessor.OnPostprocessAllAssets 0.612ms
+			SpriteShapeAssetPostProcessor.OnPostprocessAllAssets 0.611ms
+			UVCSAssetPostprocessor.OnPostprocessAllAssets 0.600ms
+			AssetProcessor.OnPostprocessAllAssets 0.583ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 0.475ms
+			TMPro_TexturePostProcessor.OnPostprocessAllAssets 0.435ms
+			GdkAssemblyAssetProcessor.OnPostprocessAllAssets 0.428ms
+			AudioMixerPostprocessor.OnPostprocessAllAssets 0.414ms
+			SpriteLibraryAssetPostprocessor.OnPostprocessAllAssets 0.391ms
+			AssetEvents.OnPostprocessAllAssets 0.352ms
+			PostProcessor.OnPostprocessAllAssets 0.345ms
+			ProjectSettingsPostprocessor.OnPostprocessAllAssets 0.315ms
+			AssetDatabaseCallbacks.OnPostprocessAllAssets 0.283ms
+			ConfigAssetsTracker.OnPostprocessAllAssets 0.276ms
+			ThemePostprocessor.OnPostprocessAllAssets 0.269ms
+			SamplePostprocessor.OnPostprocessAllAssets 0.249ms
+			TerrainToolbarOverlayPostProcessor.OnPostprocessAllAssets 0.232ms
+			AssetReloadNotifier.OnPostprocessAllAssets 0.198ms
+			ScenarioDriftAssetsTracker.OnPostprocessAllAssets 0.198ms
+			PSDImportPostProcessor.OnPostprocessAllAssets 0.197ms
+			SpeedTreePostProcessor.OnPostprocessAllAssets 0.187ms
+			PSDImporterAssetPostProcessor.OnPostprocessAllAssets 0.167ms
+			AudioContainerPostProcessor.OnPostprocessAllAssets 0.100ms
+	PostAssetChangesProfiler: 22.987ms
+	UnloadStreamsBegin: 1.554ms
+	PersistCurrentRevisions: 0.658ms
+	GenerateScriptTypeHashes: 1.777ms
+	GenerateScriptTypeSerializationHashes: 3.234ms
+	Untracked: 22563.764ms
+
+Application.AssetDatabase Initial Refresh End
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.08 seconds
+Scanning for USB devices : 1.401ms
+Initializing Unity extensions:
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-もふまちメルジュ
+Unloading 71 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 10089 unused Assets / (12.4 MB). Loaded Objects now: 10965.
+Memory consumption went from 487.6 MB to 475.3 MB.
+Total: 17.980700 ms (FindLiveObjects: 1.462600 ms CreateObjectMapping: 0.736600 ms MarkObjects: 10.428100 ms  DeleteObjects: 4.888200 ms)
+
+Worker ready: AssetImportWorkerHW0 0
+Importing 'GUID: fd1741dc6640e424c84fc2aba7a340e8 - Path: Assets/Mofumachi/Resources/Mofumachi/NoahAuthoredTrial' with importer (DefaultImporter)
+Imported 'GUID: fd1741dc6640e424c84fc2aba7a340e8' -> (Import Result ID: '496e0bf7bbe75bbebde55cae8593f9f4') in 0.017 seconds [static dependencies only]. Details - ImportResultOutputID=e726e428818bed37cf2addb513e4264e DependenciesID=27c3e786e74b065af1b1efd4122acf9c StaticDependenciesID=9b48789619ca632f9e794dd5ee6ea936 
+Importing 'GUID: 30094d97a7b2e6e4498f73c02ea8c804 - Path: Assets/Mofumachi/Resources/Mofumachi/NoahAuthoredTrial/atlas.png' with importer (TextureImporter)
+Imported 'GUID: 30094d97a7b2e6e4498f73c02ea8c804' -> (Import Result ID: '77a71efb9374c054bc17ea0965c8e64c') in 3.046 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=9e6dfa2679ffc14505542ff8f2fadbc6 DependenciesID=9e940d749e9c1b7577fdcf049700d3e3 StaticDependenciesID=da9ffaf74a16d9d9b110c81c9bfe48a9 
+Importing 'GUID: 974526b7e124a8749a87fade2e79e14f - Path: Assets/Mofumachi/Resources/Mofumachi/NoahAuthoredTrial/layout.json' with importer (TextScriptImporter)
+Imported 'GUID: 974526b7e124a8749a87fade2e79e14f' -> (Import Result ID: 'fa031ee19942b02690eff43ef5207e29') in 0.021 seconds [static dependencies only]. Details - ImportResultOutputID=e4b08783aa09e001c142524a6807d8cd DependenciesID=9bf917a94d9aa9661732bc1823256898 StaticDependenciesID=09118c7f6f96860f0b525a9fc2db099d 
+Refreshing native plugins compatible for Editor in 21.00 ms, found 6 plugins.
+
+Asset Pipeline Refresh (id=8f2876b691af7864d821d1810b15501f): Total: 3.356 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=3 (actual=3, local cache=0, cache server=0)
+		Asset DB Process Time: managed=32 ms, native=3246 ms
+		Asset DB Callback time: managed=25 ms, native=50 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=2288, non-scripts=3576
+		Asset File Changes: new=3, changed=3, moved=0, deleted=0
+		Scan Filter Count: 0
+	ApplyChangesToAssetFolders: 0.261ms
+	Scan: 43.978ms
+	Collect global state as custom dependencies: 0.940ms
+	OnSourceAssetsModified: 0.775ms
+	ProcessAssetsWithTransientArtifactChanges: 0.145ms
+	CategorizeAssets: 61.887ms
+	ImportOutOfDateAssets: 3088.680ms (0.581ms without children)
+		ImportManagerImport: 3086.710ms (2.098ms without children)
+			UpdateCategorizedAssets: 0.109ms
+		ReloadNativeAssets: 0.067ms
+		UnloadImportedAssets: 0.152ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.909ms
+		ImportSchedulerStart: 0.251ms
+	PostProcessAllAssets: 53.202ms
+		XRBuildSystem.XRAssetImported 29.040ms
+		VersionControlSettings.HiddenFilePostprocess 0.202ms
+		SpriteAtlasDatabase.OnAssetPostprocessCallback 0.060ms
+		MonoPostProcessAllAssets: 23.464ms
+			AssetPostprocessor.OnPostprocessAllAssets 7.061ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 6.098ms
+			TMPro_TexturePostProcessor.OnPostprocessAllAssets 4.021ms
+			TextAssetPostProcessor.OnPostprocessAllAssets 2.188ms
+			SyncVS.PostprocessSyncProject 1.574ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 0.389ms
+			AssetChangedListener.OnPostprocessAllAssets 0.298ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.254ms
+			AssetPostprocessorProxy.OnPostprocessAllAssets 0.108ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 0.102ms
+			SpriteEditorTexturePostprocessor.OnPostprocessAllAssets 0.072ms
+			PostProcessor.OnPostprocessAllAssets 0.070ms
+			ConfigAssetsTracker.OnPostprocessAllAssets 0.067ms
+			SamplePostprocessor.OnPostprocessAllAssets 0.066ms
+			InputActionJsonNameModifierAssetProcessor.OnPostprocessAllAssets 0.052ms
+	PostAssetChangesProfiler: 22.294ms
+	GatherAllCurrentPrimaryImportResultRevisions: 0.620ms
+	UnloadStreamsBegin: 0.154ms
+	PersistCurrentRevisions: 0.618ms
+	Untracked: 42.802ms
+
+Importing 'GUID: 30094d97a7b2e6e4498f73c02ea8c804 - Path: Assets/Mofumachi/Resources/Mofumachi/NoahAuthoredTrial/atlas.png' with importer (TextureImporter)
+Imported 'GUID: 30094d97a7b2e6e4498f73c02ea8c804' -> (Import Result ID: '986d9eb8da6aa4bee99d4a3e08051142') in 2.383 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=1bfb3101efbc99dcc9c042f51636316f DependenciesID=81f011dd172c6bf0f5efa7be8c966c9e StaticDependenciesID=132c6745416773b59fa1da8805f24c12 
+Refreshing native plugins compatible for Editor in 16.83 ms, found 6 plugins.
+
+Asset Pipeline Refresh (id=017f782f9f9c2664fa5bfe9d91ac41c1): Total: 2.489 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=2463 ms
+		Asset DB Callback time: managed=4 ms, native=20 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=2288, non-scripts=3576
+		Asset File Changes: new=0, changed=1, moved=0, deleted=0
+		Scan Filter Count: 6
+	ApplyChangesToAssetFolders: 0.236ms
+	Scan: 33.490ms
+	Collect global state as custom dependencies: 0.880ms
+	OnSourceAssetsModified: 0.061ms
+	ProcessAssetsWithTransientArtifactChanges: 0.149ms
+	CategorizeAssets: 31.541ms
+	ImportOutOfDateAssets: 2388.928ms (0.369ms without children)
+		ImportManagerImport: 2386.917ms (0.486ms without children)
+		UnloadImportedAssets: 0.236ms
+		ReloadImportedAssets: 2.730ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.977ms
+		ImportSchedulerStart: 0.379ms
+	PostProcessAllAssets: 6.832ms
+		XRBuildSystem.XRAssetImported 3.604ms
+		MonoPostProcessAllAssets: 3.050ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 1.480ms
+			SyncVS.PostprocessSyncProject 0.568ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 0.182ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.101ms
+			AssetPostprocessor.OnPostprocessAllAssets 0.064ms
+	PostAssetChangesProfiler: 18.165ms
+	GatherAllCurrentPrimaryImportResultRevisions: 1.407ms
+	PersistCurrentRevisions: 0.388ms
+	Untracked: 7.091ms
+
+[Licensing::Client] Successfully resolved entitlement details
+Batchmode quit successfully invoked - shutting down!
+Killing ADB server in 2.0797966 seconds.
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input Polling Thread exited.
+Input System module state changed to: Shutdown.
+[Licensing::IpcConnector] LicenseClient-User-notifications channel disconnected successfully.
+[Licensing::IpcConnector] LicenseClient-User channel disconnected successfully.
+Lingering sessions upon destruction of worker manager
+Unity Data Store service was successfully shut down
+UDS shutting down local client system
+AcceleratorClientConnectionCallback - disconnected - :0
+Cleanup mono
+CodeReloadManager destroyed
+Exiting batchmode successfully now!
+[ExitDontLaunchBugReporter] Exiting without the bug reporter. Application will exit with return code 0

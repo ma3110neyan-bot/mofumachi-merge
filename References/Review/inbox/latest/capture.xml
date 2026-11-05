@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Failed(Child)" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-04 11:49:58Z" end-time="2026-11-04 11:50:03Z" duration="5.1682109">
+  <test-suite type="TestSuite" id="1320" name="もふまちメルジュ" fullname="もふまちメルジュ" runstate="Runnable" testcasecount="262" result="Failed" site="Child" start-time="2026-11-04 11:49:58Z" end-time="2026-11-04 11:50:03Z" duration="5.168211" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1634" name="Mofumachi.PlayModeTests.dll" fullname="C:/Users/User/Desktop/Mofumachi/font-afc3c3d1/Library/ScriptAssemblies/Mofumachi.PlayModeTests.dll" runstate="Runnable" testcasecount="262" result="Failed" site="Child" start-time="2026-11-04 11:49:58Z" end-time="2026-11-04 11:50:03Z" duration="5.155347" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="12984" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1635" name="Mofumachi" fullname="Mofumachi" runstate="Runnable" testcasecount="262" result="Failed" site="Child" start-time="2026-11-04 11:49:58Z" end-time="2026-11-04 11:50:03Z" duration="5.150400" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1636" name="Tests" fullname="Mofumachi.Tests" runstate="Runnable" testcasecount="262" result="Failed" site="Child" start-time="2026-11-04 11:49:58Z" end-time="2026-11-04 11:50:03Z" duration="5.146203" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1529" name="ReleaseUxNativeTests" fullname="Mofumachi.Tests.ReleaseUxNativeTests" classname="Mofumachi.Tests.ReleaseUxNativeTests" runstate="Runnable" testcasecount="2" result="Failed" site="Child" start-time="2026-11-04 11:49:58Z" end-time="2026-11-04 11:50:02Z" duration="4.599415" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1530" name="ScopedFontsFitTitleTownMergeBookSettingsAndTodayAtPhoneSizes" fullname="Mofumachi.Tests.ReleaseUxNativeTests.ScopedFontsFitTitleTownMergeBookSettingsAndTodayAtPhoneSizes" methodname="ScopedFontsFitTitleTownMergeBookSettingsAndTodayAtPhoneSizes" classname="Mofumachi.Tests.ReleaseUxNativeTests" runstate="Runnable" seed="810891712" result="Failed" start-time="2026-11-04 11:49:58Z" end-time="2026-11-04 11:50:02Z" duration="4.583162" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Current request caption: generated glyphs [font=UIFontAccent, size=10, rect=(x:-62.20, y:-7.00, width:124.40, height:14.00), preferredHeight=14.5]
+  Expected: greater than 0
+  But was:  0
+]]></message>
+                <stack-trace><![CDATA[at Mofumachi.Tests.HachiFontCapture.AssertGeneratedGlyphs (UnityEngine.UI.Text text) [0x0002c] in C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Assets\Mofumachi\Tests\PlayMode\HachiFontCapture.cs:50
+at Mofumachi.Tests.HachiFontCapture+<Run>d__14.MoveNext () [0x007ed] in C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Assets\Mofumachi\Tests\PlayMode\HachiFontCapture.cs:161
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@80f691d4262b\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1562" name="StoryTypographyTests" fullname="Mofumachi.Tests.StoryTypographyTests" classname="Mofumachi.Tests.StoryTypographyTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-04 11:50:02Z" end-time="2026-11-04 11:50:03Z" duration="0.527465" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1563" name="StoryRolesAndNoticeFitPortraitSizes" fullname="Mofumachi.Tests.StoryTypographyTests.StoryRolesAndNoticeFitPortraitSizes" methodname="StoryRolesAndNoticeFitPortraitSizes" classname="Mofumachi.Tests.StoryTypographyTests" runstate="Runnable" seed="633290144" result="Passed" start-time="2026-11-04 11:50:02Z" end-time="2026-11-04 11:50:03Z" duration="0.524711" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

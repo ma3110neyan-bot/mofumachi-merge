@@ -1,0 +1,24 @@
+﻿Source run folder: font-only-20261104-204729-31fcbc90
+Source Windows path: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Builds\Diagnostics\font-only-20261104-204729-31fcbc90
+Source repository/worktree: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1
+Source run full path: C:\Users\User\Desktop\Mofumachi\font-afc3c3d1\Builds\Diagnostics\font-only-20261104-204729-31fcbc90
+Selected run name: font-only-20261104-204729-31fcbc90
+Search boundary: C:\Users\User\Desktop\Mofumachi
+Source folder modified UTC: 2026-11-04T11:50:49.1672167Z
+Copied UTC: 2026-11-05T02:58:01.2451087Z
+Limits: 4 MiB per file; 16 MiB total; 64 files. No truncation.
+Copied files (relative path | bytes | SHA256):
+capture.log | 53566 | 71e7ff9f159e4b1f7ce2ed854171248f0c5716565a14ccce959be1f239deb674
+capture.xml | 6321 | 032ddaa0ced6ab3b5cbe5154d8aef2f3c2bf515d142cb52ec3eae86fc4e76de3
+font-only-source-info.json | 792 | c9d56d08dce92edfc3014eba28b3171e8897ec32ec555bcb8533e2ec1cbeeaea
+prepared.json | 22620 | 241abe5e5db270c93c9c9a96cdcc937c4782f3aff5bbfe5b183eca92b8f2f1bb
+prepared-fio.json | 22612 | faa5439f12dc21c167af7ea49993a485211212e546d7b221cd80499dde331f49
+prepared-lulu.json | 22616 | b58b9633348b137255c7e897f205102d4ab2b6603f1d85dfbed96aa5f20b30a2
+prepared-miel.json | 22620 | 241abe5e5db270c93c9c9a96cdcc937c4782f3aff5bbfe5b183eca92b8f2f1bb
+prepared-momo.json | 22690 | 94532f3e9b2ad9e679e30983f58b43315f0adfa5f745e2801db5979cb1c61c3f
+prepared-pom.json | 22614 | 5047f811bd4e763370b229f95af3df40d695f7c6331410004807f5b010236890
+prepare-five.log | 58948 | 364da711bc4c733636814e1823e9f2e52c2981dcdf221bec2b120b5299ed38c4
+prepare-noah.log | 40812 | b216c2331505292e66449a53cbbdf59b3019423b2c4dd671c04ab6542f7bf7c1
+Skipped eligible paths (if any):
+Publication target: origin/refs/heads/feat/daily-world-pass-20261016
+Publishing repository HEAD: a462b4693b590b09fccbfa2b3ad88a14afbc83d6

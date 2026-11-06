@@ -10,11 +10,13 @@ namespace Mofumachi.Core
         public GameState State { get; }
         public MergeBoard Board { get; }
         public QuestManager Quests { get; }
+        public MofuPointService MofuPoints { get; }
         public string LastError { get; private set; } = "";
         public GameStateManager(GameState state, IStateStore store)
         {
             State = state; this.store = store; Board = new MergeBoard(state);
             Quests = new QuestManager(state, store, new RewardService(), new TownGrowthService());
+            MofuPoints = new MofuPointService(this);
         }
         public bool TryMerge(int from, int to) => Mutate(() => Board.TryMerge(from, to));
         public bool TryMove(int from, int to) => Mutate(() => Board.TryMove(from, to));
@@ -75,7 +77,17 @@ namespace Mofumachi.Core
                 catch (UnauthorizedAccessException) { LastError = "保存先へ書き込めません。"; return false; }
             }
         }
-        private bool Mutate(Func<bool> action)
+        internal bool MutateEconomy(Func<EconomyState, bool> action)
+        {
+            lock (State.SyncRoot)
+            {
+                // Reject malformed state without repairing it or entering serialization/Save.
+                try { StateCodec.Validate(State); }
+                catch (InvalidDataException) { LastError = "Invalid economy save state."; return false; }
+                return Mutate(() => action(State.economy), refreshQuests: false);
+            }
+        }
+        private bool Mutate(Func<bool> action, bool refreshQuests = true)
         {
             lock (State.SyncRoot)
             {
@@ -83,7 +95,7 @@ namespace Mofumachi.Core
                 var before = State.Clone();
                 var previousLocks = State.MergeLocks.ToArray();
                 if (!action()) return false;
-                Quests.RefreshProgress();
+                if (refreshQuests) Quests.RefreshProgress();
                 if (Save()) return true;
                 State.CopyFrom(before); Board.ReleaseLocks();
                 foreach (var cell in previousLocks) State.MergeLocks.Add(cell);

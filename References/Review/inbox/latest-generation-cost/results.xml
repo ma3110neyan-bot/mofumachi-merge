@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="33" result="Passed" total="33" passed="33" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.4110116">
+  <test-suite type="TestSuite" id="1000" name="もふまちメルジュ" fullname="もふまちメルジュ" runstate="Runnable" testcasecount="267" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.411012" total="33" passed="33" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1321" name="Mofumachi.EditModeTests.dll" fullname="C:/Users/User/Desktop/Mofumachi/generation-cost-check-20261106-223046-7a38c6f6/Library/ScriptAssemblies/Mofumachi.EditModeTests.dll" runstate="Runnable" testcasecount="248" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.399076" total="33" passed="33" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="19336" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1322" name="Mofumachi" fullname="Mofumachi" runstate="Runnable" testcasecount="248" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.396328" total="33" passed="33" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1323" name="Tests" fullname="Mofumachi.Tests" runstate="Runnable" testcasecount="248" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.393862" total="33" passed="33" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1058" name="GenerationCostTests" fullname="Mofumachi.Tests.GenerationCostTests" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" testcasecount="33" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.384155" total="33" passed="33" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="ParameterizedMethod" id="1068" name="BoundaryBalanceNeverOverdrawsOrSavesInsufficientRequest" fullname="Mofumachi.Tests.GenerationCostTests.BoundaryBalanceNeverOverdrawsOrSavesInsufficientRequest" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.152375" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1065" name="BoundaryBalanceNeverOverdrawsOrSavesInsufficientRequest(2,True,0)" fullname="Mofumachi.Tests.GenerationCostTests.BoundaryBalanceNeverOverdrawsOrSavesInsufficientRequest(2,True,0)" methodname="BoundaryBalanceNeverOverdrawsOrSavesInsufficientRequest" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="1792060063" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.138220" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1066" name="BoundaryBalanceNeverOverdrawsOrSavesInsufficientRequest(1,False,1)" fullname="Mofumachi.Tests.GenerationCostTests.BoundaryBalanceNeverOverdrawsOrSavesInsufficientRequest(1,False,1)" methodname="BoundaryBalanceNeverOverdrawsOrSavesInsufficientRequest" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="692635050" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.002557" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1067" name="BoundaryBalanceNeverOverdrawsOrSavesInsufficientRequest(0,False,0)" fullname="Mofumachi.Tests.GenerationCostTests.BoundaryBalanceNeverOverdrawsOrSavesInsufficientRequest(0,False,0)" methodname="BoundaryBalanceNeverOverdrawsOrSavesInsufficientRequest" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="178214730" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.001265" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1081" name="DeliveryAndQuestCompletionAtZeroRemainFree" fullname="Mofumachi.Tests.GenerationCostTests.DeliveryAndQuestCompletionAtZeroRemainFree" methodname="DeliveryAndQuestCompletionAtZeroRemainFree" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="1292971060" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.010291" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1094" name="DistinctFramesAreDistinctUserOperations" fullname="Mofumachi.Tests.GenerationCostTests.DistinctFramesAreDistinctUserOperations" methodname="DistinctFramesAreDistinctUserOperations" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="1030278676" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.003969" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1096" name="DuplicateFrameDoesNotAutomaticallyRetryFailedSave" fullname="Mofumachi.Tests.GenerationCostTests.DuplicateFrameDoesNotAutomaticallyRetryFailedSave" methodname="DuplicateFrameDoesNotAutomaticallyRetryFailedSave" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="89005889" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.002379" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1093" name="DuplicateFrameOperationAddsAndChargesOnlyOnce" fullname="Mofumachi.Tests.GenerationCostTests.DuplicateFrameOperationAddsAndChargesOnlyOnce" methodname="DuplicateFrameOperationAddsAndChargesOnlyOnce" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="753878280" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.001708" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1064" name="ExistingSpendApiUsesTheSamePrimitiveAndSavesOnlyValidSpending" fullname="Mofumachi.Tests.GenerationCostTests.ExistingSpendApiUsesTheSamePrimitiveAndSavesOnlyValidSpending" methodname="ExistingSpendApiUsesTheSamePrimitiveAndSavesOnlyValidSpending" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="601947656" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.004696" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1069" name="FullBoardDoesNotConsumeOrSave" fullname="Mofumachi.Tests.GenerationCostTests.FullBoardDoesNotConsumeOrSave" methodname="FullBoardDoesNotConsumeOrSave" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="288125510" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.004722" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1085" name="GenericSetupAndRestoreItemAdditionRemainsFree" fullname="Mofumachi.Tests.GenerationCostTests.GenericSetupAndRestoreItemAdditionRemainsFree" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.006630" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1082" name="GenericSetupAndRestoreItemAdditionRemainsFree(1)" fullname="Mofumachi.Tests.GenerationCostTests.GenericSetupAndRestoreItemAdditionRemainsFree(1)" methodname="GenericSetupAndRestoreItemAdditionRemainsFree" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="1976817447" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.002614" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1083" name="GenericSetupAndRestoreItemAdditionRemainsFree(2)" fullname="Mofumachi.Tests.GenerationCostTests.GenericSetupAndRestoreItemAdditionRemainsFree(2)" methodname="GenericSetupAndRestoreItemAdditionRemainsFree" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="157424958" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.001211" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1084" name="GenericSetupAndRestoreItemAdditionRemainsFree(3)" fullname="Mofumachi.Tests.GenerationCostTests.GenericSetupAndRestoreItemAdditionRemainsFree(3)" methodname="GenericSetupAndRestoreItemAdditionRemainsFree" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="1029112141" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.001146" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1079" name="InitialTwoTeaAreFreeAndNewBalanceRemains24" fullname="Mofumachi.Tests.GenerationCostTests.InitialTwoTeaAreFreeAndNewBalanceRemains24" methodname="InitialTwoTeaAreFreeAndNewBalanceRemains24" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="1238928191" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.001010" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1070" name="LockedVacancyIsNotAUsableSpaceAndNeverCostsPoints" fullname="Mofumachi.Tests.GenerationCostTests.LockedVacancyIsNotAUsableSpaceAndNeverCostsPoints" methodname="LockedVacancyIsNotAUsableSpaceAndNeverCostsPoints" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="1313573656" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.004320" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1078" name="PackedFrameCannotGenerateOrCharge" fullname="Mofumachi.Tests.GenerationCostTests.PackedFrameCannotGenerateOrCharge" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.004710" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1075" name="PackedFrameCannotGenerateOrCharge(&quot;tea&quot;)" fullname="Mofumachi.Tests.GenerationCostTests.PackedFrameCannotGenerateOrCharge(&quot;tea&quot;)" methodname="PackedFrameCannotGenerateOrCharge" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="1853378003" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.001517" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1076" name="PackedFrameCannotGenerateOrCharge(&quot;bread&quot;)" fullname="Mofumachi.Tests.GenerationCostTests.PackedFrameCannotGenerateOrCharge(&quot;bread&quot;)" methodname="PackedFrameCannotGenerateOrCharge" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="1991328987" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.001109" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1077" name="PackedFrameCannotGenerateOrCharge(&quot;flower&quot;)" fullname="Mofumachi.Tests.GenerationCostTests.PackedFrameCannotGenerateOrCharge(&quot;flower&quot;)" methodname="PackedFrameCannotGenerateOrCharge" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="526222933" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.001082" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1095" name="ReentrantGenerationDuringSaveCannotChargeAgain" fullname="Mofumachi.Tests.GenerationCostTests.ReentrantGenerationDuringSaveCannotChargeAgain" methodname="ReentrantGenerationDuringSaveCannotChargeAgain" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="170214215" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.001894" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1092" name="SaveFailureRestoresItemWalletWholeStateAndPriorLocks" fullname="Mofumachi.Tests.GenerationCostTests.SaveFailureRestoresItemWalletWholeStateAndPriorLocks" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.032134" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1086" name="SaveFailureRestoresItemWalletWholeStateAndPriorLocks(&quot;tea&quot;,False)" fullname="Mofumachi.Tests.GenerationCostTests.SaveFailureRestoresItemWalletWholeStateAndPriorLocks(&quot;tea&quot;,False)" methodname="SaveFailureRestoresItemWalletWholeStateAndPriorLocks" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="1596292919" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.014334" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1087" name="SaveFailureRestoresItemWalletWholeStateAndPriorLocks(&quot;bread&quot;,False)" fullname="Mofumachi.Tests.GenerationCostTests.SaveFailureRestoresItemWalletWholeStateAndPriorLocks(&quot;bread&quot;,False)" methodname="SaveFailureRestoresItemWalletWholeStateAndPriorLocks" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="789898274" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.003989" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1088" name="SaveFailureRestoresItemWalletWholeStateAndPriorLocks(&quot;flower&quot;,False)" fullname="Mofumachi.Tests.GenerationCostTests.SaveFailureRestoresItemWalletWholeStateAndPriorLocks(&quot;flower&quot;,False)" methodname="SaveFailureRestoresItemWalletWholeStateAndPriorLocks" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="951671887" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.002926" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1089" name="SaveFailureRestoresItemWalletWholeStateAndPriorLocks(&quot;tea&quot;,True)" fullname="Mofumachi.Tests.GenerationCostTests.SaveFailureRestoresItemWalletWholeStateAndPriorLocks(&quot;tea&quot;,True)" methodname="SaveFailureRestoresItemWalletWholeStateAndPriorLocks" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="1342208108" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.003266" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1090" name="SaveFailureRestoresItemWalletWholeStateAndPriorLocks(&quot;bread&quot;,True)" fullname="Mofumachi.Tests.GenerationCostTests.SaveFailureRestoresItemWalletWholeStateAndPriorLocks(&quot;bread&quot;,True)" methodname="SaveFailureRestoresItemWalletWholeStateAndPriorLocks" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="1247192043" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.002882" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1091" name="SaveFailureRestoresItemWalletWholeStateAndPriorLocks(&quot;flower&quot;,True)" fullname="Mofumachi.Tests.GenerationCostTests.SaveFailureRestoresItemWalletWholeStateAndPriorLocks(&quot;flower&quot;,True)" methodname="SaveFailureRestoresItemWalletWholeStateAndPriorLocks" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="1439776448" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.002883" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1097" name="SaveLoadAndNewGameResetDoNotChargeGenerationFees" fullname="Mofumachi.Tests.GenerationCostTests.SaveLoadAndNewGameResetDoNotChargeGenerationFees" methodname="SaveLoadAndNewGameResetDoNotChargeGenerationFees" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="1084241323" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.098001" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1063" name="ThreeIndependentOperationsChargeTwoPerItem" fullname="Mofumachi.Tests.GenerationCostTests.ThreeIndependentOperationsChargeTwoPerItem" methodname="ThreeIndependentOperationsChargeTwoPerItem" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="2128117519" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.006368" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1074" name="UnknownGenerationKindIsRejectedWithoutSave" fullname="Mofumachi.Tests.GenerationCostTests.UnknownGenerationKindIsRejectedWithoutSave" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.008461" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1071" name="UnknownGenerationKindIsRejectedWithoutSave(null)" fullname="Mofumachi.Tests.GenerationCostTests.UnknownGenerationKindIsRejectedWithoutSave(null)" methodname="UnknownGenerationKindIsRejectedWithoutSave" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="502799817" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.001640" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1072" name="UnknownGenerationKindIsRejectedWithoutSave(&quot;&quot;)" fullname="Mofumachi.Tests.GenerationCostTests.UnknownGenerationKindIsRejectedWithoutSave(&quot;&quot;)" methodname="UnknownGenerationKindIsRejectedWithoutSave" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="509950742" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.001146" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1073" name="UnknownGenerationKindIsRejectedWithoutSave(&quot;future-item&quot;)" fullname="Mofumachi.Tests.GenerationCostTests.UnknownGenerationKindIsRejectedWithoutSave(&quot;future-item&quot;)" methodname="UnknownGenerationKindIsRejectedWithoutSave" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="813875319" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.001141" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1062" name="UserGenerationAddsExactlyOneLv1AndChargesTwoOnce" fullname="Mofumachi.Tests.GenerationCostTests.UserGenerationAddsExactlyOneLv1AndChargesTwoOnce" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.008994" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1059" name="UserGenerationAddsExactlyOneLv1AndChargesTwoOnce(&quot;tea&quot;)" fullname="Mofumachi.Tests.GenerationCostTests.UserGenerationAddsExactlyOneLv1AndChargesTwoOnce(&quot;tea&quot;)" methodname="UserGenerationAddsExactlyOneLv1AndChargesTwoOnce" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="1945216677" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.001629" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1060" name="UserGenerationAddsExactlyOneLv1AndChargesTwoOnce(&quot;bread&quot;)" fullname="Mofumachi.Tests.GenerationCostTests.UserGenerationAddsExactlyOneLv1AndChargesTwoOnce(&quot;bread&quot;)" methodname="UserGenerationAddsExactlyOneLv1AndChargesTwoOnce" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="391986632" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.003004" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1061" name="UserGenerationAddsExactlyOneLv1AndChargesTwoOnce(&quot;flower&quot;)" fullname="Mofumachi.Tests.GenerationCostTests.UserGenerationAddsExactlyOneLv1AndChargesTwoOnce(&quot;flower&quot;)" methodname="UserGenerationAddsExactlyOneLv1AndChargesTwoOnce" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="486214947" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.002715" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1080" name="ZeroBalanceStillAllowsMoveMergeAndFrameManagement" fullname="Mofumachi.Tests.GenerationCostTests.ZeroBalanceStillAllowsMoveMergeAndFrameManagement" methodname="ZeroBalanceStillAllowsMoveMergeAndFrameManagement" classname="Mofumachi.Tests.GenerationCostTests" runstate="Runnable" seed="1356868737" result="Passed" start-time="2026-11-06 13:37:15Z" end-time="2026-11-06 13:37:15Z" duration="0.013168" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

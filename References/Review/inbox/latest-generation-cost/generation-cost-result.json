@@ -1,0 +1,37 @@
+﻿{
+    "source_commit":  "b9e7f1a2e2384998878edbe97cba82885587e3dd",
+    "unity_version":  "6000.6.4f1",
+    "save_version":  4,
+    "generation_cost":  2,
+    "generation_types":  [
+                             "tea",
+                             "bread",
+                             "flower"
+                         ],
+    "generation_level":  1,
+    "initial_board_free":  true,
+    "merge_free":  true,
+    "move_free":  true,
+    "delivery_free":  true,
+    "requested_tests":  [
+                            "Mofumachi.Tests.GenerationCostTests"
+                        ],
+    "expected_cases":  33,
+    "test_platform":  "EditMode",
+    "total":  33,
+    "passed":  33,
+    "failed":  0,
+    "skipped":  0,
+    "automatic_retries":  0,
+    "unity_started":  true,
+    "unity_exit_code":  0,
+    "unity_invocations":  1,
+    "validation_passed":  true,
+    "result":  "Passed",
+    "first_error":  null,
+    "runner_error":  null,
+    "source_unchanged":  true,
+    "project_path":  "C:\\Users\\User\\Desktop\\Mofumachi\\generation-cost-check-20261106-223046-7a38c6f6",
+    "stage4_safe":  false,
+    "review_required":  true
+}

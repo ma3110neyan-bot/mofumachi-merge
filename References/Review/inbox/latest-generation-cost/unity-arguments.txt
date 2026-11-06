@@ -1,0 +1,17 @@
+﻿-batchmode
+-nographics
+-projectPath
+C:\Users\User\Desktop\Mofumachi\generation-cost-check-20261106-223046-7a38c6f6
+-buildTarget
+Android
+-runTests
+-testPlatform
+EditMode
+-assemblyNames
+Mofumachi.EditModeTests
+-testFilter
+^Mofumachi\.Tests\.GenerationCostTests\..*
+-testResults
+C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Diagnostics\generation-cost-20261106-223046-7a38c6f6\results.xml
+-logFile
+C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Diagnostics\generation-cost-20261106-223046-7a38c6f6\unity.log

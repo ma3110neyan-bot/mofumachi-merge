@@ -1,0 +1,37 @@
+﻿{
+    "source_run":  "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\generation-cost-20261106-223046-7a38c6f6",
+    "source_commit":  "b9e7f1a2e2384998878edbe97cba82885587e3dd",
+    "fixture":  "Mofumachi.Tests.GenerationCostTests",
+    "copied_at_utc":  "2026-11-06T13:37:24.4127731Z",
+    "remote_parent":  "becad13e6e7fd4a684a174b9820f6fc99eb578b4",
+    "files":  [
+                  {
+                      "sha256":  "f36de397b33a86df0392cecbb0e824e1a6a2ccfb2a558cc85f95f7151ae361be",
+                      "file":  "generation-cost-result.json",
+                      "bytes":  1174
+                  },
+                  {
+                      "sha256":  "f181fc8c5f8561846e5d5744a270dfbdde545315366a41187a73145a53f333e2",
+                      "file":  "source-revision.txt",
+                      "bytes":  45
+                  },
+                  {
+                      "sha256":  "0b8a28467ae9992262ea8ae4715522565963d18e63f60a3bb20d94ed1d7954ec",
+                      "file":  "results.xml",
+                      "bytes":  28458
+                  },
+                  {
+                      "sha256":  "81f1adef02accc733f1b25a745e53bd693456cec1bab236e0bda06d1bd377f1a",
+                      "file":  "unity.log",
+                      "bytes":  3278097
+                  },
+                  {
+                      "sha256":  "6c858f143108e7527872d04c7603f6d32d59c10952772d3a3eeea164998414ba",
+                      "file":  "unity-arguments.txt",
+                      "bytes":  543
+                  }
+              ],
+    "skipped":  [
+
+                ]
+}

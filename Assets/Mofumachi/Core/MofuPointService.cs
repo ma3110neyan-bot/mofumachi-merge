@@ -5,11 +5,12 @@ using System.Threading;
 
 namespace Mofumachi.Core
 {
-    // Internal economy operations only. No gameplay event or reward is wired here.
+    // Wallet, town action total and reward receipts share the existing main-save transaction.
     public sealed class MofuPointService
     {
         public const int MaximumBalance = 96;
         private readonly GameStateManager game;
+        private bool rewarding;
         internal MofuPointService(GameStateManager game) { this.game = game; }
 
         public int Balance { get { lock (game.State.SyncRoot) return game.State.economy.mofuPoints; } }
@@ -31,8 +32,7 @@ namespace Mofumachi.Core
             bool saved = game.MutateEconomy(e =>
             {
                 if (amount < 0) return false;
-                actual = Math.Min(amount, MaximumBalance - e.mofuPoints);
-                e.mofuPoints += actual;
+                actual = Credit(e, amount);
                 return true;
             });
             credited = saved ? actual : 0;
@@ -61,14 +61,64 @@ namespace Mofumachi.Core
         public bool TryApplyDay(string day) => game.MutateEconomy(e =>
         {
             if (!ValidDay(day) || string.CompareOrdinal(day, e.day) <= 0) return false;
-            e.day = day;
-            e.talkRewardCharacterIds.Clear();
-            e.normalWalkRewards = 0;
-            e.additionalWalkRewards = 0;
-            e.helpWalkClaimed = false;
-            e.walkRewardReceipts.Clear();
+            ApplyDay(e, day);
             return true;
         });
+
+        public bool TryRewardTalk(string day, string characterId) => Reward(day, 4,
+            (e, next) => CharacterCatalog.IsKnown(characterId) &&
+                (next || (e.talkRewardCharacterIds.Count < 3 && !e.talkRewardCharacterIds.Contains(characterId))),
+            e => e.talkRewardCharacterIds.Add(characterId));
+
+        public bool TryRewardNormalWalk(string day, string startedDay, string walkId) => Reward(day, 6,
+            (e, next) => startedDay == day && !string.IsNullOrWhiteSpace(walkId) && walkId.Length <= 128 &&
+                (next || (e.normalWalkRewards < 2 && e.walkRewardReceipts.Count < 5 &&
+                    !e.walkRewardReceipts.Any(r => r.walkId == walkId))),
+            e => { e.normalWalkRewards++; e.walkRewardReceipts.Add(new WalkRewardReceipt(day, walkId, WalkRewardKind.Normal)); });
+
+        public bool TryRewardFlower(string day) => Reward(day, 8,
+            (e, next) => string.CompareOrdinal(e.lastFlowerRewardDay, day) < 0,
+            e => e.lastFlowerRewardDay = day);
+
+        private bool Reward(string day, int value, Func<EconomyState, bool, bool> eligible, Action<EconomyState> record)
+        {
+            lock (game.State.SyncRoot)
+            {
+                if (rewarding) return false;
+                rewarding = true;
+                try
+                {
+                    return game.MutateEconomy(e =>
+                    {
+                        // Mutate(false) does not roll back: decide everything before advancing the day.
+                        if (!ValidDay(day) || string.CompareOrdinal(day, e.day) < 0 ||
+                            string.CompareOrdinal(day, e.rewardsStartDay) < 0 ||
+                            e.townActionTotal > long.MaxValue - value || !eligible(e, day != e.day)) return false;
+                        if (day != e.day) ApplyDay(e, day);
+                        if (e.rewardsStartDay.Length == 0) e.rewardsStartDay = day;
+                        Credit(e, value);
+                        e.townActionTotal += value;
+                        record(e);
+                        return true;
+                    });
+                }
+                finally { rewarding = false; }
+            }
+        }
+        private static int Credit(EconomyState e, int amount)
+        {
+            int actual = Math.Min(amount, MaximumBalance - e.mofuPoints);
+            e.mofuPoints += actual;
+            return actual;
+        }
+        private static void ApplyDay(EconomyState e, string day)
+        {
+            e.day = day;
+            e.talkRewardCharacterIds.Clear();
+            e.normalWalkRewards = e.additionalWalkRewards = 0;
+            e.helpWalkClaimed = false;
+            e.walkRewardReceipts.Clear();
+        }
 
         public bool TryRecordDailyRecovery(string day) => game.MutateEconomy(e =>
         {

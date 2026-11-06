@@ -1,7 +1,7 @@
 {
   "name": "Mofumachi.EditModeTests",
   "rootNamespace": "Mofumachi.Tests",
-  "references": ["Mofumachi.Core"],
+  "references": ["Mofumachi.Core", "Mofumachi.Presentation"],
   "includePlatforms": ["Editor"],
   "optionalUnityReferences": ["TestAssemblies"]
 }

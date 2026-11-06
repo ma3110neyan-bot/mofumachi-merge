@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Mofumachi.Core;
 namespace Mofumachi.Presentation
@@ -31,9 +32,13 @@ namespace Mofumachi.Presentation
         public TownWalkableArea Area {get;}
         public bool IsFollowingFinger {get;private set;}
         private bool finishingFinger;
+        private readonly Func<DateTime> clock;
+        public string WalkId {get;private set;}="";
+        public string WalkStartDay {get;private set;}="";
         public event Action<string,string,bool> Arrived;
-        public TownWorldWalkModel(int level,string favorite)
+        public TownWorldWalkModel(int level,string favorite,Func<DateTime> clock=null)
         {
+            this.clock=clock??(()=>DateTime.Now);
             if(!CharacterCatalog.IsKnown(favorite))throw new ArgumentException("Unknown resident",nameof(favorite));this.level=level;
             Area=SharedArea;navigation=SharedNavigation;int npc=0;
             string[] starts={"square","west.bench-front","east.flowers","bench-left","front-promenade"};
@@ -61,7 +66,7 @@ namespace Mofumachi.Presentation
             if(!Area.TryClamp(target,out target,.09f))return false;
             var occupied=avoidResidents?residents.Where(a=>a!=actor).Select(a=>a.Position).ToArray():null;
             var route=navigation.FindRoute(actor.Position,target,occupied);if(route.Count==0)return false;
-            if(restart){actor.Avoidance=0;actor.CrossedDistrict=false;actor.DistanceWalked=0;}actor.Target=target;actor.PlaceId=place;actor.Rest=0;actor.PauseRemaining=0;
+            if(restart){actor.Avoidance=0;actor.CrossedDistrict=false;actor.DistanceWalked=0;if(actor.Controlled)BeginWalk();}actor.Target=target;actor.PlaceId=place;actor.Rest=0;actor.PauseRemaining=0;
             actor.Route=route;actor.SteeringDirection=default;actor.AvoidingResidents=avoidResidents;if(avoidResidents)actor.Avoidance=0;actor.Waypoint=0;actor.Waiting=actor.NoProgress=0;actor.BestRemaining=Remaining(actor);actor.IsWalking=TownWorldLayout.Distance(actor.Position,target)>.0001f;return true;
         }
         public bool TryGuidePoint(TownPoint point)
@@ -76,7 +81,7 @@ namespace Mofumachi.Presentation
         public bool FollowFinger(TownPoint point)
         {
             if(!Area.TryClamp(point,out var target,.8f))return false;
-            if(!IsFollowingFinger){Hero.CrossedDistrict=false;Hero.DistanceWalked=0;IsFollowingFinger=true;finishingFinger=false;}
+            if(!IsFollowingFinger){Hero.CrossedDistrict=false;Hero.DistanceWalked=0;IsFollowingFinger=true;finishingFinger=false;BeginWalk();}
             if(TownWalkableArea.Distance(Hero.Target,target)<.018f&&Hero.IsWalking)return true;
             return Guide(Hero,target,null,false);
         }
@@ -102,10 +107,13 @@ namespace Mofumachi.Presentation
         {if(!float.IsFinite(seconds)||seconds<=0)return;var actor=residents.FirstOrDefault(a=>a.Id==id);if(actor!=null){actor.PauseRemaining=Math.Max(actor.PauseRemaining,Math.Min(4,seconds));actor.Speed=0;}}
         public void Face(string id,TownPoint other)
         {var actor=residents.FirstOrDefault(a=>a.Id==id);if(actor!=null&&TownWorldLayout.Finite(other)&&Math.Abs(other.X-actor.Position.X)>.002f)actor.Facing=Math.Sign(other.X-actor.Position.X);}
-        public void CancelHero(){IsFollowingFinger=finishingFinger=false;Hero.IsWalking=false;Hero.Speed=0;Hero.Target=Hero.Position;Hero.Avoidance=0;Hero.SteeringDirection=default;Hero.Route=Array.Empty<TownPoint>();}
+        private void BeginWalk(){WalkId=Guid.NewGuid().ToString("N");WalkStartDay=clock().ToString("yyyy-MM-dd",CultureInfo.InvariantCulture);}
+        private void ClearWalk(){WalkId=WalkStartDay="";}
+        public void CancelHero(){ClearWalk();IsFollowingFinger=finishingFinger=false;Hero.IsWalking=false;Hero.Speed=0;Hero.Target=Hero.Position;Hero.Avoidance=0;Hero.SteeringDirection=default;Hero.Route=Array.Empty<TownPoint>();}
         public void Restore(string id,TownPoint p,string place=null)
         {
             var actor=residents.FirstOrDefault(a=>a.Id==id);if(actor==null||!Area.TryClamp(p,out var point,.12f))return;
+            if(actor.Controlled)ClearWalk();
             actor.Avoidance=0;actor.SteeringDirection=default;actor.Position=actor.Previous=actor.Target=point;actor.PlaceId=place;actor.IsWalking=false;actor.Speed=0;actor.Rest=2;actor.PauseRemaining=0;actor.Route=Array.Empty<TownPoint>();
         }
         public void FastTravel(TownRegionId region)
@@ -172,7 +180,9 @@ namespace Mofumachi.Presentation
         {
             if(actor.Controlled&&IsFollowingFinger)return;
             bool walked=actor.CrossedDistrict;actor.CrossedDistrict=false;if(actor.Controlled&&finishingFinger)finishingFinger=false;
-            Arrived?.Invoke(actor.Id,actor.PlaceId,walked);
+            string completedId=WalkId;
+            try{Arrived?.Invoke(actor.Id,actor.PlaceId,walked);}
+            finally{if(actor.Controlled&&WalkId==completedId)ClearWalk();}
         }
         private static float Remaining(TownWorldResident actor)
         {float length=0;var previous=actor.Position;for(int i=actor.Waypoint;i<actor.Route.Count;i++){length+=TownWorldLayout.Distance(previous,actor.Route[i]);previous=actor.Route[i];}return length;}

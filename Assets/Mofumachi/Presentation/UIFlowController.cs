@@ -124,8 +124,8 @@ namespace Mofumachi.Presentation
                 Debug.LogError(notice);
                 return;
             }
-            socialSession=new TownDailyService(socialStore??new MemoryTownDailyStore(),System.DateTime.Now);
             session = new GameStateManager(loaded.State, store);
+            socialSession=new TownDailyService(socialStore??new MemoryTownDailyStore(),System.DateTime.Now,session.MofuPoints);
             IsLoadBlocked=false;enabled=true;
             ProductionItemId=UIStrings.SuggestedProduction(Game);selected=-1;feedback.Remove(ScreenId.Merge);
             notice = loaded.Reason;feedback[ScreenId.Title]=loaded.Reason;
@@ -584,15 +584,15 @@ namespace Mofumachi.Presentation
         {if(!CanPlay||CurrentScreen!=ScreenId.Home)return;Daily.EnsureDay(System.DateTime.Now);OpenUtilityModal(ModalKind.Today,TownTodayView.Build);}
         public void CloseToday(){if(modalKind==ModalKind.Today)CloseUtilityModal();}
         public void ClaimDaily()
-        {if(modalKind!=ModalKind.Today)return;if(Daily.EnsureDay(System.DateTime.Now)&&Daily.Claim())PlayCue(AudioCue.Confirm);OpenUtilityModal(ModalKind.Today,TownTodayView.Build);}
+        {if(modalKind!=ModalKind.Today)return;var today=System.DateTime.Now;if(Daily.EnsureDay(today)&&Daily.Claim(today))PlayCue(AudioCue.Confirm);OpenUtilityModal(ModalKind.Today,TownTodayView.Build);}
         public bool TalkToCharacter(string id)
-        {if(!CharacterCatalog.IsKnown(id))return false;int before=TownCharacterBook.For(id,Game.State,Daily.Data).Reactions;bool saved=Daily.EnsureDay(System.DateTime.Now)&&Daily.RecordTalk(id);if(saved)NotifyDiscovery(id,before);return saved;}
+        {if(!CharacterCatalog.IsKnown(id))return false;var today=System.DateTime.Now;int before=TownCharacterBook.For(id,Game.State,Daily.Data).Reactions;bool saved=Daily.EnsureDay(today)&&Daily.RecordTalk(id,today);if(saved)NotifyDiscovery(id,before);return saved;}
         public void RecordCharacterOuting(string id)
         {if(!CharacterCatalog.IsKnown(id))return;int before=TownCharacterBook.For(id,Game.State,Daily.Data).Reactions;if(Daily.EnsureDay(System.DateTime.Now)&&Daily.RecordOuting(id))NotifyDiscovery(id,before);}
         private void NotifyDiscovery(string id,int before)
         {if(CurrentScreen==ScreenId.Home&&page!=null&&TownCharacterBook.For(id,Game.State,Daily.Data).Reactions>before)TownDiscoveryNotice.Show((RectTransform)page.transform,context,id);}
         public void OpenCharacterBook(string id){if(CharacterCatalog.IsKnown(id))ShowCharacterBook(id);}
-        public void RecordWorldWalk(){if(Daily.EnsureDay(System.DateTime.Now))Daily.RecordWalk();}
+        public void RecordWorldWalk(string walkId=null,string startedDay=null){var today=System.DateTime.Now;if(Daily.EnsureDay(today))Daily.RecordWalk(walkId,startedDay,today);}
         public void OpenShopPreview()
         {
             if(!CanPlay||CurrentScreen!=ScreenId.Home||!AtTownFacility("shop"))return;

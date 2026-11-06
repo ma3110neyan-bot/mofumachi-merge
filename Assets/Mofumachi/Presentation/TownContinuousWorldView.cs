@@ -87,11 +87,12 @@ namespace Mofumachi.Presentation
         public void Freeze(){life.GetComponent<TownMeetingJourney>()?.Cancel();trackingFinger=false;Model?.CancelHero();foreach(var actor in life.Actors)actor.ApplyWorldStep(0);}
         private void OnArrival(string id,string placeId,bool walked)
         {
+            string walkId=Model.WalkId,startedDay=Model.WalkStartDay;
             var actor=life.Actors.Single(a=>a.CharacterId==id);actor.ApplyWorldStep(0);
             if(TownRegionCatalog.TryFindPlace(placeId,life.TownLevel,out _,out var place))
             {actor.SetWorldPlace(place);if(actor.Controlled)life.SetGuidedDestination(place);}
             if(actor.Controlled)life.ActorReleased(actor);
-            actor.Surprise();if(actor.Controlled){if(walked)context.Flow.RecordWorldWalk();if(Model.Hero.DistanceWalked>=.14f)context.Flow.RecordCharacterOuting(id);}Arrived?.Invoke(id,placeId,walked);
+            actor.Surprise();if(actor.Controlled){if(walked)context.Flow.RecordWorldWalk(walkId,startedDay);if(Model.Hero.DistanceWalked>=.14f)context.Flow.RecordCharacterOuting(id);}Arrived?.Invoke(id,placeId,walked);
         }
         private void SyncActors(){foreach(var actor in life.Actors)actor.ApplyWorldStep(0);}
         public void Refresh()

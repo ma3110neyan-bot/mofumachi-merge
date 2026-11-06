@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 
 namespace Mofumachi.Core
 {
@@ -38,12 +39,16 @@ namespace Mofumachi.Core
             return saved;
         }
 
-        public bool TrySpend(int amount) => game.MutateEconomy(e =>
+        public bool TrySpend(int amount) => game.MutateEconomy(e => TrySpendForOperationInMutation(amount, () => true));
+
+        // The owner supplies the existing Mutate save/rollback boundary. Never Save here.
+        internal bool TrySpendForOperationInMutation(int amount, Func<bool> operation)
         {
-            if (amount < 0 || amount > e.mofuPoints) return false;
-            e.mofuPoints -= amount;
+            if (!Monitor.IsEntered(game.State.SyncRoot)) throw new InvalidOperationException("Point spending requires an owned state transaction.");
+            if (!CanSpend(amount) || !operation()) return false;
+            game.State.economy.mofuPoints -= amount;
             return true;
-        });
+        }
 
         // Reject overflow. Cumulative progress is never clamped to the wallet cap.
         public bool TryAddTownActionTotal(long amount) => game.MutateEconomy(e =>

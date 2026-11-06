@@ -7,6 +7,9 @@ namespace Mofumachi.Core
     public sealed class GameStateManager
     {
         private readonly IStateStore store;
+        private bool generating;
+        private int? lastGenerationFrame;
+        public const int LevelOneGenerationCost = 2;
         public GameState State { get; }
         public MergeBoard Board { get; }
         public QuestManager Quests { get; }
@@ -21,6 +24,28 @@ namespace Mofumachi.Core
         public bool TryMerge(int from, int to) => Mutate(() => Board.TryMerge(from, to));
         public bool TryMove(int from, int to) => Mutate(() => Board.TryMove(from, to));
         public bool AddItem(string id, int level) => Mutate(() => Board.AddItem(id, level));
+        public bool WasGenerationAttemptedInFrame(int frame)
+        { lock (State.SyncRoot) return lastGenerationFrame == frame; }
+        public bool TryGenerateLv1(string id, int? inputFrame = null)
+        {
+            lock (State.SyncRoot)
+            {
+                if (generating || (inputFrame.HasValue && lastGenerationFrame == inputFrame)) return false;
+                if (inputFrame.HasValue) lastGenerationFrame = inputFrame;
+                generating = true;
+                try
+                {
+                    return MutateEconomy(e =>
+                    {
+                        if (ItemCatalog.Find(id) == null || !State.productionFrameIds.Contains(id)) return false;
+                        if (!MofuPoints.CanSpend(LevelOneGenerationCost))
+                        { LastError = "もふポイントが足りません。"; return false; }
+                        return MofuPoints.TrySpendForOperationInMutation(LevelOneGenerationCost, () => Board.AddItem(id, 1));
+                    }, refreshQuests: true);
+                }
+                finally { generating = false; }
+            }
+        }
         public bool TryRemoveItem(int cell,string expectedId,int expectedLevel)=>Mutate(()=>Board.TryRemoveItem(cell,expectedId,expectedLevel));
         public bool PackProductionFrames(System.Collections.Generic.IReadOnlyList<string> ids)
         {
@@ -77,14 +102,14 @@ namespace Mofumachi.Core
                 catch (UnauthorizedAccessException) { LastError = "保存先へ書き込めません。"; return false; }
             }
         }
-        internal bool MutateEconomy(Func<EconomyState, bool> action)
+        internal bool MutateEconomy(Func<EconomyState, bool> action, bool refreshQuests = false)
         {
             lock (State.SyncRoot)
             {
                 // Reject malformed state without repairing it or entering serialization/Save.
                 try { StateCodec.Validate(State); }
                 catch (InvalidDataException) { LastError = "Invalid economy save state."; return false; }
-                return Mutate(() => action(State.economy), refreshQuests: false);
+                return Mutate(() => action(State.economy), refreshQuests);
             }
         }
         private bool Mutate(Func<bool> action, bool refreshQuests = true)

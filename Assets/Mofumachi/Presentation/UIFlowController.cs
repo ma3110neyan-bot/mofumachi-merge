@@ -486,9 +486,10 @@ namespace Mofumachi.Presentation
         public void GenerateItem(string id)
         {
             if(!CanInteractBoard || ItemCatalog.Find(id)==null)return;
+            if(Game.WasGenerationAttemptedInFrame(Time.frameCount))return;
             if(!Game.State.productionFrameIds.Contains(id)){ReportBoardMessage("生成枠を置いてから作ろう。");return;}
             selected=-1;
-            bool added=Game.AddItem(id,1);feedback[ScreenId.Merge]=added?ItemCatalog.Find(id).Name+" Lv.1を作りました。"+UIStrings.MergeSelectionHint:Game.LastError.Length>0?Game.LastError:UIStrings.BoardFull;
+            bool added=Game.TryGenerateLv1(id,Time.frameCount);feedback[ScreenId.Merge]=added?ItemCatalog.Find(id).Name+" Lv.1を作りました。"+UIStrings.MergeSelectionHint:Game.LastError.Length>0?Game.LastError:UIStrings.BoardFull;
             MergeInputDiagnostics.Record(this,"generate",-1,-1,added?"created "+id:feedback[ScreenId.Merge]);
             if(added)PlayCue(AudioCue.Confirm);Render("merge");
         }

@@ -1,15 +1,15 @@
 {
   "branch": "feat/daily-world-pass-20261016",
   "updated_date_jst": "2026-11-06",
-  "scope": "mofu_point_foundation_stage2_existing_windows_launcher_publication",
+  "scope": "stage2_existing_windows_result_receipt_check",
   "status": "修正済み・未確認",
-  "state": "stage2_windows_launcher_ready_execution_pending",
+  "state": "stage2_windows_execution_reported_evidence_unavailable",
   "commit": "97be3fafe5d73fda055ae3eba34c4ff8c45f85b7",
   "commit_scope": "Existing stage2 product implementation, not the later merge or review metadata commit",
   "implementation_commit": "97be3fafe5d73fda055ae3eba34c4ff8c45f85b7",
   "product_commit": "97be3fafe5d73fda055ae3eba34c4ff8c45f85b7",
-  "success": true,
-  "success_scope": "Existing implementation is published; existing launcher prepared for Windows execution. Not a native test success.",
+  "success": false,
+  "success_scope": "Result receipt/verification incomplete; this is not a test failure",
   "implementation_exists": true,
   "implementation_pushed": true,
   "github_reflection_verified": true,
@@ -83,7 +83,7 @@
     "Mofumachi.Tests.MofuPointServiceTests"
   ],
   "test_results": {
-    "native_status": "NotRun",
+    "native_status": "Unverified: user reports one Windows execution; original evidence not received",
     "expected_cases": 68,
     "expected_count_basis": "Previously recorded source Test/TestCase inventory; not a native discovery result",
     "total": null,
@@ -98,7 +98,8 @@
       "logs": "/tmp/mofu-point-stage2/api-compile/"
     },
     "previous_read_only_review": "No blocking Core findings; runner caught-exception detail preserved before native execution",
-    "rerun_this_request": false
+    "rerun_this_request": false,
+    "result_received": false
   },
   "unity_starts_this_request": 0,
   "native_test_runs_this_request": 0,
@@ -152,15 +153,15 @@
   "next_stage": "Merge generation 2P consumption",
   "next_stage_safe": false,
   "next_stage_verdict": "NO",
-  "next_stage_reason": "第2工程のWindows実Unity68ケースは未実行。",
-  "next_action": "ユーザーが次にする操作：scripts/verify-mofu-point-foundation-windows.cmdを1回ダブルクリック",
+  "next_stage_reason": "第2工程の既存Windows実行証跡が未受領のため、68/68・source一致を確認できない。",
+  "next_action": "既存runのmofu-points-result.json、results.xml、source-revision.txt、unity.log、first-error.log（存在する場合）を共有。テスト／ランチャーは再実行しない。",
   "stage2_windows_launcher_ready": true,
   "cmd_path": "scripts/verify-mofu-point-foundation-windows.cmd",
   "ps1_path": "scripts/verify-mofu-point-foundation-windows.ps1",
   "target_implementation_commit": "97be3fafe5d73fda055ae3eba34c4ff8c45f85b7",
   "unity_version": "6000.6.4f1",
   "expected_tests": 68,
-  "windows_execution_pending": true,
+  "windows_execution_pending": false,
   "unity_start_limit": 1,
   "stage2_windows_launcher": {
     "ready": true,
@@ -189,18 +190,56 @@
     "stage1_launcher_modified": false
   },
   "current_request": {
-    "action": "Publish the two already-existing stage2 Windows launcher files plus fixed review docs in one normal push",
+    "action": "Read existing results only; no accessible source run found; publish missing-evidence status",
     "reimplemented": false,
-    "retested": false,
     "unity_started": false,
-    "fetch_count": 0,
+    "tests_rerun": false,
+    "stage1_rerun": false,
+    "fetch_count": 1,
     "normal_push_limit": 1,
-    "launcher_content_modified": false,
-    "authorized_files": [
-      "scripts/verify-mofu-point-foundation-windows.cmd",
-      "scripts/verify-mofu-point-foundation-windows.ps1",
-      "References/Review/latest/summary.md",
-      "References/Review/latest/status.json"
-    ]
+    "original_diagnostics_modified": false
+  },
+  "windows_result_review_pending": true,
+  "windows_execution_reported_by_user": true,
+  "result_sharing_complete": false,
+  "result_inbox": "References/Review/inbox/latest-mofupoint/",
+  "existing_run_receipt_check": {
+    "status": "evidence_unavailable",
+    "verification_passed": false,
+    "selected_run": null,
+    "source_windows_path": null,
+    "expected_source_commit": "97be3fafe5d73fda055ae3eba34c4ff8c45f85b7",
+    "actual_source_commit": null,
+    "expected_fixture": "Mofumachi.Tests.MofuPointServiceTests",
+    "expected_cases": 68,
+    "user_reports_windows_execution_completed": true,
+    "user_reports_execution_count": 1,
+    "cloud_diagnostics_path": "/workspace/mofumachi-merge/Builds/Diagnostics",
+    "matching_run_directories": 0,
+    "github_checked_commit": "6e1931275114e43c945f63142268c21109f0f822",
+    "existing_github_stage2_evidence_found": false,
+    "matching_uploaded_artifacts_found": false,
+    "copied_files": [],
+    "missing_required_files": [
+      "mofu-points-result.json",
+      "results.xml",
+      "source-revision.txt"
+    ],
+    "not_received_additional_files": [
+      "unity.log",
+      "first-error.log (if present)"
+    ],
+    "native_total": null,
+    "native_passed": null,
+    "native_failed": null,
+    "native_skipped": null,
+    "reason": "The existing Windows run has not been transferred to the accessible cloud workspace, GitHub inbox, or attachments. No run could be selected/read/copied.",
+    "unity_restarted": false,
+    "tests_rerun": false,
+    "automatic_retries": 0,
+    "diagnostics_originals_changed": false,
+    "stage2_complete": false,
+    "stage3_safe": false,
+    "next_action": "Provide only the existing run files; do not run the Windows launcher again."
   }
 }

@@ -1,0 +1,39 @@
+{
+  "status": "evidence_unavailable",
+  "verification_passed": false,
+  "selected_run": null,
+  "source_windows_path": null,
+  "expected_source_commit": "97be3fafe5d73fda055ae3eba34c4ff8c45f85b7",
+  "actual_source_commit": null,
+  "expected_fixture": "Mofumachi.Tests.MofuPointServiceTests",
+  "expected_cases": 68,
+  "user_reports_windows_execution_completed": true,
+  "user_reports_execution_count": 1,
+  "cloud_diagnostics_path": "/workspace/mofumachi-merge/Builds/Diagnostics",
+  "matching_run_directories": 0,
+  "github_checked_commit": "6e1931275114e43c945f63142268c21109f0f822",
+  "existing_github_stage2_evidence_found": false,
+  "matching_uploaded_artifacts_found": false,
+  "copied_files": [],
+  "missing_required_files": [
+    "mofu-points-result.json",
+    "results.xml",
+    "source-revision.txt"
+  ],
+  "not_received_additional_files": [
+    "unity.log",
+    "first-error.log (if present)"
+  ],
+  "native_total": null,
+  "native_passed": null,
+  "native_failed": null,
+  "native_skipped": null,
+  "reason": "The existing Windows run has not been transferred to the accessible cloud workspace, GitHub inbox, or attachments. No run could be selected/read/copied.",
+  "unity_restarted": false,
+  "tests_rerun": false,
+  "automatic_retries": 0,
+  "diagnostics_originals_changed": false,
+  "stage2_complete": false,
+  "stage3_safe": false,
+  "next_action": "Provide only the existing run files; do not run the Windows launcher again."
+}

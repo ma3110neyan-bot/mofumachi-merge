@@ -1,22 +1,22 @@
 {
   "branch": "feat/daily-world-pass-20261016",
   "updated_date_jst": "2026-11-06",
-  "scope": "stage3_lv1_generation_cost_only",
-  "state": "修正済み・未確認",
-  "status": "stage3_implemented_windows_execution_pending",
+  "scope": "stage3_generation_cost_existing_windows_result_review",
+  "state": "関連テスト合格",
+  "status": "stage3_complete_stage4_safe_after_existing_windows_evidence_review",
   "commit": "b9e7f1a2e2384998878edbe97cba82885587e3dd",
   "commit_scope": "Product implementation and direct test source; not review metadata commit",
   "implementation_commit": "b9e7f1a2e2384998878edbe97cba82885587e3dd",
   "implementation_pushed": true,
   "launcher_commit": "b4b93e8c58abc8377857c23a316f195654dffbef",
   "launcher_pushed": true,
-  "success": false,
-  "success_scope": "Stage3 native validation pending; implementation and launcher published",
-  "tests_passed": false,
+  "success": true,
+  "success_scope": "Stage3 generation cost direct EditMode validation only; no whole-game/device acceptance",
+  "tests_passed": true,
   "capture_verified": false,
   "pixel_verified": false,
   "formal_fixed": false,
-  "adopted": false,
+  "adopted": true,
   "stage2": {
     "implementation_commit": "97be3fafe5d73fda055ae3eba34c4ff8c45f85b7",
     "complete": true,
@@ -63,7 +63,7 @@
     "independent_operations_each_cost_two": true,
     "ui_balance_label_added": false,
     "ui_display_plan": "UI表示は次工程以降",
-    "policy_verification_scope": "Implemented/source reviewed; native execution pending"
+    "policy_verification_scope": "Implemented and covered by existing Windows native33/33 Passed; no UI/Visual/Pixel claim"
   },
   "save_version": 4,
   "save_schema_or_migration_changed": false,
@@ -81,24 +81,40 @@
     "fixture": "Mofumachi.Tests.GenerationCostTests",
     "platform": "EditMode",
     "expected_cases": 33,
-    "result": "NotRun",
-    "total": null,
-    "passed": null,
-    "failed": null,
-    "skipped": null,
-    "rollback_native_verified": false,
+    "result": "Passed",
+    "total": 33,
+    "passed": 33,
+    "failed": 0,
+    "skipped": 0,
+    "rollback_native_verified": true,
     "unity_starts_this_request": 0,
     "native_test_runs_this_request": 0,
     "automatic_retries": 0,
     "first_native_error": null,
     "unexecuted": [
-      "Windows native GenerationCostTests",
       "PlayMode",
       "full suite",
       "APK",
       "Pixel",
       "Visual capture"
-    ]
+    ],
+    "inconclusive": 0,
+    "evidence_commit": "3eb8f848bee29bac66062a1c74a02645adadded7",
+    "source_run": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\generation-cost-20261106-223046-7a38c6f6",
+    "native_execution": {
+      "environment": "Windows 11 / Unity6000.6.4f1",
+      "platform": "EditMode",
+      "target": "Android",
+      "unity_invocations": 1,
+      "unity_exit_code": 0,
+      "automatic_retries": 0,
+      "validation_passed": true,
+      "source_unchanged": true,
+      "first_error": null,
+      "runner_error": null,
+      "test_start_utc": "2026-11-06 13:37:15Z",
+      "test_end_utc": "2026-11-06 13:37:15Z"
+    }
   },
   "static_checks": {
     "core_api_compile": "Passed once; zero errors/warnings",
@@ -120,7 +136,7 @@
   "ps1_path": "scripts/verify-generation-cost-windows.ps1",
   "target_implementation_commit": "b9e7f1a2e2384998878edbe97cba82885587e3dd",
   "unity_version": "6000.6.4f1",
-  "windows_execution_pending": true,
+  "windows_execution_pending": false,
   "unity_start_limit": 1,
   "automatic_retries": 0,
   "windows_launcher": {
@@ -138,7 +154,8 @@
     "diagnostics": "Builds/Diagnostics/generation-cost-<timestamp>-<id>/",
     "result_json": "generation-cost-result.json",
     "no_playmode_apk_pixel_visual_font": true,
-    "previous_stage_launchers_modified": false
+    "previous_stage_launchers_modified": false,
+    "execution_completed": true
   },
   "result_sharing": {
     "automatically_commits_or_pushes": true,
@@ -155,13 +172,119 @@
     "oversized_unity_log": "Keep full original locally; share XML/JSON/first-error and manifest reason",
     "push_failure": "Stop once; retain originals and share-result.json",
     "repeated_cmd": "No Unity restart; saved terminal-result sharing only; already-shared receipt skips push",
-    "native_result_shared_yet": false
+    "native_result_shared_yet": true,
+    "result_sharing_complete": true,
+    "evidence_commit": "3eb8f848bee29bac66062a1c74a02645adadded7",
+    "run_name": "generation-cost-20261106-223046-7a38c6f6",
+    "manifest_verified": true,
+    "original_evidence_modified_this_request": false
   },
-  "stage3_complete": false,
+  "stage3_complete": true,
   "next_stage": "第4工程 街でポイントを獲得する処理",
-  "next_stage_safe": false,
-  "next_stage_verdict": "NO",
-  "next_stage_reason": "Stage3 Windows native33-case result not yet available",
-  "next_action": "scripts/verify-generation-cost-windows.cmd を1回ダブルクリック。自動共有後に結果レビュー。",
-  "error_log_scope": "Historical run only; Unity not started, no new native failure"
+  "next_stage_safe": true,
+  "next_stage_verdict": "YES",
+  "next_stage_reason": "Pinned source/fixture and actual33/33 Passed verified; Failed/Skipped/Inconclusive0, Unity exit0, no retries, source_unchanged=true, manifest bytes/SHA match",
+  "next_action": "第3工程の結果レビュー完了。第4工程は次の明示指示を待つ。再実行しない。",
+  "error_log_scope": "Historical Stage1 guard failure retained; no Stage3 test failure. Non-stopping Editor log messages documented separately.",
+  "adopted_scope": "Stage3 implementation meets requested native test acceptance conditions",
+  "current_request": {
+    "action": "Read and verify one existing GitHub Windows run; update review metadata only",
+    "source_run": "generation-cost-20261106-223046-7a38c6f6",
+    "evidence_commit": "3eb8f848bee29bac66062a1c74a02645adadded7",
+    "unity_starts": 0,
+    "native_test_runs": 0,
+    "automatic_retries": 0,
+    "fetch_count": 1,
+    "code_changed": false,
+    "original_evidence_changed": false,
+    "next_stage_implemented": false
+  },
+  "evidence_review": {
+    "acceptance_checks": {
+      "source_commit": true,
+      "fixture": true,
+      "counts": true,
+      "actual_cases": true,
+      "unity_and_result": true,
+      "no_first_error_file": true,
+      "manifest_integrity": true,
+      "platform": true,
+      "log_completion": true,
+      "no_compile_errors": true
+    },
+    "all_acceptance_conditions": true,
+    "case_method_counts": {
+      "BoundaryBalanceNeverOverdrawsOrSavesInsufficientRequest": 3,
+      "DeliveryAndQuestCompletionAtZeroRemainFree": 1,
+      "DistinctFramesAreDistinctUserOperations": 1,
+      "DuplicateFrameDoesNotAutomaticallyRetryFailedSave": 1,
+      "DuplicateFrameOperationAddsAndChargesOnlyOnce": 1,
+      "ExistingSpendApiUsesTheSamePrimitiveAndSavesOnlyValidSpending": 1,
+      "FullBoardDoesNotConsumeOrSave": 1,
+      "GenericSetupAndRestoreItemAdditionRemainsFree": 3,
+      "InitialTwoTeaAreFreeAndNewBalanceRemains24": 1,
+      "LockedVacancyIsNotAUsableSpaceAndNeverCostsPoints": 1,
+      "PackedFrameCannotGenerateOrCharge": 3,
+      "ReentrantGenerationDuringSaveCannotChargeAgain": 1,
+      "SaveFailureRestoresItemWalletWholeStateAndPriorLocks": 6,
+      "SaveLoadAndNewGameResetDoNotChargeGenerationFees": 1,
+      "ThreeIndependentOperationsChargeTwoPerItem": 1,
+      "UnknownGenerationKindIsRejectedWithoutSave": 3,
+      "UserGenerationAddsExactlyOneLv1AndChargesTwoOnce": 3,
+      "ZeroBalanceStillAllowsMoveMergeAndFrameManagement": 1
+    },
+    "sha256_and_byte_lengths_verified": [
+      {
+        "file": "generation-cost-result.json",
+        "bytes": 1174,
+        "sha256": "f36de397b33a86df0392cecbb0e824e1a6a2ccfb2a558cc85f95f7151ae361be",
+        "verified": true
+      },
+      {
+        "file": "source-revision.txt",
+        "bytes": 45,
+        "sha256": "f181fc8c5f8561846e5d5744a270dfbdde545315366a41187a73145a53f333e2",
+        "verified": true
+      },
+      {
+        "file": "results.xml",
+        "bytes": 28458,
+        "sha256": "0b8a28467ae9992262ea8ae4715522565963d18e63f60a3bb20d94ed1d7954ec",
+        "verified": true
+      },
+      {
+        "file": "unity.log",
+        "bytes": 3278097,
+        "sha256": "81f1adef02accc733f1b25a745e53bd693456cec1bab236e0bda06d1bd377f1a",
+        "verified": true
+      },
+      {
+        "file": "unity-arguments.txt",
+        "bytes": 543,
+        "sha256": "6c858f143108e7527872d04c7603f6d32d59c10952772d3a3eeea164998414ba",
+        "verified": true
+      }
+    ],
+    "first_error_log_present": false,
+    "native_result_review_required_was_true": true,
+    "native_result_stage4_safe_was_false": true,
+    "native_flags_note": "Raw launcher flags reserve a subsequent review. Native JSON left unchanged; reviewed verdict is recorded here."
+  },
+  "native_log_notes": [
+    {
+      "line": 96,
+      "message": "[Licensing::Module] Error: Access token is unavailable; failed to update",
+      "following": "Entitlement resolved and license updated successfully at lines97-103; test run completed exit0",
+      "scope": "Non-stopping Editor licensing message; not a GenerationCostTests failure"
+    },
+    {
+      "line": 7913,
+      "message": "DirectoryNotFoundException under Library/PackageCache/com.unity.2d.tooling@4e93af4036ee/.../SpriteAtlasTextureSpaceUsedIssueSettings.uss; related .uxml messages later",
+      "scope": "Non-stopping package import messages; no game-code cause established, no fix/retry performed; target33 cases passed"
+    }
+  ],
+  "files_changed_for_review": [
+    "References/Review/latest/summary.md",
+    "References/Review/latest/status.json"
+  ]
 }

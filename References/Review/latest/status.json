@@ -1,15 +1,15 @@
 {
   "branch": "feat/daily-world-pass-20261016",
   "updated_date_jst": "2026-11-06",
-  "scope": "mofu_point_foundation_stage2_existing_implementation_publication",
+  "scope": "mofu_point_foundation_stage2_existing_windows_launcher_publication",
   "status": "修正済み・未確認",
-  "state": "mofu_point_foundation_published_native_tests_pending",
+  "state": "stage2_windows_launcher_ready_execution_pending",
   "commit": "97be3fafe5d73fda055ae3eba34c4ff8c45f85b7",
   "commit_scope": "Existing stage2 product implementation, not the later merge or review metadata commit",
   "implementation_commit": "97be3fafe5d73fda055ae3eba34c4ff8c45f85b7",
   "product_commit": "97be3fafe5d73fda055ae3eba34c4ff8c45f85b7",
   "success": true,
-  "success_scope": "Existing commit publication and GitHub reflection confirmed only; not native test success",
+  "success_scope": "Existing implementation is published; existing launcher prepared for Windows execution. Not a native test success.",
   "implementation_exists": true,
   "implementation_pushed": true,
   "github_reflection_verified": true,
@@ -132,11 +132,12 @@
       "Assets/Mofumachi/Tests/EditMode/MofuPointServiceTests.cs.meta": "1c0e1c2a8259704f957816b151b0024317af4b69"
     },
     "verification_method": "Normal push receipt, matching ls-remote and content-addressed file blobs/implementation ancestry",
-    "fetch_count_this_request": 1,
-    "implementation_push_count_this_request": 1,
     "retries": 0,
     "force_push": false,
-    "integration": "Merge preserved both original stage2 commit and remote stage1 diagnostics; Assets identical to the stage2 commit"
+    "integration": "Merge preserved both original stage2 commit and remote stage1 diagnostics; Assets identical to the stage2 commit",
+    "scope": "Previous publication of the existing implementation; current launcher publication is described in current_request.",
+    "fetch_count_for_implementation_publication": 1,
+    "implementation_push_count_for_prior_publication": 1
   },
   "guard_changed": false,
   "guard_disabled": false,
@@ -146,14 +147,60 @@
     "References/Review/latest/summary.md",
     "References/Review/latest/status.json"
   ],
-  "preserved_untracked_files": [
-    "scripts/verify-mofu-point-foundation-windows.cmd",
-    "scripts/verify-mofu-point-foundation-windows.ps1"
-  ],
-  "untracked_file_policy": "Existing local preparation files preserved unchanged; not added to the existing implementation commit or this publication request",
+  "preserved_untracked_files": [],
+  "untracked_file_policy": "This request explicitly authorizes adding the two previously untracked launchers; their bytes remain unchanged.",
   "next_stage": "Merge generation 2P consumption",
   "next_stage_safe": false,
   "next_stage_verdict": "NO",
-  "next_stage_reason": "Stage2 native EditMode results are not yet available. Publishing the implementation is not a passing test result.",
-  "next_action": "Stop after shared review publication. Separate next instruction may publish/use the already-prepared stage2 Windows runner; do not reimplement or rerun stage1."
+  "next_stage_reason": "第2工程のWindows実Unity68ケースは未実行。",
+  "next_action": "ユーザーが次にする操作：scripts/verify-mofu-point-foundation-windows.cmdを1回ダブルクリック",
+  "stage2_windows_launcher_ready": true,
+  "cmd_path": "scripts/verify-mofu-point-foundation-windows.cmd",
+  "ps1_path": "scripts/verify-mofu-point-foundation-windows.ps1",
+  "target_implementation_commit": "97be3fafe5d73fda055ae3eba34c4ff8c45f85b7",
+  "unity_version": "6000.6.4f1",
+  "expected_tests": 68,
+  "windows_execution_pending": true,
+  "unity_start_limit": 1,
+  "stage2_windows_launcher": {
+    "ready": true,
+    "cmd": "scripts/verify-mofu-point-foundation-windows.cmd",
+    "ps1": "scripts/verify-mofu-point-foundation-windows.ps1",
+    "target_commit": "97be3fafe5d73fda055ae3eba34c4ff8c45f85b7",
+    "os": "Windows 11",
+    "unity": "6000.6.4f1",
+    "powershell": "Windows PowerShell 5.1",
+    "fixture": "Mofumachi.Tests.MofuPointServiceTests",
+    "expected_cases": 68,
+    "platform": "EditMode",
+    "unity_starts_max": 1,
+    "automatic_retries": 0,
+    "windows_execution_pending": true,
+    "existing_file_contents_modified_this_request": false,
+    "sha256": {
+      "scripts/verify-mofu-point-foundation-windows.cmd": "3b8715820e40444b2c4c9d2fbc3c942da6b2f057f7d78b9ed06503303f56cb6e",
+      "scripts/verify-mofu-point-foundation-windows.ps1": "7e424a5a99cbfd476a97759741ac71e3a9493ee15d3b5c4473c7f4c9f8cf39be"
+    },
+    "isolated_worktree": true,
+    "diagnostics": "Builds/Diagnostics/mofu-points-<timestamp>-<id>/",
+    "result_json": "mofu-points-result.json",
+    "xml": "results.xml",
+    "no_playmode_apk_pixel_visual_font": true,
+    "stage1_launcher_modified": false
+  },
+  "current_request": {
+    "action": "Publish the two already-existing stage2 Windows launcher files plus fixed review docs in one normal push",
+    "reimplemented": false,
+    "retested": false,
+    "unity_started": false,
+    "fetch_count": 0,
+    "normal_push_limit": 1,
+    "launcher_content_modified": false,
+    "authorized_files": [
+      "scripts/verify-mofu-point-foundation-windows.cmd",
+      "scripts/verify-mofu-point-foundation-windows.ps1",
+      "References/Review/latest/summary.md",
+      "References/Review/latest/status.json"
+    ]
+  }
 }

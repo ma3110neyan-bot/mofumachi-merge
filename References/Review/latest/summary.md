@@ -1,4 +1,4 @@
-# 第2工程：もふポイント管理基盤／既存実装を公開
+# 第2工程：Windows専用検証ランチャー準備完了・実行待ち
 
 更新日：2026-11-06（日本時間）。状態：**修正済み・未確認**。
 
@@ -8,6 +8,22 @@
 - 今回は再実装・ゲームコード変更・再テスト・Unity起動を行っていない。
 - 第2工程の直接関連EditMode：`Mofumachi.Tests.MofuPointServiceTests`、期待68ケース、**実Unity未実行（NotRun）**。
 - 第1工程：対象`2b81174`のWindows63/63 Passedを合格済みとして保持。共有済みXML／source JSONも一致し、テストは再実行していない。
+
+## 今回：既存Windowsランチャーを公開
+
+**stage2 Windows launcher ready = true**。既存ファイルをそのままcommitする。内容の再実装・変更、テスト再実行、第1工程再実行は行っていない。通常push1回でランチャー2ファイルと本共有記録をまとめて公開するため、必要な状態項目を同じcommitへ含める。
+
+- CMD：`scripts/verify-mofu-point-foundation-windows.cmd`
+- PS1：`scripts/verify-mofu-point-foundation-windows.ps1`
+- target implementation commit：`97be3fafe5d73fda055ae3eba34c4ff8c45f85b7`
+- 対象：`Mofumachi.Tests.MofuPointServiceTests` のみ、期待 **68** ケース
+- Windows 11／Windows PowerShell 5.1／Unity **6000.6.4f1**／EditMode
+- Unity起動上限：**1回**。automatic retries：**0**
+- Windows execution pending：**true**。この準備・公開をテスト合格として扱わない。
+- 隔離worktreeで固定commitを使用。Noah/TownActor Guard、Visual Lock、第1工程ランチャーは変更せず、全件・PlayMode・APK・Pixel・Visual・フォント工程には進まない。
+- 保存先：`Builds/Diagnostics/mofu-points-<timestamp>-<id>/`。results.xml、unity.log、source-revision.txt、mofu-points-result.json、失敗時first-error.logを保存。
+
+ユーザーが次にする操作：`scripts/verify-mofu-point-foundation-windows.cmd`を1回ダブルクリック。
 
 ## 第2工程の変更ファイル（既存実装commit内）
 
@@ -34,14 +50,14 @@
 - 前工程中の独立した読み取りレビュー：Coreの阻害事項なし。Windows runnerの例外情報保持を補足済み。
 - 第2工程Native EditMode：未実行。Passed／Failed件数は未確認。今回のテスト再実行・自動再試行は0回。
 
-## Git同期と反映確認
+## 前回の実装公開：Git同期と反映確認
 
-前回のfetch first拒否を受け、今回Fetchは**1回だけ**。リモート追加分`d4f8147d3c717b74cfaeb4e3fb3a6af097c9bae4`は第1工程の共有結果だけだった。既存実装commitとリモート結果の両方を通常mergeで保持し、Assetsが実装commitと完全一致することを確認した。
+既存実装を公開した前回の作業では、fetch first拒否を受けてFetchを**1回だけ**実施した。今回のランチャー公開でFetchは行っていない。リモート追加分`d4f8147d3c717b74cfaeb4e3fb3a6af097c9bae4`は第1工程の共有結果だけだった。既存実装commitとリモート結果の両方を通常mergeで保持し、Assetsが実装commitと完全一致することを確認した。
 
 実装の通常pushは**1回成功**。GitHubの`ls-remote`で先端`1d30cb18050a14f126522ad4708adfe37caa9b8f`を読み戻し、同commitに含まれる実装commitと5ファイルのblobを確認した。reset／force push／stash削除／既存変更破棄は行っていない。共有記録は実装公開後の別commitで更新する。
 
-未追跡の`verify-mofu-point-foundation-windows.cmd`／`.ps1`は既存のローカル準備物として、そのまま保持した。今回の既存commit公開へ追加・混在させていない。
+前回まで未追跡だった専用CMD／PS1を、今回の明示指示により内容を変更せず追加する。既存の実装commit97be3faはそのまま維持する。
 
 ## 次工程
 
-**第3工程「Merge生成時2P消費」へ進んで安全か：NO。** 第2工程のWindows実Unityによる68ケース合格が未確認。実装の公開成功を第2工程の合格・完了と扱わず、今回の共有更新後に停止する。
+**第3工程「Merge生成時2P消費」へ進んで安全か：NO。** 第2工程のWindows実Unityによる68ケース合格が未確認。ランチャー公開を第2工程の合格・完了と扱わず、Windowsでの1回実行と結果レビューを待つ。

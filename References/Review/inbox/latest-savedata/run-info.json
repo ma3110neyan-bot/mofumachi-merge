@@ -1,0 +1,44 @@
+﻿{
+    "source_run":  "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\savedata-v4-20261106-152127-7cbd67ab",
+    "source_commit":  "2b81174496a5b4703bad0516645829893d4297b9",
+    "shared_at_utc":  "2026-11-06T06:28:33.0897628Z",
+    "remote_parent":  "ab6cd954495d1dbeaec3eada065dce8f2181d041",
+    "branch":  "feat/daily-world-pass-20261016",
+    "files":  [
+                  {
+                      "sha256":  "beeec7255caf97611d7e95a47bfcb60d4eea32d5799c4de4fddc5e6fd382f3bf",
+                      "file":  "savedata-v4-result.json",
+                      "bytes":  16436
+                  },
+                  {
+                      "sha256":  "ecb7c0db8ee43c231dbb366c2bafa093c808bf8fe0430deb8499b14ca2c3ebde",
+                      "file":  "source-revision.txt",
+                      "bytes":  45
+                  },
+                  {
+                      "sha256":  "7c0850755e3f60b7a026d84244f5c751fac7e789ea2840c82d26a90e32756693",
+                      "file":  "results.xml",
+                      "bytes":  51502
+                  },
+                  {
+                      "sha256":  "78c73d43b697eed1e4db1f8cbc0c5abd9b2a77df2a27f89e8c6618ce0b2b492f",
+                      "file":  "unity.log",
+                      "bytes":  3271609
+                  },
+                  {
+                      "sha256":  "c434d50444470b67226bc1f48f5cc73f6d6fa3aaec6a1dd17cb957918389001f",
+                      "file":  "stdout.log",
+                      "bytes":  158
+                  },
+                  {
+                      "sha256":  "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+                      "file":  "stderr.log",
+                      "bytes":  3
+                  },
+                  {
+                      "sha256":  "ecccf7b585e3ff8f600d218d796a54ea3c7d997d19df3d8341847d8220300469",
+                      "file":  "unity-arguments.txt",
+                      "bytes":  616
+                  }
+              ]
+}

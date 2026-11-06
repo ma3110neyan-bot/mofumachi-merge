@@ -176,7 +176,7 @@
     "platform": "EditMode",
     "unity_starts_max": 1,
     "automatic_retries": 0,
-    "windows_execution_pending": true,
+    "windows_execution_pending": false,
     "existing_file_contents_modified_this_request": false,
     "sha256": {
       "scripts/verify-mofu-point-foundation-windows.cmd": "3b8715820e40444b2c4c9d2fbc3c942da6b2f057f7d78b9ed06503303f56cb6e",
@@ -187,7 +187,9 @@
     "result_json": "mofu-points-result.json",
     "xml": "results.xml",
     "no_playmode_apk_pixel_visual_font": true,
-    "stage1_launcher_modified": false
+    "stage1_launcher_modified": false,
+    "execution_reported_by_user": true,
+    "result_receipt_pending": true
   },
   "current_request": {
     "action": "Read existing results only; no accessible source run found; publish missing-evidence status",

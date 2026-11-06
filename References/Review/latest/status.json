@@ -290,7 +290,7 @@
   },
   "windows_launcher": {
     "ready": true,
-    "commit": "fadd450c5891d4bd4312a2811f8dcbb98a8cf91d",
+    "commit": "0deae997abec691b860d6b2a9952434053267538",
     "cmd": "scripts/verify-savedata-v4-windows.cmd",
     "ps1": "scripts/verify-savedata-v4-windows.ps1",
     "product_commit": "2b81174496a5b4703bad0516645829893d4297b9",
@@ -329,23 +329,29 @@
       "on_failure": "Retain all diagnostics and isolated worktrees; write share-result.json and display the failure reason; no reset/stash/discard/retry"
     },
     "result_fields": [
+      "source_commit",
+      "unity_version",
+      "requested_tests",
+      "total_tests",
+      "passed",
+      "failed",
+      "skipped",
+      "first_error",
+      "automatic_retries",
+      "save_version",
+      "validation_passed",
       "result",
       "success",
-      "tests_passed",
       "verification_items",
       "stage1_complete",
       "stage2_candidate",
       "stage2_safe",
-      "review_required",
-      "first_failure",
-      "gitRevision",
-      "test_invocations",
-      "automatic_retries"
+      "review_required"
     ],
     "next_stage_policy": "Even if native tests pass, stage2_safe stays false and review_required stays true. Next review decides YES from published evidence.",
     "windows_execution_verified": false,
     "sha256": {
-      "scripts/verify-savedata-v4-windows.ps1": "2c4c904a181681fd3e49a8dd764625a4a692f3ab4e9f9cb2087ae4d3f2431a01",
+      "scripts/verify-savedata-v4-windows.ps1": "eb01cd3901883c5e7660ba82c27547b890eb2c39c6510a87e1225425ae6588f8",
       "scripts/verify-savedata-v4-windows.cmd": "034f06bb567b3036a09a61062c0e5587ad3427d6751b7d4e77fc656533f91a2b"
     }
   },
@@ -459,7 +465,7 @@
   },
   "savedata_windows_launcher_ready": true,
   "launcher_path": "scripts/verify-savedata-v4-windows.cmd",
-  "launcher_commit": "fadd450c5891d4bd4312a2811f8dcbb98a8cf91d",
+  "launcher_commit": "0deae997abec691b860d6b2a9952434053267538",
   "publication": {
     "status": "local_ready_pending_normal_push",
     "force_push": false
@@ -479,6 +485,25 @@
       "scope": "Temporary local Git repositories only; no real Windows Diagnostics or GitHub result publication executed",
       "success_case": "Remote-ahead/diverged-from-local publication uses remote parent, changes only latest-savedata, removes previous-run files, preserves original HEAD/index bytes/staged/untracked files, excludes unpublished unrelated commits",
       "rejection_case": "Remote pre-receive rejection attempted exactly once; original HEAD/index/files and local diagnostic bytes preserved"
-    }
-  }
+    },
+    "synthetic_xml_count_checks": {
+      "passed": 2,
+      "failed": 0,
+      "scope": "Counter extraction only: synthetic all-passed and failed XML; no Unity or real SaveData tests executed"
+    },
+    "json_counts_policy": "Actual XML counts saved before handling nonzero Unity exit; unknown counts stay null; validation_passed is true only after all native result/source/evidence checks pass."
+  },
+  "cmd_path": "scripts/verify-savedata-v4-windows.cmd",
+  "ps1_path": "scripts/verify-savedata-v4-windows.ps1",
+  "target_commit": "2b81174496a5b4703bad0516645829893d4297b9",
+  "unity_version": "6000.6.4f1",
+  "unity_start_limit": 1,
+  "visual_lock_changed": false,
+  "windows_execution_pending": true,
+  "requested_tests": [
+    "Mofumachi.Tests.SaveServiceTests",
+    "Mofumachi.Tests.PreferencesTests",
+    "Mofumachi.Tests.CharacterPreferenceTests"
+  ],
+  "next_user_action": "scripts/verify-savedata-v4-windows.cmdを1回ダブルクリック"
 }

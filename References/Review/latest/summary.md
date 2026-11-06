@@ -4,7 +4,7 @@
 
 - branch：`feat/daily-world-pass-20261016`
 - 対象実装commit：`2b81174496a5b4703bad0516645829893d4297b9`。SaveData v4は再実装していない。
-- ランチャーcommit：`fadd450c5891d4bd4312a2811f8dcbb98a8cf91d`。共有文書commitとは別。
+- ランチャーcommit：`0deae997abec691b860d6b2a9952434053267538`。共有文書commitとは別。
 - **savedata_windows_launcher_ready=true**
 - 実行ファイル：`scripts/verify-savedata-v4-windows.cmd`（補助PS1は同じscripts内）。
 - 今回の目的：Windowsで1回の実検証と結果共有まで行える状態にする。
@@ -46,6 +46,8 @@ Guard変更／無効化／弱体化：**NO**。Visual Lock原本変更：**NO**�
 - 失敗時：`first-error.log`。最初のコンパイル／起動エラー、または最初のtest failure全文とstack。抽出不能なら未確定と記録し、exit codeだけを原因にしない。Unity未起動ならXML/logを捏造せず、Blockedと理由をJSONへ記録する。
 - 共有結果：`share-result.json`。検証JSONとは分離し、共有した証跡の元バイトを後から変更しない。
 
+`savedata-v4-result.json`はsource_commit、Unity version、requested_tests、total_tests、passed、failed、skipped、first_error、automatic_retries、save_version、validation_passedを保存する。件数は実XMLから取得し、Unity終了コードが非0の場合もXMLがあれば記録する。未起動／XML未取得の件数はnullのままとし、成功を推測しない。
+
 JSONの14確認項目には、新規24P、v1/v2/v3移行、既存情報保持、初回24P一度限り、再読込で再付与なし、0Pの再初期化なし、pre-v4生原本保持、上書きなし、不正v4停止、未対応版停止、移行失敗時の新規置換防止、CopyFrom/rollbackを含む。成功時は対応する実際のtest-case名を記録する。
 
 63件すべてのPassed・skip/inconclusiveなし・必須証拠・固定ソース一致を満たした場合のみ検証成功。失敗時は再実行・自動修正せず停止する。**Windowsで成功してもstage2_safe=false／review_required=trueを維持し、次回レビューで初めて第2工程YESを判断する。**
@@ -64,6 +66,8 @@ JSONの14確認項目には、新規24P、v1/v2/v3移行、既存情報保持、
 
 - リモート先行＋無関係なローカル未push／staged／未追跡変更がある成功条件：共有先だけcommitされ、リモートの他ファイル・元HEAD・indexの生バイト・元ファイルを保持。古いrunのファイルも新runへ混在しない。
 - push拒否条件：push試行は1回で停止し、元HEAD／index／ファイル／ローカル証跡を保持。
+
+合格／失敗の合成XMLを使った件数抽出の限定確認も2/2合格。実Unity・SaveDataテストを実行した結果ではない。
 
 構文エラー0件（PowerShell 7.4.6 parser）。PowerShell 5.1で利用可能な構文・APIを静的確認。PS1はUTF-8 BOM、CMDはASCII CRLF。**この限定確認をWindows 5.1実行合格やSaveData移行合格として扱わない。** 実Unity結果はまだ未取得で、全必須項目は未実行。
 

@@ -1,96 +1,70 @@
-# SaveData v4第1工程：Guard整合確認済み・Windows実行待ち
+# SaveData v4：ワンクリック検証・共有ランチャー準備完了
 
-更新日：2026-11-06（日本時間）。状態：**修正済み・未確認**。
+更新日：2026-11-06（日本時間）。状態：**修正済み・未確認／Windows実行待ち**。
 
 - branch：`feat/daily-world-pass-20261016`
-- 検証対象の実装commit：`2b81174496a5b4703bad0516645829893d4297b9`。SaveData v4は再実装していない。
-- Windows検証ランチャーcommit：`ae909aea406d3424b449e41329d149a608a790ee`（初版`3b20fbd`を含む）。共有文書commitとは区別する。
-- 今回の目的：正しい既存検証入口を確定し、第1工程の直接検証を1回だけ行う準備を完了する。
-- 実施：Guardの参照・scope確認、現行の既存キャラGuardの読取チェック1回合格、専用Windowsランチャー作成、構文／API／文字コード／引数の静的確認。
-- Unity起動：0回。SaveData直接テスト：**未実行（NotRun）**。自動再試行：0回。実行結果をPassed/Failedと推測しない。
-- SaveData v4第1工程完了：**false**。第2工程へ進める：**false**。
-- 主要ブロッカーは1つ：**Windows実Unityでの対象3fixture・63ケースの検証結果が未取得。**
+- 対象実装commit：`2b81174496a5b4703bad0516645829893d4297b9`。SaveData v4は再実装していない。
+- ランチャーcommit：`fadd450c5891d4bd4312a2811f8dcbb98a8cf91d`。共有文書commitとは別。
+- **savedata_windows_launcher_ready=true**
+- 実行ファイル：`scripts/verify-savedata-v4-windows.cmd`（補助PS1は同じscripts内）。
+- 今回の目的：Windowsで1回の実検証と結果共有まで行える状態にする。
+- 今回の変更：専用CMD／PS1、summary.md／status.jsonだけ。ゲーム・SaveData・テストソース・正式素材は変更していない。
+- クラウドUnity／SaveDataテスト／Guard再実行／環境再調査：**0回**。
+- SaveData第1工程完了：**false**。第2工程へ進める：**false（次のレビュー待ち）**。
+- 公開状態：ローカルで準備済み、通常pushの結果確認待ち。
 
-## 公開状態
+## ユーザーが次にする操作
 
-専用ランチャーと今回共有記録はローカルでコミット済み。**今回のpushは未完了**。通常環境のプロキシ接続失敗（exit 128）後、追加ネットワーク権限の承認処理がユーザーにより中断され、成功receiptは得られていない。force push・追加のpush試行・Unity再試行は行わない。この通信状態をSaveData不具合やUnityエラーとして扱わない。
+**`scripts/verify-savedata-v4-windows.cmd`を1回ダブルクリック。**
 
-## Guard問題の結論
+Windows 11／Windows PowerShell 5.1／Unity Hub既定場所の6000.6.4f1＋Android Build Support／既存Windowsライセンスを使用。起動中のUnity Editorは事前に閉じる。
 
-以前選択した`Assert-OriginalBaseForCandidate`は、SaveData専用のGuardではなく旧Visual候補／製品受入れ用の入口だった。
+元作業ツリーのブランチ・index・既存変更・既存セーブを変更せず、対象commit固定のdetached worktreeを作る。対象commitがローカルにない場合だけ取得する。元ブランチのpull／merge／reset／stashは行わない。
 
-1. `scripts/build-android.ps1:258`の全体入口は無条件にこのGuardを呼ぶ。前工程でもこの関数を直接選択していた。
-2. `scripts/visual-lock.ps1:187`→`Get-BasePolishPatch`（34〜41行）は、`stage-acceptance-2026-10-21.json`の`base_polish`を読む。
-3. この参照は`noah-final-rig-candidate-2026-10-29.json`に残り、scopeは`town_noah_quality_2026_10_28`、記録自体のstatusは`rejected_visual_retired`／`trial_discontinued=true`。
-4. 89行のSHA検査で旧TownActor候補と不一致になった。SaveDataテストからこのVisual Guardを呼ぶ依存はない。全体ビルド入口を使うと旧候補検査が先に走る。
+## 検証scope
 
-| TownActorの記録 | LF正規化SHA256 |
-| --- | --- |
-| 旧Noah候補 | `10dc0c0a8f041bc511ef13c0d89bb773ef6e8a0fc564f39325e20a8a0c68c57e` |
-| 現行キャラ固定記録／現行／SaveData実装前後 | `1591e855b186f5e232600f24cc7ab72c70523eee6975b2b62d0002632e8905b2` |
+**SaveData検証は独立したCore EditModeテストとして実行する。Noah候補やキャラのVisual Guardを開始条件・合否条件にしない。** これは今回の明示指示によるscope分離であり、Guard実装やVisual Lock原本はそのまま保持する。
 
-現在の`characters-25d-final-2026-11-01.json`は後者を固定しており、既存の`Assert-CharactersVisualLock`（`scripts/character-finish-scope.ps1:49`）が現行固定記録と既存head recovery/calibrationの限定記録を検証する。Coreを凍結する旧Noah実験やフォント専用のscopeをSaveDataへ流用しない。
+Guard変更／無効化／弱体化：**NO**。Visual Lock原本変更：**NO**。TownActor変更：**NO**。過去のNoah不一致の調査・失敗実行は繰り返していない。
 
-**この既存Guardの読取チェックは同作業内で1回、exit 0／Passed。** 最新の指示後に繰り返していない。旧失敗Guardは再実行していない。
+既存Unity Test FrameworkのコマンドラインEditMode runnerを使用し、assemblyは`Mofumachi.EditModeTests`、Android target。完全な名前空間prefixで以下だけに限定する。
 
-Guard変更：**NO**。Guard無効化／弱体化：**NO**。新しい例外追加：**NO**。Visual Lock原本変更：**NO**。TownActor／ゲームコード変更：**NO**。
+| 対象fixture | 固定ソースの期待ケース数 |
+| --- | ---: |
+| Mofumachi.Tests.SaveServiceTests | 33 |
+| Mofumachi.Tests.PreferencesTests | 23 |
+| Mofumachi.Tests.CharacterPreferenceTests | 7 |
 
-旧Visual／全体ビルド入口そのものは未修正のまま保持する。今回確定したのはSaveData直接テストの入口であり、Visual承認・APK受入れが通るという意味ではない。
+合計**63ケース**。Unity起動最大1回・自動再試行0回。同commitの起動記録は排他作成し、2回目の実行を拒否する。全件・PlayMode・APK・Pixel・Visual撮影・フォント工程は実行しない。MergeProgressionUiTestsのsaveVersion期待値変更は第1工程合否に含めない。
 
-## 正しい既存検証入口
+## 結果と判定
 
-**既存Unity Test FrameworkのEditModeコマンドライン実行**を使用する。既存の呼出し例は`build-android.ps1:302`。全体ビルドスクリプトは実行せず、以下を明示する。
+`Builds/Diagnostics/savedata-v4-<timestamp>-<id>/`へ保存する。
 
-- assembly：`Mofumachi.EditModeTests`。既存asmdefはEditor専用で、参照は`Mofumachi.Core`のみ。
-- fixture：`Mofumachi.Tests.SaveServiceTests`（33）、`Mofumachi.Tests.PreferencesTests`（23）、`Mofumachi.Tests.CharacterPreferenceTests`（7）。
-- 合計63は固定ソースのTest/TestCase属性数。まだ実行された件数ではない。
-- `-testFilter`は上記3クラスの完全な名前空間prefixを正規表現で限定。全件実行へフォールバックしない。
-- Android target／EditMode／`-nographics`。Unity起動は最大1回、再試行0回。
-- PlayModeは今回実行しない。移行・保存・CopyFrom/rollbackは上記Core fixtureで対象に含まれ、UI／Visual確認や2回目のUnity起動を増やさない。
+- 必須：`results.xml`、`unity.log`、`source-revision.txt`、`savedata-v4-result.json`
+- 補助：`stdout.log`、`stderr.log`、`unity-arguments.txt`
+- 失敗時：`first-error.log`。最初のコンパイル／起動エラー、または最初のtest failure全文とstack。抽出不能なら未確定と記録し、exit codeだけを原因にしない。Unity未起動ならXML/logを捏造せず、Blockedと理由をJSONへ記録する。
+- 共有結果：`share-result.json`。検証JSONとは分離し、共有した証跡の元バイトを後から変更しない。
 
-## Windowsで行う操作
+JSONの14確認項目には、新規24P、v1/v2/v3移行、既存情報保持、初回24P一度限り、再読込で再付与なし、0Pの再初期化なし、pre-v4生原本保持、上書きなし、不正v4停止、未対応版停止、移行失敗時の新規置換防止、CopyFrom/rollbackを含む。成功時は対応する実際のtest-case名を記録する。
 
-**最新のリポジトリにある`scripts/verify-savedata-v4-windows.cmd`を1回ダブルクリック。**
+63件すべてのPassed・skip/inconclusiveなし・必須証拠・固定ソース一致を満たした場合のみ検証成功。失敗時は再実行・自動修正せず停止する。**Windowsで成功してもstage2_safe=false／review_required=trueを維持し、次回レビューで初めて第2工程YESを判断する。**
 
-Windows 11、Windows PowerShell 5.1、Unity Hub既定場所のUnity 6000.6.4f1＋Android Build Support、既存Windowsライセンスを使用。起動中のUnityがある場合は事前条件で停止する。
+## 同じ操作内の結果共有
 
-ランチャーは`2b81174496a5b4703bad0516645829893d4297b9`固定の新規detached worktreeを兄弟フォルダへ作り、元ブランチ・index・未コミット変更・プレイヤーセーブを変更しない。既存Git hookは維持する。固定worktreeで既存キャラGuardと入力一致を確認し、対象テストを1回だけ起動する。フォント用ランチャー／preview処理には依存しない。
+検証の成功・失敗にかかわらず、存在する小容量テキスト証跡だけを`References/Review/inbox/latest-savedata/`へ自動共有する。1ファイル4MiB、合計16MiBを上限とし、APK・画像・巨大ZIP・Library等をコピーしない。run-info.jsonに元run・SHA・ファイル一覧を記録し、Git格納後も生バイト一致を確認する。
 
-`Builds/Diagnostics/savedata-v4-yyyyMMdd-HHmmss-xxxxxxxx/`へ保存：
+公開用には**GitHub側の最新feature HEADを親にする別worktree**を使う。`latest-savedata/`だけをadd／commitし、実commitの差分がその配下だけであることを検証して通常pushを1回行う。元のローカルHEAD／index／staged変更／未pushコミットは使用・変更しない。リモートが先行していても元ブランチを同期操作せず、リモートの他の更新を保持する。
 
-- `editmode.xml`、`unity.log`、`stdout.log`、`stderr.log`
-- `source-info.json`、`source-revision.txt`、`unity-arguments.txt`
-- 失敗時のみ`first-error.log`。コンパイル／起動エラーまたは最初のtest failure全文・stackを抽出し、exit codeだけを根本原因扱いしない。未抽出なら未確定と記録する。
+既存hookは有効のまま。force push・reset・stash・既存変更破棄なし。GitHubの同時更新等でpushが拒否された場合も再試行せず、理由を表示し、全Diagnosticsと隔離worktreeを保持する。
 
-`source-info.json`はsuccess/result、14項目別のverification_itemsと対応test-case名、stage1_complete、stage2_safe、最初の失敗、固定SHA、起動回数・再試行回数を持つ。入力不一致、63件不足、skip/inconclusive、未合格、必須証拠欠損では合格にしない。事前条件の失敗もBlockedとしてJSONへ保存する。
+## 今回実施した関連確認
 
-同commitの起動記録`.attempted`は排他作成し、自動削除・上書きをしない。2回目のダブルクリックは停止する。隔離worktreeとDiagnosticsも自動削除しない。
+一時ローカルGit環境による共有処理の限定確認：**2/2合格**。
 
-## 必須項目と固定テストの対応
+- リモート先行＋無関係なローカル未push／staged／未追跡変更がある成功条件：共有先だけcommitされ、リモートの他ファイル・元HEAD・indexの生バイト・元ファイルを保持。古いrunのファイルも新runへ混在しない。
+- push拒否条件：push試行は1回で停止し、元HEAD／index／ファイル／ローカル証跡を保持。
 
-現時点の全項目は**未実行**。成功時のみJSONへPassedと実際のtest-case名を記録する。
+構文エラー0件（PowerShell 7.4.6 parser）。PowerShell 5.1で利用可能な構文・APIを静的確認。PS1はUTF-8 BOM、CMDはASCII CRLF。**この限定確認をWindows 5.1実行合格やSaveData移行合格として扱わない。** 実Unity結果はまだ未取得で、全必須項目は未実行。
 
-| 必須確認 | SaveServiceTestsの対象 |
-| --- | --- |
-| 新規v4＝24P | NewV4HasUnclaimedEconomyAnd24Points |
-| v1／v2／v3→v4 | LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes(1)/(2)/(3) |
-| 既存項目保持・初回24Pは1回だけ | LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes、V4ZeroBalanceIsNotInitializedAgain |
-| v4再読込で再付与なし・0Pでも再初期化なし | V4ZeroBalanceIsNotInitializedAgain |
-| pre-v4生原本保持 | LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes |
-| 既存pre-v4を上書きしない | ExistingPreV4IsNeverOverwrittenOrRetried |
-| 不正v4を自動修復しない | InvalidV4BlocksEvenWhenHealthyBackupExists、MissingRequiredV4EconomyMemberCannotFallbackOrRepair |
-| 未対応versionで停止 | UnknownVersionIsNotLoaded |
-| 移行失敗で新規Saveへ置換しない | FailedCommitKeepsLegacySourceProtectionAndCandidate、ProtectionCreationFailureDoesNotTouchLegacyPrimary |
-| CopyFrom／rollback | CopyAndFailedMutationRestoreCompleteEconomyWithoutAliasing |
-
-PreferencesTests／CharacterPreferenceTestsも同じ1回に含め、音設定・キャラ設定の移行保持／保存失敗を確認する。
-
-## 確認範囲と次の判定
-
-PS1はUTF-8 BOM、CMDはASCII CRLF。PowerShell 5.1対応の構文・.NET APIを静的確認し、PowerShell 7.4.6で構文エラー0件・限定引数・63ケース／14証拠定義・Unity起動箇所1か所を確認した。**Windows PowerShell 5.1やUnityを実際に実行した証拠ではない。** クラウド環境／ライセンス調査は繰り返していない。
-
-以前の旧Guard失敗は履歴としてerror.logに保持。今回新しいUnity/test failureはない。途中の静的引数確認でLinuxにC:ドライブがないエラーが出た点はstatus.jsonのtooling_notesへ分離した。既存ローカルパスでの引数確認のみ行い、ゲームコード修正やUnity再試行はしていない。
-
-今回の変更は専用ランチャー2ファイルとsummary/statusのみ。ゲーム／SaveData／テストソース／正式素材／フォント／Visual Lock原本／既存Guardは変更していない。
-
-**第2工程「もふポイント管理基盤」へ進んで安全か：NO。** 主要ブロッカーはWindows実Unityの対象テスト結果が未取得であること。結果が63/63で、14項目・原本保護・失敗停止・入力固定の確認を満たした場合のみ、第1工程「SaveData v4移行基盤：完了」へ更新する。全ゲーム完成・実機リリース合格とは扱わず、現在は第2工程へ進まない。
+次の作業はユーザーによるCMDの1回実行と、その共有結果のレビューだけ。現時点では第2工程へ進まない。

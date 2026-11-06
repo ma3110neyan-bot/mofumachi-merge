@@ -1,12 +1,12 @@
 {
   "branch": "feat/daily-world-pass-20261016",
   "commit": "2b81174496a5b4703bad0516645829893d4297b9",
-  "commit_scope": "SaveData implementation under verification; launcher and review commits are separate",
+  "commit_scope": "Pinned SaveData implementation; launcher and shared review commits are separate",
   "product_commit": "2b81174496a5b4703bad0516645829893d4297b9",
   "base_commit": "0a448d2d3a084c7c581122536ebe1d7533a98b2d",
-  "scope": "savedata_v4_stage1_guard_aligned_windows_verification_ready",
+  "scope": "savedata_v4_independent_windows_one_click_verification_and_sharing",
   "status": "修正済み・未確認",
-  "state": "savedata_v4_guard_aligned_awaiting_windows_one_shot_results",
+  "state": "savedata_windows_launcher_ready_awaiting_windows_execution",
   "success": false,
   "tests_passed": false,
   "capture_verified": false,
@@ -84,45 +84,18 @@
     "native_unity_tests": 0,
     "unity_start_attempts": 0,
     "automatic_retries": 0,
-    "reason": "Existing recorded cloud license/environment insufficiency; no repeated environment probing. Await dedicated Windows run."
+    "reason": "Windows execution pending; cloud Unity prohibited. No repeated license/DISPLAY investigation."
   },
   "safety_guard": {
-    "root_cause": "The previously selected general visual-candidate gate resolves stage-acceptance.base_polish to a retired Noah trial. It is not a SaveData unit-test gate.",
-    "trace": [
-      "scripts/build-android.ps1:258 (full acceptance entrypoint)",
-      "scripts/visual-lock.ps1:186-187 (Assert-OriginalBaseForCandidate)",
-      "scripts/visual-lock.ps1:34-41 (Get-BasePolishPatch reads base_polish)",
-      "References/VisualLock/stage-acceptance-2026-10-21.json -> References/VisualLock/noah-final-rig-candidate-2026-10-29.json",
-      "scripts/visual-lock.ps1:89 (old trial SHA mismatch)"
-    ],
-    "retired_scope": "town_noah_quality_2026_10_28",
-    "retired_candidate_status": "rejected_visual_retired",
-    "old_expected_town_actor_sha256": "10dc0c0a8f041bc511ef13c0d89bb773ef6e8a0fc564f39325e20a8a0c68c57e",
-    "current_town_actor_sha256": "1591e855b186f5e232600f24cc7ab72c70523eee6975b2b62d0002632e8905b2",
-    "unchanged_before_and_after_savedata_implementation": true,
-    "selected_existing_guard": "Assert-CharactersVisualLock",
-    "selected_guard_source": "scripts/character-finish-scope.ps1:49",
-    "selected_guard_records": [
-      "References/VisualLock/characters-25d-final-2026-11-01.json",
-      "References/VisualLock/characters-head-recovery-2026-11-01.json",
-      "References/VisualLock/characters-head-calibration-2026-11-02.json"
-    ],
-    "scope": "Current frozen character inputs with existing bounded head amendments; does not authorize SaveData changes or release acceptance",
-    "current_character_record_town_actor_sha_matches": true,
-    "read_only_check": {
-      "executions_in_this_workflow": 1,
-      "exit_code": 0,
-      "result": "Passed",
-      "platform": "PowerShell 7.4.6 / Linux",
-      "unity_started": false,
-      "repeated_after_latest_instruction": false
-    },
-    "old_failed_guard_reexecuted": false,
-    "modified": false,
-    "disabled": false,
-    "new_exception": false,
-    "general_visual_acceptance_fixed": false,
-    "conclusion": "Existing current-character guard plus pinned source and the existing filtered EditMode runner form the direct-test entrypoint. The old visual/build gate remains unchanged; this grants no APK/visual-release approval."
+    "visual_guard_required_for_savedata_tests": false,
+    "executions_this_request": 0,
+    "reason": "Latest explicit instruction separates SaveData Core tests from Noah/character/visual acceptance. No visual candidate guard is a precondition or a pass criterion.",
+    "guard_implementation_changed": false,
+    "visual_lock_changed": false,
+    "town_actor_changed": false,
+    "old_visual_gate_retained_unchanged": true,
+    "savedata_entrypoint": "Existing Unity Test Framework EditMode runner; exact three fixtures and named Core-only assembly, at pinned commit",
+    "historical_mismatch_reinvestigated_or_rerun": false
   },
   "first_failure": null,
   "environment_preflight": {
@@ -156,9 +129,9 @@
   "guard_or_visual_lock_changed": false,
   "font_workflow_resumed": false,
   "next_stage_safe": false,
-  "next_stage_verdict": "NO",
-  "next_stage_reason": "Windows実UnityでのSaveData直接関連テスト結果が未取得。",
-  "minimum_next_action": "Windowsのscripts/verify-savedata-v4-windows.cmdを1回だけダブルクリック。結果受領後に同一commitとXML/JSONを照合する。第2工程は開始しない。",
+  "next_stage_verdict": "WINDOWS_EXECUTION_AND_REVIEW_PENDING",
+  "next_stage_reason": "Windows実Unityの対象結果を受領・レビューしてから判定する。",
+  "minimum_next_action": "ユーザーが次にする操作：scripts/verify-savedata-v4-windows.cmdを1回ダブルクリック",
   "sharing_setup_complete": true,
   "automatically_commits_or_pushes": true,
   "sharing_base_url": "https://github.com/ma3110neyan-bot/mofumachi-merge/tree/feat/daily-world-pass-20261016/References/Review/latest",
@@ -221,7 +194,7 @@
     }
   },
   "implementation_commit": "2b81174496a5b4703bad0516645829893d4297b9",
-  "operation_this_request": "reuse existing guard diagnosis and passing check; finish dedicated Windows verification launcher",
+  "operation_this_request": "Finish the existing launcher as independent Core tests plus diagnostics-only automatic publication; no game reimplementation, guard rerun or cloud Unity",
   "implementation_presence_confirmed": true,
   "current_source_matches_implementation": true,
   "existing_uncommitted_or_staged_changes_at_start": false,
@@ -236,9 +209,9 @@
   "tests_invoked_this_request": 0,
   "unity_started_this_request": false,
   "environment_probe_repeated_this_request": false,
-  "test_results_source": "Windows execution not received; source inventory and launcher static checks only",
+  "test_results_source": "SaveData native tests not run. New launcher sharing logic verified with two isolated synthetic local Git fixtures; not a Unity result.",
   "unconfirmed_items": [
-    "Windows実UnityでのSaveData直接関連確認（下記14必須項目）の結果"
+    "Windows実UnityのSaveData直接関連テストと14必須項目の結果（次回受領・レビュー）"
   ],
   "previous_safety_guard": {
     "guard": "Assert-OriginalBaseForCandidate",
@@ -279,10 +252,10 @@
     "source": "previous saved guard result; not a new failure"
   },
   "updated_date_jst": "2026-11-06",
-  "stage1_state": "Guard整合確認済み・Windows実行待ち",
+  "stage1_state": "専用ランチャー準備完了・Windows実行待ち",
   "stage1_complete": false,
   "stage2_safe": false,
-  "primary_blocker": "Windows実Unityでの対象3fixture・63ケースの検証結果待ち",
+  "primary_blocker": "Windows実Unityの対象3fixture・63ケースの結果待ち",
   "visual_lock_original_changed": false,
   "guard_changed": false,
   "guard_disabled": false,
@@ -308,66 +281,72 @@
     "expected_cases": 63,
     "count_basis": "Static Test/TestCase attributes at pinned implementation, not an executed count",
     "playmode_executed": false,
-    "playmode_reason": "Migration, serialization and rollback are covered by these Core EditMode fixtures; no second Unity invocation or UI/visual scope in this run",
+    "playmode_reason": "Save-version-only UI expectations are excluded from this stage verdict; no PlayMode/visual test invocation.",
     "no_all_tests": true,
     "no_apk": true,
     "no_pixel": true,
-    "no_capture": true
+    "no_capture": true,
+    "visual_guard_precondition": false
   },
   "windows_launcher": {
-    "commit": "ae909aea406d3424b449e41329d149a608a790ee",
+    "ready": true,
+    "commit": "fadd450c5891d4bd4312a2811f8dcbb98a8cf91d",
     "cmd": "scripts/verify-savedata-v4-windows.cmd",
     "ps1": "scripts/verify-savedata-v4-windows.ps1",
     "product_commit": "2b81174496a5b4703bad0516645829893d4297b9",
     "os": "Windows 11",
     "powershell": "Windows PowerShell 5.1",
     "unity": "6000.6.4f1",
-    "user_action": "Double-click CMD once",
-    "isolation": "New detached worktree pinned to implementation; original branch/index/files and player saves untouched",
+    "build_target": "Android",
+    "user_action": "CMDを1回ダブルクリック",
+    "isolation": "Detached test worktree pinned to 2b81174; separate minimal no-checkout sharing worktree based on fetched remote feature head",
+    "missing_source_commit": "Fetch pinned commit once only if absent; never checkout/pull/merge the original branch",
     "unity_invocations_max": 1,
     "automatic_retries": 0,
-    "guard": "Existing Assert-CharactersVisualLock before Unity",
-    "one_shot_receipt": "Builds/Diagnostics/savedata-v4-2b81174496a5b4703bad0516645829893d4297b9.attempted (exclusive create; never automatically removed)",
-    "output": "Builds/Diagnostics/savedata-v4-yyyyMMdd-HHmmss-xxxxxxxx/",
+    "test_platform": "EditMode",
+    "expected_cases": 63,
+    "visual_guard_required": false,
     "outputs": [
-      "editmode.xml",
+      "results.xml",
       "unity.log",
+      "source-revision.txt",
+      "savedata-v4-result.json",
       "stdout.log",
       "stderr.log",
-      "source-info.json",
-      "source-revision.txt",
       "unity-arguments.txt"
     ],
-    "failure_output": "first-error.log (first causal Unity compiler/test error; preflight failures separately labeled)",
-    "machine_fields": [
-      "success",
+    "failure_output": "first-error.log",
+    "sharing_receipt": "share-result.json (local-only; result JSON remains immutable after copying)",
+    "output": "Builds/Diagnostics/savedata-v4-<timestamp>-<id>/",
+    "publication": {
+      "automatic": true,
+      "inbox": "References/Review/inbox/latest-savedata/",
+      "files": "Only fixed small text/XML/JSON/log allowlist; max4MiB/file,16MiB total",
+      "commit_scope": "Only latest-savedata; parent is freshly fetched remote feature HEAD, not local unpublished commits",
+      "original_branch_and_index_unchanged": true,
+      "hooks_disabled": false,
+      "push": "One explicit commit SHA to current feature ref, normal non-force push, no tags, zero retries",
+      "on_failure": "Retain all diagnostics and isolated worktrees; write share-result.json and display the failure reason; no reset/stash/discard/retry"
+    },
+    "result_fields": [
       "result",
+      "success",
       "tests_passed",
       "verification_items",
       "stage1_complete",
+      "stage2_candidate",
       "stage2_safe",
+      "review_required",
       "first_failure",
       "gitRevision",
       "test_invocations",
       "automatic_retries"
     ],
+    "next_stage_policy": "Even if native tests pass, stage2_safe stays false and review_required stays true. Next review decides YES from published evidence.",
     "windows_execution_verified": false,
-    "powershell_51_runtime_verified": false,
-    "automatically_commits_or_pushes": false,
-    "encoding": "PS1 UTF-8 with BOM; CMD ASCII CRLF",
-    "static_check": {
-      "syntax_errors": 0,
-      "parser": "PowerShell 7.4.6",
-      "argument_filter": "Only the three exact fixture prefixes, EditMode and named assembly",
-      "case_inventory": 63,
-      "required_proofs": 14,
-      "unity_start_call_sites": 1,
-      "unsupported_ps7_syntax_detected": false,
-      "scope": "Static syntax/API/argument/encoding inspection; no claim of Windows runtime verification"
-    },
     "sha256": {
-      "scripts/verify-savedata-v4-windows.ps1": "d7fcd9a79798b3302ea52cc141af963dc50e799cc952d1055065344b1f1411cf",
-      "scripts/verify-savedata-v4-windows.cmd": "13bdf2a33446a855f24201f181e7cc6ca291e74ad65ccc885e347e2f42b8ff91"
+      "scripts/verify-savedata-v4-windows.ps1": "2c4c904a181681fd3e49a8dd764625a4a692f3ab4e9f9cb2087ae4d3f2431a01",
+      "scripts/verify-savedata-v4-windows.cmd": "034f06bb567b3036a09a61062c0e5587ad3427d6751b7d4e77fc656533f91a2b"
     }
   },
   "required_verification_items": {
@@ -429,10 +408,47 @@
     }
   },
   "tooling_notes": [
-    "An earlier static argument inspection passed a Windows C: path to Linux and stopped at Join-Path. Existing local paths were then used for argument-only inspection, with no launcher/product change for that environment mismatch and no Unity/test retry.",
-    "CMD CRLF is intentional; Git whitespace inspection used cr-at-eol for that file without changing repository configuration or any Safety Guard."
+    "CRLF in the CMD is intentional; whitespace inspection uses cr-at-eol without changing Git configuration. Previous cloud environment/path/publication failures are historical and are not SaveData test failures."
   ],
-  "publication": {
+  "previous_guard_alignment": {
+    "root_cause": "The previously selected general visual-candidate gate resolves stage-acceptance.base_polish to a retired Noah trial. It is not a SaveData unit-test gate.",
+    "trace": [
+      "scripts/build-android.ps1:258 (full acceptance entrypoint)",
+      "scripts/visual-lock.ps1:186-187 (Assert-OriginalBaseForCandidate)",
+      "scripts/visual-lock.ps1:34-41 (Get-BasePolishPatch reads base_polish)",
+      "References/VisualLock/stage-acceptance-2026-10-21.json -> References/VisualLock/noah-final-rig-candidate-2026-10-29.json",
+      "scripts/visual-lock.ps1:89 (old trial SHA mismatch)"
+    ],
+    "retired_scope": "town_noah_quality_2026_10_28",
+    "retired_candidate_status": "rejected_visual_retired",
+    "old_expected_town_actor_sha256": "10dc0c0a8f041bc511ef13c0d89bb773ef6e8a0fc564f39325e20a8a0c68c57e",
+    "current_town_actor_sha256": "1591e855b186f5e232600f24cc7ab72c70523eee6975b2b62d0002632e8905b2",
+    "unchanged_before_and_after_savedata_implementation": true,
+    "selected_existing_guard": "Assert-CharactersVisualLock",
+    "selected_guard_source": "scripts/character-finish-scope.ps1:49",
+    "selected_guard_records": [
+      "References/VisualLock/characters-25d-final-2026-11-01.json",
+      "References/VisualLock/characters-head-recovery-2026-11-01.json",
+      "References/VisualLock/characters-head-calibration-2026-11-02.json"
+    ],
+    "scope": "Current frozen character inputs with existing bounded head amendments; does not authorize SaveData changes or release acceptance",
+    "current_character_record_town_actor_sha_matches": true,
+    "read_only_check": {
+      "executions_in_this_workflow": 1,
+      "exit_code": 0,
+      "result": "Passed",
+      "platform": "PowerShell 7.4.6 / Linux",
+      "unity_started": false,
+      "repeated_after_latest_instruction": false
+    },
+    "old_failed_guard_reexecuted": false,
+    "modified": false,
+    "disabled": false,
+    "new_exception": false,
+    "general_visual_acceptance_fixed": false,
+    "conclusion": "Existing current-character guard plus pinned source and the existing filtered EditMode runner form the direct-test entrypoint. The old visual/build gate remains unchanged; this grants no APK/visual-release approval."
+  },
+  "previous_cloud_publication": {
     "status": "not_pushed",
     "local_review_commit_before_publication_note": "e74a8ed2adcd99bac619c3e03742d5ddc824d4ab",
     "reason": "Default sandbox proxy connection failed; elevated network permission request was aborted by user. No successful push receipt was obtained.",
@@ -440,5 +456,29 @@
     "force_push": false,
     "unity_or_test_retry_performed": false,
     "affects": "Publication of launcher and latest review only; not a Unity/SaveData test failure"
+  },
+  "savedata_windows_launcher_ready": true,
+  "launcher_path": "scripts/verify-savedata-v4-windows.cmd",
+  "launcher_commit": "fadd450c5891d4bd4312a2811f8dcbb98a8cf91d",
+  "publication": {
+    "status": "local_ready_pending_normal_push",
+    "force_push": false
+  },
+  "launcher_checks": {
+    "syntax_errors": 0,
+    "parser": "PowerShell 7.4.6",
+    "powershell_51_static_compatibility_checked": true,
+    "windows_51_runtime_verified": false,
+    "encoding": "PS1 UTF-8 BOM; CMD ASCII CRLF",
+    "unity_start_call_sites": 1,
+    "normal_push_call_sites": 1,
+    "synthetic_git_checks": {
+      "passed": 2,
+      "failed": 0,
+      "unity_started": false,
+      "scope": "Temporary local Git repositories only; no real Windows Diagnostics or GitHub result publication executed",
+      "success_case": "Remote-ahead/diverged-from-local publication uses remote parent, changes only latest-savedata, removes previous-run files, preserves original HEAD/index bytes/staged/untracked files, excludes unpublished unrelated commits",
+      "rejection_case": "Remote pre-receive rejection attempted exactly once; original HEAD/index/files and local diagnostic bytes preserved"
+    }
   }
 }

@@ -467,11 +467,22 @@
   "launcher_path": "scripts/verify-savedata-v4-windows.cmd",
   "launcher_commit": "c59a0febbcfa1cef13086e9b467f2f1fa42041ee",
   "publication": {
-    "status": "blocked_network_permission_pending",
+    "status": "blocked_runtime_network",
+    "task_complete": false,
     "github_files_verified": false,
     "local_files_committed": true,
-    "reason": "Normal sandbox connection to the proxy failed; elevated git push approval attempts were interrupted. No successful GitHub publication receipt exists. Checking whether the approval UI is visible, without repeating game/guard/environment checks.",
-    "force_push": false
+    "user_confirmed_approval_ui_visible": false,
+    "saved_network_policy_includes_github": true,
+    "runtime_sandbox_network_disabled": true,
+    "configured_proxy": "proxy:8080",
+    "proxy_dns_resolves": true,
+    "last_observed_proxy_connection": "Git exited128: Failed to connect to proxy port8080; could not connect to server",
+    "root_cause": "Current execution environment cannot reach its provided network proxy. Saved GitHub allowlisting does not establish runtime connectivity. Approval UI is not displayed; no repeated approval request will be made.",
+    "required_external_action": "Restore the current cloud execution environment network/proxy while preserving this checkout and local commits. Then publish the existing commits; do not recreate the launcher or rerun Unity.",
+    "environment_configuration_changed": false,
+    "force_push": false,
+    "preservation_bundle": "/workspace/artifacts/savedata-v4-unpushed-20261106-b6f801db.bundle",
+    "bundle_base_commit": "8b6673ab46091569deefe2e1e298a3e399b38b14"
   },
   "launcher_checks": {
     "syntax_errors": 0,

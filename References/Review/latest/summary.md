@@ -1,80 +1,47 @@
-# SaveData v4：ワンクリック検証・共有ランチャー準備完了
+# 第2工程：もふポイント管理基盤／既存実装を公開
 
-更新日：2026-11-06（日本時間）。状態：**ランチャー作成・公開は完了／SaveData実検証はWindows実行待ち**。
+更新日：2026-11-06（日本時間）。状態：**修正済み・未確認**。
 
-- branch：`feat/daily-world-pass-20261016`
-- 対象実装commit：`2b81174496a5b4703bad0516645829893d4297b9`。SaveData v4は再実装していない。
-- ランチャーcommit：`c59a0febbcfa1cef13086e9b467f2f1fa42041ee`。共有文書commitとは別。
-- **savedata_windows_launcher_ready=true**
-- 実行ファイル：`scripts/verify-savedata-v4-windows.cmd`（補助PS1は同じscripts内）。
-- 今回の目的：Windowsで1回の実検証と結果共有まで行える状態にする。
-- 今回の変更：専用CMD／PS1、summary.md／status.jsonだけ。ゲーム・SaveData・テストソース・正式素材は変更していない。
-- クラウドUnity／SaveDataテスト／Guard再実行／環境再調査：**0回**。
-- SaveData第1工程完了：**false**。第2工程へ進める：**false（次のレビュー待ち）**。
-- 公開状態：**通常push成功**。公開commit `fa82a9ae606a106cb2f214d30a75635f68385bfc`、GitHub側HEADの読み戻し一致、CMD／PS1両方のblob存在確認済み。共有記録の最新化は後続commitで行う。
+- 現在branch：`feat/daily-world-pass-20261016`
+- 第2工程の実装commit：`97be3fafe5d73fda055ae3eba34c4ff8c45f85b7`。既存commitをそのまま使用した。
+- GitHubへの実装公開：**成功・反映確認済み**。公開先端`1d30cb18050a14f126522ad4708adfe37caa9b8f`に実装commitが含まれ、変更5ファイルのblobも存在する。
+- 今回は再実装・ゲームコード変更・再テスト・Unity起動を行っていない。
+- 第2工程の直接関連EditMode：`Mofumachi.Tests.MofuPointServiceTests`、期待68ケース、**実Unity未実行（NotRun）**。
+- 第1工程：対象`2b81174`のWindows63/63 Passedを合格済みとして保持。共有済みXML／source JSONも一致し、テストは再実行していない。
 
-## ユーザーが次にする操作
+## 第2工程の変更ファイル（既存実装commit内）
 
-**`scripts/verify-savedata-v4-windows.cmd`を1回ダブルクリック。**
+1. `Assets/Mofumachi/Core/GameStateManager.cs`
+2. `Assets/Mofumachi/Core/MofuPointService.cs`
+3. `Assets/Mofumachi/Core/MofuPointService.cs.meta`
+4. `Assets/Mofumachi/Tests/EditMode/MofuPointServiceTests.cs`
+5. `Assets/Mofumachi/Tests/EditMode/MofuPointServiceTests.cs.meta`
 
-Windows 11／Windows PowerShell 5.1／Unity Hub既定場所の6000.6.4f1＋Android Build Support／既存Windowsライセンスを使用。起動中のUnity Editorは事前に閉じる。
+## 実装内容
 
-元作業ツリーのブランチ・index・既存変更・既存セーブを変更せず、対象commit固定のdetached worktreeを作る。対象commitがローカルにない場合だけ取得する。元ブランチのpull／merge／reset／stashは行わない。
+単一の`MofuPointService`を`GameStateManager.MofuPoints`から利用する内部APIとして追加済み。残高24P・0〜96P、実加算量の返却、消費可能判定・不足／負数拒否、財布とは独立した非減少の街行動累計を扱う。累計は既存Int64を使用し、long.MaxValueを超える加算は拒否する。0Pを未初期化扱いしたり、自動補充したりしない。加算／消費0は保存を通す有効なno-opとする。
 
-## 検証scope
+日次適用日は正規ISO日付の後退を拒否し、後の日付に進んだ場合だけ当日会話ID・通常／追加散策回数・おたすけ済み・散策消込情報をリセット。残高・累計・初期化済み・導入日・回復／お花の履歴日・既存進行は維持する。会話は正式CharacterCatalog（`noah`）・重複不可・最大3名。散策は通常2／追加2／おたすけ1、合計5件のIDと回数を同じ保存で確定する。各取得APIは明示日付が現在適用日と一致する場合だけ台帳を更新し、遅延イベントの誤登録を拒否する。
 
-**SaveData検証は独立したCore EditModeテストとして実行する。Noah候補やキャラのVisual Guardを開始条件・合否条件にしない。** これは今回の明示指示によるscope分離であり、Guard実装やVisual Lock原本はそのまま保持する。
+既存MutateのClone／CopyFrom／MergeLocks復元を再利用し、経済操作では依頼進捗を再計算しない。新しいrollback実装や新サービスへの分割はしていない。
 
-Guard変更／無効化／弱体化：**NO**。Visual Lock原本変更：**NO**。TownActor変更：**NO**。過去のNoah不一致の調査・失敗実行は繰り返していない。
+ゲーム中の生成・合成・会話・散策・お花・UI・依頼・街Lvには接続していない。Save version4・SaveService移行・pre-v4保護・正式素材・Guard・Visual Lock・TownActorは変更していない。
 
-既存Unity Test FrameworkのコマンドラインEditMode runnerを使用し、assemblyは`Mofumachi.EditModeTests`、Android target。完全な名前空間prefixで以下だけに限定する。
+## 保存済み確認結果
 
-| 対象fixture | 固定ソースの期待ケース数 |
-| --- | ---: |
-| Mofumachi.Tests.SaveServiceTests | 33 |
-| Mofumachi.Tests.PreferencesTests | 23 |
-| Mofumachi.Tests.CharacterPreferenceTests | 7 |
+- 直接関連テストソース：68ケース。残高・累計・日次・ID重複／上限・保存失敗時の全体復元／ロック保持・V4実保存の往復を対象に追加済み。
+- 前工程中の限定APIコンパイル：Coreと新fixtureだけ、Unity SDK／Unity-custom NUnit API参照で各exit0。**NUnit／Unity実行合格の代用にはしない。**
+- 前工程中の独立した読み取りレビュー：Coreの阻害事項なし。Windows runnerの例外情報保持を補足済み。
+- 第2工程Native EditMode：未実行。Passed／Failed件数は未確認。今回のテスト再実行・自動再試行は0回。
 
-合計**63ケース**。Unity起動最大1回・自動再試行0回。同commitの起動記録は排他作成し、2回目の実行を拒否する。全件・PlayMode・APK・Pixel・Visual撮影・フォント工程は実行しない。MergeProgressionUiTestsのsaveVersion期待値変更は第1工程合否に含めない。
+## Git同期と反映確認
 
-## 結果と判定
+前回のfetch first拒否を受け、今回Fetchは**1回だけ**。リモート追加分`d4f8147d3c717b74cfaeb4e3fb3a6af097c9bae4`は第1工程の共有結果だけだった。既存実装commitとリモート結果の両方を通常mergeで保持し、Assetsが実装commitと完全一致することを確認した。
 
-`Builds/Diagnostics/savedata-v4-<timestamp>-<id>/`へ保存する。
+実装の通常pushは**1回成功**。GitHubの`ls-remote`で先端`1d30cb18050a14f126522ad4708adfe37caa9b8f`を読み戻し、同commitに含まれる実装commitと5ファイルのblobを確認した。reset／force push／stash削除／既存変更破棄は行っていない。共有記録は実装公開後の別commitで更新する。
 
-- 必須：`results.xml`、`unity.log`、`source-revision.txt`、`savedata-v4-result.json`
-- 補助：`stdout.log`、`stderr.log`、`unity-arguments.txt`
-- 失敗時：`first-error.log`。最初のコンパイル／起動エラー、または最初のtest failure全文とstack。抽出不能なら未確定と記録し、exit codeだけを原因にしない。Unity未起動ならXML/logを捏造せず、Blockedと理由をJSONへ記録する。
-- 共有結果：`share-result.json`。検証JSONとは分離し、共有した証跡の元バイトを後から変更しない。
+未追跡の`verify-mofu-point-foundation-windows.cmd`／`.ps1`は既存のローカル準備物として、そのまま保持した。今回の既存commit公開へ追加・混在させていない。
 
-`savedata-v4-result.json`はsource_commit、Unity version、requested_tests、total、total_tests、passed、failed、skipped、first_error、automatic_retries、save_version、validation_passedを保存する。件数は実XMLから取得し、Unity終了コードが非0の場合もXMLがあれば記録する。未起動／XML未取得の件数はnullのままとし、成功を推測しない。
+## 次工程
 
-JSONの14確認項目には、新規24P、v1/v2/v3移行、既存情報保持、初回24P一度限り、再読込で再付与なし、0Pの再初期化なし、pre-v4生原本保持、上書きなし、不正v4停止、未対応版停止、移行失敗時の新規置換防止、CopyFrom/rollbackを含む。成功時は対応する実際のtest-case名を記録する。
-
-63件すべてのPassed・skip/inconclusiveなし・必須証拠・固定ソース一致を満たした場合のみ検証成功。失敗時は再実行・自動修正せず停止する。**Windowsで成功してもstage2_safe=false／review_required=trueを維持し、次回レビューで初めて第2工程YESを判断する。**
-
-## 同じ操作内の結果共有
-
-検証の成功・失敗にかかわらず、存在する小容量テキスト証跡だけを`References/Review/inbox/latest-savedata/`へ自動共有する。1ファイル4MiB、合計16MiBを上限とし、APK・画像・巨大ZIP・Library等をコピーしない。run-info.jsonに元run・SHA・ファイル一覧を記録し、Git格納後も生バイト一致を確認する。
-
-公開用には**GitHub側の最新feature HEADを親にする別worktree**を使う。`latest-savedata/`だけをadd／commitし、実commitの差分がその配下だけであることを検証して通常pushを1回行う。元のローカルHEAD／index／staged変更／未pushコミットは使用・変更しない。リモートが先行していても元ブランチを同期操作せず、リモートの他の更新を保持する。
-
-既存hookは有効のまま。force push・reset・stash・既存変更破棄なし。GitHubの同時更新等でpushが拒否された場合も再試行せず、理由を表示し、全Diagnosticsと隔離worktreeを保持する。
-
-## 今回実施した関連確認
-
-一時ローカルGit環境による共有処理の限定確認：**2/2合格**。
-
-- リモート先行＋無関係なローカル未push／staged／未追跡変更がある成功条件：共有先だけcommitされ、リモートの他ファイル・元HEAD・indexの生バイト・元ファイルを保持。古いrunのファイルも新runへ混在しない。
-- push拒否条件：push試行は1回で停止し、元HEAD／index／ファイル／ローカル証跡を保持。
-
-合格／失敗の合成XMLを使った件数抽出の限定確認も2/2合格。実Unity・SaveDataテストを実行した結果ではない。
-
-構文エラー0件（PowerShell 7.4.6 parser）。PowerShell 5.1で利用可能な構文・APIを静的確認。PS1はUTF-8 BOM、CMDはASCII CRLF。**この限定確認をWindows 5.1実行合格やSaveData移行合格として扱わない。** 実Unity結果はまだ未取得で、全必須項目は未実行。
-
-次の作業はユーザーによるCMDの1回実行と、その共有結果のレビューだけ。現時点では第2工程へ進まない。
-
-## 過去の公開停止と今回の解消
-
-以前は通常環境のネットワーク無効とproxy:8080接続失敗、承認UI非表示により公開できなかった。**今回、許可された制限外Git実行で通常pushを1回行い成功した。** `git ls-remote`でもGitHub側feature HEADが公開commitと一致し、同commit内のCMD／PS1両blobを確認した。環境設定・Guard・Visual Lock・TownActorは変更していない。
-
-過去の停止理由と未公開コミットの33KB退避bundleは履歴として保持する。現在のランチャー公開のブロッカーではない。
+**第3工程「Merge生成時2P消費」へ進んで安全か：NO。** 第2工程のWindows実Unityによる68ケース合格が未確認。実装の公開成功を第2工程の合格・完了と扱わず、今回の共有更新後に停止する。

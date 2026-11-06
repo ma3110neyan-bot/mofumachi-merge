@@ -5,9 +5,9 @@
   "product_commit": "2b81174496a5b4703bad0516645829893d4297b9",
   "base_commit": "0a448d2d3a084c7c581122536ebe1d7533a98b2d",
   "scope": "savedata_v4_independent_windows_one_click_verification_and_sharing",
-  "status": "修正済み・未確認",
-  "state": "savedata_windows_launcher_ready_awaiting_windows_execution",
-  "success": false,
+  "status": "完了",
+  "state": "savedata_windows_launcher_published_awaiting_windows_execution",
+  "success": true,
   "tests_passed": false,
   "capture_verified": false,
   "pixel_verified": false,
@@ -353,7 +353,9 @@
     "sha256": {
       "scripts/verify-savedata-v4-windows.ps1": "07a4e1eef5d370ebfa3c0543f8a7f0478de9f4fcd5f547a8fb17f02ffd9485b3",
       "scripts/verify-savedata-v4-windows.cmd": "034f06bb567b3036a09a61062c0e5587ad3427d6751b7d4e77fc656533f91a2b"
-    }
+    },
+    "published": true,
+    "published_commit": "fa82a9ae606a106cb2f214d30a75635f68385bfc"
   },
   "required_verification_items": {
     "new_v4_24p": {
@@ -467,22 +469,21 @@
   "launcher_path": "scripts/verify-savedata-v4-windows.cmd",
   "launcher_commit": "c59a0febbcfa1cef13086e9b467f2f1fa42041ee",
   "publication": {
-    "status": "blocked_runtime_network",
-    "task_complete": false,
-    "github_files_verified": false,
-    "local_files_committed": true,
-    "user_confirmed_approval_ui_visible": false,
-    "saved_network_policy_includes_github": true,
-    "runtime_sandbox_network_disabled": true,
-    "configured_proxy": "proxy:8080",
-    "proxy_dns_resolves": true,
-    "last_observed_proxy_connection": "Git exited128: Failed to connect to proxy port8080; could not connect to server",
-    "root_cause": "Current execution environment cannot reach its provided network proxy. Saved GitHub allowlisting does not establish runtime connectivity. Approval UI is not displayed; no repeated approval request will be made.",
-    "required_external_action": "Restore the current cloud execution environment network/proxy while preserving this checkout and local commits. Then publish the existing commits; do not recreate the launcher or rerun Unity.",
-    "environment_configuration_changed": false,
+    "status": "pushed",
+    "launcher_published_commit": "fa82a9ae606a106cb2f214d30a75635f68385bfc",
+    "remote_branch": "refs/heads/feat/daily-world-pass-20261016",
+    "remote_head_readback": "fa82a9ae606a106cb2f214d30a75635f68385bfc",
+    "github_files_verified": true,
+    "git_blobs": {
+      "scripts/verify-savedata-v4-windows.cmd": "b0909c2f48d675a7067ed53aed9fb0f8af1ae805",
+      "scripts/verify-savedata-v4-windows.ps1": "58e767456cbde3b3de5a448c9c93d1ebbf60b560"
+    },
+    "verification_method": "Successful normal push receipt plus git ls-remote matching the exact commit; both file blobs present in that content-addressed commit.",
+    "launcher_push_attempts_this_request": 1,
     "force_push": false,
-    "preservation_bundle": "/workspace/artifacts/savedata-v4-unpushed-20261106-b6f801db.bundle",
-    "bundle_base_commit": "8b6673ab46091569deefe2e1e298a3e399b38b14"
+    "route": "Approved require_escalated Git operation; no environment configuration changes",
+    "task_complete": true,
+    "task_complete_scope": "Windows launcher creation and GitHub publication only; native SaveData tests are pending"
   },
   "launcher_checks": {
     "syntax_errors": 0,
@@ -520,5 +521,25 @@
     "Mofumachi.Tests.PreferencesTests",
     "Mofumachi.Tests.CharacterPreferenceTests"
   ],
-  "next_user_action": "scripts/verify-savedata-v4-windows.cmdを1回ダブルクリック"
+  "next_user_action": "scripts/verify-savedata-v4-windows.cmdを1回ダブルクリック",
+  "historical_runtime_publication_blocker": {
+    "status": "blocked_runtime_network",
+    "task_complete": false,
+    "github_files_verified": false,
+    "local_files_committed": true,
+    "user_confirmed_approval_ui_visible": false,
+    "saved_network_policy_includes_github": true,
+    "runtime_sandbox_network_disabled": true,
+    "configured_proxy": "proxy:8080",
+    "proxy_dns_resolves": true,
+    "last_observed_proxy_connection": "Git exited128: Failed to connect to proxy port8080; could not connect to server",
+    "root_cause": "Current execution environment cannot reach its provided network proxy. Saved GitHub allowlisting does not establish runtime connectivity. Approval UI is not displayed; no repeated approval request will be made.",
+    "required_external_action": "Restore the current cloud execution environment network/proxy while preserving this checkout and local commits. Then publish the existing commits; do not recreate the launcher or rerun Unity.",
+    "environment_configuration_changed": false,
+    "force_push": false,
+    "preservation_bundle": "/workspace/artifacts/savedata-v4-unpushed-20261106-b6f801db.bundle",
+    "bundle_base_commit": "8b6673ab46091569deefe2e1e298a3e399b38b14"
+  },
+  "status_scope": "Windows専用ランチャー作成・公開のみ。SaveData第1工程の実検証は未確認。",
+  "success_scope": "Launcher prepared and published; not a SaveData migration test result"
 }

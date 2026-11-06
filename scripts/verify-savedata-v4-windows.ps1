@@ -94,6 +94,14 @@ function Assert-SaveCheckResults([string]$Path) {
     }
     return $Doc
 }
+function Set-SaveCheckCounts([xml]$Doc, $Result) {
+    if ($Doc.DocumentElement.Name -cne 'test-run') { throw 'Unexpected test result XML root.' }
+    foreach ($Pair in @(@('total_tests', 'total'), @('passed', 'passed'), @('failed', 'failed'), @('skipped', 'skipped'), @('inconclusive', 'inconclusive'))) {
+        $Count = 0
+        if (-not [int]::TryParse($Doc.DocumentElement.GetAttribute($Pair[1]), [ref]$Count) -or $Count -lt 0) { throw ('Invalid test result count: ' + $Pair[1]) }
+        $Result[$Pair[0]] = $Count
+    }
+}
 function Get-SaveCheckFirstError([string]$Run) {
     # Prefer a causal compiler/startup error over an exit-code or wrapper message.
     foreach ($Name in @('unity.log', 'stderr.log', 'stdout.log')) {
@@ -201,6 +209,9 @@ $Utf8 = New-Object Text.UTF8Encoding($true)
 $RecordPath = Join-Path $Run 'savedata-v4-result.json'
 $Record = [ordered]@{
     scope = 'savedata-v4-stage1-editmode-only'; gitRevision = $SaveCheckSource; save_version = 4
+    source_commit = $SaveCheckSource; requested_tests = @($SaveCheckFixtures | ForEach-Object { 'Mofumachi.Tests.' + $_ })
+    total_tests = $null; passed = $null; failed = $null; skipped = $null; inconclusive = $null
+    first_error = $null; validation_passed = $false
     source_repository = $Repo; project_path = $Project; unity_version = '6000.6.4f1'; build_target = 'Android'
     launcher_sha256 = (Get-FileHash -LiteralPath $PSCommandPath -Algorithm SHA256).Hash.ToLowerInvariant()
     requested_fixtures = $SaveCheckFixtures; expected_cases = $SaveCheckCounts
@@ -272,6 +283,9 @@ try {
     [IO.File]::WriteAllText((Join-Path $Run 'stdout.log'), $Stdout.Result, $Utf8)
     [IO.File]::WriteAllText((Join-Path $Run 'stderr.log'), $Stderr.Result, $Utf8)
     $Record.unity_exit_code = $Process.ExitCode
+    if (Test-Path -LiteralPath (Join-Path $Run 'results.xml') -PathType Leaf) {
+        Set-SaveCheckCounts (Read-SaveCheckXml (Join-Path $Run 'results.xml')) $Record
+    }
     if ($Process.ExitCode -ne 0) { throw ('Unity exit ' + $Process.ExitCode + '. No retry will be performed.') }
     $Results = Assert-SaveCheckResults (Join-Path $Run 'results.xml')
     # Unity configuration rewrites stay inside the isolated worktree and are recorded separately.
@@ -291,6 +305,7 @@ try {
         $Record.verification_items[$Key] = @{ result = 'Passed'; required_methods = $SaveCheckProofs[$Key]; cases = $Evidence }
     }
     $Record.tests_passed = $true
+    $Record.validation_passed = $true
     $Record.success = $true
     $Record.result = 'Passed'
     $Record.stage1_complete = $true
@@ -300,6 +315,7 @@ try {
     $Record.error = $_.Exception.Message
     $Record.result = $(if ($Record.unity_started) { 'Failed' } else { 'Blocked' })
     $Record.first_failure = $(if ($Record.unity_started) { Get-SaveCheckFirstError $Run } else { 'Launcher preflight; Unity not started: ' + $Record.error })
+    $Record.first_error = $Record.first_failure
     [IO.File]::WriteAllText((Join-Path $Run 'first-error.log'), $Record.first_failure, $Utf8)
 } finally {
     $Record | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $RecordPath -Encoding UTF8

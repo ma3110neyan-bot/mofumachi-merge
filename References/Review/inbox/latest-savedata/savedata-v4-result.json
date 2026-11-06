@@ -1,0 +1,201 @@
+﻿{
+    "scope":  "savedata-v4-stage1-editmode-only",
+    "gitRevision":  "2b81174496a5b4703bad0516645829893d4297b9",
+    "save_version":  4,
+    "source_commit":  "2b81174496a5b4703bad0516645829893d4297b9",
+    "requested_tests":  [
+                            "Mofumachi.Tests.SaveServiceTests",
+                            "Mofumachi.Tests.PreferencesTests",
+                            "Mofumachi.Tests.CharacterPreferenceTests"
+                        ],
+    "total":  63,
+    "total_tests":  63,
+    "passed":  63,
+    "failed":  0,
+    "skipped":  0,
+    "inconclusive":  0,
+    "first_error":  null,
+    "validation_passed":  true,
+    "source_repository":  "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge",
+    "project_path":  "C:\\Users\\User\\Desktop\\Mofumachi\\savedata-v4-check-20261106-152127-7cbd67ab",
+    "unity_version":  "6000.6.4f1",
+    "build_target":  "Android",
+    "launcher_sha256":  "6458708f1dc60afa7cf6450cf0979dad9a810a4604e34b6ff71096438b698134",
+    "requested_fixtures":  [
+                               "SaveServiceTests",
+                               "PreferencesTests",
+                               "CharacterPreferenceTests"
+                           ],
+    "expected_cases":  {
+                           "SaveServiceTests":  33,
+                           "PreferencesTests":  23,
+                           "CharacterPreferenceTests":  7
+                       },
+    "visual_guard_required":  false,
+    "guard_scope":  "not applicable to independent SaveData EditMode tests",
+    "guard_modified":  false,
+    "visual_lock_original_modified":  false,
+    "unity_started":  true,
+    "unity_exit_code":  0,
+    "test_invocations":  1,
+    "automatic_retries":  0,
+    "tests_passed":  true,
+    "source_unchanged":  true,
+    "success":  true,
+    "error":  "",
+    "result":  "Passed",
+    "stage1_complete":  true,
+    "stage2_safe":  false,
+    "stage2_candidate":  true,
+    "review_required":  true,
+    "first_failure":  null,
+    "verification_items":  {
+                               "new_v4_24p":  {
+                                                  "result":  "Passed",
+                                                  "required_methods":  [
+                                                                           "NewV4HasUnclaimedEconomyAnd24Points"
+                                                                       ],
+                                                  "cases":  [
+                                                                "Mofumachi.Tests.SaveServiceTests.NewV4HasUnclaimedEconomyAnd24Points"
+                                                            ]
+                                              },
+                               "v1_to_v4":  {
+                                                "result":  "Passed",
+                                                "required_methods":  [
+                                                                         "LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes(1)"
+                                                                     ],
+                                                "cases":  [
+                                                              "Mofumachi.Tests.SaveServiceTests.LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes(1)"
+                                                          ]
+                                            },
+                               "v2_to_v4":  {
+                                                "result":  "Passed",
+                                                "required_methods":  [
+                                                                         "LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes(2)"
+                                                                     ],
+                                                "cases":  [
+                                                              "Mofumachi.Tests.SaveServiceTests.LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes(2)"
+                                                          ]
+                                            },
+                               "v3_to_v4":  {
+                                                "result":  "Passed",
+                                                "required_methods":  [
+                                                                         "LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes(3)"
+                                                                     ],
+                                                "cases":  [
+                                                              "Mofumachi.Tests.SaveServiceTests.LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes(3)"
+                                                          ]
+                                            },
+                               "existing_fields_preserved":  {
+                                                                 "result":  "Passed",
+                                                                 "required_methods":  [
+                                                                                          "LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes"
+                                                                                      ],
+                                                                 "cases":  [
+                                                                               "Mofumachi.Tests.SaveServiceTests.LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes(1)",
+                                                                               "Mofumachi.Tests.SaveServiceTests.LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes(2)",
+                                                                               "Mofumachi.Tests.SaveServiceTests.LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes(3)"
+                                                                           ]
+                                                             },
+                               "initial_24p_once":  {
+                                                        "result":  "Passed",
+                                                        "required_methods":  [
+                                                                                 "LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes",
+                                                                                 "V4ZeroBalanceIsNotInitializedAgain"
+                                                                             ],
+                                                        "cases":  [
+                                                                      "Mofumachi.Tests.SaveServiceTests.LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes(1)",
+                                                                      "Mofumachi.Tests.SaveServiceTests.LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes(2)",
+                                                                      "Mofumachi.Tests.SaveServiceTests.LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes(3)",
+                                                                      "Mofumachi.Tests.SaveServiceTests.V4ZeroBalanceIsNotInitializedAgain"
+                                                                  ]
+                                                    },
+                               "v4_reload_no_regrant":  {
+                                                            "result":  "Passed",
+                                                            "required_methods":  [
+                                                                                     "V4ZeroBalanceIsNotInitializedAgain"
+                                                                                 ],
+                                                            "cases":  [
+                                                                          "Mofumachi.Tests.SaveServiceTests.V4ZeroBalanceIsNotInitializedAgain"
+                                                                      ]
+                                                        },
+                               "zero_balance_no_reinitialize":  {
+                                                                    "result":  "Passed",
+                                                                    "required_methods":  [
+                                                                                             "V4ZeroBalanceIsNotInitializedAgain"
+                                                                                         ],
+                                                                    "cases":  [
+                                                                                  "Mofumachi.Tests.SaveServiceTests.V4ZeroBalanceIsNotInitializedAgain"
+                                                                              ]
+                                                                },
+                               "pre_v4_raw_bytes_preserved":  {
+                                                                  "result":  "Passed",
+                                                                  "required_methods":  [
+                                                                                           "LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes"
+                                                                                       ],
+                                                                  "cases":  [
+                                                                                "Mofumachi.Tests.SaveServiceTests.LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes(1)",
+                                                                                "Mofumachi.Tests.SaveServiceTests.LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes(2)",
+                                                                                "Mofumachi.Tests.SaveServiceTests.LegacyDiskMigrationKeepsEveryFieldAndOriginalBytes(3)"
+                                                                            ]
+                                                              },
+                               "existing_pre_v4_not_overwritten":  {
+                                                                       "result":  "Passed",
+                                                                       "required_methods":  [
+                                                                                                "ExistingPreV4IsNeverOverwrittenOrRetried"
+                                                                                            ],
+                                                                       "cases":  [
+                                                                                     "Mofumachi.Tests.SaveServiceTests.ExistingPreV4IsNeverOverwrittenOrRetried(False)",
+                                                                                     "Mofumachi.Tests.SaveServiceTests.ExistingPreV4IsNeverOverwrittenOrRetried(True)"
+                                                                                 ]
+                                                                   },
+                               "invalid_v4_not_repaired":  {
+                                                               "result":  "Passed",
+                                                               "required_methods":  [
+                                                                                        "InvalidV4BlocksEvenWhenHealthyBackupExists",
+                                                                                        "MissingRequiredV4EconomyMemberCannotFallbackOrRepair"
+                                                                                    ],
+                                                               "cases":  [
+                                                                             "Mofumachi.Tests.SaveServiceTests.InvalidV4BlocksEvenWhenHealthyBackupExists(\"missing\")",
+                                                                             "Mofumachi.Tests.SaveServiceTests.InvalidV4BlocksEvenWhenHealthyBackupExists(\"uninitialized\")",
+                                                                             "Mofumachi.Tests.SaveServiceTests.InvalidV4BlocksEvenWhenHealthyBackupExists(\"range\")",
+                                                                             "Mofumachi.Tests.SaveServiceTests.InvalidV4BlocksEvenWhenHealthyBackupExists(\"walks\")",
+                                                                             "Mofumachi.Tests.SaveServiceTests.MissingRequiredV4EconomyMemberCannotFallbackOrRepair"
+                                                                         ]
+                                                           },
+                               "unsupported_version_blocked":  {
+                                                                   "result":  "Passed",
+                                                                   "required_methods":  [
+                                                                                            "UnknownVersionIsNotLoaded"
+                                                                                        ],
+                                                                   "cases":  [
+                                                                                 "Mofumachi.Tests.SaveServiceTests.UnknownVersionIsNotLoaded"
+                                                                             ]
+                                                               },
+                               "migration_failure_no_new_save":  {
+                                                                     "result":  "Passed",
+                                                                     "required_methods":  [
+                                                                                              "FailedCommitKeepsLegacySourceProtectionAndCandidate",
+                                                                                              "ProtectionCreationFailureDoesNotTouchLegacyPrimary"
+                                                                                          ],
+                                                                     "cases":  [
+                                                                                   "Mofumachi.Tests.SaveServiceTests.FailedCommitKeepsLegacySourceProtectionAndCandidate",
+                                                                                   "Mofumachi.Tests.SaveServiceTests.ProtectionCreationFailureDoesNotTouchLegacyPrimary"
+                                                                               ]
+                                                                 },
+                               "copyfrom_and_rollback":  {
+                                                             "result":  "Passed",
+                                                             "required_methods":  [
+                                                                                      "CopyAndFailedMutationRestoreCompleteEconomyWithoutAliasing"
+                                                                                  ],
+                                                             "cases":  [
+                                                                           "Mofumachi.Tests.SaveServiceTests.CopyAndFailedMutationRestoreCompleteEconomyWithoutAliasing"
+                                                                       ]
+                                                         }
+                           },
+    "playmode_executed":  false,
+    "capture_verified":  false,
+    "build_generated":  false,
+    "pixel_verified":  false,
+    "unity_configuration_changes":  "M Assets/Settings/UniversalRenderPipelineGlobalSettings.asset\n M ProjectSettings/EditorBuildSettings.asset\n M ProjectSettings/Packages/com.unity.learn.iet-framework/Settings.json\n M ProjectSettings/ProjectAuditorSettings.asset\n M ProjectSettings/ShaderGraphSettings.asset"
+}

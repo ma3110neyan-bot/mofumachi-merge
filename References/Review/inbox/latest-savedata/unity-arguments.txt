@@ -1,0 +1,17 @@
+﻿-batchmode
+-nographics
+-projectPath
+C:\Users\User\Desktop\Mofumachi\savedata-v4-check-20261106-152127-7cbd67ab
+-buildTarget
+Android
+-runTests
+-testPlatform
+EditMode
+-assemblyNames
+Mofumachi.EditModeTests
+-testFilter
+^Mofumachi\.Tests\.SaveServiceTests\..*;^Mofumachi\.Tests\.PreferencesTests\..*;^Mofumachi\.Tests\.CharacterPreferenceTests\..*
+-testResults
+C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Diagnostics\savedata-v4-20261106-152127-7cbd67ab\results.xml
+-logFile
+C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Diagnostics\savedata-v4-20261106-152127-7cbd67ab\unity.log

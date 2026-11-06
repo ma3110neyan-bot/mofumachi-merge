@@ -96,7 +96,7 @@ function Assert-SaveCheckResults([string]$Path) {
 }
 function Set-SaveCheckCounts([xml]$Doc, $Result) {
     if ($Doc.DocumentElement.Name -cne 'test-run') { throw 'Unexpected test result XML root.' }
-    foreach ($Pair in @(@('total_tests', 'total'), @('passed', 'passed'), @('failed', 'failed'), @('skipped', 'skipped'), @('inconclusive', 'inconclusive'))) {
+    foreach ($Pair in @(@('total', 'total'), @('total_tests', 'total'), @('passed', 'passed'), @('failed', 'failed'), @('skipped', 'skipped'), @('inconclusive', 'inconclusive'))) {
         $Count = 0
         if (-not [int]::TryParse($Doc.DocumentElement.GetAttribute($Pair[1]), [ref]$Count) -or $Count -lt 0) { throw ('Invalid test result count: ' + $Pair[1]) }
         $Result[$Pair[0]] = $Count
@@ -210,7 +210,7 @@ $RecordPath = Join-Path $Run 'savedata-v4-result.json'
 $Record = [ordered]@{
     scope = 'savedata-v4-stage1-editmode-only'; gitRevision = $SaveCheckSource; save_version = 4
     source_commit = $SaveCheckSource; requested_tests = @($SaveCheckFixtures | ForEach-Object { 'Mofumachi.Tests.' + $_ })
-    total_tests = $null; passed = $null; failed = $null; skipped = $null; inconclusive = $null
+    total = $null; total_tests = $null; passed = $null; failed = $null; skipped = $null; inconclusive = $null
     first_error = $null; validation_passed = $false
     source_repository = $Repo; project_path = $Project; unity_version = '6000.6.4f1'; build_target = 'Android'
     launcher_sha256 = (Get-FileHash -LiteralPath $PSCommandPath -Algorithm SHA256).Hash.ToLowerInvariant()

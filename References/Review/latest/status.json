@@ -1,19 +1,19 @@
 {
   "branch": "feat/daily-world-pass-20261016",
   "updated_date_jst": "2026-11-07",
-  "scope": "stage6_burst_disabled_windows_launcher_only",
-  "state": "修正済み・未確認",
-  "status": "stage6_burst_disabled_variant_ready_windows_execution_pending",
-  "commit": "cceb6b5676d639a44f2763249715eace30777f49",
-  "commit_scope": "Reviewed and pushed revised launcher commit; product implementation remains separately pinned; review-document commit is distinct",
+  "scope": "stage6_existing_burst_disabled_windows_native_result_review",
+  "state": "関連テスト合格",
+  "status": "stage6_complete_windows_85_of_85_passed",
+  "commit": "b39fa214343f3f39202f9a1d9a5850deb0449993",
+  "commit_scope": "Reviewed existing Windows result sharing commit; distinct from pinned product, launcher and review-document commits",
   "implementation_commit": "68f0e5c479716029b31ff3e92da47335da25f957",
   "launcher_commit": "cceb6b5676d639a44f2763249715eace30777f49",
   "implementation_pushed": true,
   "launcher_pushed": true,
-  "publication_head": "cceb6b5676d639a44f2763249715eace30777f49",
-  "success": false,
-  "success_scope": "Launcher fix published; revised Windows native85 validation pending, stage6 not complete",
-  "tests_passed": false,
+  "publication_head": "b39fa214343f3f39202f9a1d9a5850deb0449993",
+  "success": true,
+  "success_scope": "Stage6 direct Windows EditMode85 validation only; no whole-game or Pixel acceptance",
+  "tests_passed": true,
   "capture_verified": false,
   "pixel_verified": false,
   "formal_fixed": false,
@@ -27,10 +27,8 @@
     "existing_evidence_commit_preserved": "c0780638836240827dee8d1a145fa6fec52c6ee1"
   },
   "changed_files": [
-    "scripts/verify-quest-town-level-windows.ps1",
     "References/Review/latest/summary.md",
-    "References/Review/latest/status.json",
-    "References/Review/latest/error.log"
+    "References/Review/latest/status.json"
   ],
   "quest_catalog": {
     "total": 12,
@@ -312,39 +310,29 @@
     "fixture": "Mofumachi.Tests.QuestTownLevelTests",
     "platform": "EditMode",
     "expected_cases": 85,
-    "result": "NotRun_burst_disabled_variant",
-    "total": null,
-    "passed": null,
-    "failed": null,
-    "skipped": null,
-    "inconclusive": null,
+    "result": "Passed",
+    "total": 85,
+    "passed": 85,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0,
     "first_native_error": null,
     "unity_starts_this_request": 0,
     "native_runs_this_request": 0,
-    "automatic_retries": 0
-  },
-  "static_checks": {
-    "powershell_parser": "Passed",
-    "utf8_bom": "Present; Windows PowerShell5.1 compatible encoding retained",
-    "powershell51_compatibility": "Static syntax/API review only; PowerShell7 used for isolated helper checks, Windows native pending",
-    "argument_scope": "Exact --burst-disable-compilation once; same pinned product, Android/EditMode fixture85, single process-start call",
-    "attempt_receipt_isolation": "Product SHA plus burst-disabled-v1; old receipt never read/modified/deleted",
-    "synthetic_git_publication_checks": {
-      "total": 3,
-      "passed": 3,
-      "failed": 0,
-      "real_native_evidence": false,
-      "cases": [
-        "new Passed preserves prior raw evidence and earlier archives",
-        "new Failed clears stale previous XML",
-        "rejected push stops after one attempt; original HEAD/index/worktree preserved"
-      ]
-    },
-    "harness_only_setup_correction": "First static helper invocation used nonexistent C: drive on Linux; stopped before publisher/Unity; corrected only temporary harness to /tmp, then checks passed. Not a Windows/game test failure.",
-    "fresh_read_only_review_count": 1,
-    "critical_findings": 0,
-    "important_findings": 0,
-    "deferred_minor": "If remote already contains this same source_run but local successful share-result.json was lost, repeated sharing safely stops on existing destination instead of recovering the receipt; Unity remains suppressed."
+    "automatic_retries": 0,
+    "source_commit": "68f0e5c479716029b31ff3e92da47335da25f957",
+    "validation_id": "burst-disabled-v1",
+    "evidence_commit": "b39fa214343f3f39202f9a1d9a5850deb0449993",
+    "run": "quest-town-level-burst-disabled-v1-20261107-134513-1c0ec2fb",
+    "unity_invocations_in_existing_windows_run": 1,
+    "unity_exit_code": 0,
+    "validation_passed": true,
+    "source_unchanged": true,
+    "source_revision_file_matches": true,
+    "xml_case_count": 85,
+    "xml_unique_case_count": 85,
+    "all_cases_in_requested_fixture": true,
+    "first_error": null
   },
   "unchanged": [
     "normal talk4",
@@ -373,7 +361,7 @@
   "ps1_path": "scripts/verify-quest-town-level-windows.ps1",
   "target_implementation_commit": "68f0e5c479716029b31ff3e92da47335da25f957",
   "unity_version": "6000.6.4f1",
-  "windows_execution_pending": true,
+  "windows_execution_pending": false,
   "unity_start_limit": 1,
   "automatic_retries": 0,
   "windows_launcher": {
@@ -416,12 +404,16 @@
     "failure": "Stop once; preserve originals and share-result.json",
     "repeated_cmd": "No Unity restart; saved terminal-result sharing only; already-shared skips push",
     "native_result_shared_yet": true,
-    "native_result_scope": "Original pre-fix startup-crash run only; revised variant not executed",
+    "native_result_scope": "Verified Burst-disabled Windows Passed85 run",
     "previous_evidence_archived_on_new_publication": true,
     "archive_path": "References/Review/inbox/latest-quest-town-level/previous-runs/<previous-run-name>/",
     "archive_raw_hash_verified": true,
     "original_diagnostics_modified": false,
-    "stale_previous_xml_or_error_not_reused": true
+    "stale_previous_xml_or_error_not_reused": true,
+    "previous_evidence_archive_verified": true,
+    "prior_failed_run_archive": "References/Review/inbox/latest-quest-town-level/previous-runs/quest-town-level-20261107-131556-0df6b34b/",
+    "new_run_name": "quest-town-level-burst-disabled-v1-20261107-134513-1c0ec2fb",
+    "new_evidence_commit": "b39fa214343f3f39202f9a1d9a5850deb0449993"
   },
   "guard_changed": false,
   "guard_disabled": false,
@@ -431,29 +423,22 @@
     "native_test_runs": 0,
     "automatic_retries": 0,
     "fetch_count": 1,
-    "fast_forwarded_only_existing_crash_evidence_commit": "7a4cbeb109083d637c6c01315f38f91f6fe7a934",
+    "read_existing_windows_results_only": true,
+    "fast_forwarded_only_existing_result_sharing_commit": "b39fa214343f3f39202f9a1d9a5850deb0449993",
+    "game_code_changed": false,
+    "test_code_changed": false,
+    "launcher_changed_this_request": false,
     "original_evidence_modified": false,
-    "original_evidence_files_sha_and_length_verified": 5,
-    "game_or_test_reimplementation": false,
-    "stage7_implemented": false,
-    "normal_launcher_pushes": 1
+    "stage7_implemented": false
   },
-  "first_native_failure": {
-    "run": "quest-town-level-20261107-131556-0df6b34b",
-    "kind": "Unity Editor startup crash",
-    "log": "References/Review/inbox/latest-quest-town-level/unity.log",
-    "first_crash_line": 7933,
-    "product_file": null,
-    "product_line": null,
-    "product_tests_executed": false
-  },
-  "error_log_scope": "Only original stage6 startup-crash run; minimal exact log excerpts, not old font errors or wrapper throw",
-  "stage6_complete": false,
+  "first_native_failure": null,
+  "error_log_scope": "Historical original startup-crash excerpt only, unchanged on success; its old source_log now resolves to References/Review/inbox/latest-quest-town-level/previous-runs/quest-town-level-20261107-131556-0df6b34b/unity.log. New run has no first_error.",
+  "stage6_complete": true,
   "next_stage": "第7工程 進行UI表示＋全体結合確認",
-  "next_stage_safe": false,
-  "next_stage_verdict": "NO",
-  "next_stage_reason": "Burst-disabled revision has not yet run the 85-case Windows native fixture; no new result to validate",
-  "next_action": "最新版PS1を取得後、scripts/verify-quest-town-level-windows.cmd を1回ダブルクリック。修正版専用attemptでUnity1回、自動再試行0、同操作で共有。",
+  "next_stage_safe": true,
+  "next_stage_verdict": "YES",
+  "next_stage_reason": "Existing Burst-disabled Windows run meets all85 pass/source/exit/once/no-retry requirements; prior crash evidence preserved; no Guard or Visual changes",
+  "next_action": "第6工程を完了として停止。第7工程「進行UI表示＋全体結合確認」は別指示を受けてから実施。",
   "previous_launcher_commit": "5cbe79068ba0c6096b1d806acc3cb530033f6524",
   "implementation_changed_files": [
     "Assets/Mofumachi/Core/QuestCatalog.cs",
@@ -530,7 +515,10 @@
     "classification": "Unity Editor startup crash, not a failed product test assertion",
     "causal_limit": "Log sequence is Crash then memory-resource/LoadModule then Burst/gRPC message; last gRPC error is not proven the primary crash cause",
     "mitigation": "User-authorized disable of unnecessary Burst compilation for pure EditMode tests; effectiveness unverified until new Windows run",
-    "raw_original_files_preserved": true
+    "raw_original_files_preserved": true,
+    "archive_path": "References/Review/inbox/latest-quest-town-level/previous-runs/quest-town-level-20261107-131556-0df6b34b/",
+    "superseded_by_verified_run": "quest-town-level-burst-disabled-v1-20261107-134513-1c0ec2fb",
+    "status": "Historical startup crash; original raw bytes retained, not rewritten as success"
   },
   "required_pass_conditions": {
     "source_commit": "68f0e5c479716029b31ff3e92da47335da25f957",
@@ -546,5 +534,52 @@
     "source_unchanged": true,
     "validation_passed": true,
     "first_error": null
+  },
+  "evidence_commit": "b39fa214343f3f39202f9a1d9a5850deb0449993",
+  "verified_run": "quest-town-level-burst-disabled-v1-20261107-134513-1c0ec2fb",
+  "launcher_static_checks": {
+    "powershell_parser": "Passed",
+    "utf8_bom": "Present; Windows PowerShell5.1 compatible encoding retained",
+    "powershell51_compatibility": "Static syntax/API review only; PowerShell7 used for isolated helper checks, Windows native pending",
+    "argument_scope": "Exact --burst-disable-compilation once; same pinned product, Android/EditMode fixture85, single process-start call",
+    "attempt_receipt_isolation": "Product SHA plus burst-disabled-v1; old receipt never read/modified/deleted",
+    "synthetic_git_publication_checks": {
+      "total": 3,
+      "passed": 3,
+      "failed": 0,
+      "real_native_evidence": false,
+      "cases": [
+        "new Passed preserves prior raw evidence and earlier archives",
+        "new Failed clears stale previous XML",
+        "rejected push stops after one attempt; original HEAD/index/worktree preserved"
+      ]
+    },
+    "harness_only_setup_correction": "First static helper invocation used nonexistent C: drive on Linux; stopped before publisher/Unity; corrected only temporary harness to /tmp, then checks passed. Not a Windows/game test failure.",
+    "fresh_read_only_review_count": 1,
+    "critical_findings": 0,
+    "important_findings": 0,
+    "deferred_minor": "If remote already contains this same source_run but local successful share-result.json was lost, repeated sharing safely stops on existing destination instead of recovering the receipt; Unity remains suppressed."
+  },
+  "evidence_review": {
+    "json_and_xml_counts_match": true,
+    "xml_case_uniqueness_and_fixture_match": true,
+    "xml_inconclusive": 0,
+    "manifest_file_sha_and_byte_lengths_verified": 5,
+    "source_revision_matches_product": true,
+    "burst_flag_exactly_once_in_saved_arguments": true,
+    "first_error_log_present_in_new_root": false,
+    "known_critical_editor_compiler_burst_error_signatures_found": false,
+    "prior_crash_archive_raw_files_verified": 5,
+    "product_packages_projectsettings_visual_lock_diff_from_fixed_commit": false,
+    "test_reexecution": false,
+    "new_unity_invocations": 0
+  },
+  "stage7_decision": {
+    "safe": true,
+    "basis": "Independent review of raw Windows85 results performed after launcher terminal receipt",
+    "raw_result_stage7_safe": false,
+    "raw_result_review_required": true,
+    "raw_receipt_modified": false,
+    "explanation": "Launcher deliberately leaves stage7_safe=false/review_required=true until review; approved only here in latest review metadata, original native receipt remains byte-identical"
   }
 }

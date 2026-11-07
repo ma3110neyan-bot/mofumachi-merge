@@ -1,58 +1,61 @@
-# 第6工程：Burst無効化版ランチャー公開／Windows実行待ち
+# 第6工程：Windows実Unity 85/85 Passed／完了
 
 - branch：`feat/daily-world-pass-20261016`
-- 今回の確認対象・公開済みランチャーcommit：`cceb6b5676d639a44f2763249715eace30777f49`
-- 固定するゲーム実装commit：`68f0e5c479716029b31ff3e92da47335da25f957`（再実装なし）
-- 状態：**修正済み・未確認**。ランチャーの準備は完了、修正版のWindows実Unity確認は未実施。
-- **第6工程 complete=false**。
+- 固定ゲーム実装commit：`68f0e5c479716029b31ff3e92da47335da25f957`
+- Burst無効化版ランチャーcommit：`cceb6b5676d639a44f2763249715eace30777f49`
+- 今回の確認対象・既存結果共有commit：`b39fa214343f3f39202f9a1d9a5850deb0449993`
+- 状態：**関連テスト合格**。**第6工程 complete=true**。
+- 今回の目的：既に実行された修正版Windows結果だけを照合し、第6工程の合否を確定すること。
 
-## 目的と今回の変更
+## 既存Windows結果
 
-変更した実行ファイルは `scripts/verify-quest-town-level-windows.ps1` のみ。Unity引数へ正式な `--burst-disable-compilation` を1個追加し、純粋なEditModeテストで不要なBurstコンパイルを起動させない。
+対象run：`quest-town-level-burst-disabled-v1-20261107-134513-1c0ec2fb`。
 
-修正版の識別子は **`burst-disabled-v1`**。ゲームcommit＋識別子の新しい `.attempted` をCreateNewで記録し、旧receipt／旧Diagnosticsは変更・削除しない。runと隔離worktree名も識別子で分離。修正版のUnity起動は最大1回、自動再試行0回。新receiptがある場合は保存済み結果の共有だけとなり、Unityを再起動しない。
+`References/Review/inbox/latest-quest-town-level/` のJSON／results.xml／source-revision／run-info／unity-arguments／unity.logを照合した。新runのfirst-error.logは存在せず、JSONのfirst_error／runner_errorはnull。
 
-既存CMD、Core、Presentation、GameState、QuestCatalog、TownGrowth、85テストの内容と件数、前工程ランチャー、Unity版、メモリ設定、packages、Guard／Visual Lockはすべて無変更。UI／フォント／全件／PlayMode／APK／Pixel／Visual撮影なし。
+| 確認項目 | 確認結果 |
+| --- | --- |
+| source commit | `68f0e5c479716029b31ff3e92da47335da25f957` と一致 |
+| Unity | Windows実Unity `6000.6.4f1` |
+| 実行範囲 | Android target／EditMode／`Mofumachi.Tests.QuestTownLevelTests` のみ |
+| 修正版識別子 | `burst-disabled-v1` |
+| Burst引数 | 保存済み起動引数に `--burst-disable-compilation` が1個 |
+| Total / Passed | **85 / 85** |
+| Failed / Skipped / Inconclusive | **0 / 0 / 0** |
+| XMLケース | 85件すべて指定fixture、名前重複なし、全件Passed |
+| Unity exit code | **0** |
+| このWindows runのUnity起動 | **1回** |
+| 自動再試行 | **0回** |
+| source_unchanged | **true** |
+| validation_passed | **true** |
+| first_error | **null** |
 
-## 使用した既存失敗runだけの確認
+manifest記載の5ファイルすべての生バイト長・SHA256が一致。source-revision.txtも固定製品commitと一致する。新ログに以前のCrash／Burst起動失敗やCSコンパイルエラー等の重要シグネチャを検出していない。Burst無効化版でこのrunが完走した事実を記録し、以前のgRPC切断そのものが一次原因だったと新たに断定しない。
 
-対象：`quest-town-level-20261107-131556-0df6b34b`、共有commit `7a4cbeb109083d637c6c01315f38f91f6fe7a934`。同一runのJSON、manifest、source、Unity引数、ログ、first-errorを読み取り。manifestの生バイト長とSHA256は5ファイル一致、原本は無変更。
+## 旧失敗証跡の保持
 
-- source commit一致、Unity起動1回、exit **-2147483645**、自動再試行0。
-- results.xml未生成、**85ケース未実行**。Total／Passed／Failed等はnullであり、Failed85やPassed0という実テスト集計に置換しない。
-- unity.log **7933行目 `Crash!!!`**、7989行目Windowsのメモリリソース不足メッセージ、8404行目 `Unexpected error in Burst compilation` とgRPC切断を確認。
-- **Unity Editor起動中クラッシュで、製品テストのassert失敗ではない**。製品ファイル／行番号は該当なし。
-- 自動抽出first-errorは未確定の文面のまま保持。ログ上はCrash→LoadModule／メモリメッセージ→Burst/gRPCの順であり、末尾のgRPC切断自体をクラッシュの一次原因と断定しない。Burst無効化は今回指定された検証入口の修正で、解消したかは次のWindows実行で確認する。
-- 旧JSONの `source_unchanged=false` は後段チェック未到達のままの値。製品コードが変わった証拠と扱わない。
+旧run `quest-town-level-20261107-131556-0df6b34b` は **`References/Review/inbox/latest-quest-town-level/previous-runs/quest-town-level-20261107-131556-0df6b34b/`** に保存されている。旧JSON・source・first-error・Unity引数・Unity logの5原本の長さ／SHA256が保存前の記録と一致した。
 
-最小の実ログ抜粋は同じrun名を明記して `error.log` に更新。旧run原本のJSONやfirst-errorを書き換えてはいない。
+旧runのexit -2147483645／XML未生成／85件未実行という失敗記録は変更していない。旧runのfirst-errorを新runへ混在させていない。`latest/error.log` はこの旧失敗の履歴として無変更で保持し、その旧source_logの参照先は上記archiveのunity.logとなる。
 
-## 証跡共有の保持
+## 今回の作業と範囲
 
-新runの自動共有先は従来どおり **`References/Review/inbox/latest-quest-town-level/`**。次の共有時、現在の旧run原本を `previous-runs/quest-town-level-20261107-131556-0df6b34b/` へ生バイトで保存・SHA確認してから、新runをlatest直下へ配置する。既存archiveも維持し、古いXML／エラーを新runへ混在させない。
+既存の公開ランチャーと新結果を確認し、共有commitをfast-forwardで取り込み、**summary.md／status.jsonだけ**を更新した。
 
-共有はremote先端を親とした別worktreeでこのinboxだけcommit、通常push1回。元作業ツリー・index・未pushコミットを混ぜず、push失敗は再試行せず結果をローカルへ保持。
+ゲーム再実装なし、テスト内容・85件の変更なし、ランチャー再変更なし。固定実装commitからのAssets／Packages／ProjectSettings／Visual Lock差分なし。Core／Presentation／TownActor／Guard／フォント／メモリ設定／前工程ランチャー等は変更していない。
 
-## 今回の確認範囲
+**このCodex確認作業ではUnity起動0回、テスト実行0回、自動再試行0回、Fetch1回**。利用したのは既存Windows新runの結果のみ。全件／PlayMode／APK／Pixel／Visual撮影は行っていない。
 
-PowerShell構文・UTF8 BOM・5.1で使用できる構文/APIの静的確認、引数1個追加／fixture固定／1回起動箇所／receipt分離を確認。一時Git環境の合成3条件（新Passed時の旧証跡保存、新Failed時の旧XML除外、push拒否1回停止）は**3/3成功**。これはUnityの85ケース実行証跡ではない。
+## 判定と次の作業
 
-一時確認ハーネスの最初の呼出しだけ、LinuxにC:ドライブがないためJoin-Pathで停止。Unity／共有処理の前であり、ハーネスのパスだけ/tmpへ修正して確認した。ゲームコード・Windowsランチャーの不具合やUnity再試行には数えない。
+**第6工程 complete=true**。
 
-独立した読み取りレビュー1回、Critical0／Important0。軽微な留保：push成功後のローカル共有成功receiptが失われた場合、同一runの再共有は既存ファイル検出で安全停止する。Unityは再起動されず証跡も保持されるが、receiptの自動復旧はしない。今回この追加改善は行わない。
+**第7工程「進行UI表示＋全体結合確認」へ進んで安全か：YES**。
 
-**今回のUnity起動0回・実EditMode実行0回・自動再試行0回**。Windows環境でのみ修正版を実行する。クラウドのライセンス／描画環境再調査は行っていない。
+理由：指定製品・fixtureのWindows実Unity85ケースが全件Passedで、exit0／skip・inconclusive0／source不変／起動1回・再試行0を満たし、旧証跡も保持されているため。
 
-## Windowsでの次の操作と判定
+原本JSONのstage7_safe=false／review_required=trueは、ランチャーがレビュー待ちとして出力する既定値。その原本を変更せず、今回の照合後の判定だけをlatest/status.jsonへYESとして記録した。
 
-最新版PS1を取得したうえで、既存 **`scripts/verify-quest-town-level-windows.cmd` を1回ダブルクリック**。
+この合格は第6工程の直接関連EditMode範囲。ゲーム全体結合・UI表示・APK・Pixel・リリース合格とは扱わない。**第7工程へ自動で進まず、ここで停止する。**
 
-Unity6000.6.4f1、Android target、`Mofumachi.Tests.QuestTownLevelTests` のEditMode85ケースだけ。製品commitは上記の固定値。新runは `Builds/Diagnostics/quest-town-level-burst-disabled-v1-<timestamp>-<id>/`。新receiptは `quest-town-level-68f0e5c479716029b31ff3e92da47335da25f957-burst-disabled-v1.attempted`。旧run／旧receiptを消して実行しない。
-
-合格条件：Total85／Passed85／Failed0／Skipped0／Inconclusive0／exit0／Unity起動1／自動再試行0／source_unchanged=true／validation_passed=true／first_error=null。XMLの各ケースのfixture・重複なしも既存判定のまま。失敗時は最初のエラーと新runを保持して停止する。
-
-**第7工程「進行UI表示＋全体結合確認」へ進んで安全か：NO**。
-
-主要ブロッカーは**Burst無効化版でのWindows実Unity85ケース合格が未確認**の1点。第7工程へ進まない。
-
-summary/statusのcommitは今回のPS1作業commitを表し、固定する製品commitや共有文書自身のcommitとは区別する。
+summary/statusのcommitは今回確認した既存Windows結果共有commitを示し、ゲーム実装・ランチャー・共有文書自身のcommitとは区別する。

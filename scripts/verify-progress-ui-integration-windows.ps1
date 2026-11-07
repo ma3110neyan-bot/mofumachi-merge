@@ -3,7 +3,7 @@
 param()
 Set-StrictMode -Version 2.0
 $ErrorActionPreference = 'Stop'
-$ProductCommit = 'b34b9386cc4f2d5315c4c3e2d37476f71b612da7'
+$ProductCommit = '46f65b24d58531d5934035fbe4cdb4d5b00104a6'
 $Fixture = 'Mofumachi.Tests.ProgressUiIntegrationTests'
 $ValidationId = 'progress-ui-v1'
 $FixtureCounts = [ordered]@{

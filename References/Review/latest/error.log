@@ -1,18 +1,16 @@
-Scope: SaveData v4 stage1 source-safety check (not Unity/test execution)
-Implementation: 2b81174496a5b4703bad0516645829893d4297b9
-Guard: Assert-OriginalBaseForCandidate -> Get-BasePolishPatch
-Attempts: 1; retries: 0
-First root error:
-Display differs from the authorized correction candidate.
+Stage6 original startup-crash evidence only
+run: quest-town-level-20261107-131556-0df6b34b
+source_commit: 68f0e5c479716029b31ff3e92da47335da25f957
+source_log: References/Review/inbox/latest-quest-town-level/unity.log
+classification: Unity Editor startup crash before test XML; not a product assertion failure.
+Causal limit: log order is Crash -> LoadModule/memory resource error -> Burst/gRPC disconnect. The final Burst message is not established as the primary crash cause.
+Revised Burst-disabled Windows run: not executed yet. Original raw evidence unchanged.
 
-Guard source: scripts/visual-lock.ps1:89
-Candidate record: References/VisualLock/noah-final-rig-candidate-2026-10-29.json
-First mismatched input: Assets/Mofumachi/Presentation/TownActor.cs
-Recorded expected SHA256: 10dc0c0a8f041bc511ef13c0d89bb773ef6e8a0fc564f39325e20a8a0c68c57e
-Current candidate SHA256: 1591e855b186f5e232600f24cc7ab72c70523eee6975b2b62d0002632e8905b2
-Before this task (0a448d2d3a084c7c581122536ebe1d7533a98b2d) SHA256: 1591e855b186f5e232600f24cc7ab72c70523eee6975b2b62d0002632e8905b2
-The input was already mismatched before this task and was not edited here.
-The guard did not reach validation of the SaveData changes.
-No guard/baseline was modified; no test or Unity execution followed.
-Minimum next action: identify the guard entry/evidence for the current approved
-candidate and the bounded SaveData stage; preserve the actor and lock originals.
+[unity.log:7933]
+Crash!!!
+
+[unity.log:7989]
+  ERROR: LoadModule, GetLastError: 'このコマンドを処理するにはメモリ リソースが足りません。
+
+[unity.log:8404]
+Unexpected error in Burst compilation: System.AggregateException: One or more errors occurred. (Status(StatusCode="Unavailable", Detail="Error reading next message. IOException: The request was aborted. IOException: The response ended prematurely, with at least 9 additional bytes expected.", DebugException="System.IO.IOException: The request was aborted.")) ---> Grpc.Core.RpcException: Status(StatusCode="Unavailable", Detail="Error reading next message. IOException: The request was aborted. IOException: The response ended prematurely, with at least 9 additional bytes expected.", DebugException="System.IO.IOException: The request was aborted.") ---> System.IO.IOException: The request was aborted. ---> System.IO.IOException: The response ended prematurely, with at least 9 additional bytes expected.

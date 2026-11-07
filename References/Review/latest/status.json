@@ -1,18 +1,18 @@
 {
   "branch": "feat/daily-world-pass-20261016",
   "updated_date_jst": "2026-11-07",
-  "scope": "stage6_twelve_quests_and_monotonic_dual_condition_town_level",
+  "scope": "stage6_burst_disabled_windows_launcher_only",
   "state": "修正済み・未確認",
-  "status": "stage6_implemented_windows_execution_pending",
-  "commit": "68f0e5c479716029b31ff3e92da47335da25f957",
-  "commit_scope": "Stage6 implementation and direct test source; distinct from launcher/review commits",
+  "status": "stage6_burst_disabled_variant_ready_windows_execution_pending",
+  "commit": "cceb6b5676d639a44f2763249715eace30777f49",
+  "commit_scope": "Reviewed and pushed revised launcher commit; product implementation remains separately pinned; review-document commit is distinct",
   "implementation_commit": "68f0e5c479716029b31ff3e92da47335da25f957",
-  "launcher_commit": "5cbe79068ba0c6096b1d806acc3cb530033f6524",
+  "launcher_commit": "cceb6b5676d639a44f2763249715eace30777f49",
   "implementation_pushed": true,
   "launcher_pushed": true,
-  "publication_head": "0b74d1d684f50df498197c53776d23076a19264f",
+  "publication_head": "cceb6b5676d639a44f2763249715eace30777f49",
   "success": false,
-  "success_scope": "Stage6 native validation pending; source and launcher published",
+  "success_scope": "Launcher fix published; revised Windows native85 validation pending, stage6 not complete",
   "tests_passed": false,
   "capture_verified": false,
   "pixel_verified": false,
@@ -27,19 +27,10 @@
     "existing_evidence_commit_preserved": "c0780638836240827dee8d1a145fa6fec52c6ee1"
   },
   "changed_files": [
-    "Assets/Mofumachi/Core/QuestCatalog.cs",
-    "Assets/Mofumachi/Core/QuestManager.cs",
-    "Assets/Mofumachi/Core/ChapterProgress.cs",
-    "Assets/Mofumachi/Core/TownGrowthService.cs",
-    "Assets/Mofumachi/Core/GameState.cs",
-    "Assets/Mofumachi/Core/GameStateManager.cs",
-    "Assets/Mofumachi/Presentation/UIFlowController.cs",
-    "Assets/Mofumachi/Tests/EditMode/QuestTownLevelTests.cs",
-    "Assets/Mofumachi/Tests/EditMode/QuestTownLevelTests.cs.meta",
-    "scripts/verify-quest-town-level-windows.cmd",
     "scripts/verify-quest-town-level-windows.ps1",
     "References/Review/latest/summary.md",
-    "References/Review/latest/status.json"
+    "References/Review/latest/status.json",
+    "References/Review/latest/error.log"
   ],
   "quest_catalog": {
     "total": 12,
@@ -321,7 +312,7 @@
     "fixture": "Mofumachi.Tests.QuestTownLevelTests",
     "platform": "EditMode",
     "expected_cases": 85,
-    "result": "NotRun",
+    "result": "NotRun_burst_disabled_variant",
     "total": null,
     "passed": null,
     "failed": null,
@@ -333,20 +324,27 @@
     "automatic_retries": 0
   },
   "static_checks": {
-    "core_api_compile": "Passed once; errors0/warnings0",
-    "presentation_api_compile": "Passed once; errors0/warnings0",
-    "new_fixture_compile": "Passed once; errors0/warnings0",
-    "powershell_ast_and_exact_fixture_scope": "Passed once",
-    "powershell51_compatibility": "Static syntax/API/BOM checked; native Windows execution pending",
+    "powershell_parser": "Passed",
+    "utf8_bom": "Present; Windows PowerShell5.1 compatible encoding retained",
+    "powershell51_compatibility": "Static syntax/API review only; PowerShell7 used for isolated helper checks, Windows native pending",
+    "argument_scope": "Exact --burst-disable-compilation once; same pinned product, Android/EditMode fixture85, single process-start call",
+    "attempt_receipt_isolation": "Product SHA plus burst-disabled-v1; old receipt never read/modified/deleted",
     "synthetic_git_publication_checks": {
       "total": 3,
       "passed": 3,
-      "real_native_evidence": false
+      "failed": 0,
+      "real_native_evidence": false,
+      "cases": [
+        "new Passed preserves prior raw evidence and earlier archives",
+        "new Failed clears stale previous XML",
+        "rejected push stops after one attempt; original HEAD/index/worktree preserved"
+      ]
     },
+    "harness_only_setup_correction": "First static helper invocation used nonexistent C: drive on Linux; stopped before publisher/Unity; corrected only temporary harness to /tmp, then checks passed. Not a Windows/game test failure.",
     "fresh_read_only_review_count": 1,
+    "critical_findings": 0,
     "important_findings": 0,
-    "deferred_minor": "UIFlowController.Initialize load-stop/destroy path inspected, not exercised by new pure fixture",
-    "historical_old_assumption_fixtures": "Not rerun or weakened; old6-only / delivery-equals-level / saveVersion3 expectations need integration-phase reconciliation"
+    "deferred_minor": "If remote already contains this same source_run but local successful share-result.json was lost, repeated sharing safely stops on existing destination instead of recovering the receipt; Unity remains suppressed."
   },
   "unchanged": [
     "normal talk4",
@@ -388,12 +386,19 @@
     "isolated_worktree": true,
     "source_pinned": true,
     "original_worktree_and_index_preserved": true,
-    "once_receipt_per_commit": true,
-    "diagnostics": "Builds/Diagnostics/quest-town-level-<timestamp>-<id>/",
+    "once_receipt_per_commit": false,
+    "diagnostics": "Builds/Diagnostics/quest-town-level-burst-disabled-v1-<timestamp>-<id>/",
     "result_json": "quest-town-level-result.json",
     "unity_start_max": 1,
     "automatic_retries": 0,
-    "playmode_full_apk_pixel_visual_font": false
+    "playmode_full_apk_pixel_visual_font": false,
+    "validation_id": "burst-disabled-v1",
+    "burst_compilation_disabled": true,
+    "once_receipt_per_commit_and_validation_id": true,
+    "attempt_receipt": "Builds/Diagnostics/quest-town-level-68f0e5c479716029b31ff3e92da47335da25f957-burst-disabled-v1.attempted",
+    "previous_attempt_receipt": "Builds/Diagnostics/quest-town-level-68f0e5c479716029b31ff3e92da47335da25f957.attempted",
+    "previous_attempt_receipt_unchanged": true,
+    "new_variant_automatic_retries": 0
   },
   "result_sharing": {
     "automatically_commits_or_pushes": true,
@@ -410,7 +415,13 @@
     "large_unity_log": "Keep locally, explain in manifest; XML/JSON/first-error shared",
     "failure": "Stop once; preserve originals and share-result.json",
     "repeated_cmd": "No Unity restart; saved terminal-result sharing only; already-shared skips push",
-    "native_result_shared_yet": false
+    "native_result_shared_yet": true,
+    "native_result_scope": "Original pre-fix startup-crash run only; revised variant not executed",
+    "previous_evidence_archived_on_new_publication": true,
+    "archive_path": "References/Review/inbox/latest-quest-town-level/previous-runs/<previous-run-name>/",
+    "archive_raw_hash_verified": true,
+    "original_diagnostics_modified": false,
+    "stale_previous_xml_or_error_not_reused": true
   },
   "guard_changed": false,
   "guard_disabled": false,
@@ -420,16 +431,120 @@
     "native_test_runs": 0,
     "automatic_retries": 0,
     "fetch_count": 1,
-    "merged_only_existing_stage5_evidence": true,
+    "fast_forwarded_only_existing_crash_evidence_commit": "7a4cbeb109083d637c6c01315f38f91f6fe7a934",
     "original_evidence_modified": false,
-    "stage7_implemented": false
+    "original_evidence_files_sha_and_length_verified": 5,
+    "game_or_test_reimplementation": false,
+    "stage7_implemented": false,
+    "normal_launcher_pushes": 1
   },
-  "first_native_failure": null,
-  "error_log_scope": "Historical prior-stage record only; no new Unity/test failure because not executed",
+  "first_native_failure": {
+    "run": "quest-town-level-20261107-131556-0df6b34b",
+    "kind": "Unity Editor startup crash",
+    "log": "References/Review/inbox/latest-quest-town-level/unity.log",
+    "first_crash_line": 7933,
+    "product_file": null,
+    "product_line": null,
+    "product_tests_executed": false
+  },
+  "error_log_scope": "Only original stage6 startup-crash run; minimal exact log excerpts, not old font errors or wrapper throw",
   "stage6_complete": false,
   "next_stage": "第7工程 進行UI表示＋全体結合確認",
   "next_stage_safe": false,
   "next_stage_verdict": "NO",
-  "next_stage_reason": "Stage6 Windows native85-case result not yet available",
-  "next_action": "scripts/verify-quest-town-level-windows.cmd を1回ダブルクリック。自動共有後に結果レビュー。"
+  "next_stage_reason": "Burst-disabled revision has not yet run the 85-case Windows native fixture; no new result to validate",
+  "next_action": "最新版PS1を取得後、scripts/verify-quest-town-level-windows.cmd を1回ダブルクリック。修正版専用attemptでUnity1回、自動再試行0、同操作で共有。",
+  "previous_launcher_commit": "5cbe79068ba0c6096b1d806acc3cb530033f6524",
+  "implementation_changed_files": [
+    "Assets/Mofumachi/Core/QuestCatalog.cs",
+    "Assets/Mofumachi/Core/QuestManager.cs",
+    "Assets/Mofumachi/Core/ChapterProgress.cs",
+    "Assets/Mofumachi/Core/TownGrowthService.cs",
+    "Assets/Mofumachi/Core/GameState.cs",
+    "Assets/Mofumachi/Core/GameStateManager.cs",
+    "Assets/Mofumachi/Presentation/UIFlowController.cs",
+    "Assets/Mofumachi/Tests/EditMode/QuestTownLevelTests.cs",
+    "Assets/Mofumachi/Tests/EditMode/QuestTownLevelTests.cs.meta",
+    "scripts/verify-quest-town-level-windows.cmd",
+    "scripts/verify-quest-town-level-windows.ps1",
+    "References/Review/latest/summary.md",
+    "References/Review/latest/status.json"
+  ],
+  "game_code_changed": false,
+  "test_code_changed": false,
+  "cmd_changed": false,
+  "implementation_static_checks": {
+    "core_api_compile": "Passed once; errors0/warnings0",
+    "presentation_api_compile": "Passed once; errors0/warnings0",
+    "new_fixture_compile": "Passed once; errors0/warnings0",
+    "powershell_ast_and_exact_fixture_scope": "Passed once",
+    "powershell51_compatibility": "Static syntax/API/BOM checked; native Windows execution pending",
+    "synthetic_git_publication_checks": {
+      "total": 3,
+      "passed": 3,
+      "real_native_evidence": false
+    },
+    "fresh_read_only_review_count": 1,
+    "important_findings": 0,
+    "deferred_minor": "UIFlowController.Initialize load-stop/destroy path inspected, not exercised by new pure fixture",
+    "historical_old_assumption_fixtures": "Not rerun or weakened; old6-only / delivery-equals-level / saveVersion3 expectations need integration-phase reconciliation"
+  },
+  "validation_id": "burst-disabled-v1",
+  "burst_compilation_disabled": true,
+  "unity_arguments_added": [
+    "--burst-disable-compilation"
+  ],
+  "previous_failed_run": {
+    "run": "quest-town-level-20261107-131556-0df6b34b",
+    "evidence_commit": "7a4cbeb109083d637c6c01315f38f91f6fe7a934",
+    "source_commit": "68f0e5c479716029b31ff3e92da47335da25f957",
+    "unity_invocations": 1,
+    "unity_exit_code": -2147483645,
+    "automatic_retries": 0,
+    "results_xml_present": false,
+    "total": null,
+    "passed": null,
+    "failed": null,
+    "skipped": null,
+    "inconclusive": null,
+    "test_cases_executed": 0,
+    "execution_basis": "User-confirmed 85 cases not run; native XML absent",
+    "validation_passed": false,
+    "source_unchanged_raw_json": false,
+    "source_unchanged_interpretation": "Post-test validation was not reached; false does not establish a product source modification",
+    "first_error_raw_json": "Unity root error unconfirmed. Preserve this run; no automatic retry.",
+    "observed_log_events": [
+      {
+        "line": 7933,
+        "message": "Crash!!!"
+      },
+      {
+        "line": 7989,
+        "message": "ERROR: LoadModule / Windows memory-resource error"
+      },
+      {
+        "line": 8404,
+        "message": "Unexpected error in Burst compilation / gRPC Unavailable / premature response"
+      }
+    ],
+    "classification": "Unity Editor startup crash, not a failed product test assertion",
+    "causal_limit": "Log sequence is Crash then memory-resource/LoadModule then Burst/gRPC message; last gRPC error is not proven the primary crash cause",
+    "mitigation": "User-authorized disable of unnecessary Burst compilation for pure EditMode tests; effectiveness unverified until new Windows run",
+    "raw_original_files_preserved": true
+  },
+  "required_pass_conditions": {
+    "source_commit": "68f0e5c479716029b31ff3e92da47335da25f957",
+    "fixture": "Mofumachi.Tests.QuestTownLevelTests",
+    "total": 85,
+    "passed": 85,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0,
+    "unity_exit_code": 0,
+    "unity_invocations": 1,
+    "automatic_retries": 0,
+    "source_unchanged": true,
+    "validation_passed": true,
+    "first_error": null
+  }
 }

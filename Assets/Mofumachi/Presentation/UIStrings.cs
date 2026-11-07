@@ -12,6 +12,13 @@ namespace Mofumachi.Presentation
             string error=game.LastError.Length>0?game.LastError:BoardFull;
             return error.StartsWith("もふポイントが足りません",System.StringComparison.Ordinal)?error+"\n"+GenerationStatus(game):error;
         }
+        public static string CurrentGenerationFeedback(GameStateManager game,string message)
+        {
+            if(message.StartsWith("所持 ",System.StringComparison.Ordinal)&&message.Contains("・ 生成 "))return GenerationStatus(game);
+            if(message.StartsWith("もふポイントが足りません",System.StringComparison.Ordinal))
+                return game.MofuPoints.CanSpend(GameStateManager.LevelOneGenerationCost)?GenerationStatus(game):message.Split('\n')[0]+"\n"+GenerationStatus(game);
+            return message;
+        }
         public const string NoticeTitle="課金について";
         public const string NoticeBody="未成年の方は、課金する前に必ず保護者の方に相談し、許可をもらってください。";
         public const string NoticeConfirm="確認しました";

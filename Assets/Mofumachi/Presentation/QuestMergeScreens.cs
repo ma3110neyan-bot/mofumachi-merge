@@ -49,7 +49,6 @@ namespace Mofumachi.Presentation
             var selectedItem=c.Game.Board.At(c.Flow.SelectedCell);
             var selection=w.Heading("Merge selected item",MergePresentation.SelectionName(selectedItem),progress,new Rect(0,0,1,1),12);selection.rectTransform.anchorMin=Vector2.zero;selection.rectTransform.anchorMax=new Vector2(.36f,0);selection.rectTransform.offsetMin=new Vector2(8,2);selection.rectTransform.offsetMax=new Vector2(-2,20);selection.alignment=TextAnchor.MiddleLeft;
             var selectionHint=w.Label("Merge selected hint",MergePresentation.SelectionHint(selectedItem),progress,new Rect(0,0,1,1),11);selectionHint.rectTransform.anchorMin=new Vector2(.36f,0);selectionHint.rectTransform.anchorMax=new Vector2(1,0);selectionHint.rectTransform.offsetMin=new Vector2(2,2);selectionHint.rectTransform.offsetMax=new Vector2(-6,20);selectionHint.alignment=TextAnchor.MiddleRight;
-            progress.gameObject.AddComponent<ProgressUiBinding>().Bind(c.Game,walletText:selectionHint);
             var quest=QuestCatalog.NextFor(c.Game.State);bool accepted=UIStrings.IsAccepted(c.Game.State,quest),deliverable=accepted&&c.Game.Quests.CheckDelivery();
             bool finale=quest==null&&ChapterProgress.For(c.Game.State).AllCompleted;
             if(quest!=null)
@@ -153,14 +152,16 @@ namespace Mofumachi.Presentation
             if(feedbackSurface.GetSiblingIndex()>text.transform.GetSiblingIndex())feedbackSurface.SetSiblingIndex(text.transform.GetSiblingIndex());
             w.Nav(root,c,ScreenId.Merge,58);
             if(!MergeRewardPresentation.CaptureBefore)root.gameObject.AddComponent<MergeRewardView>().Initialize(c);
-            root.gameObject.AddComponent<ProductionFrameLayout>().Bind(tray,toolbar,text,feedbackSurface,c.Game.State.mergeBoard.Count>=30?UIStrings.BoardFull:finale?MergePresentation.PlayHint:UIStrings.DeliveryHint(c.Game),obsoleteHint,UIStrings.DeliveryHint(c.Game));
+            root.gameObject.AddComponent<ProductionFrameLayout>().Bind(tray,toolbar,text,feedbackSurface,c.Game.State.mergeBoard.Count>=30?UIStrings.BoardFull:finale?MergePresentation.PlayHint:UIStrings.DeliveryHint(c.Game),obsoleteHint,UIStrings.DeliveryHint(c.Game),c.Game);
+            progress.gameObject.AddComponent<ProgressUiBinding>().Bind(c.Game,walletText:selectionHint,feedbackText:text);
         }
     }
     public sealed class ProductionFrameLayout : MonoBehaviour
     {
         private RectTransform tray,toolbar,surface;private Text feedback;private string message,obsoleteHint,deliveryHint;
-        public void Bind(RectTransform boardTray,RectTransform frameStrip,Text feedbackText,RectTransform feedbackSurface,string defaultHint,string completedStoryHint=null,string normalDeliveryHint=null)
-        {tray=boardTray;toolbar=frameStrip;feedback=feedbackText;surface=feedbackSurface;obsoleteHint=completedStoryHint;deliveryHint=normalDeliveryHint;message=feedback.text;ResizeNow();}
+        private GameStateManager game;
+        public void Bind(RectTransform boardTray,RectTransform frameStrip,Text feedbackText,RectTransform feedbackSurface,string defaultHint,string completedStoryHint=null,string normalDeliveryHint=null,GameStateManager owner=null)
+        {tray=boardTray;toolbar=frameStrip;feedback=feedbackText;surface=feedbackSurface;obsoleteHint=completedStoryHint;deliveryHint=normalDeliveryHint;message=feedback.text;game=owner;ResizeNow();}
         public void SetMessage(string value){message=value==obsoleteHint?"":value??"";ResizeNow();}
         private void OnRectTransformDimensionsChange()=>ResizeNow();
         public void ResizeNow()
@@ -168,7 +169,7 @@ namespace Mofumachi.Presentation
             if(tray==null||feedback==null)return;var root=(RectTransform)transform;
             // Fit the actual feedback first. Compact screens keep the same five
             // action targets and use the progress card for messages above the board.
-            feedback.text=MergePresentation.CompactFeedback(message,deliveryHint,UIStrings.MergeSelectionHint);
+            feedback.text=MergePresentation.CompactFeedback(game==null?message:UIStrings.CurrentGenerationFeedback(game,message),deliveryHint,UIStrings.MergeSelectionHint);
             // The goal and selected-item rows already teach the gesture. Only
             // actual results or errors need another strip below the board.
             float height=feedback.text.Length>0?Mathf.Max(46,Mathf.Ceil(feedback.preferredHeight+4)):0;
@@ -191,7 +192,7 @@ namespace Mofumachi.Presentation
             var nav=root.Find("Navigation") as RectTransform;UIWidgets.Bottom(nav,8,layout.NavBottom,8,layout.NavHeight);
             foreach(var button in nav.GetComponentsInChildren<Button>())
             {var r=(RectTransform)button.transform;r.anchorMin=new Vector2(r.anchorMin.x,layout.TwoToolbarRows?.06f:0);r.anchorMax=new Vector2(r.anchorMax.x,layout.TwoToolbarRows?.94f:1);}
-            feedback.text=MergePresentation.CompactFeedback(message,deliveryHint,UIStrings.MergeSelectionHint);
+            feedback.text=MergePresentation.CompactFeedback(game==null?message:UIStrings.CurrentGenerationFeedback(game,message),deliveryHint,UIStrings.MergeSelectionHint);
             var feedbackRect=layout.FeedbackRect(root.rect.width,root.rect.height,feedback.preferredHeight);
             UIWidgets.Bottom(feedback.rectTransform,14,feedbackRect.Y,14,feedbackRect.Height);
             UIWidgets.Bottom(surface,12,feedbackRect.Y,12,feedbackRect.Height);

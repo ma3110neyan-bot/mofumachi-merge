@@ -184,7 +184,6 @@ namespace Mofumachi.Tests
             UIWidgets.Node("Merge goal content",progress,new Rect(0,0,1,1));
             w.Label("Merge selected item","",progress,new Rect(0,0,1,1),12);
             var hint=w.Label("Merge selected hint","",progress,new Rect(.36f,0,.64f,0),11);
-            binding.Bind(game,walletText:hint);
             var tray=w.Panel("Merge tray",parent,new Rect(0,0,1,1)).rectTransform;
             UIWidgets.Node("Merge board",tray,new Rect(0,0,1,1));
             var toolbar=UIWidgets.Node("Merge toolbar",parent,new Rect(0,0,1,1));
@@ -200,7 +199,8 @@ namespace Mofumachi.Tests
             bool generated=game.TryGenerateLv1("tea");string message=UIStrings.GenerationFeedback(game,generated);
             var feedback=w.Label("Feedback",message,parent,new Rect(0,0,1,1),14);
             var surface=w.Panel("Feedback surface",parent,new Rect(0,0,1,1)).rectTransform;
-            var layout=root.AddComponent<ProductionFrameLayout>();layout.Bind(tray,toolbar,feedback,surface,"");
+            binding.Bind(game,walletText:hint,feedbackText:feedback);
+            var layout=root.AddComponent<ProductionFrameLayout>();layout.Bind(tray,toolbar,feedback,surface,"",owner:game);
             int expected=balance>=2?balance-2:balance;
             string wanted="所持 "+expected+"P ・ 生成 2P";
             Assert.That(hint.gameObject.activeInHierarchy&&hint.text==wanted||feedback.gameObject.activeInHierarchy&&feedback.text.Contains(wanted),Is.True);
@@ -209,6 +209,12 @@ namespace Mofumachi.Tests
             ReleaseTypography.Apply(feedback);feedback.GetComponent<HachiFontFit>()?.ApplyNow();
             Assert.That(feedback.preferredHeight,Is.LessThanOrEqualTo(feedback.rectTransform.rect.height+.5f));
             if(balance<2)Assert.That(feedback.text,Does.Contain("もふポイントが足りません"));
+            // Existing persistent notices must not cache the old balance after a later save.
+            Assert.That(game.MofuPoints.TryRewardDailyRecovery(Day),Is.True);
+            layout.ResizeNow();
+            string recovered="所持 "+(expected+16)+"P ・ 生成 2P";
+            Assert.That(hint.gameObject.activeInHierarchy&&hint.text==recovered||feedback.gameObject.activeInHierarchy&&feedback.text.Contains(recovered),Is.True);
+            Assert.That(feedback.text,Does.Not.Contain("もふポイントが足りません"));
         }
         private sealed class PointStore:IStateStore
         {

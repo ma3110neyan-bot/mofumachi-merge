@@ -8,10 +8,10 @@ namespace Mofumachi.Presentation
     public sealed class ProgressUiBinding:MonoBehaviour
     {
         private GameStateManager game;
-        private Text wallet,title,detail,level;
-        public void Bind(GameStateManager owner,Text walletText=null,Text titleText=null,Text detailText=null,Text levelText=null)
+        private Text wallet,title,detail,level,feedback;
+        public void Bind(GameStateManager owner,Text walletText=null,Text titleText=null,Text detailText=null,Text levelText=null,Text feedbackText=null)
         {
-            Unsubscribe();game=owner;wallet=walletText;title=titleText;detail=detailText;level=levelText;
+            Unsubscribe();game=owner;wallet=walletText;title=titleText;detail=detailText;level=levelText;feedback=feedbackText;
             if(isActiveAndEnabled&&game!=null)game.StateCommitted+=Refresh;
             Refresh();
         }
@@ -22,6 +22,7 @@ namespace Mofumachi.Presentation
         {
             if(game==null)return;
             if(wallet!=null)wallet.text=UIStrings.GenerationStatus(game);
+            if(feedback!=null)feedback.text=UIStrings.CurrentGenerationFeedback(game,feedback.text);
             if(title!=null||detail!=null)
             {
                 var goal=TownNextGoal.For(game.State);

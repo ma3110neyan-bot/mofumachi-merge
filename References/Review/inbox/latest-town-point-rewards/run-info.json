@@ -1,0 +1,37 @@
+﻿{
+    "source_run":  "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\town-point-rewards-20261107-104646-06e9c929",
+    "source_commit":  "9433202b7dd6f772a2e3c86abd6395b2343b3231",
+    "fixture":  "Mofumachi.Tests.TownPointRewardTests",
+    "copied_at_utc":  "2026-11-07T01:53:57.1345103Z",
+    "remote_parent":  "f13fa2589afe4c31e21b48519f1542037d367d55",
+    "files":  [
+                  {
+                      "sha256":  "c3dbd6fa62c0b647f7fdb18587ee707653c2b1f6f78f0ddb3efa7ac525f0fbed",
+                      "file":  "town-point-rewards-result.json",
+                      "bytes":  1120
+                  },
+                  {
+                      "sha256":  "6e54beb9818c21e99f90830c530f77274c7235589a0e08b4a44db4dbcecd002b",
+                      "file":  "source-revision.txt",
+                      "bytes":  45
+                  },
+                  {
+                      "sha256":  "3d7251e63bec47f68c0249dca6bf8bdb18c6fc4de2897c780ceb542cd5f5d464",
+                      "file":  "results.xml",
+                      "bytes":  57990
+                  },
+                  {
+                      "sha256":  "d2ddce9d6f43da71119eb77035e0ff101e57b2806a69ecc0a08d9ca7be5c0e5f",
+                      "file":  "unity.log",
+                      "bytes":  3278491
+                  },
+                  {
+                      "sha256":  "3cae6693d0894d2fe4bf84aa67d66ec3535f7ee0578752a619013c36203c9e03",
+                      "file":  "unity-arguments.txt",
+                      "bytes":  553
+                  }
+              ],
+    "skipped":  [
+
+                ]
+}

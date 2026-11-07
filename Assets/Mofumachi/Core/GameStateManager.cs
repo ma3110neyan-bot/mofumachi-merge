@@ -15,11 +15,14 @@ namespace Mofumachi.Core
         public MergeBoard Board { get; }
         public QuestManager Quests { get; }
         public MofuPointService MofuPoints { get; }
+        // Presentation observes committed saves only, never the tentative transaction.
+        public event Action StateCommitted;
         public string LastError { get; private set; } = "";
         public GameStateManager(GameState state, IStateStore store)
         {
             State = state; this.store = store; Board = new MergeBoard(state);
             Quests = new QuestManager(state, store, new RewardService(), town);
+            Quests.StateCommitted += NotifyStateCommitted;
             MofuPoints = new MofuPointService(this);
             ReevaluateTownLevel();
         }
@@ -101,10 +104,17 @@ namespace Mofumachi.Core
         {
             lock (State.SyncRoot)
             {
-                try { store.Save(State); LastError = ""; return true; }
+                try { store.Save(State); }
                 catch (IOException) { LastError = "セーブできませんでした。保存先を確認してください。"; return false; }
                 catch (UnauthorizedAccessException) { LastError = "保存先へ書き込めません。"; return false; }
+                LastError = ""; NotifyStateCommitted(); return true;
             }
+        }
+        private void NotifyStateCommitted()
+        {
+            var observers=StateCommitted;if(observers==null)return;
+            foreach(Action observer in observers.GetInvocationList())
+                try{observer();}catch(Exception){/* A view cannot roll back an already committed save. */}
         }
         internal bool MutateEconomy(Func<EconomyState, bool> action, bool refreshQuests = false)
         {

@@ -5,6 +5,13 @@ namespace Mofumachi.Presentation
 {
     public static class UIStrings
     {
+        public static string GenerationStatus(GameStateManager game)=>"所持 "+game.MofuPoints.Balance+"P ・ 生成 "+GameStateManager.LevelOneGenerationCost+"P";
+        public static string GenerationFeedback(GameStateManager game,bool generated)
+        {
+            if(generated)return GenerationStatus(game);
+            string error=game.LastError.Length>0?game.LastError:BoardFull;
+            return error.StartsWith("もふポイントが足りません",System.StringComparison.Ordinal)?error+"\n"+GenerationStatus(game):error;
+        }
         public const string NoticeTitle="課金について";
         public const string NoticeBody="未成年の方は、課金する前に必ず保護者の方に相談し、許可をもらってください。";
         public const string NoticeConfirm="確認しました";

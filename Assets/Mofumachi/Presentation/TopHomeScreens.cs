@@ -51,7 +51,7 @@ namespace Mofumachi.Presentation
             var todayNew=w.Label("Today NEW","",(RectTransform)today.transform,new Rect(1,1,0,0),9);todayNew.color=new Color(.71f,.24f,.38f);
             todayNew.rectTransform.pivot=new Vector2(.5f,1);todayNew.rectTransform.anchoredPosition=new Vector2(-2,0);todayNew.rectTransform.sizeDelta=new Vector2(26,16);
             today.gameObject.AddComponent<TownTodayBadge>().Bind(c,today.GetComponentInChildren<Text>(),todayNew);
-            w.Label("Town value","街 Lv."+c.Game.State.townGrowthLevel,hud,new Rect(.20f,.05f,.24f,.9f),13);
+            var townLevel=w.Label("Town value","街 Lv."+c.Game.State.townGrowthLevel,hud,new Rect(.20f,.05f,.24f,.9f),13);
             w.Icon("Coin",UIIcon.Coin,hud,new Rect(.44f,.22f,.075f,.56f));
             w.Heading("Coins value",c.Game.State.coins.ToString("N0"),hud,new Rect(.52f,.08f,.29f,.84f),13);
             var menu=w.Button("Town menu","メニュー",hud,new Rect(.82f,0,.18f,1),c.Flow.OpenTownMenu,true);menu.GetComponentInChildren<Text>().fontSize=11;
@@ -62,9 +62,9 @@ namespace Mofumachi.Presentation
             var bar=w.Panel("Navigation",root,new Rect(0,0,1,1),new Color(1,1,1,0)).rectTransform;UIWidgets.Bottom(bar,12,10,12,48);
             var goal=TownNextGoal.For(c.Game.State);bool finale=ChapterProgress.For(c.Game.State).AllCompleted;
             var quest=w.StoryPanel("Home quest",bar,new Rect(0,0,.69f,1),true).rectTransform;quest.GetComponent<RoundedPanelGraphic>().raycastTarget=true;
-            var title=w.StoryLabel("Next goal title",finale?"今日のお願い "+c.Flow.Daily.CompletedGoals+" / 3":goal.Title,quest,new Rect(.05f,.50f,.90f,.45f),12);
+            var title=w.StoryLabel("Next goal title",goal.Title,quest,new Rect(.05f,.50f,.90f,.45f),12);
             var hint=w.Label("Town growth hint",TownNextGoal.CompactDetail(c.Game.State,c.Flow.Daily),quest,new Rect(.05f,.06f,.90f,.42f),12);
-            quest.gameObject.AddComponent<TownDailyHomeHint>().Bind(c,finale,title,hint);
+            quest.gameObject.AddComponent<ProgressUiBinding>().Bind(c.Game,titleText:title,detailText:hint,levelText:townLevel);
             var tap=quest.gameObject.AddComponent<Button>();tap.targetGraphic=quest.GetComponent<RoundedPanelGraphic>();tap.onClick.AddListener(()=>{if(finale)c.Flow.ShowToday();else life.GuideToFacility("quest");});
             var merge=w.Button("Nav Merge","マージ",bar,new Rect(.72f,0,.28f,1),c.Flow.ShowMerge);merge.GetComponentInChildren<Text>().fontSize=14;
             merge.GetComponent<ButtonPressFeedback>().PreserveHitbox=true;

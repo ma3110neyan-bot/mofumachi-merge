@@ -120,7 +120,7 @@ namespace Mofumachi.Tests
             var result = new SaveService(directory).Load(); var s = result.State;
             Assert.That(result.IsBlocked, Is.False); Assert.That(s.saveVersion, Is.EqualTo(4));
             Assert.That(s.economy.initialized, Is.True); Assert.That(s.economy.mofuPoints, Is.EqualTo(24));
-            Assert.That(s.economy.townActionTotal, Is.Zero); Assert.That(s.economy.questRoute, Is.EqualTo(QuestProgressionRoute.NewPlayer));
+            Assert.That(s.economy.townActionTotal, Is.Zero); Assert.That(s.economy.questRoute, Is.EqualTo(QuestProgressionRoute.ExpandedNewPlayer));
             Assert.That(s.economy.day, Is.Empty); Assert.That(s.economy.rewardsStartDay, Is.Empty);
             Assert.That(s.economy.lastRecoveryDay, Is.Empty); Assert.That(s.economy.lastFlowerRewardDay, Is.Empty);
             Assert.That(s.economy.talkRewardCharacterIds, Is.Empty); Assert.That(s.economy.walkRewardReceipts, Is.Empty);

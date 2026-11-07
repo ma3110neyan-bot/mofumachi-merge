@@ -29,6 +29,7 @@ namespace Mofumachi.Core
         private QuestDefinition active;
         public QuestDefinition ActiveQuest => active;
         private bool delivering;
+        internal event Action StateCommitted;
         public string LastError { get; private set; } = "";
         public QuestManager(GameState state, IStateStore store, RewardService reward, TownGrowthService town, IEnumerable<QuestDefinition> questCatalog = null)
         {
@@ -48,7 +49,7 @@ namespace Mofumachi.Core
                 quest = authored;
                 var before = state.Clone(); var previous = active;
                 state.activeQuestId = quest.Id; state.questState = QuestState.Accepted; state.questProgress = 0; active = quest;
-                try { store.Save(state); LastError = ""; return true; }
+                try { store.Save(state); LastError = ""; StateCommitted?.Invoke(); return true; }
                 catch (IOException) { state.CopyFrom(before); active = previous; LastError = "受注を保存できませんでした。再試行してください。"; return false; }
                 catch (UnauthorizedAccessException) { state.CopyFrom(before); active = previous; LastError = "保存先へ書き込めません。"; return false; }
             }
@@ -100,6 +101,7 @@ namespace Mofumachi.Core
                     reward.GrantReward(state, "quest:" + active.Id, active.Coins); state.questState = QuestState.RewardClaimed;
                     town.EvaluateTownGrowth(state); state.questState = QuestState.TownGrown;
                     store.Save(state); LastError = "";
+                    StateCommitted?.Invoke();
                     return new DeliveryResult(true, state.townGrowthLevel>before.townGrowthLevel?"納品完了。街が成長しました。":"納品完了。");
                 }
                 catch (IOException) { state.CopyFrom(before); LastError = "保存に失敗したため、納品前の状態へ戻しました。"; return new DeliveryResult(false, LastError, true); }

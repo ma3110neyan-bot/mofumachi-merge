@@ -47,10 +47,9 @@ namespace Mofumachi.Presentation
             var progress=w.OrnatePanel("Merge progress",root,new Rect(0,0,1,1),UIWidgets.Cream,12).rectTransform;UIWidgets.Top(progress,12,62,12,72);
             var goal=UIWidgets.Node("Merge goal content",progress,new Rect(0,0,1,1));goal.offsetMin=new Vector2(4,20);goal.offsetMax=new Vector2(-4,-2);
             var selectedItem=c.Game.Board.At(c.Flow.SelectedCell);
-            int matchCount=Enumerable.Range(0,30).Count(i=>i!=c.Flow.SelectedCell&&MergePresentation.IsMatch(selectedItem,c.Game.Board.At(i),c.Game.Board.IsLocked(c.Flow.SelectedCell),c.Game.Board.IsLocked(i)));
             var selection=w.Heading("Merge selected item",MergePresentation.SelectionName(selectedItem),progress,new Rect(0,0,1,1),12);selection.rectTransform.anchorMin=Vector2.zero;selection.rectTransform.anchorMax=new Vector2(.36f,0);selection.rectTransform.offsetMin=new Vector2(8,2);selection.rectTransform.offsetMax=new Vector2(-2,20);selection.alignment=TextAnchor.MiddleLeft;
             var selectionHint=w.Label("Merge selected hint",MergePresentation.SelectionHint(selectedItem),progress,new Rect(0,0,1,1),11);selectionHint.rectTransform.anchorMin=new Vector2(.36f,0);selectionHint.rectTransform.anchorMax=new Vector2(1,0);selectionHint.rectTransform.offsetMin=new Vector2(2,2);selectionHint.rectTransform.offsetMax=new Vector2(-6,20);selectionHint.alignment=TextAnchor.MiddleRight;
-            if(matchCount>0)selectionHint.text="同じ種類・Lv. → 光る"+matchCount+"個へ";
+            progress.gameObject.AddComponent<ProgressUiBinding>().Bind(c.Game,walletText:selectionHint);
             var quest=QuestCatalog.NextFor(c.Game.State);bool accepted=UIStrings.IsAccepted(c.Game.State,quest),deliverable=accepted&&c.Game.Quests.CheckDelivery();
             bool finale=quest==null&&ChapterProgress.For(c.Game.State).AllCompleted;
             if(quest!=null)

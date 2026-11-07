@@ -17,32 +17,19 @@ namespace Mofumachi.Presentation
         {
             if(state==null)throw new ArgumentNullException(nameof(state));
             var quest=QuestCatalog.NextFor(state);
-            if(quest==null)
-            {
-                if(state.activeQuestId.Length>0&&!state.completedQuestIds.Contains(state.activeQuestId)||!ChapterProgress.For(state).AllCompleted)
-                    return new TownNextGoal("依頼を確認しよう","保存された依頼を確認できません。");
-                return new TownNextGoal("今日も、仲間に会いに行こう♪","街のあちこちで、新しい一面に会いに行こう♪",finale:true);
-            }
-            if(state.townGrowthLevel>=6)return new TownNextGoal("物語のつづきへ",CharacterCatalog.Find(quest.RequesterId).Name+"の「"+quest.Title+"」",quest.Id);
-            int next=Math.Max(0,state.townGrowthLevel)+1;
-            return new TownNextGoal("あと1お届けで、街に変化♪",CharacterCatalog.Find(quest.RequesterId).Name+"へ → Lv."+next+" · "+UnlockAt(next),quest.Id,next,1);
+            bool finale=quest==null&&ChapterProgress.For(state).AllCompleted;
+            if(!TownGrowthService.TryGetNextRequirements(state.townGrowthLevel,out int next,out int requests,out long actions))
+                return new TownNextGoal("街Lv6 MAX","今日も、仲間に会いに行こう♪",quest?.Id??"",finale:finale);
+            int completed=QuestCatalog.CompletedCount(state);
+            return new TownNextGoal("Lv"+next+"まで おねがい "+completed+"/"+requests,
+                "まち交流 "+state.economy.townActionTotal+"/"+actions,quest?.Id??"",next,Math.Max(0,requests-completed),finale);
         }
         // A one-line invitation on the compact street bar; full details stay in
         // the actual quest, book and Today screens.
         public static string CompactDetail(GameState state,TownDailyService daily)
         {
-            var goal=For(state);
-            if(!goal.IsFinale)
-            {
-                string[] shortUnlocks={"","お茶会のお花","カフェの席","街灯とベンチ","花屋の飾り","お祝いのアーチ","街のリボン"};
-                return goal.NextLevel>0&&goal.NextLevel<shortUnlocks.Length?"Lv."+goal.NextLevel+" · "+shortUnlocks[goal.NextLevel]:"依頼小屋で物語のつづきを";
-            }
-            if(daily.Data.Claimed)return daily.NewDiscoveryCount>0?"図鑑に新しい発見があるよ♪":"仲間の新しい一面を探そう";
-            if(daily.ReadyToClaim)return "今日のお花を受け取ろう♪";
-            if(daily.Data.Talks<1)return "あと1会話で、小さな発見♪";
-            if(daily.Data.Walks<1)return "東西の通りを歩いてみよう";
-            return "あと"+(3-daily.Data.Merges)+"合成で今日のお花♪";
+            return For(state).Detail;
         }
-        public static IEnumerable<string> Text=>Unlocks.Concat(new[]{"依頼を確認しよう","今日も、仲間に会いに行こう♪","街のあちこちで、新しい一面に会いに行こう♪","物語のつづきへ","あと1お届けで、街に変化♪"});
+        public static IEnumerable<string> Text=>Unlocks.Concat(new[]{"依頼を確認しよう","今日も、仲間に会いに行こう♪","Lvまで おねがい まち交流 街Lv6 MAX 所持 P ・ 生成"});
     }
 }

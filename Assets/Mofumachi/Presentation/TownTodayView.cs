@@ -42,7 +42,7 @@ namespace Mofumachi.Presentation
             message.lineSpacing=1.05f;
             var goal=TownNextGoal.For(c.Game.State);
             var promise=w.StoryPanel("Today town promise",content,new Rect(0,0,1,1)).rectTransform;UIWidgets.Top(promise,8,pinnedFlower?402:518,8,64);
-            w.StoryLabel("Today town next",goal.IsFinale?"明日も、仲間の新しい一面に会おう♪":goal.Title+"\n"+goal.Detail,promise,new Rect(.04f,.05f,.92f,.90f),13);
+            w.StoryLabel("Today town next",goal.Title+"\n"+goal.Detail,promise,new Rect(.04f,.05f,.92f,.90f),13);
             var request=w.Button("Today visit request",goal.IsFinale?"新しい一面を図鑑で見る":"次のお願いを見に行く",content,new Rect(0,0,1,1),()=>
             {
                 c.Flow.CloseToday();

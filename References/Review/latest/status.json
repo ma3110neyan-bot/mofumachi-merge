@@ -3,7 +3,7 @@
   "updated_date_jst": "2026-11-07",
   "scope": "stage7_existing_v2_result_review_blocked_by_unavailable_windows_drive",
   "state": "調査中",
-  "status": "v2_cmd_completed_reported_raw_results_unavailable",
+  "status": "v2_receipt_observed_nonterminal_branch_reason_not_visible",
   "commit": "fea87beb5670d28c8dc3c1efa87b3bd4dee98aa0",
   "commit_scope": "PS1-only v2 identity and incomplete-attempt handling; game and review-document commits are distinct",
   "implementation_commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
@@ -251,14 +251,12 @@
     "unity_started": 0,
     "native_test_runs": 0,
     "automatic_retries": 0,
-    "fetch_count": 1,
-    "launcher_executed": false,
-    "new_validation_id_created": false,
-    "receipt_or_diagnostics_modified": false,
+    "fetch_count": 0,
+    "screenshot_review_only": true,
     "game_test_ui_or_script_changed": false,
+    "receipt_or_diagnostics_modified": false,
     "native_result_publication_attempted": false,
-    "review_metadata_only_updated": true,
-    "windows_v2_user_execution_reported_completed": true
+    "review_metadata_only_updated": true
   },
   "first_native_failure": null,
   "error_log_scope": "Historical E-v1 user report retained unchanged; no v2 raw error observed or inferred",
@@ -266,8 +264,8 @@
   "next_stage": "第8工程 実機Pixel 3a確認＋リリース候補ビルド",
   "next_stage_safe": false,
   "next_stage_verdict": "NO",
-  "next_stage_reason": "Windows E-drive is not attached to this cloud environment and GitHub has no v2 raw result; phase outcomes unconfirmed",
-  "next_action": "Windows上の既存v2 receiptと既存Diagnosticsから結果原本だけを共有する。Unity/Phase1/Phase2/CMDの検証再実行・v3作成・receipt削除は行わない。",
+  "next_stage_reason": "V2 receiptは読めたがterminal判定に通らず共有前停止。理由と既存結果はまだ未取得",
+  "next_action": "同じWindows PowerShellで既存receiptの判定をConvertTo-Json表示する。検証・共有の再試行や新run作成はせず、理由を確認する。",
   "previous_launcher_commit": "8d8f920d397188c369bc59c434857e23f7678ad1",
   "stage7_implementation_changed_files": [
     "Assets/Mofumachi/Core/GameStateManager.cs",
@@ -449,8 +447,8 @@
   "existing_v2_review": {
     "user_report": "V2 CMD operation completed; native phase outcomes not supplied",
     "expected_receipt_path": "E:\\Mofumachi-Validation\\receipts\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v2.attempted",
-    "receipt_exists": null,
-    "receipt_state": "未確認・Windows E未接続",
+    "receipt_exists": true,
+    "receipt_state": "存在・ユーザースクリーンショットのTest-Path/ReadAllText通過から確認",
     "diagnostics_path": null,
     "diagnostics_root": "E:\\Mofumachi-Validation\\Diagnostics",
     "diagnostics_path_reason": "Receipt contents cannot be read in current environment",
@@ -472,6 +470,10 @@
     "v2_github_sharing": "未実施",
     "old_results_reused_as_v2": false,
     "confirmed_absent_on_windows": false,
-    "note": "Unknown presence is not absence; user completed CMD does not prove any pass/fail/unexecuted phase"
+    "note": "Unknown presence is not absence; user completed CMD does not prove any pass/fail/unexecuted phase",
+    "terminal_result_state": "Read-ProgressUiCheckAttemptのis_terminal判定に通らず、共有前のreturnへ進んだ",
+    "share_function_reached": false,
+    "screenshot_basis": "No receipt/version/read exception; Select-Object diagnostic branch displayed; Publish line not reached",
+    "diagnostic_display_issue": "Windows PowerShell5.1側のHashtableをSelect-Objectで表示した結果が空欄。ConvertTo-Jsonでキーを表示する読み取り専用操作へ変更"
   }
 }

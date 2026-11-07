@@ -16,13 +16,13 @@ GitHubの対象featureブランチを**Fetch1回**で確認。先端は`32711926
 
     E:\Mofumachi-Validation\receipts\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v2.attempted
 
-その内容を取得できないため、Diagnosticsの正確なrunパスも未確認。参照先は`E:\Mofumachi-Validation\Diagnostics\`配下だが、run名を推測で確定していない。
+ユーザー画面でreceiptの存在と読取成功、terminal判定に通らず共有前returnへ進んだことを確認。その内容の値は空欄表示のため、Diagnosticsの正確なrunパスは未確認。参照先は`E:\Mofumachi-Validation\Diagnostics\`配下だが、run名を推測で確定していない。
 
 ## v2判定
 
 | 項目 | 結果 |
 | --- | --- |
-| v2 receipt 存在／不存在 | **未確認**（Windows E未接続） |
+| v2 receipt 存在／不存在 | **存在・読取成功**（ユーザー画面で確認） |
 | Diagnostics内のファイル一覧 | 未確認 |
 | v2 terminal result 存在／不存在 | **未確認** |
 | direct/results.xml | 未確認 |
@@ -35,7 +35,11 @@ GitHubの対象featureブランチを**Fetch1回**で確認。先端は`32711926
 | Phase2 | **未確認**。444/444・Failed・未実行のいずれも断定不可 |
 | GitHub共有（v2結果原本） | **未実施**。今回更新したのは状況記録だけ |
 
-ファイルを読めないことを「不存在」、XML未受領を「未実行」へ置換しない。旧Cの失敗・旧E-v1の未完了報告を今回のv2結果へ流用しない。元Windows環境のshare-result.jsonを読めないため、共有失敗理由も推測しない。
+ファイルを読めないことを「不存在」、XML未受領を「未実行」へ置換しない。旧Cの失敗・旧E-v1の未完了報告を今回のv2結果へ流用しない。元Windows環境のshare-result.jsonを読めないため、過去の共有失敗理由も推測しない。今回の共有専用操作は診断表示の分岐でreturnしており、Publish関数は呼ばれていない。
+
+## 追記：ユーザー画面の確認
+
+receiptのTest-PathとReadAllTextは通過している。一方、is_terminalがtrueにならず、共有前の診断表示でreturnしている。Windows PowerShell5.1でHashtableをSelect-Object表示した欄が空欄となったため、欠損・Preparing/Running・破損・identity相違のどれかはまだ特定できない。表示をConvertTo-Jsonへ切り替えて既存値を読む。検証CMDやPublish関数の再実行を原因確認前に案内しない。
 
 ## 今回の変更・禁止の遵守
 

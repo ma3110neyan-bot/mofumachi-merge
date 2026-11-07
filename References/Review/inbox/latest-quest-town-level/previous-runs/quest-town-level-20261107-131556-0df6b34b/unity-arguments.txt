@@ -1,0 +1,17 @@
+﻿-batchmode
+-nographics
+-projectPath
+C:\Users\User\Desktop\Mofumachi\quest-town-level-check-20261107-131556-0df6b34b
+-buildTarget
+Android
+-runTests
+-testPlatform
+EditMode
+-assemblyNames
+Mofumachi.EditModeTests
+-testFilter
+^Mofumachi\.Tests\.QuestTownLevelTests\..*
+-testResults
+C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Diagnostics\quest-town-level-20261107-131556-0df6b34b\results.xml
+-logFile
+C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Diagnostics\quest-town-level-20261107-131556-0df6b34b\unity.log

@@ -1,0 +1,37 @@
+﻿{
+    "source_run":  "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\quest-town-level-20261107-131556-0df6b34b",
+    "source_commit":  "68f0e5c479716029b31ff3e92da47335da25f957",
+    "fixture":  "Mofumachi.Tests.QuestTownLevelTests",
+    "copied_at_utc":  "2026-11-07T04:21:19.5407630Z",
+    "remote_parent":  "a6a2a8aef767515c31eab1a5779a050adbd205e8",
+    "files":  [
+                  {
+                      "sha256":  "368ff8954fbd1115ab12eae072632b1e9ec309002f62c76efbfee8a1a291c9ed",
+                      "file":  "quest-town-level-result.json",
+                      "bytes":  1174
+                  },
+                  {
+                      "sha256":  "bcbda67be14aa93bb31cd93d396c37c0f2a63b5f2c5f100c702a21f189f2ed4d",
+                      "file":  "source-revision.txt",
+                      "bytes":  45
+                  },
+                  {
+                      "sha256":  "e1bcc972c85ef0351b7d6582f031b1a78c29f53eea828d23a5120206c88b535e",
+                      "file":  "first-error.log",
+                      "bytes":  71
+                  },
+                  {
+                      "sha256":  "faa2f5a2f3d8e468660fec5219992c595a93f6bda4a3950c5b7f89dfb1366885",
+                      "file":  "unity.log",
+                      "bytes":  1484378
+                  },
+                  {
+                      "sha256":  "e93e82c413a847f89773f00a13b3b0d349457f5a3ed0455f59096e2da037a67f",
+                      "file":  "unity-arguments.txt",
+                      "bytes":  546
+                  }
+              ],
+    "skipped":  [
+
+                ]
+}

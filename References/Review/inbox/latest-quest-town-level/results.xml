@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="85" result="Passed" total="85" passed="85" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:31Z" duration="0.7064247">
+  <test-suite type="TestSuite" id="1000" name="もふまちメルジュ" fullname="もふまちメルジュ" runstate="Runnable" testcasecount="492" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:31Z" duration="0.706425" total="85" passed="85" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1593" name="Mofumachi.EditModeTests.dll" fullname="C:/Users/User/Desktop/Mofumachi/quest-town-level-check-burst-disabled-v1-20261107-134513-1c0ec2fb/Library/ScriptAssemblies/Mofumachi.EditModeTests.dll" runstate="Runnable" testcasecount="473" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:31Z" duration="0.690462" total="85" passed="85" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="17568" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1594" name="Mofumachi" fullname="Mofumachi" runstate="Runnable" testcasecount="473" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:31Z" duration="0.683566" total="85" passed="85" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1595" name="Tests" fullname="Mofumachi.Tests" runstate="Runnable" testcasecount="473" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:31Z" duration="0.677265" total="85" passed="85" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1236" name="QuestTownLevelTests" fullname="Mofumachi.Tests.QuestTownLevelTests" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" testcasecount="85" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:31Z" duration="0.653973" total="85" passed="85" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="ParameterizedMethod" id="1261" name="ActiveOldRequestAndProgressAreReadOnlyAndSurviveCodecReload" fullname="Mofumachi.Tests.QuestTownLevelTests.ActiveOldRequestAndProgressAreReadOnlyAndSurviveCodecReload" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:30Z" duration="0.143143" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1258" name="ActiveOldRequestAndProgressAreReadOnlyAndSurviveCodecReload(NewPlayer)" fullname="Mofumachi.Tests.QuestTownLevelTests.ActiveOldRequestAndProgressAreReadOnlyAndSurviveCodecReload(NewPlayer)" methodname="ActiveOldRequestAndProgressAreReadOnlyAndSurviveCodecReload" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1980070060" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:30Z" duration="0.130685" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1259" name="ActiveOldRequestAndProgressAreReadOnlyAndSurviveCodecReload(LegacyPlayer)" fullname="Mofumachi.Tests.QuestTownLevelTests.ActiveOldRequestAndProgressAreReadOnlyAndSurviveCodecReload(LegacyPlayer)" methodname="ActiveOldRequestAndProgressAreReadOnlyAndSurviveCodecReload" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1683064147" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:30Z" duration="0.001361" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1260" name="ActiveOldRequestAndProgressAreReadOnlyAndSurviveCodecReload(ExpandedNewPlayer)" fullname="Mofumachi.Tests.QuestTownLevelTests.ActiveOldRequestAndProgressAreReadOnlyAndSurviveCodecReload(ExpandedNewPlayer)" methodname="ActiveOldRequestAndProgressAreReadOnlyAndSurviveCodecReload" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1297314734" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:30Z" duration="0.001213" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1265" name="AdditionalQuestsCannotCompleteOrReplayAnyOldChapter" fullname="Mofumachi.Tests.QuestTownLevelTests.AdditionalQuestsCannotCompleteOrReplayAnyOldChapter" methodname="AdditionalQuestsCannotCompleteOrReplayAnyOldChapter" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1956219555" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:30Z" duration="0.004012" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1266" name="AllTwelveRequiredForAllCompleteAndUnknownIdsDoNotCount" fullname="Mofumachi.Tests.QuestTownLevelTests.AllTwelveRequiredForAllCompleteAndUnknownIdsDoNotCount" methodname="AllTwelveRequiredForAllCompleteAndUnknownIdsDoNotCount" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="2009822696" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:30Z" duration="0.001823" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1237" name="CatalogHasTwelveUniqueKnownIdsAndImmutableLists" fullname="Mofumachi.Tests.QuestTownLevelTests.CatalogHasTwelveUniqueKnownIdsAndImmutableLists" methodname="CatalogHasTwelveUniqueKnownIdsAndImmutableLists" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="979796169" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:30Z" duration="0.010245" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1286" name="EitherConditionAloneCannotGrowTown" fullname="Mofumachi.Tests.QuestTownLevelTests.EitherConditionAloneCannotGrowTown" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:30Z" duration="0.020244" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1274" name="EitherConditionAloneCannotGrowTown(1,0L)" fullname="Mofumachi.Tests.QuestTownLevelTests.EitherConditionAloneCannotGrowTown(1,0L)" methodname="EitherConditionAloneCannotGrowTown" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="832164534" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:30Z" duration="0.000883" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1275" name="EitherConditionAloneCannotGrowTown(2,0L)" fullname="Mofumachi.Tests.QuestTownLevelTests.EitherConditionAloneCannotGrowTown(2,0L)" methodname="EitherConditionAloneCannotGrowTown" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="341536772" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:30Z" duration="0.000147" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1276" name="EitherConditionAloneCannotGrowTown(4,0L)" fullname="Mofumachi.Tests.QuestTownLevelTests.EitherConditionAloneCannotGrowTown(4,0L)" methodname="EitherConditionAloneCannotGrowTown" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="818277334" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:30Z" duration="0.000089" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1277" name="EitherConditionAloneCannotGrowTown(6,0L)" fullname="Mofumachi.Tests.QuestTownLevelTests.EitherConditionAloneCannotGrowTown(6,0L)" methodname="EitherConditionAloneCannotGrowTown" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1171110055" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:30Z" duration="0.000107" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1278" name="EitherConditionAloneCannotGrowTown(9,0L)" fullname="Mofumachi.Tests.QuestTownLevelTests.EitherConditionAloneCannotGrowTown(9,0L)" methodname="EitherConditionAloneCannotGrowTown" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1841328877" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:30Z" duration="0.000098" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1279" name="EitherConditionAloneCannotGrowTown(12,0L)" fullname="Mofumachi.Tests.QuestTownLevelTests.EitherConditionAloneCannotGrowTown(12,0L)" methodname="EitherConditionAloneCannotGrowTown" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="58619353" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:30Z" duration="0.000099" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1280" name="EitherConditionAloneCannotGrowTown(0,4L)" fullname="Mofumachi.Tests.QuestTownLevelTests.EitherConditionAloneCannotGrowTown(0,4L)" methodname="EitherConditionAloneCannotGrowTown" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1592924403" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:30Z" duration="0.000303" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1281" name="EitherConditionAloneCannotGrowTown(0,8L)" fullname="Mofumachi.Tests.QuestTownLevelTests.EitherConditionAloneCannotGrowTown(0,8L)" methodname="EitherConditionAloneCannotGrowTown" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1945882710" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:30Z" duration="0.000086" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1282" name="EitherConditionAloneCannotGrowTown(0,40L)" fullname="Mofumachi.Tests.QuestTownLevelTests.EitherConditionAloneCannotGrowTown(0,40L)" methodname="EitherConditionAloneCannotGrowTown" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1096248513" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:30Z" duration="0.000068" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1283" name="EitherConditionAloneCannotGrowTown(0,96L)" fullname="Mofumachi.Tests.QuestTownLevelTests.EitherConditionAloneCannotGrowTown(0,96L)" methodname="EitherConditionAloneCannotGrowTown" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="2093627376" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:30Z" duration="0.000075" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1284" name="EitherConditionAloneCannotGrowTown(0,160L)" fullname="Mofumachi.Tests.QuestTownLevelTests.EitherConditionAloneCannotGrowTown(0,160L)" methodname="EitherConditionAloneCannotGrowTown" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1532931858" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:30Z" duration="0.000090" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1285" name="EitherConditionAloneCannotGrowTown(0,224L)" fullname="Mofumachi.Tests.QuestTownLevelTests.EitherConditionAloneCannotGrowTown(0,224L)" methodname="EitherConditionAloneCannotGrowTown" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="54946391" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:30Z" duration="0.000077" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1326" name="EndToEndTwelveDeliveriesPayCoinsOnceAndNeverRevertStory" fullname="Mofumachi.Tests.QuestTownLevelTests.EndToEndTwelveDeliveriesPayCoinsOnceAndNeverRevertStory" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:31Z" duration="0.116738" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1323" name="EndToEndTwelveDeliveriesPayCoinsOnceAndNeverRevertStory(ExpandedNewPlayer)" fullname="Mofumachi.Tests.QuestTownLevelTests.EndToEndTwelveDeliveriesPayCoinsOnceAndNeverRevertStory(ExpandedNewPlayer)" methodname="EndToEndTwelveDeliveriesPayCoinsOnceAndNeverRevertStory" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1831558457" result="Passed" start-time="2026-11-07 04:51:30Z" end-time="2026-11-07 04:51:31Z" duration="0.041122" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1324" name="EndToEndTwelveDeliveriesPayCoinsOnceAndNeverRevertStory(LegacyPlayer)" fullname="Mofumachi.Tests.QuestTownLevelTests.EndToEndTwelveDeliveriesPayCoinsOnceAndNeverRevertStory(LegacyPlayer)" methodname="EndToEndTwelveDeliveriesPayCoinsOnceAndNeverRevertStory" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="526070506" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.046094" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1325" name="EndToEndTwelveDeliveriesPayCoinsOnceAndNeverRevertStory(NewPlayer)" fullname="Mofumachi.Tests.QuestTownLevelTests.EndToEndTwelveDeliveriesPayCoinsOnceAndNeverRevertStory(NewPlayer)" methodname="EndToEndTwelveDeliveriesPayCoinsOnceAndNeverRevertStory" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1880700955" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.028127" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1273" name="ExactBothConditionsReachTheSpecifiedLevel" fullname="Mofumachi.Tests.QuestTownLevelTests.ExactBothConditionsReachTheSpecifiedLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.002414" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1267" name="ExactBothConditionsReachTheSpecifiedLevel(1,4L,1)" fullname="Mofumachi.Tests.QuestTownLevelTests.ExactBothConditionsReachTheSpecifiedLevel(1,4L,1)" methodname="ExactBothConditionsReachTheSpecifiedLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1731463996" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000494" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1268" name="ExactBothConditionsReachTheSpecifiedLevel(2,8L,2)" fullname="Mofumachi.Tests.QuestTownLevelTests.ExactBothConditionsReachTheSpecifiedLevel(2,8L,2)" methodname="ExactBothConditionsReachTheSpecifiedLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1217551205" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000117" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1269" name="ExactBothConditionsReachTheSpecifiedLevel(4,40L,3)" fullname="Mofumachi.Tests.QuestTownLevelTests.ExactBothConditionsReachTheSpecifiedLevel(4,40L,3)" methodname="ExactBothConditionsReachTheSpecifiedLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="2056190025" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000090" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1270" name="ExactBothConditionsReachTheSpecifiedLevel(6,96L,4)" fullname="Mofumachi.Tests.QuestTownLevelTests.ExactBothConditionsReachTheSpecifiedLevel(6,96L,4)" methodname="ExactBothConditionsReachTheSpecifiedLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1056604247" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000068" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1271" name="ExactBothConditionsReachTheSpecifiedLevel(9,160L,5)" fullname="Mofumachi.Tests.QuestTownLevelTests.ExactBothConditionsReachTheSpecifiedLevel(9,160L,5)" methodname="ExactBothConditionsReachTheSpecifiedLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="116401635" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000125" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1272" name="ExactBothConditionsReachTheSpecifiedLevel(12,224L,6)" fullname="Mofumachi.Tests.QuestTownLevelTests.ExactBothConditionsReachTheSpecifiedLevel(12,224L,6)" methodname="ExactBothConditionsReachTheSpecifiedLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="2030763094" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000070" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1253" name="ExactTotalsAre128Units126Generated252PointsAnd84Merges" fullname="Mofumachi.Tests.QuestTownLevelTests.ExactTotalsAre128Units126Generated252PointsAnd84Merges" methodname="ExactTotalsAre128Units126Generated252PointsAnd84Merges" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="828349761" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000842" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1257" name="ExistingV4AndMigratedPlayersFinishOldStoryBeforeAnyNewRequest" fullname="Mofumachi.Tests.QuestTownLevelTests.ExistingV4AndMigratedPlayersFinishOldStoryBeforeAnyNewRequest" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.002366" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1255" name="ExistingV4AndMigratedPlayersFinishOldStoryBeforeAnyNewRequest(NewPlayer)" fullname="Mofumachi.Tests.QuestTownLevelTests.ExistingV4AndMigratedPlayersFinishOldStoryBeforeAnyNewRequest(NewPlayer)" methodname="ExistingV4AndMigratedPlayersFinishOldStoryBeforeAnyNewRequest" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1461111122" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.001266" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1256" name="ExistingV4AndMigratedPlayersFinishOldStoryBeforeAnyNewRequest(LegacyPlayer)" fullname="Mofumachi.Tests.QuestTownLevelTests.ExistingV4AndMigratedPlayersFinishOldStoryBeforeAnyNewRequest(LegacyPlayer)" methodname="ExistingV4AndMigratedPlayersFinishOldStoryBeforeAnyNewRequest" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="766513053" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000209" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1318" name="ExplicitTownActionTotalIncreaseAlsoReevaluatesWithinOneSave" fullname="Mofumachi.Tests.QuestTownLevelTests.ExplicitTownActionTotalIncreaseAlsoReevaluatesWithinOneSave" methodname="ExplicitTownActionTotalIncreaseAlsoReevaluatesWithinOneSave" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="516343196" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.002478" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1317" name="FailedActionSaveRollsBackNewLevelWithWalletAndLedger" fullname="Mofumachi.Tests.QuestTownLevelTests.FailedActionSaveRollsBackNewLevelWithWalletAndLedger" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.014125" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1315" name="FailedActionSaveRollsBackNewLevelWithWalletAndLedger(False)" fullname="Mofumachi.Tests.QuestTownLevelTests.FailedActionSaveRollsBackNewLevelWithWalletAndLedger(False)" methodname="FailedActionSaveRollsBackNewLevelWithWalletAndLedger" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="686680066" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.011072" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1316" name="FailedActionSaveRollsBackNewLevelWithWalletAndLedger(True)" fullname="Mofumachi.Tests.QuestTownLevelTests.FailedActionSaveRollsBackNewLevelWithWalletAndLedger(True)" methodname="FailedActionSaveRollsBackNewLevelWithWalletAndLedger" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1709487674" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.002228" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1330" name="FailedDeliveryRestoresCoinsItemsCompletionAndNewTownLevel" fullname="Mofumachi.Tests.QuestTownLevelTests.FailedDeliveryRestoresCoinsItemsCompletionAndNewTownLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.006977" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1328" name="FailedDeliveryRestoresCoinsItemsCompletionAndNewTownLevel(False)" fullname="Mofumachi.Tests.QuestTownLevelTests.FailedDeliveryRestoresCoinsItemsCompletionAndNewTownLevel(False)" methodname="FailedDeliveryRestoresCoinsItemsCompletionAndNewTownLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1587518630" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.003282" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1329" name="FailedDeliveryRestoresCoinsItemsCompletionAndNewTownLevel(True)" fullname="Mofumachi.Tests.QuestTownLevelTests.FailedDeliveryRestoresCoinsItemsCompletionAndNewTownLevel(True)" methodname="FailedDeliveryRestoresCoinsItemsCompletionAndNewTownLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1039411074" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.002901" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1314" name="GrowthIncludedInNormalActionSingleSaveEvenAtWalletCap" fullname="Mofumachi.Tests.QuestTownLevelTests.GrowthIncludedInNormalActionSingleSaveEvenAtWalletCap" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.011578" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1311" name="GrowthIncludedInNormalActionSingleSaveEvenAtWalletCap(&quot;talk&quot;)" fullname="Mofumachi.Tests.QuestTownLevelTests.GrowthIncludedInNormalActionSingleSaveEvenAtWalletCap(&quot;talk&quot;)" methodname="GrowthIncludedInNormalActionSingleSaveEvenAtWalletCap" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1008440578" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.002350" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1312" name="GrowthIncludedInNormalActionSingleSaveEvenAtWalletCap(&quot;walk&quot;)" fullname="Mofumachi.Tests.QuestTownLevelTests.GrowthIncludedInNormalActionSingleSaveEvenAtWalletCap(&quot;walk&quot;)" methodname="GrowthIncludedInNormalActionSingleSaveEvenAtWalletCap" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="281443173" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.004678" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1313" name="GrowthIncludedInNormalActionSingleSaveEvenAtWalletCap(&quot;flower&quot;)" fullname="Mofumachi.Tests.QuestTownLevelTests.GrowthIncludedInNormalActionSingleSaveEvenAtWalletCap(&quot;flower&quot;)" methodname="GrowthIncludedInNormalActionSingleSaveEvenAtWalletCap" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1382292944" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.003276" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1336" name="InvalidSavedLevelSevenIsBlockedWithoutClampingOrOverwrite" fullname="Mofumachi.Tests.QuestTownLevelTests.InvalidSavedLevelSevenIsBlockedWithoutClampingOrOverwrite" methodname="InvalidSavedLevelSevenIsBlockedWithoutClampingOrOverwrite" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="156861570" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.051863" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1306" name="LoadOwnerReevaluationSavesOnlyIfLevelActuallyIncreases" fullname="Mofumachi.Tests.QuestTownLevelTests.LoadOwnerReevaluationSavesOnlyIfLevelActuallyIncreases" methodname="LoadOwnerReevaluationSavesOnlyIfLevelActuallyIncreases" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1880843514" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.003474" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1310" name="LoadReevaluationSaveFailureRestoresOriginalInsteadOfNewState" fullname="Mofumachi.Tests.QuestTownLevelTests.LoadReevaluationSaveFailureRestoresOriginalInsteadOfNewState" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.007239" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1308" name="LoadReevaluationSaveFailureRestoresOriginalInsteadOfNewState(False)" fullname="Mofumachi.Tests.QuestTownLevelTests.LoadReevaluationSaveFailureRestoresOriginalInsteadOfNewState(False)" methodname="LoadReevaluationSaveFailureRestoresOriginalInsteadOfNewState" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1551384770" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.004479" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1309" name="LoadReevaluationSaveFailureRestoresOriginalInsteadOfNewState(True)" fullname="Mofumachi.Tests.QuestTownLevelTests.LoadReevaluationSaveFailureRestoresOriginalInsteadOfNewState(True)" methodname="LoadReevaluationSaveFailureRestoresOriginalInsteadOfNewState" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="2036486384" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.001831" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1262" name="MixedRouteDoesNotTurnLegacyAfterSaveAndReload" fullname="Mofumachi.Tests.QuestTownLevelTests.MixedRouteDoesNotTurnLegacyAfterSaveAndReload" methodname="MixedRouteDoesNotTurnLegacyAfterSaveAndReload" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="489879762" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.044959" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1307" name="NewGameStartsAtZeroAndExistingSavedSixNeverFallsOnReload" fullname="Mofumachi.Tests.QuestTownLevelTests.NewGameStartsAtZeroAndExistingSavedSixNeverFallsOnReload" methodname="NewGameStartsAtZeroAndExistingSavedSixNeverFallsOnReload" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1814057269" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.002331" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1254" name="NewPlayerUsesExactMixedOrderAndEachIdOnlyOnce" fullname="Mofumachi.Tests.QuestTownLevelTests.NewPlayerUsesExactMixedOrderAndEachIdOnlyOnce" methodname="NewPlayerUsesExactMixedOrderAndEachIdOnlyOnce" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="238848895" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000686" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1252" name="NewSixRequirementsCoinsAndUnitsAreExact" fullname="Mofumachi.Tests.QuestTownLevelTests.NewSixRequirementsCoinsAndUnitsAreExact" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.012444" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1246" name="NewSixRequirementsCoinsAndUnitsAreExact(&quot;loop-a-01&quot;,&quot;tea:1:2,bread:1:2,flower:2:1&quot;,30,6)" fullname="Mofumachi.Tests.QuestTownLevelTests.NewSixRequirementsCoinsAndUnitsAreExact(&quot;loop-a-01&quot;,&quot;tea:1:2,bread:1:2,flower:2:1&quot;,30,6)" methodname="NewSixRequirementsCoinsAndUnitsAreExact" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1526158799" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.002135" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1247" name="NewSixRequirementsCoinsAndUnitsAreExact(&quot;loop-a-02&quot;,&quot;tea:2:1,bread:2:2,flower:2:2&quot;,40,10)" fullname="Mofumachi.Tests.QuestTownLevelTests.NewSixRequirementsCoinsAndUnitsAreExact(&quot;loop-a-02&quot;,&quot;tea:2:1,bread:2:2,flower:2:2&quot;,40,10)" methodname="NewSixRequirementsCoinsAndUnitsAreExact" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="876166926" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000216" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1248" name="NewSixRequirementsCoinsAndUnitsAreExact(&quot;loop-a-03&quot;,&quot;tea:3:1,bread:3:2,flower:2:2&quot;,50,16)" fullname="Mofumachi.Tests.QuestTownLevelTests.NewSixRequirementsCoinsAndUnitsAreExact(&quot;loop-a-03&quot;,&quot;tea:3:1,bread:3:2,flower:2:2&quot;,50,16)" methodname="NewSixRequirementsCoinsAndUnitsAreExact" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="808390550" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000299" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1249" name="NewSixRequirementsCoinsAndUnitsAreExact(&quot;loop-a-04&quot;,&quot;tea:3:2,bread:2:2,flower:3:2&quot;,60,20)" fullname="Mofumachi.Tests.QuestTownLevelTests.NewSixRequirementsCoinsAndUnitsAreExact(&quot;loop-a-04&quot;,&quot;tea:3:2,bread:2:2,flower:3:2&quot;,60,20)" methodname="NewSixRequirementsCoinsAndUnitsAreExact" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1639618568" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000255" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1250" name="NewSixRequirementsCoinsAndUnitsAreExact(&quot;loop-a-05&quot;,&quot;tea:2:2,bread:3:3,flower:3:2&quot;,70,24)" fullname="Mofumachi.Tests.QuestTownLevelTests.NewSixRequirementsCoinsAndUnitsAreExact(&quot;loop-a-05&quot;,&quot;tea:2:2,bread:3:3,flower:3:2&quot;,70,24)" methodname="NewSixRequirementsCoinsAndUnitsAreExact" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1657769099" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000145" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1251" name="NewSixRequirementsCoinsAndUnitsAreExact(&quot;loop-a-06&quot;,&quot;tea:3:3,bread:3:2,flower:3:2&quot;,80,28)" fullname="Mofumachi.Tests.QuestTownLevelTests.NewSixRequirementsCoinsAndUnitsAreExact(&quot;loop-a-06&quot;,&quot;tea:3:3,bread:3:2,flower:3:2&quot;,80,28)" methodname="NewSixRequirementsCoinsAndUnitsAreExact" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="501534112" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000181" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1322" name="NonGrowthRewardsDoNotTriggerOrContributeToTownLevel" fullname="Mofumachi.Tests.QuestTownLevelTests.NonGrowthRewardsDoNotTriggerOrContributeToTownLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.017961" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1319" name="NonGrowthRewardsDoNotTriggerOrContributeToTownLevel(&quot;recovery&quot;)" fullname="Mofumachi.Tests.QuestTownLevelTests.NonGrowthRewardsDoNotTriggerOrContributeToTownLevel(&quot;recovery&quot;)" methodname="NonGrowthRewardsDoNotTriggerOrContributeToTownLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1722966487" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.003158" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1320" name="NonGrowthRewardsDoNotTriggerOrContributeToTownLevel(&quot;extra&quot;)" fullname="Mofumachi.Tests.QuestTownLevelTests.NonGrowthRewardsDoNotTriggerOrContributeToTownLevel(&quot;extra&quot;)" methodname="NonGrowthRewardsDoNotTriggerOrContributeToTownLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="2109130626" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.002109" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1321" name="NonGrowthRewardsDoNotTriggerOrContributeToTownLevel(&quot;help&quot;)" fullname="Mofumachi.Tests.QuestTownLevelTests.NonGrowthRewardsDoNotTriggerOrContributeToTownLevel(&quot;help&quot;)" methodname="NonGrowthRewardsDoNotTriggerOrContributeToTownLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1647734174" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.011641" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1245" name="OldRequesterTitleDialogueAndStoryMembershipRemainUnchanged" fullname="Mofumachi.Tests.QuestTownLevelTests.OldRequesterTitleDialogueAndStoryMembershipRemainUnchanged" methodname="OldRequesterTitleDialogueAndStoryMembershipRemainUnchanged" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="363815331" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.001455" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1335" name="OldSaveMigrationKeepsLegacyRouteRawProtectionAndSavedLevel" fullname="Mofumachi.Tests.QuestTownLevelTests.OldSaveMigrationKeepsLegacyRouteRawProtectionAndSavedLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.141879" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1332" name="OldSaveMigrationKeepsLegacyRouteRawProtectionAndSavedLevel(1)" fullname="Mofumachi.Tests.QuestTownLevelTests.OldSaveMigrationKeepsLegacyRouteRawProtectionAndSavedLevel(1)" methodname="OldSaveMigrationKeepsLegacyRouteRawProtectionAndSavedLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="2067382097" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.046525" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1333" name="OldSaveMigrationKeepsLegacyRouteRawProtectionAndSavedLevel(2)" fullname="Mofumachi.Tests.QuestTownLevelTests.OldSaveMigrationKeepsLegacyRouteRawProtectionAndSavedLevel(2)" methodname="OldSaveMigrationKeepsLegacyRouteRawProtectionAndSavedLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="248902775" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.048124" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1334" name="OldSaveMigrationKeepsLegacyRouteRawProtectionAndSavedLevel(3)" fullname="Mofumachi.Tests.QuestTownLevelTests.OldSaveMigrationKeepsLegacyRouteRawProtectionAndSavedLevel(3)" methodname="OldSaveMigrationKeepsLegacyRouteRawProtectionAndSavedLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="178015555" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.046005" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1244" name="OldSixRequirementsCoinsAndChapterRemainExact" fullname="Mofumachi.Tests.QuestTownLevelTests.OldSixRequirementsCoinsAndChapterRemainExact" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.002431" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1238" name="OldSixRequirementsCoinsAndChapterRemainExact(&quot;tea-01&quot;,&quot;tea:2:1&quot;,30,&quot;chapter-01&quot;)" fullname="Mofumachi.Tests.QuestTownLevelTests.OldSixRequirementsCoinsAndChapterRemainExact(&quot;tea-01&quot;,&quot;tea:2:1&quot;,30,&quot;chapter-01&quot;)" methodname="OldSixRequirementsCoinsAndChapterRemainExact" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1565994646" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000495" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1239" name="OldSixRequirementsCoinsAndChapterRemainExact(&quot;bread-01&quot;,&quot;bread:2:1&quot;,40,&quot;chapter-01&quot;)" fullname="Mofumachi.Tests.QuestTownLevelTests.OldSixRequirementsCoinsAndChapterRemainExact(&quot;bread-01&quot;,&quot;bread:2:1&quot;,40,&quot;chapter-01&quot;)" methodname="OldSixRequirementsCoinsAndChapterRemainExact" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1883341243" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000111" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1240" name="OldSixRequirementsCoinsAndChapterRemainExact(&quot;flower-01&quot;,&quot;flower:2:1&quot;,40,&quot;chapter-02&quot;)" fullname="Mofumachi.Tests.QuestTownLevelTests.OldSixRequirementsCoinsAndChapterRemainExact(&quot;flower-01&quot;,&quot;flower:2:1&quot;,40,&quot;chapter-02&quot;)" methodname="OldSixRequirementsCoinsAndChapterRemainExact" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="978543493" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000074" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1241" name="OldSixRequirementsCoinsAndChapterRemainExact(&quot;tea-02&quot;,&quot;tea:3:1,bread:2:1&quot;,70,&quot;chapter-02&quot;)" fullname="Mofumachi.Tests.QuestTownLevelTests.OldSixRequirementsCoinsAndChapterRemainExact(&quot;tea-02&quot;,&quot;tea:3:1,bread:2:1&quot;,70,&quot;chapter-02&quot;)" methodname="OldSixRequirementsCoinsAndChapterRemainExact" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1794323354" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000068" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1242" name="OldSixRequirementsCoinsAndChapterRemainExact(&quot;flower-02&quot;,&quot;flower:3:1,tea:2:1&quot;,70,&quot;chapter-03&quot;)" fullname="Mofumachi.Tests.QuestTownLevelTests.OldSixRequirementsCoinsAndChapterRemainExact(&quot;flower-02&quot;,&quot;flower:3:1,tea:2:1&quot;,70,&quot;chapter-03&quot;)" methodname="OldSixRequirementsCoinsAndChapterRemainExact" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1665067294" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000065" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1243" name="OldSixRequirementsCoinsAndChapterRemainExact(&quot;bread-02&quot;,&quot;bread:3:1,flower:2:1&quot;,80,&quot;chapter-03&quot;)" fullname="Mofumachi.Tests.QuestTownLevelTests.OldSixRequirementsCoinsAndChapterRemainExact(&quot;bread-02&quot;,&quot;bread:3:1,flower:2:1&quot;,80,&quot;chapter-03&quot;)" methodname="OldSixRequirementsCoinsAndChapterRemainExact" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="733680110" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000068" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1299" name="OneBelowEitherThresholdDoesNotReachNextLevel" fullname="Mofumachi.Tests.QuestTownLevelTests.OneBelowEitherThresholdDoesNotReachNextLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.003175" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1287" name="OneBelowEitherThresholdDoesNotReachNextLevel(0,4L,0)" fullname="Mofumachi.Tests.QuestTownLevelTests.OneBelowEitherThresholdDoesNotReachNextLevel(0,4L,0)" methodname="OneBelowEitherThresholdDoesNotReachNextLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1354632323" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000270" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1288" name="OneBelowEitherThresholdDoesNotReachNextLevel(1,3L,0)" fullname="Mofumachi.Tests.QuestTownLevelTests.OneBelowEitherThresholdDoesNotReachNextLevel(1,3L,0)" methodname="OneBelowEitherThresholdDoesNotReachNextLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1908766598" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000089" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1289" name="OneBelowEitherThresholdDoesNotReachNextLevel(1,8L,1)" fullname="Mofumachi.Tests.QuestTownLevelTests.OneBelowEitherThresholdDoesNotReachNextLevel(1,8L,1)" methodname="OneBelowEitherThresholdDoesNotReachNextLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1570269771" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000069" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1290" name="OneBelowEitherThresholdDoesNotReachNextLevel(2,7L,1)" fullname="Mofumachi.Tests.QuestTownLevelTests.OneBelowEitherThresholdDoesNotReachNextLevel(2,7L,1)" methodname="OneBelowEitherThresholdDoesNotReachNextLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="781621858" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000065" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1291" name="OneBelowEitherThresholdDoesNotReachNextLevel(3,40L,2)" fullname="Mofumachi.Tests.QuestTownLevelTests.OneBelowEitherThresholdDoesNotReachNextLevel(3,40L,2)" methodname="OneBelowEitherThresholdDoesNotReachNextLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="906712119" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000065" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1292" name="OneBelowEitherThresholdDoesNotReachNextLevel(4,39L,2)" fullname="Mofumachi.Tests.QuestTownLevelTests.OneBelowEitherThresholdDoesNotReachNextLevel(4,39L,2)" methodname="OneBelowEitherThresholdDoesNotReachNextLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1520768227" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000078" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1293" name="OneBelowEitherThresholdDoesNotReachNextLevel(5,96L,3)" fullname="Mofumachi.Tests.QuestTownLevelTests.OneBelowEitherThresholdDoesNotReachNextLevel(5,96L,3)" methodname="OneBelowEitherThresholdDoesNotReachNextLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="926531797" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000076" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1294" name="OneBelowEitherThresholdDoesNotReachNextLevel(6,95L,3)" fullname="Mofumachi.Tests.QuestTownLevelTests.OneBelowEitherThresholdDoesNotReachNextLevel(6,95L,3)" methodname="OneBelowEitherThresholdDoesNotReachNextLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="151887257" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000068" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1295" name="OneBelowEitherThresholdDoesNotReachNextLevel(8,160L,4)" fullname="Mofumachi.Tests.QuestTownLevelTests.OneBelowEitherThresholdDoesNotReachNextLevel(8,160L,4)" methodname="OneBelowEitherThresholdDoesNotReachNextLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1995920126" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000066" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1296" name="OneBelowEitherThresholdDoesNotReachNextLevel(9,159L,4)" fullname="Mofumachi.Tests.QuestTownLevelTests.OneBelowEitherThresholdDoesNotReachNextLevel(9,159L,4)" methodname="OneBelowEitherThresholdDoesNotReachNextLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="240691999" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000071" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1297" name="OneBelowEitherThresholdDoesNotReachNextLevel(11,224L,5)" fullname="Mofumachi.Tests.QuestTownLevelTests.OneBelowEitherThresholdDoesNotReachNextLevel(11,224L,5)" methodname="OneBelowEitherThresholdDoesNotReachNextLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="654906393" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000068" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1298" name="OneBelowEitherThresholdDoesNotReachNextLevel(12,223L,5)" fullname="Mofumachi.Tests.QuestTownLevelTests.OneBelowEitherThresholdDoesNotReachNextLevel(12,223L,5)" methodname="OneBelowEitherThresholdDoesNotReachNextLevel" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="621574975" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000068" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1331" name="ReentrantDeliveryCannotCompleteOrRewardTwice" fullname="Mofumachi.Tests.QuestTownLevelTests.ReentrantDeliveryCannotCompleteOrRewardTwice" methodname="ReentrantDeliveryCannotCompleteOrRewardTwice" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1856308674" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.003426" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1304" name="SavedFloorAndDirectLevelJumpArePreserved" fullname="Mofumachi.Tests.QuestTownLevelTests.SavedFloorAndDirectLevelJumpArePreserved" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.001632" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1300" name="SavedFloorAndDirectLevelJumpArePreserved(5,4,40L,5)" fullname="Mofumachi.Tests.QuestTownLevelTests.SavedFloorAndDirectLevelJumpArePreserved(5,4,40L,5)" methodname="SavedFloorAndDirectLevelJumpArePreserved" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="632946683" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000393" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1301" name="SavedFloorAndDirectLevelJumpArePreserved(6,0,0L,6)" fullname="Mofumachi.Tests.QuestTownLevelTests.SavedFloorAndDirectLevelJumpArePreserved(6,0,0L,6)" methodname="SavedFloorAndDirectLevelJumpArePreserved" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1320961492" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000107" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1302" name="SavedFloorAndDirectLevelJumpArePreserved(6,12,224L,6)" fullname="Mofumachi.Tests.QuestTownLevelTests.SavedFloorAndDirectLevelJumpArePreserved(6,12,224L,6)" methodname="SavedFloorAndDirectLevelJumpArePreserved" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="831924103" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000067" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1303" name="SavedFloorAndDirectLevelJumpArePreserved(1,6,100L,4)" fullname="Mofumachi.Tests.QuestTownLevelTests.SavedFloorAndDirectLevelJumpArePreserved(1,6,100L,4)" methodname="SavedFloorAndDirectLevelJumpArePreserved" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="775143104" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000066" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1327" name="StandardAcceptanceCannotSkipNewOrLegacyOrderButCustomCatalogStillWorks" fullname="Mofumachi.Tests.QuestTownLevelTests.StandardAcceptanceCannotSkipNewOrLegacyOrderButCustomCatalogStillWorks" methodname="StandardAcceptanceCannotSkipNewOrLegacyOrderButCustomCatalogStillWorks" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="2112384353" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.002226" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1264" name="StorySixRemainsCompleteWhileAdditionalSixAreStillPending" fullname="Mofumachi.Tests.QuestTownLevelTests.StorySixRemainsCompleteWhileAdditionalSixAreStillPending" methodname="StorySixRemainsCompleteWhileAdditionalSixAreStillPending" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="1349136031" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000873" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1263" name="UnknownActiveQuestIsNeverSilentlyReplaced" fullname="Mofumachi.Tests.QuestTownLevelTests.UnknownActiveQuestIsNeverSilentlyReplaced" methodname="UnknownActiveQuestIsNeverSilentlyReplaced" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="2006183267" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000754" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1305" name="UnknownAndDuplicateCompletedIdsCannotCreateLevelSeven" fullname="Mofumachi.Tests.QuestTownLevelTests.UnknownAndDuplicateCompletedIdsCannotCreateLevelSeven" methodname="UnknownAndDuplicateCompletedIdsCannotCreateLevelSeven" classname="Mofumachi.Tests.QuestTownLevelTests" runstate="Runnable" seed="980143051" result="Passed" start-time="2026-11-07 04:51:31Z" end-time="2026-11-07 04:51:31Z" duration="0.000325" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

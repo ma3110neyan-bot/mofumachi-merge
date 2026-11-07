@@ -1,7 +1,8 @@
 ﻿-batchmode
 -nographics
+--burst-disable-compilation
 -projectPath
-C:\Users\User\Desktop\Mofumachi\quest-town-level-check-20261107-131556-0df6b34b
+C:\Users\User\Desktop\Mofumachi\quest-town-level-check-burst-disabled-v1-20261107-134513-1c0ec2fb
 -buildTarget
 Android
 -runTests
@@ -12,6 +13,6 @@ Mofumachi.EditModeTests
 -testFilter
 ^Mofumachi\.Tests\.QuestTownLevelTests\..*
 -testResults
-C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Diagnostics\quest-town-level-20261107-131556-0df6b34b\results.xml
+C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Diagnostics\quest-town-level-burst-disabled-v1-20261107-134513-1c0ec2fb\results.xml
 -logFile
-C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Diagnostics\quest-town-level-20261107-131556-0df6b34b\unity.log
+C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Diagnostics\quest-town-level-burst-disabled-v1-20261107-134513-1c0ec2fb\unity.log

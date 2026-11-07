@@ -5,7 +5,7 @@ Set-StrictMode -Version 2.0
 $ErrorActionPreference = 'Stop'
 $ProductCommit = '46f65b24d58531d5934035fbe4cdb4d5b00104a6'
 $Fixture = 'Mofumachi.Tests.ProgressUiIntegrationTests'
-$ValidationId = 'progress-ui-e-drive-v1'
+$ValidationId = 'progress-ui-e-drive-v2'
 $ValidationRoot = 'E:\Mofumachi-Validation'
 $FixtureCounts = [ordered]@{
     'Mofumachi.Tests.SaveServiceTests' = 33
@@ -35,6 +35,52 @@ function Get-ProgressUiCheckPaths([string]$Root,[string]$RunId) {
         TempRoot=(Join-Path (Join-Path $Root 'temp') $Label)
         PackageCache=(Join-Path $Root 'upm-cache')
     }
+}
+function Read-ProgressUiCheckAttempt([string]$Directory,[string]$DiagnosticsRoot,[string]$Variant) {
+    $Attempt=@{is_terminal=$false;classification='pre-Unity/incomplete attempt';run_path=$Directory;result_path=$null;saved=$null;reason='invalid_receipt_path'}
+    if([string]::IsNullOrWhiteSpace($Directory)){return $Attempt}
+    try {
+        $Full=[IO.Path]::GetFullPath($Directory)
+        $Boundary=[IO.Path]::GetFullPath($DiagnosticsRoot).TrimEnd('\','/')+[IO.Path]::DirectorySeparatorChar
+        if(-not $Full.StartsWith($Boundary,[StringComparison]::OrdinalIgnoreCase)){return $Attempt}
+    } catch {return $Attempt}
+    $Attempt.run_path=$Full;$Attempt.result_path=Join-Path $Full 'progress-ui-integration-result.json'
+    if(-not(Test-Path -LiteralPath $Attempt.result_path -PathType Leaf)){$Attempt.reason='missing_terminal_result_json';return $Attempt}
+    try {
+        $Saved=[IO.File]::ReadAllText($Attempt.result_path)|ConvertFrom-Json
+        foreach($Name in @('source_commit','validation_id','result','validation_passed')){
+            if($null -eq $Saved -or $null -eq $Saved.PSObject.Properties[$Name]){$Attempt.reason='invalid_terminal_result_json';return $Attempt}
+        }
+        if($Saved.source_commit -cne $ProductCommit -or $Saved.validation_id -cne $Variant){$Attempt.reason='result_identity_mismatch';return $Attempt}
+        if($Saved.result -notin @('Passed','Failed','Blocked')){$Attempt.reason='non_terminal_result_json';return $Attempt}
+        if($Saved.validation_passed -isnot [bool] -or (($Saved.result -ceq 'Passed') -ne $Saved.validation_passed)){$Attempt.reason='invalid_terminal_result_json';return $Attempt}
+        $Attempt.is_terminal=$true;$Attempt.classification='saved terminal result';$Attempt.saved=$Saved;$Attempt.reason=$null
+    } catch {$Attempt.reason='unreadable_terminal_result_json'}
+    return $Attempt
+}
+function Write-ProgressUiCheckIncompleteStop([string]$Receipt,$Attempt) {
+    # This observation is separate from the original run and is not a native test result.
+    $Folder=Join-Path $ValidationRoot 'attempt-stops';$null=[IO.Directory]::CreateDirectory($Folder)
+    $Path=Join-Path $Folder ('incomplete-attempt-'+[guid]::NewGuid().ToString('N')+'.json')
+    $Report=[ordered]@{classification='pre-Unity/incomplete attempt';reason=$Attempt.reason;receipt_path=$Receipt;
+        source_run=$Attempt.run_path;expected_result_path=$Attempt.result_path;source_commit=$ProductCommit;validation_id=$ValidationId;
+        native_state='unconfirmed';unity_invocations_this_detection=0;automatic_retries=0;
+        validation_passed=$false;observed_at_utc=[DateTime]::UtcNow.ToString('o')}
+    $Encoding=New-Object Text.UTF8Encoding($true);$Bytes=$Encoding.GetBytes(($Report|ConvertTo-Json -Depth 5))
+    $Stream=[IO.File]::Open($Path,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None)
+    try{$Stream.Write($Bytes,0,$Bytes.Length);$Stream.Flush()}finally{$Stream.Dispose()}
+    Write-Host ('STOP: pre-Unity/incomplete attempt ('+$Attempt.reason+'). No saved terminal result; no new Unity, checkout or retry. Original files retained. Record: '+$Path)
+}
+function Get-ProgressUiCheckPreviousAttempt($Paths) {
+    $Variant='progress-ui-e-drive-v1'
+    $Receipt=Join-Path (Join-Path $Paths.Root 'receipts') ('progress-ui-integration-'+$ProductCommit+'-'+$Variant+'.attempted')
+    if(-not(Test-Path -LiteralPath $Receipt -PathType Leaf)){return $null}
+    try {
+        $Attempt=Read-ProgressUiCheckAttempt ([IO.File]::ReadAllText($Receipt).Trim()) $Paths.DiagnosticsRoot $Variant
+        return @{validation_id=$Variant;receipt_path=$Receipt;receipt_sha256=(Get-FileHash -LiteralPath $Receipt -Algorithm SHA256).Hash;
+            source_run=$Attempt.run_path;expected_result_path=$Attempt.result_path;classification=$Attempt.classification;reason=$Attempt.reason;
+            observation='Read-only; original receipt and Diagnostics retained; no native outcome inferred from missing JSON'}
+    } catch {return @{validation_id=$Variant;receipt_path=$Receipt;classification='history unconfirmed';reason=$_.Exception.Message}}
 }
 function Invoke-ProgressUiCheckGit([string[]]$Arguments) {
     # Protect the original index/worktree on every path, including share-only after failure.
@@ -246,12 +292,12 @@ $null = [IO.Directory]::CreateDirectory((Split-Path -Parent $Paths.Once))
 $Once = $Paths.Once
 if (Test-Path -LiteralPath $Once) {
     $Existing = [IO.File]::ReadAllText($Once).Trim()
-    $Boundary = $Paths.DiagnosticsRoot.TrimEnd('\','/')+[IO.Path]::DirectorySeparatorChar
-    if (-not [IO.Path]::GetFullPath($Existing).StartsWith($Boundary,[StringComparison]::OrdinalIgnoreCase)) { throw 'Unsafe existing receipt; original files preserved.' }
+    $Attempt=Read-ProgressUiCheckAttempt $Existing $Paths.DiagnosticsRoot $ValidationId
+    if(-not $Attempt.is_terminal){Write-ProgressUiCheckIncompleteStop $Once $Attempt;exit 1}
     $Git = Find-ProgressUiCheckGit
     Write-Host 'Existing attempt: saved results only; neither Unity phase will restart.'
     if (-not (Share-ProgressUiCheckResult $Existing)) { exit 2 }
-    $Saved = [IO.File]::ReadAllText((Join-Path $Existing 'progress-ui-integration-result.json')) | ConvertFrom-Json
+    $Saved = $Attempt.saved
     if ($Saved.validation_passed -ne $true) { exit 1 };exit 0
 }
 $Run = $Paths.Run
@@ -260,6 +306,7 @@ $Encoding = New-Object Text.UTF8Encoding($true)
 $Result = [ordered]@{source_commit=$ProductCommit;unity_version='6000.6.4f1';save_version=4;validation_id=$ValidationId;
     validation_root=$Paths.Root;diagnostics_path=$Run;original_repository=$Repository;available_validation_bytes=$Drive.AvailableFreeSpace;
     process_temp_root=$Paths.TempRoot;upm_cache_root=$Paths.PackageCache;
+    previous_e_v1_attempt=$null;
     requested_tests=@($FixtureCounts.Keys);expected_direct_cases=$FixtureCounts[$Fixture];expected_integration_cases=($FixtureCounts.Values|Measure-Object -Sum).Sum;
     test_platform='EditMode';burst_compilation_disabled=$true;automatic_retries=0;unity_invocations=0;unity_start_limit=2;
     direct=(New-ProgressUiCheckPhase);integration=(New-ProgressUiCheckPhase);validation_passed=$false;result='NotRun';
@@ -268,6 +315,7 @@ $Result.direct.project_path=$Paths.DirectProject;$Result.integration.project_pat
 $Result.direct.library_path=Join-Path $Paths.DirectProject 'Library';$Result.integration.library_path=Join-Path $Paths.IntegrationProject 'Library'
 $Phase = 'direct';$Failure = $null
 try {
+    $Result.previous_e_v1_attempt=Get-ProgressUiCheckPreviousAttempt $Paths
     [IO.File]::WriteAllText((Join-Path $Run 'source-revision.txt'),$ProductCommit+"`r`n",$Encoding)
     $Git = Find-ProgressUiCheckGit
     if ((Invoke-ProgressUiCheckGit @('branch','--show-current')) -cne 'feat/daily-world-pass-20261016') { throw 'Use the current feature repository; original branch was not changed.' }
@@ -278,6 +326,9 @@ try {
     if ($LASTEXITCODE -ne 0 -or $Available.Count -ne 1) { throw 'Cannot inspect pinned source.' }
     if ([string]$Available[0] -ceq ($ProductCommit+' missing')) { $null = Get-ProgressUiCheckRemoteHead }
     $null = Invoke-ProgressUiCheckGit @('cat-file','-e',($ProductCommit+'^{commit}'))
+    # Preparing is explicitly non-terminal; persist it before the receipt and expensive checkout.
+    $Result.result='Preparing'
+    $Result|ConvertTo-Json -Depth 8|Set-Content -LiteralPath (Join-Path $Run 'progress-ui-integration-result.json') -Encoding UTF8
     # One CreateNew receipt covers checkout and both phases; it is never deleted or reset.
     $Receipt = [IO.File]::Open($Once,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None)
     try { $Bytes=$Encoding.GetBytes($Run);$Receipt.Write($Bytes,0,$Bytes.Length);$Receipt.Flush() } finally { $Receipt.Dispose() }

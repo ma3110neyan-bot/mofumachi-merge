@@ -1,11 +1,14 @@
-Stage7 static compiler history — resolved; NOT a Unity/test-run failure.
-First selected-test static compile:
-Assets/Mofumachi/Tests/EditMode/ProgressUiIntegrationTests.cs(39,89): error CS1503: Argument 1: cannot convert from 'string[]' to 'System.Collections.Generic.IEnumerable<Mofumachi.Core.WalkRewardReceipt>'
+Existing Windows pre-Unity storage failure only
+run: progress-ui-integration-20261107-174541-8e831d09
+game_commit: 46f65b24d58531d5934035fbe4cdb4d5b00104a6
+source: References/Review/inbox/latest-progress-ui-integration/first-error.log:33
+classification: Git worktree checkout exhausted C-drive capacity; no Unity/test assertion failure.
+Unity invocations:0; Phase1 55/Phase2 444 NOT RUN.
+First explicit root storage error, with minimal preceding context:
+error: unable to write file References/Review/curved-boundary-2026-10-25-candidate/native/21-shop-cabin.png
+Updating files:  16% (1154/7209)
+error: unable to create file References/Review/curved-boundary-2026-10-25-candidate/native/21-shop-door-opening.png: No space left on device
 
-Cause: new fixture supplied string IDs to the existing receipt-record collection.
-Minimal correction: new fixture creates existing WalkRewardReceipt(day,id,kind) records.
-Existing receipt schema and product reward implementation unchanged.
-Corrected selected-test compile: exit0, errors0/warnings0.
-Changed review-fix Presentation and selected-test compiles: exit0, errors0/warnings0.
-Windows direct55 / integration444: NOT RUN; first native error not received.
-No Unity execution or automatic native retry.
+Original run/files/receipt retained. No C cleanup.
+Revised launcher: E-drive projects/Libraries/temp/cache/raw Diagnostics/sharing worktrees.
+Revised E-drive Windows validation: NOT RUN. No automatic retry.

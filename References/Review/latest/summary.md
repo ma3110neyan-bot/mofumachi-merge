@@ -1,61 +1,77 @@
-# 第7工程：進行UI実装・専用Windows確認待ち
+# 第7工程：Eドライブ版検証ランチャー公開／Windows実行待ち
 
 - branch：`feat/daily-world-pass-20261016`
-- 実装commit：`46f65b24d58531d5934035fbe4cdb4d5b00104a6`
-- ランチャーcommit：`eaefce789728bcf08059c717fda5d92e93ce5db4`。いずれも通常push済み。
-- 状態：**修正済み・未確認／Windows実行待ち**。**第7工程 complete=false**。
-- 第6工程は製品68f0e5c、Windows85/85 Passedで正式合格済み。再実装・再実行なし。
-- 目的：既存枠内の進行表示と、主要導線の限定結合確認。
+- 今回の確認対象・公開済みPS1修正commit：`8d8f920d397188c369bc59c434857e23f7678ad1`
+- 固定するゲーム実装commit：`46f65b24d58531d5934035fbe4cdb4d5b00104a6`（ゲーム・テストは無変更）
+- 状態：**修正済み・未確認**。Eドライブ版のWindows実行待ち。
+- **第7工程 complete=false**。
+- 目的：Cドライブ容量不足で停止した検証入口を、Eの保存領域で実行できるようにする。
 
-## 表示と更新
+## 既存失敗runと根本原因
 
-既存Merge補助Textを「**所持24P ・ 生成2P**」の実値表示に使用。財布はGameStateManager.MofuPointsだけ、生成コストは既存LevelOneGenerationCostを参照する。狭い画面では既存通知が補助行を隠すため、生成成功の既存Feedbackにも確定残高を表示。通知中の回復後・再描画・サイズ変更後も元の数値を使わず、同じ管理元から現在値を再取得する。0/1P不足時も既存Feedbackに不足メッセージと実残高を表示する。新Panel／Popupなし。
+`progress-ui-integration-20261107-174541-8e831d09`、共有commit `d981dc0f6ce9f6209150c6257b0cd5afbbe2862f` だけを確認した。ゲームcommit一致。Unity起動**0回**、Phase1／Phase2とも未実行、実XML件数はnull。
 
-既存次目標2行を「**Lv3まで おねがい3/4**」「**まち交流32/40**」相当へ変更。12件の既知ユニーク完了数とtownActionTotalを使い、分母はTownGrowthServiceの正式配列から取得。UIへ別の閾値表を定義していない。Lv6では「**街Lv6 MAX**」として次条件を消す。Home／依頼カード／今日の案内に反映し、旧Story6の完了判定は維持。
+GitがC上の一時worktreeへ過去のReferences画像等を展開中、`first-error.log:33` に次の最初の具体的容量不足エラーがある：
 
-更新はBind／再表示／保存成功通知だけ。GameStateManagerと、独立保存するQuestManagerの成功後に通知する。毎フレーム取得・別残高キャッシュなし。Save中の仮値は通知せず、失敗時は元の表示を維持し、既存Clone／CopyFromで状態復元。View例外で保存済み取引を失敗へ戻さない。
+    error: unable to create file References/Review/curved-boundary-2026-10-25-candidate/native/21-shop-door-opening.png: No space left on device
 
-Core変更は通知と正式閾値の読み取りAPIだけ。Save version4、移行／pre-v4、EconomyState、MofuPointService、生成2P消費、QuestCatalog12件、成長表／判定、Story／章、MergeBoard、TownActor、原画、フォント／BGM、Visual Lock／Guard、Packages／ProjectSettings、前工程ランチャーは無変更。既存Textの座標・枠・ボタン配置・色は変更していない。
+これは**Unityテスト開始前のファイルシステム容量不足**。製品テスト失敗・Unity/Burstクラッシュ・PowerShellのthrow行を原因とはしていない。C約460MB／E約925GBはユーザー確認値。クラウドからWindows容量を再測定した結果ではない。
 
-## ユーザー確定：新規24Pと回復入口
+旧run、旧attempt receipt、途中worktreeは削除・上書きしていない。GitHub共有原本5ファイルは長さ・SHA一致で保持。旧JSONのsource_unchanged=falseはチェック未到達であり、ゲームソース変更の証拠とは扱わない。
 
-従来Initializeは新規にも回復16Pを即加算して40P表示にしていた。この衝突を確認し、ユーザーから**新規開始直後24Pを維持する方針**の明示回答を受けた。
+## 今回の変更：専用PS1だけ
 
-新規LoadStatus.NewGameでの開始時回復と、通常会話／散策／花受領直後の付随自動回復を外した。既存「今日」画面を開く時、実際のアプリ復帰、既存セーブ再開時を回復入口として維持する。16P・1日1回・96P上限・累計対象外・時計非後退・rollbackは変更なし。初期24Pの再配布でもない。採用内容は`docs/game-design/latest.md`へ保存済み。
+変更した実行ファイルは **`scripts/verify-progress-ui-integration-windows.ps1` のみ**。CMD、Core、Presentation、Save、UI、55テスト内容／件数、限定9fixture、Unity版、パッケージ構成、メモリ設定、前工程ランチャー、Visual Lock／Guard／TownActorは無変更。
 
-## 確認と未確認
+新識別子は **`progress-ui-e-drive-v1`**。旧C receiptとは別のE receiptを、worktree展開前にCreateNewで記録する。途中で失敗しても、同じCMDの再操作ではUnity／checkoutを再実行せず保存済みterminal結果の共有だけとなる。自動再試行0。
 
-新`Mofumachi.Tests.ProgressUiIntegrationTests`は**55ケース**。初期24P／無料Tea2個／新ルート、3系統生成、0/1/2P、96P、4/6/8報酬、回復・追加・おたすけ累計除外、閾値、12件ユニーク、MAX、Story6、納品、日付、Save/Load、9種の保存失敗時UI、購読切替、実UGUI枠、compact通知中と回復・サイズ変更後の残高表示を含む。
+| 内容 | 配置先 |
+| --- | --- |
+| 基準 | `E:\Mofumachi-Validation` |
+| 直接確認worktree／Unityプロジェクト | `projects/新run名/direct/` |
+| 結合確認worktree／Unityプロジェクト | `projects/新run名/integration/` |
+| Unity Library | 各Eプロジェクト内の`Library/` |
+| Diagnostics原本 | `Diagnostics/新run名/` |
+| 新attempt receipt | `receipts/製品SHA＋新識別子.attempted` |
+| Unity子プロセスTEMP／TMP | `temp/新run名/phase/` |
+| Unity子プロセスUPMキャッシュ | `upm-cache/` |
+| 共有限定worktree | `sharing/GUID32/` |
 
-SaveServiceTestsでは第6工程で正式化した新規ExpandedNewPlayer=2に合わせ、古いNewPlayer=0期待の1行だけを整合。移行assertを削除せず33件を維持し、他の既存fixtureは変更していない。
+表の全配置先はE基準配下。Unity子プロセスの環境変数だけを設定し、PC全体の環境・packageファイル・ProjectSettingsは変更しない。既存ライセンスとUnity6000.6.4f1を使用する。
 
-| Windowsフェーズ | 対象 | 期待件数 | 実結果 |
-| --- | --- | ---: | --- |
-| 直接確認 | 新ProgressUiIntegrationTestsだけ | **55** | **未実行** |
-| 結合確認 | 限定9fixture | **444** | **未実行** |
+元Cリポジトリの作業ツリー・index・他の変更を混ぜない既存共有方式を維持。Gitの共通メタ情報と共有限定の小容量Gitオブジェクトは元リポジトリを使う。C上の既存ファイルを削除して容量確保する処理は追加していない。
 
-結合対象：SaveServiceTests33、PreferencesTests23、CharacterPreferenceTests7、MofuPointServiceTests68、GenerationCostTests33、TownPointRewardTests69、RecoveryExtraHelpTests71、QuestTownLevelTests85、新ProgressUiIntegrationTests55。両フェーズの実XML件数は**未取得（null）**。
+## 実行・合格条件
 
-静的C#コンパイルはCore／Presentation／選択9fixtureで最終エラー0・警告0。初回は新テストのreceipt準備でCS1503を検出し、既存WalkRewardReceipt型を確認して当該テスト準備だけ修正。元メッセージと解決をerror.logへ記録した。Windowsテスト失敗や再試行ではない。
+| フェーズ | 対象 | 必須 | E版の実結果 |
+| --- | --- | --- | --- |
+| Phase1 | Mofumachi.Tests.ProgressUiIntegrationTestsのみ | Total55／Passed55／Failed0／Skipped0／Inconclusive0／exit0／source_unchanged=true | **未実行** |
+| Phase2 | 従来の正式9fixtureそのまま | Total444／Passed444／Failed0／Skipped0／Inconclusive0／exit0／source_unchanged=true | **未実行** |
 
-独立レビュー1回の重要指摘「compact通知で唯一の残高行が隠れる」へ、既存通知の最小修正と実ProductionFrameLayout回帰4ケースを追加。静的コンパイル成功、55ケース実合格はまだ主張しない。枠へ収まらなければWindowsの直接確認で停止し、UIを勝手に作り直さない。
+Phase1合格とsource不変を確認した後だけ、結合用worktreeを作りPhase2へ進む。Unity起動は合計最大2回、両方`--burst-disable-compilation`、自動再試行0。失敗時は最初のエラー・phase・fixtureを記録し停止。
 
-PowerShell5.1構文/API・UTF8 BOM・ASCII CRLF CMDを静的確認。合成XMLの55／444受理と範囲外／重複／非Passed拒否、一時Gitの共有3条件が成功。合成データは実Unity証跡へ共有していない。**クラウドUnity起動0、実テスト0、自動再試行0**。全件／PlayMode／APK／Pixel／Visual撮影なし。
+9fixture：SaveServiceTests33、PreferencesTests23、CharacterPreferenceTests7、MofuPointServiceTests68、GenerationCostTests33、TownPointRewardTests69、RecoveryExtraHelpTests71、QuestTownLevelTests85、ProgressUiIntegrationTests55。フィルタ生成・XML合格判定・件数表は前ランチャーと文字単位で一致する。
 
-## Windowsの次の操作
+成功・失敗とも同操作で **`References/Review/inbox/latest-progress-ui-integration/`** へ必要な小容量JSON／XML／ログだけを共有。各phaseのsource不変・project／Libraryパス、Eの実空き容量、原本場所をJSONへ記録する。原本E、共有限定worktreeもE。1ファイル4MiB／合計16MiBを維持し、大きいlogはEへ保持して理由をmanifestに記載する。
 
-最新版取得後、**`scripts/verify-progress-ui-integration-windows.cmd` を1回ダブルクリック**。
+次の新run共有時、今の旧C失敗証跡を同inboxの`previous-runs/progress-ui-integration-20261107-174541-8e831d09/`へ生バイトで保持してからlatestを新runに更新する。共有範囲だけcommit・通常push1回、push失敗は再試行せずE原本を保持する。
 
-Windows11／PowerShell5.1／Unity6000.6.4f1既存ライセンス／Android target。実装commitを隔離worktreeへ固定し、**55件だけを先に実行**。その合格・source不変確認後だけ**限定9fixture444件を1回**。Unity合計最大2回、両方に`--burst-disable-compilation`、自動再試行0。直接確認で失敗すれば結合へ進まず停止する。
+## 今回の確認
 
-専用Diagnosticsへphase別XML／Unity log／引数、source、機械判定JSON、失敗時の最初のエラー／phase／fixtureを保存。既存attemptがあれば両方とも再起動しない。同操作で**`References/Review/inbox/latest-progress-ui-integration/`**へ必要な小容量テキストだけをSHA・生バイト確認付きで共有する。
+PowerShell構文・UTF8 BOM・5.1対応APIを静的確認。一時領域で、2プロジェクト／Libraryの配置、新CreateNew receiptと旧receiptの分離、子プロセス環境だけの変更を確認。一時GitのE相当共有worktree・旧原本保存・古いXML除外・push拒否1回停止・元HEAD/index保護は3条件成功。これは実Windows／Unity結果ではない。
 
-共有はremote先端の別worktreeからinboxだけcommit・通常push1回。他の未コミット／未pushを混ぜず、旧共有runはprevious-runsへ保持。大きいlogは原本保持と理由記録。push失敗は再試行せず原本と理由を残す。
+独立読み取りレビュー1回、Critical／Importantなし。将来のarchiveパスが5.1の長さ制限を超えないよう共有一時フォルダ名だけを短縮し、241文字以下となることを静的確認。ゲーム側のコンパイルやテストは行っていない。
 
-## 第8工程判定
+**今回のUnity起動0回、実テスト0回、自動再試行0回、Fetch1回**。クラウドでWindows／Eを実行したとは扱わない。新runや画像を捏造していない。Visual変更なしのためvisual-review.mdは無変更。
+
+## 次の操作と判定
+
+最新版PS1を取得後、既存 **`scripts/verify-progress-ui-integration-windows.cmd` を1回ダブルクリック**。
+
+**第7工程 complete=false**。
 
 **第8工程「実機Pixel 3a確認＋リリース候補ビルド」へ進んで安全か：NO**。
 
-主要ブロッカーは**Windows直接55件と限定結合444件が未実行**の1点。実装済みを工程完了／UI実描画合格とは扱わず、ここで停止する。
+主要ブロッカーは**Eドライブ版でのWindows Phase1・Phase2合格結果が未確認**の1点。今回の保存先修正をテスト合格とは扱わず、第8工程へ進まず停止する。
 
-summary/statusのcommitは実装、launcher_commitは専用検証入口を示し、文書自身のcommitとは区別する。
+summary/statusのcommitは今回のPS1作業を示し、固定ゲーム実装・共有文書自身のcommitとは区別する。

@@ -1,141 +1,326 @@
 {
   "branch": "feat/daily-world-pass-20261016",
   "updated_date_jst": "2026-11-07",
-  "scope": "stage5_daily_recovery_extra_help_only",
+  "scope": "stage6_twelve_quests_and_monotonic_dual_condition_town_level",
   "state": "修正済み・未確認",
-  "status": "stage5_implemented_windows_execution_pending",
-  "commit": "0c22f30fae41c18471fe771f67153e4828716629",
-  "commit_scope": "Stage5 implementation and direct test source, distinct from launcher/review commits",
-  "implementation_commit": "0c22f30fae41c18471fe771f67153e4828716629",
-  "launcher_commit": "d83118f93af788c0028f6fe747cd7195193b0f0b",
+  "status": "stage6_implemented_windows_execution_pending",
+  "commit": "68f0e5c479716029b31ff3e92da47335da25f957",
+  "commit_scope": "Stage6 implementation and direct test source; distinct from launcher/review commits",
+  "implementation_commit": "68f0e5c479716029b31ff3e92da47335da25f957",
+  "launcher_commit": "5cbe79068ba0c6096b1d806acc3cb530033f6524",
   "implementation_pushed": true,
   "launcher_pushed": true,
-  "publication_head": "150ebebae9e46b42ba536b95a41fc5a07f58cf26",
+  "publication_head": "0b74d1d684f50df498197c53776d23076a19264f",
   "success": false,
-  "success_scope": "Stage5 native verification pending; implementation and dedicated launcher published",
+  "success_scope": "Stage6 native validation pending; source and launcher published",
   "tests_passed": false,
   "capture_verified": false,
   "pixel_verified": false,
   "formal_fixed": false,
   "adopted": false,
-  "stage4": {
+  "stage5": {
     "complete": true,
-    "implementation_commit": "9433202b7dd6f772a2e3c86abd6395b2343b3231",
-    "total": 69,
-    "passed": 69,
-    "evidence_basis": "Accepted per latest explicit user instruction: Windows native69/69 Passed; no old fixture rerun/re-review this request",
-    "existing_evidence_commit_preserved": "83d11f57127dfc137a58425286da2c60760685b3"
+    "implementation_commit": "0c22f30fae41c18471fe771f67153e4828716629",
+    "total": 71,
+    "passed": 71,
+    "evidence_basis": "Accepted per latest user instruction; no old fixture rerun/re-review",
+    "existing_evidence_commit_preserved": "c0780638836240827dee8d1a145fa6fec52c6ee1"
   },
   "changed_files": [
-    "Assets/Mofumachi/Core/MofuPointService.cs",
-    "Assets/Mofumachi/Presentation/TownDailyProgress.cs",
+    "Assets/Mofumachi/Core/QuestCatalog.cs",
+    "Assets/Mofumachi/Core/QuestManager.cs",
+    "Assets/Mofumachi/Core/ChapterProgress.cs",
+    "Assets/Mofumachi/Core/TownGrowthService.cs",
+    "Assets/Mofumachi/Core/GameState.cs",
+    "Assets/Mofumachi/Core/GameStateManager.cs",
     "Assets/Mofumachi/Presentation/UIFlowController.cs",
-    "Assets/Mofumachi/Presentation/TownWorldWalkModel.cs",
-    "Assets/Mofumachi/Presentation/TownContinuousWorldView.cs",
-    "Assets/Mofumachi/Tests/EditMode/RecoveryExtraHelpTests.cs",
-    "Assets/Mofumachi/Tests/EditMode/RecoveryExtraHelpTests.cs.meta",
-    "scripts/verify-recovery-extra-help-windows.cmd",
-    "scripts/verify-recovery-extra-help-windows.ps1",
+    "Assets/Mofumachi/Tests/EditMode/QuestTownLevelTests.cs",
+    "Assets/Mofumachi/Tests/EditMode/QuestTownLevelTests.cs.meta",
+    "scripts/verify-quest-town-level-windows.cmd",
+    "scripts/verify-quest-town-level-windows.ps1",
     "References/Review/latest/summary.md",
     "References/Review/latest/status.json"
   ],
-  "sole_point_owner": "GameStateManager.MofuPoints / MofuPointService",
-  "save_version": 4,
-  "reward_rules": {
-    "daily_recovery_points": 16,
-    "daily_recovery_limit": 1,
-    "additional_walk_points": 2,
-    "additional_walk_limit": 2,
-    "additional_slots_independent_of_normal_quota": true,
-    "help_walk_points": 4,
-    "help_walk_limit": 1,
-    "wallet_cap": 96,
-    "initial24_unchanged": true,
-    "first_daily16_is_a_separate_transaction": true,
-    "these_three_add_town_total": false,
-    "long_max_town_total_blocks_these_three": false,
-    "full_wallet_policy": "Recovery/extra consume receipt even when actual credit0, matching existing normal policy; help ineligible at>=2"
-  },
-  "help_conditions": {
-    "wallet_less_than": 2,
-    "eligible_balances": [
-      0,
-      1
+  "quest_catalog": {
+    "total": 12,
+    "unique_ids": 12,
+    "old_ids": [
+      "tea-01",
+      "bread-01",
+      "flower-01",
+      "tea-02",
+      "flower-02",
+      "bread-02"
     ],
-    "same_day_talk_character_receipts": 3,
-    "same_day_normal_walk_receipts": 2,
-    "flower_claimed_today": true,
-    "recovery_claimed_today": true,
-    "help_not_previously_claimed_today": true,
-    "additional_walk_exhaustion_required": false,
-    "all_conditions_rechecked_at_completion": true
-  },
-  "walk_routing": {
-    "selection_priority": [
-      "Normal until2",
-      "Help when all conditions hold",
-      "Additional until2",
-      "None"
+    "old_requirements_coins_chapters_fixed": true,
+    "old_definition_source_block_verified_unchanged": true,
+    "new_requests": [
+      {
+        "id": "loop-a-01",
+        "requirements": [
+          {
+            "item": "tea",
+            "level": 1,
+            "count": 2
+          },
+          {
+            "item": "bread",
+            "level": 1,
+            "count": 2
+          },
+          {
+            "item": "flower",
+            "level": 2,
+            "count": 1
+          }
+        ],
+        "coins": 30,
+        "lv1_units": 6
+      },
+      {
+        "id": "loop-a-02",
+        "requirements": [
+          {
+            "item": "tea",
+            "level": 2,
+            "count": 1
+          },
+          {
+            "item": "bread",
+            "level": 2,
+            "count": 2
+          },
+          {
+            "item": "flower",
+            "level": 2,
+            "count": 2
+          }
+        ],
+        "coins": 40,
+        "lv1_units": 10
+      },
+      {
+        "id": "loop-a-03",
+        "requirements": [
+          {
+            "item": "tea",
+            "level": 3,
+            "count": 1
+          },
+          {
+            "item": "bread",
+            "level": 3,
+            "count": 2
+          },
+          {
+            "item": "flower",
+            "level": 2,
+            "count": 2
+          }
+        ],
+        "coins": 50,
+        "lv1_units": 16
+      },
+      {
+        "id": "loop-a-04",
+        "requirements": [
+          {
+            "item": "tea",
+            "level": 3,
+            "count": 2
+          },
+          {
+            "item": "bread",
+            "level": 2,
+            "count": 2
+          },
+          {
+            "item": "flower",
+            "level": 3,
+            "count": 2
+          }
+        ],
+        "coins": 60,
+        "lv1_units": 20
+      },
+      {
+        "id": "loop-a-05",
+        "requirements": [
+          {
+            "item": "tea",
+            "level": 2,
+            "count": 2
+          },
+          {
+            "item": "bread",
+            "level": 3,
+            "count": 3
+          },
+          {
+            "item": "flower",
+            "level": 3,
+            "count": 2
+          }
+        ],
+        "coins": 70,
+        "lv1_units": 24
+      },
+      {
+        "id": "loop-a-06",
+        "requirements": [
+          {
+            "item": "tea",
+            "level": 3,
+            "count": 3
+          },
+          {
+            "item": "bread",
+            "level": 3,
+            "count": 2
+          },
+          {
+            "item": "flower",
+            "level": 3,
+            "count": 2
+          }
+        ],
+        "coins": 80,
+        "lv1_units": 28
+      }
     ],
-    "kind_frozen_at_hero_input_start": true,
-    "same_finger_gesture_keeps_kind_and_id": true,
-    "no_fallback_on_failed_selected_kind": true,
-    "one_id_cannot_reward_multiple_kinds": true,
-    "all_walk_receipts_per_day_max": 5,
-    "existing_ticket_day_cancellation_restore_fasttravel_checks_reused": true,
-    "movement_paths_speeds_art_unchanged": true
+    "new_player_order": [
+      "tea-01",
+      "bread-01",
+      "loop-a-01",
+      "flower-01",
+      "loop-a-02",
+      "tea-02",
+      "loop-a-03",
+      "loop-a-04",
+      "flower-02",
+      "loop-a-05",
+      "loop-a-06",
+      "bread-02"
+    ],
+    "legacy_order": [
+      "tea-01",
+      "bread-01",
+      "flower-01",
+      "tea-02",
+      "flower-02",
+      "bread-02",
+      "loop-a-01",
+      "loop-a-02",
+      "loop-a-03",
+      "loop-a-04",
+      "loop-a-05",
+      "loop-a-06"
+    ],
+    "active_known_unfinished_quest_prioritized": true,
+    "unknown_active_not_replaced": true,
+    "standard_acceptance_enforces_selected_order": true,
+    "optional_custom_catalog_retained": true,
+    "new_quest_presentation": "Reuses old requester/title/dialogue; no old Story text or new font assets",
+    "rewards_are_coins_not_mofu_points": true,
+    "all_coins_total": 660
   },
-  "recovery_entry": {
-    "explicit_startup": true,
-    "genuine_paused_to_resumed_transition": true,
-    "today_menu_entry": true,
-    "after_explicit_normal_action": true,
-    "not_on_EnsureDay_constructor_or_render": true,
-    "no_timer_recovery": true,
-    "no_missed_days_bulk_award": true,
-    "same_actual_date_snapshot": true,
-    "initial_OnApplicationPause_false_does_not_retry": true,
-    "preceding_main_or_journal_save_error_blocks_follow_on_recovery": true,
-    "later_explicit_user_entry_may_try_unclaimed_recovery": true
+  "story_progress": {
+    "Story6Complete": "Derived from old six IDs only; ChapterProgress.AllCompleted keeps this meaning",
+    "All12Complete": "Derived from all twelve known unique completions",
+    "chapter_catalog_and_existing_story_text_unchanged": true,
+    "additional_quests_in_old_chapter_completion": false,
+    "additional_quest_delivery_replays_old_ending": false,
+    "new_persistent_story_flags_added": false
   },
-  "atomicity": {
-    "existing_MutateEconomy_Clone_CopyFrom_rollback_reused": true,
-    "main_save_per_accepted_reward": 1,
-    "duplicate_invalid_past_or_exhausted_main_save_count": 0,
-    "wallet_counters_help_recovery_day_receipts_same_transaction": true,
-    "all_preconditions_before_new_day_changes": true,
-    "reward_reentry_guard_reused": true,
-    "no_new_rollback": true,
+  "save": {
+    "version": 4,
+    "version_changed": false,
+    "persistent_fields_added": false,
+    "migration_pre_v4_protection_changed": false,
+    "existing_questRoute_enum_values_preserved": {
+      "NewPlayer": 0,
+      "LegacyPlayer": 1
+    },
+    "questRoute_enum_domain_extended": {
+      "ExpandedNewPlayer": 2
+    },
+    "new_games_only_write_route2": true,
+    "existing_v4_route0_and_route1": "Old6 then new6, active old quest preserved",
+    "new_route2_reload": "Mixed12 remains stable",
+    "route_inference_from_balance_or_progress": false
+  },
+  "levels": [
+    {
+      "level": 1,
+      "completed_requests": 1,
+      "town_action_total": 4
+    },
+    {
+      "level": 2,
+      "completed_requests": 2,
+      "town_action_total": 8
+    },
+    {
+      "level": 3,
+      "completed_requests": 4,
+      "town_action_total": 40
+    },
+    {
+      "level": 4,
+      "completed_requests": 6,
+      "town_action_total": 96
+    },
+    {
+      "level": 5,
+      "completed_requests": 9,
+      "town_action_total": 160
+    },
+    {
+      "level": 6,
+      "completed_requests": 12,
+      "town_action_total": 224
+    }
+  ],
+  "growth": {
+    "rule": "max(saved level, highest level meeting both request count AND townActionTotal)",
+    "unique_known_quest_count_max": 12,
+    "maximum_calculated_level": 6,
+    "saved_level_never_decreases": true,
+    "invalid_saved_level_above6": "Existing load validation blocks it; no clamping",
+    "can_jump_levels": true,
+    "only_existing_townActionTotal_used": true,
+    "reevaluate_on_delivery": true,
+    "reevaluate_after_town_total_increase_same_transaction": true,
+    "reevaluate_on_owner_construction_after_load_migration_or_newgame": true,
+    "save_only_if_level_increases_on_initialization": true,
+    "nongrowth_recovery_extra_help_do_not_trigger": true,
+    "per_frame_calculation": false,
+    "existing_clone_copyfrom_rollback_reused": true,
+    "startup_growth_save_failure": "Rollback then existing UI load-stop gate clears sessions, preventing automatic recovery/destroy saves",
     "native_rollback_verified": false
   },
-  "day_policy": {
-    "same_day_keeps_ledger": true,
-    "past_day_no_reset_or_reward": true,
-    "future_day_daily_ledger_reset_only": true,
-    "wallet_town_total_and_existing_progress_preserved": true,
-    "help_daily_flag_not_balance_controls_once_limit": true
+  "quantity_check": {
+    "old_lv1_units": 24,
+    "new_lv1_units": 104,
+    "all_lv1_units": 128,
+    "initial_free_tea_lv1": 2,
+    "generated_equivalent": 126,
+    "generation_cost_equivalent": 252,
+    "merge_equivalent": 84,
+    "scope": "Arithmetic/spec values; not measured play time"
   },
-  "unchanged": {
-    "normal_talk4": true,
-    "normal_walk6": true,
-    "today_flower8": true,
-    "normal_town_total_face_values": true,
-    "generation2P": true,
-    "initial24": true,
-    "GameState_SaveService_and_migration": true,
-    "QuestCatalog_and12quests": true,
-    "town_level_rules": true,
-    "Story_Chapter": true,
-    "UI_layout": true,
-    "TownActor_VisualLock_fonts_BGM_art": true,
-    "previous8_launcher_files": true,
-    "purchase_compensation_debug_sources_not_connected": true
+  "ui": {
+    "layout_changed": false,
+    "new_next_level_numeric_display_added": false,
+    "phase7_progress_ui_deferred": true,
+    "existing_load_stop_gate_only": true,
+    "initializer_gate_native_ui_tested": false,
+    "existing_old_progress_promises_need_phase7_review": true
   },
-  "ui_notifications_added": false,
   "related_tests": {
-    "fixture": "Mofumachi.Tests.RecoveryExtraHelpTests",
+    "fixture": "Mofumachi.Tests.QuestTownLevelTests",
     "platform": "EditMode",
-    "expected_cases": 71,
+    "expected_cases": 85,
     "result": "NotRun",
     "total": null,
     "passed": null,
@@ -143,36 +328,52 @@
     "skipped": null,
     "inconclusive": null,
     "first_native_error": null,
-    "native_runs_this_request": 0,
     "unity_starts_this_request": 0,
-    "automatic_retries": 0,
-    "reason": "Cloud Unity not used; dedicated Windows execution pending"
+    "native_runs_this_request": 0,
+    "automatic_retries": 0
   },
   "static_checks": {
     "core_api_compile": "Passed once; errors0/warnings0",
-    "presentation_api_compile": "Passed before review, changed-source compile passed after one correction",
-    "new_fixture_api_compile": "Initial65 source passed; final71 source passed after six review-regression cases added",
-    "native_test_execution": false,
-    "powershell_ast_and_exact_EditMode_arguments": "Passed once",
-    "powershell51_compatibility": "Static syntax/API/UTF8 BOM checked; actual Windows execution pending",
+    "presentation_api_compile": "Passed once; errors0/warnings0",
+    "new_fixture_compile": "Passed once; errors0/warnings0",
+    "powershell_ast_and_exact_fixture_scope": "Passed once",
+    "powershell51_compatibility": "Static syntax/API/BOM checked; native Windows execution pending",
     "synthetic_git_publication_checks": {
       "total": 3,
       "passed": 3,
-      "unity_starts": 0,
-      "real_evidence": false
+      "real_native_evidence": false
     },
     "fresh_read_only_review_count": 1,
-    "correction_passes": 1,
-    "review_findings_fixed": [
-      "Require prior appPaused before lifecycle recovery; initial false callback cannot retry failed startup",
-      "Block follow-on recovery after preceding main or journal persistence error"
-    ],
-    "remaining_important_findings": 0
+    "important_findings": 0,
+    "deferred_minor": "UIFlowController.Initialize load-stop/destroy path inspected, not exercised by new pure fixture",
+    "historical_old_assumption_fixtures": "Not rerun or weakened; old6-only / delivery-equals-level / saveVersion3 expectations need integration-phase reconciliation"
   },
-  "stage5_windows_launcher_ready": true,
-  "cmd_path": "scripts/verify-recovery-extra-help-windows.cmd",
-  "ps1_path": "scripts/verify-recovery-extra-help-windows.ps1",
-  "target_implementation_commit": "0c22f30fae41c18471fe771f67153e4828716629",
+  "unchanged": [
+    "normal talk4",
+    "normal walk6",
+    "flower8",
+    "daily16",
+    "additional2",
+    "help4",
+    "wallet96",
+    "daily ledger",
+    "initial24",
+    "generation2",
+    "SaveService migration/pre-v4",
+    "ChapterCatalog and old Story text",
+    "Visual Lock",
+    "TownActor",
+    "fonts",
+    "BGM",
+    "formal art",
+    "5x6 board",
+    "button design",
+    "previous10 launchers"
+  ],
+  "stage6_windows_launcher_ready": true,
+  "cmd_path": "scripts/verify-quest-town-level-windows.cmd",
+  "ps1_path": "scripts/verify-quest-town-level-windows.ps1",
+  "target_implementation_commit": "68f0e5c479716029b31ff3e92da47335da25f957",
   "unity_version": "6000.6.4f1",
   "windows_execution_pending": true,
   "unity_start_limit": 1,
@@ -182,55 +383,53 @@
     "powershell": "Windows PowerShell5.1",
     "target": "Android",
     "platform": "EditMode",
-    "fixture": "Mofumachi.Tests.RecoveryExtraHelpTests",
-    "expected_cases": 71,
+    "fixture": "Mofumachi.Tests.QuestTownLevelTests",
+    "expected_cases": 85,
     "isolated_worktree": true,
     "source_pinned": true,
     "original_worktree_and_index_preserved": true,
     "once_receipt_per_commit": true,
-    "diagnostics": "Builds/Diagnostics/recovery-extra-help-<timestamp>-<id>/",
-    "result_json": "recovery-extra-help-result.json",
+    "diagnostics": "Builds/Diagnostics/quest-town-level-<timestamp>-<id>/",
+    "result_json": "quest-town-level-result.json",
     "unity_start_max": 1,
     "automatic_retries": 0,
     "playmode_full_apk_pixel_visual_font": false
   },
   "result_sharing": {
     "automatically_commits_or_pushes": true,
-    "inbox": "References/Review/inbox/latest-recovery-extra-help/",
+    "inbox": "References/Review/inbox/latest-quest-town-level/",
     "same_operation_as_Windows_verification": true,
-    "remote_parent_isolated_worktree": true,
-    "only_inbox_committed": true,
+    "only_inbox_committed_via_isolated_remote_parent_worktree": true,
     "unrelated_staged_changes_or_local_commits_included": false,
     "fetch_max": 1,
     "normal_push_max": 1,
     "automatic_retries": 0,
-    "raw_sha_and_byte_lengths_checked": true,
+    "raw_sha_and_lengths_checked": true,
     "per_file_limit_bytes": 4194304,
     "total_limit_bytes": 16777216,
-    "oversized_unity_log": "Keep full original locally, record manifest reason; share XML/JSON/first-error",
-    "failure": "Stop once, retain local originals and share-result.json",
-    "repeated_CMD": "No Unity restart; saved terminal result sharing only; already-shared receipt skips push",
+    "large_unity_log": "Keep locally, explain in manifest; XML/JSON/first-error shared",
+    "failure": "Stop once; preserve originals and share-result.json",
+    "repeated_cmd": "No Unity restart; saved terminal-result sharing only; already-shared skips push",
     "native_result_shared_yet": false
   },
   "guard_changed": false,
   "guard_disabled": false,
   "visual_lock_changed": false,
   "current_request": {
-    "reimplemented_previous_stages": false,
     "unity_started": 0,
     "native_test_runs": 0,
     "automatic_retries": 0,
     "fetch_count": 1,
-    "merged_only_preexisting_stage4_evidence": true,
-    "existing_evidence_originals_changed": false,
-    "stage6_implemented": false
+    "merged_only_existing_stage5_evidence": true,
+    "original_evidence_modified": false,
+    "stage7_implemented": false
   },
   "first_native_failure": null,
-  "error_log_scope": "Historical earlier-stage failure only; no new Unity/test failure because not run",
-  "stage5_complete": false,
-  "next_stage": "第6工程 12依頼拡張＋街Lv条件",
+  "error_log_scope": "Historical prior-stage record only; no new Unity/test failure because not executed",
+  "stage6_complete": false,
+  "next_stage": "第7工程 進行UI表示＋全体結合確認",
   "next_stage_safe": false,
   "next_stage_verdict": "NO",
-  "next_stage_reason": "Stage5 Windows native71-case result not yet available",
-  "next_action": "scripts/verify-recovery-extra-help-windows.cmd を1回ダブルクリック。自動共有後に結果レビュー。"
+  "next_stage_reason": "Stage6 Windows native85-case result not yet available",
+  "next_action": "scripts/verify-quest-town-level-windows.cmd を1回ダブルクリック。自動共有後に結果レビュー。"
 }

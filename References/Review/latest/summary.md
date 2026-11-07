@@ -1,78 +1,110 @@
-# 第5工程：日次回復・追加散策・おたすけ散歩／Windows確認待ち
+# 第6工程：12依頼＋街Lvの2条件／Windows確認待ち
 
 - branch：`feat/daily-world-pass-20261016`
-- 実装commit：`0c22f30fae41c18471fe771f67153e4828716629`
-- 専用ランチャーcommit：`d83118f93af788c0028f6fe747cd7195193b0f0b`
-- 公開先端：`150ebebae9e46b42ba536b95a41fc5a07f58cf26`。実装・ランチャーは通常push済み。
-- 状態：**修正済み・未確認**。第5工程complete=false、Windows実行待ち。
-- 第4工程：ユーザーの最新指示どおり実装 `9433202b7dd6f772a2e3c86abd6395b2343b3231` のWindows実Unity **69/69 Passed・合格済み**として扱う。再実装・再実行・再検証していない。GitHubに追加された既存共有commit `83d11f57127dfc137a58425286da2c60760685b3` は原本のまま履歴へ取り込んだ。
-- 目的：指定の3報酬だけを接続し、無限回復を防ぐ。12依頼・街Lv条件へは進まない。
+- 実装commit：`68f0e5c479716029b31ff3e92da47335da25f957`
+- ランチャーcommit：`5cbe79068ba0c6096b1d806acc3cb530033f6524`
+- 公開先端：`0b74d1d684f50df498197c53776d23076a19264f`。実装・ランチャーは通常push済み。
+- 状態：**修正済み・未確認**。第6工程complete=false、Windows実行待ち。
+- 第5工程はユーザーの最新指示どおり実装 `0c22f30fae41c18471fe771f67153e4828716629` のWindows **71/71 Passed・合格済み**として扱う。再実装・再実行・再検証なし。共有commit `c0780638836240827dee8d1a145fa6fec52c6ee1` は原本のまま履歴へ取り込んだ。
+- 目的：旧6依頼・Story互換を守って12件化し、依頼数AND街行動累計で街Lvを非後退更新する。
 
-## 報酬と台帳
+## 依頼定義と順序
 
-| 報酬 | 財布への額面 | 制限 | 街行動累計 | 同時に保存する台帳 |
-| --- | ---: | --- | --- | --- |
-| 日次回復 | 16P | 当日1回 | 加算なし | lastRecoveryDay |
-| 追加散策 | 2P | 当日2回、通常枠と独立 | 加算なし | additionalWalkRewards＋Additionalのwalk receipt |
-| おたすけ散歩 | 4P | 当日1回、全前提必須 | 加算なし | helpWalkClaimed＋Helpのwalk receipt |
+旧6件のID・要求・Coins・Requester／Title／Dialogueは定義ブロックをそのまま維持し、元ソースとの一致を確認。ChapterCatalog／既存Story本文も変更していない。
 
-全て既存 `GameStateManager.MofuPoints / MofuPointService` を使用。財布は96Pで止める。既存の通常報酬と同じ方針で、満タンの回復・追加散策も正当な取得なら台帳を消費する。おたすけは残高2P以上で対象外のため、満タン時には台帳を消費しない。
+| 旧ID | 要求 | Coins | Chapter |
+| --- | --- | ---: | --- |
+| tea-01 | Tea Lv2×1 | 30 | chapter-01 |
+| bread-01 | Bread Lv2×1 | 40 | chapter-01 |
+| flower-01 | Flower Lv2×1 | 40 | chapter-02 |
+| tea-02 | Tea Lv3×1・Bread Lv2×1 | 70 | chapter-02 |
+| flower-02 | Flower Lv3×1・Tea Lv2×1 | 70 | chapter-03 |
+| bread-02 | Bread Lv3×1・Flower Lv2×1 | 80 | chapter-03 |
 
-おたすけは **残高0／1P AND 当日会話3名 AND 通常散策2回 AND 当日花取得 AND 当日回復取得 AND おたすけ未取得** が全て必要。追加散策を使い切る条件は追加していない。取得後に生成で0／1Pへ戻ってもhelpWalkClaimedが残るため再取得不可。日次1回・追加2回も台帳で止める。
+| 新ID | Tea | Bread | Flower | Lv1換算 | Coins |
+| --- | --- | --- | --- | ---: | ---: |
+| loop-a-01 | Lv1×2 | Lv1×2 | Lv2×1 | 6 | 30 |
+| loop-a-02 | Lv2×1 | Lv2×2 | Lv2×2 | 10 | 40 |
+| loop-a-03 | Lv3×1 | Lv3×2 | Lv2×2 | 16 | 50 |
+| loop-a-04 | Lv3×2 | Lv2×2 | Lv3×2 | 20 | 60 |
+| loop-a-05 | Lv2×2 | Lv3×3 | Lv3×2 | 24 | 70 |
+| loop-a-06 | Lv3×3 | Lv3×2 | Lv3×2 | 28 | 80 |
 
-通常会話4P・通常散策6P・花8Pは従来どおり額面を累計へ加算。今回の3報酬は共通Reward処理へ `addTownAction:false` を渡し、累計がlong.MaxValueでも増減せず受領できる。所持上限と累計を混同しない。初期24Pは変更せず、当日の16Pは別取引。初回の当日回復が成功すれば24→40Pとなる。
+新6件の表示用Requester／Title／Dialogueは既存6件のものを再利用し、旧Story本文・新フォント資産を追加変更しない。新IDは旧Chapterへ登録しない。
 
-## 実際の入口と保存
+新規順序：
+`tea-01 → bread-01 → loop-a-01 → flower-01 → loop-a-02 → tea-02 → loop-a-03 → loop-a-04 → flower-02 → loop-a-05 → loop-a-06 → bread-02`。
 
-- 回復：起動、実際のバックグラウンドからの復帰、「今日」メニュー、明示的な通常行動の後に既存日付と照合する。描画・EnsureDay・コンストラクタ・タイマーでは付与しない。未起動日数分の一括付与なし。
-- 起動直後にUnityが通知するOnApplicationPause(false)は、前のappPausedがfalseなら復帰扱いにしない。失敗した起動回復の自動再試行を防ぐ。
-- 直前の主保存またはjournal保存が失敗した場合、後続の回復保存を行わない。次の明示的なユーザー操作から未取得を改めて処理する入口は残す。無料会話・散策をロックしない。
-- 散策開始時に既存の一時ID／開始日と一緒に種別を固定。**通常枠が残る→通常、条件成立→おたすけ、追加枠が残る→追加、それ以外は無報酬**。同じドラッグ中に再選択しない。追加API自体の回数は通常枠と独立。
-- 完了時にも全条件を再確認。おたすけの残高等が変わって不成立になっても追加へ自動で付け替えない。同一IDは全種別で共通消込し、通常と追加などへの二重利用を拒否。receiptは通常2＋追加2＋おたすけ1の最大5件／日。
-- 既存の主人公の地区越境完了だけが対象。開始日と完了日が違う券・取消・復元・FastTravel・NPCは従来の扱いを維持。移動経路・速度・描画は不変。
-- 取得資格・日付・上限・重複を全て変更前に判定。成功時だけ財布・適用日・台帳を既存MutateEconomy／Clone／CopyFromで**主Save1回**へまとめる。保存失敗はその他GameStateと既存Mergeロックも復元。新rollbackなし。
-- 同日ではリセットしない。過去日では付与も日付後退もしない。新しい日だけ既存の日次台帳リセットを共用し、残高・累計・既存進行を維持する。
+既存ユーザーは進行中の旧依頼を優先し、未完了旧6件を従来順、その後loop-a-01～06。完了旧依頼を再要求しない。既知の未完了activeQuestIdは常に優先、未知のactiveは勝手に差し替えない。正式カタログの受注入口でも選択順を確認し、既存の任意カタログを渡す仕組みは維持する。
+
+### 既存v4と新規ルートの区別
+
+**保存項目は追加せず、Save version4を維持**。既存のeconomy.questRoute列挙へ `ExpandedNewPlayer=2` を追加し、今回以降のCreateInitialだけが2を記録する。既存値 `NewPlayer=0`／`LegacyPlayer=1` は番号も保存内容も変更せず、旧6件優先として扱う。
+
+追加前のv4でも値0が保存されているため、0を新12件ルートへ解釈し直すと旧ユーザーへ割込みが発生する。既存フィールド内の値2で区別し、残高・進行状況からの推測移行や重複フラグを作らない。新2の再読込も混在順を維持。v1／v2／v3→v4のLegacy1補完・原本保護・SaveServiceは変更なし。
+
+## Story6と全12の分離
+
+- `QuestCatalog.Story6Complete` と `ChapterProgress.AllCompleted / Story6Complete` は旧6件だけ。
+- `QuestCatalog.All12Complete / ChapterProgress.All12Complete` は全12件。
+- どちらも既存完了IDから導出し、新しい保存boolは追加しない。
+- 旧Story完了は追加6件が未完でも維持。loop依頼はChapter対応なしなので、追加納品から旧エンディング・章完了演出を再起動しない。
+- 報酬は既存のCoinsのまま。旧330＋新330＝全12件660 Coins。もふポイント報酬へ置換していない。
+
+## 街Lv
+
+| Lv | 既知12件のユニーク完了数 | townActionTotal |
+| --- | ---: | ---: |
+| 1 | 1 | 4 |
+| 2 | 2 | 8 |
+| 3 | 4 | 40 |
+| 4 | 6 | 96 |
+| 5 | 9 | 160 |
+| 6 | 12 | 224 |
+
+両方を満たす最大Lvを計算し、**max(保存済みLv, 計算Lv)** を保存。最大計算Lv6、重複・未知IDは完了数へ加算しない。Lvを一度に飛び越せる。保存済みLv5／6を下げない。範囲外の既存7等は従来の読込検証で停止し、6へ丸めない。
+
+再評価は依頼納品、主取引中の街行動累計増加、読込／移行／新規初期化後のGameStateManager構築。納品と通常行動のLv変化は**元の保存1回**へ含め、既存Clone／CopyFrom／rollbackで復元する。初期化時は上昇する場合だけ保存。初期化の保存失敗は旧状態へ戻し、既存UI読込停止ゲートでsessionを外すため、その後の回復・終了保存による自動再試行を防ぐ。新rollbackなし、毎フレーム計算なし。
+
+回復16P・追加2P・おたすけ4P・初期24P・生成消費・購入／補償／debugは累計へ接続していない。累計が増えない取引ではLv再評価を呼ばず、第4・第5工程の額面や台帳は変更しない。
+
+参考検算：旧24＋新104＝128個相当、初期無料Tea Lv1×2を除いて生成126個相当・252P、合成84回。閾値224／通常累計最大32で理論7日、8～9日の参考想定は変更していない。実プレイ時間を測定した結果ではない。
 
 ## 変更ファイル
 
-- `Assets/Mofumachi/Core/MofuPointService.cs`：3API、累計非加算、共通散策消込、種別選択。既存Credit／日次リセット／再入防止を再利用。
-- `Assets/Mofumachi/Presentation/TownDailyProgress.cs`：明示的な回復入口、実際の復帰・保存状態のガード、固定種別の散策取次ぎ。
-- `Assets/Mofumachi/Presentation/UIFlowController.cs`：既存起動／復帰／行動への接続と同じ実日付スナップショットだけ。
-- `Assets/Mofumachi/Presentation/TownWorldWalkModel.cs`：一時券へnullableの既存enum種別を付記・失効。
-- `Assets/Mofumachi/Presentation/TownContinuousWorldView.cs`：選択関数注入と既存到着での券の引渡しだけ。
-- `Assets/Mofumachi/Tests/EditMode/RecoveryExtraHelpTests.cs` と `.meta`：第5工程専用71ケース。
-- `scripts/verify-recovery-extra-help-windows.cmd` と `.ps1`：専用Windows検証と自動結果共有。
-- `References/Review/latest/summary.md` と `status.json`：今回の状態。
+Coreの `QuestCatalog.cs`、`QuestManager.cs`、`ChapterProgress.cs`、`TownGrowthService.cs`、`GameState.cs`（既存enumと新規初期値だけ）、`GameStateManager.cs`、Presentationの `UIFlowController.cs`（起動時停止ゲートだけ）、新規 `QuestTownLevelTests.cs` と `.meta`、専用CMD／PS1、固定summary／status。
 
-GameState／SaveService／Save version4／移行／pre-v4、GameStateManagerのrollback、通常4／6／8P、生成2P、12依頼、街Lv、Story／Chapter、UIレイアウト、TownActor、Visual Lock、フォント、BGM、正式画像は変更なし。前4工程のランチャー8ファイルも生バイト不変。課金・広告・購入分・補償・debug付与への接続なし。追加の+P通知は作らずロジックへ限定した。
+通常4／6／8P、回復16P、追加2P、おたすけ4P、上限96P、初期24P、生成2P、日次台帳、SaveService移行／pre-v4、ChapterCatalog／既存Story本文、TownActor、Visual Lock、フォント、BGM、正式画像、5×6盤面・ボタンデザインは変更なし。前工程ランチャー10ファイルも生バイト不変。
 
-## 確認結果
+**UI変更はせずロジックのみ**。次Lvの数値表示は第7工程。既存「あと1お届け」等の案内は新2条件へ合わせる表示整合が次工程に残る。配置・色・サイズを推測で変えていない。
 
-- 専用fixture：`Mofumachi.Tests.RecoveryExtraHelpTests`、**期待71ケース**。実Total／Passed／Failed／Skippedは **未取得（null）**。
-- テストは製品コードより先に作成。回復の重複／翌日／過去日／上限、追加2回と跨種別ID、全おたすけ条件、0／1／2P境界、使い直し無限ループ防止、5receipt、累計long.MaxValue維持、IO／アクセス拒否rollback、保存中再入、固定券の実モデル到着・条件変化を含む。
-- Core／Presentation／初期テストコードの静的C#コンパイルはエラー0・警告0。
-- 独立した読み取りレビューを1回実施。初期false復帰通知による再試行と、journal失敗後の後続保存を1回の最小修正で対策。回帰ケース6件を先に加えて最終71件とし、変更したPresentation／テストソースの静的コンパイルもエラー0・警告0。再レビュー・全件テストへ拡大していない。
-- PowerShell5.1の構文／API／UTF-8 BOMを静的確認。AST／EditMode限定引数の確認成功。実Windows動作確認の代わりにはしない。
-- 一時Git環境で、自動共有成功、push拒否1回停止、custom index書込前拒否の3条件を各1回確認。元HEAD／index／staged／未追跡／未pushコミット・remote先行変更を保護し、旧inbox除去・生バイト一致・共有済み二重push防止も確認。合成資料をGitHubの実行証跡へ入れていない。
-- **Unity起動0回、対象EditMode実行0回、自動再試行0回**。PlayMode・全件・APK・Pixel・Visual撮影・フォント確認なし。今回のUnity/test失敗は未実行のため未確認。
-- 既存error.logは旧工程の履歴。第5工程の失敗として扱わず、今回更新しない。
+## 確認結果と未確認事項
 
-## Windowsで次に行う1操作
+- 新規fixture：`Mofumachi.Tests.QuestTownLevelTests`、**期待85ケース**。実Total／Passed／Failed／Skippedは**未取得（null）**。
+- 旧新定義／12件順／v4の0・1・2ルートと再読込／Story6とall12／全境界と境界-1／非後退・飛越し／既知ID数／読込と旧版移行／主取引rollback／同一保存／納品二重実行／累計対象外を含む。
+- Core／Presentation／新テストコードの静的C#コンパイル各1回、エラー0・警告0。Unityテスト合格の代わりにはしない。
+- 独立した読み取りレビュー1回、重要指摘0。軽微な未確認はUIFlowController.Initializeの停止・終了経路が静的確認のみである点。純粋な新fixtureはUI本体を生成しない。
+- 古い「カタログ6件固定」「納品ごと1Lv」「saveVersion3」を前提にする歴史的テストは今回実行・弱体化していない。第7工程の全体結合時に現行仕様との整合確認が必要。
+- PowerShell5.1構文／API／BOMの静的確認、ASTと85件限定EditMode引数の確認成功。一時Git環境の共有3条件（remote先行保護・push拒否1回停止・custom index拒否）も各1回成功。合成データはGitHub実行証跡へ入れていない。
+- **Unity起動0回、対象EditMode0回、自動再試行0回**。全件・PlayMode・APK・Pixel・Visual撮影・フォント工程なし。最初のUnity/test失敗は未実行のため未確認。
+- error.logは旧工程の履歴として保持し、今回の失敗へ流用しない。
 
-**`scripts/verify-recovery-extra-help-windows.cmd` を1回ダブルクリック。**
+## Windowsの次の操作
 
-Windows11／Windows PowerShell5.1／Unity6000.6.4f1の既存ライセンス、Android target。実装commit `0c22f30fae41c18471fe771f67153e4828716629` の隔離worktreeを固定し、上記fixtureだけをEditMode実行。Unity最大1回、自動再試行0回。元作業ツリー・staged変更・他のローカルコミットを変更しない。Guard変更・無効化なし、Visual Lock変更なし。
+**`scripts/verify-quest-town-level-windows.cmd` を1回ダブルクリック。**
 
-原本は `Builds/Diagnostics/recovery-extra-help-<timestamp>-<id>/` にresults.xml／unity.log／source-revision.txt／recovery-extra-help-result.json、失敗時first-error.logを保持する。71/71、Failed／Skipped／Inconclusive0、exit0、source入力不変を必須とする。
+Windows11／Windows PowerShell5.1／Unity6000.6.4f1の既存ライセンス、Android target。実装 `68f0e5c479716029b31ff3e92da47335da25f957` の隔離worktreeを固定し、上記fixtureだけをEditModeで実行。Unity最大1回、自動再試行0回。元作業ツリー・staged・他コミットを変更せず、Guard変更・無効化／Visual Lock変更なし。
 
-終了後は同じ操作内で **`References/Review/inbox/latest-recovery-extra-help/`** へ必要な小容量テキストだけ自動コピー・対象だけcommit・通常push1回。共有専用worktreeはremote先端を親にし、無関係変更を混ぜない。原本SHAと長さをrun-info.jsonへ記録。1ファイル4MiB／合計16MiBまで、大きいunity.logは原本保持と理由を記録しXML／JSON／最初のエラー等を共有する。
+原本：`Builds/Diagnostics/quest-town-level-<timestamp>-<id>/`。results.xml／unity.log／source-revision.txt／quest-town-level-result.json、失敗時first-error.log。85/85、Failed／Skipped／Inconclusive0、exit0、source入力不変を必須とする。
 
-push失敗時は理由・ローカル原本・share-result.jsonを保持して停止。既存試行receiptがある場合はUnityを再起動せず、保存済み結果の共有だけを扱う。共有済みなら再pushもしない。
+同じ操作内で **`References/Review/inbox/latest-quest-town-level/`** へ必要な小容量テキストだけコピー・対象だけcommit・通常push1回。remote先端を親とする別共有worktreeで他の変更を混ぜず、SHA／生バイト長をrun-info.jsonへ記録。1ファイル4MiB／合計16MiB、大きいunity.logは原本保持と理由記録を行い、XML／JSON／最初のエラー等を共有。
 
-## 第6工程判定
+失敗は理由と原本・share-result.jsonを保持して停止。既存試行receiptがある場合はUnityを再起動せず、保存済み結果の共有だけを扱い、共有済みならpushもしない。
 
-**第6工程「12依頼拡張＋街Lv条件」へ進んで安全か：NO**。
+## 第7工程判定
 
-主要ブロッカーは1つ：**第5工程のWindows実Unity71ケースの結果がまだない**。実装済みを関連テスト合格・工程完了とは扱わない。自動共有された同一runを次のレビューで照合する。今回は第6工程へ進まない。
+**第7工程「進行UI表示＋全体結合確認」へ進んで安全か：NO**。
 
-statusのcommitは確認対象実装、launcher_commitは専用ランチャー、共有文書自身のcommitとは区別する。
+主要ブロッカーは**第6工程のWindows実Unity85ケースの結果未取得**。実装済みを工程合格とは扱わない。自動共有された同一runを次のレビューで確認し、今回は第7工程へ進まない。
+
+statusのcommitは確認対象実装を示し、ランチャー・共有文書自身のcommitと区別する。

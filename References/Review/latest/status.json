@@ -1,585 +1,272 @@
 {
   "branch": "feat/daily-world-pass-20261016",
   "updated_date_jst": "2026-11-07",
-  "scope": "stage6_existing_burst_disabled_windows_native_result_review",
-  "state": "関連テスト合格",
-  "status": "stage6_complete_windows_85_of_85_passed",
-  "commit": "b39fa214343f3f39202f9a1d9a5850deb0449993",
-  "commit_scope": "Reviewed existing Windows result sharing commit; distinct from pinned product, launcher and review-document commits",
-  "implementation_commit": "68f0e5c479716029b31ff3e92da47335da25f957",
-  "launcher_commit": "cceb6b5676d639a44f2763249715eace30777f49",
+  "scope": "stage7_progress_ui_and_bounded_integration",
+  "state": "修正済み・未確認",
+  "status": "stage7_implemented_windows_verification_pending",
+  "commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
+  "commit_scope": "Stage7 implementation; launcher and review-document commits are distinct",
+  "implementation_commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
+  "launcher_commit": "eaefce789728bcf08059c717fda5d92e93ce5db4",
+  "publication_head": "eaefce789728bcf08059c717fda5d92e93ce5db4",
   "implementation_pushed": true,
   "launcher_pushed": true,
-  "publication_head": "b39fa214343f3f39202f9a1d9a5850deb0449993",
-  "success": true,
-  "success_scope": "Stage6 direct Windows EditMode85 validation only; no whole-game or Pixel acceptance",
-  "tests_passed": true,
+  "success": false,
+  "success_scope": "Code/launcher published; Windows direct55 and integration444 not run",
+  "tests_passed": false,
   "capture_verified": false,
   "pixel_verified": false,
   "formal_fixed": false,
   "adopted": false,
-  "stage5": {
+  "stage6": {
     "complete": true,
-    "implementation_commit": "0c22f30fae41c18471fe771f67153e4828716629",
-    "total": 71,
-    "passed": 71,
-    "evidence_basis": "Accepted per latest user instruction; no old fixture rerun/re-review",
-    "existing_evidence_commit_preserved": "c0780638836240827dee8d1a145fa6fec52c6ee1"
-  },
-  "changed_files": [
-    "References/Review/latest/summary.md",
-    "References/Review/latest/status.json"
-  ],
-  "quest_catalog": {
-    "total": 12,
-    "unique_ids": 12,
-    "old_ids": [
-      "tea-01",
-      "bread-01",
-      "flower-01",
-      "tea-02",
-      "flower-02",
-      "bread-02"
-    ],
-    "old_requirements_coins_chapters_fixed": true,
-    "old_definition_source_block_verified_unchanged": true,
-    "new_requests": [
-      {
-        "id": "loop-a-01",
-        "requirements": [
-          {
-            "item": "tea",
-            "level": 1,
-            "count": 2
-          },
-          {
-            "item": "bread",
-            "level": 1,
-            "count": 2
-          },
-          {
-            "item": "flower",
-            "level": 2,
-            "count": 1
-          }
-        ],
-        "coins": 30,
-        "lv1_units": 6
-      },
-      {
-        "id": "loop-a-02",
-        "requirements": [
-          {
-            "item": "tea",
-            "level": 2,
-            "count": 1
-          },
-          {
-            "item": "bread",
-            "level": 2,
-            "count": 2
-          },
-          {
-            "item": "flower",
-            "level": 2,
-            "count": 2
-          }
-        ],
-        "coins": 40,
-        "lv1_units": 10
-      },
-      {
-        "id": "loop-a-03",
-        "requirements": [
-          {
-            "item": "tea",
-            "level": 3,
-            "count": 1
-          },
-          {
-            "item": "bread",
-            "level": 3,
-            "count": 2
-          },
-          {
-            "item": "flower",
-            "level": 2,
-            "count": 2
-          }
-        ],
-        "coins": 50,
-        "lv1_units": 16
-      },
-      {
-        "id": "loop-a-04",
-        "requirements": [
-          {
-            "item": "tea",
-            "level": 3,
-            "count": 2
-          },
-          {
-            "item": "bread",
-            "level": 2,
-            "count": 2
-          },
-          {
-            "item": "flower",
-            "level": 3,
-            "count": 2
-          }
-        ],
-        "coins": 60,
-        "lv1_units": 20
-      },
-      {
-        "id": "loop-a-05",
-        "requirements": [
-          {
-            "item": "tea",
-            "level": 2,
-            "count": 2
-          },
-          {
-            "item": "bread",
-            "level": 3,
-            "count": 3
-          },
-          {
-            "item": "flower",
-            "level": 3,
-            "count": 2
-          }
-        ],
-        "coins": 70,
-        "lv1_units": 24
-      },
-      {
-        "id": "loop-a-06",
-        "requirements": [
-          {
-            "item": "tea",
-            "level": 3,
-            "count": 3
-          },
-          {
-            "item": "bread",
-            "level": 3,
-            "count": 2
-          },
-          {
-            "item": "flower",
-            "level": 3,
-            "count": 2
-          }
-        ],
-        "coins": 80,
-        "lv1_units": 28
-      }
-    ],
-    "new_player_order": [
-      "tea-01",
-      "bread-01",
-      "loop-a-01",
-      "flower-01",
-      "loop-a-02",
-      "tea-02",
-      "loop-a-03",
-      "loop-a-04",
-      "flower-02",
-      "loop-a-05",
-      "loop-a-06",
-      "bread-02"
-    ],
-    "legacy_order": [
-      "tea-01",
-      "bread-01",
-      "flower-01",
-      "tea-02",
-      "flower-02",
-      "bread-02",
-      "loop-a-01",
-      "loop-a-02",
-      "loop-a-03",
-      "loop-a-04",
-      "loop-a-05",
-      "loop-a-06"
-    ],
-    "active_known_unfinished_quest_prioritized": true,
-    "unknown_active_not_replaced": true,
-    "standard_acceptance_enforces_selected_order": true,
-    "optional_custom_catalog_retained": true,
-    "new_quest_presentation": "Reuses old requester/title/dialogue; no old Story text or new font assets",
-    "rewards_are_coins_not_mofu_points": true,
-    "all_coins_total": 660
-  },
-  "story_progress": {
-    "Story6Complete": "Derived from old six IDs only; ChapterProgress.AllCompleted keeps this meaning",
-    "All12Complete": "Derived from all twelve known unique completions",
-    "chapter_catalog_and_existing_story_text_unchanged": true,
-    "additional_quests_in_old_chapter_completion": false,
-    "additional_quest_delivery_replays_old_ending": false,
-    "new_persistent_story_flags_added": false
-  },
-  "save": {
-    "version": 4,
-    "version_changed": false,
-    "persistent_fields_added": false,
-    "migration_pre_v4_protection_changed": false,
-    "existing_questRoute_enum_values_preserved": {
-      "NewPlayer": 0,
-      "LegacyPlayer": 1
-    },
-    "questRoute_enum_domain_extended": {
-      "ExpandedNewPlayer": 2
-    },
-    "new_games_only_write_route2": true,
-    "existing_v4_route0_and_route1": "Old6 then new6, active old quest preserved",
-    "new_route2_reload": "Mixed12 remains stable",
-    "route_inference_from_balance_or_progress": false
-  },
-  "levels": [
-    {
-      "level": 1,
-      "completed_requests": 1,
-      "town_action_total": 4
-    },
-    {
-      "level": 2,
-      "completed_requests": 2,
-      "town_action_total": 8
-    },
-    {
-      "level": 3,
-      "completed_requests": 4,
-      "town_action_total": 40
-    },
-    {
-      "level": 4,
-      "completed_requests": 6,
-      "town_action_total": 96
-    },
-    {
-      "level": 5,
-      "completed_requests": 9,
-      "town_action_total": 160
-    },
-    {
-      "level": 6,
-      "completed_requests": 12,
-      "town_action_total": 224
-    }
-  ],
-  "growth": {
-    "rule": "max(saved level, highest level meeting both request count AND townActionTotal)",
-    "unique_known_quest_count_max": 12,
-    "maximum_calculated_level": 6,
-    "saved_level_never_decreases": true,
-    "invalid_saved_level_above6": "Existing load validation blocks it; no clamping",
-    "can_jump_levels": true,
-    "only_existing_townActionTotal_used": true,
-    "reevaluate_on_delivery": true,
-    "reevaluate_after_town_total_increase_same_transaction": true,
-    "reevaluate_on_owner_construction_after_load_migration_or_newgame": true,
-    "save_only_if_level_increases_on_initialization": true,
-    "nongrowth_recovery_extra_help_do_not_trigger": true,
-    "per_frame_calculation": false,
-    "existing_clone_copyfrom_rollback_reused": true,
-    "startup_growth_save_failure": "Rollback then existing UI load-stop gate clears sessions, preventing automatic recovery/destroy saves",
-    "native_rollback_verified": false
-  },
-  "quantity_check": {
-    "old_lv1_units": 24,
-    "new_lv1_units": 104,
-    "all_lv1_units": 128,
-    "initial_free_tea_lv1": 2,
-    "generated_equivalent": 126,
-    "generation_cost_equivalent": 252,
-    "merge_equivalent": 84,
-    "scope": "Arithmetic/spec values; not measured play time"
-  },
-  "ui": {
-    "layout_changed": false,
-    "new_next_level_numeric_display_added": false,
-    "phase7_progress_ui_deferred": true,
-    "existing_load_stop_gate_only": true,
-    "initializer_gate_native_ui_tested": false,
-    "existing_old_progress_promises_need_phase7_review": true
-  },
-  "related_tests": {
-    "fixture": "Mofumachi.Tests.QuestTownLevelTests",
-    "platform": "EditMode",
-    "expected_cases": 85,
-    "result": "Passed",
+    "implementation_commit": "68f0e5c479716029b31ff3e92da47335da25f957",
     "total": 85,
     "passed": 85,
     "failed": 0,
     "skipped": 0,
     "inconclusive": 0,
-    "first_native_error": null,
-    "unity_starts_this_request": 0,
-    "native_runs_this_request": 0,
-    "automatic_retries": 0,
-    "source_commit": "68f0e5c479716029b31ff3e92da47335da25f957",
-    "validation_id": "burst-disabled-v1",
     "evidence_commit": "b39fa214343f3f39202f9a1d9a5850deb0449993",
-    "run": "quest-town-level-burst-disabled-v1-20261107-134513-1c0ec2fb",
-    "unity_invocations_in_existing_windows_run": 1,
-    "unity_exit_code": 0,
-    "validation_passed": true,
-    "source_unchanged": true,
-    "source_revision_file_matches": true,
-    "xml_case_count": 85,
-    "xml_unique_case_count": 85,
-    "all_cases_in_requested_fixture": true,
-    "first_error": null
+    "review_commit": "b0b8580e94b5d3f63fc8d6b6e665f1066073ab99",
+    "basis": "Already accepted; not reimplemented or rerun"
   },
-  "unchanged": [
-    "normal talk4",
-    "normal walk6",
-    "flower8",
-    "daily16",
-    "additional2",
-    "help4",
-    "wallet96",
-    "daily ledger",
-    "initial24",
-    "generation2",
-    "SaveService migration/pre-v4",
-    "ChapterCatalog and old Story text",
-    "Visual Lock",
-    "TownActor",
-    "fonts",
-    "BGM",
-    "formal art",
-    "5x6 board",
-    "button design",
-    "previous10 launchers"
+  "changed_files": [
+    "Assets/Mofumachi/Core/GameStateManager.cs",
+    "Assets/Mofumachi/Core/QuestManager.cs",
+    "Assets/Mofumachi/Core/TownGrowthService.cs",
+    "Assets/Mofumachi/Presentation/ProgressUiBinding.cs",
+    "Assets/Mofumachi/Presentation/ProgressUiBinding.cs.meta",
+    "Assets/Mofumachi/Presentation/QuestMergeScreens.cs",
+    "Assets/Mofumachi/Presentation/TopHomeScreens.cs",
+    "Assets/Mofumachi/Presentation/TownGoalCard.cs",
+    "Assets/Mofumachi/Presentation/TownNextGoal.cs",
+    "Assets/Mofumachi/Presentation/TownTodayView.cs",
+    "Assets/Mofumachi/Presentation/UIFlowController.cs",
+    "Assets/Mofumachi/Presentation/UIStrings.cs",
+    "Assets/Mofumachi/Tests/EditMode/ProgressUiIntegrationTests.cs",
+    "Assets/Mofumachi/Tests/EditMode/ProgressUiIntegrationTests.cs.meta",
+    "Assets/Mofumachi/Tests/EditMode/SaveServiceTests.cs",
+    "docs/game-design/latest.md",
+    "scripts/verify-progress-ui-integration-windows.cmd",
+    "scripts/verify-progress-ui-integration-windows.ps1",
+    "References/Review/latest/summary.md",
+    "References/Review/latest/status.json",
+    "References/Review/latest/error.log",
+    "References/Review/latest/visual-review.md"
   ],
-  "stage6_windows_launcher_ready": true,
-  "cmd_path": "scripts/verify-quest-town-level-windows.cmd",
-  "ps1_path": "scripts/verify-quest-town-level-windows.ps1",
-  "target_implementation_commit": "68f0e5c479716029b31ff3e92da47335da25f957",
+  "core_support_changes": {
+    "GameStateManager": "Successful-save-only StateCommitted notification; observer failures isolated",
+    "QuestManager": "Forwards independent successful accept/delivery saves",
+    "TownGrowthService": "Read-only next-requirements API over unchanged formal table"
+  },
+  "ui": {
+    "wallet_source": "GameStateManager.MofuPoints.Balance",
+    "generation_cost_source": "GameStateManager.LevelOneGenerationCost",
+    "generation_cost": 2,
+    "wallet_limit": 96,
+    "wallet_text": "所持 24P ・ 生成 2P",
+    "next_title_example": "Lv3まで おねがい 3/4",
+    "next_detail_example": "まち交流 32/40",
+    "max_text": "街Lv6 MAX",
+    "request_count_source": "QuestCatalog.CompletedCount; known unique12 IDs",
+    "action_source": "economy.townActionTotal only",
+    "threshold_source": "TownGrowthService.TryGetNextRequirements; no UI table copy",
+    "separate_wallet_or_progress_cache": false,
+    "surfaces": "Existing Merge selected hint and generation Feedback, Home/quest/Today next-goal Text, existing town-level Text",
+    "updates": "Bind/load/reenable and successful owner/quest saves; no optimistic notification or new polling",
+    "compact_generation_feedback_shows_committed_wallet": true,
+    "existing_notice_updates_after_recovery_and_resize": true,
+    "insufficient_feedback_shows_error_and_actual_wallet": true,
+    "geometry_changed": false,
+    "button_position_or_color_changed": false,
+    "new_panels_or_modals": false,
+    "font_asset_or_policy_changed": false,
+    "story6_and_all12_separate": true,
+    "save_load_runtime_verified": false,
+    "rollback_runtime_verified": false
+  },
+  "authorized_recovery_timing_change": {
+    "user_explicit_choice": "New game starts at24P; change recovery entry timing",
+    "new_game_initialize_recovers": false,
+    "normal_talk_walk_flower_auto_recovery": false,
+    "retained_entries": [
+      "Existing Today open",
+      "Genuine paused-to-resumed lifecycle",
+      "Existing saved game Initialize"
+    ],
+    "new_game_initial_points": 24,
+    "loaded_game_without_todays_recovery_example": 40,
+    "recovery_points": 16,
+    "once_per_day": true,
+    "town_action_credit": 0,
+    "cap_date_ledger_rollback_unchanged": true,
+    "design_document": "docs/game-design/latest.md"
+  },
+  "related_tests": {
+    "platform": "EditMode",
+    "direct_fixture": "Mofumachi.Tests.ProgressUiIntegrationTests",
+    "expected_direct_cases": 55,
+    "direct": {
+      "result": "NotRun",
+      "total": null,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "inconclusive": null,
+      "unity_invocations": 0
+    },
+    "integration_fixture_counts": {
+      "Mofumachi.Tests.SaveServiceTests": 33,
+      "Mofumachi.Tests.PreferencesTests": 23,
+      "Mofumachi.Tests.CharacterPreferenceTests": 7,
+      "Mofumachi.Tests.MofuPointServiceTests": 68,
+      "Mofumachi.Tests.GenerationCostTests": 33,
+      "Mofumachi.Tests.TownPointRewardTests": 69,
+      "Mofumachi.Tests.RecoveryExtraHelpTests": 71,
+      "Mofumachi.Tests.QuestTownLevelTests": 85,
+      "Mofumachi.Tests.ProgressUiIntegrationTests": 55
+    },
+    "expected_integration_cases": 444,
+    "integration": {
+      "result": "NotRun",
+      "total": null,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "inconclusive": null,
+      "unity_invocations": 0
+    },
+    "rule": "Direct once, only if passed and source unchanged run bounded integration once; zero automatic retries",
+    "save_load_and_rollback": "New tests cover disk reload, daily ledger and9 failed-save transaction types without tentative UGUI values; native pending",
+    "existing_test_adjustment": "Only stale SaveServiceTests new-game route expectation NewPlayer0 -> formal Stage6 ExpandedNewPlayer2; count33 and assertions retained",
+    "case_count_basis": "Actual [Test]/[TestCase] source attributes; native exact counts/unique names/fixture prefixes required"
+  },
+  "static_checks": {
+    "core_compile": "exit0 errors0/warnings0, once",
+    "presentation_compile": "Initial and changed-review-fix static compile exit0 errors0/warnings0",
+    "selected_test_compile": "Initial CS1503 in new fixture setup; existing receipt type confirmed and corrected locally; corrected and changed-review-fix compile exit0",
+    "first_static_error": {
+      "file": "Assets/Mofumachi/Tests/EditMode/ProgressUiIntegrationTests.cs",
+      "original_line": 39,
+      "column": 89,
+      "message": "error CS1503: Argument 1: cannot convert from 'string[]' to 'System.Collections.Generic.IEnumerable<Mofumachi.Core.WalkRewardReceipt>'",
+      "correction": "Use existing WalkRewardReceipt(day,id,kind) records only in the new test setup",
+      "resolved": true
+    },
+    "powershell_ast_pin_and_args": "Passed; fixed product,55/444, exact EditMode fixtures, Burst disabled both phases",
+    "powershell51": "Syntax/API/UTF8 BOM statically checked; native Windows pending; temporary helper execution uses PowerShell7",
+    "cmd": "ASCII CRLF; Windows PowerShell5.1 RemoteSigned; one double-click",
+    "synthetic_xml_validator": {
+      "positive_phases": 2,
+      "direct": 55,
+      "integration": 444,
+      "wrong_scope_duplicate_failed_cases_rejected": true,
+      "native_evidence": false
+    },
+    "synthetic_git_sharing": {
+      "total": 3,
+      "passed": 3,
+      "native_evidence": false,
+      "scope": "Old raw archive/stale XML, rejected push once, original HEAD/index/worktree retained"
+    },
+    "glyphs": "Existing font assets cover requested characters; offline advances fit representative slots; UGUI native fit pending",
+    "fresh_read_only_review_count": 1,
+    "critical_findings": 0,
+    "important_source_fix_count": 1,
+    "review_fix": "Compact success feedback also shows committed wallet;4 real ProductionFrameLayout cases added, slot widths/heights corrected; static compile passed; native unverified",
+    "second_review": false
+  },
+  "stage7_windows_launcher_ready": true,
+  "cmd_path": "scripts/verify-progress-ui-integration-windows.cmd",
+  "ps1_path": "scripts/verify-progress-ui-integration-windows.ps1",
+  "target_implementation_commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
   "unity_version": "6000.6.4f1",
-  "windows_execution_pending": false,
-  "unity_start_limit": 1,
+  "windows_execution_pending": true,
+  "unity_start_limit": 2,
   "automatic_retries": 0,
+  "validation_id": "progress-ui-v1",
   "windows_launcher": {
     "os": "Windows11",
     "powershell": "Windows PowerShell5.1",
     "target": "Android",
     "platform": "EditMode",
-    "fixture": "Mofumachi.Tests.QuestTownLevelTests",
-    "expected_cases": 85,
+    "direct_start_max": 1,
+    "integration_start_max": 1,
+    "burst_compilation_disabled": true,
     "isolated_worktree": true,
     "source_pinned": true,
-    "original_worktree_and_index_preserved": true,
-    "once_receipt_per_commit": false,
-    "diagnostics": "Builds/Diagnostics/quest-town-level-burst-disabled-v1-<timestamp>-<id>/",
-    "result_json": "quest-town-level-result.json",
-    "unity_start_max": 1,
-    "automatic_retries": 0,
-    "playmode_full_apk_pixel_visual_font": false,
-    "validation_id": "burst-disabled-v1",
-    "burst_compilation_disabled": true,
-    "once_receipt_per_commit_and_validation_id": true,
-    "attempt_receipt": "Builds/Diagnostics/quest-town-level-68f0e5c479716029b31ff3e92da47335da25f957-burst-disabled-v1.attempted",
-    "previous_attempt_receipt": "Builds/Diagnostics/quest-town-level-68f0e5c479716029b31ff3e92da47335da25f957.attempted",
-    "previous_attempt_receipt_unchanged": true,
-    "new_variant_automatic_retries": 0
+    "source_tree_and_revision_checked_each_phase": true,
+    "attempt_receipt": "Builds/Diagnostics/progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-v1.attempted",
+    "repeat_cmd": "Existing terminal-result sharing only; neither Unity phase restarts; already-shared skips push",
+    "diagnostics": "Builds/Diagnostics/progress-ui-integration-<timestamp>-<id>/",
+    "files": [
+      "source-revision.txt",
+      "progress-ui-integration-result.json",
+      "direct/results.xml",
+      "direct/unity.log",
+      "direct/unity-arguments.txt",
+      "integration/results.xml",
+      "integration/unity.log",
+      "integration/unity-arguments.txt",
+      "first-error.log if failed"
+    ],
+    "first_failure": "Save first error/phase/fixture when available; stop; no integration after direct failure",
+    "playmode_full_apk_pixel_visual_font": false
   },
   "result_sharing": {
     "automatically_commits_or_pushes": true,
-    "inbox": "References/Review/inbox/latest-quest-town-level/",
-    "same_operation_as_Windows_verification": true,
-    "only_inbox_committed_via_isolated_remote_parent_worktree": true,
-    "unrelated_staged_changes_or_local_commits_included": false,
+    "inbox": "References/Review/inbox/latest-progress-ui-integration/",
+    "same_operation": true,
+    "isolated_remote_parent_worktree": true,
+    "only_inbox_committed": true,
+    "unrelated_staged_or_local_commits_included": false,
+    "raw_sha_and_lengths_checked": true,
+    "previous_runs_archived": true,
+    "per_file_limit_bytes": 4194304,
+    "total_limit_bytes": 16777216,
+    "oversize_unity_log": "Keep locally and explain in manifest",
     "fetch_max": 1,
     "normal_push_max": 1,
     "automatic_retries": 0,
-    "raw_sha_and_lengths_checked": true,
-    "per_file_limit_bytes": 4194304,
-    "total_limit_bytes": 16777216,
-    "large_unity_log": "Keep locally, explain in manifest; XML/JSON/first-error shared",
-    "failure": "Stop once; preserve originals and share-result.json",
-    "repeated_cmd": "No Unity restart; saved terminal-result sharing only; already-shared skips push",
-    "native_result_shared_yet": true,
-    "native_result_scope": "Verified Burst-disabled Windows Passed85 run",
-    "previous_evidence_archived_on_new_publication": true,
-    "archive_path": "References/Review/inbox/latest-quest-town-level/previous-runs/<previous-run-name>/",
-    "archive_raw_hash_verified": true,
-    "original_diagnostics_modified": false,
-    "stale_previous_xml_or_error_not_reused": true,
-    "previous_evidence_archive_verified": true,
-    "prior_failed_run_archive": "References/Review/inbox/latest-quest-town-level/previous-runs/quest-town-level-20261107-131556-0df6b34b/",
-    "new_run_name": "quest-town-level-burst-disabled-v1-20261107-134513-1c0ec2fb",
-    "new_evidence_commit": "b39fa214343f3f39202f9a1d9a5850deb0449993"
+    "native_result_received": false
   },
   "guard_changed": false,
   "guard_disabled": false,
   "visual_lock_changed": false,
+  "unchanged": [
+    "Save version4",
+    "SaveService migration/pre-v4",
+    "EconomyState schema",
+    "MofuPointService amounts/caps/receipts",
+    "Generation2P consumption",
+    "QuestCatalog12/routes",
+    "TownGrowth formal table/AND/non-decreasing calculation",
+    "ChapterCatalog/Story6",
+    "MergeBoard5x6",
+    "TownActor",
+    "formal art",
+    "font assets/policy",
+    "BGM",
+    "previous launchers",
+    "Packages/ProjectSettings"
+  ],
   "current_request": {
     "unity_started": 0,
     "native_test_runs": 0,
     "automatic_retries": 0,
-    "fetch_count": 1,
-    "read_existing_windows_results_only": true,
-    "fast_forwarded_only_existing_result_sharing_commit": "b39fa214343f3f39202f9a1d9a5850deb0449993",
-    "game_code_changed": false,
-    "test_code_changed": false,
-    "launcher_changed_this_request": false,
-    "original_evidence_modified": false,
-    "stage7_implemented": false
+    "fetch_count": 0,
+    "stage8_implemented": false,
+    "new_diagnostics_originals_created": false,
+    "temporary_synthetic_artifacts_shared": false,
+    "normal_work_pushes": 2,
+    "work_push_success": true
   },
   "first_native_failure": null,
-  "error_log_scope": "Historical original startup-crash excerpt only, unchanged on success; its old source_log now resolves to References/Review/inbox/latest-quest-town-level/previous-runs/quest-town-level-20261107-131556-0df6b34b/unity.log. New run has no first_error.",
-  "stage6_complete": true,
-  "next_stage": "第7工程 進行UI表示＋全体結合確認",
-  "next_stage_safe": true,
-  "next_stage_verdict": "YES",
-  "next_stage_reason": "Existing Burst-disabled Windows run meets all85 pass/source/exit/once/no-retry requirements; prior crash evidence preserved; no Guard or Visual changes",
-  "next_action": "第6工程を完了として停止。第7工程「進行UI表示＋全体結合確認」は別指示を受けてから実施。",
-  "previous_launcher_commit": "5cbe79068ba0c6096b1d806acc3cb530033f6524",
-  "implementation_changed_files": [
-    "Assets/Mofumachi/Core/QuestCatalog.cs",
-    "Assets/Mofumachi/Core/QuestManager.cs",
-    "Assets/Mofumachi/Core/ChapterProgress.cs",
-    "Assets/Mofumachi/Core/TownGrowthService.cs",
-    "Assets/Mofumachi/Core/GameState.cs",
-    "Assets/Mofumachi/Core/GameStateManager.cs",
-    "Assets/Mofumachi/Presentation/UIFlowController.cs",
-    "Assets/Mofumachi/Tests/EditMode/QuestTownLevelTests.cs",
-    "Assets/Mofumachi/Tests/EditMode/QuestTownLevelTests.cs.meta",
-    "scripts/verify-quest-town-level-windows.cmd",
-    "scripts/verify-quest-town-level-windows.ps1",
-    "References/Review/latest/summary.md",
-    "References/Review/latest/status.json"
-  ],
-  "game_code_changed": false,
-  "test_code_changed": false,
-  "cmd_changed": false,
-  "implementation_static_checks": {
-    "core_api_compile": "Passed once; errors0/warnings0",
-    "presentation_api_compile": "Passed once; errors0/warnings0",
-    "new_fixture_compile": "Passed once; errors0/warnings0",
-    "powershell_ast_and_exact_fixture_scope": "Passed once",
-    "powershell51_compatibility": "Static syntax/API/BOM checked; native Windows execution pending",
-    "synthetic_git_publication_checks": {
-      "total": 3,
-      "passed": 3,
-      "real_native_evidence": false
-    },
-    "fresh_read_only_review_count": 1,
-    "important_findings": 0,
-    "deferred_minor": "UIFlowController.Initialize load-stop/destroy path inspected, not exercised by new pure fixture",
-    "historical_old_assumption_fixtures": "Not rerun or weakened; old6-only / delivery-equals-level / saveVersion3 expectations need integration-phase reconciliation"
-  },
-  "validation_id": "burst-disabled-v1",
-  "burst_compilation_disabled": true,
-  "unity_arguments_added": [
-    "--burst-disable-compilation"
-  ],
-  "previous_failed_run": {
-    "run": "quest-town-level-20261107-131556-0df6b34b",
-    "evidence_commit": "7a4cbeb109083d637c6c01315f38f91f6fe7a934",
-    "source_commit": "68f0e5c479716029b31ff3e92da47335da25f957",
-    "unity_invocations": 1,
-    "unity_exit_code": -2147483645,
-    "automatic_retries": 0,
-    "results_xml_present": false,
-    "total": null,
-    "passed": null,
-    "failed": null,
-    "skipped": null,
-    "inconclusive": null,
-    "test_cases_executed": 0,
-    "execution_basis": "User-confirmed 85 cases not run; native XML absent",
-    "validation_passed": false,
-    "source_unchanged_raw_json": false,
-    "source_unchanged_interpretation": "Post-test validation was not reached; false does not establish a product source modification",
-    "first_error_raw_json": "Unity root error unconfirmed. Preserve this run; no automatic retry.",
-    "observed_log_events": [
-      {
-        "line": 7933,
-        "message": "Crash!!!"
-      },
-      {
-        "line": 7989,
-        "message": "ERROR: LoadModule / Windows memory-resource error"
-      },
-      {
-        "line": 8404,
-        "message": "Unexpected error in Burst compilation / gRPC Unavailable / premature response"
-      }
-    ],
-    "classification": "Unity Editor startup crash, not a failed product test assertion",
-    "causal_limit": "Log sequence is Crash then memory-resource/LoadModule then Burst/gRPC message; last gRPC error is not proven the primary crash cause",
-    "mitigation": "User-authorized disable of unnecessary Burst compilation for pure EditMode tests; effectiveness unverified until new Windows run",
-    "raw_original_files_preserved": true,
-    "archive_path": "References/Review/inbox/latest-quest-town-level/previous-runs/quest-town-level-20261107-131556-0df6b34b/",
-    "superseded_by_verified_run": "quest-town-level-burst-disabled-v1-20261107-134513-1c0ec2fb",
-    "status": "Historical startup crash; original raw bytes retained, not rewritten as success"
-  },
-  "required_pass_conditions": {
-    "source_commit": "68f0e5c479716029b31ff3e92da47335da25f957",
-    "fixture": "Mofumachi.Tests.QuestTownLevelTests",
-    "total": 85,
-    "passed": 85,
-    "failed": 0,
-    "skipped": 0,
-    "inconclusive": 0,
-    "unity_exit_code": 0,
-    "unity_invocations": 1,
-    "automatic_retries": 0,
-    "source_unchanged": true,
-    "validation_passed": true,
-    "first_error": null
-  },
-  "evidence_commit": "b39fa214343f3f39202f9a1d9a5850deb0449993",
-  "verified_run": "quest-town-level-burst-disabled-v1-20261107-134513-1c0ec2fb",
-  "launcher_static_checks": {
-    "powershell_parser": "Passed",
-    "utf8_bom": "Present; Windows PowerShell5.1 compatible encoding retained",
-    "powershell51_compatibility": "Static syntax/API review only; PowerShell7 used for isolated helper checks, Windows native pending",
-    "argument_scope": "Exact --burst-disable-compilation once; same pinned product, Android/EditMode fixture85, single process-start call",
-    "attempt_receipt_isolation": "Product SHA plus burst-disabled-v1; old receipt never read/modified/deleted",
-    "synthetic_git_publication_checks": {
-      "total": 3,
-      "passed": 3,
-      "failed": 0,
-      "real_native_evidence": false,
-      "cases": [
-        "new Passed preserves prior raw evidence and earlier archives",
-        "new Failed clears stale previous XML",
-        "rejected push stops after one attempt; original HEAD/index/worktree preserved"
-      ]
-    },
-    "harness_only_setup_correction": "First static helper invocation used nonexistent C: drive on Linux; stopped before publisher/Unity; corrected only temporary harness to /tmp, then checks passed. Not a Windows/game test failure.",
-    "fresh_read_only_review_count": 1,
-    "critical_findings": 0,
-    "important_findings": 0,
-    "deferred_minor": "If remote already contains this same source_run but local successful share-result.json was lost, repeated sharing safely stops on existing destination instead of recovering the receipt; Unity remains suppressed."
-  },
-  "evidence_review": {
-    "json_and_xml_counts_match": true,
-    "xml_case_uniqueness_and_fixture_match": true,
-    "xml_inconclusive": 0,
-    "manifest_file_sha_and_byte_lengths_verified": 5,
-    "source_revision_matches_product": true,
-    "burst_flag_exactly_once_in_saved_arguments": true,
-    "first_error_log_present_in_new_root": false,
-    "known_critical_editor_compiler_burst_error_signatures_found": false,
-    "prior_crash_archive_raw_files_verified": 5,
-    "product_packages_projectsettings_visual_lock_diff_from_fixed_commit": false,
-    "test_reexecution": false,
-    "new_unity_invocations": 0
-  },
-  "stage7_decision": {
-    "safe": true,
-    "basis": "Independent review of raw Windows85 results performed after launcher terminal receipt",
-    "raw_result_stage7_safe": false,
-    "raw_result_review_required": true,
-    "raw_receipt_modified": false,
-    "explanation": "Launcher deliberately leaves stage7_safe=false/review_required=true until review; approved only here in latest review metadata, original native receipt remains byte-identical"
-  }
+  "error_log_scope": "Resolved first Stage7 static compiler error only; Windows tests not run",
+  "stage7_complete": false,
+  "next_stage": "第8工程 実機Pixel 3a確認＋リリース候補ビルド",
+  "next_stage_safe": false,
+  "next_stage_verdict": "NO",
+  "next_stage_reason": "Windows direct55 and bounded integration444 not yet executed; UI/save/load/rollback runtime checks pending",
+  "next_action": "最新版取得後 scripts/verify-progress-ui-integration-windows.cmd を1回ダブルクリック。55件合格時だけ444件を実行し、同操作でGitHub共有。"
 }

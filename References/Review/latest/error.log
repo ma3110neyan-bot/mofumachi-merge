@@ -1,16 +1,11 @@
-Stage6 original startup-crash evidence only
-run: quest-town-level-20261107-131556-0df6b34b
-source_commit: 68f0e5c479716029b31ff3e92da47335da25f957
-source_log: References/Review/inbox/latest-quest-town-level/unity.log
-classification: Unity Editor startup crash before test XML; not a product assertion failure.
-Causal limit: log order is Crash -> LoadModule/memory resource error -> Burst/gRPC disconnect. The final Burst message is not established as the primary crash cause.
-Revised Burst-disabled Windows run: not executed yet. Original raw evidence unchanged.
+Stage7 static compiler history — resolved; NOT a Unity/test-run failure.
+First selected-test static compile:
+Assets/Mofumachi/Tests/EditMode/ProgressUiIntegrationTests.cs(39,89): error CS1503: Argument 1: cannot convert from 'string[]' to 'System.Collections.Generic.IEnumerable<Mofumachi.Core.WalkRewardReceipt>'
 
-[unity.log:7933]
-Crash!!!
-
-[unity.log:7989]
-  ERROR: LoadModule, GetLastError: 'このコマンドを処理するにはメモリ リソースが足りません。
-
-[unity.log:8404]
-Unexpected error in Burst compilation: System.AggregateException: One or more errors occurred. (Status(StatusCode="Unavailable", Detail="Error reading next message. IOException: The request was aborted. IOException: The response ended prematurely, with at least 9 additional bytes expected.", DebugException="System.IO.IOException: The request was aborted.")) ---> Grpc.Core.RpcException: Status(StatusCode="Unavailable", Detail="Error reading next message. IOException: The request was aborted. IOException: The response ended prematurely, with at least 9 additional bytes expected.", DebugException="System.IO.IOException: The request was aborted.") ---> System.IO.IOException: The request was aborted. ---> System.IO.IOException: The response ended prematurely, with at least 9 additional bytes expected.
+Cause: new fixture supplied string IDs to the existing receipt-record collection.
+Minimal correction: new fixture creates existing WalkRewardReceipt(day,id,kind) records.
+Existing receipt schema and product reward implementation unchanged.
+Corrected selected-test compile: exit0, errors0/warnings0.
+Changed review-fix Presentation and selected-test compiles: exit0, errors0/warnings0.
+Windows direct55 / integration444: NOT RUN; first native error not received.
+No Unity execution or automatic native retry.

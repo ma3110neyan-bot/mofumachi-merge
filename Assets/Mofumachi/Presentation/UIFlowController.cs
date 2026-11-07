@@ -125,7 +125,9 @@ namespace Mofumachi.Presentation
                 return;
             }
             session = new GameStateManager(loaded.State, store);
-            socialSession=new TownDailyService(socialStore??new MemoryTownDailyStore(),System.DateTime.Now,session.MofuPoints);
+            var today=System.DateTime.Now;
+            socialSession=new TownDailyService(socialStore??new MemoryTownDailyStore(),today,session.MofuPoints);
+            socialSession.RecoverAfterAction(today,session.LastError.Length==0);
             IsLoadBlocked=false;enabled=true;
             ProductionItemId=UIStrings.SuggestedProduction(Game);selected=-1;feedback.Remove(ScreenId.Merge);
             notice = loaded.Reason;feedback[ScreenId.Title]=loaded.Reason;
@@ -371,8 +373,10 @@ namespace Mofumachi.Presentation
         {var chapter=ChapterProgress.For(Game.State).LastCompletedChapter;return chapter!=null&&OpenChapterSummary(chapter.Id);}
         private void OnApplicationPause(bool paused)
         {
+            bool wasPaused=appPaused;
             appPaused=paused;
             if (paused) Persist();
+            else if(!IsLoadBlocked&&session!=null)Daily.ResumeDay(System.DateTime.Now,wasPaused);
             // Rebuild also disables drag views, removing their transient ghost on pause.
             if (page != null && session != null) Render(view);
         }
@@ -581,18 +585,18 @@ namespace Mofumachi.Presentation
         {if(CanPlay&&CurrentScreen==ScreenId.Home)OpenUtilityModal(ModalKind.TownMenu,TownMenuView.Build);}
         public void CloseTownMenu(){if(modalKind==ModalKind.TownMenu)CloseUtilityModal();}
         public void ShowToday()
-        {if(!CanPlay||CurrentScreen!=ScreenId.Home)return;Daily.EnsureDay(System.DateTime.Now);OpenUtilityModal(ModalKind.Today,TownTodayView.Build);}
+        {if(!CanPlay||CurrentScreen!=ScreenId.Home)return;var today=System.DateTime.Now;if(Daily.EnsureDay(today))Daily.RecoverDay(today);OpenUtilityModal(ModalKind.Today,TownTodayView.Build);}
         public void CloseToday(){if(modalKind==ModalKind.Today)CloseUtilityModal();}
         public void ClaimDaily()
-        {if(modalKind!=ModalKind.Today)return;var today=System.DateTime.Now;if(Daily.EnsureDay(today)&&Daily.Claim(today))PlayCue(AudioCue.Confirm);OpenUtilityModal(ModalKind.Today,TownTodayView.Build);}
+        {if(modalKind!=ModalKind.Today)return;var today=System.DateTime.Now;if(Daily.EnsureDay(today)){if(Daily.Claim(today))PlayCue(AudioCue.Confirm);Daily.RecoverAfterAction(today,Game.LastError.Length==0);}OpenUtilityModal(ModalKind.Today,TownTodayView.Build);}
         public bool TalkToCharacter(string id)
-        {if(!CharacterCatalog.IsKnown(id))return false;var today=System.DateTime.Now;int before=TownCharacterBook.For(id,Game.State,Daily.Data).Reactions;bool saved=Daily.EnsureDay(today)&&Daily.RecordTalk(id,today);if(saved)NotifyDiscovery(id,before);return saved;}
+        {if(!CharacterCatalog.IsKnown(id))return false;var today=System.DateTime.Now;int before=TownCharacterBook.For(id,Game.State,Daily.Data).Reactions;bool saved=Daily.EnsureDay(today)&&Daily.RecordTalk(id,today);if(saved){NotifyDiscovery(id,before);Daily.RecoverAfterAction(today,Game.LastError.Length==0);}return saved;}
         public void RecordCharacterOuting(string id)
         {if(!CharacterCatalog.IsKnown(id))return;int before=TownCharacterBook.For(id,Game.State,Daily.Data).Reactions;if(Daily.EnsureDay(System.DateTime.Now)&&Daily.RecordOuting(id))NotifyDiscovery(id,before);}
         private void NotifyDiscovery(string id,int before)
         {if(CurrentScreen==ScreenId.Home&&page!=null&&TownCharacterBook.For(id,Game.State,Daily.Data).Reactions>before)TownDiscoveryNotice.Show((RectTransform)page.transform,context,id);}
         public void OpenCharacterBook(string id){if(CharacterCatalog.IsKnown(id))ShowCharacterBook(id);}
-        public void RecordWorldWalk(string walkId=null,string startedDay=null){var today=System.DateTime.Now;if(Daily.EnsureDay(today))Daily.RecordWalk(walkId,startedDay,today);}
+        public void RecordWorldWalk(string walkId=null,string startedDay=null,WalkRewardKind? rewardKind=WalkRewardKind.Normal){var today=System.DateTime.Now;if(Daily.EnsureDay(today)){Daily.RecordWalk(walkId,startedDay,today,rewardKind);Daily.RecoverAfterAction(today,Game.LastError.Length==0);}}
         public void OpenShopPreview()
         {
             if(!CanPlay||CurrentScreen!=ScreenId.Home||!AtTownFacility("shop"))return;

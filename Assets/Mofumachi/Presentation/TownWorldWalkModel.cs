@@ -33,12 +33,15 @@ namespace Mofumachi.Presentation
         public bool IsFollowingFinger {get;private set;}
         private bool finishingFinger;
         private readonly Func<DateTime> clock;
+        private readonly Func<string,WalkRewardKind?> chooseWalkReward;
         public string WalkId {get;private set;}="";
         public string WalkStartDay {get;private set;}="";
+        public WalkRewardKind? WalkReward {get;private set;}
         public event Action<string,string,bool> Arrived;
-        public TownWorldWalkModel(int level,string favorite,Func<DateTime> clock=null)
+        public TownWorldWalkModel(int level,string favorite,Func<DateTime> clock=null,Func<string,WalkRewardKind?> chooseWalkReward=null)
         {
             this.clock=clock??(()=>DateTime.Now);
+            this.chooseWalkReward=chooseWalkReward;
             if(!CharacterCatalog.IsKnown(favorite))throw new ArgumentException("Unknown resident",nameof(favorite));this.level=level;
             Area=SharedArea;navigation=SharedNavigation;int npc=0;
             string[] starts={"square","west.bench-front","east.flowers","bench-left","front-promenade"};
@@ -107,8 +110,8 @@ namespace Mofumachi.Presentation
         {if(!float.IsFinite(seconds)||seconds<=0)return;var actor=residents.FirstOrDefault(a=>a.Id==id);if(actor!=null){actor.PauseRemaining=Math.Max(actor.PauseRemaining,Math.Min(4,seconds));actor.Speed=0;}}
         public void Face(string id,TownPoint other)
         {var actor=residents.FirstOrDefault(a=>a.Id==id);if(actor!=null&&TownWorldLayout.Finite(other)&&Math.Abs(other.X-actor.Position.X)>.002f)actor.Facing=Math.Sign(other.X-actor.Position.X);}
-        private void BeginWalk(){WalkId=Guid.NewGuid().ToString("N");WalkStartDay=clock().ToString("yyyy-MM-dd",CultureInfo.InvariantCulture);}
-        private void ClearWalk(){WalkId=WalkStartDay="";}
+        private void BeginWalk(){WalkId=Guid.NewGuid().ToString("N");WalkStartDay=clock().ToString("yyyy-MM-dd",CultureInfo.InvariantCulture);WalkReward=chooseWalkReward==null?WalkRewardKind.Normal:chooseWalkReward(WalkStartDay);}
+        private void ClearWalk(){WalkId=WalkStartDay="";WalkReward=null;}
         public void CancelHero(){ClearWalk();IsFollowingFinger=finishingFinger=false;Hero.IsWalking=false;Hero.Speed=0;Hero.Target=Hero.Position;Hero.Avoidance=0;Hero.SteeringDirection=default;Hero.Route=Array.Empty<TownPoint>();}
         public void Restore(string id,TownPoint p,string place=null)
         {

@@ -32,7 +32,7 @@ namespace Mofumachi.Presentation
         public event Action<string,string,bool> Arrived;
         public void Bind(ScreenContext c,TownLifeView town)
         {
-            context=c;life=town;original=town.Background;Model=new TownWorldWalkModel(town.TownLevel,c.Game.State.favoriteCharacterId);
+            context=c;life=town;original=town.Background;Model=new TownWorldWalkModel(town.TownLevel,c.Game.State.favoriteCharacterId,chooseWalkReward:c.Game.MofuPoints.SelectWalkRewardKind);
             scenery=UIWidgets.Node("Continuous town scenery",(RectTransform)original.transform.parent,new Rect(0,0,1,1));scenery.SetSiblingIndex(original.transform.GetSiblingIndex()+1);
 
             original.enabled=false;var cover=original.GetComponent<BackgroundCover>();if(cover!=null)cover.enabled=false;
@@ -88,11 +88,12 @@ namespace Mofumachi.Presentation
         private void OnArrival(string id,string placeId,bool walked)
         {
             string walkId=Model.WalkId,startedDay=Model.WalkStartDay;
+            var rewardKind=Model.WalkReward;
             var actor=life.Actors.Single(a=>a.CharacterId==id);actor.ApplyWorldStep(0);
             if(TownRegionCatalog.TryFindPlace(placeId,life.TownLevel,out _,out var place))
             {actor.SetWorldPlace(place);if(actor.Controlled)life.SetGuidedDestination(place);}
             if(actor.Controlled)life.ActorReleased(actor);
-            actor.Surprise();if(actor.Controlled){if(walked)context.Flow.RecordWorldWalk(walkId,startedDay);if(Model.Hero.DistanceWalked>=.14f)context.Flow.RecordCharacterOuting(id);}Arrived?.Invoke(id,placeId,walked);
+            actor.Surprise();if(actor.Controlled){if(walked)context.Flow.RecordWorldWalk(walkId,startedDay,rewardKind);if(Model.Hero.DistanceWalked>=.14f)context.Flow.RecordCharacterOuting(id);}Arrived?.Invoke(id,placeId,walked);
         }
         private void SyncActors(){foreach(var actor in life.Actors)actor.ApplyWorldStep(0);}
         public void Refresh()

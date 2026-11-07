@@ -51,13 +51,18 @@ namespace Mofumachi.Presentation
         }
         public bool MarkGreeting()=>Mutate(()=>{if(data.GreetingShown)return false;data.GreetingShown=true;return true;});
         public bool RecordMerge()=>Mutate(()=>{if(data.Merges>=3)return false;data.Merges++;return true;});
-        public bool RecordWalk(string walkId=null,string startedDay=null,DateTime? today=null)=>RewardEvent(()=>
+        // Explicit lifecycle/action entry only. EnsureDay and rendering never award recovery.
+        public bool RecoverDay(DateTime today)=>RewardEvent(()=>
+        {string day=Key(today);return data.Day==day&&points!=null&&points.TryRewardDailyRecovery(day);});
+        public bool ResumeDay(DateTime today,bool wasPaused)=>wasPaused&&EnsureDay(today)&&RecoverDay(today);
+        public bool RecoverAfterAction(DateTime today,bool mainPersistenceHealthy)=>mainPersistenceHealthy&&LastError.Length==0&&RecoverDay(today);
+        public bool RecordWalk(string walkId=null,string startedDay=null,DateTime? today=null,WalkRewardKind? rewardKind=WalkRewardKind.Normal)=>RewardEvent(()=>
         {
             string day=Key(today??DateTime.Now);
             if(points!=null&&walkId!=null&&startedDay!=day)return false;
             bool already=data.Walks>=1;
             bool recorded=already?false:Mutate(()=>{data.Walks=1;return true;});
-            bool rewarded=(already||recorded)&&data.Day==day&&points!=null&&points.TryRewardNormalWalk(day,startedDay,walkId);
+            bool rewarded=(already||recorded)&&data.Day==day&&points!=null&&rewardKind.HasValue&&points.TryRewardWalk(day,startedDay,walkId,rewardKind.Value);
             return recorded||rewarded;
         });
         public bool RecordTalk(string id,DateTime? today=null)=>RewardEvent(()=>

@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading;
 
@@ -71,16 +72,59 @@ namespace Mofumachi.Core
             e => e.talkRewardCharacterIds.Add(characterId));
 
         public bool TryRewardNormalWalk(string day, string startedDay, string walkId) => Reward(day, 6,
-            (e, next) => startedDay == day && !string.IsNullOrWhiteSpace(walkId) && walkId.Length <= 128 &&
-                (next || (e.normalWalkRewards < 2 && e.walkRewardReceipts.Count < 5 &&
-                    !e.walkRewardReceipts.Any(r => r.walkId == walkId))),
+            (e, next) => CanRecordWalk(e, next, day, startedDay, walkId) && (next || e.normalWalkRewards < 2),
             e => { e.normalWalkRewards++; e.walkRewardReceipts.Add(new WalkRewardReceipt(day, walkId, WalkRewardKind.Normal)); });
 
         public bool TryRewardFlower(string day) => Reward(day, 8,
             (e, next) => string.CompareOrdinal(e.lastFlowerRewardDay, day) < 0,
             e => e.lastFlowerRewardDay = day);
 
-        private bool Reward(string day, int value, Func<EconomyState, bool, bool> eligible, Action<EconomyState> record)
+        public bool TryRewardDailyRecovery(string day) => Reward(day, 16,
+            (e, next) => string.CompareOrdinal(e.lastRecoveryDay, day) < 0,
+            e => e.lastRecoveryDay = day, addTownAction: false);
+
+        public bool TryRewardAdditionalWalk(string day, string startedDay, string walkId) => Reward(day, 2,
+            (e, next) => CanRecordWalk(e, next, day, startedDay, walkId) && (next || e.additionalWalkRewards < 2),
+            e => { e.additionalWalkRewards++; e.walkRewardReceipts.Add(new WalkRewardReceipt(day, walkId, WalkRewardKind.Additional)); }, addTownAction: false);
+
+        public bool TryRewardHelpWalk(string day, string startedDay, string walkId) => Reward(day, 4,
+            (e, next) => CanHelp(e, day, next) && CanRecordWalk(e, next, day, startedDay, walkId),
+            e => { e.helpWalkClaimed = true; e.walkRewardReceipts.Add(new WalkRewardReceipt(day, walkId, WalkRewardKind.Help)); }, addTownAction: false);
+
+        // Route one frozen ticket kind. Failure never falls back to a different reward.
+        public bool TryRewardWalk(string day, string startedDay, string walkId, WalkRewardKind kind)
+        {
+            switch (kind)
+            {
+                case WalkRewardKind.Normal: return TryRewardNormalWalk(day, startedDay, walkId);
+                case WalkRewardKind.Additional: return TryRewardAdditionalWalk(day, startedDay, walkId);
+                case WalkRewardKind.Help: return TryRewardHelpWalk(day, startedDay, walkId);
+                default: return false;
+            }
+        }
+        public WalkRewardKind? SelectWalkRewardKind(string day)
+        {
+            lock (game.State.SyncRoot)
+            {
+                if (rewarding || !ValidDay(day)) return null;
+                try { StateCodec.Validate(game.State); } catch (InvalidDataException) { return null; }
+                var e = game.State.economy;
+                if (string.CompareOrdinal(day, e.day) < 0 || string.CompareOrdinal(day, e.rewardsStartDay) < 0) return null;
+                bool next = day != e.day;
+                if (next || e.normalWalkRewards < 2) return WalkRewardKind.Normal;
+                if (CanHelp(e, day, next)) return WalkRewardKind.Help;
+                if (e.additionalWalkRewards < 2) return WalkRewardKind.Additional;
+                return null;
+            }
+        }
+        private static bool CanRecordWalk(EconomyState e, bool next, string day, string startedDay, string walkId) =>
+            startedDay == day && !string.IsNullOrWhiteSpace(walkId) && walkId.Length <= 128 &&
+            (next || (e.walkRewardReceipts.Count < 5 && !e.walkRewardReceipts.Any(r => r.walkId == walkId)));
+        private static bool CanHelp(EconomyState e, string day, bool next) => !next && e.mofuPoints < 2 &&
+            e.talkRewardCharacterIds.Count == 3 && e.normalWalkRewards == 2 && e.lastFlowerRewardDay == day &&
+            e.lastRecoveryDay == day && !e.helpWalkClaimed;
+
+        private bool Reward(string day, int value, Func<EconomyState, bool, bool> eligible, Action<EconomyState> record, bool addTownAction = true)
         {
             lock (game.State.SyncRoot)
             {
@@ -91,13 +135,14 @@ namespace Mofumachi.Core
                     return game.MutateEconomy(e =>
                     {
                         // Mutate(false) does not roll back: decide everything before advancing the day.
+                        int townValue = addTownAction ? value : 0;
                         if (!ValidDay(day) || string.CompareOrdinal(day, e.day) < 0 ||
                             string.CompareOrdinal(day, e.rewardsStartDay) < 0 ||
-                            e.townActionTotal > long.MaxValue - value || !eligible(e, day != e.day)) return false;
+                            e.townActionTotal > long.MaxValue - townValue || !eligible(e, day != e.day)) return false;
                         if (day != e.day) ApplyDay(e, day);
                         if (e.rewardsStartDay.Length == 0) e.rewardsStartDay = day;
                         Credit(e, value);
-                        e.townActionTotal += value;
+                        e.townActionTotal += townValue;
                         record(e);
                         return true;
                     });

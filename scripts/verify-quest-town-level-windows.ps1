@@ -6,6 +6,7 @@ $ErrorActionPreference = 'Stop'
 $ProductCommit = '68f0e5c479716029b31ff3e92da47335da25f957'
 $Fixture = 'Mofumachi.Tests.QuestTownLevelTests'
 $ExpectedCases = 85
+$ValidationId = 'burst-disabled-v1'
 $script:FetchedQuestTownCheckHead = $null
 
 function Invoke-QuestTownCheckGit([string[]]$Arguments) {
@@ -52,7 +53,7 @@ function Get-QuestTownCheckFirstError([string]$Directory) {
     return 'Unity root error unconfirmed. Preserve this run; no automatic retry.'
 }
 function Get-QuestTownCheckArguments([string]$Project, [string]$Directory) {
-    return @('-batchmode', '-nographics', '-projectPath', $Project, '-buildTarget', 'Android',
+    return @('-batchmode', '-nographics', '--burst-disable-compilation', '-projectPath', $Project, '-buildTarget', 'Android',
         '-runTests', '-testPlatform', 'EditMode', '-assemblyNames', 'Mofumachi.EditModeTests',
         '-testFilter', '^Mofumachi\.Tests\.QuestTownLevelTests\..*',
         '-testResults', (Join-Path $Directory 'results.xml'), '-logFile', (Join-Path $Directory 'unity.log'))
@@ -76,16 +77,45 @@ function Get-QuestTownCheckRemoteHead {
     }
     return $script:FetchedQuestTownCheckHead
 }
+function Preserve-QuestTownCheckInbox([string]$Publication, [string]$Relative, [string]$Directory) {
+    if (-not (Invoke-QuestTownCheckGit @('-C',$Publication,'ls-tree','-r','--name-only','HEAD','--',$Relative))) { return }
+    # Restore only the evidence scope into this isolated sharing worktree, including prior archives.
+    $null = Invoke-QuestTownCheckGit @('-C',$Publication,'checkout','HEAD','--',$Relative)
+    $Inbox = Join-Path $Publication $Relative
+    $InfoPath = Join-Path $Inbox 'run-info.json'
+    if (-not (Test-Path -LiteralPath $InfoPath -PathType Leaf)) { throw 'Previous evidence has no run identity; sharing stopped without overwriting it.' }
+    $Previous = [IO.File]::ReadAllText($InfoPath) | ConvertFrom-Json
+    if ($Previous.source_run -ceq $Directory) { return }
+    $Name = ($Previous.source_run -split '[\\/]')[-1]
+    if ($Name -cnotmatch '^quest-town-level-[a-zA-Z0-9-]+$') { throw 'Unsafe previous run name; evidence retained.' }
+    $Archive = Join-Path (Join-Path $Inbox 'previous-runs') $Name
+    $null = [IO.Directory]::CreateDirectory($Archive)
+    foreach ($FileName in @('quest-town-level-result.json','source-revision.txt','results.xml','first-error.log','unity.log','unity-arguments.txt','run-info.json','.gitattributes')) {
+        $Source = Join-Path $Inbox $FileName
+        if (-not (Test-Path -LiteralPath $Source -PathType Leaf)) { continue }
+        $Target = Join-Path $Archive $FileName
+        $Hash = (Get-FileHash -LiteralPath $Source -Algorithm SHA256).Hash
+        if (-not (Test-Path -LiteralPath $Target)) { [IO.File]::Copy($Source,$Target,$false) }
+        if ((Get-FileHash -LiteralPath $Target -Algorithm SHA256).Hash -cne $Hash) { throw 'Previous evidence archive differs; nothing overwritten or pushed.' }
+    }
+    # These are copies in the sharing worktree only. Original Diagnostics and archives remain intact.
+    foreach ($FileName in @('quest-town-level-result.json','source-revision.txt','results.xml','first-error.log','unity.log','unity-arguments.txt','run-info.json','.gitattributes')) {
+        $Path = Join-Path $Inbox $FileName
+        if (Test-Path -LiteralPath $Path -PathType Leaf) { [IO.File]::Delete($Path) }
+    }
+}
 function Publish-QuestTownCheckResult([string]$Directory) {
     $Branch = Invoke-QuestTownCheckGit @('branch','--show-current')
     if ($Branch -cne 'feat/daily-world-pass-20261016') { throw 'Sharing stopped: original feature branch changed; results retained.' }
     $Native = [IO.File]::ReadAllText((Join-Path $Directory 'quest-town-level-result.json')) | ConvertFrom-Json
     if ($Native.source_commit -cne $ProductCommit -or $Native.result -notin @('Passed','Failed','Blocked')) { throw 'No terminal result for the pinned source. Do not start another Unity process.' }
+    if ($Native.validation_id -cne $ValidationId) { throw 'The saved result belongs to another verification variant; Unity was not restarted.' }
     $Remote = Get-QuestTownCheckRemoteHead
     $Publication = Join-Path (Split-Path -Parent $Repository) ('quest-town-level-share-' + [guid]::NewGuid().ToString('N'))
     $null = Invoke-QuestTownCheckGit @('worktree','add','--detach','--no-checkout',$Publication,$Remote)
     $null = Invoke-QuestTownCheckGit @('-C',$Publication,'read-tree','HEAD')
     $Relative = 'References/Review/inbox/latest-quest-town-level'
+    Preserve-QuestTownCheckInbox $Publication $Relative $Directory
     $Inbox = Join-Path $Publication $Relative
     $null = [IO.Directory]::CreateDirectory($Inbox)
     $Rows = @(); $Skipped = @(); $TotalBytes = 0L
@@ -105,7 +135,7 @@ function Publish-QuestTownCheckResult([string]$Directory) {
             (Get-FileHash -LiteralPath $Source -Algorithm SHA256).Hash -ine $Hash) { throw ('Evidence changed while copying: '+$Name) }
         $Rows += @{file=$Name;bytes=$File.Length;sha256=$Hash}; $TotalBytes += $File.Length
     }
-    $Info = [ordered]@{source_run=$Directory;source_commit=$ProductCommit;fixture=$Fixture;copied_at_utc=[DateTime]::UtcNow.ToString('o');remote_parent=$Remote;files=$Rows;skipped=$Skipped}
+    $Info = [ordered]@{source_run=$Directory;source_commit=$ProductCommit;fixture=$Fixture;validation_id=$ValidationId;copied_at_utc=[DateTime]::UtcNow.ToString('o');remote_parent=$Remote;files=$Rows;skipped=$Skipped}
     $Info | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $Inbox 'run-info.json') -Encoding UTF8
     [IO.File]::WriteAllText((Join-Path $Inbox '.gitattributes'),"* -text -filter -ident -working-tree-encoding`n",(New-Object Text.UTF8Encoding($false)))
     $null = Invoke-QuestTownCheckGit @('-C',$Publication,'add','--force','--',$Relative)
@@ -147,7 +177,7 @@ if ($MyInvocation.InvocationName -eq '.') { return }
 if ($env:OS -ne 'Windows_NT') { throw 'Windows 11 / Windows PowerShell 5.1 is required. Unity was not started.' }
 if ($ProductCommit -cnotmatch '^[a-f0-9]{40}$') { throw 'The reviewed product commit must be pinned before use.' }
 $Repository = [IO.Path]::GetFullPath((Split-Path -Parent $PSScriptRoot))
-$Once = Join-Path $Repository ('Builds/Diagnostics/quest-town-level-' + $ProductCommit + '.attempted')
+$Once = Join-Path $Repository ('Builds/Diagnostics/quest-town-level-' + $ProductCommit + '-' + $ValidationId + '.attempted')
 if (Test-Path -LiteralPath $Once) {
     $Existing = [IO.File]::ReadAllText($Once).Trim()
     $Boundary = [IO.Path]::GetFullPath((Join-Path $Repository 'Builds/Diagnostics')).TrimEnd('\','/') + [IO.Path]::DirectorySeparatorChar
@@ -160,12 +190,13 @@ if (Test-Path -LiteralPath $Once) {
     exit 0
 }
 $Id = (Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [guid]::NewGuid().ToString('N').Substring(0,8)
-$Run = Join-Path $Repository ('Builds/Diagnostics/quest-town-level-' + $Id)
-$Project = Join-Path (Split-Path -Parent $Repository) ('quest-town-level-check-' + $Id)
+$Run = Join-Path $Repository ('Builds/Diagnostics/quest-town-level-' + $ValidationId + '-' + $Id)
+$Project = Join-Path (Split-Path -Parent $Repository) ('quest-town-level-check-' + $ValidationId + '-' + $Id)
 $null = [IO.Directory]::CreateDirectory($Run)
 $Encoding = New-Object Text.UTF8Encoding($true)
 $Result = [ordered]@{
     source_commit = $ProductCommit; unity_version = '6000.6.4f1'; save_version = 4
+    validation_id = $ValidationId; burst_compilation_disabled = $true
     catalog_quests = 12; legacy_story_quests = 6; maximum_town_level = 6
     dual_condition_town_growth = $true; town_level_non_decreasing = $true; story_separated_from_all_requests = $true
     requested_tests = @($Fixture); expected_cases = $ExpectedCases; test_platform = 'EditMode'

@@ -1,14 +1,14 @@
-Existing Windows pre-Unity storage failure only
-run: progress-ui-integration-20261107-174541-8e831d09
-game_commit: 46f65b24d58531d5934035fbe4cdb4d5b00104a6
-source: References/Review/inbox/latest-progress-ui-integration/first-error.log:33
-classification: Git worktree checkout exhausted C-drive capacity; no Unity/test assertion failure.
-Unity invocations:0; Phase1 55/Phase2 444 NOT RUN.
-First explicit root storage error, with minimal preceding context:
-error: unable to write file References/Review/curved-boundary-2026-10-25-candidate/native/21-shop-cabin.png
-Updating files:  16% (1154/7209)
-error: unable to create file References/Review/curved-boundary-2026-10-25-candidate/native/21-shop-door-opening.png: No space left on device
+User-reported E-v1 incomplete attempt — raw Windows E logs not received
+Expected result path example:
+E:\Mofumachi-Validation\Diagnostics\progress-ui-integration-progress-ui-e-drive-v1-20261107-181802-bbad51c4\progress-ui-integration-result.json
+Reported condition: existing attempt receipt, but progress-ui-integration-result.json missing.
+Classification: pre-Unity/incomplete attempt; not a saved terminal result or a product test failure.
+Original process interruption / write-failure cause: unconfirmed.
+Prior native invocation count cannot be inferred solely from a missing JSON.
+Phase1 55 / Phase2 444: no verified result.
+Original E-v1 receipt/Diagnostics and old C failure evidence are retained.
 
-Original run/files/receipt retained. No C cleanup.
-Revised launcher: E-drive projects/Libraries/temp/cache/raw Diagnostics/sharing worktrees.
-Revised E-drive Windows validation: NOT RUN. No automatic retry.
+V2 handling: separate CreateNew E/attempt-stops observation, no fake terminal JSON,
+no old-run modification/deletion, no new Unity/checkout/Git sharing for incomplete attempts.
+New v2 prepares a non-terminal JSON before receipt/checkout.
+V2 Windows execution: pending; automatic retries0.

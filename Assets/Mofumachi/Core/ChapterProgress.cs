@@ -10,11 +10,14 @@ namespace Mofumachi.Core
         public ChapterDefinition CurrentChapter { get; }
         public int CompletedInCurrent { get; }
         public bool AllCompleted { get; }
+        public bool Story6Complete => AllCompleted;
+        public bool All12Complete { get; }
         public ChapterDefinition LastCompletedChapter { get; }
         private ChapterProgress(GameState state)
         {
             completed=new HashSet<string>(state.completedQuestIds,StringComparer.Ordinal);
-            CompletedCount=QuestCatalog.All.Count(q=>completed.Contains(q.Id));AllCompleted=CompletedCount==QuestCatalog.All.Count;
+            CompletedCount=QuestCatalog.Story.Count(q=>completed.Contains(q.Id));AllCompleted=CompletedCount==QuestCatalog.Story.Count;
+            All12Complete=QuestCatalog.All12Complete(state);
             var active=!completed.Contains(state.activeQuestId)?ChapterCatalog.ForQuest(state.activeQuestId):null;
             CurrentChapter=active??ChapterCatalog.All.FirstOrDefault(c=>!IsComplete(c.Id));
             CompletedInCurrent=CurrentChapter==null?0:CurrentChapter.QuestIds.Count(completed.Contains);

@@ -7,6 +7,7 @@ namespace Mofumachi.Core
     public sealed class GameStateManager
     {
         private readonly IStateStore store;
+        private readonly TownGrowthService town = new TownGrowthService();
         private bool generating;
         private int? lastGenerationFrame;
         public const int LevelOneGenerationCost = 2;
@@ -18,9 +19,12 @@ namespace Mofumachi.Core
         public GameStateManager(GameState state, IStateStore store)
         {
             State = state; this.store = store; Board = new MergeBoard(state);
-            Quests = new QuestManager(state, store, new RewardService(), new TownGrowthService());
+            Quests = new QuestManager(state, store, new RewardService(), town);
             MofuPoints = new MofuPointService(this);
+            ReevaluateTownLevel();
         }
+        public bool ReevaluateTownLevel()=>MutateEconomy(e=>
+        {int previous=State.townGrowthLevel;town.EvaluateTownGrowth(State);return State.townGrowthLevel!=previous;});
         public bool TryMerge(int from, int to) => Mutate(() => Board.TryMerge(from, to));
         public bool TryMove(int from, int to) => Mutate(() => Board.TryMove(from, to));
         public bool AddItem(string id, int level) => Mutate(() => Board.AddItem(id, level));
@@ -121,6 +125,7 @@ namespace Mofumachi.Core
                 var previousLocks = State.MergeLocks.ToArray();
                 if (!action()) return false;
                 if (refreshQuests) Quests.RefreshProgress();
+                if(State.economy.townActionTotal>before.economy.townActionTotal)town.EvaluateTownGrowth(State);
                 if (Save()) return true;
                 State.CopyFrom(before); Board.ReleaseLocks();
                 foreach (var cell in previousLocks) State.MergeLocks.Add(cell);

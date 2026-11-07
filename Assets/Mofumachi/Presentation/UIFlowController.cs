@@ -125,6 +125,12 @@ namespace Mofumachi.Presentation
                 return;
             }
             session = new GameStateManager(loaded.State, store);
+            if(session.LastError.Length>0)
+            {
+                notice=session.LastError;session=null;socialSession=null;
+                if(layout!=null)ShowLoadBlockedFeedback();
+                return;
+            }
             var today=System.DateTime.Now;
             socialSession=new TownDailyService(socialStore??new MemoryTownDailyStore(),today,session.MofuPoints);
             socialSession.RecoverAfterAction(today,session.LastError.Length==0);

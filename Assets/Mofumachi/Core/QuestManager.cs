@@ -25,6 +25,7 @@ namespace Mofumachi.Core
         private readonly RewardService reward;
         private readonly TownGrowthService town;
         private readonly Dictionary<string, QuestDefinition> catalog;
+        private readonly bool authoredProgression;
         private QuestDefinition active;
         public QuestDefinition ActiveQuest => active;
         private bool delivering;
@@ -32,6 +33,7 @@ namespace Mofumachi.Core
         public QuestManager(GameState state, IStateStore store, RewardService reward, TownGrowthService town, IEnumerable<QuestDefinition> questCatalog = null)
         {
             this.state = state; this.store = store; this.reward = reward; this.town = town;
+            authoredProgression=questCatalog==null;
             catalog = (questCatalog ?? QuestCatalog.All).ToDictionary(q => q.Id, StringComparer.Ordinal);
             if (state.activeQuestId.Length > 0 && !catalog.TryGetValue(state.activeQuestId, out active))
                 LastError = "保存中の依頼が現在の依頼カタログにありません。対応するカタログを読み込んでください。";
@@ -42,6 +44,7 @@ namespace Mofumachi.Core
             {
                 if (quest == null || delivering || (state.activeQuestId.Length > 0 && !state.completedQuestIds.Contains(state.activeQuestId)) || state.completedQuestIds.Contains(quest.Id)) return false;
                 if (!catalog.TryGetValue(quest.Id, out var authored)) { LastError = "未登録の依頼は受注できません。"; return false; }
+                if(authoredProgression&&QuestCatalog.NextFor(state)?.Id!=quest.Id)return false;
                 quest = authored;
                 var before = state.Clone(); var previous = active;
                 state.activeQuestId = quest.Id; state.questState = QuestState.Accepted; state.questProgress = 0; active = quest;
@@ -97,7 +100,7 @@ namespace Mofumachi.Core
                     reward.GrantReward(state, "quest:" + active.Id, active.Coins); state.questState = QuestState.RewardClaimed;
                     town.EvaluateTownGrowth(state); state.questState = QuestState.TownGrown;
                     store.Save(state); LastError = "";
-                    return new DeliveryResult(true, "納品完了。街が成長しました。");
+                    return new DeliveryResult(true, state.townGrowthLevel>before.townGrowthLevel?"納品完了。街が成長しました。":"納品完了。");
                 }
                 catch (IOException) { state.CopyFrom(before); LastError = "保存に失敗したため、納品前の状態へ戻しました。"; return new DeliveryResult(false, LastError, true); }
                 catch (UnauthorizedAccessException) { state.CopyFrom(before); LastError = "保存先へ書き込めません。納品前の状態へ戻しました。"; return new DeliveryResult(false, LastError, true); }

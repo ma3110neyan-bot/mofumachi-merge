@@ -102,6 +102,7 @@ namespace Mofumachi.Core
         public static GameState CreateInitial()
         {
             var state = new GameState();
+            state.economy.questRoute = QuestProgressionRoute.ExpandedNewPlayer;
             state.mergeBoard.Add(new BoardItem("tea", 1, 0)); state.mergeBoard.Add(new BoardItem("tea", 1, 1));
             return state;
         }
@@ -125,7 +126,8 @@ namespace Mofumachi.Core
         }
     }
 
-    public enum QuestProgressionRoute { NewPlayer, LegacyPlayer }
+    // Keep the two historical v4 values; only new games opt into the expanded route.
+    public enum QuestProgressionRoute { NewPlayer = 0, LegacyPlayer = 1, ExpandedNewPlayer = 2 }
     public enum WalkRewardKind { Normal, Additional, Help }
 
     [Serializable, DataContract]

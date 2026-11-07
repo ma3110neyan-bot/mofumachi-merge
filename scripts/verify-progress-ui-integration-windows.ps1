@@ -5,7 +5,8 @@ Set-StrictMode -Version 2.0
 $ErrorActionPreference = 'Stop'
 $ProductCommit = '46f65b24d58531d5934035fbe4cdb4d5b00104a6'
 $Fixture = 'Mofumachi.Tests.ProgressUiIntegrationTests'
-$ValidationId = 'progress-ui-v1'
+$ValidationId = 'progress-ui-e-drive-v1'
+$ValidationRoot = 'E:\Mofumachi-Validation'
 $FixtureCounts = [ordered]@{
     'Mofumachi.Tests.SaveServiceTests' = 33
     'Mofumachi.Tests.PreferencesTests' = 23
@@ -22,6 +23,19 @@ $EvidenceNames = @('progress-ui-integration-result.json','source-revision.txt','
     'integration/results.xml','integration/unity.log','integration/unity-arguments.txt')
 $script:FetchedProgressUiCheckHead = $null
 
+function Get-ProgressUiCheckPaths([string]$Root,[string]$RunId) {
+    $Root = [IO.Path]::GetFullPath($Root)
+    $Label = 'progress-ui-integration-'+$ValidationId+'-'+$RunId
+    $Projects = Join-Path (Join-Path $Root 'projects') $Label
+    return @{
+        Root=$Root;DiagnosticsRoot=(Join-Path $Root 'Diagnostics')
+        Run=(Join-Path (Join-Path $Root 'Diagnostics') $Label)
+        Once=(Join-Path (Join-Path $Root 'receipts') ('progress-ui-integration-'+$ProductCommit+'-'+$ValidationId+'.attempted'))
+        DirectProject=(Join-Path $Projects 'direct');IntegrationProject=(Join-Path $Projects 'integration')
+        TempRoot=(Join-Path (Join-Path $Root 'temp') $Label)
+        PackageCache=(Join-Path $Root 'upm-cache')
+    }
+}
 function Invoke-ProgressUiCheckGit([string[]]$Arguments) {
     # Protect the original index/worktree on every path, including share-only after failure.
     foreach ($Name in @('GIT_DIR','GIT_WORK_TREE','GIT_INDEX_FILE','GIT_COMMON_DIR')) {
@@ -128,7 +142,8 @@ function Publish-ProgressUiCheckResult([string]$Directory) {
     if ($Native.source_commit -cne $ProductCommit -or $Native.result -notin @('Passed','Failed','Blocked')) { throw 'No terminal result for the pinned source. Do not start another Unity process.' }
     if ($Native.validation_id -cne $ValidationId) { throw 'The saved result belongs to another verification variant; Unity was not restarted.' }
     $Remote = Get-ProgressUiCheckRemoteHead
-    $Publication = Join-Path (Split-Path -Parent $Repository) ('progress-ui-integration-share-' + [guid]::NewGuid().ToString('N'))
+    $Publication = Join-Path (Join-Path $ValidationRoot 'sharing') ([guid]::NewGuid().ToString('N'))
+    $null = [IO.Directory]::CreateDirectory((Split-Path -Parent $Publication))
     $null = Invoke-ProgressUiCheckGit @('worktree','add','--detach','--no-checkout',$Publication,$Remote)
     $null = Invoke-ProgressUiCheckGit @('-C',$Publication,'read-tree','HEAD')
     $Relative = 'References/Review/inbox/latest-progress-ui-integration'
@@ -153,7 +168,7 @@ function Publish-ProgressUiCheckResult([string]$Directory) {
             (Get-FileHash -LiteralPath $Source -Algorithm SHA256).Hash -ine $Hash) { throw ('Evidence changed while copying: '+$Name) }
         $Rows += @{file=$Name;bytes=$File.Length;sha256=$Hash}; $TotalBytes += $File.Length
     }
-    $Info = [ordered]@{source_run=$Directory;source_commit=$ProductCommit;fixture=$Fixture;requested_fixtures=@($FixtureCounts.Keys);validation_id=$ValidationId;copied_at_utc=[DateTime]::UtcNow.ToString('o');remote_parent=$Remote;files=$Rows;skipped=$Skipped}
+    $Info = [ordered]@{source_run=$Directory;source_commit=$ProductCommit;source_repository=$Repository;validation_root=$ValidationRoot;publication_worktree=$Publication;fixture=$Fixture;requested_fixtures=@($FixtureCounts.Keys);validation_id=$ValidationId;copied_at_utc=[DateTime]::UtcNow.ToString('o');remote_parent=$Remote;files=$Rows;skipped=$Skipped}
     $Info | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $Inbox 'run-info.json') -Encoding UTF8
     [IO.File]::WriteAllText((Join-Path $Inbox '.gitattributes'),"* -text -filter -ident -working-tree-encoding`n",(New-Object Text.UTF8Encoding($false)))
     $null = Invoke-ProgressUiCheckGit @('-C',$Publication,'add','--force','--',$Relative)
@@ -216,16 +231,22 @@ function Assert-ProgressUiCheckResult([string]$Directory,[string]$Phase,$PhaseRe
 }
 function New-ProgressUiCheckPhase {
     return [ordered]@{result='NotRun';total=$null;passed=$null;failed=$null;skipped=$null;inconclusive=$null;
-        unity_started=$false;unity_exit_code=$null;unity_invocations=0;automatic_retries=0;validation_passed=$false;first_error=$null;failed_fixture=$null}
+        unity_started=$false;unity_exit_code=$null;unity_invocations=0;automatic_retries=0;validation_passed=$false;first_error=$null;failed_fixture=$null;
+        source_unchanged=$false;project_path=$null;library_path=$null}
 }
 if ($MyInvocation.InvocationName -eq '.') { return }
 if ($env:OS -ne 'Windows_NT') { throw 'Windows11 / Windows PowerShell5.1 is required. Unity was not started.' }
 if ($ProductCommit -cnotmatch '^[a-f0-9]{40}$') { throw 'The reviewed Stage7 implementation commit must be pinned.' }
 $Repository = [IO.Path]::GetFullPath((Split-Path -Parent $PSScriptRoot))
-$Once = Join-Path $Repository ('Builds/Diagnostics/progress-ui-integration-'+$ProductCommit+'-'+$ValidationId+'.attempted')
+$Drive = New-Object IO.DriveInfo ([IO.Path]::GetPathRoot($ValidationRoot))
+if (-not $Drive.IsReady) { throw 'E: validation drive is unavailable. Nothing was deleted and Unity was not started.' }
+$Id = (Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::NewGuid().ToString('N').Substring(0,8)
+$Paths = Get-ProgressUiCheckPaths $ValidationRoot $Id
+$null = [IO.Directory]::CreateDirectory((Split-Path -Parent $Paths.Once))
+$Once = $Paths.Once
 if (Test-Path -LiteralPath $Once) {
     $Existing = [IO.File]::ReadAllText($Once).Trim()
-    $Boundary = [IO.Path]::GetFullPath((Join-Path $Repository 'Builds/Diagnostics')).TrimEnd('\','/')+[IO.Path]::DirectorySeparatorChar
+    $Boundary = $Paths.DiagnosticsRoot.TrimEnd('\','/')+[IO.Path]::DirectorySeparatorChar
     if (-not [IO.Path]::GetFullPath($Existing).StartsWith($Boundary,[StringComparison]::OrdinalIgnoreCase)) { throw 'Unsafe existing receipt; original files preserved.' }
     $Git = Find-ProgressUiCheckGit
     Write-Host 'Existing attempt: saved results only; neither Unity phase will restart.'
@@ -233,16 +254,18 @@ if (Test-Path -LiteralPath $Once) {
     $Saved = [IO.File]::ReadAllText((Join-Path $Existing 'progress-ui-integration-result.json')) | ConvertFrom-Json
     if ($Saved.validation_passed -ne $true) { exit 1 };exit 0
 }
-$Id = (Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::NewGuid().ToString('N').Substring(0,8)
-$Run = Join-Path $Repository ('Builds/Diagnostics/progress-ui-integration-'+$Id)
-$Project = Join-Path (Split-Path -Parent $Repository) ('progress-ui-integration-check-'+$Id)
+$Run = $Paths.Run
 $null = [IO.Directory]::CreateDirectory($Run)
 $Encoding = New-Object Text.UTF8Encoding($true)
 $Result = [ordered]@{source_commit=$ProductCommit;unity_version='6000.6.4f1';save_version=4;validation_id=$ValidationId;
+    validation_root=$Paths.Root;diagnostics_path=$Run;original_repository=$Repository;available_validation_bytes=$Drive.AvailableFreeSpace;
+    process_temp_root=$Paths.TempRoot;upm_cache_root=$Paths.PackageCache;
     requested_tests=@($FixtureCounts.Keys);expected_direct_cases=$FixtureCounts[$Fixture];expected_integration_cases=($FixtureCounts.Values|Measure-Object -Sum).Sum;
     test_platform='EditMode';burst_compilation_disabled=$true;automatic_retries=0;unity_invocations=0;unity_start_limit=2;
     direct=(New-ProgressUiCheckPhase);integration=(New-ProgressUiCheckPhase);validation_passed=$false;result='NotRun';
     first_error=$null;runner_error=$null;first_failed_phase=$null;source_unchanged=$false;stage8_safe=$false;review_required=$true}
+$Result.direct.project_path=$Paths.DirectProject;$Result.integration.project_path=$Paths.IntegrationProject
+$Result.direct.library_path=Join-Path $Paths.DirectProject 'Library';$Result.integration.library_path=Join-Path $Paths.IntegrationProject 'Library'
 $Phase = 'direct';$Failure = $null
 try {
     [IO.File]::WriteAllText((Join-Path $Run 'source-revision.txt'),$ProductCommit+"`r`n",$Encoding)
@@ -255,16 +278,20 @@ try {
     if ($LASTEXITCODE -ne 0 -or $Available.Count -ne 1) { throw 'Cannot inspect pinned source.' }
     if ([string]$Available[0] -ceq ($ProductCommit+' missing')) { $null = Get-ProgressUiCheckRemoteHead }
     $null = Invoke-ProgressUiCheckGit @('cat-file','-e',($ProductCommit+'^{commit}'))
-    $null = Invoke-ProgressUiCheckGit @('worktree','add','--detach',$Project,$ProductCommit)
-    if ((Invoke-ProgressUiCheckGit @('-C',$Project,'rev-parse','HEAD')) -cne $ProductCommit) { throw 'Pinned source differs.' }
-    if (Invoke-ProgressUiCheckGit @('-C',$Project,'status','--porcelain=v1','--untracked-files=all')) { throw 'Isolated source not clean.' }
-    if ([IO.File]::ReadAllText((Join-Path $Project 'ProjectSettings/ProjectVersion.txt')) -notmatch 'm_EditorVersion: 6000\.6\.4f1\s') { throw 'Project Unity version differs.' }
-    # One CreateNew receipt covers both authorized phases; it is never deleted or reset.
+    # One CreateNew receipt covers checkout and both phases; it is never deleted or reset.
     $Receipt = [IO.File]::Open($Once,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None)
     try { $Bytes=$Encoding.GetBytes($Run);$Receipt.Write($Bytes,0,$Bytes.Length);$Receipt.Flush() } finally { $Receipt.Dispose() }
     foreach ($Phase in @('direct','integration')) {
         # Reaching integration is possible only after every direct-phase condition passed.
-        if ($Phase -eq 'integration' -and $Result.direct.validation_passed -ne $true) { throw 'Direct verification did not pass; integration must not start.' }
+        if ($Phase -eq 'integration' -and ($Result.direct.validation_passed -ne $true -or $Result.direct.source_unchanged -ne $true)) { throw 'Direct verification did not pass with unchanged source; integration must not start.' }
+        $Project=$Result[$Phase].project_path
+        $null = Invoke-ProgressUiCheckGit @('worktree','add','--detach',$Project,$ProductCommit)
+        if ((Invoke-ProgressUiCheckGit @('-C',$Project,'rev-parse','HEAD')) -cne $ProductCommit) { throw 'Pinned source differs.' }
+        if (Invoke-ProgressUiCheckGit @('-C',$Project,'status','--porcelain=v1','--untracked-files=all')) { throw 'Isolated source not clean.' }
+        if ([IO.File]::ReadAllText((Join-Path $Project 'ProjectSettings/ProjectVersion.txt')) -notmatch 'm_EditorVersion: 6000\.6\.4f1\s') { throw 'Project Unity version differs.' }
+        $ProcessTemp=Join-Path $Paths.TempRoot $Phase
+        $null=[IO.Directory]::CreateDirectory($ProcessTemp)
+        $null=[IO.Directory]::CreateDirectory($Paths.PackageCache)
         $PhaseDir = Join-Path $Run $Phase;$null=[IO.Directory]::CreateDirectory($PhaseDir)
         $Arguments = @(Get-ProgressUiCheckArguments $Project $PhaseDir $Phase)
         [IO.File]::WriteAllLines((Join-Path $PhaseDir 'unity-arguments.txt'),[string[]]$Arguments,$Encoding)
@@ -273,6 +300,9 @@ try {
         $Result | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $Run 'progress-ui-integration-result.json') -Encoding UTF8
         $Start=New-Object Diagnostics.ProcessStartInfo
         $Start.FileName=$Editor;$Start.WorkingDirectory=$Project;$Start.UseShellExecute=$false
+        # Child process only: no machine/user environment or package settings are changed.
+        $Start.EnvironmentVariables['TEMP']=$ProcessTemp;$Start.EnvironmentVariables['TMP']=$ProcessTemp
+        $Start.EnvironmentVariables['UPM_CACHE_ROOT']=$Paths.PackageCache
         $Start.Arguments=(@($Arguments|ForEach-Object {if($_.Contains('"')){throw 'Unsafe argument.'};'"'+$_+'"'}) -join ' ')
         Write-Host ($Phase+': exactly the pinned EditMode fixtures, one Unity invocation, Burst disabled. '+$PhaseDir)
         $Process=[Diagnostics.Process]::Start($Start);$Current.unity_started=$true
@@ -281,7 +311,7 @@ try {
         Assert-ProgressUiCheckResult $PhaseDir $Phase $Current
         if (Invoke-ProgressUiCheckGit @('-C',$Project,'status','--porcelain=v1','--untracked-files=all','--','Assets/Mofumachi','Assets/Scenes','Packages','ProjectSettings','References/VisualLock')) { throw 'Pinned product inputs changed; do not start another phase.' }
         if ((Invoke-ProgressUiCheckGit @('-C',$Project,'rev-parse','HEAD')) -cne $ProductCommit) { throw 'Pinned product revision changed; no further phase.' }
-        $Current.result='Passed'
+        $Current.source_unchanged=$true;$Current.result='Passed'
     }
     $Result.source_unchanged=$true;$Result.validation_passed=$true;$Result.result='Passed'
 } catch {

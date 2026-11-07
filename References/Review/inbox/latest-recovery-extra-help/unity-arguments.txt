@@ -1,0 +1,17 @@
+﻿-batchmode
+-nographics
+-projectPath
+C:\Users\User\Desktop\Mofumachi\recovery-extra-help-check-20261107-112844-624d0a95
+-buildTarget
+Android
+-runTests
+-testPlatform
+EditMode
+-assemblyNames
+Mofumachi.EditModeTests
+-testFilter
+^Mofumachi\.Tests\.RecoveryExtraHelpTests\..*
+-testResults
+C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Diagnostics\recovery-extra-help-20261107-112844-624d0a95\results.xml
+-logFile
+C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Diagnostics\recovery-extra-help-20261107-112844-624d0a95\unity.log

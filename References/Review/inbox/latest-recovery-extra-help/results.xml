@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="71" result="Passed" total="71" passed="71" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-07 02:36:51Z" end-time="2026-11-07 02:36:55Z" duration="3.4232309">
+  <test-suite type="TestSuite" id="1000" name="もふまちメルジュ" fullname="もふまちメルジュ" runstate="Runnable" testcasecount="407" result="Passed" start-time="2026-11-07 02:36:51Z" end-time="2026-11-07 02:36:55Z" duration="3.423231" total="71" passed="71" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1492" name="Mofumachi.EditModeTests.dll" fullname="C:/Users/User/Desktop/Mofumachi/recovery-extra-help-check-20261107-112844-624d0a95/Library/ScriptAssemblies/Mofumachi.EditModeTests.dll" runstate="Runnable" testcasecount="388" result="Passed" start-time="2026-11-07 02:36:51Z" end-time="2026-11-07 02:36:55Z" duration="3.409476" total="71" passed="71" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="4432" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1493" name="Mofumachi" fullname="Mofumachi" runstate="Runnable" testcasecount="388" result="Passed" start-time="2026-11-07 02:36:51Z" end-time="2026-11-07 02:36:55Z" duration="3.404391" total="71" passed="71" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1494" name="Tests" fullname="Mofumachi.Tests" runstate="Runnable" testcasecount="388" result="Passed" start-time="2026-11-07 02:36:51Z" end-time="2026-11-07 02:36:55Z" duration="3.399641" total="71" passed="71" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1236" name="RecoveryExtraHelpTests" fullname="Mofumachi.Tests.RecoveryExtraHelpTests" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" testcasecount="71" result="Passed" start-time="2026-11-07 02:36:51Z" end-time="2026-11-07 02:36:55Z" duration="3.379858" total="71" passed="71" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1307" name="DailyEntrySaveFailureDoesNotRetryInternally" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.DailyEntrySaveFailureDoesNotRetryInternally" methodname="DailyEntrySaveFailureDoesNotRetryInternally" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1787878294" result="Passed" start-time="2026-11-07 02:36:51Z" end-time="2026-11-07 02:36:52Z" duration="0.132043" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1306" name="DailyEntryUsesActualDateAndRefusesFutureJournalOnClockBack" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.DailyEntryUsesActualDateAndRefusesFutureJournalOnClockBack" methodname="DailyEntryUsesActualDateAndRefusesFutureJournalOnClockBack" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1956878333" result="Passed" start-time="2026-11-07 02:36:52Z" end-time="2026-11-07 02:36:52Z" duration="0.003874" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1238" name="DuplicateRecoveryDoesNotMutateOrSave" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.DuplicateRecoveryDoesNotMutateOrSave" methodname="DuplicateRecoveryDoesNotMutateOrSave" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="718676442" result="Passed" start-time="2026-11-07 02:36:52Z" end-time="2026-11-07 02:36:52Z" duration="0.002379" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1269" name="EachMissingHelpPreconditionRejectsEntireReward" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.EachMissingHelpPreconditionRejectsEntireReward" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-11-07 02:36:52Z" end-time="2026-11-07 02:36:52Z" duration="0.031493" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1264" name="EachMissingHelpPreconditionRejectsEntireReward(&quot;talk&quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.EachMissingHelpPreconditionRejectsEntireReward(&quot;talk&quot;)" methodname="EachMissingHelpPreconditionRejectsEntireReward" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1617771737" result="Passed" start-time="2026-11-07 02:36:52Z" end-time="2026-11-07 02:36:52Z" duration="0.008330" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1265" name="EachMissingHelpPreconditionRejectsEntireReward(&quot;normal&quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.EachMissingHelpPreconditionRejectsEntireReward(&quot;normal&quot;)" methodname="EachMissingHelpPreconditionRejectsEntireReward" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="774730778" result="Passed" start-time="2026-11-07 02:36:52Z" end-time="2026-11-07 02:36:52Z" duration="0.004348" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1266" name="EachMissingHelpPreconditionRejectsEntireReward(&quot;flower&quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.EachMissingHelpPreconditionRejectsEntireReward(&quot;flower&quot;)" methodname="EachMissingHelpPreconditionRejectsEntireReward" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1671377627" result="Passed" start-time="2026-11-07 02:36:52Z" end-time="2026-11-07 02:36:52Z" duration="0.004451" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1267" name="EachMissingHelpPreconditionRejectsEntireReward(&quot;recovery&quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.EachMissingHelpPreconditionRejectsEntireReward(&quot;recovery&quot;)" methodname="EachMissingHelpPreconditionRejectsEntireReward" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="738916820" result="Passed" start-time="2026-11-07 02:36:52Z" end-time="2026-11-07 02:36:52Z" duration="0.004886" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1268" name="EachMissingHelpPreconditionRejectsEntireReward(&quot;used&quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.EachMissingHelpPreconditionRejectsEntireReward(&quot;used&quot;)" methodname="EachMissingHelpPreconditionRejectsEntireReward" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1482800774" result="Passed" start-time="2026-11-07 02:36:52Z" end-time="2026-11-07 02:36:52Z" duration="0.006234" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1313" name="ExistingHeroCompletionRoutesExactlyOneFrozenKind" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.ExistingHeroCompletionRoutesExactlyOneFrozenKind" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 02:36:52Z" end-time="2026-11-07 02:36:54Z" duration="2.431689" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1310" name="ExistingHeroCompletionRoutesExactlyOneFrozenKind(Normal)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.ExistingHeroCompletionRoutesExactlyOneFrozenKind(Normal)" methodname="ExistingHeroCompletionRoutesExactlyOneFrozenKind" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1710045775" result="Passed" start-time="2026-11-07 02:36:52Z" end-time="2026-11-07 02:36:53Z" duration="1.664111" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1311" name="ExistingHeroCompletionRoutesExactlyOneFrozenKind(Additional)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.ExistingHeroCompletionRoutesExactlyOneFrozenKind(Additional)" methodname="ExistingHeroCompletionRoutesExactlyOneFrozenKind" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="185538833" result="Passed" start-time="2026-11-07 02:36:53Z" end-time="2026-11-07 02:36:54Z" duration="0.379469" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1312" name="ExistingHeroCompletionRoutesExactlyOneFrozenKind(Help)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.ExistingHeroCompletionRoutesExactlyOneFrozenKind(Help)" methodname="ExistingHeroCompletionRoutesExactlyOneFrozenKind" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="952098705" result="Passed" start-time="2026-11-07 02:36:54Z" end-time="2026-11-07 02:36:54Z" duration="0.386898" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1252" name="ExtraCapStillConsumesBothReceiptsWithoutTownProgress" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.ExtraCapStillConsumesBothReceiptsWithoutTownProgress" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 02:36:54Z" end-time="2026-11-07 02:36:54Z" duration="0.008891" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1249" name="ExtraCapStillConsumesBothReceiptsWithoutTownProgress(94)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.ExtraCapStillConsumesBothReceiptsWithoutTownProgress(94)" methodname="ExtraCapStillConsumesBothReceiptsWithoutTownProgress" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1822558943" result="Passed" start-time="2026-11-07 02:36:54Z" end-time="2026-11-07 02:36:54Z" duration="0.002919" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1250" name="ExtraCapStillConsumesBothReceiptsWithoutTownProgress(95)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.ExtraCapStillConsumesBothReceiptsWithoutTownProgress(95)" methodname="ExtraCapStillConsumesBothReceiptsWithoutTownProgress" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1958377970" result="Passed" start-time="2026-11-07 02:36:54Z" end-time="2026-11-07 02:36:54Z" duration="0.002046" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1251" name="ExtraCapStillConsumesBothReceiptsWithoutTownProgress(96)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.ExtraCapStillConsumesBothReceiptsWithoutTownProgress(96)" methodname="ExtraCapStillConsumesBothReceiptsWithoutTownProgress" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="839633093" result="Passed" start-time="2026-11-07 02:36:54Z" end-time="2026-11-07 02:36:54Z" duration="0.002402" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1247" name="ExtraHasTwoIndependentSlotsRegardlessOfNormalQuota" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.ExtraHasTwoIndependentSlotsRegardlessOfNormalQuota" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-07 02:36:54Z" end-time="2026-11-07 02:36:54Z" duration="0.008688" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1245" name="ExtraHasTwoIndependentSlotsRegardlessOfNormalQuota(0)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.ExtraHasTwoIndependentSlotsRegardlessOfNormalQuota(0)" methodname="ExtraHasTwoIndependentSlotsRegardlessOfNormalQuota" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1114221239" result="Passed" start-time="2026-11-07 02:36:54Z" end-time="2026-11-07 02:36:54Z" duration="0.004012" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1246" name="ExtraHasTwoIndependentSlotsRegardlessOfNormalQuota(2)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.ExtraHasTwoIndependentSlotsRegardlessOfNormalQuota(2)" methodname="ExtraHasTwoIndependentSlotsRegardlessOfNormalQuota" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="890611897" result="Passed" start-time="2026-11-07 02:36:54Z" end-time="2026-11-07 02:36:54Z" duration="0.003628" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1248" name="ExtraReceiptDuplicateDoesNotConsumeSecondSlotOrSave" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.ExtraReceiptDuplicateDoesNotConsumeSecondSlotOrSave" methodname="ExtraReceiptDuplicateDoesNotConsumeSecondSlotOrSave" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1699957730" result="Passed" start-time="2026-11-07 02:36:54Z" end-time="2026-11-07 02:36:54Z" duration="0.002475" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1317" name="GenuineResumeRecoversOnlyOnceAndCanApplyTheNextDay" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.GenuineResumeRecoversOnlyOnceAndCanApplyTheNextDay" methodname="GenuineResumeRecoversOnlyOnceAndCanApplyTheNextDay" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="916412880" result="Passed" start-time="2026-11-07 02:36:54Z" end-time="2026-11-07 02:36:54Z" duration="0.002609" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1263" name="HelpAtTwoOrMoreNeverMutatesOrSaves" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.HelpAtTwoOrMoreNeverMutatesOrSaves" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 02:36:54Z" end-time="2026-11-07 02:36:54Z" duration="0.017017" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1260" name="HelpAtTwoOrMoreNeverMutatesOrSaves(2)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.HelpAtTwoOrMoreNeverMutatesOrSaves(2)" methodname="HelpAtTwoOrMoreNeverMutatesOrSaves" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="608313543" result="Passed" start-time="2026-11-07 02:36:54Z" end-time="2026-11-07 02:36:54Z" duration="0.005551" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1261" name="HelpAtTwoOrMoreNeverMutatesOrSaves(3)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.HelpAtTwoOrMoreNeverMutatesOrSaves(3)" methodname="HelpAtTwoOrMoreNeverMutatesOrSaves" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1024726460" result="Passed" start-time="2026-11-07 02:36:54Z" end-time="2026-11-07 02:36:54Z" duration="0.005096" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1262" name="HelpAtTwoOrMoreNeverMutatesOrSaves(96)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.HelpAtTwoOrMoreNeverMutatesOrSaves(96)" methodname="HelpAtTwoOrMoreNeverMutatesOrSaves" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="651287979" result="Passed" start-time="2026-11-07 02:36:54Z" end-time="2026-11-07 02:36:54Z" duration="0.005306" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1259" name="HelpAtZeroOrOnePaysFourOnceAndNeverAddsTownProgress" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.HelpAtZeroOrOnePaysFourOnceAndNeverAddsTownProgress" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-07 02:36:54Z" end-time="2026-11-07 02:36:54Z" duration="0.011415" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1257" name="HelpAtZeroOrOnePaysFourOnceAndNeverAddsTownProgress(0)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.HelpAtZeroOrOnePaysFourOnceAndNeverAddsTownProgress(0)" methodname="HelpAtZeroOrOnePaysFourOnceAndNeverAddsTownProgress" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="764618703" result="Passed" start-time="2026-11-07 02:36:54Z" end-time="2026-11-07 02:36:54Z" duration="0.005569" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1258" name="HelpAtZeroOrOnePaysFourOnceAndNeverAddsTownProgress(1)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.HelpAtZeroOrOnePaysFourOnceAndNeverAddsTownProgress(1)" methodname="HelpAtZeroOrOnePaysFourOnceAndNeverAddsTownProgress" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1198404619" result="Passed" start-time="2026-11-07 02:36:54Z" end-time="2026-11-07 02:36:54Z" duration="0.005099" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1270" name="HelpCannotBeRepeatedAfterSpendingAndExtraAlsoStopsAtTwo" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.HelpCannotBeRepeatedAfterSpendingAndExtraAlsoStopsAtTwo" methodname="HelpCannotBeRepeatedAfterSpendingAndExtraAlsoStopsAtTwo" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="849462503" result="Passed" start-time="2026-11-07 02:36:54Z" end-time="2026-11-07 02:36:54Z" duration="0.020162" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1314" name="HelpConditionsLostDuringWalkNeverFallBackToExtra" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.HelpConditionsLostDuringWalkNeverFallBackToExtra" methodname="HelpConditionsLostDuringWalkNeverFallBackToExtra" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="773763792" result="Passed" start-time="2026-11-07 02:36:54Z" end-time="2026-11-07 02:36:55Z" duration="0.448578" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1271" name="HelpNeedsTodaysFlowerAndRecoveryNotHistoricalDates" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.HelpNeedsTodaysFlowerAndRecoveryNotHistoricalDates" methodname="HelpNeedsTodaysFlowerAndRecoveryNotHistoricalDates" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1838152718" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.008673" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1237" name="Initial24AndFirstRecovery16AreSeparateAndNeverAddTownProgress" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.Initial24AndFirstRecovery16AreSeparateAndNeverAddTownProgress" methodname="Initial24AndFirstRecovery16AreSeparateAndNeverAddTownProgress" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="75723670" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.004285" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1316" name="InitialUnpausedCallbackCannotRetryFailedStartupRecovery" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.InitialUnpausedCallbackCannotRetryFailedStartupRecovery" methodname="InitialUnpausedCallbackCannotRetryFailedStartupRecovery" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1360959317" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.007051" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1300" name="InvalidWalkIdDoesNotPayExtraOrHelp" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.InvalidWalkIdDoesNotPayExtraOrHelp" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.021220" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1297" name="InvalidWalkIdDoesNotPayExtraOrHelp(null)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.InvalidWalkIdDoesNotPayExtraOrHelp(null)" methodname="InvalidWalkIdDoesNotPayExtraOrHelp" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="2116425552" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.005477" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1298" name="InvalidWalkIdDoesNotPayExtraOrHelp(&quot;&quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.InvalidWalkIdDoesNotPayExtraOrHelp(&quot;&quot;)" methodname="InvalidWalkIdDoesNotPayExtraOrHelp" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="766991051" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.006265" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1299" name="InvalidWalkIdDoesNotPayExtraOrHelp(&quot; &quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.InvalidWalkIdDoesNotPayExtraOrHelp(&quot; &quot;)" methodname="InvalidWalkIdDoesNotPayExtraOrHelp" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="92361386" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.007890" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1321" name="JournalSaveFailureBlocksFollowOnRecoveryWrite" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.JournalSaveFailureBlocksFollowOnRecoveryWrite" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.012497" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1318" name="JournalSaveFailureBlocksFollowOnRecoveryWrite(&quot;talk&quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.JournalSaveFailureBlocksFollowOnRecoveryWrite(&quot;talk&quot;)" methodname="JournalSaveFailureBlocksFollowOnRecoveryWrite" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="946933207" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.004447" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1319" name="JournalSaveFailureBlocksFollowOnRecoveryWrite(&quot;walk&quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.JournalSaveFailureBlocksFollowOnRecoveryWrite(&quot;walk&quot;)" methodname="JournalSaveFailureBlocksFollowOnRecoveryWrite" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="371580178" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.001698" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1320" name="JournalSaveFailureBlocksFollowOnRecoveryWrite(&quot;flower&quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.JournalSaveFailureBlocksFollowOnRecoveryWrite(&quot;flower&quot;)" methodname="JournalSaveFailureBlocksFollowOnRecoveryWrite" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1831052963" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.005311" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1276" name="LongMaxTownTotalDoesNotBlockNonGrowthRewards" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.LongMaxTownTotalDoesNotBlockNonGrowthRewards" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.007861" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1273" name="LongMaxTownTotalDoesNotBlockNonGrowthRewards(&quot;recovery&quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.LongMaxTownTotalDoesNotBlockNonGrowthRewards(&quot;recovery&quot;)" methodname="LongMaxTownTotalDoesNotBlockNonGrowthRewards" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="524986295" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.001497" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1274" name="LongMaxTownTotalDoesNotBlockNonGrowthRewards(&quot;extra&quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.LongMaxTownTotalDoesNotBlockNonGrowthRewards(&quot;extra&quot;)" methodname="LongMaxTownTotalDoesNotBlockNonGrowthRewards" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="363131487" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.001119" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1275" name="LongMaxTownTotalDoesNotBlockNonGrowthRewards(&quot;help&quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.LongMaxTownTotalDoesNotBlockNonGrowthRewards(&quot;help&quot;)" methodname="LongMaxTownTotalDoesNotBlockNonGrowthRewards" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="319894018" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.004429" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1322" name="MainSaveFailureBlocksFollowOnRecoveryWrite" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.MainSaveFailureBlocksFollowOnRecoveryWrite" methodname="MainSaveFailureBlocksFollowOnRecoveryWrite" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1075362829" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.001697" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1296" name="MalformedDatesDoNotMutateOrSaveAnyNewReward" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.MalformedDatesDoNotMutateOrSaveAnyNewReward" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.010121" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1292" name="MalformedDatesDoNotMutateOrSaveAnyNewReward(null)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.MalformedDatesDoNotMutateOrSaveAnyNewReward(null)" methodname="MalformedDatesDoNotMutateOrSaveAnyNewReward" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="385208339" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.002287" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1293" name="MalformedDatesDoNotMutateOrSaveAnyNewReward(&quot;&quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.MalformedDatesDoNotMutateOrSaveAnyNewReward(&quot;&quot;)" methodname="MalformedDatesDoNotMutateOrSaveAnyNewReward" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1767965873" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.002487" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1294" name="MalformedDatesDoNotMutateOrSaveAnyNewReward(&quot;2026-02-30&quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.MalformedDatesDoNotMutateOrSaveAnyNewReward(&quot;2026-02-30&quot;)" methodname="MalformedDatesDoNotMutateOrSaveAnyNewReward" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="766356796" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.002323" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1295" name="MalformedDatesDoNotMutateOrSaveAnyNewReward(&quot;2026-1-7&quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.MalformedDatesDoNotMutateOrSaveAnyNewReward(&quot;2026-1-7&quot;)" methodname="MalformedDatesDoNotMutateOrSaveAnyNewReward" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1511832686" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.002074" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1272" name="NextDayRequiresAllPrerequisitesAgainBeforeHelpCanPay" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.NextDayRequiresAllPrerequisitesAgainBeforeHelpCanPay" methodname="NextDayRequiresAllPrerequisitesAgainBeforeHelpCanPay" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1506813565" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.014768" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1315" name="NoRewardTicketStillAllowsWalkingAndDailyGoalWithoutMainSave" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.NoRewardTicketStillAllowsWalkingAndDailyGoalWithoutMainSave" methodname="NoRewardTicketStillAllowsWalkingAndDailyGoalWithoutMainSave" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1487764303" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.014033" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1277" name="NormalSourcesKeepTheirExactFaceValueAfterRecoveryAndExtras" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.NormalSourcesKeepTheirExactFaceValueAfterRecoveryAndExtras" methodname="NormalSourcesKeepTheirExactFaceValueAfterRecoveryAndExtras" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1748154381" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.003246" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1256" name="OneSuccessfulWalkIdCannotPayAnotherKind" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.OneSuccessfulWalkIdCannotPayAnotherKind" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.015566" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1253" name="OneSuccessfulWalkIdCannotPayAnotherKind(Normal)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.OneSuccessfulWalkIdCannotPayAnotherKind(Normal)" methodname="OneSuccessfulWalkIdCannotPayAnotherKind" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="599654063" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.003895" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1254" name="OneSuccessfulWalkIdCannotPayAnotherKind(Additional)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.OneSuccessfulWalkIdCannotPayAnotherKind(Additional)" methodname="OneSuccessfulWalkIdCannotPayAnotherKind" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="859344017" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.002874" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1255" name="OneSuccessfulWalkIdCannotPayAnotherKind(Help)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.OneSuccessfulWalkIdCannotPayAnotherKind(Help)" methodname="OneSuccessfulWalkIdCannotPayAnotherKind" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1196717368" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.007682" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1301" name="OversizedWalkIdAndUnknownKindNeverResetOrSave" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.OversizedWalkIdAndUnknownKindNeverResetOrSave" methodname="OversizedWalkIdAndUnknownKindNeverResetOrSave" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1392313677" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.002106" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1243" name="RecoveryClampsWalletAndConsumesFullWalletReceipt" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.RecoveryClampsWalletAndConsumesFullWalletReceipt" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.008334" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1239" name="RecoveryClampsWalletAndConsumesFullWalletReceipt(0)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.RecoveryClampsWalletAndConsumesFullWalletReceipt(0)" methodname="RecoveryClampsWalletAndConsumesFullWalletReceipt" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="215742318" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.001862" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1240" name="RecoveryClampsWalletAndConsumesFullWalletReceipt(90)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.RecoveryClampsWalletAndConsumesFullWalletReceipt(90)" methodname="RecoveryClampsWalletAndConsumesFullWalletReceipt" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="554721505" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.001631" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1241" name="RecoveryClampsWalletAndConsumesFullWalletReceipt(95)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.RecoveryClampsWalletAndConsumesFullWalletReceipt(95)" methodname="RecoveryClampsWalletAndConsumesFullWalletReceipt" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="294698874" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.001783" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1242" name="RecoveryClampsWalletAndConsumesFullWalletReceipt(96)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.RecoveryClampsWalletAndConsumesFullWalletReceipt(96)" methodname="RecoveryClampsWalletAndConsumesFullWalletReceipt" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1364005943" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.001957" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1303" name="RecoveryNextDayResetsOnlyDailyFieldsWithoutResettingWalletOrProgress" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.RecoveryNextDayResetsOnlyDailyFieldsWithoutResettingWalletOrProgress" methodname="RecoveryNextDayResetsOnlyDailyFieldsWithoutResettingWalletOrProgress" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1776068378" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.007070" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1244" name="RecoveryNextDayWorksButOldDateAndClockBackNeverReopenIt" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.RecoveryNextDayWorksButOldDateAndClockBackNeverReopenIt" methodname="RecoveryNextDayWorksButOldDateAndClockBackNeverReopenIt" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1988228557" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.003207" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1305" name="RecoveryRequiresAnExplicitDailyEntryNotEnsureDayOrConstruction" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.RecoveryRequiresAnExplicitDailyEntryNotEnsureDayOrConstruction" methodname="RecoveryRequiresAnExplicitDailyEntryNotEnsureDayOrConstruction" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="564985619" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.001802" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1309" name="RepeatedFingerUpdatesCannotChangeSelectedWalkKind" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.RepeatedFingerUpdatesCannotChangeSelectedWalkKind" methodname="RepeatedFingerUpdatesCannotChangeSelectedWalkKind" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="214851786" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.004937" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1304" name="RewardOrderDoesNotAffectWalletOrTownFaceValue" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.RewardOrderDoesNotAffectWalletOrTownFaceValue" methodname="RewardOrderDoesNotAffectWalletOrTownFaceValue" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="250075263" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.004717" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1302" name="SameDayMaintainsExtraLedgerNextDayResetsButPastDayDoesNot" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.SameDayMaintainsExtraLedgerNextDayResetsButPastDayDoesNot" methodname="SameDayMaintainsExtraLedgerNextDayResetsButPastDayDoesNot" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1847752038" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.003541" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1284" name="SaveFailureRestoresAllReceiptsWalletDayAndOtherGameState" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.SaveFailureRestoresAllReceiptsWalletDayAndOtherGameState" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.049296" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1278" name="SaveFailureRestoresAllReceiptsWalletDayAndOtherGameState(&quot;recovery&quot;,False)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.SaveFailureRestoresAllReceiptsWalletDayAndOtherGameState(&quot;recovery&quot;,False)" methodname="SaveFailureRestoresAllReceiptsWalletDayAndOtherGameState" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="895101273" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.011494" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1279" name="SaveFailureRestoresAllReceiptsWalletDayAndOtherGameState(&quot;extra&quot;,False)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.SaveFailureRestoresAllReceiptsWalletDayAndOtherGameState(&quot;extra&quot;,False)" methodname="SaveFailureRestoresAllReceiptsWalletDayAndOtherGameState" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="11499139" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.006033" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1280" name="SaveFailureRestoresAllReceiptsWalletDayAndOtherGameState(&quot;help&quot;,False)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.SaveFailureRestoresAllReceiptsWalletDayAndOtherGameState(&quot;help&quot;,False)" methodname="SaveFailureRestoresAllReceiptsWalletDayAndOtherGameState" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1714665370" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.016046" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1281" name="SaveFailureRestoresAllReceiptsWalletDayAndOtherGameState(&quot;recovery&quot;,True)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.SaveFailureRestoresAllReceiptsWalletDayAndOtherGameState(&quot;recovery&quot;,True)" methodname="SaveFailureRestoresAllReceiptsWalletDayAndOtherGameState" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="79990717" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.003991" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1282" name="SaveFailureRestoresAllReceiptsWalletDayAndOtherGameState(&quot;extra&quot;,True)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.SaveFailureRestoresAllReceiptsWalletDayAndOtherGameState(&quot;extra&quot;,True)" methodname="SaveFailureRestoresAllReceiptsWalletDayAndOtherGameState" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1467453989" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.003708" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1283" name="SaveFailureRestoresAllReceiptsWalletDayAndOtherGameState(&quot;help&quot;,True)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.SaveFailureRestoresAllReceiptsWalletDayAndOtherGameState(&quot;help&quot;,True)" methodname="SaveFailureRestoresAllReceiptsWalletDayAndOtherGameState" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="685278998" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.005930" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1288" name="SaveReentryCannotPaySameOrDifferentRewardAgain" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.SaveReentryCannotPaySameOrDifferentRewardAgain" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.008981" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1285" name="SaveReentryCannotPaySameOrDifferentRewardAgain(&quot;recovery&quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.SaveReentryCannotPaySameOrDifferentRewardAgain(&quot;recovery&quot;)" methodname="SaveReentryCannotPaySameOrDifferentRewardAgain" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="2138743692" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.002010" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1286" name="SaveReentryCannotPaySameOrDifferentRewardAgain(&quot;extra&quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.SaveReentryCannotPaySameOrDifferentRewardAgain(&quot;extra&quot;)" methodname="SaveReentryCannotPaySameOrDifferentRewardAgain" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="832435706" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.001347" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1287" name="SaveReentryCannotPaySameOrDifferentRewardAgain(&quot;help&quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.SaveReentryCannotPaySameOrDifferentRewardAgain(&quot;help&quot;)" methodname="SaveReentryCannotPaySameOrDifferentRewardAgain" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1109530778" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.004651" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1308" name="SelectionIsReadOnlyAndUsesNormalHelpExtraNonePriority" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.SelectionIsReadOnlyAndUsesNormalHelpExtraNonePriority" methodname="SelectionIsReadOnlyAndUsesNormalHelpExtraNonePriority" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="1795917241" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.006965" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1291" name="WalkFromAnotherDateNeverResetsOrConsumesReceipts" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.WalkFromAnotherDateNeverResetsOrConsumesReceipts" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.008064" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1289" name="WalkFromAnotherDateNeverResetsOrConsumesReceipts(&quot;extra&quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.WalkFromAnotherDateNeverResetsOrConsumesReceipts(&quot;extra&quot;)" methodname="WalkFromAnotherDateNeverResetsOrConsumesReceipts" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="992994602" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.002089" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1290" name="WalkFromAnotherDateNeverResetsOrConsumesReceipts(&quot;help&quot;)" fullname="Mofumachi.Tests.RecoveryExtraHelpTests.WalkFromAnotherDateNeverResetsOrConsumesReceipts(&quot;help&quot;)" methodname="WalkFromAnotherDateNeverResetsOrConsumesReceipts" classname="Mofumachi.Tests.RecoveryExtraHelpTests" runstate="Runnable" seed="2052965394" result="Passed" start-time="2026-11-07 02:36:55Z" end-time="2026-11-07 02:36:55Z" duration="0.005071" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

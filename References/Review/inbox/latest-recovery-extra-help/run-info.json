@@ -1,0 +1,37 @@
+﻿{
+    "source_run":  "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge\\Builds\\Diagnostics\\recovery-extra-help-20261107-112844-624d0a95",
+    "source_commit":  "0c22f30fae41c18471fe771f67153e4828716629",
+    "fixture":  "Mofumachi.Tests.RecoveryExtraHelpTests",
+    "copied_at_utc":  "2026-11-07T02:37:04.5129740Z",
+    "remote_parent":  "e4ab459317e3401c95492ce3469c91ed5df5f679",
+    "files":  [
+                  {
+                      "sha256":  "bc37e5cef946441276bdc9851e134d8831e0a79668b0b7895777ffe19a7b2f54",
+                      "file":  "recovery-extra-help-result.json",
+                      "bytes":  1128
+                  },
+                  {
+                      "sha256":  "75287917650564ca604dcf5514136e377fee332d218192ed5d0ce49bc35d24ad",
+                      "file":  "source-revision.txt",
+                      "bytes":  45
+                  },
+                  {
+                      "sha256":  "ae8144d1b7c9f0780a5d69e894a9d5d4c59daa0b09295c5cccdd37353a41d2e0",
+                      "file":  "results.xml",
+                      "bytes":  59835
+                  },
+                  {
+                      "sha256":  "e7bb20e4474ac0bb213a077c8e2225cbc9867474b19f14f0740c7063b308e02b",
+                      "file":  "unity.log",
+                      "bytes":  3282412
+                  },
+                  {
+                      "sha256":  "67cf26e5d1edf0b3bb3debf97c4e1a57c2e8a7bf6a392eaeeb9187ce70b41aaf",
+                      "file":  "unity-arguments.txt",
+                      "bytes":  558
+                  }
+              ],
+    "skipped":  [
+
+                ]
+}

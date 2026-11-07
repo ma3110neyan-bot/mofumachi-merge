@@ -1,0 +1,17 @@
+﻿-batchmode
+-nographics
+-projectPath
+C:\Users\User\Desktop\Mofumachi\town-point-rewards-check-20261107-104646-06e9c929
+-buildTarget
+Android
+-runTests
+-testPlatform
+EditMode
+-assemblyNames
+Mofumachi.EditModeTests
+-testFilter
+^Mofumachi\.Tests\.TownPointRewardTests\..*
+-testResults
+C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Diagnostics\town-point-rewards-20261107-104646-06e9c929\results.xml
+-logFile
+C:\Users\User\Desktop\Mofumachi\mofumachi-merge\Builds\Diagnostics\town-point-rewards-20261107-104646-06e9c929\unity.log

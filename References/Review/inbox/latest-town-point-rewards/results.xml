@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="69" result="Passed" total="69" passed="69" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:49Z" duration="2.8386694">
+  <test-suite type="TestSuite" id="1000" name="もふまちメルジュ" fullname="もふまちメルジュ" runstate="Runnable" testcasecount="336" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:49Z" duration="2.838669" total="69" passed="69" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1405" name="Mofumachi.EditModeTests.dll" fullname="C:/Users/User/Desktop/Mofumachi/town-point-rewards-check-20261107-104646-06e9c929/Library/ScriptAssemblies/Mofumachi.EditModeTests.dll" runstate="Runnable" testcasecount="317" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:49Z" duration="2.805777" total="69" passed="69" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="20004" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1406" name="Mofumachi" fullname="Mofumachi" runstate="Runnable" testcasecount="317" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:49Z" duration="2.799023" total="69" passed="69" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1407" name="Tests" fullname="Mofumachi.Tests" runstate="Runnable" testcasecount="317" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:49Z" duration="2.793090" total="69" passed="69" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1295" name="TownPointRewardTests" fullname="Mofumachi.Tests.TownPointRewardTests" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" testcasecount="69" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:49Z" duration="2.786690" total="69" passed="69" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1334" name="AllNormalDailySourcesTotalThirtyTwoWithoutAutomaticRecovery" fullname="Mofumachi.Tests.TownPointRewardTests.AllNormalDailySourcesTotalThirtyTwoWithoutAutomaticRecovery" methodname="AllNormalDailySourcesTotalThirtyTwoWithoutAutomaticRecovery" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="39651436" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.137701" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1343" name="CumulativeOverflowRejectsWholeRewardBeforeNewDayReset" fullname="Mofumachi.Tests.TownPointRewardTests.CumulativeOverflowRejectsWholeRewardBeforeNewDayReset" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.014252" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1340" name="CumulativeOverflowRejectsWholeRewardBeforeNewDayReset(&quot;talk&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.CumulativeOverflowRejectsWholeRewardBeforeNewDayReset(&quot;talk&quot;)" methodname="CumulativeOverflowRejectsWholeRewardBeforeNewDayReset" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="257468321" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.002667" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1341" name="CumulativeOverflowRejectsWholeRewardBeforeNewDayReset(&quot;walk&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.CumulativeOverflowRejectsWholeRewardBeforeNewDayReset(&quot;walk&quot;)" methodname="CumulativeOverflowRejectsWholeRewardBeforeNewDayReset" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="169990004" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.006209" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1342" name="CumulativeOverflowRejectsWholeRewardBeforeNewDayReset(&quot;flower&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.CumulativeOverflowRejectsWholeRewardBeforeNewDayReset(&quot;flower&quot;)" methodname="CumulativeOverflowRejectsWholeRewardBeforeNewDayReset" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="566852864" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.002036" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1311" name="DuplicateWalkIdNeverRewardsOrSavesTwice" fullname="Mofumachi.Tests.TownPointRewardTests.DuplicateWalkIdNeverRewardsOrSavesTwice" methodname="DuplicateWalkIdNeverRewardsOrSavesTwice" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1028537312" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.006898" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1355" name="ExistingRawCreditStillDoesNotAddTownActionProgress" fullname="Mofumachi.Tests.TownPointRewardTests.ExistingRawCreditStillDoesNotAddTownActionProgress" methodname="ExistingRawCreditStillDoesNotAddTownActionProgress" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="980414817" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.004097" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1350" name="FailedSaveRestoresWalletTotalWholeLedgerAndOtherState" fullname="Mofumachi.Tests.TownPointRewardTests.FailedSaveRestoresWalletTotalWholeLedgerAndOtherState" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.035045" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1344" name="FailedSaveRestoresWalletTotalWholeLedgerAndOtherState(&quot;talk&quot;,False)" fullname="Mofumachi.Tests.TownPointRewardTests.FailedSaveRestoresWalletTotalWholeLedgerAndOtherState(&quot;talk&quot;,False)" methodname="FailedSaveRestoresWalletTotalWholeLedgerAndOtherState" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1691460505" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.010177" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1345" name="FailedSaveRestoresWalletTotalWholeLedgerAndOtherState(&quot;walk&quot;,False)" fullname="Mofumachi.Tests.TownPointRewardTests.FailedSaveRestoresWalletTotalWholeLedgerAndOtherState(&quot;walk&quot;,False)" methodname="FailedSaveRestoresWalletTotalWholeLedgerAndOtherState" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="608348485" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.004881" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1346" name="FailedSaveRestoresWalletTotalWholeLedgerAndOtherState(&quot;flower&quot;,False)" fullname="Mofumachi.Tests.TownPointRewardTests.FailedSaveRestoresWalletTotalWholeLedgerAndOtherState(&quot;flower&quot;,False)" methodname="FailedSaveRestoresWalletTotalWholeLedgerAndOtherState" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="153766456" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.004474" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1347" name="FailedSaveRestoresWalletTotalWholeLedgerAndOtherState(&quot;talk&quot;,True)" fullname="Mofumachi.Tests.TownPointRewardTests.FailedSaveRestoresWalletTotalWholeLedgerAndOtherState(&quot;talk&quot;,True)" methodname="FailedSaveRestoresWalletTotalWholeLedgerAndOtherState" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1775178534" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.004493" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1348" name="FailedSaveRestoresWalletTotalWholeLedgerAndOtherState(&quot;walk&quot;,True)" fullname="Mofumachi.Tests.TownPointRewardTests.FailedSaveRestoresWalletTotalWholeLedgerAndOtherState(&quot;walk&quot;,True)" methodname="FailedSaveRestoresWalletTotalWholeLedgerAndOtherState" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="875949904" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.004390" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1349" name="FailedSaveRestoresWalletTotalWholeLedgerAndOtherState(&quot;flower&quot;,True)" fullname="Mofumachi.Tests.TownPointRewardTests.FailedSaveRestoresWalletTotalWholeLedgerAndOtherState(&quot;flower&quot;,True)" methodname="FailedSaveRestoresWalletTotalWholeLedgerAndOtherState" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1165279010" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.004667" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1302" name="FirstKnownConversationPaysFourAndSavesReceiptOnce" fullname="Mofumachi.Tests.TownPointRewardTests.FirstKnownConversationPaysFourAndSavesReceiptOnce" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.012750" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1296" name="FirstKnownConversationPaysFourAndSavesReceiptOnce(&quot;momo&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.FirstKnownConversationPaysFourAndSavesReceiptOnce(&quot;momo&quot;)" methodname="FirstKnownConversationPaysFourAndSavesReceiptOnce" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1280384897" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.003560" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1297" name="FirstKnownConversationPaysFourAndSavesReceiptOnce(&quot;lulu&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.FirstKnownConversationPaysFourAndSavesReceiptOnce(&quot;lulu&quot;)" methodname="FirstKnownConversationPaysFourAndSavesReceiptOnce" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="722606885" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.001623" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1298" name="FirstKnownConversationPaysFourAndSavesReceiptOnce(&quot;pom&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.FirstKnownConversationPaysFourAndSavesReceiptOnce(&quot;pom&quot;)" methodname="FirstKnownConversationPaysFourAndSavesReceiptOnce" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1752139147" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.001497" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1299" name="FirstKnownConversationPaysFourAndSavesReceiptOnce(&quot;fio&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.FirstKnownConversationPaysFourAndSavesReceiptOnce(&quot;fio&quot;)" methodname="FirstKnownConversationPaysFourAndSavesReceiptOnce" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1126049580" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.001445" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1300" name="FirstKnownConversationPaysFourAndSavesReceiptOnce(&quot;miel&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.FirstKnownConversationPaysFourAndSavesReceiptOnce(&quot;miel&quot;)" methodname="FirstKnownConversationPaysFourAndSavesReceiptOnce" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="139681869" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.001425" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1301" name="FirstKnownConversationPaysFourAndSavesReceiptOnce(&quot;noah&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.FirstKnownConversationPaysFourAndSavesReceiptOnce(&quot;noah&quot;)" methodname="FirstKnownConversationPaysFourAndSavesReceiptOnce" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="768272512" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.001473" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1321" name="FlowerPaysEightOnlyOncePerDay" fullname="Mofumachi.Tests.TownPointRewardTests.FlowerPaysEightOnlyOncePerDay" methodname="FlowerPaysEightOnlyOncePerDay" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1216137119" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.002588" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1369" name="FutureJournalWithClockBackNeverPaysConversationOrFlower" fullname="Mofumachi.Tests.TownPointRewardTests.FutureJournalWithClockBackNeverPaysConversationOrFlower" methodname="FutureJournalWithClockBackNeverPaysConversationOrFlower" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="349969038" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.008360" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1368" name="HistoricalFlowerCannotBeConvertedOnLaterStartup" fullname="Mofumachi.Tests.TownPointRewardTests.HistoricalFlowerCannotBeConvertedOnLaterStartup" methodname="HistoricalFlowerCannotBeConvertedOnLaterStartup" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="928435421" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:46Z" duration="0.005182" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1375" name="InterruptedWalkTicketCannotBeReused" fullname="Mofumachi.Tests.TownPointRewardTests.InterruptedWalkTicketCannotBeReused" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:48Z" duration="1.539486" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1372" name="InterruptedWalkTicketCannotBeReused(&quot;cancel&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.InterruptedWalkTicketCannotBeReused(&quot;cancel&quot;)" methodname="InterruptedWalkTicketCannotBeReused" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1676700563" result="Passed" start-time="2026-11-07 01:53:46Z" end-time="2026-11-07 01:53:48Z" duration="1.501880" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1373" name="InterruptedWalkTicketCannotBeReused(&quot;restore&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.InterruptedWalkTicketCannotBeReused(&quot;restore&quot;)" methodname="InterruptedWalkTicketCannotBeReused" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="115984560" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.018260" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1374" name="InterruptedWalkTicketCannotBeReused(&quot;fast&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.InterruptedWalkTicketCannotBeReused(&quot;fast&quot;)" methodname="InterruptedWalkTicketCannotBeReused" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1507096766" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.018091" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1309" name="InvalidCharacterDoesNotAdvanceDayOrSave" fullname="Mofumachi.Tests.TownPointRewardTests.InvalidCharacterDoesNotAdvanceDayOrSave" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.011422" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1305" name="InvalidCharacterDoesNotAdvanceDayOrSave(null)" fullname="Mofumachi.Tests.TownPointRewardTests.InvalidCharacterDoesNotAdvanceDayOrSave(null)" methodname="InvalidCharacterDoesNotAdvanceDayOrSave" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1199533805" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.001987" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1306" name="InvalidCharacterDoesNotAdvanceDayOrSave(&quot;&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.InvalidCharacterDoesNotAdvanceDayOrSave(&quot;&quot;)" methodname="InvalidCharacterDoesNotAdvanceDayOrSave" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="277587838" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.001560" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1307" name="InvalidCharacterDoesNotAdvanceDayOrSave(&quot;noa&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.InvalidCharacterDoesNotAdvanceDayOrSave(&quot;noa&quot;)" methodname="InvalidCharacterDoesNotAdvanceDayOrSave" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="186276337" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.001519" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1308" name="InvalidCharacterDoesNotAdvanceDayOrSave(&quot;unknown&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.InvalidCharacterDoesNotAdvanceDayOrSave(&quot;unknown&quot;)" methodname="InvalidCharacterDoesNotAdvanceDayOrSave" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="634774477" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.005030" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1339" name="InvalidDateNeverMutatesOrSaves" fullname="Mofumachi.Tests.TownPointRewardTests.InvalidDateNeverMutatesOrSaves" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.019635" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1335" name="InvalidDateNeverMutatesOrSaves(null)" fullname="Mofumachi.Tests.TownPointRewardTests.InvalidDateNeverMutatesOrSaves(null)" methodname="InvalidDateNeverMutatesOrSaves" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1341239657" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.004227" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1336" name="InvalidDateNeverMutatesOrSaves(&quot;&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.InvalidDateNeverMutatesOrSaves(&quot;&quot;)" methodname="InvalidDateNeverMutatesOrSaves" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="2113586638" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.002459" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1337" name="InvalidDateNeverMutatesOrSaves(&quot;2026-02-30&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.InvalidDateNeverMutatesOrSaves(&quot;2026-02-30&quot;)" methodname="InvalidDateNeverMutatesOrSaves" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="309900708" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.003956" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1338" name="InvalidDateNeverMutatesOrSaves(&quot;2026-1-6&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.InvalidDateNeverMutatesOrSaves(&quot;2026-1-6&quot;)" methodname="InvalidDateNeverMutatesOrSaves" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1699622841" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.001835" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1315" name="InvalidWalkIdDoesNotAdvanceOrSave" fullname="Mofumachi.Tests.TownPointRewardTests.InvalidWalkIdDoesNotAdvanceOrSave" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.005948" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1312" name="InvalidWalkIdDoesNotAdvanceOrSave(null)" fullname="Mofumachi.Tests.TownPointRewardTests.InvalidWalkIdDoesNotAdvanceOrSave(null)" methodname="InvalidWalkIdDoesNotAdvanceOrSave" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="404623058" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.002051" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1313" name="InvalidWalkIdDoesNotAdvanceOrSave(&quot;&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.InvalidWalkIdDoesNotAdvanceOrSave(&quot;&quot;)" methodname="InvalidWalkIdDoesNotAdvanceOrSave" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="83220976" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.001558" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1314" name="InvalidWalkIdDoesNotAdvanceOrSave(&quot; &quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.InvalidWalkIdDoesNotAdvanceOrSave(&quot; &quot;)" methodname="InvalidWalkIdDoesNotAdvanceOrSave" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="793732919" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.001536" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1356" name="JournalConversationSuccessPaysButRepeatedConversationRemainsPossible" fullname="Mofumachi.Tests.TownPointRewardTests.JournalConversationSuccessPaysButRepeatedConversationRemainsPossible" methodname="JournalConversationSuccessPaysButRepeatedConversationRemainsPossible" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="2040312992" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.003778" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1358" name="JournalFlowerMustBeSavedBeforePointsAndSameDayDoesNotSaveTwice" fullname="Mofumachi.Tests.TownPointRewardTests.JournalFlowerMustBeSavedBeforePointsAndSameDayDoesNotSaveTwice" methodname="JournalFlowerMustBeSavedBeforePointsAndSameDayDoesNotSaveTwice" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="206265236" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.007213" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1357" name="JournalOneWalkGoalDoesNotBlockSecondPointReward" fullname="Mofumachi.Tests.TownPointRewardTests.JournalOneWalkGoalDoesNotBlockSecondPointReward" methodname="JournalOneWalkGoalDoesNotBlockSecondPointReward" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1667415720" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.003486" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1370" name="JournalReentryFromMainSaveDoesNotRecordOrRewardAnotherConversation" fullname="Mofumachi.Tests.TownPointRewardTests.JournalReentryFromMainSaveDoesNotRecordOrRewardAnotherConversation" methodname="JournalReentryFromMainSaveDoesNotRecordOrRewardAnotherConversation" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="43653265" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.002411" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1362" name="JournalSaveFailureNeverPaysPoints" fullname="Mofumachi.Tests.TownPointRewardTests.JournalSaveFailureNeverPaysPoints" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.008018" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1359" name="JournalSaveFailureNeverPaysPoints(&quot;talk&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.JournalSaveFailureNeverPaysPoints(&quot;talk&quot;)" methodname="JournalSaveFailureNeverPaysPoints" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="2057325224" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.001764" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1360" name="JournalSaveFailureNeverPaysPoints(&quot;walk&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.JournalSaveFailureNeverPaysPoints(&quot;walk&quot;)" methodname="JournalSaveFailureNeverPaysPoints" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1703353537" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.001403" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1361" name="JournalSaveFailureNeverPaysPoints(&quot;flower&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.JournalSaveFailureNeverPaysPoints(&quot;flower&quot;)" methodname="JournalSaveFailureNeverPaysPoints" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="468703674" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.003944" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1366" name="MainSaveFailureLeavesJournalSuccessButRollsBackAllPointsWithoutRetry" fullname="Mofumachi.Tests.TownPointRewardTests.MainSaveFailureLeavesJournalSuccessButRollsBackAllPointsWithoutRetry" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.012207" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1363" name="MainSaveFailureLeavesJournalSuccessButRollsBackAllPointsWithoutRetry(&quot;talk&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.MainSaveFailureLeavesJournalSuccessButRollsBackAllPointsWithoutRetry(&quot;talk&quot;)" methodname="MainSaveFailureLeavesJournalSuccessButRollsBackAllPointsWithoutRetry" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1614011013" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.003044" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1364" name="MainSaveFailureLeavesJournalSuccessButRollsBackAllPointsWithoutRetry(&quot;walk&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.MainSaveFailureLeavesJournalSuccessButRollsBackAllPointsWithoutRetry(&quot;walk&quot;)" methodname="MainSaveFailureLeavesJournalSuccessButRollsBackAllPointsWithoutRetry" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1976546469" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.003054" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1365" name="MainSaveFailureLeavesJournalSuccessButRollsBackAllPointsWithoutRetry(&quot;flower&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.MainSaveFailureLeavesJournalSuccessButRollsBackAllPointsWithoutRetry(&quot;flower&quot;)" methodname="MainSaveFailureLeavesJournalSuccessButRollsBackAllPointsWithoutRetry" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="790108089" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.005098" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1333" name="NewDayResetsOnlyDailyLedgerAndNeverGrantsRecoveryExtras" fullname="Mofumachi.Tests.TownPointRewardTests.NewDayResetsOnlyDailyLedgerAndNeverGrantsRecoveryExtras" methodname="NewDayResetsOnlyDailyLedgerAndNeverGrantsRecoveryExtras" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="47190125" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.003966" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1371" name="OneFingerGestureKeepsOneTicketAndNewGuideReplacesIt" fullname="Mofumachi.Tests.TownPointRewardTests.OneFingerGestureKeepsOneTicketAndNewGuideReplacesIt" methodname="OneFingerGestureKeepsOneTicketAndNewGuideReplacesIt" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="240142431" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.021145" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1304" name="OnlyThreeDistinctCharactersPayTwelve" fullname="Mofumachi.Tests.TownPointRewardTests.OnlyThreeDistinctCharactersPayTwelve" methodname="OnlyThreeDistinctCharactersPayTwelve" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="23552846" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.003475" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1316" name="OversizedWalkIdIsRejectedWithoutMutation" fullname="Mofumachi.Tests.TownPointRewardTests.OversizedWalkIdIsRejectedWithoutMutation" methodname="OversizedWalkIdIsRejectedWithoutMutation" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="2031009198" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.001973" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1378" name="RealCrossDistrictCompletionPaysOnceAndOvernightTicketDoesNotPay" fullname="Mofumachi.Tests.TownPointRewardTests.RealCrossDistrictCompletionPaysOnceAndOvernightTicketDoesNotPay" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:49Z" duration="0.823436" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1376" name="RealCrossDistrictCompletionPaysOnceAndOvernightTicketDoesNotPay(False)" fullname="Mofumachi.Tests.TownPointRewardTests.RealCrossDistrictCompletionPaysOnceAndOvernightTicketDoesNotPay(False)" methodname="RealCrossDistrictCompletionPaysOnceAndOvernightTicketDoesNotPay" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="888237248" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:48Z" duration="0.410873" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1377" name="RealCrossDistrictCompletionPaysOnceAndOvernightTicketDoesNotPay(True)" fullname="Mofumachi.Tests.TownPointRewardTests.RealCrossDistrictCompletionPaysOnceAndOvernightTicketDoesNotPay(True)" methodname="RealCrossDistrictCompletionPaysOnceAndOvernightTicketDoesNotPay" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1136465566" result="Passed" start-time="2026-11-07 01:53:48Z" end-time="2026-11-07 01:53:49Z" duration="0.411646" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1303" name="SameCharacterNeverRewardsOrSavesTwice" fullname="Mofumachi.Tests.TownPointRewardTests.SameCharacterNeverRewardsOrSavesTwice" methodname="SameCharacterNeverRewardsOrSavesTwice" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1904202407" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.002747" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1332" name="SameDayMaintainsLedgerNextDayResetsAndClockBackCannotReward" fullname="Mofumachi.Tests.TownPointRewardTests.SameDayMaintainsLedgerNextDayResetsAndClockBackCannotReward" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.012076" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1329" name="SameDayMaintainsLedgerNextDayResetsAndClockBackCannotReward(&quot;talk&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.SameDayMaintainsLedgerNextDayResetsAndClockBackCannotReward(&quot;talk&quot;)" methodname="SameDayMaintainsLedgerNextDayResetsAndClockBackCannotReward" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="871283193" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.003613" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1330" name="SameDayMaintainsLedgerNextDayResetsAndClockBackCannotReward(&quot;walk&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.SameDayMaintainsLedgerNextDayResetsAndClockBackCannotReward(&quot;walk&quot;)" methodname="SameDayMaintainsLedgerNextDayResetsAndClockBackCannotReward" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="232949838" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.003316" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1331" name="SameDayMaintainsLedgerNextDayResetsAndClockBackCannotReward(&quot;flower&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.SameDayMaintainsLedgerNextDayResetsAndClockBackCannotReward(&quot;flower&quot;)" methodname="SameDayMaintainsLedgerNextDayResetsAndClockBackCannotReward" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1550291752" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.003964" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1354" name="SaveReentryCannotDoubleRewardEvenAnotherSource" fullname="Mofumachi.Tests.TownPointRewardTests.SaveReentryCannotDoubleRewardEvenAnotherSource" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.005515" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1351" name="SaveReentryCannotDoubleRewardEvenAnotherSource(&quot;talk&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.SaveReentryCannotDoubleRewardEvenAnotherSource(&quot;talk&quot;)" methodname="SaveReentryCannotDoubleRewardEvenAnotherSource" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="744752026" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.001876" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1352" name="SaveReentryCannotDoubleRewardEvenAnotherSource(&quot;walk&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.SaveReentryCannotDoubleRewardEvenAnotherSource(&quot;walk&quot;)" methodname="SaveReentryCannotDoubleRewardEvenAnotherSource" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1398607382" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.001255" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1353" name="SaveReentryCannotDoubleRewardEvenAnotherSource(&quot;flower&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.SaveReentryCannotDoubleRewardEvenAnotherSource(&quot;flower&quot;)" methodname="SaveReentryCannotDoubleRewardEvenAnotherSource" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="155800474" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.001306" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1367" name="StoredCurrentFlowerRecoversOnceOnExplicitStartupAfterMainSaveFailure" fullname="Mofumachi.Tests.TownPointRewardTests.StoredCurrentFlowerRecoversOnceOnExplicitStartupAfterMainSaveFailure" methodname="StoredCurrentFlowerRecoversOnceOnExplicitStartupAfterMainSaveFailure" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1184196899" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.006914" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1310" name="TwoNormalWalksPayTwelveAndThirdIsFree" fullname="Mofumachi.Tests.TownPointRewardTests.TwoNormalWalksPayTwelveAndThirdIsFree" methodname="TwoNormalWalksPayTwelveAndThirdIsFree" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="576768864" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.003731" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1320" name="WalkFromAnotherDayCannotConsumeNewDaysSlot" fullname="Mofumachi.Tests.TownPointRewardTests.WalkFromAnotherDayCannotConsumeNewDaysSlot" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.014754" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1317" name="WalkFromAnotherDayCannotConsumeNewDaysSlot(&quot;2026-11-05&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.WalkFromAnotherDayCannotConsumeNewDaysSlot(&quot;2026-11-05&quot;)" methodname="WalkFromAnotherDayCannotConsumeNewDaysSlot" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="44792840" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.002269" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1318" name="WalkFromAnotherDayCannotConsumeNewDaysSlot(&quot;2026-11-07&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.WalkFromAnotherDayCannotConsumeNewDaysSlot(&quot;2026-11-07&quot;)" methodname="WalkFromAnotherDayCannotConsumeNewDaysSlot" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="209343094" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.009018" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1319" name="WalkFromAnotherDayCannotConsumeNewDaysSlot(&quot;&quot;)" fullname="Mofumachi.Tests.TownPointRewardTests.WalkFromAnotherDayCannotConsumeNewDaysSlot(&quot;&quot;)" methodname="WalkFromAnotherDayCannotConsumeNewDaysSlot" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="54411378" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.002164" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1328" name="WalletCapNeverReducesFaceValueTownProgress" fullname="Mofumachi.Tests.TownPointRewardTests.WalletCapNeverReducesFaceValueTownProgress" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.013172" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1322" name="WalletCapNeverReducesFaceValueTownProgress(&quot;talk&quot;,94)" fullname="Mofumachi.Tests.TownPointRewardTests.WalletCapNeverReducesFaceValueTownProgress(&quot;talk&quot;,94)" methodname="WalletCapNeverReducesFaceValueTownProgress" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="807630386" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.002622" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1323" name="WalletCapNeverReducesFaceValueTownProgress(&quot;walk&quot;,94)" fullname="Mofumachi.Tests.TownPointRewardTests.WalletCapNeverReducesFaceValueTownProgress(&quot;walk&quot;,94)" methodname="WalletCapNeverReducesFaceValueTownProgress" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1843380832" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.001782" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1324" name="WalletCapNeverReducesFaceValueTownProgress(&quot;flower&quot;,94)" fullname="Mofumachi.Tests.TownPointRewardTests.WalletCapNeverReducesFaceValueTownProgress(&quot;flower&quot;,94)" methodname="WalletCapNeverReducesFaceValueTownProgress" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="1820614143" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.001692" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1325" name="WalletCapNeverReducesFaceValueTownProgress(&quot;talk&quot;,96)" fullname="Mofumachi.Tests.TownPointRewardTests.WalletCapNeverReducesFaceValueTownProgress(&quot;talk&quot;,96)" methodname="WalletCapNeverReducesFaceValueTownProgress" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="490521870" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.001639" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1326" name="WalletCapNeverReducesFaceValueTownProgress(&quot;walk&quot;,96)" fullname="Mofumachi.Tests.TownPointRewardTests.WalletCapNeverReducesFaceValueTownProgress(&quot;walk&quot;,96)" methodname="WalletCapNeverReducesFaceValueTownProgress" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="224405471" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.001726" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1327" name="WalletCapNeverReducesFaceValueTownProgress(&quot;flower&quot;,96)" fullname="Mofumachi.Tests.TownPointRewardTests.WalletCapNeverReducesFaceValueTownProgress(&quot;flower&quot;,96)" methodname="WalletCapNeverReducesFaceValueTownProgress" classname="Mofumachi.Tests.TownPointRewardTests" runstate="Runnable" seed="983803787" result="Passed" start-time="2026-11-07 01:53:49Z" end-time="2026-11-07 01:53:49Z" duration="0.002179" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

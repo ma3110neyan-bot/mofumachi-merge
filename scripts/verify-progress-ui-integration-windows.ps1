@@ -5,7 +5,7 @@ Set-StrictMode -Version 2.0
 $ErrorActionPreference = 'Stop'
 $ProductCommit = '46f65b24d58531d5934035fbe4cdb4d5b00104a6'
 $Fixture = 'Mofumachi.Tests.ProgressUiIntegrationTests'
-$ValidationId = 'progress-ui-e-drive-v4'
+$ValidationId = 'progress-ui-e-drive-v5'
 $ValidationRoot = 'E:\Mofumachi-Validation'
 $FixtureCounts = [ordered]@{
     'Mofumachi.Tests.SaveServiceTests' = 33
@@ -25,7 +25,11 @@ $EvidenceNames = @('progress-ui-integration-result.json','source-revision.txt','
     'history/v2-receipt.txt','history/v2-result.json','history/v2-source.txt','history/v2-error.log',
     'history/v3-receipt.txt','history/v3-result.json','history/v3-source.txt','history/v3-error.log',
     'direct/worktree-add.stdout.log','direct/worktree-add.stderr.log','direct/worktree-add.exit.json','direct/worktree-validation.json','direct/tracked-tree.exit.json','direct/tracked-tree.stderr.log',
-    'integration/worktree-add.stdout.log','integration/worktree-add.stderr.log','integration/worktree-add.exit.json','integration/worktree-validation.json','integration/tracked-tree.exit.json','integration/tracked-tree.stderr.log')
+    'integration/worktree-add.stdout.log','integration/worktree-add.stderr.log','integration/worktree-add.exit.json','integration/worktree-validation.json','integration/tracked-tree.exit.json','integration/tracked-tree.stderr.log',
+    'direct/source-check.json','direct/source-working.exit.json','direct/source-working.stderr.log',
+    'direct/source-index.exit.json','direct/source-index.stderr.log','direct/source-untracked.exit.json','direct/source-untracked.stderr.log',
+    'integration/source-check.json','integration/source-working.exit.json','integration/source-working.stderr.log',
+    'integration/source-index.exit.json','integration/source-index.stderr.log','integration/source-untracked.exit.json','integration/source-untracked.stderr.log')
 $script:FetchedProgressUiCheckHead = $null
 
 function Get-ProgressUiCheckPaths([string]$Root,[string]$RunId) {
@@ -368,6 +372,56 @@ function Initialize-ProgressUiCheckWorktree([string]$Project,[string]$Directory,
         throw
     }
 }
+function Assert-ProgressUiCheckSourceUnchanged([string]$Project,[string]$Directory,$PhaseResult) {
+    $Report=[ordered]@{project=$Project;baseline=$ProductCommit;head=$null;unchanged=$false;reason=$null;
+        tracked_scope='All tracked paths: working tree vs index, index vs pinned commit';working_diff=$null;index_diff=$null;
+        untracked_query=$null;untracked_policy='Existing standard ignore rules unchanged; explicit allowlist only for reported untracked paths';
+        allowlist=@('.vsconfig');allowed_untracked=@();disallowed_untracked=@();allowed_metadata=@();problems=@()}
+    $PhaseResult.source_verification=$Report
+    $null=[IO.Directory]::CreateDirectory($Directory)
+    try {
+        $Report.head=Invoke-ProgressUiCheckGit @('-C',$Project,'rev-parse','HEAD')
+        if($Report.head -cne $ProductCommit){$Report.problems+='Pinned source HEAD changed.'}
+        $Common=@('--no-optional-locks','-c','core.fsmonitor=false','-C',$Project)
+        $Report.working_diff=Invoke-ProgressUiCheckLoggedGit ($Common+@('diff','--quiet','--no-ext-diff','--no-textconv','--')) (Join-Path $Directory 'source-working')
+        $Report.index_diff=Invoke-ProgressUiCheckLoggedGit ($Common+@('diff','--cached','--quiet','--no-ext-diff','--no-textconv',$ProductCommit,'--')) (Join-Path $Directory 'source-index')
+        foreach($Kind in @('working_diff','index_diff')){
+            $Info=$Report[$Kind]
+            if($Info.error -or $Info.exit_code -notin @(0,1)){
+                $Report.problems+=($Kind+' comparison failed: '+(Get-ProgressUiCheckGitFailure $Info))
+            } elseif($Info.exit_code -eq 1){$Report.problems+=('Tracked '+$Kind+' content differs from its baseline.')}
+            # Exit0 means no content diff; LF/CRLF warnings in stderr alone do not change this result.
+        }
+        $Report.untracked_query=Invoke-ProgressUiCheckLoggedGit ($Common+@('ls-files','--others','--exclude-standard','-z')) (Join-Path $Directory 'source-untracked')
+        $Info=$Report.untracked_query
+        if($Info.error -or $Info.exit_code -ne 0){
+            $Report.problems+=('Untracked enumeration failed: '+(Get-ProgressUiCheckGitFailure $Info))
+        } else {
+            $Names=@([IO.File]::ReadAllText($Info.stdout,(New-Object Text.UTF8Encoding($false))).Split([char]0)|Where-Object {$_.Length -gt 0})
+            foreach($Name in $Names){
+                if($Report.allowlist -ccontains $Name){
+                    $Report.allowed_untracked+=$Name
+                    $File=Get-Item -LiteralPath (Join-Path $Project $Name) -Force
+                    if($File.PSIsContainer -or ($File.Attributes -band [IO.FileAttributes]::ReparsePoint)){
+                        $Report.problems+=('Allowlisted IDE path is not a regular file: '+$Name)
+                    } else {
+                        $Report.allowed_metadata+=@{path=$Name;bytes=$File.Length;sha256=(Get-FileHash -LiteralPath $File.FullName -Algorithm SHA256).Hash}
+                    }
+                } else {$Report.disallowed_untracked+=$Name}
+            }
+            if($Report.disallowed_untracked.Count){$Report.problems+=('Untracked paths outside explicit allowlist: '+($Report.disallowed_untracked -join ', '))}
+        }
+    } catch {$Report.problems+=$_.Exception.Message}
+    $Report.unchanged=($Report.problems.Count -eq 0)
+    $Report.reason=$(if($Report.unchanged){'Tracked working/index diffs are empty; reported untracked paths are limited to the explicit root .vsconfig allowlist.'}else{$Report.problems -join [Environment]::NewLine})
+    try {
+        $Report|ConvertTo-Json -Depth 8|Set-Content -LiteralPath (Join-Path $Directory 'source-check.json') -Encoding UTF8
+    } catch {
+        $Report.unchanged=$false;$Report.reason='Cannot preserve source comparison evidence: '+$_.Exception.Message
+        throw $Report.reason
+    }
+    if(-not $Report.unchanged){throw $Report.reason}
+}
 function Read-ProgressUiCheckXml([string]$Path) {
     $Settings = New-Object Xml.XmlReaderSettings
     $Settings.DtdProcessing = [Xml.DtdProcessing]::Prohibit; $Settings.XmlResolver = $null
@@ -550,7 +604,7 @@ function Assert-ProgressUiCheckResult([string]$Directory,[string]$Phase,$PhaseRe
 function New-ProgressUiCheckPhase {
     return [ordered]@{result='NotRun';total=$null;passed=$null;failed=$null;skipped=$null;inconclusive=$null;
         unity_started=$false;unity_exit_code=$null;unity_invocations=0;automatic_retries=0;validation_passed=$false;first_error=$null;failed_fixture=$null;
-        source_unchanged=$false;project_path=$null;library_path=$null;worktree_preparation=$null}
+        source_unchanged=$false;project_path=$null;library_path=$null;worktree_preparation=$null;source_verification=$null}
 }
 if ($MyInvocation.InvocationName -eq '.') { return }
 if ($env:OS -ne 'Windows_NT') { throw 'Windows11 / Windows PowerShell5.1 is required. Unity was not started.' }
@@ -571,7 +625,7 @@ if (Test-Path -LiteralPath $Once) {
     $Saved = $Attempt.saved
     if ($Saved.validation_passed -ne $true) { exit 1 };exit 0
 }
-# Read all restart prerequisites before creating any new v4 receipt, project or Unity process.
+# Read all restart prerequisites before creating any new v5 receipt, project or Unity process.
 $Git = Find-ProgressUiCheckGit
 $RestartState = Read-ProgressUiCheckRestartState $Paths
 if($Repository.TrimEnd('\') -ine 'C:\Users\User\Desktop\Mofumachi\mofumachi-merge'){
@@ -646,8 +700,7 @@ try {
         $Process.WaitForExit();$Current.unity_exit_code=$Process.ExitCode
         if ($Process.ExitCode -ne 0) { throw ('Unity exit '+$Process.ExitCode+'; no retry.') }
         Assert-ProgressUiCheckResult $PhaseDir $Phase $Current
-        if (Invoke-ProgressUiCheckGit @('-C',$Project,'status','--porcelain=v1','--untracked-files=all','--','Assets/Mofumachi','Assets/Scenes','Packages','ProjectSettings','References/VisualLock')) { throw 'Pinned product inputs changed; do not start another phase.' }
-        if ((Invoke-ProgressUiCheckGit @('-C',$Project,'rev-parse','HEAD')) -cne $ProductCommit) { throw 'Pinned product revision changed; no further phase.' }
+        Assert-ProgressUiCheckSourceUnchanged $Project $PhaseDir $Current
         $Current.source_unchanged=$true;$Current.result='Passed'
     }
     $Result.source_unchanged=$true;$Result.validation_passed=$true;$Result.result='Passed'
@@ -655,7 +708,7 @@ try {
     $Failure=$_;$Result.runner_error=$_.Exception.Message;$Result.preparation_step='blocked';$Result.first_failed_phase=$(if($Result.attempt_receipt_created){$Phase}else{'preflight'})
     $Current=$Result[$Phase];$Current.result=$(if($Current.unity_started){'Failed'}else{'Blocked'})
     $Result.result=$Current.result
-    $Result.first_error=$(if($Current.unity_started){Get-ProgressUiCheckFirstError (Join-Path $Run $Phase)}else{$_.Exception.Message})
+    $Result.first_error=$(if($null -ne $Current.source_verification){$_.Exception.Message}elseif($Current.unity_started){Get-ProgressUiCheckFirstError (Join-Path $Run $Phase)}else{$_.Exception.Message})
     $Current.first_error=$Result.first_error
     $Xml=Join-Path (Join-Path $Run $Phase) 'results.xml'
     if(Test-Path -LiteralPath $Xml){try{

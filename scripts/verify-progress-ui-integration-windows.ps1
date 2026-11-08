@@ -5,7 +5,7 @@ Set-StrictMode -Version 2.0
 $ErrorActionPreference = 'Stop'
 $ProductCommit = '46f65b24d58531d5934035fbe4cdb4d5b00104a6'
 $Fixture = 'Mofumachi.Tests.ProgressUiIntegrationTests'
-$ValidationId = 'progress-ui-e-drive-v2'
+$ValidationId = 'progress-ui-e-drive-v3'
 $ValidationRoot = 'E:\Mofumachi-Validation'
 $FixtureCounts = [ordered]@{
     'Mofumachi.Tests.SaveServiceTests' = 33
@@ -20,7 +20,9 @@ $FixtureCounts = [ordered]@{
 }
 $EvidenceNames = @('progress-ui-integration-result.json','source-revision.txt','first-error.log',
     'direct/results.xml','direct/unity.log','direct/unity-arguments.txt',
-    'integration/results.xml','integration/unity.log','integration/unity-arguments.txt')
+    'integration/results.xml','integration/unity.log','integration/unity-arguments.txt',
+    'history/preflight.json','history/v1-receipt.txt','history/v1-result.json','history/v1-source.txt','history/v1-error.log',
+    'history/v2-receipt.txt','history/v2-result.json','history/v2-source.txt','history/v2-error.log')
 $script:FetchedProgressUiCheckHead = $null
 
 function Get-ProgressUiCheckPaths([string]$Root,[string]$RunId) {
@@ -71,16 +73,111 @@ function Write-ProgressUiCheckIncompleteStop([string]$Receipt,$Attempt) {
     try{$Stream.Write($Bytes,0,$Bytes.Length);$Stream.Flush()}finally{$Stream.Dispose()}
     Write-Host ('STOP: pre-Unity/incomplete attempt ('+$Attempt.reason+'). No saved terminal result; no new Unity, checkout or retry. Original files retained. Record: '+$Path)
 }
-function Get-ProgressUiCheckPreviousAttempt($Paths) {
-    $Variant='progress-ui-e-drive-v1'
+function Get-ProgressUiCheckPreviousAttempt($Paths,[string]$Variant) {
     $Receipt=Join-Path (Join-Path $Paths.Root 'receipts') ('progress-ui-integration-'+$ProductCommit+'-'+$Variant+'.attempted')
-    if(-not(Test-Path -LiteralPath $Receipt -PathType Leaf)){return $null}
+    $Prior=[ordered]@{validation_id=$Variant;receipt_path=$Receipt;source_run=$null;saved_state=$null;
+        files=@();blocked_reasons=@();observation='Read-only; original receipt, Diagnostics and stop records retained'}
     try {
-        $Attempt=Read-ProgressUiCheckAttempt ([IO.File]::ReadAllText($Receipt).Trim()) $Paths.DiagnosticsRoot $Variant
-        return @{validation_id=$Variant;receipt_path=$Receipt;receipt_sha256=(Get-FileHash -LiteralPath $Receipt -Algorithm SHA256).Hash;
-            source_run=$Attempt.run_path;expected_result_path=$Attempt.result_path;classification=$Attempt.classification;reason=$Attempt.reason;
-            observation='Read-only; original receipt and Diagnostics retained; no native outcome inferred from missing JSON'}
-    } catch {return @{validation_id=$Variant;receipt_path=$Receipt;classification='history unconfirmed';reason=$_.Exception.Message}}
+        if(-not(Test-Path -LiteralPath $Receipt -PathType Leaf)){throw ('Missing old receipt: '+$Receipt)}
+        $Run=[IO.File]::ReadAllText($Receipt).Trim()
+        $Attempt=Read-ProgressUiCheckAttempt $Run $Paths.DiagnosticsRoot $Variant
+        if($Attempt.reason -eq 'invalid_receipt_path'){throw ('Old receipt is outside E Diagnostics or empty: '+$Receipt)}
+        $Prior.source_run=$Attempt.run_path
+        if(-not(Test-Path -LiteralPath $Prior.source_run -PathType Container)){throw ('Missing old Diagnostics directory: '+$Prior.source_run)}
+        $Short=$(if($Variant -ceq 'progress-ui-e-drive-v1'){'v1'}else{'v2'})
+        $Names=@(@{source=$Receipt;relative=('history/'+$Short+'-receipt.txt')},
+            @{source=$Attempt.result_path;relative=('history/'+$Short+'-result.json')},
+            @{source=(Join-Path $Prior.source_run 'source-revision.txt');relative=('history/'+$Short+'-source.txt')},
+            @{source=(Join-Path $Prior.source_run 'first-error.log');relative=('history/'+$Short+'-error.log')})
+        foreach($Row in $Names){
+            if(-not(Test-Path -LiteralPath $Row.source -PathType Leaf)){continue}
+            $File=Get-Item -LiteralPath $Row.source -Force
+            if($File.Attributes -band [IO.FileAttributes]::ReparsePoint){throw ('Linked old evidence refused: '+$Row.source)}
+            $Prior.files+=@{source=$Row.source;relative=$Row.relative;bytes=$File.Length;sha256=(Get-FileHash -LiteralPath $Row.source -Algorithm SHA256).Hash}
+        }
+        foreach($Name in @('direct/results.xml','integration/results.xml','direct/unity.log','integration/unity.log')){
+            if(Test-Path -LiteralPath (Join-Path $Prior.source_run $Name) -PathType Leaf){
+                $Prior.blocked_reasons+=('Old Unity evidence contradicts the unexecuted history: '+(Join-Path $Prior.source_run $Name))
+            }
+        }
+        $Revision=Join-Path $Prior.source_run 'source-revision.txt'
+        if((Test-Path -LiteralPath $Revision -PathType Leaf) -and [IO.File]::ReadAllText($Revision).Trim() -cne $ProductCommit){
+            $Prior.blocked_reasons+=('Old source revision differs: '+$Revision)
+        }
+        if(Test-Path -LiteralPath $Attempt.result_path -PathType Leaf){
+            $Saved=[IO.File]::ReadAllText($Attempt.result_path)|ConvertFrom-Json
+            $Prior.saved_state=@{result=$Saved.result;validation_passed=$Saved.validation_passed;unity_invocations=$Saved.unity_invocations;
+                direct=$Saved.direct;integration=$Saved.integration;first_error=$Saved.first_error;runner_error=$Saved.runner_error}
+            if($Saved.source_commit -cne $ProductCommit -or $Saved.validation_id -cne $Variant){throw ('Old result identity differs: '+$Attempt.result_path)}
+            if($Saved.validation_passed -isnot [bool] -or $Saved.validation_passed -ne $false -or $Saved.unity_invocations -ne 0 -or
+                $Saved.result -notin @('NotRun','Preparing','Blocked')){throw ('Old result is not a confirmed pre-Unity attempt: '+$Attempt.result_path)}
+            foreach($Phase in @('direct','integration')){
+                if($Saved.$Phase.unity_started -isnot [bool] -or $Saved.$Phase.unity_started -ne $false -or
+                    $Saved.$Phase.unity_invocations -ne 0 -or $Saved.$Phase.result -notin @('NotRun','Blocked')){
+                    throw ('Old '+$Phase+' state contradicts no Unity start: '+$Attempt.result_path)
+                }
+            }
+            if($Short -ceq 'v2' -and ($Saved.result -cne 'Preparing' -or $Saved.direct.result -cne 'NotRun' -or
+                $Saved.integration.result -cne 'NotRun' -or $null -ne $Saved.first_error -or $null -ne $Saved.runner_error)){
+                throw ('V2 differs from the reported Preparing/NotRun state: '+$Attempt.result_path)
+            }
+        } elseif($Short -ceq 'v2'){throw ('Missing reported v2 Preparing JSON: '+$Attempt.result_path)}
+    } catch {$Prior.blocked_reasons+=$_.Exception.Message}
+    return $Prior
+}
+function Read-ProgressUiCheckRestartState($Paths) {
+    $Check=[ordered]@{observed_at_utc=[DateTime]::UtcNow.ToString('o');repository=$Repository;branch=$null;head=$null;
+        working_tree=$null;worktree_list=$null;previous_attempts=@();diagnostics=@();attempt_stops=@();files=@();blocked_reasons=@();passed=$false}
+    try {
+        $Check.branch=Invoke-ProgressUiCheckGit @('branch','--show-current')
+        $Check.head=Invoke-ProgressUiCheckGit @('rev-parse','HEAD')
+        $Check.working_tree=Invoke-ProgressUiCheckGit @('--no-optional-locks','status','--porcelain=v1','--untracked-files=all')
+        $Check.worktree_list=Invoke-ProgressUiCheckGit @('worktree','list','--porcelain')
+        if($Check.branch -cne 'feat/daily-world-pass-20261016'){$Check.blocked_reasons+='Formal repository is not on the requested feature branch.'}
+        if($Check.working_tree){$Check.blocked_reasons+='Formal repository is not clean; no changes were reset, stashed or discarded.'}
+        if($Check.worktree_list -match 'progress-ui-e-drive-v[12]'){$Check.blocked_reasons+='Old v1/v2 worktree registration still exists; no automatic cleanup.'}
+    } catch {$Check.blocked_reasons+=$_.Exception.Message}
+    foreach($Variant in @('progress-ui-e-drive-v1','progress-ui-e-drive-v2')){
+        $Prior=Get-ProgressUiCheckPreviousAttempt $Paths $Variant
+        $Check.previous_attempts+=$Prior;$Check.files+=@($Prior.files);$Check.blocked_reasons+=@($Prior.blocked_reasons)
+    }
+    try {
+        $Check.diagnostics=@(Get-ChildItem -LiteralPath $Paths.DiagnosticsRoot -Directory |
+            Where-Object {$_.Name -match 'progress-ui-e-drive-v[12]-'} | ForEach-Object {$_.FullName})
+        $Stops=Join-Path $Paths.Root 'attempt-stops'
+        if(Test-Path -LiteralPath $Stops -PathType Container){
+            foreach($File in (Get-ChildItem -LiteralPath $Stops -File -Filter '*.json')){
+                $Text=[IO.File]::ReadAllText($File.FullName);$Saved=$Text|ConvertFrom-Json
+                if($null -ne $Saved.PSObject.Properties['source_commit'] -and $null -ne $Saved.PSObject.Properties['validation_id'] -and
+                    $Saved.source_commit -ceq $ProductCommit -and $Saved.validation_id -in @('progress-ui-e-drive-v1','progress-ui-e-drive-v2')){
+                    $Check.attempt_stops+=@{path=$File.FullName;bytes=$File.Length;sha256=(Get-FileHash -LiteralPath $File.FullName -Algorithm SHA256).Hash;raw_text=$Text}
+                }
+            }
+        }
+    } catch {$Check.blocked_reasons+=('Cannot read old Diagnostics/attempt-stops: '+$_.Exception.Message)}
+    $Check.passed=($Check.blocked_reasons.Count -eq 0)
+    return $Check
+}
+function Save-ProgressUiCheckRestartState([string]$Directory,$Check) {
+    # Copies only into this NEW Diagnostics run. Original histories are never written.
+    $Total=0L
+    foreach($Row in $Check.files){
+        $Total+=$Row.bytes
+        if($Row.bytes -gt 4MB -or $Total -gt 12MB){throw 'Old history exceeds the small evidence budget; originals retained; no Unity start.'}
+        if((Get-Item -LiteralPath $Row.source).Length -ne $Row.bytes -or
+            (Get-FileHash -LiteralPath $Row.source -Algorithm SHA256).Hash -cne $Row.sha256){throw 'Old history changed after inspection; no Unity start.'}
+        $Target=Join-Path $Directory $Row.relative
+        $null=[IO.Directory]::CreateDirectory((Split-Path -Parent $Target))
+        [IO.File]::Copy($Row.source,$Target,$false)
+        if((Get-FileHash -LiteralPath $Target -Algorithm SHA256).Hash -cne $Row.sha256 -or
+            (Get-FileHash -LiteralPath $Row.source -Algorithm SHA256).Hash -cne $Row.sha256){throw 'Old history copy differs; originals retained; no Unity start.'}
+    }
+    $Target=Join-Path (Join-Path $Directory 'history') 'preflight.json'
+    $null=[IO.Directory]::CreateDirectory((Split-Path -Parent $Target))
+    $Bytes=(New-Object Text.UTF8Encoding($true)).GetBytes(($Check|ConvertTo-Json -Depth 12))
+    if($Bytes.Length -gt 4MB){throw 'Read-only history snapshot exceeds the small evidence budget; no Unity start.'}
+    $Stream=[IO.File]::Open($Target,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None)
+    try{$Stream.Write($Bytes,0,$Bytes.Length);$Stream.Flush()}finally{$Stream.Dispose()}
 }
 function Invoke-ProgressUiCheckGit([string[]]$Arguments) {
     # Protect the original index/worktree on every path, including share-only after failure.
@@ -288,7 +385,6 @@ $Drive = New-Object IO.DriveInfo ([IO.Path]::GetPathRoot($ValidationRoot))
 if (-not $Drive.IsReady) { throw 'E: validation drive is unavailable. Nothing was deleted and Unity was not started.' }
 $Id = (Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::NewGuid().ToString('N').Substring(0,8)
 $Paths = Get-ProgressUiCheckPaths $ValidationRoot $Id
-$null = [IO.Directory]::CreateDirectory((Split-Path -Parent $Paths.Once))
 $Once = $Paths.Once
 if (Test-Path -LiteralPath $Once) {
     $Existing = [IO.File]::ReadAllText($Once).Trim()
@@ -300,13 +396,21 @@ if (Test-Path -LiteralPath $Once) {
     $Saved = $Attempt.saved
     if ($Saved.validation_passed -ne $true) { exit 1 };exit 0
 }
+# Read all restart prerequisites before creating any new v3 receipt, project or Unity process.
+$Git = Find-ProgressUiCheckGit
+$RestartState = Read-ProgressUiCheckRestartState $Paths
+if($Repository.TrimEnd('\') -ine 'C:\Users\User\Desktop\Mofumachi\mofumachi-merge'){
+    $RestartState.blocked_reasons+='Run the launcher from the one formal C-drive repository.';$RestartState.passed=$false
+}
 $Run = $Paths.Run
+if(Test-Path -LiteralPath $Run){throw 'New Diagnostics path already exists; nothing overwritten.'}
 $null = [IO.Directory]::CreateDirectory($Run)
 $Encoding = New-Object Text.UTF8Encoding($true)
 $Result = [ordered]@{source_commit=$ProductCommit;unity_version='6000.6.4f1';save_version=4;validation_id=$ValidationId;
     validation_root=$Paths.Root;diagnostics_path=$Run;original_repository=$Repository;available_validation_bytes=$Drive.AvailableFreeSpace;
     process_temp_root=$Paths.TempRoot;upm_cache_root=$Paths.PackageCache;
-    previous_e_v1_attempt=$null;
+    previous_e_v1_attempt=$RestartState.previous_attempts[0];previous_e_v2_attempt=$RestartState.previous_attempts[1];
+    restart_preflight_passed=$RestartState.passed;restart_history_preserved=$false;attempt_receipt_created=$false;
     requested_tests=@($FixtureCounts.Keys);expected_direct_cases=$FixtureCounts[$Fixture];expected_integration_cases=($FixtureCounts.Values|Measure-Object -Sum).Sum;
     test_platform='EditMode';burst_compilation_disabled=$true;automatic_retries=0;unity_invocations=0;unity_start_limit=2;
     direct=(New-ProgressUiCheckPhase);integration=(New-ProgressUiCheckPhase);validation_passed=$false;result='NotRun';
@@ -315,8 +419,10 @@ $Result.direct.project_path=$Paths.DirectProject;$Result.integration.project_pat
 $Result.direct.library_path=Join-Path $Paths.DirectProject 'Library';$Result.integration.library_path=Join-Path $Paths.IntegrationProject 'Library'
 $Phase = 'direct';$Failure = $null
 try {
-    $Result.previous_e_v1_attempt=Get-ProgressUiCheckPreviousAttempt $Paths
     [IO.File]::WriteAllText((Join-Path $Run 'source-revision.txt'),$ProductCommit+"`r`n",$Encoding)
+    Save-ProgressUiCheckRestartState $Run $RestartState
+    $Result.restart_history_preserved=$true
+    if(-not $RestartState.passed){throw ('Restart preflight blocked before receipt/checkout/Unity: '+($RestartState.blocked_reasons -join '; '))}
     $Git = Find-ProgressUiCheckGit
     if ((Invoke-ProgressUiCheckGit @('branch','--show-current')) -cne 'feat/daily-world-pass-20261016') { throw 'Use the current feature repository; original branch was not changed.' }
     $Editor = Join-Path $env:ProgramFiles 'Unity/Hub/Editor/6000.6.4f1/Editor/Unity.exe'
@@ -330,8 +436,10 @@ try {
     $Result.result='Preparing'
     $Result|ConvertTo-Json -Depth 8|Set-Content -LiteralPath (Join-Path $Run 'progress-ui-integration-result.json') -Encoding UTF8
     # One CreateNew receipt covers checkout and both phases; it is never deleted or reset.
+    $null = [IO.Directory]::CreateDirectory((Split-Path -Parent $Once))
     $Receipt = [IO.File]::Open($Once,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None)
     try { $Bytes=$Encoding.GetBytes($Run);$Receipt.Write($Bytes,0,$Bytes.Length);$Receipt.Flush() } finally { $Receipt.Dispose() }
+    $Result.attempt_receipt_created=$true
     foreach ($Phase in @('direct','integration')) {
         # Reaching integration is possible only after every direct-phase condition passed.
         if ($Phase -eq 'integration' -and ($Result.direct.validation_passed -ne $true -or $Result.direct.source_unchanged -ne $true)) { throw 'Direct verification did not pass with unchanged source; integration must not start.' }
@@ -366,7 +474,7 @@ try {
     }
     $Result.source_unchanged=$true;$Result.validation_passed=$true;$Result.result='Passed'
 } catch {
-    $Failure=$_;$Result.runner_error=$_.Exception.Message;$Result.first_failed_phase=$Phase
+    $Failure=$_;$Result.runner_error=$_.Exception.Message;$Result.first_failed_phase=$(if($Result.attempt_receipt_created){$Phase}else{'preflight'})
     $Current=$Result[$Phase];$Current.result=$(if($Current.unity_started){'Failed'}else{'Blocked'})
     $Result.result=$Current.result
     $Result.first_error=$(if($Current.unity_started){Get-ProgressUiCheckFirstError (Join-Path $Run $Phase)}else{$_.Exception.Message})

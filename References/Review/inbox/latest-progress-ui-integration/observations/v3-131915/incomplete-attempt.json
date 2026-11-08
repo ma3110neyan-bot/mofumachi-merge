@@ -1,0 +1,14 @@
+{
+    "classification":  "pre-Unity/incomplete attempt",
+    "reason":  "non_terminal_result_json",
+    "receipt_path":  "E:\\Mofumachi-Validation\\receipts\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v3.attempted",
+    "source_run":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789",
+    "expected_result_path":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\\progress-ui-integration-result.json",
+    "source_commit":  "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
+    "validation_id":  "progress-ui-e-drive-v3",
+    "native_state":  "unconfirmed",
+    "unity_invocations_this_detection":  0,
+    "automatic_retries":  0,
+    "validation_passed":  false,
+    "observed_at_utc":  "2026-11-08T04:19:27.0103991Z"
+}

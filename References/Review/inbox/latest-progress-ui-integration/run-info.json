@@ -1,9 +1,9 @@
 ﻿{
-    "source_run":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v3-20261108-122257-63a8a5be",
+    "source_run":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v3-20261108-122436-ff541d97",
     "source_commit":  "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
     "source_repository":  "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge",
     "validation_root":  "E:\\Mofumachi-Validation",
-    "publication_worktree":  "E:\\Mofumachi-Validation\\sharing\\91bee4eb05c54ecd9604bb9f6a957964",
+    "publication_worktree":  "E:\\Mofumachi-Validation\\sharing\\3106dfe2da3245e4b501f0f53377c4e2",
     "fixture":  "Mofumachi.Tests.ProgressUiIntegrationTests",
     "requested_fixtures":  [
                                "Mofumachi.Tests.SaveServiceTests",
@@ -17,11 +17,11 @@
                                "Mofumachi.Tests.ProgressUiIntegrationTests"
                            ],
     "validation_id":  "progress-ui-e-drive-v3",
-    "copied_at_utc":  "2026-11-08T03:22:59.9952828Z",
-    "remote_parent":  "82786dede0111af4e580e35e835b1c48298f8043",
+    "copied_at_utc":  "2026-11-08T03:24:39.6811359Z",
+    "remote_parent":  "856289b2a6f15283a113751a9586bcafe10fe8b7",
     "files":  [
                   {
-                      "sha256":  "26028ee970f4a57131a40fe403706bd94786592d65fa29786739819b4aed43ad",
+                      "sha256":  "9be71e340427d83fb2c64821816915e09c9e75efeac6e14988ae5a2b1c91fbc5",
                       "file":  "progress-ui-integration-result.json",
                       "bytes":  13416
                   },
@@ -36,9 +36,9 @@
                       "bytes":  136
                   },
                   {
-                      "sha256":  "cccefe37a8444ab42375cdb6935d9b02ad963b560b252a683c3858fb13a44628",
+                      "sha256":  "6068d539b3f13a41d70e795c0efc9a45c1200d9bef56cda22577c4c3037fa01d",
                       "file":  "history/preflight.json",
-                      "bytes":  22473
+                      "bytes":  22607
                   },
                   {
                       "sha256":  "10182a820fd5c901a847e1e84ee811c27284288099de7dd933e0862ab6064f76",

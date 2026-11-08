@@ -1,115 +1,136 @@
-# 第7工程：既存v3のPreparing記録を受領・元CMDの状態確認待ち
+# 第7工程：v4 checkout安全確認付きランチャー準備済み・Windows実行待ち
 
-- 更新：2026-11-08（日本時間）。状態：**調査中**。
+- 更新：2026-11-08（日本時間）。状態：**修正済み・未確認**。
 - branch：`feat/daily-world-pass-20261016`。
 - 固定ゲーム実装：`46f65b24d58531d5934035fbe4cdb4d5b00104a6`。
-- 既存v3ランチャー：`c0d2473afc66e43554de4c94224910805c21b5b9`。
-- 今回確認したGitHub先端：`0caa47877c0249241834e47d04ca1f2b8d608e35`。Fetch1回。既存のinbox証跡commit2件だけをクラウドへfast-forward同期。
-- ゲーム・テスト・ランチャー・Visual Lock・Guardは変更なし。CMD／Unity／テストを実行していない。
+- v4ランチャーcommit：`ee9c8cd6cc4d5ff7d4ba410716aaefea04396f0b`。
+- validation_id：`progress-ui-e-drive-v4`。
+- 開始HEAD／Fetch1回で確認したGitHub先端：`0b1f50565348313d26f98d63106617903032fb9f`。開始時clean。
+- 変更は専用PS1とsummary/statusのみ。既存CMD、ゲーム、テスト件数・内容、Visual Lock、Guard、package、Unityバージョンは変更なし。
 
-## 今回の目的と対象
+## v3の確定状態と扱い
 
-ユーザーが実行済みのv3を再実行せず、アップロードされた停止検知記録と、その参照先の結果JSONだけを確認する。
+ユーザーの調査報告により、v3 `progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789` は以下と確定：
 
-対象run：
+- Preparing保存、receipt作成、direct登録は成功。
+- direct HEADは指定46f65b2。
+- statusはD7209／未追跡3。Assetsあり、Packagesなし。
+- Unity0、Phase1/2はNotRun。
+- **direct worktree checkout不完全。ゲーム本体やテストの失敗ではない。**
+- 旧Gitのstdout/stderr/exit codeは未取得なので、低レベルの失敗原因を推測で埋めない。
 
-`E:\Mofumachi-Validation\Diagnostics\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789`
+壊れたdirectだけをユーザーが登録解除・実体削除済み。Test-Path=Falseとの報告を前提とする。旧v3 Diagnostics／receipt／attempt-stopsは保持。Codexによる削除・整理・v3再実行はしていない。
 
-validation_idは`progress-ui-e-drive-v3`、source commitは指定値と一致。正式repoはC、検証root・projects・Library・TEMP/TMP・UPM cache・Diagnostics原本はEという設定を保持する。Windowsの原本へはこのクラウドから接続できない。
+旧パス：
 
-## 受領ファイルから確認できた事実
+`E:\Mofumachi-Validation\projects\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\direct`
 
-| 項目 | 保存された値 |
+## v4の変更
+
+`scripts/verify-progress-ui-integration-windows.ps1`を限定修正。CMDは不変。
+
+1. v4専用receipt・Diagnostics・projectsを使用。旧v1/v2/v3のreceiptを再利用しない。
+2. 既存履歴3件を読み取り保存。旧登録や旧v3 project実体が残っていれば停止し、自動削除しない。
+3. `git worktree add`を独立したGit子プロセスとして1回実行。stdout／stderrは別ファイルへ逐次コピーし、終了コード・PID・timeout情報をJSONへ保存。
+4. PowerShellコールバックを使わず、.NETの非同期ストリームコピーで出力を排出。Git出力を巨大なPowerShell配列へ溜めない。
+5. Git待機は最大900秒。タイムアウト／処理例外では、その起動で作ったGitツリーだけを停止・確認し、再試行しない。WindowsはPID／開始時刻を確認した対象へtaskkill /Tを使い、別検証やUnityを名前指定で停止しない。
+6. Git長パス設定は`-c core.longpaths=true`を各コマンドにだけ付与。正式repo／グローバル設定／OS設定は書き換えない。
+7. receipt作成直後とworktree作成前後のcheckpointを結果JSONへ保存し、receiptフラグの古いsnapshotを減らす。
+8. 通常の作成・検証失敗はcatch/finallyでterminal `Blocked`として保存・共有。後処理へ到達しても状態が未完了なら、first_error／runner_error付きのterminal結果へ確定する。未完了receiptの自動再利用はしない。
+
+## Unity起動前の必須gate（両Phase）
+
+| 確認 | 条件 |
 | --- | --- |
-| result | **Preparing**（非terminal） |
-| restart_preflight_passed | **true** |
-| restart_history_preserved | **true** |
-| unity_invocations | **0** |
-| Phase1 | **NotRun**。Total/Passed/Failedはnull、unity_started=false |
-| Phase2 | **NotRun**。Total/Passed/Failedはnull、unity_started=false |
-| automatic_retries | 0 |
-| validation_passed | false |
-| first_error / runner_error / first_failed_phase | すべてnull |
-| source_unchanged | raw値false。ただし検証未到達を示す初期値で、製品変更の証明ではない |
-| E-v1/v2のblocked_reasons | 空配列。受領結果では旧履歴との矛盾なし |
+| Git終了 | worktree addの実終了コードが0、処理例外・timeoutなし |
+| HEAD | 指定46f65b24d58531d5934035fbe4cdb4d5b00104a6 |
+| status | porcelainが空。変更・未追跡なし |
+| ディレクトリ | Assets／Packages／ProjectSettings／scriptsが全て存在 |
+| 追跡ファイル | 固定commitのGit treeを列挙し、**全追跡パス**の実在を確認。欠損0 |
+| Git登録 | 対象パスが1件、指定HEADのdetached登録。locked／prunableなし |
 
-事前確認は合格し、履歴保存も成功している。今回のrunへ以前の「正式repoがdirtyだった」という別runの停止理由を流用しない。
+文字化けで欠損判定を誤らないよう、GitのNUL区切りパスをraw UTF8として読む。ファイル数、欠損数と先頭サンプル、登録情報、実際のGitエラーをvalidation JSONへ保存する。
 
-**保存状態はUnity起動前の途中段階**。これは受領したsnapshotの状態であり、元プロセスが現在も動いているか、中断したか、後続結果ができたかは未確認。エラー欄がnullなので、製品テスト失敗・Unityクラッシュ・容量不足・Git失敗のいずれも断定しない。根本原因は**未確定**。
+1つでも不合格ならUnityを起動せず、そのPhaseをBlockedとして後続へ進まない。ファイル欠損の自動修復・checkout再試行はしない。
 
-## receiptフラグの解釈
+## 保存場所
 
-受領結果の`attempt_receipt_created=false`だけをreceipt作成失敗と解釈してはいけない。
+正式repoは唯一のC版を維持：
 
-公開済みPS1では、次の順序で処理する：
+`C:\Users\User\Desktop\Mofumachi\mofumachi-merge`
 
-1. Preparing結果JSONを保存。
-2. 新receiptをCreateNewで作成し、参照runを記録。
-3. メモリ内のattempt_receipt_createdをtrueへ変更。
-4. direct worktree作成・source確認・Unity起動準備。
-5. Running結果JSONを保存し、その後Unityを起動。
+以下は全て`E:\Mofumachi-Validation`配下：
 
-実ファイルに次のcheckpointを書き出す前はfalseのまま残り得る。停止記録はreceiptを読み、同じrunの結果JSONへ到達している。従って**receiptの存在・読取成功は確認できるが、最初の中断箇所はまだ確定しない**。
+- `projects\progress-ui-integration-progress-ui-e-drive-v4-<timestamp>-<id>\direct`／`integration`と各Library。
+- `temp\...`のUnity子プロセスTEMP/TMP。
+- `upm-cache`。
+- `Diagnostics\progress-ui-integration-progress-ui-e-drive-v4-<timestamp>-<id>`。
+- v4専用receipts、共有用sharing worktree。
 
-元runのresultがPreparingの間に別CMDが既存receiptを検知した場合も、この停止メッセージになる。停止メッセージ自体から元runの終了は判断できない。
+Cへ新しい大容量check worktreeを作らず、C正式repoの移動・削除・リネームはしない。
 
-## 停止検知記録
+## ログ・共有
 
-受領ファイル：
+各Phaseの小容量証跡：
 
-`incomplete-attempt-ebb09e4ef21441ca8237342f1d74f280.json`
+- `worktree-add.stdout.log`／`worktree-add.stderr.log`。
+- `worktree-add.exit.json`。
+- `worktree-validation.json`。
+- `tracked-tree.stderr.log`／`tracked-tree.exit.json`。
+- 既存のresults.xml／unity.log／unity-arguments.txt（実行された場合）。
 
-- receiptは製品46f65b2／v3用。
-- source_runとexpected_result_pathは上記131915 run。
-- reason：`non_terminal_result_json`。
-- native_state：`unconfirmed`。
-- 検知処理が新しく起動したUnity：0回。
-- 検知時刻：2026-11-08 13:19:27（日本時間）。
+rootには結果JSON、source revision、失敗時first-error.log。Gitの最初のfatal/errorと終了メタデータを共有結果にも含め、ラッパーの一般メッセージだけにしない。
 
-これは停止検知記録であり、その0回を元run全体の起動回数の代わりに使用しない。元runの0回は今回受領した別のPreparing snapshotに記録されている値として区別する。
+固定inboxは`References/Review/inbox/latest-progress-ui-integration/`。成功・失敗とも既存の同一CMD内で自動commit・通常pushする。共有用worktreeもE、commit対象はinboxだけ。元repoのHEAD/index/無関係変更を混ぜない。旧C・旧v1/v2/v3の履歴と受領済みobservationsは保持する。
 
-## 元CMDと次の確認
+1ファイル4MB／合計16MBを維持。大きなUnity／GitログはE原本に残し、共有manifestへ理由を記録する。first errorとvalidation／exit JSONは小容量で共有。GitHub push失敗は再試行せず、ローカル結果を保持する。
 
-ユーザーは、incomplete-attemptで停止した画面とは別の**最初の検証CMD画面が現在も開いている**と回答した。
+## 今回の確認範囲
 
-開いているだけでは「処理中」か「終了後pause待ち」かを確定できない。次は**最初のCMD画面の末尾表示だけ**を確認する。新しいCMD・Unity・Phase1/2は起動しない。画面を閉じたりreceipt／Diagnosticsを削除したり、新しいv4を用意したりしない。
+**PowerShell7/Linuxの一時環境でランチャーだけを確認。Windows実Unityの55件／444件の証跡ではない。**
 
-直接のWindowsプロセス状態、現在のGit checkout完了状態、結果JSONの更新日時、現在のXML／Unityログは未確認。これらを推測で埋めない。
+- v4 receiptが旧v3と分離することを変更前に検出し、変更後は分離を確認。
+- 実Gitの正常・Unicode名を含むworktreeで全gate通過。
+- 終了17の作成失敗を拒否し、stdout／stderr／実exit codeを保存。
+- HEAD違い、Packages欠損、追跡ファイル欠損、dirty、locked登録を拒否。
+- 実際のmain finallyを一時状態で動かし、未完了Preparingからterminal Blockedへ確定することを確認。
+- 独立レビューでImportant2件を検出：Git子孫の残存、追跡tree取得時の根本エラー欠落。両方修正。
+- 修正後、Git子孫がtimeout後に書き込みを続けないこと、tree取得のfatal本文とexit17が共有JSONへ残ることを確認。
+- 一時bare remoteへの共有で、3世代履歴と新ログが含まれ、旧archive／observationsが保持され、inboxだけがcommitされることを確認。
+- 最終parserエラー0、UTF8 BOM維持。CMD、Unity引数、55／444のXML合格判定は不変。
 
-## GitHub共有の扱い
+Windows PowerShell5.1/.NET4.8のAPI互換性は静的確認。WindowsのCIM／taskkillと実checkout、Unity起動は**未確認**。クラウドのUnityライセンス／描画環境を再調査・起動していない。
 
-今回Fetchした固定inboxのterminal結果は、以前の次のrun：
+## 実Unity条件（不変）
 
-`progress-ui-integration-progress-ui-e-drive-v3-20261108-122436-ff541d97`
+固定製品46f65b2、Unity6000.6.4f1、Android target、EditMode、両Phaseで`--burst-disable-compilation`。
 
-これはdirtyによるpreflight Blocked／Unity0の**別run**。その原本、122257の旧Blocked履歴、旧C容量不足run、旧E-v1/v2履歴は変更・削除しない。
+Phase1：`Mofumachi.Tests.ProgressUiIntegrationTests`のみ55/55、Failed/Skipped/Inconclusive0、Unity exit0、source_unchanged=true。
 
-受領した今回の2ファイルは次へ**生バイトのままコピー**して共有する：
+Phase2：Phase1合格かつsource不変の場合だけ、正式9fixtureの444/444：
+SaveService33、Preferences23、CharacterPreference7、MofuPointService68、GenerationCost33、TownPointReward69、RecoveryExtraHelp71、QuestTownLevel85、ProgressUiIntegration55。
 
-- `References/Review/inbox/latest-progress-ui-integration/observations/v3-131915/progress-ui-integration-result.json`
-- `References/Review/inbox/latest-progress-ui-integration/observations/v3-131915/incomplete-attempt.json`
+各Phase最大1起動、合計最大2、自動再試行0。全件・APK・Pixel・Visual撮影・フォント工程へ拡大しない。第1〜第6工程は再実装・再検証しない。
 
-サイズ・SHA256はstatus.jsonへ記録。途中経過snapshotと分かる場所へ保存し、rootの正式terminal結果・run-infoを上書きしない。架空のterminal結果、成功XML、first-errorを生成しない。Windowsの元Diagnostics／receiptには書き込まない。
+## 現在の結果と次の操作
 
-変更は上記の小容量2ファイルとsummary/statusだけ。新run、コード修正、テスト、APK、Pixel、Visual確認、Guard再実行なし。
-
-## 最終判定
-
-| 必須項目 | 現在の記録 |
+| 必須記録 | 現在値 |
 | --- | --- |
-| validation_id | progress-ui-e-drive-v3 |
-| 固定ゲーム実装 | 46f65b24d58531d5934035fbe4cdb4d5b00104a6 |
-| Eドライブ | 受領結果の全検証パスがE |
-| Phase1 Total / Passed / Failed | snapshotではNotRun、null / null / null |
-| Phase2 Total / Passed / Failed | snapshotではNotRun、null / null / null |
-| Unity起動回数 | 保存snapshotは0、今回Codexの新規起動も0 |
+| validation_id | progress-ui-e-drive-v4 |
+| 固定ゲーム実装commit | 46f65b24d58531d5934035fbe4cdb4d5b00104a6 |
+| E使用 | ランチャー設定として確認、Windows実行待ち |
+| Phase1 Total / Passed / Failed | 未実行、null / null / null |
+| Phase2 Total / Passed / Failed | 未実行、null / null / null |
+| 今回Unity／CMD起動 | ともに0 |
 | 自動再試行 | 0 |
-| source_unchanged | 実確認未到達。raw falseと、製品変更ありを混同しない |
-| first_error / runner_error | snapshotはnull。原因確定ではない |
+| source_unchanged | 未確認（null） |
+| first_error／runner_error | v4未実行のためnull。v3の低レベルGitエラーは未記録 |
 | 第7工程complete | **false** |
 
-**第8工程「実機Pixel 3a確認＋リリース候補ビルド」へ進んで安全か：NO**。
+Windows正式repoへ最新版を反映してcleanにしたうえで、**`scripts/verify-progress-ui-integration-windows.cmd`を1回ダブルクリック**する。PS1の検証IDがv4となる。v3を再実行せず、旧receipt・Diagnosticsへ触れない。途中で止まったら同じCMDを繰り返さず、保存済みv4結果だけをレビューする。
 
-主要ブロッカーは**既存131915 runの正式terminal結果と55/55・444/444が未確認であること**。再実行ではなく、まだ開いている元CMD画面の表示確認へ進む。
+**第8工程「Pixel 3a実機確認＋リリース候補ビルド」へ進んで安全か：NO**。
 
-`commit`／`launcher_commit`は既存ランチャーを示す。今回の証跡共有commitとは区別する。今回は改善候補なし。
+理由は**v4で55/55、444/444、source_unchanged=trueのWindows結果がまだないこと**。合格後も独立レビューで判定し、自動で第8工程へ進まない。
+
+`commit`はランチャー、`implementation_commit`は固定ゲーム実装、`review_base_commit`は開始時の先端。共有文書のcommitと区別する。今回は追加改善候補なし。

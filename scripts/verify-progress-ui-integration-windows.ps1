@@ -5,7 +5,7 @@ Set-StrictMode -Version 2.0
 $ErrorActionPreference = 'Stop'
 $ProductCommit = '46f65b24d58531d5934035fbe4cdb4d5b00104a6'
 $Fixture = 'Mofumachi.Tests.ProgressUiIntegrationTests'
-$ValidationId = 'progress-ui-e-drive-v3'
+$ValidationId = 'progress-ui-e-drive-v4'
 $ValidationRoot = 'E:\Mofumachi-Validation'
 $FixtureCounts = [ordered]@{
     'Mofumachi.Tests.SaveServiceTests' = 33
@@ -22,7 +22,10 @@ $EvidenceNames = @('progress-ui-integration-result.json','source-revision.txt','
     'direct/results.xml','direct/unity.log','direct/unity-arguments.txt',
     'integration/results.xml','integration/unity.log','integration/unity-arguments.txt',
     'history/preflight.json','history/v1-receipt.txt','history/v1-result.json','history/v1-source.txt','history/v1-error.log',
-    'history/v2-receipt.txt','history/v2-result.json','history/v2-source.txt','history/v2-error.log')
+    'history/v2-receipt.txt','history/v2-result.json','history/v2-source.txt','history/v2-error.log',
+    'history/v3-receipt.txt','history/v3-result.json','history/v3-source.txt','history/v3-error.log',
+    'direct/worktree-add.stdout.log','direct/worktree-add.stderr.log','direct/worktree-add.exit.json','direct/worktree-validation.json','direct/tracked-tree.exit.json','direct/tracked-tree.stderr.log',
+    'integration/worktree-add.stdout.log','integration/worktree-add.stderr.log','integration/worktree-add.exit.json','integration/worktree-validation.json','integration/tracked-tree.exit.json','integration/tracked-tree.stderr.log')
 $script:FetchedProgressUiCheckHead = $null
 
 function Get-ProgressUiCheckPaths([string]$Root,[string]$RunId) {
@@ -84,7 +87,7 @@ function Get-ProgressUiCheckPreviousAttempt($Paths,[string]$Variant) {
         if($Attempt.reason -eq 'invalid_receipt_path'){throw ('Old receipt is outside E Diagnostics or empty: '+$Receipt)}
         $Prior.source_run=$Attempt.run_path
         if(-not(Test-Path -LiteralPath $Prior.source_run -PathType Container)){throw ('Missing old Diagnostics directory: '+$Prior.source_run)}
-        $Short=$(if($Variant -ceq 'progress-ui-e-drive-v1'){'v1'}else{'v2'})
+        $Short=$Variant.Replace('progress-ui-e-drive-','')
         $Names=@(@{source=$Receipt;relative=('history/'+$Short+'-receipt.txt')},
             @{source=$Attempt.result_path;relative=('history/'+$Short+'-result.json')},
             @{source=(Join-Path $Prior.source_run 'source-revision.txt');relative=('history/'+$Short+'-source.txt')},
@@ -106,6 +109,13 @@ function Get-ProgressUiCheckPreviousAttempt($Paths,[string]$Variant) {
         }
         if(Test-Path -LiteralPath $Attempt.result_path -PathType Leaf){
             $Saved=[IO.File]::ReadAllText($Attempt.result_path)|ConvertFrom-Json
+            if($Short -ceq 'v3'){
+                foreach($Phase in @('direct','integration')){
+                    if(Test-Path -LiteralPath $Saved.$Phase.project_path){
+                        $Prior.blocked_reasons+=('Old v3 project still exists; no automatic cleanup: '+$Saved.$Phase.project_path)
+                    }
+                }
+            }
             $Prior.saved_state=@{result=$Saved.result;validation_passed=$Saved.validation_passed;unity_invocations=$Saved.unity_invocations;
                 direct=$Saved.direct;integration=$Saved.integration;first_error=$Saved.first_error;runner_error=$Saved.runner_error}
             if($Saved.source_commit -cne $ProductCommit -or $Saved.validation_id -cne $Variant){throw ('Old result identity differs: '+$Attempt.result_path)}
@@ -117,11 +127,11 @@ function Get-ProgressUiCheckPreviousAttempt($Paths,[string]$Variant) {
                     throw ('Old '+$Phase+' state contradicts no Unity start: '+$Attempt.result_path)
                 }
             }
-            if($Short -ceq 'v2' -and ($Saved.result -cne 'Preparing' -or $Saved.direct.result -cne 'NotRun' -or
+            if($Short -in @('v2','v3') -and ($Saved.result -cne 'Preparing' -or $Saved.direct.result -cne 'NotRun' -or
                 $Saved.integration.result -cne 'NotRun' -or $null -ne $Saved.first_error -or $null -ne $Saved.runner_error)){
-                throw ('V2 differs from the reported Preparing/NotRun state: '+$Attempt.result_path)
+                throw ('Old variant differs from the reported Preparing/NotRun state: '+$Attempt.result_path)
             }
-        } elseif($Short -ceq 'v2'){throw ('Missing reported v2 Preparing JSON: '+$Attempt.result_path)}
+        } elseif($Short -in @('v2','v3')){throw ('Missing reported Preparing JSON: '+$Attempt.result_path)}
     } catch {$Prior.blocked_reasons+=$_.Exception.Message}
     return $Prior
 }
@@ -135,21 +145,21 @@ function Read-ProgressUiCheckRestartState($Paths) {
         $Check.worktree_list=Invoke-ProgressUiCheckGit @('worktree','list','--porcelain')
         if($Check.branch -cne 'feat/daily-world-pass-20261016'){$Check.blocked_reasons+='Formal repository is not on the requested feature branch.'}
         if($Check.working_tree){$Check.blocked_reasons+='Formal repository is not clean; no changes were reset, stashed or discarded.'}
-        if($Check.worktree_list -match 'progress-ui-e-drive-v[12]'){$Check.blocked_reasons+='Old v1/v2 worktree registration still exists; no automatic cleanup.'}
+        if($Check.worktree_list -match 'progress-ui-e-drive-v[123]'){$Check.blocked_reasons+='Old v1/v2/v3 worktree registration still exists; no automatic cleanup.'}
     } catch {$Check.blocked_reasons+=$_.Exception.Message}
-    foreach($Variant in @('progress-ui-e-drive-v1','progress-ui-e-drive-v2')){
+    foreach($Variant in @('progress-ui-e-drive-v1','progress-ui-e-drive-v2','progress-ui-e-drive-v3')){
         $Prior=Get-ProgressUiCheckPreviousAttempt $Paths $Variant
         $Check.previous_attempts+=$Prior;$Check.files+=@($Prior.files);$Check.blocked_reasons+=@($Prior.blocked_reasons)
     }
     try {
         $Check.diagnostics=@(Get-ChildItem -LiteralPath $Paths.DiagnosticsRoot -Directory |
-            Where-Object {$_.Name -match 'progress-ui-e-drive-v[12]-'} | ForEach-Object {$_.FullName})
+            Where-Object {$_.Name -match 'progress-ui-e-drive-v[123]-'} | ForEach-Object {$_.FullName})
         $Stops=Join-Path $Paths.Root 'attempt-stops'
         if(Test-Path -LiteralPath $Stops -PathType Container){
             foreach($File in (Get-ChildItem -LiteralPath $Stops -File -Filter '*.json')){
                 $Text=[IO.File]::ReadAllText($File.FullName);$Saved=$Text|ConvertFrom-Json
                 if($null -ne $Saved.PSObject.Properties['source_commit'] -and $null -ne $Saved.PSObject.Properties['validation_id'] -and
-                    $Saved.source_commit -ceq $ProductCommit -and $Saved.validation_id -in @('progress-ui-e-drive-v1','progress-ui-e-drive-v2')){
+                    $Saved.source_commit -ceq $ProductCommit -and $Saved.validation_id -in @('progress-ui-e-drive-v1','progress-ui-e-drive-v2','progress-ui-e-drive-v3')){
                     $Check.attempt_stops+=@{path=$File.FullName;bytes=$File.Length;sha256=(Get-FileHash -LiteralPath $File.FullName -Algorithm SHA256).Hash;raw_text=$Text}
                 }
             }
@@ -187,11 +197,176 @@ function Invoke-ProgressUiCheckGit([string[]]$Arguments) {
     $Old = $ErrorActionPreference
     try {
         $ErrorActionPreference = 'Continue'
-        $Text = @(& $Git -C $Repository --literal-pathspecs @Arguments 2>&1 | ForEach-Object { $_.ToString() })
+        $Text = @(& $Git --no-pager -c core.longpaths=true -C $Repository --literal-pathspecs @Arguments 2>&1 | ForEach-Object { $_.ToString() })
         $Code = $LASTEXITCODE
     } finally { $ErrorActionPreference = $Old }
     if ($Code -ne 0) { throw ('Git failed: ' + ($Arguments -join ' ') + "`n" + ($Text -join "`n")) }
     return ($Text -join "`n").Trim()
+}
+function Stop-ProgressUiCheckOwnedGitTree($Process) {
+    $Stop=[ordered]@{requested=$true;root_id=$Process.Id;owned_process_ids=@($Process.Id);verified=$false;error=$null;output=@()}
+    try {
+        if($env:OS -eq 'Windows_NT'){
+            # Query only descendants of the Git child this invocation created; never target another validation by name.
+            $Owned=@{([int]$Process.Id)=$Process.StartTime.ToUniversalTime()}
+            try {
+                for($I=0;$I -lt $Stop.owned_process_ids.Count;$I++){
+                    $ParentId=[int]$Stop.owned_process_ids[$I]
+                    foreach($Child in @(Get-CimInstance Win32_Process -Filter ('ParentProcessId='+$ParentId) -ErrorAction Stop)){
+                        $ChildId=[int]$Child.ProcessId
+                        if(-not $Owned.ContainsKey($ChildId) -and $Child.CreationDate.ToUniversalTime() -ge $Process.StartTime.ToUniversalTime()){
+                            try{$ChildProcess=[Diagnostics.Process]::GetProcessById($ChildId)}catch{continue}
+                            try{$Owned[$ChildId]=$ChildProcess.StartTime.ToUniversalTime()}finally{$ChildProcess.Dispose()}
+                            $Stop.owned_process_ids+= $ChildId
+                        }
+                    }
+                }
+            } catch {$Stop.error='Descendant enumeration incomplete: '+$_.Exception.Message}
+            foreach($OwnedId in $Stop.owned_process_ids){
+                try{$Live=[Diagnostics.Process]::GetProcessById($OwnedId)}catch{continue}
+                try {
+                    if($Live.StartTime.ToUniversalTime() -ne $Owned[[int]$OwnedId]){continue}
+                    $Old=$ErrorActionPreference
+                    try {
+                        $ErrorActionPreference='Continue'
+                        $Stop.output+=@(& (Join-Path $env:SystemRoot 'System32/taskkill.exe') /PID $OwnedId /T /F 2>&1|ForEach-Object {$_.ToString()})
+                    } finally {$ErrorActionPreference=$Old}
+                } finally {$Live.Dispose()}
+            }
+            $null=$Process.WaitForExit(10000);$Alive=@()
+            foreach($OwnedId in $Stop.owned_process_ids){
+                try{$Live=[Diagnostics.Process]::GetProcessById($OwnedId)}catch{continue}
+                try{if($Live.StartTime.ToUniversalTime() -eq $Owned[[int]$OwnedId] -and -not $Live.HasExited){$Alive+=$OwnedId}}finally{$Live.Dispose()}
+            }
+            $Stop.verified=($Alive.Count -eq 0 -and -not $Stop.error)
+        } else {
+            # Temporary Linux helper checks only; production is gated to Windows before any checkout.
+            if(-not $Process.HasExited){$Process.Kill($true)}
+            $Stop.verified=$Process.WaitForExit(10000)
+        }
+    } catch {$Stop.error=$_.Exception.Message}
+    return $Stop
+}
+function Get-ProgressUiCheckGitFailure($Info) {
+    $Details=$Info.error
+    if(Test-Path -LiteralPath $Info.stderr -PathType Leaf){
+        $Lines=@([IO.File]::ReadAllLines($Info.stderr)|Where-Object {$_})
+        $Root=@($Lines|Where-Object {$_ -match '(^|:\s)(fatal|error):'}|Select-Object -First 1)
+        if($Root.Count){$Details=$Root[0]}elseif($Lines.Count -and -not $Details){$Details=($Lines|Select-Object -First 5) -join [Environment]::NewLine}
+    }
+    if($Details -and $Details.Length -gt 4096){$Details=$Details.Substring(0,4096)}
+    return ('Git exit='+$Info.exit_code+'. '+$Details)
+}
+function Invoke-ProgressUiCheckLoggedGit([string[]]$Arguments,[string]$Prefix,[int]$TimeoutSeconds=900) {
+    $null=[IO.Directory]::CreateDirectory((Split-Path -Parent $Prefix))
+    $Info=[ordered]@{arguments=$Arguments;process_id=$null;started=$false;exit_code=$null;timed_out=$false;
+        timeout_seconds=$TimeoutSeconds;streams_complete=$false;tree_stop=$null;error=$null;stdout=($Prefix+'.stdout.log');stderr=($Prefix+'.stderr.log')}
+    $Out=$null;$Err=$null;$Process=$null
+    try {
+        $Out=[IO.File]::Open($Info.stdout,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::Read)
+        $Err=[IO.File]::Open($Info.stderr,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::Read)
+        $Start=New-Object Diagnostics.ProcessStartInfo
+        $Start.FileName=$Git;$Start.WorkingDirectory=$Repository;$Start.UseShellExecute=$false;$Start.CreateNoWindow=$true
+        $Start.RedirectStandardOutput=$true;$Start.RedirectStandardError=$true
+        $All=@('--no-pager','-c','core.longpaths=true','-C',$Repository,'--literal-pathspecs')+@($Arguments)
+        $Start.Arguments=(@($All|ForEach-Object {if($_.Contains('"')){throw 'Unsafe Git argument.'};'"'+$_+'"'}) -join ' ')
+        $Process=New-Object Diagnostics.Process;$Process.StartInfo=$Start
+        $null=$Process.Start();$Info.started=$true;$Info.process_id=$Process.Id
+        # Pure .NET stream tasks: no PowerShell callbacks or unbounded in-memory Git output.
+        $CopyOut=$Process.StandardOutput.BaseStream.CopyToAsync($Out)
+        $CopyErr=$Process.StandardError.BaseStream.CopyToAsync($Err)
+        if(-not $Process.WaitForExit($TimeoutSeconds*1000)){
+            $Info.timed_out=$true;$Info.error='Git command timed out; no retry and no Unity start.'
+            $Info.tree_stop=Stop-ProgressUiCheckOwnedGitTree $Process
+        }
+        if($Process.HasExited){$Info.exit_code=$Process.ExitCode}
+        $Info.streams_complete=[Threading.Tasks.Task]::WaitAll([Threading.Tasks.Task[]]@($CopyOut,$CopyErr),10000)
+        if(-not $Info.streams_complete){throw 'Git output streams did not close; no retry and no Unity start.'}
+    } catch {
+        if($Info.error){$Info.error+=' '+$_.Exception.Message}else{$Info.error=$_.Exception.Message}
+    }
+    finally {
+        if($null -ne $Process){
+            if($Info.started -and $Info.error -and $null -eq $Info.tree_stop){$Info.tree_stop=Stop-ProgressUiCheckOwnedGitTree $Process}
+            if($Info.started){try{if($Process.HasExited){$Info.exit_code=$Process.ExitCode}}catch{}}
+            try{$Process.StandardOutput.Dispose();$Process.StandardError.Dispose()}catch{}
+            $Process.Dispose()
+        }
+        if($null -ne $Out){$Out.Dispose()};if($null -ne $Err){$Err.Dispose()}
+        $Info|ConvertTo-Json -Depth 5|Set-Content -LiteralPath ($Prefix+'.exit.json') -Encoding UTF8
+    }
+    return $Info
+}
+function Assert-ProgressUiCheckWorktree([string]$Project,[string]$Directory,$Report) {
+    $null=[IO.Directory]::CreateDirectory($Directory)
+    foreach($Key in @('head','status_sample','missing_directories','tracked_count','missing_count','missing_sample','registration')){
+        $Report[$Key]=$null
+    }
+    $Report.source_clean=$false;$Report.registration_valid=$false;$Report.validation_passed=$false
+    $Problems=@()
+    try {
+        $Report.head=Invoke-ProgressUiCheckGit @('-C',$Project,'rev-parse','HEAD')
+        if($Report.head -cne $ProductCommit){$Problems+='Worktree HEAD differs from the pinned implementation.'}
+        $Status=Invoke-ProgressUiCheckGit @('--no-optional-locks','-c','core.fsmonitor=false','-C',$Project,'status','--porcelain=v1','--untracked-files=all')
+        $Report.source_clean=[string]::IsNullOrWhiteSpace($Status)
+        $Report.status_sample=@($Status -split '\r?\n'|Where-Object {$_}|Select-Object -First 20)
+        if(-not $Report.source_clean){$Problems+='Worktree status is not clean.'}
+        $Report.missing_directories=@(@('Assets','Packages','ProjectSettings','scripts')|Where-Object {
+            -not(Test-Path -LiteralPath (Join-Path $Project $_) -PathType Container)
+        })
+        if($Report.missing_directories.Count){$Problems+=('Required directories missing: '+($Report.missing_directories -join ', '))}
+        # Git -z emits raw UTF8 paths; decode the captured bytes instead of PS5.1 console codepage conversion.
+        $Tree=Invoke-ProgressUiCheckLoggedGit @('ls-tree','-r','-z',$ProductCommit) (Join-Path $Directory 'tracked-tree')
+        $Report.tracked_tree=$Tree
+        if($Tree.error -or $Tree.exit_code -ne 0){throw ('Cannot enumerate pinned tracked tree: '+(Get-ProgressUiCheckGitFailure $Tree))}
+        $Entries=@([IO.File]::ReadAllText($Tree.stdout,(New-Object Text.UTF8Encoding($false))).Split([char]0)|Where-Object {$_.Length -gt 0})
+        $Report.tracked_count=$Entries.Count;$Missing=@()
+        if(-not $Entries.Count){$Problems+='Pinned tracked tree is empty.'}
+        foreach($Entry in $Entries){
+            $Parts=$Entry -split [char]9,2
+            if($Parts.Count -ne 2){throw 'Invalid tracked-tree record.'}
+            $Type=$(if($Parts[0].StartsWith('160000 ')){'Container'}else{'Leaf'})
+            if(-not(Test-Path -LiteralPath (Join-Path $Project $Parts[1]) -PathType $Type)){$Missing+=$Parts[1]}
+        }
+        $Report.missing_count=$Missing.Count;$Report.missing_sample=@($Missing|Select-Object -First 20)
+        if($Missing.Count){$Problems+=('Tracked files missing: '+$Missing.Count+'; first: '+($Report.missing_sample -join ', '))}
+        $List=Invoke-ProgressUiCheckGit @('worktree','list','--porcelain')
+        $Expected=[IO.Path]::GetFullPath($Project).Replace('\','/').TrimEnd('/')
+        $Matched=@()
+        foreach($Block in ($List -split '(?:\r?\n){2,}')){
+            $Lines=@($Block -split '\r?\n')
+            if($Lines.Count -and $Lines[0].StartsWith('worktree ') -and
+                $Lines[0].Substring(9).Replace('\','/').TrimEnd('/') -ieq $Expected){$Matched+=,$Lines}
+        }
+        if($Matched.Count -eq 1){
+            $Lines=$Matched[0];$Report.registration=$Lines
+            $Report.registration_valid=($Lines -ccontains ('HEAD '+$ProductCommit)) -and
+                ($Lines -ccontains 'detached') -and -not(@($Lines -match '^(locked|prunable)( |$)').Count)
+        }
+        if(-not $Report.registration_valid){$Problems+='Worktree registration is absent, locked, prunable or differs from the pinned detached HEAD.'}
+        if($Problems.Count){throw ($Problems -join [Environment]::NewLine)}
+        $Report.validation_passed=$true
+    } catch {
+        $Report.error=($Problems+@($_.Exception.Message)|Select-Object -Unique) -join [Environment]::NewLine
+        throw $Report.error
+    } finally {$Report|ConvertTo-Json -Depth 7|Set-Content -LiteralPath (Join-Path $Directory 'worktree-validation.json') -Encoding UTF8}
+}
+function Initialize-ProgressUiCheckWorktree([string]$Project,[string]$Directory,$PhaseResult) {
+    $Report=[ordered]@{project=$Project;validation_passed=$false;git_add=$null;error=$null}
+    $PhaseResult.worktree_preparation=$Report
+    try {
+        Write-Host ('Creating isolated worktree once: '+$Project+'; checkout logs: '+$Directory)
+        $Report.git_add=Invoke-ProgressUiCheckLoggedGit @('worktree','add','--detach',$Project,$ProductCommit) (Join-Path $Directory 'worktree-add')
+        if($Report.git_add.error -or $Report.git_add.exit_code -ne 0){
+            throw ('Git worktree add failed: '+(Get-ProgressUiCheckGitFailure $Report.git_add))
+        }
+        Assert-ProgressUiCheckWorktree $Project $Directory $Report
+    } catch {
+        $Report.error=$_.Exception.Message;$Report.validation_passed=$false
+        $null=[IO.Directory]::CreateDirectory($Directory)
+        $Report|ConvertTo-Json -Depth 7|Set-Content -LiteralPath (Join-Path $Directory 'worktree-validation.json') -Encoding UTF8
+        throw
+    }
 }
 function Read-ProgressUiCheckXml([string]$Path) {
     $Settings = New-Object Xml.XmlReaderSettings
@@ -300,7 +475,7 @@ function Publish-ProgressUiCheckResult([string]$Directory) {
         $File = Get-Item -LiteralPath $Source -Force
         if ($File.Attributes -band [IO.FileAttributes]::ReparsePoint) { throw 'Refuse linked evidence; original results retained.' }
         if ($File.Length -gt 4MB -or $TotalBytes + $File.Length -gt 16MB) {
-            if ($Name.EndsWith('/unity.log',[StringComparison]::Ordinal)) { $Skipped += @{file=$Name;bytes=$File.Length;reason='Full log retained locally; XML/JSON/first error shared'}; continue }
+            if ($Name.EndsWith('/unity.log',[StringComparison]::Ordinal) -or $Name -match '/(?:worktree-add\.(?:stdout|stderr)|tracked-tree\.stderr)\.log$') { $Skipped += @{file=$Name;bytes=$File.Length;reason='Full log retained locally; XML/JSON/first error and exit metadata shared'}; continue }
             throw ('Required evidence exceeds sharing budget: '+$Name+'. Original results retained.')
         }
         $Hash = (Get-FileHash -LiteralPath $Source -Algorithm SHA256).Hash.ToLowerInvariant()
@@ -312,7 +487,7 @@ function Publish-ProgressUiCheckResult([string]$Directory) {
         $Rows += @{file=$Name;bytes=$File.Length;sha256=$Hash}; $TotalBytes += $File.Length
     }
     $Info = [ordered]@{source_run=$Directory;source_commit=$ProductCommit;source_repository=$Repository;validation_root=$ValidationRoot;publication_worktree=$Publication;fixture=$Fixture;requested_fixtures=@($FixtureCounts.Keys);validation_id=$ValidationId;copied_at_utc=[DateTime]::UtcNow.ToString('o');remote_parent=$Remote;files=$Rows;skipped=$Skipped}
-    $Info | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $Inbox 'run-info.json') -Encoding UTF8
+    $Info | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath (Join-Path $Inbox 'run-info.json') -Encoding UTF8
     [IO.File]::WriteAllText((Join-Path $Inbox '.gitattributes'),"* -text -filter -ident -working-tree-encoding`n",(New-Object Text.UTF8Encoding($false)))
     $null = Invoke-ProgressUiCheckGit @('-C',$Publication,'add','--force','--',$Relative)
     foreach ($Row in $Rows) {
@@ -375,7 +550,7 @@ function Assert-ProgressUiCheckResult([string]$Directory,[string]$Phase,$PhaseRe
 function New-ProgressUiCheckPhase {
     return [ordered]@{result='NotRun';total=$null;passed=$null;failed=$null;skipped=$null;inconclusive=$null;
         unity_started=$false;unity_exit_code=$null;unity_invocations=0;automatic_retries=0;validation_passed=$false;first_error=$null;failed_fixture=$null;
-        source_unchanged=$false;project_path=$null;library_path=$null}
+        source_unchanged=$false;project_path=$null;library_path=$null;worktree_preparation=$null}
 }
 if ($MyInvocation.InvocationName -eq '.') { return }
 if ($env:OS -ne 'Windows_NT') { throw 'Windows11 / Windows PowerShell5.1 is required. Unity was not started.' }
@@ -396,7 +571,7 @@ if (Test-Path -LiteralPath $Once) {
     $Saved = $Attempt.saved
     if ($Saved.validation_passed -ne $true) { exit 1 };exit 0
 }
-# Read all restart prerequisites before creating any new v3 receipt, project or Unity process.
+# Read all restart prerequisites before creating any new v4 receipt, project or Unity process.
 $Git = Find-ProgressUiCheckGit
 $RestartState = Read-ProgressUiCheckRestartState $Paths
 if($Repository.TrimEnd('\') -ine 'C:\Users\User\Desktop\Mofumachi\mofumachi-merge'){
@@ -409,8 +584,8 @@ $Encoding = New-Object Text.UTF8Encoding($true)
 $Result = [ordered]@{source_commit=$ProductCommit;unity_version='6000.6.4f1';save_version=4;validation_id=$ValidationId;
     validation_root=$Paths.Root;diagnostics_path=$Run;original_repository=$Repository;available_validation_bytes=$Drive.AvailableFreeSpace;
     process_temp_root=$Paths.TempRoot;upm_cache_root=$Paths.PackageCache;
-    previous_e_v1_attempt=$RestartState.previous_attempts[0];previous_e_v2_attempt=$RestartState.previous_attempts[1];
-    restart_preflight_passed=$RestartState.passed;restart_history_preserved=$false;attempt_receipt_created=$false;
+    previous_e_v1_attempt=$RestartState.previous_attempts[0];previous_e_v2_attempt=$RestartState.previous_attempts[1];previous_e_v3_attempt=$RestartState.previous_attempts[2];
+    restart_preflight_passed=$RestartState.passed;restart_history_preserved=$false;attempt_receipt_created=$false;preparation_step='preflight';
     requested_tests=@($FixtureCounts.Keys);expected_direct_cases=$FixtureCounts[$Fixture];expected_integration_cases=($FixtureCounts.Values|Measure-Object -Sum).Sum;
     test_platform='EditMode';burst_compilation_disabled=$true;automatic_retries=0;unity_invocations=0;unity_start_limit=2;
     direct=(New-ProgressUiCheckPhase);integration=(New-ProgressUiCheckPhase);validation_passed=$false;result='NotRun';
@@ -434,29 +609,32 @@ try {
     $null = Invoke-ProgressUiCheckGit @('cat-file','-e',($ProductCommit+'^{commit}'))
     # Preparing is explicitly non-terminal; persist it before the receipt and expensive checkout.
     $Result.result='Preparing'
-    $Result|ConvertTo-Json -Depth 8|Set-Content -LiteralPath (Join-Path $Run 'progress-ui-integration-result.json') -Encoding UTF8
+    $Result|ConvertTo-Json -Depth 10|Set-Content -LiteralPath (Join-Path $Run 'progress-ui-integration-result.json') -Encoding UTF8
     # One CreateNew receipt covers checkout and both phases; it is never deleted or reset.
     $null = [IO.Directory]::CreateDirectory((Split-Path -Parent $Once))
     $Receipt = [IO.File]::Open($Once,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None)
     try { $Bytes=$Encoding.GetBytes($Run);$Receipt.Write($Bytes,0,$Bytes.Length);$Receipt.Flush() } finally { $Receipt.Dispose() }
-    $Result.attempt_receipt_created=$true
+    $Result.attempt_receipt_created=$true;$Result.preparation_step='receipt_created'
+    $Result|ConvertTo-Json -Depth 10|Set-Content -LiteralPath (Join-Path $Run 'progress-ui-integration-result.json') -Encoding UTF8
     foreach ($Phase in @('direct','integration')) {
         # Reaching integration is possible only after every direct-phase condition passed.
         if ($Phase -eq 'integration' -and ($Result.direct.validation_passed -ne $true -or $Result.direct.source_unchanged -ne $true)) { throw 'Direct verification did not pass with unchanged source; integration must not start.' }
         $Project=$Result[$Phase].project_path
-        $null = Invoke-ProgressUiCheckGit @('worktree','add','--detach',$Project,$ProductCommit)
-        if ((Invoke-ProgressUiCheckGit @('-C',$Project,'rev-parse','HEAD')) -cne $ProductCommit) { throw 'Pinned source differs.' }
-        if (Invoke-ProgressUiCheckGit @('-C',$Project,'status','--porcelain=v1','--untracked-files=all')) { throw 'Isolated source not clean.' }
+        $PhaseDir = Join-Path $Run $Phase;$null=[IO.Directory]::CreateDirectory($PhaseDir)
+        $Result.preparation_step=$Phase+'_worktree_creation'
+        $Result|ConvertTo-Json -Depth 10|Set-Content -LiteralPath (Join-Path $Run 'progress-ui-integration-result.json') -Encoding UTF8
+        Initialize-ProgressUiCheckWorktree $Project $PhaseDir $Result[$Phase]
+        $Result.preparation_step=$Phase+'_worktree_verified'
+        $Result|ConvertTo-Json -Depth 10|Set-Content -LiteralPath (Join-Path $Run 'progress-ui-integration-result.json') -Encoding UTF8
         if ([IO.File]::ReadAllText((Join-Path $Project 'ProjectSettings/ProjectVersion.txt')) -notmatch 'm_EditorVersion: 6000\.6\.4f1\s') { throw 'Project Unity version differs.' }
         $ProcessTemp=Join-Path $Paths.TempRoot $Phase
         $null=[IO.Directory]::CreateDirectory($ProcessTemp)
         $null=[IO.Directory]::CreateDirectory($Paths.PackageCache)
-        $PhaseDir = Join-Path $Run $Phase;$null=[IO.Directory]::CreateDirectory($PhaseDir)
         $Arguments = @(Get-ProgressUiCheckArguments $Project $PhaseDir $Phase)
         [IO.File]::WriteAllLines((Join-Path $PhaseDir 'unity-arguments.txt'),[string[]]$Arguments,$Encoding)
         $Current=$Result[$Phase];$Current.result='Running';$Current.unity_invocations=1;$Result.unity_invocations++
         $Result.result='Running'
-        $Result | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $Run 'progress-ui-integration-result.json') -Encoding UTF8
+        $Result | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath (Join-Path $Run 'progress-ui-integration-result.json') -Encoding UTF8
         $Start=New-Object Diagnostics.ProcessStartInfo
         $Start.FileName=$Editor;$Start.WorkingDirectory=$Project;$Start.UseShellExecute=$false
         # Child process only: no machine/user environment or package settings are changed.
@@ -474,7 +652,7 @@ try {
     }
     $Result.source_unchanged=$true;$Result.validation_passed=$true;$Result.result='Passed'
 } catch {
-    $Failure=$_;$Result.runner_error=$_.Exception.Message;$Result.first_failed_phase=$(if($Result.attempt_receipt_created){$Phase}else{'preflight'})
+    $Failure=$_;$Result.runner_error=$_.Exception.Message;$Result.preparation_step='blocked';$Result.first_failed_phase=$(if($Result.attempt_receipt_created){$Phase}else{'preflight'})
     $Current=$Result[$Phase];$Current.result=$(if($Current.unity_started){'Failed'}else{'Blocked'})
     $Result.result=$Current.result
     $Result.first_error=$(if($Current.unity_started){Get-ProgressUiCheckFirstError (Join-Path $Run $Phase)}else{$_.Exception.Message})
@@ -488,7 +666,16 @@ try {
     }catch{}}
     [IO.File]::WriteAllText((Join-Path $Run 'first-error.log'),$Result.first_error,$Encoding)
 } finally {
-    $Result|ConvertTo-Json -Depth 8|Set-Content -LiteralPath (Join-Path $Run 'progress-ui-integration-result.json') -Encoding UTF8
+    # If cleanup is reached without a terminal state, never persist Preparing as the final outcome.
+    if($Result.result -notin @('Passed','Failed','Blocked')){
+        $Result.runner_error='Launcher left preparation without a terminal outcome at '+$Result.preparation_step+'; preserve this run; no retry.'
+        $Result.first_error=$Result.runner_error;$Result.first_failed_phase=$Phase
+        $Current=$Result[$Phase];$Current.result=$(if($Current.unity_started){'Failed'}else{'Blocked'})
+        $Current.first_error=$Result.first_error;$Result.result=$Current.result
+        $Result.validation_passed=$false;$Result.stage8_safe=$false;$Failure=$Result.runner_error
+        [IO.File]::WriteAllText((Join-Path $Run 'first-error.log'),$Result.first_error,$Encoding)
+    }
+    $Result|ConvertTo-Json -Depth 10|Set-Content -LiteralPath (Join-Path $Run 'progress-ui-integration-result.json') -Encoding UTF8
 }
 if($Failure){Write-Host ('STOP: '+$Result.first_error+' Preserve '+$Run)}else{Write-Host ('PASS both phases. Await independent review before stage8. '+$Run)}
 if(-not(Get-Variable Git -ErrorAction SilentlyContinue)){$Git=Find-ProgressUiCheckGit}

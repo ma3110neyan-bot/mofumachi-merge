@@ -1,0 +1,166 @@
+{
+    "observed_at_utc":  "2026-11-08T03:24:36.5932501Z",
+    "repository":  "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge",
+    "branch":  "feat/daily-world-pass-20261016",
+    "head":  "82786dede0111af4e580e35e835b1c48298f8043",
+    "working_tree":  "M \"Assets/Settings/Build Profiles/Android\\342\\204\\242.asset\"\n M Assets/Settings/UniversalRP.asset\n M Assets/Settings/UniversalRenderPipelineGlobalSettings.asset\n M ProjectSettings/Packages/com.unity.learn.iet-framework/Settings.json\n M ProjectSettings/ProjectSettings.asset\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/.cmake/api/v1/query/client-agp/cache-v2\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/.cmake/api/v1/query/client-agp/cmakeFiles-v1\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/.cmake/api/v1/query/client-agp/codemodel-v2\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/.cmake/api/v1/reply/cache-v2-6bcfd81fdfcb6768d4db.json\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/.cmake/api/v1/reply/cmakeFiles-v1-f153cc2f4898556f6236.json\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/.cmake/api/v1/reply/codemodel-v2-4f78d49e76e3782b317e.json\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/.cmake/api/v1/reply/directory-.-Debug-d0094a50bb2071803777.json\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/.cmake/api/v1/reply/directory-FramePacing-Debug-7f9c8865fd027a154c90.json\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/.cmake/api/v1/reply/directory-GameActivity-Debug-3edf2ef9e25ca0503118.json\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/.cmake/api/v1/reply/index-2026-10-30T10-03-00-0559.json\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/.cmake/api/v1/reply/target-game-Debug-5768149852ad8e8b66ee.json\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/.cmake/api/v1/reply/target-swappywrapper-Debug-f771829a74f5de5de78b.json\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/.ninja_deps\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/.ninja_log\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/CMakeCache.txt\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCCompiler.cmake\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCXXCompiler.cmake\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeDetermineCompilerABI_C.bin\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeDetermineCompilerABI_CXX.bin\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeSystem.cmake\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdC/CMakeCCompilerId.c\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdC/CMakeCCompilerId.o\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdCXX/CMakeCXXCompilerId.cpp\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdCXX/CMakeCXXCompilerId.o\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/CMakeFiles/CMakeOutput.log\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/CMakeFiles/TargetDirectories.txt\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/CMakeFiles/cmake.check_cache\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/CMakeFiles/rules.ninja\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/FramePacing/cmake_install.cmake\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/GameActivity/cmake_install.cmake\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/additional_project_files.txt\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/android_gradle_build.json\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/android_gradle_build_mini.json\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/build.ninja\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/build_file_index.txt\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/cmake_install.cmake\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/compile_commands.json\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/compile_commands.json.bin\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/configure_fingerprint.bin\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/metadata_generation_command.txt\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/prefab_config.json\n?? .utmp/Debug/1v3s6t6a/arm64-v8a/symbol_folder_index.txt\n?? .utmp/Debug/1v3s6t6a/hash_key.txt\n?? .utmp/Debug/1v3s6t6a/prefab/arm64-v8a/prefab/lib/aarch64-linux-android/cmake/game-activity/game-activityConfig.cmake\n?? .utmp/Debug/1v3s6t6a/prefab/arm64-v8a/prefab/lib/aarch64-linux-android/cmake/games-frame-pacing/games-frame-pacingConfig.cmake\n?? .utmp/tools/debug/arm64-v8a/compile_commands.json\n?? .vsconfig\n?? ProjectSettings/SceneTemplateSettings.json\n?? build/outputs/logs/unity---stop-build.log",
+    "worktree_list":  "worktree C:/Users/User/Desktop/Mofumachi/mofumachi-merge\nHEAD 82786dede0111af4e580e35e835b1c48298f8043\nbranch refs/heads/feat/daily-world-pass-20261016\n\nworktree C:/Users/User/Desktop/Mofumachi/capture-a434f15c\nHEAD c84e5d9fa1c7d6aaf1305940794250509fa35f8f\ndetached\n\nworktree C:/Users/User/Desktop/Mofumachi/font-afc3c3d1\nHEAD 193ab6eeb216d9f457096d9f3df305704f2f962e\ndetached\n\nworktree C:/Users/User/Desktop/Mofumachi/generation-cost-share-df400d01110546e189d546cdcb5c7039\nHEAD 3eb8f848bee29bac66062a1c74a02645adadded7\ndetached\n\nworktree C:/Users/User/Desktop/Mofumachi/progress-ui-integration-share-3dfb1e84b17445718302ac12bf3337b4\nHEAD d981dc0f6ce9f6209150c6257b0cd5afbbe2862f\ndetached\n\nworktree C:/Users/User/Desktop/Mofumachi/quest-town-level-share-4527d8fa435644f68868dbe3b7b8ffbc\nHEAD 7a4cbeb109083d637c6c01315f38f91f6fe7a934\ndetached\n\nworktree C:/Users/User/Desktop/Mofumachi/quest-town-level-share-c0c9af566b8941efb18a0b747dd79214\nHEAD b39fa214343f3f39202f9a1d9a5850deb0449993\ndetached\n\nworktree C:/Users/User/Desktop/Mofumachi/recovery-extra-help-share-813c19c5d7fa41c880c25df91fddaf07\nHEAD c0780638836240827dee8d1a145fa6fec52c6ee1\ndetached\n\nworktree C:/Users/User/Desktop/Mofumachi/savedata-v4-share-6f9fd9bdad3c446ab8df1d1bea18c97b\nHEAD d4f8147d3c717b74cfaeb4e3fb3a6af097c9bae4\ndetached\n\nworktree C:/Users/User/Desktop/Mofumachi/town-point-rewards-share-e3c4a1672441448a93fb686b71d9718e\nHEAD 83d11f57127dfc137a58425286da2c60760685b3\ndetached\n\nworktree E:/Mofumachi-Validation/sharing/91bee4eb05c54ecd9604bb9f6a957964\nHEAD 856289b2a6f15283a113751a9586bcafe10fe8b7\ndetached",
+    "previous_attempts":  [
+                              {
+                                  "validation_id":  "progress-ui-e-drive-v1",
+                                  "receipt_path":  "E:\\Mofumachi-Validation\\receipts\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v1.attempted",
+                                  "source_run":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v1-20261107-181802-bbad51c4",
+                                  "saved_state":  null,
+                                  "files":  [
+                                                {
+                                                    "sha256":  "10182A820FD5C901A847E1E84EE811C27284288099DE7DD933E0862AB6064F76",
+                                                    "source":  "E:\\Mofumachi-Validation\\receipts\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v1.attempted",
+                                                    "relative":  "history/v1-receipt.txt",
+                                                    "bytes":  107
+                                                },
+                                                {
+                                                    "sha256":  "38DA79683DE40353A94951AC666F7DDAD29F4BAE85013CB8658C34FCF2BE1EFA",
+                                                    "source":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v1-20261107-181802-bbad51c4\\source-revision.txt",
+                                                    "relative":  "history/v1-source.txt",
+                                                    "bytes":  45
+                                                }
+                                            ],
+                                  "blocked_reasons":  [
+
+                                                      ],
+                                  "observation":  "Read-only; original receipt, Diagnostics and stop records retained"
+                              },
+                              {
+                                  "validation_id":  "progress-ui-e-drive-v2",
+                                  "receipt_path":  "E:\\Mofumachi-Validation\\receipts\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v2.attempted",
+                                  "source_run":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059",
+                                  "saved_state":  {
+                                                      "integration":  {
+                                                                          "result":  "NotRun",
+                                                                          "total":  null,
+                                                                          "passed":  null,
+                                                                          "failed":  null,
+                                                                          "skipped":  null,
+                                                                          "inconclusive":  null,
+                                                                          "unity_started":  false,
+                                                                          "unity_exit_code":  null,
+                                                                          "unity_invocations":  0,
+                                                                          "automatic_retries":  0,
+                                                                          "validation_passed":  false,
+                                                                          "first_error":  null,
+                                                                          "failed_fixture":  null,
+                                                                          "source_unchanged":  false,
+                                                                          "project_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\integration",
+                                                                          "library_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\integration\\Library"
+                                                                      },
+                                                      "first_error":  null,
+                                                      "validation_passed":  false,
+                                                      "runner_error":  null,
+                                                      "result":  "Preparing",
+                                                      "direct":  {
+                                                                     "result":  "NotRun",
+                                                                     "total":  null,
+                                                                     "passed":  null,
+                                                                     "failed":  null,
+                                                                     "skipped":  null,
+                                                                     "inconclusive":  null,
+                                                                     "unity_started":  false,
+                                                                     "unity_exit_code":  null,
+                                                                     "unity_invocations":  0,
+                                                                     "automatic_retries":  0,
+                                                                     "validation_passed":  false,
+                                                                     "first_error":  null,
+                                                                     "failed_fixture":  null,
+                                                                     "source_unchanged":  false,
+                                                                     "project_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\direct",
+                                                                     "library_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\direct\\Library"
+                                                                 },
+                                                      "unity_invocations":  0
+                                                  },
+                                  "files":  [
+                                                {
+                                                    "sha256":  "C5DDCB2196FB0F0D0786292A3E763EB5C552EBCCF43D1B31BD3F9821FB3A4E39",
+                                                    "source":  "E:\\Mofumachi-Validation\\receipts\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v2.attempted",
+                                                    "relative":  "history/v2-receipt.txt",
+                                                    "bytes":  107
+                                                },
+                                                {
+                                                    "sha256":  "CB44000C5268356B733ABEDDC593E3E710DCB0BD4AA8EF7DBFC66E7788C35BAC",
+                                                    "source":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\progress-ui-integration-result.json",
+                                                    "relative":  "history/v2-result.json",
+                                                    "bytes":  5032
+                                                },
+                                                {
+                                                    "sha256":  "38DA79683DE40353A94951AC666F7DDAD29F4BAE85013CB8658C34FCF2BE1EFA",
+                                                    "source":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\source-revision.txt",
+                                                    "relative":  "history/v2-source.txt",
+                                                    "bytes":  45
+                                                }
+                                            ],
+                                  "blocked_reasons":  [
+
+                                                      ],
+                                  "observation":  "Read-only; original receipt, Diagnostics and stop records retained"
+                              }
+                          ],
+    "diagnostics":  [
+                        "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v1-20261107-181802-bbad51c4",
+                        "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059"
+                    ],
+    "attempt_stops":  [
+                          {
+                              "path":  "E:\\Mofumachi-Validation\\attempt-stops\\incomplete-attempt-84833874f80041e6a233dbf66a819ce8.json",
+                              "sha256":  "82EA80BBB84FDEF6637F55037F6CE03E654EBB1914B0714D6D0BBA0A49F6517C",
+                              "raw_text":  "{\r\n    \"classification\":  \"pre-Unity/incomplete attempt\",\r\n    \"reason\":  \"non_terminal_result_json\",\r\n    \"receipt_path\":  \"E:\\\\Mofumachi-Validation\\\\receipts\\\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v2.attempted\",\r\n    \"source_run\":  \"E:\\\\Mofumachi-Validation\\\\Diagnostics\\\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\",\r\n    \"expected_result_path\":  \"E:\\\\Mofumachi-Validation\\\\Diagnostics\\\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\\\progress-ui-integration-result.json\",\r\n    \"source_commit\":  \"46f65b24d58531d5934035fbe4cdb4d5b00104a6\",\r\n    \"validation_id\":  \"progress-ui-e-drive-v2\",\r\n    \"native_state\":  \"unconfirmed\",\r\n    \"unity_invocations_this_detection\":  0,\r\n    \"automatic_retries\":  0,\r\n    \"validation_passed\":  false,\r\n    \"observed_at_utc\":  \"2026-11-08T03:20:59.0901036Z\"\r\n}",
+                              "bytes":  896
+                          },
+                          {
+                              "path":  "E:\\Mofumachi-Validation\\attempt-stops\\incomplete-attempt-d804cffb9eb94c1eb7d6f0ab32f36af3.json",
+                              "sha256":  "00D7AEFC509BAF7F5379DFDD56B516DC7C9819ABD1F69DB2BC248A130740AE11",
+                              "raw_text":  "{\r\n    \"classification\":  \"pre-Unity/incomplete attempt\",\r\n    \"reason\":  \"non_terminal_result_json\",\r\n    \"receipt_path\":  \"E:\\\\Mofumachi-Validation\\\\receipts\\\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v2.attempted\",\r\n    \"source_run\":  \"E:\\\\Mofumachi-Validation\\\\Diagnostics\\\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\",\r\n    \"expected_result_path\":  \"E:\\\\Mofumachi-Validation\\\\Diagnostics\\\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\\\progress-ui-integration-result.json\",\r\n    \"source_commit\":  \"46f65b24d58531d5934035fbe4cdb4d5b00104a6\",\r\n    \"validation_id\":  \"progress-ui-e-drive-v2\",\r\n    \"native_state\":  \"unconfirmed\",\r\n    \"unity_invocations_this_detection\":  0,\r\n    \"automatic_retries\":  0,\r\n    \"validation_passed\":  false,\r\n    \"observed_at_utc\":  \"2026-11-07T09:48:31.0179542Z\"\r\n}",
+                              "bytes":  896
+                          },
+                          {
+                              "path":  "E:\\Mofumachi-Validation\\attempt-stops\\incomplete-attempt-e002e84c9ae7495f922d584afe4e5246.json",
+                              "sha256":  "7F633E8E9C38F876DEFDB38E376A8788F1BFFC9CFD88B29A1AD7EF499088A08C",
+                              "raw_text":  "{\r\n    \"classification\":  \"pre-Unity/incomplete attempt\",\r\n    \"reason\":  \"non_terminal_result_json\",\r\n    \"receipt_path\":  \"E:\\\\Mofumachi-Validation\\\\receipts\\\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v2.attempted\",\r\n    \"source_run\":  \"E:\\\\Mofumachi-Validation\\\\Diagnostics\\\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\",\r\n    \"expected_result_path\":  \"E:\\\\Mofumachi-Validation\\\\Diagnostics\\\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\\\progress-ui-integration-result.json\",\r\n    \"source_commit\":  \"46f65b24d58531d5934035fbe4cdb4d5b00104a6\",\r\n    \"validation_id\":  \"progress-ui-e-drive-v2\",\r\n    \"native_state\":  \"unconfirmed\",\r\n    \"unity_invocations_this_detection\":  0,\r\n    \"automatic_retries\":  0,\r\n    \"validation_passed\":  false,\r\n    \"observed_at_utc\":  \"2026-11-07T09:52:33.4013356Z\"\r\n}",
+                              "bytes":  896
+                          }
+                      ],
+    "files":  [
+                  {
+                      "sha256":  "10182A820FD5C901A847E1E84EE811C27284288099DE7DD933E0862AB6064F76",
+                      "source":  "E:\\Mofumachi-Validation\\receipts\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v1.attempted",
+                      "relative":  "history/v1-receipt.txt",
+                      "bytes":  107
+                  },
+                  {
+                      "sha256":  "38DA79683DE40353A94951AC666F7DDAD29F4BAE85013CB8658C34FCF2BE1EFA",
+                      "source":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v1-20261107-181802-bbad51c4\\source-revision.txt",
+                      "relative":  "history/v1-source.txt",
+                      "bytes":  45
+                  },
+                  {
+                      "sha256":  "C5DDCB2196FB0F0D0786292A3E763EB5C552EBCCF43D1B31BD3F9821FB3A4E39",
+                      "source":  "E:\\Mofumachi-Validation\\receipts\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v2.attempted",
+                      "relative":  "history/v2-receipt.txt",
+                      "bytes":  107
+                  },
+                  {
+                      "sha256":  "CB44000C5268356B733ABEDDC593E3E710DCB0BD4AA8EF7DBFC66E7788C35BAC",
+                      "source":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\progress-ui-integration-result.json",
+                      "relative":  "history/v2-result.json",
+                      "bytes":  5032
+                  },
+                  {
+                      "sha256":  "38DA79683DE40353A94951AC666F7DDAD29F4BAE85013CB8658C34FCF2BE1EFA",
+                      "source":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\source-revision.txt",
+                      "relative":  "history/v2-source.txt",
+                      "bytes":  45
+                  }
+              ],
+    "blocked_reasons":  [
+                            "Formal repository is not clean; no changes were reset, stashed or discarded."
+                        ],
+    "passed":  false
+}

@@ -1,9 +1,9 @@
 ﻿{
-    "source_run":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v3-20261108-122436-ff541d97",
+    "source_run":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8",
     "source_commit":  "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
     "source_repository":  "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge",
     "validation_root":  "E:\\Mofumachi-Validation",
-    "publication_worktree":  "E:\\Mofumachi-Validation\\sharing\\3106dfe2da3245e4b501f0f53377c4e2",
+    "publication_worktree":  "E:\\Mofumachi-Validation\\sharing\\d1e5fd827ec64dc9b4bb0da1cec53cea",
     "fixture":  "Mofumachi.Tests.ProgressUiIntegrationTests",
     "requested_fixtures":  [
                                "Mofumachi.Tests.SaveServiceTests",
@@ -16,14 +16,14 @@
                                "Mofumachi.Tests.QuestTownLevelTests",
                                "Mofumachi.Tests.ProgressUiIntegrationTests"
                            ],
-    "validation_id":  "progress-ui-e-drive-v3",
-    "copied_at_utc":  "2026-11-08T03:24:39.6811359Z",
-    "remote_parent":  "856289b2a6f15283a113751a9586bcafe10fe8b7",
+    "validation_id":  "progress-ui-e-drive-v4",
+    "copied_at_utc":  "2026-11-08T07:59:41.3662554Z",
+    "remote_parent":  "2e9833c0c52980fff42f73e1de26cf02a51607cb",
     "files":  [
                   {
-                      "sha256":  "9be71e340427d83fb2c64821816915e09c9e75efeac6e14988ae5a2b1c91fbc5",
+                      "sha256":  "53b621f934c6ab7ee4c13c02c5a1693aec2127b8202ee13d5094fbfb8f373c64",
                       "file":  "progress-ui-integration-result.json",
-                      "bytes":  13416
+                      "bytes":  25934
                   },
                   {
                       "sha256":  "38da79683de40353a94951ac666f7ddad29f4bae85013cb8658c34fcf2be1efa",
@@ -31,14 +31,29 @@
                       "bytes":  45
                   },
                   {
-                      "sha256":  "bf3558bb027520238c8f473cd0eed8328bd3528556b00e1d429e7e00d1f56d24",
+                      "sha256":  "e1bcc972c85ef0351b7d6582f031b1a78c29f53eea828d23a5120206c88b535e",
                       "file":  "first-error.log",
-                      "bytes":  136
+                      "bytes":  71
                   },
                   {
-                      "sha256":  "6068d539b3f13a41d70e795c0efc9a45c1200d9bef56cda22577c4c3037fa01d",
+                      "sha256":  "74c2bb335fc9b495473f1f2d1715f3d05c54da959b323c1aef1ce035d322ba29",
+                      "file":  "direct/results.xml",
+                      "bytes":  50263
+                  },
+                  {
+                      "sha256":  "03bb24b3477c0daada2fc0dbfa4dfb635536462110f3bfbbf266ceedbfd34480",
+                      "file":  "direct/unity.log",
+                      "bytes":  3513156
+                  },
+                  {
+                      "sha256":  "4f1969bf02b53ce60e2a5126c261d4cfeb9b73fba94fa4d1280d93d8ac01d04c",
+                      "file":  "direct/unity-arguments.txt",
+                      "bytes":  626
+                  },
+                  {
+                      "sha256":  "60264aee2968c4ba1a4aa6e750e4e923ebbc1336717eb989cbdb5dea1ca5dfca",
                       "file":  "history/preflight.json",
-                      "bytes":  22607
+                      "bytes":  32016
                   },
                   {
                       "sha256":  "10182a820fd5c901a847e1e84ee811c27284288099de7dd933e0862ab6064f76",
@@ -64,6 +79,51 @@
                       "sha256":  "38da79683de40353a94951ac666f7ddad29f4bae85013cb8658c34fcf2be1efa",
                       "file":  "history/v2-source.txt",
                       "bytes":  45
+                  },
+                  {
+                      "sha256":  "01f70fb23f3ae985f35e3f09f20f8ffeff5a06c41613d1bfda17b66ade28bb4b",
+                      "file":  "history/v3-receipt.txt",
+                      "bytes":  107
+                  },
+                  {
+                      "sha256":  "f27d45980ce74c52c96e1c48ed2aafc165a73a885368d169822c83ea6e5d0680",
+                      "file":  "history/v3-result.json",
+                      "bytes":  13016
+                  },
+                  {
+                      "sha256":  "38da79683de40353a94951ac666f7ddad29f4bae85013cb8658c34fcf2be1efa",
+                      "file":  "history/v3-source.txt",
+                      "bytes":  45
+                  },
+                  {
+                      "sha256":  "5d90c2fb7ae17af0de456a78fe6f64f894c548248983c1d06d33f255e93275b8",
+                      "file":  "direct/worktree-add.stdout.log",
+                      "bytes":  82
+                  },
+                  {
+                      "sha256":  "03504c5ad9ba69850bfd3f77b3e86dbde90b3bdb31eaaf2ffea82511a8a757ed",
+                      "file":  "direct/worktree-add.stderr.log",
+                      "bytes":  13265
+                  },
+                  {
+                      "sha256":  "a5ebfebf94a0faeb4a2fd25d93e3bbc357f46f5f091f64f399d1c192e36f8e60",
+                      "file":  "direct/worktree-add.exit.json",
+                      "bytes":  890
+                  },
+                  {
+                      "sha256":  "220624ad9b1200e0c7520c28c8acb9fa721a48691b04acc06facc0b0347fa652",
+                      "file":  "direct/worktree-validation.json",
+                      "bytes":  3166
+                  },
+                  {
+                      "sha256":  "1c5e314cbb59e9d28b13d1ce1c47ff90238d5d5ff95acf01cff0260511a85f45",
+                      "file":  "direct/tracked-tree.exit.json",
+                      "bytes":  741
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "file":  "direct/tracked-tree.stderr.log",
+                      "bytes":  0
                   }
               ],
     "skipped":  [

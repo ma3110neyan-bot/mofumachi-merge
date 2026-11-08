@@ -2,12 +2,12 @@
     "source_commit":  "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
     "unity_version":  "6000.6.4f1",
     "save_version":  4,
-    "validation_id":  "progress-ui-e-drive-v3",
+    "validation_id":  "progress-ui-e-drive-v4",
     "validation_root":  "E:\\Mofumachi-Validation",
-    "diagnostics_path":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v3-20261108-122436-ff541d97",
+    "diagnostics_path":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8",
     "original_repository":  "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge",
-    "available_validation_bytes":  993459732480,
-    "process_temp_root":  "E:\\Mofumachi-Validation\\temp\\progress-ui-integration-progress-ui-e-drive-v3-20261108-122436-ff541d97",
+    "available_validation_bytes":  993459425280,
+    "process_temp_root":  "E:\\Mofumachi-Validation\\temp\\progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8",
     "upm_cache_root":  "E:\\Mofumachi-Validation\\upm-cache",
     "previous_e_v1_attempt":  {
                                   "validation_id":  "progress-ui-e-drive-v1",
@@ -105,9 +105,82 @@
                                                       ],
                                   "observation":  "Read-only; original receipt, Diagnostics and stop records retained"
                               },
-    "restart_preflight_passed":  false,
+    "previous_e_v3_attempt":  {
+                                  "validation_id":  "progress-ui-e-drive-v3",
+                                  "receipt_path":  "E:\\Mofumachi-Validation\\receipts\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v3.attempted",
+                                  "source_run":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789",
+                                  "saved_state":  {
+                                                      "integration":  {
+                                                                          "result":  "NotRun",
+                                                                          "total":  null,
+                                                                          "passed":  null,
+                                                                          "failed":  null,
+                                                                          "skipped":  null,
+                                                                          "inconclusive":  null,
+                                                                          "unity_started":  false,
+                                                                          "unity_exit_code":  null,
+                                                                          "unity_invocations":  0,
+                                                                          "automatic_retries":  0,
+                                                                          "validation_passed":  false,
+                                                                          "first_error":  null,
+                                                                          "failed_fixture":  null,
+                                                                          "source_unchanged":  false,
+                                                                          "project_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\\integration",
+                                                                          "library_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\\integration\\Library"
+                                                                      },
+                                                      "first_error":  null,
+                                                      "validation_passed":  false,
+                                                      "runner_error":  null,
+                                                      "result":  "Preparing",
+                                                      "direct":  {
+                                                                     "result":  "NotRun",
+                                                                     "total":  null,
+                                                                     "passed":  null,
+                                                                     "failed":  null,
+                                                                     "skipped":  null,
+                                                                     "inconclusive":  null,
+                                                                     "unity_started":  false,
+                                                                     "unity_exit_code":  null,
+                                                                     "unity_invocations":  0,
+                                                                     "automatic_retries":  0,
+                                                                     "validation_passed":  false,
+                                                                     "first_error":  null,
+                                                                     "failed_fixture":  null,
+                                                                     "source_unchanged":  false,
+                                                                     "project_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\\direct",
+                                                                     "library_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\\direct\\Library"
+                                                                 },
+                                                      "unity_invocations":  0
+                                                  },
+                                  "files":  [
+                                                {
+                                                    "sha256":  "01F70FB23F3AE985F35E3F09F20F8FFEFF5A06C41613D1BFDA17B66ADE28BB4B",
+                                                    "source":  "E:\\Mofumachi-Validation\\receipts\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v3.attempted",
+                                                    "relative":  "history/v3-receipt.txt",
+                                                    "bytes":  107
+                                                },
+                                                {
+                                                    "sha256":  "F27D45980CE74C52C96E1C48ED2AAFC165A73A885368D169822C83EA6E5D0680",
+                                                    "source":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\\progress-ui-integration-result.json",
+                                                    "relative":  "history/v3-result.json",
+                                                    "bytes":  13016
+                                                },
+                                                {
+                                                    "sha256":  "38DA79683DE40353A94951AC666F7DDAD29F4BAE85013CB8658C34FCF2BE1EFA",
+                                                    "source":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\\source-revision.txt",
+                                                    "relative":  "history/v3-source.txt",
+                                                    "bytes":  45
+                                                }
+                                            ],
+                                  "blocked_reasons":  [
+
+                                                      ],
+                                  "observation":  "Read-only; original receipt, Diagnostics and stop records retained"
+                              },
+    "restart_preflight_passed":  true,
     "restart_history_preserved":  true,
-    "attempt_receipt_created":  false,
+    "attempt_receipt_created":  true,
+    "preparation_step":  "blocked",
     "requested_tests":  [
                             "Mofumachi.Tests.SaveServiceTests",
                             "Mofumachi.Tests.PreferencesTests",
@@ -124,25 +197,86 @@
     "test_platform":  "EditMode",
     "burst_compilation_disabled":  true,
     "automatic_retries":  0,
-    "unity_invocations":  0,
+    "unity_invocations":  1,
     "unity_start_limit":  2,
     "direct":  {
-                   "result":  "Blocked",
-                   "total":  null,
-                   "passed":  null,
-                   "failed":  null,
-                   "skipped":  null,
-                   "inconclusive":  null,
-                   "unity_started":  false,
-                   "unity_exit_code":  null,
-                   "unity_invocations":  0,
+                   "result":  "Failed",
+                   "total":  55,
+                   "passed":  55,
+                   "failed":  0,
+                   "skipped":  0,
+                   "inconclusive":  0,
+                   "unity_started":  true,
+                   "unity_exit_code":  0,
+                   "unity_invocations":  1,
                    "automatic_retries":  0,
-                   "validation_passed":  false,
-                   "first_error":  "Restart preflight blocked before receipt/checkout/Unity: Formal repository is not clean; no changes were reset, stashed or discarded.",
+                   "validation_passed":  true,
+                   "first_error":  "Unity root error unconfirmed. Preserve this run; no automatic retry.",
                    "failed_fixture":  null,
                    "source_unchanged":  false,
-                   "project_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v3-20261108-122436-ff541d97\\direct",
-                   "library_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v3-20261108-122436-ff541d97\\direct\\Library"
+                   "project_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8\\direct",
+                   "library_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8\\direct\\Library",
+                   "worktree_preparation":  {
+                                                "project":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8\\direct",
+                                                "validation_passed":  true,
+                                                "git_add":  {
+                                                                "arguments":  [
+                                                                                  "worktree",
+                                                                                  "add",
+                                                                                  "--detach",
+                                                                                  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8\\direct",
+                                                                                  "46f65b24d58531d5934035fbe4cdb4d5b00104a6"
+                                                                              ],
+                                                                "process_id":  3328,
+                                                                "started":  true,
+                                                                "exit_code":  0,
+                                                                "timed_out":  false,
+                                                                "timeout_seconds":  900,
+                                                                "streams_complete":  true,
+                                                                "tree_stop":  null,
+                                                                "error":  null,
+                                                                "stdout":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8\\direct\\worktree-add.stdout.log",
+                                                                "stderr":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8\\direct\\worktree-add.stderr.log"
+                                                            },
+                                                "error":  null,
+                                                "head":  "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
+                                                "status_sample":  [
+
+                                                                  ],
+                                                "missing_directories":  [
+
+                                                                        ],
+                                                "tracked_count":  7209,
+                                                "missing_count":  0,
+                                                "missing_sample":  [
+
+                                                                   ],
+                                                "registration":  [
+                                                                     "worktree E:/Mofumachi-Validation/projects/progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8/direct",
+                                                                     "HEAD 46f65b24d58531d5934035fbe4cdb4d5b00104a6",
+                                                                     "detached"
+                                                                 ],
+                                                "source_clean":  true,
+                                                "registration_valid":  true,
+                                                "tracked_tree":  {
+                                                                     "arguments":  [
+                                                                                       "ls-tree",
+                                                                                       "-r",
+                                                                                       "-z",
+                                                                                       "46f65b24d58531d5934035fbe4cdb4d5b00104a6"
+                                                                                   ],
+                                                                     "process_id":  17940,
+                                                                     "started":  true,
+                                                                     "exit_code":  0,
+                                                                     "timed_out":  false,
+                                                                     "timeout_seconds":  900,
+                                                                     "streams_complete":  true,
+                                                                     "tree_stop":  null,
+                                                                     "error":  null,
+                                                                     "stdout":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8\\direct\\tracked-tree.stdout.log",
+                                                                     "stderr":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8\\direct\\tracked-tree.stderr.log"
+                                                                 }
+                                            }
                },
     "integration":  {
                         "result":  "NotRun",
@@ -159,14 +293,15 @@
                         "first_error":  null,
                         "failed_fixture":  null,
                         "source_unchanged":  false,
-                        "project_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v3-20261108-122436-ff541d97\\integration",
-                        "library_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v3-20261108-122436-ff541d97\\integration\\Library"
+                        "project_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8\\integration",
+                        "library_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8\\integration\\Library",
+                        "worktree_preparation":  null
                     },
     "validation_passed":  false,
-    "result":  "Blocked",
-    "first_error":  "Restart preflight blocked before receipt/checkout/Unity: Formal repository is not clean; no changes were reset, stashed or discarded.",
-    "runner_error":  "Restart preflight blocked before receipt/checkout/Unity: Formal repository is not clean; no changes were reset, stashed or discarded.",
-    "first_failed_phase":  "preflight",
+    "result":  "Failed",
+    "first_error":  "Unity root error unconfirmed. Preserve this run; no automatic retry.",
+    "runner_error":  "Pinned product inputs changed; do not start another phase.",
+    "first_failed_phase":  "direct",
     "source_unchanged":  false,
     "stage8_safe":  false,
     "review_required":  true

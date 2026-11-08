@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="55" result="Passed" total="55" passed="55" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-08 07:59:27Z" end-time="2026-11-08 07:59:28Z" duration="1.5623684">
+  <test-suite type="TestSuite" id="1000" name="もふまちメルジュ" fullname="もふまちメルジュ" runstate="Runnable" testcasecount="547" result="Passed" start-time="2026-11-08 07:59:27Z" end-time="2026-11-08 07:59:28Z" duration="1.562368" total="55" passed="55" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1660" name="Mofumachi.EditModeTests.dll" fullname="E:/Mofumachi-Validation/projects/progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8/direct/Library/ScriptAssemblies/Mofumachi.EditModeTests.dll" runstate="Runnable" testcasecount="528" result="Passed" start-time="2026-11-08 07:59:27Z" end-time="2026-11-08 07:59:28Z" duration="1.545274" total="55" passed="55" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="5860" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1661" name="Mofumachi" fullname="Mofumachi" runstate="Runnable" testcasecount="528" result="Passed" start-time="2026-11-08 07:59:27Z" end-time="2026-11-08 07:59:28Z" duration="1.538953" total="55" passed="55" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1662" name="Tests" fullname="Mofumachi.Tests" runstate="Runnable" testcasecount="528" result="Passed" start-time="2026-11-08 07:59:27Z" end-time="2026-11-08 07:59:28Z" duration="1.529864" total="55" passed="55" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1231" name="ProgressUiIntegrationTests" fullname="Mofumachi.Tests.ProgressUiIntegrationTests" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" testcasecount="55" result="Passed" start-time="2026-11-08 07:59:27Z" end-time="2026-11-08 07:59:28Z" duration="1.515125" total="55" passed="55" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1283" name="DailyJournalAndRewardsUseTheSameCommittedView" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.DailyJournalAndRewardsUseTheSameCommittedView" methodname="DailyJournalAndRewardsUseTheSameCommittedView" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="2143919308" result="Passed" start-time="2026-11-08 07:59:27Z" end-time="2026-11-08 07:59:27Z" duration="0.393663" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1270" name="DeliveryUpdatesCoinsCountNextQuestAndViewWithoutDuplicateReward" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.DeliveryUpdatesCoinsCountNextQuestAndViewWithoutDuplicateReward" methodname="DeliveryUpdatesCoinsCountNextQuestAndViewWithoutDuplicateReward" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="2061899264" result="Passed" start-time="2026-11-08 07:59:27Z" end-time="2026-11-08 07:59:27Z" duration="0.014035" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1285" name="DiskSaveLoadKeepsEconomyLedgerRequestsRouteAndBoundUi" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.DiskSaveLoadKeepsEconomyLedgerRequestsRouteAndBoundUi" methodname="DiskSaveLoadKeepsEconomyLedgerRequestsRouteAndBoundUi" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1425622407" result="Passed" start-time="2026-11-08 07:59:27Z" end-time="2026-11-08 07:59:28Z" duration="0.799357" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1264" name="DuplicateUnknownIdsDoNotEnterTheDisplayedRequestCount" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.DuplicateUnknownIdsDoNotEnterTheDisplayedRequestCount" methodname="DuplicateUnknownIdsDoNotEnterTheDisplayedRequestCount" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="887632417" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.004252" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1256" name="EligibleHelpChangesOnlyWalletAndCannotRepeatAfterSpending" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.EligibleHelpChangesOnlyWalletAndCannotRepeatAfterSpending" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.016365" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1254" name="EligibleHelpChangesOnlyWalletAndCannotRepeatAfterSpending(0)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.EligibleHelpChangesOnlyWalletAndCannotRepeatAfterSpending(0)" methodname="EligibleHelpChangesOnlyWalletAndCannotRepeatAfterSpending" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="2018625404" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.006480" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1255" name="EligibleHelpChangesOnlyWalletAndCannotRepeatAfterSpending(1)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.EligibleHelpChangesOnlyWalletAndCannotRepeatAfterSpending(1)" methodname="EligibleHelpChangesOnlyWalletAndCannotRepeatAfterSpending" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="990526407" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.005444" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1263" name="ExistingLevelUsesFormalNextThresholdAndActualUnique12Count" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.ExistingLevelUsesFormalNextThresholdAndActualUnique12Count" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.009441" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1257" name="ExistingLevelUsesFormalNextThresholdAndActualUnique12Count(0,0,0L,&quot;Lv1まで おねがい 0/1&quot;,&quot;まち交流 0/4&quot;)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.ExistingLevelUsesFormalNextThresholdAndActualUnique12Count(0,0,0L,&quot;Lv1まで おねがい 0/1&quot;,&quot;まち交流 0/4&quot;)" methodname="ExistingLevelUsesFormalNextThresholdAndActualUnique12Count" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1226767133" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.001924" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1258" name="ExistingLevelUsesFormalNextThresholdAndActualUnique12Count(1,1,4L,&quot;Lv2まで おねがい 1/2&quot;,&quot;まち交流 4/8&quot;)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.ExistingLevelUsesFormalNextThresholdAndActualUnique12Count(1,1,4L,&quot;Lv2まで おねがい 1/2&quot;,&quot;まち交流 4/8&quot;)" methodname="ExistingLevelUsesFormalNextThresholdAndActualUnique12Count" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="639333156" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.001246" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1259" name="ExistingLevelUsesFormalNextThresholdAndActualUnique12Count(2,3,32L,&quot;Lv3まで おねがい 3/4&quot;,&quot;まち交流 32/40&quot;)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.ExistingLevelUsesFormalNextThresholdAndActualUnique12Count(2,3,32L,&quot;Lv3まで おねがい 3/4&quot;,&quot;まち交流 32/40&quot;)" methodname="ExistingLevelUsesFormalNextThresholdAndActualUnique12Count" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="65588103" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.001161" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1260" name="ExistingLevelUsesFormalNextThresholdAndActualUnique12Count(3,4,40L,&quot;Lv4まで おねがい 4/6&quot;,&quot;まち交流 40/96&quot;)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.ExistingLevelUsesFormalNextThresholdAndActualUnique12Count(3,4,40L,&quot;Lv4まで おねがい 4/6&quot;,&quot;まち交流 40/96&quot;)" methodname="ExistingLevelUsesFormalNextThresholdAndActualUnique12Count" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1988744821" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.001213" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1261" name="ExistingLevelUsesFormalNextThresholdAndActualUnique12Count(4,6,96L,&quot;Lv5まで おねがい 6/9&quot;,&quot;まち交流 96/160&quot;)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.ExistingLevelUsesFormalNextThresholdAndActualUnique12Count(4,6,96L,&quot;Lv5まで おねがい 6/9&quot;,&quot;まち交流 96/160&quot;)" methodname="ExistingLevelUsesFormalNextThresholdAndActualUnique12Count" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1103175312" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.001137" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1262" name="ExistingLevelUsesFormalNextThresholdAndActualUnique12Count(5,9,160L,&quot;Lv6まで おねがい 9/12&quot;,&quot;まち交流 160/224&quot;)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.ExistingLevelUsesFormalNextThresholdAndActualUnique12Count(5,9,160L,&quot;Lv6まで おねがい 9/12&quot;,&quot;まち交流 160/224&quot;)" methodname="ExistingLevelUsesFormalNextThresholdAndActualUnique12Count" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1795332510" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.001149" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1292" name="ExistingPhoneTextSlotsFitWithNoPositionOrSizeChange" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.ExistingPhoneTextSlotsFitWithNoPositionOrSizeChange" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.011491" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1289" name="ExistingPhoneTextSlotsFitWithNoPositionOrSizeChange(304.0f)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.ExistingPhoneTextSlotsFitWithNoPositionOrSizeChange(304.0f)" methodname="ExistingPhoneTextSlotsFitWithNoPositionOrSizeChange" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="96296730" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.007424" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1290" name="ExistingPhoneTextSlotsFitWithNoPositionOrSizeChange(360.0f)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.ExistingPhoneTextSlotsFitWithNoPositionOrSizeChange(360.0f)" methodname="ExistingPhoneTextSlotsFitWithNoPositionOrSizeChange" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="218100788" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.001630" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1291" name="ExistingPhoneTextSlotsFitWithNoPositionOrSizeChange(411.0f)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.ExistingPhoneTextSlotsFitWithNoPositionOrSizeChange(411.0f)" methodname="ExistingPhoneTextSlotsFitWithNoPositionOrSizeChange" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="263747464" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.001534" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1280" name="FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.040185" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1271" name="FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState(&quot;generation&quot;)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState(&quot;generation&quot;)" methodname="FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="630635611" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.003977" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1272" name="FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState(&quot;talk&quot;)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState(&quot;talk&quot;)" methodname="FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1929859948" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.002834" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1273" name="FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState(&quot;walk&quot;)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState(&quot;walk&quot;)" methodname="FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1952684719" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.002486" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1274" name="FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState(&quot;flower&quot;)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState(&quot;flower&quot;)" methodname="FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1647497694" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.002512" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1275" name="FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState(&quot;recovery&quot;)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState(&quot;recovery&quot;)" methodname="FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="408626058" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.005823" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1276" name="FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState(&quot;extra&quot;)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState(&quot;extra&quot;)" methodname="FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1607583217" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.009313" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1277" name="FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState(&quot;help&quot;)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState(&quot;help&quot;)" methodname="FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="84904661" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.003457" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1278" name="FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState(&quot;delivery&quot;)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState(&quot;delivery&quot;)" methodname="FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1834737290" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.004732" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1279" name="FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState(&quot;growth&quot;)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState(&quot;growth&quot;)" methodname="FailedSaveNeverPublishesTentativeUiAndRestoresCompleteState" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1123369646" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.002822" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1265" name="FourthRequestAnd40ActionsAdvanceLevelAndItsNextConditionsTogether" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.FourthRequestAnd40ActionsAdvanceLevelAndItsNextConditionsTogether" methodname="FourthRequestAnd40ActionsAdvanceLevelAndItsNextConditionsTogether" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="2111039684" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.002252" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1241" name="FullBoardGenerationNeverChangesTheVisibleWallet" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.FullBoardGenerationNeverChangesTheVisibleWallet" methodname="FullBoardGenerationNeverChangesTheVisibleWallet" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="496652407" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.002599" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1249" name="FullWalletDisplays96WhileActionProgressStillIncreases" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.FullWalletDisplays96WhileActionProgressStillIncreases" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.007071" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1246" name="FullWalletDisplays96WhileActionProgressStillIncreases(&quot;talk&quot;,4L)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.FullWalletDisplays96WhileActionProgressStillIncreases(&quot;talk&quot;,4L)" methodname="FullWalletDisplays96WhileActionProgressStillIncreases" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1560425179" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.002183" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1247" name="FullWalletDisplays96WhileActionProgressStillIncreases(&quot;walk&quot;,6L)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.FullWalletDisplays96WhileActionProgressStillIncreases(&quot;walk&quot;,6L)" methodname="FullWalletDisplays96WhileActionProgressStillIncreases" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="648813936" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.001988" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1248" name="FullWalletDisplays96WhileActionProgressStillIncreases(&quot;flower&quot;,8L)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.FullWalletDisplays96WhileActionProgressStillIncreases(&quot;flower&quot;,8L)" methodname="FullWalletDisplays96WhileActionProgressStillIncreases" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1498829391" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.001858" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1288" name="InitializeDistinguishesNew24FromResumedDailyRecovery" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.InitializeDistinguishesNew24FromResumedDailyRecovery" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.015110" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1286" name="InitializeDistinguishesNew24FromResumedDailyRecovery(NewGame,24)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.InitializeDistinguishesNew24FromResumedDailyRecovery(NewGame,24)" methodname="InitializeDistinguishesNew24FromResumedDailyRecovery" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="2029649279" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.011064" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1287" name="InitializeDistinguishesNew24FromResumedDailyRecovery(Loaded,40)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.InitializeDistinguishesNew24FromResumedDailyRecovery(Loaded,40)" methodname="InitializeDistinguishesNew24FromResumedDailyRecovery" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="748081637" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.003219" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1239" name="InsufficientBalanceDoesNotSaveOrChangeDisplayedState" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.InsufficientBalanceDoesNotSaveOrChangeDisplayedState" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.005394" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1237" name="InsufficientBalanceDoesNotSaveOrChangeDisplayedState(0)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.InsufficientBalanceDoesNotSaveOrChangeDisplayedState(0)" methodname="InsufficientBalanceDoesNotSaveOrChangeDisplayedState" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="218265910" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.002920" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1238" name="InsufficientBalanceDoesNotSaveOrChangeDisplayedState(1)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.InsufficientBalanceDoesNotSaveOrChangeDisplayedState(1)" methodname="InsufficientBalanceDoesNotSaveOrChangeDisplayedState" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1425261679" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.001616" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1284" name="NewDayKeepsProgressAndClockRollbackCannotResetOrCreditAgain" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.NewDayKeepsProgressAndClockRollbackCannotResetOrCreditAgain" methodname="NewDayKeepsProgressAndClockRollbackCannotResetOrCreditAgain" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="172494961" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.006950" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1232" name="NewStateShows24FreeTeaPairExpandedRouteAndFirstRequest" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.NewStateShows24FreeTeaPairExpandedRouteAndFirstRequest" methodname="NewStateShows24FreeTeaPairExpandedRouteAndFirstRequest" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="684291213" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.005433" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1245" name="NormalRewardsUpdateWalletAndFaceValueProgressAndDuplicateDoesNotSave" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.NormalRewardsUpdateWalletAndFaceValueProgressAndDuplicateDoesNotSave" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.028876" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1242" name="NormalRewardsUpdateWalletAndFaceValueProgressAndDuplicateDoesNotSave(&quot;talk&quot;,28,4L)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.NormalRewardsUpdateWalletAndFaceValueProgressAndDuplicateDoesNotSave(&quot;talk&quot;,28,4L)" methodname="NormalRewardsUpdateWalletAndFaceValueProgressAndDuplicateDoesNotSave" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="234350347" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.007479" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1243" name="NormalRewardsUpdateWalletAndFaceValueProgressAndDuplicateDoesNotSave(&quot;walk&quot;,30,6L)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.NormalRewardsUpdateWalletAndFaceValueProgressAndDuplicateDoesNotSave(&quot;walk&quot;,30,6L)" methodname="NormalRewardsUpdateWalletAndFaceValueProgressAndDuplicateDoesNotSave" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1191077460" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.011932" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1244" name="NormalRewardsUpdateWalletAndFaceValueProgressAndDuplicateDoesNotSave(&quot;flower&quot;,32,8L)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.NormalRewardsUpdateWalletAndFaceValueProgressAndDuplicateDoesNotSave(&quot;flower&quot;,32,8L)" methodname="NormalRewardsUpdateWalletAndFaceValueProgressAndDuplicateDoesNotSave" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="644363022" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.007435" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1297" name="ProductionLayoutKeepsCommittedWalletVisibleAfterGenerationOrInsufficientFeedback" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.ProductionLayoutKeepsCommittedWalletVisibleAfterGenerationOrInsufficientFeedback" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.070786" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1293" name="ProductionLayoutKeepsCommittedWalletVisibleAfterGenerationOrInsufficientFeedback(640.0f,24)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.ProductionLayoutKeepsCommittedWalletVisibleAfterGenerationOrInsufficientFeedback(640.0f,24)" methodname="ProductionLayoutKeepsCommittedWalletVisibleAfterGenerationOrInsufficientFeedback" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1654355923" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.048084" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1294" name="ProductionLayoutKeepsCommittedWalletVisibleAfterGenerationOrInsufficientFeedback(740.0f,24)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.ProductionLayoutKeepsCommittedWalletVisibleAfterGenerationOrInsufficientFeedback(740.0f,24)" methodname="ProductionLayoutKeepsCommittedWalletVisibleAfterGenerationOrInsufficientFeedback" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="603009578" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.005967" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1295" name="ProductionLayoutKeepsCommittedWalletVisibleAfterGenerationOrInsufficientFeedback(640.0f,1)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.ProductionLayoutKeepsCommittedWalletVisibleAfterGenerationOrInsufficientFeedback(640.0f,1)" methodname="ProductionLayoutKeepsCommittedWalletVisibleAfterGenerationOrInsufficientFeedback" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="358214974" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.007091" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1296" name="ProductionLayoutKeepsCommittedWalletVisibleAfterGenerationOrInsufficientFeedback(640.0f,0)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.ProductionLayoutKeepsCommittedWalletVisibleAfterGenerationOrInsufficientFeedback(640.0f,0)" methodname="ProductionLayoutKeepsCommittedWalletVisibleAfterGenerationOrInsufficientFeedback" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="364125963" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.005007" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1282" name="RebindAndDisableDoNotLeaveAStaleSubscription" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.RebindAndDisableDoNotLeaveAStaleSubscription" methodname="RebindAndDisableDoNotLeaveAStaleSubscription" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1878716466" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.003308" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1253" name="RecoveryAndExtraWalkChangeOnlyWalletInProgressDisplay" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.RecoveryAndExtraWalkChangeOnlyWalletInProgressDisplay" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.006684" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1251" name="RecoveryAndExtraWalkChangeOnlyWalletInProgressDisplay(&quot;recovery&quot;,40)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.RecoveryAndExtraWalkChangeOnlyWalletInProgressDisplay(&quot;recovery&quot;,40)" methodname="RecoveryAndExtraWalkChangeOnlyWalletInProgressDisplay" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="953132786" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.002351" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1252" name="RecoveryAndExtraWalkChangeOnlyWalletInProgressDisplay(&quot;extra&quot;,26)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.RecoveryAndExtraWalkChangeOnlyWalletInProgressDisplay(&quot;extra&quot;,26)" methodname="RecoveryAndExtraWalkChangeOnlyWalletInProgressDisplay" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1654850650" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.003310" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1268" name="SavedMaxIsNeverShownAsLevelSevenEvenWhenNewRequestsRemain" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.SavedMaxIsNeverShownAsLevelSevenEvenWhenNewRequestsRemain" methodname="SavedMaxIsNeverShownAsLevelSevenEvenWhenNewRequestsRemain" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1452688688" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.003855" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1266" name="StorySixRemainsCompleteWithAdditionalSixStillPending" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.StorySixRemainsCompleteWithAdditionalSixStillPending" methodname="StorySixRemainsCompleteWithAdditionalSixStillPending" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="634011866" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.003782" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1281" name="SuccessfulSavePublishesOnlyAfterStoreReturnsAndObserverFailureCannotUndoIt" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.SuccessfulSavePublishesOnlyAfterStoreReturnsAndObserverFailureCannotUndoIt" methodname="SuccessfulSavePublishesOnlyAfterStoreReturnsAndObserverFailureCannotUndoIt" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="694606357" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.003550" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1236" name="SuccessfulUserGenerationImmediatelyShows22AndOnlyOneAddedItem" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.SuccessfulUserGenerationImmediatelyShows22AndOnlyOneAddedItem" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.014245" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1233" name="SuccessfulUserGenerationImmediatelyShows22AndOnlyOneAddedItem(&quot;tea&quot;)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.SuccessfulUserGenerationImmediatelyShows22AndOnlyOneAddedItem(&quot;tea&quot;)" methodname="SuccessfulUserGenerationImmediatelyShows22AndOnlyOneAddedItem" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1202048830" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.003357" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1234" name="SuccessfulUserGenerationImmediatelyShows22AndOnlyOneAddedItem(&quot;bread&quot;)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.SuccessfulUserGenerationImmediatelyShows22AndOnlyOneAddedItem(&quot;bread&quot;)" methodname="SuccessfulUserGenerationImmediatelyShows22AndOnlyOneAddedItem" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1256233461" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.003038" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1235" name="SuccessfulUserGenerationImmediatelyShows22AndOnlyOneAddedItem(&quot;flower&quot;)" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.SuccessfulUserGenerationImmediatelyShows22AndOnlyOneAddedItem(&quot;flower&quot;)" methodname="SuccessfulUserGenerationImmediatelyShows22AndOnlyOneAddedItem" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1832749852" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.006110" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1250" name="ThreeCharactersAndTwoWalksKeepTheirCapsInTheBoundView" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.ThreeCharactersAndTwoWalksKeepTheirCapsInTheBoundView" methodname="ThreeCharactersAndTwoWalksKeepTheirCapsInTheBoundView" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1246050495" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.014325" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1269" name="TwelveDoneWithoutEnoughActionsStillShowsGrowthInsteadOfFalseMax" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.TwelveDoneWithoutEnoughActionsStillShowsGrowthInsteadOfFalseMax" methodname="TwelveDoneWithoutEnoughActionsStillShowsGrowthInsteadOfFalseMax" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1165339942" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.001783" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1267" name="TwelveRequestsAnd224ActionsShowMaxAndNoNextConditions" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.TwelveRequestsAnd224ActionsShowMaxAndNoNextConditions" methodname="TwelveRequestsAnd224ActionsShowMaxAndNoNextConditions" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="406202645" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.003803" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1240" name="TwoPointsGenerateToZeroWhileFreeMergeAndMovementRemainAvailable" fullname="Mofumachi.Tests.ProgressUiIntegrationTests.TwoPointsGenerateToZeroWhileFreeMergeAndMovementRemainAvailable" methodname="TwoPointsGenerateToZeroWhileFreeMergeAndMovementRemainAvailable" classname="Mofumachi.Tests.ProgressUiIntegrationTests" runstate="Runnable" seed="1717284054" result="Passed" start-time="2026-11-08 07:59:28Z" end-time="2026-11-08 07:59:28Z" duration="0.004056" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+Saving results to: C:/Users/User/AppData/LocalLow/Massa_K/もふまちメルジュ\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

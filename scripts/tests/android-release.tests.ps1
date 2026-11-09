@@ -46,7 +46,9 @@ $Rejected = $false
 try { New-AndroidReleaseReceipt $Receipt 'replacement' } catch { $Rejected = $true }
 Check $Rejected 'Second attempt was accepted.'
 Check ([IO.File]::ReadAllText($Receipt) -eq 'fixture-run') 'Existing receipt overwritten.'
-$Git = (Get-Command git -CommandType Application).Source
+$GitCommand = Get-Command git -CommandType Application -ErrorAction Stop | Select-Object -First 1
+if ($null -eq $GitCommand -or [string]::IsNullOrWhiteSpace($GitCommand.Source)) { throw 'Git Application was not found or has an empty executable path.' }
+$Git = $GitCommand.Source
 $Repo = Join-Path $Scratch 'repo'
 $null = [IO.Directory]::CreateDirectory((Join-Path $Repo 'Assets'))
 & $Git -C $Repo init --quiet

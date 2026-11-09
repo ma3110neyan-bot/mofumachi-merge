@@ -1,0 +1,333 @@
+{
+  "record_type": "Read-only source settings plus new release-route declarations; native effective release settings unverified",
+  "recorded_at_utc": "2026-11-09T05:47:02.835211+00:00",
+  "source_commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
+  "reviewed_head": "4a0c471fb21313ef31be83f1aeaac9476ecf8819",
+  "windows_effective_build_settings_verified": false,
+  "unity_version": "6000.6.4f1",
+  "package_name": "com.mofumachi.merge",
+  "version": "1.0",
+  "version_code": 1,
+  "minimum_api": 26,
+  "target_api": 36,
+  "backend": "IL2CPP",
+  "architecture": [
+    "ARM64"
+  ],
+  "orientation": "Portrait",
+  "android_graphics_api": "OpenGLES3",
+  "android_graphics_automatic": false,
+  "tracked_profile": {
+    "path": "Assets/Settings/Build Profiles/Android™.asset",
+    "development": false,
+    "script_debugging": false,
+    "deep_profiling": false,
+    "autoconnect_profiler": false,
+    "build_app_bundle": false,
+    "source": "m_Development/m_AllowDebugging/m_BuildWithDeepProfilingSupport/m_ConnectProfiler/m_BuildAppBundle all 0",
+    "note": "Saved profile is OFF; the existing custom builder overrides this when invoked."
+  },
+  "existing_build_entry": {
+    "path": "Assets/Mofumachi/Editor/AndroidBuild.cs",
+    "method": "Mofumachi.Editor.AndroidBuild.BuildDevelopmentApk",
+    "configure_method": "ConfigureDeviceSettings",
+    "development": true,
+    "build_options": "BuildOptions.Development",
+    "script_debugging": false,
+    "deep_profiling": null,
+    "autoconnect_profiler": null,
+    "build_app_bundle": false,
+    "use_custom_keystore": false,
+    "output_format": "APK only",
+    "line_references": {
+      "use_custom_keystore": 48,
+      "build_app_bundle": 49,
+      "development": 51,
+      "script_debugging": 52,
+      "entry": 128,
+      "build_options": 156,
+      "output_path_apk_only": 181
+    },
+    "release_candidate_compatible": false
+  },
+  "existing_powershell_entry": {
+    "path": "scripts/build-android.ps1",
+    "suitable_for_this_request": false,
+    "reason": "Runs all EditMode and PlayMode before the Development/QA APK builder; not an RC AAB entry.",
+    "line_references": {
+      "all_editmode": 301,
+      "all_playmode": 306,
+      "build_method": 314
+    }
+  },
+  "signing": {
+    "tracked_keystore_name_present": false,
+    "tracked_keyalias_name_present": false,
+    "release_signing_verified": false,
+    "public_signing_preparation_record": "signing-status.json",
+    "public_signing_evidence_commit": "8c8579026b43359f240ade43fd3eaf863f354d9c",
+    "note": "The seven-field Windows preparation report is verified. Release preflight and actual signed AAB/APK verification have not run. Private signing values are process-local and not recorded."
+  },
+  "output_plan": {
+    "aab": "Unique release-candidate AAB under E; not created",
+    "apk": "Unique release-candidate Pixel3a APK under E; not created",
+    "overwrites_allowed": false
+  },
+  "input_files": [
+    {
+      "path": "ProjectSettings/ProjectSettings.asset",
+      "bytes": 23497,
+      "sha256": "4043fb3267581fb2660bf61b6ad8da480b4f2d718bf5909b8891058f2a1bc862",
+      "equals_pinned_blob": true
+    },
+    {
+      "path": "ProjectSettings/ProjectVersion.txt",
+      "bytes": 83,
+      "sha256": "338824f489d7ef647583e723283307ae92b3bb241d2fe874ac759dbf2f091701",
+      "equals_pinned_blob": true
+    },
+    {
+      "path": "ProjectSettings/EditorBuildSettings.asset",
+      "bytes": 468,
+      "sha256": "6cf5d3eff098e75d1a0b7ad162d148d93968576cec4784a64c8eb984cdd508ee",
+      "equals_pinned_blob": true
+    },
+    {
+      "path": "Assets/Settings/Build Profiles/Android™.asset",
+      "bytes": 1972,
+      "sha256": "b4a0fa570a0d3f958ef89690dace4898be9ebcb285f88b958779a297c345eab9",
+      "equals_pinned_blob": true
+    },
+    {
+      "path": "Assets/Mofumachi/Editor/AndroidBuild.cs",
+      "bytes": 13773,
+      "sha256": "78933406562159ed649af34fa6ba840eec0e1a3bf2a091b9fa4a372989e73731",
+      "equals_pinned_blob": true
+    },
+    {
+      "path": "scripts/build-android.ps1",
+      "bytes": 40579,
+      "sha256": "4f6862a7155657eca8eac59a9b87f5a53cb1d26762b370111725d697a109b291",
+      "equals_pinned_blob": true
+    }
+  ],
+  "protected_tracked_trees": {
+    "Assets": {
+      "pinned_tree": "ba76d4f7d6d47c217a4ede326c3ed22526a53643",
+      "reviewed_tree": "ba76d4f7d6d47c217a4ede326c3ed22526a53643",
+      "unchanged": true
+    },
+    "Packages": {
+      "pinned_tree": "019037de39f5219c0dd13b6250e7cfbf1422c672",
+      "reviewed_tree": "019037de39f5219c0dd13b6250e7cfbf1422c672",
+      "unchanged": true
+    },
+    "ProjectSettings": {
+      "pinned_tree": "1bafa8c3496d3d60e087d3994b2f1d2c54076ed5",
+      "reviewed_tree": "1bafa8c3496d3d60e087d3994b2f1d2c54076ed5",
+      "unchanged": true
+    },
+    "References/VisualLock": {
+      "pinned_tree": "bcc1dcb27ad849873554b5878534bcde66f5a675",
+      "reviewed_tree": "bcc1dcb27ad849873554b5878534bcde66f5a675",
+      "unchanged": true
+    }
+  },
+  "windows_formal_repository": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge",
+  "windows_formal_repository_clean_now": null,
+  "cloud_repository_clean_at_start": true,
+  "validation_root_if_executed": "E:\\Mofumachi-Validation",
+  "validation_directories_created": false,
+  "old_build_entry_preserved": {
+    "Assets/Mofumachi/Editor/AndroidBuild.cs": {
+      "unchanged": true,
+      "sha256": "78933406562159ed649af34fa6ba840eec0e1a3bf2a091b9fa4a372989e73731"
+    },
+    "scripts/build-android.ps1": {
+      "unchanged": true,
+      "sha256": "4f6862a7155657eca8eac59a9b87f5a53cb1d26762b370111725d697a109b291"
+    }
+  },
+  "release_build_entry": {
+    "path": "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs",
+    "methods": [
+      "Mofumachi.Editor.AndroidReleaseBuild.BuildReleaseAab",
+      "Mofumachi.Editor.AndroidReleaseBuild.BuildReleaseApk"
+    ],
+    "script": "scripts/build-android-release.ps1",
+    "development": false,
+    "script_debugging": false,
+    "deep_profiling": false,
+    "autoconnect_profiler": false,
+    "build_options": "BuildOptions.None",
+    "backend": "IL2CPP",
+    "architecture": [
+      "ARM64"
+    ],
+    "orientation": "Portrait",
+    "package": "com.mofumachi.merge",
+    "custom_signing": true,
+    "aab_and_apk_separate": true,
+    "status": "Unchanged release C# API compile passed; limited script34/34 checks passed; native build settings unverified until the next Windows operation.",
+    "effective_runtime_settings_verified": false,
+    "signing_environment_names": [
+      "MOFUMACHI_KEYSTORE_PATH",
+      "MOFUMACHI_KEYSTORE_PASSWORD",
+      "MOFUMACHI_KEY_ALIAS",
+      "MOFUMACHI_KEY_ALIAS_PASSWORD"
+    ],
+    "signing_values_recorded": false,
+    "pre_unity_signing_gate_implemented": true,
+    "certificate_verification_implemented": "keytool before Unity; jarsigner/keytool for AAB and apksigner for APK; not executed",
+    "output_root": "E:\\Mofumachi-Validation\\release-candidate",
+    "workspace_policy": "New short E worktree from committed tooling HEAD; game baseline remains fixed. TEMP/TMP/UPM/Library/Diagnostics on E.",
+    "overwrite_policy": "Unique per-run paths; File.Move without overwrite; FileMode.CreateNew attempt receipts",
+    "attempt_identity": "Product SHA + content hash of new C#/meta/PS1; review-only commits do not reset attempts",
+    "default_mode": "Preflight only; actual builds require explicit -Build after Windows local signing/source gates. No builds run in this task.",
+    "source_guard": "All tracked content working/index diffs; only root .vsconfig untracked allowlist; explicit two new Editor file additions against product baseline",
+    "temporary_settings": "Restore only configuration values assigned by this release entry in finally; no Git reset/restore and no hiding unrelated Unity content changes"
+  },
+  "new_tooling_files": [
+    {
+      "path": "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs",
+      "bytes": 12738,
+      "sha256": "648df2dcdb001824b5bac38e334f41189ecf2a7c6d4c5052ab507c498dba6d9e"
+    },
+    {
+      "path": "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs.meta",
+      "bytes": 240,
+      "sha256": "888cee050dce317ed3d9bc0dbf9b3f8f7115c6b7a5239b3eac2b3dd844adc06e"
+    },
+    {
+      "path": "scripts/build-android-release.ps1",
+      "bytes": 26595,
+      "sha256": "e1e1d1b03f75d91ddffc7c7d566ea09292f6e20da94d5b0449f3f10ea5f39f31"
+    },
+    {
+      "path": "scripts/tests/android-release.tests.ps1",
+      "bytes": 5790,
+      "sha256": "a4197e85955fc84d714b5c03be7aa20e363da9540f5d834c3c72af8a10fa2f5a"
+    }
+  ],
+  "validation": {
+    "recorded_at_utc": "2026-11-09T04:37:55.060186+00:00",
+    "verified_source_commit": "c86941dc65291867fe6400345c0bb97beb51035e",
+    "execution_base_head": "b03a9814df64cd26f9feb770bde0a3bbefce3d41",
+    "test_worktree_patch": "validation/git-selection-fix/git-selection-only.diff",
+    "test_input_committed_unchanged_after_execution": true,
+    "reference_conflict_fixed": true,
+    "api_compile": {
+      "result": "Passed",
+      "exit_code": 0,
+      "automatic_retries": 0,
+      "cs0433_present": false,
+      "first_csharp_error": null,
+      "release_builder_type_resolution_succeeded": true,
+      "log": "validation/api-compile.log",
+      "response_file": "validation/compile.rsp",
+      "existing_tool_warning": "CS2023: /noconfig in response file ignored; unchanged, not a source error.",
+      "output": {
+        "path": "/tmp/mofumachi-android-release-entry/AndroidReleaseBuild.dll",
+        "bytes": 12800,
+        "sha256": "e77a00597e545ff9062f26fd5306abdbc974dd9539b4a9b48a083439b30faddc",
+        "committed_binary": false
+      },
+      "evidence_commit": "b03a9814df64cd26f9feb770bde0a3bbefce3d41",
+      "attempts_in_evidence_run": 1,
+      "invocations_this_request": 0,
+      "source_unchanged_since_pass": true
+    },
+    "api_compile_invocations_this_request": 0,
+    "static_validation_passed": true,
+    "release_limited_tests_passed": true,
+    "git_selection_fixed": true,
+    "code_changed_file_count": 1,
+    "code_changed_files": [
+      "scripts/tests/android-release.tests.ps1"
+    ],
+    "change_scope": "One Git discovery statement replaced by single Application selection and explicit empty-path rejection. All other test bytes unchanged; no PATH edits or fallback.",
+    "before_file_sha256": "1f1ba6b25515b0f067e501a344f0512c66bf7ab30258dadb5f837bcff21749e9",
+    "after_file_sha256": "a4197e85955fc84d714b5c03be7aa20e363da9540f5d834c3c72af8a10fa2f5a",
+    "before_source_snippet": "validation/git-selection-fix/before-git-discovery.txt",
+    "limited_script_checks": {
+      "result": "Passed",
+      "exit_code": 0,
+      "attempts_this_request": 1,
+      "automatic_retries": 0,
+      "total": 34,
+      "passed": 34,
+      "failed": 0,
+      "count_unit": "script Check assertions, not NUnit/Unity test cases",
+      "log": "validation/git-selection-fix/release-tests.log",
+      "first_error": null,
+      "coverage": {
+        "git_fixture_initialization": "Passed; script reached all34 assertions",
+        "release_entry_validation": "Passed; existing scoped checks only",
+        "development_off": "Passed; source declaration checks, not native build execution",
+        "aab_apk_entry_switch": "Passed; separate Unity executeMethod arguments, no real outputs",
+        "signing_preflight": "Passed; synthetic valid/missing/invalid-file fixtures only",
+        "secret_non_exposure": "Passed; synthetic redaction and argument/report checks",
+        "qa_protection": "Passed; independent byte/SHA comparison of the two unchanged QA files",
+        "source_guard": "Passed; real temporary Git working/index/untracked/CRLF/.vsconfig fixture checks"
+      },
+      "warnings": "Three expected LF-to-CRLF warnings from the temporary fixture; all checks passed."
+    },
+    "protected_sources": [
+      {
+        "path": "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs",
+        "sha256": "648df2dcdb001824b5bac38e334f41189ecf2a7c6d4c5052ab507c498dba6d9e",
+        "unchanged": true
+      },
+      {
+        "path": "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs.meta",
+        "sha256": "888cee050dce317ed3d9bc0dbf9b3f8f7115c6b7a5239b3eac2b3dd844adc06e",
+        "unchanged": true
+      },
+      {
+        "path": "scripts/build-android-release.ps1",
+        "sha256": "e1e1d1b03f75d91ddffc7c7d566ea09292f6e20da94d5b0449f3f10ea5f39f31",
+        "unchanged": true
+      },
+      {
+        "path": "Assets/Mofumachi/Editor/AndroidBuild.cs",
+        "sha256": "78933406562159ed649af34fa6ba840eec0e1a3bf2a091b9fa4a372989e73731",
+        "unchanged": true
+      },
+      {
+        "path": "scripts/build-android.ps1",
+        "sha256": "4f6862a7155657eca8eac59a9b87f5a53cb1d26762b370111725d697a109b291",
+        "unchanged": true
+      }
+    ],
+    "release_builder_changed": false,
+    "qa_changed": false,
+    "game_changed": false,
+    "project_settings_changed": false,
+    "packages_changed": false,
+    "visual_lock_changed": false,
+    "source_unchanged": true,
+    "source_unchanged_scope": "Protected game/builders/config/locks unchanged; the approved Git-discovery-only test edit is recorded separately.",
+    "unity_invocations": 0,
+    "game_fixture_runs": 0,
+    "stage7_test_reruns": 0,
+    "automatic_retries": 0,
+    "real_builds": 0,
+    "first_error": null,
+    "failed_phase": null,
+    "current_first_error_created": false,
+    "historical_error_files": {
+      "source_evidence_commit": "b03a9814df64cd26f9feb770bde0a3bbefce3d41",
+      "files": [
+        "first-error.log",
+        "failure.log",
+        "References/Review/latest/error.log"
+      ],
+      "note": "Unmodified previous failure originals retained; they do not describe this successful run."
+    },
+    "next_real_build_safe": true,
+    "next_real_build_scope": "Ready for the next Windows release-build step with mandatory clean-source and local signing preflight. No real build authorized or executed in this task.",
+    "windows_actual_signing_preflight_verified": false,
+    "stage8_complete": false
+  },
+  "current_windows_prerequisites": "windows-prerequisites.json"
+}

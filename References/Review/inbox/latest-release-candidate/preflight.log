@@ -1,12 +1,10 @@
-Read-only source preflight. No Unity, Android build, adb or Pixel command was executed.
-branch: feat/daily-world-pass-20261016
-HEAD: 740b5715bfd8bbfa56dacb2097f86cf81a442135
-git status --porcelain=v1 --untracked-files=all: empty at start (cloud checkout only)
-git merge-base --is-ancestor 46f65b24d58531d5934035fbe4cdb4d5b00104a6 HEAD: exit 0
-git diff --name-only 46f65b24d58531d5934035fbe4cdb4d5b00104a6 HEAD -- Assets Packages ProjectSettings References/VisualLock: empty, exit 0
-Static Android profile: Development/ScriptDebugging/DeepProfiling/ConnectProfiler=0; AAB=0.
-Static builder: useCustomKeystore=false; buildAppBundle=false; development=true; BuildOptions.Development.
-scripts/build-android.ps1: all-EditMode then all-PlayMode then Development/QA APK; not used.
-No separate release AAB/custom-keystore entry located in the existing game Editor/build scripts.
-Windows current repo clean/signing/Pixel USB: not observed; no assumptions made.
-Stop: RC_BUILD_ENTRY_INCOMPATIBLE / RELEASE_SIGNING_UNCONFIRMED.
+Release-only tooling added, then verification stopped.
+Product revision: 46f65b24d58531d5934035fbe4cdb4d5b00104a6
+Tooling revision: ea503db12f34d0eaec418f4aaa507b2d4512d469
+Existing AndroidBuild.cs and build-android.ps1: exact pinned bytes, unchanged.
+New source declares Development/debugging/deep profiling/autoconnect OFF, BuildOptions.None, IL2CPP/ARM64/Portrait. Runtime behavior unverified.
+New script declares pre-Unity local signing inputs/certificate gate, isolated E worktree, AAB then APK, no overwrite and no retries. Runtime behavior unverified.
+API-only compiler attempts=1, exit=1. First error CS0433. Duplicate UnityEditor/UnityEditor.CoreModule reference setup; no code fix, no corrected compile.
+Limited checks: expected RED before implementation; after-implementation checks NOT RUN due to stop condition.
+Unity instances=0, actual builds=0, game test runs=0, automatic retries=0.
+No real signing secrets were read or written; no keystore was used; no Pixel command ran.

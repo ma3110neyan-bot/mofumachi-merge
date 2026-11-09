@@ -1,8 +1,8 @@
 {
-  "record_type": "Read-only tracked source inspection; not a Unity Editor runtime snapshot",
-  "recorded_at_utc": "2026-11-09T03:13:28.198506+00:00",
+  "record_type": "Read-only source settings plus new release-route declarations; native effective release settings unverified",
+  "recorded_at_utc": "2026-11-09T03:41:25.065827+00:00",
   "source_commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
-  "reviewed_head": "740b5715bfd8bbfa56dacb2097f86cf81a442135",
+  "reviewed_head": "ea503db12f34d0eaec418f4aaa507b2d4512d469",
   "windows_effective_build_settings_verified": false,
   "unity_version": "6000.6.4f1",
   "package_name": "com.mofumachi.merge",
@@ -137,5 +137,122 @@
   "windows_formal_repository_clean_now": null,
   "cloud_repository_clean_at_start": true,
   "validation_root_if_executed": "E:\\Mofumachi-Validation",
-  "validation_directories_created": false
+  "validation_directories_created": false,
+  "old_build_entry_preserved": {
+    "Assets/Mofumachi/Editor/AndroidBuild.cs": {
+      "unchanged": true,
+      "sha256": "78933406562159ed649af34fa6ba840eec0e1a3bf2a091b9fa4a372989e73731"
+    },
+    "scripts/build-android.ps1": {
+      "unchanged": true,
+      "sha256": "4f6862a7155657eca8eac59a9b87f5a53cb1d26762b370111725d697a109b291"
+    }
+  },
+  "release_build_entry": {
+    "path": "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs",
+    "methods": [
+      "Mofumachi.Editor.AndroidReleaseBuild.BuildReleaseAab",
+      "Mofumachi.Editor.AndroidReleaseBuild.BuildReleaseApk"
+    ],
+    "script": "scripts/build-android-release.ps1",
+    "development": false,
+    "script_debugging": false,
+    "deep_profiling": false,
+    "autoconnect_profiler": false,
+    "build_options": "BuildOptions.None",
+    "backend": "IL2CPP",
+    "architecture": [
+      "ARM64"
+    ],
+    "orientation": "Portrait",
+    "package": "com.mofumachi.merge",
+    "custom_signing": true,
+    "aab_and_apk_separate": true,
+    "status": "Added; API compile verification blocked, limited script checks not run after implementation",
+    "effective_runtime_settings_verified": false,
+    "signing_environment_names": [
+      "MOFUMACHI_KEYSTORE_PATH",
+      "MOFUMACHI_KEYSTORE_PASSWORD",
+      "MOFUMACHI_KEY_ALIAS",
+      "MOFUMACHI_KEY_ALIAS_PASSWORD"
+    ],
+    "signing_values_recorded": false,
+    "pre_unity_signing_gate_implemented": true,
+    "certificate_verification_implemented": "keytool before Unity; jarsigner/keytool for AAB and apksigner for APK; not executed",
+    "output_root": "E:\\Mofumachi-Validation\\release-candidate",
+    "workspace_policy": "New short E worktree from committed tooling HEAD; game baseline remains fixed. TEMP/TMP/UPM/Library/Diagnostics on E.",
+    "overwrite_policy": "Unique per-run paths; File.Move without overwrite; FileMode.CreateNew attempt receipts",
+    "attempt_identity": "Product SHA + content hash of new C#/meta/PS1; review-only commits do not reset attempts",
+    "default_mode": "Signing/source preflight only. Real builds require explicit -Build. Do not execute until validation is cleared.",
+    "source_guard": "All tracked content working/index diffs; only root .vsconfig untracked allowlist; explicit two new Editor file additions against product baseline",
+    "temporary_settings": "Restore only configuration values assigned by this release entry in finally; no Git reset/restore and no hiding unrelated Unity content changes"
+  },
+  "new_tooling_files": [
+    {
+      "path": "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs",
+      "bytes": 12738,
+      "sha256": "648df2dcdb001824b5bac38e334f41189ecf2a7c6d4c5052ab507c498dba6d9e"
+    },
+    {
+      "path": "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs.meta",
+      "bytes": 240,
+      "sha256": "888cee050dce317ed3d9bc0dbf9b3f8f7115c6b7a5239b3eac2b3dd844adc06e"
+    },
+    {
+      "path": "scripts/build-android-release.ps1",
+      "bytes": 26595,
+      "sha256": "e1e1d1b03f75d91ddffc7c7d566ea09292f6e20da94d5b0449f3f10ea5f39f31"
+    },
+    {
+      "path": "scripts/tests/android-release.tests.ps1",
+      "bytes": 5568,
+      "sha256": "1f1ba6b25515b0f067e501a344f0512c66bf7ab30258dadb5f837bcff21749e9"
+    }
+  ],
+  "validation": {
+    "recorded_at_utc": "2026-11-09T03:41:25.065827+00:00",
+    "implementation_commit": "ea503db12f34d0eaec418f4aaa507b2d4512d469",
+    "product_commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
+    "static_validation_passed": false,
+    "first_failed_phase": "api_only_compile",
+    "api_compile": {
+      "result": "Blocked",
+      "exit_code": 1,
+      "attempts": 1,
+      "automatic_retries": 0,
+      "unity_editor_started": false,
+      "compiler": "Installed Unity6000.6.4f1 SDK Roslyn csc; API-only standalone compilation",
+      "first_error": "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs(29,27): error CS0433: The type 'BuildFailedException' exists in both 'UnityEditor.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' and 'UnityEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null'",
+      "error_codes": {
+        "CS0433": 113
+      },
+      "root_cause": "Our standalone verification response file references both Managed/UnityEditor.dll and Managed/UnityEngine/UnityEditor.CoreModule.dll, which export duplicate Editor types. This is a validation-reference conflict, not proof of a game/build source defect.",
+      "log": "validation/api-compile.log",
+      "response_file": "validation/compile.rsp"
+    },
+    "limited_script_checks": {
+      "after_implementation": "NotRun",
+      "reason": "Stopped at the first API compile failure; no further code changes or verification runs.",
+      "expected_red_before_implementation": {
+        "exit_code": 1,
+        "reason": "Missing release-only entry, as expected before adding it.",
+        "log": "validation/red.log"
+      }
+    },
+    "next_minimum_candidate": "Correct only the standalone compiler reference list in the temporary verification harness so each Editor API has one definition. No game/QA builder change is indicated by CS0433. No corrected compile was run in this task.",
+    "protected_old_entries": {
+      "Assets/Mofumachi/Editor/AndroidBuild.cs": {
+        "unchanged": true,
+        "sha256": "78933406562159ed649af34fa6ba840eec0e1a3bf2a091b9fa4a372989e73731"
+      },
+      "scripts/build-android.ps1": {
+        "unchanged": true,
+        "sha256": "4f6862a7155657eca8eac59a9b87f5a53cb1d26762b370111725d697a109b291"
+      }
+    },
+    "game_tests_rerun": false,
+    "stage7_55_or444_rerun": false,
+    "unity_invocations": 0,
+    "build_invocations": 0
+  }
 }

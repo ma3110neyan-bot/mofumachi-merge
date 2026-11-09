@@ -1,10 +1,4 @@
-Stage8 preflight BLOCKED; this is not a Unity build or product test failure.
-Source: 46f65b24d58531d5934035fbe4cdb4d5b00104a6
-Assets/Mofumachi/Editor/AndroidBuild.cs:48 PlayerSettings.Android.useCustomKeystore = false;
-Assets/Mofumachi/Editor/AndroidBuild.cs:49 EditorUserBuildSettings.buildAppBundle = false;
-Assets/Mofumachi/Editor/AndroidBuild.cs:51 EditorUserBuildSettings.development = true;
-Assets/Mofumachi/Editor/AndroidBuild.cs:156 options = BuildOptions.Development
-Saved Android build profile is Development OFF. The custom builder would override it; no builder was invoked.
-ProjectSettings/ProjectSettings.asset:277-278: tracked keystore and alias names empty; private Windows release signing unconfirmed.
-Stopped under user Stage8 Step1/stop rules. Unity/build/test invocations=0, automatic retries=0.
-First Unity/compiler/build error: none (not executed). Build exit code/log: absent (not executed).
+Assets/Mofumachi/Editor/AndroidReleaseBuild.cs(29,27): error CS0433: The type 'BuildFailedException' exists in both 'UnityEditor.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' and 'UnityEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null'
+
+Root cause: duplicate Editor assemblies in our API-only validation response file.
+No Unity invocation, no actual AAB/APK build, no retry. Product source error not established.

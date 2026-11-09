@@ -1,72 +1,58 @@
-# 第8工程：リリース候補ビルド前の設定確認で停止
+# 第8工程：release専用入口追加済み・静的検証で停止
 
-- 更新：2026-11-09。状態：**実装済み・実機未確認**。第8工程の事前確認で不適合を特定した。
-- branch：`feat/daily-world-pass-20261016`。作業開始HEAD：`740b5715bfd8bbfa56dacb2097f86cf81a442135`、working treeはclean（クラウド側）。Windows正式repoの現在のclean状態は未確認。
-- 固定ゲーム実装：`46f65b24d58531d5934035fbe4cdb4d5b00104a6`。HEADの祖先で、Assets／Packages／ProjectSettings／Visual Lockは同commitと差分なし。
-- 第7工程は**complete=true**のまま維持。正式証跡`19ddb34ed35838affc191ae98b18e67900613be7`、正式記録`740b5715bfd8bbfa56dacb2097f86cf81a442135`。v5 Phase1 55/55、Phase2 444/444、source_unchanged=true。再実行していない。
+状態：**修正済み・未確認**。本タスクの完了条件「static validation通過」は未達。Windowsでまだ実行しない。
 
-## 停止理由
+- branch：`feat/daily-world-pass-20261016`。
+- release経路追加commit：`ea503db12f34d0eaec418f4aaa507b2d4512d469`。
+- 固定ゲーム実装：`46f65b24d58531d5934035fbe4cdb4d5b00104a6`。
+- 第7工程：complete=trueを維持。v5の55/55、444/444を再実行していない。
 
-保存済みAndroidプロファイルはDevelopment Build OFFだが、既存カスタムビルダーを使うとONになる。
+## 追加したファイル
 
-| 根拠 | 実内容 | RCへの影響 |
-| --- | --- | --- |
-| Assets/Settings/Build Profiles/Android™.asset:36–40 | Development／Script Debugging／Deep Profiling／Autoconnect Profilerは0 | 保存済みプロファイル自体はOFF |
-| Assets/Mofumachi/Editor/AndroidBuild.cs:51,156 | development=true、BuildOptions.Development | ビルダーがOFFを上書きし開発ビルドにする |
-| 同:48 | useCustomKeystore=false | 既存経路はdebug署名 |
-| 同:49,181 | buildAppBundle=false、出力は.apkのみ | AAB候補を作れない |
-| ProjectSettings/ProjectSettings.asset:277–278 | keystore名・alias名は空 | Windowsの正式署名設定は未確認。鍵が存在しないとは断定しない |
+- `Assets/Mofumachi/Editor/AndroidReleaseBuild.cs`と.meta：AAB/APKの独立入口。Development・Script Debugging・Deep Profiling・Autoconnect Profiler OFF、BuildOptions.None、IL2CPP、ARM64、Portraitを明示。
+- `scripts/build-android-release.ps1`：4環境変数の署名preflight、公開証明書照合、E上の隔離worktree、AAB成功時だけAPK、各出力1回限りのreceipt、全追跡内容比較とroot .vsconfigのみのallowlist、秘匿値を除いたログ・メタデータ保存。既定はpreflightのみ。実ビルドには明示的な-Buildが必要だが、**今回は未検証のため実行を案内しない**。
+- `scripts/tests/android-release.tests.ps1`：新経路だけの限定確認。ゲームfixtureへ追加していない。実装後の実行は下記停止により未実施。
 
-既存`scripts/build-android.ps1`は全件EditMode／PlayModeを走らせてから上記Development/QA APKを生成する経路。今回のRC作成には使用していない。別の既存AAB／正式署名用カスタム入口は確認できなかった。
+`AndroidBuild.cs`と`build-android.ps1`は固定製品と生バイト／SHA256が一致。既存Development/QA経路・ゲーム・Save・UI・Visual Lock・前工程ランチャーに変更なし。
 
-**添付指示Step1の「Development BuildがONなら必要性を明示して停止」と停止ルール「signing不明」に従い、ビルド前で停止した。** Unity／compiler／Gradleの実行エラーではない。設定、コード、署名、Guardを変更して通過させていない。
+署名はWindowsローカルの`MOFUMACHI_KEYSTORE_PATH`、`MOFUMACHI_KEYSTORE_PASSWORD`、`MOFUMACHI_KEY_ALIAS`、`MOFUMACHI_KEY_ALIAS_PASSWORD`から取得する実装。実際の秘密値・鍵を読み込まず、Git／JSON／ログへ保存していない。コード内のfixture文字列は合成値。
 
-## 読み取り確認した設定
+## 最初の停止と根本原因
 
-| 項目 | Git上の確認値 |
+Unityを起動しないAPI-only C#コンパイルを1回実行し、exit1で停止した。
+
+```text
+Assets/Mofumachi/Editor/AndroidReleaseBuild.cs(29,27): error CS0433: The type 'BuildFailedException' exists in both 'UnityEditor.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' and 'UnityEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null'
+```
+
+こちらで組んだ検証用参照一覧が`Managed/UnityEditor.dll`と`Managed/UnityEngine/UnityEditor.CoreModule.dll`を同時に参照し、Editor型が重複した。113件すべてCS0433で同一の参照競合。**検証コマンドの構成が原因であり、製品のUnity起動・ビルド失敗やゲームソース不具合とは確定していない。**
+
+ユーザー指示の「releaseビルダー追加後にコンパイルエラーがある場合は停止」に従い、コードを追加修正せず、参照修正後の再コンパイルも行っていない。wrapperのthrowを根本原因にしていない。
+
+原本`validation/api-compile.log`と`validation/compile.rsp`、最初のエラー`first-error.log`、検証結果`validation/static-validation.json`を保存した。実装前の期待されたRED（入口未作成）は`validation/red.log`へ保存。実装後の限定チェックはNotRun。合格や静的検証完了へ置き換えていない。
+
+## 判定
+
+| 要件 | 現在の状態 |
 | --- | --- |
-| Unity | 6000.6.4f1 |
-| package | com.mofumachi.merge |
-| version／versionCode | 1.0／1 |
-| minimum／target API | 26／36 |
-| backend／architecture | IL2CPP／ARM64 |
-| orientation | Portrait |
-| Graphics API | OpenGLES3（自動選択OFF） |
-| profileのDevelopment／Script Debugging／Deep Profiling／Autoconnect | 全OFF |
-| 既存ビルダー実行時のDevelopment | ONを指定（未実行） |
-| Windows実効設定／正式署名 | 未確認 |
+| release専用入口追加 | YES（未検証） |
+| 既存QA経路変更 | NO |
+| AAB／APK対応 | YES（実装上の対応・実ビルド未確認） |
+| Development OFF強制 | YES（コードへ明示・実効設定未確認） |
+| 正式署名preflight | YES（実装済み・Windows実行未確認） |
+| 実秘密値Git混入 | NO |
+| source_unchanged | true（既存ゲーム・既存QA・設定・Visual Lock。新しいツール追加は別記） |
+| static validation | **未合格：API参照競合で停止** |
+| 実ビルド | NO |
+| 第8工程 complete | **false** |
+| 次にAAB/APK実ビルドへ進んで安全か | **NO** |
 
-この表はGit上の静的設定確認。Unity起動後の実効設定スナップショットやビルド成功の代わりにはしていない。クラウドにはWindows正式repo／Unity既存ライセンス／USB Pixel 3aが接続されていない。既知の環境不足を新たな製品不具合として扱っていない。
+Unity起動0回、AAB/APK生成0、ゲームテスト再実行0、自動再試行0。Windows正式repoとE上の履歴に触れていない。Pixel確認／Google Play提出へ進んでいない。
 
-## 成果物・実行状態
+次の最小候補は、**一時検証用コンパイラの参照一覧だけを正し、Editor型の定義元を重複させないこと**。このエラーからゲームコードや既存QAビルダーの修正は必要と判断していない。今回はその修正・再実行を行わず停止。
 
-| 確認 | 今回の結果 |
-| --- | --- |
-| AAB build | **未実行**（PASS／FAILを判定できるビルドなし） |
-| APK build | **未実行** |
-| Pixel 3a install | **未実行** |
-| Pixel 3a functional check | **未実行** |
-| Save/Resume | **未実行** |
-| Visual regression | **未実行・未確認** |
-| source_unchanged | **true（静的ソース比較のみ）**。実ビルド後の値は未確認 |
-| Visual Lock変更 | なし |
-| Unity／ビルド／テスト起動 | 全0回 |
-| 自動再試行 | 0回 |
+前回preflight記録c988164は`previous-preflight-c988164/`へ同じバイトで保持した。履歴のchecksumsは当時のcommitツリーに対するもの。今回checksumsは現行文書・原本ログ・追加ツール／既存入力のハッシュを別途記録する。実AAB/APKや実機画像はない。
 
-新AAB／APK／実機画像／Unityビルドログは存在しないため捏造せず、JSONではnull／NotRun。過去版の成果物を流用しない。build-settings.json、build-info.json、source-revision.txt、checksums.sha256、preflight.log、failure.log、空のscreenshot-manifest.json、未実行のPixelチェック表を固定共有先へ保存した。failure.logは設定不適合の根拠であり、架空のUnityエラーではない。checksumsは記録文書と読み取った入力ファイルのSHAで、AAB/APKのSHAではない。
+固定共有：`References/Review/inbox/latest-release-candidate/`。第7工程の正式記録はlatest下と元commit740b571に保持。
 
-正式repo `C:\Users\User\Desktop\Mofumachi\mofumachi-merge`を移動・削除・変更していない。以後のビルド／Library／TEMP／cache／Diagnosticsは`E:\Mofumachi-Validation`を使用する前提で、今回は作成・実行していない。
-
-## 必要な最小対応（未実施）
-
-1. Windows上で、リリース用keystore／alias／証明書の識別を確認する。鍵やパスワードをGit／共有ログへ入れない。
-2. 既存の開発用ビルダーをRC用に使用しない。Development／debugging／profilersをOFFにし、AABと実機APKを選べるrelease専用の入口・設定を用意する必要がある。現`AndroidBuild.cs`の48–51、156行を通る経路は不適合。既存QA経路を全体変更する案は採用していない。
-3. 実行前にWindows正式repo clean、固定製品との関係、変更するビルド用ファイル・差分、署名を再確認する。今回その設定変更や新しいビルダーは作成していない。
-
-固定共有先：`References/Review/inbox/latest-release-candidate/`。
-
-**第8工程 complete=false**。
-
-**Google Play提出準備へ進んで安全か：NO**。リリース用ビルド設定・署名の事前条件が未充足で、実ビルドと実機確認の証跡がない。Google Playへ提出していない。
-
-Codex／AI側から見た次の改善候補：今回はなし（上記の必須対応のみ）。
+Codex／AI側から見た次の改善候補：今回はなし（上記の検証入口整合だけが必要）。

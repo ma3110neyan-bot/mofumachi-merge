@@ -1,14 +1,5 @@
-User-reported E-v1 incomplete attempt — raw Windows E logs not received
-Expected result path example:
-E:\Mofumachi-Validation\Diagnostics\progress-ui-integration-progress-ui-e-drive-v1-20261107-181802-bbad51c4\progress-ui-integration-result.json
-Reported condition: existing attempt receipt, but progress-ui-integration-result.json missing.
-Classification: pre-Unity/incomplete attempt; not a saved terminal result or a product test failure.
-Original process interruption / write-failure cause: unconfirmed.
-Prior native invocation count cannot be inferred solely from a missing JSON.
-Phase1 55 / Phase2 444: no verified result.
-Original E-v1 receipt/Diagnostics and old C failure evidence are retained.
-
-V2 handling: separate CreateNew E/attempt-stops observation, no fake terminal JSON,
-no old-run modification/deletion, no new Unity/checkout/Git sharing for incomplete attempts.
-New v2 prepares a non-terminal JSON before receipt/checkout.
-V2 Windows execution: pending; automatic retries0.
+Scope: release-entry API-only verification, not a Unity game/build run.
+Implementation: ea503db12f34d0eaec418f4aaa507b2d4512d469
+Assets/Mofumachi/Editor/AndroidReleaseBuild.cs(29,27): error CS0433: The type 'BuildFailedException' exists in both 'UnityEditor.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' and 'UnityEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null'
+Cause: duplicate Editor assembly references in the temporary verification response file.
+Compile attempts=1, exit=1; no retry, no Unity or AAB/APK execution.

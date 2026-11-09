@@ -1,0 +1,141 @@
+{
+  "record_type": "Read-only tracked source inspection; not a Unity Editor runtime snapshot",
+  "recorded_at_utc": "2026-11-09T03:13:28.198506+00:00",
+  "source_commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
+  "reviewed_head": "740b5715bfd8bbfa56dacb2097f86cf81a442135",
+  "windows_effective_build_settings_verified": false,
+  "unity_version": "6000.6.4f1",
+  "package_name": "com.mofumachi.merge",
+  "version": "1.0",
+  "version_code": 1,
+  "minimum_api": 26,
+  "target_api": 36,
+  "backend": "IL2CPP",
+  "architecture": [
+    "ARM64"
+  ],
+  "orientation": "Portrait",
+  "android_graphics_api": "OpenGLES3",
+  "android_graphics_automatic": false,
+  "tracked_profile": {
+    "path": "Assets/Settings/Build Profiles/Android™.asset",
+    "development": false,
+    "script_debugging": false,
+    "deep_profiling": false,
+    "autoconnect_profiler": false,
+    "build_app_bundle": false,
+    "source": "m_Development/m_AllowDebugging/m_BuildWithDeepProfilingSupport/m_ConnectProfiler/m_BuildAppBundle all 0",
+    "note": "Saved profile is OFF; the existing custom builder overrides this when invoked."
+  },
+  "existing_build_entry": {
+    "path": "Assets/Mofumachi/Editor/AndroidBuild.cs",
+    "method": "Mofumachi.Editor.AndroidBuild.BuildDevelopmentApk",
+    "configure_method": "ConfigureDeviceSettings",
+    "development": true,
+    "build_options": "BuildOptions.Development",
+    "script_debugging": false,
+    "deep_profiling": null,
+    "autoconnect_profiler": null,
+    "build_app_bundle": false,
+    "use_custom_keystore": false,
+    "output_format": "APK only",
+    "line_references": {
+      "use_custom_keystore": 48,
+      "build_app_bundle": 49,
+      "development": 51,
+      "script_debugging": 52,
+      "entry": 128,
+      "build_options": 156,
+      "output_path_apk_only": 181
+    },
+    "release_candidate_compatible": false
+  },
+  "existing_powershell_entry": {
+    "path": "scripts/build-android.ps1",
+    "suitable_for_this_request": false,
+    "reason": "Runs all EditMode and PlayMode before the Development/QA APK builder; not an RC AAB entry.",
+    "line_references": {
+      "all_editmode": 301,
+      "all_playmode": 306,
+      "build_method": 314
+    }
+  },
+  "signing": {
+    "tracked_keystore_name_present": false,
+    "tracked_keyalias_name_present": false,
+    "release_signing_verified": false,
+    "windows_keystore_existence": null,
+    "existing_builder_uses_debug_signing": true,
+    "note": "Empty tracked fields do not prove the user has no private keystore. Windows signing inputs and certificate identity are unconfirmed. No keys, passwords or signing configuration were created or changed."
+  },
+  "output_plan": {
+    "aab": "Unique release-candidate AAB under E; not created",
+    "apk": "Unique release-candidate Pixel3a APK under E; not created",
+    "overwrites_allowed": false
+  },
+  "input_files": [
+    {
+      "path": "ProjectSettings/ProjectSettings.asset",
+      "bytes": 23497,
+      "sha256": "4043fb3267581fb2660bf61b6ad8da480b4f2d718bf5909b8891058f2a1bc862",
+      "equals_pinned_blob": true
+    },
+    {
+      "path": "ProjectSettings/ProjectVersion.txt",
+      "bytes": 83,
+      "sha256": "338824f489d7ef647583e723283307ae92b3bb241d2fe874ac759dbf2f091701",
+      "equals_pinned_blob": true
+    },
+    {
+      "path": "ProjectSettings/EditorBuildSettings.asset",
+      "bytes": 468,
+      "sha256": "6cf5d3eff098e75d1a0b7ad162d148d93968576cec4784a64c8eb984cdd508ee",
+      "equals_pinned_blob": true
+    },
+    {
+      "path": "Assets/Settings/Build Profiles/Android™.asset",
+      "bytes": 1972,
+      "sha256": "b4a0fa570a0d3f958ef89690dace4898be9ebcb285f88b958779a297c345eab9",
+      "equals_pinned_blob": true
+    },
+    {
+      "path": "Assets/Mofumachi/Editor/AndroidBuild.cs",
+      "bytes": 13773,
+      "sha256": "78933406562159ed649af34fa6ba840eec0e1a3bf2a091b9fa4a372989e73731",
+      "equals_pinned_blob": true
+    },
+    {
+      "path": "scripts/build-android.ps1",
+      "bytes": 40579,
+      "sha256": "4f6862a7155657eca8eac59a9b87f5a53cb1d26762b370111725d697a109b291",
+      "equals_pinned_blob": true
+    }
+  ],
+  "protected_tracked_trees": {
+    "Assets": {
+      "pinned_tree": "ba76d4f7d6d47c217a4ede326c3ed22526a53643",
+      "reviewed_tree": "ba76d4f7d6d47c217a4ede326c3ed22526a53643",
+      "unchanged": true
+    },
+    "Packages": {
+      "pinned_tree": "019037de39f5219c0dd13b6250e7cfbf1422c672",
+      "reviewed_tree": "019037de39f5219c0dd13b6250e7cfbf1422c672",
+      "unchanged": true
+    },
+    "ProjectSettings": {
+      "pinned_tree": "1bafa8c3496d3d60e087d3994b2f1d2c54076ed5",
+      "reviewed_tree": "1bafa8c3496d3d60e087d3994b2f1d2c54076ed5",
+      "unchanged": true
+    },
+    "References/VisualLock": {
+      "pinned_tree": "bcc1dcb27ad849873554b5878534bcde66f5a675",
+      "reviewed_tree": "bcc1dcb27ad849873554b5878534bcde66f5a675",
+      "unchanged": true
+    }
+  },
+  "windows_formal_repository": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge",
+  "windows_formal_repository_clean_now": null,
+  "cloud_repository_clean_at_start": true,
+  "validation_root_if_executed": "E:\\Mofumachi-Validation",
+  "validation_directories_created": false
+}

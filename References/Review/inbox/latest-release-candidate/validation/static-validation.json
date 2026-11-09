@@ -1,0 +1,46 @@
+{
+  "recorded_at_utc": "2026-11-09T03:41:25.065827+00:00",
+  "implementation_commit": "ea503db12f34d0eaec418f4aaa507b2d4512d469",
+  "product_commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
+  "static_validation_passed": false,
+  "first_failed_phase": "api_only_compile",
+  "api_compile": {
+    "result": "Blocked",
+    "exit_code": 1,
+    "attempts": 1,
+    "automatic_retries": 0,
+    "unity_editor_started": false,
+    "compiler": "Installed Unity6000.6.4f1 SDK Roslyn csc; API-only standalone compilation",
+    "first_error": "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs(29,27): error CS0433: The type 'BuildFailedException' exists in both 'UnityEditor.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' and 'UnityEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null'",
+    "error_codes": {
+      "CS0433": 113
+    },
+    "root_cause": "Our standalone verification response file references both Managed/UnityEditor.dll and Managed/UnityEngine/UnityEditor.CoreModule.dll, which export duplicate Editor types. This is a validation-reference conflict, not proof of a game/build source defect.",
+    "log": "validation/api-compile.log",
+    "response_file": "validation/compile.rsp"
+  },
+  "limited_script_checks": {
+    "after_implementation": "NotRun",
+    "reason": "Stopped at the first API compile failure; no further code changes or verification runs.",
+    "expected_red_before_implementation": {
+      "exit_code": 1,
+      "reason": "Missing release-only entry, as expected before adding it.",
+      "log": "validation/red.log"
+    }
+  },
+  "next_minimum_candidate": "Correct only the standalone compiler reference list in the temporary verification harness so each Editor API has one definition. No game/QA builder change is indicated by CS0433. No corrected compile was run in this task.",
+  "protected_old_entries": {
+    "Assets/Mofumachi/Editor/AndroidBuild.cs": {
+      "unchanged": true,
+      "sha256": "78933406562159ed649af34fa6ba840eec0e1a3bf2a091b9fa4a372989e73731"
+    },
+    "scripts/build-android.ps1": {
+      "unchanged": true,
+      "sha256": "4f6862a7155657eca8eac59a9b87f5a53cb1d26762b370111725d697a109b291"
+    }
+  },
+  "game_tests_rerun": false,
+  "stage7_55_or444_rerun": false,
+  "unity_invocations": 0,
+  "build_invocations": 0
+}

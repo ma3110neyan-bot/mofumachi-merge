@@ -1,0 +1,22 @@
+{
+  "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs": {
+    "sha256": "648df2dcdb001824b5bac38e334f41189ecf2a7c6d4c5052ab507c498dba6d9e",
+    "unchanged": true
+  },
+  "scripts/build-android-release.ps1": {
+    "sha256": "e1e1d1b03f75d91ddffc7c7d566ea09292f6e20da94d5b0449f3f10ea5f39f31",
+    "unchanged": true
+  },
+  "Assets/Mofumachi/Editor/AndroidBuild.cs": {
+    "sha256": "78933406562159ed649af34fa6ba840eec0e1a3bf2a091b9fa4a372989e73731",
+    "unchanged": true
+  },
+  "scripts/build-android.ps1": {
+    "sha256": "4f6862a7155657eca8eac59a9b87f5a53cb1d26762b370111725d697a109b291",
+    "unchanged": true
+  },
+  "scripts/tests/android-release.tests.ps1": {
+    "sha256": "a4197e85955fc84d714b5c03be7aa20e363da9540f5d834c3c72af8a10fa2f5a",
+    "unchanged": true
+  }
+}

@@ -1,47 +1,55 @@
-# Windows正式署名の準備（未実行の次工程案）
+# Windows正式署名キー作成：1回だけ実行する手順
 
-現在、ユーザー回答で次の2点を確認した。
+**この段階ではキーはまだ作成されていない。** Windowsローカルでのパスワード入力が必要。Codex／チャットへpasswordを送らない。
 
-- 署名用4環境変数は未設定。
-- リリース用keystore／alias／passwordもまだ用意していない。
+## ユーザー操作
 
-このため、**preflightも実AAB/APKビルドも開始していない**。この文書はキー作成・ビルドの実行結果ではない。
+1. GitHub Desktop等でfeature branchをFetch／Pullし、新しい2ファイルがscripts内にあることを確認する。
+2. `scripts/prepare-release-signing-windows.cmd`を**1回だけダブルクリック**する。
+3. 開いたPowerShellでkeystore passwordとalias passwordを、それぞれ2回ずつ入力する。入力は非表示。JKS/keytoolが要求する6文字以上で一致が必要。値をコマンドやチャットへ貼らない。
+4. 成功後は**そのPowerShell画面を開いたままにする**。4環境変数はこのプロセス内だけに存在し、別CMDや別PowerShellには引き継がれない。
 
-## 次に必要な作業
+CMDは新しいPowerShellをNoProfile／NoExitで開く。実行ポリシー指定はその子プロセスだけで、Windowsの永続設定やproject guardを変更しない。既存のrelease preflight／Unity／AAB／APKは実行しない。
 
-Windowsローカルで新しい正式署名用キーを準備する。キーはGitリポジトリや検証用キャッシュの外へ置く。keystore・passwordをチャット、Git、Diagnostics、summary/statusへ送らない。
+## 既存ファイルと停止
 
-準備案（未採用・未実行）：
+- `E:\Mofumachi-Signing`配下に既存.jks／.keystoreがあれば、存在だけを確認して停止する。キー内容を開かず、password入力にも進まない。
+- 以前の作成attempt receiptがある場合も停止。削除・再試行・再生成なし。
+- 指定Unity JDKのkeytoolがない、repo dirty、repo内にkeystore／secret-likeファイルがある場合も停止。
+- 失敗・中断後にこのCMDを再実行しない。できたファイルやreceiptを残したまま原因確認へ進む。
 
-| 項目 | 候補 |
+## 作成されるキー（成功時だけ）
+
+| 項目 | 設定 |
 | --- | --- |
-| キー保管先 | `E:\Mofumachi-Signing\mofumachi-release.jks` |
+| 保存先 | `E:\Mofumachi-Signing\mofumachi-release.jks` |
 | alias | `mofumachi-release` |
-| 作成ツール | Windowsに既存のUnity6000.6.4f1 Android JDK/keytool |
-| キー形式・方式 | JKS／RSA2048／有効期間10000日を候補とする |
-| password入力 | Windowsの対話入力のみ。コマンド引数・コードへ値を直書きしない |
-| 保管 | keystoreとpasswordの復旧手段をユーザー管理で確保。Gitへ入れない |
+| 方式 | JKS／RSA2048／10000日 |
+| 証明書subject | 技術用途のCN=Mofumachi Releaseのみ。個人情報を追加しない |
+| keytool | 指定のUnity6000.6.4f1 Android JDKのみ |
+| 上書き | 禁止。新規一意stagingから非上書きMove |
+| backup | 未実施、backup_pending=true。外部媒体／クラウドへ秘密鍵をコピーしない |
 
-今回はキーを生成していない。パス・alias・キー運用は次工程で確定する。既存ファイルが見つかった場合は上書き・作り直しをしない。Google PlayのApp Signing／upload keyの役割も未確認であり、今回採用済みにしない。
+作成後、alias／PrivateKeyEntry／certificate SHA256／keystore SHA256を確認してから、4環境変数をProcess scopeに設定する。password値・長さは表示せず、各変数名とSETだけを表示する。主キー／passwordをGitへ追加しない。
 
-## キー準備後の環境変数
+## 結果共有
 
-| 環境変数 | 設定する内容 |
-| --- | --- |
-| MOFUMACHI_KEYSTORE_PATH | 実在するkeystoreファイルの絶対パス |
-| MOFUMACHI_KEYSTORE_PASSWORD | keystoreのpassword |
-| MOFUMACHI_KEY_ALIAS | 実際に作成したalias |
-| MOFUMACHI_KEY_ALIAS_PASSWORD | そのaliasのpassword |
+Gitへ自動共有する実行結果は**次の7項目だけ**。
 
-Windowsの同じPowerShellプロセス内で設定してから、既存releaseスクリプトを子プロセスとして呼ぶ方式を推奨する。passwordはマスク付き対話入力を使い、値や環境変数一覧を表示しない。具体的な設定コマンドは、キー準備後に秘密値を含めず渡す。
+- keystore_prepared
+- alias_configured
+- env_vars_configured
+- certificate_sha256
+- keystore_sha256
+- backup_pending
+- secrets_recorded
 
-## その後の実行順（今回は未実行）
+公開状態JSONの固定共有先：`References/Review/inbox/latest-release-candidate/signing-status.json`。
 
-1. 正式repoのbranch／HEAD／untrackedを含むcleanを確認。ゲーム・QA・Visual Lockの差分なしを確認。
-2. 既存`scripts/build-android-release.ps1`をビルド指定なしで1回実行。`PreflightPassed`／Unity0／sourceと正式repo不変／公開certificate SHA256を確認。
-3. PASS時だけ既存スクリプトの`-Build -Format Both`へ進む。AAB1回、完全PASS時だけAPK1回。実ビルド呼出し内部の署名安全確認も維持し、省略しない。
-4. 保存済み結果だけを共有し、失敗時の再実行・キー作り直し・アンインストールは行わない。
+公開情報だけをE上の隔離共有worktreeから通常push1回。正式repoのHEAD／working treeはそのまま保持する。keystoreフォルダをGitへコピーせず、追加pathもJSON1ファイルに限定する。Git共有だけ失敗した場合は再試行せず、E側の公開JSONを保持する。キーを作り直さない。
 
-正式repoは`C:\Users\User\Desktop\Mofumachi\mofumachi-merge`のまま。検証／Library／TEMP／cache／Diagnostics／成果物は`E:\Mofumachi-Validation`。大容量AAB/APKや秘密鍵をGitへ追加しない。
+同じ7項目の公開JSONを`E:\Mofumachi-Validation\Diagnostics\signing-setup\signing-status-<id>.json`にも保存する。秘密鍵本体やpasswordファイルは共有しない。
 
-クラウドからWindowsを直接操作する接続はないため、Windowsでの実操作が必要。今回、既知の環境確認やUnity起動を繰り返していない。
+成功画面ではファイルpath／alias／size／公開SHA2種／SET表示／formal repo cleanを確認できる。環境変数がSETという記録は、その成功時点の当該PowerShellセッションに限る。閉じると失われるため、キー作成CMDでの復旧を試みず、既存キーへの環境再設定を別途行う。
+
+**成功してもrelease preflight／AAB／APK／Pixelへ自動で進まない。** 次の指示まで画面を開いたまま保持する。

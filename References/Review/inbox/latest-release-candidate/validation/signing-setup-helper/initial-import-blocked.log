@@ -1,0 +1,5 @@
+Join-Path: /workspace/mofumachi-merge/scripts/prepare-release-signing-windows.ps1:9
+Line |
+   9 |  $SigningKey = Join-Path $SigningFolder 'mofumachi-release.jks'
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Cannot find drive. A drive with the name 'E' does not exist.

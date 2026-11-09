@@ -1,0 +1,74 @@
+{
+  "recorded_at_utc": "2026-11-09T06:26:59.151150+00:00",
+  "helper_commit": "c486b37df3a7c17acfbd852e2b1a4f2d5d95bf77",
+  "windows_launcher_ready": true,
+  "cmd": "scripts/prepare-release-signing-windows.cmd",
+  "ps1": "scripts/prepare-release-signing-windows.ps1",
+  "limited_checks": "scripts/tests/release-signing-setup.tests.ps1",
+  "files": [
+    {
+      "path": "scripts/prepare-release-signing-windows.cmd",
+      "bytes": 146,
+      "sha256": "e1bc8dc13e6ac751dc3fb0a89cf069ce14b4c4d4ace7491801fa4836d42cbcc5"
+    },
+    {
+      "path": "scripts/prepare-release-signing-windows.ps1",
+      "bytes": 14437,
+      "sha256": "859c57fad82fa2d24bb2d18ab90012d97670eec3b4210a227fc7dded8b6c1fce"
+    },
+    {
+      "path": "scripts/tests/release-signing-setup.tests.ps1",
+      "bytes": 4314,
+      "sha256": "0a1977ebdf36e5eb3d236ba0ab7a8a70da20c0c3d86d7189cc1ebb44fd15a080"
+    }
+  ],
+  "final_helper_checks": {
+    "total": 26,
+    "passed": 26,
+    "failed": 0,
+    "exit_code": 0,
+    "scope": "Pure helper checks with synthetic extension files/strings. No real keystore or native keytool.",
+    "log": "validation/signing-setup-helper/checks-final.log"
+  },
+  "parser_check": {
+    "result": "Passed",
+    "exit_code": 0,
+    "log": "validation/signing-setup-helper/ast-parse.log"
+  },
+  "validation_history": {
+    "expected_red_missing_helper": true,
+    "initial_linux_import_blocked": true,
+    "initial_reason": "E-drive Join-Path was evaluated at import on Linux. One constant declaration changed to literal Windows path before any keytool invocation.",
+    "after_import_fix_checks": "26/26 Passed",
+    "after_review_final_checks": "26/26 Passed",
+    "review_adjustments": "Reject whitespace-only passwords, apply final repo guard after optional publishing, improve public output wording.",
+    "no_same_error_repeated": true
+  },
+  "existing_keystore_policy": "Any .jks/.keystore in signing folder: existence-only detection, stop before password input. No overwrite/regeneration.",
+  "keystore_creation_policy": "One CreateNew receipt; unique local staging key; File.Move without overwrite; failure preserves files, no retry.",
+  "password_policy": "Masked local Read-Host-AsSecureString twice each; keytool env references only; no value in argv/history/output/JSON; process env only.",
+  "runtime_public_record_fields": [
+    "keystore_prepared",
+    "alias_configured",
+    "env_vars_configured",
+    "certificate_sha256",
+    "keystore_sha256",
+    "backup_pending",
+    "secrets_recorded"
+  ],
+  "runtime_public_record_field_count": 7,
+  "backup_policy": "No copy performed; backup_pending=true in actual success report.",
+  "runtime_sharing": "One fetch and one normal push of exactly signing-status.json from isolated E worktree; no private directory copy; original formal HEAD/index/worktree preserved.",
+  "native_keytool_invocations_this_request": 0,
+  "real_key_generations_this_request": 0,
+  "windows_execution_completed": false,
+  "windows_password_entry_pending": true,
+  "release_preflight_invocations": 0,
+  "unity_invocations": 0,
+  "aab_builds": 0,
+  "apk_builds": 0,
+  "pixel_actions": 0,
+  "secrets_recorded": false,
+  "actual_signing_status_json_created": false,
+  "windows_51_and_real_keytool_verified": false
+}

@@ -1,0 +1,1 @@
+PASS signing-setup helper checks: 26. Synthetic files only; no keytool, real key, Windows setup, Unity or build execution. Scratch: /tmp/signing-helper-fixture-7a4d6380e3664350a784e08d91ba2898

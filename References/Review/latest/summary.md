@@ -1,4 +1,4 @@
-# 第7工程：v5 Phase1 Passedを画面で確認・Phase2準備状況の確認待ち
+# 第7工程：v5 Phase2のUnity起動処理へ到達・完了待ち
 
 - 更新：2026-11-09（日本時間）。状態：**調査中**。
 - branch：`feat/daily-world-pass-20261016`。
@@ -41,9 +41,19 @@
 
 コード上、この保存状態はintegration worktree作成・検証から次のUnity起動までの準備段階と整合する。正確なpreparation_step、Git作成の終了コード、現時点の親プロセス状態、元CMDの最新表示は未取得。
 
+## 最新追記：Phase2起動処理への到達
+
+ユーザーが元CMDの末尾を提示。integration worktree作成の表示に続き、`integration: exactly the pinned EditMode fixtures, one Unity invocation, Burst disabled.`まで進んでいる。
+
+公開済みコードの位置から、Phase1のテスト合格・source不変確認と、integration worktreeの事前確認を通過したと判断できる。この表示はProcess.Start直前であり、実際の起動成否・終了コード・444件結果はまだ未取得。
+
+停止／エラー表示はない。処理中の進捗をconsoleへ逐次出さず、Unityの終了待ちをするため、画面が変わらないことだけで停止とは判断しない。
+
+今回の追加確認は画面と既存コードの照合だけ。新しいCMD／Unity／テストは起動していない。Fetch0回。
+
 ## 次の最小確認
 
-ユーザー画面の左上にある**元のcmdタブへ切り替え、末尾表示だけ**を確認する。
+**元CMDをそのまま保持し、既存Phase2の終了と自動共有を待つ。** 新たな実行や手動でのPhase2開始は不要。
 
 新しい検証CMD・Unityは起動せず、既存CMDを閉じない。旧run、receipt、Diagnosticsを削除・変更しない。新しい検証IDや推測によるコード修正を行わない。
 
@@ -57,6 +67,6 @@ v5の画面でのPassedを、未受領のXMLやPhase2成功へ置き換えない
 
 - **第7工程 complete=false**。
 - **第8工程「Pixel 3a実機確認＋リリース候補ビルド」へ進んで安全か：NO**。
-- 理由：**Phase2 444/444と最終source不変結果が未確認**。
+- 理由：**Phase2は起動処理へ進んだが、444/444・exit0と最終source不変結果が未確認**。
 
 `commit`は既存v5ランチャーを示し、今回の観測共有commitとは区別する。追加改善候補は今回はなし。

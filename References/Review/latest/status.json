@@ -2,12 +2,12 @@
   "branch": "feat/daily-world-pass-20261016",
   "updated_date_jst": "2026-11-09",
   "state": "調査中",
-  "scope": "stage7_v5_phase1_passed_screenshot_phase2_preparation_review",
-  "status": "v5_phase1_passed_observed_phase2_notrun_at_snapshot",
+  "scope": "stage7_v5_integration_unity_launch_path_observed",
+  "status": "v5_phase2_launch_path_reached_waiting_terminal_result",
   "commit": "9ee98de7e58eb75cc624c9f30cc055686afebd2a",
   "launcher_commit": "9ee98de7e58eb75cc624c9f30cc055686afebd2a",
   "implementation_commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
-  "review_base_commit": "3891889a427ad1404eb42e33a2dbc02ffaa1ab09",
+  "review_base_commit": "0681084",
   "commit_scope": "Dedicated PS1 source guard, v5 identity and evidence wiring; product and test sources unchanged",
   "launcher_preparation_success": true,
   "success": false,
@@ -209,7 +209,7 @@
     },
     "expected_integration_cases": 444,
     "integration": {
-      "result": "NotRun_at_user_probe_snapshot",
+      "result": "UnityLaunchPathReached_user_screenshot",
       "total": null,
       "passed": null,
       "failed": null,
@@ -270,8 +270,8 @@
     "cmd_executions": 0,
     "native_test_runs": 0,
     "automatic_retries": 0,
-    "fetch_count": 1,
-    "screenshot_and_existing_code_review_only": true,
+    "fetch_count": 0,
+    "screenshot_and_existing_code_flow_review_only": true,
     "game_code_changed": false,
     "test_sources_changed": false,
     "launcher_changed": false,
@@ -288,8 +288,8 @@
   "next_stage": "第8工程 Pixel 3a実機確認＋リリース候補ビルド",
   "next_stage_safe": false,
   "next_stage_verdict": "NO",
-  "next_stage_reason": "Phase2 444/444 and final source_unchanged=true not yet verified",
-  "next_action": "Switch to the original cmd tab and inspect its bottom output only; no new CMD, Unity or test invocation.",
+  "next_stage_reason": "Phase2 launch observed but444/444,exit0 and final source unchanged not yet verified",
+  "next_action": "Keep existing CMD open; wait for its single integration phase to finish and share. Do not rerun.",
   "result_review_pending": true,
   "v5_startup_observation": {
     "run": "progress-ui-integration-progress-ui-e-drive-v5-20261109-101604-63c260c0",
@@ -351,5 +351,16 @@
     "phase2_preparation_state": "Consistent with after direct completion/before integration Unity start; exact preparation_step, Git state and current parent process not received",
     "original_cmd_latest_output_received": false,
     "direct_log_grew_from_uploaded_startup_snapshot": true
+  },
+  "v5_integration_launch_observation": {
+    "basis": "User screenshot of original CMD bottom output",
+    "run": "progress-ui-integration-progress-ui-e-drive-v5-20261109-101604-63c260c0",
+    "integration_worktree_create_and_precheck_pass_inferred": true,
+    "phase1_native_and_source_gate_pass_inferred": true,
+    "integration_unity_launch_path_reached": true,
+    "actual_unity_start_exit_or_case_counts_received": false,
+    "error_or_stop_message_in_screenshot": false,
+    "code_marker_location": "Write-Host immediately before Process.Start, followed by WaitForExit; no console heartbeat during Unity run",
+    "completion_not_claimed": true
   }
 }

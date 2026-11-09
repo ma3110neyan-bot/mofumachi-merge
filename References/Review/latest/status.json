@@ -1,30 +1,30 @@
 {
   "branch": "feat/daily-world-pass-20261016",
   "updated_date_jst": "2026-11-09",
-  "state": "修正済み・未確認",
-  "scope": "stage7_v5_content_source_guard_ready_windows_execution_pending",
-  "status": "v4_phase1_55_passed_retained_v5_launcher_ready",
+  "state": "調査中",
+  "scope": "stage7_existing_v5_startup_snapshot_review_initial_refresh",
+  "status": "v5_unity_startup_observed_initial_refresh_live_state_unconfirmed",
   "commit": "9ee98de7e58eb75cc624c9f30cc055686afebd2a",
   "launcher_commit": "9ee98de7e58eb75cc624c9f30cc055686afebd2a",
   "implementation_commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
-  "review_base_commit": "777b3567c064d8e7793afb5ef1c4aa6cafa5bded",
+  "review_base_commit": "79eb94462470fb059d563f29aabb6b3963d11543",
   "commit_scope": "Dedicated PS1 source guard, v5 identity and evidence wiring; product and test sources unchanged",
   "launcher_preparation_success": true,
   "success": false,
-  "success_scope": "V5 Windows55/444 results not yet available",
+  "success_scope": "Received startup log ends at initial asset refresh; no terminal55/444 proof",
   "tests_passed": false,
   "capture_verified": false,
   "pixel_verified": false,
   "formal_fixed": false,
   "adopted": false,
   "changed_files": [
-    "scripts/verify-progress-ui-integration-windows.ps1",
     "References/Review/latest/summary.md",
-    "References/Review/latest/status.json"
+    "References/Review/latest/status.json",
+    "References/Review/inbox/latest-progress-ui-integration/observations/v5-101604/startup-excerpt.log"
   ],
   "validation_id": "progress-ui-e-drive-v5",
   "stage7_windows_launcher_ready": true,
-  "windows_execution_pending": true,
+  "windows_execution_pending": false,
   "cmd_path": "scripts/verify-progress-ui-integration-windows.cmd",
   "ps1_path": "scripts/verify-progress-ui-integration-windows.ps1",
   "target_implementation_commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
@@ -184,15 +184,16 @@
     "platform": "EditMode",
     "expected_direct_cases": 55,
     "direct": {
-      "result": "NotRun",
+      "result": "StartupSnapshot_InitialAssetRefresh",
       "total": null,
       "passed": null,
       "failed": null,
       "skipped": null,
       "inconclusive": null,
-      "unity_invocations": 0,
+      "unity_invocations": null,
       "unity_exit_code": null,
-      "source_unchanged": null
+      "source_unchanged": null,
+      "unity_start_observed": true
     },
     "integration_fixture_counts": {
       "Mofumachi.Tests.SaveServiceTests": 33,
@@ -207,17 +208,17 @@
     },
     "expected_integration_cases": 444,
     "integration": {
-      "result": "NotRun",
+      "result": "Unconfirmed_not_in_uploaded_direct_log",
       "total": null,
       "passed": null,
       "failed": null,
       "skipped": null,
       "inconclusive": null,
-      "unity_invocations": 0,
+      "unity_invocations": null,
       "unity_exit_code": null,
       "source_unchanged": null
     },
-    "scope": "V5 has not run; v4 direct55 proof held separately"
+    "scope": "Uploaded v5 startup snapshot only; test counts/live state not observed"
   },
   "launcher_checks": {
     "environment": "PowerShell7.4.6/Linux temporary real-Git fixtures only; no native Unity",
@@ -258,7 +259,9 @@
     "oversize_unity_or_git_logs": "Retain full E original; manifest records skip; first error/validation/exit metadata remain small and shared",
     "v4_native_result_received": true,
     "v5_native_result_received": false,
-    "retained_v4_evidence_commit": "777b3567c064d8e7793afb5ef1c4aa6cafa5bded"
+    "retained_v4_evidence_commit": "777b3567c064d8e7793afb5ef1c4aa6cafa5bded",
+    "v5_startup_snapshot_received": true,
+    "fetched_head": "79eb94462470fb059d563f29aabb6b3963d11543"
   },
   "current_request": {
     "unity_invocations": 0,
@@ -267,11 +270,12 @@
     "automatic_retries": 0,
     "fetch_count": 1,
     "game_code_changed": false,
-    "native_test_sources_or_counts_changed": false,
-    "only_dedicated_source_guard_changed": true,
-    "v4_originals_modified_or_reexecuted": false,
-    "v5_windows_run_created": false,
-    "reset_restore_stash_force_push_used": false
+    "test_sources_changed": false,
+    "launcher_changed": false,
+    "windows_originals_modified": false,
+    "existing_log_read_only_review": true,
+    "v5_restart": false,
+    "new_validation_id_created": false
   },
   "guard_changed": false,
   "guard_disabled": false,
@@ -284,6 +288,35 @@
   "next_stage": "第8工程 Pixel 3a実機確認＋リリース候補ビルド",
   "next_stage_safe": false,
   "next_stage_verdict": "NO",
-  "next_stage_reason": "V5 Phase1 55/55, Phase2 444/444 and source_unchanged=true not yet verified",
-  "next_action": "Update clean formal repository from GitHub, then double-click scripts/verify-progress-ui-integration-windows.cmd once; latest ID is v5. Never rerun v4."
+  "next_stage_reason": "Current v5 terminal result,55/55,444/444 and source_unchanged are not yet available",
+  "next_action": "Read current root JSON plus same-run Unity/process-family CPU and I/O twice10s apart using built-in Windows commands; no validation restart or modifications.",
+  "result_review_pending": true,
+  "v5_startup_observation": {
+    "run": "progress-ui-integration-progress-ui-e-drive-v5-20261109-101604-63c260c0",
+    "source_uploaded_name": "unity.log",
+    "source_bytes": 10562,
+    "source_sha256": "22dc7e5b4b2da38ee4673cfb9f8450b1727631dc9d963e783561e47d476b1d89",
+    "source_start_time_utc": "2026-11-09T01:22:11Z",
+    "source_start_time_jst": "2026-11-09 10:22:11",
+    "unity_version": "6000.6.4f1",
+    "target": "Android",
+    "test_platform": "EditMode",
+    "fixture": "Mofumachi.Tests.ProgressUiIntegrationTests",
+    "burst_disabled": true,
+    "unity_start_observed": true,
+    "licensing_initialized": true,
+    "unity_personal_license_updated": true,
+    "library_initial_rebuild_observed": true,
+    "last_recorded_line": "Application.AssetDatabase Initial Refresh Start",
+    "test_start_or_result_in_uploaded_log": false,
+    "fatal_compile_crash_record_in_uploaded_log": false,
+    "live_process_state": "CPU/I/O/parent-child process state not yet received",
+    "log_growth_and_windows_mtime": "User reports unchanged; observation interval unknown",
+    "root_cause": "停止は未確定。受領したsnapshotはAssetDatabase初回refresh開始まで",
+    "recovered_licensing_warning": "Access token unavailable is followed by license update/initialization success; same warning exists in successful v4",
+    "historical_v4_start_to_tests_seconds": 1936,
+    "historical_v4_timing_is_not_a_v5_duration_guarantee": true,
+    "shared_excerpt": "References/Review/inbox/latest-progress-ui-integration/observations/v5-101604/startup-excerpt.log",
+    "shared_excerpt_contains_private_identifiers": false
+  }
 }

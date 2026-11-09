@@ -1,66 +1,62 @@
-# 第7工程：v5起動ログ確認・初回AssetDatabase refresh開始
+# 第7工程：v5 Phase1 Passedを画面で確認・Phase2準備状況の確認待ち
 
 - 更新：2026-11-09（日本時間）。状態：**調査中**。
 - branch：`feat/daily-world-pass-20261016`。
 - 固定ゲーム実装：`46f65b24d58531d5934035fbe4cdb4d5b00104a6`。
-- 公開済みv5ランチャー：`9ee98de7e58eb75cc624c9f30cc055686afebd2a`。
-- 今回Fetch1回でGitHub先端`79eb94462470fb059d563f29aabb6b3963d11543`を確認。v5 terminal結果はまだ共有されておらず、inbox rootは保持済みv4結果のまま。
-- ゲーム、テスト、ランチャー、Visual Lockは変更なし。今回CMD／Unity／テスト起動0、自動再試行0。
+- 既存v5ランチャー：`9ee98de7e58eb75cc624c9f30cc055686afebd2a`。
+- Fetch1回でGitHub先端`3891889a427ad1404eb42e33a2dbc02ffaa1ab09`を確認。inbox rootは旧v4の保存結果で、v5の正式terminal結果は未共有。
+- 今回はユーザー画面と既存コードの照合のみ。ゲーム・テスト・ランチャー・Visual Lockは無変更、CMD／Unity／テスト起動0、再試行0。
 
-## 対象
+## 確認対象
 
 `progress-ui-integration-progress-ui-e-drive-v5-20261109-101604-63c260c0`
 
-既存Windows CMDの表示と、ユーザーが添付したdirect側`unity.log`のsnapshotだけを読み取った。Windows原本へは書き込んでいない。
+ユーザーが既存runのroot JSONと、10秒間隔のUnityプロセス／directログ状態を読み取り、その表示画面を提供した。
 
-## 確認できたこと
+## 画面で確認した状態
 
-| 項目 | ログ上の状態 |
+| 項目 | 表示 |
 | --- | --- |
-| Unity | 6000.6.4f1で実際に起動 |
-| 引数 | Android／EditMode／ProgressUiIntegrationTestsのみ／Burst無効化を確認 |
-| 起動時刻 | 2026-11-09 10:22:11（日本時間） |
-| ライセンス | Personalライセンス更新成功、初期化完了 |
-| Library | 新規worktreeのため再構成開始 |
-| assembly初期化 | 成功の記録あり |
-| 最終行 | **Application.AssetDatabase Initial Refresh Start** |
-| テスト開始・完了 | 受領ログにはまだ記録なし |
-| 致命的なコンパイルエラー／クラッシュ | 受領ログには記録なし |
+| root result | Running |
+| Phase1 | **Passed** |
+| Phase2 | NotRun |
+| first_error / runner_error | null / null |
+| direct log bytes | 両sampleとも3,513,166 |
+| direct log更新時刻 | 2026-11-09 10:56:09.7731476 +09:00 |
+| sample1 | 10:58:57.8507550 +09:00 |
+| sample2 | 10:59:08.0162889 +09:00 |
+| 対象Unityからたどったprocesses | 両sampleとも空配列 |
 
-このsnapshotだけで**ハング・処理終了・正常進行継続のいずれも確定しない**。ユーザーはログのサイズ・更新日時が変わらないと回答。観測間隔は未取得で、現在のプロセス状態・CPU／I/Oは未確認。
+先に受領したstartup logは10,562 bytes、末尾はInitial Refresh Startだった。その後directログは約3.5MBへ増え、Phase1がPassedまで進んだ。先のsnapshotのまま停止していたとは扱わない。
 
-「Access token is unavailable」や「Native extension ... not found」は、55/55に合格済みのv4にも存在する。今回のライセンス警告の後には更新成功・初期化成功があるため、その警告だけを停止原因として扱わない。
+公開済みv5コードは、指定55ケースのXML成功とsource内容不変確認の両方が通った後にdirect.result=Passedを書き込む。この制御順序から、以前のsource判定箇所を通過したと解釈できる。**ただし今回の画面には実XML件数やsource_unchangedフィールド自体は出ていないため、原本照合は未完了**。
 
-## 過去の所要時間との比較
+## processes空配列の解釈
 
-保存済みv4ログのUnity起動は2026-11-08 16:27:11、実XMLのテスト開始は16:59:27（ともに日本時間）。約**32分16秒**を初期化・import等に要していた。
+今回の読み取りコマンドは、run名を含むUnity.exeを起点に、その子プロセスだけを列挙した。
 
-これは初回処理に時間がかかり得る根拠であり、v5も同じ時間で終わる保証や、現在動作中という証明ではない。
+対象Unityが終了したPhase1後で、Phase2のUnityがまだ起動していなければ、空配列になる。これはPhase1 Passed／Phase2 NotRunと整合する。
 
-## 今回の共有
+**親のPowerShell・cmd・worktree作成中のgitの生存を確認したコマンドではない**。従って空配列から検証全体の終了・ハングを断定しない。direct完了後にdirectログが増えないことも、それだけでは異常と判定しない。
 
-機械ID・IP・ライセンス識別子等を含む全文は追加せず、確認に必要な起動・ライセンス成功・初回refreshの行だけを次へ保存：
+コード上、この保存状態はintegration worktree作成・検証から次のUnity起動までの準備段階と整合する。正確なpreparation_step、Git作成の終了コード、現時点の親プロセス状態、元CMDの最新表示は未取得。
 
-`References/Review/inbox/latest-progress-ui-integration/observations/v5-101604/startup-excerpt.log`
+## 次の最小確認
 
-これは**抜粋・途中snapshot**と明記し、原本サイズ・SHA256を記録した。元の添付ファイル／Windowsログ、inbox rootの正式結果、旧v4の55/55 XMLと全履歴を上書きしていない。v4を再実行していない。
+ユーザー画面の左上にある**元のcmdタブへ切り替え、末尾表示だけ**を確認する。
 
-## 次の確認
+新しい検証CMD・Unityは起動せず、既存CMDを閉じない。旧run、receipt、Diagnosticsを削除・変更しない。新しい検証IDや推測によるコード修正を行わない。
 
-元の検証CMDを閉じず、同じCMD・Unityを新たに起動しない。既存runの保存結果と、同じrunのUnity・子プロセスのCPU／I/Oを10秒間隔で2回読み取り確認する。処理が継続している場合は既存実行の完了を待つ。
+現在の記録にfirst/runner errorはなく、次の準備状況を確認する段階。Phase2失敗と決めつけたり、Phase1のやり直しへ進んだりしない。
 
-現在の記録はエラー確定ではないため、コード・メモリ設定・ライセンス設定・package・検証IDを推測で変更しない。新しいv6やreceipt削除は行わない。
+## 共有と保持
 
-## 判定
+変更はsummary/statusだけ。先に保存したv5 startup抜粋、旧v4の55/55実XMLと全履歴は保持。
 
-- validation_id：`progress-ui-e-drive-v5`。
-- Phase1：起動snapshotのみ。Total／Passed／Failed／exitは未確認。
-- Phase2：結果未取得。開始済み／未開始もこのログだけでは断定しない。
-- source_unchanged：未確認。
-- 今回新たなUnity／CMD起動：0。自動再試行：0。
+v5の画面でのPassedを、未受領のXMLやPhase2成功へ置き換えない。次のterminal結果取得時に、同じrunのPhase1 55/55、Phase2 444/444、Unity exit0、source_unchanged=true、自動再試行0を確認する。
+
 - **第7工程 complete=false**。
 - **第8工程「Pixel 3a実機確認＋リリース候補ビルド」へ進んで安全か：NO**。
-
-理由は**v5の正式な55/55・444/444とsource不変結果が未確認**であること。v4の55/55合格は保持し、v5合格へ流用しない。今回の変更はsummary/statusと最小限のログ抜粋のみ。
+- 理由：**Phase2 444/444と最終source不変結果が未確認**。
 
 `commit`は既存v5ランチャーを示し、今回の観測共有commitとは区別する。追加改善候補は今回はなし。

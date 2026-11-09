@@ -2,16 +2,16 @@
   "branch": "feat/daily-world-pass-20261016",
   "updated_date_jst": "2026-11-09",
   "state": "調査中",
-  "scope": "stage7_existing_v5_startup_snapshot_review_initial_refresh",
-  "status": "v5_unity_startup_observed_initial_refresh_live_state_unconfirmed",
+  "scope": "stage7_v5_phase1_passed_screenshot_phase2_preparation_review",
+  "status": "v5_phase1_passed_observed_phase2_notrun_at_snapshot",
   "commit": "9ee98de7e58eb75cc624c9f30cc055686afebd2a",
   "launcher_commit": "9ee98de7e58eb75cc624c9f30cc055686afebd2a",
   "implementation_commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
-  "review_base_commit": "79eb94462470fb059d563f29aabb6b3963d11543",
+  "review_base_commit": "3891889a427ad1404eb42e33a2dbc02ffaa1ab09",
   "commit_scope": "Dedicated PS1 source guard, v5 identity and evidence wiring; product and test sources unchanged",
   "launcher_preparation_success": true,
   "success": false,
-  "success_scope": "Received startup log ends at initial asset refresh; no terminal55/444 proof",
+  "success_scope": "Phase1 Passed observed, no Phase2 terminal result or actual v5 XML yet received",
   "tests_passed": false,
   "capture_verified": false,
   "pixel_verified": false,
@@ -19,8 +19,7 @@
   "adopted": false,
   "changed_files": [
     "References/Review/latest/summary.md",
-    "References/Review/latest/status.json",
-    "References/Review/inbox/latest-progress-ui-integration/observations/v5-101604/startup-excerpt.log"
+    "References/Review/latest/status.json"
   ],
   "validation_id": "progress-ui-e-drive-v5",
   "stage7_windows_launcher_ready": true,
@@ -184,7 +183,7 @@
     "platform": "EditMode",
     "expected_direct_cases": 55,
     "direct": {
-      "result": "StartupSnapshot_InitialAssetRefresh",
+      "result": "Passed_observed_in_user_screenshot",
       "total": null,
       "passed": null,
       "failed": null,
@@ -193,7 +192,9 @@
       "unity_invocations": null,
       "unity_exit_code": null,
       "source_unchanged": null,
-      "unity_start_observed": true
+      "unity_start_observed": true,
+      "native_source_check_pass_inferred_from_v5_code": true,
+      "raw_xml_pending": true
     },
     "integration_fixture_counts": {
       "Mofumachi.Tests.SaveServiceTests": 33,
@@ -208,7 +209,7 @@
     },
     "expected_integration_cases": 444,
     "integration": {
-      "result": "Unconfirmed_not_in_uploaded_direct_log",
+      "result": "NotRun_at_user_probe_snapshot",
       "total": null,
       "passed": null,
       "failed": null,
@@ -216,7 +217,8 @@
       "inconclusive": null,
       "unity_invocations": null,
       "unity_exit_code": null,
-      "source_unchanged": null
+      "source_unchanged": null,
+      "current_state_unconfirmed": true
     },
     "scope": "Uploaded v5 startup snapshot only; test counts/live state not observed"
   },
@@ -261,7 +263,7 @@
     "v5_native_result_received": false,
     "retained_v4_evidence_commit": "777b3567c064d8e7793afb5ef1c4aa6cafa5bded",
     "v5_startup_snapshot_received": true,
-    "fetched_head": "79eb94462470fb059d563f29aabb6b3963d11543"
+    "fetched_head": "3891889a427ad1404eb42e33a2dbc02ffaa1ab09"
   },
   "current_request": {
     "unity_invocations": 0,
@@ -269,13 +271,11 @@
     "native_test_runs": 0,
     "automatic_retries": 0,
     "fetch_count": 1,
+    "screenshot_and_existing_code_review_only": true,
     "game_code_changed": false,
     "test_sources_changed": false,
     "launcher_changed": false,
-    "windows_originals_modified": false,
-    "existing_log_read_only_review": true,
-    "v5_restart": false,
-    "new_validation_id_created": false
+    "windows_originals_modified": false
   },
   "guard_changed": false,
   "guard_disabled": false,
@@ -288,8 +288,8 @@
   "next_stage": "第8工程 Pixel 3a実機確認＋リリース候補ビルド",
   "next_stage_safe": false,
   "next_stage_verdict": "NO",
-  "next_stage_reason": "Current v5 terminal result,55/55,444/444 and source_unchanged are not yet available",
-  "next_action": "Read current root JSON plus same-run Unity/process-family CPU and I/O twice10s apart using built-in Windows commands; no validation restart or modifications.",
+  "next_stage_reason": "Phase2 444/444 and final source_unchanged=true not yet verified",
+  "next_action": "Switch to the original cmd tab and inspect its bottom output only; no new CMD, Unity or test invocation.",
   "result_review_pending": true,
   "v5_startup_observation": {
     "run": "progress-ui-integration-progress-ui-e-drive-v5-20261109-101604-63c260c0",
@@ -318,5 +318,38 @@
     "historical_v4_timing_is_not_a_v5_duration_guarantee": true,
     "shared_excerpt": "References/Review/inbox/latest-progress-ui-integration/observations/v5-101604/startup-excerpt.log",
     "shared_excerpt_contains_private_identifiers": false
+  },
+  "v5_progress_observation": {
+    "basis": "User screenshot of built-in read-only probe; raw root JSON/XML not attached",
+    "run": "progress-ui-integration-progress-ui-e-drive-v5-20261109-101604-63c260c0",
+    "saved_result": "Running",
+    "saved_direct_result": "Passed",
+    "saved_integration_result": "NotRun",
+    "first_error": null,
+    "runner_error": null,
+    "expected_direct_cases": 55,
+    "direct_actual_xml_counts_received": false,
+    "source_guard_pass_inferred": true,
+    "source_guard_inference_basis": "Published v5 code writes direct Passed only after native55 validation and source content check pass",
+    "source_unchanged_raw_field_received": false,
+    "samples": [
+      {
+        "time_jst": "2026-11-09T10:58:57.8507550+09:00",
+        "direct_log_bytes": 3513166,
+        "direct_log_updated_jst": "2026-11-09T10:56:09.7731476+09:00",
+        "matched_unity_processes": []
+      },
+      {
+        "time_jst": "2026-11-09T10:59:08.0162889+09:00",
+        "direct_log_bytes": 3513166,
+        "direct_log_updated_jst": "2026-11-09T10:56:09.7731476+09:00",
+        "matched_unity_processes": []
+      }
+    ],
+    "process_probe_scope": "Only Unity roots whose command line contains run key and their descendants; no matching Unity root means this probe cannot report parent PowerShell/cmd/git",
+    "processes_empty_proves_whole_validation_stopped": false,
+    "phase2_preparation_state": "Consistent with after direct completion/before integration Unity start; exact preparation_step, Git state and current parent process not received",
+    "original_cmd_latest_output_received": false,
+    "direct_log_grew_from_uploaded_startup_snapshot": true
   }
 }

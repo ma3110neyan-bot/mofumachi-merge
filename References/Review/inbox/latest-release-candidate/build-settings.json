@@ -1,8 +1,8 @@
 {
   "record_type": "Read-only source settings plus new release-route declarations; native effective release settings unverified",
-  "recorded_at_utc": "2026-11-09T04:19:16.318249+00:00",
+  "recorded_at_utc": "2026-11-09T04:37:55.060186+00:00",
   "source_commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
-  "reviewed_head": "ba328838d1ca72ec5abc0ba8b5f259ca445070a0",
+  "reviewed_head": "c86941dc65291867fe6400345c0bb97beb51035e",
   "windows_effective_build_settings_verified": false,
   "unity_version": "6000.6.4f1",
   "package_name": "com.mofumachi.merge",
@@ -168,7 +168,7 @@
     "package": "com.mofumachi.merge",
     "custom_signing": true,
     "aab_and_apk_separate": true,
-    "status": "API-only C# compilation passed unchanged. Existing limited script check failed in Git discovery; real builds remain blocked.",
+    "status": "Unchanged release C# API compile passed; limited script34/34 checks passed; native build settings unverified until the next Windows operation.",
     "effective_runtime_settings_verified": false,
     "signing_environment_names": [
       "MOFUMACHI_KEYSTORE_PATH",
@@ -183,7 +183,7 @@
     "workspace_policy": "New short E worktree from committed tooling HEAD; game baseline remains fixed. TEMP/TMP/UPM/Library/Diagnostics on E.",
     "overwrite_policy": "Unique per-run paths; File.Move without overwrite; FileMode.CreateNew attempt receipts",
     "attempt_identity": "Product SHA + content hash of new C#/meta/PS1; review-only commits do not reset attempts",
-    "default_mode": "Preflight only; no real build executed. Do not run actual builds until the limited test blocker is resolved.",
+    "default_mode": "Preflight only; actual builds require explicit -Build after Windows local signing/source gates. No builds run in this task.",
     "source_guard": "All tracked content working/index diffs; only root .vsconfig untracked allowlist; explicit two new Editor file additions against product baseline",
     "temporary_settings": "Restore only configuration values assigned by this release entry in finally; no Git reset/restore and no hiding unrelated Unity content changes"
   },
@@ -205,32 +205,20 @@
     },
     {
       "path": "scripts/tests/android-release.tests.ps1",
-      "bytes": 5568,
-      "sha256": "1f1ba6b25515b0f067e501a344f0512c66bf7ab30258dadb5f837bcff21749e9"
+      "bytes": 5790,
+      "sha256": "a4197e85955fc84d714b5c03be7aa20e363da9540f5d834c3c72af8a10fa2f5a"
     }
   ],
   "validation": {
-    "recorded_at_utc": "2026-11-09T04:19:16.318249+00:00",
-    "verified_source_commit": "ba328838d1ca72ec5abc0ba8b5f259ca445070a0",
-    "release_implementation_commit": "ea503db12f34d0eaec418f4aaa507b2d4512d469",
+    "recorded_at_utc": "2026-11-09T04:37:55.060186+00:00",
+    "verified_source_commit": "c86941dc65291867fe6400345c0bb97beb51035e",
+    "execution_base_head": "b03a9814df64cd26f9feb770bde0a3bbefce3d41",
+    "test_worktree_patch": "validation/git-selection-fix/git-selection-only.diff",
+    "test_input_committed_unchanged_after_execution": true,
     "reference_conflict_fixed": true,
-    "static_validation_passed": false,
-    "reference_change": {
-      "retained": "Managed/UnityEditor.dll",
-      "removed": "Managed/UnityEngine/UnityEditor.CoreModule.dll",
-      "removed_reference_lines": 1,
-      "other_response_lines_unchanged": true,
-      "required_editor_types_verified": 11,
-      "metadata_inspection_only": true,
-      "before_rsp_sha256": "e0f635a78f084cc7338649c37760c261cdac983bfef30506a5fb1d6c15bc4987",
-      "after_rsp_sha256": "9222071fb105a434317ab0d9f48332f83180eafd29ddb9e9f891893f52b116ce",
-      "type_definitions": "validation/editor-type-definitions.json",
-      "diff": "validation/reference-only.diff"
-    },
     "api_compile": {
       "result": "Passed",
       "exit_code": 0,
-      "attempts_this_request": 1,
       "automatic_retries": 0,
       "cs0433_present": false,
       "first_csharp_error": null,
@@ -243,68 +231,102 @@
         "bytes": 12800,
         "sha256": "e77a00597e545ff9062f26fd5306abdbc974dd9539b4a9b48a083439b30faddc",
         "committed_binary": false
-      }
+      },
+      "evidence_commit": "b03a9814df64cd26f9feb770bde0a3bbefce3d41",
+      "attempts_in_evidence_run": 1,
+      "invocations_this_request": 0,
+      "source_unchanged_since_pass": true
     },
+    "api_compile_invocations_this_request": 0,
+    "static_validation_passed": true,
+    "release_limited_tests_passed": true,
+    "git_selection_fixed": true,
+    "code_changed_file_count": 1,
+    "code_changed_files": [
+      "scripts/tests/android-release.tests.ps1"
+    ],
+    "change_scope": "One Git discovery statement replaced by single Application selection and explicit empty-path rejection. All other test bytes unchanged; no PATH edits or fallback.",
+    "before_file_sha256": "1f1ba6b25515b0f067e501a344f0512c66bf7ab30258dadb5f837bcff21749e9",
+    "after_file_sha256": "a4197e85955fc84d714b5c03be7aa20e363da9540f5d834c3c72af8a10fa2f5a",
+    "before_source_snippet": "validation/git-selection-fix/before-git-discovery.txt",
     "limited_script_checks": {
-      "result": "Failed",
-      "exit_code": 1,
+      "result": "Passed",
+      "exit_code": 0,
       "attempts_this_request": 1,
       "automatic_retries": 0,
-      "script": "scripts/tests/android-release.tests.ps1",
-      "script_changed": false,
-      "log": "validation/release-limited-tests.log",
-      "failed_file": "scripts/tests/android-release.tests.ps1",
-      "failed_line": 52,
-      "cause_line": 51,
-      "root_cause": "Unchanged test line51 assigns all Source values to $Git; line52 invokes the array as an executable. This prevents Git fixture setup, not a release build operation.",
-      "first_error": "&: /workspace/mofumachi-merge/scripts/tests/android-release.tests.ps1:52\nLine |\n  52 |  & $Git -C $Repo init --quiet\n     |    ~~~~\n     | The term '/usr/local/bin/git /usr/bin/git /bin/git\n     | /opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback/git'\n     | is not recognized as a name of a cmdlet, function, script file, or\n     | executable program. Check the spelling of the name, or if a path was\n     | included, verify that the path is correct and try again.\n",
-      "case_counts": null,
-      "scope": "Only the existing release-entry script check. No game fixture or Stage7 rerun."
+      "total": 34,
+      "passed": 34,
+      "failed": 0,
+      "count_unit": "script Check assertions, not NUnit/Unity test cases",
+      "log": "validation/git-selection-fix/release-tests.log",
+      "first_error": null,
+      "coverage": {
+        "git_fixture_initialization": "Passed; script reached all34 assertions",
+        "release_entry_validation": "Passed; existing scoped checks only",
+        "development_off": "Passed; source declaration checks, not native build execution",
+        "aab_apk_entry_switch": "Passed; separate Unity executeMethod arguments, no real outputs",
+        "signing_preflight": "Passed; synthetic valid/missing/invalid-file fixtures only",
+        "secret_non_exposure": "Passed; synthetic redaction and argument/report checks",
+        "qa_protection": "Passed; independent byte/SHA comparison of the two unchanged QA files",
+        "source_guard": "Passed; real temporary Git working/index/untracked/CRLF/.vsconfig fixture checks"
+      },
+      "warnings": "Three expected LF-to-CRLF warnings from the temporary fixture; all checks passed."
     },
     "protected_sources": [
       {
         "path": "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs",
         "sha256": "648df2dcdb001824b5bac38e334f41189ecf2a7c6d4c5052ab507c498dba6d9e",
-        "unchanged_from_head": true
+        "unchanged": true
       },
       {
         "path": "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs.meta",
         "sha256": "888cee050dce317ed3d9bc0dbf9b3f8f7115c6b7a5239b3eac2b3dd844adc06e",
-        "unchanged_from_head": true
+        "unchanged": true
       },
       {
         "path": "scripts/build-android-release.ps1",
         "sha256": "e1e1d1b03f75d91ddffc7c7d566ea09292f6e20da94d5b0449f3f10ea5f39f31",
-        "unchanged_from_head": true
-      },
-      {
-        "path": "scripts/tests/android-release.tests.ps1",
-        "sha256": "1f1ba6b25515b0f067e501a344f0512c66bf7ab30258dadb5f837bcff21749e9",
-        "unchanged_from_head": true
+        "unchanged": true
       },
       {
         "path": "Assets/Mofumachi/Editor/AndroidBuild.cs",
         "sha256": "78933406562159ed649af34fa6ba840eec0e1a3bf2a091b9fa4a372989e73731",
-        "unchanged_from_head": true
+        "unchanged": true
       },
       {
         "path": "scripts/build-android.ps1",
         "sha256": "4f6862a7155657eca8eac59a9b87f5a53cb1d26762b370111725d697a109b291",
-        "unchanged_from_head": true
+        "unchanged": true
       }
     ],
-    "source_unchanged": true,
     "release_builder_changed": false,
     "qa_changed": false,
     "game_changed": false,
+    "project_settings_changed": false,
+    "packages_changed": false,
     "visual_lock_changed": false,
+    "source_unchanged": true,
+    "source_unchanged_scope": "Protected game/builders/config/locks unchanged; the approved Git-discovery-only test edit is recorded separately.",
     "unity_invocations": 0,
-    "aab_builds": 0,
-    "apk_builds": 0,
-    "pixel_actions": 0,
+    "game_fixture_runs": 0,
+    "stage7_test_reruns": 0,
     "automatic_retries": 0,
-    "next_real_build_safe": false,
-    "next_minimum_candidate": "The unchanged test helper at scripts/tests/android-release.tests.ps1:51 must resolve one Git executable explicitly. Test helper changes and another run are outside this reference-only task; none performed.",
-    "prior_failure_archive": "validation/history-ba32883"
+    "real_builds": 0,
+    "first_error": null,
+    "failed_phase": null,
+    "current_first_error_created": false,
+    "historical_error_files": {
+      "source_evidence_commit": "b03a9814df64cd26f9feb770bde0a3bbefce3d41",
+      "files": [
+        "first-error.log",
+        "failure.log",
+        "References/Review/latest/error.log"
+      ],
+      "note": "Unmodified previous failure originals retained; they do not describe this successful run."
+    },
+    "next_real_build_safe": true,
+    "next_real_build_scope": "Ready for the next Windows release-build step with mandatory clean-source and local signing preflight. No real build authorized or executed in this task.",
+    "windows_actual_signing_preflight_verified": false,
+    "stage8_complete": false
   }
 }

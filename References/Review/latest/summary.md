@@ -1,76 +1,79 @@
-# 第8工程：API参照競合は解消・限定releaseテストで停止
+# 第8工程：Git探索最小修正・限定releaseテスト34/34合格
 
-状態：**原因確定**。参照修正とC#コンパイルは成功。本小工程の「限定テストPASS」は未達のため、実AAB/APKビルドはまだ実行しない。
+状態：**関連テスト合格**。release入口の静的・限定検証小工程は完了。第8工程全体は未完了。
 
 - branch：`feat/daily-world-pass-20261016`。
-- 確認対象HEAD：`ba328838d1ca72ec5abc0ba8b5f259ca445070a0`。
+- Git探索修正commit：`c86941dc65291867fe6400345c0bb97beb51035e`。
+- 修正前HEAD：`b03a9814df64cd26f9feb770bde0a3bbefce3d41`。
 - release入口追加commit：`ea503db12f34d0eaec418f4aaa507b2d4512d469`。
 - 固定ゲーム：`46f65b24d58531d5934035fbe4cdb4d5b00104a6`。
-- 第7工程はcomplete=trueを維持。正式v5の55/55・444/444は再実行していない。
+- 第7工程complete=trueとv5の55/55・444/444を保持。再実行なし。
 
-## 参照構成の最小修正
+## 修正範囲
 
-Unity6000.6.4f1の実DLLをCecilで読み、必要なEditor型11種が両DLLで実際に定義されることを確認した。Unityを起動せず、メタデータだけを読んだ。
+コード変更は`scripts/tests/android-release.tests.ps1`の**1ファイルだけ**。変更前49行目のGit探索を、最初のApplicationを1件選び、null／空パスを明確に拒否する形へ変更した。
 
-`Managed/UnityEditor.dll`に全11型があるため、`validation/compile.rsp`から`Managed/UnityEngine/UnityEditor.CoreModule.dll`の参照1行だけを削除。その他の参照・オプション・対象ソースは変更なし。根拠は`validation/editor-type-definitions.json`、厳密な1行差分は`validation/reference-only.diff`。
-
-API-onlyコンパイルは**今回1回、exit0、PASS**。CS0433なし、最初のC#エラーなし。`AndroidReleaseBuild.cs`は変更せず型解決・コンパイルに成功。出力DLLのサイズ・SHAをstatic-validation.jsonへ記録し、DLL自体をGitへ追加していない。
-
-既存のコンパイラオプション警告CS2023（rsp内の/noconfigを無視）は残るが、ソースエラーではなくexit0。参照だけの変更範囲を守り、今回そのオプションを変更していない。
-
-## 限定テストの最初の失敗
-
-コンパイル成功後、既存`scripts/tests/android-release.tests.ps1`を**今回1回**実行し、exit1で停止。
-
-```text
-&: /workspace/mofumachi-merge/scripts/tests/android-release.tests.ps1:52
-Line |
-  52 |  & $Git -C $Repo init --quiet
-     |    ~~~~
-     | The term '/usr/local/bin/git /usr/bin/git /bin/git
-     | /opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback/git'
-     | is not recognized as a name of a cmdlet, function, script file, or
-     | executable program. Check the spelling of the name, or if a path was
-     | included, verify that the path is correct and try again.
+```powershell
+$GitCommand = Get-Command git -CommandType Application -ErrorAction Stop | Select-Object -First 1
+if ($null -eq $GitCommand -or [string]::IsNullOrWhiteSpace($GitCommand.Source)) { throw 'Git Application was not found or has an empty executable path.' }
+$Git = $GitCommand.Source
 ```
 
-根本箇所は51行目の`$Git = (Get-Command git -CommandType Application).Source`。この環境ではGitが4件見つかり、SourceはSystem.Object[]になる。52行目でその配列を1つの実行ファイルとして起動しようとして失敗した。
+その他のテストロジック・PATH・fallback探索は変更なし。修正前の該当箇所は`validation/git-selection-fix/before-git-discovery.txt`、差分は`git-selection-only.diff`へ保存した。旧ファイルの生バイトからこの1箇所を置換した結果が現ファイルと完全一致することを確認。
 
-読み取り確認で、`/usr/local/bin/git`、`/usr/bin/git`、`/bin/git`、fallback/gitの4件を確認。記録は`validation/git-discovery.json`。Git fixtureの初期化に未到達で、releaseビルダーやゲーム実行の失敗とは判定していない。チェック完走・PASSにはしていない。
+コードの変更ファイル数1と、ユーザー指定の共有記録更新ファイル数は分けて扱う。
 
-今回の変更対象は参照構成だけなので、テスト／PowerShellビルダーを修正せず、PATHを変えた再実行も行わず停止した。自動再試行0。
+## 実行結果
 
-## ソースと実行範囲
-
-- `AndroidReleaseBuild.cs`と.meta、`build-android-release.ps1`、`android-release.tests.ps1`はba32883から生バイト不変。
-- 既存`AndroidBuild.cs`と`build-android.ps1`も不変。
-- ゲーム・Packages・ProjectSettings・Visual Lockは不変。`source_unchanged=true`。
-- Unity起動0、実AAB/APKビルド0、Pixel操作0、第7工程の再実行0。
-- 実署名キー・パスワードは使用していない。限定チェック内の署名情報は合成fixtureのみ。
-
-現在のfirst-error.log／failure.log／latest/error.logはこの限定テストの最初のエラー。前回のCS0433ログ・rsp・結果・first-errorは`validation/history-ba32883/`へ同じバイトで保持。以前のc988164 preflight履歴も保持。
-
-## 最終判定
+`scripts/tests/android-release.tests.ps1`を**今回1回のみ**実行。
 
 | 項目 | 結果 |
 | --- | --- |
-| 参照競合修正 | **YES** |
-| API-only compile | **PASS、exit0** |
-| release限定テスト | **FAIL、exit1** |
-| releaseビルダー本体変更 | NO |
-| QA経路変更 | NO |
-| ゲーム変更 | NO |
-| Visual Lock変更 | NO |
-| source_unchanged | **true** |
-| 実AAB/APK build | NO |
-| 次に実AAB/APKビルドへ進んで安全か | **NO** |
-| 第8工程 complete | **false** |
+| exit code | **0** |
+| Total | **34** |
+| Passed | **34** |
+| Failed | **0** |
+| 自動再試行 | **0** |
+| Git fixture初期化 | 成功 |
+| release入口／AAB・APKの入口切替 | 合格 |
+| Development OFFの宣言確認 | 合格 |
+| 署名preflight | 合格（合成fixture） |
+| 秘密値非露出 | 合格（合成値のredaction／引数／JSON確認） |
+| source guard | 合格（実一時Git・CRLF・tracked/index/untracked判定） |
+| QA経路保護 | 合格（別途、生バイトとSHA256照合） |
 
-主要ブロッカーは限定テストのGit探索が配列を返すこと。次の最小候補は**テスト補助のGit探索を1実行ファイルへ明示的に限定すること**。今回の参照修正範囲外なので実施していない。ゲームやreleaseビルダーの変更は必要と判断していない。
+34はスクリプト内のCheck assertion数。Unity／NUnitケース数として数えていない。ログ`validation/git-selection-fix/release-tests.log`の末尾に全チェックPASSを確認した。LF→CRLF警告3件は一時fixtureでの改行確認時に出たもので、exit0・全チェック合格。
 
-固定共有：`References/Review/inbox/latest-release-candidate/`。この文書のcommitは共有結果で、上記確認対象HEADや既存release実装commitとは区別する。
+Gitが4件見つかる同じ環境で、選択件数1・SourceはSystem.String・選択先は/usr/local/bin/gitとなることも読み取り確認。PATHは変更していない。
 
-Codex／AI側から見た次の改善候補：今回はなし（上記の必須検証ブロッカーのみ）。
+API-onlyコンパイルはb03a981でPASS済み。C#本体とcompile.rspが不変なので、今回は再コンパイルしていない。
+
+## 不変確認
+
+`AndroidReleaseBuild.cs`と.meta、`build-android-release.ps1`、既存`AndroidBuild.cs`／`build-android.ps1`は修正前とSHA256まで一致。Assets／ProjectSettings／Packages／Visual Lockも不変。
+
+**source_unchanged=true**。承認されたGit探索だけのテスト編集は別記し、既存ゲームやビルダーまで無変更と混同しない。
+
+- Unity起動0、AAB/APKビルド0、Pixel操作0。
+- 第7工程テスト再実行0。
+- 実署名キーの使用0。Windowsの正式署名preflight自体は未実行。
+- 今回のfirst_error／runner_error／failed_phaseは全てnull。新しいfirst-errorを生成していない。
+
+root first-error.log／failure.log／latest/error.logはb03a981までの**旧失敗原本**として変更せず保持した。旧限定テストlogも保持し、今回の成功ログとはパスを分離。直前の結果JSON等を`validation/history-b03a981/`へ保存した。c988164／ba32883と第7工程の履歴も保持。
+
+## 判定
+
+**Git探索修正：YES。コード変更1ファイル。限定releaseテストPASS、exit0、Total34／Passed34／Failed0。**
+
+**次に実AAB/APKビルドへ進んで安全か：YES（次のWindows工程への着手可）**。
+
+Windows正式repo clean・既存のローカル正式署名preflight合格を実行前の必須条件とし、AABを1回、成功時だけAPKを1回とする。今回その操作を開始していない。実ビルド成功や署名・実機確認の合格を今回確定したものとは扱わない。
+
+**第8工程 complete=false**。Pixel／保存復帰／Visual／Google Play提出準備の最終合格は未確認。Google Playへ提出していない。
+
+固定共有：`References/Review/inbox/latest-release-candidate/`。commitは上記コード修正の確認対象SHAを示し、共有文書自身のcommitと区別する。
+
+Codex／AI側から見た次の改善候補：今回はなし。
 
 ---
 

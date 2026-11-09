@@ -1,0 +1,9 @@
+46: try { New-AndroidReleaseReceipt $Receipt 'replacement' } catch { $Rejected = $true }
+47: Check $Rejected 'Second attempt was accepted.'
+48: Check ([IO.File]::ReadAllText($Receipt) -eq 'fixture-run') 'Existing receipt overwritten.'
+49: $Git = (Get-Command git -CommandType Application).Source
+50: $Repo = Join-Path $Scratch 'repo'
+51: $null = [IO.Directory]::CreateDirectory((Join-Path $Repo 'Assets'))
+52: & $Git -C $Repo init --quiet
+53: & $Git -C $Repo config core.autocrlf true
+54: & $Git -C $Repo config user.name ReleaseFixture

@@ -1,0 +1,7 @@
+{
+  "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs": "648df2dcdb001824b5bac38e334f41189ecf2a7c6d4c5052ab507c498dba6d9e",
+  "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs.meta": "888cee050dce317ed3d9bc0dbf9b3f8f7115c6b7a5239b3eac2b3dd844adc06e",
+  "scripts/build-android-release.ps1": "e1e1d1b03f75d91ddffc7c7d566ea09292f6e20da94d5b0449f3f10ea5f39f31",
+  "Assets/Mofumachi/Editor/AndroidBuild.cs": "78933406562159ed649af34fa6ba840eec0e1a3bf2a091b9fa4a372989e73731",
+  "scripts/build-android.ps1": "4f6862a7155657eca8eac59a9b87f5a53cb1d26762b370111725d697a109b291"
+}

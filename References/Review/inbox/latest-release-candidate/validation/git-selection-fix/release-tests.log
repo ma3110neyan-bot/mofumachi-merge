@@ -1,0 +1,4 @@
+warning: in the working copy of 'Assets/fixture.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Assets/fixture.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Assets/fixture.txt', LF will be replaced by CRLF the next time Git touches it
+PASS limited release-entry checks: 34. No Unity, game tests, APK/AAB or signing key used. Scratch: /tmp/android-release-check-ec7586b582a741a495754ef652ff748a

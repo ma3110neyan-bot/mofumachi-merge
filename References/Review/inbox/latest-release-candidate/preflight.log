@@ -1,9 +1,11 @@
-Reference-only verification task. No Unity or real build.
-Verified source HEAD: ba328838d1ca72ec5abc0ba8b5f259ca445070a0
-Metadata read: all11 required Editor types are defined in both assemblies.
-Minimal change: remove only Managed/UnityEngine/UnityEditor.CoreModule.dll; retain Managed/UnityEditor.dll and every other reference/option.
-API compile: attempts1, exit0, CS0433 absent, first C# error=null. Unchanged tool warning CS2023 retained.
-Limited release check: attempts1, exit1, first stop scripts/tests/android-release.tests.ps1:52.
-Read-only follow-up Get-Command git: four Application matches; Source is System.Object[]. No second test run.
-Release builder, PowerShell build entry, test source, existing QA, game, packages/settings/VisualLock: unchanged.
-Unity0, AAB0, APK0, Pixel0, Stage7 reruns0, automatic retries0.
+Git selection-only limited release test fix.
+Base: b03a9814df64cd26f9feb770bde0a3bbefce3d41
+Test fix commit: c86941dc65291867fe6400345c0bb97beb51035e
+Before snippet and exact source diff retained in validation/git-selection-fix/.
+Source edit: first Application only; Get-Command -ErrorAction Stop; explicit null/empty path check. No PATH or fallback changes.
+Limited release test: runs1, exit0, Total34/Passed34/Failed0, automatic retries0.
+Git fixture init, source guard, signing preflight, secret redaction, AAB/APK entry selection and Development OFF checks completed.
+QA protection independently verified by exact bytes/SHA256. Protected release builder/PS1/game/settings/packages/VisualLock unchanged.
+API compile result reused from b03a981 because C# and compile references are unchanged; API compile reruns0.
+Unity0, AAB0, APK0, Pixel0, Stage7 reruns0. Current first error=null; older failure logs preserved unchanged and marked historical.
+Ready for next Windows build step only after the existing private-signing/source preflight. Stage8 complete=false.

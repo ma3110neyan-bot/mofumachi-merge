@@ -1,3 +1,22 @@
+# 第8工程：実AABのみ1回・Windows実行待ち
+
+状態：**未着手（実AAB生成）**。既存preflightはPASS、第7工程complete=true、第8工程complete=falseを維持。
+
+- branch：`feat/daily-world-pass-20261016`。
+- 既存preflightの共有確認commit：`3e93a338b6ae582635620cc8fbbfdceaa99f7cbe`。preflight実行source：`26d2f150337f00baf89771f44f6802f6f6d6402b`。
+- 固定ゲーム：`46f65b24d58531d5934035fbe4cdb4d5b00104a6`。AAB実行source HEADはWindows側が実行時に記録する。
+- 既存`scripts/build-android-release.ps1 -Build -Format Aab`を1回だけ呼ぶ同一セッション用手順：`References/Review/inbox/latest-release-candidate/windows-release-aab-only.md`。
+- 新しいPowerShell/CMDを開かない。単独preflightやキー作成は再実行しない。既存ビルド入口内のチェックとattempt receiptを保持する。
+- 既存release/QA入口、ゲーム、テスト、設定、Packages、Visual Lockは変更なし。今回の変更は公開手順と共有記録だけ。
+- 現在、実AAB・Unity・APK・Pixel・追加preflight・キー作成はいずれも0回。AAB path/size/SHA/signer/build exitは未取得。PASSを先取りしない。
+- 成功・失敗ともE側原本を保持。公開ZIPは小容量の許可済み証跡だけを収録し、AAB本体・keystore/passwordをGitやチャットへ追加しない。
+- **次にAPK実ビルドへ進んで安全か：NO（AAB実行結果待ち）**。AABが合格しても自動でAPKへ進まない。
+- ブロッカー：既存Windows PowerShellからの1回の実行と公開結果の受領待ち。新しい製品不具合を検出したという意味ではない。
+
+以下のpreflight PASS原本と以前の結果は変更せず保持。直下build-info/build-settings/sourceは引き続き最後の実行済みpreflight証跡であり、未実行AABの結果ではない。
+
+---
+
 # 第8工程：Windows release preflight PASS（実ビルドなし）
 
 状態：**完了（preflight小工程のみ）**。第7工程complete=true、第8工程complete=false。

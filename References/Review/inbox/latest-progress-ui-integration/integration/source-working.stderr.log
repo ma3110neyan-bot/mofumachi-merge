@@ -1,0 +1,5 @@
+warning: in the working copy of 'Assets/Settings/UniversalRenderPipelineGlobalSettings.asset', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'ProjectSettings/EditorBuildSettings.asset', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'ProjectSettings/Packages/com.unity.learn.iet-framework/Settings.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'ProjectSettings/ProjectAuditorSettings.asset', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'ProjectSettings/ShaderGraphSettings.asset', LF will be replaced by CRLF the next time Git touches it

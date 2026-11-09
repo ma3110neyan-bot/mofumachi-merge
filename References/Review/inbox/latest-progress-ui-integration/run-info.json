@@ -1,9 +1,9 @@
 ﻿{
-    "source_run":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8",
+    "source_run":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v5-20261109-101604-63c260c0",
     "source_commit":  "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
     "source_repository":  "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge",
     "validation_root":  "E:\\Mofumachi-Validation",
-    "publication_worktree":  "E:\\Mofumachi-Validation\\sharing\\d1e5fd827ec64dc9b4bb0da1cec53cea",
+    "publication_worktree":  "E:\\Mofumachi-Validation\\sharing\\228dd898c2294e93b67a0eed7b626927",
     "fixture":  "Mofumachi.Tests.ProgressUiIntegrationTests",
     "requested_fixtures":  [
                                "Mofumachi.Tests.SaveServiceTests",
@@ -16,14 +16,14 @@
                                "Mofumachi.Tests.QuestTownLevelTests",
                                "Mofumachi.Tests.ProgressUiIntegrationTests"
                            ],
-    "validation_id":  "progress-ui-e-drive-v4",
-    "copied_at_utc":  "2026-11-08T07:59:41.3662554Z",
-    "remote_parent":  "2e9833c0c52980fff42f73e1de26cf02a51607cb",
+    "validation_id":  "progress-ui-e-drive-v5",
+    "copied_at_utc":  "2026-11-09T02:38:25.6171943Z",
+    "remote_parent":  "b0e6141843fef435a77d3300181c4afec398738f",
     "files":  [
                   {
-                      "sha256":  "53b621f934c6ab7ee4c13c02c5a1693aec2127b8202ee13d5094fbfb8f373c64",
+                      "sha256":  "1e17bc399f4aeb02183f1182ba325445e7bbcc3fa1d5e63533349d87c51bd336",
                       "file":  "progress-ui-integration-result.json",
-                      "bytes":  25934
+                      "bytes":  52869
                   },
                   {
                       "sha256":  "38da79683de40353a94951ac666f7ddad29f4bae85013cb8658c34fcf2be1efa",
@@ -31,29 +31,39 @@
                       "bytes":  45
                   },
                   {
-                      "sha256":  "e1bcc972c85ef0351b7d6582f031b1a78c29f53eea828d23a5120206c88b535e",
-                      "file":  "first-error.log",
-                      "bytes":  71
-                  },
-                  {
-                      "sha256":  "74c2bb335fc9b495473f1f2d1715f3d05c54da959b323c1aef1ce035d322ba29",
+                      "sha256":  "3c88ec1f6adab1230d183b2176bd85ac773609e3d27a87d6c322272dcc60c83c",
                       "file":  "direct/results.xml",
-                      "bytes":  50263
+                      "bytes":  50265
                   },
                   {
-                      "sha256":  "03bb24b3477c0daada2fc0dbfa4dfb635536462110f3bfbbf266ceedbfd34480",
+                      "sha256":  "443894cb3de1ca495a0a5919496fe0c7cc0c8ccfaaa45e4480162ccf8ec6ee4f",
                       "file":  "direct/unity.log",
-                      "bytes":  3513156
+                      "bytes":  3513166
                   },
                   {
-                      "sha256":  "4f1969bf02b53ce60e2a5126c261d4cfeb9b73fba94fa4d1280d93d8ac01d04c",
+                      "sha256":  "88e372d2f3b81a5327fb1bd34ea104ca2723dabe7066a066eaed05e611ced7e7",
                       "file":  "direct/unity-arguments.txt",
                       "bytes":  626
                   },
                   {
-                      "sha256":  "60264aee2968c4ba1a4aa6e750e4e923ebbc1336717eb989cbdb5dea1ca5dfca",
+                      "sha256":  "5d5b8238c7af38f6c6602ecd2d52f7905c857a8b3d39af06c961583530ed2dac",
+                      "file":  "integration/results.xml",
+                      "bytes":  357707
+                  },
+                  {
+                      "sha256":  "c7979e50445d5bfd04d2235472c8b490e7e6e09e8b5b4d3483582e10c697070c",
+                      "file":  "integration/unity.log",
+                      "bytes":  3600004
+                  },
+                  {
+                      "sha256":  "9ce0f312b88fb5ab4595fa02a698b3db3924af04008e80e58aee8ff189507f69",
+                      "file":  "integration/unity-arguments.txt",
+                      "bytes":  990
+                  },
+                  {
+                      "sha256":  "6f4dcc017141b682852bfaaf55b3f72595b839fe10374ccdebca9c4a8df2b95e",
                       "file":  "history/preflight.json",
-                      "bytes":  32016
+                      "bytes":  32331
                   },
                   {
                       "sha256":  "10182a820fd5c901a847e1e84ee811c27284288099de7dd933e0862ab6064f76",
@@ -101,28 +111,128 @@
                       "bytes":  82
                   },
                   {
-                      "sha256":  "03504c5ad9ba69850bfd3f77b3e86dbde90b3bdb31eaaf2ffea82511a8a757ed",
+                      "sha256":  "3b88d6723ba70f60271dcd2702a017473d5dbc5d9da8e1f892aa1da0985d8286",
                       "file":  "direct/worktree-add.stderr.log",
-                      "bytes":  13265
+                      "bytes":  14882
                   },
                   {
-                      "sha256":  "a5ebfebf94a0faeb4a2fd25d93e3bbc357f46f5f091f64f399d1c192e36f8e60",
+                      "sha256":  "8725a32663617ad220871b97fb7a0eb85ce4db9b82cfff042eeecdfcd5f75690",
                       "file":  "direct/worktree-add.exit.json",
-                      "bytes":  890
+                      "bytes":  891
                   },
                   {
-                      "sha256":  "220624ad9b1200e0c7520c28c8acb9fa721a48691b04acc06facc0b0347fa652",
+                      "sha256":  "c66fe91ee7a1e81d2a79e38da686f412b337fd5e53affdf4be78bfd574356cf7",
                       "file":  "direct/worktree-validation.json",
-                      "bytes":  3166
+                      "bytes":  3167
                   },
                   {
-                      "sha256":  "1c5e314cbb59e9d28b13d1ce1c47ff90238d5d5ff95acf01cff0260511a85f45",
+                      "sha256":  "62773a88f892a8913efd3396721138494a5caf14c67a4106b691d4cf4001a6df",
                       "file":  "direct/tracked-tree.exit.json",
                       "bytes":  741
                   },
                   {
                       "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
                       "file":  "direct/tracked-tree.stderr.log",
+                      "bytes":  0
+                  },
+                  {
+                      "sha256":  "5d90c2fb7ae17af0de456a78fe6f64f894c548248983c1d06d33f255e93275b8",
+                      "file":  "integration/worktree-add.stdout.log",
+                      "bytes":  82
+                  },
+                  {
+                      "sha256":  "353bcbeab25a07dd4e5ae789f5a8f75c7bb8a040ac7c5aee1087bca02a88a923",
+                      "file":  "integration/worktree-add.stderr.log",
+                      "bytes":  14614
+                  },
+                  {
+                      "sha256":  "9dcf4e951bebb272840bc5a94d81b81a654f4c56168b882f02e63c6b3a395d32",
+                      "file":  "integration/worktree-add.exit.json",
+                      "bytes":  905
+                  },
+                  {
+                      "sha256":  "788699442f6493f5bdf9cd8ae1db1a3f730e8f69f851836f4f2cf3be47a038b7",
+                      "file":  "integration/worktree-validation.json",
+                      "bytes":  3201
+                  },
+                  {
+                      "sha256":  "13d133c4eb57cb5f4ad7822155a376b3838b6ec7580f6308400fee2014af0332",
+                      "file":  "integration/tracked-tree.exit.json",
+                      "bytes":  751
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "file":  "integration/tracked-tree.stderr.log",
+                      "bytes":  0
+                  },
+                  {
+                      "sha256":  "dabd8418bcb727e1617d7b902c780fa5a79c050ae2f3f28d0f979575fde932c3",
+                      "file":  "direct/source-check.json",
+                      "bytes":  6041
+                  },
+                  {
+                      "sha256":  "5da4ddd3b4a7b7ceed216b18ec5cbdec74ee48f6af6dcaeb8aca2067ba7645f6",
+                      "file":  "direct/source-working.exit.json",
+                      "bytes":  1053
+                  },
+                  {
+                      "sha256":  "ec87641fb3932979845a7127e08b41b724fbbc02a896d17a073a72a1eab7296d",
+                      "file":  "direct/source-working.stderr.log",
+                      "bytes":  718
+                  },
+                  {
+                      "sha256":  "4bc9d3c72562af9163feac9ddbedc8a6e55f3cc9a45a894e828886153402b147",
+                      "file":  "direct/source-index.exit.json",
+                      "bytes":  1150
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "file":  "direct/source-index.stderr.log",
+                      "bytes":  0
+                  },
+                  {
+                      "sha256":  "dd89822c963bad6dd545e922f1eaf6f3541b7dec13cef4d5dba40d72d0e22a6c",
+                      "file":  "direct/source-untracked.exit.json",
+                      "bytes":  1026
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "file":  "direct/source-untracked.stderr.log",
+                      "bytes":  0
+                  },
+                  {
+                      "sha256":  "7a4ca5d90af4ae2270a98c4936b8918ae8e2d23c354963afefdbaf7be99abc43",
+                      "file":  "integration/source-check.json",
+                      "bytes":  6093
+                  },
+                  {
+                      "sha256":  "8a79b3385b73af7b7cfd524f849fbdb407f36fb476b8a5a54d6fc4170dce8b54",
+                      "file":  "integration/source-working.exit.json",
+                      "bytes":  1068
+                  },
+                  {
+                      "sha256":  "ec87641fb3932979845a7127e08b41b724fbbc02a896d17a073a72a1eab7296d",
+                      "file":  "integration/source-working.stderr.log",
+                      "bytes":  718
+                  },
+                  {
+                      "sha256":  "323bb9385aeedab5e433e18e23e1daea458511c2a9b6e02f891d25c55ad2ee4c",
+                      "file":  "integration/source-index.exit.json",
+                      "bytes":  1166
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "file":  "integration/source-index.stderr.log",
+                      "bytes":  0
+                  },
+                  {
+                      "sha256":  "9e92053f600dcb8e791507c0f7c796abe35fdd8561cc771c4372a21e874f9b51",
+                      "file":  "integration/source-untracked.exit.json",
+                      "bytes":  1042
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "file":  "integration/source-untracked.stderr.log",
                       "bytes":  0
                   }
               ],

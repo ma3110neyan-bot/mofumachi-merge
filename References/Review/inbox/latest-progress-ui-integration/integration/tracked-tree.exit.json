@@ -1,0 +1,18 @@
+﻿{
+    "arguments":  [
+                      "ls-tree",
+                      "-r",
+                      "-z",
+                      "46f65b24d58531d5934035fbe4cdb4d5b00104a6"
+                  ],
+    "process_id":  12644,
+    "started":  true,
+    "exit_code":  0,
+    "timed_out":  false,
+    "timeout_seconds":  900,
+    "streams_complete":  true,
+    "tree_stop":  null,
+    "error":  null,
+    "stdout":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v5-20261109-101604-63c260c0\\integration\\tracked-tree.stdout.log",
+    "stderr":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v5-20261109-101604-63c260c0\\integration\\tracked-tree.stderr.log"
+}

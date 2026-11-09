@@ -1,0 +1,23 @@
+﻿{
+    "arguments":  [
+                      "--no-optional-locks",
+                      "-c",
+                      "core.fsmonitor=false",
+                      "-C",
+                      "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v5-20261109-101604-63c260c0\\integration",
+                      "ls-files",
+                      "--others",
+                      "--exclude-standard",
+                      "-z"
+                  ],
+    "process_id":  12216,
+    "started":  true,
+    "exit_code":  0,
+    "timed_out":  false,
+    "timeout_seconds":  900,
+    "streams_complete":  true,
+    "tree_stop":  null,
+    "error":  null,
+    "stdout":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v5-20261109-101604-63c260c0\\integration\\source-untracked.stdout.log",
+    "stderr":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v5-20261109-101604-63c260c0\\integration\\source-untracked.stderr.log"
+}

@@ -1,0 +1,283 @@
+{
+    "observed_at_utc":  "2026-11-08T07:21:56.9807246Z",
+    "repository":  "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge",
+    "branch":  "feat/daily-world-pass-20261016",
+    "head":  "2e9833c0c52980fff42f73e1de26cf02a51607cb",
+    "working_tree":  "",
+    "worktree_list":  "worktree C:/Users/User/Desktop/Mofumachi/mofumachi-merge\nHEAD 2e9833c0c52980fff42f73e1de26cf02a51607cb\nbranch refs/heads/feat/daily-world-pass-20261016\n\nworktree C:/Users/User/Desktop/Mofumachi/capture-a434f15c\nHEAD c84e5d9fa1c7d6aaf1305940794250509fa35f8f\ndetached\n\nworktree C:/Users/User/Desktop/Mofumachi/font-afc3c3d1\nHEAD 193ab6eeb216d9f457096d9f3df305704f2f962e\ndetached\n\nworktree C:/Users/User/Desktop/Mofumachi/generation-cost-share-df400d01110546e189d546cdcb5c7039\nHEAD 3eb8f848bee29bac66062a1c74a02645adadded7\ndetached\n\nworktree C:/Users/User/Desktop/Mofumachi/progress-ui-integration-share-3dfb1e84b17445718302ac12bf3337b4\nHEAD d981dc0f6ce9f6209150c6257b0cd5afbbe2862f\ndetached\n\nworktree C:/Users/User/Desktop/Mofumachi/quest-town-level-share-4527d8fa435644f68868dbe3b7b8ffbc\nHEAD 7a4cbeb109083d637c6c01315f38f91f6fe7a934\ndetached\n\nworktree C:/Users/User/Desktop/Mofumachi/quest-town-level-share-c0c9af566b8941efb18a0b747dd79214\nHEAD b39fa214343f3f39202f9a1d9a5850deb0449993\ndetached\n\nworktree C:/Users/User/Desktop/Mofumachi/recovery-extra-help-share-813c19c5d7fa41c880c25df91fddaf07\nHEAD c0780638836240827dee8d1a145fa6fec52c6ee1\ndetached\n\nworktree C:/Users/User/Desktop/Mofumachi/savedata-v4-share-6f9fd9bdad3c446ab8df1d1bea18c97b\nHEAD d4f8147d3c717b74cfaeb4e3fb3a6af097c9bae4\ndetached\n\nworktree C:/Users/User/Desktop/Mofumachi/town-point-rewards-share-e3c4a1672441448a93fb686b71d9718e\nHEAD 83d11f57127dfc137a58425286da2c60760685b3\ndetached\n\nworktree E:/Mofumachi-Validation/sharing/3106dfe2da3245e4b501f0f53377c4e2\nHEAD 0caa47877c0249241834e47d04ca1f2b8d608e35\ndetached\n\nworktree E:/Mofumachi-Validation/sharing/91bee4eb05c54ecd9604bb9f6a957964\nHEAD 856289b2a6f15283a113751a9586bcafe10fe8b7\ndetached",
+    "previous_attempts":  [
+                              {
+                                  "validation_id":  "progress-ui-e-drive-v1",
+                                  "receipt_path":  "E:\\Mofumachi-Validation\\receipts\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v1.attempted",
+                                  "source_run":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v1-20261107-181802-bbad51c4",
+                                  "saved_state":  null,
+                                  "files":  [
+                                                {
+                                                    "sha256":  "10182A820FD5C901A847E1E84EE811C27284288099DE7DD933E0862AB6064F76",
+                                                    "source":  "E:\\Mofumachi-Validation\\receipts\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v1.attempted",
+                                                    "relative":  "history/v1-receipt.txt",
+                                                    "bytes":  107
+                                                },
+                                                {
+                                                    "sha256":  "38DA79683DE40353A94951AC666F7DDAD29F4BAE85013CB8658C34FCF2BE1EFA",
+                                                    "source":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v1-20261107-181802-bbad51c4\\source-revision.txt",
+                                                    "relative":  "history/v1-source.txt",
+                                                    "bytes":  45
+                                                }
+                                            ],
+                                  "blocked_reasons":  [
+
+                                                      ],
+                                  "observation":  "Read-only; original receipt, Diagnostics and stop records retained"
+                              },
+                              {
+                                  "validation_id":  "progress-ui-e-drive-v2",
+                                  "receipt_path":  "E:\\Mofumachi-Validation\\receipts\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v2.attempted",
+                                  "source_run":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059",
+                                  "saved_state":  {
+                                                      "integration":  {
+                                                                          "result":  "NotRun",
+                                                                          "total":  null,
+                                                                          "passed":  null,
+                                                                          "failed":  null,
+                                                                          "skipped":  null,
+                                                                          "inconclusive":  null,
+                                                                          "unity_started":  false,
+                                                                          "unity_exit_code":  null,
+                                                                          "unity_invocations":  0,
+                                                                          "automatic_retries":  0,
+                                                                          "validation_passed":  false,
+                                                                          "first_error":  null,
+                                                                          "failed_fixture":  null,
+                                                                          "source_unchanged":  false,
+                                                                          "project_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\integration",
+                                                                          "library_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\integration\\Library"
+                                                                      },
+                                                      "first_error":  null,
+                                                      "validation_passed":  false,
+                                                      "runner_error":  null,
+                                                      "result":  "Preparing",
+                                                      "direct":  {
+                                                                     "result":  "NotRun",
+                                                                     "total":  null,
+                                                                     "passed":  null,
+                                                                     "failed":  null,
+                                                                     "skipped":  null,
+                                                                     "inconclusive":  null,
+                                                                     "unity_started":  false,
+                                                                     "unity_exit_code":  null,
+                                                                     "unity_invocations":  0,
+                                                                     "automatic_retries":  0,
+                                                                     "validation_passed":  false,
+                                                                     "first_error":  null,
+                                                                     "failed_fixture":  null,
+                                                                     "source_unchanged":  false,
+                                                                     "project_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\direct",
+                                                                     "library_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\direct\\Library"
+                                                                 },
+                                                      "unity_invocations":  0
+                                                  },
+                                  "files":  [
+                                                {
+                                                    "sha256":  "C5DDCB2196FB0F0D0786292A3E763EB5C552EBCCF43D1B31BD3F9821FB3A4E39",
+                                                    "source":  "E:\\Mofumachi-Validation\\receipts\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v2.attempted",
+                                                    "relative":  "history/v2-receipt.txt",
+                                                    "bytes":  107
+                                                },
+                                                {
+                                                    "sha256":  "CB44000C5268356B733ABEDDC593E3E710DCB0BD4AA8EF7DBFC66E7788C35BAC",
+                                                    "source":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\progress-ui-integration-result.json",
+                                                    "relative":  "history/v2-result.json",
+                                                    "bytes":  5032
+                                                },
+                                                {
+                                                    "sha256":  "38DA79683DE40353A94951AC666F7DDAD29F4BAE85013CB8658C34FCF2BE1EFA",
+                                                    "source":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\source-revision.txt",
+                                                    "relative":  "history/v2-source.txt",
+                                                    "bytes":  45
+                                                }
+                                            ],
+                                  "blocked_reasons":  [
+
+                                                      ],
+                                  "observation":  "Read-only; original receipt, Diagnostics and stop records retained"
+                              },
+                              {
+                                  "validation_id":  "progress-ui-e-drive-v3",
+                                  "receipt_path":  "E:\\Mofumachi-Validation\\receipts\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v3.attempted",
+                                  "source_run":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789",
+                                  "saved_state":  {
+                                                      "integration":  {
+                                                                          "result":  "NotRun",
+                                                                          "total":  null,
+                                                                          "passed":  null,
+                                                                          "failed":  null,
+                                                                          "skipped":  null,
+                                                                          "inconclusive":  null,
+                                                                          "unity_started":  false,
+                                                                          "unity_exit_code":  null,
+                                                                          "unity_invocations":  0,
+                                                                          "automatic_retries":  0,
+                                                                          "validation_passed":  false,
+                                                                          "first_error":  null,
+                                                                          "failed_fixture":  null,
+                                                                          "source_unchanged":  false,
+                                                                          "project_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\\integration",
+                                                                          "library_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\\integration\\Library"
+                                                                      },
+                                                      "first_error":  null,
+                                                      "validation_passed":  false,
+                                                      "runner_error":  null,
+                                                      "result":  "Preparing",
+                                                      "direct":  {
+                                                                     "result":  "NotRun",
+                                                                     "total":  null,
+                                                                     "passed":  null,
+                                                                     "failed":  null,
+                                                                     "skipped":  null,
+                                                                     "inconclusive":  null,
+                                                                     "unity_started":  false,
+                                                                     "unity_exit_code":  null,
+                                                                     "unity_invocations":  0,
+                                                                     "automatic_retries":  0,
+                                                                     "validation_passed":  false,
+                                                                     "first_error":  null,
+                                                                     "failed_fixture":  null,
+                                                                     "source_unchanged":  false,
+                                                                     "project_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\\direct",
+                                                                     "library_path":  "E:\\Mofumachi-Validation\\projects\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\\direct\\Library"
+                                                                 },
+                                                      "unity_invocations":  0
+                                                  },
+                                  "files":  [
+                                                {
+                                                    "sha256":  "01F70FB23F3AE985F35E3F09F20F8FFEFF5A06C41613D1BFDA17B66ADE28BB4B",
+                                                    "source":  "E:\\Mofumachi-Validation\\receipts\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v3.attempted",
+                                                    "relative":  "history/v3-receipt.txt",
+                                                    "bytes":  107
+                                                },
+                                                {
+                                                    "sha256":  "F27D45980CE74C52C96E1C48ED2AAFC165A73A885368D169822C83EA6E5D0680",
+                                                    "source":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\\progress-ui-integration-result.json",
+                                                    "relative":  "history/v3-result.json",
+                                                    "bytes":  13016
+                                                },
+                                                {
+                                                    "sha256":  "38DA79683DE40353A94951AC666F7DDAD29F4BAE85013CB8658C34FCF2BE1EFA",
+                                                    "source":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\\source-revision.txt",
+                                                    "relative":  "history/v3-source.txt",
+                                                    "bytes":  45
+                                                }
+                                            ],
+                                  "blocked_reasons":  [
+
+                                                      ],
+                                  "observation":  "Read-only; original receipt, Diagnostics and stop records retained"
+                              }
+                          ],
+    "diagnostics":  [
+                        "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v1-20261107-181802-bbad51c4",
+                        "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059",
+                        "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v3-20261108-122257-63a8a5be",
+                        "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v3-20261108-122436-ff541d97",
+                        "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789"
+                    ],
+    "attempt_stops":  [
+                          {
+                              "path":  "E:\\Mofumachi-Validation\\attempt-stops\\incomplete-attempt-84833874f80041e6a233dbf66a819ce8.json",
+                              "sha256":  "82EA80BBB84FDEF6637F55037F6CE03E654EBB1914B0714D6D0BBA0A49F6517C",
+                              "raw_text":  "{\r\n    \"classification\":  \"pre-Unity/incomplete attempt\",\r\n    \"reason\":  \"non_terminal_result_json\",\r\n    \"receipt_path\":  \"E:\\\\Mofumachi-Validation\\\\receipts\\\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v2.attempted\",\r\n    \"source_run\":  \"E:\\\\Mofumachi-Validation\\\\Diagnostics\\\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\",\r\n    \"expected_result_path\":  \"E:\\\\Mofumachi-Validation\\\\Diagnostics\\\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\\\progress-ui-integration-result.json\",\r\n    \"source_commit\":  \"46f65b24d58531d5934035fbe4cdb4d5b00104a6\",\r\n    \"validation_id\":  \"progress-ui-e-drive-v2\",\r\n    \"native_state\":  \"unconfirmed\",\r\n    \"unity_invocations_this_detection\":  0,\r\n    \"automatic_retries\":  0,\r\n    \"validation_passed\":  false,\r\n    \"observed_at_utc\":  \"2026-11-08T03:20:59.0901036Z\"\r\n}",
+                              "bytes":  896
+                          },
+                          {
+                              "path":  "E:\\Mofumachi-Validation\\attempt-stops\\incomplete-attempt-8b7af6127f004fe39a8ab22d495a2ba0.json",
+                              "sha256":  "0F6A7286B39C8B9169BDC4FA8313AFB9D6788E85FDB1DC781F6F6CE5DA41A019",
+                              "raw_text":  "{\r\n    \"classification\":  \"pre-Unity/incomplete attempt\",\r\n    \"reason\":  \"non_terminal_result_json\",\r\n    \"receipt_path\":  \"E:\\\\Mofumachi-Validation\\\\receipts\\\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v3.attempted\",\r\n    \"source_run\":  \"E:\\\\Mofumachi-Validation\\\\Diagnostics\\\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\",\r\n    \"expected_result_path\":  \"E:\\\\Mofumachi-Validation\\\\Diagnostics\\\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\\\\progress-ui-integration-result.json\",\r\n    \"source_commit\":  \"46f65b24d58531d5934035fbe4cdb4d5b00104a6\",\r\n    \"validation_id\":  \"progress-ui-e-drive-v3\",\r\n    \"native_state\":  \"unconfirmed\",\r\n    \"unity_invocations_this_detection\":  0,\r\n    \"automatic_retries\":  0,\r\n    \"validation_passed\":  false,\r\n    \"observed_at_utc\":  \"2026-11-08T07:20:26.0977366Z\"\r\n}",
+                              "bytes":  896
+                          },
+                          {
+                              "path":  "E:\\Mofumachi-Validation\\attempt-stops\\incomplete-attempt-d372e030a8dd4d6ebe79cdc5f8052d60.json",
+                              "sha256":  "44E87876566B4CD8DE64DBD9F33A12997F8F9930AB43CCE5BE9BC716BC3919D7",
+                              "raw_text":  "{\r\n    \"classification\":  \"pre-Unity/incomplete attempt\",\r\n    \"reason\":  \"non_terminal_result_json\",\r\n    \"receipt_path\":  \"E:\\\\Mofumachi-Validation\\\\receipts\\\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v3.attempted\",\r\n    \"source_run\":  \"E:\\\\Mofumachi-Validation\\\\Diagnostics\\\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\",\r\n    \"expected_result_path\":  \"E:\\\\Mofumachi-Validation\\\\Diagnostics\\\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\\\\progress-ui-integration-result.json\",\r\n    \"source_commit\":  \"46f65b24d58531d5934035fbe4cdb4d5b00104a6\",\r\n    \"validation_id\":  \"progress-ui-e-drive-v3\",\r\n    \"native_state\":  \"unconfirmed\",\r\n    \"unity_invocations_this_detection\":  0,\r\n    \"automatic_retries\":  0,\r\n    \"validation_passed\":  false,\r\n    \"observed_at_utc\":  \"2026-11-08T05:08:20.1670976Z\"\r\n}",
+                              "bytes":  896
+                          },
+                          {
+                              "path":  "E:\\Mofumachi-Validation\\attempt-stops\\incomplete-attempt-d804cffb9eb94c1eb7d6f0ab32f36af3.json",
+                              "sha256":  "00D7AEFC509BAF7F5379DFDD56B516DC7C9819ABD1F69DB2BC248A130740AE11",
+                              "raw_text":  "{\r\n    \"classification\":  \"pre-Unity/incomplete attempt\",\r\n    \"reason\":  \"non_terminal_result_json\",\r\n    \"receipt_path\":  \"E:\\\\Mofumachi-Validation\\\\receipts\\\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v2.attempted\",\r\n    \"source_run\":  \"E:\\\\Mofumachi-Validation\\\\Diagnostics\\\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\",\r\n    \"expected_result_path\":  \"E:\\\\Mofumachi-Validation\\\\Diagnostics\\\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\\\progress-ui-integration-result.json\",\r\n    \"source_commit\":  \"46f65b24d58531d5934035fbe4cdb4d5b00104a6\",\r\n    \"validation_id\":  \"progress-ui-e-drive-v2\",\r\n    \"native_state\":  \"unconfirmed\",\r\n    \"unity_invocations_this_detection\":  0,\r\n    \"automatic_retries\":  0,\r\n    \"validation_passed\":  false,\r\n    \"observed_at_utc\":  \"2026-11-07T09:48:31.0179542Z\"\r\n}",
+                              "bytes":  896
+                          },
+                          {
+                              "path":  "E:\\Mofumachi-Validation\\attempt-stops\\incomplete-attempt-e002e84c9ae7495f922d584afe4e5246.json",
+                              "sha256":  "7F633E8E9C38F876DEFDB38E376A8788F1BFFC9CFD88B29A1AD7EF499088A08C",
+                              "raw_text":  "{\r\n    \"classification\":  \"pre-Unity/incomplete attempt\",\r\n    \"reason\":  \"non_terminal_result_json\",\r\n    \"receipt_path\":  \"E:\\\\Mofumachi-Validation\\\\receipts\\\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v2.attempted\",\r\n    \"source_run\":  \"E:\\\\Mofumachi-Validation\\\\Diagnostics\\\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\",\r\n    \"expected_result_path\":  \"E:\\\\Mofumachi-Validation\\\\Diagnostics\\\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\\\progress-ui-integration-result.json\",\r\n    \"source_commit\":  \"46f65b24d58531d5934035fbe4cdb4d5b00104a6\",\r\n    \"validation_id\":  \"progress-ui-e-drive-v2\",\r\n    \"native_state\":  \"unconfirmed\",\r\n    \"unity_invocations_this_detection\":  0,\r\n    \"automatic_retries\":  0,\r\n    \"validation_passed\":  false,\r\n    \"observed_at_utc\":  \"2026-11-07T09:52:33.4013356Z\"\r\n}",
+                              "bytes":  896
+                          },
+                          {
+                              "path":  "E:\\Mofumachi-Validation\\attempt-stops\\incomplete-attempt-eaf8f55f42de4769b1441a76f1f9b56c.json",
+                              "sha256":  "8E8BF7C12E8C0D3EAAC3C4B518493E4CE98550AAB678D6050AE375DB95735CD6",
+                              "raw_text":  "{\r\n    \"classification\":  \"pre-Unity/incomplete attempt\",\r\n    \"reason\":  \"non_terminal_result_json\",\r\n    \"receipt_path\":  \"E:\\\\Mofumachi-Validation\\\\receipts\\\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v3.attempted\",\r\n    \"source_run\":  \"E:\\\\Mofumachi-Validation\\\\Diagnostics\\\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\",\r\n    \"expected_result_path\":  \"E:\\\\Mofumachi-Validation\\\\Diagnostics\\\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\\\\progress-ui-integration-result.json\",\r\n    \"source_commit\":  \"46f65b24d58531d5934035fbe4cdb4d5b00104a6\",\r\n    \"validation_id\":  \"progress-ui-e-drive-v3\",\r\n    \"native_state\":  \"unconfirmed\",\r\n    \"unity_invocations_this_detection\":  0,\r\n    \"automatic_retries\":  0,\r\n    \"validation_passed\":  false,\r\n    \"observed_at_utc\":  \"2026-11-08T05:07:06.2162488Z\"\r\n}",
+                              "bytes":  896
+                          },
+                          {
+                              "path":  "E:\\Mofumachi-Validation\\attempt-stops\\incomplete-attempt-ebb09e4ef21441ca8237342f1d74f280.json",
+                              "sha256":  "CC2BB683E343D951557F534332EDBDD20185CC2EDCAC9E38B8A8DC42653A381C",
+                              "raw_text":  "{\r\n    \"classification\":  \"pre-Unity/incomplete attempt\",\r\n    \"reason\":  \"non_terminal_result_json\",\r\n    \"receipt_path\":  \"E:\\\\Mofumachi-Validation\\\\receipts\\\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v3.attempted\",\r\n    \"source_run\":  \"E:\\\\Mofumachi-Validation\\\\Diagnostics\\\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\",\r\n    \"expected_result_path\":  \"E:\\\\Mofumachi-Validation\\\\Diagnostics\\\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\\\\progress-ui-integration-result.json\",\r\n    \"source_commit\":  \"46f65b24d58531d5934035fbe4cdb4d5b00104a6\",\r\n    \"validation_id\":  \"progress-ui-e-drive-v3\",\r\n    \"native_state\":  \"unconfirmed\",\r\n    \"unity_invocations_this_detection\":  0,\r\n    \"automatic_retries\":  0,\r\n    \"validation_passed\":  false,\r\n    \"observed_at_utc\":  \"2026-11-08T04:19:27.0103991Z\"\r\n}",
+                              "bytes":  896
+                          }
+                      ],
+    "files":  [
+                  {
+                      "sha256":  "10182A820FD5C901A847E1E84EE811C27284288099DE7DD933E0862AB6064F76",
+                      "source":  "E:\\Mofumachi-Validation\\receipts\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v1.attempted",
+                      "relative":  "history/v1-receipt.txt",
+                      "bytes":  107
+                  },
+                  {
+                      "sha256":  "38DA79683DE40353A94951AC666F7DDAD29F4BAE85013CB8658C34FCF2BE1EFA",
+                      "source":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v1-20261107-181802-bbad51c4\\source-revision.txt",
+                      "relative":  "history/v1-source.txt",
+                      "bytes":  45
+                  },
+                  {
+                      "sha256":  "C5DDCB2196FB0F0D0786292A3E763EB5C552EBCCF43D1B31BD3F9821FB3A4E39",
+                      "source":  "E:\\Mofumachi-Validation\\receipts\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v2.attempted",
+                      "relative":  "history/v2-receipt.txt",
+                      "bytes":  107
+                  },
+                  {
+                      "sha256":  "CB44000C5268356B733ABEDDC593E3E710DCB0BD4AA8EF7DBFC66E7788C35BAC",
+                      "source":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\progress-ui-integration-result.json",
+                      "relative":  "history/v2-result.json",
+                      "bytes":  5032
+                  },
+                  {
+                      "sha256":  "38DA79683DE40353A94951AC666F7DDAD29F4BAE85013CB8658C34FCF2BE1EFA",
+                      "source":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v2-20261107-184800-ef652059\\source-revision.txt",
+                      "relative":  "history/v2-source.txt",
+                      "bytes":  45
+                  },
+                  {
+                      "sha256":  "01F70FB23F3AE985F35E3F09F20F8FFEFF5A06C41613D1BFDA17B66ADE28BB4B",
+                      "source":  "E:\\Mofumachi-Validation\\receipts\\progress-ui-integration-46f65b24d58531d5934035fbe4cdb4d5b00104a6-progress-ui-e-drive-v3.attempted",
+                      "relative":  "history/v3-receipt.txt",
+                      "bytes":  107
+                  },
+                  {
+                      "sha256":  "F27D45980CE74C52C96E1C48ED2AAFC165A73A885368D169822C83EA6E5D0680",
+                      "source":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\\progress-ui-integration-result.json",
+                      "relative":  "history/v3-result.json",
+                      "bytes":  13016
+                  },
+                  {
+                      "sha256":  "38DA79683DE40353A94951AC666F7DDAD29F4BAE85013CB8658C34FCF2BE1EFA",
+                      "source":  "E:\\Mofumachi-Validation\\Diagnostics\\progress-ui-integration-progress-ui-e-drive-v3-20261108-131915-7ed6e789\\source-revision.txt",
+                      "relative":  "history/v3-source.txt",
+                      "bytes":  45
+                  }
+              ],
+    "blocked_reasons":  [
+
+                        ],
+    "passed":  true
+}

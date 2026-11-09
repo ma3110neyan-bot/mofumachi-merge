@@ -1,0 +1,14 @@
+{
+  "query": "Get-Command git -CommandType Application",
+  "count": 4,
+  "source_type": "System.Object[]",
+  "paths": [
+    "/usr/local/bin/git",
+    "/usr/bin/git",
+    "/bin/git",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback/git"
+  ],
+  "root_cause": "Unchanged test line51 assigns all Source values to $Git; line52 invokes the array as an executable. This prevents Git fixture setup, not a release build operation.",
+  "query_read_only": true,
+  "test_rerun": false
+}

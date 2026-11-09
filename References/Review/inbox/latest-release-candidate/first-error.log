@@ -1,4 +1,9 @@
-Assets/Mofumachi/Editor/AndroidReleaseBuild.cs(29,27): error CS0433: The type 'BuildFailedException' exists in both 'UnityEditor.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' and 'UnityEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null'
-
-Root cause: duplicate Editor assemblies in our API-only validation response file.
-No Unity invocation, no actual AAB/APK build, no retry. Product source error not established.
+&: /workspace/mofumachi-merge/scripts/tests/android-release.tests.ps1:52
+Line |
+  52 |  & $Git -C $Repo init --quiet
+     |    ~~~~
+     | The term '/usr/local/bin/git /usr/bin/git /bin/git
+     | /opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback/git'
+     | is not recognized as a name of a cmdlet, function, script file, or
+     | executable program. Check the spelling of the name, or if a path was
+     | included, verify that the path is correct and try again.

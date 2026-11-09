@@ -1,13 +1,13 @@
 {
-  "recorded_at_utc": "2026-11-09T03:41:25.065827+00:00",
+  "recorded_at_utc": "2026-11-09T04:19:16.318249+00:00",
   "branch": "feat/daily-world-pass-20261016",
-  "commit": "ea503db12f34d0eaec418f4aaa507b2d4512d469",
+  "commit": "ba328838d1ca72ec5abc0ba8b5f259ca445070a0",
   "implementation_commit": "ea503db12f34d0eaec418f4aaa507b2d4512d469",
   "product_commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
-  "review_base_commit": "c98816478c8ff87c72cf84e47c389af862d07848",
-  "state": "修正済み・未確認",
-  "scope": "Stage8 release-only tooling addition; first API verification failure preserved; Stage7 unchanged",
-  "status": "release_entry_added_validation_blocked",
+  "review_base_commit": "ba328838d1ca72ec5abc0ba8b5f259ca445070a0",
+  "state": "原因確定",
+  "scope": "API reference-only correction; compile passed; unchanged limited release check failed during Git fixture setup",
+  "status": "reference_conflict_fixed_compile_passed_limited_check_failed",
   "success": false,
   "tests_passed": false,
   "capture_verified": false,
@@ -25,14 +25,14 @@
   "secret_values_committed": false,
   "secret_scope": "No real signing configuration/keys were read or used. Test strings are explicitly synthetic fixtures.",
   "source_unchanged": true,
-  "source_unchanged_scope": "Existing game/QA/package/settings/VisualLock unchanged. The two new Editor files and new release script/checks are authorized tooling additions, not counted as unchanged tooling.",
+  "source_unchanged_scope": "All game/Editor release builder/QA/scripts/packages/settings/VisualLock bytes unchanged from ba32883. Only validation reference configuration and evidence/review documents changed.",
   "static_validation_passed": false,
   "api_compile_attempts": 1,
-  "api_compile_exit_code": 1,
-  "limited_checks_after_implementation": "NotRun",
-  "first_failed_phase": "api_only_compile",
-  "first_error": "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs(29,27): error CS0433: The type 'BuildFailedException' exists in both 'UnityEditor.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' and 'UnityEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null'",
-  "runner_error": "Standalone API validation uses duplicate Editor references. Our verification setup is the confirmed cause; no product source fix was attempted.",
+  "api_compile_exit_code": 0,
+  "limited_checks_after_implementation": "Failed",
+  "first_failed_phase": "limited_release_script_checks",
+  "first_error": "&: /workspace/mofumachi-merge/scripts/tests/android-release.tests.ps1:52\nLine |\n  52 |  & $Git -C $Repo init --quiet\n     |    ~~~~\n     | The term '/usr/local/bin/git /usr/bin/git /bin/git\n     | /opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback/git'\n     | is not recognized as a name of a cmdlet, function, script file, or\n     | executable program. Check the spelling of the name, or if a path was\n     | included, verify that the path is correct and try again.\n",
+  "runner_error": "Unchanged test line51 assigns all Source values to $Git; line52 invokes the array as an executable. This prevents Git fixture setup, not a release build operation.",
   "automatic_retries": 0,
   "unity_invocations": 0,
   "build_invocations": 0,
@@ -59,8 +59,8 @@
   "next_stage": "AAB/APK実ビルド",
   "next_stage_safe": false,
   "next_stage_verdict": "NO",
-  "next_stage_reason": "Release-route static verification has not passed. Stop at the first compile failure as instructed; do not run this route on Windows yet.",
-  "next_minimum_candidate": "Correct only the standalone compiler reference list in the temporary verification harness so each Editor API has one definition. No game/QA builder change is indicated by CS0433. No corrected compile was run in this task.",
+  "next_stage_reason": "API reference conflict is resolved, but the one permitted limited test run failed because test Git discovery returns an array. This task does not authorize test source changes or another run.",
+  "next_minimum_candidate": "The unchanged test helper at scripts/tests/android-release.tests.ps1:51 must resolve one Git executable explicitly. Test helper changes and another run are outside this reference-only task; none performed.",
   "google_play_safe": false,
   "google_play_submitted": false,
   "preflight_previous_record": {
@@ -69,6 +69,24 @@
     "checksums_note": "Archived checksums describe the original c988164 tree paths, not the replaced current root. Archived file bytes are unchanged."
   },
   "shared_root": "References/Review/inbox/latest-release-candidate",
+  "implementation_files": [
+    "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs",
+    "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs.meta",
+    "scripts/build-android-release.ps1",
+    "scripts/tests/android-release.tests.ps1"
+  ],
+  "verified_source_commit": "ba328838d1ca72ec5abc0ba8b5f259ca445070a0",
+  "reference_conflict_fixed": true,
+  "api_compile_passed": true,
+  "release_limited_tests_passed": false,
+  "release_limited_test_exit_code": 1,
+  "release_limited_test_runs": 1,
+  "release_builder_changed": false,
+  "release_check_source_changed": false,
+  "first_csharp_error": null,
+  "reference_configuration": "validation/compile.rsp",
+  "validation_result": "validation/static-validation.json",
+  "previous_static_failure_archive": "validation/history-ba32883",
   "stage7_verified_record": {
     "branch": "feat/daily-world-pass-20261016",
     "updated_date_jst": "2026-11-09",
@@ -555,11 +573,5 @@
       }
     },
     "acceptance_scope": "Stage7 completion and permission to start Stage8; capture/pixel/formal release approval remains unverified"
-  },
-  "implementation_files": [
-    "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs",
-    "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs.meta",
-    "scripts/build-android-release.ps1",
-    "scripts/tests/android-release.tests.ps1"
-  ]
+  }
 }

@@ -1,8 +1,8 @@
 {
   "record_type": "Read-only source settings plus new release-route declarations; native effective release settings unverified",
-  "recorded_at_utc": "2026-11-09T03:41:25.065827+00:00",
+  "recorded_at_utc": "2026-11-09T04:19:16.318249+00:00",
   "source_commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
-  "reviewed_head": "ea503db12f34d0eaec418f4aaa507b2d4512d469",
+  "reviewed_head": "ba328838d1ca72ec5abc0ba8b5f259ca445070a0",
   "windows_effective_build_settings_verified": false,
   "unity_version": "6000.6.4f1",
   "package_name": "com.mofumachi.merge",
@@ -168,7 +168,7 @@
     "package": "com.mofumachi.merge",
     "custom_signing": true,
     "aab_and_apk_separate": true,
-    "status": "Added; API compile verification blocked, limited script checks not run after implementation",
+    "status": "API-only C# compilation passed unchanged. Existing limited script check failed in Git discovery; real builds remain blocked.",
     "effective_runtime_settings_verified": false,
     "signing_environment_names": [
       "MOFUMACHI_KEYSTORE_PATH",
@@ -183,7 +183,7 @@
     "workspace_policy": "New short E worktree from committed tooling HEAD; game baseline remains fixed. TEMP/TMP/UPM/Library/Diagnostics on E.",
     "overwrite_policy": "Unique per-run paths; File.Move without overwrite; FileMode.CreateNew attempt receipts",
     "attempt_identity": "Product SHA + content hash of new C#/meta/PS1; review-only commits do not reset attempts",
-    "default_mode": "Signing/source preflight only. Real builds require explicit -Build. Do not execute until validation is cleared.",
+    "default_mode": "Preflight only; no real build executed. Do not run actual builds until the limited test blocker is resolved.",
     "source_guard": "All tracked content working/index diffs; only root .vsconfig untracked allowlist; explicit two new Editor file additions against product baseline",
     "temporary_settings": "Restore only configuration values assigned by this release entry in finally; no Git reset/restore and no hiding unrelated Unity content changes"
   },
@@ -210,49 +210,101 @@
     }
   ],
   "validation": {
-    "recorded_at_utc": "2026-11-09T03:41:25.065827+00:00",
-    "implementation_commit": "ea503db12f34d0eaec418f4aaa507b2d4512d469",
-    "product_commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
+    "recorded_at_utc": "2026-11-09T04:19:16.318249+00:00",
+    "verified_source_commit": "ba328838d1ca72ec5abc0ba8b5f259ca445070a0",
+    "release_implementation_commit": "ea503db12f34d0eaec418f4aaa507b2d4512d469",
+    "reference_conflict_fixed": true,
     "static_validation_passed": false,
-    "first_failed_phase": "api_only_compile",
+    "reference_change": {
+      "retained": "Managed/UnityEditor.dll",
+      "removed": "Managed/UnityEngine/UnityEditor.CoreModule.dll",
+      "removed_reference_lines": 1,
+      "other_response_lines_unchanged": true,
+      "required_editor_types_verified": 11,
+      "metadata_inspection_only": true,
+      "before_rsp_sha256": "e0f635a78f084cc7338649c37760c261cdac983bfef30506a5fb1d6c15bc4987",
+      "after_rsp_sha256": "9222071fb105a434317ab0d9f48332f83180eafd29ddb9e9f891893f52b116ce",
+      "type_definitions": "validation/editor-type-definitions.json",
+      "diff": "validation/reference-only.diff"
+    },
     "api_compile": {
-      "result": "Blocked",
-      "exit_code": 1,
-      "attempts": 1,
+      "result": "Passed",
+      "exit_code": 0,
+      "attempts_this_request": 1,
       "automatic_retries": 0,
-      "unity_editor_started": false,
-      "compiler": "Installed Unity6000.6.4f1 SDK Roslyn csc; API-only standalone compilation",
-      "first_error": "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs(29,27): error CS0433: The type 'BuildFailedException' exists in both 'UnityEditor.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' and 'UnityEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null'",
-      "error_codes": {
-        "CS0433": 113
-      },
-      "root_cause": "Our standalone verification response file references both Managed/UnityEditor.dll and Managed/UnityEngine/UnityEditor.CoreModule.dll, which export duplicate Editor types. This is a validation-reference conflict, not proof of a game/build source defect.",
+      "cs0433_present": false,
+      "first_csharp_error": null,
+      "release_builder_type_resolution_succeeded": true,
       "log": "validation/api-compile.log",
-      "response_file": "validation/compile.rsp"
+      "response_file": "validation/compile.rsp",
+      "existing_tool_warning": "CS2023: /noconfig in response file ignored; unchanged, not a source error.",
+      "output": {
+        "path": "/tmp/mofumachi-android-release-entry/AndroidReleaseBuild.dll",
+        "bytes": 12800,
+        "sha256": "e77a00597e545ff9062f26fd5306abdbc974dd9539b4a9b48a083439b30faddc",
+        "committed_binary": false
+      }
     },
     "limited_script_checks": {
-      "after_implementation": "NotRun",
-      "reason": "Stopped at the first API compile failure; no further code changes or verification runs.",
-      "expected_red_before_implementation": {
-        "exit_code": 1,
-        "reason": "Missing release-only entry, as expected before adding it.",
-        "log": "validation/red.log"
-      }
+      "result": "Failed",
+      "exit_code": 1,
+      "attempts_this_request": 1,
+      "automatic_retries": 0,
+      "script": "scripts/tests/android-release.tests.ps1",
+      "script_changed": false,
+      "log": "validation/release-limited-tests.log",
+      "failed_file": "scripts/tests/android-release.tests.ps1",
+      "failed_line": 52,
+      "cause_line": 51,
+      "root_cause": "Unchanged test line51 assigns all Source values to $Git; line52 invokes the array as an executable. This prevents Git fixture setup, not a release build operation.",
+      "first_error": "&: /workspace/mofumachi-merge/scripts/tests/android-release.tests.ps1:52\nLine |\n  52 |  & $Git -C $Repo init --quiet\n     |    ~~~~\n     | The term '/usr/local/bin/git /usr/bin/git /bin/git\n     | /opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback/git'\n     | is not recognized as a name of a cmdlet, function, script file, or\n     | executable program. Check the spelling of the name, or if a path was\n     | included, verify that the path is correct and try again.\n",
+      "case_counts": null,
+      "scope": "Only the existing release-entry script check. No game fixture or Stage7 rerun."
     },
-    "next_minimum_candidate": "Correct only the standalone compiler reference list in the temporary verification harness so each Editor API has one definition. No game/QA builder change is indicated by CS0433. No corrected compile was run in this task.",
-    "protected_old_entries": {
-      "Assets/Mofumachi/Editor/AndroidBuild.cs": {
-        "unchanged": true,
-        "sha256": "78933406562159ed649af34fa6ba840eec0e1a3bf2a091b9fa4a372989e73731"
+    "protected_sources": [
+      {
+        "path": "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs",
+        "sha256": "648df2dcdb001824b5bac38e334f41189ecf2a7c6d4c5052ab507c498dba6d9e",
+        "unchanged_from_head": true
       },
-      "scripts/build-android.ps1": {
-        "unchanged": true,
-        "sha256": "4f6862a7155657eca8eac59a9b87f5a53cb1d26762b370111725d697a109b291"
+      {
+        "path": "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs.meta",
+        "sha256": "888cee050dce317ed3d9bc0dbf9b3f8f7115c6b7a5239b3eac2b3dd844adc06e",
+        "unchanged_from_head": true
+      },
+      {
+        "path": "scripts/build-android-release.ps1",
+        "sha256": "e1e1d1b03f75d91ddffc7c7d566ea09292f6e20da94d5b0449f3f10ea5f39f31",
+        "unchanged_from_head": true
+      },
+      {
+        "path": "scripts/tests/android-release.tests.ps1",
+        "sha256": "1f1ba6b25515b0f067e501a344f0512c66bf7ab30258dadb5f837bcff21749e9",
+        "unchanged_from_head": true
+      },
+      {
+        "path": "Assets/Mofumachi/Editor/AndroidBuild.cs",
+        "sha256": "78933406562159ed649af34fa6ba840eec0e1a3bf2a091b9fa4a372989e73731",
+        "unchanged_from_head": true
+      },
+      {
+        "path": "scripts/build-android.ps1",
+        "sha256": "4f6862a7155657eca8eac59a9b87f5a53cb1d26762b370111725d697a109b291",
+        "unchanged_from_head": true
       }
-    },
-    "game_tests_rerun": false,
-    "stage7_55_or444_rerun": false,
+    ],
+    "source_unchanged": true,
+    "release_builder_changed": false,
+    "qa_changed": false,
+    "game_changed": false,
+    "visual_lock_changed": false,
     "unity_invocations": 0,
-    "build_invocations": 0
+    "aab_builds": 0,
+    "apk_builds": 0,
+    "pixel_actions": 0,
+    "automatic_retries": 0,
+    "next_real_build_safe": false,
+    "next_minimum_candidate": "The unchanged test helper at scripts/tests/android-release.tests.ps1:51 must resolve one Git executable explicitly. Test helper changes and another run are outside this reference-only task; none performed.",
+    "prior_failure_archive": "validation/history-ba32883"
   }
 }

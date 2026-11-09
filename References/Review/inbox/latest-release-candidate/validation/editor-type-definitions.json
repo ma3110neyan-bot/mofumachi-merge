@@ -1,0 +1,156 @@
+[
+  {
+    "assembly": "UnityEditor",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEditor.dll",
+    "type": "UnityEditor.Build.BuildFailedException",
+    "defined": true,
+    "total_errors_type": null
+  },
+  {
+    "assembly": "UnityEditor",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEditor.dll",
+    "type": "UnityEditor.EditorUserBuildSettings",
+    "defined": true,
+    "total_errors_type": null
+  },
+  {
+    "assembly": "UnityEditor",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEditor.dll",
+    "type": "UnityEditor.PlayerSettings",
+    "defined": true,
+    "total_errors_type": null
+  },
+  {
+    "assembly": "UnityEditor",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEditor.dll",
+    "type": "UnityEditor.Build.NamedBuildTarget",
+    "defined": true,
+    "total_errors_type": null
+  },
+  {
+    "assembly": "UnityEditor",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEditor.dll",
+    "type": "UnityEditor.BuildPipeline",
+    "defined": true,
+    "total_errors_type": null
+  },
+  {
+    "assembly": "UnityEditor",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEditor.dll",
+    "type": "UnityEditor.BuildPlayerOptions",
+    "defined": true,
+    "total_errors_type": null
+  },
+  {
+    "assembly": "UnityEditor",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEditor.dll",
+    "type": "UnityEditor.EditorBuildSettings",
+    "defined": true,
+    "total_errors_type": null
+  },
+  {
+    "assembly": "UnityEditor",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEditor.dll",
+    "type": "UnityEditor.Build.Reporting.BuildReport",
+    "defined": true,
+    "total_errors_type": null
+  },
+  {
+    "assembly": "UnityEditor",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEditor.dll",
+    "type": "UnityEditor.Build.Reporting.BuildSummary",
+    "defined": true,
+    "total_errors_type": "System.Int32"
+  },
+  {
+    "assembly": "UnityEditor",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEditor.dll",
+    "type": "UnityEditor.Build.Reporting.BuildResult",
+    "defined": true,
+    "total_errors_type": null
+  },
+  {
+    "assembly": "UnityEditor",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEditor.dll",
+    "type": "UnityEditor.AssetDatabase",
+    "defined": true,
+    "total_errors_type": null
+  },
+  {
+    "assembly": "UnityEditor.CoreModule",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll",
+    "type": "UnityEditor.Build.BuildFailedException",
+    "defined": true,
+    "total_errors_type": null
+  },
+  {
+    "assembly": "UnityEditor.CoreModule",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll",
+    "type": "UnityEditor.EditorUserBuildSettings",
+    "defined": true,
+    "total_errors_type": null
+  },
+  {
+    "assembly": "UnityEditor.CoreModule",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll",
+    "type": "UnityEditor.PlayerSettings",
+    "defined": true,
+    "total_errors_type": null
+  },
+  {
+    "assembly": "UnityEditor.CoreModule",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll",
+    "type": "UnityEditor.Build.NamedBuildTarget",
+    "defined": true,
+    "total_errors_type": null
+  },
+  {
+    "assembly": "UnityEditor.CoreModule",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll",
+    "type": "UnityEditor.BuildPipeline",
+    "defined": true,
+    "total_errors_type": null
+  },
+  {
+    "assembly": "UnityEditor.CoreModule",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll",
+    "type": "UnityEditor.BuildPlayerOptions",
+    "defined": true,
+    "total_errors_type": null
+  },
+  {
+    "assembly": "UnityEditor.CoreModule",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll",
+    "type": "UnityEditor.EditorBuildSettings",
+    "defined": true,
+    "total_errors_type": null
+  },
+  {
+    "assembly": "UnityEditor.CoreModule",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll",
+    "type": "UnityEditor.Build.Reporting.BuildReport",
+    "defined": true,
+    "total_errors_type": null
+  },
+  {
+    "assembly": "UnityEditor.CoreModule",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll",
+    "type": "UnityEditor.Build.Reporting.BuildSummary",
+    "defined": true,
+    "total_errors_type": "System.Int32"
+  },
+  {
+    "assembly": "UnityEditor.CoreModule",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll",
+    "type": "UnityEditor.Build.Reporting.BuildResult",
+    "defined": true,
+    "total_errors_type": null
+  },
+  {
+    "assembly": "UnityEditor.CoreModule",
+    "file": "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll",
+    "type": "UnityEditor.AssetDatabase",
+    "defined": true,
+    "total_errors_type": null
+  }
+]

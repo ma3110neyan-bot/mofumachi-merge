@@ -1,10 +1,9 @@
-Release-only tooling added, then verification stopped.
-Product revision: 46f65b24d58531d5934035fbe4cdb4d5b00104a6
-Tooling revision: ea503db12f34d0eaec418f4aaa507b2d4512d469
-Existing AndroidBuild.cs and build-android.ps1: exact pinned bytes, unchanged.
-New source declares Development/debugging/deep profiling/autoconnect OFF, BuildOptions.None, IL2CPP/ARM64/Portrait. Runtime behavior unverified.
-New script declares pre-Unity local signing inputs/certificate gate, isolated E worktree, AAB then APK, no overwrite and no retries. Runtime behavior unverified.
-API-only compiler attempts=1, exit=1. First error CS0433. Duplicate UnityEditor/UnityEditor.CoreModule reference setup; no code fix, no corrected compile.
-Limited checks: expected RED before implementation; after-implementation checks NOT RUN due to stop condition.
-Unity instances=0, actual builds=0, game test runs=0, automatic retries=0.
-No real signing secrets were read or written; no keystore was used; no Pixel command ran.
+Reference-only verification task. No Unity or real build.
+Verified source HEAD: ba328838d1ca72ec5abc0ba8b5f259ca445070a0
+Metadata read: all11 required Editor types are defined in both assemblies.
+Minimal change: remove only Managed/UnityEngine/UnityEditor.CoreModule.dll; retain Managed/UnityEditor.dll and every other reference/option.
+API compile: attempts1, exit0, CS0433 absent, first C# error=null. Unchanged tool warning CS2023 retained.
+Limited release check: attempts1, exit1, first stop scripts/tests/android-release.tests.ps1:52.
+Read-only follow-up Get-Command git: four Application matches; Source is System.Object[]. No second test run.
+Release builder, PowerShell build entry, test source, existing QA, game, packages/settings/VisualLock: unchanged.
+Unity0, AAB0, APK0, Pixel0, Stage7 reruns0, automatic retries0.

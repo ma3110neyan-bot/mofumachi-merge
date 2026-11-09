@@ -1,72 +1,102 @@
-# 第7工程：v5 Phase2のUnity起動処理へ到達・完了待ち
+# 第7工程：v5実Unity検証完了・第8工程へ着手可能
 
-- 更新：2026-11-09（日本時間）。状態：**調査中**。
+- 更新：2026-11-09（日本時間）。状態：**完了（第7工程の指定検証範囲）**。
 - branch：`feat/daily-world-pass-20261016`。
 - 固定ゲーム実装：`46f65b24d58531d5934035fbe4cdb4d5b00104a6`。
-- 既存v5ランチャー：`9ee98de7e58eb75cc624c9f30cc055686afebd2a`。
-- Fetch1回でGitHub先端`3891889a427ad1404eb42e33a2dbc02ffaa1ab09`を確認。inbox rootは旧v4の保存結果で、v5の正式terminal結果は未共有。
-- 今回はユーザー画面と既存コードの照合のみ。ゲーム・テスト・ランチャー・Visual Lockは無変更、CMD／Unity／テスト起動0、再試行0。
+- v5ランチャー：`9ee98de7e58eb75cc624c9f30cc055686afebd2a`。
+- 正式証跡commit：**`19ddb34ed35838affc191ae98b18e67900613be7`**。
+- validation_id：`progress-ui-e-drive-v5`。
+- 対象run：`progress-ui-integration-progress-ui-e-drive-v5-20261109-101604-63c260c0`。
 
-## 確認対象
+## 結論
 
-`progress-ui-integration-progress-ui-e-drive-v5-20261109-101604-63c260c0`
+**第7工程 complete=true**。
 
-ユーザーが既存runのroot JSONと、10秒間隔のUnityプロセス／directログ状態を読み取り、その表示画面を提供した。
+**第8工程「Pixel 3a実機確認＋リリース候補ビルド」へ進んで安全か：YES**。
 
-## 画面で確認した状態
+既存Windows実Unity結果のJSON、両XML、source-check、checkout記録、source revision、共有manifestを照合し、以下の全条件を満たすことを確認した。検証を再実行していない。
 
-| 項目 | 表示 |
+| 必須条件 | Phase1 direct | Phase2 integration |
+| --- | --- | --- |
+| Total | 55 | 444 |
+| Passed | **55** | **444** |
+| Failed | 0 | 0 |
+| Skipped | 0 | 0 |
+| Inconclusive | 0 | 0 |
+| Unity exit code | 0 | 0 |
+| source_unchanged | **true** | **true** |
+| validation_passed | true | true |
+| Unity起動 | 1回 | 1回 |
+| 自動再試行 | 0 | 0 |
+| 追跡ファイル／欠損 | 7209／0 | 7209／0 |
+| HEAD／clean／登録 | 固定commit一致・正常 | 固定commit一致・正常 |
+
+Root result=Passed、validation_passed=true、source_unchanged=true。Unity起動合計2回、自動再試行0。first_error／runner_error／first_failed_phaseは全てnull。ソース不変判定でv4を止めていた箇所はv5の両Phaseで通過した。
+
+## 実XMLとfixture確認
+
+Phase1は`Mofumachi.Tests.ProgressUiIntegrationTests`のみ55ケース。全fullnameが一意で、全ケースPassed。
+
+Phase2は下記の正式9fixtureだけで444ケース。全fullname一意、追加fixture・重複・欠落なし。
+
+| fixture | Passed |
 | --- | --- |
-| root result | Running |
-| Phase1 | **Passed** |
-| Phase2 | NotRun |
-| first_error / runner_error | null / null |
-| direct log bytes | 両sampleとも3,513,166 |
-| direct log更新時刻 | 2026-11-09 10:56:09.7731476 +09:00 |
-| sample1 | 10:58:57.8507550 +09:00 |
-| sample2 | 10:59:08.0162889 +09:00 |
-| 対象Unityからたどったprocesses | 両sampleとも空配列 |
+| SaveServiceTests | 33 |
+| PreferencesTests | 23 |
+| CharacterPreferenceTests | 7 |
+| MofuPointServiceTests | 68 |
+| GenerationCostTests | 33 |
+| TownPointRewardTests | 69 |
+| RecoveryExtraHelpTests | 71 |
+| QuestTownLevelTests | 85 |
+| ProgressUiIntegrationTests | 55 |
+| 合計 | **444** |
 
-先に受領したstartup logは10,562 bytes、末尾はInitial Refresh Startだった。その後directログは約3.5MBへ増え、Phase1がPassedまで進んだ。先のsnapshotのまま停止していたとは扱わない。
+Phase1とPhase2内の同じ55ケースを、別の新規ケースと数えていない。指定の2段階検証が成功したという判定。
 
-公開済みv5コードは、指定55ケースのXML成功とsource内容不変確認の両方が通った後にdirect.result=Passedを書き込む。この制御順序から、以前のsource判定箇所を通過したと解釈できる。**ただし今回の画面には実XML件数やsource_unchangedフィールド自体は出ていないため、原本照合は未完了**。
+## ソース・実行条件の照合
 
-## processes空配列の解釈
+両Phaseのsource-checkで、固定baselineとHEADが46f65b2に一致し、working diff／index diff／untracked取得の終了コードが全て0。problemsとdisallowed_untrackedは空。
 
-今回の読み取りコマンドは、run名を含むUnity.exeを起点に、その子プロセスだけを列挙した。
+実際のコマンド引数も確認し、全追跡パスを比較し、空白無視や広いパス除外が追加されていないことを確認。許可された未追跡は両Phaseともrootの`.vsconfig`だけ。
 
-対象Unityが終了したPhase1後で、Phase2のUnityがまだ起動していなければ、空配列になる。これはPhase1 Passed／Phase2 NotRunと整合する。
+両Phaseの実Unity引数はUnity6000.6.4f1、Android target、EditMode、Burst無効化に一致。checkout gateも終了0、固定HEAD、clean、正常登録、tracked7209／missing0。
 
-**親のPowerShell・cmd・worktree作成中のgitの生存を確認したコマンドではない**。従って空配列から検証全体の終了・ハングを断定しない。direct完了後にdirectログが増えないことも、それだけでは異常と判定しない。
+正式repoはCの`C:\Users\User\Desktop\Mofumachi\mofumachi-merge`、検証・Library・TEMP/TMP・UPM cache・Diagnostics・共有worktreeはEの運用を維持した。今回ゲーム・テスト・ランチャー・Visual Lock・Guardを変更していない。ソース不変比較はVisual Lock原本を含む全追跡パスが対象。
 
-コード上、この保存状態はintegration worktree作成・検証から次のUnity起動までの準備段階と整合する。正確なpreparation_step、Git作成の終了コード、現時点の親プロセス状態、元CMDの最新表示は未取得。
+## 証跡の完全性
 
-## 最新追記：Phase2起動処理への到達
+`run-info.json`に記録された**43ファイル**の長さとSHA256を共有原本と照合し、全て一致。source-revision.txtも固定commitと一致。共有commitの親とmanifestのremote_parentも一致し、commit範囲はinboxだけ。
 
-ユーザーが元CMDの末尾を提示。integration worktree作成の表示に続き、`integration: exactly the pinned EditMode fixtures, one Unity invocation, Burst disabled.`まで進んでいる。
+固定共有先：
 
-公開済みコードの位置から、Phase1のテスト合格・source不変確認と、integration worktreeの事前確認を通過したと判断できる。この表示はProcess.Start直前であり、実際の起動成否・終了コード・444件結果はまだ未取得。
+`References/Review/inbox/latest-progress-ui-integration/`
 
-停止／エラー表示はない。処理中の進捗をconsoleへ逐次出さず、Unityの終了待ちをするため、画面が変わらないことだけで停止とは判断しない。
+- rootのprogress-ui-integration-result.json／source-revision.txt／run-info.json。
+- direct/results.xml、integration/results.xml。
+- 各source-checkと比較exit／stderr。
+- 各checkout stdout／stderr／exit／validation。
+- 保存されたUnityログと旧履歴。
 
-今回の追加確認は画面と既存コードの照合だけ。新しいCMD／Unity／テストは起動していない。Fetch0回。
+原本JSON・XML・ログを編集して成功扱いへ変換していない。旧C／v1／v2／v3／v4とobservationsは保持。以前の合格や一時確認データを今回のXMLへ流用していない。
 
-## 次の最小確認
+原本の`review_required=true`、`stage8_safe=false`は、ランチャーが証跡レビューを待つための値。その原本は変更せず、**今回の照合完了後の判定をlatest/status.jsonのnext_stage_safe=trueへ記録**する。
 
-**元CMDをそのまま保持し、既存Phase2の終了と自動共有を待つ。** 新たな実行や手動でのPhase2開始は不要。
+## 今回行った操作
 
-新しい検証CMD・Unityは起動せず、既存CMDを閉じない。旧run、receipt、Diagnosticsを削除・変更しない。新しい検証IDや推測によるコード修正を行わない。
+Fetch1回で共有済み証跡を取得。既存inbox証跡commitだけをfast-forward同期し、保存原本を読み取り照合した。今回の変更はsummary/statusだけ。
 
-現在の記録にfirst/runner errorはなく、次の準備状況を確認する段階。Phase2失敗と決めつけたり、Phase1のやり直しへ進んだりしない。
+- 新しいCMD／Unity／テスト実行：0。
+- 自動再試行：0。
+- ゲーム／テスト／ランチャー変更：なし。
+- Windows原本／receipt変更：なし。
+- reset／stash／force push：なし。
+- APK／Pixel／Visual撮影：未実施。
 
-## 共有と保持
+## 次の工程
 
-変更はsummary/statusだけ。先に保存したv5 startup抜粋、旧v4の55/55実XMLと全履歴は保持。
+第8工程へ**着手可能**とする。Pixel 3aの表示・操作確認、リリース候補ビルド、正式リリース判定を今回済ませたとは扱わない。第8工程は自動開始していない。
 
-v5の画面でのPassedを、未受領のXMLやPhase2成功へ置き換えない。次のterminal結果取得時に、同じrunのPhase1 55/55、Phase2 444/444、Unity exit0、source_unchanged=true、自動再試行0を確認する。
+Windows CMDの「続行するには何かキーを押してください」は検証・共有成功後のpause。キーを押してこのCMDを終了してよい。検証CMDの再実行は不要。
 
-- **第7工程 complete=false**。
-- **第8工程「Pixel 3a実機確認＋リリース候補ビルド」へ進んで安全か：NO**。
-- 理由：**Phase2は起動処理へ進んだが、444/444・exit0と最終source不変結果が未確認**。
-
-`commit`は既存v5ランチャーを示し、今回の観測共有commitとは区別する。追加改善候補は今回はなし。
+`commit`は既存ランチャー、`implementation_commit`は固定ゲーム、`evidence_commit`は正式Windows証跡、`review_base_commit`は照合した証跡先端を示す。共有文書自身のSHAと区別する。今回の追加改善候補なし。

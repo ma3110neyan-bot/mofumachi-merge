@@ -1,3 +1,15 @@
+# 第8工程：Windows release preflight実行待ち
+
+署名準備は完了済み。同じPowerShellセッション内で、既存releaseスクリプトをBuild指定なしで1回だけ実行する指示を受領した。CodexからそのWindowsセッションを直接操作できないため、まだpreflightを実行したとは扱わない。
+
+実行ブロック：`References/Review/inbox/latest-release-candidate/windows-release-preflight-only.md`。
+
+コマンドは構文確認だけ実施。4環境変数の有無とkeystore SHAを確認し、既存スクリプトを1回呼ぶ。終了後にcertificate等を照合し、公開ファイルだけのZIPをEへ作成する。ユーザーはそのZIPだけを共有する。秘密鍵／passwordは含めない。
+
+現在preflight結果・exit codeは未取得。Unity／実ビルド／テスト再実行／キー再生成は0。AAB実ビルドへ進める判定はNO（preflight結果待ち）。第8工程complete=false。成功・失敗とも、保存結果を受領してから固定共有先へ更新する。
+
+---
+
 # 第8工程：Windows正式署名準備完了・preflight未実行
 
 状態：**完了（署名準備の小工程のみ）**。第8工程全体は未完了。

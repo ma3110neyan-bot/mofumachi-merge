@@ -1,0 +1,100 @@
+{
+  "recorded_at_utc": "2026-11-09T03:13:28.198506+00:00",
+  "branch": "feat/daily-world-pass-20261016",
+  "commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
+  "implementation_commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
+  "review_base_commit": "740b5715bfd8bbfa56dacb2097f86cf81a442135",
+  "state": "実機未確認",
+  "investigation_state": "原因確定（既存開発用ビルド経路とRC要件の不一致）",
+  "scope": "Stage8 release-candidate preflight; static repository inspection only",
+  "status": "Blocked",
+  "success": false,
+  "tests_passed": false,
+  "tests_passed_scope": "No Stage8 tests/builds executed. Stage7 remains passed separately.",
+  "capture_verified": false,
+  "pixel_verified": false,
+  "formal_fixed": false,
+  "adopted": false,
+  "stage7_complete": true,
+  "stage8_complete": false,
+  "stage7_record_commit": "740b5715bfd8bbfa56dacb2097f86cf81a442135",
+  "stage7_evidence_commit": "19ddb34ed35838affc191ae98b18e67900613be7",
+  "checks": {
+    "aab_build": "NotRun",
+    "apk_build": "NotRun",
+    "pixel3a_install": "NotRun",
+    "pixel3a_functional_check": "NotRun",
+    "save_resume": "NotRun",
+    "visual_regression": "NotRun"
+  },
+  "source_unchanged": true,
+  "source_unchanged_scope": "Cloud checkout tracked Assets/Packages/ProjectSettings/VisualLock match pinned product; no runtime build has been executed. Windows current worktree not observed.",
+  "runtime_source_unchanged": null,
+  "visual_lock_changed": false,
+  "guard_changed": false,
+  "guard_disabled": false,
+  "unity_invocations": 0,
+  "build_invocations": 0,
+  "test_invocations": 0,
+  "automatic_retries": 0,
+  "fetch_count": 0,
+  "first_unity_error": null,
+  "first_error": null,
+  "runner_error": null,
+  "first_blocked_phase": "preflight/build-settings-and-signing",
+  "blocking_issues": [
+    {
+      "id": "RC_BUILD_ENTRY_INCOMPATIBLE",
+      "phase": "Step1/build-settings",
+      "reason": "The saved Android profile has Development OFF, but the existing automated builder forces Development ON and BuildOptions.Development, disables custom signing and AAB output.",
+      "source_file": "Assets/Mofumachi/Editor/AndroidBuild.cs",
+      "lines": [
+        48,
+        49,
+        51,
+        156
+      ],
+      "stop_instruction": "Development BuildがONなら、リリース候補用としてOFFへ戻す必要性を明示して停止。"
+    },
+    {
+      "id": "RELEASE_SIGNING_UNCONFIRMED",
+      "phase": "Step1/signing",
+      "reason": "Release keystore/certificate identity and alias are not verified on Windows. Tracked key/alias fields are empty and the existing builder explicitly disables custom signing.",
+      "source_file": "ProjectSettings/ProjectSettings.asset",
+      "lines": [
+        277,
+        278
+      ],
+      "stop_instruction": "signing不明の場合は停止。"
+    }
+  ],
+  "build_settings": "build-settings.json",
+  "artifacts": {
+    "aab": null,
+    "apk": null,
+    "build_log": null,
+    "screenshots": []
+  },
+  "build_artifact_sha256_recorded": false,
+  "build_log_absence_reason": "No Unity/build invocation: there is no genuine build log or build exit code. See preflight.log and failure.log.",
+  "windows_access": "Windows filesystem, Editor effective settings and USB Pixel3a are not attached to this cloud session; not a newly discovered product defect.",
+  "next_stage": "Google Play提出準備",
+  "next_stage_safe": false,
+  "next_stage_verdict": "NO",
+  "next_stage_reason": "Release build preflight not satisfied; AAB/APK and Pixel verification have not run.",
+  "stop_source": "User supplied Stage8 instructions Step1 and stop rules, not a skill approval requirement.",
+  "next_required_action": "Confirm Windows release-signing identity privately and select a release-only build route that keeps Development/debugging/profilers OFF, supports AAB plus APK, and does not call the development configuration. No change was applied in this stop.",
+  "potential_minimum_change_scope": [
+    "A release-only build entry/configuration. Existing AndroidBuild.cs:48-51 and 156 cannot be reused unchanged for RC. Do not globally repurpose the existing Development/QA entry.",
+    "AAB/APK output selection with unique E-drive paths; the existing resolver accepts APK only.",
+    "Windows-local private signing selection and alias/certificate verification; never commit the private key or passwords."
+  ],
+  "game_source_changed": false,
+  "test_source_changed": false,
+  "launcher_changed": false,
+  "build_configuration_changed": false,
+  "formal_windows_repo_modified": false,
+  "google_play_submitted": false,
+  "new_art_created": false,
+  "shared_root": "References/Review/inbox/latest-release-candidate"
+}

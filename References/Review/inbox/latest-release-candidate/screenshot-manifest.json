@@ -1,0 +1,12 @@
+{
+  "source_commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
+  "platform": "Pixel 3a",
+  "capture_performed": false,
+  "images": [],
+  "major_release_assets_selected": false,
+  "icon_candidate": "References/Release/icon-proposal.png",
+  "feature_graphic_candidate": "References/Release/feature-graphic-proposal.png",
+  "candidate_status": "Existing proposals only, not approved or selected as release assets in this step",
+  "new_art_created": false,
+  "reason": "Stopped at build preflight; no fabricated or previous-version device screenshots."
+}

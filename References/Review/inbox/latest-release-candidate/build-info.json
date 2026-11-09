@@ -26,13 +26,14 @@
   "limited_release_total": null,
   "limited_release_passed": null,
   "limited_release_failed": null,
-  "intended_source_commit": "4a0c471fb21313ef31be83f1aeaac9476ecf8819",
-  "source_revision_scope": "Not built; intended/inspected HEAD only",
+  "intended_source_commit": null,
+  "source_revision_scope": "Actual Windows build HEAD must be recorded by the next preflight; reviewed signing-evidence commit is separate.",
   "preflight_result": "NotRun",
-  "blocked_before_phase": "windows_release_preflight",
-  "primary_blocker": "RELEASE_SIGNING_NOT_PREPARED",
+  "blocked_before_phase": null,
+  "primary_blocker": null,
   "validation_result_scope": "No current test/build execution; previous static34/34 result retained in validation/static-validation.json",
   "formal_repo_unchanged": null,
   "stage8_complete": false,
-  "runtime_source_unchanged": null
+  "runtime_source_unchanged": null,
+  "signing_evidence_commit": "8c8579026b43359f240ade43fd3eaf863f354d9c"
 }

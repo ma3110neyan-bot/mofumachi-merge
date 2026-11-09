@@ -1,0 +1,8 @@
+Signing helper preparation record only; NOT a Windows/keytool/release preflight result.
+Helper commit: c486b37df3a7c17acfbd852e2b1a4f2d5d95bf77
+New helper26 synthetic checks PASS; final AST parse PASS.
+Helper validation history: expected missing-file RED; E-drive eager-path import blocked; literal path fix;26 PASS; review adjustments;26 PASS; final AST parse.
+Real keytool0, real keys0, Windows signing setup0, release preflight0, Unity0, AAB0, APK0, Pixel0.
+Actual private password entry is pending in the new Windows PowerShell session. No secret values or actual signing-status.json were created here.
+Existing release/QA/game/VisualLock sources unchanged; original34/55/444 not rerun.
+Current runtime first error=null; prior failure originals remain historical.

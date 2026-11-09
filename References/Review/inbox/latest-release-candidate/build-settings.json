@@ -64,10 +64,9 @@
     "tracked_keystore_name_present": false,
     "tracked_keyalias_name_present": false,
     "release_signing_verified": false,
-    "windows_keystore_existence": null,
-    "existing_builder_uses_debug_signing": true,
-    "note": "User confirmed release keystore not yet prepared and four signing variables unconfigured. No real signing/preflight execution; no private values requested.",
-    "release_keystore_prepared_user_report": false
+    "public_signing_preparation_record": "signing-status.json",
+    "public_signing_evidence_commit": "8c8579026b43359f240ade43fd3eaf863f354d9c",
+    "note": "The seven-field Windows preparation report is verified. Release preflight and actual signed AAB/APK verification have not run. Private signing values are process-local and not recorded."
   },
   "output_plan": {
     "aab": "Unique release-candidate AAB under E; not created",

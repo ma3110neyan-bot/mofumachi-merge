@@ -1,0 +1,28 @@
+{
+  "recorded_at_utc": "2026-11-09T06:26:59.151150+00:00",
+  "intended_source_commit": "4a0c471fb21313ef31be83f1aeaac9476ecf8819",
+  "observation_type": "Prior user report, followed by helper preparation only. No Windows signing setup has been executed by Codex.",
+  "signing_environment_variables_configured": false,
+  "release_keystore_prepared": false,
+  "required_environment_names": [
+    "MOFUMACHI_KEYSTORE_PATH",
+    "MOFUMACHI_KEYSTORE_PASSWORD",
+    "MOFUMACHI_KEY_ALIAS",
+    "MOFUMACHI_KEY_ALIAS_PASSWORD"
+  ],
+  "private_values_requested_or_recorded": false,
+  "keystore_generated": false,
+  "primary_blocker": "RELEASE_SIGNING_NOT_PREPARED",
+  "windows_repository_observed": false,
+  "windows_connection_attached": false,
+  "preflight_executed": false,
+  "unity_invocations": 0,
+  "aab_builds": 0,
+  "apk_builds": 0,
+  "automatic_retries": 0,
+  "source_unchanged": true,
+  "source_check_scope": "Read-only cloud checkout comparison; Windows formal repo current state is unconfirmed.",
+  "windows_signing_setup_launcher_ready": true,
+  "helper_commit": "c486b37df3a7c17acfbd852e2b1a4f2d5d95bf77",
+  "password_entry_pending": true
+}

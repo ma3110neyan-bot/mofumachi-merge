@@ -1,8 +1,8 @@
 # Windows正式署名キー作成：1回だけ実行する手順
 
-**この段階ではキーはまだ作成されていない。** Windowsローカルでのパスワード入力が必要。Codex／チャットへpasswordを送らない。
+**Windowsでの作成・alias確認・4環境変数SETは、公開7項目の共有commit 8c8579026b43359f240ade43fd3eaf863f354d9cで確認済み。キー作成CMDは再実行しない。** 成功したPowerShell画面を開いたまま保持する。passwordをチャットへ送らない。backup_pending=true。
 
-## ユーザー操作
+## 作成時のユーザー操作（履歴・再実行禁止）
 
 1. GitHub Desktop等でfeature branchをFetch／Pullし、新しい2ファイルがscripts内にあることを確認する。
 2. `scripts/prepare-release-signing-windows.cmd`を**1回だけダブルクリック**する。

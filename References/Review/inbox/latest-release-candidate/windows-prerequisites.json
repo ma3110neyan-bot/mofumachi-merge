@@ -1,0 +1,25 @@
+{
+  "recorded_at_utc": "2026-11-09T05:47:02.835211+00:00",
+  "intended_source_commit": "4a0c471fb21313ef31be83f1aeaac9476ecf8819",
+  "observation_type": "User text replies only; not a Windows command/preflight result",
+  "signing_environment_variables_configured": false,
+  "release_keystore_prepared": false,
+  "required_environment_names": [
+    "MOFUMACHI_KEYSTORE_PATH",
+    "MOFUMACHI_KEYSTORE_PASSWORD",
+    "MOFUMACHI_KEY_ALIAS",
+    "MOFUMACHI_KEY_ALIAS_PASSWORD"
+  ],
+  "private_values_requested_or_recorded": false,
+  "keystore_generated": false,
+  "primary_blocker": "RELEASE_SIGNING_NOT_PREPARED",
+  "windows_repository_observed": false,
+  "windows_connection_attached": false,
+  "preflight_executed": false,
+  "unity_invocations": 0,
+  "aab_builds": 0,
+  "apk_builds": 0,
+  "automatic_retries": 0,
+  "source_unchanged": true,
+  "source_check_scope": "Read-only cloud checkout comparison; Windows formal repo current state is unconfirmed."
+}

@@ -1,11 +1,9 @@
-Git selection-only limited release test fix.
-Base: b03a9814df64cd26f9feb770bde0a3bbefce3d41
-Test fix commit: c86941dc65291867fe6400345c0bb97beb51035e
-Before snippet and exact source diff retained in validation/git-selection-fix/.
-Source edit: first Application only; Get-Command -ErrorAction Stop; explicit null/empty path check. No PATH or fallback changes.
-Limited release test: runs1, exit0, Total34/Passed34/Failed0, automatic retries0.
-Git fixture init, source guard, signing preflight, secret redaction, AAB/APK entry selection and Development OFF checks completed.
-QA protection independently verified by exact bytes/SHA256. Protected release builder/PS1/game/settings/packages/VisualLock unchanged.
-API compile result reused from b03a981 because C# and compile references are unchanged; API compile reruns0.
-Unity0, AAB0, APK0, Pixel0, Stage7 reruns0. Current first error=null; older failure logs preserved unchanged and marked historical.
-Ready for next Windows build step only after the existing private-signing/source preflight. Stage8 complete=false.
+This is a prerequisite-status record, not an executed Windows/keytool preflight log.
+Intended source: 4a0c471fb21313ef31be83f1aeaac9476ecf8819
+User reports: signing environment variables unconfigured; release keystore/alias/passwords not yet prepared.
+Windows release preflight NOT RUN. AAB NOT RUN. APK NOT RUN.
+Unity0, test reruns0, automatic retries0, key generation0.
+Current first error=null; no compiler/Unity/Gradle/signing error was produced.
+Windows formal repo current HEAD/status was not observed from cloud. No C/E drive changes performed.
+Source/QA/VisualLock unchanged in cloud. Existing static34/34 and Stage7 evidence retained.
+Primary blocker: RELEASE_SIGNING_NOT_PREPARED.

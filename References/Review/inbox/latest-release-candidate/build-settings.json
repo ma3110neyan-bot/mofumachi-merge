@@ -1,8 +1,8 @@
 {
   "record_type": "Read-only source settings plus new release-route declarations; native effective release settings unverified",
-  "recorded_at_utc": "2026-11-09T04:37:55.060186+00:00",
+  "recorded_at_utc": "2026-11-09T05:47:02.835211+00:00",
   "source_commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
-  "reviewed_head": "c86941dc65291867fe6400345c0bb97beb51035e",
+  "reviewed_head": "4a0c471fb21313ef31be83f1aeaac9476ecf8819",
   "windows_effective_build_settings_verified": false,
   "unity_version": "6000.6.4f1",
   "package_name": "com.mofumachi.merge",
@@ -66,7 +66,8 @@
     "release_signing_verified": false,
     "windows_keystore_existence": null,
     "existing_builder_uses_debug_signing": true,
-    "note": "Empty tracked fields do not prove the user has no private keystore. Windows signing inputs and certificate identity are unconfirmed. No keys, passwords or signing configuration were created or changed."
+    "note": "User confirmed release keystore not yet prepared and four signing variables unconfigured. No real signing/preflight execution; no private values requested.",
+    "release_keystore_prepared_user_report": false
   },
   "output_plan": {
     "aab": "Unique release-candidate AAB under E; not created",
@@ -328,5 +329,6 @@
     "next_real_build_scope": "Ready for the next Windows release-build step with mandatory clean-source and local signing preflight. No real build authorized or executed in this task.",
     "windows_actual_signing_preflight_verified": false,
     "stage8_complete": false
-  }
+  },
+  "current_windows_prerequisites": "windows-prerequisites.json"
 }

@@ -1,76 +1,52 @@
-# 第8工程：Git探索最小修正・限定releaseテスト34/34合格
+# 第8工程：正式署名未準備のため実ビルド未着手
 
-状態：**関連テスト合格**。release入口の静的・限定検証小工程は完了。第8工程全体は未完了。
+状態：**未着手（Windows release preflight／実AAB・APK）**。ビルド失敗とは判定していない。
 
 - branch：`feat/daily-world-pass-20261016`。
-- Git探索修正commit：`c86941dc65291867fe6400345c0bb97beb51035e`。
-- 修正前HEAD：`b03a9814df64cd26f9feb770bde0a3bbefce3d41`。
-- release入口追加commit：`ea503db12f34d0eaec418f4aaa507b2d4512d469`。
+- 確認対象／予定ビルドHEAD：`4a0c471fb21313ef31be83f1aeaac9476ecf8819`。実成果物のsource commitではない。
 - 固定ゲーム：`46f65b24d58531d5934035fbe4cdb4d5b00104a6`。
-- 第7工程complete=trueとv5の55/55・444/444を保持。再実行なし。
+- 第7工程complete=true、API-only compile PASS、限定release34/34 PASSを保持。今回再実行なし。
 
-## 修正範囲
+## 確定した主要ブロッカー
 
-コード変更は`scripts/tests/android-release.tests.ps1`の**1ファイルだけ**。変更前49行目のGit探索を、最初のApplicationを1件選び、null／空パスを明確に拒否する形へ変更した。
+ユーザー回答で、**署名用4環境変数は未設定、release用keystore／alias／passwordも未準備**と確認した。秘密値は要求・記録していない。
 
-```powershell
-$GitCommand = Get-Command git -CommandType Application -ErrorAction Stop | Select-Object -First 1
-if ($null -eq $GitCommand -or [string]::IsNullOrWhiteSpace($GitCommand.Source)) { throw 'Git Application was not found or has an empty executable path.' }
-$Git = $GitCommand.Source
-```
+現在の接続はクラウドで、Windows正式repo／Eドライブを直接操作できる接続はない。Windows実行や署名preflightを行ったと扱わず、既知の環境調査・ライセンス起動も繰り返していない。
 
-その他のテストロジック・PATH・fallback探索は変更なし。修正前の該当箇所は`validation/git-selection-fix/before-git-discovery.txt`、差分は`git-selection-only.diff`へ保存した。旧ファイルの生バイトからこの1箇所を置換した結果が現ファイルと完全一致することを確認。
+入力条件が未充足なので、preflight専用実行／AAB／APKへ進まず停止。署名キーをクラウドで生成したり、debug署名で代用したりしていない。ゲーム・releaseビルダー・QA経路・設定・Visual Lockを変更していない。
 
-コードの変更ファイル数1と、ユーザー指定の共有記録更新ファイル数は分けて扱う。
-
-## 実行結果
-
-`scripts/tests/android-release.tests.ps1`を**今回1回のみ**実行。
+## 今回の結果
 
 | 項目 | 結果 |
 | --- | --- |
-| exit code | **0** |
-| Total | **34** |
-| Passed | **34** |
-| Failed | **0** |
-| 自動再試行 | **0** |
-| Git fixture初期化 | 成功 |
-| release入口／AAB・APKの入口切替 | 合格 |
-| Development OFFの宣言確認 | 合格 |
-| 署名preflight | 合格（合成fixture） |
-| 秘密値非露出 | 合格（合成値のredaction／引数／JSON確認） |
-| source guard | 合格（実一時Git・CRLF・tracked/index/untracked判定） |
-| QA経路保護 | 合格（別途、生バイトとSHA256照合） |
+| Windows release preflight | **未実行** |
+| AAB build／exit／size／SHA256／signer SHA256 | **未実行／全て未生成・未確認** |
+| APK build／exit／size／SHA256／signer SHA256 | **未実行／全て未生成・未確認** |
+| AAB/APK signer一致 | 未確認 |
+| Development OFF | release実装ではOFF。実ビルド設定は未確認 |
+| source_unchanged | **true（クラウドの既存ソース確認）** |
+| formal repo unchanged | **未確認（Windows現在状態を未観測）** |
+| Visual Lock変更 | **NO** |
+| Unity／実ビルド／テスト再実行 | **全0回** |
+| 自動再試行 | **0回** |
+| blocking issue | **正式署名未準備** |
+| Pixel 3a実機確認へ進んで安全か | **NO** |
+| 第8工程 complete | **false** |
 
-34はスクリプト内のCheck assertion数。Unity／NUnitケース数として数えていない。ログ`validation/git-selection-fix/release-tests.log`の末尾に全チェックPASSを確認した。LF→CRLF警告3件は一時fixtureでの改行確認時に出たもので、exit0・全チェック合格。
+実ログ・成果物がないため、架空のsigning-preflight.log／build.log／first-errorを生成していない。first_error／runner_errorはnull。rootの過去first-error.log・failure.log・latest/error.logは旧失敗原本として不変で、今回のエラーではない。
 
-Gitが4件見つかる同じ環境で、選択件数1・SourceはSystem.String・選択先は/usr/local/bin/gitとなることも読み取り確認。PATHは変更していない。
+署名前提のユーザー回答は`windows-prerequisites.json`へ出典付きで保存。予定ソースと実ビルドのsourceを区別し、build-info.jsonのactual sourceはnull。新規AAB/APK／キー／実機画像をGitへ追加していない。
 
-API-onlyコンパイルはb03a981でPASS済み。C#本体とcompile.rspが不変なので、今回は再コンパイルしていない。
+## 次に必要な作業
 
-## 不変確認
+**Windowsローカルで正式署名用キーを準備する工程が必要。** `windows-signing-preparation.md`へ保管先・alias等の未実行案と、その後の既存release経路の実行順を記録した。
 
-`AndroidReleaseBuild.cs`と.meta、`build-android-release.ps1`、既存`AndroidBuild.cs`／`build-android.ps1`は修正前とSHA256まで一致。Assets／ProjectSettings／Packages／Visual Lockも不変。
+キー作成・Play App Signing／upload keyの採用・秘密値の設定は今回行っていない。keystoreやpasswordをチャット／Git／Diagnosticsへ渡さない。キー準備後、4環境変数をWindowsローカルに設定し、既存`build-android-release.ps1`のpreflight専用を1回。PASS時だけAAB1回、成功時のみAPK1回へ進む。
 
-**source_unchanged=true**。承認されたGit探索だけのテスト編集は別記し、既存ゲームやビルダーまで無変更と混同しない。
+正式repoは`C:\Users\User\Desktop\Mofumachi\mofumachi-merge`のまま。検証／Library／TEMP／cache／Diagnostics／成果物はE運用のまま。今回は実ディレクトリを操作していない。
 
-- Unity起動0、AAB/APKビルド0、Pixel操作0。
-- 第7工程テスト再実行0。
-- 実署名キーの使用0。Windowsの正式署名preflight自体は未実行。
-- 今回のfirst_error／runner_error／failed_phaseは全てnull。新しいfirst-errorを生成していない。
+静的検証・限定34チェックの完了記録は`validation/static-validation.json`と`validation/history-4a0c471/`へ保持。第7工程の記録も保持。
 
-root first-error.log／failure.log／latest/error.logはb03a981までの**旧失敗原本**として変更せず保持した。旧限定テストlogも保持し、今回の成功ログとはパスを分離。直前の結果JSON等を`validation/history-b03a981/`へ保存した。c988164／ba32883と第7工程の履歴も保持。
+固定共有：`References/Review/inbox/latest-release-candidate/`。現在のcommit欄は確認対象HEADで、共有文書自身のcommitと区別する。
 
-## 判定
-
-**Git探索修正：YES。コード変更1ファイル。限定releaseテストPASS、exit0、Total34／Passed34／Failed0。**
-
-**次に実AAB/APKビルドへ進んで安全か：YES（次のWindows工程への着手可）**。
-
-Windows正式repo clean・既存のローカル正式署名preflight合格を実行前の必須条件とし、AABを1回、成功時だけAPKを1回とする。今回その操作を開始していない。実ビルド成功や署名・実機確認の合格を今回確定したものとは扱わない。
-
-**第8工程 complete=false**。Pixel／保存復帰／Visual／Google Play提出準備の最終合格は未確認。Google Playへ提出していない。
-
-固定共有：`References/Review/inbox/latest-release-candidate/`。commitは上記コード修正の確認対象SHAを示し、共有文書自身のcommitと区別する。
-
-Codex／AI側から見た次の改善候補：今回はなし。
+Codex／AI側から見た次の改善候補：今回はなし（必須の署名準備のみ）。

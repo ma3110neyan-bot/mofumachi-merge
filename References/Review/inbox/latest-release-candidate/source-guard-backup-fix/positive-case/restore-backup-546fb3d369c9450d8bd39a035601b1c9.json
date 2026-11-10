@@ -1,0 +1,22 @@
+{
+  "state": "Verified",
+  "payload": "/tmp/release-source-guard-afe95a42fa7f46b38b1305d2f612b54a/validation/Diagnostics/release-candidate/rc-20261110-000000-00000001/aab/source-recovery/restore-f6b89c7fe43f4ec2bf3fc3742128172a.tmp",
+  "target": "/tmp/release-source-guard-afe95a42fa7f46b38b1305d2f612b54a/validation/projects/rc-20261110-000000-00000001/Assets/Settings/UniversalRP.asset",
+  "backup": "/tmp/release-source-guard-afe95a42fa7f46b38b1305d2f612b54a/validation/Diagnostics/release-candidate/rc-20261110-000000-00000001/aab/source-recovery/restore-backups/4f57cbae57c04adfa669c95203adfc5f/UniversalRP.asset.bak",
+  "record": "/tmp/release-source-guard-afe95a42fa7f46b38b1305d2f612b54a/validation/Diagnostics/release-candidate/rc-20261110-000000-00000001/aab/source-recovery/restore-backup-546fb3d369c9450d8bd39a035601b1c9.json",
+  "snapshot_sha256": "4c259dae654652720f398d814fd7cdcd9e35d1c28bed9ed9548f003dfa038787",
+  "target_sha256_before": "ed36ccd88631f4541d43918e50fc01fc0a4e8bb5eef06dd13efc48d18ac5e14f",
+  "target_size_before": 4816,
+  "payload_sha256": "4c259dae654652720f398d814fd7cdcd9e35d1c28bed9ed9548f003dfa038787",
+  "target_sha256_after": "4c259dae654652720f398d814fd7cdcd9e35d1c28bed9ed9548f003dfa038787",
+  "backup_sha256": "ed36ccd88631f4541d43918e50fc01fc0a4e8bb5eef06dd13efc48d18ac5e14f",
+  "backup_size": 4816,
+  "backup_exists_after": true,
+  "payload_exists_after": false,
+  "backup_cleanup_performed": false,
+  "backup_cleanup_policy": "Retain this run backup in Diagnostics as evidence; no explicit backup or payload cleanup",
+  "error": null,
+  "error_stack": null,
+  "error_position": null,
+  "inspection_error": null
+}

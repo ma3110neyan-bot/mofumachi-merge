@@ -1,3 +1,50 @@
+# 第8工程：File.Replace空パス修正・source guard限定42/42 PASS
+
+状態：**関連テスト合格（この小工程完了）／Windows実AAB未確認**。branch：`feat/daily-world-pass-20261016`。実装commit：`604b5f7fd8442aaf97fc695d0406acdaa6c1bec2`。commit欄は実装SHAで、共有文書自身のSHAとは区別する。第7工程complete=true、第8工程complete=false。
+
+## 修正と実測結果
+
+File.Replaceのbackupへnullを渡す呼出を、同じrun Diagnostics配下の一意な実パスへ変更した。payload/target/backupの境界・存在・非空・既存backup拒否とSHAを事前検査し、targetがsnapshot SHAへ戻ったこと、backupが復元前target SHA/sizeと一致することを記録する。backupは診断証拠として保持し、任意のbackup削除は今回は行わない。成功時payloadはFile.Replaceで消費されるが、失敗後にbackup/payload/targetを追加修正・削除する処理はない。
+
+限定テストを**1回だけ**実行し、**Total42 / Passed42 / Failed0 / exit0 / 170 checks**。Linux PowerShell7.4.6＋実Gitの合成detached worktreeで検証。Windows実Unity／AAB／APK／preflight／署名ツール／Pixel／第7工程／既存release34テストの再実行は全て0。前回の1件失敗は、この明示許可された別の1回で上書きせず履歴に保持し、自動再試行0。
+
+| 確認項目 | 結果 |
+| --- | --- |
+| File.Replace空パス修正 | **YES** |
+| backup path非空／Diagnostics内 | **YES／YES**（実fixture3件、production rootは従来どおりE） |
+| known mutation byte-perfect復元 | **PASS** |
+| target snapshot SHA／backup復元前target SHA | **一致／一致** |
+| 空/null／外部／既存backup拒否 | **全PASS** |
+| backup改ざん・payload/target SHA不一致拒否 | **全PASS** |
+| unknown tracked・non-hex・unknown untracked拒否 | **全PASS** |
+| .utmp exact生成物／exact Gradle終了log cleanup | **PASS／PASS** |
+| cleanup後完全source guard／root .vsconfig保持 | **PASS／PASS** |
+| 復元SHA異常・cleanup失敗・Git取得異常拒否 | **全PASS** |
+| formal repo保護・リンク／hardlink保護 | **PASS** |
+| ゲーム・Visual Lock・設定原本・URP原本・Packages・QA・release C# | **変更なし** |
+| 保護対象hash | **862 path不変**。許可したPS2件のみ変更（全864検査） |
+| Guard弱化／完全判定の変更 | **NO／NO** |
+| Unity／AAB再ビルド／APK／Pixel／preflight／署名操作 | **0／0／0／0／0／0** |
+| 自動再試行 | **0** |
+
+最初のpositive fixture3件のbackupが実在し、size・SHA・target/snapshot SHA・Diagnostics境界をテスト後にも読み取り再照合した。restore-backup-validation.jsonとsource-guard-backup-fix/positive-caseの関係記録を参照。backupの実体・snapshot binary・AAB本体はGitに追加せず、ローカル/tmp fixture内に保持。Windows Eでの実動作を実測したという意味ではない。
+
+変更ソースはscripts/build-android-release.ps1とscripts/tests/android-release.tests.ps1の2件だけ。変更関数はRestore-AndroidReleaseSnapshotFileとその呼出元に限定。完全source guard、許可field、known generated判定、その他production関数はテキスト不変を構文レビューで確認した。
+
+## 判定と停止地点
+
+**AABを1回だけ再実行する準備が整ったか：YES（この小工程の限定検証範囲）**。**第8工程complete=false**。今回はAABを起動せず、次の明示指示を待つ。旧AAB貼付ブロックは旧builder identity固定の履歴であり、そのまま再利用しない。実行指示時に新commit対応の手順へ切り替える。
+
+元のWindows AABがsource guardで失敗し署名未検証である事実は変わらない。今回のunit検証を、既存AABのsource不変や実artifact署名合格へ流用しない。非hexのiは今回42ケースでも拒否を確認し、known mutationに追加していない。実Unityが未知変更を残せば復元・cleanup前に停止する。
+
+保存先：source-guard-fix-validation.json、source-guard-fix-tests.log、changed-files.json、protected-source-hashes.json、restore-backup-validation.json、source-guard-backup-fix/の原本結果。以前の失敗集約はvalidation/history-75b05a1/、失敗原本はsource-guard-fix/に保持。直下first-error.log/failure.log/latest/error.logは前回0f1b066の失敗履歴で、現在のfirst_errorはnull。
+
+Codex／AI側から見た次の改善候補：今回はなし。
+
+---
+
+以下は以前の失敗とAAB履歴。現在の判定は先頭の42/42 PASS。
+
 # 第8工程：source guard修正草案・限定テスト1件目で停止
 
 状態：**原因確定／修正未完了**。実装commit：`0f1b066c390e61c739d4fc9ed961e14aa5de7120`。branch：`feat/daily-world-pass-20261016`。commit欄は確認対象の実装草案で、共有文書自身のSHAとは区別する。第7工程complete=true、第8工程complete=false。

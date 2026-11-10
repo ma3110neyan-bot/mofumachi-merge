@@ -1,0 +1,182 @@
+{
+  "unity_invocations": 0,
+  "scope": "release source guard only",
+  "total": 42,
+  "first_error": null,
+  "build_invocations": 0,
+  "automatic_retries": 0,
+  "scratch": "/tmp/release-source-guard-afe95a42fa7f46b38b1305d2f612b54a",
+  "checks": 170,
+  "cases": [
+    {
+      "name": "known three-file mutations restore exact snapshot bytes and final guard passes",
+      "result": "Passed"
+    },
+    {
+      "name": "empty backup path is rejected without changing target or payload",
+      "result": "Passed"
+    },
+    {
+      "name": "null backup path is rejected without changing target or payload",
+      "result": "Passed"
+    },
+    {
+      "name": "backup outside Diagnostics is rejected",
+      "result": "Passed"
+    },
+    {
+      "name": "existing backup file is never overwritten",
+      "result": "Passed"
+    },
+    {
+      "name": "missing backup parent is rejected before replacement",
+      "result": "Passed"
+    },
+    {
+      "name": "payload SHA mismatch is rejected before replacement",
+      "result": "Passed"
+    },
+    {
+      "name": "target SHA mismatch is rejected before replacement",
+      "result": "Passed"
+    },
+    {
+      "name": "backup corruption after replacement cannot pass recovery",
+      "result": "Passed"
+    },
+    {
+      "name": "known utmp intermediate is inventoried and removed",
+      "result": "Passed"
+    },
+    {
+      "name": "exact Gradle shutdown log is removed",
+      "result": "Passed"
+    },
+    {
+      "name": "root vsconfig is preserved after combined recovery and cleanup",
+      "result": "Passed"
+    },
+    {
+      "name": "post-build CRLF and Light2D list retain exact original snapshot bytes",
+      "result": "Passed"
+    },
+    {
+      "name": "atomic restore does not change another hard-linked file",
+      "result": "Passed"
+    },
+    {
+      "name": "fourth tracked file change blocks all restoration",
+      "result": "Passed"
+    },
+    {
+      "name": "renderer setting outside shader prefilters is rejected",
+      "result": "Passed"
+    },
+    {
+      "name": "unknown shader prefilter field cannot hide as known metadata",
+      "result": "Passed"
+    },
+    {
+      "name": "invalid Light2D serialized variant is rejected",
+      "result": "Passed"
+    },
+    {
+      "name": "global URP setting outside runtime RID list is rejected",
+      "result": "Passed"
+    },
+    {
+      "name": "unresolved runtime RID is rejected",
+      "result": "Passed"
+    },
+    {
+      "name": "application identifier change is rejected",
+      "result": "Passed"
+    },
+    {
+      "name": "version code change is rejected",
+      "result": "Passed"
+    },
+    {
+      "name": "non-hex graphics suffix is rejected before restore",
+      "result": "Passed"
+    },
+    {
+      "name": "different graphics API is rejected",
+      "result": "Passed"
+    },
+    {
+      "name": "nonempty keystore path change is rejected",
+      "result": "Passed"
+    },
+    {
+      "name": "unknown untracked path rejected: .utmp2/file.json",
+      "result": "Passed"
+    },
+    {
+      "name": "unknown untracked path rejected: nested/.utmp/file.json",
+      "result": "Passed"
+    },
+    {
+      "name": "unknown untracked path rejected: build/outputs/logs/other.log",
+      "result": "Passed"
+    },
+    {
+      "name": "unknown untracked path rejected: unrelated.txt",
+      "result": "Passed"
+    },
+    {
+      "name": "unknown untracked path rejected: .utmp/unrelated.cs",
+      "result": "Passed"
+    },
+    {
+      "name": "invalid generated JSON fails without deleting it",
+      "result": "Passed"
+    },
+    {
+      "name": "corrupted snapshot is rejected before any restoration",
+      "result": "Passed"
+    },
+    {
+      "name": "restore SHA mismatch cannot pass final guard",
+      "result": "Passed"
+    },
+    {
+      "name": "cleanup failure cannot pass final guard",
+      "result": "Passed"
+    },
+    {
+      "name": "Git diff retrieval failure blocks restore and cleanup",
+      "result": "Passed"
+    },
+    {
+      "name": "staged change blocks recovery",
+      "result": "Passed"
+    },
+    {
+      "name": "worktree HEAD drift blocks recovery",
+      "result": "Passed"
+    },
+    {
+      "name": "linked generated directory is not followed or cleaned",
+      "result": "Passed"
+    },
+    {
+      "name": "formal repository change blocks recovery before any restore",
+      "result": "Passed"
+    },
+    {
+      "name": "formal repository cannot be used as recovery target",
+      "result": "Passed"
+    },
+    {
+      "name": "invalid diagnostic target cannot write into formal repository",
+      "result": "Passed"
+    },
+    {
+      "name": "formal repository contents and Git state remain unchanged",
+      "result": "Passed"
+    }
+  ],
+  "failed": 0,
+  "passed": 42
+}

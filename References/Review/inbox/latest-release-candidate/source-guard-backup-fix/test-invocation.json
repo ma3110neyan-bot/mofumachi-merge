@@ -1,0 +1,20 @@
+{
+  "started_utc": "2026-11-10T05:34:38.284955+00:00",
+  "finished_utc": "2026-11-10T05:34:50.160642+00:00",
+  "command": [
+    "/workspace/toolchains/powershell/7.4.6/pwsh",
+    "-NoLogo",
+    "-NoProfile",
+    "-NonInteractive",
+    "-File",
+    "scripts/tests/android-release.tests.ps1",
+    "-SourceGuardOnly",
+    "-ResultDirectory",
+    "/workspace/artifacts/replace-backup-fix-tests-20261110"
+  ],
+  "test_exit_code": 0,
+  "test_invocations": 1,
+  "automatic_retries": 0,
+  "unity_invocations": 0,
+  "build_invocations": 0
+}

@@ -1,0 +1,22 @@
+{
+  "state": "Verified",
+  "payload": "/tmp/release-source-guard-afe95a42fa7f46b38b1305d2f612b54a/validation/Diagnostics/release-candidate/rc-20261110-000000-00000001/aab/source-recovery/restore-1f2c342e7509449285f4b7aecfe4b078.tmp",
+  "target": "/tmp/release-source-guard-afe95a42fa7f46b38b1305d2f612b54a/validation/projects/rc-20261110-000000-00000001/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+  "backup": "/tmp/release-source-guard-afe95a42fa7f46b38b1305d2f612b54a/validation/Diagnostics/release-candidate/rc-20261110-000000-00000001/aab/source-recovery/restore-backups/9be23e69086345a1840a2598b987f794/UniversalRenderPipelineGlobalSettings.asset.bak",
+  "record": "/tmp/release-source-guard-afe95a42fa7f46b38b1305d2f612b54a/validation/Diagnostics/release-candidate/rc-20261110-000000-00000001/aab/source-recovery/restore-backup-dca622f72ad54938a43f264d71abb007.json",
+  "snapshot_sha256": "6e193ed0d0734ba156391192edb4ce4705c0649a0c57ad357a62b210a0990552",
+  "target_sha256_before": "c3d47aab1fb793719ac24707df3596de2b314594127364d217cac63d5d7cfba6",
+  "target_size_before": 28219,
+  "payload_sha256": "6e193ed0d0734ba156391192edb4ce4705c0649a0c57ad357a62b210a0990552",
+  "target_sha256_after": "6e193ed0d0734ba156391192edb4ce4705c0649a0c57ad357a62b210a0990552",
+  "backup_sha256": "c3d47aab1fb793719ac24707df3596de2b314594127364d217cac63d5d7cfba6",
+  "backup_size": 28219,
+  "backup_exists_after": true,
+  "payload_exists_after": false,
+  "backup_cleanup_performed": false,
+  "backup_cleanup_policy": "Retain this run backup in Diagnostics as evidence; no explicit backup or payload cleanup",
+  "error": null,
+  "error_stack": null,
+  "error_position": null,
+  "inspection_error": null
+}

@@ -1,5 +1,6 @@
 {
-  "scope": "Game/assets/settings/packages/VisualLock/QA/release C# and unrelated scripts before/after; two authorized PS files listed separately",
+  "implementation_commit": "604b5f7fd8442aaf97fc695d0406acdaa6c1bec2",
+  "source_base_commit": "75b05a103e138ca360a41ce35f9b0d0397d76327",
   "scanned": 864,
   "protected_file_count": 862,
   "protected_changed_files": [],
@@ -870,13 +871,13 @@
   "authorized_implementation_changes": [
     {
       "path": "scripts/build-android-release.ps1",
-      "before_sha256": "e1e1d1b03f75d91ddffc7c7d566ea09292f6e20da94d5b0449f3f10ea5f39f31",
-      "after_sha256": "a1cda9234e2e63c5f6d86f4db924dbfcab35edee4954a55211b8d0df368d6ef5"
+      "before_sha256": "a1cda9234e2e63c5f6d86f4db924dbfcab35edee4954a55211b8d0df368d6ef5",
+      "after_sha256": "21e38296a25d825644efa168bc2559fb8b9b8d5a03740be011ebda223af664a5"
     },
     {
       "path": "scripts/tests/android-release.tests.ps1",
-      "before_sha256": "a4197e85955fc84d714b5c03be7aa20e363da9540f5d834c3c72af8a10fa2f5a",
-      "after_sha256": "faac881295e6fb792e797bc0aca71ff93912a68cfa62c573d50db8ed2f545981"
+      "before_sha256": "faac881295e6fb792e797bc0aca71ff93912a68cfa62c573d50db8ed2f545981",
+      "after_sha256": "f7e16374648e77be060fcdaabb08e068dea5ffbc773200631df9831c97bce0c8"
     }
   ]
 }

@@ -1,0 +1,26 @@
+{
+  "project": "/tmp/release-source-guard-afe95a42fa7f46b38b1305d2f612b54a/validation/projects/rc-20261110-000000-00000001",
+  "baseline": "12644980d12e8afa82042e7470afae7969407b9c",
+  "directory": "/tmp/release-source-guard-afe95a42fa7f46b38b1305d2f612b54a/validation/Diagnostics/release-candidate/rc-20261110-000000-00000001/aab/source-recovery",
+  "formal": "/tmp/release-source-guard-afe95a42fa7f46b38b1305d2f612b54a/formal",
+  "files": [
+    {
+      "sha256": "4c259dae654652720f398d814fd7cdcd9e35d1c28bed9ed9548f003dfa038787",
+      "relative": "Assets/Settings/UniversalRP.asset",
+      "length": 4816,
+      "snapshot": "/tmp/release-source-guard-afe95a42fa7f46b38b1305d2f612b54a/validation/Diagnostics/release-candidate/rc-20261110-000000-00000001/aab/source-recovery/snapshot-0.bin"
+    },
+    {
+      "sha256": "6e193ed0d0734ba156391192edb4ce4705c0649a0c57ad357a62b210a0990552",
+      "relative": "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+      "length": 28189,
+      "snapshot": "/tmp/release-source-guard-afe95a42fa7f46b38b1305d2f612b54a/validation/Diagnostics/release-candidate/rc-20261110-000000-00000001/aab/source-recovery/snapshot-1.bin"
+    },
+    {
+      "sha256": "4043fb3267581fb2660bf61b6ad8da480b4f2d718bf5909b8891058f2a1bc862",
+      "relative": "ProjectSettings/ProjectSettings.asset",
+      "length": 23497,
+      "snapshot": "/tmp/release-source-guard-afe95a42fa7f46b38b1305d2f612b54a/validation/Diagnostics/release-candidate/rc-20261110-000000-00000001/aab/source-recovery/snapshot-2.bin"
+    }
+  ]
+}

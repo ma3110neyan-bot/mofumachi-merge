@@ -1,6 +1,43 @@
-FIRST FAILURE: Known mutations rejected.
-Exception: /workspace/mofumachi-merge/scripts/tests/android-release.tests.ps1:291
-Line |
- 291 |      if ($Failure) { throw $Failure }
-     |                      ~~~~~~~~~~~~~~
-     | Known mutations rejected.
+PASS known three-file mutations restore exact snapshot bytes and final guard passes
+PASS empty backup path is rejected without changing target or payload
+PASS null backup path is rejected without changing target or payload
+PASS backup outside Diagnostics is rejected
+PASS existing backup file is never overwritten
+PASS missing backup parent is rejected before replacement
+PASS payload SHA mismatch is rejected before replacement
+PASS target SHA mismatch is rejected before replacement
+PASS backup corruption after replacement cannot pass recovery
+PASS known utmp intermediate is inventoried and removed
+PASS exact Gradle shutdown log is removed
+PASS root vsconfig is preserved after combined recovery and cleanup
+PASS post-build CRLF and Light2D list retain exact original snapshot bytes
+PASS atomic restore does not change another hard-linked file
+PASS fourth tracked file change blocks all restoration
+PASS renderer setting outside shader prefilters is rejected
+PASS unknown shader prefilter field cannot hide as known metadata
+PASS invalid Light2D serialized variant is rejected
+PASS global URP setting outside runtime RID list is rejected
+PASS unresolved runtime RID is rejected
+PASS application identifier change is rejected
+PASS version code change is rejected
+PASS non-hex graphics suffix is rejected before restore
+PASS different graphics API is rejected
+PASS nonempty keystore path change is rejected
+PASS unknown untracked path rejected: .utmp2/file.json
+PASS unknown untracked path rejected: nested/.utmp/file.json
+PASS unknown untracked path rejected: build/outputs/logs/other.log
+PASS unknown untracked path rejected: unrelated.txt
+PASS unknown untracked path rejected: .utmp/unrelated.cs
+PASS invalid generated JSON fails without deleting it
+PASS corrupted snapshot is rejected before any restoration
+PASS restore SHA mismatch cannot pass final guard
+PASS cleanup failure cannot pass final guard
+PASS Git diff retrieval failure blocks restore and cleanup
+PASS staged change blocks recovery
+PASS worktree HEAD drift blocks recovery
+PASS linked generated directory is not followed or cleaned
+PASS formal repository change blocks recovery before any restore
+PASS formal repository cannot be used as recovery target
+PASS invalid diagnostic target cannot write into formal repository
+PASS formal repository contents and Git state remain unchanged
+PASS source-guard cases: 42; checks: 170. No Unity, preflight, AAB/APK or signing tools.

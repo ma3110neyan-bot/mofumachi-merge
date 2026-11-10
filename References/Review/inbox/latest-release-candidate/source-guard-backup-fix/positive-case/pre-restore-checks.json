@@ -1,0 +1,15 @@
+{
+  "names_exit": 0,
+  "head_exit": 0,
+  "diff_exit": 0,
+  "untracked_paths": [],
+  "errors": "",
+  "changed_paths": [
+    "Assets/Settings/UniversalRP.asset",
+    "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+    "ProjectSettings/ProjectSettings.asset"
+  ],
+  "index_exit": 0,
+  "head": "12644980d12e8afa82042e7470afae7969407b9c",
+  "untracked_exit": 0
+}

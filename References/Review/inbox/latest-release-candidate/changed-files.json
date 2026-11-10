@@ -1,18 +1,19 @@
 {
-  "implementation_commit": "0f1b066c390e61c739d4fc9ed961e14aa5de7120",
+  "implementation_commit": "604b5f7fd8442aaf97fc695d0406acdaa6c1bec2",
   "implementation_file_count": 2,
   "implementation_files": [
     {
       "path": "scripts/build-android-release.ps1",
-      "before_sha256": "e1e1d1b03f75d91ddffc7c7d566ea09292f6e20da94d5b0449f3f10ea5f39f31",
-      "after_sha256": "a1cda9234e2e63c5f6d86f4db924dbfcab35edee4954a55211b8d0df368d6ef5"
+      "before_sha256": "a1cda9234e2e63c5f6d86f4db924dbfcab35edee4954a55211b8d0df368d6ef5",
+      "after_sha256": "21e38296a25d825644efa168bc2559fb8b9b8d5a03740be011ebda223af664a5"
     },
     {
       "path": "scripts/tests/android-release.tests.ps1",
-      "before_sha256": "a4197e85955fc84d714b5c03be7aa20e363da9540f5d834c3c72af8a10fa2f5a",
-      "after_sha256": "faac881295e6fb792e797bc0aca71ff93912a68cfa62c573d50db8ed2f545981"
+      "before_sha256": "faac881295e6fb792e797bc0aca71ff93912a68cfa62c573d50db8ed2f545981",
+      "after_sha256": "f7e16374648e77be060fcdaabb08e068dea5ffbc773200631df9831c97bce0c8"
     }
   ],
-  "review_scope": "References/Review/inbox/latest-release-candidate and latest only",
-  "code_changes_after_first_failure": false
+  "scope": "File.Replace backup handling, its call site, directly related tests and public evidence only",
+  "other_production_functions_unchanged": true,
+  "review_file_scope": "References/Review/inbox/latest-release-candidate and References/Review/latest"
 }

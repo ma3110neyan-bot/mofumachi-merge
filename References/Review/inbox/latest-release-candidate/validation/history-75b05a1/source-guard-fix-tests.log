@@ -1,0 +1,6 @@
+FIRST FAILURE: Known mutations rejected.
+Exception: /workspace/mofumachi-merge/scripts/tests/android-release.tests.ps1:291
+Line |
+ 291 |      if ($Failure) { throw $Failure }
+     |                      ~~~~~~~~~~~~~~
+     | Known mutations rejected.

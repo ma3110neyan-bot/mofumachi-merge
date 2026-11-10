@@ -1,0 +1,13 @@
+Scope: release-only limited check, first run after API reference fix.
+Source revision: ba328838d1ca72ec5abc0ba8b5f259ca445070a0
+&: /workspace/mofumachi-merge/scripts/tests/android-release.tests.ps1:52
+Line |
+  52 |  & $Git -C $Repo init --quiet
+     |    ~~~~
+     | The term '/usr/local/bin/git /usr/bin/git /bin/git
+     | /opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback/git'
+     | is not recognized as a name of a cmdlet, function, script file, or
+     | executable program. Check the spelling of the name, or if a path was
+     | included, verify that the path is correct and try again.
+
+Cause: unchanged test line51 returns four Git executable Source paths; line52 cannot invoke the array. No retry.

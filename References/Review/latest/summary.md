@@ -1,3 +1,64 @@
+# 第8工程：AAB生成済み・source guard停止（署名検証未到達）
+
+状態：**原因確定（全体判定の停止条件）／実機未確認**。Unity内AABビルドは成功。全体検証はsource guardで失敗。第7工程complete=true、第8工程complete=false。
+
+- branch：`feat/daily-world-pass-20261016`。
+- AAB実行source：`c0803e6e9faf0ebb5e63e637d94c20dcce3f6e4a`。固定ゲーム：`46f65b24d58531d5934035fbe4cdb4d5b00104a6`。commit欄はこの実行sourceで、証跡共有文書自身のSHAとは区別。
+- run：`rc-20261109-123540-725e4e31`。E側保存済み証跡だけを確認。再実行・修正なし。
+- JST実行区間：2026-11-09 21:35:40 ～ 2026-11-10 11:02:41（全体約13時間27分）。Unity PlayerBuildInfoは1,341,831ms（約22分22秒）。長時間の根本原因は全ログ未受領のため未確定。ネットワーク／待機チェーン画像だけから原因を断定しない。
+- 受領ZIP SHA256：`9a2809ae4f8c2dc28a240830bf3adca849c1c978d9018992e8b8fe01aea9800c`。CRC正常。公開manifest27項目一致。native manifest受領23項目一致。元build.log4,163,104bytesは未収録で、末尾800行と原本SHA/sizeだけ受領。
+
+## 確定した停止理由
+
+after/source-check.jsonの**working_diff_exit=1**で、追跡済み内容差分を検知。index_diff_exit=0、HEADはbaselineと一致。加えて非許可の未追跡56件（`.utmp/`55件とGradle終了ログ`build/outputs/logs/unity---stop-build.log`1件）。`.vsconfig`は既存allowlistどおり記録済み。
+
+追跡済みの変更path一覧・差分本文はZIPに未収録。stderrのUniversalRP.assetに関するLF/CRLF警告だけで、**改行だけの誤検知とは判定しない**。このwarningを変更pathの全容とも扱わない。Gradle終了ログの生成はUnity末尾でも確認。55件はpath上CMake/NDK/Gradle中間生成物だが、個別内容は未受領。ignore/allowlistを勝手に変更していない。
+
+Build Successful、MOFUMACHI_RELEASE_SUCCESS、正常batchmode終了exit0、native result=Passed/build_errors=0を確認。停止操作を案内後に受領した結果だが、実際の終了方式は未確認で、Unityクラッシュ／強制終了失敗とは断定しない。
+
+| 確認項目 | 結果 |
+| --- | --- |
+| AAB全体検証 | **FAIL（source guard）** |
+| Unity内AABビルド | **PASS / build_errors=0** |
+| AABビルド／Unity起動 | **1回／1回**（AssetImportWorkerを追加ビルドに数えない） |
+| Unity exit／wrapper exit | **0／1** |
+| AAB file name | `mofumachi-merge-rc-20261109-123540-725e4e31.aab` |
+| AAB size | **66,555,568 bytes** |
+| AAB SHA256 | `cda1443b40d3337e80f9139e3137de9efe96ddeca1923ee9551e8af5a527162c`（Windows側Get-FileHash。AAB本体未受領・Git未追加） |
+| actual signer SHA／一致 | **未検証／NO（未判定）**。source guardが検証の前で停止。元のsigner_matches=falseは署名不一致の証拠ではない |
+| 要求されたcertificate | `96bb1402b8085570305a0486ae3f7fa3fafe2c60a3b8cd062c2ee8e0f81b8e09`（設定snapshotでありartifact signerの検証結果ではない） |
+| Development／Script Debugging／Deep Profiling／Autoconnect | **すべてOFF** |
+| BuildOptions／custom signing／build_app_bundle | **None／true／true** |
+| package／version／versionCode | **com.mofumachi.merge／1.0／1** |
+| backend／architecture／orientation | **IL2CPP／ARM64／Portrait** |
+| 一時設定復元 | **true（native snapshot）** |
+| source_unchanged | **false（検証worktree）** |
+| formal_repo_unchanged | **true（正式C repo）** |
+| keystore SHA一致 | **true** |
+| Visual Lock変更 | **正式repo・このレビューではNO**。検証worktreeの追跡済み全diffは未受領 |
+| 自動再試行 | **0** |
+| first_error／runner_error | **null／Tracked content or non-allowlisted files changed after the release build.** |
+| APK／Pixel | **未実行／未実行** |
+| 第8工程complete | **false** |
+
+AAB absolute path：`E:\Mofumachi-Validation\release-candidate\rc-20261109-123540-725e4e31\mofumachi-merge-rc-20261109-123540-725e4e31.aab`。artifact更新UTC：`2026-11-10T02:02:15.9307674Z`。
+
+原本aab-review.jsonのaab_build_invocations=nullは未変更（全体合格しない場合wrapperが未設定にするため）。レビューでは単一PlayerBuildInfo、native snapshot、Unity1回の証跡を合わせ、生成1回を記録。
+
+**次にAPK実ビルドへ進んで安全か：NO**。主要ブロッカーは**検証worktreeのsource不変条件未成立**。再ビルドを保留し、既存worktreeの実diffを読む。署名検証未到達はこのgateで止まった結果で、新しい署名不具合を検出したという意味ではない。
+
+読み取り専用手順：`References/Review/inbox/latest-release-candidate/windows-release-source-audit-only.md`。元のPowerShellの入力待ち画面で1回実行すると、HEAD/status/実diffだけを別E診断フォルダーへ保存して公開ZIPを作る。Unity／preflight／AAB／APK／Pixelを起動せず、旧run/receipt/sourceを修復・削除・上書きしない。Windows採取はまだ未実行。
+
+原本28点とレビュー：`windows-aab/rc-20261109-123540-725e4e31/`。ZIPのbackslash項目名を保存用slashに対応付けただけで、生バイトは保持。更新前集約はvalidation/history-c0803e6/へ保管。過去preflight PASS・第7工程・署名準備の証拠は不変。
+
+今回CodexでのUnity・ビルド・テスト・署名ツール・キー作成・プロセス停止・Fetchは全て0回。ゲーム・既存release/QA入口・設定・Packages・Visual Lock・Guard変更なし。秘密値とAAB本体は共有しない。
+
+Codex／AI側から見た次の改善候補：今回はなし。
+
+---
+
+以下は以前の実行準備・preflight結果の履歴。
+
 # 第8工程：実AABのみ1回・Windows実行待ち
 
 状態：**未着手（実AAB生成）**。既存preflightはPASS、第7工程complete=true、第8工程complete=falseを維持。

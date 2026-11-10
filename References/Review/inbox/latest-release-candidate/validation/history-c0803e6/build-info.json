@@ -1,0 +1,29 @@
+{
+    "result":  "PreflightPassed",
+    "product_commit":  "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
+    "source_commit":  "26d2f150337f00baf89771f44f6802f6f6d6402b",
+    "stage8_complete":  false,
+    "unity_invocations":  0,
+    "automatic_retries":  0,
+    "first_error":  null,
+    "runner_error":  null,
+    "failed_phase":  null,
+    "source_unchanged":  true,
+    "signing_preflight":  {
+                              "passed":  true,
+                              "problems":  [
+
+                                           ],
+                              "secret_values_included":  false
+                          },
+    "signing_certificate_sha256":  "96bb1402b8085570305a0486ae3f7fa3fafe2c60a3b8cd062c2ee8e0f81b8e09",
+    "aab":  null,
+    "apk":  null,
+    "build_requested":  false,
+    "output_root":  "E:\\Mofumachi-Validation\\release-candidate\\rc-20261109-120851-5c06de53",
+    "run":  "E:\\Mofumachi-Validation\\Diagnostics\\release-candidate\\rc-20261109-120851-5c06de53",
+    "package":  "com.mofumachi.merge",
+    "unity_version":  "6000.6.4f1",
+    "build_entry_identity":  "6baaef3e35b48bcd083a913a961cb1fd51a6b2aa8d58b472f9890e0d9458972f",
+    "formal_repo_unchanged":  true
+}

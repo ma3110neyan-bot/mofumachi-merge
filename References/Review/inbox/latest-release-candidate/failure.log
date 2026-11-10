@@ -1,10 +1,15 @@
-Current failure: release limited script check, not C# compile or Unity build.
-&: /workspace/mofumachi-merge/scripts/tests/android-release.tests.ps1:52
-Line |
-  52 |  & $Git -C $Repo init --quiet
-     |    ~~~~
-     | The term '/usr/local/bin/git /usr/bin/git /bin/git
-     | /opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback/git'
-     | is not recognized as a name of a cmdlet, function, script file, or
-     | executable program. Check the spelling of the name, or if a path was
-     | included, verify that the path is correct and try again.
+Run: rc-20261109-123540-725e4e31
+Source: c0803e6e9faf0ebb5e63e637d94c20dcce3f6e4a
+Scope: isolated E-drive worktree source guard, not formal C-drive repository
+First concrete stop evidence: aab/after/source-check.json
+  working_diff_exit=1 (tracked working content differs)
+  index_diff_exit=0; untracked_exit=0; HEAD still equals baseline
+  disallowed_untracked=56 (.utmp55; build/outputs/logs/unity---stop-build.log1)
+Native runner_error: Tracked content or non-allowlisted files changed after the release build.
+Tracked changed-path list and actual content hunks not supplied; exact tracked changes unconfirmed.
+LF/CRLF warning mentioning UniversalRP.asset does not prove that exit1 is harmless or identify the complete changed-path list.
+Unity exit0; native BuildInfo.result=Passed/build_errors=0; MOFUMACHI_RELEASE_SUCCESS and successful batchmode shutdown logged.
+Formal repository unchanged=true; keystore fingerprint matches.
+Artifact signature verification NOT RUN because source guard stops before that step; not a proven bad signature.
+native first_error=null. No C#/Gradle root build failure established.
+No retry, repair, restore, deletion, guard/allowlist change, APK or Pixel action performed.

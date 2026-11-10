@@ -1,0 +1,21 @@
+{
+    "baseline":  "c0803e6e9faf0ebb5e63e637d94c20dcce3f6e4a",
+    "head":  "c0803e6e9faf0ebb5e63e637d94c20dcce3f6e4a",
+    "unchanged":  true,
+    "problems":  [
+
+                 ],
+    "working_diff_exit":  0,
+    "index_diff_exit":  0,
+    "untracked_exit":  0,
+    "allowlist":  [
+                      ".vsconfig"
+                  ],
+    "allowed_untracked":  [
+
+                          ],
+    "disallowed_untracked":  [
+
+                             ],
+    "tracked_scope":  "All tracked paths; content comparison, no whitespace ignore or path exclusions"
+}

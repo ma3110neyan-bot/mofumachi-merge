@@ -1,0 +1,10 @@
+Current failure: release limited script check, not C# compile or Unity build.
+&: /workspace/mofumachi-merge/scripts/tests/android-release.tests.ps1:52
+Line |
+  52 |  & $Git -C $Repo init --quiet
+     |    ~~~~
+     | The term '/usr/local/bin/git /usr/bin/git /bin/git
+     | /opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback/git'
+     | is not recognized as a name of a cmdlet, function, script file, or
+     | executable program. Check the spelling of the name, or if a path was
+     | included, verify that the path is correct and try again.

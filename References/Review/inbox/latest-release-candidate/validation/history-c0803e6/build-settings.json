@@ -1,0 +1,13 @@
+{
+    "product_commit":  "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
+    "source_commit":  "26d2f150337f00baf89771f44f6802f6f6d6402b",
+    "version":  "1.0",
+    "version_code":  "1",
+    "release_flags":  "Development/Script Debugging/Deep Profiling/Autoconnect OFF; BuildOptions.None",
+    "package":  "com.mofumachi.merge",
+    "backend":  "IL2CPP",
+    "architecture":  "ARM64",
+    "orientation":  "Portrait",
+    "signing_certificate_sha256":  "96bb1402b8085570305a0486ae3f7fa3fafe2c60a3b8cd062c2ee8e0f81b8e09",
+    "effective_unity_snapshot":  "Each build phase unity-build-info.json; absent until an actual Unity build"
+}

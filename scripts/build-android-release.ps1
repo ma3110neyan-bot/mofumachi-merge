@@ -92,6 +92,281 @@ function Get-AndroidReleaseSourceCheck([string]$Git,[string]$Project,[string]$Ba
     Write-AndroidReleaseJson (Join-Path $Directory 'source-check.json') $Report
     return [pscustomobject]$Report
 }
+function Get-AndroidReleaseMutationPaths {
+    return @('Assets/Settings/UniversalRP.asset','Assets/Settings/UniversalRenderPipelineGlobalSettings.asset','ProjectSettings/ProjectSettings.asset')
+}
+function Get-AndroidReleaseBytesHash([byte[]]$Bytes) {
+    $Hash=[Security.Cryptography.SHA256]::Create()
+    try { return ([BitConverter]::ToString($Hash.ComputeHash($Bytes))).Replace('-','').ToLowerInvariant() }
+    finally { $Hash.Dispose() }
+}
+function Assert-AndroidReleaseNoLink([string]$Path) {
+    $Ancestor=[IO.Path]::GetFullPath($Path)
+    while ($Ancestor) {
+        if (Test-Path -LiteralPath $Ancestor) {
+            if ((Get-Item -LiteralPath $Ancestor -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) { throw 'Linked recovery paths are not allowed.' }
+        }
+        $Ancestor=[IO.Path]::GetDirectoryName($Ancestor)
+    }
+}
+function Test-AndroidReleaseUnder([string]$Path,[string]$Root) {
+    $Boundary=[IO.Path]::GetFullPath($Root).TrimEnd([char[]]@('/','\'))+[IO.Path]::DirectorySeparatorChar
+    return [IO.Path]::GetFullPath($Path).StartsWith($Boundary,[StringComparison]::OrdinalIgnoreCase)
+}
+function Assert-AndroidReleaseRecoveryScope([string]$Git,[string]$Project,[string]$Baseline,[string]$Directory,[string]$Formal) {
+    if ($Baseline -cnotmatch '^[0-9a-f]{40}$' -or
+        -not (Test-AndroidReleaseUnder $Project (Join-Path $ReleaseRoot 'projects')) -or
+        -not (Test-AndroidReleaseUnder $Directory (Join-Path $ReleaseRoot 'Diagnostics/release-candidate')) -or
+        (Test-AndroidReleaseUnder $Project $Formal) -or [IO.Path]::GetFullPath($Project) -ieq [IO.Path]::GetFullPath($Formal)) { throw 'Recovery is restricted to an isolated release project and separate Diagnostics.' }
+    $Leaf=[IO.Path]::GetFileName([IO.Path]::GetFullPath($Project).TrimEnd([char[]]@('/','\')))
+    if ($Leaf -cnotmatch '^rc-[0-9]{8}-[0-9]{6}-[0-9a-f]{8}$' -or
+        -not (Test-AndroidReleaseUnder $Directory (Join-Path $ReleaseRoot ('Diagnostics/release-candidate/'+$Leaf)))) { throw 'Recovery run identity does not match the isolated project.' }
+    foreach ($Path in @($Project,$Directory,$Formal)) { Assert-AndroidReleaseNoLink $Path }
+    $Registration=Invoke-AndroidReleaseGit $Git $Formal @('worktree','list','--porcelain')
+    if ($Registration.exit_code -ne 0) { throw 'Cannot verify recovery worktree registration.' }
+    $Registered=@($Registration.stdout -split '\r?\n\r?\n' | Where-Object {
+        $Line=[regex]::Match($_,'(?m)^worktree (.+)\r?$')
+        $Line.Success -and $Line.Groups[1].Value.Trim().Replace('\','/') -ieq [IO.Path]::GetFullPath($Project).Replace('\','/')
+    })
+    if ($Registered.Count -ne 1 -or $Registered[0] -notmatch ('(?m)^HEAD '+$Baseline+'\r?$') -or
+        $Registered[0] -notmatch '(?m)^detached\r?$' -or $Registered[0] -match '(?m)^(locked|prunable)') { throw 'Recovery target is not the registered detached pinned worktree.' }
+    $Head=Invoke-AndroidReleaseGit $Git $Formal @('rev-parse','HEAD')
+    $Status=Invoke-AndroidReleaseGit $Git $Formal @('status','--porcelain=v1','--untracked-files=all')
+    $Index=Invoke-AndroidReleaseGit $Git $Formal @('diff','--cached','--quiet','--no-ext-diff','--no-textconv',$Baseline,'--')
+    if ($Head.exit_code -ne 0 -or $Head.stdout.Trim() -cne $Baseline -or $Status.exit_code -ne 0 -or $Status.stdout -or $Index.exit_code -ne 0) { throw 'Formal repository changed; no recovery mutation is allowed.' }
+}
+function Read-AndroidReleaseRegularBytes([string]$Path) {
+    Assert-AndroidReleaseNoLink $Path
+    $File=Get-Item -LiteralPath $Path -Force -ErrorAction Stop
+    if ($File.PSIsContainer -or $File.Length -gt 67108864) { throw 'Recovery input must be a bounded regular file.' }
+    return ,([IO.File]::ReadAllBytes($File.FullName))
+}
+function Write-AndroidReleaseNewBytes([string]$Path,[byte[]]$Bytes) {
+    $Stream=[IO.File]::Open($Path,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None)
+    try { $Stream.Write($Bytes,0,$Bytes.Length);$Stream.Flush() } finally { $Stream.Dispose() }
+}
+function New-AndroidReleaseBuildSnapshot([string]$Git,[string]$Project,[string]$Baseline,[string]$Directory,[string]$Formal) {
+    Assert-AndroidReleaseRecoveryScope $Git $Project $Baseline $Directory $Formal
+    $Before=Get-AndroidReleaseSourceCheck $Git $Project $Baseline (Join-Path $Directory 'before')
+    if (-not $Before.unchanged) { throw 'Snapshot requires the ordinary clean source guard.' }
+    foreach ($Name in @('.utmp','build/outputs/logs/unity---stop-build.log')) {
+        if (Test-Path -LiteralPath (Join-Path $Project $Name)) { throw 'Generated cleanup roots must not exist before this build.' }
+    }
+    $Paths=@(Get-AndroidReleaseMutationPaths)
+    $Tracked=Invoke-AndroidReleaseGit $Git $Project (@('ls-files','--error-unmatch','--')+$Paths)
+    if ($Tracked.exit_code -ne 0) { throw 'Snapshot inputs are not all tracked.' }
+    $Files=@()
+    for ($i=0;$i -lt $Paths.Count;$i++) {
+        $Target=Join-Path $Project $Paths[$i]
+        $Bytes=Read-AndroidReleaseRegularBytes $Target
+        $Snapshot=Join-Path $Directory ('snapshot-'+$i+'.bin')
+        Write-AndroidReleaseNewBytes $Snapshot $Bytes
+        $Sha=Get-AndroidReleaseBytesHash $Bytes
+        if ((Get-AndroidReleaseBytesHash (Read-AndroidReleaseRegularBytes $Snapshot)) -cne $Sha -or
+            (Get-AndroidReleaseBytesHash (Read-AndroidReleaseRegularBytes $Target)) -cne $Sha) { throw 'Pre-build byte snapshot verification failed.' }
+        $Files+=@{relative=$Paths[$i];snapshot=$Snapshot;sha256=$Sha;length=$Bytes.Length}
+    }
+    $Plan=[pscustomobject]@{project=$Project;baseline=$Baseline;directory=$Directory;formal=$Formal;files=$Files}
+    Write-AndroidReleaseJson (Join-Path $Directory 'snapshot.json') $Plan
+    return $Plan
+}
+function Get-AndroidReleaseComparable([string]$Relative,[byte[]]$Bytes,[string]$Reference) {
+    $Utf8=New-Object Text.UTF8Encoding($false,$true)
+    $Text=$Utf8.GetString($Bytes).Replace("`r`n","`n")
+    if ($Text.Contains("`r")) { throw 'Unsupported serialized line endings.' }
+    if ($Relative -ceq 'Assets/Settings/UniversalRP.asset') {
+        $Keys=@('m_PrefilteringModeMainLightShadows','m_PrefilteringModeAdditionalLight','m_PrefilteringModeAdditionalLightShadows',
+            'm_PrefilterXRKeywords','m_PrefilteringModeForwardPlus','m_PrefilteringModeDeferredRendering','m_PrefilteringModeScreenSpaceOcclusion','m_PrefilteringModeScreenSpaceReflection',
+            'm_PrefilterWriteSmoothness','m_PrefilterDebugKeywords','m_PrefilterWriteRenderingLayers','m_PrefilterHDROutput','m_PrefilterAlphaOutput','m_PrefilterSSAODepthNormals',
+            'm_PrefilterSSAOSourceDepthLow','m_PrefilterSSAOSourceDepthMedium','m_PrefilterSSAOSourceDepthHigh','m_PrefilterSSAOInterleaved','m_PrefilterSSAOBlueNoise',
+            'm_PrefilterSSAOSampleCountLow','m_PrefilterSSAOSampleCountMedium','m_PrefilterSSAOSampleCountHigh','m_PrefilterDBufferMRT1','m_PrefilterDBufferMRT2','m_PrefilterDBufferMRT3',
+            'm_PrefilterSoftShadowsQualityLow','m_PrefilterSoftShadowsQualityMedium','m_PrefilterSoftShadowsQualityHigh','m_PrefilterSoftShadows','m_PrefilterScreenCoord',
+            'm_PrefilterScreenSpaceIrradiance','m_PrefilterNativeRenderPass','m_PrefilterUseLegacyLightmaps','m_PrefilterBicubicLightmapSampling','m_PrefilterReflectionProbeRotation',
+            'm_PrefilterReflectionProbeBlending','m_PrefilterReflectionProbeBoxProjection','m_PrefilterReflectionProbeAtlas','m_PrefilterPointSamplingUpsampling','m_Light2DPrefilteringMode')
+        foreach ($Key in $Keys) {
+            $Pattern='(?m)^  '+[regex]::Escape($Key)+': ([0-4])$'
+            if ([regex]::Matches($Text,$Pattern).Count -ne 1) { throw 'Unknown or duplicate shader prefilter serialization.' }
+            $Text=[regex]::Replace($Text,$Pattern,('  '+$Key+': <prefilter>'))
+        }
+        $Pattern='(?m)^  m_Light2DKeptVariantCombos:(?: \[\]\n| [0-9a-fA-F]+\n|\n(?:  - [0-9]+\n)+)'
+        $Combos=[regex]::Matches($Text,$Pattern)
+        if ($Combos.Count -ne 1) { throw 'Unknown Light2D variant metadata.' }
+        $Sequence=@([regex]::Matches($Combos[0].Value,'(?m)^  - ([0-9]+)$'))
+        if ($Sequence.Count -gt 256) { throw 'Unexpected Light2D variant count.' }
+        foreach ($Number in $Sequence) {
+            $Parsed=[uint32]0
+            if (-not [uint32]::TryParse($Number.Groups[1].Value,[ref]$Parsed)) { throw 'Invalid Light2D variant value.' }
+        }
+        $Hex=[regex]::Match($Combos[0].Value,'^  m_Light2DKeptVariantCombos: ([0-9a-fA-F]+)\n$')
+        if ($Hex.Success -and ($Hex.Groups[1].Value.Length % 2 -ne 0 -or $Hex.Groups[1].Value.Length -gt 4096)) { throw 'Invalid Light2D serialized bytes.' }
+        $Text=[regex]::Replace($Text,$Pattern,"  m_Light2DKeptVariantCombos: <variants>`n")
+    } elseif ($Relative -ceq 'Assets/Settings/UniversalRenderPipelineGlobalSettings.asset') {
+        $Pattern='(?m)^    m_RuntimeSettings:\n      m_List:(?: \[\]\n|\n(?:      - rid: [0-9]+\n)+)'
+        $Block=[regex]::Matches($Text,$Pattern)
+        if ($Block.Count -ne 1) { throw 'Unknown runtime settings list serialization.' }
+        $Defined=@([regex]::Matches($Reference,'(?m)^    - rid: ([0-9]+)$') | ForEach-Object {$_.Groups[1].Value})
+        $Seen=New-Object 'Collections.Generic.HashSet[string]'
+        foreach ($Rid in [regex]::Matches($Block[0].Value,'rid: ([0-9]+)')) {
+            if ($Defined -cnotcontains $Rid.Groups[1].Value -or -not $Seen.Add($Rid.Groups[1].Value)) { throw 'Runtime list contains an unresolved or duplicate RID.' }
+        }
+        $Text=[regex]::Replace($Text,$Pattern,"    m_RuntimeSettings:`n      m_List: <runtime>`n")
+    } elseif ($Relative -ceq 'ProjectSettings/ProjectSettings.asset') {
+        $Pattern='(?m)^  AndroidKeystoreName:([^\n]*)$'
+        $Key=[regex]::Matches($Text,$Pattern)
+        if ($Key.Count -ne 1) { throw 'Unknown keystore name serialization.' }
+        $Value=$Key[0].Groups[1].Value.Trim()
+        if ($Value.Length -ge 2 -and (($Value[0] -eq [char]39 -and $Value[$Value.Length-1] -eq [char]39) -or
+            ($Value[0] -eq [char]34 -and $Value[$Value.Length-1] -eq [char]34))) { $Value=$Value.Substring(1,$Value.Length-2) }
+        if ($Value -cne '' -and $Value -cne '{inproject}: ') { throw 'A nonempty or unknown keystore binding is not a serialization-only mutation.' }
+        $Text=[regex]::Replace($Text,$Pattern,'  AndroidKeystoreName: <empty>')
+        $Graphics=[regex]::Matches($Text,'(?m)^  - m_BuildTarget: Android\n    m_APIs: ([0-9a-fA-F]{8})\n    m_Automatic: ([01])\n')
+        if ($Graphics.Count -ne 1 -or $Graphics[0].Groups[1].Value.ToLowerInvariant() -cne '0b000000') { throw 'Android graphics value is not the known OpenGLES3 representation.' }
+        $Text=$Text.Replace($Graphics[0].Value,$Graphics[0].Value.Replace($Graphics[0].Groups[1].Value,'0b000000'))
+    } else { throw 'Tracked mutation path is not allowed.' }
+    return $Text
+}
+function Test-AndroidReleaseGeneratedFile([string]$Relative,[byte[]]$Bytes) {
+    if ($Relative -ceq 'build/outputs/logs/unity---stop-build.log') {
+        $Text=(New-Object Text.UTF8Encoding($false,$true)).GetString($Bytes)
+        return $Text -match 'Stopping Daemon\(s\)|[0-9]+ Daemons? stopped|No Gradle daemons are running'
+    }
+    $Prefix='^\.utmp/RelWithDebInfo/[a-zA-Z0-9_-]+/'
+    $Arm=$Prefix+'arm64-v8a/'
+    $Known=$Relative -cmatch '^\.utmp/tools/release/arm64-v8a/compile_commands\.json$' -or
+        $Relative -cmatch ($Prefix+'hash_key\.txt$') -or
+        $Relative -cmatch ($Arm+'\.cmake/api/v1/query/client-agp/(cache-v2|cmakeFiles-v1|codemodel-v2)$') -or
+        $Relative -cmatch ($Arm+'\.cmake/api/v1/reply/(cache-v2|cmakeFiles-v1|codemodel-v2|directory-\.-RelWithDebInfo|directory-FramePacing-RelWithDebInfo|directory-GameActivity-RelWithDebInfo|target-game-RelWithDebInfo|target-swappywrapper-RelWithDebInfo)-[a-f0-9]+\.json$') -or
+        $Relative -cmatch ($Arm+'\.cmake/api/v1/reply/index-[0-9TZ:-]+\.json$') -or
+        $Relative -cmatch ($Arm+'(\.ninja_deps|\.ninja_log|CMakeCache\.txt|android_gradle_build(?:_mini)?\.json|build\.ninja|build_file_index\.txt|cmake_install\.cmake|compile_commands\.json(?:\.bin)?|configure_fingerprint\.bin|metadata_generation_command\.txt|prefab_config\.json|symbol_folder_index\.txt)$') -or
+        $Relative -cmatch ($Arm+'CMakeFiles/(cmake\.check_cache|rules\.ninja|TargetDirectories\.txt|CMakeOutput\.log|3\.22\.1-g37088a8-dirty/(CMakeCCompiler\.cmake|CMakeCXXCompiler\.cmake|CMakeDetermineCompilerABI_C\.bin|CMakeDetermineCompilerABI_CXX\.bin|CMakeSystem\.cmake|CompilerIdC/CMakeCCompilerId\.(c|o)|CompilerIdCXX/CMakeCXXCompilerId\.(cpp|o)))$') -or
+        $Relative -cmatch ($Arm+'FramePacing/(cmake_install\.cmake|CMakeFiles/swappywrapper\.dir/UnitySwappyWrapper\.cpp\.o)$') -or
+        $Relative -cmatch ($Arm+'GameActivity/(cmake_install\.cmake|CMakeFiles/game\.dir/UGA(Application|Configuration|Debug|Entry|Input|InputKeyEvent|InputMotionEvent|SoftKeyboard)\.cpp\.o)$') -or
+        $Relative -cmatch ($Prefix+'prefab/arm64-v8a/prefab/lib/aarch64-linux-android/cmake/(game-activity/game-activityConfig|games-frame-pacing/games-frame-pacingConfig)\.cmake$')
+    if (-not $Known) { return $false }
+    if ($Relative -match '/query/client-agp/') { return $Bytes.Length -eq 0 }
+    if ($Bytes.Length -eq 0) { return $false }
+    if ($Relative.EndsWith('.json',[StringComparison]::Ordinal)) {
+        $Text=(New-Object Text.UTF8Encoding($false,$true)).GetString($Bytes)
+        if ($Text.TrimStart() -notmatch '^[\[{]') { return $false }
+        try { $null=$Text | ConvertFrom-Json -ErrorAction Stop } catch { return $false }
+    }
+    if ($Relative.EndsWith('.o',[StringComparison]::Ordinal) -or $Relative -match 'CMakeDetermineCompilerABI_.*\.bin$') {
+        return $Bytes.Length -ge 4 -and [BitConverter]::ToString($Bytes,0,4) -ceq '7F-45-4C-46'
+    }
+    return $true
+}
+function Restore-AndroidReleaseSnapshotFile([string]$Payload,[string]$Target) {
+    [IO.File]::Replace($Payload,$Target,$null)
+}
+function Remove-AndroidReleaseGeneratedItem([string]$Path,[bool]$Directory) {
+    if ($Directory) { [IO.Directory]::Delete($Path,$false) } else { [IO.File]::Delete($Path) }
+}
+function Repair-AndroidReleaseBuildSource([string]$Git,$Plan,[object[]]$Secrets=@()) {
+    $Report=[ordered]@{passed=$false;problem=$null;restored=@();cleaned=@();final_guard=@{unchanged=$false}}
+    $CanWriteReport=$false
+    try {
+        Assert-AndroidReleaseRecoveryScope $Git $Plan.project $Plan.baseline $Plan.directory $Plan.formal
+        $CanWriteReport=$true
+        $Paths=@(Get-AndroidReleaseMutationPaths)
+        if ($Plan.files.Count -ne $Paths.Count) { throw 'Snapshot inventory mismatch.' }
+        $BytesBefore=@{};$BytesAfter=@{};$AfterHashes=@{}
+        for ($i=0;$i -lt $Paths.Count;$i++) {
+            $Row=$Plan.files[$i]
+            if ($Row.relative -cne $Paths[$i] -or $Row.snapshot -cne (Join-Path $Plan.directory ('snapshot-'+$i+'.bin'))) { throw 'Snapshot path mismatch.' }
+            $Bytes=Read-AndroidReleaseRegularBytes $Row.snapshot
+            if ($Bytes.Length -ne $Row.length -or (Get-AndroidReleaseBytesHash $Bytes) -cne $Row.sha256) { throw 'Snapshot SHA mismatch.' }
+            $BytesBefore[$Row.relative]=$Bytes
+        }
+        $Head=Invoke-AndroidReleaseGit $Git $Plan.project @('rev-parse','HEAD')
+        $Index=Invoke-AndroidReleaseGit $Git $Plan.project @('diff','--cached','--quiet','--no-ext-diff','--no-textconv',$Plan.baseline,'--')
+        $Names=Invoke-AndroidReleaseGit $Git $Plan.project @('diff','--name-only','-z','--no-ext-diff','--no-textconv',$Plan.baseline,'--')
+        $Diff=Invoke-AndroidReleaseGit $Git $Plan.project @('diff','--no-ext-diff','--no-textconv','--no-color',$Plan.baseline,'--')
+        $Other=Invoke-AndroidReleaseGit $Git $Plan.project @('ls-files','--others','--exclude-standard','-z')
+        [IO.File]::WriteAllText((Join-Path $Plan.directory 'pre-restore.diff'),(Protect-AndroidReleaseText $Diff.stdout $Secrets))
+        Write-AndroidReleaseJson (Join-Path $Plan.directory 'pre-restore-checks.json') @{
+            head=$Head.stdout.Trim();head_exit=$Head.exit_code;index_exit=$Index.exit_code;names_exit=$Names.exit_code;
+            diff_exit=$Diff.exit_code;untracked_exit=$Other.exit_code;
+            changed_paths=@($Names.stdout.Split([char]0) | Where-Object {$_});
+            untracked_paths=@($Other.stdout.Split([char]0) | Where-Object {$_});
+            errors=(Protect-AndroidReleaseText ($Head.stderr+$Index.stderr+$Names.stderr+$Diff.stderr+$Other.stderr) $Secrets)
+        }
+        if ($Head.exit_code -ne 0 -or $Head.stdout.Trim() -cne $Plan.baseline -or $Index.exit_code -ne 0 -or $Names.exit_code -ne 0 -or $Diff.exit_code -ne 0 -or $Other.exit_code -ne 0) { throw 'Pre-restore HEAD/index/diff/untracked inspection failed.' }
+        foreach ($Name in @($Names.stdout.Split([char]0) | Where-Object {$_})) {
+            if ($Paths -cnotcontains $Name) { throw 'Tracked content outside the three known files changed.' }
+        }
+        $Utf8=New-Object Text.UTF8Encoding($false,$true)
+        foreach ($Name in $Paths) {
+            $BytesAfter[$Name]=Read-AndroidReleaseRegularBytes (Join-Path $Plan.project $Name)
+            $AfterHashes[$Name]=Get-AndroidReleaseBytesHash $BytesAfter[$Name]
+            $Reference=$Utf8.GetString($BytesBefore[$Name]).Replace("`r`n","`n")
+            $Left=Get-AndroidReleaseComparable $Name $BytesBefore[$Name] $Reference
+            $Right=Get-AndroidReleaseComparable $Name $BytesAfter[$Name] $Reference
+            if ($Left -cne $Right) { throw ('Unknown tracked mutation: '+$Name) }
+        }
+        $TrackedGenerated=Invoke-AndroidReleaseGit $Git $Plan.project @('ls-files','-z','--','.utmp','build/outputs/logs/unity---stop-build.log')
+        if ($TrackedGenerated.exit_code -ne 0 -or $TrackedGenerated.stdout) { throw 'Cleanup candidates must not be tracked.' }
+        foreach ($Name in @($Other.stdout.Split([char]0) | Where-Object {$_})) {
+            if ($Name -ceq '.vsconfig') { $null=Read-AndroidReleaseRegularBytes (Join-Path $Plan.project $Name) }
+            elseif ($Name -cnotmatch '^\.utmp/' -and $Name -cne 'build/outputs/logs/unity---stop-build.log') { throw 'Unknown untracked path; no restore or cleanup is allowed.' }
+        }
+        $Items=@();$Directories=@();$Utmp=Join-Path $Plan.project '.utmp'
+        if (Test-Path -LiteralPath $Utmp) {
+            $Pending=New-Object 'Collections.Generic.Stack[string]';$Pending.Push($Utmp)
+            while ($Pending.Count) {
+                $Current=$Pending.Pop();Assert-AndroidReleaseNoLink $Current
+                if (-not (Get-Item -LiteralPath $Current -Force).PSIsContainer) { throw 'Generated root must be a directory.' }
+                $Directories+=$Current
+                foreach ($Child in Get-ChildItem -LiteralPath $Current -Force) {
+                    Assert-AndroidReleaseNoLink $Child.FullName
+                    if ($Child.PSIsContainer) { $Pending.Push($Child.FullName) }
+                    else { $Items+=@{path=$Child.FullName;relative=$Child.FullName.Substring($Plan.project.Length+1).Replace('\','/')} }
+                }
+            }
+        }
+        $StopLog=Join-Path $Plan.project 'build/outputs/logs/unity---stop-build.log'
+        if (Test-Path -LiteralPath $StopLog) { $Items+=@{path=$StopLog;relative='build/outputs/logs/unity---stop-build.log'} }
+        foreach ($Item in $Items) {
+            $Bytes=Read-AndroidReleaseRegularBytes $Item.path
+            if (-not (Test-AndroidReleaseGeneratedFile $Item.relative $Bytes)) { throw 'Unknown generated file path or content; no cleanup is allowed.' }
+            $Item['sha256']=Get-AndroidReleaseBytesHash $Bytes;$Item['length']=$Bytes.Length
+        }
+        foreach ($Directory in $Directories) {
+            if ($Directory -cne $Utmp -and @($Items | Where-Object {Test-AndroidReleaseUnder $_.path $Directory}).Count -eq 0) { throw 'Unknown empty generated directory.' }
+        }
+        Write-AndroidReleaseJson (Join-Path $Plan.directory 'cleanup-inventory.json') @{files=$Items;directories=$Directories}
+        # All paths, contents, Git state and snapshots pass before the first write or delete.
+        foreach ($Row in $Plan.files) {
+            $Target=Join-Path $Plan.project $Row.relative
+            if ((Get-AndroidReleaseBytesHash (Read-AndroidReleaseRegularBytes $Target)) -cne $AfterHashes[$Row.relative]) { throw 'Tracked bytes changed during validation.' }
+            if ($AfterHashes[$Row.relative] -cne $Row.sha256) {
+                $Payload=Join-Path $Plan.directory ('restore-'+[guid]::NewGuid().ToString('N')+'.tmp')
+                Write-AndroidReleaseNewBytes $Payload $BytesBefore[$Row.relative]
+                Restore-AndroidReleaseSnapshotFile $Payload $Target
+                $Report.restored+=@{path=$Row.relative;sha256=$Row.sha256}
+            }
+            if ((Get-AndroidReleaseBytesHash (Read-AndroidReleaseRegularBytes $Target)) -cne $Row.sha256) { throw 'Restore SHA mismatch.' }
+        }
+        foreach ($Item in $Items) {
+            if ((Get-AndroidReleaseBytesHash (Read-AndroidReleaseRegularBytes $Item.path)) -cne $Item.sha256) { throw 'Cleanup candidate changed during validation.' }
+            Remove-AndroidReleaseGeneratedItem $Item.path $false
+            if (Test-Path -LiteralPath $Item.path) { throw 'Generated file cleanup failed.' }
+            $Report.cleaned+=$Item.relative
+        }
+        foreach ($Directory in @($Directories | Sort-Object Length -Descending)) {
+            Assert-AndroidReleaseNoLink $Directory
+            Remove-AndroidReleaseGeneratedItem $Directory $true
+        }
+        Assert-AndroidReleaseRecoveryScope $Git $Plan.project $Plan.baseline $Plan.directory $Plan.formal
+        $Report.final_guard=Get-AndroidReleaseSourceCheck $Git $Plan.project $Plan.baseline (Join-Path $Plan.directory 'final')
+        if (-not $Report.final_guard.unchanged) { throw 'Final ordinary source guard did not pass.' }
+        $Report.passed=$true
+    } catch { $Report.problem=Protect-AndroidReleaseText $_.Exception.Message $Secrets }
+    if ($CanWriteReport) {
+        Assert-AndroidReleaseNoLink $Plan.directory
+        Write-AndroidReleaseJson (Join-Path $Plan.directory 'recovery-result.json') $Report
+    }
+    return [pscustomobject]$Report
+}
 function Write-AndroidReleaseJson([string]$Path,$Value) {
     [IO.File]::WriteAllText($Path,($Value|ConvertTo-Json -Depth 12),(New-Object Text.UTF8Encoding($false)))
 }
@@ -249,6 +524,7 @@ try {
             $Before=Get-AndroidReleaseSourceCheck $Git $Project $Revision (Join-Path $Directory 'before')
             if (-not $Before.unchanged) { throw 'Source changed before the next output; no Unity start.' }
             if ((Get-FileHash -LiteralPath $Config.MOFUMACHI_KEYSTORE_PATH -Algorithm SHA256).Hash -cne $BaselineKeyHash) { throw 'Local signing file changed between phases.' }
+            $Snapshot=New-AndroidReleaseBuildSnapshot $Git $Project $Revision (Join-Path $Directory 'source-recovery') $Repository
             # Review-only commits do not grant another attempt of the same product/tooling.
             $Receipt=Join-Path $ReleaseRoot ('receipts/release-'+$ReleaseProductCommit+'-'+$ToolIdentity+'-'+$Phase+'.attempted')
             New-AndroidReleaseReceipt $Receipt $Run
@@ -268,11 +544,14 @@ try {
             $Native=Invoke-AndroidReleaseProcess $UnityEditor $Arguments $Child $Secrets
             $Log=$Native.stdout+[Environment]::NewLine+$Native.stderr
             [IO.File]::WriteAllText((Join-Path $Directory 'build.log'),$Log)
+            $Recovery=$null
+            if ($Native.exit_code -eq 0) { $Recovery=Repair-AndroidReleaseBuildSource $Git $Snapshot $Secrets }
             $After=Get-AndroidReleaseSourceCheck $Git $Project $Revision (Join-Path $Directory 'after')
-            $Result.source_unchanged=$After.unchanged
-            $Row=[ordered]@{exit_code=$Native.exit_code;path=$Output;size=$null;sha256=$null;source_unchanged=$After.unchanged;result='Failed';build_log=(Join-Path $Directory 'build.log')}
+            $Result.source_unchanged=$After.unchanged -and ($null -eq $Recovery -or $Recovery.passed)
+            $Row=[ordered]@{exit_code=$Native.exit_code;path=$Output;size=$null;sha256=$null;source_unchanged=$Result.source_unchanged;result='Failed';build_log=(Join-Path $Directory 'build.log')}
             $Result[$Phase]=$Row
             if ($Native.exit_code -ne 0) { $Result.first_error=Get-AndroidReleaseFirstError $Log;throw 'Unity release build failed; first native error is preserved separately.' }
+            if ($null -ne $Recovery -and -not $Recovery.passed) { throw ('Known build-side-effect recovery failed: '+$Recovery.problem) }
             if (-not $After.unchanged) { throw 'Tracked content or non-allowlisted files changed after the release build.' }
             if (-not (Test-Path -LiteralPath $Info -PathType Leaf)) { throw 'Missing native release build settings/result snapshot.' }
             $NativeInfo=[IO.File]::ReadAllText($Info)|ConvertFrom-Json

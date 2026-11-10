@@ -1,3 +1,4 @@
+param([switch]$SourceGuardOnly, [string]$ResultDirectory = '')
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version 2.0
 $Entry = Join-Path $PSScriptRoot '../build-android-release.ps1'
@@ -8,6 +9,289 @@ function Check([bool]$Condition, [string]$Message) {
     if (-not $Condition) { throw $Message }
     $script:Checks++
 }
+function Test-ReleaseSourceRecovery {
+    $TestRoot = Join-Path ([IO.Path]::GetTempPath()) ('release-source-guard-' + [guid]::NewGuid().ToString('N'))
+    $Formal = Join-Path $TestRoot 'formal'
+    $OriginalRoot = $script:ReleaseRoot
+    $script:ReleaseRoot = Join-Path $TestRoot 'validation'
+    $Rows = New-Object Collections.Generic.List[object]
+    $script:FixtureNumber = 0
+    $Git = (Get-Command git -CommandType Application -ErrorAction Stop | Select-Object -First 1).Source
+    function FixtureGit([string[]]$Arguments) {
+        $Native = Invoke-AndroidReleaseGit $Git $Formal $Arguments
+        if ($Native.exit_code -ne 0) { throw ('Fixture Git failed: ' + $Native.stderr) }
+        return $Native.stdout
+    }
+    function Case([string]$Name, [scriptblock]$Body) {
+        try {
+            & $Body
+            $Rows.Add(@{name=$Name;result='Passed'})
+            Write-Host ('PASS ' + $Name)
+        } catch {
+            $Rows.Add(@{name=$Name;result='Failed';error=$_.Exception.Message})
+            throw
+        }
+    }
+    $Paths = @('Assets/Settings/UniversalRP.asset','Assets/Settings/UniversalRenderPipelineGlobalSettings.asset','ProjectSettings/ProjectSettings.asset')
+    function Fixture {
+        $script:FixtureNumber++
+        $Id = 'rc-20261110-000000-' + $script:FixtureNumber.ToString('x8')
+        $Project = Join-Path $ReleaseRoot ('projects/' + $Id)
+        $Diagnostics = Join-Path $ReleaseRoot ('Diagnostics/release-candidate/' + $Id + '/aab/source-recovery')
+        $null = FixtureGit @('worktree','add','--detach',$Project,$Revision)
+        $Plan = New-AndroidReleaseBuildSnapshot $Git $Project $Revision $Diagnostics $Formal
+        return @{project=$Project;plan=$Plan;diagnostics=$Diagnostics}
+    }
+    function Change($Fixture, [string]$Name, [string]$Old, [string]$New) {
+        $Path = Join-Path $Fixture.project $Name
+        $Text = [IO.File]::ReadAllText($Path)
+        if (-not $Text.Contains($Old)) { throw ('Fixture literal not found: ' + $Name + ': ' + $Old) }
+        [IO.File]::WriteAllText($Path,$Text.Replace($Old,$New),(New-Object Text.UTF8Encoding($false)))
+    }
+    function Known($Fixture) {
+        Change $Fixture $Paths[0] '  m_PrefilterXRKeywords: 0' '  m_PrefilterXRKeywords: 1'
+        Change $Fixture $Paths[1] "    m_RuntimeSettings:`n      m_List: []" "    m_RuntimeSettings:`n      m_List:`n      - rid: 3114554777721110528"
+        Change $Fixture $Paths[2] "  AndroidKeystoreName: `n" "  AndroidKeystoreName: '{inproject}: '`n"
+        Change $Fixture $Paths[2] '    m_APIs: 0b000000' '    m_APIs: 0B000000'
+    }
+    function Generated($Fixture) {
+        $Path = Join-Path $Fixture.project '.utmp/tools/release/arm64-v8a/compile_commands.json'
+        $null = [IO.Directory]::CreateDirectory((Split-Path -Parent $Path))
+        [IO.File]::WriteAllText($Path,'[]')
+        return $Path
+    }
+    function NewFile($Fixture, [string]$Relative, [string]$Text) {
+        $Path = Join-Path $Fixture.project $Relative
+        $null = [IO.Directory]::CreateDirectory((Split-Path -Parent $Path))
+        [IO.File]::WriteAllText($Path,$Text)
+        return $Path
+    }
+    function Recover($Fixture) { return Repair-AndroidReleaseBuildSource $Git $Fixture.plan }
+    function RejectUnchanged($Fixture, [string]$Message) {
+        $Before = @($Paths | ForEach-Object {[Convert]::ToBase64String([IO.File]::ReadAllBytes((Join-Path $Fixture.project $_)))})
+        Check (-not (Recover $Fixture).passed) $Message
+        for ($i=0;$i -lt $Paths.Count;$i++) {
+            Check ([Convert]::ToBase64String([IO.File]::ReadAllBytes((Join-Path $Fixture.project $Paths[$i]))) -ceq $Before[$i]) 'Rejected input was restored before all validations passed.'
+        }
+    }
+    $Failure = $null
+    try {
+        $null = [IO.Directory]::CreateDirectory($Formal)
+        $null = FixtureGit @('init','--quiet')
+        $null = FixtureGit @('config','user.name','SourceGuardFixture')
+        $null = FixtureGit @('config','user.email','fixture@example.invalid')
+        $null = FixtureGit @('config','core.autocrlf','false')
+        foreach ($Name in $Paths) {
+            $Destination = Join-Path $Formal $Name
+            $null = [IO.Directory]::CreateDirectory((Split-Path -Parent $Destination))
+            $FixtureText=[IO.File]::ReadAllText((Join-Path $PSScriptRoot ('../../'+$Name))).Replace("`r`n","`n")
+            [IO.File]::WriteAllText($Destination,$FixtureText,(New-Object Text.UTF8Encoding($false)))
+        }
+        [IO.File]::WriteAllText((Join-Path $Formal 'Assets/game.txt'),'unchanged game')
+        $null = FixtureGit @('add','--','Assets','ProjectSettings')
+        $null = FixtureGit @('commit','--quiet','-m','source fixture')
+        $Revision = (FixtureGit @('rev-parse','HEAD')).Trim()
+        $FormalBytes = @($Paths | ForEach-Object {[Convert]::ToBase64String([IO.File]::ReadAllBytes((Join-Path $Formal $_)))})
+        Case 'known three-file mutations restore exact snapshot bytes and final guard passes' {
+            $F = Fixture; Known $F
+            $Report = Recover $F
+            Check $Report.passed 'Known mutations rejected.'
+            Check $Report.final_guard.unchanged 'Final ordinary source guard did not pass.'
+            foreach ($Name in $Paths) {
+                Check ([Convert]::ToBase64String([IO.File]::ReadAllBytes((Join-Path $F.project $Name))) -ceq [Convert]::ToBase64String([IO.File]::ReadAllBytes((Join-Path $Formal $Name)))) 'Snapshot restore did not preserve exact bytes.'
+            }
+        }
+        Case 'known utmp intermediate is inventoried and removed' {
+            $F=Fixture; $Generated=Generated $F
+            $Report=Recover $F
+            Check $Report.passed 'Known .utmp rejected.'
+            Check (-not (Test-Path -LiteralPath $Generated)) 'Known .utmp not removed.'
+            Check (Test-Path -LiteralPath (Join-Path $F.diagnostics 'cleanup-inventory.json')) 'Cleanup inventory absent.'
+        }
+        Case 'exact Gradle shutdown log is removed' {
+            $F=Fixture; $Log=NewFile $F 'build/outputs/logs/unity---stop-build.log' "Stopping Daemon(s)`n1 Daemon stopped`n"
+            Check (Recover $F).passed 'Known shutdown log rejected.'
+            Check (-not (Test-Path -LiteralPath $Log)) 'Shutdown log remains.'
+        }
+        Case 'root vsconfig is preserved after combined recovery and cleanup' {
+            $F=Fixture;Known $F;$null=Generated $F
+            $File=NewFile $F '.vsconfig' '{"version":"1.0"}'
+            Check (Recover $F).passed 'Combined recovery failed.'
+            Check ([IO.File]::ReadAllText($File) -ceq '{"version":"1.0"}') 'Root .vsconfig changed.'
+        }
+        Case 'post-build CRLF and Light2D list retain exact original snapshot bytes' {
+            $F=Fixture;Known $F
+            Change $F $Paths[0] '  m_Light2DKeptVariantCombos: []' "  m_Light2DKeptVariantCombos:`n  - 1`n  - 4"
+            foreach ($Name in $Paths) {
+                $File=Join-Path $F.project $Name
+                [IO.File]::WriteAllText($File,[IO.File]::ReadAllText($File).Replace("`n","`r`n"),(New-Object Text.UTF8Encoding($false)))
+            }
+            Check (Recover $F).passed 'Known metadata with CRLF rejected.'
+            foreach ($Name in $Paths) { Check ([Convert]::ToBase64String([IO.File]::ReadAllBytes((Join-Path $F.project $Name))) -ceq [Convert]::ToBase64String([IO.File]::ReadAllBytes((Join-Path $Formal $Name)))) 'Original line-ending bytes not restored.' }
+        }
+        Case 'atomic restore does not change another hard-linked file' {
+            $F=Fixture;Known $F
+            $Target=Join-Path $F.project $Paths[0]
+            $Outside=Join-Path $TestRoot 'outside-hardlink.asset'
+            $Before=[IO.File]::ReadAllBytes($Target)
+            [IO.File]::WriteAllBytes($Outside,$Before)
+            [IO.File]::Delete($Target)
+            $null=New-Item -ItemType HardLink -Path $Target -Target $Outside
+            Check (Recover $F).passed 'Hard-linked target was not safely replaced.'
+            Check ([Convert]::ToBase64String([IO.File]::ReadAllBytes($Outside)) -ceq [Convert]::ToBase64String($Before)) 'Restore changed the other hard-linked file.'
+        }
+        Case 'fourth tracked file change blocks all restoration' {
+            $F=Fixture;Known $F;$null=NewFile $F 'Assets/game.txt' 'changed game'
+            RejectUnchanged $F 'Fourth tracked path accepted.'
+        }
+        Case 'renderer setting outside shader prefilters is rejected' {
+            $F=Fixture;Known $F;Change $F $Paths[0] '  m_RenderScale: 1' '  m_RenderScale: 0.5'
+            RejectUnchanged $F 'Renderer mutation accepted.'
+        }
+        Case 'unknown shader prefilter field cannot hide as known metadata' {
+            $F=Fixture;Change $F $Paths[0] '  m_PrefilterXRKeywords: 0' "  m_PrefilterXRKeywords: 0`n  m_PrefilterUnknown: 1"
+            RejectUnchanged $F 'Unknown prefilter key accepted.'
+        }
+        Case 'invalid Light2D serialized variant is rejected' {
+            $F=Fixture;Change $F $Paths[0] '  m_Light2DKeptVariantCombos: []' "  m_Light2DKeptVariantCombos:`n  - 999999999999999999999999"
+            RejectUnchanged $F 'Invalid variant serialization accepted.'
+        }
+        Case 'global URP setting outside runtime RID list is rejected' {
+            $F=Fixture;Known $F;Change $F $Paths[1] '  m_StripUnusedVariants: 1' '  m_StripUnusedVariants: 0'
+            RejectUnchanged $F 'Global URP mutation accepted.'
+        }
+        Case 'unresolved runtime RID is rejected' {
+            $F=Fixture;Change $F $Paths[1] "    m_RuntimeSettings:`n      m_List: []" "    m_RuntimeSettings:`n      m_List:`n      - rid: 123456789"
+            RejectUnchanged $F 'Unknown runtime RID accepted.'
+        }
+        Case 'application identifier change is rejected' {
+            $F=Fixture;Known $F;Change $F $Paths[2] 'Android: com.mofumachi.merge' 'Android: com.example.changed'
+            RejectUnchanged $F 'Package mutation accepted.'
+        }
+        Case 'version code change is rejected' {
+            $F=Fixture;Known $F;Change $F $Paths[2] '  AndroidBundleVersionCode: 1' '  AndroidBundleVersionCode: 2'
+            RejectUnchanged $F 'Version code mutation accepted.'
+        }
+        Case 'non-hex graphics suffix is rejected before restore' {
+            $F=Fixture;Known $F;Change $F $Paths[2] '    m_APIs: 0B000000' '    m_APIs: 0b000000i'
+            RejectUnchanged $F 'Unconfirmed non-hex graphics value accepted.'
+        }
+        Case 'different graphics API is rejected' {
+            $F=Fixture;Change $F $Paths[2] '    m_APIs: 0b000000' '    m_APIs: 15000000'
+            RejectUnchanged $F 'Different graphics API accepted.'
+        }
+        Case 'nonempty keystore path change is rejected' {
+            $F=Fixture;Change $F $Paths[2] "  AndroidKeystoreName: `n" "  AndroidKeystoreName: unrelated-fixture.jks`n"
+            RejectUnchanged $F 'Unknown keystore binding accepted.'
+        }
+        foreach ($Relative in @('.utmp2/file.json','nested/.utmp/file.json','build/outputs/logs/other.log','unrelated.txt','.utmp/unrelated.cs')) {
+            Case ('unknown untracked path rejected: '+$Relative) {
+                $F=Fixture;Known $F;$File=NewFile $F $Relative 'unrelated'
+                RejectUnchanged $F 'Unknown untracked path accepted.'
+                Check (Test-Path -LiteralPath $File) 'Unknown file deleted.'
+            }
+        }
+        Case 'invalid generated JSON fails without deleting it' {
+            $F=Fixture;$File=Generated $F;[IO.File]::WriteAllText($File,'not JSON')
+            RejectUnchanged $F 'Invalid generated content accepted.'
+            Check (Test-Path -LiteralPath $File) 'Invalid generated file deleted.'
+        }
+        Case 'corrupted snapshot is rejected before any restoration' {
+            $F=Fixture;Known $F;[IO.File]::WriteAllText($F.plan.files[0].snapshot,'corrupt snapshot')
+            RejectUnchanged $F 'Corrupt snapshot accepted.'
+        }
+        Case 'restore SHA mismatch cannot pass final guard' {
+            $F=Fixture;Known $F
+            $Original=(Get-Command Restore-AndroidReleaseSnapshotFile).ScriptBlock
+            try {
+                Set-Item Function:script:Restore-AndroidReleaseSnapshotFile { param($Payload,$Target) [IO.File]::WriteAllText($Target,'bad restore') }
+                Check (-not (Recover $F).passed) 'Restore readback mismatch accepted.'
+            } finally { Set-Item Function:script:Restore-AndroidReleaseSnapshotFile $Original }
+        }
+        Case 'cleanup failure cannot pass final guard' {
+            $F=Fixture;$File=Generated $F
+            $Original=(Get-Command Remove-AndroidReleaseGeneratedItem).ScriptBlock
+            try {
+                Set-Item Function:script:Remove-AndroidReleaseGeneratedItem { param($Path,$Directory) throw 'fixture cleanup failure' }
+                Check (-not (Recover $F).passed) 'Cleanup failure accepted.'
+                Check (Test-Path -LiteralPath $File) 'Failure fixture unexpectedly deleted.'
+            } finally { Set-Item Function:script:Remove-AndroidReleaseGeneratedItem $Original }
+        }
+        Case 'Git diff retrieval failure blocks restore and cleanup' {
+            $F=Fixture;Known $F
+            $OriginalGit=(Get-Command Invoke-AndroidReleaseGit).ScriptBlock
+            $script:OriginalSourceGuardGit=$OriginalGit
+            try {
+                Set-Item Function:script:Invoke-AndroidReleaseGit {
+                    param($Git,$Project,$Arguments)
+                    if ($Arguments -contains '--name-only') { return [pscustomobject]@{exit_code=128;stdout='';stderr='fixture diff retrieval failure'} }
+                    return & $script:OriginalSourceGuardGit $Git $Project $Arguments
+                }
+                RejectUnchanged $F 'Diff retrieval error accepted.'
+            } finally { Set-Item Function:script:Invoke-AndroidReleaseGit $OriginalGit }
+        }
+        Case 'staged change blocks recovery' {
+            $F=Fixture;Known $F
+            $Stage=Invoke-AndroidReleaseGit $Git $F.project @('add','--','Assets/Settings/UniversalRP.asset')
+            Check ($Stage.exit_code -eq 0) 'Fixture staging failed.'
+            RejectUnchanged $F 'Staged change accepted.'
+        }
+        Case 'worktree HEAD drift blocks recovery' {
+            $F=Fixture;Known $F
+            $Tree=(FixtureGit @('rev-parse',($Revision+'^{tree}'))).Trim()
+            $OtherRevision=(FixtureGit @('commit-tree',$Tree,'-p',$Revision,'-m','detached drift')).Trim()
+            $Move=Invoke-AndroidReleaseGit $Git $F.project @('update-ref','HEAD',$OtherRevision)
+            Check ($Move.exit_code -eq 0) 'Fixture HEAD movement failed.'
+            RejectUnchanged $F 'Worktree HEAD drift accepted.'
+        }
+        Case 'linked generated directory is not followed or cleaned' {
+            $F=Fixture
+            $Outside=Join-Path $TestRoot 'outside-generated'
+            $OutsideFile=Join-Path $Outside 'release/arm64-v8a/compile_commands.json'
+            $null=[IO.Directory]::CreateDirectory((Split-Path -Parent $OutsideFile))
+            [IO.File]::WriteAllText($OutsideFile,'[]')
+            $null=[IO.Directory]::CreateDirectory((Join-Path $F.project '.utmp'))
+            $Kind=if ($env:OS -eq 'Windows_NT') {'Junction'} else {'SymbolicLink'}
+            $null=New-Item -ItemType $Kind -Path (Join-Path $F.project '.utmp/tools') -Target $Outside
+            $Report=Recover $F
+            Check (-not $Report.passed -and $Report.problem -match 'Linked') 'Linked generated directory accepted or followed.'
+            Check ([IO.File]::ReadAllText($OutsideFile) -ceq '[]') 'Link target was modified.'
+        }
+        Case 'formal repository change blocks recovery before any restore' {
+            $F=Fixture;Known $F
+            $File=Join-Path $Formal 'Assets/game.txt'
+            try {
+                [IO.File]::WriteAllText($File,'concurrent formal change')
+                RejectUnchanged $F 'Formal repository change accepted.'
+            } finally { [IO.File]::WriteAllText($File,'unchanged game') }
+        }
+        Case 'formal repository cannot be used as recovery target' {
+            $Rejected=$false
+            try { $null=New-AndroidReleaseBuildSnapshot $Git $Formal $Revision (Join-Path $ReleaseRoot 'Diagnostics/release-candidate/formal-reject') $Formal } catch {$Rejected=$true}
+            Check $Rejected 'Formal repository accepted as recovery target.'
+        }
+        Case 'invalid diagnostic target cannot write into formal repository' {
+            $F=Fixture;Known $F;$F.plan.directory=$Formal
+            RejectUnchanged $F 'Formal directory accepted as recovery Diagnostics.'
+            Check (-not (Test-Path -LiteralPath (Join-Path $Formal 'recovery-result.json'))) 'Recovery error report wrote to formal repository.'
+        }
+        Case 'formal repository contents and Git state remain unchanged' {
+            for ($i=0;$i -lt $Paths.Count;$i++) { Check ([Convert]::ToBase64String([IO.File]::ReadAllBytes((Join-Path $Formal $Paths[$i]))) -ceq $FormalBytes[$i]) 'Formal source bytes changed.' }
+            Check ([string]::IsNullOrWhiteSpace((FixtureGit @('status','--porcelain=v1','--untracked-files=all')))) 'Formal repository dirty.'
+        }
+    } catch { $Failure=$_.Exception.Message; Write-Host ('FIRST FAILURE: '+$Failure) }
+    finally {
+        $script:ReleaseRoot=$OriginalRoot
+        if ([string]::IsNullOrWhiteSpace($ResultDirectory)) { $ResultDirectory=Join-Path $TestRoot 'results' }
+        $null=[IO.Directory]::CreateDirectory($ResultDirectory)
+        $Result=@{scope='release source guard only';total=$Rows.Count;passed=@($Rows | Where-Object {$_.result -eq 'Passed'}).Count;failed=@($Rows | Where-Object {$_.result -eq 'Failed'}).Count;checks=$script:Checks;first_error=$Failure;automatic_retries=0;unity_invocations=0;build_invocations=0;cases=@($Rows.ToArray());scratch=$TestRoot}
+        Write-AndroidReleaseJson (Join-Path $ResultDirectory 'source-guard-tests-result.json') $Result
+        if ($Failure) { [IO.File]::WriteAllText((Join-Path $ResultDirectory 'first-error.log'),$Failure) }
+    }
+    if ($Failure) { throw $Failure }
+    Write-Host ('PASS source-guard cases: '+$Rows.Count+'; checks: '+$script:Checks+'. No Unity, preflight, AAB/APK or signing tools.')
+}
+if ($SourceGuardOnly) { Test-ReleaseSourceRecovery; return }
 $Scratch = Join-Path ([IO.Path]::GetTempPath()) ('android-release-check-' + [guid]::NewGuid().ToString('N'))
 $null = [IO.Directory]::CreateDirectory($Scratch)
 $Key = Join-Path $Scratch 'fixture.keystore'

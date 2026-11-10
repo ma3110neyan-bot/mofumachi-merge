@@ -1,0 +1,20 @@
+{
+  "started_utc": "2026-11-10T04:56:09.918811+00:00",
+  "finished_utc": "2026-11-10T04:56:11.707714+00:00",
+  "command": [
+    "/workspace/toolchains/powershell/7.4.6/pwsh",
+    "-NoLogo",
+    "-NoProfile",
+    "-NonInteractive",
+    "-File",
+    "scripts/tests/android-release.tests.ps1",
+    "-SourceGuardOnly",
+    "-ResultDirectory",
+    "/workspace/artifacts/source-guard-fix-tests-20261110"
+  ],
+  "test_exit_code": 1,
+  "test_invocations": 1,
+  "automatic_retries": 0,
+  "unity_invocations": 0,
+  "build_invocations": 0
+}

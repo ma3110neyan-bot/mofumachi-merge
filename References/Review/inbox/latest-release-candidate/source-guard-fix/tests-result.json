@@ -1,0 +1,19 @@
+{
+  "checks": 0,
+  "cases": [
+    {
+      "name": "known three-file mutations restore exact snapshot bytes and final guard passes",
+      "error": "Known mutations rejected.",
+      "result": "Failed"
+    }
+  ],
+  "build_invocations": 0,
+  "scope": "release source guard only",
+  "first_error": "Known mutations rejected.",
+  "failed": 1,
+  "passed": 0,
+  "automatic_retries": 0,
+  "scratch": "/tmp/release-source-guard-672dcc421dfc44899527a6681af95030",
+  "unity_invocations": 0,
+  "total": 1
+}

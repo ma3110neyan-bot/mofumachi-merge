@@ -1,3 +1,60 @@
+# 第8工程：source guard修正草案・限定テスト1件目で停止
+
+状態：**原因確定／修正未完了**。実装commit：`0f1b066c390e61c739d4fc9ed961e14aa5de7120`。branch：`feat/daily-world-pass-20261016`。commit欄は確認対象の実装草案で、共有文書自身のSHAとは区別する。第7工程complete=true、第8工程complete=false。
+
+既存AABの生成成功／source guard停止／未署名検証の原本はwindows-aab配下に不変で保持。今回はAABを実行していない。
+
+## 今回の最初の失敗
+
+source guard専用テストをLinux PowerShell7.4.6＋実Gitの合成worktreeで**1回だけ**実行。**実行1件 / Passed0 / Failed1 / exit1**。残りのケースは未実行。全件・既存release34・第7工程・Unity・preflight・AAB・APK・Pixel・署名ツールは実行していない。
+
+最初のcase：`known three-file mutations restore exact snapshot bytes and final guard passes`。
+
+根本エラー（保存済みrecovery-result.json）：
+
+```text
+Exception calling "Replace" with "3" argument(s): "The value cannot be an empty string. (Parameter 'path')"
+```
+
+`scripts/build-android-release.ps1:259`の`File.Replace(payload,target,$null)`で発生。payload／targetは存在し、payload SHAはsnapshot0と一致。空のパス引数で復元API呼出が失敗した。wrapperのKnown mutations rejectedというthrowだけを原因にしていない。復元・削除成功は**0件／0件**。snapshot3件のSHAとテスト正式repoのbyte一致・Git cleanを失敗後に読み取り確認した。
+
+**「1回目の結果で停止」指定に従い、追加コード修正・再テストは行っていない。** 次の最小候補はFile.Replaceのbackup引数へ同じDiagnostics内の一意で空でない実パスを渡すこと。これは候補の記録だけで未適用。別途許可された次の修正工程が必要。
+
+## 変更範囲と検査状況
+
+| 項目 | 結果 |
+| --- | --- |
+| 実装変更 | **scripts/build-android-release.ps1 / scripts/tests/android-release.tests.ps1 の2件のみ** |
+| 通常の完全source guard | **本体テキスト不変**。無効化・path ignoreへの置換なし |
+| 設計 | prebuild3 byte/SHA snapshot → 全tracked/untracked検査 → 許可fieldのみの検査 → E限定byte復元／既知生成物削除 → 通常guard |
+| known mutationの復元全体 | **FAIL**。最初の合成caseで内容検査は通過し、復元I/Oで停止 |
+| unknown mutation拒否 | **未実行**。後続caseへ進めていない |
+| cleanup限定scope／cleanup後clean | **未実行／未実行** |
+| formal repo保護専用case | **未実行**。失敗後の合成正式repoはbyte/Git不変を確認 |
+| 保護対象hash | **862 path不変**。許可したPS2件だけ変更（全864検査） |
+| ゲーム／設定原本／URP原本／Packages／Visual Lock／既存QA／release C# | **変更なし** |
+| Guardを弱めたか | **NO**。最終完全guardは不変で、復元失敗をpassedにしていない。新機能の全安全case合格を主張しない |
+| Unity／AAB再ビルド／APK／Pixel／preflight／署名操作 | **全て0** |
+| 自動再試行 | **0** |
+
+## 実auditの取扱い
+
+ユーザーaudit報告の実内容差分は3件：Assets/Settings/UniversalRP.asset、Assets/Settings/UniversalRenderPipelineGlobalSettings.asset、ProjectSettings/ProjectSettings.asset。実audit ZIPは未受領。未追跡56件（.utmp55＋exact Gradle停止log1）は以前のAAB原本で照合済み。
+
+共有されたAndroid graphics値`0b000000i`の末尾iは、ユーザーも原本にあるか不明と回答した。**非16進数値をknown mutationとして許可しない**。同じOpenGLES3値の表記差だけに限定し、non-hex／別API／非空keystore bindingは拒否するcaseを作成したが、そのcase自体は今回未実行。実keystore path/passwordを要求・保存していない。
+
+## 現在の判定
+
+**AABを1回だけ再実行する準備が整ったか：NO**。主要ブロッカーは限定テスト最初のsnapshot復元API失敗。**source guard修正complete=false／第8工程complete=false**。再ビルドへは進まない。
+
+保存：source-guard-fix-validation.json、source-guard-fix-tests.log、changed-files.json、protected-source-hashes.json、およびsource-guard-fix/配下の原本テスト結果・呼出記録・失敗case診断。fixtureのbyte snapshot／未使用payloadはローカル/tmpに保持し、原本SHA検証結果を共有。AAB本体・キー・秘密値はGitへ追加しない。
+
+Codex／AI側から見た次の改善候補：今回はなし。未完了箇所は上記の最小修正候補として分離した。
+
+---
+
+以下は以前のAAB結果と準備履歴。
+
 # 第8工程：AAB生成済み・source guard停止（署名検証未到達）
 
 状態：**原因確定（全体判定の停止条件）／実機未確認**。Unity内AABビルドは成功。全体検証はsource guardで失敗。第7工程complete=true、第8工程complete=false。

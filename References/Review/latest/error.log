@@ -1,15 +1,14 @@
-Run: rc-20261109-123540-725e4e31
-Source: c0803e6e9faf0ebb5e63e637d94c20dcce3f6e4a
-Scope: isolated E-drive worktree source guard, not formal C-drive repository
-First concrete stop evidence: aab/after/source-check.json
-  working_diff_exit=1 (tracked working content differs)
-  index_diff_exit=0; untracked_exit=0; HEAD still equals baseline
-  disallowed_untracked=56 (.utmp55; build/outputs/logs/unity---stop-build.log1)
-Native runner_error: Tracked content or non-allowlisted files changed after the release build.
-Tracked changed-path list and actual content hunks not supplied; exact tracked changes unconfirmed.
-LF/CRLF warning mentioning UniversalRP.asset does not prove that exit1 is harmless or identify the complete changed-path list.
-Unity exit0; native BuildInfo.result=Passed/build_errors=0; MOFUMACHI_RELEASE_SUCCESS and successful batchmode shutdown logged.
-Formal repository unchanged=true; keystore fingerprint matches.
-Artifact signature verification NOT RUN because source guard stops before that step; not a proven bad signature.
-native first_error=null. No C#/Gradle root build failure established.
-No retry, repair, restore, deletion, guard/allowlist change, APK or Pixel action performed.
+Current task: release source guard recovery implementation; first limited test failed; stopped.
+Implementation: 0f1b066c390e61c739d4fc9ed961e14aa5de7120
+Test: known three-file mutations restore exact snapshot bytes and final guard passes
+Test exit1; total1 / passed0 / failed1; further cases NOT RUN; automatic retries0.
+First concrete error from saved recovery-result.json:
+Exception calling "Replace" with "3" argument(s): "The value cannot be an empty string. (Parameter 'path')"
+Location: scripts/build-android-release.ps1:259
+Call: [IO.File]::Replace($Payload,$Target,$null)
+Payload and target paths exist and are nonempty; payload SHA equals snapshot0. The null backup-path argument is the remaining path argument. No extra reproduction or fix was run.
+Snapshot SHA/source inspection passed before this call; restored0, cleaned0; synthetic formal repo remains clean.
+Wrapper Check message "Known mutations rejected." is not the root cause.
+No code fix or test retry after this failure. Unity/preflight/AAB/APK/Pixel/signing0.
+Next candidate only (NOT APPLIED): unique nonempty backup path inside the same Diagnostics directory for File.Replace.
+AAB retry ready=NO. Stage8 complete=false.

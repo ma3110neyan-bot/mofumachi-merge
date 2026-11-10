@@ -28,7 +28,7 @@ function Test-ReleaseSourceRecovery {
             $Rows.Add(@{name=$Name;result='Passed'})
             Write-Host ('PASS ' + $Name)
         } catch {
-            $Rows.Add(@{name=$Name;result='Failed';error=$_.Exception.Message})
+            $Rows.Add(@{name=$Name;result='Failed';error=$_.Exception.Message;stack=$_.ScriptStackTrace;position=$_.InvocationInfo.PositionMessage})
             throw
         }
     }
@@ -67,6 +67,23 @@ function Test-ReleaseSourceRecovery {
         return $Path
     }
     function Recover($Fixture) { return Repair-AndroidReleaseBuildSource $Git $Fixture.plan }
+    function BackupFixture {
+        $F=Fixture;Known $F
+        $Target=Join-Path $F.project $Paths[0]
+        $Payload=Join-Path $F.diagnostics ('backup-test-'+[guid]::NewGuid().ToString('N')+'.tmp')
+        [IO.File]::WriteAllBytes($Payload,[IO.File]::ReadAllBytes($F.plan.files[0].snapshot))
+        $Parent=Join-Path $F.diagnostics ('restore-backups/'+[guid]::NewGuid().ToString('N'))
+        $null=[IO.Directory]::CreateDirectory($Parent)
+        return @{fixture=$F;payload=$Payload;target=$Target;backup=(Join-Path $Parent 'UniversalRP.asset.bak');snapshot_sha=(Get-FileHash -LiteralPath $Payload -Algorithm SHA256).Hash.ToLowerInvariant();target_sha=(Get-FileHash -LiteralPath $Target -Algorithm SHA256).Hash.ToLowerInvariant()}
+    }
+    function RejectBackup($B,$Path) {
+        $Before=[Convert]::ToBase64String([IO.File]::ReadAllBytes($B.target))
+        $Rejected=$false
+        try { $null=Restore-AndroidReleaseSnapshotFile $B.payload $B.target $Path $B.snapshot_sha $B.target_sha } catch {$Rejected=$true}
+        Check $Rejected 'Invalid backup conditions accepted.'
+        Check ([Convert]::ToBase64String([IO.File]::ReadAllBytes($B.target)) -ceq $Before) 'Rejected backup changed the target.'
+        Check (Test-Path -LiteralPath $B.payload) 'Rejected backup deleted the payload.'
+    }
     function RejectUnchanged($Fixture, [string]$Message) {
         $Before = @($Paths | ForEach-Object {[Convert]::ToBase64String([IO.File]::ReadAllBytes((Join-Path $Fixture.project $_)))})
         Check (-not (Recover $Fixture).passed) $Message
@@ -100,6 +117,51 @@ function Test-ReleaseSourceRecovery {
             foreach ($Name in $Paths) {
                 Check ([Convert]::ToBase64String([IO.File]::ReadAllBytes((Join-Path $F.project $Name))) -ceq [Convert]::ToBase64String([IO.File]::ReadAllBytes((Join-Path $Formal $Name)))) 'Snapshot restore did not preserve exact bytes.'
             }
+            Check ($Report.restored.Count -eq 3) 'Expected three verified restore records.'
+            foreach ($Row in $Report.restored) {
+                Check (-not [string]::IsNullOrWhiteSpace($Row.backup)) 'Backup path empty.'
+                Check ($Row.backup.StartsWith($F.diagnostics+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)) 'Backup outside Diagnostics.'
+                Check (Test-Path -LiteralPath $Row.backup -PathType Leaf) 'Verified backup was not retained.'
+                Check ((Get-FileHash -LiteralPath $Row.backup -Algorithm SHA256).Hash.ToLowerInvariant() -ceq $Row.before_sha256) 'Backup does not match restore-before target.'
+                $Evidence=[IO.File]::ReadAllText($Row.backup_record)|ConvertFrom-Json
+                Check ($Evidence.state -ceq 'Verified' -and $Evidence.backup_sha256 -ceq $Row.before_sha256 -and $Evidence.target_sha256_after -ceq $Row.sha256) 'Restore relation/SHA proof incomplete.'
+            }
+        }
+        Case 'empty backup path is rejected without changing target or payload' { $B=BackupFixture;RejectBackup $B '' }
+        Case 'null backup path is rejected without changing target or payload' { $B=BackupFixture;RejectBackup $B $null }
+        Case 'backup outside Diagnostics is rejected' {
+            $B=BackupFixture;$Parent=Join-Path $TestRoot 'outside-backup';$null=[IO.Directory]::CreateDirectory($Parent)
+            RejectBackup $B (Join-Path $Parent 'outside.bak')
+        }
+        Case 'existing backup file is never overwritten' {
+            $B=BackupFixture;[IO.File]::WriteAllText($B.backup,'retain existing backup')
+            RejectBackup $B $B.backup
+            Check ([IO.File]::ReadAllText($B.backup) -ceq 'retain existing backup') 'Existing backup overwritten.'
+        }
+        Case 'missing backup parent is rejected before replacement' {
+            $B=BackupFixture;RejectBackup $B (Join-Path (Split-Path -Parent $B.backup) 'missing/backup.bak')
+        }
+        Case 'payload SHA mismatch is rejected before replacement' {
+            $B=BackupFixture;[IO.File]::WriteAllText($B.payload,'not snapshot bytes')
+            RejectBackup $B $B.backup
+            Check (-not (Test-Path -LiteralPath $B.backup)) 'Backup created for corrupt payload.'
+        }
+        Case 'target SHA mismatch is rejected before replacement' {
+            $B=BackupFixture;$B.target_sha='0'*64;RejectBackup $B $B.backup
+            Check (-not (Test-Path -LiteralPath $B.backup)) 'Backup created for changed target.'
+        }
+        Case 'backup corruption after replacement cannot pass recovery' {
+            $F=Fixture;Known $F
+            $script:OriginalBackupRestore=(Get-Command Restore-AndroidReleaseSnapshotFile).ScriptBlock
+            try {
+                Set-Item Function:script:Restore-AndroidReleaseSnapshotFile {
+                    param($Payload,$Target,$Backup,$SnapshotSha,$TargetSha)
+                    $Proof=& $script:OriginalBackupRestore $Payload $Target $Backup $SnapshotSha $TargetSha
+                    [IO.File]::WriteAllText($Backup,'corrupted backup')
+                    return $Proof
+                }
+                Check (-not (Recover $F).passed) 'Corrupt backup accepted.'
+            } finally { Set-Item Function:script:Restore-AndroidReleaseSnapshotFile $script:OriginalBackupRestore }
         }
         Case 'known utmp intermediate is inventoried and removed' {
             $F=Fixture; $Generated=Generated $F

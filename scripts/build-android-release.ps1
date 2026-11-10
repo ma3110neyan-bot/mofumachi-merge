@@ -255,8 +255,59 @@ function Test-AndroidReleaseGeneratedFile([string]$Relative,[byte[]]$Bytes) {
     }
     return $true
 }
-function Restore-AndroidReleaseSnapshotFile([string]$Payload,[string]$Target) {
-    [IO.File]::Replace($Payload,$Target,$null)
+function Restore-AndroidReleaseSnapshotFile([string]$Payload,[string]$Target,[string]$Backup,[string]$SnapshotSha,[string]$TargetSha) {
+    if ([string]::IsNullOrWhiteSpace($Payload) -or [string]::IsNullOrWhiteSpace($Target) -or [string]::IsNullOrWhiteSpace($Backup) -or
+        $SnapshotSha -cnotmatch '^[0-9a-f]{64}$' -or $TargetSha -cnotmatch '^[0-9a-f]{64}$') { throw 'Restore paths and expected SHA256 must be nonempty.' }
+    $Directory=[IO.Path]::GetDirectoryName([IO.Path]::GetFullPath($Payload))
+    $Diagnostics=[IO.Path]::GetFullPath((Join-Path $ReleaseRoot 'Diagnostics/release-candidate'))
+    if (-not (Test-AndroidReleaseUnder $Payload $Diagnostics) -or -not (Test-AndroidReleaseUnder $Backup $Directory)) { throw 'Restore backup must stay inside this run Diagnostics.' }
+    $Run=[IO.Path]::GetFullPath($Payload).Substring($Diagnostics.Length+1).Replace('\','/').Split('/')[0]
+    if ($Run -cnotmatch '^rc-[0-9]{8}-[0-9]{6}-[0-9a-f]{8}$') { throw 'Restore Diagnostics run identity is invalid.' }
+    $Targets=@(Get-AndroidReleaseMutationPaths | ForEach-Object {[IO.Path]::GetFullPath((Join-Path $ReleaseRoot ('projects/'+$Run+'/'+$_)))})
+    if ($Targets -notcontains [IO.Path]::GetFullPath($Target)) { throw 'Restore target must be a known file of the matching isolated worktree.' }
+    foreach ($Path in @($Payload,$Target,$Backup)) { Assert-AndroidReleaseNoLink $Path }
+    $Parent=Split-Path -Parent $Backup
+    if (-not (Test-Path -LiteralPath $Parent -PathType Container) -or (Test-Path -LiteralPath $Backup)) { throw 'Backup parent must exist and backup path must not exist.' }
+    $PayloadBytes=Read-AndroidReleaseRegularBytes $Payload
+    $TargetBytes=Read-AndroidReleaseRegularBytes $Target
+    if ((Get-AndroidReleaseBytesHash $PayloadBytes) -cne $SnapshotSha -or (Get-AndroidReleaseBytesHash $TargetBytes) -cne $TargetSha) { throw 'Restore payload or pre-restore target SHA mismatch.' }
+    $Record=Join-Path $Directory ('restore-backup-'+[guid]::NewGuid().ToString('N')+'.json')
+    $Proof=[ordered]@{state='Prepared';payload=$Payload;target=$Target;backup=$Backup;record=$Record;
+        snapshot_sha256=$SnapshotSha;target_sha256_before=$TargetSha;target_size_before=$TargetBytes.Length;
+        payload_sha256=$SnapshotSha;target_sha256_after=$null;backup_sha256=$null;backup_size=$null;
+        backup_exists_after=$false;payload_exists_after=$true;backup_cleanup_performed=$false;
+        backup_cleanup_policy='Retain this run backup in Diagnostics as evidence; no explicit backup or payload cleanup';
+        error=$null;error_stack=$null;error_position=$null;inspection_error=$null}
+    Write-AndroidReleaseNewBytes $Record ([Text.Encoding]::UTF8.GetBytes(($Proof|ConvertTo-Json -Depth 6)))
+    $Failure=$null
+    try {
+        if (Test-Path -LiteralPath $Backup) { throw 'Backup path appeared before replacement; no overwrite is allowed.' }
+        [IO.File]::Replace($Payload,$Target,$Backup)
+        $Proof.target_sha256_after=Get-AndroidReleaseBytesHash (Read-AndroidReleaseRegularBytes $Target)
+        $BackupBytes=Read-AndroidReleaseRegularBytes $Backup
+        $Proof.backup_sha256=Get-AndroidReleaseBytesHash $BackupBytes
+        $Proof.backup_size=$BackupBytes.Length
+        if ($Proof.target_sha256_after -cne $SnapshotSha -or $Proof.backup_sha256 -cne $TargetSha -or $Proof.backup_size -ne $TargetBytes.Length) { throw 'Restored target or backup SHA/size mismatch.' }
+        $Proof.state='Verified'
+    } catch {
+        $Failure=$_;$Proof.state='Failed';$Proof.error=$_.Exception.Message
+        $Proof.error_stack=$_.ScriptStackTrace;$Proof.error_position=$_.InvocationInfo.PositionMessage
+    } finally {
+        $Proof.backup_exists_after=Test-Path -LiteralPath $Backup -PathType Leaf
+        $Proof.payload_exists_after=Test-Path -LiteralPath $Payload -PathType Leaf
+        try {
+            if ($Proof.backup_exists_after) {
+                $BackupBytes=Read-AndroidReleaseRegularBytes $Backup
+                $Proof.backup_sha256=Get-AndroidReleaseBytesHash $BackupBytes;$Proof.backup_size=$BackupBytes.Length
+            }
+            if (Test-Path -LiteralPath $Target -PathType Leaf) { $Proof.target_sha256_after=Get-AndroidReleaseBytesHash (Read-AndroidReleaseRegularBytes $Target) }
+            if ($null -eq $Failure -and (-not $Proof.backup_exists_after -or $Proof.target_sha256_after -cne $SnapshotSha -or
+                $Proof.backup_sha256 -cne $TargetSha -or $Proof.backup_size -ne $TargetBytes.Length)) { throw 'Restore evidence changed before verification completed.' }
+        } catch { $Proof.inspection_error=$_.Exception.Message;if ($null -eq $Failure) {$Failure=$_;$Proof.state='Failed'} }
+        try { Write-AndroidReleaseJson $Record $Proof } catch { if ($null -eq $Failure) { $Failure=$_ } }
+    }
+    if ($null -ne $Failure) { throw $Failure }
+    return [pscustomobject]$Proof
 }
 function Remove-AndroidReleaseGeneratedItem([string]$Path,[bool]$Directory) {
     if ($Directory) { [IO.Directory]::Delete($Path,$false) } else { [IO.File]::Delete($Path) }
@@ -341,8 +392,15 @@ function Repair-AndroidReleaseBuildSource([string]$Git,$Plan,[object[]]$Secrets=
             if ($AfterHashes[$Row.relative] -cne $Row.sha256) {
                 $Payload=Join-Path $Plan.directory ('restore-'+[guid]::NewGuid().ToString('N')+'.tmp')
                 Write-AndroidReleaseNewBytes $Payload $BytesBefore[$Row.relative]
-                Restore-AndroidReleaseSnapshotFile $Payload $Target
-                $Report.restored+=@{path=$Row.relative;sha256=$Row.sha256}
+                $BackupDirectory=Join-Path $Plan.directory ('restore-backups/'+[guid]::NewGuid().ToString('N'))
+                Assert-AndroidReleaseNoLink $BackupDirectory
+                if (Test-Path -LiteralPath $BackupDirectory) { throw 'Unique backup directory already exists.' }
+                $null=[IO.Directory]::CreateDirectory($BackupDirectory)
+                $Backup=Join-Path $BackupDirectory ([IO.Path]::GetFileName($Target)+'.bak')
+                $Proof=Restore-AndroidReleaseSnapshotFile $Payload $Target $Backup $Row.sha256 $AfterHashes[$Row.relative]
+                if ((Get-AndroidReleaseBytesHash (Read-AndroidReleaseRegularBytes $Target)) -cne $Row.sha256) { throw 'Restore SHA mismatch.' }
+                if ($null -eq $Proof -or $Proof.state -cne 'Verified' -or (Get-AndroidReleaseBytesHash (Read-AndroidReleaseRegularBytes $Backup)) -cne $AfterHashes[$Row.relative]) { throw 'Restore backup verification failed.' }
+                $Report.restored+=@{path=$Row.relative;sha256=$Row.sha256;before_sha256=$AfterHashes[$Row.relative];backup=$Backup;backup_record=$Proof.record}
             }
             if ((Get-AndroidReleaseBytesHash (Read-AndroidReleaseRegularBytes $Target)) -cne $Row.sha256) { throw 'Restore SHA mismatch.' }
         }

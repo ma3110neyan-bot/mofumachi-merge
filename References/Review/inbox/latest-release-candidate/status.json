@@ -1,20 +1,20 @@
 {
-  "recorded_at_utc": "2026-11-11T10:25:59.824696+00:00",
+  "recorded_at_utc": "2026-11-11T10:53:21.534777+00:00",
   "updated_date_jst": "2026-11-11",
   "branch": "feat/daily-world-pass-20261016",
   "commit": "5a9e6d54e9c4bedf60f738dfacab858875a827ee",
   "source_commit": "5a9e6d54e9c4bedf60f738dfacab858875a827ee",
   "implementation_commit": "5a9e6d54e9c4bedf60f738dfacab858875a827ee",
-  "commit_scope": "Graphics no-op implementation/test commit. Current source has not run Unity; historical native AAB source is separately preserved.",
+  "commit_scope": "Existing production implementation commit 5a9e6d5; final test candidate is based on f2bf6e5 with exact test/source SHA metadata, not a new native build.",
   "native_build_source_commit": "41529cfaea57ab564da46b3a45c41ede0aa5088b",
   "product_commit": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
   "state": "関連テスト合格",
-  "state_scope": "Graphics conditional setter/restore fix and managed/API compilation only; native serialization unverified.",
-  "status": "release_graphics_noop_limited_tests_passed_native_unverified",
+  "state_scope": "Final graphics no-op acceptance checks; existing production implementation unchanged; native mutation prevention still unverified.",
+  "status": "release_graphics_noop_final_limited_tests_passed_native_unverified",
   "success": true,
   "success_scope": "Implementation and limited/static verification only; not AAB acceptance or Stage8 completion.",
   "tests_passed": true,
-  "tests_passed_scope": "New dedicated suite 12/12 only; existing42 and Stage7 not rerun.",
+  "tests_passed_scope": "Current final suite 12/12 including apply/restore pairs in cases2/3/4, executed once; no guard42 or Stage7 rerun.",
   "capture_verified": false,
   "pixel_verified": false,
   "formal_fixed": false,
@@ -509,16 +509,15 @@
     "acceptance_scope": "Stage7 completion and permission to start Stage8; capture/pixel/formal release approval remains unverified"
   },
   "changed_files": [
-    "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs",
     "scripts/tests/android-release-graphics.tests.ps1"
   ],
-  "code_changed_file_count": 2,
+  "code_changed_file_count": 1,
   "source_clean_at_implementation_commit": true,
   "source_unchanged": true,
-  "source_unchanged_scope": "Tested/compiled bytes match the new implementation commit; not a native post-build source guard verdict. Old Windows source_unchanged=false remains in previous_windows_aab_record.",
+  "source_unchanged_scope": "Production builder unchanged from implementation5a9e6d5 and prior API compile. Approved dedicated test assertions changed and were freshly validated; not a new native post-build guard verdict.",
   "source_unchanged_against_pre_fix_commit": false,
-  "release_builder_changed": true,
-  "release_csharp_changed": true,
+  "release_builder_changed": false,
+  "release_csharp_changed": false,
   "release_powershell_changed": false,
   "existing_qa_changed": false,
   "game_code_changed": false,
@@ -619,13 +618,14 @@
   "limited_tests": {
     "result": "Passed",
     "exit_code": 0,
+    "invocations": 1,
     "total": 12,
     "passed": 12,
     "failed": 0,
-    "modified_source_invocations": 1,
-    "test_scope": "Actual complete production C# compiled against managed API doubles; nested graphics lifecycle executed, build wiring statically checked; not native Unity serialization.",
+    "not_run": 0,
+    "scope": "Actual complete production C# compiled against managed API doubles; nested graphics lifecycle executed, build wiring statically checked; not native Unity serialization.",
     "builder_sha256": "4e2901614a787bbb7755a99da94d63449dbe873d6d233d2050700e2392c62903",
-    "test_sha256": "a48d7c591bc5e01df0f36c19d5c270440a4b8ba314f57960dbb6dc4b0a1f4719"
+    "test_sha256": "1e9d46ede1005abe0a50a8d7cba1da8c3aa4ec243e8d7af69f7a85686433b769"
   },
   "api_compile": {
     "result": "Passed",
@@ -914,6 +914,158 @@
   "aab_execution_pending": false,
   "aab_single_retry_ready": true,
   "next_apk_safe": false,
-  "next_action": "Stop after one normal push; wait for separate AAB one-shot instructions.",
-  "native_serialization_fix_proven": false
+  "next_action": "Stop after the one normal commit/push; await separate AAB one-shot instructions. Do not start Unity, builds, preflight, signing or Pixel.",
+  "native_serialization_fix_proven": false,
+  "validation_base_commit": "f2bf6e5cf89bd9de322ab583ba4ba9149a163897",
+  "changed_files_scope": "This final request only: dedicated tests plus Review evidence. Earlier implementation changed the builder and introduced this test.",
+  "graphics_noop_final_validation": {
+    "recorded_at_utc": "2026-11-11T10:53:21.534777+00:00",
+    "branch": "feat/daily-world-pass-20261016",
+    "implementation_commit": "5a9e6d54e9c4bedf60f738dfacab858875a827ee",
+    "validation_base_commit": "f2bf6e5cf89bd9de322ab583ba4ba9149a163897",
+    "user_original_base_commit": "7c8271a7c4ed0bb49e7a5684bdc0030cc0df93a1",
+    "implementation_scope": "The release builder fix already exists in implementation commit 5a9e6d5; it was not recreated or edited in this final request.",
+    "changed_code_files_this_request": [
+      "scripts/tests/android-release-graphics.tests.ps1"
+    ],
+    "change_scope": "15 test assertion/lifecycle lines added to cases2/3/4. Production C# and all other scripts/settings remain byte-identical; Review evidence only otherwise.",
+    "builder_sha256": "4e2901614a787bbb7755a99da94d63449dbe873d6d233d2050700e2392c62903",
+    "test_sha256": "1e9d46ede1005abe0a50a8d7cba1da8c3aa4ec243e8d7af69f7a85686433b769",
+    "desired_condition": "!initialAutomatic && initialApis != null && initialApis.Length == 1 && initialApis[0] == GraphicsDeviceType.OpenGLES3",
+    "desired_graphics_setter_count": 0,
+    "desired_restore_setter_count": 0,
+    "non_desired_graphics_setter_count": 2,
+    "changed_restore_setter_count": 2,
+    "restore_condition": "Changed flag set immediately before the first apply setter; restore only if this setter sequence started, including partial apply failure.",
+    "required_case_mapping": {
+      "1_desired_no_setters_or_restore": [
+        1,
+        6
+      ],
+      "2_automatic_true_gles_change_and_restore": [
+        2
+      ],
+      "3_other_single_api_change_and_restore": [
+        3
+      ],
+      "4_multiple_apis_change_and_restore": [
+        4
+      ],
+      "5_desired_before_after_no_setters": [
+        6
+      ],
+      "6_non_desired_apply_restore_pair": [
+        2,
+        3,
+        4,
+        5,
+        10
+      ]
+    },
+    "save_assets": "Existing one SaveAssets in outer finally is unchanged for other release/signing settings. Graphics helper invokes none; desired settings never trigger graphics setters.",
+    "build_info_fields": [
+      "initial_graphics_apis",
+      "initial_automatic",
+      "graphics_settings_already_desired",
+      "graphics_settings_changed",
+      "graphics_settings_restored"
+    ],
+    "limited_tests": {
+      "result": "Passed",
+      "exit_code": 0,
+      "invocations": 1,
+      "total": 12,
+      "passed": 12,
+      "failed": 0,
+      "not_run": 0,
+      "scope": "Actual complete production C# compiled against managed API doubles; nested graphics lifecycle executed, build wiring statically checked; not native Unity serialization."
+    },
+    "api_compile": {
+      "result": "Passed",
+      "exit_code": 0,
+      "invocations_this_request": 0,
+      "reused_evidence": "References/Review/inbox/latest-release-candidate/graphics-noop-fix/api-compile-result.json",
+      "reason": "No production C# changes since the prior passed API-only compile; exact SHA equality verified."
+    },
+    "protected_files": [
+      {
+        "path": "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs",
+        "sha256": "4e2901614a787bbb7755a99da94d63449dbe873d6d233d2050700e2392c62903",
+        "unchanged_this_request": true
+      },
+      {
+        "path": "Assets/Mofumachi/Editor/AndroidReleaseBuild.cs.meta",
+        "sha256": "888cee050dce317ed3d9bc0dbf9b3f8f7115c6b7a5239b3eac2b3dd844adc06e",
+        "unchanged_this_request": true
+      },
+      {
+        "path": "scripts/build-android-release.ps1",
+        "sha256": "21e38296a25d825644efa168bc2559fb8b9b8d5a03740be011ebda223af664a5",
+        "unchanged_this_request": true
+      },
+      {
+        "path": "scripts/tests/android-release.tests.ps1",
+        "sha256": "f7e16374648e77be060fcdaabb08e068dea5ffbc773200631df9831c97bce0c8",
+        "unchanged_this_request": true
+      },
+      {
+        "path": "Assets/Mofumachi/Editor/AndroidBuild.cs",
+        "sha256": "78933406562159ed649af34fa6ba840eec0e1a3bf2a091b9fa4a372989e73731",
+        "unchanged_this_request": true
+      },
+      {
+        "path": "scripts/build-android.ps1",
+        "sha256": "4f6862a7155657eca8eac59a9b87f5a53cb1d26762b370111725d697a109b291",
+        "unchanged_this_request": true
+      },
+      {
+        "path": "scripts/prepare-release-signing-windows.ps1",
+        "sha256": "859c57fad82fa2d24bb2d18ab90012d97670eec3b4210a227fc7dded8b6c1fce",
+        "unchanged_this_request": true
+      },
+      {
+        "path": "scripts/prepare-release-signing-windows.cmd",
+        "sha256": "e1bc8dc13e6ac751dc3fb0a89cf069ce14b4c4d4ace7491801fa4836d42cbcc5",
+        "unchanged_this_request": true
+      }
+    ],
+    "source_guard_changed": false,
+    "suffix_i_allowance_added": false,
+    "project_settings_changed": false,
+    "game_code_changed": false,
+    "visual_lock_changed": false,
+    "signing_path_changed": false,
+    "qa_path_changed": false,
+    "release_powershell_changed": false,
+    "version_or_version_code_changed": false,
+    "universal_rp_assets_changed": false,
+    "packages_changed": false,
+    "unity_invocations": 0,
+    "aab_builds": 0,
+    "apk_builds": 0,
+    "pixel_actions": 0,
+    "signing_operations": 0,
+    "preflight_invocations": 0,
+    "keystore_operations": 0,
+    "source_guard_42_test_invocations": 0,
+    "stage7_test_invocations": 0,
+    "automatic_retries": 0,
+    "first_error": null,
+    "source_clean_required_after_commit": true,
+    "requested_normal_commits": 1,
+    "requested_normal_pushes": 1,
+    "native_mutation_prevention_confirmed": false,
+    "proven_writer": null,
+    "guard_exact_allow_candidate": false,
+    "next_aab_one_shot_safe": true,
+    "next_stage_execution_authorized": false,
+    "next_apk_safe": false,
+    "next_action": "Stop after the one normal commit/push; await separate AAB one-shot instructions. Do not start Unity, builds, preflight, signing or Pixel.",
+    "stage7_complete": true,
+    "stage8_complete": false,
+    "secrets_recorded": false
+  },
+  "final_validation_evidence_directory": "References/Review/inbox/latest-release-candidate/graphics-noop-final-validation",
+  "api_compile_invocations_this_request": 0,
+  "protected_change_flags_scope": "This final request compared with f2bf6e5; earlier approved builder implementation remains at 5a9e6d5."
 }

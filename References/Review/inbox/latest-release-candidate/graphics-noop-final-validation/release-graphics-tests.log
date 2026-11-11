@@ -1,0 +1,12 @@
+PASS 1 automatic=false and only OpenGLES3 skips both apply setters
+PASS 2 automatic=true requires and applies desired settings
+PASS 3 another single graphics API requires a change
+PASS 4 multiple graphics APIs require a change
+PASS 5 changed graphics restore original order and automatic flag
+PASS 6 already desired skips both restore setters
+PASS 7 null API array is not already desired
+PASS 8 empty API array is not already desired
+PASS 9 duplicate OpenGLES3 entries are not a single desired API
+PASS 10 partial apply failure still permits restoration without retry
+PASS 11 non-desired settings not applied do not invoke restore setters
+PASS 12 build wiring and public evidence retain other-setting SaveAssets

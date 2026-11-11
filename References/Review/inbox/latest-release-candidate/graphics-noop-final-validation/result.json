@@ -1,0 +1,67 @@
+{
+  "result": "Passed",
+  "total": 12,
+  "passed": 12,
+  "failed": 0,
+  "not_run": 0,
+  "first_error": null,
+  "failed_phase": null,
+  "cases": [
+    {
+      "name": "1 automatic=false and only OpenGLES3 skips both apply setters",
+      "result": "Passed"
+    },
+    {
+      "name": "2 automatic=true requires and applies desired settings",
+      "result": "Passed"
+    },
+    {
+      "name": "3 another single graphics API requires a change",
+      "result": "Passed"
+    },
+    {
+      "name": "4 multiple graphics APIs require a change",
+      "result": "Passed"
+    },
+    {
+      "name": "5 changed graphics restore original order and automatic flag",
+      "result": "Passed"
+    },
+    {
+      "name": "6 already desired skips both restore setters",
+      "result": "Passed"
+    },
+    {
+      "name": "7 null API array is not already desired",
+      "result": "Passed"
+    },
+    {
+      "name": "8 empty API array is not already desired",
+      "result": "Passed"
+    },
+    {
+      "name": "9 duplicate OpenGLES3 entries are not a single desired API",
+      "result": "Passed"
+    },
+    {
+      "name": "10 partial apply failure still permits restoration without retry",
+      "result": "Passed"
+    },
+    {
+      "name": "11 non-desired settings not applied do not invoke restore setters",
+      "result": "Passed"
+    },
+    {
+      "name": "12 build wiring and public evidence retain other-setting SaveAssets",
+      "result": "Passed"
+    }
+  ],
+  "scope": "Actual complete production C# compiled against managed API doubles; nested graphics lifecycle executed, build wiring statically checked; not native Unity serialization.",
+  "unity_invocations": 0,
+  "aab_builds": 0,
+  "apk_builds": 0,
+  "pixel_actions": 0,
+  "signing_operations": 0,
+  "source_guard_test_invocations": 0,
+  "automatic_retries": 0
+}

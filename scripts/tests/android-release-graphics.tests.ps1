@@ -121,6 +121,11 @@ try {
         Invoke $F 'Apply'
         Check ([UnityEditor.PlayerSettings]::Calls.Count -eq 2 -and (Value $F 'Changed')) 'Both apply setters must remain for non-desired settings.'
         Desired
+        [UnityEditor.PlayerSettings]::Calls.Clear()
+        Invoke $F 'Restore'
+        Check (([UnityEditor.PlayerSettings]::Calls -join ',') -ceq 'apis,automatic' -and (Value $F 'Restored')) 'Automatic=true case did not pair apply with restore.'
+        Check ([UnityEditor.PlayerSettings]::FixtureAutomatic) 'Automatic=true case lost its original automatic flag.'
+        Check ([UnityEditor.PlayerSettings]::FixtureApis.Length -eq 1 -and [UnityEditor.PlayerSettings]::FixtureApis[0] -eq $Gles) 'Automatic=true case lost its original API array.'
     }
     Case '3 another single graphics API requires a change' {
         $F = Fixture $false @($Vulkan)
@@ -128,6 +133,11 @@ try {
         Invoke $F 'Apply'
         Check ([UnityEditor.PlayerSettings]::Calls.Count -eq 2) 'Non-desired single API skipped setters.'
         Desired
+        [UnityEditor.PlayerSettings]::Calls.Clear()
+        Invoke $F 'Restore'
+        Check (([UnityEditor.PlayerSettings]::Calls -join ',') -ceq 'apis,automatic' -and (Value $F 'Restored')) 'Single other API did not pair apply with restore.'
+        Check (-not [UnityEditor.PlayerSettings]::FixtureAutomatic) 'Single other API lost its original automatic=false.'
+        Check ([UnityEditor.PlayerSettings]::FixtureApis.Length -eq 1 -and [UnityEditor.PlayerSettings]::FixtureApis[0] -eq $Vulkan) 'Single other API was not restored.'
     }
     Case '4 multiple graphics APIs require a change' {
         $F = Fixture $false @($Gles, $Vulkan)
@@ -135,6 +145,11 @@ try {
         Invoke $F 'Apply'
         Check ([UnityEditor.PlayerSettings]::Calls.Count -eq 2) 'Multiple APIs skipped setters.'
         Desired
+        [UnityEditor.PlayerSettings]::Calls.Clear()
+        Invoke $F 'Restore'
+        Check (([UnityEditor.PlayerSettings]::Calls -join ',') -ceq 'apis,automatic' -and (Value $F 'Restored')) 'Multiple APIs did not pair apply with restore.'
+        Check (-not [UnityEditor.PlayerSettings]::FixtureAutomatic) 'Multiple APIs lost their original automatic=false.'
+        Check (([UnityEditor.PlayerSettings]::FixtureApis -join ',') -ceq 'OpenGLES3,Vulkan') 'Multiple APIs were not restored in original order.'
     }
     Case '5 changed graphics restore original order and automatic flag' {
         $F = Fixture $true @($Vulkan, $Gles)

@@ -1,0 +1,43 @@
+{
+    "state":  "C_current_postbuild_file",
+    "path":  "E:\\Mofumachi-Validation\\projects\\rc-20261110-132609-c6829dc7\\ProjectSettings\\ProjectSettings.asset",
+    "exists":  true,
+    "sha256":  "266f17baf9d7101401580553aab9d0ede0390f6c859e137e31f6274d4713f07a",
+    "byte_length":  23513,
+    "bom":  "none",
+    "utf8_valid":  true,
+    "ascii_only":  true,
+    "created_utc":  "2026-11-11T04:40:31.6931504Z",
+    "modified_utc":  "2026-11-11T04:40:31.6931504Z",
+    "changed_during_read":  false,
+    "source_written":  false,
+    "api_match_count":  1,
+    "api_values":  [
+                       {
+                           "automatic":  "0",
+                           "byte_length":  9,
+                           "code_points":  [
+                                               "U+0030",
+                                               "U+0062",
+                                               "U+0030",
+                                               "U+0030",
+                                               "U+0030",
+                                               "U+0030",
+                                               "U+0030",
+                                               "U+0030",
+                                               "U+0069"
+                                           ],
+                           "byte_offset":  11812,
+                           "raw_hex":  "30 62 30 30 30 30 30 30 69",
+                           "value":  "0b000000i",
+                           "last_raw_byte":  "69",
+                           "context_hex":  "6D 5F 41 50 49 73 3A 20 30 62 30 30 30 30 30 30 69 0A 20 20 20 20 6D 5F 41 75 74 6F 6D 61 74 69",
+                           "context_start":  11804
+                       }
+                   ],
+    "encoding":  "ASCII-only; UTF-8-compatible; original ANSI/UTF-8 choice unknown",
+    "crlf_count":  0,
+    "bare_lf_count":  846,
+    "bare_cr_count":  0,
+    "graphics_api_block":  "  m_BuildTargetGraphicsAPIs:\n  - m_BuildTarget: Android\n    m_APIs: 0b000000i\n    m_Automatic: 0"
+}

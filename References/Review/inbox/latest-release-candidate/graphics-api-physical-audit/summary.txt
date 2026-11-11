@@ -1,0 +1,1 @@
+Physical byte metadata only. Classification=E1. Physical B has 0b000000; C has 0b000000i. Writer and legitimate Unity semantics remain unproven. No source/snapshot copy or rewrite; no Unity/build/test/signing/restore/cleanup.

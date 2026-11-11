@@ -1,0 +1,8 @@
+B_prebuild_snapshot: exists=True; SHA256=d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc; bytes=24343
+m_APIs=0b000000; raw_hex=30 62 30 30 30 30 30 30; byte_offset=12235
+last_raw_byte=30; code_points=U+0030 U+0062 U+0030 U+0030 U+0030 U+0030 U+0030 U+0030
+context_start=12226; context_hex=20 6D 5F 41 50 49 73 3A 20 30 62 30 30 30 30 30 30 0D 0A 20 20 20 20 6D 5F 41 75 74 6F 6D 61 74
+C_current_postbuild_file: exists=True; SHA256=266f17baf9d7101401580553aab9d0ede0390f6c859e137e31f6274d4713f07a; bytes=23513
+m_APIs=0b000000i; raw_hex=30 62 30 30 30 30 30 30 69; byte_offset=11812
+last_raw_byte=69; code_points=U+0030 U+0062 U+0030 U+0030 U+0030 U+0030 U+0030 U+0030 U+0069
+context_start=11804; context_hex=6D 5F 41 50 49 73 3A 20 30 62 30 30 30 30 30 30 69 0A 20 20 20 20 6D 5F 41 75 74 6F 6D 61 74 69

@@ -1,0 +1,49 @@
+{
+  "received_archive": "release-graphics-api-physical-audit-20261111-095006-5bc235c1619e4420a2b39fe59b14eb71-public.zip",
+  "received_archive_sha256": "58833e72761679ef83f3372a9ef4535070f1f10238dd483c4eab665795c4d424",
+  "archive_bytes": 4179,
+  "archive_crc_verified": true,
+  "entry_count": 6,
+  "uncompressed_bytes": 11796,
+  "received_at_utc": "2026-11-11T10:00:05.218625+00:00",
+  "review_base_commit": "70d01ccc1ef4a960adfccc068f4e21ca9d832514",
+  "entries": [
+    {
+      "path": "conclusion.json",
+      "bytes": 1086,
+      "sha256": "7f02cd882efba3791863429c5b3e8f57ea586c262e334481da4ebc6537d92055"
+    },
+    {
+      "path": "physical-comparison.json",
+      "bytes": 5511,
+      "sha256": "069afff738177222e0ff84a3a880b29cc065536dfcb628f0404634cb0ce7ee9d"
+    },
+    {
+      "path": "postbuild-projectsettings-metadata.json",
+      "bytes": 2094,
+      "sha256": "3b563e0e21253e3e5fa92da8dc4d05395d4c5900458bce9fa64d6804ffac3ba5"
+    },
+    {
+      "path": "raw-context.txt",
+      "bytes": 826,
+      "sha256": "ea36df8f64547f36f87a994841967eefe6f5a6ee7dfba9b2bd75d4e641ff089d"
+    },
+    {
+      "path": "snapshot-2-metadata.json",
+      "bytes": 2054,
+      "sha256": "4cb05beca6c84ee67022303e3c87ae9e3cfeae8419ea3b56575309ffaa2ca7ef"
+    },
+    {
+      "path": "summary.txt",
+      "bytes": 225,
+      "sha256": "824c0b9417e7f3f80b842ecfe2396b089e904b2e3a39c2ece4396e89ac487e6a"
+    }
+  ],
+  "raw_entries_preserved_byte_for_byte": true,
+  "input_source_binaries_received": false,
+  "project_settings_body_received": false,
+  "keystore_received": false,
+  "aab_body_received": false,
+  "secrets_recorded": false,
+  "physical_observation_scope": "User executed the supplied read-only collector against existing Windows E-drive B and C. Cloud verifies the received metadata, raw-value/context consistency and historical snapshot/diff hashes; it does not independently rehash the unreceived complete B/C files."
+}

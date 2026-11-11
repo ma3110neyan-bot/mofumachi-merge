@@ -1,0 +1,198 @@
+Search revision: ff65ef1be8a0cfb7134b11c958befce920874f36
+Scope: tracked repository before this audit report. Test fixture hits and report copies are not independent native reproductions.
+
+PATTERN: 0b000000i
+occurrences=15; matching_lines=15; matching_files=15
+HEAD:References/Review/inbox/latest-release-candidate/evidence-review.json:106:    "after": "0b000000i",
+HEAD:References/Review/inbox/latest-release-candidate/failure.log:13:+    m_APIs: 0b000000i
+HEAD:References/Review/inbox/latest-release-candidate/source-guard-result.json:30:  "after": "0b000000i",
+HEAD:References/Review/inbox/latest-release-candidate/status.json:569:    "after": "0b000000i",
+HEAD:References/Review/inbox/latest-release-candidate/summary.md:15:+    m_APIs: 0b000000i
+HEAD:References/Review/inbox/latest-release-candidate/validation/history-41529cf/latest-summary.md:91:共有されたAndroid graphics値`0b000000i`の末尾iは、ユーザーも原本にあるか不明と回答した。**非16進数値をknown mutationとして許可しない**。同じOpenGLES3値の表記差だけに限定し、non-hex／別API／非空keystore bindingは拒否するcaseを作成したが、そのcase自体は今回未実行。実keystore path/passwordを要求・保存していない。
+HEAD:References/Review/inbox/latest-release-candidate/validation/history-41529cf/summary.md:91:共有されたAndroid graphics値`0b000000i`の末尾iは、ユーザーも原本にあるか不明と回答した。**非16進数値をknown mutationとして許可しない**。同じOpenGLES3値の表記差だけに限定し、non-hex／別API／非空keystore bindingは拒否するcaseを作成したが、そのcase自体は今回未実行。実keystore path/passwordを要求・保存していない。
+HEAD:References/Review/inbox/latest-release-candidate/validation/history-75b05a1/source-guard-fix-validation.json:23:    "user_reported_line": "m_APIs: 0b000000i",
+HEAD:References/Review/inbox/latest-release-candidate/validation/history-75b05a1/summary.md:44:共有されたAndroid graphics値`0b000000i`の末尾iは、ユーザーも原本にあるか不明と回答した。**非16進数値をknown mutationとして許可しない**。同じOpenGLES3値の表記差だけに限定し、non-hex／別API／非空keystore bindingは拒否するcaseを作成したが、そのcase自体は今回未実行。実keystore path/passwordを要求・保存していない。
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/aab/source-recovery/pre-restore.diff:133:+    m_APIs: 0b000000i
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/evidence-review.json:106:    "after": "0b000000i",
+HEAD:References/Review/latest/error.log:13:+    m_APIs: 0b000000i
+HEAD:References/Review/latest/status.json:569:    "after": "0b000000i",
+HEAD:References/Review/latest/summary.md:15:+    m_APIs: 0b000000i
+HEAD:scripts/tests/android-release.tests.ps1:238:            $F=Fixture;Known $F;Change $F $Paths[2] '    m_APIs: 0B000000' '    m_APIs: 0b000000i'
+
+PATTERN: 0b000000
+occurrences=82; matching_lines=82; matching_files=28
+HEAD:ProjectSettings/ProjectSettings.asset:439:    m_APIs: 0b000000
+HEAD:References/Review/inbox/latest-generation-cost/unity.log:1765:[           0s] Csc Library/Bee/artifacts/1300b0aE.dag/Unity.Microsoft.GDK.Tools.Editor.dll (+2 others) [CacheMiss 004fab329a5a346d11d98cfed9bb80b000000000000000000000000000000006]
+HEAD:References/Review/inbox/latest-generation-cost/unity.log:1775:[           0s] Csc Library/Bee/artifacts/1300b0aE.dag/Unity.Microsoft.GDK.Tools.Editor.dll (+2 others) [CacheWrite 004fab329a5a346d11d98cfed9bb80b000000000000000000000000000000006]
+HEAD:References/Review/inbox/latest-generation-cost/unity.log:3321:Importing 'GUID: 0000000000000000b000000000000000 - Path: ProjectSettings/EditorBuildSettings.asset' with importer (LibraryAssetImporter)
+HEAD:References/Review/inbox/latest-generation-cost/unity.log:3322:Imported 'GUID: 0000000000000000b000000000000000' -> (Import Result ID: '38475557c9925373a19430bd386a8fef') in 0.002 seconds [static dependencies only]. Details - ImportResultOutputID=0a89a5c5f492143e0fa186859e17ba6f DependenciesID=f128bcdd84ee33ed332a11ec4db023d5 StaticDependenciesID=32576171b85e62200c36385b142eca8f 
+HEAD:References/Review/inbox/latest-generation-cost/unity.log:15261:Importing 'GUID: 0000000000000000b000000000000000 - Path: ProjectSettings/EditorBuildSettings.asset' with importer (LibraryAssetImporter)
+HEAD:References/Review/inbox/latest-generation-cost/unity.log:15262:Imported 'GUID: 0000000000000000b000000000000000' -> (Import Result ID: '5493c42dac73e06ee1e427f128901b0e') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=0a89a5c5f492143e0fa186859e17ba6f DependenciesID=7dbcebd41fd8f0c95d56bdaae3e99ff2 StaticDependenciesID=0147bc6bfcbc2b0700f31c8ad195a2e2 
+HEAD:References/Review/inbox/latest-progress-ui-integration/direct/unity.log:3344:Importing 'GUID: 0000000000000000b000000000000000 - Path: ProjectSettings/EditorBuildSettings.asset' with importer (LibraryAssetImporter)
+HEAD:References/Review/inbox/latest-progress-ui-integration/direct/unity.log:3345:Imported 'GUID: 0000000000000000b000000000000000' -> (Import Result ID: '38475557c9925373a19430bd386a8fef') in 0.000 seconds [static dependencies only]. Details - ImportResultOutputID=0a89a5c5f492143e0fa186859e17ba6f DependenciesID=f128bcdd84ee33ed332a11ec4db023d5 StaticDependenciesID=32576171b85e62200c36385b142eca8f 
+HEAD:References/Review/inbox/latest-progress-ui-integration/direct/unity.log:16589:Importing 'GUID: 0000000000000000b000000000000000 - Path: ProjectSettings/EditorBuildSettings.asset' with importer (LibraryAssetImporter)
+HEAD:References/Review/inbox/latest-progress-ui-integration/direct/unity.log:16590:Imported 'GUID: 0000000000000000b000000000000000' -> (Import Result ID: '5493c42dac73e06ee1e427f128901b0e') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=0a89a5c5f492143e0fa186859e17ba6f DependenciesID=7dbcebd41fd8f0c95d56bdaae3e99ff2 StaticDependenciesID=0147bc6bfcbc2b0700f31c8ad195a2e2 
+HEAD:References/Review/inbox/latest-progress-ui-integration/integration/unity.log:3345:Importing 'GUID: 0000000000000000b000000000000000 - Path: ProjectSettings/EditorBuildSettings.asset' with importer (LibraryAssetImporter)
+HEAD:References/Review/inbox/latest-progress-ui-integration/integration/unity.log:3346:Imported 'GUID: 0000000000000000b000000000000000' -> (Import Result ID: '38475557c9925373a19430bd386a8fef') in 0.000 seconds [static dependencies only]. Details - ImportResultOutputID=0a89a5c5f492143e0fa186859e17ba6f DependenciesID=f128bcdd84ee33ed332a11ec4db023d5 StaticDependenciesID=32576171b85e62200c36385b142eca8f 
+HEAD:References/Review/inbox/latest-progress-ui-integration/integration/unity.log:17059:Importing 'GUID: 0000000000000000b000000000000000 - Path: ProjectSettings/EditorBuildSettings.asset' with importer (LibraryAssetImporter)
+HEAD:References/Review/inbox/latest-progress-ui-integration/integration/unity.log:17060:Imported 'GUID: 0000000000000000b000000000000000' -> (Import Result ID: '5493c42dac73e06ee1e427f128901b0e') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=0a89a5c5f492143e0fa186859e17ba6f DependenciesID=7dbcebd41fd8f0c95d56bdaae3e99ff2 StaticDependenciesID=0147bc6bfcbc2b0700f31c8ad195a2e2 
+HEAD:References/Review/inbox/latest-progress-ui-integration/previous-runs/progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8/direct/unity.log:1753:[           0s] Csc Library/Bee/artifacts/1300b0aE.dag/Unity.RenderPipelines.Universal.2D.Editor.Overrides.dll (+2 others) [CacheMiss b260b569286f119d1ac88a1d31c9770b00000000000000000000000000000006]
+HEAD:References/Review/inbox/latest-progress-ui-integration/previous-runs/progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8/direct/unity.log:1780:[           0s] Csc Library/Bee/artifacts/1300b0aE.dag/Unity.RenderPipelines.Universal.2D.Editor.Overrides.dll (+2 others) [CacheWrite b260b569286f119d1ac88a1d31c9770b00000000000000000000000000000006]
+HEAD:References/Review/inbox/latest-progress-ui-integration/previous-runs/progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8/direct/unity.log:3344:Importing 'GUID: 0000000000000000b000000000000000 - Path: ProjectSettings/EditorBuildSettings.asset' with importer (LibraryAssetImporter)
+HEAD:References/Review/inbox/latest-progress-ui-integration/previous-runs/progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8/direct/unity.log:3345:Imported 'GUID: 0000000000000000b000000000000000' -> (Import Result ID: '38475557c9925373a19430bd386a8fef') in 0.000 seconds [static dependencies only]. Details - ImportResultOutputID=0a89a5c5f492143e0fa186859e17ba6f DependenciesID=f128bcdd84ee33ed332a11ec4db023d5 StaticDependenciesID=32576171b85e62200c36385b142eca8f 
+HEAD:References/Review/inbox/latest-progress-ui-integration/previous-runs/progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8/direct/unity.log:16589:Importing 'GUID: 0000000000000000b000000000000000 - Path: ProjectSettings/EditorBuildSettings.asset' with importer (LibraryAssetImporter)
+HEAD:References/Review/inbox/latest-progress-ui-integration/previous-runs/progress-ui-integration-progress-ui-e-drive-v4-20261108-162156-229f6fd8/direct/unity.log:16590:Imported 'GUID: 0000000000000000b000000000000000' -> (Import Result ID: '5493c42dac73e06ee1e427f128901b0e') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=0a89a5c5f492143e0fa186859e17ba6f DependenciesID=7dbcebd41fd8f0c95d56bdaae3e99ff2 StaticDependenciesID=0147bc6bfcbc2b0700f31c8ad195a2e2 
+HEAD:References/Review/inbox/latest-quest-town-level/previous-runs/quest-town-level-20261107-131556-0df6b34b/unity.log:1678:[           0s] Csc Library/Bee/artifacts/1300b0aE.dag/Unity.Collections.Tests.CoreCLR.InternalJobNestedPrivate.dll (+2 others) [CacheMiss 4b71c099821d2a9e643809ec89c340b000000000000000000000000000000006]
+HEAD:References/Review/inbox/latest-quest-town-level/previous-runs/quest-town-level-20261107-131556-0df6b34b/unity.log:1684:[           0s] Csc Library/Bee/artifacts/1300b0aE.dag/Unity.Collections.Tests.CoreCLR.InternalJobNestedPrivate.dll (+2 others) [CacheWrite 4b71c099821d2a9e643809ec89c340b000000000000000000000000000000006]
+HEAD:References/Review/inbox/latest-quest-town-level/previous-runs/quest-town-level-20261107-131556-0df6b34b/unity.log:3322:Importing 'GUID: 0000000000000000b000000000000000 - Path: ProjectSettings/EditorBuildSettings.asset' with importer (LibraryAssetImporter)
+HEAD:References/Review/inbox/latest-quest-town-level/previous-runs/quest-town-level-20261107-131556-0df6b34b/unity.log:3323:Imported 'GUID: 0000000000000000b000000000000000' -> (Import Result ID: '38475557c9925373a19430bd386a8fef') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=0a89a5c5f492143e0fa186859e17ba6f DependenciesID=f128bcdd84ee33ed332a11ec4db023d5 StaticDependenciesID=32576171b85e62200c36385b142eca8f 
+HEAD:References/Review/inbox/latest-quest-town-level/unity.log:1423:[           0s] Csc Library/Bee/artifacts/1300b0aE.dag/Unity.Collections.CodeGen.dll (+2 others) [CacheMiss b087c58caa3473db8fc44d14b281170b00000000000000000000000000000006]
+HEAD:References/Review/inbox/latest-quest-town-level/unity.log:1436:[           0s] Csc Library/Bee/artifacts/1300b0aE.dag/Unity.Collections.CodeGen.dll (+2 others) [CacheWrite b087c58caa3473db8fc44d14b281170b00000000000000000000000000000006]
+HEAD:References/Review/inbox/latest-quest-town-level/unity.log:3322:Importing 'GUID: 0000000000000000b000000000000000 - Path: ProjectSettings/EditorBuildSettings.asset' with importer (LibraryAssetImporter)
+HEAD:References/Review/inbox/latest-quest-town-level/unity.log:3323:Imported 'GUID: 0000000000000000b000000000000000' -> (Import Result ID: '38475557c9925373a19430bd386a8fef') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=0a89a5c5f492143e0fa186859e17ba6f DependenciesID=f128bcdd84ee33ed332a11ec4db023d5 StaticDependenciesID=32576171b85e62200c36385b142eca8f 
+HEAD:References/Review/inbox/latest-quest-town-level/unity.log:15614:Importing 'GUID: 0000000000000000b000000000000000 - Path: ProjectSettings/EditorBuildSettings.asset' with importer (LibraryAssetImporter)
+HEAD:References/Review/inbox/latest-quest-town-level/unity.log:15615:Imported 'GUID: 0000000000000000b000000000000000' -> (Import Result ID: '5493c42dac73e06ee1e427f128901b0e') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=0a89a5c5f492143e0fa186859e17ba6f DependenciesID=7dbcebd41fd8f0c95d56bdaae3e99ff2 StaticDependenciesID=0147bc6bfcbc2b0700f31c8ad195a2e2 
+HEAD:References/Review/inbox/latest-recovery-extra-help/unity.log:1752:[           0s] Csc Library/Bee/artifacts/1300b0aE.dag/Unity.RenderPipelines.Core.Editor.Shared.dll (+2 others) [CacheMiss 2f6be77f5c4758b425a6790657dbd30b00000000000000000000000000000006]
+HEAD:References/Review/inbox/latest-recovery-extra-help/unity.log:1780:[           0s] Csc Library/Bee/artifacts/1300b0aE.dag/Unity.RenderPipelines.Core.Editor.Shared.dll (+2 others) [CacheWrite 2f6be77f5c4758b425a6790657dbd30b00000000000000000000000000000006]
+HEAD:References/Review/inbox/latest-recovery-extra-help/unity.log:3321:Importing 'GUID: 0000000000000000b000000000000000 - Path: ProjectSettings/EditorBuildSettings.asset' with importer (LibraryAssetImporter)
+HEAD:References/Review/inbox/latest-recovery-extra-help/unity.log:3322:Imported 'GUID: 0000000000000000b000000000000000' -> (Import Result ID: '38475557c9925373a19430bd386a8fef') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=0a89a5c5f492143e0fa186859e17ba6f DependenciesID=f128bcdd84ee33ed332a11ec4db023d5 StaticDependenciesID=32576171b85e62200c36385b142eca8f 
+HEAD:References/Review/inbox/latest-recovery-extra-help/unity.log:15285:Importing 'GUID: 0000000000000000b000000000000000 - Path: ProjectSettings/EditorBuildSettings.asset' with importer (LibraryAssetImporter)
+HEAD:References/Review/inbox/latest-recovery-extra-help/unity.log:15286:Imported 'GUID: 0000000000000000b000000000000000' -> (Import Result ID: '5493c42dac73e06ee1e427f128901b0e') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=0a89a5c5f492143e0fa186859e17ba6f DependenciesID=7dbcebd41fd8f0c95d56bdaae3e99ff2 StaticDependenciesID=0147bc6bfcbc2b0700f31c8ad195a2e2 
+HEAD:References/Review/inbox/latest-release-candidate/evidence-review.json:105:    "before": "0b000000",
+HEAD:References/Review/inbox/latest-release-candidate/evidence-review.json:106:    "after": "0b000000i",
+HEAD:References/Review/inbox/latest-release-candidate/failure.log:12:-    m_APIs: 0b000000
+HEAD:References/Review/inbox/latest-release-candidate/failure.log:13:+    m_APIs: 0b000000i
+HEAD:References/Review/inbox/latest-release-candidate/source-guard-backup-fix/positive-case/pre-restore.diff:45:-    m_APIs: 0b000000
+HEAD:References/Review/inbox/latest-release-candidate/source-guard-fix/failing-case/pre-restore.diff:45:-    m_APIs: 0b000000
+HEAD:References/Review/inbox/latest-release-candidate/source-guard-result.json:29:  "before": "0b000000",
+HEAD:References/Review/inbox/latest-release-candidate/source-guard-result.json:30:  "after": "0b000000i",
+HEAD:References/Review/inbox/latest-release-candidate/status.json:568:    "before": "0b000000",
+HEAD:References/Review/inbox/latest-release-candidate/status.json:569:    "after": "0b000000i",
+HEAD:References/Review/inbox/latest-release-candidate/summary.md:14:-    m_APIs: 0b000000
+HEAD:References/Review/inbox/latest-release-candidate/summary.md:15:+    m_APIs: 0b000000i
+HEAD:References/Review/inbox/latest-release-candidate/validation/history-41529cf/latest-summary.md:91:共有されたAndroid graphics値`0b000000i`の末尾iは、ユーザーも原本にあるか不明と回答した。**非16進数値をknown mutationとして許可しない**。同じOpenGLES3値の表記差だけに限定し、non-hex／別API／非空keystore bindingは拒否するcaseを作成したが、そのcase自体は今回未実行。実keystore path/passwordを要求・保存していない。
+HEAD:References/Review/inbox/latest-release-candidate/validation/history-41529cf/summary.md:91:共有されたAndroid graphics値`0b000000i`の末尾iは、ユーザーも原本にあるか不明と回答した。**非16進数値をknown mutationとして許可しない**。同じOpenGLES3値の表記差だけに限定し、non-hex／別API／非空keystore bindingは拒否するcaseを作成したが、そのcase自体は今回未実行。実keystore path/passwordを要求・保存していない。
+HEAD:References/Review/inbox/latest-release-candidate/validation/history-75b05a1/source-guard-fix-validation.json:23:    "user_reported_line": "m_APIs: 0b000000i",
+HEAD:References/Review/inbox/latest-release-candidate/validation/history-75b05a1/summary.md:44:共有されたAndroid graphics値`0b000000i`の末尾iは、ユーザーも原本にあるか不明と回答した。**非16進数値をknown mutationとして許可しない**。同じOpenGLES3値の表記差だけに限定し、non-hex／別API／非空keystore bindingは拒否するcaseを作成したが、そのcase自体は今回未実行。実keystore path/passwordを要求・保存していない。
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/aab/source-recovery/pre-restore.diff:132:-    m_APIs: 0b000000
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/aab/source-recovery/pre-restore.diff:133:+    m_APIs: 0b000000i
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/evidence-review.json:105:    "before": "0b000000",
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/evidence-review.json:106:    "after": "0b000000i",
+HEAD:References/Review/inbox/latest-savedata/unity.log:1732:[           0s] Csc Library/Bee/artifacts/1300b0aE.dag/Unity.RenderPipelines.Universal.Shaders.dll (+2 others) [CacheMiss a607801cab2d0a43f178175deb4ed0b000000000000000000000000000000006]
+HEAD:References/Review/inbox/latest-savedata/unity.log:1750:[           0s] Csc Library/Bee/artifacts/1300b0aE.dag/Unity.RenderPipelines.Universal.Shaders.dll (+2 others) [CacheWrite a607801cab2d0a43f178175deb4ed0b000000000000000000000000000000006]
+HEAD:References/Review/inbox/latest-savedata/unity.log:1797:[           0s] Csc Library/Bee/artifacts/1300b0aE.dag/Unity.Microsoft.GDK.Editor.dll (+2 others) [CacheMiss ab005bd97432733291632e6476acae0b00000000000000000000000000000006]
+HEAD:References/Review/inbox/latest-savedata/unity.log:1815:[           0s] Csc Library/Bee/artifacts/1300b0aE.dag/Unity.Microsoft.GDK.Editor.dll (+2 others) [CacheWrite ab005bd97432733291632e6476acae0b00000000000000000000000000000006]
+HEAD:References/Review/inbox/latest-savedata/unity.log:3359:Importing 'GUID: 0000000000000000b000000000000000 - Path: ProjectSettings/EditorBuildSettings.asset' with importer (LibraryAssetImporter)
+HEAD:References/Review/inbox/latest-savedata/unity.log:3360:Imported 'GUID: 0000000000000000b000000000000000' -> (Import Result ID: '38475557c9925373a19430bd386a8fef') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=0a89a5c5f492143e0fa186859e17ba6f DependenciesID=f128bcdd84ee33ed332a11ec4db023d5 StaticDependenciesID=32576171b85e62200c36385b142eca8f 
+HEAD:References/Review/inbox/latest-savedata/unity.log:15237:Importing 'GUID: 0000000000000000b000000000000000 - Path: ProjectSettings/EditorBuildSettings.asset' with importer (LibraryAssetImporter)
+HEAD:References/Review/inbox/latest-savedata/unity.log:15238:Imported 'GUID: 0000000000000000b000000000000000' -> (Import Result ID: '5493c42dac73e06ee1e427f128901b0e') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=0a89a5c5f492143e0fa186859e17ba6f DependenciesID=7dbcebd41fd8f0c95d56bdaae3e99ff2 StaticDependenciesID=0147bc6bfcbc2b0700f31c8ad195a2e2 
+HEAD:References/Review/inbox/latest-town-point-rewards/unity.log:1566:[           0s] Csc Library/Bee/artifacts/1300b0aE.dag/Unity.2D.Tilemap.Extras.dll (+2 others) [CacheMiss f8eebb40e61fe96ea5b72dc3b7e0510b00000000000000000000000000000006]
+HEAD:References/Review/inbox/latest-town-point-rewards/unity.log:1588:[           0s] Csc Library/Bee/artifacts/1300b0aE.dag/Unity.2D.Tilemap.Extras.dll (+2 others) [CacheWrite f8eebb40e61fe96ea5b72dc3b7e0510b00000000000000000000000000000006]
+HEAD:References/Review/inbox/latest-town-point-rewards/unity.log:3321:Importing 'GUID: 0000000000000000b000000000000000 - Path: ProjectSettings/EditorBuildSettings.asset' with importer (LibraryAssetImporter)
+HEAD:References/Review/inbox/latest-town-point-rewards/unity.log:3322:Imported 'GUID: 0000000000000000b000000000000000' -> (Import Result ID: '38475557c9925373a19430bd386a8fef') in 0.002 seconds [static dependencies only]. Details - ImportResultOutputID=0a89a5c5f492143e0fa186859e17ba6f DependenciesID=f128bcdd84ee33ed332a11ec4db023d5 StaticDependenciesID=32576171b85e62200c36385b142eca8f 
+HEAD:References/Review/inbox/latest-town-point-rewards/unity.log:15261:Importing 'GUID: 0000000000000000b000000000000000 - Path: ProjectSettings/EditorBuildSettings.asset' with importer (LibraryAssetImporter)
+HEAD:References/Review/inbox/latest-town-point-rewards/unity.log:15262:Imported 'GUID: 0000000000000000b000000000000000' -> (Import Result ID: '5493c42dac73e06ee1e427f128901b0e') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=0a89a5c5f492143e0fa186859e17ba6f DependenciesID=7dbcebd41fd8f0c95d56bdaae3e99ff2 StaticDependenciesID=0147bc6bfcbc2b0700f31c8ad195a2e2 
+HEAD:References/Review/latest/error.log:12:-    m_APIs: 0b000000
+HEAD:References/Review/latest/error.log:13:+    m_APIs: 0b000000i
+HEAD:References/Review/latest/status.json:568:    "before": "0b000000",
+HEAD:References/Review/latest/status.json:569:    "after": "0b000000i",
+HEAD:References/Review/latest/summary.md:14:-    m_APIs: 0b000000
+HEAD:References/Review/latest/summary.md:15:+    m_APIs: 0b000000i
+HEAD:scripts/build-android-release.ps1:223:        if ($Graphics.Count -ne 1 -or $Graphics[0].Groups[1].Value.ToLowerInvariant() -cne '0b000000') { throw 'Android graphics value is not the known OpenGLES3 representation.' }
+HEAD:scripts/build-android-release.ps1:224:        $Text=$Text.Replace($Graphics[0].Value,$Graphics[0].Value.Replace($Graphics[0].Groups[1].Value,'0b000000'))
+HEAD:scripts/tests/android-release.tests.ps1:55:        Change $Fixture $Paths[2] '    m_APIs: 0b000000' '    m_APIs: 0B000000'
+HEAD:scripts/tests/android-release.tests.ps1:238:            $F=Fixture;Known $F;Change $F $Paths[2] '    m_APIs: 0B000000' '    m_APIs: 0b000000i'
+HEAD:scripts/tests/android-release.tests.ps1:242:            $F=Fixture;Change $F $Paths[2] '    m_APIs: 0b000000' '    m_APIs: 15000000'
+
+PATTERN: m_APIs:
+occurrences=23; matching_lines=20; matching_files=11
+HEAD:ProjectSettings/ProjectSettings.asset:439:    m_APIs: 0b000000
+HEAD:References/Review/inbox/latest-release-candidate/failure.log:12:-    m_APIs: 0b000000
+HEAD:References/Review/inbox/latest-release-candidate/failure.log:13:+    m_APIs: 0b000000i
+HEAD:References/Review/inbox/latest-release-candidate/source-guard-backup-fix/positive-case/pre-restore.diff:45:-    m_APIs: 0b000000
+HEAD:References/Review/inbox/latest-release-candidate/source-guard-backup-fix/positive-case/pre-restore.diff:46:+    m_APIs: 0B000000
+HEAD:References/Review/inbox/latest-release-candidate/source-guard-fix/failing-case/pre-restore.diff:45:-    m_APIs: 0b000000
+HEAD:References/Review/inbox/latest-release-candidate/source-guard-fix/failing-case/pre-restore.diff:46:+    m_APIs: 0B000000
+HEAD:References/Review/inbox/latest-release-candidate/summary.md:14:-    m_APIs: 0b000000
+HEAD:References/Review/inbox/latest-release-candidate/summary.md:15:+    m_APIs: 0b000000i
+HEAD:References/Review/inbox/latest-release-candidate/validation/history-75b05a1/source-guard-fix-validation.json:23:    "user_reported_line": "m_APIs: 0b000000i",
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/aab/source-recovery/pre-restore.diff:132:-    m_APIs: 0b000000
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/aab/source-recovery/pre-restore.diff:133:+    m_APIs: 0b000000i
+HEAD:References/Review/latest/error.log:12:-    m_APIs: 0b000000
+HEAD:References/Review/latest/error.log:13:+    m_APIs: 0b000000i
+HEAD:References/Review/latest/summary.md:14:-    m_APIs: 0b000000
+HEAD:References/Review/latest/summary.md:15:+    m_APIs: 0b000000i
+HEAD:scripts/build-android-release.ps1:222:        $Graphics=[regex]::Matches($Text,'(?m)^  - m_BuildTarget: Android\n    m_APIs: ([0-9a-fA-F]{8})\n    m_Automatic: ([01])\n')
+HEAD:scripts/tests/android-release.tests.ps1:55:        Change $Fixture $Paths[2] '    m_APIs: 0b000000' '    m_APIs: 0B000000'
+HEAD:scripts/tests/android-release.tests.ps1:238:            $F=Fixture;Known $F;Change $F $Paths[2] '    m_APIs: 0B000000' '    m_APIs: 0b000000i'
+HEAD:scripts/tests/android-release.tests.ps1:242:            $F=Fixture;Change $F $Paths[2] '    m_APIs: 0b000000' '    m_APIs: 15000000'
+
+PATTERN: SetGraphicsAPIs
+occurrences=3; matching_lines=3; matching_files=2
+HEAD:Assets/Mofumachi/Editor/AndroidBuild.cs:47:            PlayerSettings.SetGraphicsAPIs(BuildTarget.Android, new[] { GraphicsDeviceType.OpenGLES3 });
+HEAD:Assets/Mofumachi/Editor/AndroidReleaseBuild.cs:129:                PlayerSettings.SetGraphicsAPIs(BuildTarget.Android, new[] { GraphicsDeviceType.OpenGLES3 });
+HEAD:Assets/Mofumachi/Editor/AndroidReleaseBuild.cs:164:                PlayerSettings.SetGraphicsAPIs(BuildTarget.Android, graphics);
+
+PATTERN: OpenGLES3
+occurrences=61; matching_lines=61; matching_files=34
+HEAD:Assets/Mofumachi/Editor/AndroidBuild.cs:47:            PlayerSettings.SetGraphicsAPIs(BuildTarget.Android, new[] { GraphicsDeviceType.OpenGLES3 });
+HEAD:Assets/Mofumachi/Editor/AndroidReleaseBuild.cs:55:            public string backend = "IL2CPP", architecture = "ARM64", orientation = "Portrait", graphics_api = "OpenGLES3";
+HEAD:Assets/Mofumachi/Editor/AndroidReleaseBuild.cs:129:                PlayerSettings.SetGraphicsAPIs(BuildTarget.Android, new[] { GraphicsDeviceType.OpenGLES3 });
+HEAD:Assets/Mofumachi/Tests/BuildTime/AndroidBuildTests.cs:30:            Assert.That(PlayerSettings.GetGraphicsAPIs(BuildTarget.Android), Is.EqualTo(new[] { GraphicsDeviceType.OpenGLES3 }));
+HEAD:References/Review/inbox/latest-release-candidate/aab-review.json:47:    "runner_error":  "Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/aab-review.json:49:    "blocking_issue":  "Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/build-info.json:9:    "runner_error":  "Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/evidence-review.json:63:    "graphics_api": "OpenGLES3",
+HEAD:References/Review/inbox/latest-release-candidate/evidence-review.json:110:    "first_error": "Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/evidence-review.json:161:    "first_problem": "Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/evidence-review.json:197:  "first_guard_error": "Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/evidence-review.json:198:  "runner_error": "Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/failure.log:7:Android graphics value is not the known OpenGLES3 representation.
+HEAD:References/Review/inbox/latest-release-candidate/failure.log:22:Runner: Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.
+HEAD:References/Review/inbox/latest-release-candidate/first-error.log:1:No native Unity/build error available. Stop reason: Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.
+HEAD:References/Review/inbox/latest-release-candidate/previous-preflight-c988164/build-settings.json:18:  "android_graphics_api": "OpenGLES3",
+HEAD:References/Review/inbox/latest-release-candidate/previous-preflight-c988164/summary.md:34:| Graphics API | OpenGLES3（自動選択OFF） |
+HEAD:References/Review/inbox/latest-release-candidate/restore-backup-result.json:3:  "first_problem": "Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/source-guard-fix/implementation-plan.md:8:2. Add capture/recovery helpers inside build-android-release.ps1. Match exactly three known YAML files, validate contents before any write, restrict known graphics representation to semantically identical OpenGLES3. Unconfirmed non-hex trailing i must fail closed. Do not accept a real keystore path change as an empty-value serialization change.
+HEAD:References/Review/inbox/latest-release-candidate/source-guard-result.json:34:  "first_error": "Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/status.json:573:    "first_error": "Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/status.json:624:    "first_problem": "Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/status.json:665:  "first_guard_error": "Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/status.json:666:  "runner_error": "Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/status.json:669:  "blocking_issue": "Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/status.json:678:    "graphics_api": "OpenGLES3",
+HEAD:References/Review/inbox/latest-release-candidate/summary.md:11:最初の具体的停止理由は`Android graphics value is not the known OpenGLES3 representation.`。保存済みの`aab/source-recovery/pre-restore.diff`に次の実差分が含まれる。
+HEAD:References/Review/inbox/latest-release-candidate/summary.md:36:| backend／architecture／orientation／graphics | **IL2CPP／ARM64／Portrait／OpenGLES3**（native snapshot） |
+HEAD:References/Review/inbox/latest-release-candidate/summary.md:40:| first_error／runner_error | **null／Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.** |
+HEAD:References/Review/inbox/latest-release-candidate/validation/history-26d2f15/build-settings.json:18:  "android_graphics_api": "OpenGLES3",
+HEAD:References/Review/inbox/latest-release-candidate/validation/history-41529cf/latest-summary.md:91:共有されたAndroid graphics値`0b000000i`の末尾iは、ユーザーも原本にあるか不明と回答した。**非16進数値をknown mutationとして許可しない**。同じOpenGLES3値の表記差だけに限定し、non-hex／別API／非空keystore bindingは拒否するcaseを作成したが、そのcase自体は今回未実行。実keystore path/passwordを要求・保存していない。
+HEAD:References/Review/inbox/latest-release-candidate/validation/history-41529cf/summary.md:91:共有されたAndroid graphics値`0b000000i`の末尾iは、ユーザーも原本にあるか不明と回答した。**非16進数値をknown mutationとして許可しない**。同じOpenGLES3値の表記差だけに限定し、non-hex／別API／非空keystore bindingは拒否するcaseを作成したが、そのcase自体は今回未実行。実keystore path/passwordを要求・保存していない。
+HEAD:References/Review/inbox/latest-release-candidate/validation/history-75b05a1/source-guard-fix-validation.json:26:    "policy": "Reject non-hex or meaning-changing graphics values; same OpenGLES3 representation only",
+HEAD:References/Review/inbox/latest-release-candidate/validation/history-75b05a1/summary.md:44:共有されたAndroid graphics値`0b000000i`の末尾iは、ユーザーも原本にあるか不明と回答した。**非16進数値をknown mutationとして許可しない**。同じOpenGLES3値の表記差だけに限定し、non-hex／別API／非空keystore bindingは拒否するcaseを作成したが、そのcase自体は今回未実行。実keystore path/passwordを要求・保存していない。
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261109-123540-725e4e31/aab/unity-build-info.json:13:    "graphics_api": "OpenGLES3",
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/aab-review.json:47:    "runner_error":  "Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/aab-review.json:49:    "blocking_issue":  "Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/aab/source-recovery/recovery-result.json:3:    "problem":  "Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/aab/unity-build-info.json:13:    "graphics_api": "OpenGLES3",
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/build-info.json:9:    "runner_error":  "Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/evidence-review.json:63:    "graphics_api": "OpenGLES3",
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/evidence-review.json:110:    "first_error": "Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/evidence-review.json:161:    "first_problem": "Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/evidence-review.json:197:  "first_guard_error": "Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/evidence-review.json:198:  "runner_error": "Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/first-error.log:1:No native Unity/build error available. Stop reason: Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.
+HEAD:References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/status.json:9:    "runner_error":  "Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/latest/error.log:7:Android graphics value is not the known OpenGLES3 representation.
+HEAD:References/Review/latest/error.log:22:Runner: Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.
+HEAD:References/Review/latest/status.json:573:    "first_error": "Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/latest/status.json:624:    "first_problem": "Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/latest/status.json:665:  "first_guard_error": "Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/latest/status.json:666:  "runner_error": "Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/latest/status.json:669:  "blocking_issue": "Android graphics value is not the known OpenGLES3 representation.",
+HEAD:References/Review/latest/status.json:678:    "graphics_api": "OpenGLES3",
+HEAD:References/Review/latest/summary.md:11:最初の具体的停止理由は`Android graphics value is not the known OpenGLES3 representation.`。保存済みの`aab/source-recovery/pre-restore.diff`に次の実差分が含まれる。
+HEAD:References/Review/latest/summary.md:36:| backend／architecture／orientation／graphics | **IL2CPP／ARM64／Portrait／OpenGLES3**（native snapshot） |
+HEAD:References/Review/latest/summary.md:40:| first_error／runner_error | **null／Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.** |
+HEAD:docs/android-preparation-status.md:17:- API 26以上、Target API 36、ARM64、IL2CPP、OpenGLES3、Minimal stripping、debug署名の開発用APK設定を用意。
+HEAD:docs/superpowers/plans/2026-10-09-pixel3a-quality.md:23:- Windowsの正しいプロジェクトは`C:\Users\User\Desktop\Mofumachi\mofumachi-merge`。API36／最低API26／ARM64／IL2CPP／OpenGLES3を継続する。
+HEAD:scripts/build-android-release.ps1:223:        if ($Graphics.Count -ne 1 -or $Graphics[0].Groups[1].Value.ToLowerInvariant() -cne '0b000000') { throw 'Android graphics value is not the known OpenGLES3 representation.' }

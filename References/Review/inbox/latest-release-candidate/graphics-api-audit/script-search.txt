@@ -1,0 +1,48 @@
+Reviewed source: 41529cfaea57ab564da46b3a45c41ede0aa5088b; release PowerShell unchanged. Read only.
+scripts/build-android-release.ps1:26:         $Text = $Text.Replace([string]$Value, '[REDACTED]')
+scripts/build-android-release.ps1:28:         if ($Escaped) { $Text = $Text.Replace($Escaped, '[REDACTED]') }
+scripts/build-android-release.ps1:90:         [IO.File]::WriteAllText((Join-Path $Directory ($Row[0]+'.stderr.log')), $Row[1].stderr)
+scripts/build-android-release.ps1:100:     try { return ([BitConverter]::ToString($Hash.ComputeHash($Bytes))).Replace('-','').ToLowerInvariant() }
+scripts/build-android-release.ps1:129:         $Line.Success -and $Line.Groups[1].Value.Trim().Replace('\','/') -ieq [IO.Path]::GetFullPath($Project).Replace('\','/')
+scripts/build-android-release.ps1:144: function Write-AndroidReleaseNewBytes([string]$Path,[byte[]]$Bytes) {
+scripts/build-android-release.ps1:163:         Write-AndroidReleaseNewBytes $Snapshot $Bytes
+scripts/build-android-release.ps1:173: function Get-AndroidReleaseComparable([string]$Relative,[byte[]]$Bytes,[string]$Reference) {
+scripts/build-android-release.ps1:175:     $Text=$Utf8.GetString($Bytes).Replace("`r`n","`n")
+scripts/build-android-release.ps1:224:         $Text=$Text.Replace($Graphics[0].Value,$Graphics[0].Value.Replace($Graphics[0].Groups[1].Value,'0b000000'))
+scripts/build-android-release.ps1:264:     $Run=[IO.Path]::GetFullPath($Payload).Substring($Diagnostics.Length+1).Replace('\','/').Split('/')[0]
+scripts/build-android-release.ps1:281:     Write-AndroidReleaseNewBytes $Record ([Text.Encoding]::UTF8.GetBytes(($Proof|ConvertTo-Json -Depth 6)))
+scripts/build-android-release.ps1:285:         [IO.File]::Replace($Payload,$Target,$Backup)
+scripts/build-android-release.ps1:323:         $BytesBefore=@{};$BytesAfter=@{};$AfterHashes=@{}
+scripts/build-android-release.ps1:334:         $Diff=Invoke-AndroidReleaseGit $Git $Plan.project @('diff','--no-ext-diff','--no-textconv','--no-color',$Plan.baseline,'--')
+scripts/build-android-release.ps1:336:         [IO.File]::WriteAllText((Join-Path $Plan.directory 'pre-restore.diff'),(Protect-AndroidReleaseText $Diff.stdout $Secrets))
+scripts/build-android-release.ps1:350:             $BytesAfter[$Name]=Read-AndroidReleaseRegularBytes (Join-Path $Plan.project $Name)
+scripts/build-android-release.ps1:351:             $AfterHashes[$Name]=Get-AndroidReleaseBytesHash $BytesAfter[$Name]
+scripts/build-android-release.ps1:352:             $Reference=$Utf8.GetString($BytesBefore[$Name]).Replace("`r`n","`n")
+scripts/build-android-release.ps1:353:             $Left=Get-AndroidReleaseComparable $Name $BytesBefore[$Name] $Reference
+scripts/build-android-release.ps1:354:             $Right=Get-AndroidReleaseComparable $Name $BytesAfter[$Name] $Reference
+scripts/build-android-release.ps1:373:                     else { $Items+=@{path=$Child.FullName;relative=$Child.FullName.Substring($Plan.project.Length+1).Replace('\','/')} }
+scripts/build-android-release.ps1:394:                 Write-AndroidReleaseNewBytes $Payload $BytesBefore[$Row.relative]
+scripts/build-android-release.ps1:429:     [IO.File]::WriteAllText($Path,($Value|ConvertTo-Json -Depth 12),(New-Object Text.UTF8Encoding($false)))
+scripts/build-android-release.ps1:455:         [IO.File]::WriteAllText((Join-Path $Directory 'signature-verification.log'),$Verify.stdout+"`n"+$Verify.stderr)
+scripts/build-android-release.ps1:459:         [IO.File]::WriteAllText((Join-Path $Directory 'artifact-certificate.log'),$Text)
+scripts/build-android-release.ps1:462:         return $Matches[0].Groups[1].Value.Replace(':','').ToLowerInvariant()
+scripts/build-android-release.ps1:470:     [IO.File]::WriteAllText((Join-Path $Directory 'signature-verification.log'),$Text)
+scripts/build-android-release.ps1:512:     [IO.File]::WriteAllText((Join-Path $Run 'source-revision.txt'),$Revision+"`n")
+scripts/build-android-release.ps1:536:     try { $ToolIdentity=([BitConverter]::ToString($Hasher.ComputeHash([Text.Encoding]::ASCII.GetBytes(($ToolHashes -join ':'))))).Replace('-','').ToLowerInvariant() } finally { $Hasher.Dispose() }
+scripts/build-android-release.ps1:552:     [IO.File]::WriteAllText((Join-Path $Run 'signing-preflight.log'),$KeyText)
+scripts/build-android-release.ps1:555:     $Result.signing_certificate_sha256=$Match.Groups[1].Value.Replace(':','').ToLowerInvariant()
+scripts/build-android-release.ps1:557:     [IO.File]::WriteAllText((Join-Path $Run 'source-revision.txt'),$Revision+"`n")
+scripts/build-android-release.ps1:567:         [IO.File]::WriteAllText((Join-Path $Run 'worktree-add.stdout.log'),$Add.stdout)
+scripts/build-android-release.ps1:568:         [IO.File]::WriteAllText((Join-Path $Run 'worktree-add.stderr.log'),$Add.stderr)
+scripts/build-android-release.ps1:575:         if ($Registration.exit_code -ne 0 -or -not $Registration.stdout.Replace('\','/').Contains('worktree '+$Project.Replace('\','/'))) { throw 'Release worktree registration is not normal.' }
+scripts/build-android-release.ps1:604:             [IO.File]::WriteAllText((Join-Path $Directory 'build.log'),$Log)
+scripts/build-android-release.ps1:634:     [IO.File]::WriteAllText((Join-Path $Run 'first-error.log'),$Text)
+scripts/build-android-release.ps1:646:         if ($File.Name -ne 'checksums.sha256') { (Get-FileHash -LiteralPath $File.FullName -Algorithm SHA256).Hash.ToLowerInvariant()+'  '+$File.FullName.Substring($Run.Length+1).Replace('\','/') }
+
+Findings:
+No direct ProjectSettings text write or suffix-i append on the pre-rejection production path.
+CRLF-to-LF and API-case changes inside Get-AndroidReleaseComparable are on local strings only; no changed text is written back.
+Snapshot/payload writes go into Diagnostics; actual target replacement285 is called after all validation and was not reached (restored=[]).
+Set-Content/Out-File are absent from the production entry. Diagnostics WriteAllText does not edit the project.
+The one code literal0b000000i is in scripts/tests/android-release.tests.ps1:238, in a negative synthetic fixture.
+That test creates a unique release-source-guard-<guid>/validation tree with rc-20261110-000000-<counter> projects. The actual AAB command does not invoke the test script. This is not evidence that the fixture edited the real run.

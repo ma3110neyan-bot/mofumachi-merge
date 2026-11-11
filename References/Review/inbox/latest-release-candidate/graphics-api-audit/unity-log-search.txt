@@ -1,0 +1,45 @@
+Source: References/Review/inbox/latest-release-candidate/windows-aab/rc-20261110-132609-c6829dc7/aab/build-log-tail.log
+Scope: received final800 lines only; full4,149,997-byte log unavailable. Zero matches is not proof of absence from the full run.
+Path names in build inventories are not operation traces.
+
+PATTERN: graphics API; matches_in_tail=0; at_most40_shown
+
+PATTERN: OpenGLES3; matches_in_tail=0; at_most40_shown
+
+PATTERN: m_APIs; matches_in_tail=0; at_most40_shown
+
+PATTERN: PlayerSettings; matches_in_tail=0; at_most40_shown
+
+PATTERN: SetGraphicsAPIs; matches_in_tail=0; at_most40_shown
+
+PATTERN: Android; matches_in_tail=11; at_most40_shown
+225:  0.1 kb	 0.0% Packages/com.unity.purchasing/Runtime/Purchasing/Stores/Android/Interfaces/IUnityCallback.cs
+226:  0.1 kb	 0.0% Packages/com.unity.purchasing/Runtime/Purchasing/Stores/Android/GooglePlay/Interfaces/IGooglePlayStore.cs
+227:  0.1 kb	 0.0% Packages/com.unity.purchasing/Runtime/Purchasing/Stores/Android/AAR/UnityActivity.cs
+228:  0.1 kb	 0.0% Packages/com.unity.purchasing/Runtime/Purchasing/Stores/Android/AAR/ListExtension.cs
+454:  0.1 kb	 0.0% Packages/com.unity.purchasing/Runtime/Purchasing/Stores/Android/GooglePlay/GooglePlay.cs
+470:  0.1 kb	 0.0% Packages/com.unity.purchasing/Runtime/Purchasing/Core/Product/Android/JavaBridge.cs
+761: Mofumachi.Editor.AndroidReleaseBuild:Build (bool) (at Assets/Mofumachi/Editor/AndroidReleaseBuild.cs:172)
+762: Mofumachi.Editor.AndroidReleaseBuild:BuildReleaseAab () (at Assets/Mofumachi/Editor/AndroidReleaseBuild.cs:21)
+764: (Filename: Assets/Mofumachi/Editor/AndroidReleaseBuild.cs Line: 172)
+767: Starting: C:\Program Files\Unity\Hub\Editor\6000.6.4f1\Editor\Data\PlaybackEngines\AndroidPlayer\OpenJDK\bin\java.exe -classpath "C:\Program Files\Unity\Hub\Editor\6000.6.4f1\Editor\Data\PlaybackEngines\AndroidPlayer\Tools\gradle\lib\gradle-launcher-9.3.1.jar" org.gradle.launcher.GradleMain "-Dorg.gradle.jvmargs=-Xmx4096m" "--stop" 
+799: [W] FindFirstFile() failed: E:\Mofumachi-Validation\projects\rc-20261110-132609-c6829dc7\Library\Bee\artifacts\Android\il2cppOutput\cpp\Symbols
+
+PATTERN: ProjectSettings; matches_in_tail=1; at_most40_shown
+750: Importing 'GUID: 00000000000000004000000000000000 - Path: ProjectSettings/ProjectSettings.asset' with importer (LibraryAssetImporter)
+
+PATTERN: Serialization; matches_in_tail=1; at_most40_shown
+60:  0.1 kb	 0.0% Packages/com.unity.visualscripting/Runtime/VisualScripting.Core/Serialization/Converters/RayConverter.cs
+
+PATTERN: serialized; matches_in_tail=2; at_most40_shown
+627: Unloading 88 Unused Serialized files (Serialized files now loaded: 0)
+634: Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+
+PATTERN: Save; matches_in_tail=3; at_most40_shown
+579:  0.1 kb	 0.0% Assets/Mofumachi/Core/SaveService.cs
+700: ##utp:{"success":true,"type":"PlayerBuildInfo","version":2,"phase":"Immediate","time":1794372028151,"processId":1692,"steps":[{"description":"Call PrepareForBuild callbacks","duration":64},{"description":"Call internal build started callbacks","duration":1},{"description":"Preprocess Player","duration":1288},{"description":"Save scenes before build","duration":2},{"description":"Prepare For Build","duration":3362},{"description":"ProducePlayerScriptAssemblies","duration":77248},{"description":"Verify Build setup","duration":126},{"description":"Prepare assets for target platform","duration":8},{"description":"Prepare splash screen","duration":2814},{"description":"Build scripts DLLs","duration":1036},{"description":"Building scenes","duration":4711},{"description":"Build GlobalGameManagers file","duration":589},{"description":"Writing asset files","duration":80771},{"description":"Building Resources/unity_builtin_extra","duration":17915},{"description":"Write data build dirty tracking information","duration":177},{"description":"Postprocess built player","duration":1367343},{"description":"Call Post-Process callbacks","duration":4849}],"duration":1562304}
+769: Build log was saved at 'E:\Mofumachi-Validation\projects\rc-20261110-132609-c6829dc7\build\outputs\logs\unity---stop-build.log'
+
+PATTERN: Write; matches_in_tail=2; at_most40_shown
+291:  0.1 kb	 0.0% Packages/com.unity.collections/Unity.Collections/DataStreamWriter.cs
+700: ##utp:{"success":true,"type":"PlayerBuildInfo","version":2,"phase":"Immediate","time":1794372028151,"processId":1692,"steps":[{"description":"Call PrepareForBuild callbacks","duration":64},{"description":"Call internal build started callbacks","duration":1},{"description":"Preprocess Player","duration":1288},{"description":"Save scenes before build","duration":2},{"description":"Prepare For Build","duration":3362},{"description":"ProducePlayerScriptAssemblies","duration":77248},{"description":"Verify Build setup","duration":126},{"description":"Prepare assets for target platform","duration":8},{"description":"Prepare splash screen","duration":2814},{"description":"Build scripts DLLs","duration":1036},{"description":"Building scenes","duration":4711},{"description":"Build GlobalGameManagers file","duration":589},{"description":"Writing asset files","duration":80771},{"description":"Building Resources/unity_builtin_extra","duration":17915},{"description":"Write data build dirty tracking information","duration":177},{"description":"Postprocess built player","duration":1367343},{"description":"Call Post-Process callbacks","duration":4849}],"duration":1562304}

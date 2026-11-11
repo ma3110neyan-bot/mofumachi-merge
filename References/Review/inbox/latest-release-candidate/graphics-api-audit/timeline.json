@@ -1,0 +1,32 @@
+{
+  "run_id": "rc-20261110-132609-c6829dc7",
+  "native_build_source": "41529cfaea57ab564da46b3a45c41ede0aa5088b",
+  "baseline_source_commit_date": "2026-11-10T05:43:44Z",
+  "entry_started_utc": "2026-11-10T13:26:09.0190670Z",
+  "entry_finished_utc": "2026-11-11T04:40:56.4274276Z",
+  "snapshot_time_utc": null,
+  "snapshot_physical_file_timestamps_received": false,
+  "post_file_timestamps_received": false,
+  "known_order": [
+    "git worktree checkout/before-source-check",
+    "prebuild snapshot and SHA validation",
+    "Unity invocation",
+    "C# GetGraphicsAPIs capture108",
+    "C# SetGraphicsAPIs(OpenGLES3)129",
+    "BuildPipeline.BuildPlayer145",
+    "C# restore captured graphics164 and automatic flag165",
+    "AssetDatabase.SaveAssets167",
+    "native success marker and normal exit0",
+    "PowerShell pre-restore.diff capture334-336",
+    "raw per-file comparison350-355; graphics guard rejection223; restore/cleanup not reached"
+  ],
+  "saved_tail_observations": {
+    "build_success_line": 632,
+    "projectsettings_import_line": 750,
+    "release_success_line": 754,
+    "normal_exit_line": 796
+  },
+  "inferred_logical_change_window": "Recorded prebuild snapshot SHA equals the original CRLF baseline; saved post-exit diff contains suffix i. Introduction is bounded between those observations, but the physical C bytes and exact operation are unobserved.",
+  "writer_attribution": null,
+  "external_edit_or_serialization_error_proven": false
+}

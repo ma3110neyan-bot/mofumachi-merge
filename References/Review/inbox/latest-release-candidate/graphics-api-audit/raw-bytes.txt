@@ -1,0 +1,26 @@
+Scope: direct raw bytes of A and D only. B is a hash-consistent reconstruction; C was not read.
+A Git baseline SHA256: 4043fb3267581fb2660bf61b6ad8da480b4f2d718bf5909b8891058f2a1bc862
+A bytes: 23497; BOM: none; LF: 846; CRLF: 0
+A m_APIs: 0b000000
+A value hex (8 bytes): 30 62 30 30 30 30 30 30
+A last byte: 0x30; code point: U+0030
+A 32-byte context at 11788: 20 6d 5f 41 50 49 73 3a 20 30 62 30 30 30 30 30 30 0a 20 20 20 20 6d 5f 41 75 74 6f 6d 61 74 69
+
+B snapshot recorded SHA256: d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc
+B recorded bytes: 24343
+B physical file NOT RECEIVED. The CRLF baseline reconstruction matches this SHA/length exactly.
+B reconstruction m_APIs: 0b000000. This is not a new direct read of snapshot-2.bin.
+
+C current postbuild ProjectSettings.asset NOT RECEIVED; SHA/length/encoding/BOM/raw API bytes UNKNOWN.
+
+D saved diff SHA256: e30c5865ddbe65a32cd3e764973a3bde9903bf63f886e0cdff96fe2155a46f4c
+D bytes: 4959; BOM: none; LF: 136; CRLF: 0
+D added-line m_APIs: 0b000000i
+D value hex (9 bytes): 30 62 30 30 30 30 30 30 69
+D last byte: 0x69; code point: U+0069
+D 32-byte context at 4853: 6d 5f 41 50 49 73 3a 20 30 62 30 30 30 30 30 30 69 0a 20 20 20 20 20 6d 5f 41 75 74 6f 6d 61 74
+
+The value is9 bytes, not10. Suffix is ASCII0x69 in D. No CR/LF/BOM byte can be substituted for this observed byte.
+This observation does not identify the writer, establish C's live bytes, or establish Unity YAML suffix semantics.
+ASCII-only data is UTF-8-compatible but does not uniquely identify the writer's encoding choice.
+No encoding conversion was performed on source files.

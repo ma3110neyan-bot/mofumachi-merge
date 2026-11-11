@@ -1,0 +1,137 @@
+[
+  {
+    "name": "set-graphics-api",
+    "requested_url": "https://docs.unity3d.com/6000.6/Documentation/ScriptReference/PlayerSettings.SetGraphicsAPIs.html",
+    "retrieved_at_utc": "2026-11-11T05:26:18.570520+00:00",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+    "name": "yaml-format",
+    "requested_url": "https://docs.unity3d.com/6000.6/Documentation/Manual/FormatDescription.html",
+    "retrieved_at_utc": "2026-11-11T05:26:18.571441+00:00",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+    "name": "unity-yaml",
+    "requested_url": "https://docs.unity3d.com/6000.6/Documentation/Manual/UnityYAML.html",
+    "retrieved_at_utc": "2026-11-11T05:26:18.572066+00:00",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+    "name": "serialization",
+    "requested_url": "https://docs.unity3d.com/6000.6/Documentation/Manual/script-serialization.html",
+    "retrieved_at_utc": "2026-11-11T05:26:18.572697+00:00",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+    "name": "player-settings-bindings",
+    "requested_url": "https://raw.githubusercontent.com/Unity-Technologies/UnityCsReference/master/Editor/Mono/PlayerSettings.bindings.cs",
+    "retrieved_at_utc": "2026-11-11T05:26:18.600061+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/Unity-Technologies/UnityCsReference/master/Editor/Mono/PlayerSettings.bindings.cs",
+    "bytes": 107225,
+    "sha256": "3467f4772a9e457ed45ad93ea16dfdf725dd5622590f925929fc5b341df005fe"
+  },
+  {
+    "name": "graphics-enums",
+    "requested_url": "https://raw.githubusercontent.com/Unity-Technologies/UnityCsReference/master/Runtime/Export/Graphics/GraphicsEnums.cs",
+    "retrieved_at_utc": "2026-11-11T05:26:18.602341+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/Unity-Technologies/UnityCsReference/master/Runtime/Export/Graphics/GraphicsEnums.cs",
+    "bytes": 71475,
+    "sha256": "b42c68b58f4f124edf0ef061978f0f59e05dbfdcfcbbb15f1a9eb0566c6e403e"
+  },
+  {
+    "name": "issues-exact",
+    "requested_url": "https://issuetracker.unity3d.com/?q=0b000000i",
+    "retrieved_at_utc": "2026-11-11T05:26:18.605537+00:00",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+    "name": "issues-field",
+    "requested_url": "https://issuetracker.unity3d.com/?q=m_APIs",
+    "retrieved_at_utc": "2026-11-11T05:26:18.608761+00:00",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+    "name": "forum-exact",
+    "requested_url": "https://discussions.unity.com/search.json?q=%220b000000i%22",
+    "retrieved_at_utc": "2026-11-11T05:26:18.616155+00:00",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+    "name": "reference-readme",
+    "requested_url": "https://raw.githubusercontent.com/Unity-Technologies/UnityCsReference/master/README.md",
+    "retrieved_at_utc": "2026-11-11T05:29:55.932063+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/Unity-Technologies/UnityCsReference/master/README.md",
+    "bytes": 1337,
+    "sha256": "81b85bccb48867f941e770e14cb89aad40a34fc71e1694fdcf2ac8818f0e1eaf"
+  },
+  {
+    "name": "reference-6000-6-branch",
+    "requested_url": "https://api.github.com/repos/Unity-Technologies/UnityCsReference/branches/6000.6",
+    "retrieved_at_utc": "2026-11-11T05:29:55.933422+00:00",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+    "name": "reference-master-branch",
+    "requested_url": "https://api.github.com/repos/Unity-Technologies/UnityCsReference/branches/master",
+    "retrieved_at_utc": "2026-11-11T05:29:55.935059+00:00",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+    "name": "6000.6.4f1-readme",
+    "requested_url": "https://raw.githubusercontent.com/Unity-Technologies/UnityCsReference/6000.6.4f1/README.md",
+    "retrieved_at_utc": "2026-11-11T05:30:47.595977+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/Unity-Technologies/UnityCsReference/6000.6.4f1/README.md",
+    "bytes": 1336,
+    "sha256": "39b165d83e52e6de7fe6f64b0bd1e7492b5f7c07bac21d919a74b214cf239f25"
+  },
+  {
+    "name": "6000.6.4f1-bindings",
+    "requested_url": "https://raw.githubusercontent.com/Unity-Technologies/UnityCsReference/6000.6.4f1/Editor/Mono/PlayerSettings.bindings.cs",
+    "retrieved_at_utc": "2026-11-11T05:30:47.597405+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/Unity-Technologies/UnityCsReference/6000.6.4f1/Editor/Mono/PlayerSettings.bindings.cs",
+    "bytes": 99734,
+    "sha256": "7f267ba333ec5c3b0f5dc19e14f9a885e069d89c1069ed0726a4b8b10a6815a0"
+  },
+  {
+    "name": "6000.6.4f1-enums",
+    "requested_url": "https://raw.githubusercontent.com/Unity-Technologies/UnityCsReference/6000.6.4f1/Runtime/Export/Graphics/GraphicsEnums.cs",
+    "retrieved_at_utc": "2026-11-11T05:30:47.597939+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/Unity-Technologies/UnityCsReference/6000.6.4f1/Runtime/Export/Graphics/GraphicsEnums.cs",
+    "bytes": 71053,
+    "sha256": "2d1b92724d1741071e2b37350fb9887adeb1c0a1ff0e9aa2bd513621a5cbf51e"
+  },
+  {
+    "name": "6000.6-readme",
+    "requested_url": "https://raw.githubusercontent.com/Unity-Technologies/UnityCsReference/6000.6/README.md",
+    "retrieved_at_utc": "2026-11-11T05:30:48.111499+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/Unity-Technologies/UnityCsReference/6000.6/README.md",
+    "bytes": 1336,
+    "sha256": "793dad4a28329819af42be9bec4f035ad7545da262e3116cc7f5ca5671c04225"
+  },
+  {
+    "name": "6000.6-bindings",
+    "requested_url": "https://raw.githubusercontent.com/Unity-Technologies/UnityCsReference/6000.6/Editor/Mono/PlayerSettings.bindings.cs",
+    "retrieved_at_utc": "2026-11-11T05:30:48.218218+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/Unity-Technologies/UnityCsReference/6000.6/Editor/Mono/PlayerSettings.bindings.cs",
+    "bytes": 99734,
+    "sha256": "7f267ba333ec5c3b0f5dc19e14f9a885e069d89c1069ed0726a4b8b10a6815a0"
+  },
+  {
+    "name": "6000.6-enums",
+    "requested_url": "https://raw.githubusercontent.com/Unity-Technologies/UnityCsReference/6000.6/Runtime/Export/Graphics/GraphicsEnums.cs",
+    "retrieved_at_utc": "2026-11-11T05:30:48.316869+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/Unity-Technologies/UnityCsReference/6000.6/Runtime/Export/Graphics/GraphicsEnums.cs",
+    "bytes": 71053,
+    "sha256": "2d1b92724d1741071e2b37350fb9887adeb1c0a1ff0e9aa2bd513621a5cbf51e"
+  }
+]

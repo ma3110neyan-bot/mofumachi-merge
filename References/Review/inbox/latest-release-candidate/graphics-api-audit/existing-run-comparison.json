@@ -1,0 +1,90 @@
+{
+  "existing_runs": [
+    {
+      "name": "Stage7-v5-direct",
+      "unity_version": "6000.6.4f1",
+      "kind": "Android-target EditMode validation, not an AAB BuildPlayer run",
+      "source": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
+      "tracked_working_diff_exit": 0,
+      "index_diff_exit": 0,
+      "logical_projectsettings_change": false,
+      "raw_postbuild_file_received": false,
+      "suffix_i_independent_raw_observation": false,
+      "evidence": "References/Review/inbox/latest-progress-ui-integration/direct/source-check.json"
+    },
+    {
+      "name": "Stage7-v5-integration",
+      "unity_version": "6000.6.4f1",
+      "kind": "Android-target EditMode validation, not an AAB BuildPlayer run",
+      "source": "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
+      "tracked_working_diff_exit": 0,
+      "index_diff_exit": 0,
+      "logical_projectsettings_change": false,
+      "raw_postbuild_file_received": false,
+      "suffix_i_independent_raw_observation": false,
+      "evidence": "References/Review/inbox/latest-progress-ui-integration/integration/source-check.json"
+    },
+    {
+      "name": "previous-AAB-rc-20261109-123540-725e4e31",
+      "unity_version": "6000.6.4f1",
+      "native_result": "Passed",
+      "source_guard": "Failed",
+      "raw_projectsettings_diff_received": false,
+      "suffix_i_reproduction_verified": false,
+      "limitation": "Historical user report mentions suffix, but old run raw diff/post file was not received; do not count as an independent byte reproduction"
+    },
+    {
+      "name": "current-AAB-rc-20261110-132609-c6829dc7",
+      "unity_version": "6000.6.4f1",
+      "native_result": "Passed",
+      "source_guard": "Failed",
+      "suffix_i_in_saved_diff": true,
+      "suffix_i_in_physical_post_file": null,
+      "independent_live_raw_reproduction_verified": false
+    }
+  ],
+  "independent_prior_native_suffix_i_reproduction_confirmed": false,
+  "synthetic_negative_tests_count_as_reproduction": false,
+  "vendor_templates": [
+    {
+      "archive": "com.unity.template.2d-cross-platform-2d-7.0.0.tgz",
+      "member": "package/ProjectData~/ProjectSettings/ProjectSettings.asset",
+      "bytes": 19827,
+      "apis": [],
+      "literal_i_present": false
+    },
+    {
+      "archive": "com.unity.template.2d-cross-platform-2d-7.0.0.tgz",
+      "member": "package/ProjectData~/Assets/Welcome/TutorialProjectSettings.asset",
+      "bytes": 1206,
+      "apis": [],
+      "literal_i_present": false
+    },
+    {
+      "archive": "com.unity.template.2d-cross-platform-2d-7.0.0.tgz",
+      "member": "package/ProjectData~/ProjectSettings/URPProjectSettings.asset",
+      "bytes": 461,
+      "apis": [],
+      "literal_i_present": false
+    },
+    {
+      "archive": "com.unity.template.urp-blank-17.2.1.tgz",
+      "member": "package/ProjectData~/ProjectSettings/ProjectSettings.asset",
+      "bytes": 25590,
+      "apis": [
+        "10000000",
+        "150000000b000000",
+        "0200000012000000"
+      ],
+      "literal_i_present": false
+    },
+    {
+      "archive": "com.unity.template.urp-blank-17.2.1.tgz",
+      "member": "package/ProjectData~/ProjectSettings/URPProjectSettings.asset",
+      "bytes": 411,
+      "apis": [],
+      "literal_i_present": false
+    }
+  ],
+  "vendor_template_scope": "Shipped archive examples are not native runs; template creation version not established. Their hex-only arrays do not prove suffix-i invalidity."
+}

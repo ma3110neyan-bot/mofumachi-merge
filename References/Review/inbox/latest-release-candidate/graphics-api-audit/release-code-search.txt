@@ -1,0 +1,19 @@
+Reviewed source: 41529cfaea57ab564da46b3a45c41ede0aa5088b; file unchanged at audit revision. Read only.
+Assets/Mofumachi/Editor/AndroidReleaseBuild.cs:55:             public string backend = "IL2CPP", architecture = "ARM64", orientation = "Portrait", graphics_api = "OpenGLES3";
+Assets/Mofumachi/Editor/AndroidReleaseBuild.cs:59:             public bool build_app_bundle, custom_signing, temporary_settings_restored;
+Assets/Mofumachi/Editor/AndroidReleaseBuild.cs:108:             var graphics = PlayerSettings.GetGraphicsAPIs(BuildTarget.Android);
+Assets/Mofumachi/Editor/AndroidReleaseBuild.cs:109:             bool autoGraphics = PlayerSettings.GetUseDefaultGraphicsAPIs(BuildTarget.Android);
+Assets/Mofumachi/Editor/AndroidReleaseBuild.cs:128:                 PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.Android, false);
+Assets/Mofumachi/Editor/AndroidReleaseBuild.cs:129:                 PlayerSettings.SetGraphicsAPIs(BuildTarget.Android, new[] { GraphicsDeviceType.OpenGLES3 });
+Assets/Mofumachi/Editor/AndroidReleaseBuild.cs:164:                 PlayerSettings.SetGraphicsAPIs(BuildTarget.Android, graphics);
+Assets/Mofumachi/Editor/AndroidReleaseBuild.cs:165:                 PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.Android, autoGraphics);
+Assets/Mofumachi/Editor/AndroidReleaseBuild.cs:167:                 AssetDatabase.SaveAssets();
+Assets/Mofumachi/Editor/AndroidReleaseBuild.cs:168:                 info.temporary_settings_restored = true;
+Assets/Mofumachi/Editor/AndroidReleaseBuild.cs:172:             Debug.Log("MOFUMACHI_RELEASE_SUCCESS");
+
+Findings:
+GetGraphicsAPIs captures the original array at108; API setter129 assigns OpenGLES3; setter164 restores the captured array; SaveAssets167 follows.
+The native success marker172 and temporary_settings_restored flag support completion of this code path, but no before/after YAML values are logged.
+BuildInfo.graphics_api at55 is a literal default, not an independent runtime GetGraphicsAPIs readback.
+temporary_settings_restored=true is assigned after setter/SaveAssets calls; it does not prove exact source bytes were restored.
+This entry does not directly append i or write ProjectSettings as text. Unity-native serialization after these API calls is a possible route, not a proven author of the suffix.

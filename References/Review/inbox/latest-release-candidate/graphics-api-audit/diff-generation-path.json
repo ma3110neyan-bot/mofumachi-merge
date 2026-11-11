@@ -1,0 +1,11 @@
+{
+  "source_commit": "41529cfaea57ab564da46b3a45c41ede0aa5088b",
+  "git_invocation": "git --no-pager --no-optional-locks -c core.longpaths=true -c core.fsmonitor=false -C <isolated-project> diff --no-ext-diff --no-textconv --no-color <baseline> --",
+  "git_result": "pre-restore-checks.json records diff_exit=0; file produced from working-tree diff",
+  "capture": "Invoke-AndroidReleaseProcess decodes stdout as UTF-8; Protect-AndroidReleaseText replaces known secret values with [REDACTED]; WriteAllText saves the diff as a separate text file",
+  "json_roundtrip_for_diff_body": false,
+  "export": "Public collector reads text, applies secret redaction, writes UTF-8 without BOM, then ZIP; recorded original/public SHA256 are identical for this diff",
+  "git_content_not_raw_file_bytes": "Git newline/clean-filter behavior is not disabled by --no-textconv. Windows global attributes/filter configuration was not received. A normalized diff/blob is not the complete raw C file.",
+  "actual_C_to_D_byte_match_verified": false,
+  "source_m_modified_by_capture": false
+}

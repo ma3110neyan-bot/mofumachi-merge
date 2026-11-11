@@ -1,3 +1,26 @@
+# 第8工程：Android graphics末尾iの由来・妥当性／読取り調査
+
+状態：**調査中（取得可能な証拠の整理完了、実体未取得）**。判定は**Category E：判定不能**。正当なUnity副作用と断定：**NO**。guard exact許可候補：**NO**。調査対象repo/evidence commit：`ff65ef1be8a0cfb7134b11c958befce920874f36`。実AAB source：`41529cfaea57ab564da46b3a45c41ede0aa5088b`。両者を共有commit自身と混同しない。
+
+1. baselineは`0b000000`（SHA `4043fb3267581fb2660bf61b6ad8da480b4f2d718bf5909b8891058f2a1bc862`、23497bytes、LFのみ・BOMなし）。
+2. snapshot記録SHA `d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc`・24343bytesはbaselineのCRLF版と一致。記録上`0b000000`と整合するが、snapshot実ファイル未受領。
+3. post-build実体はEへ接続できず未受領。**実体SHA・BOM・改行・m_APIs raw bytesは未確認**。
+4. 保存済みdiffの追加値は`0b000000i`、9byte `30 62 30 30 30 30 30 30 69`、末尾ASCII0x69/U+0069。このdiff内byteの確認を、実体ファイルのbyte確認とは扱わない。
+
+release C#にはGetGraphicsAPIs108→SetGraphicsAPIs(OpenGLES3)129→復元164→SaveAssets167がある。ログのProjectSettings importと完了markerの順序はこの経路と整合するが、suffixを書いた主体は不明。native snapshotのgraphics_apiは定数初期値、temporary_settings_restoredは経路完了flagであり、どちらもbyte等価の保証ではない。
+
+PowerShellは今回到達した経路でProjectSettingsのm_APIsを直接文字列編集しない。比較用正規化はメモリ内のみで、実体復元・cleanupは検査後（今回未到達）。literal生成コードは負例fixture1件のみで、actual AAB入口から呼ばれず一時専用rootを使用する。調査開始commitでliteralは**15箇所/15ファイル**（fixture1・証跡/報告14）。これは独立再現15件を意味しない。
+
+同版Stage7の2validationは全tracked内容差分0。旧AABのraw差分は未受領で、過去の文章報告を独立byte再現と数えない。公式6000.6.4f1参照ソースでOpenGLES3=11とAPI native委譲は確認できたが、suffix iの保存仕様は未確認。公式manual/Issue Tracker/forumは通信経路403で本文を取得できず、検索0件や仕様不存在とは扱わない。
+
+調査結果は`graphics-api-audit/`のsummary.txt、timeline.json、projectsettings-comparison.json、raw-bytes.txt、repo-search.txt、unity-log-search.txt、release-code-search.txt、script-search.txt、external-research.md、conclusion.json。**追加のB/C実体メタデータ採取手順はwindows-readonly-collection.md（未実行）**。ゲーム・source・guard・allowlist・gitignore・settings・versionを変更していない。Unity/AAB/APK/Pixel/preflight/tests/signing/restore/cleanupは全て0。
+
+**第8工程complete=false。APKへ進む判定NO。** 正当性未確認のままiを許可・削除しない。証跡共有の通常push1回後に停止し、必要なら既存B/C/Dの読取りだけを次に行う。原本native run/旧履歴は不変。
+
+---
+
+以下は前回のAAB受領判定（ff65ef1be8a0cfb7134b11c958befce920874f36）。今回のread-only auditで書き換えて合格にしていない。
+
 # 第8工程：新source guard対応AAB・生成成功／source recoveryで停止
 
 状態：**原因確定（最初のguard拒否条件）／AAB全体検証FAIL**。branch：`feat/daily-world-pass-20261016`。実ビルドsource：`41529cfaea57ab564da46b3a45c41ede0aa5088b`。source guard実装：`604b5f7fd8442aaf97fc695d0406acdaa6c1bec2`。固定ゲーム実装：`46f65b24d58531d5934035fbe4cdb4d5b00104a6`。commit欄は今回Windowsでビルドしたsourceであり、この証跡共有commit自身とは区別する。

@@ -1,0 +1,20 @@
+第8工程：Android graphics末尾i 読み取り調査
+判定：Category E（判定不能）。正当なUnity副作用と断定：NO。guard exact許可候補：NO。
+対象run：rc-20261110-132609-c6829dc7
+実ビルドsource：41529cfaea57ab564da46b3a45c41ede0aa5088b
+調査対象repo/evidence revision：ff65ef1be8a0cfb7134b11c958befce920874f36
+
+A baseline：0b000000。SHA256=4043fb3267581fb2660bf61b6ad8da480b4f2d718bf5909b8891058f2a1bc862、23497bytes、LFのみ、BOMなし、ASCII-only/UTF-8互換。
+B snapshot：記録SHA=d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc、24343bytes。baselineのCRLF版と全体SHA/size一致。値は記録上0b000000だが、snapshot実体は未受領。
+C post-build実体：未受領・Eへ直接アクセス不可。SHA/size/encoding/BOM/raw bytesは未確認。
+D 保存済みdiff：0b000000→0b000000i。実diff値の9byteは30 62 30 30 30 30 30 30 69。末尾ASCII0x69/U+0069。Dのbyte確認をCのbyte確認に置き換えない。
+
+release C#108/129/164/167行でcapture→OpenGLES3設定→復元→SaveAssets。Native成功ログはこの経路の完了と整合するが、どの書込でiが入ったかは不明。graphics_api metadataはBuildInfoの既定文字列で、runtime readbackではない。
+PowerShellの比較用CRLF/API大小文字加工はメモリ内のみ。実体byte置換は全検査後で、このrunはその前に停止。test fixtureだけにliteral i生成コードが1件あるが、専用一時rootで動き、実AAB入口から呼ばれない。
+凍結した調査開始revisionではliteral0b000000iは15箇所/15ファイル（fixture1、証跡・報告14）。複数native runでの独立実体byte再現とは数えない。
+同版Stage7-v5 direct/integrationは全tracked内容差分0、i変更を示さない。旧AABは実差分未受領。template例はnative runではない。
+同版公式C#参照ソースでOpenGLES3=11とAPI native委譲は確認。iのYAML保存仕様・意味値等価性は未確認。公式manual/Issue Tracker/forumは通信経路403のため本文未取得で、仕様が存在しないとは断定しない。
+
+追加取得対象：既存B/C/Dのメタデータのみ。windows-readonly-collection.mdに採取手順を用意（未実行）。snapshot binary、ProjectSettings全文、秘密値は共有しない。
+Unity/AAB/APK/Pixel/preflight/tests/signing/restore/cleanup=すべて0。ゲーム・ProjectSettings・guard・allowlist・gitignore・version変更0。
+第7工程complete=true、第8工程complete=false。調査結果のみ通常commit・通常push1回後に停止。guard修正・再ビルドへ進まない。

@@ -1,0 +1,136 @@
+diff --git a/Assets/Settings/UniversalRP.asset b/Assets/Settings/UniversalRP.asset
+index a2f9ef5..96a9f56 100644
+--- a/Assets/Settings/UniversalRP.asset
++++ b/Assets/Settings/UniversalRP.asset
+@@ -100,46 +100,46 @@ MonoBehaviour:
+     obsoleteHasProbeVolumes:
+       m_Keys: []
+       m_Values: 
+-  m_PrefilteringModeMainLightShadows: 1
++  m_PrefilteringModeMainLightShadows: 4
+   m_PrefilteringModeAdditionalLight: 4
+-  m_PrefilteringModeAdditionalLightShadows: 1
+-  m_PrefilterXRKeywords: 0
+-  m_PrefilteringModeForwardPlus: 1
+-  m_PrefilteringModeDeferredRendering: 1
+-  m_PrefilteringModeScreenSpaceOcclusion: 1
+-  m_PrefilteringModeScreenSpaceReflection: 1
++  m_PrefilteringModeAdditionalLightShadows: 0
++  m_PrefilterXRKeywords: 1
++  m_PrefilteringModeForwardPlus: 0
++  m_PrefilteringModeDeferredRendering: 0
++  m_PrefilteringModeScreenSpaceOcclusion: 0
++  m_PrefilteringModeScreenSpaceReflection: 0
+   m_PrefilterWriteSmoothness: 1
+-  m_PrefilterDebugKeywords: 0
+-  m_PrefilterWriteRenderingLayers: 0
+-  m_PrefilterHDROutput: 0
+-  m_PrefilterAlphaOutput: 0
+-  m_PrefilterSSAODepthNormals: 0
+-  m_PrefilterSSAOSourceDepthLow: 0
+-  m_PrefilterSSAOSourceDepthMedium: 0
+-  m_PrefilterSSAOSourceDepthHigh: 0
+-  m_PrefilterSSAOInterleaved: 0
+-  m_PrefilterSSAOBlueNoise: 0
+-  m_PrefilterSSAOSampleCountLow: 0
+-  m_PrefilterSSAOSampleCountMedium: 0
+-  m_PrefilterSSAOSampleCountHigh: 0
+-  m_PrefilterDBufferMRT1: 0
+-  m_PrefilterDBufferMRT2: 0
+-  m_PrefilterDBufferMRT3: 0
+-  m_PrefilterSoftShadowsQualityLow: 0
+-  m_PrefilterSoftShadowsQualityMedium: 0
+-  m_PrefilterSoftShadowsQualityHigh: 0
++  m_PrefilterDebugKeywords: 1
++  m_PrefilterWriteRenderingLayers: 1
++  m_PrefilterHDROutput: 1
++  m_PrefilterAlphaOutput: 1
++  m_PrefilterSSAODepthNormals: 1
++  m_PrefilterSSAOSourceDepthLow: 1
++  m_PrefilterSSAOSourceDepthMedium: 1
++  m_PrefilterSSAOSourceDepthHigh: 1
++  m_PrefilterSSAOInterleaved: 1
++  m_PrefilterSSAOBlueNoise: 1
++  m_PrefilterSSAOSampleCountLow: 1
++  m_PrefilterSSAOSampleCountMedium: 1
++  m_PrefilterSSAOSampleCountHigh: 1
++  m_PrefilterDBufferMRT1: 1
++  m_PrefilterDBufferMRT2: 1
++  m_PrefilterDBufferMRT3: 1
++  m_PrefilterSoftShadowsQualityLow: 1
++  m_PrefilterSoftShadowsQualityMedium: 1
++  m_PrefilterSoftShadowsQualityHigh: 1
+   m_PrefilterSoftShadows: 0
+-  m_PrefilterScreenCoord: 0
+-  m_PrefilterScreenSpaceIrradiance: 0
+-  m_PrefilterNativeRenderPass: 0
++  m_PrefilterScreenCoord: 1
++  m_PrefilterScreenSpaceIrradiance: 1
++  m_PrefilterNativeRenderPass: 1
+   m_PrefilterUseLegacyLightmaps: 0
+-  m_PrefilterBicubicLightmapSampling: 0
+-  m_PrefilterReflectionProbeRotation: 0
+-  m_PrefilterReflectionProbeBlending: 0
+-  m_PrefilterReflectionProbeBoxProjection: 0
+-  m_PrefilterReflectionProbeAtlas: 0
+-  m_PrefilterPointSamplingUpsampling: 0
+-  m_Light2DPrefilteringMode: 0
++  m_PrefilterBicubicLightmapSampling: 1
++  m_PrefilterReflectionProbeRotation: 1
++  m_PrefilterReflectionProbeBlending: 1
++  m_PrefilterReflectionProbeBoxProjection: 1
++  m_PrefilterReflectionProbeAtlas: 1
++  m_PrefilterPointSamplingUpsampling: 1
++  m_Light2DPrefilteringMode: 2
+   m_Light2DKeptVariantCombos: []
+   m_ShaderVariantLogLevel: 0
+   m_ShadowCascades: 0
+diff --git a/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset b/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+index 6b09cd6..e5bc3aa 100644
+--- a/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
++++ b/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+@@ -72,7 +72,21 @@ MonoBehaviour:
+       - rid: 5406026383943008268
+       - rid: 5406026383943008269
+     m_RuntimeSettings:
+-      m_List: []
++      m_List:
++      - rid: 7752762179098771456
++      - rid: 7752762179098771457
++      - rid: 7752762179098771459
++      - rid: 7752762179098771464
++      - rid: 7752762179098771466
++      - rid: 7752762179098771468
++      - rid: 7752762179098771472
++      - rid: 7752762179098771476
++      - rid: 3114554777721110529
++      - rid: 3114554777721110530
++      - rid: 5406026383943008260
++      - rid: 5406026383943008261
++      - rid: 5406026383943008265
++      - rid: 5406026383943008267
+   m_AssetVersion: 11
+   m_ObsoleteDefaultVolumeProfile: {fileID: 0}
+   m_RenderingLayerNames:
+diff --git a/ProjectSettings/ProjectSettings.asset b/ProjectSettings/ProjectSettings.asset
+index 489dcd4..4186c2e 100644
+--- a/ProjectSettings/ProjectSettings.asset
++++ b/ProjectSettings/ProjectSettings.asset
+@@ -274,7 +274,7 @@ PlayerSettings:
+   AndroidTargetArchitectures: 2
+   AndroidSplashScreenScale: 0
+   androidSplashScreen: {fileID: 0}
+-  AndroidKeystoreName: 
++  AndroidKeystoreName: '{inproject}: '
+   AndroidKeyaliasName: 
+   AndroidEnableArmv9SecurityFeatures: 0
+   AndroidEnableArm64MTE: 0
+@@ -436,7 +436,7 @@ PlayerSettings:
+   m_BuildTargetGraphicsJobMode: []
+   m_BuildTargetGraphicsAPIs:
+   - m_BuildTarget: Android
+-    m_APIs: 0b000000
++    m_APIs: 0b000000i
+     m_Automatic: 0
+   m_DefaultShaderChunkSizeInMB: 16
+   m_DefaultShaderChunkCount: 0

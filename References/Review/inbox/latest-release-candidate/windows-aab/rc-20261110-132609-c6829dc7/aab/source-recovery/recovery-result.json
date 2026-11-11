@@ -1,0 +1,13 @@
+{
+    "passed":  false,
+    "problem":  "Android graphics value is not the known OpenGLES3 representation.",
+    "restored":  [
+
+                 ],
+    "cleaned":  [
+
+                ],
+    "final_guard":  {
+                        "unchanged":  false
+                    }
+}

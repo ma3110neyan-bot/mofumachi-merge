@@ -1,12 +1,12 @@
 {
     "result":  "Failed",
     "product_commit":  "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
-    "source_commit":  "c0803e6e9faf0ebb5e63e637d94c20dcce3f6e4a",
+    "source_commit":  "41529cfaea57ab564da46b3a45c41ede0aa5088b",
     "stage8_complete":  false,
     "unity_invocations":  1,
     "automatic_retries":  0,
     "first_error":  null,
-    "runner_error":  "Tracked content or non-allowlisted files changed after the release build.",
+    "runner_error":  "Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.",
     "failed_phase":  "aab",
     "source_unchanged":  false,
     "signing_preflight":  {
@@ -19,19 +19,19 @@
     "signing_certificate_sha256":  "96bb1402b8085570305a0486ae3f7fa3fafe2c60a3b8cd062c2ee8e0f81b8e09",
     "aab":  {
                 "exit_code":  0,
-                "path":  "E:\\Mofumachi-Validation\\release-candidate\\rc-20261109-123540-725e4e31\\mofumachi-merge-rc-20261109-123540-725e4e31.aab",
+                "path":  "E:\\Mofumachi-Validation\\release-candidate\\rc-20261110-132609-c6829dc7\\mofumachi-merge-rc-20261110-132609-c6829dc7.aab",
                 "size":  null,
                 "sha256":  null,
                 "source_unchanged":  false,
                 "result":  "Failed",
-                "build_log":  "E:\\Mofumachi-Validation\\Diagnostics\\release-candidate\\rc-20261109-123540-725e4e31\\aab\\build.log"
+                "build_log":  "E:\\Mofumachi-Validation\\Diagnostics\\release-candidate\\rc-20261110-132609-c6829dc7\\aab\\build.log"
             },
     "apk":  null,
     "build_requested":  true,
-    "output_root":  "E:\\Mofumachi-Validation\\release-candidate\\rc-20261109-123540-725e4e31",
-    "run":  "E:\\Mofumachi-Validation\\Diagnostics\\release-candidate\\rc-20261109-123540-725e4e31",
+    "output_root":  "E:\\Mofumachi-Validation\\release-candidate\\rc-20261110-132609-c6829dc7",
+    "run":  "E:\\Mofumachi-Validation\\Diagnostics\\release-candidate\\rc-20261110-132609-c6829dc7",
     "package":  "com.mofumachi.merge",
     "unity_version":  "6000.6.4f1",
-    "build_entry_identity":  "6baaef3e35b48bcd083a913a961cb1fd51a6b2aa8d58b472f9890e0d9458972f",
+    "build_entry_identity":  "060db698c4509990af38b6d7c2e7febf8fa0d74beb10b98e93a45c81c82de0a5",
     "formal_repo_unchanged":  true
 }

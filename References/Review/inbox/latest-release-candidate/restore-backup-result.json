@@ -1,0 +1,15 @@
+{
+  "known_mutation_validation": "Failed",
+  "first_problem": "Android graphics value is not the known OpenGLES3 representation.",
+  "byte_perfect_restore": "NotRun",
+  "restored_count": 0,
+  "generated_cleanup": "NotRun",
+  "cleaned_count": 0,
+  "backup_count": 0,
+  "backup_verification": "NotRun",
+  "cleanup_inventory_received": false,
+  "final_recovery_guard": "NotRun",
+  "post_attempt_ordinary_guard": "Failed",
+  "all_worktree_and_snapshot_data_retained": true,
+  "manual_repair_by_review": false
+}

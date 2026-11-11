@@ -1,3 +1,5 @@
+> **2026-11-11：AAB実行枠は消費済み。** 最新run `rc-20261110-132609-c6829dc7` はnative生成PASS／source recovery FAIL。以下の旧実行ブロックは履歴のみで、再実行しない。今回の保存済み結果はsummary.mdを参照。
+
 > **2026-11-10：旧版のAAB実行ブロックは使用しない。** File.Replace/source guard小工程は42/42 PASSだが、今回はUnity/AABの実行は禁止。以下は旧builder identity固定の履歴。次の明示的なAAB実行指示時に、新commitに対応した手順へ切り替える。
 
 # 同じPowerShellで実AABだけを1回ビルド

@@ -1,14 +1,1 @@
-Current task: release source guard recovery implementation; first limited test failed; stopped.
-Implementation: 0f1b066c390e61c739d4fc9ed961e14aa5de7120
-Test: known three-file mutations restore exact snapshot bytes and final guard passes
-Test exit1; total1 / passed0 / failed1; further cases NOT RUN; automatic retries0.
-First concrete error from saved recovery-result.json:
-Exception calling "Replace" with "3" argument(s): "The value cannot be an empty string. (Parameter 'path')"
-Location: scripts/build-android-release.ps1:259
-Call: [IO.File]::Replace($Payload,$Target,$null)
-Payload and target paths exist and are nonempty; payload SHA equals snapshot0. The null backup-path argument is the remaining path argument. No extra reproduction or fix was run.
-Snapshot SHA/source inspection passed before this call; restored0, cleaned0; synthetic formal repo remains clean.
-Wrapper Check message "Known mutations rejected." is not the root cause.
-No code fix or test retry after this failure. Unity/preflight/AAB/APK/Pixel/signing0.
-Next candidate only (NOT APPLIED): unique nonempty backup path inside the same Diagnostics directory for File.Replace.
-AAB retry ready=NO. Stage8 complete=false.
+No native Unity/build error available. Stop reason: Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.

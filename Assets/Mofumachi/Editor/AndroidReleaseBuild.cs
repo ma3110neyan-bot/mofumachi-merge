@@ -47,6 +47,33 @@ namespace Mofumachi.Editor
             return full;
         }
 
+        private sealed class TemporaryGraphicsSettings
+        {
+            public GraphicsDeviceType[] InitialApis { get; } = PlayerSettings.GetGraphicsAPIs(BuildTarget.Android);
+            public bool InitialAutomatic { get; } = PlayerSettings.GetUseDefaultGraphicsAPIs(BuildTarget.Android);
+            public bool AlreadyDesired => !InitialAutomatic && InitialApis != null &&
+                InitialApis.Length == 1 && InitialApis[0] == GraphicsDeviceType.OpenGLES3;
+            public bool Changed { get; private set; }
+            public bool Restored { get; private set; }
+
+            public void Apply()
+            {
+                if (AlreadyDesired) return;
+                // Retain the restore obligation even if a setter fails after a partial change.
+                Changed = true;
+                PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.Android, false);
+                PlayerSettings.SetGraphicsAPIs(BuildTarget.Android, new[] { GraphicsDeviceType.OpenGLES3 });
+            }
+
+            public void Restore()
+            {
+                if (!Changed) return;
+                PlayerSettings.SetGraphicsAPIs(BuildTarget.Android, InitialApis);
+                PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.Android, InitialAutomatic);
+                Restored = true;
+            }
+        }
+
         [Serializable]
         private sealed class BuildInfo
         {
@@ -57,6 +84,8 @@ namespace Mofumachi.Editor
             public string result = "Failed";
             public bool development, script_debugging, deep_profiling, autoconnect_profiler;
             public bool build_app_bundle, custom_signing, temporary_settings_restored;
+            public string[] initial_graphics_apis;
+            public bool initial_automatic, graphics_settings_already_desired, graphics_settings_changed, graphics_settings_restored;
             public string build_options = "None";
         }
 
@@ -105,12 +134,13 @@ namespace Mofumachi.Editor
             var backend = PlayerSettings.GetScriptingBackend(NamedBuildTarget.Android);
             var architecture = PlayerSettings.Android.targetArchitectures;
             var orientation = PlayerSettings.defaultInterfaceOrientation;
-            var graphics = PlayerSettings.GetGraphicsAPIs(BuildTarget.Android);
-            bool autoGraphics = PlayerSettings.GetUseDefaultGraphicsAPIs(BuildTarget.Android);
+            var graphicsSettings = new TemporaryGraphicsSettings();
             var info = new BuildInfo { source_commit = revision, format = aab ? "AAB" : "APK", output_path = output,
                 signing_certificate_sha256 = fingerprint, version = PlayerSettings.bundleVersion,
                 version_code = PlayerSettings.Android.bundleVersionCode, minimum_api = (int)PlayerSettings.Android.minSdkVersion,
-                target_api = (int)PlayerSettings.Android.targetSdkVersion };
+                target_api = (int)PlayerSettings.Android.targetSdkVersion,
+                initial_graphics_apis = graphicsSettings.InitialApis?.Select(api => api.ToString()).ToArray(),
+                initial_automatic = graphicsSettings.InitialAutomatic, graphics_settings_already_desired = graphicsSettings.AlreadyDesired };
             Directory.CreateDirectory(Path.GetDirectoryName(output));
             Directory.CreateDirectory(Path.GetDirectoryName(infoPath));
             string temporary = Path.Combine(Path.GetDirectoryName(output), "building-" + Guid.NewGuid().ToString("N") + (aab ? ".aab" : ".apk"));
@@ -125,8 +155,7 @@ namespace Mofumachi.Editor
                 PlayerSettings.SetScriptingBackend(NamedBuildTarget.Android, ScriptingImplementation.IL2CPP);
                 PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
                 PlayerSettings.defaultInterfaceOrientation = UIOrientation.Portrait;
-                PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.Android, false);
-                PlayerSettings.SetGraphicsAPIs(BuildTarget.Android, new[] { GraphicsDeviceType.OpenGLES3 });
+                graphicsSettings.Apply();
                 PlayerSettings.Android.useCustomKeystore = true;
                 PlayerSettings.Android.keystoreName = signing[0]; PlayerSettings.Android.keystorePass = signing[1];
                 PlayerSettings.Android.keyaliasName = signing[2]; PlayerSettings.Android.keyaliasPass = signing[3];
@@ -161,8 +190,9 @@ namespace Mofumachi.Editor
                 EditorUserBuildSettings.buildAppBundle = bundle; EditorUserBuildSettings.exportAsGoogleAndroidProject = export;
                 PlayerSettings.SetScriptingBackend(NamedBuildTarget.Android, backend);
                 PlayerSettings.Android.targetArchitectures = architecture; PlayerSettings.defaultInterfaceOrientation = orientation;
-                PlayerSettings.SetGraphicsAPIs(BuildTarget.Android, graphics);
-                PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.Android, autoGraphics);
+                info.graphics_settings_changed = graphicsSettings.Changed;
+                graphicsSettings.Restore();
+                info.graphics_settings_restored = graphicsSettings.Restored;
                 Array.Clear(signing, 0, signing.Length);
                 AssetDatabase.SaveAssets();
                 info.temporary_settings_restored = true;

@@ -1,0 +1,23 @@
+{
+  "result": "Passed",
+  "exit_code": 0,
+  "invocations": 1,
+  "automatic_retries": 0,
+  "command": [
+    "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/DotNetSdk/dotnet",
+    "/workspace/toolchains/unity/6000.6.4f1/Editor/Data/DotNetSdk/sdk/8.0.318/Roslyn/bincore/csc.dll",
+    "-noconfig",
+    "@/workspace/artifacts/android-release-graphics-noop/api/compile.rsp"
+  ],
+  "reference_count": 182,
+  "reference_conflict_cs0433": false,
+  "first_csharp_error": null,
+  "builder_sha256": "4e2901614a787bbb7755a99da94d63449dbe873d6d233d2050700e2392c62903",
+  "source_base_commit": "7c8271a7c4ed0bb49e7a5684bdc0030cc0df93a1",
+  "compiler_only": true,
+  "unity_invocations": 0,
+  "build_invocations": 0,
+  "compiled_binary_committed": false,
+  "output_sha256": "f60e58f666b45ab9249a4eb8b0273fe2c7f75f2e146da5812385bdc32091c9a6",
+  "output_bytes": 14336
+}

@@ -1,0 +1,24 @@
+{
+  "result": "Failed",
+  "total": 12,
+  "passed": 0,
+  "failed": 1,
+  "not_run": 11,
+  "first_error": "Missing production TemporaryGraphicsSettings: unconditional graphics setters are not yet avoided.",
+  "failed_phase": "graphics-limited-tests",
+  "cases": [
+    {
+      "name": "1 automatic=false and only OpenGLES3 skips both apply setters",
+      "error": "Missing production TemporaryGraphicsSettings: unconditional graphics setters are not yet avoided.",
+      "result": "Failed"
+    }
+  ],
+  "scope": "Actual complete production C# compiled against managed API doubles; nested graphics lifecycle executed, build wiring statically checked; not native Unity serialization.",
+  "unity_invocations": 0,
+  "aab_builds": 0,
+  "apk_builds": 0,
+  "pixel_actions": 0,
+  "signing_operations": 0,
+  "source_guard_test_invocations": 0,
+  "automatic_retries": 0
+}

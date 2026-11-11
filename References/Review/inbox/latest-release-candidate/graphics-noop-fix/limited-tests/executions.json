@@ -1,0 +1,25 @@
+{
+  "implementation_commit": "5a9e6d54e9c4bedf60f738dfacab858875a827ee",
+  "expected_red": {
+    "invocations": 1,
+    "input_builder_sha256": "648df2dcdb001824b5bac38e334f41189ecf2a7c6d4c5052ab507c498dba6d9e",
+    "exit_code": 1,
+    "expected_failure": "Missing production TemporaryGraphicsSettings: unconditional graphics setters are not yet avoided.",
+    "scope": "Pre-implementation regression demonstration; stopped at first failure, not a final-validation failure."
+  },
+  "modified_source_validation": {
+    "invocations": 1,
+    "builder_sha256": "4e2901614a787bbb7755a99da94d63449dbe873d6d233d2050700e2392c62903",
+    "test_sha256": "a48d7c591bc5e01df0f36c19d5c270440a4b8ba314f57960dbb6dc4b0a1f4719",
+    "exit_code": 0,
+    "total": 12,
+    "passed": 12,
+    "failed": 0
+  },
+  "api_only_compile_invocations": 1,
+  "source_guard_42_runs": 0,
+  "stage7_55_444_runs": 0,
+  "automatic_retries": 0,
+  "unity_invocations": 0,
+  "real_builds": 0
+}

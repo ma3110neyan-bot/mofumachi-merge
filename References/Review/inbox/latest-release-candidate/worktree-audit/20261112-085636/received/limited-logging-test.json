@@ -1,0 +1,8 @@
+{
+    "exit_code":  128,
+    "fatal_line_retained":  true,
+    "invocation_count":  1,
+    "result":  "PASS",
+    "expected_failure":  true,
+    "automatic_retries":  0
+}

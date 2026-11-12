@@ -1,0 +1,24 @@
+{
+    "group":  "formal-before",
+    "sequence_number":  1,
+    "executable":  "C:\\Users\\User\\AppData\\Local\\GitHubDesktop\\app-3.6.10\\resources\\app\\git\\cmd\\git.exe",
+    "arguments":  [
+                      "rev-parse",
+                      "HEAD"
+                  ],
+    "arguments_native":  "\"rev-parse\" \"HEAD\"",
+    "working_directory":  "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge",
+    "command":  "\"C:\\Users\\User\\AppData\\Local\\GitHubDesktop\\app-3.6.10\\resources\\app\\git\\cmd\\git.exe\" \"rev-parse\" \"HEAD\"",
+    "process_started":  true,
+    "exit_code":  0,
+    "first_fatal_line":  null,
+    "first_error_line":  null,
+    "error_type":  null,
+    "started_utc":  "2026-11-12T08:56:36.6291623Z",
+    "finished_utc":  "2026-11-12T08:56:36.7357104Z",
+    "stdout_log":  "git-step-01.stdout.log",
+    "stderr_log":  "git-step-01.stderr.log",
+    "stdout":  "ddbb93f3e6b5a45795be87561f61de5d4194f65c\n",
+    "stderr":  "",
+    "redaction_occurred":  false
+}

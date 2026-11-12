@@ -1,0 +1,180 @@
+{
+    "redaction":  "Known signing values and common credential/token forms are replaced; fatal lines retained.",
+    "files":  [
+                  {
+                      "sha256":  "e84257e0122b6107bf02edffb193adf023ef85328f4938d99283f8a878f8f571",
+                      "name":  "conclusion.json",
+                      "bytes":  1825
+                  },
+                  {
+                      "sha256":  "aef2d76c74fcffca1fa514f8d241425f05911f635ee0df4a1adedc56edcbc40a",
+                      "name":  "formal-after/git-step-01.json",
+                      "bytes":  1023
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "name":  "formal-after/git-step-01.stderr.log",
+                      "bytes":  0
+                  },
+                  {
+                      "sha256":  "dd79b0ecbf38ed5ca1a40a8eab73239f7facfee9f5e01b54416e04519dd554f7",
+                      "name":  "formal-after/git-step-01.stdout.log",
+                      "bytes":  41
+                  },
+                  {
+                      "sha256":  "4897d3b57775cbabd647e1db3881c3536ab791bf9fa2352d4751cd24b2a57829",
+                      "name":  "formal-after/git-step-02.json",
+                      "bytes":  1034
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "name":  "formal-after/git-step-02.stderr.log",
+                      "bytes":  0
+                  },
+                  {
+                      "sha256":  "e31c61cf338b30075a7c6c01980073a19c46a309c320f02f70cef9d3e6c0d594",
+                      "name":  "formal-after/git-step-02.stdout.log",
+                      "bytes":  31
+                  },
+                  {
+                      "sha256":  "e2a3e0205bf8c2d9eb3b4a304c631ed0da66874140a34ee76242f256b5e4e808",
+                      "name":  "formal-after/git-step-03.json",
+                      "bytes":  1102
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "name":  "formal-after/git-step-03.stderr.log",
+                      "bytes":  0
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "name":  "formal-after/git-step-03.stdout.log",
+                      "bytes":  0
+                  },
+                  {
+                      "sha256":  "c67991f888fafcd570d31540ee32f50283c208a2d86cb2056be47c9f02bece55",
+                      "name":  "formal-after/git-step-04.json",
+                      "bytes":  1048
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "name":  "formal-after/git-step-04.stderr.log",
+                      "bytes":  0
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "name":  "formal-after/git-step-04.stdout.log",
+                      "bytes":  0
+                  },
+                  {
+                      "sha256":  "b3bbe8b9fa2f5faecff07ed80a07875ff98bf7490321738b4c21e18cbbde879e",
+                      "name":  "formal-before/git-step-01.json",
+                      "bytes":  1024
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "name":  "formal-before/git-step-01.stderr.log",
+                      "bytes":  0
+                  },
+                  {
+                      "sha256":  "dd79b0ecbf38ed5ca1a40a8eab73239f7facfee9f5e01b54416e04519dd554f7",
+                      "name":  "formal-before/git-step-01.stdout.log",
+                      "bytes":  41
+                  },
+                  {
+                      "sha256":  "6efd3e024b2c47724b5330e09a822dd469c30f27b0b3196563cf797b9700c953",
+                      "name":  "formal-before/git-step-02.json",
+                      "bytes":  1035
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "name":  "formal-before/git-step-02.stderr.log",
+                      "bytes":  0
+                  },
+                  {
+                      "sha256":  "e31c61cf338b30075a7c6c01980073a19c46a309c320f02f70cef9d3e6c0d594",
+                      "name":  "formal-before/git-step-02.stdout.log",
+                      "bytes":  31
+                  },
+                  {
+                      "sha256":  "74f72d63fb73227934465b470fdc9defaaaec9c5d2eaa19322b8eacd9bb604de",
+                      "name":  "formal-before/git-step-03.json",
+                      "bytes":  1103
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "name":  "formal-before/git-step-03.stderr.log",
+                      "bytes":  0
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "name":  "formal-before/git-step-03.stdout.log",
+                      "bytes":  0
+                  },
+                  {
+                      "sha256":  "e4ec015462ed8518933f7eba73bca3450d028009e68a86c801e57e77bdb0832c",
+                      "name":  "formal-before/git-step-04.json",
+                      "bytes":  1049
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "name":  "formal-before/git-step-04.stderr.log",
+                      "bytes":  0
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "name":  "formal-before/git-step-04.stdout.log",
+                      "bytes":  0
+                  },
+                  {
+                      "sha256":  "182fb0c651df48ecd73c36a58604f56e5853f8d6e917b0dbab7f3e727de08b86",
+                      "name":  "formal-repo-state.json",
+                      "bytes":  631
+                  },
+                  {
+                      "sha256":  "5a0ee453be12ffdf5acc6bf3f14c78260c30f556b876efbad1306c895c36436f",
+                      "name":  "git-step-01.json",
+                      "bytes":  10296
+                  },
+                  {
+                      "sha256":  "ae0db0a25b29104822c71ca646b91c3d60db55e90eeb818a5ccdd22f5a65e187",
+                      "name":  "git-step-01.stderr.log",
+                      "bytes":  8494
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "name":  "git-step-01.stdout.log",
+                      "bytes":  0
+                  },
+                  {
+                      "sha256":  "7fcd4f60c4948312be9c7a46f5088b18e3f356825b640641d9aa6e2db97f2f75",
+                      "name":  "limited-logging-test.json",
+                      "bytes":  177
+                  },
+                  {
+                      "sha256":  "6a65a4331046a2df573a2476a4f0ded1a18c204e7b6c68c852c2a28da56e410d",
+                      "name":  "logging-test/git-step-01.json",
+                      "bytes":  1057
+                  },
+                  {
+                      "sha256":  "9b3fab22fc89a33cf7f4e9d08072e43f29c2999ed2af63b6e8417b2ce9d534b4",
+                      "name":  "logging-test/git-step-01.stderr.log",
+                      "bytes":  32
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "name":  "logging-test/git-step-01.stdout.log",
+                      "bytes":  0
+                  },
+                  {
+                      "sha256":  "f0fa4be60bb4c1dc19c588e6ebd1bdfb1d9a5aec5b1dd0830e9b3bd5ee71223d",
+                      "name":  "summary.txt",
+                      "bytes":  1451
+                  },
+                  {
+                      "sha256":  "a069b8942fde15d27de389d14863196636249ac1e364d106f0375600f7bcda44",
+                      "name":  "worktree-state.json",
+                      "bytes":  257
+                  }
+              ]
+}

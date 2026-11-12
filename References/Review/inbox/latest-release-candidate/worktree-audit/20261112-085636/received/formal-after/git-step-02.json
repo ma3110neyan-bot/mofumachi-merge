@@ -1,0 +1,24 @@
+{
+    "group":  "formal-after",
+    "sequence_number":  2,
+    "executable":  "C:\\Users\\User\\AppData\\Local\\GitHubDesktop\\app-3.6.10\\resources\\app\\git\\cmd\\git.exe",
+    "arguments":  [
+                      "branch",
+                      "--show-current"
+                  ],
+    "arguments_native":  "\"branch\" \"--show-current\"",
+    "working_directory":  "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge",
+    "command":  "\"C:\\Users\\User\\AppData\\Local\\GitHubDesktop\\app-3.6.10\\resources\\app\\git\\cmd\\git.exe\" \"branch\" \"--show-current\"",
+    "process_started":  true,
+    "exit_code":  0,
+    "first_fatal_line":  null,
+    "first_error_line":  null,
+    "error_type":  null,
+    "started_utc":  "2026-11-12T09:01:34.6687566Z",
+    "finished_utc":  "2026-11-12T09:01:34.8273306Z",
+    "stdout_log":  "git-step-02.stdout.log",
+    "stderr_log":  "git-step-02.stderr.log",
+    "stdout":  "feat/daily-world-pass-20261016\n",
+    "stderr":  "",
+    "redaction_occurred":  false
+}

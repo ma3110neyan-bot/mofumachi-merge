@@ -1,0 +1,24 @@
+{
+    "group":  "logging-test",
+    "sequence_number":  1,
+    "executable":  "C:\\Users\\User\\AppData\\Local\\GitHubDesktop\\app-3.6.10\\resources\\app\\git\\cmd\\git.exe",
+    "arguments":  [
+                      "rev-parse",
+                      "--verify"
+                  ],
+    "arguments_native":  "\"rev-parse\" \"--verify\"",
+    "working_directory":  "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge",
+    "command":  "\"C:\\Users\\User\\AppData\\Local\\GitHubDesktop\\app-3.6.10\\resources\\app\\git\\cmd\\git.exe\" \"rev-parse\" \"--verify\"",
+    "process_started":  true,
+    "exit_code":  128,
+    "first_fatal_line":  "fatal: Needed a single revision",
+    "first_error_line":  null,
+    "error_type":  null,
+    "started_utc":  "2026-11-12T08:56:37.5752394Z",
+    "finished_utc":  "2026-11-12T08:56:37.7087701Z",
+    "stdout_log":  "git-step-01.stdout.log",
+    "stderr_log":  "git-step-01.stderr.log",
+    "stdout":  "",
+    "stderr":  "fatal: Needed a single revision\n",
+    "redaction_occurred":  false
+}

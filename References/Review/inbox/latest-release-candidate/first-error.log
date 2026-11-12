@@ -1,1 +1,8 @@
-No native Unity/build error available. Stop reason: Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.
+Run: create-worktree-audit-20261112-085636-7bfbd421b1e14b878a04027074133e48
+Source: ddbb93f3e6b5a45795be87561f61de5d4194f65c
+Failed step: target/1 (git worktree add --detach)
+Exit: 128
+Preparing worktree (detached HEAD ddbb93f)
+fatal: cannot create directory at 'References/Review/inbox/latest-progress-ui-integration/previous-runs/progress-ui-integration-progress-ui-e-drive-v3-20261108-122257-63a8a5be/history': Filename too long
+Full stderr: References/Review/inbox/latest-release-candidate/worktree-audit/20261112-085636/received/git-step-01.stderr.log
+No config changes, repair or additional attempt. Unity/probe/build=0.

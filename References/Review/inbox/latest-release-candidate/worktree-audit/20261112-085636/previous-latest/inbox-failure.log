@@ -1,0 +1,15 @@
+Run: rc-20261111-131010-b06b70ea
+Source: f27eadb407c2bf6fb893580f49256bc02bf6f51c
+Failed phase: aab.source-recovery
+First native build error: null; Unity exit0 / build_errors0 / native Passed.
+First concrete guard rejection: Android graphics value is not the known OpenGLES3 representation.
+ProjectSettings/ProjectSettings.asset, Android m_APIs:
+-    m_APIs: 0b000000
++    m_APIs: 0b000000i
+Suffix raw byte: 69; Unicode: U+0069.
+Initial APIs=[OpenGLES3], automatic=false, already_desired=true, changed=false, restored=false.
+Physical metadata confirms recurrence with the graphics no-op. Writer/legitimacy unproven.
+Restore0 / cleanup0; recovery final guard NotRun; ordinary after guard Failed.
+Artifact signature verification NotRun; no certificate mismatch was detected.
+Raw first_error is null; this is a source guard rejection after normal Unity completion.
+No source repair, new build, test, signing, restore or cleanup performed by this evidence review.

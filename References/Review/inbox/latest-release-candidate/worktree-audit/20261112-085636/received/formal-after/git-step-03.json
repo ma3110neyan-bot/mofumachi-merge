@@ -1,0 +1,25 @@
+{
+    "group":  "formal-after",
+    "sequence_number":  3,
+    "executable":  "C:\\Users\\User\\AppData\\Local\\GitHubDesktop\\app-3.6.10\\resources\\app\\git\\cmd\\git.exe",
+    "arguments":  [
+                      "status",
+                      "--porcelain=v1",
+                      "--untracked-files=all"
+                  ],
+    "arguments_native":  "\"status\" \"--porcelain=v1\" \"--untracked-files=all\"",
+    "working_directory":  "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge",
+    "command":  "\"C:\\Users\\User\\AppData\\Local\\GitHubDesktop\\app-3.6.10\\resources\\app\\git\\cmd\\git.exe\" \"status\" \"--porcelain=v1\" \"--untracked-files=all\"",
+    "process_started":  true,
+    "exit_code":  0,
+    "first_fatal_line":  null,
+    "first_error_line":  null,
+    "error_type":  null,
+    "started_utc":  "2026-11-12T09:01:34.9247759Z",
+    "finished_utc":  "2026-11-12T09:01:35.0506007Z",
+    "stdout_log":  "git-step-03.stdout.log",
+    "stderr_log":  "git-step-03.stderr.log",
+    "stdout":  "",
+    "stderr":  "",
+    "redaction_occurred":  false
+}

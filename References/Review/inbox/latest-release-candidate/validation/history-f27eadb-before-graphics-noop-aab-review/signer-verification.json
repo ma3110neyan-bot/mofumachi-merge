@@ -1,0 +1,12 @@
+{
+  "artifact_signature_verification": "NotRun",
+  "jarsigner_verification": "NotRun",
+  "artifact_certificate_extraction": "NotRun",
+  "expected_certificate_sha256": "96bb1402b8085570305a0486ae3f7fa3fafe2c60a3b8cd062c2ee8e0f81b8e09",
+  "actual_artifact_certificate_sha256": null,
+  "signer_matches": null,
+  "raw_signer_matches": false,
+  "reason": "Source recovery failed before Get-AndroidReleaseArtifactCertificate; false in the raw wrapper review is not proof of a certificate mismatch",
+  "keystore_sha256": "faac2959a5e9ae6e5e531c110955a2085502d13da7cc96148d91066ad666b4cb",
+  "keystore_matches_expected": true
+}

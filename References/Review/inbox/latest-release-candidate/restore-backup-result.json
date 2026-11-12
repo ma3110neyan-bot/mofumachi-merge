@@ -1,4 +1,5 @@
 {
+  "result": "Failed",
   "known_mutation_validation": "Failed",
   "first_problem": "Android graphics value is not the known OpenGLES3 representation.",
   "byte_perfect_restore": "NotRun",
@@ -8,8 +9,8 @@
   "backup_count": 0,
   "backup_verification": "NotRun",
   "cleanup_inventory_received": false,
-  "final_recovery_guard": "NotRun",
-  "post_attempt_ordinary_guard": "Failed",
-  "all_worktree_and_snapshot_data_retained": true,
-  "manual_repair_by_review": false
+  "recovery_final_guard": "NotRun",
+  "ordinary_after_guard": "Failed",
+  "manual_repair_by_review": false,
+  "failure_order": "Get-AndroidReleaseComparable rejected the post-build ProjectSettings graphics value during validation, before the first File.Replace, backup or generated-file removal."
 }

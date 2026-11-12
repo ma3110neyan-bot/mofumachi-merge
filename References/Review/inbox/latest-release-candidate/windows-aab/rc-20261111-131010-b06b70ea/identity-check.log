@@ -1,0 +1,30 @@
+Alias name: [REDACTED]
+Creation date: Nov 9, 2026
+Entry type: PrivateKeyEntry
+Certificate chain length: 1
+Certificate[1]:
+Owner: CN=Mofumachi Release
+Issuer: CN=Mofumachi Release
+Serial number: 977d016c2585c6fe
+Valid from: Mon Nov 09 20:17:35 JST 2026 until: Fri Mar 27 20:17:35 JST 2054
+Certificate fingerprints:
+	 SHA1: 0A:7C:ED:DC:24:63:7F:B3:BD:42:33:0E:BE:C6:CC:3D:C8:EE:4A:B4
+	 SHA256: 96:BB:14:02:B8:08:55:70:30:5A:04:86:AE:3F:7F:A3:FA:FE:2C:60:A3:B8:CD:06:2C:2E:E8:E0:F8:1B:8E:09
+Signature algorithm name: SHA256withRSA
+Subject Public Key Algorithm: 2048-bit RSA key
+Version: 3
+
+Extensions: 
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: 4B 42 91 97 A0 E9 6B 9B   E2 51 93 89 C3 01 62 21  KB....k..Q....b!
+0010: 4D B5 32 0F                                        M.2.
+]
+]
+
+
+
+Warning:
+The JKS keystore uses a proprietary format. It is recommended to migrate to PKCS12 which is an industry standard format using "keytool -importkeystore -srckeystore [REDACTED] -destkeystore [REDACTED] -deststoretype pkcs12".

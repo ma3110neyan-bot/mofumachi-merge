@@ -1,7 +1,7 @@
 {
     "result":  "Failed",
     "product_commit":  "46f65b24d58531d5934035fbe4cdb4d5b00104a6",
-    "source_commit":  "41529cfaea57ab564da46b3a45c41ede0aa5088b",
+    "source_commit":  "f27eadb407c2bf6fb893580f49256bc02bf6f51c",
     "stage8_complete":  false,
     "unity_invocations":  1,
     "automatic_retries":  0,
@@ -19,19 +19,19 @@
     "signing_certificate_sha256":  "96bb1402b8085570305a0486ae3f7fa3fafe2c60a3b8cd062c2ee8e0f81b8e09",
     "aab":  {
                 "exit_code":  0,
-                "path":  "E:\\Mofumachi-Validation\\release-candidate\\rc-20261110-132609-c6829dc7\\mofumachi-merge-rc-20261110-132609-c6829dc7.aab",
+                "path":  "E:\\Mofumachi-Validation\\release-candidate\\rc-20261111-131010-b06b70ea\\mofumachi-merge-rc-20261111-131010-b06b70ea.aab",
                 "size":  null,
                 "sha256":  null,
                 "source_unchanged":  false,
                 "result":  "Failed",
-                "build_log":  "E:\\Mofumachi-Validation\\Diagnostics\\release-candidate\\rc-20261110-132609-c6829dc7\\aab\\build.log"
+                "build_log":  "E:\\Mofumachi-Validation\\Diagnostics\\release-candidate\\rc-20261111-131010-b06b70ea\\aab\\build.log"
             },
     "apk":  null,
     "build_requested":  true,
-    "output_root":  "E:\\Mofumachi-Validation\\release-candidate\\rc-20261110-132609-c6829dc7",
-    "run":  "E:\\Mofumachi-Validation\\Diagnostics\\release-candidate\\rc-20261110-132609-c6829dc7",
+    "output_root":  "E:\\Mofumachi-Validation\\release-candidate\\rc-20261111-131010-b06b70ea",
+    "run":  "E:\\Mofumachi-Validation\\Diagnostics\\release-candidate\\rc-20261111-131010-b06b70ea",
     "package":  "com.mofumachi.merge",
     "unity_version":  "6000.6.4f1",
-    "build_entry_identity":  "060db698c4509990af38b6d7c2e7febf8fa0d74beb10b98e93a45c81c82de0a5",
+    "build_entry_identity":  "8a881216c71cba9d14ff02a11d38a31f6b8f0376a0a5585be9794ebe6d134177",
     "formal_repo_unchanged":  true
 }

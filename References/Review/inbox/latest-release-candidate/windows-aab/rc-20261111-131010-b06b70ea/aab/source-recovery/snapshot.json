@@ -1,0 +1,26 @@
+{
+    "project":  "E:\\Mofumachi-Validation\\projects\\rc-20261111-131010-b06b70ea",
+    "baseline":  "f27eadb407c2bf6fb893580f49256bc02bf6f51c",
+    "directory":  "E:\\Mofumachi-Validation\\Diagnostics\\release-candidate\\rc-20261111-131010-b06b70ea\\aab\\source-recovery",
+    "formal":  "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge",
+    "files":  [
+                  {
+                      "snapshot":  "E:\\Mofumachi-Validation\\Diagnostics\\release-candidate\\rc-20261111-131010-b06b70ea\\aab\\source-recovery\\snapshot-0.bin",
+                      "sha256":  "e0eff2e5f37063e786bd9777c805d89cbd05851f3785aded20e632bbbd578df2",
+                      "relative":  "Assets/Settings/UniversalRP.asset",
+                      "length":  4964
+                  },
+                  {
+                      "snapshot":  "E:\\Mofumachi-Validation\\Diagnostics\\release-candidate\\rc-20261111-131010-b06b70ea\\aab\\source-recovery\\snapshot-1.bin",
+                      "sha256":  "7046728580f240daead5b399505ce97c4efc3f30ff939ad2ec546f7298aa56cf",
+                      "relative":  "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+                      "length":  28656
+                  },
+                  {
+                      "snapshot":  "E:\\Mofumachi-Validation\\Diagnostics\\release-candidate\\rc-20261111-131010-b06b70ea\\aab\\source-recovery\\snapshot-2.bin",
+                      "sha256":  "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+                      "relative":  "ProjectSettings/ProjectSettings.asset",
+                      "length":  24343
+                  }
+              ]
+}

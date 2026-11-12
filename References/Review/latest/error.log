@@ -1,24 +1,15 @@
-Run: rc-20261110-132609-c6829dc7
-Actual Windows source: 41529cfaea57ab564da46b3a45c41ede0aa5088b
-First failed gate: aab.source-recovery (raw failed_phase=aab)
-Native Unity result: Passed; exit0; build_errors=0; native first_error=null.
-
-First concrete guard rejection (recovery-result.json):
-Android graphics value is not the known OpenGLES3 representation.
-Code: scripts/build-android-release.ps1:223, Get-AndroidReleaseComparable.
-
-Authenticated native pre-restore.diff, ProjectSettings/ProjectSettings.asset:
-@@ -436,7 +436,7 @@ PlayerSettings:
+Run: rc-20261111-131010-b06b70ea
+Source: f27eadb407c2bf6fb893580f49256bc02bf6f51c
+Failed phase: aab.source-recovery
+First native build error: null; Unity exit0 / build_errors0 / native Passed.
+First concrete guard rejection: Android graphics value is not the known OpenGLES3 representation.
+ProjectSettings/ProjectSettings.asset, Android m_APIs:
 -    m_APIs: 0b000000
 +    m_APIs: 0b000000i
-
-The suffix is U+0069 (lowercase i); the value has9 characters and is not hexadecimal.
-This saved diff matches the pinned before blob and its reported after Git blob index.
-It is not treated as a case/newline-only change or silently allowlisted.
-Origin of the suffix is unknown; this evidence alone does not attribute it to Unity or user editing.
-
-Restored files=0; cleaned files=0; replacement/backups/signature verification not reached.
-The post-attempt ordinary source guard executed and failed; formal_repo_unchanged=true.
-Runner: Known build-side-effect recovery failed: Android graphics value is not the known OpenGLES3 representation.
-Normal native exit0 is recorded. Operator-stop outcome was not supplied; forced kill is not the established cause.
-No source repair, process termination, rerun, tests, preflight or signing verification performed by this review.
+Suffix raw byte: 69; Unicode: U+0069.
+Initial APIs=[OpenGLES3], automatic=false, already_desired=true, changed=false, restored=false.
+Physical metadata confirms recurrence with the graphics no-op. Writer/legitimacy unproven.
+Restore0 / cleanup0; recovery final guard NotRun; ordinary after guard Failed.
+Artifact signature verification NotRun; no certificate mismatch was detected.
+Raw first_error is null; this is a source guard rejection after normal Unity completion.
+No source repair, new build, test, signing, restore or cleanup performed by this evidence review.

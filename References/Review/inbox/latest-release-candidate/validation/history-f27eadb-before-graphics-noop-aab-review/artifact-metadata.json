@@ -1,0 +1,10 @@
+{
+  "path": "E:\\Mofumachi-Validation\\release-candidate\\rc-20261110-132609-c6829dc7\\mofumachi-merge-rc-20261110-132609-c6829dc7.aab",
+  "file_name": "mofumachi-merge-rc-20261110-132609-c6829dc7.aab",
+  "size": 66555554,
+  "sha256": "d40cef8a8111619fde29bf12be2ab6e06fbd873eea40d71280175760d60b55de",
+  "last_write_utc": "2026-11-11T04:40:15.9996956Z",
+  "metadata_source": "Windows Get-Item/Get-FileHash in the supplied aab-review.json; artifact body not received or independently rehashed here",
+  "actual_signer_sha256": null,
+  "accepted": false
+}

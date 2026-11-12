@@ -1,0 +1,168 @@
+{
+    "source_bodies_exported":  false,
+    "known_signing_values_redacted":  true,
+    "keystore_exported":  false,
+    "files":  [
+                  {
+                      "path":  "status.json",
+                      "original_sha256":  "fabdd8317f949e931d7ae9756656c74253927db87c9537963eddad51d55eb022",
+                      "public_sha256":  "fabdd8317f949e931d7ae9756656c74253927db87c9537963eddad51d55eb022"
+                  },
+                  {
+                      "path":  "build-info.json",
+                      "original_sha256":  "fabdd8317f949e931d7ae9756656c74253927db87c9537963eddad51d55eb022",
+                      "public_sha256":  "fabdd8317f949e931d7ae9756656c74253927db87c9537963eddad51d55eb022"
+                  },
+                  {
+                      "path":  "build-settings.json",
+                      "original_sha256":  "8d7ded89f200213225632d417ddd459f40fb3ade07a78a0aef464f00e9bb2866",
+                      "public_sha256":  "8d7ded89f200213225632d417ddd459f40fb3ade07a78a0aef464f00e9bb2866"
+                  },
+                  {
+                      "path":  "source-revision.txt",
+                      "original_sha256":  "486e5b1748b7990d0f4824ccf051dab8e0178c198050f17a5acb0034ebb70b75",
+                      "public_sha256":  "486e5b1748b7990d0f4824ccf051dab8e0178c198050f17a5acb0034ebb70b75"
+                  },
+                  {
+                      "path":  "checksums.sha256",
+                      "original_sha256":  "7fe52410f49ccd9269eda3ebd11b8cc266f92479a652eee61a88aa2b8200b667",
+                      "public_sha256":  "7fe52410f49ccd9269eda3ebd11b8cc266f92479a652eee61a88aa2b8200b667"
+                  },
+                  {
+                      "path":  "signing-preflight.log",
+                      "original_sha256":  "350c2d23568481c5cf5346c86b52d324f74388b3581c2f31e198d5708eaf4285",
+                      "public_sha256":  "350c2d23568481c5cf5346c86b52d324f74388b3581c2f31e198d5708eaf4285"
+                  },
+                  {
+                      "path":  "first-error.log",
+                      "original_sha256":  "e20d04f7f2317173e595712929fc4a82ab126aa7483307ee95f0293c92c9f123",
+                      "public_sha256":  "e20d04f7f2317173e595712929fc4a82ab126aa7483307ee95f0293c92c9f123"
+                  },
+                  {
+                      "path":  "worktree-add.stdout.log",
+                      "original_sha256":  "03efc86cd40b46abeb0a1af99784c3158d77cc1da175a1e9b52026f86d17bd2a",
+                      "public_sha256":  "03efc86cd40b46abeb0a1af99784c3158d77cc1da175a1e9b52026f86d17bd2a"
+                  },
+                  {
+                      "path":  "worktree-add.stderr.log",
+                      "original_sha256":  "e593f62847e1516b23431281be2d418a8738028f4dd51ded68e9267a5b3e1be1",
+                      "public_sha256":  "e593f62847e1516b23431281be2d418a8738028f4dd51ded68e9267a5b3e1be1"
+                  },
+                  {
+                      "path":  "worktree-add.exit.json",
+                      "original_sha256":  "acb791619f69221f050f924fd0b0a3ed043411a3677f2140309128825bee4c46",
+                      "public_sha256":  "acb791619f69221f050f924fd0b0a3ed043411a3677f2140309128825bee4c46"
+                  },
+                  {
+                      "path":  "aab\\unity-build-info.json",
+                      "original_sha256":  "59b464d24d3edfc75184eedc01ca37fd8d50258c7d2c8a521f4f886bc41f07c0",
+                      "public_sha256":  "59b464d24d3edfc75184eedc01ca37fd8d50258c7d2c8a521f4f886bc41f07c0"
+                  },
+                  {
+                      "path":  "aab\\unity-arguments.txt",
+                      "original_sha256":  "31e5760c446f1252b2f04d8c5c166f93d32ee5e71562dcb4a9aec04ec6718838",
+                      "public_sha256":  "31e5760c446f1252b2f04d8c5c166f93d32ee5e71562dcb4a9aec04ec6718838"
+                  },
+                  {
+                      "path":  "checkout-source\\source-check.json",
+                      "original_sha256":  "1dffb4d8a6cc5c021ed02ca6432308c2bccc777364b856128482b49fd83adc1e",
+                      "public_sha256":  "1dffb4d8a6cc5c021ed02ca6432308c2bccc777364b856128482b49fd83adc1e"
+                  },
+                  {
+                      "path":  "checkout-source\\working.stderr.log",
+                      "original_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "public_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                  },
+                  {
+                      "path":  "checkout-source\\index.stderr.log",
+                      "original_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "public_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                  },
+                  {
+                      "path":  "checkout-source\\untracked.stderr.log",
+                      "original_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "public_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                  },
+                  {
+                      "path":  "aab\\before\\source-check.json",
+                      "original_sha256":  "1dffb4d8a6cc5c021ed02ca6432308c2bccc777364b856128482b49fd83adc1e",
+                      "public_sha256":  "1dffb4d8a6cc5c021ed02ca6432308c2bccc777364b856128482b49fd83adc1e"
+                  },
+                  {
+                      "path":  "aab\\before\\working.stderr.log",
+                      "original_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "public_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                  },
+                  {
+                      "path":  "aab\\before\\index.stderr.log",
+                      "original_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "public_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                  },
+                  {
+                      "path":  "aab\\before\\untracked.stderr.log",
+                      "original_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "public_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                  },
+                  {
+                      "path":  "aab\\after\\source-check.json",
+                      "original_sha256":  "bc4e9d8c2267f88e02dae7c15cb494fb3bd9de9b64e99875ce32b69377a9b7a0",
+                      "public_sha256":  "bc4e9d8c2267f88e02dae7c15cb494fb3bd9de9b64e99875ce32b69377a9b7a0"
+                  },
+                  {
+                      "path":  "aab\\after\\working.stderr.log",
+                      "original_sha256":  "249633952af34eb9c20de971d477aacd096ac7592da4a1b46054989b15198ead",
+                      "public_sha256":  "249633952af34eb9c20de971d477aacd096ac7592da4a1b46054989b15198ead"
+                  },
+                  {
+                      "path":  "aab\\after\\index.stderr.log",
+                      "original_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "public_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                  },
+                  {
+                      "path":  "aab\\after\\untracked.stderr.log",
+                      "original_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "public_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                  },
+                  {
+                      "path":  "aab\\source-recovery\\before\\source-check.json",
+                      "original_sha256":  "1dffb4d8a6cc5c021ed02ca6432308c2bccc777364b856128482b49fd83adc1e",
+                      "public_sha256":  "1dffb4d8a6cc5c021ed02ca6432308c2bccc777364b856128482b49fd83adc1e"
+                  },
+                  {
+                      "path":  "aab\\source-recovery\\before\\working.stderr.log",
+                      "original_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "public_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                  },
+                  {
+                      "path":  "aab\\source-recovery\\before\\index.stderr.log",
+                      "original_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "public_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                  },
+                  {
+                      "path":  "aab\\source-recovery\\before\\untracked.stderr.log",
+                      "original_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "public_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                  },
+                  {
+                      "path":  "aab\\source-recovery\\snapshot.json",
+                      "original_sha256":  "4d0cac96f0e609f2dc8174939d3e8f99d89dacbbb0cd53b4d95eef4397581d8f",
+                      "public_sha256":  "4d0cac96f0e609f2dc8174939d3e8f99d89dacbbb0cd53b4d95eef4397581d8f"
+                  },
+                  {
+                      "path":  "aab\\source-recovery\\pre-restore.diff",
+                      "original_sha256":  "e30c5865ddbe65a32cd3e764973a3bde9903bf63f886e0cdff96fe2155a46f4c",
+                      "public_sha256":  "e30c5865ddbe65a32cd3e764973a3bde9903bf63f886e0cdff96fe2155a46f4c"
+                  },
+                  {
+                      "path":  "aab\\source-recovery\\pre-restore-checks.json",
+                      "original_sha256":  "c0beaf159ceded9ac4bdea97e5f6e1dfba94345d043bf910e89be4193b5df61e",
+                      "public_sha256":  "c0beaf159ceded9ac4bdea97e5f6e1dfba94345d043bf910e89be4193b5df61e"
+                  },
+                  {
+                      "path":  "aab\\source-recovery\\recovery-result.json",
+                      "original_sha256":  "2063eb1c48fe7c1b731003badf5a9235713ae4ab73a881e5a1697229390575b4",
+                      "public_sha256":  "2063eb1c48fe7c1b731003badf5a9235713ae4ab73a881e5a1697229390575b4"
+                  }
+              ],
+    "artifact_body_exported":  false
+}

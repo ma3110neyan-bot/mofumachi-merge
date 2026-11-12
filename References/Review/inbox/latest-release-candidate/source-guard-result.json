@@ -1,19 +1,18 @@
 {
   "result": "Failed",
+  "baseline": "f27eadb407c2bf6fb893580f49256bc02bf6f51c",
+  "head": "f27eadb407c2bf6fb893580f49256bc02bf6f51c",
   "unchanged": false,
-  "baseline": "41529cfaea57ab564da46b3a45c41ede0aa5088b",
-  "head": "41529cfaea57ab564da46b3a45c41ede0aa5088b",
-  "working_diff_exit": 1,
-  "index_diff_exit": 0,
-  "untracked_exit": 0,
   "tracked_changed_paths": [
     "Assets/Settings/UniversalRP.asset",
     "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
     "ProjectSettings/ProjectSettings.asset"
   ],
+  "working_diff_exit": 1,
+  "index_diff_exit": 0,
   "disallowed_untracked_count": 56,
   "utmp_count": 55,
-  "gradle_shutdown_log_count": 1,
+  "gradle_stop_log_count": 1,
   "allowed_untracked": [
     {
       "sha256": "f24445f4481f74f7653a375e2f618e50d608b14fdacee794fcab51b8d447351c",
@@ -24,59 +23,20 @@
     ".vsconfig"
   ],
   "allowlist_changed": false,
+  "guard_changed": false,
   "first_rejected_path": "ProjectSettings/ProjectSettings.asset",
   "first_rejected_field": "m_APIs (Android)",
   "before": "0b000000",
   "after": "0b000000i",
+  "before_raw_hex": "30 62 30 30 30 30 30 30",
+  "after_raw_hex": "30 62 30 30 30 30 30 30 69",
   "after_length": 9,
+  "suffix_byte": "69",
   "suffix_unicode": "U+0069",
   "after_is_hex": false,
-  "first_error": "Android graphics value is not the known OpenGLES3 representation.",
-  "rejection_code": "scripts/build-android-release.ps1:223 (Get-AndroidReleaseComparable)",
-  "rejection_scope": "The authenticated saved diff contains a non-hex suffix; it is not accepted as a case or newline-only representation change",
-  "mutation_origin": "Undetermined; the diff does not establish whether Unity or an external actor introduced the suffix",
   "raw_diff_sha256": "e30c5865ddbe65a32cd3e764973a3bde9903bf63f886e0cdff96fe2155a46f4c",
-  "diff_and_snapshot_baseline_verification": [
-    {
-      "path": "Assets/Settings/UniversalRP.asset",
-      "before_git_blob_sha1": "a2f9ef5bd694f4bd6323ef598e5effca9d476aac",
-      "after_git_blob_sha1": "96a9f56f45266bec0dab2be912ef7114ec1d4690",
-      "diff_index_before": "a2f9ef5",
-      "diff_index_after": "96a9f56",
-      "diff_applied_in_memory_only": true,
-      "diff_index_hashes_match": true,
-      "snapshot_sha256": "e0eff2e5f37063e786bd9777c805d89cbd05851f3785aded20e632bbbd578df2",
-      "snapshot_length": 4964,
-      "snapshot_metadata_matches_committed_crlf_bytes": true,
-      "snapshot_binary_received": false
-    },
-    {
-      "path": "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
-      "before_git_blob_sha1": "6b09cd6abbe94c024e8c57d154fc8637d72a2c95",
-      "after_git_blob_sha1": "e5bc3aa57fe595f9344b1f99e0842c9c7fb2449f",
-      "diff_index_before": "6b09cd6",
-      "diff_index_after": "e5bc3aa",
-      "diff_applied_in_memory_only": true,
-      "diff_index_hashes_match": true,
-      "snapshot_sha256": "7046728580f240daead5b399505ce97c4efc3f30ff939ad2ec546f7298aa56cf",
-      "snapshot_length": 28656,
-      "snapshot_metadata_matches_committed_crlf_bytes": true,
-      "snapshot_binary_received": false
-    },
-    {
-      "path": "ProjectSettings/ProjectSettings.asset",
-      "before_git_blob_sha1": "489dcd499b37831c4c6bd5d79029a142ed9158b1",
-      "after_git_blob_sha1": "4186c2eea20a9a1cb7796331656c208d2325d255",
-      "diff_index_before": "489dcd4",
-      "diff_index_after": "4186c2e",
-      "diff_applied_in_memory_only": true,
-      "diff_index_hashes_match": true,
-      "snapshot_sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
-      "snapshot_length": 24343,
-      "snapshot_metadata_matches_committed_crlf_bytes": true,
-      "snapshot_binary_received": false
-    }
-  ],
-  "recovery_final_guard": "NotRun; recovery failed before writes",
-  "ordinary_after_guard": "Executed and Failed"
+  "first_error": "Android graphics value is not the known OpenGLES3 representation.",
+  "recovery_final_guard": "NotRun; initial false sentinel retained in raw report; validation failed before restoration",
+  "ordinary_after_guard": "Executed and Failed",
+  "mutation_origin": "Unproven; release-entry graphics setter/restore no-op was confirmed and mutation still recurred."
 }

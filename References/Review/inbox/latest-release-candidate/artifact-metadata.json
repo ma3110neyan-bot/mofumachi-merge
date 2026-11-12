@@ -1,10 +1,11 @@
 {
-  "path": "E:\\Mofumachi-Validation\\release-candidate\\rc-20261110-132609-c6829dc7\\mofumachi-merge-rc-20261110-132609-c6829dc7.aab",
-  "file_name": "mofumachi-merge-rc-20261110-132609-c6829dc7.aab",
-  "size": 66555554,
-  "sha256": "d40cef8a8111619fde29bf12be2ab6e06fbd873eea40d71280175760d60b55de",
-  "last_write_utc": "2026-11-11T04:40:15.9996956Z",
-  "metadata_source": "Windows Get-Item/Get-FileHash in the supplied aab-review.json; artifact body not received or independently rehashed here",
+  "path": "E:\\Mofumachi-Validation\\release-candidate\\rc-20261111-131010-b06b70ea\\mofumachi-merge-rc-20261111-131010-b06b70ea.aab",
+  "file_name": "mofumachi-merge-rc-20261111-131010-b06b70ea.aab",
+  "size": 66555549,
+  "sha256": "7b52c177780f2aec08ef6801554d3d0f3483d3e4ae6c4162e4538c03fb276b86",
+  "metadata_source": "Windows operator Get-Item/Get-FileHash after the failed wrapper; received metadata checksums verified. AAB body not received or rehashed in cloud.",
+  "native_row_size": null,
+  "native_row_sha256": null,
   "actual_signer_sha256": null,
   "accepted": false
 }

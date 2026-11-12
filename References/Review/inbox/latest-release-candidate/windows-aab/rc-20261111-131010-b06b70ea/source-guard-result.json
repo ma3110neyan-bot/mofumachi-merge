@@ -1,0 +1,42 @@
+{
+  "result": "Failed",
+  "baseline": "f27eadb407c2bf6fb893580f49256bc02bf6f51c",
+  "head": "f27eadb407c2bf6fb893580f49256bc02bf6f51c",
+  "unchanged": false,
+  "tracked_changed_paths": [
+    "Assets/Settings/UniversalRP.asset",
+    "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+    "ProjectSettings/ProjectSettings.asset"
+  ],
+  "working_diff_exit": 1,
+  "index_diff_exit": 0,
+  "disallowed_untracked_count": 56,
+  "utmp_count": 55,
+  "gradle_stop_log_count": 1,
+  "allowed_untracked": [
+    {
+      "sha256": "f24445f4481f74f7653a375e2f618e50d608b14fdacee794fcab51b8d447351c",
+      "path": ".vsconfig"
+    }
+  ],
+  "allowlist": [
+    ".vsconfig"
+  ],
+  "allowlist_changed": false,
+  "guard_changed": false,
+  "first_rejected_path": "ProjectSettings/ProjectSettings.asset",
+  "first_rejected_field": "m_APIs (Android)",
+  "before": "0b000000",
+  "after": "0b000000i",
+  "before_raw_hex": "30 62 30 30 30 30 30 30",
+  "after_raw_hex": "30 62 30 30 30 30 30 30 69",
+  "after_length": 9,
+  "suffix_byte": "69",
+  "suffix_unicode": "U+0069",
+  "after_is_hex": false,
+  "raw_diff_sha256": "e30c5865ddbe65a32cd3e764973a3bde9903bf63f886e0cdff96fe2155a46f4c",
+  "first_error": "Android graphics value is not the known OpenGLES3 representation.",
+  "recovery_final_guard": "NotRun; initial false sentinel retained in raw report; validation failed before restoration",
+  "ordinary_after_guard": "Executed and Failed",
+  "mutation_origin": "Unproven; release-entry graphics setter/restore no-op was confirmed and mutation still recurred."
+}

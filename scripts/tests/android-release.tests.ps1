@@ -44,7 +44,7 @@ function Test-ReleaseSourceRecovery {
     }
     function Change($Fixture, [string]$Name, [string]$Old, [string]$New) {
         $Path = Join-Path $Fixture.project $Name
-        $Text = [IO.File]::ReadAllText($Path)
+        $Text = [IO.File]::ReadAllText($Path).Replace("`r`n","`n")
         if (-not $Text.Contains($Old)) { throw ('Fixture literal not found: ' + $Name + ': ' + $Old) }
         [IO.File]::WriteAllText($Path,$Text.Replace($Old,$New),(New-Object Text.UTF8Encoding($false)))
     }
@@ -52,7 +52,7 @@ function Test-ReleaseSourceRecovery {
         Change $Fixture $Paths[0] '  m_PrefilterXRKeywords: 0' '  m_PrefilterXRKeywords: 1'
         Change $Fixture $Paths[1] "    m_RuntimeSettings:`n      m_List: []" "    m_RuntimeSettings:`n      m_List:`n      - rid: 3114554777721110528"
         Change $Fixture $Paths[2] "  AndroidKeystoreName: `n" "  AndroidKeystoreName: '{inproject}: '`n"
-        Change $Fixture $Paths[2] '    m_APIs: 0b000000' '    m_APIs: 0B000000'
+        Change $Fixture $Paths[2] '    m_APIs: 0b000000' '    m_APIs: 0b000000i'
     }
     function Generated($Fixture) {
         $Path = Join-Path $Fixture.project '.utmp/tools/release/arm64-v8a/compile_commands.json'
@@ -102,6 +102,8 @@ function Test-ReleaseSourceRecovery {
             $Destination = Join-Path $Formal $Name
             $null = [IO.Directory]::CreateDirectory((Split-Path -Parent $Destination))
             $FixtureText=[IO.File]::ReadAllText((Join-Path $PSScriptRoot ('../../'+$Name))).Replace("`r`n","`n")
+            # Private fixture only: match the observed prebuild physical CRLF bytes.
+            if ($Name -ceq 'ProjectSettings/ProjectSettings.asset') { $FixtureText=$FixtureText.Replace("`n","`r`n") }
             [IO.File]::WriteAllText($Destination,$FixtureText,(New-Object Text.UTF8Encoding($false)))
         }
         [IO.File]::WriteAllText((Join-Path $Formal 'Assets/game.txt'),'unchanged game')
@@ -181,10 +183,10 @@ function Test-ReleaseSourceRecovery {
             Check (Recover $F).passed 'Combined recovery failed.'
             Check ([IO.File]::ReadAllText($File) -ceq '{"version":"1.0"}') 'Root .vsconfig changed.'
         }
-        Case 'post-build CRLF and Light2D list retain exact original snapshot bytes' {
+        Case 'known URP CRLF and Light2D list with exact ProjectSettings retain snapshot bytes' {
             $F=Fixture;Known $F
             Change $F $Paths[0] '  m_Light2DKeptVariantCombos: []' "  m_Light2DKeptVariantCombos:`n  - 1`n  - 4"
-            foreach ($Name in $Paths) {
+            foreach ($Name in $Paths[0..1]) {
                 $File=Join-Path $F.project $Name
                 [IO.File]::WriteAllText($File,[IO.File]::ReadAllText($File).Replace("`n","`r`n"),(New-Object Text.UTF8Encoding($false)))
             }
@@ -234,9 +236,9 @@ function Test-ReleaseSourceRecovery {
             $F=Fixture;Known $F;Change $F $Paths[2] '  AndroidBundleVersionCode: 1' '  AndroidBundleVersionCode: 2'
             RejectUnchanged $F 'Version code mutation accepted.'
         }
-        Case 'non-hex graphics suffix is rejected before restore' {
-            $F=Fixture;Known $F;Change $F $Paths[2] '    m_APIs: 0B000000' '    m_APIs: 0b000000i'
-            RejectUnchanged $F 'Unconfirmed non-hex graphics value accepted.'
+        Case 'unknown graphics suffix is rejected before restore' {
+            $F=Fixture;Known $F;Change $F $Paths[2] '    m_APIs: 0b000000i' '    m_APIs: 0b000000j'
+            RejectUnchanged $F 'Unknown non-hex graphics value accepted.'
         }
         Case 'different graphics API is rejected' {
             $F=Fixture;Change $F $Paths[2] '    m_APIs: 0b000000' '    m_APIs: 15000000'

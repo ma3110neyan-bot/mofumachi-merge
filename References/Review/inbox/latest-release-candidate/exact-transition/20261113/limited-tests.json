@@ -1,0 +1,92 @@
+{
+  "scope": "Exact source-recovery recognition and real filesystem restore only; transport/scope doubles are test-only",
+  "total": 17,
+  "passed": 17,
+  "failed": 0,
+  "cases": [
+    {
+      "result": "Passed",
+      "name": "1 exact physical fingerprints and known diff are recognized"
+    },
+    {
+      "result": "Passed",
+      "name": "2 a one-byte after mutation is rejected before restoration"
+    },
+    {
+      "result": "Passed",
+      "name": "3 another graphics suffix is rejected"
+    },
+    {
+      "result": "Passed",
+      "name": "4 another keystore binding is rejected"
+    },
+    {
+      "result": "Passed",
+      "name": "5 an additional unknown field is rejected"
+    },
+    {
+      "result": "Passed",
+      "name": "6 real File.Replace restores byte-perfect snapshot bytes"
+    },
+    {
+      "result": "Passed",
+      "name": "7 backup retains exact postbuild SHA and remains in existing Diagnostics"
+    },
+    {
+      "result": "Passed",
+      "name": "8 corruption after real replacement fails restored-SHA verification"
+    },
+    {
+      "result": "Passed",
+      "name": "9 corruption of the retained backup fails recovery"
+    },
+    {
+      "result": "Passed",
+      "name": "10 wrong before SHA with the exact after is rejected"
+    },
+    {
+      "result": "Passed",
+      "name": "11 wrong after size is rejected"
+    },
+    {
+      "result": "Passed",
+      "name": "12 unexpected untracked path blocks every restore"
+    },
+    {
+      "result": "Passed",
+      "name": "13 ordinary guard still rejects the changed physical file before recovery"
+    },
+    {
+      "result": "Passed",
+      "name": "14 removing the suffix still fails the observed-before exact gate"
+    },
+    {
+      "result": "Passed",
+      "name": "15 unexpected fourth tracked file blocks every restore"
+    },
+    {
+      "result": "Passed",
+      "name": "16 suffix-free changes with unknown full fingerprints are rejected"
+    },
+    {
+      "result": "Passed",
+      "name": "17 updated existing suite fixtures retain known URP and exact ProjectSettings recovery"
+    }
+  ],
+  "before_sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+  "after_sha256": "266f17baf9d7101401580553aab9d0ede0390f6c859e137e31f6274d4713f07a",
+  "diff_sha256": "06237adb85a8490fbe6ea1f32b59fdbf8f0548cdbc706d9cd1d6d15a8e87b596",
+  "unity_invocations": 0,
+  "aab_count": 0,
+  "apk_count": 0,
+  "pixel_operations": 0,
+  "automatic_retries": 0,
+  "native_git_config_changes": 0,
+  "native_git_commits": 0,
+  "worktree_creations": 0,
+  "private_fixture_bodies_shared": false,
+  "windows_native_restore_verified": false,
+  "error": null,
+  "error_stack": null,
+  "error_position": null
+}

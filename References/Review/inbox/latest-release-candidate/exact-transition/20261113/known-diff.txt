@@ -1,0 +1,7 @@
+ProjectSettings-UnityExit-exact-v1
+before=CRLF;newlines=846;size=24343
+after=LF;newlines=846;size=23513
+L277:  AndroidKeystoreName: 
+R277:  AndroidKeystoreName: '{inproject}: '
+L439:    m_APIs: 0b000000
+R439:    m_APIs: 0b000000i

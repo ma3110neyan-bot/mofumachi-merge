@@ -1,0 +1,22 @@
+{
+  "scope": "Linux PowerShell fixture execution; real System.IO.File.Replace; test-only Git transport and recovery-scope doubles",
+  "method": "System.IO.File.Replace(payload,target,backup)",
+  "restored_target_sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+  "restored_target_size": 24343,
+  "backup_sha256": "266f17baf9d7101401580553aab9d0ede0390f6c859e137e31f6274d4713f07a",
+  "backup_size": 23513,
+  "atomic_proof_state": "Verified",
+  "backup_parent_existed": true,
+  "backup_retained": true,
+  "payload_consumed_by_replace": true,
+  "explicit_backup_cleanup": false,
+  "exact_transition_post_restore_rechecked": true,
+  "ordinary_final_guard_passed_in_fixture": true,
+  "ordinary_guard_transport": "test double; native Windows/Git guard not reexecuted",
+  "post_restore_corruption_rejected": true,
+  "post_restore_corruption_problem": "Restore SHA mismatch.",
+  "backup_corruption_rejected": true,
+  "backup_corruption_problem": "Restore backup verification failed.",
+  "windows_native_restore_verified": false,
+  "full_asset_snapshot_backup_bodies_shared": false
+}

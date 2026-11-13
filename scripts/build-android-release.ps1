@@ -170,6 +170,37 @@ function New-AndroidReleaseBuildSnapshot([string]$Git,[string]$Project,[string]$
     Write-AndroidReleaseJson (Join-Path $Directory 'snapshot.json') $Plan
     return $Plan
 }
+function Assert-AndroidReleaseExactProjectSettingsTransition([byte[]]$Before,[byte[]]$After) {
+    $BeforeSha='d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc'
+    $AfterSha='266f17baf9d7101401580553aab9d0ede0390f6c859e137e31f6274d4713f07a'
+    $DiffSha='06237adb85a8490fbe6ea1f32b59fdbf8f0548cdbc706d9cd1d6d15a8e87b596'
+    if ($Before.Length -ne 24343 -or $After.Length -ne 23513 -or
+        (Get-AndroidReleaseBytesHash $Before) -cne $BeforeSha -or
+        (Get-AndroidReleaseBytesHash $After) -cne $AfterSha) { throw 'Unrecognized exact ProjectSettings fingerprints or sizes.' }
+    $Utf8=New-Object Text.UTF8Encoding($false,$true)
+    $Left=$Utf8.GetString($Before).Split([string[]]@("`r`n"),[StringSplitOptions]::None)
+    $Right=$Utf8.GetString($After).Split([string[]]@("`n"),[StringSplitOptions]::None)
+    if ($Left.Length -ne 847 -or $Right.Length -ne 847 -or $Left[846] -cne '' -or $Right[846] -cne '' -or
+        @($Left | Where-Object {$_.Contains("`r") -or $_.Contains("`n")}).Count -ne 0 -or
+        @($Right | Where-Object {$_.Contains("`r") -or $_.Contains("`n")}).Count -ne 0) { throw 'Unknown ProjectSettings line-ending transition.' }
+    $Changed=@()
+    $Canonical="ProjectSettings-UnityExit-exact-v1`nbefore=CRLF;newlines=846;size=24343`nafter=LF;newlines=846;size=23513`n"
+    for ($i=0;$i -lt $Left.Length;$i++) {
+        if ($Left[$i] -cne $Right[$i]) {
+            $Changed+=@{line=($i+1);before=$Left[$i];after=$Right[$i]}
+            $Canonical+=('L'+($i+1)+':'+$Left[$i]+"`n"+'R'+($i+1)+':'+$Right[$i]+"`n")
+        }
+    }
+    if ($Changed.Count -ne 2 -or $Changed[0].line -ne 277 -or $Changed[1].line -ne 439 -or
+        $Left[276] -cne '  AndroidKeystoreName: ' -or $Right[276] -cne "  AndroidKeystoreName: '{inproject}: '" -or
+        $Left[438] -cne '    m_APIs: 0b000000' -or $Right[438] -cne '    m_APIs: 0b000000i' -or
+        $Left[437] -cne '  - m_BuildTarget: Android' -or $Right[437] -cne $Left[437] -or
+        $Left[439] -cne '    m_Automatic: 0' -or $Right[439] -cne $Left[439]) { throw 'Unknown additional ProjectSettings diff.' }
+    if ((Get-AndroidReleaseBytesHash $Utf8.GetBytes($Canonical)) -cne $DiffSha) { throw 'ProjectSettings diff fingerprint mismatch.' }
+    return [pscustomobject]@{transition='ProjectSettings-UnityExit-exact-v1';before_sha256=$BeforeSha;before_size=24343;
+        after_sha256=$AfterSha;after_size=23513;before_line_endings='CRLF';after_line_endings='LF';newlines=846;
+        diff_sha256=$DiffSha;changed_lines=$Changed;canonical_diff=$Canonical;general_suffix_allowance=$false}
+}
 function Get-AndroidReleaseComparable([string]$Relative,[byte[]]$Bytes,[string]$Reference) {
     $Utf8=New-Object Text.UTF8Encoding($false,$true)
     $Text=$Utf8.GetString($Bytes).Replace("`r`n","`n")
@@ -313,7 +344,7 @@ function Remove-AndroidReleaseGeneratedItem([string]$Path,[bool]$Directory) {
     if ($Directory) { [IO.Directory]::Delete($Path,$false) } else { [IO.File]::Delete($Path) }
 }
 function Repair-AndroidReleaseBuildSource([string]$Git,$Plan,[object[]]$Secrets=@()) {
-    $Report=[ordered]@{passed=$false;problem=$null;restored=@();cleaned=@();final_guard=@{unchanged=$false}}
+    $Report=[ordered]@{passed=$false;problem=$null;restored=@();cleaned=@();final_guard=@{unchanged=$false};projectsettings_transition=$null;projectsettings_transition_post_restore_verified=$false}
     $CanWriteReport=$false
     try {
         Assert-AndroidReleaseRecoveryScope $Git $Plan.project $Plan.baseline $Plan.directory $Plan.formal
@@ -349,6 +380,15 @@ function Repair-AndroidReleaseBuildSource([string]$Git,$Plan,[object[]]$Secrets=
         foreach ($Name in $Paths) {
             $BytesAfter[$Name]=Read-AndroidReleaseRegularBytes (Join-Path $Plan.project $Name)
             $AfterHashes[$Name]=Get-AndroidReleaseBytesHash $BytesAfter[$Name]
+            if ($Name -ceq 'ProjectSettings/ProjectSettings.asset') {
+                $BeforeHash=Get-AndroidReleaseBytesHash $BytesBefore[$Name]
+                # Every physical change of this file requires the complete exact proof.
+                # Unknown fingerprints must never fall back to text normalization.
+                if ($AfterHashes[$Name] -cne $BeforeHash) {
+                    $Report.projectsettings_transition=Assert-AndroidReleaseExactProjectSettingsTransition $BytesBefore[$Name] $BytesAfter[$Name]
+                    continue
+                }
+            }
             $Reference=$Utf8.GetString($BytesBefore[$Name]).Replace("`r`n","`n")
             $Left=Get-AndroidReleaseComparable $Name $BytesBefore[$Name] $Reference
             $Right=Get-AndroidReleaseComparable $Name $BytesAfter[$Name] $Reference
@@ -400,6 +440,10 @@ function Repair-AndroidReleaseBuildSource([string]$Git,$Plan,[object[]]$Secrets=
                 $Proof=Restore-AndroidReleaseSnapshotFile $Payload $Target $Backup $Row.sha256 $AfterHashes[$Row.relative]
                 if ((Get-AndroidReleaseBytesHash (Read-AndroidReleaseRegularBytes $Target)) -cne $Row.sha256) { throw 'Restore SHA mismatch.' }
                 if ($null -eq $Proof -or $Proof.state -cne 'Verified' -or (Get-AndroidReleaseBytesHash (Read-AndroidReleaseRegularBytes $Backup)) -cne $AfterHashes[$Row.relative]) { throw 'Restore backup verification failed.' }
+                if ($Row.relative -ceq 'ProjectSettings/ProjectSettings.asset' -and $null -ne $Report.projectsettings_transition) {
+                    $null=Assert-AndroidReleaseExactProjectSettingsTransition (Read-AndroidReleaseRegularBytes $Target) (Read-AndroidReleaseRegularBytes $Backup)
+                    $Report.projectsettings_transition_post_restore_verified=$true
+                }
                 $Report.restored+=@{path=$Row.relative;sha256=$Row.sha256;before_sha256=$AfterHashes[$Row.relative];backup=$Backup;backup_record=$Proof.record}
             }
             if ((Get-AndroidReleaseBytesHash (Read-AndroidReleaseRegularBytes $Target)) -cne $Row.sha256) { throw 'Restore SHA mismatch.' }

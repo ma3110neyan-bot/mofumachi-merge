@@ -1,0 +1,37 @@
+{
+  "atomic_restore_helper_changed": false,
+  "only_added_function": [
+    "Assert-AndroidReleaseExactProjectSettingsTransition"
+  ],
+  "protected_functions_identical": {
+    "Assert-AndroidReleaseRecoveryScope": "5e0dc2c31d41d7ce1c225a08ad50b8d2241e95582cc9293f2caca1e387d8aec1",
+    "Invoke-AndroidReleaseGit": "9133e4ab0d139f07a36e4cb50185f1b9febab55c72a018092d53f171f2f24c3f",
+    "Test-AndroidReleaseGeneratedFile": "6e23464c16b0362232e2f4fb38c8bd1c5ae17483c2321be6dd3c5938f45c9d09",
+    "Get-AndroidReleaseSourceCheck": "bd0f45b92bb9593a022c1bbb674a5dba64e0a5582e6ffdfe9790d55cb7895842",
+    "Restore-AndroidReleaseSnapshotFile": "14712f117fea6a575f36ab32926df284650b9a9d50e898a63c1dab843c75f3f4",
+    "Remove-AndroidReleaseGeneratedItem": "85644fe0aeb6388e9c3c5608e5aaca295089bed90502b75dd4df18d245c75445",
+    "Get-AndroidReleaseComparable": "c9f47f88b2e49f3f3e7074618a6c41469cc56d572f96d8f1fdccb1c2ba3bd0f8"
+  },
+  "cleanup_changed": false,
+  "only_changed_function": [
+    "Repair-AndroidReleaseBuildSource"
+  ],
+  "ordinary_guard_changed": false,
+  "universalrp_comparator_changed": false,
+  "base_commit": "2d20b012433033446895ba272fd3bf06afcf1416",
+  "code_sha256": {
+    "scripts/build-android-release.ps1": "72ac944ac3f6ec9ed13cc55addca728948f4efa2e018aab8c6ef3639f9218a26",
+    "scripts/tests/android-release-exact-transition.tests.ps1": "05d7e20846df9413c05ddc7e788e1955ba3df90a8c381e2a7ffcdef0d8565531",
+    "scripts/tests/android-release.tests.ps1": "53a2f63a213bb7815247b36629c0a379e43137af4871f35bf056e3f620e9a80f"
+  },
+  "build_script_utf8_bom_preserved": true,
+  "production_assets_unmodified": true,
+  "gitignore_unmodified": true,
+  "full_42_suite_executed": false,
+  "git_configuration_changes": 0,
+  "unity_invocations": 0,
+  "aab_count": 0,
+  "apk_count": 0,
+  "pixel_operations": 0,
+  "automatic_retries": 0
+}

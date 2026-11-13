@@ -1,0 +1,12 @@
+{
+  "scope": "Expected pre-implementation regression; not a native Unity failure",
+  "total": 1,
+  "passed": 0,
+  "failed": 1,
+  "expected_failure": true,
+  "error": "Known transition rejected: Android graphics value is not the known OpenGLES3 representation.",
+  "unity_invocations": 0,
+  "aab_count": 0,
+  "apk_count": 0,
+  "automatic_retries": 0
+}

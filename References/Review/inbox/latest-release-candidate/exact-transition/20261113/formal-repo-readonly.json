@@ -1,0 +1,19 @@
+{
+  "evidence_type": "User-provided 2026-11-13 screenshot of read-only Windows Git commands; no raw text file supplied",
+  "repository": "C:\\Users\\User\\Desktop\\Mofumachi\\mofumachi-merge",
+  "head": "ddbb93f3e6b5a45795be87561f61de5d4194f65c",
+  "working_status_output": "",
+  "staged_name_output": "",
+  "working_tree_clean": true,
+  "staged_empty": true,
+  "commands": [
+    "git --no-pager --no-optional-locks -C <formal> rev-parse HEAD",
+    "git --no-pager --no-optional-locks -C <formal> status --porcelain=v1 --untracked-files=all",
+    "git --no-pager --no-optional-locks -C <formal> diff --cached --name-only"
+  ],
+  "github_app_required": false,
+  "formal_repository_writes_by_this_task": 0,
+  "current_branch_not_captured": true,
+  "windows_checkout_contains_new_recovery_patch": false,
+  "sync_new_shared_commit_before_a_future_aab": true
+}

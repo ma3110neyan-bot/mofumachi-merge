@@ -1,0 +1,12 @@
+ M Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+ M ProjectSettings/EditorBuildSettings.asset
+ M ProjectSettings/Packages/com.unity.learn.iet-framework/Settings.json
+ M ProjectSettings/ProjectAuditorSettings.asset
+ M ProjectSettings/ProjectSettings.asset
+ M ProjectSettings/ShaderGraphSettings.asset
+?? .vsconfig
+?? Assets/Mofumachi/Editor/Diagnostics.meta
+?? Assets/Mofumachi/Editor/Diagnostics/AndroidProjectSettingsSerializationProbe.cs
+?? Assets/Mofumachi/Editor/Diagnostics/AndroidProjectSettingsSerializationProbe.cs.meta
+?? Assets/Mofumachi/Editor/Diagnostics/ProjectSettingsSerializationObservation.cs
+?? Assets/Mofumachi/Editor/Diagnostics/ProjectSettingsSerializationObservation.cs.meta

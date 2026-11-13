@@ -1,0 +1,36 @@
+{
+  "archive_sha256": "be4df6f5a2ff0661366d0c059fdb03429a913303b598da865fe629879b3287a1",
+  "archive_bytes": 40838,
+  "raw_members": 85,
+  "manifest_entries_verified": 84,
+  "all_received_member_bytes_preserved": true,
+  "stages_crosschecked": 19,
+  "stage_json_matches_report": true,
+  "raw_hex_matches_api_values": true,
+  "independent_e0_matches_report": true,
+  "p6_absent_and_skip_marker_present": true,
+  "all_12_git_calls_and_log_copies_verified": true,
+  "formal_before_after_equal_clean": true,
+  "os_identity_matches_launch": true,
+  "p5_write_exit_e0_time_order_verified": true,
+  "data_only_classification_tests": {
+    "total": 12,
+    "passed": 12,
+    "failed": 0
+  },
+  "api_compile": "Passed before execution; exact same driver/observer hashes ran successfully in the one Windows Editor process.",
+  "code_sha256": {
+    "scripts/probes/AndroidProjectSettingsSerializationProbe.cs": "32fb309ea46b8d8a2ec9f4f53fa5168dff13e020754432d4251d47b94985eb6d",
+    "scripts/probes/ProjectSettingsSerializationObservation.cs": "bf59c1133776b9f7a7a2d6a3bd73c9f392c9493d05798284b8da8fc5c1e48b4f",
+    "scripts/probes/invoke-skip-p6-serialization-probe.ps1": "df50323b868f9baa00facba37e3fd8f48e8e0df1b724f7e16e4294bc00226064",
+    "scripts/tests/serialization-skip-p6.tests.ps1": "d893aa5598a7d21adbc2fc2a4435457a605da6e6c0c5aeabc68dd0fbfc9dda77"
+  },
+  "additional_unity_invocations_during_review": 0,
+  "additional_worktree_creations_during_review": 0,
+  "automatic_retries": 0,
+  "native_csharp_hashes_verified": {
+    "driver": "32fb309ea46b8d8a2ec9f4f53fa5168dff13e020754432d4251d47b94985eb6d",
+    "observer": "bf59c1133776b9f7a7a2d6a3bd73c9f392c9493d05798284b8da8fc5c1e48b4f"
+  },
+  "launcher_runtime_bytes_captured": false
+}

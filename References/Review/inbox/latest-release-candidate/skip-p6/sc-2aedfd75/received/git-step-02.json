@@ -1,0 +1,19 @@
+{
+    "sequence_number":  6,
+    "label":  "git-step-02",
+    "executable":  "C:\\Users\\User\\AppData\\Local\\GitHubDesktop\\app-3.6.10\\resources\\app\\git\\cmd\\git.exe",
+    "arguments":  [
+                      "rev-parse",
+                      "HEAD"
+                  ],
+    "arguments_native":  "\"rev-parse\" \"HEAD\"",
+    "working_directory":  "E:\\Mofumachi-Validation\\p\\sc-2aedfd75",
+    "command":  "\"C:\\Users\\User\\AppData\\Local\\GitHubDesktop\\app-3.6.10\\resources\\app\\git\\cmd\\git.exe\" \"rev-parse\" \"HEAD\"",
+    "exit_code":  0,
+    "process_started":  true,
+    "error_type":  null,
+    "stdout":  "ddbb93f3e6b5a45795be87561f61de5d4194f65c\n",
+    "stderr":  "",
+    "first_fatal_line":  null,
+    "first_error_line":  null
+}

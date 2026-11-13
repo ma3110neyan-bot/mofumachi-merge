@@ -1,0 +1,10 @@
+Safe field projection only; excludes private raw settings and password fields.
+from P5 to E0
+sha256: d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc -> 266f17baf9d7101401580553aab9d0ede0390f6c859e137e31f6274d4713f07a
+byte_size: 24343 -> 23513
+crlf_count: 846 -> 0
+bare_lf_count: 0 -> 846
+m_APIs: 0b000000 -> 0b000000i
+api_raw_hex: 30 62 30 30 30 30 30 30 -> 30 62 30 30 30 30 30 30 69
+android_keystore_name: <empty> -> '{inproject}: '
+keystore_line_sha256: 591f60d5e68bdb9767047484a113d4d0606d3b7b887786801df0cdab8410b8db -> 6d7b342bc6722a5987698f36d97f41766688745748334306836c81b21022a962

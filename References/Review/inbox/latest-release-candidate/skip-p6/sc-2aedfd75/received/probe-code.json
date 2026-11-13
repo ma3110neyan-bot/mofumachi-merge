@@ -1,0 +1,8 @@
+{
+    "observer_sha256":  "bf59c1133776b9f7a7a2d6a3bd73c9f392c9493d05798284b8da8fc5c1e48b4f",
+    "driver_sha256":  "32fb309ea46b8d8a2ec9f4f53fa5168dff13e020754432d4251d47b94985eb6d",
+    "source_head":  "ddbb93f3e6b5a45795be87561f61de5d4194f65c",
+    "code_version":  "skip-p6-20261112-v1",
+    "mode":  "skip_p6",
+    "driver_change":  "short E boundary; skip-P6 mode and pre-P6 mutation stop"
+}

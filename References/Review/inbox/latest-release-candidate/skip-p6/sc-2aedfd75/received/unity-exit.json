@@ -1,0 +1,33 @@
+{
+    "process_exit_utc":  "2026-11-12T14:07:39.3916801Z",
+    "markers":  [
+                    "MOFUMACHI_SERIALIZATION_PROBE_STAGE P0",
+                    "MOFUMACHI_SERIALIZATION_PROBE_STAGE P1",
+                    "MOFUMACHI_SERIALIZATION_PROBE_STAGE P2",
+                    "MOFUMACHI_SERIALIZATION_PROBE_STAGE P3a",
+                    "MOFUMACHI_SERIALIZATION_PROBE_STAGE P3b",
+                    "MOFUMACHI_SERIALIZATION_PROBE_STAGE P3c",
+                    "MOFUMACHI_SERIALIZATION_PROBE_STAGE P4a",
+                    "MOFUMACHI_SERIALIZATION_PROBE_STAGE P4b",
+                    "MOFUMACHI_SERIALIZATION_PROBE_STAGE P4c",
+                    "MOFUMACHI_SERIALIZATION_PROBE_STAGE P4d",
+                    "MOFUMACHI_SERIALIZATION_PROBE_STAGE P4e",
+                    "MOFUMACHI_SERIALIZATION_PROBE_STAGE P5a",
+                    "MOFUMACHI_SERIALIZATION_PROBE_STAGE P5b",
+                    "MOFUMACHI_SERIALIZATION_PROBE_STAGE P5c",
+                    "MOFUMACHI_SERIALIZATION_PROBE_STAGE P5d",
+                    "MOFUMACHI_SERIALIZATION_PROBE_STAGE P5e",
+                    "MOFUMACHI_SERIALIZATION_PROBE_STAGE P5",
+                    "MOFUMACHI_SERIALIZATION_PROBE_P6_SKIPPED",
+                    "MOFUMACHI_SERIALIZATION_PROBE_COMPLETE"
+                ],
+    "stderr_sha256":  "4e125afe2c693d3acb16a6f7fe10e547c8339441e60388f763f57a225fc7ed0c",
+    "exit_observed_utc":  "2026-11-12T14:07:40.5834345Z",
+    "unity_invocations":  1,
+    "stdout_sha256":  "105089a32c8a674cb8099e55f0ca348e11b9b10a61dda3b9e42a73ed4b7618a0",
+    "raw_native_log_exported":  false,
+    "exit_code":  0,
+    "compiler_errors":  [
+
+                        ]
+}

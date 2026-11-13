@@ -1,0 +1,14 @@
+{
+    "project":  "E:\\Mofumachi-Validation\\p\\sc-2aedfd75",
+    "specified_executable":  "C:\\Program Files\\Unity\\Hub\\Editor\\6000.6.4f1\\Editor\\Unity.exe",
+    "pid":  12904,
+    "started_utc":  "2026-11-12T13:02:14.4427077Z",
+    "process_start_utc":  "2026-11-12T13:02:14.4417845Z",
+    "os_identity_read":  true,
+    "os_executable":  "C:\\Program Files\\Unity\\Hub\\Editor\\6000.6.4f1\\Editor\\Unity.exe",
+    "launching_powershell_pid":  7740,
+    "unity_invocations":  1,
+    "os_command_line":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.6.4f1\\Editor\\Unity.exe\" \"-batchmode\" \"-nographics\" \"-quit\" \"-buildTarget\" \"Android\" \"--burst-disable-compilation\" \"-projectPath\" \"E:\\Mofumachi-Validation\\p\\sc-2aedfd75\" \"-logFile\" \"-\" \"-executeMethod\" \"Mofumachi.Editor.Diagnostics.AndroidProjectSettingsSerializationProbe.Run\" \"-mofumachiProbeDirectory\" \"E:\\Mofumachi-Validation\\Diagnostics\\sc-2aedfd75\\public\" \"-mofumachiProbeSource\" \"ddbb93f3e6b5a45795be87561f61de5d4194f65c\" \"-mofumachiProbeSkipP6\"",
+    "os_parent_pid":  7740,
+    "specified_arguments":  "\"-batchmode\" \"-nographics\" \"-quit\" \"-buildTarget\" \"Android\" \"--burst-disable-compilation\" \"-projectPath\" \"E:\\Mofumachi-Validation\\p\\sc-2aedfd75\" \"-logFile\" \"-\" \"-executeMethod\" \"Mofumachi.Editor.Diagnostics.AndroidProjectSettingsSerializationProbe.Run\" \"-mofumachiProbeDirectory\" \"E:\\Mofumachi-Validation\\Diagnostics\\sc-2aedfd75\\public\" \"-mofumachiProbeSource\" \"ddbb93f3e6b5a45795be87561f61de5d4194f65c\" \"-mofumachiProbeSkipP6\""
+}

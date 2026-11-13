@@ -1,0 +1,217 @@
+{
+  "stages": [
+    {
+      "stage": "B0",
+      "observed_utc": "2026-11-12T13:02:13.9704968Z",
+      "file_modified_utc": "2026-11-12T12:50:40.8582432Z",
+      "sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+      "byte_size": 24343,
+      "m_APIs": "0b000000",
+      "api_raw_hex": "30 62 30 30 30 30 30 30",
+      "android_keystore_name": "<empty>",
+      "changed": false
+    },
+    {
+      "stage": "P0",
+      "observed_utc": "2026-11-12T14:07:28.4885054Z",
+      "file_modified_utc": "2026-11-12T12:50:40.8582432Z",
+      "sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+      "byte_size": 24343,
+      "m_APIs": "0b000000",
+      "api_raw_hex": "30 62 30 30 30 30 30 30",
+      "android_keystore_name": "<empty>",
+      "changed": false
+    },
+    {
+      "stage": "P1",
+      "observed_utc": "2026-11-12T14:07:28.6256931Z",
+      "file_modified_utc": "2026-11-12T12:50:40.8582432Z",
+      "sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+      "byte_size": 24343,
+      "m_APIs": "0b000000",
+      "api_raw_hex": "30 62 30 30 30 30 30 30",
+      "android_keystore_name": "<empty>",
+      "changed": false
+    },
+    {
+      "stage": "P2",
+      "observed_utc": "2026-11-12T14:07:28.8739414Z",
+      "file_modified_utc": "2026-11-12T12:50:40.8582432Z",
+      "sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+      "byte_size": 24343,
+      "m_APIs": "0b000000",
+      "api_raw_hex": "30 62 30 30 30 30 30 30",
+      "android_keystore_name": "<empty>",
+      "changed": false
+    },
+    {
+      "stage": "P3a",
+      "observed_utc": "2026-11-12T14:07:29.0082769Z",
+      "file_modified_utc": "2026-11-12T12:50:40.8582432Z",
+      "sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+      "byte_size": 24343,
+      "m_APIs": "0b000000",
+      "api_raw_hex": "30 62 30 30 30 30 30 30",
+      "android_keystore_name": "<empty>",
+      "changed": false
+    },
+    {
+      "stage": "P3b",
+      "observed_utc": "2026-11-12T14:07:29.1474552Z",
+      "file_modified_utc": "2026-11-12T12:50:40.8582432Z",
+      "sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+      "byte_size": 24343,
+      "m_APIs": "0b000000",
+      "api_raw_hex": "30 62 30 30 30 30 30 30",
+      "android_keystore_name": "<empty>",
+      "changed": false
+    },
+    {
+      "stage": "P3c",
+      "observed_utc": "2026-11-12T14:07:29.2603363Z",
+      "file_modified_utc": "2026-11-12T12:50:40.8582432Z",
+      "sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+      "byte_size": 24343,
+      "m_APIs": "0b000000",
+      "api_raw_hex": "30 62 30 30 30 30 30 30",
+      "android_keystore_name": "<empty>",
+      "changed": false
+    },
+    {
+      "stage": "P4a",
+      "observed_utc": "2026-11-12T14:07:29.6854302Z",
+      "file_modified_utc": "2026-11-12T12:50:40.8582432Z",
+      "sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+      "byte_size": 24343,
+      "m_APIs": "0b000000",
+      "api_raw_hex": "30 62 30 30 30 30 30 30",
+      "android_keystore_name": "<empty>",
+      "changed": false
+    },
+    {
+      "stage": "P4b",
+      "observed_utc": "2026-11-12T14:07:29.8038040Z",
+      "file_modified_utc": "2026-11-12T12:50:40.8582432Z",
+      "sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+      "byte_size": 24343,
+      "m_APIs": "0b000000",
+      "api_raw_hex": "30 62 30 30 30 30 30 30",
+      "android_keystore_name": "<empty>",
+      "changed": false
+    },
+    {
+      "stage": "P4c",
+      "observed_utc": "2026-11-12T14:07:29.9063054Z",
+      "file_modified_utc": "2026-11-12T12:50:40.8582432Z",
+      "sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+      "byte_size": 24343,
+      "m_APIs": "0b000000",
+      "api_raw_hex": "30 62 30 30 30 30 30 30",
+      "android_keystore_name": "<empty>",
+      "changed": false
+    },
+    {
+      "stage": "P4d",
+      "observed_utc": "2026-11-12T14:07:30.0218861Z",
+      "file_modified_utc": "2026-11-12T12:50:40.8582432Z",
+      "sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+      "byte_size": 24343,
+      "m_APIs": "0b000000",
+      "api_raw_hex": "30 62 30 30 30 30 30 30",
+      "android_keystore_name": "<empty>",
+      "changed": false
+    },
+    {
+      "stage": "P4e",
+      "observed_utc": "2026-11-12T14:07:30.1402998Z",
+      "file_modified_utc": "2026-11-12T12:50:40.8582432Z",
+      "sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+      "byte_size": 24343,
+      "m_APIs": "0b000000",
+      "api_raw_hex": "30 62 30 30 30 30 30 30",
+      "android_keystore_name": "<empty>",
+      "changed": false
+    },
+    {
+      "stage": "P5a",
+      "observed_utc": "2026-11-12T14:07:30.2543940Z",
+      "file_modified_utc": "2026-11-12T12:50:40.8582432Z",
+      "sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+      "byte_size": 24343,
+      "m_APIs": "0b000000",
+      "api_raw_hex": "30 62 30 30 30 30 30 30",
+      "android_keystore_name": "<empty>",
+      "changed": false
+    },
+    {
+      "stage": "P5b",
+      "observed_utc": "2026-11-12T14:07:30.5480880Z",
+      "file_modified_utc": "2026-11-12T12:50:40.8582432Z",
+      "sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+      "byte_size": 24343,
+      "m_APIs": "0b000000",
+      "api_raw_hex": "30 62 30 30 30 30 30 30",
+      "android_keystore_name": "<empty>",
+      "changed": false
+    },
+    {
+      "stage": "P5c",
+      "observed_utc": "2026-11-12T14:07:30.6536561Z",
+      "file_modified_utc": "2026-11-12T12:50:40.8582432Z",
+      "sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+      "byte_size": 24343,
+      "m_APIs": "0b000000",
+      "api_raw_hex": "30 62 30 30 30 30 30 30",
+      "android_keystore_name": "<empty>",
+      "changed": false
+    },
+    {
+      "stage": "P5d",
+      "observed_utc": "2026-11-12T14:07:30.7694056Z",
+      "file_modified_utc": "2026-11-12T12:50:40.8582432Z",
+      "sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+      "byte_size": 24343,
+      "m_APIs": "0b000000",
+      "api_raw_hex": "30 62 30 30 30 30 30 30",
+      "android_keystore_name": "<empty>",
+      "changed": false
+    },
+    {
+      "stage": "P5e",
+      "observed_utc": "2026-11-12T14:07:30.8852805Z",
+      "file_modified_utc": "2026-11-12T12:50:40.8582432Z",
+      "sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+      "byte_size": 24343,
+      "m_APIs": "0b000000",
+      "api_raw_hex": "30 62 30 30 30 30 30 30",
+      "android_keystore_name": "<empty>",
+      "changed": false
+    },
+    {
+      "stage": "P5",
+      "observed_utc": "2026-11-12T14:07:31.0119041Z",
+      "file_modified_utc": "2026-11-12T12:50:40.8582432Z",
+      "sha256": "d334127167318fe7278575eb17fe2621ab2c0e39c3ab2c53b7c1f39cc555e7fc",
+      "byte_size": 24343,
+      "m_APIs": "0b000000",
+      "api_raw_hex": "30 62 30 30 30 30 30 30",
+      "android_keystore_name": "<empty>",
+      "changed": false
+    },
+    {
+      "stage": "E0",
+      "observed_utc": "2026-11-12T14:07:39.7019826Z",
+      "file_modified_utc": "2026-11-12T14:07:34.0201182Z",
+      "sha256": "266f17baf9d7101401580553aab9d0ede0390f6c859e137e31f6274d4713f07a",
+      "byte_size": 23513,
+      "m_APIs": "0b000000i",
+      "api_raw_hex": "30 62 30 30 30 30 30 30 69",
+      "android_keystore_name": "'{inproject}: '",
+      "changed": true
+    }
+  ],
+  "p6_skipped": true,
+  "first_i_stage": "E0",
+  "first_keystore_change_stage": "E0",
+  "p5_to_e0_file_changed": true
+}
